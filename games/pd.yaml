@@ -1,0 +1,7 @@
+# Prisoner's dilemma (separable: defecting gives self +1, other -2)
+actions: [C, D]
+payoffs:            # row player's payoff, [row action][col action]
+  C: {C: 0, D: -2}
+  D: {C: 1, D: -1}
+minimax_action: D
+role: false

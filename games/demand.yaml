@@ -1,0 +1,8 @@
+# Nash demand game, two demands (0.4, 0.6). Incompatible demands (High,High) -> 0.
+# Symmetric compatible profile (Low,Low) is inefficient (0.8 < 1).  With ROLE.
+actions: [Low, High]
+payoffs:
+  Low:  {Low: 0.4, High: 0.4}
+  High: {Low: 0.6, High: 0.0}
+minimax_action: Low
+role: true

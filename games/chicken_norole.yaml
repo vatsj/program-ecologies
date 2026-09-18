@@ -1,0 +1,7 @@
+# Chicken without ROLE (control): no correlation device available.
+actions: [Swerve, Straight]
+payoffs:
+  Swerve:   {Swerve: 0,  Straight: -1}
+  Straight: {Swerve: 2,  Straight: -10}
+minimax_action: Swerve
+role: false

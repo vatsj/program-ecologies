@@ -1,0 +1,11 @@
+# Matching pennies, ROLE-symmetrised.  Player 1 wants a match, player 2 a mismatch.
+actions: [Heads, Tails]
+payoffs:
+  Heads: {Heads: 1,  Tails: -1}
+  Tails: {Heads: -1, Tails: 1}
+payoffs2:            # player 2's payoff, [player-2 action][player-1 action]
+  Heads: {Heads: -1, Tails: 1}
+  Tails: {Heads: 1,  Tails: -1}
+minimax_action: Heads
+minimax_action2: Heads
+role: true
