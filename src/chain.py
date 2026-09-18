@@ -142,8 +142,10 @@ def replicator(U, x0, rest_tol=1e-8, ext_tol=1e-9, atol=1e-5, max_steps=50000, k
         if st == 0:
             return x, 'rest', []
     T = np.array(traj)
-    if np.abs(T - T[-1]).max() < 1e-6:
-        # not moving: a slowly-certified rest point, not a cycle
+    if np.abs(T - T[-1]).max() < 1e-3:
+        # not moving: a slowly-certified rest point, not a cycle.  Types that
+        # are still (very slowly) dying are dropped before the projection.
+        x = x.copy(); x[x < 1e-4] = 0.0; x /= x.sum()
         xp = _polish(U, x)
         return (xp if xp is not None else x), 'rest', []
     return x, 'cycle', traj
@@ -151,7 +153,10 @@ def replicator(U, x0, rest_tol=1e-8, ext_tol=1e-9, atol=1e-5, max_steps=50000, k
 
 # ---------------------------------------------------------------- providers
 class SquareProvider:
-    """Payoffs from a full square evaluation; classes are exact within L_n."""
+    """Payoffs from a full square evaluation.  Classes merge programs with
+    identical rows and columns of the payoff matrix: interchangeable within
+    L_n in every arm (in the source arm no program of L_n separates them, so
+    the merge is sound at this truncation, though it may split at n+1)."""
     def __init__(self, lang, result, ids, dedup=True, round_dec=9):
         self.lang, self.res = lang, result
         ids = np.asarray(ids)
@@ -160,7 +165,7 @@ class SquareProvider:
         self.Ufull = np.round(result.matrix(ids), round_dec)
         # divergence / values for reports
         mu = lang.mu[ids]
-        if dedup and lang.arm != 'source':
+        if dedup:
             sig = defaultdict(list)
             R = np.round(self.Ufull, 6)
             for k, p in enumerate(ids):
