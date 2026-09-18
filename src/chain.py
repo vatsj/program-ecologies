@@ -17,57 +17,135 @@ from evaluate import pair_keys, evaluate, close_pairs, keys_of
 
 
 # ---------------------------------------------------------------- replicator
-def replicator(U, x0, rest_tol=1e-8, ext_tol=1e-9, atol=1e-5, max_steps=50000, keep_traj=64):
-    """Deterministic replicator from x0 on payoff matrix U, integrated with a
-    midpoint scheme under step-doubling error control.  Returns
-    (x, status, traj); status in {'rest', 'cycle'}."""
-    x = np.array(x0, float)
-    x[x < ext_tol] = 0.0
-    x /= x.sum()
-    traj = []
-    dt = 0.1
+try:
+    from numba import njit
+except ImportError:  # pragma: no cover
+    def njit(*a, **k):
+        def deco(f): return f
+        return deco if not a or not callable(a[0]) else a[0]
 
-    def g(x):
-        fit = U @ x
-        return fit - x @ fit
 
-    def step(x, h):
-        # exponential midpoint: positivity-preserving, exact for constant fitness
-        xm = x * np.exp(np.clip(0.5 * h * g(x), -50, 50)); xm /= xm.sum()
-        xn = x * np.exp(np.clip(h * g(xm), -50, 50)); xn /= xn.sum()
-        return xn
+@njit(cache=True)
+def _rep_step(U, x, h, out):
+    n = len(x)
+    fit = U @ x
+    fbar = 0.0
+    for i in range(n): fbar += x[i] * fit[i]
+    xm = np.empty(n)
+    z = 0.0
+    for i in range(n):
+        e = 0.5 * h * (fit[i] - fbar)
+        if e > 50: e = 50
+        if e < -50: e = -50
+        xm[i] = x[i] * np.exp(e); z += xm[i]
+    for i in range(n): xm[i] /= z
+    fitm = U @ xm
+    fbarm = 0.0
+    for i in range(n): fbarm += xm[i] * fitm[i]
+    z = 0.0
+    for i in range(n):
+        e = h * (fitm[i] - fbarm)
+        if e > 50: e = 50
+        if e < -50: e = -50
+        out[i] = x[i] * np.exp(e); z += out[i]
+    for i in range(n): out[i] /= z
 
+
+@njit(cache=True)
+def _replicator_nb(U, x0, rest_tol, ext_tol, atol, max_steps, polish_thresh, dt0):
+    """Returns (x, status, dt): status 0 = rest, 1 = step cap, 2 = near rest (polish)."""
+    n = len(x0)
+    x = x0.copy()
+    for i in range(n):
+        if x[i] < ext_tol: x[i] = 0.0
+    z = 0.0
+    for i in range(n): z += x[i]
+    for i in range(n): x[i] /= z
+    dt = dt0
+    x1 = np.empty(n); xh = np.empty(n); x2 = np.empty(n)
     for it in range(max_steps):
         fit = U @ x
-        fbar = x @ fit
-        m = (np.abs(fit - fbar) * (x > 0)).max()
+        fbar = 0.0
+        for i in range(n): fbar += x[i] * fit[i]
+        m = 0.0; npos = 0
+        for i in range(n):
+            if x[i] > 0:
+                npos += 1
+                d = abs(fit[i] - fbar)
+                if d > m: m = d
         if m < rest_tol:
-            return x, 'rest', traj
-        if m < 1e-3 and (x > 0).sum() > 1:
-            # polish: solve for the interior rest point on the current support
-            sup = np.nonzero(x > 0)[0]
-            Us = U[np.ix_(sup, sup)]
-            A = np.vstack([np.hstack([Us, -np.ones((len(sup), 1))]), np.append(np.ones(len(sup)), 0.0)])
-            bvec = np.append(np.zeros(len(sup)), 1.0)
-            sol = np.linalg.lstsq(A, bvec, rcond=None)[0]
-            xs = sol[:-1]
-            if np.all(xs > 0) and np.abs(A @ sol - bvec).max() < 1e-10 and np.abs(xs - x[sup]).max() < 1e-2:
-                xn = np.zeros_like(x); xn[sup] = xs / xs.sum()
-                return xn, 'rest', traj
+            return x, 0, dt
+        if m < polish_thresh and npos > 1:
+            return x, 2, dt
+        err = 0.0
         while True:
-            x1 = step(x, dt)
-            x2 = step(step(x, 0.5 * dt), 0.5 * dt)
-            err = np.abs(x1 - x2).max()
+            _rep_step(U, x, dt, x1)
+            _rep_step(U, x, 0.5 * dt, xh)
+            _rep_step(U, xh, 0.5 * dt, x2)
+            err = 0.0
+            for i in range(n):
+                d = abs(x1[i] - x2[i])
+                if d > err: err = d
             if err <= atol or dt < 1e-12:
                 break
             dt *= 0.5
-        x = x2
-        x[x < ext_tol] = 0.0
-        x /= x.sum()
+        z = 0.0
+        for i in range(n):
+            x[i] = x2[i]
+            if x[i] < ext_tol: x[i] = 0.0
+            z += x[i]
+        for i in range(n): x[i] /= z
         if err < 0.1 * atol:
             dt = min(dt * 2.0, 1e6)
-        if it % max(1, max_steps // keep_traj) == 0:
-            traj.append(x.copy())
+    return x, 1, dt
+
+
+def _polish(U, x):
+    """Project x onto the affine set of rest points on its support (equal
+    fitness for all present types, sum 1): the nearest solution, so neutral
+    directions (behaviourally identical types) are handled."""
+    sup = np.nonzero(x > 0)[0]
+    Us = U[np.ix_(sup, sup)]
+    A = np.vstack([np.hstack([Us, -np.ones((len(sup), 1))]), np.append(np.ones(len(sup)), 0.0)])
+    bvec = np.append(np.zeros(len(sup)), 1.0)
+    cur = np.append(x[sup], x[sup] @ Us @ x[sup])
+    delta = np.linalg.lstsq(A, bvec - A @ cur, rcond=None)[0]
+    sol = cur + delta
+    xs = sol[:-1]
+    if np.all(xs > 0) and np.abs(A @ sol - bvec).max() < 1e-10 and np.abs(xs - x[sup]).max() < 1e-2:
+        xn = np.zeros_like(x); xn[sup] = xs / xs.sum()
+        return xn
+    return None
+
+
+def replicator(U, x0, rest_tol=1e-8, ext_tol=1e-9, atol=1e-5, max_steps=50000, keep_traj=64):
+    """Deterministic replicator from x0 on payoff matrix U (exponential
+    midpoint steps under step-doubling error control; interior rest points
+    are polished by a linear solve).  Returns (x, status, traj) with status in
+    {'rest', 'cycle'}; traj holds samples only for cycles."""
+    U = np.ascontiguousarray(U, dtype=np.float64); x = np.ascontiguousarray(x0, dtype=np.float64)
+    x, st, dt = _replicator_nb(U, x, rest_tol, ext_tol, atol, max_steps, 1e-3, 0.1)
+    if st == 0:
+        return x, 'rest', []
+    if st == 2:
+        xp = _polish(U, x)
+        if xp is not None:
+            return xp, 'rest', []
+        x, st, dt = _replicator_nb(U, x, rest_tol, ext_tol, atol, max_steps, 0.0, dt)
+        if st == 0:
+            return x, 'rest', []
+    # step cap hit: sample a trajectory for the record
+    traj = [x.copy()]
+    for _ in range(keep_traj - 1):
+        x, st, dt = _replicator_nb(U, x, rest_tol, ext_tol, atol, max(1, max_steps // keep_traj), 0.0, dt)
+        traj.append(x.copy())
+        if st == 0:
+            return x, 'rest', []
+    T = np.array(traj)
+    if np.abs(T - T[-1]).max() < 1e-6:
+        # not moving: a slowly-certified rest point, not a cycle
+        xp = _polish(U, x)
+        return (xp if xp is not None else x), 'rest', []
     return x, 'cycle', traj
 
 
@@ -99,12 +177,26 @@ class SquareProvider:
     def prepare(self, support):
         pass
 
-    def U(self, ids):
+    def U(self, ids, sup=None):
         idx = [self.pos[int(p)] for p in ids]
         return self.Ufull[np.ix_(idx, idx)]
 
     def mutant_classes(self, support):
         return self.classes
+
+    def blocks_for(self, support):
+        """(rows K x m, cols m x K, diag K, inner m x m) over class reps."""
+        if not hasattr(self, '_rep_idx'):
+            self._rep_idx = np.array([self.pos[c[0]] for c in self.classes])
+            self._bcache = {}
+        sup = tuple(int(p) for p in support)
+        b = self._bcache.get(sup)
+        if b is None:
+            si = np.array([self.pos[p] for p in sup], int)
+            R = self._rep_idx
+            b = (self.Ufull[np.ix_(R, si)], self.Ufull[np.ix_(si, R)], self.Ufull[R, R], self.Ufull[np.ix_(si, si)])
+            self._bcache[sup] = b
+        return b
 
 
 class SparseProvider:
@@ -189,17 +281,22 @@ class SparseProvider:
         sig = np.concatenate([self.probe_sig, self._sig(sup)], axis=1)
         self.blocks[sup][4] = self._classes(sig)
 
-    def U(self, ids):
+    def U(self, ids, sup=None):
         """Payoff among ids; ids must be a prepared support plus at most one extra."""
         ids = [int(p) for p in ids]
-        idset = set(ids)
-        best = None
-        for sup in self.blocks:
-            if len(idset - set(sup)) <= 1 and (best is None or len(set(sup) & idset) > len(set(best) & idset)):
-                best = sup
-        if best is None:
-            raise KeyError('support not prepared: %s' % ids)
-        sup = best
+        if sup is None:
+            idset = set(ids)
+            best = None
+            for cand in self.blocks:
+                if len(idset - set(cand)) <= 1 and (best is None or len(set(cand) & idset) > len(set(best) & idset)):
+                    best = cand
+            if best is None:
+                raise KeyError('support not prepared: %s' % ids)
+            sup = best
+        else:
+            sup = tuple(sorted(int(p) for p in sup))
+            if sup not in self.blocks:
+                self._block(sup)
         rows, cols, diag, inner, _ = self.blocks[sup]
         m = len(ids)
         Um = np.zeros((m, m))
@@ -222,6 +319,13 @@ class SparseProvider:
         self.prepare(sup)
         return self.blocks[sup][4]
 
+    def blocks_for(self, support):
+        sup = tuple(sorted(int(p) for p in support))
+        self.prepare(sup)
+        rows, cols, diag, inner, classes = self.blocks[sup]
+        R = np.array([self.pos[c[0]] for c in classes])
+        return rows[R], cols[:, R], diag[R], inner
+
 
 # ---------------------------------------------------------------- chain
 class Chain:
@@ -235,7 +339,7 @@ class Chain:
     reported as `cut_flow`.
     """
     def __init__(self, provider, N, seeds=None, rest_tol=1e-8, fit_tol=1e-9, theta=1e-6,
-                 p_eager=0.3, max_states=8000, max_rounds=60, verbose=False, key_dec=8):
+                 p_eager=0.3, max_states=30000, max_rounds=60, verbose=False, key_dec=8):
         self.P = provider
         self.N = N
         self.rest_tol, self.fit_tol = rest_tol, fit_tol
@@ -339,48 +443,80 @@ class Chain:
             return
         ids, x, kind = self.states[key]
         ids = np.array(ids); x = np.array(x)
-        N = self.N
+        N = self.N; m = len(ids)
         self.P.prepare(ids)
         classes = self.P.mutant_classes(ids)
+        reps = np.array([c[0] for c in classes]); w = np.array([c[2] for c in classes])
+        rows, cols, diag, inner = self.P.blocks_for(ids)
+        K = len(reps)
+        idl = [int(p) for p in ids]
+        in_sup = np.isin(reps, ids)
+        if kind == 'poly':
+            neutral_ext = np.zeros(K, bool)
+        else:
+            neutral_ext = (np.abs(rows - inner[0:1, :]) < 1e-7).all(axis=1) & (np.abs(cols - diag[None, :]) < 1e-7).all(axis=0)
         out = defaultdict(float)
         muts = defaultdict(lambda: defaultdict(float))
-        idl = list(ids)
-        for q, members, w in classes:
-            if q in idl:
-                qi = idl.index(q)
-                for ti, t in enumerate(ids):
-                    wt = w * x[ti]
-                    if wt <= 0: continue
-                    if q == t or kind != 'neutral':
-                        out[key] += wt; muts[key][q] += wt
-                    else:
-                        n = np.round(x * N).astype(int); n[ti] -= 1; n[qi] += 1
-                        k2 = self.grid_state(ids, n)
-                        out[k2] += wt; muts[k2][q] += wt
-                continue
-            ids2 = np.append(ids, q)
-            Uq = self.P.U(ids2)
-            neutral_ext = self.is_neutral(Uq)
-            for ti, t in enumerate(ids):
-                wt = w * x[ti]
-                if wt <= 0: continue
-                x0 = np.append(x, 0.0); x0[ti] -= 1.0 / N; x0[-1] += 1.0 / N
-                fit = Uq @ x0; fbar = x0 @ fit
-                dq = fit[-1] - fbar
-                if dq < -self.fit_tol:
-                    res = self.dead_outcomes(key, ids, x, ti)
-                elif neutral_ext and abs(dq) <= self.fit_tol:
-                    n = np.append(np.round(x * N).astype(int), 0); n[ti] -= 1; n[-1] += 1
-                    res = [(1.0, self.grid_state(ids2, n))]
+        sup_tuple = tuple(idl)
+        for ti, t in enumerate(ids):
+            xt = x[ti]
+            if xt <= 0: continue
+            wt = w * xt
+            # mutants of incumbent types
+            for qi in np.nonzero(in_sup)[0]:
+                q = int(reps[qi]); pos_q = idl.index(q)
+                if q == int(t) or kind != 'neutral':
+                    out[key] += wt[qi]; muts[key][q] += wt[qi]
                 else:
-                    res = self.integrate(ids2, x0, key, q)
+                    n = np.round(x * N).astype(int); n[ti] -= 1; n[pos_q] += 1
+                    k2 = self.grid_state(ids, n)
+                    out[k2] += wt[qi]; muts[k2][q] += wt[qi]
+            # outside mutants: first-order fitness test, vectorised over classes
+            x0 = x.copy(); x0[ti] -= 1.0 / N
+            fit_q = rows @ x0 + diag / N                       # K
+            fit_s = (inner @ x0)[None, :] + cols.T / N         # K x m
+            fbar = fit_s @ x0 + fit_q / N
+            dq = fit_q - fbar
+            dead = (dq < -self.fit_tol) & ~in_sup
+            neut = neutral_ext & (np.abs(dq) <= self.fit_tol) & ~dead & ~in_sup
+            integ = ~dead & ~neut & ~in_sup
+            if dead.any():
+                res = self.dead_outcomes(key, ids, x, ti)
+                tot = wt[dead].sum()
                 for pr, k2 in res:
-                    out[k2] += wt * pr; muts[k2][q] += wt * pr
+                    out[k2] += tot * pr
+                    d = muts[k2]
+                    for qi in np.nonzero(dead)[0]:
+                        d[int(reps[qi])] += wt[qi] * pr
+            for qi in np.nonzero(neut)[0]:
+                q = int(reps[qi])
+                n = np.append(np.round(x * N).astype(int), 0); n[ti] -= 1; n[-1] += 1
+                k2 = self.grid_state(np.append(ids, q), n)
+                out[k2] += wt[qi]; muts[k2][q] += wt[qi]
+            for qi in np.nonzero(integ)[0]:
+                q = int(reps[qi])
+                ids2 = np.append(ids, q)
+                Uq = np.empty((m + 1, m + 1)); Uq[:m, :m] = inner; Uq[m, :m] = rows[qi]; Uq[:m, m] = cols[:, qi]; Uq[m, m] = diag[qi]
+                x0q = np.append(x0, 1.0 / N)
+                for pr, k2 in self.integrate_U(ids2, Uq, x0q, key, q):
+                    out[k2] += wt[qi] * pr; muts[k2][q] += wt[qi] * pr
         z = sum(out.values())
         self.trans[key] = {k2: v / z for k2, v in out.items()}
         for k2, d in muts.items():
             for q, v in d.items():
                 self.trans_mut[(key, k2)][q] += v / z
+
+    def integrate_U(self, ids, U, x0, from_key, q):
+        ids = np.asarray(ids)
+        x, status, traj = replicator(U, x0, rest_tol=self.rest_tol)
+        if status != 'rest':
+            self.indeterminate.append((from_key, int(q), [(tuple(ids.tolist()), t) for t in traj]))
+            return []
+        keep = x > 0
+        ids2, x2 = ids[keep], x[keep] / x[keep].sum()
+        if len(ids2) > 1 and self.is_neutral(U[np.ix_(keep, keep)]):
+            return self.snap_outcomes(ids2, x2)
+        return [(1.0, self.add_state(ids2, x2))]
 
     # -- exploration
     def explore(self):

@@ -47,7 +47,7 @@ def get_provider(lang, game, arm, n, x_on, mode, verbose):
     return prov, None
 
 
-def run_cell(arm, n, game_path, N, x_on=True, mode=None, verbose=True, seeds_upto=4, max_states=8000, theta=1e-6):
+def run_cell(arm, n, game_path, N, x_on=True, mode=None, verbose=True, seeds_upto=4, max_states=30000, theta=1e-6):
     game = Game.load(game_path)
     if mode is None:
         mode = 'square' if n <= 6 else 'sparse'
@@ -105,7 +105,7 @@ if __name__ == '__main__':
     ap.add_argument('--N', type=int, nargs='+', default=[10, 100, 1000])
     ap.add_argument('--x_off', action='store_true')
     ap.add_argument('--mode', default=None)
-    ap.add_argument('--max_states', type=int, default=8000)
+    ap.add_argument("--max_states", type=int, default=30000)
     ap.add_argument('--quiet', action='store_true')
     a = ap.parse_args()
     for N in a.N:
