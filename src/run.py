@@ -47,12 +47,16 @@ def get_provider(lang, game, arm, n, x_on, mode, verbose):
     return prov, None
 
 
-def run_cell(arm, n, game_path, N, w=1.0, x_on=True, mode=None, verbose=True, seeds_upto=4, max_states=30000, theta=1e-6):
+def run_cell(arm, n, game_path, N, w=1.0, x_on=True, mode=None, verbose=True, seeds_upto=4, max_states=30000, theta=1e-6, prior='bits'):
     game = Game.load(game_path)
     if mode is None:
         mode = 'square' if n <= 6 else 'sparse'
     lang = get_language(arm, n, x_on, game.role)
+    if prior == 'uniform':
+        lang.mu = np.ones(len(lang.mu)) / len(lang.mu)     # diagnostic: no length prior
     cfg = dict(arm=arm, n=n, game=game.name, N=N, w=w, x_on=x_on, role=game.role, mode=mode)
+    if prior != 'bits':
+        cfg['prior'] = prior
     if verbose:
         print('== cell', cfg, flush=True)
     prov, div = get_provider(lang, game, arm, n, x_on, mode, verbose)
@@ -105,6 +109,7 @@ if __name__ == '__main__':
     ap.add_argument('--game', default='pd')
     ap.add_argument('--N', type=int, nargs='+', default=[10, 100, 1000])
     ap.add_argument('--w', type=float, nargs='+', default=[0.01, 0.1, 1.0])
+    ap.add_argument('--prior', default='bits', choices=['bits', 'uniform'])
     ap.add_argument('--x_off', action='store_true')
     ap.add_argument('--mode', default=None)
     ap.add_argument("--max_states", type=int, default=30000)
@@ -112,5 +117,5 @@ if __name__ == '__main__':
     a = ap.parse_args()
     for w in a.w:
         for N in a.N:
-            run_cell(a.arm, a.n, os.path.join(ROOT, 'games', a.game + '.yaml'), N, w=w, x_on=not a.x_off, mode=a.mode, verbose=not a.quiet, max_states=a.max_states)
+            run_cell(a.arm, a.n, os.path.join(ROOT, 'games', a.game + '.yaml'), N, w=w, x_on=not a.x_off, mode=a.mode, verbose=not a.quiet, max_states=a.max_states, prior=a.prior)
     collect()

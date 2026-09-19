@@ -228,6 +228,29 @@ or equal with u(q,q) ≤ u(p,q)).
   (ALLC drifts in at 1/N and D then takes all-ALLC), so "unfakeable" here
   means "not invaded from rare", not "absorbing".
 
+## Prior diagnostic (`runs/prior_uniform.md`)
+
+Weak arm, PD, n=6, N=100, w=0.1, with μ uniform over the 1,852 programs of
+L_6 instead of 2^−bits (class weights are then member counts, so the
+behavioural classes C, D and X still carry 0.31, 0.31 and 0.18):
+
+| state | π (bits) | π (uniform) | μ_class (bits) | μ_class (uniform) |
+|---|---|---|---|---|
+| all-D | 0.979 | 0.879 | 0.329 | 0.309 |
+| all-`THEM(^C)` | 0.0059 | 0.0374 | 9.1e-4 | 7.6e-3 |
+| all-X | 0.0073 | 0.0102 | 0.312 | 0.176 |
+| all-C | 0.0018 | 0.0078 | 0.329 | 0.309 |
+| mean payoff | −0.988 | −0.936 | | |
+
+Removing the length prior raises the cooperative share 6× (its entry rate
+from all-D rises 8×, μ(`THEM(^C)`) going from 9.1e-4 to 7.6e-3 with the same
+ρ = 0.026), but all-D still holds 0.88.  The length prior is part of the
+mechanism, not the whole of it: the exit from all-`THEM(^C)` is ALLC drifting
+in (P = 3.3e-3 per event under bits, 3.1e-3 under uniform, μ(C)·1/N in
+both), and μ(C) is large under either prior because the constant class is
+huge.  Cooperation is limited by the ALLC leak, which the prior barely
+changes.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
