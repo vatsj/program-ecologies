@@ -81,7 +81,7 @@ All-Half and its neutral equivalents; payoff 0.500 = efficient.  As predicted.
 | Divide the dollar | all-Half, loss 0 | **Confirmed** (n=6). |
 | Zero-sum matching pennies + ROLE | indeterminate cycles or neutral drift; no strict attractor; loss 0 | **Confirmed (drift branch)**: π is spread over the neutral C/D/X simplex (every type earns 0 against every type under role averaging), payoff 0, no indeterminate transitions at N=10; at N=100 the neutral simplex exhausts the expansion cap (30,000 states; cut flow 5e-3), the one cell where the pruning bound is loose. |
 | Exchange game | cooperation one level earlier than the PD via `or(X,THEM(ME))` | **Not confirmed**: same `THEM(^Give)` structure as the PD; FairBot absent. |
-| Battle of the sexes + ROLE | bistable all-A / all-B, loss 0 | see below (filled after the run). |
+| Battle of the sexes + ROLE | bistable all-A / all-B, roughly even, loss 0 | **Confirmed**: all-A 0.358 / 0.418 and all-B 0.358 / 0.418 (N=10 / 100); the remainder at N=10 is `ROLE`+`THEM(^A)` polymorphisms (loss 0.045), gone at N=100 (loss 0). |
 
 ## Moran check (strong arm, PD, n=6, N=100)
 
@@ -95,6 +95,8 @@ specified, not of the implementation.
 ## Divergence rates (pairs with floor probability > 1e-6)
 
 strong n=6 0.04%, n=7 0.58%; weak n=6 0.19%, n=7 1.24%; source n=6 0.14%.
+
+All 32 cells: `runs/results.md`.
 
 ## Not done
 
