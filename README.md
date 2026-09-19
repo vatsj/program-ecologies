@@ -42,14 +42,20 @@ program×attractor path (`--mode` overrides).
 - **Applications strip `ME(...)`** in applied position by default (`me_app=True`
   re-enables it; the evaluator supports it and is tested with it).  This is what
   keeps the dependency closure of a program×attractor rectangle small.
-- **Chain states.**  A state is (support, counts/N): every state lives on the
-  1/N grid (a polymorphic rest point is stored at the nearest count vector by
-  largest-remainder rounding; types below 1/(2N) are dropped).  Neutral sets
-  (payoff matrix constant down each column of the support) walk on that grid.  A mutant replaces one
-  random agent; a mutant that dies in a neutral set is refilled by a random
-  survivor (so the state can move by one slot).  Dying and neutral mutants are
-  classified analytically from first-order fitness; only advantageous or
-  second-order-neutral mutants are integrated.
+- **Chain states.**  Monomorphic populations and polymorphic attractors
+  (replicator rest points with a restoring force), stored on the 1/N grid
+  (largest-remainder rounding; types below 1/(2N) are dropped).  Neutral sets
+  are not states: a neutral rest set is collapsed to its vertices in
+  proportion to the frequencies.
+- **Transition weights.**  P(A→B) ∝ μ(q)·ρ(q | A→B), ρ the frequency-dependent
+  Moran fixation probability of a single q-lineage against the lumped resident,
+  fitness f = 1 + w·payoff clamped at 1e-6 (`chain.fixation`).  The target B is
+  found by the replicator from A + q at 1/N (and from ½ if q dies at first
+  order).  For a monomorphic B the product runs to N (exact for the 2-type
+  chain); for a polymorphic B it is truncated at q's count in B, and at q's
+  peak count when q invades and then dies — an approximation whose weight is
+  reported per cell as `poly_flow`.  `w` (selection intensity) is a sweep
+  parameter: `--w 0.01 0.1 1.0`.
 - **Flow-pruned exploration.**  Exact enumeration of neutral grids is
   infeasible (a 5-type neutral set has C(N+4,4) points).  States are expanded
   only when the stationary flow into them exceeds `theta` (1e-6), the dominant
@@ -71,13 +77,22 @@ program×attractor path (`--mode` overrides).
   and per support; the class representative is the shortest member.  Agreement
   with the square path at strong n=6: max |Δπ| ≈ 1e-3 (N=10), 1e-2 (N=100).
 
-## Known model issue surfaced by the Moran check
+## Model issue surfaced by the Moran check, and its fix
 
-The deterministic replicator has no genetic drift, so a neutral mutant persists
-until a mutation event displaces it.  In the finite-N Moran process a neutral
-lineage is lost by drift within O(N) reproduction events unless εN ≫ 1, and at
-εN ≫ 1 several mutant lineages coexist (violating the single-mutant premise).
-Consequently the chain assigns far more occupancy to neutral edges than Moran
-does at any ε (strong arm, PD, N=100: chain 45% on the D–`THEM(ME)` edge vs
-Moran < 1%).  The mode (all-D) agrees.  Findings are in RESULTS.md; per-cell
-reports in `runs/`.
+The first sweep used deterministic-replicator transitions with neutral sets as
+grid states.  Having no genetic drift, it let a neutral mutant persist at 1/N
+until a mutation displaced it, and put ~N× too much occupancy on neutral edges
+(strong arm, PD, N=100: 45% on the D–`THEM(ME)` edge vs < 1% in Moran).  The
+second sweep replaces the edge weights with Moran fixation probabilities and
+removes neutral sets from the state space.  The neutral-edge artifact is gone,
+and at w = 0.1, εN = 0.1 the chain and the Moran simulation agree on the mode
+and the cooperator share to within 0.02 in both arms (`runs/moran_check.md`).
+
+What remains: (1) at w = 0.01 the chain has no drift *inside* a state's
+residence, so it overstates the mode relative to Moran's mutation–drift
+mixture; (2) at w = 1 the Moran answer depends on ε (εN = 0.1 vs 1 differ by
+0.2 in the cooperator share), outside the single-mutant regime THEORY §5
+assumes; (3) ρ into polymorphic attractors is the truncated-product
+approximation, load-bearing only in N = 10 cells; (4) the resident is lumped
+at the state's proportions along the mutant's path.  Findings: RESULTS.md
+(second sweep) and RESULTS-2026-09-18-replicator.md (first sweep).

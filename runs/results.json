@@ -4,1979 +4,5819 @@
   "n": 5,
   "game": "bos",
   "N": 10,
+  "w": 0.01,
   "x_on": true,
   "role": true,
   "mode": "square",
   "n_programs": 902,
   "n_classes": 54,
-  "n_states": 1121,
+  "n_states": 824,
   "n_terminal_classes": 1,
   "indeterminate": 0,
-  "pi_sum": 1.0000000000000002,
-  "absorb_error": 2.220446049250313e-16,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
   "near_closed_classes": 0,
   "divergence_rate": 0.0010078613182826044,
-  "mean_bits_support": 4.730986325749344,
-  "mean_payoff": 1.455385092139851,
+  "mean_bits_support": 3.3023349528341197,
+  "mean_payoff": 0.9800803903427473,
   "efficient_payoff": 1.5,
-  "deadweight_loss": 0.04461490786014899,
+  "deadweight_loss": 0.5199196096572527,
   "support": [
    [
     "mono {C:1}",
-    0.3575857022746343
+    0.2737481754932629
    ],
    [
     "mono {D:1}",
-    0.3575857022717917
+    0.15961707060531857
    ],
    [
-    "poly {ROLE:0.3, THEM(^D):0.7}",
-    0.06759834524291826
+    "mono {X:1}",
+    0.0929899062697281
    ],
    [
-    "poly {ROLE:0.3, THEM(^C):0.7}",
-    0.06759834524286774
+    "poly {X:0.7, ROLE:0.3}",
+    0.08369397182522956
    ],
    [
-    "poly {ROLE:0.3, THEM(^D):0.6, or(THEM(THEM),ROLE):0.1}",
-    0.033799172621498445
+    "mono {ROLE:1}",
+    0.07959746472958418
    ],
    [
-    "poly {ROLE:0.3, THEM(^D):0.6, or(THEM(ME),ROLE):0.1}",
-    0.03379917262149844
+    "poly {C:0.5, D:0.5}",
+    0.06604050801779789
    ],
    [
-    "poly {ROLE:0.3, THEM(^C):0.6, and(THEM(THEM),ROLE):0.1}",
-    0.033799172621428716
+    "poly {C:0.5, D:0.4, X:0.1}",
+    0.05726421142593299
    ],
    [
-    "poly {ROLE:0.3, THEM(^C):0.6, and(THEM(ME),ROLE):0.1}",
-    0.033799172620538866
+    "poly {X:0.6, ROLE:0.4}",
+    0.03825929346783112
    ],
    [
-    "neutral {C:0.9, THEM(^C):0.1}",
-    0.0015227477321417195
+    "poly {X:0.5, ROLE:0.4, not(ROLE):0.1}",
+    0.032886469150774846
    ],
    [
-    "neutral {D:0.9, THEM(^D):0.1}",
-    0.0015227477321296148
+    "poly {X:0.1, ROLE:0.6, not(ROLE):0.3}",
+    0.029451961701645723
    ],
    [
-    "neutral {C:0.9, THEM(^D):0.1}",
-    0.0015210623515340617
+    "mono {not(ROLE):1}",
+    0.02635033942160296
    ],
    [
-    "neutral {D:0.9, THEM(^C):0.1}",
-    0.0015210623515219707
+    "poly {C:0.3, D:0.4, ROLE:0.3}",
+    0.01365300855399548
    ]
   ],
-  "chain_time_s": 0.4841310977935791,
-  "cut_flow": 2.654493947164608e-06,
-  "n_expanded": 198
+  "chain_time_s": 13.524266004562378,
+  "cut_flow": 3.4337167137406745e-05,
+  "n_expanded": 167,
+  "poly_flow": 0.06078722230175397
  },
  {
   "arm": "weak",
   "n": 5,
   "game": "bos",
   "N": 100,
+  "w": 0.01,
   "x_on": true,
   "role": true,
   "mode": "square",
   "n_programs": 902,
   "n_classes": 54,
-  "n_states": 6152,
+  "n_states": 676,
   "n_terminal_classes": 1,
   "indeterminate": 0,
-  "pi_sum": 1.0000000000000013,
-  "absorb_error": 1.3322676295501878e-15,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
   "near_closed_classes": 0,
   "divergence_rate": 0.0010078613182826044,
-  "mean_bits_support": 3.03389850709418,
-  "mean_payoff": 1.4999999969550246,
+  "mean_bits_support": 3.264936120256484,
+  "mean_payoff": 1.1107987968958375,
   "efficient_payoff": 1.5,
-  "deadweight_loss": 3.044975382948678e-09,
+  "deadweight_loss": 0.3892012031041625,
   "support": [
    [
     "mono {C:1}",
-    0.4176841592068582
+    0.42614748153911935
    ],
    [
     "mono {D:1}",
-    0.417649728981431
+    0.15752350081731628
    ],
    [
-    "neutral {C:0.99, THEM(^C):0.01}",
-    0.018372756182170658
+    "poly {X:0.65, ROLE:0.34, not(ROLE):0.01}",
+    0.12556935981800998
    ],
    [
-    "neutral {D:0.99, THEM(^D):0.01}",
-    0.01837124169299404
+    "mono {X:1}",
+    0.09649647446533965
    ],
-   [
-    "neutral {C:0.99, THEM(^D):0.01}",
-    0.01805084716465405
-   ],
-   [
-    "neutral {D:0.99, THEM(^C):0.01}",
-    0.018049359210841654
-   ],
-   [
-    "neutral {C:0.98, THEM(^C):0.02}",
-    0.007352442368647119
-   ],
-   [
-    "neutral {D:0.98, THEM(^D):0.02}",
-    0.007351836297664697
-   ],
-   [
-    "neutral {C:0.98, THEM(^D):0.02}",
-    0.007130845325413022
-   ],
-   [
-    "neutral {D:0.98, THEM(^C):0.02}",
-    0.0071302575209520715
-   ],
-   [
-    "neutral {C:0.97, THEM(^C):0.03}",
-    0.0038067052312295946
-   ],
-   [
-    "neutral {D:0.97, THEM(^D):0.03}",
-    0.003806391439775862
-   ]
-  ],
-  "chain_time_s": 1.6177053451538086,
-  "cut_flow": 2.0866793662040995e-05,
-  "n_expanded": 1496
- },
- {
-  "arm": "weak",
-  "n": 5,
-  "game": "chicken",
-  "N": 10,
-  "x_on": true,
-  "role": true,
-  "mode": "square",
-  "n_programs": 902,
-  "n_classes": 53,
-  "n_states": 3147,
-  "n_terminal_classes": 2,
-  "indeterminate": 0,
-  "pi_sum": 0.9999999999999998,
-  "absorb_error": 2.220446049250313e-16,
-  "near_closed_classes": 1,
-  "divergence_rate": 0.0010078613182826044,
-  "mean_bits_support": 3.0322428692189605,
-  "mean_payoff": 0.49999071417707874,
-  "efficient_payoff": 0.5,
-  "deadweight_loss": 9.285822921256681e-06,
-  "support": [
    [
     "mono {ROLE:1}",
-    0.9849240797287376
+    0.07255431224678911
+   ],
+   [
+    "poly {X:0.01, ROLE:0.66, not(ROLE):0.33}",
+    0.02801987523080038
+   ],
+   [
+    "poly {X:0.67, ROLE:0.33}",
+    0.01590802337469437
+   ],
+   [
+    "poly {C:0.5, D:0.49, X:0.01}",
+    0.01575341802028961
    ],
    [
     "mono {not(ROLE):1}",
-    0.014134740119820152
+    0.013312427010135755
+   ],
+   [
+    "poly {C:0.5, D:0.5}",
+    0.008916974220308297
+   ],
+   [
+    "mono {or(X,ROLE):1}",
+    0.005383283488766952
+   ],
+   [
+    "mono {and(X,ROLE):1}",
+    0.0052670636851711115
    ]
   ],
-  "chain_time_s": 3.5741500854492188,
-  "cut_flow": 2.1668099997243928e-08,
-  "n_expanded": 308
+  "chain_time_s": 9.95731496810913,
+  "cut_flow": 1.812199490967407e-05,
+  "n_expanded": 112,
+  "poly_flow": 0.006599133641998774
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "bos",
+  "N": 10,
+  "w": 0.1,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 54,
+  "n_states": 824,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.2591709221874416,
+  "mean_payoff": 1.0439719110222418,
+  "efficient_payoff": 1.5,
+  "deadweight_loss": 0.45602808897775815,
+  "support": [
+   [
+    "mono {C:1}",
+    0.31190163453250613
+   ],
+   [
+    "mono {D:1}",
+    0.18270788015009176
+   ],
+   [
+    "mono {X:1}",
+    0.08502552995198762
+   ],
+   [
+    "poly {X:0.7, ROLE:0.3}",
+    0.07597686608696644
+   ],
+   [
+    "mono {ROLE:1}",
+    0.07057733575212136
+   ],
+   [
+    "poly {C:0.5, D:0.5}",
+    0.06321813432423333
+   ],
+   [
+    "poly {C:0.5, D:0.4, X:0.1}",
+    0.05479968324806164
+   ],
+   [
+    "poly {X:0.6, ROLE:0.4}",
+    0.03363915690008396
+   ],
+   [
+    "poly {X:0.5, ROLE:0.4, not(ROLE):0.1}",
+    0.027287837140470943
+   ],
+   [
+    "poly {X:0.1, ROLE:0.6, not(ROLE):0.3}",
+    0.024043388814078033
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.015012994211713804
+   ],
+   [
+    "poly {C:0.3, D:0.4, ROLE:0.3}",
+    0.013335850073215466
+   ]
+  ],
+  "chain_time_s": 12.849120140075684,
+  "cut_flow": 3.020835551828515e-05,
+  "n_expanded": 167,
+  "poly_flow": 0.05740840421950873
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "bos",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 54,
+  "n_states": 516,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.058120890440441,
+  "mean_payoff": 1.4742766557675404,
+  "efficient_payoff": 1.5,
+  "deadweight_loss": 0.02572334423245959,
+  "support": [
+   [
+    "mono {C:1}",
+    0.7126848806838498
+   ],
+   [
+    "mono {D:1}",
+    0.25362897681625834
+   ],
+   [
+    "mono {X:1}",
+    0.009418763315866198
+   ],
+   [
+    "poly {X:0.65, ROLE:0.34, not(ROLE):0.01}",
+    0.0075077833473148215
+   ],
+   [
+    "mono {ROLE:1}",
+    0.0026195322874404624
+   ],
+   [
+    "poly {C:0.5, D:0.49, X:0.01}",
+    0.002213151551440917
+   ],
+   [
+    "mono {or(X,ROLE):1}",
+    0.0016433837894239643
+   ],
+   [
+    "poly {X:0.67, ROLE:0.33}",
+    0.0016039943845202668
+   ],
+   [
+    "poly {C:0.5, D:0.5}",
+    0.0012671545448483556
+   ],
+   [
+    "mono {and(X,ROLE):1}",
+    0.0010717165748897826
+   ]
+  ],
+  "chain_time_s": 5.386106729507446,
+  "cut_flow": 7.2948850827018135e-06,
+  "n_expanded": 86,
+  "poly_flow": 0.000852162808360626
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "bos",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 54,
+  "n_states": 721,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.143034030187677,
+  "mean_payoff": 1.3224069863975505,
+  "efficient_payoff": 1.5,
+  "deadweight_loss": 0.1775930136024495,
+  "support": [
+   [
+    "mono {C:1}",
+    0.4790988303343688
+   ],
+   [
+    "mono {D:1}",
+    0.3111221185916341
+   ],
+   [
+    "mono {X:1}",
+    0.04214602092375221
+   ],
+   [
+    "poly {X:0.7, ROLE:0.3}",
+    0.03534403469764291
+   ],
+   [
+    "poly {C:0.5, D:0.5}",
+    0.027318739242843535
+   ],
+   [
+    "poly {C:0.5, D:0.4, X:0.1}",
+    0.023644483622396895
+   ],
+   [
+    "mono {ROLE:1}",
+    0.023016385925183888
+   ],
+   [
+    "poly {X:0.6, ROLE:0.4}",
+    0.013471766547184448
+   ],
+   [
+    "poly {X:0.5, ROLE:0.4, not(ROLE):0.1}",
+    0.008552815340353946
+   ],
+   [
+    "poly {C:0.3, D:0.4, ROLE:0.3}",
+    0.006408111276546048
+   ],
+   [
+    "poly {X:0.1, ROLE:0.6, not(ROLE):0.3}",
+    0.005666549228134687
+   ],
+   [
+    "mono {or(X,ROLE):1}",
+    0.004129410145886264
+   ]
+  ],
+  "chain_time_s": 10.231746912002563,
+  "cut_flow": 3.2686912961563796e-05,
+  "n_expanded": 135,
+  "poly_flow": 0.02580999513685766
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "bos",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 54,
+  "n_states": 484,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.0450738082193056,
+  "mean_payoff": 1.499039096851404,
+  "efficient_payoff": 1.5,
+  "deadweight_loss": 0.0009609031485959818,
+  "support": [
+   [
+    "mono {D:1}",
+    0.49658592414716923
+   ],
+   [
+    "mono {C:1}",
+    0.4965859241462496
+   ],
+   [
+    "poly {ROLE:0.33, THEM(^C):0.67}",
+    0.0029348312068743425
+   ],
+   [
+    "poly {ROLE:0.33, THEM(^D):0.67}",
+    0.0029348312068740775
+   ]
+  ],
+  "chain_time_s": 5.261338949203491,
+  "cut_flow": 4.9985621514362256e-08,
+  "n_expanded": 68,
+  "poly_flow": 7.4297001555183766e-06
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken",
+  "N": 10,
+  "w": 0.01,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 725,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.392352229918804,
+  "mean_payoff": -1.1309450315629404,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 1.6309450315629404,
+  "support": [
+   [
+    "mono {ROLE:1}",
+    0.21976357655075052
+   ],
+   [
+    "poly {C:0.8, D:0.1, X:0.1}",
+    0.16445419258195298
+   ],
+   [
+    "poly {C:0.7, D:0.1, X:0.2}",
+    0.11970932576735682
+   ],
+   [
+    "mono {X:1}",
+    0.09510962956940866
+   ],
+   [
+    "mono {D:1}",
+    0.08867662911655796
+   ],
+   [
+    "poly {C:0.7, D:0.1, X:0.1, and(X,X):0.1}",
+    0.040079345223461675
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.03480392026464617
+   ],
+   [
+    "mono {C:1}",
+    0.03066703610877342
+   ],
+   [
+    "poly {C:0.8, D:0.2}",
+    0.026712131306751926
+   ],
+   [
+    "poly {C:0.7, D:0.1, X:0.1, or(X,X):0.1}",
+    0.02202930458922263
+   ],
+   [
+    "poly {C:0.6, X:0.4}",
+    0.0208145037002047
+   ],
+   [
+    "poly {C:0.7, X:0.3}",
+    0.01802912068120109
+   ]
+  ],
+  "chain_time_s": 6.788816928863525,
+  "cut_flow": 2.1892565459594977e-05,
+  "n_expanded": 203,
+  "poly_flow": 0.04227316240039366
  },
  {
   "arm": "weak",
   "n": 5,
   "game": "chicken",
   "N": 100,
+  "w": 0.01,
   "x_on": true,
   "role": true,
   "mode": "square",
   "n_programs": 902,
   "n_classes": 53,
-  "n_states": 28212,
-  "n_terminal_classes": 3,
+  "n_states": 834,
+  "n_terminal_classes": 1,
   "indeterminate": 0,
-  "pi_sum": 1.0000000000000002,
-  "absorb_error": 2.220446049250313e-16,
-  "near_closed_classes": 1,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
   "divergence_rate": 0.0010078613182826044,
-  "mean_bits_support": 3.0032182670853453,
-  "mean_payoff": 0.4999999888316657,
+  "mean_bits_support": 3.405995620951868,
+  "mean_payoff": 0.04890518300982478,
   "efficient_payoff": 0.5,
-  "deadweight_loss": 1.1168334312916528e-08,
+  "deadweight_loss": 0.45109481699017523,
   "support": [
    [
     "mono {ROLE:1}",
-    0.9924516446553147
+    0.4778453381118533
    ],
    [
-    "neutral {ROLE:0.99, not(THEM(^ROLE)):0.01}",
-    0.0036165811275282265
+    "mono {not(ROLE):1}",
+    0.07161351695925294
    ],
    [
-    "neutral {ROLE:0.98, not(THEM(^ROLE)):0.02}",
-    0.0014825337474794285
+    "mono {X:1}",
+    0.05846580233401867
+   ],
+   [
+    "poly {C:0.8, D:0.17, X:0.01, and(X,X):0.01, or(X,X):0.01}",
+    0.04525486720086303
+   ],
+   [
+    "poly {C:0.65, D:0.01, X:0.34}",
+    0.044971254982943576
+   ],
+   [
+    "poly {C:0.81, D:0.18, X:0.01}",
+    0.0433360692162754
+   ],
+   [
+    "mono {C:1}",
+    0.031041508645896373
+   ],
+   [
+    "poly {C:0.65, D:0.01, X:0.32, and(X,X):0.01, or(X,X):0.01}",
+    0.023595889683069346
+   ],
+   [
+    "poly {C:0.65, D:0.01, X:0.33, and(X,X):0.01}",
+    0.023355933607334494
+   ],
+   [
+    "poly {C:0.64, D:0.01, X:0.34, or(X,X):0.01}",
+    0.02316273122611527
+   ],
+   [
+    "poly {C:0.64, D:0.01, X:0.33, and(X,X):0.01, or(X,X):0.01}",
+    0.023113066635687192
+   ],
+   [
+    "poly {C:0.81, D:0.17, X:0.01, or(X,X):0.01}",
+    0.022685181241973742
    ]
   ],
-  "chain_time_s": 5.665501832962036,
-  "cut_flow": 4.458969763241095e-15,
-  "n_expanded": 2282
+  "chain_time_s": 10.62650990486145,
+  "cut_flow": 1.9685051842328836e-05,
+  "n_expanded": 189,
+  "poly_flow": 0.00413157971840251
  },
  {
   "arm": "weak",
   "n": 5,
-  "game": "chicken_norole",
+  "game": "chicken",
   "N": 10,
-  "x_on": true,
-  "role": false,
-  "mode": "square",
-  "n_programs": 450,
-  "n_classes": 30,
-  "n_states": 1755,
-  "n_terminal_classes": 2,
-  "indeterminate": 0,
-  "pi_sum": 1.0000000000029738,
-  "absorb_error": 2.9738433937609443e-12,
-  "near_closed_classes": 0,
-  "divergence_rate": 0.0027160493827160493,
-  "mean_bits_support": 9.9158495311254,
-  "mean_payoff": -0.27000000000080293,
-  "efficient_payoff": 0.5,
-  "deadweight_loss": 0.7700000000008029,
-  "support": [
-   [
-    "poly {D:0.2, not(THEM(ME)):0.1, not(THEM(THEM)):0.5, not(THEM(^D)):0.1, or(THEM(ME),C):0.1}",
-    0.7058644963605585
-   ],
-   [
-    "poly {D:0.2, not(THEM(ME)):0.5, not(THEM(THEM)):0.1, not(THEM(^D)):0.1, or(THEM(ME),C):0.1}",
-    0.29413550364241536
-   ]
-  ],
-  "chain_time_s": 0.5514600276947021,
-  "cut_flow": 0.0,
-  "n_expanded": 229
- },
- {
-  "arm": "weak",
-  "n": 5,
-  "game": "chicken_norole",
-  "N": 100,
-  "x_on": true,
-  "role": false,
-  "mode": "square",
-  "n_programs": 450,
-  "n_classes": 30,
-  "n_states": 16744,
-  "n_terminal_classes": 17,
-  "indeterminate": 0,
-  "pi_sum": 1.0000000000006954,
-  "absorb_error": 6.954437026251981e-13,
-  "near_closed_classes": 0,
-  "divergence_rate": 0.0027160493827160493,
-  "mean_bits_support": 9.841289941138038,
-  "mean_payoff": -0.3331000000002316,
-  "efficient_payoff": 0.5,
-  "deadweight_loss": 0.8331000000002315,
-  "support": [
-   [
-    "poly {D:0.19, not(THEM(THEM)):0.66, not(THEM(^D)):0.15}",
-    0.9822649862519841
-   ],
-   [
-    "poly {D:0.19, not(THEM(THEM)):0.65, not(THEM(^D)):0.15, or(THEM(ME),C):0.01}",
-    0.01586192956086582
-   ],
-   [
-    "poly {D:0.19, not(THEM(THEM)):0.64, not(THEM(^D)):0.15, or(THEM(ME),C):0.02}",
-    0.0012517593631556222
-   ]
-  ],
-  "chain_time_s": 4.326269149780273,
-  "cut_flow": 0.0,
-  "n_expanded": 1947
- },
- {
-  "arm": "weak",
-  "n": 5,
-  "game": "demand",
-  "N": 10,
+  "w": 0.1,
   "x_on": true,
   "role": true,
   "mode": "square",
   "n_programs": 902,
   "n_classes": 53,
-  "n_states": 2812,
-  "n_terminal_classes": 2,
+  "n_states": 698,
+  "n_terminal_classes": 1,
   "indeterminate": 0,
   "pi_sum": 0.9999999999999997,
   "absorb_error": 3.3306690738754696e-16,
-  "near_closed_classes": 1,
+  "near_closed_classes": 0,
   "divergence_rate": 0.0010078613182826044,
-  "mean_bits_support": 3.196568999280156,
-  "mean_payoff": 0.49967826034969326,
+  "mean_bits_support": 3.433272719699827,
+  "mean_payoff": 0.031108062706167682,
   "efficient_payoff": 0.5,
-  "deadweight_loss": 0.00032173965030674045,
+  "deadweight_loss": 0.46889193729383233,
   "support": [
    [
     "mono {ROLE:1}",
-    0.938011253317061
+    0.4584845430744064
+   ],
+   [
+    "poly {C:0.7, D:0.1, X:0.2}",
+    0.0952491057447258
+   ],
+   [
+    "poly {C:0.8, D:0.1, X:0.1}",
+    0.09072173231313037
    ],
    [
     "mono {not(ROLE):1}",
-    0.05251611768950089
+    0.07446864178419835
    ],
    [
-    "poly {D:0.2, not(THEM(^ROLE)):0.8}",
-    0.006762641789288884
+    "mono {X:1}",
+    0.06159309210539568
+   ],
+   [
+    "mono {C:1}",
+    0.03456433626868034
+   ],
+   [
+    "poly {C:0.7, D:0.1, X:0.1, and(X,X):0.1}",
+    0.023318375051930657
+   ],
+   [
+    "poly {C:0.6, X:0.4}",
+    0.019458311727884814
+   ],
+   [
+    "poly {C:0.8, D:0.2}",
+    0.01727471534060492
+   ],
+   [
+    "poly {C:0.7, X:0.3}",
+    0.01647773955169805
+   ],
+   [
+    "poly {C:0.7, and(X,ROLE):0.3}",
+    0.014307229496653005
+   ],
+   [
+    "poly {C:0.6, D:0.1, X:0.2, or(X,X):0.1}",
+    0.01267625294374914
    ]
   ],
-  "chain_time_s": 5.901371240615845,
-  "cut_flow": 2.826671497284616e-06,
-  "n_expanded": 286
+  "chain_time_s": 6.876687049865723,
+  "cut_flow": 1.994820042471072e-05,
+  "n_expanded": 196,
+  "poly_flow": 0.03316435588558993
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 553,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999997,
+  "absorb_error": 3.3306690738754696e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.414717243579672,
+  "mean_payoff": 0.4988457859990402,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.0011542140009597746,
+  "support": [
+   [
+    "mono {ROLE:1}",
+    0.7990182768342678
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.1987285945457775
+   ]
+  ],
+  "chain_time_s": 4.417356729507446,
+  "cut_flow": 1.5636466634057503e-06,
+  "n_expanded": 108,
+  "poly_flow": 6.6082826499146795e-06
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 498,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999996,
+  "absorb_error": 4.440892098500626e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.436699836495615,
+  "mean_payoff": 0.49642612125017277,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.0035738787498272306,
+  "support": [
+   [
+    "mono {ROLE:1}",
+    0.7960415435377278
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.19809351777410575
+   ],
+   [
+    "poly {D:0.2, not(THEM(THEM)):0.8}",
+    0.00191318416778049
+   ],
+   [
+    "poly {D:0.2, not(THEM(ME)):0.8}",
+    0.0018729242784132818
+   ]
+  ],
+  "chain_time_s": 1.146909236907959,
+  "cut_flow": 3.379244593471986e-06,
+  "n_expanded": 112,
+  "poly_flow": 9.690472433662938e-05
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 546,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999997,
+  "absorb_error": 3.3306690738754696e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 14.36071503488767,
+  "mean_payoff": 0.4992129186800313,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.0007870813199686855,
+  "support": [
+   [
+    "mono {THEM(^not(ROLE)):1}",
+    0.9268973578431903
+   ],
+   [
+    "mono {ROLE:1}",
+    0.056389635539301694
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.013841712474257452
+   ],
+   [
+    "poly {D:0.14, not(THEM(^ROLE)):0.86}",
+    0.0018463705505707266
+   ]
+  ],
+  "chain_time_s": 4.863886117935181,
+  "cut_flow": 8.335265035031835e-09,
+  "n_expanded": 111,
+  "poly_flow": 2.0717589435103252e-07
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken_norole",
+  "N": 10,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 517,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999996,
+  "absorb_error": 4.440892098500626e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 4.208945096987907,
+  "mean_payoff": -0.18664651695743567,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.6866465169574356,
+  "support": [
+   [
+    "poly {C:0.7, X:0.1, and(X,X):0.1, or(X,X):0.1}",
+    0.4437728288780215
+   ],
+   [
+    "poly {C:0.7, X:0.1, or(X,X):0.1, and(X,or(X,X)):0.1}",
+    0.10484641669679715
+   ],
+   [
+    "poly {C:0.6, X:0.1, and(X,X):0.1, or(X,X):0.1, or(X,or(X,X)):0.1}",
+    0.06193910398732555
+   ],
+   [
+    "poly {C:0.6, X:0.1, and(X,X):0.1, or(X,X):0.1, or(X,and(X,X)):0.1}",
+    0.0601393357352527
+   ],
+   [
+    "poly {C:0.6, X:0.1, and(X,X):0.1, or(X,X):0.1, or(THEM(ME),C):0.1}",
+    0.0473897619760758
+   ],
+   [
+    "poly {C:0.7, D:0.1, X:0.1, and(X,X):0.1}",
+    0.03586093092716793
+   ],
+   [
+    "poly {C:0.7, D:0.1, X:0.1, or(X,X):0.1}",
+    0.027718178489210085
+   ],
+   [
+    "poly {C:0.8, D:0.1, X:0.1}",
+    0.023340675647806043
+   ],
+   [
+    "poly {C:0.7, D:0.1, X:0.2}",
+    0.023151208809682914
+   ],
+   [
+    "poly {C:0.6, D:0.1, X:0.2, or(X,X):0.1}",
+    0.01949275275803595
+   ],
+   [
+    "poly {C:0.5, X:0.1, and(X,X):0.1, or(X,X):0.1, or(X,or(X,X)):0.1, or(THEM(ME),C):0.1}",
+    0.013664080080531727
+   ],
+   [
+    "poly {C:0.5, X:0.1, and(X,X):0.1, or(X,X):0.1, or(X,and(X,X)):0.1, or(THEM(ME),C):0.1}",
+    0.013458975096808339
+   ]
+  ],
+  "chain_time_s": 1.8553402423858643,
+  "cut_flow": 2.08458344156848e-05,
+  "n_expanded": 184,
+  "poly_flow": 0.01655179554844501
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken_norole",
+  "N": 100,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 891,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000004,
+  "absorb_error": 4.440892098500626e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 3.252523906551833,
+  "mean_payoff": -0.19515864220258636,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.6951586422025864,
+  "support": [
+   [
+    "poly {C:0.77, D:0.15, X:0.01, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.10545709418284288
+   ],
+   [
+    "poly {C:0.64, D:0.01, X:0.28, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.06976226950755615
+   ],
+   [
+    "poly {C:0.8, D:0.17, X:0.01, and(X,X):0.01, or(X,X):0.01}",
+    0.05400512493379929
+   ],
+   [
+    "poly {C:0.63, D:0.01, X:0.29, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.04646908169627198
+   ],
+   [
+    "poly {C:0.64, D:0.01, X:0.33, and(X,X):0.01, or(X,X):0.01}",
+    0.033499748219669626
+   ],
+   [
+    "poly {C:0.65, D:0.01, X:0.32, and(X,X):0.01, or(X,X):0.01}",
+    0.03315312959449786
+   ],
+   [
+    "poly {C:0.64, D:0.01, X:0.29, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.018022493361030546
+   ],
+   [
+    "poly {C:0.64, D:0.01, X:0.29, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.01801828125050386
+   ],
+   [
+    "poly {C:0.63, D:0.01, X:0.3, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.01800664723609319
+   ],
+   [
+    "poly {C:0.63, D:0.01, X:0.3, and(X,X):0.01, or(X,X):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.017973093837571008
+   ],
+   [
+    "poly {C:0.77, D:0.16, X:0.01, and(X,X):0.01, or(X,X):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.015492450479904617
+   ],
+   [
+    "poly {C:0.78, D:0.15, X:0.01, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.015484296642388129
+   ]
+  ],
+  "chain_time_s": 4.624734878540039,
+  "cut_flow": 2.937405217447614e-05,
+  "n_expanded": 264,
+  "poly_flow": 0.0008213971136653729
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken_norole",
+  "N": 10,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 528,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 4.2965931076760935,
+  "mean_payoff": -0.14557122598823974,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.6455712259882398,
+  "support": [
+   [
+    "poly {C:0.7, X:0.1, and(X,X):0.1, or(X,X):0.1}",
+    0.4395482279512391
+   ],
+   [
+    "poly {C:0.7, X:0.1, or(X,X):0.1, and(X,or(X,X)):0.1}",
+    0.09395120414527243
+   ],
+   [
+    "poly {C:0.6, X:0.1, and(X,X):0.1, or(X,X):0.1, or(X,or(X,X)):0.1}",
+    0.0633057914542918
+   ],
+   [
+    "poly {C:0.6, X:0.1, and(X,X):0.1, or(X,X):0.1, or(X,and(X,X)):0.1}",
+    0.06204525838631968
+   ],
+   [
+    "poly {C:0.6, X:0.1, and(X,X):0.1, or(X,X):0.1, or(THEM(ME),C):0.1}",
+    0.0497351132506204
+   ],
+   [
+    "poly {C:0.7, D:0.1, X:0.1, and(X,X):0.1}",
+    0.035205691300780016
+   ],
+   [
+    "poly {C:0.7, D:0.1, X:0.2}",
+    0.026199597132471268
+   ],
+   [
+    "poly {C:0.7, D:0.1, X:0.1, or(X,X):0.1}",
+    0.02366997077542185
+   ],
+   [
+    "poly {C:0.6, D:0.1, X:0.2, or(X,X):0.1}",
+    0.02234156727267966
+   ],
+   [
+    "poly {C:0.8, D:0.1, X:0.1}",
+    0.01805579368734381
+   ],
+   [
+    "poly {C:0.5, X:0.1, and(X,X):0.1, or(X,X):0.1, or(X,or(X,X)):0.1, or(THEM(ME),C):0.1}",
+    0.014996770230575657
+   ],
+   [
+    "poly {C:0.5, X:0.1, and(X,X):0.1, or(X,X):0.1, or(X,and(X,X)):0.1, or(THEM(ME),C):0.1}",
+    0.014906987818623168
+   ]
+  ],
+  "chain_time_s": 1.6559760570526123,
+  "cut_flow": 2.1990448052811684e-05,
+  "n_expanded": 192,
+  "poly_flow": 0.016219332774803273
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken_norole",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 935,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 9.355230772015673,
+  "mean_payoff": -0.25313645751307434,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.7531364575130743,
+  "support": [
+   [
+    "poly {D:0.19, not(THEM(ME)):0.01, not(THEM(THEM)):0.64, not(THEM(^D)):0.15, or(THEM(ME),C):0.01}",
+    0.41637978448181323
+   ],
+   [
+    "poly {D:0.18, not(THEM(ME)):0.01, not(THEM(THEM)):0.8, or(THEM(ME),C):0.01}",
+    0.3359620691884381
+   ],
+   [
+    "poly {D:0.18, not(THEM(ME)):0.8, not(THEM(THEM)):0.01, or(THEM(ME),C):0.01}",
+    0.08234851110737071
+   ],
+   [
+    "poly {D:0.19, not(THEM(ME)):0.64, not(THEM(THEM)):0.01, not(THEM(^D)):0.15, or(THEM(ME),C):0.01}",
+    0.027141602491233163
+   ],
+   [
+    "poly {D:0.18, not(THEM(ME)):0.01, not(THEM(THEM)):0.81}",
+    0.01998114903570236
+   ],
+   [
+    "poly {C:0.26, D:0.22, not(THEM(^X)):0.48, or(THEM(ME),C):0.04}",
+    0.013045872875785767
+   ],
+   [
+    "poly {D:0.18, not(THEM(ME)):0.81, not(THEM(THEM)):0.01}",
+    0.010909856048915915
+   ],
+   [
+    "poly {C:0.8, D:0.17, X:0.01, and(X,X):0.01, or(X,X):0.01}",
+    0.005870011748553749
+   ],
+   [
+    "poly {D:0.18, not(THEM(THEM)):0.82}",
+    0.004873516626767304
+   ],
+   [
+    "poly {D:0.18, not(THEM(THEM)):0.81, or(THEM(ME),C):0.01}",
+    0.0032634832183423327
+   ],
+   [
+    "poly {D:0.18, not(THEM(ME)):0.82}",
+    0.003108932885037946
+   ],
+   [
+    "mono {and(THEM(THEM),D):1}",
+    0.002980147621703556
+   ]
+  ],
+  "chain_time_s": 5.143670082092285,
+  "cut_flow": 1.4034676920014155e-05,
+  "n_expanded": 267,
+  "poly_flow": 0.00013926988040954426
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken_norole",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 448,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 9.900768739252731,
+  "mean_payoff": -0.26971300432019923,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.7697130043201992,
+  "support": [
+   [
+    "poly {D:0.2, not(THEM(ME)):0.5, not(THEM(THEM)):0.1, not(THEM(^D)):0.1, or(THEM(ME),C):0.1}",
+    0.5607892929174462
+   ],
+   [
+    "poly {D:0.2, not(THEM(ME)):0.1, not(THEM(THEM)):0.5, not(THEM(^D)):0.1, or(THEM(ME),C):0.1}",
+    0.42440503964160214
+   ],
+   [
+    "poly {D:0.2, not(THEM(ME)):0.1, not(THEM(THEM)):0.7}",
+    0.0020076766916633988
+   ],
+   [
+    "poly {D:0.2, not(THEM(ME)):0.7, not(THEM(THEM)):0.1}",
+    0.0017878151897448742
+   ],
+   [
+    "poly {D:0.2, not(THEM(ME)):0.1, not(THEM(THEM)):0.6, or(THEM(ME),C):0.1}",
+    0.0017755603993402692
+   ],
+   [
+    "poly {D:0.2, not(THEM(ME)):0.6, not(THEM(THEM)):0.1, or(THEM(ME),C):0.1}",
+    0.0011390902505549027
+   ],
+   [
+    "poly {D:0.2, not(THEM(ME)):0.6, not(THEM(THEM)):0.1, not(THEM(^D)):0.1}",
+    0.0011241527226034307
+   ]
+  ],
+  "chain_time_s": 1.0130670070648193,
+  "cut_flow": 1.7848795996163893e-06,
+  "n_expanded": 124,
+  "poly_flow": 0.0006886537514423383
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken_norole",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 890,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 10.063091867456787,
+  "mean_payoff": -0.3331000000000001,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.8331000000000002,
+  "support": [
+   [
+    "poly {D:0.19, not(THEM(ME)):0.01, not(THEM(THEM)):0.58, not(THEM(^D)):0.15, or(THEM(ME),C):0.07}",
+    1.0000000000000002
+   ]
+  ],
+  "chain_time_s": 3.065943717956543,
+  "cut_flow": 4.6238046268027765e-48,
+  "n_expanded": 219,
+  "poly_flow": 1.5096000657146107e-47
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "demand",
+  "N": 10,
+  "w": 0.01,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 1173,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.4050069762296094,
+  "mean_payoff": 0.38002473882214705,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.11997526117785295,
+  "support": [
+   [
+    "mono {ROLE:1}",
+    0.20554873925040146
+   ],
+   [
+    "poly {C:0.6, D:0.3, X:0.1}",
+    0.17275995479073766
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.5}",
+    0.1450802126535729
+   ],
+   [
+    "mono {D:1}",
+    0.09557497425753089
+   ],
+   [
+    "mono {X:1}",
+    0.06297337588380438
+   ],
+   [
+    "mono {C:1}",
+    0.04355863028929552
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.03193582273759657
+   ],
+   [
+    "poly {C:0.7, D:0.3}",
+    0.026353228245925633
+   ],
+   [
+    "poly {C:0.5, D:0.3, X:0.1, or(X,X):0.1}",
+    0.024080659771318257
+   ],
+   [
+    "poly {C:0.6, D:0.2, X:0.1, and(X,X):0.1}",
+    0.024078834782416996
+   ],
+   [
+    "poly {C:0.3, X:0.7}",
+    0.023988293042110868
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.4, and(X,X):0.1}",
+    0.022703536194849057
+   ]
+  ],
+  "chain_time_s": 53.21730899810791,
+  "cut_flow": 3.257538410000754e-05,
+  "n_expanded": 248,
+  "poly_flow": 0.04264092876626578
  },
  {
   "arm": "weak",
   "n": 5,
   "game": "demand",
   "N": 100,
+  "w": 0.01,
   "x_on": true,
   "role": true,
   "mode": "square",
   "n_programs": 902,
   "n_classes": 53,
-  "n_states": 23935,
-  "n_terminal_classes": 2,
+  "n_states": 1235,
+  "n_terminal_classes": 1,
   "indeterminate": 0,
-  "pi_sum": 0.9999999999999996,
-  "absorb_error": 4.440892098500626e-16,
-  "near_closed_classes": 1,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
   "divergence_rate": 0.0010078613182826044,
-  "mean_bits_support": 3.0033543112967083,
-  "mean_payoff": 0.49999999987475524,
+  "mean_bits_support": 3.400398144258951,
+  "mean_payoff": 0.3875132289543135,
   "efficient_payoff": 0.5,
-  "deadweight_loss": 1.25244759008325e-10,
+  "deadweight_loss": 0.1124867710456865,
   "support": [
    [
     "mono {ROLE:1}",
-    0.9924405412801511
+    0.2040980776337211
    ],
    [
-    "neutral {ROLE:0.99, not(THEM(^ROLE)):0.01}",
-    0.0036165406655599133
+    "poly {C:0.65, D:0.32, X:0.01, and(X,X):0.01, or(X,X):0.01}",
+    0.08616636968949958
    ],
    [
-    "neutral {ROLE:0.98, not(THEM(^ROLE)):0.02}",
-    0.0014825171608845316
-   ]
-  ],
-  "chain_time_s": 17.794547080993652,
-  "cut_flow": 3.8994105749681735e-12,
-  "n_expanded": 2078
- },
- {
-  "arm": "weak",
-  "n": 5,
-  "game": "demand_norole",
-  "N": 10,
-  "x_on": true,
-  "role": false,
-  "mode": "square",
-  "n_programs": 450,
-  "n_classes": 30,
-  "n_states": 1566,
-  "n_terminal_classes": 1,
-  "indeterminate": 0,
-  "pi_sum": 1.0000000000004894,
-  "absorb_error": 4.89386309254769e-13,
-  "near_closed_classes": 0,
-  "divergence_rate": 0.0027160493827160493,
-  "mean_bits_support": 9.078926150133782,
-  "mean_payoff": 0.4100000000002007,
-  "efficient_payoff": 0.5,
-  "deadweight_loss": 0.0899999999997993,
-  "support": [
+    "mono {D:1}",
+    0.0853117725270119
+   ],
    [
-    "poly {D:0.3, not(THEM(THEM)):0.5, not(THEM(^D)):0.2}",
-    1.0000000000004894
-   ]
-  ],
-  "chain_time_s": 17.947678804397583,
-  "cut_flow": 0.0,
-  "n_expanded": 218
- },
- {
-  "arm": "weak",
-  "n": 5,
-  "game": "demand_norole",
-  "N": 100,
-  "x_on": true,
-  "role": false,
-  "mode": "square",
-  "n_programs": 450,
-  "n_classes": 30,
-  "n_states": 12101,
-  "n_terminal_classes": 1,
-  "indeterminate": 0,
-  "pi_sum": 1.0000000000012306,
-  "absorb_error": 1.2305712004945235e-12,
-  "near_closed_classes": 0,
-  "divergence_rate": 0.0027160493827160493,
-  "mean_bits_support": 8.891399134114529,
-  "mean_payoff": 0.4011000000004936,
-  "efficient_payoff": 0.5,
-  "deadweight_loss": 0.09889999999950638,
-  "support": [
+    "poly {C:0.34, D:0.01, X:0.63, and(X,X):0.01, or(X,X):0.01}",
+    0.07356002508665167
+   ],
    [
-    "poly {D:0.33, not(THEM(THEM)):0.45, not(THEM(^D)):0.22}",
-    1.0000000000012306
-   ]
-  ],
-  "chain_time_s": 44.10936903953552,
-  "cut_flow": 0.0,
-  "n_expanded": 1402
- },
- {
-  "arm": "weak",
-  "n": 6,
-  "game": "dollar",
-  "N": 10,
-  "x_on": true,
-  "role": false,
-  "mode": "square",
-  "n_programs": 1852,
-  "n_classes": 46,
-  "n_states": 4145,
-  "n_terminal_classes": 2,
-  "indeterminate": 0,
-  "pi_sum": 0.9999999999999994,
-  "absorb_error": 5.551115123125783e-16,
-  "near_closed_classes": 0,
-  "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 2.7624554853641943,
-  "mean_payoff": 0.49999999999999845,
-  "efficient_payoff": 0.5,
-  "deadweight_loss": 1.5543122344752192e-15,
-  "support": [
+    "mono {X:1}",
+    0.06713235618353765
+   ],
+   [
+    "poly {C:0.66, D:0.33, X:0.01}",
+    0.06139423307603249
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.05177927870629373
+   ],
    [
     "mono {C:1}",
-    0.860718247106851
+    0.045544747532749605
    ],
    [
-    "neutral {C:0.9, THEM(ME):0.1}",
-    0.03206632874575572
+    "poly {C:0.34, D:0.01, X:0.65}",
+    0.04154596033625191
    ],
    [
-    "neutral {C:0.9, THEM(THEM):0.1}",
-    0.031835589421214366
+    "poly {C:0.66, D:0.32, X:0.01, and(X,X):0.01}",
+    0.03547157956614299
    ],
    [
-    "neutral {C:0.8, THEM(ME):0.2}",
-    0.01215132018606437
+    "poly {C:0.65, D:0.33, X:0.01, or(X,X):0.01}",
+    0.034410905688892886
    ],
    [
-    "neutral {C:0.8, THEM(THEM):0.2}",
-    0.012059734717273523
-   ],
-   [
-    "neutral {C:0.9, THEM(^C):0.1}",
-    0.007902939274434577
-   ],
-   [
-    "neutral {C:0.7, THEM(ME):0.3}",
-    0.005791464436569382
-   ],
-   [
-    "neutral {C:0.7, THEM(THEM):0.3}",
-    0.005746801282351255
-   ],
-   [
-    "neutral {C:0.6, THEM(ME):0.4}",
-    0.002951753056975244
-   ],
-   [
-    "neutral {C:0.6, THEM(THEM):0.4}",
-    0.00292864268199421
-   ],
-   [
-    "neutral {C:0.8, THEM(^C):0.2}",
-    0.0028861654643432327
-   ],
-   [
-    "neutral {C:0.9, or(THEM(ME),C):0.1}",
-    0.001989130680018306
+    "poly {C:0.34, D:0.01, X:0.64, or(X,X):0.01}",
+    0.033341852562891745
    ]
   ],
-  "chain_time_s": 0.8531758785247803,
-  "cut_flow": 6.900964762877644e-05,
-  "n_expanded": 480
+  "chain_time_s": 70.90085196495056,
+  "cut_flow": 3.70884585615643e-05,
+  "n_expanded": 243,
+  "poly_flow": 0.00620991298106248
  },
  {
   "arm": "weak",
-  "n": 6,
-  "game": "dollar",
-  "N": 100,
+  "n": 5,
+  "game": "demand",
+  "N": 10,
+  "w": 0.1,
   "x_on": true,
-  "role": false,
+  "role": true,
   "mode": "square",
-  "n_programs": 1852,
-  "n_classes": 46,
-  "n_states": 56710,
-  "n_terminal_classes": 2,
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 1173,
+  "n_terminal_classes": 1,
   "indeterminate": 0,
   "pi_sum": 0.9999999999999999,
   "absorb_error": 1.1102230246251565e-16,
   "near_closed_classes": 0,
-  "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 2.7540655556384617,
-  "mean_payoff": 0.49999999999999917,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.406529945692859,
+  "mean_payoff": 0.38411703286121096,
   "efficient_payoff": 0.5,
-  "deadweight_loss": 8.326672684688674e-16,
+  "deadweight_loss": 0.11588296713878904,
   "support": [
+   [
+    "mono {ROLE:1}",
+    0.21676855242681745
+   ],
+   [
+    "poly {C:0.6, D:0.3, X:0.1}",
+    0.1698986184026956
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.5}",
+    0.14435053140227194
+   ],
+   [
+    "mono {D:1}",
+    0.08864906214656798
+   ],
+   [
+    "mono {X:1}",
+    0.06333316301599164
+   ],
    [
     "mono {C:1}",
-    0.23419648855327738
+    0.0432517179953804
    ],
    [
-    "neutral {C:0.99, THEM(ME):0.01}",
-    0.08725063769958331
+    "mono {not(ROLE):1}",
+    0.03353232149431948
    ],
    [
-    "neutral {C:0.99, THEM(THEM):0.01}",
-    0.08662280923647744
+    "poly {C:0.7, D:0.3}",
+    0.02619976883191356
    ],
    [
-    "neutral {C:0.98, THEM(ME):0.02}",
-    0.04554410956401444
+    "poly {C:0.3, X:0.7}",
+    0.024165875541994494
    ],
    [
-    "neutral {C:0.98, THEM(THEM):0.02}",
-    0.04510066019199038
+    "poly {C:0.5, D:0.3, X:0.1, or(X,X):0.1}",
+    0.023426558309573894
    ],
    [
-    "neutral {C:0.98, THEM(ME):0.01, THEM(THEM):0.01}",
-    0.03216595862969861
+    "poly {C:0.6, D:0.2, X:0.1, and(X,X):0.1}",
+    0.02340959847866445
    ],
    [
-    "neutral {C:0.97, THEM(ME):0.03}",
-    0.025974082852685498
-   ],
-   [
-    "neutral {C:0.97, THEM(THEM):0.03}",
-    0.025681145038866062
-   ],
-   [
-    "neutral {C:0.99, THEM(^C):0.01}",
-    0.021503957810244514
-   ],
-   [
-    "neutral {C:0.97, THEM(ME):0.02, THEM(THEM):0.01}",
-    0.016734465479825007
-   ],
-   [
-    "neutral {C:0.97, THEM(ME):0.01, THEM(THEM):0.02}",
-    0.01669163480967758
-   ],
-   [
-    "neutral {C:0.96, THEM(ME):0.04}",
-    0.015410843875173502
+    "poly {C:0.4, D:0.1, X:0.4, and(X,X):0.1}",
+    0.022368872256320383
    ]
   ],
-  "chain_time_s": 22.0886173248291,
-  "cut_flow": 0.00038556668164800004,
-  "n_expanded": 6444
+  "chain_time_s": 55.339497804641724,
+  "cut_flow": 3.2483667921065516e-05,
+  "n_expanded": 248,
+  "poly_flow": 0.042749418366129624
  },
  {
   "arm": "weak",
-  "n": 6,
-  "game": "exchange",
-  "N": 10,
+  "n": 5,
+  "game": "demand",
+  "N": 100,
+  "w": 0.1,
   "x_on": true,
-  "role": false,
+  "role": true,
   "mode": "square",
-  "n_programs": 1852,
-  "n_classes": 48,
-  "n_states": 3806,
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 1235,
   "n_terminal_classes": 1,
-  "indeterminate": 240,
-  "pi_sum": 1.0000000000000002,
-  "absorb_error": 2.220446049250313e-16,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999993,
+  "absorb_error": 6.661338147750939e-16,
   "near_closed_classes": 0,
-  "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 4.407448136423392,
-  "mean_payoff": 0.6464310473005915,
-  "efficient_payoff": 2.0,
-  "deadweight_loss": 1.3535689526994084,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.4446545217171627,
+  "mean_payoff": 0.42958988375008716,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.07041011624991284,
   "support": [
    [
+    "mono {ROLE:1}",
+    0.3481716244240145
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.08852582246029704
+   ],
+   [
+    "mono {X:1}",
+    0.06358162510237242
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.63, and(X,X):0.01, or(X,X):0.01}",
+    0.05742774831169088
+   ],
+   [
+    "poly {C:0.65, D:0.32, X:0.01, and(X,X):0.01, or(X,X):0.01}",
+    0.05618131238077681
+   ],
+   [
+    "poly {C:0.66, D:0.33, X:0.01}",
+    0.048525605227297514
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.65}",
+    0.04007751210283755
+   ],
+   [
+    "mono {C:1}",
+    0.03883481492752203
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.64, or(X,X):0.01}",
+    0.030021651239106727
+   ],
+   [
     "mono {D:1}",
-    0.5711174757274002
+    0.026843402838137114
    ],
    [
-    "neutral {C:0.5, THEM(^C):0.5}",
-    0.08885106610330265
+    "poly {C:0.66, D:0.32, X:0.01, and(X,X):0.01}",
+    0.02639620907169691
    ],
    [
-    "neutral {C:0.6, THEM(^C):0.4}",
-    0.07759910836040541
-   ],
-   [
-    "neutral {C:0.4, THEM(^C):0.6}",
-    0.05573768025612704
-   ],
-   [
-    "neutral {C:0.3, THEM(^C):0.7}",
-    0.03365156577406363
-   ],
-   [
-    "neutral {D:0.9, THEM(ME):0.1}",
-    0.020707656790250807
-   ],
-   [
-    "neutral {D:0.9, THEM(THEM):0.1}",
-    0.02054942743461287
-   ],
-   [
-    "poly {C:0.3, and(X,THEM(^X)):0.7}",
-    0.020299295053866337
-   ],
-   [
-    "neutral {C:0.2, THEM(^C):0.8}",
-    0.016091738865551146
-   ],
-   [
-    "neutral {C:0.7, THEM(^C):0.3}",
-    0.013607338297492394
-   ],
-   [
-    "neutral {C:0.1, THEM(^C):0.9}",
-    0.007812934213517518
-   ],
-   [
-    "neutral {D:0.8, THEM(ME):0.2}",
-    0.007671886379960038
+    "poly {C:0.65, D:0.33, X:0.01, or(X,X):0.01}",
+    0.025660871607769427
    ]
   ],
-  "chain_time_s": 117.91919589042664,
-  "cut_flow": 0.00010560459049077858,
-  "n_expanded": 439
+  "chain_time_s": 70.23262310028076,
+  "cut_flow": 2.957038900291304e-05,
+  "n_expanded": 244,
+  "poly_flow": 0.005621279190764566
  },
  {
   "arm": "weak",
-  "n": 6,
-  "game": "exchange",
-  "N": 100,
-  "x_on": true,
-  "role": false,
-  "mode": "square",
-  "n_programs": 1852,
-  "n_classes": 48,
-  "n_states": 30026,
-  "n_terminal_classes": 1,
-  "indeterminate": 335,
-  "pi_sum": 1.0,
-  "absorb_error": 0.0,
-  "near_closed_classes": 0,
-  "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 4.232300084404281,
-  "mean_payoff": 0.6010740823283104,
-  "efficient_payoff": 2.0,
-  "deadweight_loss": 1.3989259176716895,
-  "support": [
-   [
-    "mono {D:1}",
-    0.21865773190278673
-   ],
-   [
-    "neutral {D:0.99, THEM(ME):0.01}",
-    0.05622080426635812
-   ],
-   [
-    "neutral {D:0.99, THEM(THEM):0.01}",
-    0.055853696503738434
-   ],
-   [
-    "neutral {C:0.63, THEM(^C):0.37}",
-    0.029495710527858033
-   ],
-   [
-    "neutral {C:0.64, THEM(^C):0.36}",
-    0.026670746992562798
-   ],
-   [
-    "neutral {D:0.98, THEM(ME):0.02}",
-    0.0239716578599425
-   ],
-   [
-    "neutral {D:0.98, THEM(THEM):0.02}",
-    0.023783114533729822
-   ],
-   [
-    "neutral {C:0.62, THEM(^C):0.38}",
-    0.022439109498471256
-   ],
-   [
-    "neutral {C:0.65, THEM(^C):0.35}",
-    0.021374189805949333
-   ],
-   [
-    "neutral {D:0.99, THEM(^D):0.01}",
-    0.017108637616308316
-   ],
-   [
-    "neutral {D:0.98, THEM(ME):0.01, THEM(THEM):0.01}",
-    0.016992169048771332
-   ],
-   [
-    "neutral {C:0.61, THEM(^C):0.39}",
-    0.01333153711564656
-   ]
-  ],
-  "chain_time_s": 149.4536838531494,
-  "cut_flow": 0.0005798830397471252,
-  "n_expanded": 3978
- },
- {
-  "arm": "source",
-  "n": 6,
-  "game": "pd",
+  "n": 5,
+  "game": "demand",
   "N": 10,
+  "w": 1.0,
   "x_on": true,
-  "role": false,
+  "role": true,
   "mode": "square",
-  "n_programs": 2110,
-  "n_classes": 220,
-  "n_states": 33833,
-  "n_terminal_classes": 28,
-  "indeterminate": 0,
-  "pi_sum": 0.9999999999999931,
-  "absorb_error": 6.8833827526759706e-15,
-  "near_closed_classes": 0,
-  "divergence_rate": 0.0014312346982322949,
-  "mean_bits_support": 9.702143594243196,
-  "mean_payoff": -0.022388824206313076,
-  "efficient_payoff": 0.0,
-  "deadweight_loss": 0.022388824206313076,
-  "support": [
-   [
-    "mono {eq(THEM,ME):1}",
-    0.4232688362058688
-   ],
-   [
-    "mono {eq(ME,THEM):1}",
-    0.4232688362058688
-   ],
-   [
-    "mono {not(not(eq(THEM,ME))):1}",
-    0.009560403355848119
-   ],
-   [
-    "mono {or(eq(THEM,ME),D):1}",
-    0.009560403355848119
-   ],
-   [
-    "mono {and(eq(THEM,ME),C):1}",
-    0.009560403355848119
-   ],
-   [
-    "mono {or(eq(ME,THEM),D):1}",
-    0.009560403355848119
-   ],
-   [
-    "mono {and(eq(ME,THEM),C):1}",
-    0.009560403355848119
-   ],
-   [
-    "mono {or(D,eq(THEM,ME)):1}",
-    0.009560403355848119
-   ],
-   [
-    "mono {not(not(eq(ME,THEM))):1}",
-    0.009560403355848119
-   ],
-   [
-    "mono {and(C,eq(THEM,ME)):1}",
-    0.009560403355848119
-   ],
-   [
-    "mono {and(C,eq(ME,THEM)):1}",
-    0.009560403355848119
-   ],
-   [
-    "mono {or(D,eq(ME,THEM)):1}",
-    0.009560403355848119
-   ]
-  ],
-  "chain_time_s": 9.991014003753662,
-  "cut_flow": 0.0,
-  "n_expanded": 814
- },
- {
-  "arm": "source",
-  "n": 6,
-  "game": "pd",
-  "N": 100,
-  "x_on": true,
-  "role": false,
-  "mode": "square",
-  "n_programs": 2110,
-  "n_classes": 220,
-  "n_states": 589536,
-  "n_terminal_classes": 28,
-  "indeterminate": 0,
-  "pi_sum": 0.9999999999999697,
-  "absorb_error": 3.0309088572266774e-14,
-  "near_closed_classes": 0,
-  "divergence_rate": 0.0014312346982322949,
-  "mean_bits_support": 9.702346766799698,
-  "mean_payoff": -0.022390109943987498,
-  "efficient_payoff": 0.0,
-  "deadweight_loss": 0.022390109943987498,
-  "support": [
-   [
-    "mono {eq(THEM,ME):1}",
-    0.4232512439295012
-   ],
-   [
-    "mono {eq(ME,THEM):1}",
-    0.42325124392950114
-   ],
-   [
-    "mono {or(eq(ME,THEM),D):1}",
-    0.009563272151860869
-   ],
-   [
-    "mono {and(eq(THEM,ME),C):1}",
-    0.009563272151860869
-   ],
-   [
-    "mono {or(eq(THEM,ME),D):1}",
-    0.009563272151860869
-   ],
-   [
-    "mono {or(D,eq(THEM,ME)):1}",
-    0.009563272151860869
-   ],
-   [
-    "mono {or(D,eq(ME,THEM)):1}",
-    0.009563272151860869
-   ],
-   [
-    "mono {not(not(eq(ME,THEM))):1}",
-    0.009563272151860869
-   ],
-   [
-    "mono {and(C,eq(THEM,ME)):1}",
-    0.009563272151860869
-   ],
-   [
-    "mono {and(C,eq(ME,THEM)):1}",
-    0.009563272151860869
-   ],
-   [
-    "mono {not(not(eq(THEM,ME))):1}",
-    0.009563272151860869
-   ],
-   [
-    "mono {and(eq(ME,THEM),C):1}",
-    0.009563272151860869
-   ]
-  ],
-  "chain_time_s": 135.0570352077484,
-  "cut_flow": 0.0,
-  "n_expanded": 8578
- },
- {
-  "arm": "strong",
-  "n": 6,
-  "game": "pd",
-  "N": 10,
-  "x_on": true,
-  "role": false,
-  "mode": "square",
-  "n_programs": 1726,
-  "n_classes": 21,
-  "n_states": 269,
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 1167,
   "n_terminal_classes": 1,
   "indeterminate": 0,
   "pi_sum": 1.0000000000000002,
   "absorb_error": 2.220446049250313e-16,
   "near_closed_classes": 0,
-  "divergence_rate": 0.0004350342186637736,
-  "mean_bits_support": 2.6545728528705728,
-  "mean_payoff": -0.9999995020959903,
-  "efficient_payoff": 0.0,
-  "deadweight_loss": 0.9999995020959903,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.4135382161716636,
+  "mean_payoff": 0.4125910884851518,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.0874089115148482,
   "support": [
    [
+    "mono {ROLE:1}",
+    0.3099813756362078
+   ],
+   [
+    "poly {C:0.6, D:0.3, X:0.1}",
+    0.1414844333999287
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.5}",
+    0.135723433791874
+   ],
+   [
+    "mono {X:1}",
+    0.06398117062046935
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.04640684702106733
+   ],
+   [
     "mono {D:1}",
-    0.9351448348810343
+    0.04499270915136485
    ],
    [
-    "neutral {D:0.9, THEM(ME):0.1}",
-    0.03603997027667742
+    "mono {C:1}",
+    0.04026899680516561
    ],
    [
-    "neutral {D:0.8, THEM(ME):0.2}",
-    0.013656640708940192
+    "poly {C:0.3, X:0.7}",
+    0.024733703245622227
    ],
    [
-    "neutral {D:0.7, THEM(ME):0.3}",
-    0.0065015864099126535
+    "poly {C:0.7, D:0.3}",
+    0.023491196094342776
    ],
    [
-    "neutral {D:0.6, THEM(ME):0.4}",
-    0.002798304243445144
+    "poly {C:0.4, X:0.6}",
+    0.021030576272825674
    ],
    [
-    "neutral {D:0.9, and(THEM(ME),D):0.1}",
-    0.0011439699666676991
+    "poly {C:0.4, D:0.1, X:0.4, and(X,X):0.1}",
+    0.019690641138204176
+   ],
+   [
+    "poly {C:0.5, D:0.3, X:0.1, or(X,X):0.1}",
+    0.018132120525581538
    ]
   ],
-  "chain_time_s": 0.3952500820159912,
-  "cut_flow": 9.80138457969359e-06,
-  "n_expanded": 78
+  "chain_time_s": 50.25713300704956,
+  "cut_flow": 3.573333229239995e-05,
+  "n_expanded": 243,
+  "poly_flow": 0.04172754710272639
  },
  {
-  "arm": "strong",
-  "n": 6,
-  "game": "pd",
+  "arm": "weak",
+  "n": 5,
+  "game": "demand",
   "N": 100,
+  "w": 1.0,
   "x_on": true,
-  "role": false,
+  "role": true,
   "mode": "square",
-  "n_programs": 1726,
-  "n_classes": 21,
-  "n_states": 2947,
-  "n_terminal_classes": 1,
-  "indeterminate": 0,
-  "pi_sum": 1.0,
-  "absorb_error": 0.0,
-  "near_closed_classes": 0,
-  "divergence_rate": 0.0004350342186637736,
-  "mean_bits_support": 2.663799492756415,
-  "mean_payoff": -0.999999999999978,
-  "efficient_payoff": 0.0,
-  "deadweight_loss": 0.999999999999978,
-  "support": [
-   [
-    "mono {D:1}",
-    0.5045258116714587
-   ],
-   [
-    "neutral {D:0.99, THEM(ME):0.01}",
-    0.1944520863107319
-   ],
-   [
-    "neutral {D:0.98, THEM(ME):0.02}",
-    0.10264417931117648
-   ],
-   [
-    "neutral {D:0.97, THEM(ME):0.03}",
-    0.05890186206863221
-   ],
-   [
-    "neutral {D:0.96, THEM(ME):0.04}",
-    0.0350870607566773
-   ],
-   [
-    "neutral {D:0.95, THEM(ME):0.05}",
-    0.021327789099001147
-   ],
-   [
-    "neutral {D:0.94, THEM(ME):0.06}",
-    0.013120133543323562
-   ],
-   [
-    "neutral {D:0.93, THEM(ME):0.07}",
-    0.008130426155656987
-   ],
-   [
-    "neutral {D:0.99, and(THEM(ME),D):0.01}",
-    0.006174055583012764
-   ],
-   [
-    "neutral {D:0.92, THEM(ME):0.08}",
-    0.005060864866941775
-   ],
-   [
-    "neutral {D:0.99, and(THEM(ME),X):0.01}",
-    0.004721905494187864
-   ],
-   [
-    "neutral {D:0.99, and(X,THEM(ME)):0.01}",
-    0.004721905494187784
-   ]
-  ],
-  "chain_time_s": 1.2060508728027344,
-  "cut_flow": 2.6193021468792142e-05,
-  "n_expanded": 909
- },
- {
-  "arm": "strong",
-  "n": 6,
-  "game": "pd",
-  "N": 1000,
-  "x_on": true,
-  "role": false,
-  "mode": "square",
-  "n_programs": 1726,
-  "n_classes": 21,
-  "n_states": 42690,
-  "n_terminal_classes": 1,
-  "indeterminate": 0,
-  "pi_sum": 1.0000000000000002,
-  "absorb_error": 2.220446049250313e-16,
-  "near_closed_classes": 0,
-  "divergence_rate": 0.0004350342186637736,
-  "mean_bits_support": 2.661828606613175,
-  "mean_payoff": -1.000000000000001,
-  "efficient_payoff": 0.0,
-  "deadweight_loss": 1.000000000000001,
-  "support": [
-   [
-    "neutral {D:0.991, THEM(ME):0.009}",
-    0.047019972502704455
-   ],
-   [
-    "neutral {D:0.99, THEM(ME):0.01}",
-    0.04623925801565454
-   ],
-   [
-    "neutral {D:0.992, THEM(ME):0.008}",
-    0.04614153793453163
-   ],
-   [
-    "neutral {D:0.989, THEM(ME):0.011}",
-    0.044121198067207955
-   ],
-   [
-    "neutral {D:0.993, THEM(ME):0.007}",
-    0.04338513339443411
-   ],
-   [
-    "neutral {D:0.988, THEM(ME):0.012}",
-    0.04102477517728185
-   ],
-   [
-    "neutral {D:0.994, THEM(ME):0.006}",
-    0.03871331047462156
-   ],
-   [
-    "neutral {D:0.987, THEM(ME):0.013}",
-    0.037298141193998074
-   ],
-   [
-    "neutral {D:0.986, THEM(ME):0.014}",
-    0.03324835904582226
-   ],
-   [
-    "neutral {D:0.995, THEM(ME):0.005}",
-    0.032347504369260274
-   ],
-   [
-    "neutral {D:0.985, THEM(ME):0.015}",
-    0.029126099738198963
-   ],
-   [
-    "neutral {D:0.984, THEM(ME):0.016}",
-    0.025121493618362623
-   ]
-  ],
-  "chain_time_s": 81.43370008468628,
-  "cut_flow": 8.881786154747506e-05,
-  "n_expanded": 15260
- },
- {
-  "arm": "strong",
-  "n": 7,
-  "game": "pd",
-  "N": 10,
-  "x_on": true,
-  "role": false,
-  "mode": "sparse",
-  "n_programs": 8770,
-  "n_classes": 44,
-  "n_states": 4813,
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 786,
   "n_terminal_classes": 1,
   "indeterminate": 0,
   "pi_sum": 0.9999999999999996,
   "absorb_error": 4.440892098500626e-16,
   "near_closed_classes": 0,
-  "divergence_rate": 0.0053794387709827605,
-  "mean_bits_support": 2.6597713202933937,
-  "mean_payoff": -0.9999999999999993,
-  "efficient_payoff": 0.0,
-  "deadweight_loss": 0.9999999999999993,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.4211092464955115,
+  "mean_payoff": 0.4989743071601286,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.0010256928398714171,
+  "support": [
+   [
+    "mono {ROLE:1}",
+    0.7890115745172991
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.200702312949752
+   ],
+   [
+    "mono {X:1}",
+    0.0018677762288292561
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.65}",
+    0.0012418058470773008
+   ]
+  ],
+  "chain_time_s": 23.99318814277649,
+  "cut_flow": 5.047349889007531e-06,
+  "n_expanded": 127,
+  "poly_flow": 0.0001417009037670959
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "demand_norole",
+  "N": 10,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 771,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999997,
+  "absorb_error": 3.3306690738754696e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 4.326829616268566,
+  "mean_payoff": 0.39322091876028253,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.10677908123971747,
+  "support": [
+   [
+    "poly {C:0.4, D:0.1, X:0.3, and(X,X):0.1, or(X,X):0.1}",
+    0.2060295309763769
+   ],
+   [
+    "poly {C:0.5, D:0.2, X:0.1, and(X,X):0.1, or(X,X):0.1}",
+    0.1862535396816197
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.5}",
+    0.036646689605329665
+   ],
+   [
+    "poly {C:0.6, D:0.3, X:0.1}",
+    0.03549983854769761
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.4, and(X,X):0.1}",
+    0.030746739553553504
+   ],
+   [
+    "poly {C:0.5, D:0.3, X:0.1, or(X,X):0.1}",
+    0.028513376622100718
+   ],
+   [
+    "poly {C:0.6, D:0.2, X:0.1, and(X,X):0.1}",
+    0.028513367127907377
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.2, and(X,X):0.1, or(X,X):0.1, and(X,or(X,X)):0.1}",
+    0.026787033095552436
+   ],
+   [
+    "poly {C:0.5, D:0.1, X:0.1, and(X,X):0.1, or(X,X):0.1, and(X,or(X,X)):0.1}",
+    0.024888316684614054
+   ],
+   [
+    "poly {C:0.3, D:0.1, X:0.3, and(X,X):0.1, or(X,X):0.1, or(X,or(X,X)):0.1}",
+    0.02294729439334585
+   ],
+   [
+    "poly {C:0.3, D:0.1, X:0.3, and(X,X):0.1, or(X,X):0.1, or(THEM(ME),C):0.1}",
+    0.022852442832567092
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.2, and(X,X):0.1, or(X,X):0.1, and(X,and(X,X)):0.1}",
+    0.022841590153680272
+   ]
+  ],
+  "chain_time_s": 30.831368923187256,
+  "cut_flow": 4.670804445064112e-05,
+  "n_expanded": 221,
+  "poly_flow": 0.006751529447644461
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "demand_norole",
+  "N": 100,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 756,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 3.192551966879311,
+  "mean_payoff": 0.3972043970866434,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.1027956029133566,
+  "support": [
+   [
+    "poly {C:0.33, D:0.01, X:0.59, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.10201262344316124
+   ],
+   [
+    "poly {C:0.62, D:0.3, X:0.01, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.09740483524409489
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.63, and(X,X):0.01, or(X,X):0.01}",
+    0.06700968829920304
+   ],
+   [
+    "poly {C:0.65, D:0.32, X:0.01, and(X,X):0.01, or(X,X):0.01}",
+    0.06310561303830878
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.59, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.017172034724941637
+   ],
+   [
+    "poly {C:0.33, D:0.01, X:0.6, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.0171389098152107
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.59, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01}",
+    0.016646906566107823
+   ],
+   [
+    "poly {C:0.33, D:0.01, X:0.6, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.01629361886812376
+   ],
+   [
+    "poly {C:0.63, D:0.3, X:0.01, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.015987021488851373
+   ],
+   [
+    "poly {C:0.62, D:0.31, X:0.01, and(X,X):0.01, or(X,X):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.015983981776007378
+   ],
+   [
+    "poly {C:0.63, D:0.3, X:0.01, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.015840562247361065
+   ],
+   [
+    "poly {C:0.63, D:0.3, X:0.01, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.015774312884324466
+   ]
+  ],
+  "chain_time_s": 47.9133038520813,
+  "cut_flow": 3.839923598879552e-05,
+  "n_expanded": 250,
+  "poly_flow": 0.000987879117646769
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "demand_norole",
+  "N": 10,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 775,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 4.3335396200739575,
+  "mean_payoff": 0.3935052660198488,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.10649473398015119,
+  "support": [
+   [
+    "poly {C:0.4, D:0.1, X:0.3, and(X,X):0.1, or(X,X):0.1}",
+    0.20760833038733997
+   ],
+   [
+    "poly {C:0.5, D:0.2, X:0.1, and(X,X):0.1, or(X,X):0.1}",
+    0.18443069024296094
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.5}",
+    0.03674698627308894
+   ],
+   [
+    "poly {C:0.6, D:0.3, X:0.1}",
+    0.03491637364004488
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.4, and(X,X):0.1}",
+    0.030858478760531122
+   ],
+   [
+    "poly {C:0.5, D:0.3, X:0.1, or(X,X):0.1}",
+    0.02808197427858247
+   ],
+   [
+    "poly {C:0.6, D:0.2, X:0.1, and(X,X):0.1}",
+    0.028081797324144838
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.2, and(X,X):0.1, or(X,X):0.1, and(X,or(X,X)):0.1}",
+    0.02711175752770649
+   ],
+   [
+    "poly {C:0.5, D:0.1, X:0.1, and(X,X):0.1, or(X,X):0.1, and(X,or(X,X)):0.1}",
+    0.024768592083263537
+   ],
+   [
+    "poly {C:0.3, D:0.1, X:0.3, and(X,X):0.1, or(X,X):0.1, or(X,or(X,X)):0.1}",
+    0.023199380875689287
+   ],
+   [
+    "poly {C:0.3, D:0.1, X:0.3, and(X,X):0.1, or(X,X):0.1, or(THEM(ME),C):0.1}",
+    0.02312406165727985
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.2, and(X,X):0.1, or(X,X):0.1, and(X,and(X,X)):0.1}",
+    0.023107628836788345
+   ]
+  ],
+  "chain_time_s": 31.627185821533203,
+  "cut_flow": 4.487299339818179e-05,
+  "n_expanded": 223,
+  "poly_flow": 0.006726446217419144
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "demand_norole",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 762,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000004,
+  "absorb_error": 4.440892098500626e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 3.2329632002904223,
+  "mean_payoff": 0.3990445652680416,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.1009554347319584,
+  "support": [
+   [
+    "poly {C:0.33, D:0.01, X:0.59, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.11467481362805067
+   ],
+   [
+    "poly {C:0.62, D:0.3, X:0.01, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.09887769605250478
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.63, and(X,X):0.01, or(X,X):0.01}",
+    0.07067389389427117
+   ],
+   [
+    "poly {C:0.65, D:0.32, X:0.01, and(X,X):0.01, or(X,X):0.01}",
+    0.05278062905701107
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.59, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.018888739942718762
+   ],
+   [
+    "poly {C:0.33, D:0.01, X:0.6, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.018841123265085368
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.59, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01}",
+    0.018694883707330218
+   ],
+   [
+    "poly {C:0.33, D:0.01, X:0.6, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.01792294599743336
+   ],
+   [
+    "poly {C:0.35, D:0.01, X:0.61, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01}",
+    0.015063301918687674
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.62, and(X,X):0.01, or(X,X):0.01, or(X,and(X,X)):0.01}",
+    0.015058921610182867
+   ],
+   [
+    "poly {C:0.63, D:0.3, X:0.01, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.014821272577268752
+   ],
+   [
+    "poly {C:0.62, D:0.31, X:0.01, and(X,X):0.01, or(X,X):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.014818638133249313
+   ]
+  ],
+  "chain_time_s": 48.048197984695435,
+  "cut_flow": 3.5877558456940165e-05,
+  "n_expanded": 254,
+  "poly_flow": 0.000957187385577739
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "demand_norole",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 772,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 4.384657934176804,
+  "mean_payoff": 0.39496275582217744,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.10503724417782256,
+  "support": [
+   [
+    "poly {C:0.4, D:0.1, X:0.3, and(X,X):0.1, or(X,X):0.1}",
+    0.2208134913656182
+   ],
+   [
+    "poly {C:0.5, D:0.2, X:0.1, and(X,X):0.1, or(X,X):0.1}",
+    0.16830497822183396
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.5}",
+    0.03771586950666919
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.4, and(X,X):0.1}",
+    0.03187816451603064
+   ],
+   [
+    "poly {C:0.6, D:0.3, X:0.1}",
+    0.03034314964365088
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.2, and(X,X):0.1, or(X,X):0.1, and(X,or(X,X)):0.1}",
+    0.02978960090726957
+   ],
+   [
+    "poly {C:0.3, D:0.1, X:0.3, and(X,X):0.1, or(X,X):0.1, or(THEM(ME),C):0.1}",
+    0.025362262987782148
+   ],
+   [
+    "poly {C:0.4, D:0.1, X:0.2, and(X,X):0.1, or(X,X):0.1, and(X,and(X,X)):0.1}",
+    0.025307084355372114
+   ],
+   [
+    "poly {C:0.3, D:0.1, X:0.3, and(X,X):0.1, or(X,X):0.1, or(X,or(X,X)):0.1}",
+    0.025278772631053468
+   ],
+   [
+    "poly {C:0.5, D:0.3, X:0.1, or(X,X):0.1}",
+    0.024638839648526728
+   ],
+   [
+    "poly {C:0.6, D:0.2, X:0.1, and(X,X):0.1}",
+    0.024633566995585866
+   ],
+   [
+    "poly {C:0.5, D:0.1, X:0.1, and(X,X):0.1, or(X,X):0.1, and(X,or(X,X)):0.1}",
+    0.02345025818283569
+   ]
+  ],
+  "chain_time_s": 30.074317932128906,
+  "cut_flow": 4.506566333678942e-05,
+  "n_expanded": 225,
+  "poly_flow": 0.006543902284212675
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "demand_norole",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 913,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 4.38302230215009,
+  "mean_payoff": 0.3997793570433994,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.1002206429566006,
+  "support": [
+   [
+    "poly {C:0.33, D:0.01, X:0.59, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.1358900533844455
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.63, and(X,X):0.01, or(X,X):0.01}",
+    0.06950100880286395
+   ],
+   [
+    "poly {D:0.33, not(THEM(ME)):0.01, not(THEM(THEM)):0.66}",
+    0.051003836727200505
+   ],
+   [
+    "poly {D:0.33, not(THEM(ME)):0.66, not(THEM(THEM)):0.01}",
+    0.047159687688465374
+   ],
+   [
+    "poly {C:0.62, D:0.3, X:0.01, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.042207078535051255
+   ],
+   [
+    "poly {C:0.65, D:0.32, X:0.01, and(X,X):0.01, or(X,X):0.01}",
+    0.02841125578558057
+   ],
+   [
+    "poly {D:0.33, not(THEM(THEM)):0.67}",
+    0.02351856223569425
+   ],
+   [
+    "poly {D:0.33, not(THEM(ME)):0.67}",
+    0.022987050143814188
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.59, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.020463236617260527
+   ],
+   [
+    "poly {C:0.33, D:0.01, X:0.6, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.020385558977948425
+   ],
+   [
+    "poly {C:0.34, D:0.01, X:0.59, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, and(X,or(X,X)):0.01, or(X,or(X,X)):0.01}",
+    0.020261446473059653
+   ],
+   [
+    "poly {C:0.33, D:0.01, X:0.6, and(X,X):0.01, or(X,X):0.01, and(X,and(X,X)):0.01, or(X,and(X,X)):0.01, or(X,or(X,X)):0.01, or(THEM(ME),C):0.01}",
+    0.019338051713594494
+   ]
+  ],
+  "chain_time_s": 54.819591999053955,
+  "cut_flow": 3.056522440709784e-05,
+  "n_expanded": 309,
+  "poly_flow": 0.000901985324689583
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "dollar",
+  "N": 10,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 182,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.786006065271012,
+  "mean_payoff": 0.21352629900831394,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.28647370099168606,
+  "support": [
+   [
+    "mono {C:1}",
+    0.3334502563819324
+   ],
+   [
+    "mono {D:1}",
+    0.3261557656836923
+   ],
+   [
+    "mono {X:1}",
+    0.3111427881264424
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.007557785567975895
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.007482475129685309
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0037351686473385353
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.003708293287119165
+   ]
+  ],
+  "chain_time_s": 0.383807897567749,
+  "cut_flow": 1.886299367258358e-06,
+  "n_expanded": 59,
+  "poly_flow": 0.00022973345570010496
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "dollar",
+  "N": 100,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 154,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.7882782625009095,
+  "mean_payoff": 0.2346077157758451,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.2653922842241549,
+  "support": [
+   [
+    "mono {C:1}",
+    0.37785174213036093
+   ],
+   [
+    "mono {X:1}",
+    0.29780279359639916
+   ],
+   [
+    "mono {D:1}",
+    0.294925630993331
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.007760021455722696
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.006865913618677507
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0042280796665705896
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.00419765592463249
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.001043239936735854
+   ]
+  ],
+  "chain_time_s": 0.3266031742095947,
+  "cut_flow": 1.7059963826399017e-07,
+  "n_expanded": 57,
+  "poly_flow": 2.2948893575750748e-05
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "dollar",
+  "N": 10,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 182,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.789816215062415,
+  "mean_payoff": 0.22994975470665568,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.2700502452933443,
+  "support": [
+   [
+    "mono {C:1}",
+    0.36775899880700486
+   ],
+   [
+    "mono {D:1}",
+    0.3014880254565832
+   ],
+   [
+    "mono {X:1}",
+    0.3009289090187779
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.007725236015314239
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.00699684668392218
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.004120174076767905
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.004090529833204611
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.0010160874468249342
+   ]
+  ],
+  "chain_time_s": 0.2599368095397949,
+  "cut_flow": 1.89319640965972e-06,
+  "n_expanded": 59,
+  "poly_flow": 0.00023685529561259328
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "dollar",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 154,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999998,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.80706089741571,
+  "mean_payoff": 0.4164023578829092,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.08359764211709081,
+  "support": [
+   [
+    "mono {C:1}",
+    0.775286527436212
+   ],
+   [
+    "mono {X:1}",
+    0.12273298372239883
+   ],
+   [
+    "mono {D:1}",
+    0.06967224442070041
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.008680927788104661
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.00861848706786746
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.00629720572002245
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.002145552590053748
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.0018700605345698398
+   ]
+  ],
+  "chain_time_s": 0.26683807373046875,
+  "cut_flow": 1.1984620786786129e-07,
+  "n_expanded": 57,
+  "poly_flow": 2.044197808480383e-05
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "dollar",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 182,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.8140752362438484,
+  "mean_payoff": 0.36530223092752223,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.13469776907247777,
+  "support": [
+   [
+    "mono {C:1}",
+    0.6578026460550093
+   ],
+   [
+    "mono {X:1}",
+    0.19018038068684223
+   ],
+   [
+    "mono {D:1}",
+    0.11854846808073233
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.007857488218631642
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0074506671713965265
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.007397216752615705
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.003168357458216776
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.0018392906924873406
+   ]
+  ],
+  "chain_time_s": 0.3258349895477295,
+  "cut_flow": 1.6173383119275713e-06,
+  "n_expanded": 59,
+  "poly_flow": 0.00023615271871598812
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "dollar",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 153,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999998,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.811944433968316,
+  "mean_payoff": 0.4999956234508483,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 4.376549151696718e-06,
+  "support": [
+   [
+    "mono {C:1}",
+    0.9682028813363315
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.010862451172854745
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.01078428980476893
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.0026786071327198624
+   ],
+   [
+    "mono {not(THEM(THEM)):1}",
+    0.002297381609147605
+   ],
+   [
+    "mono {not(THEM(ME)):1}",
+    0.0022973815150770112
+   ]
+  ],
+  "chain_time_s": 0.2918729782104492,
+  "cut_flow": 1.2508157481193348e-08,
+  "n_expanded": 51,
+  "poly_flow": 1.7358433166116312e-07
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "exchange",
+  "N": 10,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 48,
+  "n_states": 399,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.793240828940481,
+  "mean_payoff": 0.9512341162494099,
+  "efficient_payoff": 2.0,
+  "deadweight_loss": 1.04876588375059,
   "support": [
    [
     "mono {D:1}",
-    0.9323467192319758
+    0.3486273092688659
    ],
    [
-    "neutral {D:0.9, THEM(ME):0.1}",
-    0.03647848257559457
+    "mono {X:1}",
+    0.3116229882789864
    ],
    [
-    "neutral {D:0.8, THEM(ME):0.2}",
-    0.013835470483575385
+    "mono {C:1}",
+    0.3096393661940949
    ],
    [
-    "neutral {D:0.7, THEM(ME):0.3}",
-    0.006590795342875703
+    "mono {and(X,X):1}",
+    0.007752863627893591
    ],
    [
-    "neutral {D:0.6, THEM(ME):0.4}",
-    0.0028384704683813646
+    "mono {or(X,X):1}",
+    0.007315086076048678
    ],
    [
-    "neutral {D:0.9, and(THEM(ME),D):0.1}",
-    0.0015736708271226385
+    "mono {THEM(ME):1}",
+    0.003551714561437775
    ],
    [
-    "neutral {D:0.9, and(THEM(ME),X):0.1}",
-    0.0011476478060851304
-   ],
-   [
-    "neutral {D:0.9, and(X,THEM(ME)):0.1}",
-    0.0011476478060851289
+    "mono {THEM(THEM):1}",
+    0.0035259315633103423
    ]
   ],
-  "chain_time_s": 20.553874015808105,
-  "cut_flow": 1.5151477406251126e-05,
-  "n_expanded": 611,
-  "n_pairs_evaluated": 7595402,
-  "n_supports": 173
+  "chain_time_s": 7.008940935134888,
+  "cut_flow": 7.992374284008233e-06,
+  "n_expanded": 69,
+  "poly_flow": 0.0001536738149815078
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "exchange",
+  "N": 100,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 48,
+  "n_states": 409,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.766482815428682,
+  "mean_payoff": 0.6773971391738521,
+  "efficient_payoff": 2.0,
+  "deadweight_loss": 1.322602860826148,
+  "support": [
+   [
+    "mono {D:1}",
+    0.5005433518921806
+   ],
+   [
+    "mono {X:1}",
+    0.2880080309588605
+   ],
+   [
+    "mono {C:1}",
+    0.18529873876750483
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.008927820425336363
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.005435789984030982
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0023701816854793355
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.0023527036773402055
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.001499536899251035
+   ]
+  ],
+  "chain_time_s": 7.358794927597046,
+  "cut_flow": 1.0385732618169343e-06,
+  "n_expanded": 69,
+  "poly_flow": 1.4687871681406938e-05
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "exchange",
+  "N": 10,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 48,
+  "n_states": 399,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.7687925678166327,
+  "mean_payoff": 0.6488004100868711,
+  "efficient_payoff": 2.0,
+  "deadweight_loss": 1.3511995899131288,
+  "support": [
+   [
+    "mono {D:1}",
+    0.5184587733243221
+   ],
+   [
+    "mono {X:1}",
+    0.2793223889629945
+   ],
+   [
+    "mono {C:1}",
+    0.17569937433009297
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.00889252885347646
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.0051877717253313435
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0026730889041802525
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.002653417874021846
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.0013437909201799692
+   ]
+  ],
+  "chain_time_s": 6.901252746582031,
+  "cut_flow": 7.1966159499420345e-06,
+  "n_expanded": 69,
+  "poly_flow": 0.00014066722617923102
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "exchange",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 48,
+  "n_states": 382,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.7056217648743486,
+  "mean_payoff": 0.03631305595338544,
+  "efficient_payoff": 2.0,
+  "deadweight_loss": 1.9636869440466145,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9716629143212666
+   ],
+   [
+    "mono {X:1}",
+    0.011032381100126939
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.008733819704242859
+   ],
+   [
+    "mono {C:1}",
+    0.0025490038799812604
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.002068128646476812
+   ]
+  ],
+  "chain_time_s": 6.1303911209106445,
+  "cut_flow": 2.300812187893999e-06,
+  "n_expanded": 62,
+  "poly_flow": 9.618951174077793e-06
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "exchange",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 48,
+  "n_states": 373,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.6906938901605275,
+  "mean_payoff": 0.037334802994823287,
+  "efficient_payoff": 2.0,
+  "deadweight_loss": 1.9626651970051767,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9670479682799246
+   ],
+   [
+    "mono {X:1}",
+    0.01558230961982409
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.005143014008990996
+   ],
+   [
+    "mono {C:1}",
+    0.004030866288650582
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.002002450743057777
+   ],
+   [
+    "mono {THEM(^X):1}",
+    0.001487972187893243
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0011276992416679307
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.0011192982317466738
+   ]
+  ],
+  "chain_time_s": 5.371025800704956,
+  "cut_flow": 4.876129093536145e-06,
+  "n_expanded": 65,
+  "poly_flow": 7.839063275255971e-05
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "exchange",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 48,
+  "n_states": 783,
+  "n_terminal_classes": 1,
+  "indeterminate": 69,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.8344783455623177,
+  "mean_payoff": 0.05800689197854803,
+  "efficient_payoff": 2.0,
+  "deadweight_loss": 1.9419931080214519,
+  "support": [
+   [
+    "mono {D:1}",
+    0.966803172071791
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.02372123339617652
+   ],
+   [
+    "mono {X:1}",
+    0.001474671547546003
+   ],
+   [
+    "mono {C:1}",
+    0.0013999916755175017
+   ]
+  ],
+  "chain_time_s": 30.13621211051941,
+  "cut_flow": 5.48717206752512e-06,
+  "n_expanded": 110,
+  "poly_flow": 2.158415510722519e-05
+ },
+ {
+  "arm": "source",
+  "n": 6,
+  "game": "pd",
+  "N": 10,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 2110,
+  "n_classes": 220,
+  "n_states": 2618,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999993,
+  "absorb_error": 6.661338147750939e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0014312346982322949,
+  "mean_bits_support": 4.161874459221264,
+  "mean_payoff": -0.5214230072926547,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.5214230072926547,
+  "support": [
+   [
+    "mono {D:1}",
+    0.23574134624681303
+   ],
+   [
+    "mono {X:1}",
+    0.22316401370733577
+   ],
+   [
+    "mono {C:1}",
+    0.21131667095293638
+   ],
+   [
+    "mono {not(C):1}",
+    0.05892529239986703
+   ],
+   [
+    "mono {not(X):1}",
+    0.0557814947596153
+   ],
+   [
+    "mono {not(D):1}",
+    0.05282016329725481
+   ],
+   [
+    "mono {not(not(not(C))):1}",
+    0.025756607100901257
+   ],
+   [
+    "mono {not(not(not(D))):1}",
+    0.02308801777008433
+   ],
+   [
+    "mono {not(not(not(X))):1}",
+    0.014932984826525964
+   ],
+   [
+    "mono {not(or(X,X)):1}",
+    0.00391994663950209
+   ],
+   [
+    "mono {not(and(X,X)):1}",
+    0.0037114111373737334
+   ],
+   [
+    "mono {eq(THEM,ME):1}",
+    0.003251528389599693
+   ]
+  ],
+  "chain_time_s": 4.773895978927612,
+  "cut_flow": 1.115874131927524e-05,
+  "n_expanded": 221,
+  "poly_flow": 1.4982908383700818e-05
+ },
+ {
+  "arm": "source",
+  "n": 6,
+  "game": "pd",
+  "N": 100,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 2110,
+  "n_classes": 220,
+  "n_states": 2586,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999993,
+  "absorb_error": 6.661338147750939e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0014312346982322949,
+  "mean_bits_support": 4.2031686434872695,
+  "mean_payoff": -0.6535587625696726,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.6535587625696726,
+  "support": [
+   [
+    "mono {D:1}",
+    0.3373178192460566
+   ],
+   [
+    "mono {X:1}",
+    0.20405540119650886
+   ],
+   [
+    "mono {C:1}",
+    0.12384586122103791
+   ],
+   [
+    "mono {not(C):1}",
+    0.08418361425946116
+   ],
+   [
+    "mono {not(X):1}",
+    0.05091708130956965
+   ],
+   [
+    "mono {not(not(not(C))):1}",
+    0.036789292634038136
+   ],
+   [
+    "mono {not(D):1}",
+    0.030897213871365733
+   ],
+   [
+    "mono {not(not(not(X))):1}",
+    0.013627616363250907
+   ],
+   [
+    "mono {not(not(not(D))):1}",
+    0.013502029085060667
+   ],
+   [
+    "mono {eq(THEM,ME):1}",
+    0.007373201561105075
+   ],
+   [
+    "mono {eq(ME,THEM):1}",
+    0.007373201561104958
+   ],
+   [
+    "mono {and(X,D):1}",
+    0.004488965946445381
+   ]
+  ],
+  "chain_time_s": 4.1373679637908936,
+  "cut_flow": 2.031765834741192e-06,
+  "n_expanded": 220,
+  "poly_flow": 2.031765834741186e-06
+ },
+ {
+  "arm": "source",
+  "n": 6,
+  "game": "pd",
+  "N": 10,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 2110,
+  "n_classes": 220,
+  "n_states": 2636,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999993,
+  "absorb_error": 6.661338147750939e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0014312346982322949,
+  "mean_bits_support": 4.20443086278078,
+  "mean_payoff": -0.6752633674544267,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.6752633674544267,
+  "support": [
+   [
+    "mono {D:1}",
+    0.3552583191691928
+   ],
+   [
+    "mono {X:1}",
+    0.19712961196431672
+   ],
+   [
+    "mono {C:1}",
+    0.11274877208828692
+   ],
+   [
+    "mono {not(C):1}",
+    0.08865232579255242
+   ],
+   [
+    "mono {not(X):1}",
+    0.04918196541755559
+   ],
+   [
+    "mono {not(not(not(C))):1}",
+    0.038741621229394146
+   ],
+   [
+    "mono {not(D):1}",
+    0.028123084701149777
+   ],
+   [
+    "mono {not(not(not(X))):1}",
+    0.01316294724343414
+   ],
+   [
+    "mono {not(not(not(D))):1}",
+    0.012289392164360213
+   ],
+   [
+    "mono {eq(ME,THEM):1}",
+    0.007148268775982542
+   ],
+   [
+    "mono {eq(THEM,ME):1}",
+    0.007148268775982441
+   ],
+   [
+    "mono {and(X,D):1}",
+    0.004727199684240785
+   ]
+  ],
+  "chain_time_s": 4.247173070907593,
+  "cut_flow": 1.0330263989759698e-05,
+  "n_expanded": 223,
+  "poly_flow": 2.016003594124843e-05
+ },
+ {
+  "arm": "source",
+  "n": 6,
+  "game": "pd",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 2110,
+  "n_classes": 220,
+  "n_states": 2601,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999997,
+  "absorb_error": 3.3306690738754696e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0014312346982322949,
+  "mean_bits_support": 8.340314620885115,
+  "mean_payoff": -0.2294761945935045,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.2294761945935045,
+  "support": [
+   [
+    "mono {eq(ME,THEM):1}",
+    0.3307199611203734
+   ],
+   [
+    "mono {eq(THEM,ME):1}",
+    0.3307199611203725
+   ],
+   [
+    "mono {D:1}",
+    0.15159657578995575
+   ],
+   [
+    "mono {not(C):1}",
+    0.0378009908571158
+   ],
+   [
+    "mono {not(not(not(C))):1}",
+    0.01649588682305463
+   ],
+   [
+    "poly {eq(ME,THEM):0.5, eq(THEM,ME):0.5}",
+    0.010440947462147946
+   ],
+   [
+    "mono {not(not(eq(THEM,ME))):1}",
+    0.008754727925974962
+   ],
+   [
+    "mono {not(not(eq(ME,THEM))):1}",
+    0.008754727925974962
+   ],
+   [
+    "mono {or(D,eq(THEM,ME)):1}",
+    0.008754727925974957
+   ],
+   [
+    "mono {and(eq(THEM,ME),C):1}",
+    0.008754727925974783
+   ],
+   [
+    "mono {or(eq(ME,THEM),D):1}",
+    0.008754727925954067
+   ],
+   [
+    "mono {and(C,eq(THEM,ME)):1}",
+    0.008754727925954064
+   ]
+  ],
+  "chain_time_s": 7.770188093185425,
+  "cut_flow": 5.179354636815021e-06,
+  "n_expanded": 221,
+  "poly_flow": 1.0640969469971349e-05
+ },
+ {
+  "arm": "source",
+  "n": 6,
+  "game": "pd",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 2110,
+  "n_classes": 220,
+  "n_states": 3158,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999986,
+  "absorb_error": 1.4432899320127035e-15,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0014312346982322949,
+  "mean_bits_support": 8.818621619118646,
+  "mean_payoff": -9.263899836444155e-05,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 9.263899836444155e-05,
+  "support": [
+   [
+    "mono {eq(THEM,ME):1}",
+    0.49958214570590237
+   ],
+   [
+    "mono {eq(ME,THEM):1}",
+    0.4995800541874383
+   ]
+  ],
+  "chain_time_s": 5.014064788818359,
+  "cut_flow": 1.4368791374885281e-11,
+  "n_expanded": 257,
+  "poly_flow": 8.02663069277237e-11
+ },
+ {
+  "arm": "source",
+  "n": 6,
+  "game": "pd",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 2110,
+  "n_classes": 220,
+  "n_states": 3149,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0014312346982322949,
+  "mean_bits_support": 14.978507648489778,
+  "mean_payoff": -0.1428571428600708,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.1428571428600708,
+  "support": [
+   [
+    "mono {eq(ME,THEM):1}",
+    0.03571428571459098
+   ],
+   [
+    "mono {eq(THEM,ME):1}",
+    0.03571428571430885
+   ],
+   [
+    "mono {or(eq(THEM,ME),not(C)):1}",
+    0.03571428571423019
+   ],
+   [
+    "mono {and(eq(THEM,ME),not(D)):1}",
+    0.03571428571413571
+   ],
+   [
+    "mono {or(not(C),eq(ME,THEM)):1}",
+    0.0357142857141283
+   ],
+   [
+    "mono {and(eq(ME,THEM),not(D)):1}",
+    0.03571428571412551
+   ],
+   [
+    "mono {and(eq(ME,THEM),C):1}",
+    0.035714285714038174
+   ],
+   [
+    "mono {and(X,eq(ME,THEM)):1}",
+    0.035714285714038174
+   ],
+   [
+    "mono {and(X,eq(THEM,ME)):1}",
+    0.035714285714038174
+   ],
+   [
+    "mono {or(D,eq(ME,THEM)):1}",
+    0.035714285714038174
+   ],
+   [
+    "mono {and(C,eq(ME,THEM)):1}",
+    0.035714285714038174
+   ],
+   [
+    "mono {not(not(eq(THEM,ME))):1}",
+    0.035714285714038174
+   ]
+  ],
+  "chain_time_s": 8.399702072143555,
+  "cut_flow": 1.423063200586677e-17,
+  "n_expanded": 258,
+  "poly_flow": 1.42308700715358e-17
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "pd",
+  "N": 10,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 25,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.7333262328642753,
+  "mean_payoff": -0.5209032220986998,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.5209032220986998,
+  "support": [
+   [
+    "mono {D:1}",
+    0.35002634606235417
+   ],
+   [
+    "mono {X:1}",
+    0.3139713294692982
+   ],
+   [
+    "mono {C:1}",
+    0.3135373949519189
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.008191518773696737
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.007752700682426465
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0037630014866302302
+   ]
+  ],
+  "chain_time_s": 0.29836273193359375,
+  "cut_flow": 2.6706369111275973e-07,
+  "n_expanded": 21,
+  "poly_flow": 2.6706369111275973e-07
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "pd",
+  "N": 100,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 25,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000004,
+  "absorb_error": 4.440892098500626e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.720522586983172,
+  "mean_payoff": -0.6639437579159934,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.6639437579159934,
+  "support": [
+   [
+    "mono {D:1}",
+    0.5060692332224177
+   ],
+   [
+    "mono {X:1}",
+    0.2890685286060514
+   ],
+   [
+    "mono {C:1}",
+    0.18429387079651924
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.00944827963745043
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.005701259286768186
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0030714984814345027
+   ]
+  ],
+  "chain_time_s": 0.04212617874145508,
+  "cut_flow": 1.878064177946994e-08,
+  "n_expanded": 21,
+  "poly_flow": 1.878064177946994e-08
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "pd",
+  "N": 1000,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 25,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.6130643709298034,
+  "mean_payoff": -0.9953158214254036,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9953158214254036,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9885087344921809
+   ],
+   [
+    "mono {X:1}",
+    0.007155215217896519
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.001971861520222031
+   ]
+  ],
+  "chain_time_s": 0.05615091323852539,
+  "cut_flow": 1.4550049061693324e-11,
+  "n_expanded": 21,
+  "poly_flow": 1.4550049061693322e-11
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "pd",
+  "N": 10,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 25,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.7189875946642728,
+  "mean_payoff": -0.685950066604369,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.685950066604369,
+  "support": [
+   [
+    "mono {D:1}",
+    0.5330144457866994
+   ],
+   [
+    "mono {X:1}",
+    0.27906954506219733
+   ],
+   [
+    "mono {C:1}",
+    0.16758599671915564
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.009491280636635832
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.005325565575684029
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.003188230803472265
+   ]
+  ],
+  "chain_time_s": 0.08097195625305176,
+  "cut_flow": 1.8208256254281315e-07,
+  "n_expanded": 21,
+  "poly_flow": 1.8208256254281315e-07
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "pd",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 25,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.610203218977848,
+  "mean_payoff": -0.996479535500765,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.996479535500765,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9910488963367566
+   ],
+   [
+    "mono {X:1}",
+    0.005070997855752321
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.001563108216940108
+   ]
+  ],
+  "chain_time_s": 0.04350423812866211,
+  "cut_flow": 1.1533234982241142e-10,
+  "n_expanded": 21,
+  "poly_flow": 1.1533234982241141e-10
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "pd",
+  "N": 1000,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 25,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.5960836852906026,
+  "mean_payoff": -0.9998805781723418,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9998805781723418,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9988125338392609
+   ]
+  ],
+  "chain_time_s": 0.08750391006469727,
+  "cut_flow": 3.008954295105911e-12,
+  "n_expanded": 21,
+  "poly_flow": 3.008954295105911e-12
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "pd",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 25,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.599817335793289,
+  "mean_payoff": -0.9989213475592007,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9989213475592007,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9967688239125297
+   ],
+   [
+    "mono {X:1}",
+    0.0011098698707343838
+   ]
+  ],
+  "chain_time_s": 0.07860493659973145,
+  "cut_flow": 6.989185846969669e-10,
+  "n_expanded": 21,
+  "poly_flow": 6.989185846969669e-10
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "pd",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 25,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.5959772359124904,
+  "mean_payoff": -0.9998559077545911,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9998559077545911,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9987939946620563
+   ]
+  ],
+  "chain_time_s": 0.06308507919311523,
+  "cut_flow": 6.236979884169896e-11,
+  "n_expanded": 21,
+  "poly_flow": 6.236979884169896e-11
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "pd",
+  "N": 1000,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 25,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.5956079401409538,
+  "mean_payoff": -0.9999850918734656,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9999850918734656,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9990465114454256
+   ]
+  ],
+  "chain_time_s": 0.07858681678771973,
+  "cut_flow": 6.535204892562766e-12,
+  "n_expanded": 21,
+  "poly_flow": 6.535204892562766e-12
  },
  {
   "arm": "strong",
   "n": 7,
   "game": "pd",
-  "N": 100,
+  "N": 10,
+  "w": 0.01,
   "x_on": true,
   "role": false,
   "mode": "sparse",
   "n_programs": 8770,
   "n_classes": 44,
-  "n_states": 47728,
+  "n_states": 353,
   "n_terminal_classes": 1,
   "indeterminate": 0,
-  "pi_sum": 0.9999999999999994,
-  "absorb_error": 5.551115123125783e-16,
+  "pi_sum": 1.0000000000000013,
+  "absorb_error": 1.3322676295501878e-15,
   "near_closed_classes": 0,
-  "divergence_rate": 0.005830936344308863,
-  "mean_bits_support": 2.668720866057686,
-  "mean_payoff": -1.0000000000000007,
+  "divergence_rate": 0.00583309325890072,
+  "mean_bits_support": 2.74973722735151,
+  "mean_payoff": -0.5210189876454471,
   "efficient_payoff": 0.0,
-  "deadweight_loss": 1.0000000000000007,
+  "deadweight_loss": 0.5210189876454471,
   "support": [
    [
     "mono {D:1}",
-    0.490178521075835
+    0.34996255230772433
    ],
    [
-    "neutral {D:0.99, THEM(ME):0.01}",
-    0.1917824421510983
+    "mono {C:1}",
+    0.31348466009584397
    ],
    [
-    "neutral {D:0.98, THEM(ME):0.02}",
-    0.10179628244799714
+    "mono {X:1}",
+    0.3120859035162776
    ],
    [
-    "neutral {D:0.97, THEM(ME):0.03}",
-    0.058614473987690305
+    "mono {and(X,X):1}",
+    0.00879626105893148
    ],
    [
-    "neutral {D:0.96, THEM(ME):0.04}",
-    0.035002115760103446
+    "mono {or(X,X):1}",
+    0.00832507536034695
    ],
    [
-    "neutral {D:0.95, THEM(ME):0.05}",
-    0.021317470158447652
-   ],
-   [
-    "neutral {D:0.94, THEM(ME):0.06}",
-    0.013134811043738011
-   ],
-   [
-    "neutral {D:0.99, and(THEM(ME),D):0.01}",
-    0.008277110858595406
-   ],
-   [
-    "neutral {D:0.93, THEM(ME):0.07}",
-    0.008150655704925099
-   ],
-   [
-    "neutral {D:0.99, and(THEM(ME),X):0.01}",
-    0.006036382662931774
-   ],
-   [
-    "neutral {D:0.99, and(X,THEM(ME)):0.01}",
-    0.006036382662930672
-   ],
-   [
-    "neutral {D:0.92, THEM(ME):0.08}",
-    0.0050795185991216905
+    "mono {THEM(ME):1}",
+    0.003819730549758586
    ]
   ],
-  "chain_time_s": 40.190452098846436,
-  "cut_flow": 4.376905172604115e-05,
-  "n_expanded": 5727,
-  "n_pairs_evaluated": 8060112,
-  "n_supports": 180
+  "chain_time_s": 9.323567152023315,
+  "cut_flow": 1.1946636391660007e-05,
+  "n_expanded": 102,
+  "poly_flow": 1.614575819813874e-06,
+  "n_pairs_evaluated": 4193144,
+  "n_supports": 103
+ },
+ {
+  "arm": "strong",
+  "n": 7,
+  "game": "pd",
+  "N": 100,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "sparse",
+  "n_programs": 8770,
+  "n_classes": 44,
+  "n_states": 329,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.000000000000001,
+  "absorb_error": 1.1102230246251565e-15,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.005343889039541213,
+  "mean_bits_support": 2.732858810229259,
+  "mean_payoff": -0.6640439330844079,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.6640439330844079,
+  "support": [
+   [
+    "mono {D:1}",
+    0.5060576822482492
+   ],
+   [
+    "mono {X:1}",
+    0.2874018186510081
+   ],
+   [
+    "mono {C:1}",
+    0.18432255434449402
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.010147834606357006
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.0061238926310879386
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0031191348289656916
+   ]
+  ],
+  "chain_time_s": 8.210458755493164,
+  "cut_flow": 4.3170626626057785e-06,
+  "n_expanded": 94,
+  "poly_flow": 1.113685747427778e-07,
+  "n_pairs_evaluated": 3982680,
+  "n_supports": 95
+ },
+ {
+  "arm": "strong",
+  "n": 7,
+  "game": "pd",
+  "N": 10,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "sparse",
+  "n_programs": 8770,
+  "n_classes": 44,
+  "n_states": 349,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000013,
+  "absorb_error": 1.3322676295501878e-15,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.00583309325890072,
+  "mean_bits_support": 2.7344024075740987,
+  "mean_payoff": -0.6861144819640271,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.6861144819640271,
+  "support": [
+   [
+    "mono {D:1}",
+    0.5328546401157803
+   ],
+   [
+    "mono {X:1}",
+    0.27738236201818983
+   ],
+   [
+    "mono {C:1}",
+    0.16756429008857016
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.010191180649255097
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.005718734698043392
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0032364549398769026
+   ]
+  ],
+  "chain_time_s": 8.996675968170166,
+  "cut_flow": 1.0478206475645541e-05,
+  "n_expanded": 102,
+  "poly_flow": 1.1590261945366915e-06,
+  "n_pairs_evaluated": 4193144,
+  "n_supports": 103
+ },
+ {
+  "arm": "strong",
+  "n": 7,
+  "game": "pd",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "sparse",
+  "n_programs": 8770,
+  "n_classes": 44,
+  "n_states": 311,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000042,
+  "absorb_error": 4.218847493575595e-15,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.005283114048209028,
+  "mean_bits_support": 2.6145171947518806,
+  "mean_payoff": -0.9964443098861262,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9964443098861262,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9906043614616672
+   ],
+   [
+    "mono {X:1}",
+    0.005065868147288974
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.0016798041867882806
+   ]
+  ],
+  "chain_time_s": 7.084963798522949,
+  "cut_flow": 9.979009943343167e-07,
+  "n_expanded": 90,
+  "poly_flow": 1.4702623670465062e-09,
+  "n_pairs_evaluated": 3877448,
+  "n_supports": 91
+ },
+ {
+  "arm": "strong",
+  "n": 7,
+  "game": "pd",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "sparse",
+  "n_programs": 8770,
+  "n_classes": 44,
+  "n_states": 309,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000013,
+  "absorb_error": 1.3322676295501878e-15,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.005267531172587857,
+  "mean_bits_support": 2.60346511910121,
+  "mean_payoff": -0.9989047212053694,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9989047212053694,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9964197159507917
+   ],
+   [
+    "mono {X:1}",
+    0.0011233761389446444
+   ]
+  ],
+  "chain_time_s": 7.044718027114868,
+  "cut_flow": 4.024167774646569e-06,
+  "n_expanded": 89,
+  "poly_flow": 4.612686809612666e-09,
+  "n_pairs_evaluated": 3851140,
+  "n_supports": 90
+ },
+ {
+  "arm": "strong",
+  "n": 7,
+  "game": "pd",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "sparse",
+  "n_programs": 8770,
+  "n_classes": 44,
+  "n_states": 309,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000007,
+  "absorb_error": 6.661338147750939e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.005267531172587857,
+  "mean_bits_support": 2.5995987534053886,
+  "mean_payoff": -0.9998537318684226,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9998537318684226,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9984742107586486
+   ]
+  ],
+  "chain_time_s": 7.415616989135742,
+  "cut_flow": 4.067574597228445e-07,
+  "n_expanded": 89,
+  "poly_flow": 2.7420695662919897e-10,
+  "n_pairs_evaluated": 3851140,
+  "n_supports": 90
  },
  {
   "arm": "weak",
   "n": 6,
   "game": "pd",
   "N": 10,
+  "w": 0.01,
   "x_on": true,
   "role": false,
   "mode": "square",
   "n_programs": 1852,
   "n_classes": 48,
-  "n_states": 2684,
+  "n_states": 119,
   "n_terminal_classes": 1,
-  "indeterminate": 62,
+  "indeterminate": 0,
   "pi_sum": 1.0000000000000002,
   "absorb_error": 2.220446049250313e-16,
   "near_closed_classes": 0,
   "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 4.62534414685794,
-  "mean_payoff": -0.6835793084928411,
+  "mean_bits_support": 2.7917556750012036,
+  "mean_payoff": -0.522899065519541,
   "efficient_payoff": 0.0,
-  "deadweight_loss": 0.6835793084928411,
+  "deadweight_loss": 0.522899065519541,
   "support": [
    [
     "mono {D:1}",
-    0.5843913761029452
+    0.3471532832490992
    ],
    [
-    "neutral {C:0.3, THEM(^C):0.7}",
-    0.0788845601852596
+    "mono {X:1}",
+    0.31214280917729864
    ],
    [
-    "neutral {C:0.2, THEM(^C):0.8}",
-    0.06913967032617489
+    "mono {C:1}",
+    0.31121851865940564
    ],
    [
-    "neutral {C:0.4, THEM(^C):0.6}",
-    0.06709816236433935
+    "mono {and(X,X):1}",
+    0.007743881712318266
    ],
    [
-    "neutral {C:0.5, THEM(^C):0.5}",
-    0.03683394362394185
+    "mono {or(X,X):1}",
+    0.007331956395476911
    ],
    [
-    "neutral {C:0.1, THEM(^C):0.9}",
-    0.031084631485783207
+    "mono {THEM(ME):1}",
+    0.0036073488228361913
    ],
    [
-    "neutral {D:0.9, THEM(ME):0.1}",
-    0.021082495627554314
-   ],
-   [
-    "neutral {D:0.9, THEM(THEM):0.1}",
-    0.02107145105805316
-   ],
-   [
-    "mono {THEM(^C):1}",
-    0.009262542845988576
-   ],
-   [
-    "neutral {D:0.8, THEM(THEM):0.2}",
-    0.007880688277327293
-   ],
-   [
-    "neutral {D:0.8, THEM(ME):0.2}",
-    0.00785227220682494
-   ],
-   [
-    "neutral {C:0.6, THEM(^C):0.4}",
-    0.007707520739392831
+    "mono {THEM(THEM):1}",
+    0.003594389679076161
    ]
   ],
-  "chain_time_s": 11.824886083602905,
-  "cut_flow": 9.401010742140276e-05,
-  "n_expanded": 340
+  "chain_time_s": 0.46907496452331543,
+  "cut_flow": 1.5731940897302327e-06,
+  "n_expanded": 48,
+  "poly_flow": 1.573194089730233e-06
  },
  {
   "arm": "weak",
   "n": 6,
   "game": "pd",
   "N": 100,
+  "w": 0.01,
   "x_on": true,
   "role": false,
   "mode": "square",
   "n_programs": 1852,
   "n_classes": 48,
-  "n_states": 42235,
+  "n_states": 118,
   "n_terminal_classes": 1,
-  "indeterminate": 98,
-  "pi_sum": 1.0,
-  "absorb_error": 0.0,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
   "near_closed_classes": 0,
   "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 4.306477314387171,
-  "mean_payoff": -0.7186489641479756,
+  "mean_bits_support": 2.773014976830583,
+  "mean_payoff": -0.6630954816232099,
   "efficient_payoff": 0.0,
-  "deadweight_loss": 0.7186489641479756,
+  "deadweight_loss": 0.6630954816232099,
   "support": [
    [
     "mono {D:1}",
-    0.23552046489508824
+    0.501098359609562
    ],
    [
-    "neutral {D:0.99, THEM(ME):0.01}",
-    0.060099778577451586
+    "mono {X:1}",
+    0.28800322848181886
    ],
    [
-    "neutral {D:0.99, THEM(THEM):0.01}",
-    0.0599786029689258
+    "mono {C:1}",
+    0.18411028937376195
    ],
    [
-    "neutral {C:0.45, THEM(^C):0.55}",
-    0.028979566356404977
+    "mono {and(X,X):1}",
+    0.008934312440374454
    ],
    [
-    "neutral {C:0.46, THEM(^C):0.54}",
-    0.028549817087590648
+    "mono {or(X,X):1}",
+    0.0054143958766303905
    ],
    [
-    "neutral {C:0.47, THEM(^C):0.53}",
-    0.02748058824463227
+    "mono {THEM(ME):1}",
+    0.0029459800243203096
    ],
    [
-    "neutral {D:0.98, THEM(ME):0.02}",
-    0.02552051464771875
-   ],
-   [
-    "neutral {D:0.98, THEM(THEM):0.02}",
-    0.02551682632648533
-   ],
-   [
-    "neutral {C:0.48, THEM(^C):0.52}",
-    0.025123797391778727
-   ],
-   [
-    "neutral {C:0.44, THEM(^C):0.56}",
-    0.02271385823049293
-   ],
-   [
-    "neutral {C:0.49, THEM(^C):0.51}",
-    0.020195102614068247
-   ],
-   [
-    "neutral {D:0.99, THEM(^D):0.01}",
-    0.018703848529764453
-   ]
-  ],
-  "chain_time_s": 58.092345237731934,
-  "cut_flow": 0.0005590387820641323,
-  "n_expanded": 4233
- },
- {
-  "arm": "weak",
-  "n": 7,
-  "game": "pd",
-  "N": 10,
-  "x_on": true,
-  "role": false,
-  "mode": "sparse",
-  "n_programs": 9426,
-  "n_classes": 105,
-  "n_states": 18569,
-  "n_terminal_classes": 1,
-  "indeterminate": 259,
-  "pi_sum": 1.000000000000001,
-  "absorb_error": 1.1102230246251565e-15,
-  "near_closed_classes": 0,
-  "divergence_rate": 0.012357504359734265,
-  "mean_bits_support": 4.6521803476915835,
-  "mean_payoff": -0.6859686674126473,
-  "efficient_payoff": 0.0,
-  "deadweight_loss": 0.6859686674126473,
-  "support": [
-   [
-    "mono {D:1}",
-    0.5807627443663032
-   ],
-   [
-    "neutral {C:0.3, THEM(^C):0.7}",
-    0.07720283566154847
-   ],
-   [
-    "neutral {C:0.2, THEM(^C):0.8}",
-    0.0677260050293979
-   ],
-   [
-    "neutral {C:0.4, THEM(^C):0.6}",
-    0.06562817220017021
-   ],
-   [
-    "neutral {D:0.9, THEM(ME):0.1}",
-    0.04246303440291064
-   ],
-   [
-    "neutral {C:0.5, THEM(^C):0.5}",
-    0.036012788522563705
-   ],
-   [
-    "neutral {C:0.1, THEM(^C):0.9}",
-    0.030550401198529392
-   ],
-   [
-    "neutral {D:0.8, THEM(ME):0.2}",
-    0.016572216604242827
+    "mono {THEM(THEM):1}",
+    0.0029350808567837504
    ],
    [
     "mono {THEM(^C):1}",
-    0.009214377610987064
-   ],
-   [
-    "neutral {D:0.7, THEM(ME):0.3}",
-    0.007994403439123094
-   ],
-   [
-    "neutral {C:0.6, THEM(^C):0.4}",
-    0.0075352321251235645
-   ],
-   [
-    "neutral {D:0.9, THEM(^D):0.1}",
-    0.005623083115814807
+    0.0011850540398189986
    ]
   ],
-  "chain_time_s": 86.11698794364929,
-  "cut_flow": 9.942280431758889e-05,
-  "n_expanded": 927,
-  "n_pairs_evaluated": 12845393,
-  "n_supports": 254
+  "chain_time_s": 0.2689857482910156,
+  "cut_flow": 1.2898039180904878e-07,
+  "n_expanded": 48,
+  "poly_flow": 1.2898039180904876e-07
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "pd",
+  "N": 10,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 48,
+  "n_states": 119,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.772076487862277,
+  "mean_payoff": -0.6849341858686824,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.6849341858686824,
+  "support": [
+   [
+    "mono {D:1}",
+    0.5276619986567312
+   ],
+   [
+    "mono {X:1}",
+    0.27814043263836646
+   ],
+   [
+    "mono {C:1}",
+    0.16753866418693683
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.00897615186130045
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.005060247058265628
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0030575452357980448
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.003046317577325869
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.0011468585084892157
+   ]
+  ],
+  "chain_time_s": 0.2185652256011963,
+  "cut_flow": 1.2868517335330425e-06,
+  "n_expanded": 48,
+  "poly_flow": 1.2868517335330428e-06
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "pd",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 48,
+  "n_states": 118,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.686522941442452,
+  "mean_payoff": -0.9875943592507775,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9875943592507775,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9787274213523764
+   ],
+   [
+    "mono {X:1}",
+    0.007256167488696576
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.005886135135110784
+   ],
+   [
+    "mono {C:1}",
+    0.0018061221966976127
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.0016023658877468267
+   ],
+   [
+    "mono {THEM(^X):1}",
+    0.0010074127952892592
+   ]
+  ],
+  "chain_time_s": 0.24680662155151367,
+  "cut_flow": 9.875209818529966e-08,
+  "n_expanded": 48,
+  "poly_flow": 9.875209818529962e-08
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "pd",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 48,
+  "n_states": 142,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.8091340378232497,
+  "mean_payoff": -0.9800706812550704,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9800706812550704,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9692324976021203
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.012021556363204915
+   ],
+   [
+    "mono {X:1}",
+    0.0043407621807574175
+   ],
+   [
+    "mono {C:1}",
+    0.00313598617702883
+   ],
+   [
+    "mono {THEM(^X):1}",
+    0.0028786308102725098
+   ],
+   [
+    "mono {and(X,THEM(^X)):1}",
+    0.0022262875561151843
+   ],
+   [
+    "mono {and(X,THEM(^C)):1}",
+    0.0019857017511545776
+   ]
+  ],
+  "chain_time_s": 0.5513782501220703,
+  "cut_flow": 1.9973795771715687e-06,
+  "n_expanded": 51,
+  "poly_flow": 1.4154588283267839e-05
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "pd",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 48,
+  "n_states": 668,
+  "n_terminal_classes": 1,
+  "indeterminate": 25,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 3.5701684474773954,
+  "mean_payoff": -0.893200772553543,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.893200772553543,
+  "support": [
+   [
+    "mono {D:1}",
+    0.8820205136012325
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.0988174086947588
+   ],
+   [
+    "mono {C:1}",
+    0.002860167580865943
+   ],
+   [
+    "mono {THEM(^X):1}",
+    0.002527545611303045
+   ],
+   [
+    "mono {X:1}",
+    0.0022553669395484702
+   ],
+   [
+    "mono {and(X,THEM(^X)):1}",
+    0.002126839990400455
+   ],
+   [
+    "mono {and(X,THEM(^C)):1}",
+    0.0019055175723278366
+   ],
+   [
+    "poly {C:0.09, THEM(ME):0.18, and(X,THEM(^X)):0.73}",
+    0.0015073167915423107
+   ],
+   [
+    "poly {THEM(ME):0.33, and(X,THEM(^C)):0.67}",
+    0.0012519771737760212
+   ]
+  ],
+  "chain_time_s": 15.031886100769043,
+  "cut_flow": 4.7233952657877055e-06,
+  "n_expanded": 166,
+  "poly_flow": 0.0005226430284078178
+ },
+ {
+  "arm": "weak",
+  "n": 7,
+  "game": "pd",
+  "N": 10,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "sparse",
+  "n_programs": 9426,
+  "n_classes": 105,
+  "n_states": 851,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000007,
+  "absorb_error": 6.661338147750939e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.013120987677856473,
+  "mean_bits_support": 2.812292055553949,
+  "mean_payoff": -0.523096527055306,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.523096527055306,
+  "support": [
+   [
+    "mono {D:1}",
+    0.3469479960282517
+   ],
+   [
+    "mono {C:1}",
+    0.31104491931017353
+   ],
+   [
+    "mono {X:1}",
+    0.3101652305627377
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.008305546651381947
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.007863816574696706
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.007316913966243252
+   ]
+  ],
+  "chain_time_s": 13.034226179122925,
+  "cut_flow": 2.6404920575433185e-05,
+  "n_expanded": 126,
+  "poly_flow": 4.542730413361962e-06,
+  "n_pairs_evaluated": 5455382,
+  "n_supports": 127
  },
  {
   "arm": "weak",
   "n": 7,
   "game": "pd",
   "N": 100,
+  "w": 0.01,
   "x_on": true,
   "role": false,
   "mode": "sparse",
   "n_programs": 9426,
   "n_classes": 105,
-  "n_states": 187701,
+  "n_states": 671,
   "n_terminal_classes": 1,
-  "indeterminate": 342,
-  "pi_sum": 1.0000000000000013,
-  "absorb_error": 1.3322676295501878e-15,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000033,
+  "absorb_error": 3.3306690738754696e-15,
   "near_closed_classes": 0,
-  "divergence_rate": 0.013164406476953426,
-  "mean_bits_support": 4.360754723631664,
-  "mean_payoff": -0.7280752554573134,
+  "divergence_rate": 0.01178891036223691,
+  "mean_bits_support": 2.7828442939027487,
+  "mean_payoff": -0.663162165311155,
   "efficient_payoff": 0.0,
-  "deadweight_loss": 0.7280752554573134,
+  "deadweight_loss": 0.663162165311155,
   "support": [
    [
     "mono {D:1}",
-    0.22215576636910506
+    0.5010901426326428
    ],
    [
-    "neutral {D:0.99, THEM(ME):0.01}",
-    0.11265644381541547
+    "mono {X:1}",
+    0.2864121374519344
    ],
    [
-    "neutral {D:0.98, THEM(ME):0.02}",
-    0.06450488185154242
+    "mono {C:1}",
+    0.18420277318974018
    ],
    [
-    "neutral {D:0.97, THEM(ME):0.03}",
-    0.03870291381108395
+    "mono {and(X,X):1}",
+    0.009588979682088689
    ],
    [
-    "neutral {C:0.45, THEM(^C):0.55}",
-    0.026672117487046152
+    "mono {THEM(ME):1}",
+    0.005981676501969849
    ],
    [
-    "neutral {C:0.46, THEM(^C):0.54}",
-    0.026251115981504456
+    "mono {or(X,X):1}",
+    0.0058125909113820665
    ],
    [
-    "neutral {C:0.47, THEM(^C):0.53}",
-    0.025244531652145352
-   ],
-   [
-    "neutral {D:0.96, THEM(ME):0.04}",
-    0.023787351986013935
-   ],
-   [
-    "neutral {C:0.48, THEM(^C):0.52}",
-    0.02306036160418579
-   ],
-   [
-    "neutral {C:0.44, THEM(^C):0.56}",
-    0.020956313146037603
-   ],
-   [
-    "neutral {C:0.49, THEM(^C):0.51}",
-    0.018523597875618105
-   ],
-   [
-    "neutral {D:0.99, THEM(^D):0.01}",
-    0.018371419357961473
+    "mono {THEM(^C):1}",
+    0.0012352328236742269
    ]
   ],
-  "chain_time_s": 391.52188086509705,
-  "cut_flow": 0.0004490818594309137,
-  "n_expanded": 8353,
-  "n_pairs_evaluated": 13202874,
-  "n_supports": 251
+  "chain_time_s": 10.79711389541626,
+  "cut_flow": 1.0616836047125477e-05,
+  "n_expanded": 104,
+  "poly_flow": 3.105129290379432e-07,
+  "n_pairs_evaluated": 4728342,
+  "n_supports": 105
+ },
+ {
+  "arm": "weak",
+  "n": 7,
+  "game": "pd",
+  "N": 10,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "sparse",
+  "n_programs": 9426,
+  "n_classes": 105,
+  "n_states": 843,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000004,
+  "absorb_error": 4.440892098500626e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.013120987677856473,
+  "mean_bits_support": 2.791331035899817,
+  "mean_payoff": -0.6850652601560004,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.6850652601560004,
+  "support": [
+   [
+    "mono {D:1}",
+    0.5272659030930498
+   ],
+   [
+    "mono {X:1}",
+    0.2763884940888871
+   ],
+   [
+    "mono {C:1}",
+    0.16748653277044215
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.00962663970513491
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.006202430578397159
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.005428056179071669
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.0011945451992627293
+   ]
+  ],
+  "chain_time_s": 13.052712202072144,
+  "cut_flow": 2.3470080392287473e-05,
+  "n_expanded": 126,
+  "poly_flow": 3.531957958402191e-06,
+  "n_pairs_evaluated": 5455382,
+  "n_supports": 127
+ },
+ {
+  "arm": "weak",
+  "n": 7,
+  "game": "pd",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "sparse",
+  "n_programs": 9426,
+  "n_classes": 105,
+  "n_states": 626,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000049,
+  "absorb_error": 4.884981308350689e-15,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.011348164410725826,
+  "mean_bits_support": 2.6908274101101206,
+  "mean_payoff": -0.9873369081350944,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9873369081350944,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9780622765150876
+   ],
+   [
+    "mono {X:1}",
+    0.00727820442474639
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.006139836365926943
+   ],
+   [
+    "mono {C:1}",
+    0.0018487082557704124
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.0017223192544096142
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0016242522213259446
+   ],
+   [
+    "mono {THEM(^X):1}",
+    0.0010412652404801377
+   ]
+  ],
+  "chain_time_s": 9.093746900558472,
+  "cut_flow": 4.155795817765633e-06,
+  "n_expanded": 97,
+  "poly_flow": 9.399793414617359e-08,
+  "n_pairs_evaluated": 4518440,
+  "n_supports": 98
+ },
+ {
+  "arm": "weak",
+  "n": 7,
+  "game": "pd",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "sparse",
+  "n_programs": 9426,
+  "n_classes": 105,
+  "n_states": 765,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.000000000000001,
+  "absorb_error": 1.1102230246251565e-15,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.011765968049362762,
+  "mean_bits_support": 2.8366861254291282,
+  "mean_payoff": -0.9791322315219859,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9791322315219859,
+  "support": [
+   [
+    "mono {D:1}",
+    0.96666651102241
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.01250079662440661
+   ],
+   [
+    "mono {X:1}",
+    0.004443319471981685
+   ],
+   [
+    "mono {C:1}",
+    0.0032455816410430012
+   ],
+   [
+    "mono {THEM(^X):1}",
+    0.0029698269409976744
+   ],
+   [
+    "mono {and(X,THEM(^X)):1}",
+    0.0027191425352335054
+   ],
+   [
+    "mono {and(X,THEM(^C)):1}",
+    0.0024266259213042065
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0011967359478345628
+   ]
+  ],
+  "chain_time_s": 11.379441261291504,
+  "cut_flow": 1.5114857395894542e-05,
+  "n_expanded": 108,
+  "poly_flow": 1.812721230964964e-05,
+  "n_pairs_evaluated": 4986755,
+  "n_supports": 109
+ },
+ {
+  "arm": "weak",
+  "n": 7,
+  "game": "pd",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "sparse",
+  "n_programs": 9426,
+  "n_classes": 105,
+  "n_states": 2434,
+  "n_terminal_classes": 1,
+  "indeterminate": 183,
+  "pi_sum": 1.0000000000000009,
+  "absorb_error": 8.881784197001252e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.010318077778613568,
+  "mean_bits_support": 3.6239208607496223,
+  "mean_payoff": -0.8897597604286838,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.8897597604286838,
+  "support": [
+   [
+    "mono {D:1}",
+    0.8765224116185395
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.101570096263982
+   ],
+   [
+    "mono {C:1}",
+    0.002968446964518587
+   ],
+   [
+    "mono {THEM(^X):1}",
+    0.002602201729044202
+   ],
+   [
+    "mono {and(X,THEM(^X)):1}",
+    0.0025821116495208236
+   ],
+   [
+    "mono {X:1}",
+    0.002339601228492362
+   ],
+   [
+    "mono {and(X,THEM(^C)):1}",
+    0.0023041954478605414
+   ],
+   [
+    "poly {C:0.09, THEM(ME):0.18, and(X,THEM(^X)):0.73}",
+    0.001787597023806572
+   ],
+   [
+    "poly {THEM(ME):0.33, and(X,THEM(^C)):0.67}",
+    0.0014939009312272655
+   ],
+   [
+    "poly {C:0.24, D:0.01, X:0.01, and(X,X):0.01, or(X,X):0.01, THEM(^X):0.27, and(X,THEM(^X)):0.45}",
+    0.0010393380936462877
+   ]
+  ],
+  "chain_time_s": 72.58085513114929,
+  "cut_flow": 1.3273947289553592e-05,
+  "n_expanded": 251,
+  "poly_flow": 0.0005919917892350153,
+  "n_pairs_evaluated": 9305900,
+  "n_supports": 148
  },
  {
   "arm": "strong",
   "n": 6,
   "game": "stag",
   "N": 10,
+  "w": 0.01,
   "x_on": true,
   "role": false,
   "mode": "square",
   "n_programs": 1726,
   "n_classes": 21,
-  "n_states": 222,
+  "n_states": 30,
   "n_terminal_classes": 1,
   "indeterminate": 0,
-  "pi_sum": 0.9999999999974029,
-  "absorb_error": 2.5971447215056287e-12,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
   "near_closed_classes": 0,
   "divergence_rate": 0.0004350342186637736,
-  "mean_bits_support": 2.588185606307975,
-  "mean_payoff": 3.9999999999896114,
+  "mean_bits_support": 2.7399711090803622,
+  "mean_payoff": 3.0724858338973373,
   "efficient_payoff": 4.0,
-  "deadweight_loss": 1.0388578886022515e-11,
+  "deadweight_loss": 0.9275141661026627,
   "support": [
    [
+    "mono {D:1}",
+    0.3548472815561597
+   ],
+   [
+    "poly {C:0.5, X:0.5}",
+    0.32676709150067124
+   ],
+   [
     "mono {C:1}",
-    0.9984240321075758
+    0.12651645348711557
+   ],
+   [
+    "mono {X:1}",
+    0.109685411314007
+   ],
+   [
+    "poly {C:0.5, X:0.4, or(X,X):0.1}",
+    0.0647867369511627
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.008071582416133106
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.004574968792710659
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0023217095443317268
    ]
   ],
-  "chain_time_s": 0.18918800354003906,
-  "cut_flow": 0.0,
-  "n_expanded": 66
+  "chain_time_s": 0.16088604927062988,
+  "cut_flow": 1.0915644220504542e-07,
+  "n_expanded": 23,
+  "poly_flow": 0.017736443081326877
  },
  {
   "arm": "strong",
   "n": 6,
   "game": "stag",
   "N": 100,
+  "w": 0.01,
   "x_on": true,
   "role": false,
   "mode": "square",
   "n_programs": 1726,
   "n_classes": 21,
-  "n_states": 3186,
-  "n_terminal_classes": 2,
+  "n_states": 30,
+  "n_terminal_classes": 1,
   "indeterminate": 0,
-  "pi_sum": 0.9999999999999999,
-  "absorb_error": 1.1102230246251565e-16,
-  "near_closed_classes": 1,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
   "divergence_rate": 0.0004350342186637736,
-  "mean_bits_support": 2.6384006019394217,
-  "mean_payoff": 3.334713300913266,
+  "mean_bits_support": 2.697128216808561,
+  "mean_payoff": 3.0584005224656705,
   "efficient_payoff": 4.0,
-  "deadweight_loss": 0.6652866990867339,
+  "deadweight_loss": 0.9415994775343295,
   "support": [
    [
     "mono {D:1}",
-    0.3357490738426199
+    0.5738416757332163
+   ],
+   [
+    "poly {C:0.5, X:0.49, or(X,X):0.01}",
+    0.11749765160280437
    ],
    [
     "mono {C:1}",
-    0.3295892486947531
+    0.10940702319975315
    ],
    [
-    "neutral {D:0.99, THEM(ME):0.01}",
-    0.12940290937660254
+    "mono {X:1}",
+    0.09588928306446083
    ],
    [
-    "neutral {D:0.98, THEM(ME):0.02}",
-    0.06830708626221488
+    "poly {C:0.5, X:0.5}",
+    0.08760595845970517
    ],
    [
-    "neutral {D:0.97, THEM(ME):0.03}",
-    0.03919768856204878
+    "mono {and(X,X):1}",
+    0.007569588635223761
    ],
    [
-    "neutral {D:0.96, THEM(ME):0.04}",
-    0.023349545019541458
+    "mono {or(X,X):1}",
+    0.003221573806628018
    ],
    [
-    "neutral {D:0.95, THEM(ME):0.05}",
-    0.014193100276821824
-   ],
-   [
-    "neutral {D:0.94, THEM(ME):0.06}",
-    0.00873111461124085
-   ],
-   [
-    "neutral {D:0.93, THEM(ME):0.07}",
-    0.005410591467683197
-   ],
-   [
-    "neutral {D:0.99, and(THEM(ME),D):0.01}",
-    0.004107918401602305
-   ],
-   [
-    "neutral {D:0.92, THEM(ME):0.08}",
-    0.0033678766333449317
-   ],
-   [
-    "neutral {D:0.99, and(THEM(ME),X):0.01}",
-    0.0031419286600916155
+    "mono {THEM(ME):1}",
+    0.0028204621260795944
    ]
   ],
-  "chain_time_s": 1.9745848178863525,
-  "cut_flow": 2.0486489761409525e-05,
-  "n_expanded": 1061
+  "chain_time_s": 0.04615306854248047,
+  "cut_flow": 1.0084672162712591e-08,
+  "n_expanded": 23,
+  "poly_flow": 0.0019208876823328578
  },
  {
   "arm": "strong",
   "n": 6,
   "game": "stag",
   "N": 1000,
+  "w": 0.01,
   "x_on": true,
   "role": false,
   "mode": "square",
   "n_programs": 1726,
   "n_classes": 21,
-  "n_states": 43053,
-  "n_terminal_classes": 2,
-  "indeterminate": 0,
-  "pi_sum": 1.0,
-  "absorb_error": 0.0,
-  "near_closed_classes": 1,
-  "divergence_rate": 0.0004350342186637736,
-  "mean_bits_support": 2.6368116276604106,
-  "mean_payoff": 3.3320479329050805,
-  "efficient_payoff": 4.0,
-  "deadweight_loss": 0.6679520670949195,
-  "support": [
-   [
-    "mono {C:1}",
-    0.2846643540636238
-   ],
-   [
-    "neutral {D:0.991, THEM(ME):0.009}",
-    0.03236924075507864
-   ],
-   [
-    "neutral {D:0.99, THEM(ME):0.01}",
-    0.03183178541754434
-   ],
-   [
-    "neutral {D:0.992, THEM(ME):0.008}",
-    0.03176451347619457
-   ],
-   [
-    "neutral {D:0.989, THEM(ME):0.011}",
-    0.030373681791451966
-   ],
-   [
-    "neutral {D:0.993, THEM(ME):0.007}",
-    0.02986696404288353
-   ],
-   [
-    "neutral {D:0.988, THEM(ME):0.012}",
-    0.028242058724301317
-   ],
-   [
-    "neutral {D:0.994, THEM(ME):0.006}",
-    0.026650812420340248
-   ],
-   [
-    "neutral {C:0.999, or(X,THEM(ME)):0.001}",
-    0.026536462035798253
-   ],
-   [
-    "neutral {D:0.987, THEM(ME):0.013}",
-    0.025676589069804363
-   ],
-   [
-    "neutral {D:0.986, THEM(ME):0.014}",
-    0.022888659464945883
-   ],
-   [
-    "neutral {D:0.995, THEM(ME):0.005}",
-    0.022268497853636937
-   ]
-  ],
-  "chain_time_s": 72.64038586616516,
-  "cut_flow": 7.282161487927583e-05,
-  "n_expanded": 14313
- },
- {
-  "arm": "weak",
-  "n": 6,
-  "game": "stag",
-  "N": 10,
-  "x_on": true,
-  "role": false,
-  "mode": "square",
-  "n_programs": 1852,
-  "n_classes": 46,
-  "n_states": 1209,
-  "n_terminal_classes": 2,
-  "indeterminate": 0,
-  "pi_sum": 0.9999999999999398,
-  "absorb_error": 6.017408793468348e-14,
-  "near_closed_classes": 0,
-  "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 2.6171422218212417,
-  "mean_payoff": 3.9999999999997584,
-  "efficient_payoff": 4.0,
-  "deadweight_loss": 2.4158453015843406e-13,
-  "support": [
-   [
-    "mono {C:1}",
-    0.9811617994921267
-   ],
-   [
-    "neutral {C:0.9, THEM(^C):0.1}",
-    0.008938809697588174
-   ],
-   [
-    "neutral {C:0.8, THEM(^C):0.2}",
-    0.0032780829455564308
-   ],
-   [
-    "neutral {C:0.7, THEM(^C):0.3}",
-    0.0015403565840627915
-   ]
-  ],
-  "chain_time_s": 3.9004769325256348,
-  "cut_flow": 4.752216801880631e-06,
-  "n_expanded": 183
- },
- {
-  "arm": "weak",
-  "n": 6,
-  "game": "stag",
-  "N": 100,
-  "x_on": true,
-  "role": false,
-  "mode": "square",
-  "n_programs": 1852,
-  "n_classes": 46,
-  "n_states": 11477,
-  "n_terminal_classes": 2,
-  "indeterminate": 0,
-  "pi_sum": 0.9999999999999923,
-  "absorb_error": 7.66053886991358e-15,
-  "near_closed_classes": 0,
-  "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 2.6168712124028404,
-  "mean_payoff": 3.9999999999999685,
-  "efficient_payoff": 4.0,
-  "deadweight_loss": 3.1530333899354446e-14,
-  "support": [
-   [
-    "mono {C:1}",
-    0.8317419553652116
-   ],
-   [
-    "neutral {C:0.99, THEM(^C):0.01}",
-    0.07577711292223445
-   ],
-   [
-    "neutral {C:0.98, THEM(^C):0.02}",
-    0.02902548419891477
-   ],
-   [
-    "neutral {C:0.97, THEM(^C):0.03}",
-    0.013899138407625784
-   ],
-   [
-    "neutral {C:0.99, or(X,THEM(THEM)):0.01}",
-    0.00732680650596946
-   ],
-   [
-    "neutral {C:0.99, or(X,THEM(ME)):0.01}",
-    0.00732680650596938
-   ],
-   [
-    "neutral {C:0.96, THEM(^C):0.04}",
-    0.007305827422030776
-   ],
-   [
-    "neutral {C:0.95, THEM(^C):0.05}",
-    0.0040384008381978516
-   ],
-   [
-    "neutral {C:0.98, or(X,THEM(THEM)):0.02}",
-    0.002505716539367347
-   ],
-   [
-    "neutral {C:0.98, or(X,THEM(ME)):0.02}",
-    0.002505716539367308
-   ],
-   [
-    "neutral {C:0.94, THEM(^C):0.06}",
-    0.002302135178299535
-   ],
-   [
-    "neutral {C:0.99, or(X,THEM(^C)):0.01}",
-    0.002211999290432257
-   ]
-  ],
-  "chain_time_s": 18.823256015777588,
-  "cut_flow": 1.2390919115529335e-05,
-  "n_expanded": 1826
- },
- {
-  "arm": "weak",
-  "n": 5,
-  "game": "zerosum",
-  "N": 10,
-  "x_on": true,
-  "role": true,
-  "mode": "square",
-  "n_programs": 902,
-  "n_classes": 53,
-  "n_states": 103332,
+  "n_states": 44,
   "n_terminal_classes": 1,
   "indeterminate": 0,
   "pi_sum": 1.0,
   "absorb_error": 0.0,
   "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.6055102757365156,
+  "mean_payoff": 3.0061352975571682,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 0.9938647024428318,
+  "support": [
+   [
+    "mono {D:1}",
+    0.990129983961879
+   ],
+   [
+    "mono {C:1}",
+    0.006382172521545794
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0012169767825756562
+   ]
+  ],
+  "chain_time_s": 0.06370687484741211,
+  "cut_flow": 7.570142220095128e-07,
+  "n_expanded": 25,
+  "poly_flow": 5.3533683160880695e-06
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "stag",
+  "N": 10,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 30,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000004,
+  "absorb_error": 4.440892098500626e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.7163701928743333,
+  "mean_payoff": 3.0399926892391034,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 0.9600073107608966,
+  "support": [
+   [
+    "mono {D:1}",
+    0.5391099670009197
+   ],
+   [
+    "poly {C:0.5, X:0.5}",
+    0.21362088556102973
+   ],
+   [
+    "mono {X:1}",
+    0.10329820405137617
+   ],
+   [
+    "mono {C:1}",
+    0.09326543329180474
+   ],
+   [
+    "poly {C:0.5, X:0.4, or(X,X):0.1}",
+    0.034077421778559665
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.008156645520988293
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.003434947361086724
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.002772958842945628
+   ]
+  ],
+  "chain_time_s": 0.08806824684143066,
+  "cut_flow": 8.680509509629318e-08,
+  "n_expanded": 23,
+  "poly_flow": 0.013736402637647032
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "stag",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 30,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.6070657583576264,
+  "mean_payoff": 3.004622025606678,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 0.995377974393322,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9905173278900915
+   ],
+   [
+    "mono {C:1}",
+    0.00491087202361828
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0016309480239034403
+   ]
+  ],
+  "chain_time_s": 0.09319496154785156,
+  "cut_flow": 3.46007968371972e-10,
+  "n_expanded": 23,
+  "poly_flow": 2.4834019259265728e-05
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "stag",
+  "N": 1000,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 44,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.589122249953617,
+  "mean_payoff": 3.8983817838747687,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 0.10161821612523125,
+  "support": [
+   [
+    "mono {C:1}",
+    0.8981298420521109
+   ],
+   [
+    "mono {D:1}",
+    0.10145175681355949
+   ]
+  ],
+  "chain_time_s": 0.04869508743286133,
+  "cut_flow": 4.2074017806260764e-08,
+  "n_expanded": 25,
+  "poly_flow": 5.042099328244263e-07
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "stag",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 30,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.6508400422199028,
+  "mean_payoff": 2.9905237617841984,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 1.0094762382158016,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9196233041715445
+   ],
+   [
+    "mono {X:1}",
+    0.03312636722156546
+   ],
+   [
+    "poly {C:0.5, X:0.5}",
+    0.02585841018130025
+   ],
+   [
+    "mono {C:1}",
+    0.00917600366357829
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.0043553867102705465
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0033128368329340394
+   ],
+   [
+    "poly {C:0.5, X:0.4, or(X,X):0.1}",
+    0.002731059843985036
+   ]
+  ],
+  "chain_time_s": 0.09098100662231445,
+  "cut_flow": 2.3183214596231304e-08,
+  "n_expanded": 23,
+  "poly_flow": 0.0023558977616050334
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "stag",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 30,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.599134001728648,
+  "mean_payoff": 3.0206775764008107,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 0.9793224235991893,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9769769967103749
+   ],
+   [
+    "mono {C:1}",
+    0.020677357321754564
+   ]
+  ],
+  "chain_time_s": 0.11497092247009277,
+  "cut_flow": 8.885124215624204e-11,
+  "n_expanded": 23,
+  "poly_flow": 2.2975167322938175e-05
+ },
+ {
+  "arm": "strong",
+  "n": 6,
+  "game": "stag",
+  "N": 1000,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1726,
+  "n_classes": 21,
+  "n_states": 29,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0004350342186637736,
+  "mean_bits_support": 2.5881856071339544,
+  "mean_payoff": 3.9999999930870795,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 6.912920458290728e-09,
+  "support": [
+   [
+    "mono {C:1}",
+    0.9997189479535457
+   ]
+  ],
+  "chain_time_s": 0.04689311981201172,
+  "cut_flow": 3.831552438758507e-15,
+  "n_expanded": 21,
+  "poly_flow": 3.831552438758508e-15
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "stag",
+  "N": 10,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 109,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.779231772072034,
+  "mean_payoff": 3.0861662374344965,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 0.9138337625655035,
+  "support": [
+   [
+    "mono {D:1}",
+    0.3518697541937351
+   ],
+   [
+    "poly {C:0.5, X:0.5}",
+    0.32197946930883126
+   ],
+   [
+    "mono {C:1}",
+    0.1403977880067755
+   ],
+   [
+    "mono {X:1}",
+    0.11027273777871463
+   ],
+   [
+    "poly {C:0.5, X:0.4, or(X,X):0.1}",
+    0.05266733434684912
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.007629099924518988
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.004451975483221783
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0022948801855935913
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.0022785101235777926
+   ]
+  ],
+  "chain_time_s": 0.3395967483520508,
+  "cut_flow": 1.3191405012529423e-06,
+  "n_expanded": 49,
+  "poly_flow": 0.01836138168215701
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "stag",
+  "N": 100,
+  "w": 0.01,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 111,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.7473728358418703,
+  "mean_payoff": 3.074285516593874,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 0.9257144834061259,
+  "support": [
+   [
+    "mono {D:1}",
+    0.566113295078369
+   ],
+   [
+    "mono {C:1}",
+    0.1249570391256346
+   ],
+   [
+    "poly {C:0.5, X:0.49, or(X,X):0.01}",
+    0.09843704506124265
+   ],
+   [
+    "mono {X:1}",
+    0.09778842498527877
+   ],
+   [
+    "poly {C:0.5, X:0.5}",
+    0.09076262173009886
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.007141449201431236
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.0031668315733259446
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0027606772572434843
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.0027405752394692594
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.0013082837917175263
+   ]
+  ],
+  "chain_time_s": 0.20534992218017578,
+  "cut_flow": 1.3439969727652714e-07,
+  "n_expanded": 49,
+  "poly_flow": 0.0020001331244170447
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "stag",
+  "N": 10,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 109,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.7631455368190707,
+  "mean_payoff": 3.049712759934902,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 0.9502872400650979,
+  "support": [
+   [
+    "mono {D:1}",
+    0.5331229840853013
+   ],
+   [
+    "poly {C:0.5, X:0.5}",
+    0.21025366365313314
+   ],
+   [
+    "mono {X:1}",
+    0.10340179669150261
+   ],
+   [
+    "mono {C:1}",
+    0.10222148950452191
+   ],
+   [
+    "poly {C:0.5, X:0.4, or(X,X):0.1}",
+    0.028405431891532995
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.007705503810294971
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.0033241631496900947
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.002696775044546721
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.002677255625791042
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.001164507378548893
+   ]
+  ],
+  "chain_time_s": 0.26781582832336426,
+  "cut_flow": 1.2968872849622822e-06,
+  "n_expanded": 49,
+  "poly_flow": 0.01409050248490363
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "stag",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 111,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.677757347292001,
+  "mean_payoff": 3.019098787742492,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 0.9809012122575078,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9706934109433952
+   ],
+   [
+    "mono {C:1}",
+    0.013956725221294795
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.00554359272834013
+   ],
+   [
+    "poly {C:0.5, X:0.5}",
+    0.0023082666186105757
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0015512551059264947
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.0015397014125786712
+   ],
+   [
+    "poly {C:0.5, X:0.49, or(X,X):0.01}",
+    0.001277055818296647
+   ]
+  ],
+  "chain_time_s": 0.1650240421295166,
+  "cut_flow": 1.3500091706090204e-07,
+  "n_expanded": 48,
+  "poly_flow": 6.660105750970472e-05
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "stag",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 109,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.706228152343143,
+  "mean_payoff": 2.9959042883769595,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 1.0040957116230405,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9069843122046114
+   ],
+   [
+    "mono {X:1}",
+    0.03353609967846368
+   ],
+   [
+    "poly {C:0.5, X:0.5}",
+    0.02753417265531865
+   ],
+   [
+    "mono {C:1}",
+    0.01294026467966138
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.004172296174063717
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.003179606265074168
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.00315612536480899
+   ],
+   [
+    "poly {C:0.5, X:0.4, or(X,X):0.1}",
+    0.0025573219812323545
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.0019254420582220982
+   ]
+  ],
+  "chain_time_s": 0.25335001945495605,
+  "cut_flow": 9.634897327979258e-07,
+  "n_expanded": 49,
+  "poly_flow": 0.002582217740391554
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "stag",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 111,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000004,
+  "absorb_error": 4.440892098500626e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.6974954534422406,
+  "mean_payoff": 3.0724881058231683,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 0.9275118941768317,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9221185164014896
+   ],
+   [
+    "mono {C:1}",
+    0.062477497073991244
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.009938249043247903
+   ],
+   [
+    "poly {C:0.5, X:0.5}",
+    0.001776374476221243
+   ]
+  ],
+  "chain_time_s": 0.18015694618225098,
+  "cut_flow": 6.713103494676566e-08,
+  "n_expanded": 48,
+  "poly_flow": 6.802250618199284e-05
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "zerosum",
+  "N": 10,
+  "w": 0.01,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 53,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999994,
+  "absorb_error": 5.551115123125783e-16,
+  "near_closed_classes": 0,
   "divergence_rate": 0.0010078613182826044,
-  "mean_bits_support": 3.2061485916552916,
+  "mean_bits_support": 3.3309752588599673,
   "mean_payoff": 0.0,
   "efficient_payoff": 0.0,
   "deadweight_loss": 0.0,
   "support": [
    [
-    "neutral {C:0.2, D:0.5, X:0.3}",
-    0.04240748428552593
+    "mono {D:1}",
+    0.2526727387306097
    ],
    [
-    "neutral {C:0.1, D:0.6, X:0.3}",
-    0.040923682833854697
+    "mono {C:1}",
+    0.24531284607172776
    ],
    [
-    "neutral {C:0.1, D:0.5, X:0.4}",
-    0.039961992048850266
+    "mono {X:1}",
+    0.23139911151452067
    ],
    [
-    "neutral {C:0.2, D:0.6, X:0.2}",
-    0.03696387506924601
+    "mono {ROLE:1}",
+    0.19038001333557153
    ],
    [
-    "neutral {C:0.2, D:0.4, X:0.4}",
-    0.03437288514249473
+    "mono {not(ROLE):1}",
+    0.047516095718932345
    ],
    [
-    "neutral {C:0.1, D:0.4, X:0.5}",
-    0.029884002396048694
+    "mono {and(X,ROLE):1}",
+    0.00630239555284551
    ],
    [
-    "neutral {C:0.3, D:0.5, X:0.2}",
-    0.029345774603820856
+    "mono {or(X,ROLE):1}",
+    0.006213297860227333
    ],
    [
-    "neutral {C:0.1, D:0.7, X:0.2}",
-    0.02842050696921474
+    "mono {and(X,X):1}",
+    0.003890913044703737
    ],
    [
-    "neutral {C:0.3, D:0.4, X:0.3}",
-    0.02687825636955533
+    "mono {or(X,X):1}",
+    0.0038338144578445176
    ],
    [
-    "neutral {D:0.6, X:0.4}",
-    0.022266383496002545
+    "mono {THEM(THEM):1}",
+    0.002179991963860009
    ],
    [
-    "neutral {C:0.2, D:0.7, X:0.1}",
-    0.022161328199783777
+    "mono {THEM(ME):1}",
+    0.0021799838387780704
    ],
    [
-    "neutral {D:0.7, X:0.3}",
-    0.020593773791406398
+    "mono {not(or(X,ROLE)):1}",
+    0.0017710245202469806
    ]
   ],
-  "chain_time_s": 46.87865209579468,
-  "cut_flow": 0.0015308950320641946,
-  "n_expanded": 4488
+  "chain_time_s": 0.280444860458374,
+  "cut_flow": 0,
+  "n_expanded": 53,
+  "poly_flow": 0.0
  },
  {
   "arm": "weak",
   "n": 5,
   "game": "zerosum",
   "N": 100,
+  "w": 0.01,
   "x_on": true,
   "role": true,
   "mode": "square",
   "n_programs": 902,
   "n_classes": 53,
-  "n_states": 964558,
-  "n_terminal_classes": 4,
+  "n_states": 53,
+  "n_terminal_classes": 1,
   "indeterminate": 0,
-  "pi_sum": 1.0,
-  "absorb_error": 0.0,
-  "near_closed_classes": 1,
+  "pi_sum": 0.9999999999999991,
+  "absorb_error": 8.881784197001252e-16,
+  "near_closed_classes": 0,
   "divergence_rate": 0.0010078613182826044,
-  "mean_bits_support": 3.0460917918406545,
+  "mean_bits_support": 3.3339852340767733,
   "mean_payoff": 0.0,
   "efficient_payoff": 0.0,
   "deadweight_loss": 0.0,
   "support": [
    [
-    "neutral {C:0.22, D:0.47, X:0.31}",
-    0.003777438270094635
+    "mono {D:1}",
+    0.28664837690831424
    ],
    [
-    "neutral {C:0.21, D:0.47, X:0.32}",
-    0.0037214503947690975
+    "mono {X:1}",
+    0.23139911151452539
    ],
    [
-    "neutral {C:0.21, D:0.48, X:0.31}",
-    0.003686646477153915
+    "mono {C:1}",
+    0.21618102422495927
    ],
    [
-    "neutral {C:0.22, D:0.46, X:0.32}",
-    0.003666668463459041
+    "mono {ROLE:1}",
+    0.18398906673801446
    ],
    [
-    "neutral {C:0.22, D:0.48, X:0.3}",
-    0.003662910655215959
+    "mono {not(ROLE):1}",
+    0.049142888773245734
    ],
    [
-    "neutral {C:0.21, D:0.46, X:0.33}",
-    0.0036552923484035344
+    "mono {and(X,ROLE):1}",
+    0.006586279784606523
    ],
    [
-    "neutral {C:0.2, D:0.48, X:0.32}",
-    0.0035450416265679313
+    "mono {or(X,ROLE):1}",
+    0.005740773791027645
    ],
    [
-    "neutral {C:0.2, D:0.47, X:0.33}",
-    0.0035208300566213152
+    "mono {and(X,X):1}",
+    0.004148556642585019
    ],
    [
-    "neutral {C:0.21, D:0.49, X:0.3}",
-    0.0034989429536264128
+    "mono {or(X,X):1}",
+    0.0035954823712749046
    ],
    [
-    "neutral {C:0.2, D:0.49, X:0.31}",
-    0.003441761462044474
+    "mono {THEM(THEM):1}",
+    0.0021804182526394176
    ],
    [
-    "neutral {C:0.21, D:0.45, X:0.34}",
-    0.0034040736732257157
+    "mono {THEM(ME):1}",
+    0.0021803151043539616
    ],
    [
-    "neutral {C:0.23, D:0.47, X:0.3}",
-    0.003389048450548029
+    "mono {not(or(X,ROLE)):1}",
+    0.0019234241705968305
    ]
   ],
-  "chain_time_s": 851.9007532596588,
-  "cut_flow": 0.006370461205982505,
-  "n_expanded": 30000
+  "chain_time_s": 0.07950711250305176,
+  "cut_flow": 0,
+  "n_expanded": 53,
+  "poly_flow": 0.0
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "zerosum",
+  "N": 10,
+  "w": 0.1,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 53,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.999999999999999,
+  "absorb_error": 9.992007221626409e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.333940190155083,
+  "mean_payoff": 0.0,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.0,
+  "support": [
+   [
+    "mono {D:1}",
+    0.28632285488054093
+   ],
+   [
+    "mono {X:1}",
+    0.23139911151452047
+   ],
+   [
+    "mono {C:1}",
+    0.2164561609191433
+   ],
+   [
+    "mono {ROLE:1}",
+    0.18406374787183982
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.0491173015368308
+   ],
+   [
+    "mono {and(X,ROLE):1}",
+    0.0065872514701138165
+   ],
+   [
+    "mono {or(X,ROLE):1}",
+    0.0057417401552965555
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.0041480570273741794
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.003596043646810021
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.0021804161752337213
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.002180315066962212
+   ],
+   [
+    "mono {not(or(X,ROLE)):1}",
+    0.0019231177184079668
+   ]
+  ],
+  "chain_time_s": 0.07586193084716797,
+  "cut_flow": 0,
+  "n_expanded": 53,
+  "poly_flow": 0.0
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "zerosum",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 53,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999994,
+  "absorb_error": 5.551115123125783e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.373932927994659,
+  "mean_payoff": 0.0,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.0,
+  "support": [
+   [
+    "mono {D:1}",
+    0.40401997723221705
+   ],
+   [
+    "mono {X:1}",
+    0.23139911151452527
+   ],
+   [
+    "mono {C:1}",
+    0.14254786860229626
+   ],
+   [
+    "mono {ROLE:1}",
+    0.11985740132031564
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.07088485724119416
+   ],
+   [
+    "mono {and(X,ROLE):1}",
+    0.0055926152033990584
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.0054689212098120695
+   ],
+   [
+    "mono {or(X,ROLE):1}",
+    0.0034456625097037128
+   ],
+   [
+    "mono {not(or(X,ROLE)):1}",
+    0.0029326386286614922
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.0026125479730847454
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.0021827294601886892
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.002179042081342375
+   ]
+  ],
+  "chain_time_s": 0.08003568649291992,
+  "cut_flow": 0,
+  "n_expanded": 53,
+  "poly_flow": 0.0
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "zerosum",
+  "N": 10,
+  "w": 1.0,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 53,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999993,
+  "absorb_error": 6.661338147750939e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.3640720869026084,
+  "mean_payoff": 0.0,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.0,
+  "support": [
+   [
+    "mono {D:1}",
+    0.3837059092082392
+   ],
+   [
+    "mono {X:1}",
+    0.23139911151452044
+   ],
+   [
+    "mono {C:1}",
+    0.15521559372584368
+   ],
+   [
+    "mono {ROLE:1}",
+    0.13245045810112382
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.06562218386983322
+   ],
+   [
+    "mono {and(X,ROLE):1}",
+    0.006039412357243762
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.005448084582442007
+   ],
+   [
+    "mono {or(X,ROLE):1}",
+    0.0035936526045444463
+   ],
+   [
+    "mono {not(or(X,ROLE)):1}",
+    0.002861810597869053
+   ],
+   [
+    "mono {or(X,X):1}",
+    0.002679097783416195
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.002184032727318903
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.0021823436154451556
+   ]
+  ],
+  "chain_time_s": 0.07570099830627441,
+  "cut_flow": 0,
+  "n_expanded": 53,
+  "poly_flow": 0.0
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "zerosum",
+  "N": 100,
+  "w": 1.0,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 53,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999996,
+  "absorb_error": 4.440892098500626e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.411014002482299,
+  "mean_payoff": 0.0,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.0,
+  "support": [
+   [
+    "mono {D:1}",
+    0.4428236336738437
+   ],
+   [
+    "mono {X:1}",
+    0.2313991115145254
+   ],
+   [
+    "mono {C:1}",
+    0.11810601690437664
+   ],
+   [
+    "mono {ROLE:1}",
+    0.09356276770645827
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.08210861566733568
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.00663410983777787
+   ],
+   [
+    "mono {and(X,ROLE):1}",
+    0.004460383482845295
+   ],
+   [
+    "mono {not(or(X,ROLE)):1}",
+    0.003192950036462891
+   ],
+   [
+    "mono {or(X,ROLE):1}",
+    0.0029681657688389236
+   ],
+   [
+    "mono {THEM(THEM):1}",
+    0.0021441105517070566
+   ],
+   [
+    "mono {THEM(ME):1}",
+    0.002095432825632463
+   ],
+   [
+    "mono {not(and(X,ROLE)):1}",
+    0.0020545914981469466
+   ]
+  ],
+  "chain_time_s": 0.34269189834594727,
+  "cut_flow": 0,
+  "n_expanded": 53,
+  "poly_flow": 0.0
  }
 ]
