@@ -9,7 +9,12 @@ into flat arrays indexed by id; ids are assigned bottom-up by size, so a
 child's id is always smaller than its parent's.
 """
 import math
+import os
 import re
+# one BLAS thread: the dense solves are small and multi-threaded OpenBLAS is
+# hundreds of times slower under load
+for _v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")
 import numpy as np
 
 C, D, X, ROLE, NOT, AND, OR, APP, EQ = range(9)

@@ -1,6 +1,6 @@
 ### arm=weak, n=6, game=stag, N=10, x_on=True, role=False, mode=square
 
-programs 1852, classes 46, states 1314, terminal classes 2, indeterminate 1, divergence rate 0.0019
+programs 1852, classes 46, states 1332, terminal classes 2, indeterminate 0, divergence rate 0.0019
 mean payoff 4.0000, efficient 4.0000, deadweight loss -0.0000, mean bits in support 2.62
 absorption: class 0: 1.000, class 12: 0.000
 
@@ -39,5 +39,3 @@ Transitions out of the support (share of mutation events, mutants responsible):
     - 6.16e-05 -> neutral {C:0.6, THEM(^C):0.3, or(X,THEM(ME)):0.1}   via or(X,THEM(ME)) (6.16e-05)
     - 2.64e-05 -> neutral {C:0.7, THEM(^C):0.2, or(X,THEM(THEM)):0.1}   via or(X,THEM(THEM)) (2.64e-05)
     - 2.64e-05 -> neutral {C:0.7, THEM(^C):0.2, or(X,THEM(ME)):0.1}   via or(X,THEM(ME)) (2.64e-05)
-
-INDETERMINATE transitions (replicator did not converge): 1; first: from neutral {X:0.1, THEM(^X):0.9} with mutant not(and(X,THEM(THEM)))

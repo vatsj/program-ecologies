@@ -436,7 +436,7 @@ class Chain:
         if status != 'rest':
             self.indeterminate.append((from_key, int(q), [(tuple(ids.tolist()), t) for t in traj]))
             return []
-        keep = x > 0
+        keep = x > 1e-6          # remnants of (second-order) dying types are dropped
         ids2, x2 = ids[keep], x[keep] / x[keep].sum()
         if len(ids2) > 1 and self.is_neutral(U[np.ix_(keep, keep)]):
             return self.snap_outcomes(ids2, x2)
@@ -517,7 +517,7 @@ class Chain:
         if status != 'rest':
             self.indeterminate.append((from_key, int(q), [(tuple(ids.tolist()), t) for t in traj]))
             return []
-        keep = x > 0
+        keep = x > 1e-6          # remnants of (second-order) dying types are dropped
         ids2, x2 = ids[keep], x[keep] / x[keep].sum()
         if len(ids2) > 1 and self.is_neutral(U[np.ix_(keep, keep)]):
             return self.snap_outcomes(ids2, x2)
@@ -566,6 +566,11 @@ class Chain:
 
     # -- stationary distribution on the expanded set (reflecting boundary)
     def stationary(self):
+        """pi on the expanded states.  Closed classes are found by processing
+        the condensation DAG sink-first: a class whose absorption solve fails
+        the row-sum identity (numerically closed) becomes a closed class of
+        its own.  pi = sum over closed classes of (absorption probability from
+        the seed distribution) x (stationary distribution inside the class)."""
         keys = list(self.trans)
         idx = {k: n for n, k in enumerate(keys)}
         n = len(keys)
@@ -580,54 +585,94 @@ class Chain:
                 rows.append(idx[a]); cols.append(idx[b]); vals.append(v / z)
         P = sp.csr_matrix((vals, (rows, cols)), shape=(n, n))
         ncomp, labels = csg.connected_components(P, directed=True, connection='strong')
-        leaving = np.zeros(ncomp, bool)
         Pc = P.tocoo()
-        for a, b in zip(Pc.row, Pc.col):
-            if labels[a] != labels[b]:
-                leaving[labels[a]] = True
-        terminal = [c for c in range(ncomp) if not leaving[c]]
+        cross = labels[Pc.row] != labels[Pc.col]
+        # condensation DAG, topological order (Kahn)
+        src, dst = labels[Pc.row[cross]], labels[Pc.col[cross]]
+        succ = defaultdict(set)
+        indeg = np.zeros(ncomp, int)
+        for a, b in set(zip(src.tolist(), dst.tolist())):
+            succ[a].add(b); indeg[b] += 1
+        order = [c for c in range(ncomp) if indeg[c] == 0]
+        topo = []
+        while order:
+            c = order.pop(); topo.append(c)
+            for d in succ[c]:
+                indeg[d] -= 1
+                if indeg[d] == 0: order.append(d)
+        members_of = [np.nonzero(labels == c)[0] for c in range(ncomp)]
+        # edges grouped by source class
+        eorder = np.argsort(labels[Pc.row], kind='stable')
+        er, ec, ed = Pc.row[eorder], Pc.col[eorder], Pc.data[eorder]
+        ebounds = np.searchsorted(labels[er], np.arange(ncomp + 1))
+        terminal = []           # closed class ids
+        H = {}                  # class -> (members, matrix members x len(terminal at the time))
         pis = {}
-        for c in terminal:
-            members = np.nonzero(labels == c)[0]
-            if len(members) == 1:
-                pis[c] = (members, np.array([1.0])); continue
-            Pm = P[members][:, members]
-            if len(members) <= 3000:
-                A = Pm.toarray().T - np.eye(len(members))
-                A[-1, :] = 1.0
-                bvec = np.zeros(len(members)); bvec[-1] = 1.0
-                v = np.linalg.lstsq(A, bvec, rcond=None)[0]
-            else:
-                A = (Pm.T - sp.eye(len(members))).tolil()
-                A[-1, :] = 1.0
-                bvec = np.zeros(len(members)); bvec[-1] = 1.0
-                v = sp.linalg.spsolve(A.tocsc(), bvec)
-            v = np.clip(v, 0, None); v /= v.sum()
-            pis[c] = (members, v)
+        self.near_closed = 0
+
+        def stat_dist(Pm):
+            m = Pm.shape[0]
+            if m == 1: return np.array([1.0])
+            rs = Pm.sum(axis=1)
+            Pm = Pm / rs[:, None]
+            A = Pm.T - np.eye(m); A[-1, :] = 1.0
+            b = np.zeros(m); b[-1] = 1.0
+            try:
+                v = np.linalg.solve(A, b)
+            except Exception:
+                v = np.linalg.lstsq(A, b, rcond=None)[0]
+            v = np.clip(v, 0, None); return v / v.sum()
+
+        for c in reversed(topo):
+            mem = members_of[c]
+            m = len(mem)
+            sl = slice(ebounds[c], ebounds[c + 1])
+            rr, cc, dd = er[sl], ec[sl], ed[sl]
+            lr = np.searchsorted(mem, rr)
+            internal = labels[cc] == c
+            Pm = np.zeros((m, m))
+            np.add.at(Pm, (lr[internal], np.searchsorted(mem, cc[internal])), dd[internal])
+            closed = not (~internal).any()
+            if not closed:
+                B = np.zeros((m, len(terminal)))
+                outside = ~internal
+                for d in np.unique(labels[cc[outside]]):
+                    sel = outside & (labels[cc] == d)
+                    mem_d, Hd = H[d]
+                    pos = np.searchsorted(mem_d, cc[sel])
+                    np.add.at(B[:, :Hd.shape[1]], lr[sel], dd[sel][:, None] * Hd[pos])
+                if m == 1:
+                    Hc = B / max(1.0 - Pm[0, 0], 1e-300)
+                else:
+                    try:
+                        Hc = np.linalg.solve(np.eye(m) - Pm, B)
+                    except Exception:
+                        Hc = None
+                if Hc is None or np.abs(Hc.sum(axis=1) - 1).max() > 1e-6 or Hc.min() < -1e-6:
+                    closed = True
+                    self.near_closed += 1
+                else:
+                    H[c] = (mem, np.clip(Hc, 0, None))
+            if closed:
+                terminal.append(c)
+                pis[c] = stat_dist(Pm)
+                Hc = np.zeros((m, len(terminal))); Hc[:, -1] = 1.0
+                H[c] = (mem, Hc)
         init = np.zeros(n)
         for k, w in self.seed_weight.items():
             if k in idx: init[idx[k]] += w
         init /= init.sum()
-        term_mask = np.isin(labels, terminal)
-        absorb = {}
-        trans = np.nonzero(~term_mask)[0]
-        if len(trans):
-            Q = P[trans][:, trans]
-            I_Q = (sp.eye(len(trans)) - Q).tocsc()
-            lu = sp.linalg.splu(I_Q)
-            for c in terminal:
-                tgt = np.nonzero(labels == c)[0]
-                Rt = np.asarray(P[trans][:, tgt].sum(axis=1)).ravel()
-                h = lu.solve(Rt)
-                absorb[c] = float(init[trans] @ h) + float(init[tgt].sum())
-        else:
-            for c in terminal:
-                absorb[c] = float(init[labels == c].sum())
+        absorb = defaultdict(float)
+        for c in range(ncomp):
+            mem, Hc = H[c]
+            wts = init[mem] @ Hc
+            for ci, t in enumerate(terminal[:Hc.shape[1]]):
+                absorb[t] += float(wts[ci])
         pi = np.zeros(n)
         for c in terminal:
-            members, v = pis[c]
-            pi[members] += absorb[c] * v
-        self.keys_list, self.pi, self.terminal, self.absorb, self.labels, self.Pmat = keys, pi, terminal, absorb, labels, P
+            pi[members_of[c]] += absorb[c] * pis[c]
+        self.absorb_error = float(abs(pi.sum() - 1.0))
+        self.keys_list, self.pi, self.terminal, self.absorb, self.labels, self.Pmat = keys, pi, terminal, dict(absorb), labels, P
         return pi
 
     # -- reporting helpers
