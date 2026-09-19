@@ -4026,6 +4026,84 @@
   "x_on": true,
   "role": false,
   "mode": "square",
+  "prior": "uniform",
+  "n_programs": 1852,
+  "n_classes": 48,
+  "n_states": 134,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 3.552381828142808,
+  "mean_payoff": -0.9364498519161673,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9364498519161673,
+  "support": [
+   [
+    "mono {D:1}",
+    0.8789946765037387
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.03735303951947555
+   ],
+   [
+    "mono {and(X,X):1}",
+    0.014329028769161107
+   ],
+   [
+    "mono {X:1}",
+    0.010249488716753623
+   ],
+   [
+    "mono {C:1}",
+    0.007807416511714403
+   ],
+   [
+    "mono {THEM(^X):1}",
+    0.007702880641326111
+   ],
+   [
+    "mono {and(THEM(ME),D):1}",
+    0.005772937239459569
+   ],
+   [
+    "mono {and(THEM(THEM),D):1}",
+    0.005772937239459567
+   ],
+   [
+    "mono {and(X,and(X,X)):1}",
+    0.0056227971721859865
+   ],
+   [
+    "mono {and(X,THEM(^C)):1}",
+    0.003929014204772814
+   ],
+   [
+    "mono {and(X,THEM(^X)):1}",
+    0.0031423142577011193
+   ],
+   [
+    "mono {THEM(^D):1}",
+    0.0023036853256631507
+   ]
+  ],
+  "chain_time_s": 0.9914920330047607,
+  "cut_flow": 1.114242899598093e-05,
+  "n_expanded": 52,
+  "poly_flow": 1.5881833692019082e-05
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "pd",
+  "N": 100,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
   "n_programs": 1852,
   "n_classes": 48,
   "n_states": 118,
@@ -4065,10 +4143,47 @@
     0.0010074127952892592
    ]
   ],
-  "chain_time_s": 0.24680662155151367,
+  "chain_time_s": 0.39206814765930176,
   "cut_flow": 9.875209818529966e-08,
   "n_expanded": 48,
   "poly_flow": 9.875209818529962e-08
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "pd",
+  "N": 1000,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 48,
+  "n_states": 118,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.7583795459447895,
+  "mean_payoff": -0.9826766812590343,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.9826766812590343,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9795812419667248
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.016318646373944878
+   ]
+  ],
+  "chain_time_s": 0.33037710189819336,
+  "cut_flow": 6.5251702925434e-08,
+  "n_expanded": 48,
+  "poly_flow": 6.525170292543401e-08
  },
  {
   "arm": "weak",
@@ -4191,6 +4306,71 @@
   "cut_flow": 4.7233952657877055e-06,
   "n_expanded": 166,
   "poly_flow": 0.0005226430284078178
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "pd",
+  "N": 1000,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 48,
+  "n_states": 834,
+  "n_terminal_classes": 1,
+  "indeterminate": 179,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 5.138368989639511,
+  "mean_payoff": -0.705099701646678,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.705099701646678,
+  "support": [
+   [
+    "mono {D:1}",
+    0.6950044397479841
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.28793007565680206
+   ],
+   [
+    "mono {THEM(^X):1}",
+    0.0023507007790019006
+   ],
+   [
+    "mono {C:1}",
+    0.0020554124048765246
+   ],
+   [
+    "mono {X:1}",
+    0.0017618773091191238
+   ],
+   [
+    "mono {and(X,THEM(^X)):1}",
+    0.0016570743758046636
+   ],
+   [
+    "mono {and(X,THEM(^C)):1}",
+    0.001489266765168756
+   ],
+   [
+    "poly {C:0.091, THEM(ME):0.182, and(X,THEM(^X)):0.727}",
+    0.0013451097298379537
+   ],
+   [
+    "poly {THEM(ME):0.333, and(X,THEM(^C)):0.667}",
+    0.001024884438547587
+   ]
+  ],
+  "chain_time_s": 35.40048694610596,
+  "cut_flow": 3.203899043934557e-06,
+  "n_expanded": 306,
+  "poly_flow": 8.223294447508239e-05
  },
  {
   "arm": "weak",
@@ -5251,6 +5431,51 @@
   "arm": "weak",
   "n": 6,
   "game": "stag",
+  "N": 1000,
+  "w": 0.1,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 108,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 2.64021299749326,
+  "mean_payoff": 3.98532017411582,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 0.01467982588417982,
+  "support": [
+   [
+    "mono {C:1}",
+    0.9797706405467695
+   ],
+   [
+    "mono {D:1}",
+    0.0146356654331322
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.0029924123957565606
+   ],
+   [
+    "mono {not(THEM(^C)):1}",
+    0.0019533097563777303
+   ]
+  ],
+  "chain_time_s": 0.18487310409545898,
+  "cut_flow": 2.1370014877083494e-07,
+  "n_expanded": 46,
+  "poly_flow": 2.1370014877083505e-07
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "stag",
   "N": 10,
   "w": 1.0,
   "x_on": true,
@@ -5356,6 +5581,47 @@
   "cut_flow": 6.713103494676566e-08,
   "n_expanded": 48,
   "poly_flow": 6.802250618199284e-05
+ },
+ {
+  "arm": "weak",
+  "n": 6,
+  "game": "stag",
+  "N": 1000,
+  "w": 1.0,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 1852,
+  "n_classes": 46,
+  "n_states": 108,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999998,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.001857777943639239,
+  "mean_bits_support": 3.9135074188923173,
+  "mean_payoff": 3.99999999759981,
+  "efficient_payoff": 4.0,
+  "deadweight_loss": 2.4001898246694964e-09,
+  "support": [
+   [
+    "mono {C:1}",
+    0.8842841092929035
+   ],
+   [
+    "mono {not(THEM(^C)):1}",
+    0.11272491133238094
+   ],
+   [
+    "mono {THEM(^C):1}",
+    0.0024464491226857924
+   ]
+  ],
+  "chain_time_s": 0.17630624771118164,
+  "cut_flow": 3.472600347096577e-15,
+  "n_expanded": 46,
+  "poly_flow": 3.472600347096576e-15
  },
  {
   "arm": "weak",

@@ -228,6 +228,40 @@ or equal with u(q,q) ≤ u(p,q)).
   (ALLC drifts in at 1/N and D then takes all-ALLC), so "unfakeable" here
   means "not invaded from rare", not "absorbing".
 
+## lim_N: weak arm at N = 1000 (`runs/limN_weak.md`)
+
+| game | w | N=10 | N=100 | N=1000 |
+|---|---|---|---|---|
+| PD: all-D / all-`THEM(^C)` | 0.1 | 0.528 / 0.001 | 0.979 / 0.006 | 0.980 / 0.016 |
+| PD: all-D / all-`THEM(^C)` | 1 | 0.969 / 0.012 | 0.882 / 0.099 | **0.695 / 0.288** |
+| PD mean payoff | 0.1 / 1 | −0.685 / −0.980 | −0.988 / −0.893 | −0.983 / −0.705 |
+| Stag: all-Hare / all-Stag | 0.1 | 0.533 / 0.102 | 0.971 / 0.014 | 0.015 / 0.980 |
+| Stag: all-Hare / all-Stag | 1 | 0.907 / 0.013 | 0.922 / 0.063 | 0.000 / 0.884 |
+
+Entry and exit of all-`THEM(^C)` in the PD at N = 1000, per mutation event
+(μ·ρ):
+
+| edge | mutant | μ | ρ (w=0.1) | μρ (w=0.1) | ρ (w=1) | μρ (w=1) |
+|---|---|---|---|---|---|---|
+| all-D → all-`THEM(^C)` | `THEM(^C)` | 6.8e-4 | 8.3e-3 | 5.6e-6 | 0.500 | 3.4e-4 |
+| all-`THEM(^C)` → all-C (drift) | C | 0.245 | 1/N = 1e-3 | 2.5e-4 | 1e-3 | 2.5e-4 |
+| all-`THEM(^C)` → all-`THEM(^D)` | `THEM(^D)` | 6.8e-4 | 0.091 | 6.2e-5 | 0.502 | 3.4e-4 |
+| all-`THEM(^C)` → all-`THEM(^X)` | `THEM(^X)` | 6.6e-4 | 0.048 | 3.1e-5 | 0.334 | 2.2e-4 |
+| total exit | | | | 4.6e-4 | | 1.1e-3 |
+
+The N-dependence is in two places.  The ALLC-drift exit is μ(C)/N and
+vanishes as N → ∞; the second-order entry `THEM(^C)` has ρ → ½ at w = 1
+(a mutant that is neutral at one copy and advantaged from two copies fixes
+with probability → ½ under strong selection) but ρ → 0 like 1/N^{…} at
+w = 0.1 (8.3e-3 at N=1000 vs 2.6e-2 at N=100: weak second-order selection
+does not beat drift at large N).  So at w = 1 the cooperative share grows
+with N (0.012 → 0.099 → 0.288) and the limit chain is the drift-free cycle
+all-D → `THEM(^C)` → `THEM(^D)` → all-C → all-D with N-independent rates, in
+which all-`THEM(^C)` holds a finite fraction; at w = 0.1 it stays at ~1–2%.
+In the Stag Hunt N = 1000 flips the basin to all-Stag at both w (the Hare→Stag
+valley at frequency ¾ is crossed more easily than the Stag→Hare valley at ¼
+once N·w is large enough), with `THEM(^Stag)` a 0.3% transient.
+
 ## Prior diagnostic (`runs/prior_uniform.md`)
 
 Weak arm, PD, n=6, N=100, w=0.1, with μ uniform over the 1,852 programs of
