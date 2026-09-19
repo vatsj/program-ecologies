@@ -10,6 +10,24 @@ Node counts follow IMPLEMENTATION §2 (application is a node).  PD payoffs
 C/C 0, C/D −2, D/C 1, D/D −1 (efficient 0).  Prior bits = log2 a(|p|) +
 2 log2 |p| + 1.
 
+## Void cells (fitness clamping)
+
+The cells below were run with fitness f = 1 + w·payoff clamped at 1e-6.  In
+games with negative payoffs (PD: C-vs-D pays −2; exchange: Give-vs-Keep
+pays −1) the clamp binds at w = 1 (f = 1 − 2 < 0 → 1e-6), so a single
+exploited interaction makes the fitness ratio ~10⁶ and every valley
+crossing collapses to ~e^{−N·14}.  **All w = 1 PD and exchange cells in this
+file and in `runs/results.md` (rows without `fmap=exp`) are void** for that
+reason: the "2e-99 / 1e-191" FairBot entries, the 0.882 / 0.099 (N=100) and
+0.695 / 0.288 (N=1000) weak-PD shares, the w = 1 Moran-check rows, and the
+w = 1 exchange rows.  They are kept, not deleted; the replacement runs use
+f = exp(w·payoff) and are in the "Exponential fitness map" section.  The
+w = 0.01 and w = 0.1 rows are unaffected (1 + w·payoff ≥ 0.8 for all
+payoffs in these games).  Stag Hunt, divide-the-dollar, Nash demand and BoS
+have non-negative payoffs, so their w = 1 cells never hit the clamp and
+stand; Chicken (−10, −1) and zero-sum (−1) do hit it at w = 1 and were not
+re-run.
+
 ## The chain
 
 - **States**: monomorphic populations and polymorphic attractors (rest points
@@ -19,7 +37,8 @@ C/C 0, C/D −2, D/C 1, D/D −1 (efficient 0).  Prior bits = log2 a(|p|) +
   x_s).
 - **Edge weights**: P(A→B) ∝ μ(q)·ρ(q | A→B).  ρ is the frequency-dependent
   Moran fixation probability of a single q-lineage against the lumped
-  resident (fitness f = 1 + w·payoff, clamped at 1e-6):
+  resident (fitness f = 1 + w·payoff clamped at 1e-6 in the sweep; f =
+  exp(w·payoff) from the "Exponential fitness map" section on):
   ρ = [1 + Σ_{k=1}^{k*−1} Π_{j=1}^{k} f_A(j)/f_q(j)]^{-1}, with k* = N for a
   monomorphic target (exactly 1/N for a neutral mutant; above 1/N for an
   advantaged one; below 1/N but positive for a disadvantaged one, so every
