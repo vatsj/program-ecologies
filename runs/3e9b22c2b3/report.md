@@ -1,6 +1,6 @@
 ### arm=strong, n=7, game=pd, N=10, x_on=True, role=False, mode=sparse
 
-programs 8770, classes 44, states 5667, terminal classes 1, indeterminate 0, divergence rate 0.0055
+programs 8770, classes 44, states 4948, terminal classes 1, indeterminate 0, divergence rate 0.0054
 mean payoff -1.0000, efficient 0.0000, deadweight loss 1.0000, mean bits in support 2.66
 
 | pi | state |
@@ -11,8 +11,8 @@ mean payoff -1.0000, efficient 0.0000, deadweight loss 1.0000, mean bits in supp
 | 0.0066 | neutral {D:0.7, THEM(ME):0.3} |
 | 0.0028 | neutral {D:0.6, THEM(ME):0.4} |
 | 0.0016 | neutral {D:0.9, and(THEM(ME),D):0.1} |
-| 0.0011 | neutral {D:0.9, and(X,THEM(ME)):0.1} |
 | 0.0011 | neutral {D:0.9, and(THEM(ME),X):0.1} |
+| 0.0011 | neutral {D:0.9, and(X,THEM(ME)):0.1} |
 
 Transitions out of the support (share of mutation events, mutants responsible):
 
@@ -58,13 +58,6 @@ Transitions out of the support (share of mutation events, mutants responsible):
     - 3.90e-04 -> neutral {D:0.9, THEM(ME):0.1}   via THEM(ME) (3.90e-04)
     - 1.10e-04 -> neutral {D:0.8, and(THEM(ME),D):0.1, and(THEM(ME),X):0.1}   via and(THEM(ME),X) (1.10e-04)
     - 1.10e-04 -> neutral {D:0.8, and(X,THEM(ME)):0.1, and(THEM(ME),D):0.1}   via and(X,THEM(ME)) (1.10e-04)
-- neutral {D:0.9, and(X,THEM(ME)):0.1}
-    - 9.96e-02 -> mono {D:1}   via D (3.31e-02), C (3.31e-02), X (3.12e-02), and(X,X) (8.56e-04)
-    - 6.65e-02 -> neutral {D:0.8, and(X,THEM(ME)):0.2}   via C (3.31e-02), X (3.12e-02), and(X,X) (8.56e-04), or(X,X) (8.56e-04)
-    - 3.51e-03 -> neutral {D:0.8, THEM(ME):0.1, and(X,THEM(ME)):0.1}   via THEM(ME) (3.51e-03)
-    - 3.90e-04 -> neutral {D:0.9, THEM(ME):0.1}   via THEM(ME) (3.90e-04)
-    - 1.51e-04 -> neutral {D:0.8, and(X,THEM(ME)):0.1, and(THEM(ME),D):0.1}   via and(THEM(ME),D) (1.51e-04)
-    - 1.10e-04 -> neutral {D:0.8, and(X,THEM(ME)):0.1, and(THEM(ME),X):0.1}   via and(THEM(ME),X) (1.10e-04)
 - neutral {D:0.9, and(THEM(ME),X):0.1}
     - 9.96e-02 -> mono {D:1}   via D (3.31e-02), C (3.31e-02), X (3.12e-02), and(X,X) (8.56e-04)
     - 6.65e-02 -> neutral {D:0.8, and(THEM(ME),X):0.2}   via C (3.31e-02), X (3.12e-02), and(X,X) (8.56e-04), or(X,X) (8.56e-04)
@@ -72,3 +65,10 @@ Transitions out of the support (share of mutation events, mutants responsible):
     - 3.90e-04 -> neutral {D:0.9, THEM(ME):0.1}   via THEM(ME) (3.90e-04)
     - 1.51e-04 -> neutral {D:0.8, and(THEM(ME),D):0.1, and(THEM(ME),X):0.1}   via and(THEM(ME),D) (1.51e-04)
     - 1.10e-04 -> neutral {D:0.8, and(X,THEM(ME)):0.1, and(THEM(ME),X):0.1}   via and(X,THEM(ME)) (1.10e-04)
+- neutral {D:0.9, and(X,THEM(ME)):0.1}
+    - 9.96e-02 -> mono {D:1}   via D (3.31e-02), C (3.31e-02), X (3.12e-02), and(X,X) (8.56e-04)
+    - 6.65e-02 -> neutral {D:0.8, and(X,THEM(ME)):0.2}   via C (3.31e-02), X (3.12e-02), and(X,X) (8.56e-04), or(X,X) (8.56e-04)
+    - 3.51e-03 -> neutral {D:0.8, THEM(ME):0.1, and(X,THEM(ME)):0.1}   via THEM(ME) (3.51e-03)
+    - 3.90e-04 -> neutral {D:0.9, THEM(ME):0.1}   via THEM(ME) (3.90e-04)
+    - 1.51e-04 -> neutral {D:0.8, and(X,THEM(ME)):0.1, and(THEM(ME),D):0.1}   via and(THEM(ME),D) (1.51e-04)
+    - 1.10e-04 -> neutral {D:0.8, and(X,THEM(ME)):0.1, and(THEM(ME),X):0.1}   via and(THEM(ME),X) (1.10e-04)

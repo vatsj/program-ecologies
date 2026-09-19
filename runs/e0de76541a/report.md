@@ -1,22 +1,22 @@
 ### arm=strong, n=6, game=pd, N=1000, x_on=True, role=False, mode=square
 
-programs 1726, classes 21, states 38458, terminal classes 1, indeterminate 0, divergence rate 0.0004
+programs 1726, classes 21, states 44848, terminal classes 1, indeterminate 0, divergence rate 0.0004
 mean payoff -1.0000, efficient 0.0000, deadweight loss 1.0000, mean bits in support 2.66
 
 | pi | state |
 |---|---|
-| 0.0477 | neutral {D:0.991, THEM(ME):0.009} |
-| 0.0469 | neutral {D:0.99, THEM(ME):0.01} |
-| 0.0468 | neutral {D:0.992, THEM(ME):0.008} |
-| 0.0447 | neutral {D:0.989, THEM(ME):0.011} |
-| 0.0440 | neutral {D:0.993, THEM(ME):0.007} |
-| 0.0416 | neutral {D:0.988, THEM(ME):0.012} |
-| 0.0392 | neutral {D:0.994, THEM(ME):0.006} |
-| 0.0378 | neutral {D:0.987, THEM(ME):0.013} |
-| 0.0337 | neutral {D:0.986, THEM(ME):0.014} |
-| 0.0328 | neutral {D:0.995, THEM(ME):0.005} |
-| 0.0295 | neutral {D:0.985, THEM(ME):0.015} |
-| 0.0255 | neutral {D:0.984, THEM(ME):0.016} |
+| 0.0470 | neutral {D:0.991, THEM(ME):0.009} |
+| 0.0462 | neutral {D:0.99, THEM(ME):0.01} |
+| 0.0461 | neutral {D:0.992, THEM(ME):0.008} |
+| 0.0441 | neutral {D:0.989, THEM(ME):0.011} |
+| 0.0434 | neutral {D:0.993, THEM(ME):0.007} |
+| 0.0410 | neutral {D:0.988, THEM(ME):0.012} |
+| 0.0387 | neutral {D:0.994, THEM(ME):0.006} |
+| 0.0373 | neutral {D:0.987, THEM(ME):0.013} |
+| 0.0332 | neutral {D:0.986, THEM(ME):0.014} |
+| 0.0323 | neutral {D:0.995, THEM(ME):0.005} |
+| 0.0291 | neutral {D:0.985, THEM(ME):0.015} |
+| 0.0251 | neutral {D:0.984, THEM(ME):0.016} |
 
 Transitions out of the support (share of mutation events, mutants responsible):
 

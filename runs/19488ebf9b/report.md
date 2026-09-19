@@ -1,6 +1,6 @@
 ### arm=strong, n=6, game=pd, N=100, x_on=True, role=False, mode=square
 
-programs 1726, classes 21, states 3081, terminal classes 1, indeterminate 0, divergence rate 0.0004
+programs 1726, classes 21, states 3075, terminal classes 1, indeterminate 0, divergence rate 0.0004
 mean payoff -1.0000, efficient 0.0000, deadweight loss 1.0000, mean bits in support 2.66
 
 | pi | state |

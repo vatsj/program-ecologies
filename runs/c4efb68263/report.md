@@ -1,6 +1,6 @@
 ### arm=strong, n=7, game=pd, N=100, x_on=True, role=False, mode=sparse
 
-programs 8770, classes 44, states 50581, terminal classes 1, indeterminate 0, divergence rate 0.0060
+programs 8770, classes 44, states 49623, terminal classes 1, indeterminate 0, divergence rate 0.0058
 mean payoff -1.0000, efficient 0.0000, deadweight loss 1.0000, mean bits in support 2.67
 
 | pi | state |
@@ -14,8 +14,8 @@ mean payoff -1.0000, efficient 0.0000, deadweight loss 1.0000, mean bits in supp
 | 0.0131 | neutral {D:0.94, THEM(ME):0.06} |
 | 0.0083 | neutral {D:0.99, and(THEM(ME),D):0.01} |
 | 0.0082 | neutral {D:0.93, THEM(ME):0.07} |
-| 0.0060 | neutral {D:0.99, and(X,THEM(ME)):0.01} |
 | 0.0060 | neutral {D:0.99, and(THEM(ME),X):0.01} |
+| 0.0060 | neutral {D:0.99, and(X,THEM(ME)):0.01} |
 | 0.0051 | neutral {D:0.92, THEM(ME):0.08} |
 
 Transitions out of the support (share of mutation events, mutants responsible):
@@ -83,19 +83,19 @@ Transitions out of the support (share of mutation events, mutants responsible):
     - 1.14e-04 -> neutral {D:0.92, THEM(ME):0.07, and(THEM(ME),X):0.01}   via and(THEM(ME),X) (1.14e-04)
     - 1.14e-04 -> neutral {D:0.92, THEM(ME):0.07, and(X,THEM(ME)):0.01}   via and(X,THEM(ME)) (1.14e-04)
     - 1.18e-05 -> neutral {D:0.93, THEM(ME):0.06, and(THEM(ME),D):0.01}   via and(THEM(ME),D) (1.18e-05)
-- neutral {D:0.99, and(X,THEM(ME)):0.01}
-    - 9.96e-03 -> mono {D:1}   via D (3.31e-03), C (3.31e-03), X (3.12e-03), and(X,X) (8.56e-05)
-    - 6.76e-03 -> neutral {D:0.98, and(X,THEM(ME)):0.02}   via C (3.31e-03), X (3.12e-03), and(X,THEM(ME)) (1.21e-04), and(X,X) (8.56e-05)
-    - 3.86e-03 -> neutral {D:0.98, THEM(ME):0.01, and(X,THEM(ME)):0.01}   via THEM(ME) (3.86e-03)
-    - 1.66e-04 -> neutral {D:0.98, and(X,THEM(ME)):0.01, and(THEM(ME),D):0.01}   via and(THEM(ME),D) (1.66e-04)
-    - 1.21e-04 -> neutral {D:0.98, and(X,THEM(ME)):0.01, and(THEM(ME),X):0.01}   via and(THEM(ME),X) (1.21e-04)
-    - 3.90e-05 -> neutral {D:0.99, THEM(ME):0.01}   via THEM(ME) (3.90e-05)
 - neutral {D:0.99, and(THEM(ME),X):0.01}
     - 9.96e-03 -> mono {D:1}   via D (3.31e-03), C (3.31e-03), X (3.12e-03), and(X,X) (8.56e-05)
     - 6.76e-03 -> neutral {D:0.98, and(THEM(ME),X):0.02}   via C (3.31e-03), X (3.12e-03), and(THEM(ME),X) (1.21e-04), and(X,X) (8.56e-05)
     - 3.86e-03 -> neutral {D:0.98, THEM(ME):0.01, and(THEM(ME),X):0.01}   via THEM(ME) (3.86e-03)
     - 1.66e-04 -> neutral {D:0.98, and(THEM(ME),D):0.01, and(THEM(ME),X):0.01}   via and(THEM(ME),D) (1.66e-04)
     - 1.21e-04 -> neutral {D:0.98, and(X,THEM(ME)):0.01, and(THEM(ME),X):0.01}   via and(X,THEM(ME)) (1.21e-04)
+    - 3.90e-05 -> neutral {D:0.99, THEM(ME):0.01}   via THEM(ME) (3.90e-05)
+- neutral {D:0.99, and(X,THEM(ME)):0.01}
+    - 9.96e-03 -> mono {D:1}   via D (3.31e-03), C (3.31e-03), X (3.12e-03), and(X,X) (8.56e-05)
+    - 6.76e-03 -> neutral {D:0.98, and(X,THEM(ME)):0.02}   via C (3.31e-03), X (3.12e-03), and(X,THEM(ME)) (1.21e-04), and(X,X) (8.56e-05)
+    - 3.86e-03 -> neutral {D:0.98, THEM(ME):0.01, and(X,THEM(ME)):0.01}   via THEM(ME) (3.86e-03)
+    - 1.66e-04 -> neutral {D:0.98, and(X,THEM(ME)):0.01, and(THEM(ME),D):0.01}   via and(THEM(ME),D) (1.66e-04)
+    - 1.21e-04 -> neutral {D:0.98, and(X,THEM(ME)):0.01, and(THEM(ME),X):0.01}   via and(THEM(ME),X) (1.21e-04)
     - 3.90e-05 -> neutral {D:0.99, THEM(ME):0.01}   via THEM(ME) (3.90e-05)
 - neutral {D:0.92, THEM(ME):0.08}
     - 7.59e-02 -> neutral {D:0.93, THEM(ME):0.07}   via D (2.65e-02), C (2.46e-02), X (2.32e-02), and(X,X) (6.37e-04)

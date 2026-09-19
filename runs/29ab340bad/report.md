@@ -1,6 +1,6 @@
 ### arm=strong, n=6, game=pd, N=10, x_on=True, role=False, mode=square
 
-programs 1726, classes 21, states 340, terminal classes 1, indeterminate 0, divergence rate 0.0004
+programs 1726, classes 21, states 277, terminal classes 1, indeterminate 0, divergence rate 0.0004
 mean payoff -1.0000, efficient 0.0000, deadweight loss 1.0000, mean bits in support 2.65
 
 | pi | state |
@@ -45,7 +45,7 @@ Transitions out of the support (share of mutation events, mutants responsible):
     - 1.79e-01 -> neutral {D:0.5, THEM(ME):0.5}   via C (8.84e-02), X (8.38e-02), THEM(ME) (2.30e-03), and(X,X) (2.13e-03)
     - 7.31e-05 -> neutral {D:0.5, THEM(ME):0.4, and(THEM(ME),D):0.1}   via and(THEM(ME),D) (7.31e-05)
     - 5.59e-05 -> neutral {D:0.5, THEM(ME):0.4, and(THEM(ME),X):0.1}   via and(THEM(ME),X) (5.59e-05)
-    - 5.59e-05 -> poly {D:3.31e-08, THEM(ME):2.65e-08, or(X,THEM(ME)):1}   via or(X,THEM(ME)) (5.59e-05)
+    - 5.59e-05 -> poly {D:0.00344, THEM(ME):0.00172, or(X,THEM(ME)):0.995}   via or(X,THEM(ME)) (5.59e-05)
     - 5.59e-05 -> neutral {D:0.5, THEM(ME):0.4, and(X,THEM(ME)):0.1}   via and(X,THEM(ME)) (5.59e-05)
 - neutral {D:0.9, and(THEM(ME),D):0.1}
     - 9.96e-02 -> mono {D:1}   via D (3.32e-02), C (3.32e-02), X (3.14e-02), and(X,X) (7.98e-04)
