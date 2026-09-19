@@ -318,6 +318,10 @@ rounding, not the game, the language or μ.  Fixed: rounding ties now split
 into every tie-break with equal weight; π is exactly symmetric (0.483 /
 0.483 at w = 0.1, N = 100) and the PD cells are unchanged.
 
+## Reference-evaluator check: `and(THEM(^THEM(^C)),not(THEM(^D)))` vs `THEM(^C)`
+
+Exact (floor probability 0, budget 200): `THEM(^C)` plays D against it (P(C) = 0.000, because against ALLC the 13-node program plays and(C, not(C)) = D) and it plays C against `THEM(^C)` (P(C) = 1.000); it cooperates with itself (P(C) = 1) and defects against D, so it is exploited by `THEM(^C)` (u = −2 vs 1) and does not invade all-`THEM(^C)`.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
