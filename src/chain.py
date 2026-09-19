@@ -1,11 +1,21 @@
-"""Attractor chain: rest points of the replicator, single-mutant transitions,
-stationary distribution.
+"""Attractor chain: rest points of the replicator, single-mutant transitions
+weighted by Moran fixation probabilities, stationary distribution.
 
-State = (support ids, frequencies).  Neutral states (payoff matrix constant
-down each column on the support) live on the 1/N grid; other polymorphic
-rest points keep their continuous frequencies.  A mutant q perturbs a state
-by replacing one random agent (type t with probability x_t); selection then
-runs to a rest point.  P(A->B) is proportional to sum_q mu(q) * P[settle at B].
+States are monomorphic populations and polymorphic attractors (rest points of
+the replicator with a restoring force), stored on the 1/N grid.  Neutral sets
+are not states: a neutral rest set is collapsed to its vertices in proportion
+to the frequencies (neutral drift fixes type s with probability x_s).
+
+For a mutant q in state A the deterministic fate B is found by running the
+replicator from A + q (at 1/N; and from 1/2 if q dies at first order, to find
+targets behind a fitness valley).  The transition weight is
+    P(A -> B) proportional to mu(q) * rho(q | A -> B),
+with rho the probability that the single-mutant lineage reaches B rather than
+dying: the frequency-dependent Moran fixation probability of q against the
+lumped resident (fitness f = 1 + w * payoff, clamped at 1e-6), with the
+product truncated at k* = q's count in B (N for a monomorphic B; the peak
+count of q along the deterministic path when q is not in B).  The complement
+1 - rho stays at A.
 """
 import numpy as np
 import scipy.sparse as sp
@@ -53,7 +63,8 @@ def _rep_step(U, x, h, out):
 
 @njit(cache=True)
 def _replicator_nb(U, x0, rest_tol, ext_tol, atol, max_steps, polish_thresh, dt0):
-    """Returns (x, status, dt): status 0 = rest, 1 = step cap, 2 = near rest (polish)."""
+    """Returns (x, status, dt, peak): status 0 = rest, 1 = step cap, 2 = near
+    rest (polish); peak = max of x[n-1] along the path."""
     n = len(x0)
     x = x0.copy()
     for i in range(n):
@@ -62,8 +73,10 @@ def _replicator_nb(U, x0, rest_tol, ext_tol, atol, max_steps, polish_thresh, dt0
     for i in range(n): z += x[i]
     for i in range(n): x[i] /= z
     dt = dt0
+    peak = x[n - 1]
     x1 = np.empty(n); xh = np.empty(n); x2 = np.empty(n)
     for it in range(max_steps):
+        if x[n - 1] > peak: peak = x[n - 1]
         fit = U @ x
         fbar = 0.0
         for i in range(n): fbar += x[i] * fit[i]
@@ -74,9 +87,9 @@ def _replicator_nb(U, x0, rest_tol, ext_tol, atol, max_steps, polish_thresh, dt0
                 d = abs(fit[i] - fbar)
                 if d > m: m = d
         if m < rest_tol:
-            return x, 0, dt
+            return x, 0, dt, peak
         if m < polish_thresh and npos > 1:
-            return x, 2, dt
+            return x, 2, dt, peak
         err = 0.0
         while True:
             _rep_step(U, x, dt, x1)
@@ -97,7 +110,7 @@ def _replicator_nb(U, x0, rest_tol, ext_tol, atol, max_steps, polish_thresh, dt0
         for i in range(n): x[i] /= z
         if err < 0.1 * atol:
             dt = min(dt * 2.0, 1e6)
-    return x, 1, dt
+    return x, 1, dt, peak
 
 
 def _polish(U, x):
@@ -121,34 +134,62 @@ def _polish(U, x):
 def replicator(U, x0, rest_tol=1e-8, ext_tol=1e-9, atol=1e-5, max_steps=50000, keep_traj=64):
     """Deterministic replicator from x0 on payoff matrix U (exponential
     midpoint steps under step-doubling error control; interior rest points
-    are polished by a linear solve).  Returns (x, status, traj) with status in
-    {'rest', 'cycle'}; traj holds samples only for cycles."""
+    are polished by a linear solve).  Returns (x, status, traj, peak) with
+    status in {'rest', 'cycle'}; traj holds samples only for cycles; peak is
+    the maximum frequency of the last type along the path."""
     U = np.ascontiguousarray(U, dtype=np.float64); x = np.ascontiguousarray(x0, dtype=np.float64)
-    x, st, dt = _replicator_nb(U, x, rest_tol, ext_tol, atol, max_steps, 1e-3, 0.1)
+    x, st, dt, peak = _replicator_nb(U, x, rest_tol, ext_tol, atol, max_steps, 1e-3, 0.1)
     if st == 0:
-        return x, 'rest', []
+        return x, 'rest', [], peak
     if st == 2:
         xp = _polish(U, x)
         if xp is not None:
-            return xp, 'rest', []
-        x, st, dt = _replicator_nb(U, x, rest_tol, ext_tol, atol, max_steps, 0.0, dt)
+            return xp, 'rest', [], peak
+        x, st, dt, pk = _replicator_nb(U, x, rest_tol, ext_tol, atol, max_steps, 0.0, dt)
+        peak = max(peak, pk)
         if st == 0:
-            return x, 'rest', []
-    # step cap hit: sample a trajectory for the record
+            return x, 'rest', [], peak
     traj = [x.copy()]
     for _ in range(keep_traj - 1):
-        x, st, dt = _replicator_nb(U, x, rest_tol, ext_tol, atol, max(1, max_steps // keep_traj), 0.0, dt)
+        x, st, dt, pk = _replicator_nb(U, x, rest_tol, ext_tol, atol, max(1, max_steps // keep_traj), 0.0, dt)
+        peak = max(peak, pk)
         traj.append(x.copy())
         if st == 0:
-            return x, 'rest', []
+            return x, 'rest', [], peak
     T = np.array(traj)
     if np.abs(T - T[-1]).max() < 1e-3:
-        # not moving: a slowly-certified rest point, not a cycle.  Types that
-        # are still (very slowly) dying are dropped before the projection.
         x = x.copy(); x[x < 1e-4] = 0.0; x /= x.sum()
         xp = _polish(U, x)
-        return (xp if xp is not None else x), 'rest', []
-    return x, 'cycle', traj
+        return (xp if xp is not None else x), 'rest', [], peak
+    return x, 'cycle', traj, peak
+
+
+@njit(cache=True)
+def fixation(uqq, uqa, uaq, uaa, N, w, kstar):
+    """Probability that a single mutant q reaches kstar copies before
+    extinction in a Moran process against a lumped resident a, with fitness
+    f = 1 + w * payoff (clamped at 1e-6).  kstar = N is fixation.
+    rho = 1 / (1 + sum_{k=1}^{kstar-1} prod_{j=1}^{k} f_a(j) / f_q(j))."""
+    if kstar <= 1:
+        return 1.0
+    acc = 0.0      # running log of the product
+    lmax = -1e300
+    logs = np.empty(kstar - 1)
+    for k in range(1, kstar):
+        fq = 1.0 + w * ((k - 1) / (N - 1) * uqq + (N - k) / (N - 1) * uqa)
+        fa = 1.0 + w * (k / (N - 1) * uaq + (N - k - 1) / (N - 1) * uaa)
+        if fq < 1e-6: fq = 1e-6
+        if fa < 1e-6: fa = 1e-6
+        acc += np.log(fa) - np.log(fq)
+        logs[k - 1] = acc
+        if acc > lmax: lmax = acc
+    ssum = 0.0
+    for k in range(kstar - 1):
+        ssum += np.exp(logs[k] - lmax)
+    ls = lmax + np.log(ssum)
+    if ls > 700:
+        return np.exp(-ls)
+    return 1.0 / (1.0 + np.exp(ls))
 
 
 # ---------------------------------------------------------------- providers
@@ -334,19 +375,19 @@ class SparseProvider:
 
 # ---------------------------------------------------------------- chain
 class Chain:
-    """Lazy, flow-pruned attractor chain.
+    """Lazy, flow-pruned attractor chain with Moran-fixation edge weights.
 
     States are expanded (their single-mutant transitions computed) only when
     the stationary flow into them exceeds `theta`; dominant edges (jump
-    probability >= p_eager) are followed eagerly so long neutral walks are
-    traversed in one pass.  Edges into unexpanded states are dropped and the
-    source row renormalised (reflecting boundary); the total dropped flow is
-    reported as `cut_flow`.
+    probability >= p_eager) are followed eagerly.  Edges into unexpanded
+    states are dropped and the source row renormalised (reflecting boundary);
+    the total dropped flow is reported as `cut_flow`.
     """
-    def __init__(self, provider, N, seeds=None, rest_tol=1e-8, fit_tol=1e-9, theta=1e-6,
+    def __init__(self, provider, N, w=1.0, seeds=None, rest_tol=1e-8, fit_tol=1e-9, theta=1e-6,
                  p_eager=0.3, max_states=30000, max_rounds=60, verbose=False, key_dec=8):
         self.P = provider
         self.N = N
+        self.w = w
         self.rest_tol, self.fit_tol = rest_tol, fit_tol
         self.theta, self.p_eager = theta, p_eager
         self.max_states, self.max_rounds = max_states, max_rounds   # max_states caps expanded states
@@ -355,7 +396,9 @@ class Chain:
         self.states = {}                 # key -> (ids, x, kind)
         self.trans = {}                  # key -> {key2: prob}  (expanded states only)
         self.trans_mut = defaultdict(lambda: defaultdict(float))
+        self.edge_rho = {}               # (key, key2, q) -> (rho, kstar, target_kind)
         self.indeterminate = []
+        self.poly_flow = 0.0             # stationary flow into polymorphic targets (set by stationary())
         self.seed_weight = {}
         self.seeds = seeds
         self._kind = {}
@@ -367,14 +410,6 @@ class Chain:
     @staticmethod
     def is_neutral(U):
         return bool(np.all(np.abs(U - U[0:1, :]) < 1e-7))
-
-    def kind_of(self, ids):
-        ids = tuple(int(p) for p in ids)
-        k = self._kind.get(ids)
-        if k is None:
-            k = 'mono' if len(ids) == 1 else ('neutral' if self.is_neutral(self.P.U(ids)) else 'poly')
-            self._kind[ids] = k
-        return k
 
     def to_grid(self, x):
         """Largest-remainder rounding of frequencies to integer counts."""
@@ -401,65 +436,53 @@ class Chain:
         ids, x = ids[order], x[order]
         k = self.key(ids, x)
         if k not in self.states:
-            self.states[k] = (tuple(int(p) for p in ids), tuple(x.tolist()), self.kind_of(ids))
+            self.states[k] = (tuple(int(p) for p in ids), tuple(x.tolist()), 'mono' if len(ids) == 1 else 'poly')
         return k
 
-    def grid_state(self, ids, n):
-        """State from integer counts n on support ids (drop zero counts)."""
-        n = np.asarray(n)
-        keep = n > 0
-        return self.add_state(np.asarray(ids)[keep], n[keep] / self.N)
+    def mono(self, q):
+        return self.add_state([int(q)], [1.0])
 
-    def snap_outcomes(self, ids, x):
-        """Randomised rounding of a neutral rest point onto the 1/N grid."""
-        N = self.N
-        x = np.asarray(x, float)
-        n = np.floor(x * N + 1e-9).astype(int)
-        k = N - n.sum()
-        if k <= 0:
-            return [(1.0, self.grid_state(ids, n))]
-        m = len(ids)
-        agg = defaultdict(float)
-        if m ** k <= 512:
-            for fill in product(range(m), repeat=k):
-                pr = float(np.prod(x[list(fill)]))
-                if pr <= 0: continue
-                nn = n.copy()
-                for s in fill: nn[s] += 1
-                agg[self.grid_state(ids, nn)] += pr
-        else:
-            nn = n.copy(); nn[np.argmax(x)] += k
-            agg[self.grid_state(ids, nn)] += 1.0
-        z = sum(agg.values())
-        return [(pr / z, kk) for kk, pr in agg.items()]
+    def targets(self, ids2, xf, kstar, U):
+        """Collapse a rest point into chain states: (share, key, kstar).  A
+        neutral rest set is split among its vertices in proportion to the
+        frequencies (neutral drift fixes type s with probability x_s)."""
+        keep = xf > 1e-6
+        ids_k, x_k = ids2[keep], xf[keep] / xf[keep].sum()
+        if len(ids_k) > 1 and self.is_neutral(U[np.ix_(keep, keep)]):
+            return [(float(xs), self.mono(s), kstar) for s, xs in zip(ids_k, x_k)]
+        return [(1.0, self.add_state(ids_k, x_k), kstar)]
 
-    def dead_outcomes(self, key, ids, x, ti):
-        """Mutant died: the vacated slot is refilled by a random survivor."""
-        ids_, x_, kind = self.states[key]
-        if kind != 'neutral':
-            return [(1.0, key)]
-        n = np.round(np.asarray(x) * self.N).astype(int)
-        n[ti] -= 1
-        z = n.sum()
-        outs = []
-        for si in range(len(ids)):
-            if n[si] <= 0: continue
-            nn = n.copy(); nn[si] += 1
-            outs.append((n[si] / z, self.grid_state(ids, nn)))
-        return outs
-
-    def integrate(self, ids, x0, from_key, q):
-        ids = np.asarray(ids)
-        U = self.P.U(ids)
-        x, status, traj = replicator(U, x0, rest_tol=self.rest_tol)
+    def fates(self, key, ids, x, q, Uq):
+        """Deterministic fates of mutant q in state (ids, x): list of
+        (share, target key, kstar)."""
+        N = self.N; m = len(ids)
+        ids2 = np.append(ids, int(q))
+        x0 = np.append(x * (1.0 - 1.0 / N), 1.0 / N)
+        xf, status, traj, peak = replicator(Uq, x0, rest_tol=self.rest_tol)
         if status != 'rest':
-            self.indeterminate.append((from_key, int(q), [(tuple(ids.tolist()), t) for t in traj]))
+            self.indeterminate.append((key, int(q), [(tuple(ids2.tolist()), t) for t in traj]))
             return []
-        keep = x > 1e-6          # remnants of (second-order) dying types are dropped
-        ids2, x2 = ids[keep], x[keep] / x[keep].sum()
-        if len(ids2) > 1 and self.is_neutral(U[np.ix_(keep, keep)]):
-            return self.snap_outcomes(ids2, x2)
-        return [(1.0, self.add_state(ids2, x2))]
+        xq = xf[-1]
+        if xq > 1e-6:
+            kstar = N if xq > 1 - 1e-6 else max(1, int(round(N * xq)))
+            return self.targets(ids2, xf, kstar, Uq)
+        # q died at first order
+        res = xf[:m]
+        back = self.key(ids, self.to_grid(res / res.sum()) / N) == key
+        if back:
+            # look for a target behind a fitness valley: start from q at 1/2
+            x0b = np.append(x * 0.5, 0.5)
+            xf2, st2, traj2, pk2 = replicator(Uq, x0b, rest_tol=self.rest_tol)
+            if st2 != 'rest':
+                self.indeterminate.append((key, int(q), [(tuple(ids2.tolist()), t) for t in traj2]))
+                return []
+            xq2 = xf2[-1]
+            if xq2 > 1e-6:
+                kstar = N if xq2 > 1 - 1e-6 else max(1, int(round(N * xq2)))
+                return self.targets(ids2, xf2, kstar, Uq)
+            return [(1.0, self.mono(q), N)]          # drift fixation only
+        # q invaded, changed the residents, then died
+        return self.targets(ids2, xf, max(1, int(round(N * peak))), Uq)
 
     # -- transitions of one state
     def expand(self, key):
@@ -467,80 +490,50 @@ class Chain:
             return
         ids, x, kind = self.states[key]
         ids = np.array(ids); x = np.array(x)
-        N = self.N; m = len(ids)
+        N = self.N; m = len(ids); w = self.w
         self.P.prepare(ids)
         classes = self.P.mutant_classes(ids)
-        reps = np.array([c[0] for c in classes]); w = np.array([c[2] for c in classes])
+        reps = np.array([c[0] for c in classes]); mu = np.array([c[2] for c in classes])
         rows, cols, diag, inner = self.P.blocks_for(ids)
         K = len(reps)
-        idl = [int(p) for p in ids]
         in_sup = np.isin(reps, ids)
         if kind == 'poly':
             neutral_ext = np.zeros(K, bool)
         else:
             neutral_ext = (np.abs(rows - inner[0:1, :]) < 1e-7).all(axis=1) & (np.abs(cols - diag[None, :]) < 1e-7).all(axis=0)
+        # lumped resident payoffs
+        uaa = float(x @ inner @ x)
+        uqa = rows @ x                 # q against the resident mix
+        uaq = cols.T @ x               # resident mix against q
         out = defaultdict(float)
         muts = defaultdict(lambda: defaultdict(float))
-        sup_tuple = tuple(idl)
-        for ti, t in enumerate(ids):
-            xt = x[ti]
-            if xt <= 0: continue
-            wt = w * xt
-            # mutants of incumbent types
-            for qi in np.nonzero(in_sup)[0]:
-                q = int(reps[qi]); pos_q = idl.index(q)
-                if q == int(t) or kind != 'neutral':
-                    out[key] += wt[qi]; muts[key][q] += wt[qi]
-                else:
-                    n = np.round(x * N).astype(int); n[ti] -= 1; n[pos_q] += 1
-                    k2 = self.grid_state(ids, n)
-                    out[k2] += wt[qi]; muts[k2][q] += wt[qi]
-            # outside mutants: first-order fitness test, vectorised over classes
-            x0 = x.copy(); x0[ti] -= 1.0 / N
-            fit_q = rows @ x0 + diag / N                       # K
-            fit_s = (inner @ x0)[None, :] + cols.T / N         # K x m
-            fbar = fit_s @ x0 + fit_q / N
-            dq = fit_q - fbar
-            dead = (dq < -self.fit_tol) & ~in_sup
-            neut = neutral_ext & (np.abs(dq) <= self.fit_tol) & ~dead & ~in_sup
-            integ = ~dead & ~neut & ~in_sup
-            if dead.any():
-                res = self.dead_outcomes(key, ids, x, ti)
-                tot = wt[dead].sum()
-                for pr, k2 in res:
-                    out[k2] += tot * pr
-                    d = muts[k2]
-                    for qi in np.nonzero(dead)[0]:
-                        d[int(reps[qi])] += wt[qi] * pr
-            for qi in np.nonzero(neut)[0]:
-                q = int(reps[qi])
-                n = np.append(np.round(x * N).astype(int), 0); n[ti] -= 1; n[-1] += 1
-                k2 = self.grid_state(np.append(ids, q), n)
-                out[k2] += wt[qi]; muts[k2][q] += wt[qi]
-            for qi in np.nonzero(integ)[0]:
-                q = int(reps[qi])
-                ids2 = np.append(ids, q)
+        for qi in range(K):
+            q = int(reps[qi]); m_q = mu[qi]
+            if in_sup[qi]:
+                out[key] += m_q; muts[key][q] += m_q
+                continue
+            if neutral_ext[qi]:
+                fl = [(1.0, self.mono(q), N)]
+            else:
                 Uq = np.empty((m + 1, m + 1)); Uq[:m, :m] = inner; Uq[m, :m] = rows[qi]; Uq[:m, m] = cols[:, qi]; Uq[m, m] = diag[qi]
-                x0q = np.append(x0, 1.0 / N)
-                for pr, k2 in self.integrate_U(ids2, Uq, x0q, key, q):
-                    out[k2] += wt[qi] * pr; muts[k2][q] += wt[qi] * pr
+                fl = self.fates(key, ids, x, q, Uq)
+            if not fl:
+                continue
+            stay = m_q
+            for share, k2, kstar in fl:
+                rho = fixation(float(diag[qi]), float(uqa[qi]), float(uaq[qi]), uaa, N, w, int(kstar))
+                if k2 == key:
+                    continue
+                wgt = m_q * share * rho
+                out[k2] += wgt; muts[k2][q] += wgt
+                stay -= wgt
+                self.edge_rho[(key, k2, q)] = (rho, int(kstar), self.states[k2][2])
+            out[key] += max(stay, 0.0); muts[key][q] += max(stay, 0.0)
         z = sum(out.values())
         self.trans[key] = {k2: v / z for k2, v in out.items()}
         for k2, d in muts.items():
             for q, v in d.items():
                 self.trans_mut[(key, k2)][q] += v / z
-
-    def integrate_U(self, ids, U, x0, from_key, q):
-        ids = np.asarray(ids)
-        x, status, traj = replicator(U, x0, rest_tol=self.rest_tol)
-        if status != 'rest':
-            self.indeterminate.append((from_key, int(q), [(tuple(ids.tolist()), t) for t in traj]))
-            return []
-        keep = x > 1e-6          # remnants of (second-order) dying types are dropped
-        ids2, x2 = ids[keep], x[keep] / x[keep].sum()
-        if len(ids2) > 1 and self.is_neutral(U[np.ix_(keep, keep)]):
-            return self.snap_outcomes(ids2, x2)
-        return [(1.0, self.add_state(ids2, x2))]
 
     # -- exploration
     def explore(self):
@@ -692,6 +685,9 @@ class Chain:
             pi[members_of[c]] += absorb[c] * pis[c]
         self.absorb_error = float(abs(pi.sum() - 1.0))
         self.keys_list, self.pi, self.terminal, self.absorb, self.labels, self.Pmat = keys, pi, terminal, dict(absorb), labels, P
+        # stationary flow into polymorphic targets (where the truncated-product rho is load-bearing)
+        self.poly_flow = float(sum(pi[idx[a]] * v for a in keys for b, v in self.trans[a].items()
+                                   if b != a and self.states[b][2] == 'poly'))
         return pi
 
     # -- reporting helpers

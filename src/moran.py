@@ -2,16 +2,16 @@
 
 Each step: with probability eps a random agent is replaced by a draw from
 mu (over mutant classes); otherwise one agent reproduces with probability
-proportional to exp(s * fitness) and replaces a random agent.  Fitness is
-the mean payoff against the other N-1 agents.  Occupancy is recorded by
-support set (which types are present), which is the coarse statistic that
-can be compared with the chain's pi without aligning grid positions.
+proportional to 1 + w * payoff (clamped at 1e-6; the same map as the chain's
+fixation probabilities) and replaces a random agent.  Payoff is the mean
+against the other N-1 agents.  Occupancy is recorded by support set and by
+majority type.
 """
 import numpy as np
 from collections import defaultdict
 
 
-def simulate(U, mu, N, eps, steps, s=1.0, seed=0, burn=0.1, init=None):
+def simulate(U, mu, N, eps, steps, w=1.0, seed=0, burn=0.1, init=None):
     rng = np.random.default_rng(seed)
     K = len(mu)
     mu = np.asarray(mu, float); mu = mu / mu.sum()
@@ -20,7 +20,7 @@ def simulate(U, mu, N, eps, steps, s=1.0, seed=0, burn=0.1, init=None):
     counts = np.zeros(K, int)
     counts[init] = N
     occ = defaultdict(float)
-    comp = defaultdict(float)
+    maj = defaultdict(float)
     nburn = int(burn * steps)
     for t in range(steps):
         if rng.random() < eps:
@@ -35,23 +35,25 @@ def simulate(U, mu, N, eps, steps, s=1.0, seed=0, burn=0.1, init=None):
                 c = counts[present]
                 # fitness against the other N-1 agents
                 fit = (sub @ c - np.diag(sub) * 1.0) / (N - 1)
-                w = c * np.exp(s * (fit - fit.max()))
-                parent = present[rng.choice(len(present), p=w / w.sum())]
+                f = np.maximum(1.0 + w * fit, 1e-6)
+                wt = c * f
+                parent = present[rng.choice(len(present), p=wt / wt.sum())]
                 victim = rng.choice(K, p=counts / N)
                 counts[victim] -= 1; counts[parent] += 1
         if t >= nburn:
             key = tuple(np.nonzero(counts)[0].tolist())
             occ[key] += 1
-            comp[key] += 0  # placeholder for composition stats
+            maj[int(np.argmax(counts))] += 1
     z = sum(occ.values())
-    return {k: v / z for k, v in occ.items()}
+    return {k: v / z for k, v in occ.items()}, {k: v / z for k, v in maj.items()}
 
 
-def chain_support_occupancy(chain, prov):
-    """Aggregate the chain's pi by support (as class-rep indices)."""
+def chain_occupancy(chain, prov):
+    """The chain's pi by support and by majority type (class-rep indices)."""
     pos = {rep: k for k, (rep, _, _) in enumerate(prov.classes)}
-    occ = defaultdict(float)
+    occ = defaultdict(float); maj = defaultdict(float)
     for key, w in zip(chain.keys_list, chain.pi):
-        ids = chain.states[key][0]
+        ids, x, kind = chain.states[key]
         occ[tuple(sorted(pos[p] for p in ids))] += w
-    return occ
+        maj[pos[ids[int(np.argmax(x))]]] += w
+    return occ, maj

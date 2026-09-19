@@ -37,8 +37,8 @@ def cell_report(chain, prov, lang, game, cfg, div_rate, thresh=1e-3, top_states=
     lines = []
     lines.append('### %s' % ', '.join('%s=%s' % kv for kv in cfg.items()))
     lines.append('')
-    lines.append('programs %d, classes %s, states %d, terminal classes %d, indeterminate %d, divergence rate %.4f' % (
-        row['n_programs'], row['n_classes'], row['n_states'], row['n_terminal_classes'], row['indeterminate'], div_rate))
+    lines.append('programs %d, classes %s, states %d, terminal classes %d, indeterminate %d, divergence rate %.4f, flow into polymorphic targets %.2e' % (
+        row['n_programs'], row['n_classes'], row['n_states'], row['n_terminal_classes'], row['indeterminate'], div_rate, chain.poly_flow))
     lines.append('mean payoff %.4f, efficient %.4f, deadweight loss %.4f, mean bits in support %.2f' % (realised, eff, eff - realised, mean_bits))
     if len(chain.terminal) > 1:
         lines.append('absorption: ' + ', '.join('class %d: %.3f' % (c, p) for c, p in chain.absorb.items()))
@@ -57,7 +57,7 @@ def cell_report(chain, prov, lang, game, cfg, div_rate, thresh=1e-3, top_states=
             continue
         lines.append('- %s' % chain.describe_state(key, L))
         for share, b, muts in outs:
-            ms = ', '.join('%s (%.2e)' % (L.src(q), mw) for q, mw in muts)
+            ms = ', '.join('%s (%.2e%s)' % (L.src(q), mw, (', rho=%.2e k*=%d' % chain.edge_rho[(key, b, q)][:2]) if (key, b, q) in chain.edge_rho else '') for q, mw in muts)
             lines.append('    - %.2e -> %s   via %s' % (share, chain.describe_state(b, L), ms))
     if chain.indeterminate:
         lines.append('')

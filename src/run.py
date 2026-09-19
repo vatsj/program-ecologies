@@ -47,12 +47,12 @@ def get_provider(lang, game, arm, n, x_on, mode, verbose):
     return prov, None
 
 
-def run_cell(arm, n, game_path, N, x_on=True, mode=None, verbose=True, seeds_upto=4, max_states=30000, theta=1e-6):
+def run_cell(arm, n, game_path, N, w=1.0, x_on=True, mode=None, verbose=True, seeds_upto=4, max_states=30000, theta=1e-6):
     game = Game.load(game_path)
     if mode is None:
         mode = 'square' if n <= 6 else 'sparse'
     lang = get_language(arm, n, x_on, game.role)
-    cfg = dict(arm=arm, n=n, game=game.name, N=N, x_on=x_on, role=game.role, mode=mode)
+    cfg = dict(arm=arm, n=n, game=game.name, N=N, w=w, x_on=x_on, role=game.role, mode=mode)
     if verbose:
         print('== cell', cfg, flush=True)
     prov, div = get_provider(lang, game, arm, n, x_on, mode, verbose)
@@ -61,13 +61,14 @@ def run_cell(arm, n, game_path, N, x_on=True, mode=None, verbose=True, seeds_upt
         ids = lang.ids(seeds_upto)
         seeds = [(int(p), float(lang.mu[p])) for p in ids]
     t = time.time()
-    ch = Chain(prov, N=N, seeds=seeds, verbose=verbose, max_states=max_states, theta=theta).explore()
+    ch = Chain(prov, N=N, w=w, seeds=seeds, verbose=verbose, max_states=max_states, theta=theta).explore()
     if mode == 'sparse':
         div = prov.div_count / max(prov.div_total, 1)
     row, md = cell_report(ch, prov, lang, game, cfg, div)
     row['chain_time_s'] = time.time() - t
     row['cut_flow'] = ch.cut_flow
     row['n_expanded'] = len(ch.trans)
+    row['poly_flow'] = ch.poly_flow
     if mode == 'sparse':
         row['n_pairs_evaluated'] = prov.n_pairs
         row['n_supports'] = len(prov.blocks)
@@ -92,7 +93,7 @@ def collect():
         if os.path.exists(p):
             with open(p) as f:
                 rows.append(json.load(f))
-    rows.sort(key=lambda r: (r['game'], r['arm'], r['n'], r['N']))
+    rows.sort(key=lambda r: (r['game'], r['arm'], r['n'], r.get('w', 1.0), r['N']))
     write_table(rows, os.path.join(RUNS, 'results.md'))
     return rows
 
@@ -103,11 +104,13 @@ if __name__ == '__main__':
     ap.add_argument('--n', type=int, default=6)
     ap.add_argument('--game', default='pd')
     ap.add_argument('--N', type=int, nargs='+', default=[10, 100, 1000])
+    ap.add_argument('--w', type=float, nargs='+', default=[0.01, 0.1, 1.0])
     ap.add_argument('--x_off', action='store_true')
     ap.add_argument('--mode', default=None)
     ap.add_argument("--max_states", type=int, default=30000)
     ap.add_argument('--quiet', action='store_true')
     a = ap.parse_args()
-    for N in a.N:
-        run_cell(a.arm, a.n, os.path.join(ROOT, 'games', a.game + '.yaml'), N, x_on=not a.x_off, mode=a.mode, verbose=not a.quiet, max_states=a.max_states)
+    for w in a.w:
+        for N in a.N:
+            run_cell(a.arm, a.n, os.path.join(ROOT, 'games', a.game + '.yaml'), N, w=w, x_on=not a.x_off, mode=a.mode, verbose=not a.quiet, max_states=a.max_states)
     collect()
