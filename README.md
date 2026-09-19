@@ -49,7 +49,9 @@ program×attractor path (`--mode` overrides).
   proportion to the frequencies.
 - **Transition weights.**  P(A→B) ∝ μ(q)·ρ(q | A→B), ρ the frequency-dependent
   Moran fixation probability of a single q-lineage against the lumped resident,
-  fitness f = 1 + w·payoff clamped at 1e-6 (`chain.fixation`).  The target B is
+  fitness f = exp(w·payoff) (`chain.fixation`; the first Moran-fixation sweep
+  used 1 + w·payoff clamped at 1e-6, whose w = 1 cells are void in games with
+  negative payoffs — see RESULTS.md).  The target B is
   found by the replicator from A + q at 1/N (and from ½ if q dies at first
   order).  For a monomorphic B the product runs to N (exact for the 2-type
   chain); for a polymorphic B it is truncated at q's count in B, and at q's

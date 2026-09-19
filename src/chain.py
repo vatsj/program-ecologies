@@ -12,7 +12,7 @@ targets behind a fitness valley).  The transition weight is
     P(A -> B) proportional to mu(q) * rho(q | A -> B),
 with rho the probability that the single-mutant lineage reaches B rather than
 dying: the frequency-dependent Moran fixation probability of q against the
-lumped resident (fitness f = 1 + w * payoff, clamped at 1e-6), with the
+lumped resident (fitness f = exp(w * payoff)), with the
 product truncated at k* = q's count in B (N for a monomorphic B; the peak
 count of q along the deterministic path when q is not in B).  The complement
 1 - rho stays at A.
@@ -168,7 +168,8 @@ def replicator(U, x0, rest_tol=1e-8, ext_tol=1e-9, atol=1e-5, max_steps=50000, k
 def fixation(uqq, uqa, uaq, uaa, N, w, kstar):
     """Probability that a single mutant q reaches kstar copies before
     extinction in a Moran process against a lumped resident a, with fitness
-    f = 1 + w * payoff (clamped at 1e-6).  kstar = N is fixation.
+    f = exp(w * payoff) (no clamp; log f is linear in the payoff).
+    kstar = N is fixation.
     rho = 1 / (1 + sum_{k=1}^{kstar-1} prod_{j=1}^{k} f_a(j) / f_q(j))."""
     if kstar <= 1:
         return 1.0
@@ -176,11 +177,9 @@ def fixation(uqq, uqa, uaq, uaa, N, w, kstar):
     lmax = -1e300
     logs = np.empty(kstar - 1)
     for k in range(1, kstar):
-        fq = 1.0 + w * ((k - 1) / (N - 1) * uqq + (N - k) / (N - 1) * uqa)
-        fa = 1.0 + w * (k / (N - 1) * uaq + (N - k - 1) / (N - 1) * uaa)
-        if fq < 1e-6: fq = 1e-6
-        if fa < 1e-6: fa = 1e-6
-        acc += np.log(fa) - np.log(fq)
+        pq = (k - 1) / (N - 1) * uqq + (N - k) / (N - 1) * uqa
+        pa = k / (N - 1) * uaq + (N - k - 1) / (N - 1) * uaa
+        acc += w * (pa - pq)
         logs[k - 1] = acc
         if acc > lmax: lmax = acc
     ssum = 0.0

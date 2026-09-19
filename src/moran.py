@@ -2,8 +2,8 @@
 
 Each step: with probability eps a random agent is replaced by a draw from
 mu (over mutant classes); otherwise one agent reproduces with probability
-proportional to 1 + w * payoff (clamped at 1e-6; the same map as the chain's
-fixation probabilities) and replaces a random agent.  Payoff is the mean
+proportional to exp(w * payoff) (the same map as the chain's fixation
+probabilities) and replaces a random agent.  Payoff is the mean
 against the other N-1 agents.  Occupancy is recorded by support set and by
 majority type.
 """
@@ -35,7 +35,7 @@ def simulate(U, mu, N, eps, steps, w=1.0, seed=0, burn=0.1, init=None):
                 c = counts[present]
                 # fitness against the other N-1 agents
                 fit = (sub @ c - np.diag(sub) * 1.0) / (N - 1)
-                f = np.maximum(1.0 + w * fit, 1e-6)
+                f = np.exp(w * (fit - fit.max()))
                 wt = c * f
                 parent = present[rng.choice(len(present), p=wt / wt.sum())]
                 victim = rng.choice(K, p=counts / N)

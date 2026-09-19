@@ -54,7 +54,7 @@ def run_cell(arm, n, game_path, N, w=1.0, x_on=True, mode=None, verbose=True, se
     lang = get_language(arm, n, x_on, game.role)
     if prior == 'uniform':
         lang.mu = np.ones(len(lang.mu)) / len(lang.mu)     # diagnostic: no length prior
-    cfg = dict(arm=arm, n=n, game=game.name, N=N, w=w, x_on=x_on, role=game.role, mode=mode)
+    cfg = dict(arm=arm, n=n, game=game.name, N=N, w=w, x_on=x_on, role=game.role, mode=mode, fmap='exp')
     if prior != 'bits':
         cfg['prior'] = prior
     if verbose:
@@ -97,7 +97,7 @@ def collect():
         if os.path.exists(p):
             with open(p) as f:
                 rows.append(json.load(f))
-    rows.sort(key=lambda r: (r['game'], r['arm'], r['n'], r.get('w', 1.0), r['N']))
+    rows.sort(key=lambda r: (r['game'], r['arm'], r['n'], r.get('fmap', 'clamp'), r.get('w', 1.0), r['N']))
     write_table(rows, os.path.join(RUNS, 'results.md'))
     return rows
 

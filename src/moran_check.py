@@ -16,12 +16,12 @@ import run
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-def check(arm, game_name, n, N, ws=(0.01, 0.1, 1.0), epss=(0.001, 0.01), steps=4_000_000, seed=1, top=4):
+def check(arm, game_name, n, N, ws=(0.1, 0.3, 1.0), epss=(0.001, 0.01), steps=4_000_000, seed=1, top=4):
     game = Game.load(os.path.join(ROOT, 'games', game_name + '.yaml'))
     L = Language(arm, n, role=game.role)
     prov, div = run.get_provider(L, game, arm, n, True, 'square', False)
     reps = [c[0] for c in prov.classes]; mu = np.array([c[2] for c in prov.classes]); U = prov.U(reps)
-    lines = ['### %s arm, %s, n=%d, N=%d' % (arm, game_name, n, N), '',
+    lines = ['### %s arm, %s, n=%d, N=%d  (fitness exp(w*payoff))' % (arm, game_name, n, N), '',
              '| w | eps | type | chain pi (majority) | Moran (majority) | Moran (present) |', '|---|---|---|---|---|---|']
     for w in ws:
         ch = Chain(prov, N=N, w=w).explore()
@@ -44,5 +44,5 @@ if __name__ == '__main__':
     for arm, game, n, N in [('strong', 'pd', 6, 100), ('weak', 'pd', 6, 100)]:
         out.append(check(arm, game, n, N))
         print(out[-1], flush=True)
-    with open(os.path.join(ROOT, 'runs', 'moran_check.md'), 'w') as f:
+    with open(os.path.join(ROOT, 'runs', 'moran_check_exp.md'), 'w') as f:
         f.write('\n\n'.join(out) + '\n')

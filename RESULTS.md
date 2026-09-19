@@ -318,6 +318,62 @@ rounding, not the game, the language or μ.  Fixed: rounding ties now split
 into every tie-break with equal weight; π is exactly symmetric (0.483 /
 0.483 at w = 0.1, N = 100) and the PD cells are unchanged.
 
+## Exponential fitness map: f = exp(w·payoff) (`runs/results.md` rows with `fmap=exp`, `runs/moran_check_exp.md`)
+
+Weak arm, n=6, PD and exchange, re-run with f = exp(w·payoff) (no clamp; the
+fitness ratio in the fixation product is exp(w·Δpayoff) at every frequency).
+
+| game | w | N | all-D | all-`THEM(^C)` | ρ_enter(`THEM(^C)` \| all-D) | 1/N | mean payoff |
+|---|---|---|---|---|---|---|---|
+| PD | 0.1 | 100 | 0.977 | 0.0056 | 0.0248 | 0.010 | −0.987 |
+| PD | 0.1 | 1000 | 0.981 | 0.0154 | 0.0079 | 0.001 | −0.984 |
+| PD | 0.3 | 100 | 0.983 | 0.0103 | 0.0421 | 0.010 | −0.988 |
+| PD | 0.3 | 1000 | 0.980 | 0.0175 | 0.0136 | 0.001 | −0.982 |
+| PD | 1 | 100 | 0.980 | 0.0156 | 0.0742 | 0.010 | −0.983 |
+| PD | 1 | 1000 | 0.980 | 0.0173 | 0.0246 | 0.001 | −0.982 |
+| exchange | 0.1 | 100 | 0.974 | 0.0089 | 0.0346 | 0.010 | 0.034 |
+| exchange | 0.1 | 1000 | 0.973 | 0.0215 | 0.0112 | 0.001 | 0.048 |
+| exchange | 0.3 | 100 | 0.977 | 0.0143 | 0.0584 | 0.010 | 0.037 |
+| exchange | 0.3 | 1000 | 0.972 | 0.0244 | 0.0192 | 0.001 | 0.052 |
+| exchange | 1 | 100 | 0.973 | 0.0213 | 0.1016 | 0.010 | 0.048 |
+| exchange | 1 | 1000 | 0.974 | 0.0240 | 0.0345 | 0.001 | 0.050 |
+
+(ρ_enter is the fixation probability of a single `THEM(^C)` in all-D; it is
+2.5–7× the neutral 1/N at N=100 and 8–25× at N=1000, because `THEM(^C)` is
+neutral at one copy and advantaged from two.  Under the clamped map at w = 1
+it was 0.5, an artifact.)
+
+The cooperative time-share is 0.6–2.4% at every (w, N): the w = 1 numbers of
+the clamped sweep (0.099 at N=100, 0.288 at N=1000) were the clamp, and the
+lim_N growth reported above is gone — at N=1000 the share is 1.5–2.4% for
+all w, in both games.  What limits cooperation is unchanged: all-`THEM(^C)`
+is left by ALLC drift (μ(C)·1/N) and by `THEM(^D)`/`THEM(^X)`, and re-entered
+from all-D at μ(`THEM(^C)`)·ρ_enter ≈ 6.8e-4 × 0.02–0.07; the ratio of exit
+to entry rates is ~10–40 at every (w, N) tried.  Indeterminate transitions
+(replicator cycles) appear in the exchange game at N=1000 and w ≥ 0.3 (63–92,
+share < 1e-3), none in the PD.
+
+Moran check (PD, n=6, N=100, 4·10⁶ events, same fitness map):
+
+| arm | w | all-D chain / Moran (εN=0.1) | all-D chain / Moran (εN=1) | `THEM(^C)` chain / Moran (εN=0.1) / Moran (εN=1) |
+|---|---|---|---|---|
+| strong | 0.1 / 0.3 / 1 | 0.988/0.998, 0.998/1.000, 0.999/1.000 | 0.988/0.952, 0.998/0.999, 0.999/0.999 | — |
+| weak | 0.1 | 0.977 / 0.997 | 0.977 / 0.951 | 0.006 / 0.000 / 0.000 |
+| weak | 0.3 | 0.983 / 0.999 | 0.983 / 0.995 | 0.010 / 0.000 / 0.001 |
+| weak | 1 | 0.980 / 0.998 | 0.980 / 0.969 | 0.016 / 0.000 / 0.022 |
+
+**Calibration**: with the exponential map no w is singled out.  The mode
+agrees to within 0.02 at every w at εN = 0.1 (the single-mutant regime),
+and the cooperator share is below what 4·10⁶ events can resolve at
+εN = 0.1 (≈ 4,000 mutation events × μ(`THEM(^C)`) × ρ ≈ 0.2 expected
+entries); at εN = 1 and w = 1 the one observed visit gives 0.022 against the
+chain's 0.016.  w is therefore a free intensity whose effect on the
+cooperative share is a factor ≈ 3 between w = 0.1 and w = 1 at N = 100 and
+≈ 1.1 at N = 1000.  Stag Hunt was not re-run: its payoffs are non-negative,
+so 1 + w·payoff never clamped and its w = 1 cells are unaffected by the
+change of map (they differ from exp(w·payoff) only by the curvature of the
+map, not by a clamp).
+
 ## Reference-evaluator check: `and(THEM(^THEM(^C)),not(THEM(^D)))` vs `THEM(^C)`
 
 Exact (floor probability 0, budget 200): `THEM(^C)` plays D against it (P(C) = 0.000, because against ALLC the 13-node program plays and(C, not(C)) = D) and it plays C against `THEM(^C)` (P(C) = 1.000); it cooperates with itself (P(C) = 1) and defects against D, so it is exploited by `THEM(^C)` (u = −2 vs 1) and does not invade all-`THEM(^C)`.
