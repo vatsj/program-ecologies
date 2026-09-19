@@ -185,7 +185,7 @@ polymorphic-target approximation is load-bearing (`poly_flow` up to 1.8e-2).
 | Divide the dollar | all-Half, loss 0 | Half 0.78; loss 0.08 | Half 0.97; loss 0.000 | drift, loss 0.27 |
 | Zero-sum + ROLE | drift or cycles, loss 0 | drift over monomorphic states (D 0.40, X 0.23, C 0.14), payoff 0 | D 0.44, X 0.23; payoff 0 | drift |
 | Exchange game | cooperation via `or(X,THEM(ME))` | Keep 0.97, `THEM(^Give)` 0.009; loss 1.96 | Keep 0.97, `THEM(^Give)` 0.024; loss 1.94 | drift, loss 1.32 |
-| Battle of the sexes + ROLE | all-A / all-B even, loss 0 | A 0.71, B 0.25; loss 0.03 | A 0.497, B 0.497; loss 0.001 | loss 0.39 |
+| Battle of the sexes + ROLE | all-A / all-B even, loss 0 | A 0.483, B 0.483; loss 0.026 | A 0.497, B 0.497; loss 0.001 | loss 0.39 |
 
 At w = 0.01 every game is a mutation–drift mixture of the short constants
 (C, D, X carry ≈ 80% of μ), so the verdicts are only testable at w ≥ 0.1.
@@ -284,6 +284,20 @@ in (P = 3.3e-3 per event under bits, 3.1e-3 under uniform, μ(C)·1/N in
 both), and μ(C) is large under either prior because the constant class is
 huge.  Cooperation is limited by the ALLC leak, which the prior barely
 changes.
+
+## BoS tie-break (`runs/bos_tie.md`)
+
+`games/bos.yaml` is symmetric (player 2's table with A↔B relabelled equals
+player 1's; both constants earn 1.5 in self-play; the all-A and all-B classes
+have 219 members and μ = 0.249 each; every exit from all-A had a mirror exit
+from all-B with identical P).  The w = 0.1, N = 100 asymmetry (0.71 / 0.25)
+came from a single unmirrored entry: the 50/50 A/B polymorphism plus one
+coin mutant is 49.5/49.5/1 agents, and largest-remainder rounding to the 1/N
+grid broke that tie by type index, always in A's favour, after which `ROLE`
+(μ 0.19, ρ 0.34) tips 50/49 to all-A.  The tie-breaker was the grid
+rounding, not the game, the language or μ.  Fixed: rounding ties now split
+into every tie-break with equal weight; π is exactly symmetric (0.483 /
+0.483 at w = 0.1, N = 100) and the PD cells are unchanged.
 
 ## Not done
 

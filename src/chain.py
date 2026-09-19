@@ -413,17 +413,36 @@ class Chain:
 
     def to_grid(self, x):
         """Largest-remainder rounding of frequencies to integer counts."""
+        return self.grid_options(x)[0][1]
+
+    def grid_options(self, x, tie_tol=1e-9):
+        """Largest-remainder rounding; when remainders tie at the cut, every
+        way of breaking the tie is returned with equal weight (so a symmetric
+        game is not tie-broken by type order).  Returns [(prob, counts)]."""
         N = self.N
         raw = np.asarray(x, float) * N
         n = np.floor(raw + 1e-9).astype(int)
         k = N - n.sum()
-        if k > 0:
-            for i in np.argsort(-(raw - n))[:k]:
-                n[i] += 1
-        elif k < 0:
-            for i in np.argsort(raw - n)[:-k]:
-                n[i] -= 1
-        return n
+        if k == 0:
+            return [(1.0, n)]
+        rem = (raw - n) if k > 0 else (n - raw)
+        k = abs(k)
+        order = np.argsort(-rem, kind='stable')
+        cut = rem[order[k - 1]]
+        sure = [i for i in order if rem[i] > cut + tie_tol]
+        tied = [i for i in order if abs(rem[i] - cut) <= tie_tol]
+        need = k - len(sure)
+        from itertools import combinations
+        combos = list(combinations(tied, need)) if 0 < need <= len(tied) else [()]
+        if len(combos) > 64:
+            combos = combos[:1]
+        outs = []
+        for c in combos:
+            nn = n.copy()
+            for i in list(sure) + list(c):
+                nn[i] += 1 if (N - n.sum()) > 0 else -1
+            outs.append((1.0 / len(combos), nn))
+        return outs
 
     def add_state(self, ids, x):
         """States live on the 1/N grid: a polymorphic rest point is stored at
@@ -445,12 +464,17 @@ class Chain:
     def targets(self, ids2, xf, kstar, U):
         """Collapse a rest point into chain states: (share, key, kstar).  A
         neutral rest set is split among its vertices in proportion to the
-        frequencies (neutral drift fixes type s with probability x_s)."""
+        frequencies (neutral drift fixes type s with probability x_s); a
+        rounding tie on the 1/N grid is split equally."""
         keep = xf > 1e-6
         ids_k, x_k = ids2[keep], xf[keep] / xf[keep].sum()
         if len(ids_k) > 1 and self.is_neutral(U[np.ix_(keep, keep)]):
             return [(float(xs), self.mono(s), kstar) for s, xs in zip(ids_k, x_k)]
-        return [(1.0, self.add_state(ids_k, x_k), kstar)]
+        outs = []
+        for pr, n in self.grid_options(x_k):
+            kk = n > 0
+            outs.append((pr, self.add_state(ids_k[kk], n[kk] / self.N), kstar))
+        return outs
 
     def fates(self, key, ids, x, q, Uq):
         """Deterministic fates of mutant q in state (ids, x): list of

@@ -1,6 +1,6 @@
 ### arm=weak, n=5, game=bos, N=100, w=1.0, x_on=True, role=True, mode=square
 
-programs 902, classes 54, states 484, terminal classes 1, indeterminate 0, divergence rate 0.0010, flow into polymorphic targets 7.43e-06
+programs 902, classes 54, states 494, terminal classes 1, indeterminate 0, divergence rate 0.0010, flow into polymorphic targets 7.43e-06
 mean payoff 1.4990, efficient 1.5000, deadweight loss 0.0010, mean bits in support 3.05
 
 | pi | state |
