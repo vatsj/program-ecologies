@@ -376,8 +376,27 @@ class Chain:
             self._kind[ids] = k
         return k
 
+    def to_grid(self, x):
+        """Largest-remainder rounding of frequencies to integer counts."""
+        N = self.N
+        raw = np.asarray(x, float) * N
+        n = np.floor(raw + 1e-9).astype(int)
+        k = N - n.sum()
+        if k > 0:
+            for i in np.argsort(-(raw - n))[:k]:
+                n[i] += 1
+        elif k < 0:
+            for i in np.argsort(raw - n)[:-k]:
+                n[i] -= 1
+        return n
+
     def add_state(self, ids, x):
+        """States live on the 1/N grid: a polymorphic rest point is stored at
+        the nearest count vector (types below 1/(2N) are dropped)."""
         ids = np.asarray(ids); x = np.asarray(x, float)
+        n = self.to_grid(x)
+        keep = n > 0
+        ids, x = ids[keep], n[keep] / self.N
         order = np.argsort(ids)
         ids, x = ids[order], x[order]
         k = self.key(ids, x)
