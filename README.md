@@ -42,9 +42,10 @@ program×attractor path (`--mode` overrides).
 - **Applications strip `ME(...)`** in applied position by default (`me_app=True`
   re-enables it; the evaluator supports it and is tested with it).  This is what
   keeps the dependency closure of a program×attractor rectangle small.
-- **Chain states.**  A state is (support, frequencies).  Neutral sets (payoff
-  matrix constant down each column of the support) live on the 1/N grid; other
-  polymorphic rest points keep continuous frequencies.  A mutant replaces one
+- **Chain states.**  A state is (support, counts/N): every state lives on the
+  1/N grid (a polymorphic rest point is stored at the nearest count vector by
+  largest-remainder rounding; types below 1/(2N) are dropped).  Neutral sets
+  (payoff matrix constant down each column of the support) walk on that grid.  A mutant replaces one
   random agent; a mutant that dies in a neutral set is refilled by a random
   survivor (so the state can move by one slot).  Dying and neutral mutants are
   classified analytically from first-order fitness; only advantageous or
@@ -54,10 +55,16 @@ program×attractor path (`--mode` overrides).
   only when the stationary flow into them exceeds `theta` (1e-6), the dominant
   out-edge is followed eagerly, edges into unexpanded states are dropped with the
   source row renormalised, and the dropped flow is reported (`cut_flow`).
-- **Multiple closed classes.**  When the explored chain has several terminal
-  strongly connected classes, π is the absorption-weighted mixture from the
-  seed distribution (monomorphic states weighted by μ); the absorption
-  probabilities are reported.
+- **Closed classes.**  The condensation DAG is processed sink-first; a class
+  whose absorption solve fails the row-sum identity is numerically closed and
+  becomes a closed class of its own (`near_closed_classes` in the row).  π is
+  the absorption-weighted mixture over closed classes from the seed
+  distribution (monomorphic states weighted by μ); absorption probabilities are
+  reported and π sums to 1 by construction.
+- **Performance.**  BLAS is pinned to one thread in `dsl.py` (multi-threaded
+  OpenBLAS on small solves was 600× slower under load).  The replicator loop is
+  numba-compiled.  Square cells at n=6 take seconds to a minute at N ≤ 100;
+  N = 1000 takes about a minute for the strong arm.
 - **Incremental path.**  Behavioural classes need a signature that separates
   programs neutral against the current support but different elsewhere, so
   every program is evaluated once against a probe set (all programs of size ≤ 4)
@@ -72,5 +79,5 @@ lineage is lost by drift within O(N) reproduction events unless εN ≫ 1, and a
 εN ≫ 1 several mutant lineages coexist (violating the single-mutant premise).
 Consequently the chain assigns far more occupancy to neutral edges than Moran
 does at any ε (strong arm, PD, N=100: chain 45% on the D–`THEM(ME)` edge vs
-Moran < 1%).  The mode (all-D) agrees.  See `runs/` reports and the final
-summary for numbers.
+Moran < 1%).  The mode (all-D) agrees.  Findings are in RESULTS.md; per-cell
+reports in `runs/`.

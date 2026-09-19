@@ -1,6 +1,444 @@
 [
  {
   "arm": "weak",
+  "n": 5,
+  "game": "bos",
+  "N": 10,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 54,
+  "n_states": 1121,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 4.730986325749344,
+  "mean_payoff": 1.455385092139851,
+  "efficient_payoff": 1.5,
+  "deadweight_loss": 0.04461490786014899,
+  "support": [
+   [
+    "mono {C:1}",
+    0.3575857022746343
+   ],
+   [
+    "mono {D:1}",
+    0.3575857022717917
+   ],
+   [
+    "poly {ROLE:0.3, THEM(^D):0.7}",
+    0.06759834524291826
+   ],
+   [
+    "poly {ROLE:0.3, THEM(^C):0.7}",
+    0.06759834524286774
+   ],
+   [
+    "poly {ROLE:0.3, THEM(^D):0.6, or(THEM(THEM),ROLE):0.1}",
+    0.033799172621498445
+   ],
+   [
+    "poly {ROLE:0.3, THEM(^D):0.6, or(THEM(ME),ROLE):0.1}",
+    0.03379917262149844
+   ],
+   [
+    "poly {ROLE:0.3, THEM(^C):0.6, and(THEM(THEM),ROLE):0.1}",
+    0.033799172621428716
+   ],
+   [
+    "poly {ROLE:0.3, THEM(^C):0.6, and(THEM(ME),ROLE):0.1}",
+    0.033799172620538866
+   ],
+   [
+    "neutral {C:0.9, THEM(^C):0.1}",
+    0.0015227477321417195
+   ],
+   [
+    "neutral {D:0.9, THEM(^D):0.1}",
+    0.0015227477321296148
+   ],
+   [
+    "neutral {C:0.9, THEM(^D):0.1}",
+    0.0015210623515340617
+   ],
+   [
+    "neutral {D:0.9, THEM(^C):0.1}",
+    0.0015210623515219707
+   ]
+  ],
+  "chain_time_s": 0.4841310977935791,
+  "cut_flow": 2.654493947164608e-06,
+  "n_expanded": 198
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "bos",
+  "N": 100,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 54,
+  "n_states": 6152,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000013,
+  "absorb_error": 1.3322676295501878e-15,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.03389850709418,
+  "mean_payoff": 1.4999999969550246,
+  "efficient_payoff": 1.5,
+  "deadweight_loss": 3.044975382948678e-09,
+  "support": [
+   [
+    "mono {C:1}",
+    0.4176841592068582
+   ],
+   [
+    "mono {D:1}",
+    0.417649728981431
+   ],
+   [
+    "neutral {C:0.99, THEM(^C):0.01}",
+    0.018372756182170658
+   ],
+   [
+    "neutral {D:0.99, THEM(^D):0.01}",
+    0.01837124169299404
+   ],
+   [
+    "neutral {C:0.99, THEM(^D):0.01}",
+    0.01805084716465405
+   ],
+   [
+    "neutral {D:0.99, THEM(^C):0.01}",
+    0.018049359210841654
+   ],
+   [
+    "neutral {C:0.98, THEM(^C):0.02}",
+    0.007352442368647119
+   ],
+   [
+    "neutral {D:0.98, THEM(^D):0.02}",
+    0.007351836297664697
+   ],
+   [
+    "neutral {C:0.98, THEM(^D):0.02}",
+    0.007130845325413022
+   ],
+   [
+    "neutral {D:0.98, THEM(^C):0.02}",
+    0.0071302575209520715
+   ],
+   [
+    "neutral {C:0.97, THEM(^C):0.03}",
+    0.0038067052312295946
+   ],
+   [
+    "neutral {D:0.97, THEM(^D):0.03}",
+    0.003806391439775862
+   ]
+  ],
+  "chain_time_s": 1.6177053451538086,
+  "cut_flow": 2.0866793662040995e-05,
+  "n_expanded": 1496
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken",
+  "N": 10,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 3147,
+  "n_terminal_classes": 2,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999998,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 1,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.0322428692189605,
+  "mean_payoff": 0.49999071417707874,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 9.285822921256681e-06,
+  "support": [
+   [
+    "mono {ROLE:1}",
+    0.9849240797287376
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.014134740119820152
+   ]
+  ],
+  "chain_time_s": 3.5741500854492188,
+  "cut_flow": 2.1668099997243928e-08,
+  "n_expanded": 308
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken",
+  "N": 100,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 28212,
+  "n_terminal_classes": 3,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
+  "near_closed_classes": 1,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.0032182670853453,
+  "mean_payoff": 0.4999999888316657,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 1.1168334312916528e-08,
+  "support": [
+   [
+    "mono {ROLE:1}",
+    0.9924516446553147
+   ],
+   [
+    "neutral {ROLE:0.99, not(THEM(^ROLE)):0.01}",
+    0.0036165811275282265
+   ],
+   [
+    "neutral {ROLE:0.98, not(THEM(^ROLE)):0.02}",
+    0.0014825337474794285
+   ]
+  ],
+  "chain_time_s": 5.665501832962036,
+  "cut_flow": 4.458969763241095e-15,
+  "n_expanded": 2282
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken_norole",
+  "N": 10,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 1755,
+  "n_terminal_classes": 2,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000029738,
+  "absorb_error": 2.9738433937609443e-12,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 9.9158495311254,
+  "mean_payoff": -0.27000000000080293,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.7700000000008029,
+  "support": [
+   [
+    "poly {D:0.2, not(THEM(ME)):0.1, not(THEM(THEM)):0.5, not(THEM(^D)):0.1, or(THEM(ME),C):0.1}",
+    0.7058644963605585
+   ],
+   [
+    "poly {D:0.2, not(THEM(ME)):0.5, not(THEM(THEM)):0.1, not(THEM(^D)):0.1, or(THEM(ME),C):0.1}",
+    0.29413550364241536
+   ]
+  ],
+  "chain_time_s": 0.5514600276947021,
+  "cut_flow": 0.0,
+  "n_expanded": 229
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "chicken_norole",
+  "N": 100,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 16744,
+  "n_terminal_classes": 17,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000006954,
+  "absorb_error": 6.954437026251981e-13,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 9.841289941138038,
+  "mean_payoff": -0.3331000000002316,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.8331000000002315,
+  "support": [
+   [
+    "poly {D:0.19, not(THEM(THEM)):0.66, not(THEM(^D)):0.15}",
+    0.9822649862519841
+   ],
+   [
+    "poly {D:0.19, not(THEM(THEM)):0.65, not(THEM(^D)):0.15, or(THEM(ME),C):0.01}",
+    0.01586192956086582
+   ],
+   [
+    "poly {D:0.19, not(THEM(THEM)):0.64, not(THEM(^D)):0.15, or(THEM(ME),C):0.02}",
+    0.0012517593631556222
+   ]
+  ],
+  "chain_time_s": 4.326269149780273,
+  "cut_flow": 0.0,
+  "n_expanded": 1947
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "demand",
+  "N": 10,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 2812,
+  "n_terminal_classes": 2,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999997,
+  "absorb_error": 3.3306690738754696e-16,
+  "near_closed_classes": 1,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.196568999280156,
+  "mean_payoff": 0.49967826034969326,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.00032173965030674045,
+  "support": [
+   [
+    "mono {ROLE:1}",
+    0.938011253317061
+   ],
+   [
+    "mono {not(ROLE):1}",
+    0.05251611768950089
+   ],
+   [
+    "poly {D:0.2, not(THEM(^ROLE)):0.8}",
+    0.006762641789288884
+   ]
+  ],
+  "chain_time_s": 5.901371240615845,
+  "cut_flow": 2.826671497284616e-06,
+  "n_expanded": 286
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "demand",
+  "N": 100,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 23935,
+  "n_terminal_classes": 2,
+  "indeterminate": 0,
+  "pi_sum": 0.9999999999999996,
+  "absorb_error": 4.440892098500626e-16,
+  "near_closed_classes": 1,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.0033543112967083,
+  "mean_payoff": 0.49999999987475524,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 1.25244759008325e-10,
+  "support": [
+   [
+    "mono {ROLE:1}",
+    0.9924405412801511
+   ],
+   [
+    "neutral {ROLE:0.99, not(THEM(^ROLE)):0.01}",
+    0.0036165406655599133
+   ],
+   [
+    "neutral {ROLE:0.98, not(THEM(^ROLE)):0.02}",
+    0.0014825171608845316
+   ]
+  ],
+  "chain_time_s": 17.794547080993652,
+  "cut_flow": 3.8994105749681735e-12,
+  "n_expanded": 2078
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "demand_norole",
+  "N": 10,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 1566,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000004894,
+  "absorb_error": 4.89386309254769e-13,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 9.078926150133782,
+  "mean_payoff": 0.4100000000002007,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.0899999999997993,
+  "support": [
+   [
+    "poly {D:0.3, not(THEM(THEM)):0.5, not(THEM(^D)):0.2}",
+    1.0000000000004894
+   ]
+  ],
+  "chain_time_s": 17.947678804397583,
+  "cut_flow": 0.0,
+  "n_expanded": 218
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "demand_norole",
+  "N": 100,
+  "x_on": true,
+  "role": false,
+  "mode": "square",
+  "n_programs": 450,
+  "n_classes": 30,
+  "n_states": 12101,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0000000000012306,
+  "absorb_error": 1.2305712004945235e-12,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0027160493827160493,
+  "mean_bits_support": 8.891399134114529,
+  "mean_payoff": 0.4011000000004936,
+  "efficient_payoff": 0.5,
+  "deadweight_loss": 0.09889999999950638,
+  "support": [
+   [
+    "poly {D:0.33, not(THEM(THEM)):0.45, not(THEM(^D)):0.22}",
+    1.0000000000012306
+   ]
+  ],
+  "chain_time_s": 44.10936903953552,
+  "cut_flow": 0.0,
+  "n_expanded": 1402
+ },
+ {
+  "arm": "weak",
   "n": 6,
   "game": "dollar",
   "N": 10,
@@ -9,69 +447,69 @@
   "mode": "square",
   "n_programs": 1852,
   "n_classes": 46,
-  "n_states": 4160,
+  "n_states": 4145,
   "n_terminal_classes": 2,
   "indeterminate": 0,
-  "pi_sum": 0.9999999999999997,
-  "absorb_error": 3.3306690738754696e-16,
+  "pi_sum": 0.9999999999999994,
+  "absorb_error": 5.551115123125783e-16,
   "near_closed_classes": 0,
   "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 2.762455485363774,
-  "mean_payoff": 0.49999999999999883,
+  "mean_bits_support": 2.7624554853641943,
+  "mean_payoff": 0.49999999999999845,
   "efficient_payoff": 0.5,
-  "deadweight_loss": 1.1657341758564144e-15,
+  "deadweight_loss": 1.5543122344752192e-15,
   "support": [
    [
     "mono {C:1}",
-    0.8607182471068827
+    0.860718247106851
    ],
    [
     "neutral {C:0.9, THEM(ME):0.1}",
-    0.0320663287457569
+    0.03206632874575572
    ],
    [
     "neutral {C:0.9, THEM(THEM):0.1}",
-    0.03183558942121554
+    0.031835589421214366
    ],
    [
     "neutral {C:0.8, THEM(ME):0.2}",
-    0.012151320186064818
+    0.01215132018606437
    ],
    [
     "neutral {C:0.8, THEM(THEM):0.2}",
-    0.012059734717273965
+    0.012059734717273523
    ],
    [
     "neutral {C:0.9, THEM(^C):0.1}",
-    0.007902939274434868
+    0.007902939274434577
    ],
    [
     "neutral {C:0.7, THEM(ME):0.3}",
-    0.005791464436569596
+    0.005791464436569382
    ],
    [
     "neutral {C:0.7, THEM(THEM):0.3}",
-    0.005746801282351468
+    0.005746801282351255
    ],
    [
     "neutral {C:0.6, THEM(ME):0.4}",
-    0.0029517530569753547
+    0.002951753056975244
    ],
    [
     "neutral {C:0.6, THEM(THEM):0.4}",
-    0.002928642681994318
+    0.00292864268199421
    ],
    [
     "neutral {C:0.8, THEM(^C):0.2}",
-    0.0028861654643433394
+    0.0028861654643432327
    ],
    [
     "neutral {C:0.9, or(THEM(ME),C):0.1}",
-    0.0019891306800183797
+    0.001989130680018306
    ]
   ],
-  "chain_time_s": 0.8118257522583008,
-  "cut_flow": 6.900964762877898e-05,
+  "chain_time_s": 0.8531758785247803,
+  "cut_flow": 6.900964762877644e-05,
   "n_expanded": 480
  },
  {
@@ -84,69 +522,69 @@
   "mode": "square",
   "n_programs": 1852,
   "n_classes": 46,
-  "n_states": 56728,
+  "n_states": 56710,
   "n_terminal_classes": 2,
   "indeterminate": 0,
-  "pi_sum": 1.0,
-  "absorb_error": 0.0,
+  "pi_sum": 0.9999999999999999,
+  "absorb_error": 1.1102230246251565e-16,
   "near_closed_classes": 0,
   "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 2.7540655556338938,
-  "mean_payoff": 0.4999999999999995,
+  "mean_bits_support": 2.7540655556384617,
+  "mean_payoff": 0.49999999999999917,
   "efficient_payoff": 0.5,
-  "deadweight_loss": 4.996003610813204e-16,
+  "deadweight_loss": 8.326672684688674e-16,
   "support": [
    [
     "mono {C:1}",
-    0.23419648855337144
+    0.23419648855327738
    ],
    [
     "neutral {C:0.99, THEM(ME):0.01}",
-    0.08725063769961837
+    0.08725063769958331
    ],
    [
     "neutral {C:0.99, THEM(THEM):0.01}",
-    0.08662280923651232
+    0.08662280923647744
    ],
    [
     "neutral {C:0.98, THEM(ME):0.02}",
-    0.04554410956403274
+    0.04554410956401444
    ],
    [
     "neutral {C:0.98, THEM(THEM):0.02}",
-    0.04510066019200853
+    0.04510066019199038
    ],
    [
     "neutral {C:0.98, THEM(ME):0.01, THEM(THEM):0.01}",
-    0.03216595862971152
+    0.03216595862969861
    ],
    [
     "neutral {C:0.97, THEM(ME):0.03}",
-    0.02597408285269592
+    0.025974082852685498
    ],
    [
     "neutral {C:0.97, THEM(THEM):0.03}",
-    0.025681145038876387
+    0.025681145038866062
    ],
    [
     "neutral {C:0.99, THEM(^C):0.01}",
-    0.021503957810253157
+    0.021503957810244514
    ],
    [
     "neutral {C:0.97, THEM(ME):0.02, THEM(THEM):0.01}",
-    0.016734465479831723
+    0.016734465479825007
    ],
    [
     "neutral {C:0.97, THEM(ME):0.01, THEM(THEM):0.02}",
-    0.016691634809684282
+    0.01669163480967758
    ],
    [
     "neutral {C:0.96, THEM(ME):0.04}",
-    0.01541084387517969
+    0.015410843875173502
    ]
   ],
-  "chain_time_s": 21.880762100219727,
-  "cut_flow": 0.00038556668164815307,
+  "chain_time_s": 22.0886173248291,
+  "cut_flow": 0.00038556668164800004,
   "n_expanded": 6444
  },
  {
@@ -159,70 +597,70 @@
   "mode": "square",
   "n_programs": 1852,
   "n_classes": 48,
-  "n_states": 3629,
+  "n_states": 3806,
   "n_terminal_classes": 1,
-  "indeterminate": 627,
-  "pi_sum": 1.0000000000000004,
-  "absorb_error": 4.440892098500626e-16,
+  "indeterminate": 240,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
   "near_closed_classes": 0,
   "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 4.258638713294924,
-  "mean_payoff": 0.6443696175479376,
+  "mean_bits_support": 4.407448136423392,
+  "mean_payoff": 0.6464310473005915,
   "efficient_payoff": 2.0,
-  "deadweight_loss": 1.3556303824520624,
+  "deadweight_loss": 1.3535689526994084,
   "support": [
    [
     "mono {D:1}",
-    0.5812878164594504
+    0.5711174757274002
    ],
    [
     "neutral {C:0.5, THEM(^C):0.5}",
-    0.09081554827065606
+    0.08885106610330265
    ],
    [
     "neutral {C:0.6, THEM(^C):0.4}",
-    0.07931461852563518
+    0.07759910836040541
    ],
    [
     "neutral {C:0.4, THEM(^C):0.6}",
-    0.05696961615732355
+    0.05573768025612704
    ],
    [
     "neutral {C:0.3, THEM(^C):0.7}",
-    0.03439442139382261
+    0.03365156577406363
    ],
    [
     "neutral {D:0.9, THEM(ME):0.1}",
-    0.02107796533275449
+    0.020707656790250807
    ],
    [
     "neutral {D:0.9, THEM(THEM):0.1}",
-    0.020910829111690964
+    0.02054942743461287
+   ],
+   [
+    "poly {C:0.3, and(X,THEM(^X)):0.7}",
+    0.020299295053866337
    ],
    [
     "neutral {C:0.2, THEM(^C):0.8}",
-    0.016446389794735436
+    0.016091738865551146
    ],
    [
     "neutral {C:0.7, THEM(^C):0.3}",
-    0.013908160470417031
+    0.013607338297492394
    ],
    [
     "neutral {C:0.1, THEM(^C):0.9}",
-    0.007982797723143266
+    0.007812934213517518
    ],
    [
     "neutral {D:0.8, THEM(ME):0.2}",
-    0.007809266293603635
-   ],
-   [
-    "neutral {D:0.8, THEM(THEM):0.2}",
-    0.007736467774103772
+    0.007671886379960038
    ]
   ],
-  "chain_time_s": 171.94235706329346,
-  "cut_flow": 9.88398263424141e-05,
-  "n_expanded": 366
+  "chain_time_s": 117.91919589042664,
+  "cut_flow": 0.00010560459049077858,
+  "n_expanded": 439
  },
  {
   "arm": "weak",
@@ -234,70 +672,70 @@
   "mode": "square",
   "n_programs": 1852,
   "n_classes": 48,
-  "n_states": 31925,
+  "n_states": 30026,
   "n_terminal_classes": 1,
-  "indeterminate": 619,
-  "pi_sum": 1.0000000000000002,
-  "absorb_error": 2.220446049250313e-16,
+  "indeterminate": 335,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
   "near_closed_classes": 0,
   "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 4.247503666759593,
-  "mean_payoff": 0.6039221348607078,
+  "mean_bits_support": 4.232300084404281,
+  "mean_payoff": 0.6010740823283104,
   "efficient_payoff": 2.0,
-  "deadweight_loss": 1.3960778651392922,
+  "deadweight_loss": 1.3989259176716895,
   "support": [
    [
     "mono {D:1}",
-    0.21810924932771403
+    0.21865773190278673
    ],
    [
     "neutral {D:0.99, THEM(ME):0.01}",
-    0.05607792858934993
+    0.05622080426635812
    ],
    [
     "neutral {D:0.99, THEM(THEM):0.01}",
-    0.05570894734112476
+    0.055853696503738434
    ],
    [
     "neutral {C:0.63, THEM(^C):0.37}",
-    0.02943845076771132
+    0.029495710527858033
    ],
    [
     "neutral {C:0.64, THEM(^C):0.36}",
-    0.026618974134086693
+    0.026670746992562798
    ],
    [
     "neutral {D:0.98, THEM(ME):0.02}",
-    0.023910381664156526
+    0.0239716578599425
    ],
    [
     "neutral {D:0.98, THEM(THEM):0.02}",
-    0.023720892891629253
+    0.023783114533729822
    ],
    [
     "neutral {C:0.62, THEM(^C):0.38}",
-    0.022395542634632552
+    0.022439109498471256
    ],
    [
     "neutral {C:0.65, THEM(^C):0.35}",
-    0.021332700402463198
+    0.021374189805949333
    ],
    [
     "neutral {D:0.99, THEM(^D):0.01}",
-    0.01705824499353703
+    0.017108637616308316
    ],
    [
     "neutral {D:0.98, THEM(ME):0.01, THEM(THEM):0.01}",
-    0.01694844932305148
+    0.016992169048771332
    ],
    [
     "neutral {C:0.61, THEM(^C):0.39}",
-    0.01330564470960569
+    0.01333153711564656
    ]
   ],
-  "chain_time_s": 167.8621780872345,
-  "cut_flow": 0.000585883700329447,
-  "n_expanded": 4044
+  "chain_time_s": 149.4536838531494,
+  "cut_flow": 0.0005798830397471252,
+  "n_expanded": 3978
  },
  {
   "arm": "source",
@@ -309,68 +747,68 @@
   "mode": "square",
   "n_programs": 2110,
   "n_classes": 220,
-  "n_states": 33944,
+  "n_states": 33833,
   "n_terminal_classes": 28,
   "indeterminate": 0,
-  "pi_sum": 0.9999999999999907,
-  "absorb_error": 9.325873406851315e-15,
+  "pi_sum": 0.9999999999999931,
+  "absorb_error": 6.8833827526759706e-15,
   "near_closed_classes": 0,
   "divergence_rate": 0.0014312346982322949,
-  "mean_bits_support": 9.702135478882973,
-  "mean_payoff": -0.022388616842567734,
+  "mean_bits_support": 9.702143594243196,
+  "mean_payoff": -0.022388824206313076,
   "efficient_payoff": 0.0,
-  "deadweight_loss": 0.022388616842567734,
+  "deadweight_loss": 0.022388824206313076,
   "support": [
    [
     "mono {eq(THEM,ME):1}",
-    0.42326953712750826
+    0.4232688362058688
    ],
    [
     "mono {eq(ME,THEM):1}",
-    0.42326953712750826
+    0.4232688362058688
    ],
    [
     "mono {not(not(eq(THEM,ME))):1}",
-    0.009560316524611291
+    0.009560403355848119
    ],
    [
     "mono {or(eq(THEM,ME),D):1}",
-    0.009560316524611291
+    0.009560403355848119
    ],
    [
     "mono {and(eq(THEM,ME),C):1}",
-    0.009560316524611291
+    0.009560403355848119
    ],
    [
     "mono {or(eq(ME,THEM),D):1}",
-    0.009560316524611291
+    0.009560403355848119
    ],
    [
     "mono {and(eq(ME,THEM),C):1}",
-    0.009560316524611291
+    0.009560403355848119
    ],
    [
     "mono {or(D,eq(THEM,ME)):1}",
-    0.009560316524611291
+    0.009560403355848119
    ],
    [
     "mono {not(not(eq(ME,THEM))):1}",
-    0.009560316524611291
+    0.009560403355848119
    ],
    [
     "mono {and(C,eq(THEM,ME)):1}",
-    0.009560316524611291
+    0.009560403355848119
    ],
    [
     "mono {and(C,eq(ME,THEM)):1}",
-    0.009560316524611291
+    0.009560403355848119
    ],
    [
     "mono {or(D,eq(ME,THEM)):1}",
-    0.009560316524611291
+    0.009560403355848119
    ]
   ],
-  "chain_time_s": 7.971714019775391,
+  "chain_time_s": 9.991014003753662,
   "cut_flow": 0.0,
   "n_expanded": 814
  },
@@ -384,68 +822,68 @@
   "mode": "square",
   "n_programs": 2110,
   "n_classes": 220,
-  "n_states": 590573,
+  "n_states": 589536,
   "n_terminal_classes": 28,
   "indeterminate": 0,
-  "pi_sum": 0.9999999999999744,
-  "absorb_error": 2.5646151868841116e-14,
+  "pi_sum": 0.9999999999999697,
+  "absorb_error": 3.0309088572266774e-14,
   "near_closed_classes": 0,
   "divergence_rate": 0.0014312346982322949,
-  "mean_bits_support": 9.702346592443684,
-  "mean_payoff": -0.022390094922143822,
+  "mean_bits_support": 9.702346766799698,
+  "mean_payoff": -0.022390109943987498,
   "efficient_payoff": 0.0,
-  "deadweight_loss": 0.022390094922143822,
+  "deadweight_loss": 0.022390109943987498,
   "support": [
    [
-    "mono {eq(ME,THEM):1}",
-    0.4232512588687061
+    "mono {eq(THEM,ME):1}",
+    0.4232512439295012
    ],
    [
-    "mono {eq(THEM,ME):1}",
-    0.42325125886870607
+    "mono {eq(ME,THEM):1}",
+    0.42325124392950114
    ],
    [
     "mono {or(eq(ME,THEM),D):1}",
-    0.009563272166399845
+    0.009563272151860869
    ],
    [
     "mono {and(eq(THEM,ME),C):1}",
-    0.009563272166399845
+    0.009563272151860869
    ],
    [
     "mono {or(eq(THEM,ME),D):1}",
-    0.009563272166399845
+    0.009563272151860869
    ],
    [
     "mono {or(D,eq(THEM,ME)):1}",
-    0.009563272166399845
+    0.009563272151860869
    ],
    [
     "mono {or(D,eq(ME,THEM)):1}",
-    0.009563272166399845
+    0.009563272151860869
    ],
    [
     "mono {not(not(eq(ME,THEM))):1}",
-    0.009563272166399845
+    0.009563272151860869
    ],
    [
     "mono {and(C,eq(THEM,ME)):1}",
-    0.009563272166399845
+    0.009563272151860869
    ],
    [
     "mono {and(C,eq(ME,THEM)):1}",
-    0.009563272166399845
+    0.009563272151860869
    ],
    [
     "mono {not(not(eq(THEM,ME))):1}",
-    0.009563272166399845
+    0.009563272151860869
    ],
    [
     "mono {and(eq(ME,THEM),C):1}",
-    0.009563272166399845
+    0.009563272151860869
    ]
   ],
-  "chain_time_s": 127.87309908866882,
+  "chain_time_s": 135.0570352077484,
   "cut_flow": 0.0,
   "n_expanded": 8578
  },
@@ -459,45 +897,45 @@
   "mode": "square",
   "n_programs": 1726,
   "n_classes": 21,
-  "n_states": 277,
+  "n_states": 269,
   "n_terminal_classes": 1,
   "indeterminate": 0,
-  "pi_sum": 0.9999999999999999,
-  "absorb_error": 1.1102230246251565e-16,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
   "near_closed_classes": 0,
   "divergence_rate": 0.0004350342186637736,
-  "mean_bits_support": 2.6545799812762896,
-  "mean_payoff": -1.0000000000000002,
+  "mean_bits_support": 2.6545728528705728,
+  "mean_payoff": -0.9999995020959903,
   "efficient_payoff": 0.0,
-  "deadweight_loss": 1.0000000000000002,
+  "deadweight_loss": 0.9999995020959903,
   "support": [
    [
     "mono {D:1}",
-    0.9351381342388351
+    0.9351448348810343
    ],
    [
     "neutral {D:0.9, THEM(ME):0.1}",
-    0.0360419711643821
+    0.03603997027667742
    ],
    [
     "neutral {D:0.8, THEM(ME):0.2}",
-    0.013658619319536077
+    0.013656640708940192
    ],
    [
     "neutral {D:0.7, THEM(ME):0.3}",
-    0.006503413035703285
+    0.0065015864099126535
    ],
    [
     "neutral {D:0.6, THEM(ME):0.4}",
-    0.002799489400987848
+    0.002798304243445144
    ],
    [
     "neutral {D:0.9, and(THEM(ME),D):0.1}",
-    0.0011439644968568674
+    0.0011439699666676991
    ]
   ],
-  "chain_time_s": 0.30423784255981445,
-  "cut_flow": 1.0021464519313446e-05,
+  "chain_time_s": 0.3952500820159912,
+  "cut_flow": 9.80138457969359e-06,
   "n_expanded": 78
  },
  {
@@ -510,69 +948,69 @@
   "mode": "square",
   "n_programs": 1726,
   "n_classes": 21,
-  "n_states": 3075,
+  "n_states": 2947,
   "n_terminal_classes": 1,
   "indeterminate": 0,
-  "pi_sum": 1.0000000000000002,
-  "absorb_error": 2.220446049250313e-16,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
   "near_closed_classes": 0,
   "divergence_rate": 0.0004350342186637736,
-  "mean_bits_support": 2.663799492763166,
-  "mean_payoff": -1.0000000000000002,
+  "mean_bits_support": 2.663799492756415,
+  "mean_payoff": -0.999999999999978,
   "efficient_payoff": 0.0,
-  "deadweight_loss": 1.0000000000000002,
+  "deadweight_loss": 0.999999999999978,
   "support": [
    [
     "mono {D:1}",
-    0.5045258116662784
+    0.5045258116714587
    ],
    [
     "neutral {D:0.99, THEM(ME):0.01}",
-    0.19445208630958474
+    0.1944520863107319
    ],
    [
     "neutral {D:0.98, THEM(ME):0.02}",
-    0.10264417931099472
+    0.10264417931117648
    ],
    [
     "neutral {D:0.97, THEM(ME):0.03}",
-    0.05890186206881217
+    0.05890186206863221
    ],
    [
     "neutral {D:0.96, THEM(ME):0.04}",
-    0.0350870607569991
+    0.0350870607566773
    ],
    [
     "neutral {D:0.95, THEM(ME):0.05}",
-    0.0213277890993697
+    0.021327789099001147
    ],
    [
     "neutral {D:0.94, THEM(ME):0.06}",
-    0.013120133543695496
+    0.013120133543323562
    ],
    [
     "neutral {D:0.93, THEM(ME):0.07}",
-    0.008130426156012855
+    0.008130426155656987
    ],
    [
     "neutral {D:0.99, and(THEM(ME),D):0.01}",
-    0.0061740555829611935
+    0.006174055583012764
    ],
    [
     "neutral {D:0.92, THEM(ME):0.08}",
-    0.005060864867273822
+    0.005060864866941775
    ],
    [
     "neutral {D:0.99, and(THEM(ME),X):0.01}",
-    0.004721905494148441
+    0.004721905494187864
    ],
    [
     "neutral {D:0.99, and(X,THEM(ME)):0.01}",
-    0.004721905494148366
+    0.004721905494187784
    ]
   ],
-  "chain_time_s": 1.934938907623291,
-  "cut_flow": 2.619302147833481e-05,
+  "chain_time_s": 1.2060508728027344,
+  "cut_flow": 2.6193021468792142e-05,
   "n_expanded": 909
  },
  {
@@ -585,7 +1023,7 @@
   "mode": "square",
   "n_programs": 1726,
   "n_classes": 21,
-  "n_states": 44848,
+  "n_states": 42690,
   "n_terminal_classes": 1,
   "indeterminate": 0,
   "pi_sum": 1.0000000000000002,
@@ -646,8 +1084,8 @@
     0.025121493618362623
    ]
   ],
-  "chain_time_s": 89.82816791534424,
-  "cut_flow": 8.881786154747504e-05,
+  "chain_time_s": 81.43370008468628,
+  "cut_flow": 8.881786154747506e-05,
   "n_expanded": 15260
  },
  {
@@ -660,7 +1098,7 @@
   "mode": "sparse",
   "n_programs": 8770,
   "n_classes": 44,
-  "n_states": 4948,
+  "n_states": 4813,
   "n_terminal_classes": 1,
   "indeterminate": 0,
   "pi_sum": 0.9999999999999996,
@@ -705,8 +1143,8 @@
     0.0011476478060851289
    ]
   ],
-  "chain_time_s": 20.384390830993652,
-  "cut_flow": 1.5151477406251123e-05,
+  "chain_time_s": 20.553874015808105,
+  "cut_flow": 1.5151477406251126e-05,
   "n_expanded": 611,
   "n_pairs_evaluated": 7595402,
   "n_supports": 173
@@ -721,14 +1159,14 @@
   "mode": "sparse",
   "n_programs": 8770,
   "n_classes": 44,
-  "n_states": 49623,
+  "n_states": 47728,
   "n_terminal_classes": 1,
   "indeterminate": 0,
   "pi_sum": 0.9999999999999994,
   "absorb_error": 5.551115123125783e-16,
   "near_closed_classes": 0,
   "divergence_rate": 0.005830936344308863,
-  "mean_bits_support": 2.668720866057685,
+  "mean_bits_support": 2.668720866057686,
   "mean_payoff": -1.0000000000000007,
   "efficient_payoff": 0.0,
   "deadweight_loss": 1.0000000000000007,
@@ -739,27 +1177,27 @@
    ],
    [
     "neutral {D:0.99, THEM(ME):0.01}",
-    0.1917824421510982
+    0.1917824421510983
    ],
    [
     "neutral {D:0.98, THEM(ME):0.02}",
-    0.1017962824479971
+    0.10179628244799714
    ],
    [
     "neutral {D:0.97, THEM(ME):0.03}",
-    0.05861447398769029
+    0.058614473987690305
    ],
    [
     "neutral {D:0.96, THEM(ME):0.04}",
-    0.03500211576010344
+    0.035002115760103446
    ],
    [
     "neutral {D:0.95, THEM(ME):0.05}",
-    0.021317470158447656
+    0.021317470158447652
    ],
    [
     "neutral {D:0.94, THEM(ME):0.06}",
-    0.013134811043738018
+    0.013134811043738011
    ],
    [
     "neutral {D:0.99, and(THEM(ME),D):0.01}",
@@ -767,23 +1205,23 @@
    ],
    [
     "neutral {D:0.93, THEM(ME):0.07}",
-    0.008150655704925108
+    0.008150655704925099
    ],
    [
     "neutral {D:0.99, and(THEM(ME),X):0.01}",
-    0.006036382662931766
+    0.006036382662931774
    ],
    [
     "neutral {D:0.99, and(X,THEM(ME)):0.01}",
-    0.0060363826629306686
+    0.006036382662930672
    ],
    [
     "neutral {D:0.92, THEM(ME):0.08}",
-    0.005079518599121699
+    0.0050795185991216905
    ]
   ],
-  "chain_time_s": 39.96326494216919,
-  "cut_flow": 4.376905172604091e-05,
+  "chain_time_s": 40.190452098846436,
+  "cut_flow": 4.376905172604115e-05,
   "n_expanded": 5727,
   "n_pairs_evaluated": 8060112,
   "n_supports": 180
@@ -798,70 +1236,70 @@
   "mode": "square",
   "n_programs": 1852,
   "n_classes": 48,
-  "n_states": 3358,
+  "n_states": 2684,
   "n_terminal_classes": 1,
-  "indeterminate": 136,
-  "pi_sum": 1.0000000000000004,
-  "absorb_error": 4.440892098500626e-16,
+  "indeterminate": 62,
+  "pi_sum": 1.0000000000000002,
+  "absorb_error": 2.220446049250313e-16,
   "near_closed_classes": 0,
   "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 4.659548160990649,
-  "mean_payoff": -0.6843524465939522,
+  "mean_bits_support": 4.62534414685794,
+  "mean_payoff": -0.6835793084928411,
   "efficient_payoff": 0.0,
-  "deadweight_loss": 0.6843524465939522,
+  "deadweight_loss": 0.6835793084928411,
   "support": [
    [
     "mono {D:1}",
-    0.5822946051383333
+    0.5843913761029452
    ],
    [
     "neutral {C:0.3, THEM(^C):0.7}",
-    0.07871049180419062
+    0.0788845601852596
    ],
    [
     "neutral {C:0.2, THEM(^C):0.8}",
-    0.06898685072243514
+    0.06913967032617489
    ],
    [
     "neutral {C:0.4, THEM(^C):0.6}",
-    0.06695009912934258
+    0.06709816236433935
    ],
    [
     "neutral {C:0.5, THEM(^C):0.5}",
-    0.03675267099475622
+    0.03683394362394185
    ],
    [
     "neutral {C:0.1, THEM(^C):0.9}",
-    0.031014697804199402
+    0.031084631485783207
    ],
    [
     "neutral {D:0.9, THEM(ME):0.1}",
-    0.021007269404927083
+    0.021082495627554314
    ],
    [
     "neutral {D:0.9, THEM(THEM):0.1}",
-    0.02099604084952121
+    0.02107145105805316
    ],
    [
     "mono {THEM(^C):1}",
-    0.00923947186776437
+    0.009262542845988576
    ],
    [
     "neutral {D:0.8, THEM(THEM):0.2}",
-    0.007853023360198608
+    0.007880688277327293
    ],
    [
     "neutral {D:0.8, THEM(ME):0.2}",
-    0.007824925701221584
+    0.00785227220682494
    ],
    [
     "neutral {C:0.6, THEM(^C):0.4}",
-    0.00769065325744941
+    0.007707520739392831
    ]
   ],
-  "chain_time_s": 21.61181902885437,
-  "cut_flow": 9.74857049717057e-05,
-  "n_expanded": 344
+  "chain_time_s": 11.824886083602905,
+  "cut_flow": 9.401010742140276e-05,
+  "n_expanded": 340
  },
  {
   "arm": "weak",
@@ -873,70 +1311,70 @@
   "mode": "square",
   "n_programs": 1852,
   "n_classes": 48,
-  "n_states": 43071,
+  "n_states": 42235,
   "n_terminal_classes": 1,
-  "indeterminate": 435,
-  "pi_sum": 1.0000000000000004,
-  "absorb_error": 4.440892098500626e-16,
+  "indeterminate": 98,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
   "near_closed_classes": 0,
   "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 4.350461140561108,
-  "mean_payoff": -0.7246028801534007,
+  "mean_bits_support": 4.306477314387171,
+  "mean_payoff": -0.7186489641479756,
   "efficient_payoff": 0.0,
-  "deadweight_loss": 0.7246028801534007,
+  "deadweight_loss": 0.7186489641479756,
   "support": [
    [
     "mono {D:1}",
-    0.23365797715065037
+    0.23552046489508824
    ],
    [
     "neutral {D:0.99, THEM(ME):0.01}",
-    0.059688229296004126
+    0.060099778577451586
    ],
    [
     "neutral {D:0.99, THEM(THEM):0.01}",
-    0.05956792940901325
+    0.0599786029689258
    ],
    [
     "neutral {C:0.45, THEM(^C):0.55}",
-    0.028440127550403323
+    0.028979566356404977
    ],
    [
     "neutral {C:0.46, THEM(^C):0.54}",
-    0.02801885061759405
+    0.028549817087590648
    ],
    [
     "neutral {C:0.47, THEM(^C):0.53}",
-    0.026969975317315813
+    0.02748058824463227
    ],
    [
     "neutral {D:0.98, THEM(ME):0.02}",
-    0.025366278078520137
+    0.02552051464771875
    ],
    [
     "neutral {D:0.98, THEM(THEM):0.02}",
-    0.02536228414186721
+    0.02551682632648533
    ],
    [
     "neutral {C:0.48, THEM(^C):0.52}",
-    0.024657474643640608
+    0.025123797391778727
    ],
    [
     "neutral {C:0.44, THEM(^C):0.56}",
-    0.02228867083306541
+    0.02271385823049293
    ],
    [
     "neutral {C:0.49, THEM(^C):0.51}",
-    0.01982092926614113
+    0.020195102614068247
    ],
    [
     "neutral {D:0.99, THEM(^D):0.01}",
-    0.018565466644800997
+    0.018703848529764453
    ]
   ],
-  "chain_time_s": 79.89133477210999,
-  "cut_flow": 0.0005962375945162783,
-  "n_expanded": 4277
+  "chain_time_s": 58.092345237731934,
+  "cut_flow": 0.0005590387820641323,
+  "n_expanded": 4233
  },
  {
   "arm": "weak",
@@ -948,72 +1386,72 @@
   "mode": "sparse",
   "n_programs": 9426,
   "n_classes": 105,
-  "n_states": 20311,
+  "n_states": 18569,
   "n_terminal_classes": 1,
-  "indeterminate": 458,
+  "indeterminate": 259,
   "pi_sum": 1.000000000000001,
   "absorb_error": 1.1102230246251565e-15,
   "near_closed_classes": 0,
-  "divergence_rate": 0.012425290578157687,
-  "mean_bits_support": 4.695697030680261,
-  "mean_payoff": -0.6868732401586446,
+  "divergence_rate": 0.012357504359734265,
+  "mean_bits_support": 4.6521803476915835,
+  "mean_payoff": -0.6859686674126473,
   "efficient_payoff": 0.0,
-  "deadweight_loss": 0.6868732401586446,
+  "deadweight_loss": 0.6859686674126473,
   "support": [
    [
     "mono {D:1}",
-    0.578066700409021
+    0.5807627443663032
    ],
    [
     "neutral {C:0.3, THEM(^C):0.7}",
-    0.0769841133671103
+    0.07720283566154847
    ],
    [
     "neutral {C:0.2, THEM(^C):0.8}",
-    0.06753377317901868
+    0.0677260050293979
    ],
    [
     "neutral {C:0.4, THEM(^C):0.6}",
-    0.06544225022172936
+    0.06562817220017021
    ],
    [
     "neutral {D:0.9, THEM(ME):0.1}",
-    0.042267319422112155
+    0.04246303440291064
    ],
    [
     "neutral {C:0.5, THEM(^C):0.5}",
-    0.035910780985107374
+    0.036012788522563705
    ],
    [
     "neutral {C:0.1, THEM(^C):0.9}",
-    0.030462002221833494
+    0.030550401198529392
    ],
    [
     "neutral {D:0.8, THEM(ME):0.2}",
-    0.01649728033757753
+    0.016572216604242827
    ],
    [
     "mono {THEM(^C):1}",
-    0.009184712271723978
+    0.009214377610987064
    ],
    [
     "neutral {D:0.7, THEM(ME):0.3}",
-    0.007959482749916735
+    0.007994403439123094
    ],
    [
     "neutral {C:0.6, THEM(^C):0.4}",
-    0.007514066897216
+    0.0075352321251235645
    ],
    [
     "neutral {D:0.9, THEM(^D):0.1}",
-    0.005597888974714215
+    0.005623083115814807
    ]
   ],
-  "chain_time_s": 100.74821615219116,
-  "cut_flow": 0.00010394845783101622,
-  "n_expanded": 932,
-  "n_pairs_evaluated": 12779178,
-  "n_supports": 252
+  "chain_time_s": 86.11698794364929,
+  "cut_flow": 9.942280431758889e-05,
+  "n_expanded": 927,
+  "n_pairs_evaluated": 12845393,
+  "n_supports": 254
  },
  {
   "arm": "weak",
@@ -1025,72 +1463,72 @@
   "mode": "sparse",
   "n_programs": 9426,
   "n_classes": 105,
-  "n_states": 190387,
+  "n_states": 187701,
   "n_terminal_classes": 1,
-  "indeterminate": 1415,
+  "indeterminate": 342,
   "pi_sum": 1.0000000000000013,
   "absorb_error": 1.3322676295501878e-15,
   "near_closed_classes": 0,
-  "divergence_rate": 0.012950270494993803,
-  "mean_bits_support": 4.416805163136536,
-  "mean_payoff": -0.7357321271947111,
+  "divergence_rate": 0.013164406476953426,
+  "mean_bits_support": 4.360754723631664,
+  "mean_payoff": -0.7280752554573134,
   "efficient_payoff": 0.0,
-  "deadweight_loss": 0.7357321271947111,
+  "deadweight_loss": 0.7280752554573134,
   "support": [
    [
     "mono {D:1}",
-    0.21975524264906465
+    0.22215576636910506
    ],
    [
     "neutral {D:0.99, THEM(ME):0.01}",
-    0.11163470452742412
+    0.11265644381541547
    ],
    [
     "neutral {D:0.98, THEM(ME):0.02}",
-    0.06401182941066177
+    0.06450488185154242
    ],
    [
     "neutral {D:0.97, THEM(ME):0.03}",
-    0.03845421795219855
+    0.03870291381108395
    ],
    [
     "neutral {C:0.45, THEM(^C):0.55}",
-    0.025959257090210543
+    0.026672117487046152
    ],
    [
     "neutral {C:0.46, THEM(^C):0.54}",
-    0.025550296894442263
+    0.026251115981504456
    ],
    [
     "neutral {C:0.47, THEM(^C):0.53}",
-    0.024571334697979556
+    0.025244531652145352
    ],
    [
     "neutral {D:0.96, THEM(ME):0.04}",
-    0.023659499899879345
+    0.023787351986013935
    ],
    [
     "neutral {C:0.48, THEM(^C):0.52}",
-    0.022446144926434902
+    0.02306036160418579
    ],
    [
     "neutral {C:0.44, THEM(^C):0.56}",
-    0.02039298323774695
-   ],
-   [
-    "neutral {D:0.99, THEM(^D):0.01}",
-    0.018196784462835992
+    0.020956313146037603
    ],
    [
     "neutral {C:0.49, THEM(^C):0.51}",
-    0.018031089629201982
+    0.018523597875618105
+   ],
+   [
+    "neutral {D:0.99, THEM(^D):0.01}",
+    0.018371419357961473
    ]
   ],
-  "chain_time_s": 270.330677986145,
-  "cut_flow": 0.00048450486777468725,
-  "n_expanded": 8366,
-  "n_pairs_evaluated": 13210226,
-  "n_supports": 249
+  "chain_time_s": 391.52188086509705,
+  "cut_flow": 0.0004490818594309137,
+  "n_expanded": 8353,
+  "n_pairs_evaluated": 13202874,
+  "n_supports": 251
  },
  {
   "arm": "strong",
@@ -1102,7 +1540,7 @@
   "mode": "square",
   "n_programs": 1726,
   "n_classes": 21,
-  "n_states": 223,
+  "n_states": 222,
   "n_terminal_classes": 1,
   "indeterminate": 0,
   "pi_sum": 0.9999999999974029,
@@ -1119,7 +1557,7 @@
     0.9984240321075758
    ]
   ],
-  "chain_time_s": 0.24248862266540527,
+  "chain_time_s": 0.18918800354003906,
   "cut_flow": 0.0,
   "n_expanded": 66
  },
@@ -1194,7 +1632,7 @@
     0.0031419286600916155
    ]
   ],
-  "chain_time_s": 2.2024028301239014,
+  "chain_time_s": 1.9745848178863525,
   "cut_flow": 2.0486489761409525e-05,
   "n_expanded": 1061
  },
@@ -1269,7 +1707,7 @@
     0.022268497853636937
    ]
   ],
-  "chain_time_s": 69.78054404258728,
+  "chain_time_s": 72.64038586616516,
   "cut_flow": 7.282161487927583e-05,
   "n_expanded": 14313
  },
@@ -1283,37 +1721,37 @@
   "mode": "square",
   "n_programs": 1852,
   "n_classes": 46,
-  "n_states": 1219,
+  "n_states": 1209,
   "n_terminal_classes": 2,
   "indeterminate": 0,
-  "pi_sum": 0.9999999999999372,
-  "absorb_error": 6.283862319378386e-14,
+  "pi_sum": 0.9999999999999398,
+  "absorb_error": 6.017408793468348e-14,
   "near_closed_classes": 0,
   "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 2.617142220699694,
-  "mean_payoff": 3.9999999999997504,
+  "mean_bits_support": 2.6171422218212417,
+  "mean_payoff": 3.9999999999997584,
   "efficient_payoff": 4.0,
-  "deadweight_loss": 2.495781359357352e-13,
+  "deadweight_loss": 2.4158453015843406e-13,
   "support": [
    [
     "mono {C:1}",
-    0.9811617995876913
+    0.9811617994921267
    ],
    [
     "neutral {C:0.9, THEM(^C):0.1}",
-    0.008938809698458809
+    0.008938809697588174
    ],
    [
     "neutral {C:0.8, THEM(^C):0.2}",
-    0.0032780829458757144
+    0.0032780829455564308
    ],
    [
     "neutral {C:0.7, THEM(^C):0.3}",
-    0.0015403565842128215
+    0.0015403565840627915
    ]
   ],
-  "chain_time_s": 0.44202709197998047,
-  "cut_flow": 4.752216802343493e-06,
+  "chain_time_s": 3.9004769325256348,
+  "cut_flow": 4.752216801880631e-06,
   "n_expanded": 183
  },
  {
@@ -1326,69 +1764,219 @@
   "mode": "square",
   "n_programs": 1852,
   "n_classes": 46,
-  "n_states": 11504,
+  "n_states": 11477,
   "n_terminal_classes": 2,
   "indeterminate": 0,
-  "pi_sum": 0.9999999999999936,
-  "absorb_error": 6.439293542825908e-15,
+  "pi_sum": 0.9999999999999923,
+  "absorb_error": 7.66053886991358e-15,
   "near_closed_classes": 0,
   "divergence_rate": 0.001857777943639239,
-  "mean_bits_support": 2.6168712110242653,
-  "mean_payoff": 3.9999999999999702,
+  "mean_bits_support": 2.6168712124028404,
+  "mean_payoff": 3.9999999999999685,
   "efficient_payoff": 4.0,
-  "deadweight_loss": 2.9753977059954195e-14,
+  "deadweight_loss": 3.1530333899354446e-14,
   "support": [
    [
     "mono {C:1}",
-    0.8317419554647906
+    0.8317419553652116
    ],
    [
     "neutral {C:0.99, THEM(^C):0.01}",
-    0.07577711293130673
+    0.07577711292223445
    ],
    [
     "neutral {C:0.98, THEM(^C):0.02}",
-    0.029025484202389797
+    0.02902548419891477
    ],
    [
     "neutral {C:0.97, THEM(^C):0.03}",
-    0.013899138409289835
+    0.013899138407625784
    ],
    [
     "neutral {C:0.99, or(X,THEM(THEM)):0.01}",
-    0.00732680650684665
+    0.00732680650596946
    ],
    [
     "neutral {C:0.99, or(X,THEM(ME)):0.01}",
-    0.00732680650684657
+    0.00732680650596938
    ],
    [
     "neutral {C:0.96, THEM(^C):0.04}",
-    0.007305827422905454
+    0.007305827422030776
    ],
    [
     "neutral {C:0.95, THEM(^C):0.05}",
-    0.004038400838681342
+    0.0040384008381978516
    ],
    [
     "neutral {C:0.98, or(X,THEM(THEM)):0.02}",
-    0.00250571653966734
+    0.002505716539367347
    ],
    [
     "neutral {C:0.98, or(X,THEM(ME)):0.02}",
-    0.002505716539667301
+    0.002505716539367308
    ],
    [
     "neutral {C:0.94, THEM(^C):0.06}",
-    0.0023021351785751545
+    0.002302135178299535
    ],
    [
     "neutral {C:0.99, or(X,THEM(^C)):0.01}",
-    0.002211999290697085
+    0.002211999290432257
    ]
   ],
-  "chain_time_s": 2.5108542442321777,
-  "cut_flow": 1.239091911701281e-05,
+  "chain_time_s": 18.823256015777588,
+  "cut_flow": 1.2390919115529335e-05,
   "n_expanded": 1826
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "zerosum",
+  "N": 10,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 103332,
+  "n_terminal_classes": 1,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 0,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.2061485916552916,
+  "mean_payoff": 0.0,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.0,
+  "support": [
+   [
+    "neutral {C:0.2, D:0.5, X:0.3}",
+    0.04240748428552593
+   ],
+   [
+    "neutral {C:0.1, D:0.6, X:0.3}",
+    0.040923682833854697
+   ],
+   [
+    "neutral {C:0.1, D:0.5, X:0.4}",
+    0.039961992048850266
+   ],
+   [
+    "neutral {C:0.2, D:0.6, X:0.2}",
+    0.03696387506924601
+   ],
+   [
+    "neutral {C:0.2, D:0.4, X:0.4}",
+    0.03437288514249473
+   ],
+   [
+    "neutral {C:0.1, D:0.4, X:0.5}",
+    0.029884002396048694
+   ],
+   [
+    "neutral {C:0.3, D:0.5, X:0.2}",
+    0.029345774603820856
+   ],
+   [
+    "neutral {C:0.1, D:0.7, X:0.2}",
+    0.02842050696921474
+   ],
+   [
+    "neutral {C:0.3, D:0.4, X:0.3}",
+    0.02687825636955533
+   ],
+   [
+    "neutral {D:0.6, X:0.4}",
+    0.022266383496002545
+   ],
+   [
+    "neutral {C:0.2, D:0.7, X:0.1}",
+    0.022161328199783777
+   ],
+   [
+    "neutral {D:0.7, X:0.3}",
+    0.020593773791406398
+   ]
+  ],
+  "chain_time_s": 46.87865209579468,
+  "cut_flow": 0.0015308950320641946,
+  "n_expanded": 4488
+ },
+ {
+  "arm": "weak",
+  "n": 5,
+  "game": "zerosum",
+  "N": 100,
+  "x_on": true,
+  "role": true,
+  "mode": "square",
+  "n_programs": 902,
+  "n_classes": 53,
+  "n_states": 964558,
+  "n_terminal_classes": 4,
+  "indeterminate": 0,
+  "pi_sum": 1.0,
+  "absorb_error": 0.0,
+  "near_closed_classes": 1,
+  "divergence_rate": 0.0010078613182826044,
+  "mean_bits_support": 3.0460917918406545,
+  "mean_payoff": 0.0,
+  "efficient_payoff": 0.0,
+  "deadweight_loss": 0.0,
+  "support": [
+   [
+    "neutral {C:0.22, D:0.47, X:0.31}",
+    0.003777438270094635
+   ],
+   [
+    "neutral {C:0.21, D:0.47, X:0.32}",
+    0.0037214503947690975
+   ],
+   [
+    "neutral {C:0.21, D:0.48, X:0.31}",
+    0.003686646477153915
+   ],
+   [
+    "neutral {C:0.22, D:0.46, X:0.32}",
+    0.003666668463459041
+   ],
+   [
+    "neutral {C:0.22, D:0.48, X:0.3}",
+    0.003662910655215959
+   ],
+   [
+    "neutral {C:0.21, D:0.46, X:0.33}",
+    0.0036552923484035344
+   ],
+   [
+    "neutral {C:0.2, D:0.48, X:0.32}",
+    0.0035450416265679313
+   ],
+   [
+    "neutral {C:0.2, D:0.47, X:0.33}",
+    0.0035208300566213152
+   ],
+   [
+    "neutral {C:0.21, D:0.49, X:0.3}",
+    0.0034989429536264128
+   ],
+   [
+    "neutral {C:0.2, D:0.49, X:0.31}",
+    0.003441761462044474
+   ],
+   [
+    "neutral {C:0.21, D:0.45, X:0.34}",
+    0.0034040736732257157
+   ],
+   [
+    "neutral {C:0.23, D:0.47, X:0.3}",
+    0.003389048450548029
+   ]
+  ],
+  "chain_time_s": 851.9007532596588,
+  "cut_flow": 0.006370461205982505,
+  "n_expanded": 30000
  }
 ]

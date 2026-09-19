@@ -1,21 +1,21 @@
 ### arm=weak, n=6, game=exchange, N=100, x_on=True, role=False, mode=square
 
-programs 1852, classes 48, states 31925, terminal classes 1, indeterminate 619, divergence rate 0.0019
-mean payoff 0.6039, efficient 2.0000, deadweight loss 1.3961, mean bits in support 4.25
+programs 1852, classes 48, states 30026, terminal classes 1, indeterminate 335, divergence rate 0.0019
+mean payoff 0.6011, efficient 2.0000, deadweight loss 1.3989, mean bits in support 4.23
 
 | pi | state |
 |---|---|
-| 0.2181 | mono {D:1} |
-| 0.0561 | neutral {D:0.99, THEM(ME):0.01} |
-| 0.0557 | neutral {D:0.99, THEM(THEM):0.01} |
-| 0.0294 | neutral {C:0.63, THEM(^C):0.37} |
-| 0.0266 | neutral {C:0.64, THEM(^C):0.36} |
-| 0.0239 | neutral {D:0.98, THEM(ME):0.02} |
-| 0.0237 | neutral {D:0.98, THEM(THEM):0.02} |
+| 0.2187 | mono {D:1} |
+| 0.0562 | neutral {D:0.99, THEM(ME):0.01} |
+| 0.0559 | neutral {D:0.99, THEM(THEM):0.01} |
+| 0.0295 | neutral {C:0.63, THEM(^C):0.37} |
+| 0.0267 | neutral {C:0.64, THEM(^C):0.36} |
+| 0.0240 | neutral {D:0.98, THEM(ME):0.02} |
+| 0.0238 | neutral {D:0.98, THEM(THEM):0.02} |
 | 0.0224 | neutral {C:0.62, THEM(^C):0.38} |
-| 0.0213 | neutral {C:0.65, THEM(^C):0.35} |
+| 0.0214 | neutral {C:0.65, THEM(^C):0.35} |
 | 0.0171 | neutral {D:0.99, THEM(^D):0.01} |
-| 0.0169 | neutral {D:0.98, THEM(ME):0.01, THEM(THEM):0.01} |
+| 0.0170 | neutral {D:0.98, THEM(ME):0.01, THEM(THEM):0.01} |
 | 0.0133 | neutral {C:0.61, THEM(^C):0.39} |
 
 Transitions out of the support (share of mutation events, mutants responsible):
@@ -105,4 +105,4 @@ Transitions out of the support (share of mutation events, mutants responsible):
     - 8.80e-05 -> poly {C:0.5, and(X,THEM(ME)):0.5}   via and(X,THEM(ME)) (8.80e-05)
     - 5.37e-05 -> neutral {C:0.6, THEM(^C):0.39, or(X,THEM(THEM)):0.01}   via or(X,THEM(THEM)) (5.37e-05)
 
-INDETERMINATE transitions (replicator did not converge): 619; first: from poly {X:0.488, THEM(THEM):0.14, and(X,THEM(^X)):0.372} with mutant or(X,THEM(^X))
+INDETERMINATE transitions (replicator did not converge): 335; first: from poly {X:0.49, THEM(THEM):0.14, and(X,THEM(^X)):0.37} with mutant or(X,THEM(^X))

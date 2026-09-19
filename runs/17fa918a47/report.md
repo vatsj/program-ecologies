@@ -1,6 +1,6 @@
 ### arm=weak, n=6, game=dollar, N=10, x_on=True, role=False, mode=square
 
-programs 1852, classes 46, states 4160, terminal classes 2, indeterminate 0, divergence rate 0.0019
+programs 1852, classes 46, states 4145, terminal classes 2, indeterminate 0, divergence rate 0.0019
 mean payoff 0.5000, efficient 0.5000, deadweight loss 0.0000, mean bits in support 2.76
 absorption: class 0: 1.000, class 9: 0.000
 

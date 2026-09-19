@@ -1,18 +1,18 @@
 ### arm=weak, n=7, game=pd, N=10, x_on=True, role=False, mode=sparse
 
-programs 9426, classes 105, states 20311, terminal classes 1, indeterminate 458, divergence rate 0.0124
-mean payoff -0.6869, efficient 0.0000, deadweight loss 0.6869, mean bits in support 4.70
+programs 9426, classes 105, states 18569, terminal classes 1, indeterminate 259, divergence rate 0.0124
+mean payoff -0.6860, efficient 0.0000, deadweight loss 0.6860, mean bits in support 4.65
 
 | pi | state |
 |---|---|
-| 0.5781 | mono {D:1} |
-| 0.0770 | neutral {C:0.3, THEM(^C):0.7} |
-| 0.0675 | neutral {C:0.2, THEM(^C):0.8} |
-| 0.0654 | neutral {C:0.4, THEM(^C):0.6} |
-| 0.0423 | neutral {D:0.9, THEM(ME):0.1} |
-| 0.0359 | neutral {C:0.5, THEM(^C):0.5} |
-| 0.0305 | neutral {C:0.1, THEM(^C):0.9} |
-| 0.0165 | neutral {D:0.8, THEM(ME):0.2} |
+| 0.5808 | mono {D:1} |
+| 0.0772 | neutral {C:0.3, THEM(^C):0.7} |
+| 0.0677 | neutral {C:0.2, THEM(^C):0.8} |
+| 0.0656 | neutral {C:0.4, THEM(^C):0.6} |
+| 0.0425 | neutral {D:0.9, THEM(ME):0.1} |
+| 0.0360 | neutral {C:0.5, THEM(^C):0.5} |
+| 0.0306 | neutral {C:0.1, THEM(^C):0.9} |
+| 0.0166 | neutral {D:0.8, THEM(ME):0.2} |
 | 0.0092 | mono {THEM(^C):1} |
 | 0.0080 | neutral {D:0.7, THEM(ME):0.3} |
 | 0.0075 | neutral {C:0.6, THEM(^C):0.4} |
@@ -45,9 +45,9 @@ Transitions out of the support (share of mutation events, mutants responsible):
     - 3.75e-01 -> neutral {C:0.5, THEM(^C):0.5}   via C (1.97e-01), D (8.76e-02), X (8.28e-02), and(X,X) (2.16e-03)
     - 1.78e-01 -> neutral {C:0.3, THEM(^C):0.7}   via D (8.76e-02), X (8.28e-02), and(X,X) (2.16e-03), or(X,X) (2.16e-03)
     - 1.97e-03 -> mono {C:1}   via THEM(^D) (9.48e-04), THEM(^X) (9.11e-04), or(X,THEM(^D)) (3.33e-05), or(X,THEM(^X)) (3.33e-05)
-    - 6.92e-05 -> poly {C:0.00396, THEM(^C):0.00792, and(THEM(ME),X):0.988}   via and(THEM(ME),X) (6.92e-05)
+    - 6.92e-05 -> mono {and(THEM(ME),X):1}   via and(THEM(ME),X) (6.92e-05)
+    - 6.92e-05 -> mono {and(X,THEM(ME)):1}   via and(X,THEM(ME)) (6.92e-05)
     - 6.92e-05 -> neutral {C:0.4, THEM(^C):0.5, or(X,THEM(THEM)):0.1}   via or(X,THEM(THEM)) (6.92e-05)
-    - 6.92e-05 -> neutral {C:0.4, THEM(^C):0.5, or(X,THEM(ME)):0.1}   via or(X,THEM(ME)) (6.92e-05)
 - neutral {D:0.9, THEM(ME):0.1}
     - 9.89e-02 -> mono {D:1}   via D (3.29e-02), C (3.29e-02), X (3.10e-02), and(X,X) (8.09e-04)
     - 7.27e-02 -> neutral {D:0.8, THEM(ME):0.2}   via C (3.29e-02), X (3.10e-02), THEM(ME) (6.72e-03), and(X,X) (8.09e-04)
@@ -61,7 +61,7 @@ Transitions out of the support (share of mutation events, mutants responsible):
     - 1.67e-01 -> neutral {C:0.6, THEM(^C):0.4}   via C (1.64e-01), THEM(ME) (2.07e-03), not(THEM(ME)) (2.22e-04), or(THEM(ME),C) (8.75e-05)
     - 9.87e-02 -> neutral {C:0.3, THEM(^C):0.7}   via D (4.92e-02), X (4.65e-02), or(X,X) (1.21e-03), and(X,X) (1.21e-03)
     - 1.97e-03 -> mono {C:1}   via THEM(^D) (9.48e-04), THEM(^X) (9.11e-04), or(X,THEM(^D)) (3.33e-05), or(X,THEM(^X)) (3.33e-05)
-    - 5.79e-05 -> neutral {C:0.1, THEM(^C):0.9}   via not(THEM(^C)) (4.93e-05), and(X,and(X,THEM(ME))) (2.89e-06), or(X,and(X,THEM(ME))) (2.17e-06), and(X,or(X,THEM(ME))) (2.17e-06)
+    - 1.15e-04 -> mono {and(THEM(ME),X):1}   via and(THEM(ME),X) (1.15e-04)
 - neutral {C:0.1, THEM(^C):0.9}
     - 3.63e-01 -> neutral {C:0.2, THEM(^C):0.8}   via C (2.96e-01), D (3.29e-02), X (3.10e-02), and(X,X) (8.09e-04)
     - 6.69e-02 -> mono {THEM(^C):1}   via D (3.29e-02), X (3.10e-02), and(X,X) (8.09e-04), or(X,X) (8.09e-04)
@@ -105,4 +105,4 @@ Transitions out of the support (share of mutation events, mutants responsible):
     - 2.84e-04 -> neutral {D:0.8, THEM(^D):0.1, and(THEM(ME),D):0.1}   via and(THEM(ME),D) (2.84e-04)
     - 1.04e-04 -> neutral {D:0.8, THEM(^D):0.1, and(THEM(THEM),X):0.1}   via and(THEM(THEM),X) (1.04e-04)
 
-INDETERMINATE transitions (replicator did not converge): 458; first: from poly {C:0.206, X:0.0876, THEM(^X):0.294, and(X,THEM(^X)):0.412} with mutant or(X,or(X,THEM(THEM)))
+INDETERMINATE transitions (replicator did not converge): 259; first: from poly {C:0.2, X:0.1, THEM(^X):0.3, and(X,THEM(^X)):0.4} with mutant or(X,or(X,THEM(THEM)))

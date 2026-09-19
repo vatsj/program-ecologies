@@ -39,10 +39,14 @@ is at n=6–7 a `THEM(^C)`–ALLC edge collapsed by D and by `THEM(^D)`.
 | cell | all-D | cooperative edge | mean payoff |
 |---|---|---|---|
 | n=6 N=10 | 0.58 | ≈0.30 | −0.684 |
-| n=6 N=100 | 0.23 | ≈0.35 (concentrated near 45/55) | −0.725 |
-| n=7 N=10 | 0.58 | ≈0.30 | −0.687 |
+| n=6 N=100 | 0.22 | ≈0.35 (concentrated near 45/55) | −0.719 |
+| n=7 N=10 | 0.58 | ≈0.30 | −0.686 |
+| n=7 N=100 | 0.22 | ≈0.35 (near 45/55) | −0.728 |
 
-48 classes at n=6, 105 at n=7.  Indeterminate transitions: 136 / 435 / 458 —
+Going from n=6 to n=7 (48 → 105 classes) changes π by < 0.01: none of the
+5,000-odd new programs tips any attractor of the n=6 chain, which is the
+certification step of THEORY §7 passing at this level.  Indeterminate
+transitions: 62 / 98 / 259 / 342 —
 genuine replicator cycles among three conditional types (e.g. `THEM(THEM)`,
 `and(X,THEM(^C))`, `not(THEM(^C))`; trajectory spread 0.4), excluded and flagged
 as THEORY §5 requires.  Their total mutation share is < 1e-3.
@@ -65,6 +69,19 @@ enter the support at all; the probe reciprocator dominates it.
 ## Divide the dollar (Half/Half 0.5, else 0), weak n=6
 
 All-Half and its neutral equivalents; payoff 0.500 = efficient.  As predicted.
+
+## Test games (predictions/2026-09-18-test-games.md, written before these runs)
+
+| game | verdict written before the run | outcome (weak arm n=5, N=10 / 100) |
+|---|---|---|
+| Chicken + ROLE | all-`ROLE` / all-`not(ROLE)`, loss 0 | **Confirmed**: all-`ROLE` 0.985 / 0.993 (all-`not(ROLE)` 0.014 at N=10), payoff 0.500 = efficient, loss 0. |
+| Chicken, no ROLE (control) | loss ≥ 0.5; all-Swerve or a Swerve/Straight polymorphism | **Confirmed on the loss** (0.77 / 0.83); the mode is a 3-type polymorphism {Straight 0.19, `not(THEM(THEM))` 0.66, `not(THEM(^Straight))` 0.15} (payoff −0.27 / −0.33) rather than unconditional types. |
+| Nash demand (0.4/0.6) + ROLE | all-`ROLE`, split 0.5/0.5, loss 0 | **Confirmed**: all-`ROLE` 0.94 / ≈1, payoff 0.4997 / 0.5000. |
+| Nash demand, no ROLE | Hawk–Dove polymorphism with High at 1/3, payoff 0.4, loss 0.1 | **Confirmed**: single absorbing polymorphism {High 0.33, `not(THEM(THEM))` 0.45, `not(THEM(^High))` 0.22}, payoff 0.410 / 0.401, loss 0.09 / 0.099. |
+| Divide the dollar | all-Half, loss 0 | **Confirmed** (n=6). |
+| Zero-sum matching pennies + ROLE | indeterminate cycles or neutral drift; no strict attractor; loss 0 | **Confirmed (drift branch)**: π is spread over the neutral C/D/X simplex (every type earns 0 against every type under role averaging), payoff 0, no indeterminate transitions at N=10; at N=100 the neutral simplex exhausts the expansion cap (30,000 states; cut flow 5e-3), the one cell where the pruning bound is loose. |
+| Exchange game | cooperation one level earlier than the PD via `or(X,THEM(ME))` | **Not confirmed**: same `THEM(^Give)` structure as the PD; FairBot absent. |
+| Battle of the sexes + ROLE | bistable all-A / all-B, loss 0 | see below (filled after the run). |
 
 ## Moran check (strong arm, PD, n=6, N=100)
 

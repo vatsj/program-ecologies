@@ -1,22 +1,22 @@
 ### arm=weak, n=6, game=exchange, N=10, x_on=True, role=False, mode=square
 
-programs 1852, classes 48, states 3629, terminal classes 1, indeterminate 627, divergence rate 0.0019
-mean payoff 0.6444, efficient 2.0000, deadweight loss 1.3556, mean bits in support 4.26
+programs 1852, classes 48, states 3806, terminal classes 1, indeterminate 240, divergence rate 0.0019
+mean payoff 0.6464, efficient 2.0000, deadweight loss 1.3536, mean bits in support 4.41
 
 | pi | state |
 |---|---|
-| 0.5813 | mono {D:1} |
-| 0.0908 | neutral {C:0.5, THEM(^C):0.5} |
-| 0.0793 | neutral {C:0.6, THEM(^C):0.4} |
-| 0.0570 | neutral {C:0.4, THEM(^C):0.6} |
-| 0.0344 | neutral {C:0.3, THEM(^C):0.7} |
-| 0.0211 | neutral {D:0.9, THEM(ME):0.1} |
-| 0.0209 | neutral {D:0.9, THEM(THEM):0.1} |
-| 0.0164 | neutral {C:0.2, THEM(^C):0.8} |
-| 0.0139 | neutral {C:0.7, THEM(^C):0.3} |
-| 0.0080 | neutral {C:0.1, THEM(^C):0.9} |
-| 0.0078 | neutral {D:0.8, THEM(ME):0.2} |
-| 0.0077 | neutral {D:0.8, THEM(THEM):0.2} |
+| 0.5711 | mono {D:1} |
+| 0.0889 | neutral {C:0.5, THEM(^C):0.5} |
+| 0.0776 | neutral {C:0.6, THEM(^C):0.4} |
+| 0.0557 | neutral {C:0.4, THEM(^C):0.6} |
+| 0.0337 | neutral {C:0.3, THEM(^C):0.7} |
+| 0.0207 | neutral {D:0.9, THEM(ME):0.1} |
+| 0.0205 | neutral {D:0.9, THEM(THEM):0.1} |
+| 0.0203 | poly {C:0.3, and(X,THEM(^X)):0.7} |
+| 0.0161 | neutral {C:0.2, THEM(^C):0.8} |
+| 0.0136 | neutral {C:0.7, THEM(^C):0.3} |
+| 0.0078 | neutral {C:0.1, THEM(^C):0.9} |
+| 0.0077 | neutral {D:0.8, THEM(ME):0.2} |
 
 Transitions out of the support (share of mutation events, mutants responsible):
 
@@ -69,6 +69,13 @@ Transitions out of the support (share of mutation events, mutants responsible):
     - 9.10e-04 -> mono {THEM(^C):1}   via THEM(^C) (9.10e-04)
     - 8.83e-04 -> mono {THEM(^X):1}   via THEM(^X) (8.83e-04)
     - 8.19e-04 -> neutral {D:0.8, THEM(THEM):0.1, THEM(^D):0.1}   via THEM(^D) (8.19e-04)
+- poly {C:0.3, and(X,THEM(^X)):0.7}
+    - 3.67e-03 -> poly {C:0.4, and(X,THEM(^X)):0.6}   via THEM(THEM) (3.67e-03)
+    - 6.37e-04 -> poly {C:0.5, and(X,THEM(^X)):0.5}   via THEM(^D) (6.37e-04)
+    - 2.73e-04 -> poly {C:0.5, THEM(^D):0.1, and(X,THEM(^X)):0.4}   via THEM(^D) (2.73e-04)
+    - 8.80e-05 -> mono {not(THEM(^C)):1}   via not(THEM(^C)) (8.80e-05)
+    - 8.80e-05 -> poly {C:0.4, and(THEM(THEM),X):0.3, and(X,THEM(^X)):0.3}   via and(THEM(THEM),X) (8.80e-05)
+    - 8.80e-05 -> poly {C:0.4, and(THEM(ME),X):0.3, and(X,THEM(^X)):0.3}   via and(THEM(ME),X) (8.80e-05)
 - neutral {C:0.2, THEM(^C):0.8}
     - 3.82e-01 -> neutral {C:0.3, THEM(^C):0.7}   via C (2.63e-01), D (5.85e-02), X (5.55e-02), and(X,X) (1.34e-03)
     - 1.19e-01 -> neutral {C:0.1, THEM(^C):0.9}   via D (5.85e-02), X (5.55e-02), and(X,X) (1.34e-03), or(X,X) (1.34e-03)
@@ -97,12 +104,5 @@ Transitions out of the support (share of mutation events, mutants responsible):
     - 9.10e-04 -> mono {THEM(^C):1}   via THEM(^C) (9.10e-04)
     - 8.83e-04 -> mono {THEM(^X):1}   via THEM(^X) (8.83e-04)
     - 7.33e-04 -> neutral {D:0.8, THEM(ME):0.1, THEM(THEM):0.1}   via THEM(THEM) (7.33e-04)
-- neutral {D:0.8, THEM(THEM):0.2}
-    - 1.83e-01 -> neutral {D:0.9, THEM(THEM):0.1}   via D (6.58e-02), C (5.85e-02), X (5.55e-02), and(X,X) (1.34e-03)
-    - 1.20e-01 -> neutral {D:0.7, THEM(THEM):0.3}   via C (5.85e-02), X (5.55e-02), THEM(THEM) (2.93e-03), and(X,X) (1.34e-03)
-    - 2.95e-03 -> neutral {D:0.7, THEM(ME):0.1, THEM(THEM):0.2}   via THEM(ME) (2.95e-03)
-    - 9.10e-04 -> mono {THEM(^C):1}   via THEM(^C) (9.10e-04)
-    - 8.83e-04 -> mono {THEM(^X):1}   via THEM(^X) (8.83e-04)
-    - 7.38e-04 -> neutral {D:0.8, THEM(ME):0.1, THEM(THEM):0.1}   via THEM(ME) (7.38e-04)
 
-INDETERMINATE transitions (replicator did not converge): 627; first: from poly {X:0.488, THEM(THEM):0.14, and(X,THEM(^X)):0.372} with mutant or(X,THEM(^X))
+INDETERMINATE transitions (replicator did not converge): 240; first: from poly {X:0.5, THEM(THEM):0.3, and(X,THEM(^C)):0.2} with mutant or(X,THEM(^D))

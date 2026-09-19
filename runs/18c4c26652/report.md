@@ -1,6 +1,6 @@
 ### arm=weak, n=6, game=stag, N=10, x_on=True, role=False, mode=square
 
-programs 1852, classes 46, states 1219, terminal classes 2, indeterminate 0, divergence rate 0.0019
+programs 1852, classes 46, states 1209, terminal classes 2, indeterminate 0, divergence rate 0.0019
 mean payoff 4.0000, efficient 4.0000, deadweight loss 0.0000, mean bits in support 2.62
 absorption: class 0: 1.000, class 2: 0.000
 

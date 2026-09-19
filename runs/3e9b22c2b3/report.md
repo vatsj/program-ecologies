@@ -1,6 +1,6 @@
 ### arm=strong, n=7, game=pd, N=10, x_on=True, role=False, mode=sparse
 
-programs 8770, classes 44, states 4948, terminal classes 1, indeterminate 0, divergence rate 0.0054
+programs 8770, classes 44, states 4813, terminal classes 1, indeterminate 0, divergence rate 0.0054
 mean payoff -1.0000, efficient 0.0000, deadweight loss 1.0000, mean bits in support 2.66
 
 | pi | state |
@@ -48,8 +48,8 @@ Transitions out of the support (share of mutation events, mutants responsible):
     - 3.10e-01 -> neutral {D:0.7, THEM(ME):0.3}   via D (1.33e-01), C (8.84e-02), X (8.33e-02), and(X,X) (2.28e-03)
     - 1.79e-01 -> neutral {D:0.5, THEM(ME):0.5}   via C (8.84e-02), X (8.33e-02), THEM(ME) (2.34e-03), and(X,X) (2.28e-03)
     - 1.01e-04 -> neutral {D:0.5, THEM(ME):0.4, and(THEM(ME),D):0.1}   via and(THEM(ME),D) (1.01e-04)
+    - 7.36e-05 -> mono {or(X,THEM(ME)):1}   via or(X,THEM(ME)) (7.36e-05)
     - 7.36e-05 -> neutral {D:0.5, THEM(ME):0.4, and(THEM(ME),X):0.1}   via and(THEM(ME),X) (7.36e-05)
-    - 7.36e-05 -> poly {D:0.00344, THEM(ME):0.00172, or(X,THEM(ME)):0.995}   via or(X,THEM(ME)) (7.36e-05)
     - 7.36e-05 -> neutral {D:0.5, THEM(ME):0.4, and(X,THEM(ME)):0.1}   via and(X,THEM(ME)) (7.36e-05)
 - neutral {D:0.9, and(THEM(ME),D):0.1}
     - 9.96e-02 -> mono {D:1}   via D (3.31e-02), C (3.31e-02), X (3.12e-02), and(X,X) (8.56e-04)
