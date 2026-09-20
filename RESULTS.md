@@ -378,6 +378,33 @@ map, not by a clamp).
 
 Exact (floor probability 0, budget 200): `THEM(^C)` plays D against it (P(C) = 0.000, because against ALLC the 13-node program plays and(C, not(C)) = D) and it plays C against `THEM(^C)` (P(C) = 1.000); it cooperates with itself (P(C) = 1) and defects against D, so it is exploited by `THEM(^C)` (u = −2 vs 1) and does not invade all-`THEM(^C)`.
 
+## Ultimatum game (k = 3), three arms (`runs/ult_*.md`, predictions in `predictions/2026-09-19-ultimatum.md`)
+
+Levels L = 0.2 < M = 0.5 < H = 0.8, proposer plays the offer, responder the
+threshold, accept iff offer ≥ threshold, payoffs (1−x, x), rejection (0, 0).
+Weak arm n = 5 (902 programs without ROLE, 1,586 with), N = 100, w = 0.1,
+exp fitness map.  Under the k-ary DSL the binary results are reproduced to
+1e-15 (`runs/k2_identity_check.md`).
+
+| arm | prediction | outcome | rejection | share P / R | conditional programs in support |
+|---|---|---|---|---|---|
+| (a) ROLE, one population | π spread over all-L / all-M / all-H, no concentration > 0.6, rejection 0 | all-M 0.372, all-L 0.349, all-H 0.093, all-X 0.065, all-`ROLE` 0.044 (offers L, demands H: pays 0 against itself), `{X 0.9, flip(ROLE) 0.1}` 0.029. **Not falsified** (max 0.37), but the spread is L/M-heavy: every constant earns 0.5 against itself under role averaging, and the tilt comes from asymmetric exit rates (an H-mutant in all-L loses 0.4, an L-mutant in all-H loses 0.1: all-H is the easiest to leave). | 0.086 | 0.523 / 0.391 | `THEM(ME)`, `THEM(THEM)` at 0.001 each |
+| (b) fixed-mutual | (M, M) mode, rejection 0, proposer share 0.5 | **Falsified**: mode (L \| L) 0.387, then (M \| M) 0.191, (M \| L) 0.072, (L \| X) 0.047, (H \| H) 0.030.  (L \| L) is the subgame-perfect outcome: at (L \| L) a responder mutant M or H has its threshold unmet (ρ = 3.2e-3 < 1/N) and a proposer mutant M gives away 0.3 (ρ = 1.6e-3); (M \| M) is left by responder L (neutral, ρ = 1/N) and then (M \| L) → (L \| L) via proposer L (ρ = 0.031). | 0.109 | 0.540 / 0.351 | `(THEM(ME) \| H)`, `(THEM(THEM) \| H)`, `(L \| THEM(ME))` at 0.004 each |
+| (c) fixed-one-sided (blind responders) | responders commit to H, proposers accommodate, responder share 0.8 | **Falsified**: identical to (b) to 3 decimals — (L \| L) 0.391, (M \| M) 0.193; responder share 0.352 < 0.7.  Blind responders are constants in effect, so seeing them changes nothing; a blind responder cannot commit, it can only reject, and rejection costs it 0.2 at (L \| L). | 0.110 | 0.538 / 0.352 | `(THEM(ME) \| H)` 0.011 |
+
+What the conditional programs condition on: `THEM(ME)` as proposer ("offer
+what you would demand of me") and `THEM(THEM)` ("offer what you demand of
+yourself") mirror a constant responder's threshold, so they sit in the
+support only paired with H (offer H to an H-responder, payoff 0.2) at
+≤ 1%; no third-party probe (`THEM(^A_i)`) appears in any support.  The
+Nash-bargaining prediction (M, M) is the second state in both fixed-role
+arms at 0.19, not the mode; the mode is the proposer-favouring
+subgame-perfect pair, held by the asymmetry that the responder's only
+deviation (a higher threshold) is self-punishing while the proposer's
+deviation (a higher offer) is merely generous.  Note the stated falsifier
+for (a) was not met, but its verdict "no concentration" is at best half
+true (0.72 on L+M).
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
