@@ -33,10 +33,12 @@ NONE = -3
 
 
 class Language:
-    def __init__(self, arm='weak', n=6, x_on=True, role=False, me_app=False, k=2, names=None):
+    def __init__(self, arm='weak', n=6, x_on=True, role=True, me_app=False, k=2, names=None):
         """arm 'blind' = no THEM at all (no application, no eq): used for the
         blind responder population.  names = level names in order A_0..A_{k-1}
-        (default ('D', 'C') for k = 2, 'A0'.. otherwise)."""
+        (default ('D', 'C') for k = 2, 'A0'.. otherwise).  ROLE is a
+        first-class atom (role=True by default in every arm); role=False is
+        the override that reproduces the pre-2026-09-20 rows."""
         assert arm in ('strong', 'weak', 'source', 'blind')
         self.arm, self.n, self.x_on, self.role, self.me_app = arm, n, x_on, role, me_app
         self.k = k
@@ -185,9 +187,9 @@ class Language:
             else:
                 v += (1 + (1 if self.me_app else 0)) * p.get(s - 2, 0)
             if self.arm == 'source':
-                # eq(THEM,ME), eq(ME,THEM) at s=3; eq(THEM,^A) for |A| = s-3
+                # eq(THEM,ME), eq(ME,THEM) at s=3; eq(THEM,^A) and eq(^A,THEM) for |A| = s-3
                 v += 2 if s == 3 else 0
-                v += a.get(s - 3, 0)
+                v += 2 * a.get(s - 3, 0)
             a[s] = v
             p[s] = a[s - 1]
         return a[upto] / a[upto - 1], a

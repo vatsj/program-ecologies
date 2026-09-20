@@ -28,9 +28,12 @@ program×attractor path (`--mode` overrides).
 
 ## Conventions and deviations from the spec
 
-- **Ordered k-ary actions.**  Levels A_0 < … < A_{k−1}; `min` short-circuits
+- **Grammar.**  `A ::= A_i | X | ROLE | flip A | min A A | max A A | P P | eq P P`,
+  `P ::= ME | THEM | ^A`.  Levels A_0 < … < A_{k−1}; `min` short-circuits
   on A_0, `max` on A_{k−1}, `flip` reverses, `X` is uniform, `ROLE` is A_0 in
-  role 0 and A_{k−1} in role 1, `eq` is A_{k−1} when equal.  Values are
+  role 0 and A_{k−1} in role 1 (a first-class atom, on by default in every
+  arm since 2026-09-20; `--norole` reproduces earlier rows), `eq` is A_{k−1}
+  when equal.  Values are
   length-k distributions per (pair, subterm) plus a floor probability.  Game
   configs list `actions` in level order; for the binary games A_0 is the
   D-like action and A_1 the C-like one, so `and`/`or`/`not` are `min`/`max`/

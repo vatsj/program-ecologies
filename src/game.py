@@ -11,7 +11,7 @@ class Game:
         acts = list(cfg['actions'])          # in level order
         self.actions = acts
         self.k = len(acts)
-        self.role = bool(cfg.get('role', False))
+        self.role = bool(cfg.get('role', True))     # ROLE is first-class; 'role: false' is the override
         self.nroles = 2 if self.role else 1
         u1 = np.array([[cfg['payoffs'][a][b] for b in acts] for a in acts], float)
         if 'payoffs2' in cfg:

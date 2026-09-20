@@ -22,39 +22,39 @@ Don't skip Phase 0. The batched evaluator has enough index arithmetic that you w
 ## 1. The DSL
 
 ```
-A ::= C | D | X | not A | and A A | or A A | P P | eq P P
+A ::= A_i | X | ROLE | flip A | min A A | max A A | P P | eq P P
 P ::= ME | THEM | ↑A
 ```
 
-Action labels `C`/`D` are game-relative: they are the two base-game actions in the order given by the game config. For Stag Hunt they read Stag/Hare. Everything else is game-independent.
+Actions are ordered levels `A_0 < … < A_{k-1}`, listed in level order by the game config (`actions:`); level names are game-relative (for the PD `D`, `C`; for Stag Hunt `Hare`, `Stag`). For `k = 2`, `min`/`max`/`flip` are written `and`/`or`/`not` and are exactly those. `ROLE` is a first-class atom in every arm and every game. Everything else is game-independent.
 
 **Semantics, in evaluation order:**
 
-- `C`, `D`: constant actions. `X`: independent fair coin per evaluation, i.e. cooperation probability ½.
-- `not A`: swap. In probability terms, $1 - v$.
-- `and A B`: **short-circuit left-to-right.** Evaluate `A`; if it is `D`, return `D` without evaluating `B`. Probability: $v_A \cdot v_B$.
-- `or A B`: short-circuit. Evaluate `A`; if `C`, return `C` without evaluating `B`. Probability: $1 - (1-v_A)(1-v_B)$.
+- `A_i`: constant level. `X`: uniform over the $k$ levels, independent per evaluation (for $k=2$ the fair coin).
+- `ROLE`: `A_0` for one player of the match and `A_{k-1}` for the other, drawn once per match, opposite for the two players (Aumann's correlating device; THEORY §1). Inert where the efficient outcome is symmetric.
+- `flip A` (`not` for $k=2$): `A_i` → `A_{k-1-i}`. In probability terms for $k=2$, $1 - v$.
+- `min A B` (`and`): **short-circuit left-to-right.** Evaluate `A`; if it is `A_0`, return `A_0` without evaluating `B`. For $k=2$: $v_A \cdot v_B$.
+- `max A B` (`or`): short-circuit on `A_{k-1}`. For $k=2$: $1 - (1-v_A)(1-v_B)$.
 - `P Q` (application): run program `P` with `Q` as its opponent. `THEM(ME)` = what the opponent plays against me. `THEM(↑D)` = what the opponent plays against always-defect. `THEM(THEM)` = what the opponent plays against itself. `ME(...)` = run my own program against something. `↑A` applied to anything ignores its argument and evaluates `A` — but `A` may itself contain `THEM`/`ME`, resolved with `ME = ↑A` and `THEM =` the argument.
-- `eq P Q`: syntactic equality of source strings. `C` if equal, else `D`. Source-arm only.
+- `eq P Q`: syntactic equality of source strings. `A_{k-1}` if equal, else `A_0`. Source-arm only.
 - `ME`: quotation — the program's own source. `THEM`: the opponent's source. Both are program-sort leaves.
 
 Short-circuiting is not an optimization; it is what makes recursion terminate. `or(X, THEM(ME))` against itself stops with probability ½ per level. `or(THEM(ME), X)` never stops. `and`/`or` are therefore **non-commutative** and must not be canonicalized by argument order.
 
-**`ROLE`** (asymmetric games and Chicken only): an additional A-sort atom returning `C` for one player and `D` for the other, drawn once per match, opposite for the two players. Inert in PD; ~3.75× enumeration cost. Omit unless the game config requests it.
+**Arms as grammar restrictions.** `ROLE` is in every arm; a game config may set `role: false` only to reproduce rows run before it became first-class (the `--norole` flag of `run.py`), and the responder population of the one-sided ultimatum arm uses the `blind` restriction.
 
-**Arms as grammar restrictions.**
-
-| Arm | Allowed $P\,P$ forms | `eq` | Role |
-|---|---|---|---|
-| strong | `THEM(ME)` only | no | baseline |
-| weak | any | no | **canonical** |
-| source | any | yes | contrast |
+| Arm | Allowed $P\,P$ forms | `eq` | `ROLE` | Role |
+|---|---|---|---|---|
+| strong | `THEM(ME)` only | no | yes | baseline |
+| weak | any | no | yes | **canonical** |
+| source | any | yes | yes | contrast |
+| blind | none (no `THEM`) | no | yes | responder population, one-sided arm only |
 
 ## 2. Enumeration
 
 Enumerate bottom-up by **node count** (each constructor is one node, including `↑`). Keep a hash-cons table `(op, lhs, rhs) → row` so structurally identical subterms are one row. This is identity dedup only, which is exactly right in the source arm; behavioral dedup is done later, per §4.
 
-Sizes with the full grammar, no `ROLE`: $|S_6|\approx 2{,}800$, $|S_7|\approx 14{,}800$, $|S_8|\approx 74{,}600$, $|S_9|\approx 404{,}000$; growth ~5.5×/level. The strong arm is dozens of programs at any depth.
+Sizes (cumulative, $k=2$, with `ROLE`): weak $|S_6| = 3{,}994$, $|S_7| = 23{,}776$, $|S_8| = 121{,}892$, $|S_9| = 725{,}556$; strong $3{,}804$ / $22{,}691$ / $115{,}054$ / $684{,}239$; source $4{,}380$ / $26{,}000$ / $136{,}036$ / $811{,}808$; growth ≈ 6.5×/level. Without `ROLE` (the pre-2026-09-20 rows): weak $1{,}852$ / $9{,}426$ / $44{,}195$ / $228{,}794$, growth ≈ 5.75×. The strong arm is dozens of *behavioural classes* at any depth (21 at $n=6$ without `ROLE`), not dozens of programs.
 
 **Strip at enumeration:** `ME(...)` in applied position (direct self-application; diverges without grounding — legal but never useful), and any `↑A` applied to an argument (`(↑A)(P) ≡ A` for the body; keep the P-sort `↑A` itself, since it's a valid program).
 
