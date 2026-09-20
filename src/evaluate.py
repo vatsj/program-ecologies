@@ -237,3 +237,31 @@ def square(lang, game, ids=None, **kw):
     ids = lang.ids() if ids is None else np.asarray(ids)
     keys = pair_keys(lang, ids, ids, game.role)
     return evaluate(lang, game, keys, **kw)
+
+
+def square_chunked(lang, game, ids=None, rows=400, tol=1e-11, verbose=False):
+    """Full program x program matrix of role-averaged payoffs U (S x S) and
+    the value array V[i, j, r] (S x S x R x k), evaluated in row blocks so
+    the tape never holds more than ~2*rows*S pairs (for languages too large
+    for one square evaluation)."""
+    ids = lang.ids() if ids is None else np.asarray(ids)
+    S = len(ids); R = game.nroles; k = game.k
+    Vfull = np.zeros((S, S, R, k))
+    div = 0; tot = 0
+    pos = {int(p): a for a, p in enumerate(ids)}
+    for c0 in range(0, S, rows):
+        blk = ids[c0:c0 + rows]
+        res = evaluate(lang, game, pair_keys(lang, blk, ids, game.role), tol=tol)
+        div += int(res.div.sum()); tot += len(res.keys)
+        I, J = np.meshgrid(blk, ids, indexing='ij')
+        for r in range(R):
+            Vfull[c0:c0 + len(blk), :, r] = res.V[res.index(I.ravel(), J.ravel(), r)].reshape(len(blk), S, k)
+            Vfull[:, c0:c0 + len(blk), r] = res.V[res.index(J.ravel(), I.ravel(), r)].reshape(len(blk), S, k).transpose(1, 0, 2)
+        if verbose:
+            print('  block %d/%d: %d pairs' % (c0 // rows + 1, (S + rows - 1) // rows, len(res.keys)), flush=True)
+    if game.role:
+        U = 0.5 * (np.einsum('ija,ab,jib->ij', Vfull[:, :, 0], game.pay[0], Vfull[:, :, 1])
+                   + np.einsum('ija,ab,jib->ij', Vfull[:, :, 1], game.pay[1], Vfull[:, :, 0]))
+    else:
+        U = np.einsum('ija,ab,jib->ij', Vfull[:, :, 0], game.pay[0], Vfull[:, :, 0])
+    return U, Vfull, div / max(tot, 1)
