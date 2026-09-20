@@ -1,0 +1,18 @@
+# Ultimatum game with a responder outside option: rejection gives (0, 0.3).
+actions: [L, M, H]
+values: {L: 0.2, M: 0.5, H: 0.8}
+payoffs:            # proposer: [offer][threshold]
+  L: {L: 0.8, M: 0.0, H: 0.0}
+  M: {L: 0.5, M: 0.5, H: 0.0}
+  H: {L: 0.2, M: 0.2, H: 0.2}
+payoffs2:           # responder: [threshold][offer]
+  L: {L: 0.2, M: 0.5, H: 0.8}
+  M: {L: 0.3, M: 0.5, H: 0.8}
+  H: {L: 0.3, M: 0.3, H: 0.8}
+reject:
+  L: {L: 0, M: 1, H: 1}
+  M: {L: 0, M: 0, H: 1}
+  H: {L: 0, M: 0, H: 0}
+minimax_action: H
+minimax_action2: M    # responder maximin: threshold M guarantees >= 0.3
+role: true

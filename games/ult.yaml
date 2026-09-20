@@ -1,0 +1,20 @@
+# Ultimatum game, k=3 levels L=0.2 < M=0.5 < H=0.8.
+# Role 0 (proposer) plays the offer x; role 1 (responder) plays the threshold t;
+# accept iff x >= t: payoffs (1-x, x); reject: (0, 0).
+actions: [L, M, H]
+values: {L: 0.2, M: 0.5, H: 0.8}
+payoffs:            # proposer: [offer][threshold]
+  L: {L: 0.8, M: 0.0, H: 0.0}
+  M: {L: 0.5, M: 0.5, H: 0.0}
+  H: {L: 0.2, M: 0.2, H: 0.2}
+payoffs2:           # responder: [threshold][offer]
+  L: {L: 0.2, M: 0.5, H: 0.8}
+  M: {L: 0.0, M: 0.5, H: 0.8}
+  H: {L: 0.0, M: 0.0, H: 0.8}
+reject:             # [offer][threshold]
+  L: {L: 0, M: 1, H: 1}
+  M: {L: 0, M: 0, H: 1}
+  H: {L: 0, M: 0, H: 0}
+minimax_action: H     # proposer maximin: offer H is always accepted (0.2)
+minimax_action2: L    # responder maximin: threshold L accepts everything (>= 0.2)
+role: true
