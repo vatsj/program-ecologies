@@ -1,5 +1,5 @@
 # Exchange game: giving costs 1 and is worth 3 to the other (PD with b=3, c=1).
-actions: [Give, Keep]
+actions: [Keep, Give]   # level order A_0 < A_1 (A_1 is the DSL name C, A_0 is D)
 payoffs:
   Give: {Give: 2,  Keep: -1}
   Keep: {Give: 3,  Keep: 0}

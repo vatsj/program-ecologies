@@ -19,12 +19,14 @@ def cell_hash(cfg):
     return hashlib.md5(json.dumps(cfg, sort_keys=True).encode()).hexdigest()[:10]
 
 
-def get_language(arm, n, x_on, role):
-    return Language(arm, n, x_on=x_on, role=role)
+def get_language(arm, n, x_on, role, game=None):
+    if game is None:
+        return Language(arm, n, x_on=x_on, role=role)
+    return Language(arm, n, x_on=x_on, role=role, k=game.k, names=game.actions)
 
 
 def get_provider(lang, game, arm, n, x_on, mode, verbose):
-    ecfg = dict(arm=arm, n=n, game=game.name, x_on=x_on, role=game.role, mode=mode)
+    ecfg = dict(arm=arm, n=n, game=game.name, x_on=x_on, role=game.role, mode=mode, ver=2)
     path = os.path.join(RUNS, 'eval_' + cell_hash(ecfg) + '.pkl')
     if mode == 'square':
         if os.path.exists(path):
@@ -51,7 +53,7 @@ def run_cell(arm, n, game_path, N, w=1.0, x_on=True, mode=None, verbose=True, se
     game = Game.load(game_path)
     if mode is None:
         mode = 'square' if n <= 6 else 'sparse'
-    lang = get_language(arm, n, x_on, game.role)
+    lang = get_language(arm, n, x_on, game.role, game)
     if prior == 'uniform':
         lang.mu = np.ones(len(lang.mu)) / len(lang.mu)     # diagnostic: no length prior
     cfg = dict(arm=arm, n=n, game=game.name, N=N, w=w, x_on=x_on, role=game.role, mode=mode, fmap='exp')

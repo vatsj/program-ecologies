@@ -1,5 +1,5 @@
 # Prisoner's dilemma (separable: defecting gives self +1, other -2)
-actions: [C, D]
+actions: [D, C]   # level order A_0 < A_1 (A_1 is the DSL name C, A_0 is D)
 payoffs:            # row player's payoff, [row action][col action]
   C: {C: 0, D: -2}
   D: {C: 1, D: -1}

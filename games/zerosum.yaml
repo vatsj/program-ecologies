@@ -1,5 +1,5 @@
 # Matching pennies, ROLE-symmetrised.  Player 1 wants a match, player 2 a mismatch.
-actions: [Heads, Tails]
+actions: [Tails, Heads]   # level order A_0 < A_1 (A_1 is the DSL name C, A_0 is D)
 payoffs:
   Heads: {Heads: 1,  Tails: -1}
   Tails: {Heads: -1, Tails: 1}

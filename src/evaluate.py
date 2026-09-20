@@ -3,12 +3,13 @@
 A *pair* is (i, j, r): program i, in role r, against program j.  With ROLE
 off, r is always 0.  Pairs are encoded as int64 keys (i*S + j)*2 + r.
 
-For every pair we track (c, f): probability of returning action 0, and of
-hitting the budget floor.  Budget b+1 values of applications read the budget
-b values of the pair they refer to; everything else is computed within the
-same budget.  V_0 = floor everywhere.  Iterate until stall.
+For every pair we track (P, f): the distribution over the k levels of the
+returned action (P[l] = probability of level l and no floor hit) and the
+probability f of hitting the budget floor.  Budget b+1 values of applications
+read the budget b values of the pair they refer to; everything else is
+computed within the same budget.  V_0 = floor everywhere.  Iterate until stall.
 
-Value used downstream: V = c + f * [minimax action == action 0].
+Value used downstream: V = P + f * onehot(minimax level of the role).
 Divergent pair: f > DIV_TOL at convergence.
 """
 import numpy as np
@@ -75,17 +76,20 @@ class Tape:
         rhs = np.where(L.le_rhs[le] >= 0, base + L.le_rhs[le], -1)
         ip, jp, rp = i[pair_of], j[pair_of], r[pair_of]
         tid = L.le_id[le]
+        k = L.k
         # static values
-        c0 = np.zeros(E); f0 = np.zeros(E)
-        c0[op == C] = 1.0
-        c0[op == X] = 0.5
-        c0[op == ROLE] = (rp[op == ROLE] == 0)
+        c0 = np.zeros((E, k)); f0 = np.zeros(E)
+        m = op == CONST
+        c0[np.nonzero(m)[0], L.lhs[tid[m]]] = 1.0
+        c0[op == X] = 1.0 / k
+        m = op == ROLE
+        c0[np.nonzero(m)[0], np.where(rp[m] == 0, 0, k - 1)] = 1.0
         m = op == EQ
         if m.any():
             a = L.lhs[tid[m]]; b = L.rhs[tid[m]]
             ra = np.where(a == ME, ip[m], np.where(a == THEM, jp[m], a))
             rb = np.where(b == ME, ip[m], np.where(b == THEM, jp[m], b))
-            c0[m] = (ra == rb)
+            c0[np.nonzero(m)[0], np.where(ra == rb, k - 1, 0)] = 1.0
         # app deps -> pair index
         dep = np.full(E, -1, np.int64)
         m = op == APP
@@ -109,6 +113,7 @@ class Tape:
         self.rhs = np.where(rhs >= 0, inv[np.maximum(rhs, 0)], -1)[perm]
         self.dep = dep[perm]
         self.c0, self.f0 = c0[perm], f0[perm]
+        self.k = k
         self.body = inv[body]
         # groups
         key = self.size.astype(np.int64) * 16 + self.op
@@ -122,20 +127,37 @@ class Tape:
         `budget` (pass k computes budget k-1; budget 0 = all applications floor)."""
         bmax = bmax + 1
         c = self.c0.copy(); f = self.f0.copy()
+        k = self.k
         lhs, rhs, dep = self.lhs, self.rhs, self.dep
-        Vc = np.zeros(self.K); Vf = np.ones(self.K)
+        Vc = np.zeros((self.K, k)); Vf = np.ones(self.K)
         groups = [(op, s, lhs[s], rhs[s], dep[s]) for op, s in self.groups if op in (NOT, AND, OR, APP)]
         deltas = []
         for b in range(1, bmax + 1):
             for op, s, l, rr, d in groups:
                 if op == NOT:
-                    c[s] = 1.0 - c[l] - f[l]; f[s] = f[l]
+                    c[s] = c[l][:, ::-1]; f[s] = f[l]
                 elif op == AND:
-                    cl = c[l]
-                    c[s] = cl * c[rr]; f[s] = f[l] + cl * f[rr]
+                    # min, short-circuit on level 0: P(min >= m) = P(L >= m) P(R >= m) for m >= 1
+                    cl, cr = c[l], c[rr]
+                    SL = np.cumsum(cl[:, ::-1], axis=1)[:, ::-1]     # SL[:, m] = P(L >= m, terminated)
+                    SR = np.cumsum(cr[:, ::-1], axis=1)[:, ::-1]
+                    S = SL * SR                                        # valid for m >= 1
+                    out = np.empty_like(cl)
+                    out[:, 1:k - 1] = S[:, 1:k - 1] - S[:, 2:k]
+                    out[:, k - 1] = S[:, k - 1]
+                    out[:, 0] = cl[:, 0] + SL[:, 1] * cr[:, 0]
+                    c[s] = out; f[s] = f[l] + SL[:, 1] * f[rr]
                 elif op == OR:
-                    cl = c[l]; fl = f[l]; dl = 1.0 - cl - fl
-                    c[s] = cl + dl * c[rr]; f[s] = fl + dl * f[rr]
+                    # max, short-circuit on level k-1: P(max <= m) = P(L <= m) P(R <= m) for m <= k-2
+                    cl, cr = c[l], c[rr]
+                    CL = np.cumsum(cl, axis=1)                         # CL[:, m] = P(L <= m, terminated)
+                    CR = np.cumsum(cr, axis=1)
+                    S = CL * CR
+                    out = np.empty_like(cl)
+                    out[:, 1:k - 1] = S[:, 1:k - 1] - S[:, 0:k - 2]
+                    out[:, 0] = S[:, 0]
+                    out[:, k - 1] = cl[:, k - 1] + CL[:, k - 2] * cr[:, k - 1]
+                    c[s] = out; f[s] = f[l] + CL[:, k - 2] * f[rr]
                 else:
                     c[s] = Vc[d]; f[s] = Vf[d]
             Vc2 = c[self.body]; Vf2 = f[self.body]
@@ -151,7 +173,9 @@ class Tape:
 
 
 class Result:
-    """Evaluated pair set. get(i,j,r) -> (V, f)."""
+    """Evaluated pair set.  V[index(i,j,r)] is the level distribution
+    (k,) of program i in role r against j, with floor mass on the minimax
+    level of the role."""
     def __init__(self, lang, game, keys, Vc, Vf, iters, delta):
         self.lang, self.game = lang, game
         self.keys, self.Vc, self.Vf = keys, Vc, Vf
@@ -159,7 +183,9 @@ class Result:
         S = lang.count
         i, j, r = unkey(S, keys)
         self.i, self.j, self.r = i, j, r
-        self.V = Vc + Vf * game.minimax_C[r]
+        self.V = Vc.copy()
+        mm = game.minimax[r]
+        self.V[np.arange(len(keys)), mm] += Vf
         self.div = Vf > DIV_TOL
 
     def index(self, i, j, r=0):

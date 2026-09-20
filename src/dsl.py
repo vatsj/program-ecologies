@@ -1,12 +1,21 @@
 """Grammar, enumerator, hash-consing, program bodies, mutation prior.
 
-    A ::= C | D | X | ROLE | not A | and A A | or A A | P P | eq P P
+Ordered k-ary actions A_0 < A_1 < ... < A_{k-1}:
+
+    A ::= A_i | X | ROLE | flip A | min A A | max A A | P P | eq P P
     P ::= ME | THEM | ^A
+
+min short-circuits on A_0, max on A_{k-1}, flip maps A_i -> A_{k-1-i}, X is
+uniform over the k levels, ROLE is A_0 in role 0 and A_{k-1} in role 1, eq is
+A_{k-1} when the sources are equal and A_0 otherwise.  For k = 2 with the
+level names (D, C) these are exactly and / or / not / the fair coin, so the
+binary DSL is the k = 2 case (D = A_0, C = A_1).
 
 Every A-term is a program.  P-sort values are small integer codes:
 ME = -1, THEM = -2, and ^A is the id of A (>= 0).  A-terms are hash-consed
 into flat arrays indexed by id; ids are assigned bottom-up by size, so a
-child's id is always smaller than its parent's.
+child's id is always smaller than its parent's.  Constants are op CONST with
+lhs = level.
 """
 import math
 import os
@@ -17,16 +26,22 @@ for _v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS"):
     os.environ.setdefault(_v, "1")
 import numpy as np
 
-C, D, X, ROLE, NOT, AND, OR, APP, EQ = range(9)
-OPNAME = ['C', 'D', 'X', 'ROLE', 'not', 'and', 'or', 'app', 'eq']
+CONST, _UNUSED, X, ROLE, NOT, AND, OR, APP, EQ = range(9)
+OPNAME = ['const', '-', 'X', 'ROLE', 'not', 'and', 'or', 'app', 'eq']
 ME, THEM = -1, -2
 NONE = -3
 
 
 class Language:
-    def __init__(self, arm='weak', n=6, x_on=True, role=False, me_app=False):
-        assert arm in ('strong', 'weak', 'source')
+    def __init__(self, arm='weak', n=6, x_on=True, role=False, me_app=False, k=2, names=None):
+        """arm 'blind' = no THEM at all (no application, no eq): used for the
+        blind responder population.  names = level names in order A_0..A_{k-1}
+        (default ('D', 'C') for k = 2, 'A0'.. otherwise)."""
+        assert arm in ('strong', 'weak', 'source', 'blind')
         self.arm, self.n, self.x_on, self.role, self.me_app = arm, n, x_on, role, me_app
+        self.k = k
+        self.names = list(names) if names is not None else (['D', 'C'] if k == 2 else ['A%d' % i for i in range(k)])
+        assert len(self.names) == k
         self._op, self._lhs, self._rhs, self._size = [], [], [], []
         self.table = {}
         self.by_size = {}
@@ -50,8 +65,9 @@ class Language:
 
     def _enumerate(self):
         n, arm = self.n, self.arm
-        leaves = [C, D] + ([X] if self.x_on else []) + ([ROLE] if self.role else [])
-        for op in leaves:
+        for lv in range(self.k):
+            self.intern(CONST, lv, NONE, 1)
+        for op in ([X] if self.x_on else []) + ([ROLE] if self.role else []):
             self.intern(op, NONE, NONE, 1)
         P = {1: [ME, THEM]}
         for s in range(2, n + 1):
@@ -63,7 +79,7 @@ class Language:
                     for b in self.by_size[j]:
                         self.intern(AND, a, b, s)
                         self.intern(OR, a, b, s)
-            if s - 2 >= 1:
+            if s - 2 >= 1 and arm != 'blind':
                 args = P.get(s - 2, [])
                 fns = [THEM] + ([ME] if self.me_app else [])
                 if arm == 'strong':
@@ -158,12 +174,14 @@ class Language:
 
     def growth_rate(self, upto=40):
         """Asymptotic ratio a(L+1)/a(L) from the counting recursion."""
-        a = {1: 2 + (1 if self.x_on else 0) + (1 if self.role else 0)}
+        a = {1: self.k + (1 if self.x_on else 0) + (1 if self.role else 0)}
         p = {1: 2}
         for s in range(2, upto + 1):
             v = a[s - 1] + 2 * sum(a[i] * a[s - 1 - i] for i in range(1, s - 1))
             if self.arm == 'strong':
                 v += 1 if s == 3 else 0
+            elif self.arm == 'blind':
+                pass
             else:
                 v += (1 + (1 if self.me_app else 0)) * p.get(s - 2, 0)
             if self.arm == 'source':
@@ -182,14 +200,17 @@ class Language:
 
     def src(self, i):
         op = self._op[i]
-        if op <= ROLE: return OPNAME[op]
-        if op == NOT: return 'not(%s)' % self.src(self._lhs[i])
-        if op in (AND, OR): return '%s(%s,%s)' % (OPNAME[op], self.src(self._lhs[i]), self.src(self._rhs[i]))
+        if op == CONST: return self.names[self._lhs[i]]
+        if op in (X, ROLE): return OPNAME[op]
+        if op == NOT: return ('not(%s)' if self.k == 2 else 'flip(%s)') % self.src(self._lhs[i])
+        if op in (AND, OR):
+            nm = OPNAME[op] if self.k == 2 else ('min' if op == AND else 'max')
+            return '%s(%s,%s)' % (nm, self.src(self._lhs[i]), self.src(self._rhs[i]))
         if op == APP: return '%s(%s)' % (self.psrc(self._lhs[i]), self.psrc(self._rhs[i]))
         if op == EQ: return 'eq(%s,%s)' % (self.psrc(self._lhs[i]), self.psrc(self._rhs[i]))
 
     def parse(self, s):
-        toks = re.findall(r'[A-Za-z]+|[(),^↑]', s.replace(' ', ''))
+        toks = re.findall(r'[A-Za-z][A-Za-z0-9]*|[(),^↑]', s.replace(' ', ''))
         pos = 0
 
         def peek(): return toks[pos] if pos < len(toks) else None
@@ -213,14 +234,16 @@ class Language:
 
         def A():
             tok = eat()
-            if tok in ('C', 'D', 'X', 'ROLE'):
+            if tok in self.names:
+                return self.intern(CONST, self.names.index(tok), NONE, 1), 1
+            if tok in ('X', 'ROLE'):
                 return self.intern(OPNAME.index(tok), NONE, NONE, 1), 1
-            if tok == 'not':
+            if tok in ('not', 'flip'):
                 eat('('); a, sa = A(); eat(')')
                 return self.intern(NOT, a, NONE, sa + 1), sa + 1
-            if tok in ('and', 'or'):
+            if tok in ('and', 'or', 'min', 'max'):
                 eat('('); a, sa = A(); eat(','); b, sb = A(); eat(')')
-                return self.intern(AND if tok == 'and' else OR, a, b, sa + sb + 1), sa + sb + 1
+                return self.intern(AND if tok in ('and', 'min') else OR, a, b, sa + sb + 1), sa + sb + 1
             if tok == 'eq':
                 eat('('); p, sp = P(); eat(','); q, sq = P(); eat(')')
                 return self.intern(EQ, p, q, sp + sq + 1), sp + sq + 1

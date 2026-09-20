@@ -120,7 +120,7 @@ def main(n, extras, out_path, N_list=(10, 100), ws=(0.01, 0.1, 1.0), max_full=40
         for s in ['THEM(^D)', 'THEM(^C)', 'or(X,THEM(ME))']:
             q = L.parse(s)
             vq = R.value(q, winner, 0, 200); vp = R.value(winner, q, 0, 200); vqq = R.value(q, q, 0, 200); vpp = R.value(winner, winner, 0, 200)
-            V = lambda v: v[0] + v[2] * float(g.minimax_C[0])
+            V = lambda v: float((lambda p: (p[0].copy(), p[1]))(v)[0][1] + v[1] * (g.minimax[0] == 1))   # P(C) with floor mass on the minimax level
             uqp = g.payoff(V(vq), V(vp)); upq = g.payoff(V(vp), V(vq)); uqq = g.payoff(V(vqq), V(vqq)); u_pp = g.payoff(V(vpp), V(vpp))
             lines.append('| `%s` | %.4g | %.4g | %.4g | %.4g | %.4g | %.4g |' % (s, V(vq), V(vp), uqp, u_pp, uqq, upq))
         lines.append('')

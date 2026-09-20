@@ -1,6 +1,6 @@
 # Nash demand game, two demands (0.4, 0.6). Incompatible demands (High,High) -> 0.
 # Symmetric compatible profile (Low,Low) is inefficient (0.8 < 1).  With ROLE.
-actions: [Low, High]
+actions: [High, Low]   # level order A_0 < A_1 (A_1 is the DSL name C, A_0 is D)
 payoffs:
   Low:  {Low: 0.4, High: 0.4}
   High: {Low: 0.6, High: 0.0}

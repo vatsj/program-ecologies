@@ -1,5 +1,5 @@
 # Chicken with ROLE. Correlated (one swerves, one goes straight) sum 1 > symmetric (0,0).
-actions: [Swerve, Straight]
+actions: [Straight, Swerve]   # level order A_0 < A_1 (A_1 is the DSL name C, A_0 is D)
 payoffs:
   Swerve:   {Swerve: 0,  Straight: -1}
   Straight: {Swerve: 2,  Straight: -10}
