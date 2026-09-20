@@ -460,6 +460,40 @@ minority because at (M \| M) a threshold-H responder still gets only 0.3
 vs 0.5.  Direction as predicted; the nearest-level claim (H) is not borne
 out — M, not H, is the mode, with H's share doubling.
 
+## Standing variance: agent-based Moran at finite εN (`runs/abm_pd_N100_w0.3.md`, predictions in `predictions/2026-09-20-standing-variance.md`)
+
+Agent-based Moran process (`src/abm.py`): N = 100, weak arm n = 6 **with
+ROLE** (3,994 programs, 112 behavioural classes; μ(C) = μ(D) = 0.249,
+μ(`THEM(^C)`) = 5.2e-4), PD, f = exp(w·payoff), w = 0.3, mutation per birth
+at ε = εN/N with mutants drawn from μ over the classes; burn-in 10⁴
+generations, 10⁵ sampled (N events each), 5 seeds.  Cooperative share is
+(mean payoff − u(D,D)) / (efficient − u(D,D)) = mean payoff + 1.
+
+| εN | cooperative share (mean ± sd) | `THEM(^C)` class share | ALLC class share | P(`THEM(^C)` and ALLC coexist) |
+|---|---|---|---|---|
+| 0.1 | 0.011 ± 0.009 | 0.007 ± 0.009 | 0.0015 ± 0.0004 | 0.0008 ± 0.0011 |
+| 1 | 0.048 ± 0.004 | 0.016 ± 0.003 | 0.0117 ± 0.0003 | 0.013 ± 0.002 |
+| 10 | 0.240 ± 0.001 | 0.0006 ± 0.0001 | 0.089 ± 0.000 | 0.014 ± 0.001 |
+
+Verdict: **not falsified** — the share rises monotonically in εN and stays
+below 0.10 at εN = 1 (0.048) and below 0.25 at εN = 10 (0.240, within
+0.01 of the bound).  At εN = 0.1 the simulation reproduces the chain
+(chain: `THEM(^C)` 0.010 at w = 0.3, N = 100 without ROLE; ABM 0.007 ± 0.009
+with `THEM(^C)` present in 2 of 5 seeds' samples, i.e. the visits are rare
+and long, as the chain's residence time predicts).  At εN = 1 the
+conditional cooperator holds 1.6% and coexists with ALLC in 1.3% of
+generations; the shadow mechanism still operates (ALLC is present 1.2% of
+the time, entering at μ(C)·ε per birth).  At εN = 10 the cooperative share
+is mutation load, not conditional cooperation: ALLC and the coin programs
+are present as a standing 9%+ minority that all-D exploits, `THEM(^C)`
+holds 0.06% (a tenth of its εN = 1 share), and the mean payoff of −0.76
+reflects defectors being paid by a mutational stream of suckers.  Standing
+variance therefore does not rescue the conditional cooperator: it raises
+the payoff only by keeping unconditional cooperators alive as mutants, and
+the conditional program's share peaks at εN ≈ 1 and falls beyond it.
+Wall time 3–5 s per 1.1·10⁷-event run after a 545 s chunked evaluation of
+the 3,994-program language.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
