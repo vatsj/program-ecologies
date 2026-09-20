@@ -1,0 +1,78 @@
+{
+ "arm": "weak",
+ "n": 5,
+ "game": "chicken",
+ "N": 10,
+ "w": 0.1,
+ "x_on": true,
+ "role": true,
+ "mode": "square",
+ "fmap": "exp",
+ "n_programs": 902,
+ "n_classes": 53,
+ "n_states": 608,
+ "n_terminal_classes": 1,
+ "indeterminate": 0,
+ "pi_sum": 0.9999999999999998,
+ "absorb_error": 2.220446049250313e-16,
+ "near_closed_classes": 0,
+ "divergence_rate": 0.0010078613182826044,
+ "mean_bits_support": 3.4866668895001185,
+ "mean_payoff": -0.0520682138489492,
+ "efficient_payoff": 0.5,
+ "deadweight_loss": 0.5520682138489492,
+ "support": [
+  [
+   "mono {ROLE:1}",
+   0.4130122497495522
+  ],
+  [
+   "poly {Straight:0.1, Swerve:0.8, X:0.1}",
+   0.10392159407552472
+  ],
+  [
+   "mono {not(ROLE):1}",
+   0.10290082684503428
+  ],
+  [
+   "poly {Straight:0.1, Swerve:0.7, X:0.2}",
+   0.10126121252059961
+  ],
+  [
+   "mono {X:1}",
+   0.07032952080084409
+  ],
+  [
+   "mono {Swerve:1}",
+   0.032577238271537384
+  ],
+  [
+   "poly {Straight:0.1, Swerve:0.7, X:0.1, and(X,X):0.1}",
+   0.026118309268605474
+  ],
+  [
+   "poly {Swerve:0.6, X:0.4}",
+   0.02038716377309816
+  ],
+  [
+   "poly {Straight:0.2, Swerve:0.8}",
+   0.019553378835306272
+  ],
+  [
+   "poly {Swerve:0.7, X:0.3}",
+   0.017272148500216907
+  ],
+  [
+   "poly {Swerve:0.7, and(X,ROLE):0.3}",
+   0.014250247892277551
+  ],
+  [
+   "poly {Straight:0.1, Swerve:0.6, X:0.2, or(X,X):0.1}",
+   0.013519027022262509
+  ]
+ ],
+ "chain_time_s": 6.241024971008301,
+ "cut_flow": 1.5760916496792742e-05,
+ "n_expanded": 171,
+ "poly_flow": 0.030174735665197343
+}

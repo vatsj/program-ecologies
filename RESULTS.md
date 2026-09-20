@@ -10,6 +10,47 @@ Node counts follow IMPLEMENTATION §2 (application is a node).  PD payoffs
 C/C 0, C/D −2, D/C 1, D/D −1 (efficient 0).  Prior bits = log2 a(|p|) +
 2 log2 |p| + 1.
 
+## Consistent sweep (exp fitness map, attracting-target check) — supersedes the per-game tables below
+
+All 32 cells of the original grid re-run on 2026-09-19 with f = exp(w·payoff),
+w ∈ {0.1, 0.3, 1}, N ∈ {10, 100} (1000 for strong PD/Stag), after the fix
+that rejects non-attracting rest points found from the ½ probe (`runs/results.md`,
+rows with `fmap=exp`).  The earlier sections are kept for the transition
+narratives; where numbers differ, these are the ones to cite.
+
+| game (arm, n) | w = 0.1, N = 100 | w = 0.3, N = 100 | w = 1, N = 100 | N = 10 (w = 0.1 / 1) |
+|---|---|---|---|---|
+| PD strong 6 (= strong 7 to 3 dp) | D 0.988 | D 0.998 | D 0.999 | D 0.52 / 0.99 (rest X, C: mutation–drift) |
+| PD weak 6 (= weak 7) | D 0.977, `THEM(^C)` 0.006 | D 0.983, `THEM(^C)` 0.010 | D 0.980, `THEM(^C)` 0.016 | D 0.52 / 0.98 |
+| PD weak 6, N = 1000 | D 0.981, `THEM(^C)` 0.015 | D 0.980, `THEM(^C)` 0.018 | D 0.980, `THEM(^C)` 0.017 | — |
+| PD source 6 | `eq` cliques 0.32 + 0.32, D 0.18 | cliques 0.44 + 0.44 | cliques 0.45 + 0.45 | D 0.35 / D 0.32 + cliques 0.23 + 0.23 |
+| Stag strong 6 | Hare 0.989 | Hare 0.944 | **Stag 0.992** | Hare 0.58 / 0.99 |
+| Stag strong 6, N = 1000 | Stag 0.995 | Stag 1.000 | Stag 1.000 | — |
+| Stag weak 6 | Hare 0.964 | Hare 0.832, Stag 0.155 | **Stag 0.992** | Hare 0.57 / 0.98 |
+| Exchange weak 6 | Keep 0.974 | Keep 0.977, `THEM(^Give)` 0.014 | Keep 0.973, `THEM(^Give)` 0.021 | Keep 0.53 / 0.98 |
+| Dollar weak 6 | Half 0.78 | Half 0.96 | Half 0.97 | Half 0.37 / 0.72 |
+| Chicken + ROLE weak 5 | `ROLE` 0.80, `not(ROLE)` 0.20 (loss 0.001) | same (loss 0.002) | `THEM(^not(ROLE))` 0.997 (loss 0.000) | `ROLE` 0.41 / 0.80 |
+| Chicken no ROLE | conditional polymorphism, loss 0.74 | loss 0.83 | loss 0.83 | loss 0.65 / 0.74 |
+| Demand + ROLE | `ROLE` 0.36 (loss 0.07) | `ROLE` 0.65 (loss 0.02) | `ROLE` 0.80, `not(ROLE)` 0.20 (loss 0.000) | loss 0.12 / 0.08 |
+| Demand no ROLE | polymorphisms, payoff 0.399 | 0.400 | 0.400 | 0.394 / 0.395 |
+| Zero-sum + ROLE | drift over constants, payoff 0 | 0 | 0 | 0 |
+| BoS + ROLE | A 0.491 = B 0.491 (loss 0.012) | 0.498 = 0.498 | 0.478 = 0.478 (loss 0.007) | 0.31 = 0.31 / 0.48 = 0.48 |
+| Ultimatum ROLE weak 5 | M 0.372, L 0.349, H 0.092 (rejection 0.086) | — | — | — |
+
+Changes from the clamped/first sweeps worth noting: (i) the Stag Hunt N = 10
+"{Stag ½, X ½} polymorphism" (up to 0.33 of π) was a coordination
+separatrix, not an attractor, and is gone; the N = 10 mass is now on the
+constants.  (ii) Under the exponential map the Stag basin choice at N = 100
+depends on w: Hare at w ≤ 0.3, Stag at w = 1 (both arms), and Stag at
+N = 1000 for every w.  (iii) Chicken at w = 1 is taken over by
+`THEM(^not(ROLE))` — a probe that plays what the opponent plays against the
+role-mirror program, which realises the same correlated outcome as `ROLE`
+with loss 0.  (iv) PD is unchanged in substance: all-D at 0.98–0.99, the
+`THEM(^C)` cooperator at 0.6–1.8%.  (Rows in `runs/results.md` from the
+earlier exp re-run at N = 1000 for the exchange game still carry the old
+level names D/C for Keep/Give; the game's level order was fixed with the
+k-ary refactor and the numbers are unchanged.)
+
 ## Void cells (fitness clamping)
 
 The cells below were run with fitness f = 1 + w·payoff clamped at 1e-6.  In

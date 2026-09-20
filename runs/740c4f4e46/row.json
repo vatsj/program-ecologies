@@ -1,0 +1,78 @@
+{
+ "arm": "source",
+ "n": 6,
+ "game": "pd",
+ "N": 100,
+ "w": 1.0,
+ "x_on": true,
+ "role": false,
+ "mode": "square",
+ "fmap": "exp",
+ "n_programs": 2110,
+ "n_classes": 220,
+ "n_states": 1921,
+ "n_terminal_classes": 1,
+ "indeterminate": 0,
+ "pi_sum": 1.0000000000000002,
+ "absorb_error": 2.220446049250313e-16,
+ "near_closed_classes": 0,
+ "divergence_rate": 0.0014312346982322949,
+ "mean_bits_support": 9.454715745887146,
+ "mean_payoff": -1.271357320215174e-10,
+ "efficient_payoff": 0.0,
+ "deadweight_loss": 1.271357320215174e-10,
+ "support": [
+  [
+   "mono {eq(ME,THEM):1}",
+   0.44456524594862545
+  ],
+  [
+   "mono {eq(THEM,ME):1}",
+   0.4445414584388175
+  ],
+  [
+   "mono {not(not(eq(ME,THEM))):1}",
+   0.009710966168601499
+  ],
+  [
+   "mono {or(eq(THEM,ME),D):1}",
+   0.009710966168601499
+  ],
+  [
+   "mono {not(not(eq(THEM,ME))):1}",
+   0.009710966168601499
+  ],
+  [
+   "mono {and(eq(THEM,ME),C):1}",
+   0.009710966168601499
+  ],
+  [
+   "mono {or(D,eq(ME,THEM)):1}",
+   0.009710966168601495
+  ],
+  [
+   "mono {and(C,eq(ME,THEM)):1}",
+   0.009710966168601495
+  ],
+  [
+   "mono {and(C,eq(THEM,ME)):1}",
+   0.009710966168601495
+  ],
+  [
+   "mono {or(eq(ME,THEM),D):1}",
+   0.009710966168601495
+  ],
+  [
+   "mono {and(eq(ME,THEM),C):1}",
+   0.009710966168601495
+  ],
+  [
+   "mono {or(D,eq(THEM,ME)):1}",
+   0.009710966168601495
+  ]
+ ],
+ "chain_time_s": 5.065217733383179,
+ "cut_flow": 1.6891571418945494e-18,
+ "n_expanded": 221,
+ "poly_flow": 1.804795757788511e-18
+}

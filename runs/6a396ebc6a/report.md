@@ -1,6 +1,6 @@
 ### arm=weak, n=6, game=pd, N=100, w=0.3, x_on=True, role=False, mode=square, fmap=exp
 
-programs 1852, classes 48, states 120, terminal classes 1, indeterminate 0, divergence rate 0.0019, flow into polymorphic targets 2.59e-07
+programs 1852, classes 48, states 119, terminal classes 1, indeterminate 0, divergence rate 0.0019, flow into polymorphic targets 2.59e-07
 mean payoff -0.9876, efficient 0.0000, deadweight loss 0.9876, mean bits in support 2.71
 
 | pi | state |
