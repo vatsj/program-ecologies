@@ -405,6 +405,20 @@ deviation (a higher offer) is merely generous.  Note the stated falsifier
 for (a) was not met, but its verdict "no concentration" is at best half
 true (0.72 on L+M).
 
+## Ultimatum symmetry break: responder outside option (0, 0.3) on rejection, arm (b)
+
+Predicted: mode shifts toward H (generalised Nash: maximise (1−x)(x−0.3),
+x = 0.65, nearest level H).  Outcome (`runs/ult_ult_out_mutual_N100_w0.1.md`):
+the mode **does move, upward, but to M**: (M \| M) 0.234 (was 0.191),
+(L \| L) 0.102 (was 0.387), (H \| H) 0.073 (was 0.030), (M \| X) 0.083,
+(M \| L) 0.077; rejection rate 0.216 (was 0.109), proposer share 0.371 (was
+0.540), responder share 0.479 (was 0.351).  The mechanism: with the outside
+option a responder mutant M at (L \| L) earns 0.3 > 0.2 by rejecting, so
+(L \| L) is no longer stable and drains into (L \| M) → (M \| M); H stays a
+minority because at (M \| M) a threshold-H responder still gets only 0.3
+vs 0.5.  Direction as predicted; the nearest-level claim (H) is not borne
+out — M, not H, is the mode, with H's share doubling.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
