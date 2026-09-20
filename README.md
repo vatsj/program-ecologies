@@ -4,10 +4,12 @@ Implementation of THEORY.md / IMPLEMENTATION.md: stochastic stability of program
 strategies in open-source games.  Python + NumPy (+ numba for the replicator loop).
 
 ```
-src/dsl.py        grammar, enumerator, hash-consing, program bodies, bits prior
-src/evaluate.py   batched value iteration over a flat (pair, subterm) tape
+src/dsl.py        grammar (ordered k-ary levels), enumerator, hash-consing, bodies, bits prior
+src/evaluate.py   batched value iteration over a flat (pair, subterm) tape, k-vector values
 src/reference.py  slow recursive oracle + Monte-Carlo sampler
 src/chain.py      replicator, payoff providers (square / incremental), attractor chain
+src/twopop.py     two-population (fixed-role) chain: proposer / responder populations
+src/run_ult.py    ultimatum-game runner for the ROLE, fixed-mutual and fixed-one-sided arms
 src/moran.py      finite-N Moran check
 src/report.py     support + transition rendering, results table
 src/run.py        sweep runner; runs/<hash>/report.md, runs/results.md
@@ -26,6 +28,23 @@ program×attractor path (`--mode` overrides).
 
 ## Conventions and deviations from the spec
 
+- **Ordered k-ary actions.**  Levels A_0 < … < A_{k−1}; `min` short-circuits
+  on A_0, `max` on A_{k−1}, `flip` reverses, `X` is uniform, `ROLE` is A_0 in
+  role 0 and A_{k−1} in role 1, `eq` is A_{k−1} when equal.  Values are
+  length-k distributions per (pair, subterm) plus a floor probability.  Game
+  configs list `actions` in level order; for the binary games A_0 is the
+  D-like action and A_1 the C-like one, so `and`/`or`/`not` are `min`/`max`/
+  `flip` and the binary results are reproduced to 1e-15
+  (`runs/k2_identity_check.md`).  Note the `ROLE` convention changed with
+  this: it now plays the low level in role 0 (before: the C-like action), so
+  `ROLE` and `not(ROLE)` swap names relative to the first two sweeps.
+- **Two-population chain** (`twopop.py`).  Fixed roles: population P only
+  meets population R, so within-population fitness is frequency-independent
+  and every attractor is monomorphic; a state is a pair of class reps, a
+  mutation event picks a population w.p. ½ and the mutant fixes with the
+  Moran probability at constant fitness ratio exp(w·Δu).  The `blind` grammar
+  (no THEM, no application, no eq) is the responder language in the
+  one-sided arm.
 - **Node counting.**  Every constructor is a node, application included
   (IMPLEMENTATION §2).  So `THEM(ME)` is 3 nodes, `or(X,THEM(ME))` 5, and
   `or(and(X,X),THEM(ME))` **7**, one more than THEORY §7 counts it.  Predictions
@@ -52,8 +71,10 @@ program×attractor path (`--mode` overrides).
   fitness f = exp(w·payoff) (`chain.fixation`; the first Moran-fixation sweep
   used 1 + w·payoff clamped at 1e-6, whose w = 1 cells are void in games with
   negative payoffs — see RESULTS.md).  The target B is
-  found by the replicator from A + q at 1/N (and from ½ if q dies at first
-  order).  For a monomorphic B the product runs to N (exact for the 2-type
+  found by the replicator from A + q at 1/N (and from ½ + 1/N if q dies at
+  first order; a rest point found that way is kept only if it is attracting
+  under a ±0.02 perturbation — an exact coordination separatrix at ½ was
+  previously reported as a polymorphic attractor).  For a monomorphic B the product runs to N (exact for the 2-type
   chain); for a polymorphic B it is truncated at q's count in B, and at q's
   peak count when q invades and then dies — an approximation whose weight is
   reported per cell as `poly_flow`.  `w` (selection intensity) is a sweep

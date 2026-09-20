@@ -494,18 +494,32 @@ class Chain:
         back = self.key(ids, self.to_grid(res / res.sum()) / N) == key
         if back:
             # look for a target behind a fitness valley: start from q at 1/2
-            x0b = np.append(x * 0.5, 0.5)
+            # (+1/N, so an exact coordination separatrix at 1/2 is not hit)
+            x0b = np.append(x * (0.5 - 1.0 / N), 0.5 + 1.0 / N)
             xf2, st2, traj2, pk2 = replicator(Uq, x0b, rest_tol=self.rest_tol)
             if st2 != 'rest':
                 self.indeterminate.append((key, int(q), [(tuple(ids2.tolist()), t) for t in traj2]))
                 return []
             xq2 = xf2[-1]
             if xq2 > 1e-6:
+                if xq2 < 1 - 1e-6 and not self.is_attracting(Uq, xf2):
+                    return [(1.0, self.mono(q), N)]  # an unstable rest point is not an attractor
                 kstar = N if xq2 > 1 - 1e-6 else max(1, int(round(N * xq2)))
                 return self.targets(ids2, xf2, kstar, Uq)
             return [(1.0, self.mono(q), N)]          # drift fixation only
         # q invaded, changed the residents, then died
         return self.targets(ids2, xf, max(1, int(round(N * peak))), Uq)
+
+    def is_attracting(self, U, xf, delta=0.02, tol=1e-3):
+        """Is the rest point xf attracting?  Perturb the last type up and
+        down by delta and check the replicator returns to xf."""
+        for sgn in (+1, -1):
+            xp = xf.copy(); xp[-1] = min(max(xp[-1] + sgn * delta, 1e-6), 1 - 1e-6)
+            xp[:-1] *= (1 - xp[-1]) / max(xp[:-1].sum(), 1e-300)
+            xr, st, _, _ = replicator(U, xp, rest_tol=self.rest_tol)
+            if st != 'rest' or np.abs(xr - xf).max() > tol:
+                return False
+        return True
 
     # -- transitions of one state
     def expand(self, key):
