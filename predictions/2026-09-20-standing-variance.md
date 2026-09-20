@@ -13,3 +13,15 @@ conditional cooperator `THEM(^C)` is still on-path indistinguishable from
 ALLC most of the time, and ALLC still enters at μ(C)/N.
 
 **Falsifier:** cooperative share > 0.25 at εN = 1.
+
+---
+
+**Addendum, 2026-09-20 (after the run; the verdict text above is unchanged).**
+The cooperative-share statistic used in the verdict, (mean payoff − u(D,D)) /
+(efficient − u(D,D)), counts mutation load as efficiency: in this PD
+T + S = −1 > 2P = −2, so a defector exploiting a mutant cooperator raises the
+mean payoff above mutual defection.  The report now also gives P(C,C), the
+frequency of mutual-cooperation interactions, and P(exploit), the frequency
+of (C,D)+(D,C) interactions; P(C,C) is the statistic for conditional
+cooperation from now on.  Values: P(C,C) = 0.0075 / 0.020 / 0.061 and
+P(exploit) = 0.0066 / 0.056 / 0.358 at εN = 0.1 / 1 / 10.

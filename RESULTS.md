@@ -469,11 +469,18 @@ at ε = εN/N with mutants drawn from μ over the classes; burn-in 10⁴
 generations, 10⁵ sampled (N events each), 5 seeds.  Cooperative share is
 (mean payoff − u(D,D)) / (efficient − u(D,D)) = mean payoff + 1.
 
-| εN | cooperative share (mean ± sd) | `THEM(^C)` class share | ALLC class share | P(`THEM(^C)` and ALLC coexist) |
-|---|---|---|---|---|
-| 0.1 | 0.011 ± 0.009 | 0.007 ± 0.009 | 0.0015 ± 0.0004 | 0.0008 ± 0.0011 |
-| 1 | 0.048 ± 0.004 | 0.016 ± 0.003 | 0.0117 ± 0.0003 | 0.013 ± 0.002 |
-| 10 | 0.240 ± 0.001 | 0.0006 ± 0.0001 | 0.089 ± 0.000 | 0.014 ± 0.001 |
+| εN | cooperative share (mean ± sd) | `THEM(^C)` class share | ALLC class share | P(`THEM(^C)` and ALLC coexist) | P(C,C) | P(exploit) |
+|---|---|---|---|---|---|---|
+| 0.1 | 0.011 ± 0.009 | 0.007 ± 0.009 | 0.0015 ± 0.0004 | 0.0008 ± 0.0011 | 0.0075 ± 0.0087 | 0.0066 ± 0.0014 |
+| 1 | 0.048 ± 0.004 | 0.016 ± 0.003 | 0.0117 ± 0.0003 | 0.013 ± 0.002 | 0.0202 ± 0.0032 | 0.0564 ± 0.0020 |
+| 10 | 0.240 ± 0.001 | 0.0006 ± 0.0001 | 0.089 ± 0.000 | 0.014 ± 0.001 | 0.0610 ± 0.0003 | 0.3577 ± 0.0005 |
+
+P(C,C) is the frequency of mutual-cooperation interactions and P(exploit)
+the frequency of (C,D)+(D,C) interactions over all agent pairs (role draw
+averaged; rerun 2026-09-20 with the same seeds, the other columns unchanged).
+In this PD T + S = −1 > 2P = −2, so exploited pairs are more efficient than
+mutual defection and the cooperative-share statistic counts mutation load as
+efficiency; P(C,C) is the statistic for conditional cooperation from now on.
 
 Verdict: **not falsified** — the share rises monotonically in εN and stays
 below 0.10 at εN = 1 (0.048) and below 0.25 at εN = 10 (0.240, within
