@@ -501,6 +501,53 @@ the conditional program's share peaks at εN ≈ 1 and falls beyond it.
 Wall time 3–5 s per 1.1·10⁷-event run after a 545 s chunked evaluation of
 the 3,994-program language.
 
+## Spatial structure (`runs/lattice_pd_w0.3.md`, `runs/spatial/*.png`, predictions in `predictions/2026-09-20-spatial.md`)
+
+Death-birth Moran on a 32×32 torus (N = 1024), von Neumann neighbourhood
+(k = 4): a random site dies and its 4 neighbours compete to fill it with
+probability ∝ exp(w·payoff), payoff being the mean over the neighbour's own
+4 interactions; mutation per birth at ε = εN/N from μ over the 112
+behavioural classes of L_6 with ROLE (cached evaluation); PD, w = 0.3;
+burn-in 10⁴ generations (N deaths), 10⁵ sampled, 5 seeds.  Control: the same
+rule on the complete graph at εN = 1.
+
+| graph | εN | P(C,C) | P(exploit) | mean payoff | `THEM(^C)` | ALLC | D | `THEM(^D)` |
+|---|---|---|---|---|---|---|---|---|
+| lattice | 0.1 | 0.155 ± 0.190 | 0.006 ± 0.007 | −0.84 ± 0.19 | 0.142 ± 0.174 | 0.012 ± 0.016 | 0.837 ± 0.198 | 0.0006 ± 0.0008 |
+| lattice | 1 | **0.544 ± 0.093** | 0.030 ± 0.006 | −0.44 ± 0.09 | **0.453 ± 0.077** | 0.084 ± 0.019 | 0.415 ± 0.095 | 0.0024 ± 0.0008 |
+| complete | 1 | 0.022 ± 0.025 | 0.007 ± 0.002 | −0.97 ± 0.02 | 0.019 ± 0.023 | 0.003 ± 0.002 | 0.969 ± 0.025 | 0.0011 ± 0.0010 |
+
+Verdicts: lattice εN = 1 P(C,C) > 0.3 **confirmed** (0.54, every seed
+between 0.45 and 0.72); `THEM(^C)` share > 0.3 and above ALLC **confirmed**
+(0.45 vs 0.08); `THEM(^D)` present at > 0.005 **not confirmed** (0.0024 ± 0.0008,
+at its μ-weight); well-mixed control P(C,C) < 0.02 **marginally not
+confirmed** (0.022 ± 0.025: three seeds at ≤ 0.007, one at 0.030, one at
+0.066 — the well-mixed N = 1024 process at εN = 1 is the chain's PD regime,
+`THEM(^C)` 0.019 vs the chain's 0.010–0.018).  The falsifier (lattice
+P(C,C) < 0.1) is not triggered.  At εN = 0.1 the lattice is bimodal over
+seeds: three seeds never leave all-D in 1.1·10⁵ generations, two spend
+~40% of the window cooperative (P(C,C) 0.35, 0.42); the sweep is a rare
+event at that mutation rate.
+
+The lattice dynamics are intermittent, not a stable mixture: along seed 0 at
+εN = 1 the `THEM(^C)` class is absent for the first ~25,000 generations
+(all-D with mutational patches), then sweeps the torus in < 1,000
+generations to 0.99, after which ALLC patches grow inside it (0.03 → 0.22
+over 3,000 generations) — the shadow at work in space — and, as the
+snapshots at the end of sampling show for seeds 0 and 4, the population is
+back at all-D by the end of the 1.1·10⁵-generation window (the end-of-window
+snapshots caught the defection phase; the time averages above are over the
+whole window).  So spatial structure does what source observation could
+not: a `THEM(^C)` cluster is on-path *distinguishable* from its shadow,
+because a cluster of reciprocators facing D at its boundary keeps its
+interior cooperating while a cluster of ALLC is eaten from the boundary in,
+and `THEM(^C)` sweeps from a seed at rate ρ ≫ 1/N.  The shadow still
+operates afterwards (ALLC drifts into the reciprocator sea, D re-invades),
+so the ecology cycles all-D → `THEM(^C)` sweep → ALLC infiltration → D
+re-invasion with ~45% of the time cooperative at εN = 1 and P(C,C) = 0.54,
+against 0.02 in the well-mixed control of the same size.  `THEM(^D)` plays
+no part: it stays at μ-weight on the lattice as it does when well mixed.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
