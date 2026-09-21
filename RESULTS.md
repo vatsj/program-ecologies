@@ -548,6 +548,75 @@ re-invasion with ~45% of the time cooperative at εN = 1 and P(C,C) = 0.54,
 against 0.02 in the well-mixed control of the same size.  `THEM(^D)` plays
 no part: it stays at μ-weight on the lattice as it does when well mixed.
 
+### Scaling and traces (`runs/lattice_pd_w0.3.md`, `runs/spatial/trace_*.png`, `runs/spatial/trace_*.npy`; predictions in `predictions/2026-09-20-spatial-scaling.md`)
+
+Same process at sides {32, 64, 128} for εN = 1 and side 32 for εN ∈ {0.3, 3};
+burn-in 10⁴ generations, 10⁵ sampled at every side (wall time did not
+require scaling down: 8 s, 40 s and 140–480 s per seed), 5 seeds.  Traces
+every 100 generations.  Collapse events are `THEM(^C)`-share crossings of
+0.5 downward after having exceeded 0.8, with the ALLC share recorded 500
+generations before; duty cycle is the fraction of sampled generations with
+`THEM(^C)` share > 0.5.  Because at sides ≥ 64 other reciprocators carry
+much of the cooperation (below), a payoff-based duty (fraction of trace
+records with mean payoff > −0.5, i.e. more than halfway from mutual
+defection to efficiency) and payoff-based collapses (payoff crossing −0.5
+downward after exceeding −0.2) are given alongside.
+
+| side | εN | P(C,C) | duty (`THEM(^C)` > ½) | collapses | pre-collapse ALLC | payoff-duty | payoff-collapses | pre-collapse ALLC (payoff) | trace |
+|---|---|---|---|---|---|---|---|---|---|
+| 32 | 0.3 | 0.075 ± 0.108 | 0.07 ± 0.11 | 3 | 0.21 ± 0.19 | 0.08 ± 0.11 | 10 | 0.08 ± 0.25 | [plot](runs/spatial/trace_32_epsN0.3.png) |
+| 32 | 1 | 0.544 ± 0.093 | 0.51 ± 0.09 | 67 | 0.13 ± 0.12 | 0.57 ± 0.10 | 34 | 0.19 ± 0.20 | [plot](runs/spatial/trace_32_epsN1.png) |
+| 32 | 3 | 0.356 ± 0.046 | 0.23 ± 0.06 | 48 | 0.14 ± 0.10 | 0.42 ± 0.05 | 35 | 0.17 ± 0.10 | [plot](runs/spatial/trace_32_epsN3.png) |
+| 64 | 1 | 0.635 ± 0.185 | 0.37 ± 0.35 | 24 | 0.08 ± 0.08 | 0.70 ± 0.16 | 34 | 0.07 ± 0.13 | [plot](runs/spatial/trace_64_epsN1.png) |
+| 128 | 1 | 0.615 ± 0.279 | 0.21 ± 0.29 | 13 | 0.06 ± 0.05 | 0.69 ± 0.27 | 14 | 0.04 ± 0.05 | [plot](runs/spatial/trace_128_epsN1.png) |
+| complete, N = 1024 | 1 | 0.022 ± 0.025 | — | — | — | — | — | — | — |
+
+Verdicts.  (1) *P(C,C) increases monotonically in side*: 0.54 → 0.63 →
+0.61; 64² is above 32², so the falsifier is not triggered, but 128² is not
+above 64² (within one sd; the seed spread at 128² is 0.25–0.96).  Rises
+from 32² to 64², plateaus at 128².  (2) *Pre-collapse ALLC share > 0.15 and
+within ×1.5 across sides*: **falsified** — 0.13, 0.08, 0.06 by the
+`THEM(^C)` detector (0.19, 0.07, 0.04 by payoff), below 0.15 at every side
+and falling by ×2.2 from 32² to 128².  A collapse needs less global ALLC on
+a larger torus because the D front nucleates on a local ALLC cluster, not on
+the global density.  (3) *Unimodal in εN with the peak in [0.3, 3]*:
+confirmed, 0.075 / 0.544 / 0.356 at εN = 0.3 / 1 / 3.
+
+What the traces show.  At 32² the ecology is the limit cycle already
+described, ~15 cycles per 10⁵ generations per seed, `THEM(^C)` saturating
+near 1 and ALLC reaching 0.2–0.5 inside it before each collapse.  At 64² and
+128² the reciprocator is no longer always `THEM(^C)`: replaying seeds with a
+full class histogram (deterministic seeds) gives, at 64², seed 0 =
+`or(X,THEM(THEM))` 0.51 + `THEM(^ROLE)` 0.18 + D 0.15 + C 0.12 and seed 4 =
+D 0.47 + `or(X,THEM(THEM))` 0.30 + `THEM(^ROLE)` 0.11; at 128², seed 4 =
+**`or(X,THEM(ME))` 0.94** (the ½-grounded FairBot of THEORY §7(b), P(C,C) =
+0.96, D and C at 0.025 each), seed 0 = D 0.40 + `THEM(^ROLE)` 0.33 + C 0.24
+and seed 1 = `THEM(^X)` 0.36 + D 0.35 + C 0.25 — the last two a *standing*
+three-way spatial coexistence of a reciprocator, its shadow and the
+defector, with ALLC at 0.25–0.35 permanently (the traces' flat dashed
+lines), P(C,C) 0.25–0.34.  So the `THEM(^C)`-based duty and collapse counts
+undercount at large sides (seed 4 at 128²: duty 0.000, P(C,C) 0.96), which
+is why the payoff-based columns are given; the two agree at 32².
+
+Mechanism: entry versus exit.  Entry is pair nucleation.  A single
+`THEM(^C)` in a D sea earns −1, the same as its D neighbours, so it is
+neutral; two adjacent `THEM(^C)` each earn (0 − 3)/4 = −0.75 > −1 and the
+pair grows, so the sweep starts once a mutant's copy lands next to it,
+ρ ≈ ¼ per nucleation attempt against 1/N in the well-mixed process — which is
+why the torus at εN = 1 sweeps ~15 times per 10⁵ generations while the
+complete graph of the same size holds `THEM(^C)` 2% of the time.  Exit is
+the ALLC-subsidized D front.  Inside a `THEM(^C)` sea ALLC drifts in
+neutrally (the shadow); a D born next to ALLC and `THEM(^C)` with two of
+each earns (1 + 1 − 1 − 1)/4 = 0, while the bordering `THEM(^C)` with
+neighbours (D, `THEM(^C)`, `THEM(^C)`, C) earns (−1 + 0 + 0 + 0)/4 = −0.25,
+so the front advances wherever ALLC is present and stalls where it is not;
+the collapse is a local nucleation on an ALLC cluster, hence the falling
+pre-collapse ALLC density with side.  FairBot (`or(X,THEM(ME))`) escapes the
+exit because a D at its border earns 0 against it and 0 is also FairBot's
+self-payoff: the front is neutral, and the seed at 128² that reached
+FairBot held it for 94% of the window.  `THEM(^D)` (the faker) stays at
+μ-weight in every cell (≤ 0.003).
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

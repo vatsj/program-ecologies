@@ -1,9 +1,12 @@
-# Spatial structure: death-birth Moran, pd, weak n=6 with ROLE (112 classes), w=0.3, N=1024, burn-in 10000 generations, 100000 sampled, 5 seeds
+# Spatial structure: death-birth Moran, pd, weak n=6 with ROLE (112 classes), w=0.3, burn-in 10000 generations, 100000 sampled (100000 at 128), 5 seeds
 
-| graph | epsN | P(C,C) | P(exploit) | mean payoff | THEM(^C) | ALLC | D | THEM(^D) |
-|---|---|---|---|---|---|---|---|---|
-| lattice | 0.1 | 0.1549 ± 0.1900 | 0.0061 ± 0.0071 | -0.8421 ± 0.1926 | 0.1418 ± 0.1743 | 0.0120 ± 0.0162 | 0.8366 ± 0.1982 | 0.0006 ± 0.0008 |
-| lattice | 1 | 0.5443 ± 0.0932 | 0.0295 ± 0.0057 | -0.4410 ± 0.0934 | 0.4528 ± 0.0770 | 0.0840 ± 0.0192 | 0.4152 ± 0.0950 | 0.0024 ± 0.0008 |
-| complete | 1 | 0.0217 ± 0.0246 | 0.0069 ± 0.0018 | -0.9748 ± 0.0244 | 0.0189 ± 0.0230 | 0.0031 ± 0.0023 | 0.9691 ± 0.0248 | 0.0011 ± 0.0010 |
+| graph | side | N | epsN | P(C,C) | P(exploit) | mean payoff | duty cycle | collapses | pre-collapse ALLC (mean ± sd) | THEM(^C) | ALLC | D | THEM(^D) | trace |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| lattice | 32 | 1024 | 0.3 | 0.0748 ± 0.1076 | 0.0115 ± 0.0083 | -0.9195 ± 0.1075 | 0.0693 ± 0.1054 | 3 | 0.214 ± 0.193 | 0.0650 ± 0.0992 | 0.0088 ± 0.0077 | 0.9095 ± 0.1085 | 0.0003 ± 0.0006 | runs/spatial/trace_32_epsN0.3.png |
+| lattice | 32 | 1024 | 1 | 0.5443 ± 0.0932 | 0.0295 ± 0.0057 | -0.4410 ± 0.0934 | 0.5120 ± 0.0928 | 67 | 0.134 ± 0.116 | 0.4528 ± 0.0770 | 0.0840 ± 0.0192 | 0.4152 ± 0.0950 | 0.0024 ± 0.0008 | runs/spatial/trace_32_epsN1.png |
+| lattice | 32 | 1024 | 3 | 0.3563 ± 0.0462 | 0.2024 ± 0.0207 | -0.5424 ± 0.0455 | 0.2308 ± 0.0603 | 48 | 0.143 ± 0.096 | 0.1995 ± 0.0518 | 0.1081 ± 0.0121 | 0.3796 ± 0.0452 | 0.0015 ± 0.0017 | runs/spatial/trace_32_epsN3.png |
+| lattice | 64 | 4096 | 1 | 0.6348 ± 0.1849 | 0.1319 ± 0.0878 | -0.2993 ± 0.1559 | 0.3716 ± 0.3528 | 24 | 0.083 ± 0.083 | 0.3330 ± 0.3149 | 0.1309 ± 0.0347 | 0.2212 ± 0.1332 | 0.0010 ± 0.0011 | runs/spatial/trace_64_epsN1.png |
+| lattice | 128 | 16384 | 1 | 0.6146 ± 0.2790 | 0.1418 ± 0.1174 | -0.3145 ± 0.2226 | 0.2077 ± 0.2919 | 13 | 0.060 ± 0.051 | 0.1949 ± 0.2731 | 0.1394 ± 0.0948 | 0.1947 ± 0.1515 | 0.0008 ± 0.0010 | runs/spatial/trace_128_epsN1.png |
+| complete | — | 1024 | 1 | 0.0217 ± 0.0246 | 0.0069 ± 0.0018 | -0.9748 ± 0.0244 | — | — | — | 0.0189 ± 0.0230 | 0.0031 ± 0.0023 | 0.9691 ± 0.0248 | 0.0011 ± 0.0010 | — |
 
-Snapshots: runs/spatial/snap_epsN0.1_seed0.png, runs/spatial/snap_epsN0.1_seed1.png, runs/spatial/snap_epsN0.1_seed2.png, runs/spatial/snap_epsN0.1_seed3.png, runs/spatial/snap_epsN0.1_seed4.png, runs/spatial/snap_epsN1_seed0.png, runs/spatial/snap_epsN1_seed1.png, runs/spatial/snap_epsN1_seed2.png, runs/spatial/snap_epsN1_seed3.png, runs/spatial/snap_epsN1_seed4.png
+Snapshots: runs/spatial/snap_32_epsN0.3_seed0.png, runs/spatial/snap_32_epsN0.3_seed1.png, runs/spatial/snap_32_epsN0.3_seed2.png, runs/spatial/snap_32_epsN0.3_seed3.png, runs/spatial/snap_32_epsN0.3_seed4.png, runs/spatial/snap_32_epsN1_seed0.png, runs/spatial/snap_32_epsN1_seed1.png, runs/spatial/snap_32_epsN1_seed2.png, runs/spatial/snap_32_epsN1_seed3.png, runs/spatial/snap_32_epsN1_seed4.png, runs/spatial/snap_32_epsN3_seed0.png, runs/spatial/snap_32_epsN3_seed1.png, runs/spatial/snap_32_epsN3_seed2.png, runs/spatial/snap_32_epsN3_seed3.png, runs/spatial/snap_32_epsN3_seed4.png, runs/spatial/snap_64_epsN1_seed0.png, runs/spatial/snap_64_epsN1_seed1.png, runs/spatial/snap_64_epsN1_seed2.png, runs/spatial/snap_64_epsN1_seed3.png, runs/spatial/snap_64_epsN1_seed4.png, runs/spatial/snap_128_epsN1_seed0.png, runs/spatial/snap_128_epsN1_seed1.png, runs/spatial/snap_128_epsN1_seed2.png, runs/spatial/snap_128_epsN1_seed3.png, runs/spatial/snap_128_epsN1_seed4.png
