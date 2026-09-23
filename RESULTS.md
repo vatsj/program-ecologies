@@ -617,6 +617,66 @@ self-payoff: the front is neutral, and the seed at 128² that reached
 FairBot held it for 94% of the window.  `THEM(^D)` (the faker) stays at
 μ-weight in every cell (≤ 0.003).
 
+### Per-mutant rates: the ε→0 object of the torus (`runs/lattice_rates.md`, predictions in `predictions/2026-09-21-lattice-rates.md`)
+
+Death-birth on the torus with mutation off inside each trial (`src/lattice_rates.py`),
+weak n=6 with ROLE, w = 0.3, sides 32 and 64.  (a) ρ_enter(R): one copy of R
+in all-D, success = R share ≥ ½, 2000 trials.  (b) M_exit(R): from all-R,
+mutants drawn one at a time from μ over the 112 classes, each followed to
+extinction or fixation (per-mutant cap 1,000 generations, after which the
+next mutant is drawn with the lineage still present), counted until the R
+share falls below ½, 50 trials.  (c) all-R with one ALLC and one D injected;
+lifetimes in generations, 500 trials.
+
+| R | side | ρ_enter | generations to ½ | M_exit (mean ± sd, median) | generations to exit | last mutant at exit | ALLC lifetime mean / median | D lifetime mean / median |
+|---|---|---|---|---|---|---|---|---|
+| `THEM(^C)` | 32 | 0.109 | 89 | 1,514 ± 1,234 (1,080) | 7,600 | C 37/50, `THEM(^D)` 6, `THEM(^X)` 4 | 22.8 / 1.1 | 1.91 / 0.71 |
+| `THEM(^C)` | 64 | 0.113 | 157 | 2,947 ± 2,776 (1,980) | 18,300 | C 20, `THEM(^D)` 14, `THEM(^ROLE)` 8 | 11.8 / 1.0 | 2.58 / 0.83 |
+| `or(X,THEM(ME))` | 32 | 0.0065 (13/2000) | 381 | 2,584 ± 1,927 (1,898) | 19,200 | C 48/50 | 7.5 / 0.9 | 5.13 / 1.03 |
+| `or(X,THEM(ME))` | 64 | 0.0035 (7/2000) | 829 | 7,486 ± 7,171 (5,649) | 62,400 | C 45/50 | 16.7 / 1.2 | 5.22 / 1.08 |
+| `THEM(^ROLE)` | 32 | 0.055 | 151 | 37.8 ± 37.1 (22) | 400 | C 47/50 | — | — |
+| `THEM(^ROLE)` | 64 | 0.070 | 261 | 47.7 ± 47.2 (32) | 480 | C 50/50 | — | — |
+
+Verdicts.  (1) *ρ_enter side-independent within ×1.5*: **confirmed** for
+`THEM(^C)` (×1.04) and `THEM(^ROLE)` (×1.28); for FairBot the ratio is ×1.9
+on 13 vs 7 successes, inconclusive at these counts.  The value for
+`THEM(^C)` is 0.11, not the ¼ estimated from the pair-nucleation argument
+(a pair earns −0.75 against D's −1, but the first copy must still be placed
+by a death-birth event that the lone mutant wins with probability ≈ ¼, and
+the pair must then survive its own turnover).  (2) *M_exit side-independent
+within ×2*: `THEM(^C)` ×1.95 (at the bound), `THEM(^ROLE)` ×1.26
+(**confirmed**), FairBot ×2.9 (**falsified**); none grows ∝ N (×4), so the
+lim_N falsifier does not fire either — M_exit grows like N^{0.5–0.8}.  The
+exit in this ε→0 protocol is almost always the shadow: in 137 of 200
+`THEM(^C)`/FairBot trials the mutant present when the R share crossed ½ was
+ALLC, i.e. R was displaced by neutral drift of its own shadow accumulated
+across mutants (ALLC lineages outlive the per-mutant cap), with the faker
+`THEM(^D)` ending 20 of 100 `THEM(^C)` trials and D never ending one — under
+serial single mutants a D never meets enough ALLC to build a front.
+`THEM(^ROLE)` (self-payoff −0.5) is displaced by the first ALLC lineage that
+takes hold, M_exit ≈ 40.  (3) *Lone-D lifetime in FairBot > 10× that in
+`THEM(^C)`*: **falsified** — 5.1 vs 1.9 generations at 32² (5.2 vs 2.6 at
+64²), a factor 2–2.7; a lone D in a FairBot sea is nearly neutral (its four
+FairBot neighbours earn −0.375 against its 0, but the D site itself is
+refilled by FairBot every time it dies), not long-lived.  (4) *ALLC lifetime
+in FairBot < in `THEM(^C)`*: **not supported** — medians 0.9 vs 1.1 (32²)
+and 1.2 vs 1.0 (64²), means 7.5 vs 22.8 and 16.7 vs 11.8, dominated by rare
+long lineages and flipping sign between sides.  The FairBot-pruning
+hypothesis (grounding noise makes roaming D neutral and D prunes ALLC) is
+dropped (REJECTED.md).
+
+What the ε→0 object says.  With entry rate μ(R)·ρ_enter per mutant and
+residence M_exit mutants, the ε→0 time share of all-R from all-D is
+M_exit / (M_exit + 1/(μ(R)ρ_enter)): for `THEM(^C)` 1/(μρ) ≈ 17,600 mutants
+against M_exit 1,500–2,900, i.e. 8% at 32² and 14% at 64², rising with N only
+through the sublinear growth of M_exit; for FairBot 1/(μρ) ≈ 4.8·10⁶ mutants
+(μ = 4.2e-5, ρ = 0.005) against M_exit 2,600–7,500, i.e. < 0.2% — FairBot is
+not reachable from all-D by single-copy nucleation, and the 128² FairBot sea
+must have been reached by another route (neutral drift into a `THEM(^C)`
+sea, where FairBot earns 0 against both).  The finite-εN duty cycles of
+0.5–0.7 at εN = 1 are therefore not the ε→0 object: they come from
+concurrent nucleation attempts during the slow collapse.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
