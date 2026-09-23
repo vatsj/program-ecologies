@@ -33,6 +33,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 @njit(cache=True)
 def _lattice(U, PCC, PEX, mu_cdf, side, w, eps, burn, sample, init_class, seed, track, K, every):
+    """Also returns hist3 (3 x K): class counts summed over trace records in each
+    third of the sampling window, and cc3 (3,): mean P(C,C) per third."""
     """Returns (P(C,C), P(exploit), mean payoff, shares, grid, trace, duty):
     trace[g] = (generation, tracked shares..., mean payoff) every `every`
     generations over burn-in and sampling; duty = fraction of sampled
@@ -51,6 +53,7 @@ def _lattice(U, PCC, PEX, mu_cdf, side, w, eps, burn, sample, init_class, seed, 
     S_share = np.zeros(T); S_cc = 0.0; S_ex = 0.0; S_pay = 0.0; nsamp = 0; duty = 0.0
     ntr = (burn + sample) // every
     trace = np.zeros((ntr, T + 2))
+    hist3 = np.zeros((3, K)); cc3 = np.zeros(3); n3 = np.zeros(3)
     wts = np.empty(4)
     n_events = (burn + sample) * N
     for ev in range(n_events):
@@ -102,7 +105,14 @@ def _lattice(U, PCC, PEX, mu_cdf, side, w, eps, burn, sample, init_class, seed, 
                     trace[r, 0] = g
                     for t in range(T): trace[r, 1 + t] = cnt[t] / N
                     trace[r, T + 1] = pay / (4 * N)
-    return S_cc / nsamp, S_ex / nsamp, S_pay / nsamp, S_share / nsamp, grid, trace, duty / nsamp
+                if sampling:
+                    th = min(2, ((g - burn - 1) * 3) // sample)
+                    cc3[th] += cc / (2 * N); n3[th] += 1.0
+                    if rec:
+                        for v in range(N): hist3[th, grid[v]] += 1.0
+    for th in range(3):
+        if n3[th] > 0: cc3[th] /= n3[th]
+    return S_cc / nsamp, S_ex / nsamp, S_pay / nsamp, S_share / nsamp, grid, trace, duty / nsamp, hist3, cc3
 
 
 @njit(cache=True)
@@ -234,20 +244,21 @@ def main(a):
         sample = a.sample if side < 128 else a.sample_128
         for epsN in (a.epsN if side == a.sides[0] else a.epsN_big):
             traces = []; events = []
-            for seed in range(a.seeds):
+            for seed in range(a.seed0, a.seed0 + a.seeds):
                 t = time.time()
-                cc, ex, pay, sh, grid, trace, duty = _lattice(Uc, PCC, PEX, mu_cdf, side, a.w, epsN / N, a.burn, sample, iD, seed, track, K, a.every)
-                np.save(os.path.join(ROOT, 'runs', 'spatial', 'trace_%d_epsN%g_seed%d.npy' % (side, epsN, seed)), trace)
+                cc, ex, pay, sh, grid, trace, duty, hist3, cc3 = _lattice(Uc, PCC, PEX, mu_cdf, side, a.w, epsN / N, a.burn, sample, iD, seed, track, K, a.every)
+                thirds = [(names[int(np.argmax(hist3[th]))], float(hist3[th].max() / max(hist3[th].sum(), 1)), float(cc3[th])) for th in range(3)]
+                np.save(os.path.join(ROOT, 'runs', 'spatial', 'trace_%d_epsN%g_seed%d%s.npy' % (side, epsN, seed, ('_' + a.tag) if a.tag else '')), trace)
                 traces.append(trace); ev_s = collapses(trace[trace[:, 0] > a.burn], a.every); events += ev_s
-                png = os.path.join(ROOT, 'runs', 'spatial', 'snap_%d_epsN%g_seed%d.png' % (side, epsN, seed))
+                png = os.path.join(ROOT, 'runs', 'spatial', 'snap_%d_epsN%g_seed%d%s.png' % (side, epsN, seed, ('_' + a.tag) if a.tag else ''))
                 snapshot(grid, side, names, track_names, png, '%dx%d torus, epsN=%g, seed %d, end of sampling' % (side, side, epsN, seed))
-                rows.append(dict(graph='lattice', side=side, N=N, epsN=epsN, seed=seed, pcc=cc, pexploit=ex, mean_payoff=pay, duty=duty, n_collapse=len(ev_s), pre_allc=ev_s,
+                rows.append(dict(graph='lattice', side=side, N=N, epsN=epsN, seed=seed, pcc=cc, pexploit=ex, mean_payoff=pay, duty=duty, n_collapse=len(ev_s), pre_allc=ev_s, thirds=thirds,
                                  **{'share_' + n: float(v) for n, v in zip(track_names, sh)}, snapshot=os.path.relpath(png, ROOT), sample=sample, time_s=time.time() - t))
-                print('lattice %d epsN=%g seed=%d: P(C,C) %.4f P(exploit) %.4f payoff %.4f duty %.3f collapses %d shares %s (%.0fs)' % (side, epsN, seed, cc, ex, pay, duty, len(ev_s), np.round(sh, 4).tolist(), time.time() - t), flush=True)
-            tp = os.path.join(ROOT, 'runs', 'spatial', 'trace_%d_epsN%g.png' % (side, epsN))
+                print('lattice %d epsN=%g seed=%d: P(C,C) %.4f P(exploit) %.4f payoff %.4f duty %.3f collapses %d shares %s thirds %s (%.0fs)' % (side, epsN, seed, cc, ex, pay, duty, len(ev_s), np.round(sh, 4).tolist(), thirds, time.time() - t), flush=True)
+            tp = os.path.join(ROOT, 'runs', 'spatial', 'trace_%d_epsN%g%s.png' % (side, epsN, ('_' + a.tag) if a.tag else ''))
             trace_plot(traces, side, epsN, a.burn, tp)
             cells.append((side, epsN, events, os.path.relpath(tp, ROOT)))
-    for epsN in a.control_epsN:
+    for epsN in (a.control_epsN or []):
         N = a.sides[0] * a.sides[0]
         for seed in range(a.seeds):
             t = time.time()
@@ -269,7 +280,11 @@ def main(a):
         lines.append('| complete | — | %d | %g | %s | %s | %s | — | — | — | %s | %s | %s | %s | — |' % (a.sides[0] ** 2, epsN, f('pcc'), f('pexploit'), f('mean_payoff'),
                      f('share_' + track_names[0]), f('share_' + track_names[1]), f('share_' + track_names[2]), f('share_' + track_names[3])))
     lines.append(''); lines.append('Snapshots: ' + ', '.join(r['snapshot'] for r in rows if r['graph'] == 'lattice'))
-    out = os.path.join(ROOT, 'runs', 'lattice_%s_w%g.md' % (a.game, a.w))
+    lines.append(''); lines.append('| side | epsN | seed | P(C,C) | third 1: dominant class (share), P(C,C) | third 2 | third 3 |'); lines.append('|---|---|---|---|---|---|---|')
+    for r in rows:
+        if r['graph'] != 'lattice': continue
+        lines.append('| %d | %g | %d | %.3f | %s |' % (r['side'], r['epsN'], r['seed'], r['pcc'], ' | '.join('`%s` (%.2f), %.2f' % th for th in r['thirds'])))
+    out = os.path.join(ROOT, 'runs', 'lattice_%s_w%g%s.md' % (a.game, a.w, ('_' + a.tag) if a.tag else ''))
     open(out, 'w').write('\n'.join(lines) + '\n')
     json.dump(rows, open(out.replace('.md', '.json'), 'w'), indent=1)
     print('\n'.join(lines))
@@ -285,7 +300,9 @@ if __name__ == '__main__':
     ap.add_argument('--sample_128', type=int, default=100000)
     ap.add_argument('--w', type=float, default=0.3)
     ap.add_argument('--epsN', type=float, nargs='+', default=[0.3, 1.0, 3.0])
-    ap.add_argument('--control_epsN', type=float, nargs='+', default=[1.0])
+    ap.add_argument('--control_epsN', type=float, nargs='*', default=[1.0])
+    ap.add_argument('--seed0', type=int, default=0)
+    ap.add_argument('--tag', default='')
     ap.add_argument('--seeds', type=int, default=5)
     ap.add_argument('--burn', type=int, default=10000)
     ap.add_argument('--sample', type=int, default=100000)

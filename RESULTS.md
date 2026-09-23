@@ -677,6 +677,36 @@ sea, where FairBot earns 0 against both).  The finite-εN duty cycles of
 0.5–0.7 at εN = 1 are therefore not the ε→0 object: they come from
 concurrent nucleation attempts during the slow collapse.
 
+### Mixing check at 128² (`runs/lattice_pd_w0.3_mix128.md`, traces `runs/spatial/trace_128_epsN1_mix128.png`)
+
+128², εN = 1, five new seeds (5–9), burn-in 10⁴ and a sampled window of
+3·10⁵ generations (three times the earlier one); per-seed P(C,C) over the
+window and the dominant class (share of the sampled records) and P(C,C) in
+each third of it:
+
+| seed | P(C,C) | third 1 | third 2 | third 3 |
+|---|---|---|---|---|
+| 5 | 0.679 | `THEM(^X)` (0.38), 0.36 | `THEM(^C)` (0.54), 0.78 | `THEM(^C)` (0.69), 0.90 |
+| 6 | 0.690 | D (0.31), 0.50 | C (0.32), 0.70 | `THEM(^C)` (0.64), 0.86 |
+| 7 | 0.955 | `THEM(^C)` (0.77), 0.93 | `THEM(^C)` (0.77), 0.97 | `THEM(^C)` (0.79), 0.96 |
+| 8 | 0.826 | `THEM(^C)` (0.57), 0.69 | `THEM(^C)` (0.69), 0.81 | `THEM(^C)` (0.79), 0.98 |
+| 9 | 0.634 | `THEM(^ROLE)` (0.27), 0.48 | `or(X,THEM(THEM))` (0.50), 0.63 | `THEM(^C)` (0.38), 0.79 |
+
+The seeds converge.  Whatever the first third holds — a `THEM(^X)` or
+`THEM(^ROLE)` coexistence, a D/C phase, an `or(X,THEM(THEM))` sea — by the
+last third every seed is a `THEM(^C)` sea with P(C,C) between 0.79 and 0.98
+(spread 0.19 against 0.71 across the five earlier seeds at 1.1·10⁵
+generations), and P(C,C) rises monotonically through the thirds in four of
+five seeds.  The 1.1·10⁵-generation window of the scaling table was shorter
+than the mixing time at 128²; its seed spread was a spread over transient
+basins, not over π, as REJECTED.md already records.  The converged 128²
+state is the `THEM(^C)` limit cycle with a high duty (collapses still occur —
+5 to 33 per seed — but recover within the third), P(C,C) ≈ 0.8–1.0 at
+εN = 1.  This is a finite-εN approach rate, not the ε→0 object of the
+previous subsection, where the same regime holds 14% of the time at 64²: at
+εN = 1 on 16,384 sites, nucleation attempts are concurrent with the slow
+ALLC-subsidized collapse, and the sea is re-seeded before it is lost.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
