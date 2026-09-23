@@ -18,13 +18,13 @@ Research project: evolutionary game theory over source-observing programs ("prog
 6. **Dilemma statistic is P(C,C)**, not mean-payoff share.
 7. Update `REJECTED.md` whenever something is dropped, including your own wrong predictions.
 
-## Current state (2026-09-23)
+## Current state (2026-09-23, after the island model)
 - `ROLE` is first-class (modeling commitment: public correlating signal).
-- B fails well-mixed in dilemmas and fixed-role bargaining; mechanism = **unconditional shadow** (conditional program on-path identical to a constant; constant drifts in at μ/N with ~500× class-size advantage; then gets exploited). A second-order free-rider problem with zero punishment cost and neutral drift instead of active displacement.
-- Lattice: entry fixed by pair nucleation (ρ≈¼ vs 1/N); exit via ALLC-subsidized D fronts; `THEM(^C)` regime plateaus at P(C,C)≈0.6. One 128² seed reached a FairBot `or(X,THEM(ME))` sea at 0.96.
-- **Hypothesis under test:** FairBot's grounding noise makes lone D neutral, so roaming D prune ALLC and keep enforcement exercised. Pending runs: per-mutant rates (`src/lattice_rates.py`), 128² mixing check (3·10⁵ window). If FairBot is reachable and M_exit ≫ `THEM(^C)`'s, B′ may hold on the lattice in lim_N.
+- B fails well-mixed in dilemmas and fixed-role bargaining; mechanism = **unconditional shadow** (conditional program on-path identical to a constant; constant drifts in at μ/N with a large class-size advantage; then gets exploited).
+- Lattice (ε→0 object, `src/lattice_rates.py`): ρ_enter(`THEM(^C)`) = 0.11, N-independent; M_exit grows ~N^0.5–0.8; cooperative share 8% (32²) → 14% (64²). Not efficient in lim_N at any rate visible. FairBot sea long-lived but unreachable by nucleation; the FairBot-pruning hypothesis is falsified. Finite εN = 1 at 128² converges to a `THEM(^C)` sea (approach rate, not π).
+- Islands at ε = 0 (`src/islands.py`): non-ergodic absorption lottery. B′ falsified in PD (all-`THEM(^C)` in 17.5% of runs) and narrowly in Chicken with `ROLE`. **Without mutation the spoiler is the faker, not the shadow or the subsidized front.** A holds as a set, fails for placement. The migration game (ρ − ρᵀ) is not the ε-free object.
 
 ## Queue after that
-1. Island model (conjectures A and B′; Chicken-without-ROLE falsifier; predicted spoiler = subsidized fronts, not fakers).
+1. Optional: ergodic island model (mutation at ε ≪ m), where π exists: which exit dominates when fakers and shadows are both re-injected (THEORY §9.5 (i)).
 2. Optional diagnostic: prior uniform over behaviours.
 3. Paper draft.
