@@ -707,6 +707,209 @@ previous subsection, where the same regime holds 14% of the time at 64²: at
 εN = 1 on 16,384 sites, nucleation attempts are concurrent with the slow
 ALLC-subsidized collapse, and the sea is re-seeded before it is lost.
 
+## Island model: migration replaces mutation (`runs/islands_*.md`, `runs/islands_*.json`; predictions in `predictions/2026-09-23-islands.md`)
+
+`src/islands.py`: 64 islands of N = 100 on a complete graph or a ring. A
+random agent dies and is replaced by a local birth, or with probability m by
+the offspring of a parent drawn by fitness on a random neighbouring island.
+Fitness is exp(0.3 · mean payoff) against the parent's own island; mN is 0.1
+or 1 migrants per island per generation. **There is no mutation.** Each of
+four seedings places every program of L_6 at least once (6,400 slots):
+programs (the rest uniform over programs), prior (the rest from μ), hostile
+(the rest A_0) and clustered (dealt in class order, so each class occupies as
+few islands as possible). The horizon is 2·10⁵ generations and statistics
+come from the second half. A run stops when it is frozen, meaning every
+surviving pair of classes has the same payoff; the frozen state then stands
+for the remainder. There are 20 replicates per cell.
+
+### PD
+
+| graph | mN | seeding | P(C,C) mean ± sd | payoff | island-time DWL > 0.1 | frozen (median gen) | frozen: all-`THEM(^C)` / mutual D / other | `THEM(^C)` extinct |
+|---|---|---|---|---|---|---|---|---|
+| complete | 0.1 | programs | 0.315 ± 0.415 | -0.487 | 0.75 | 2580 | 5 / 5 / 10 | 15 |
+| complete | 0.1 | prior | 0.388 ± 0.429 | -0.450 | 0.70 | 2650 | 6 / 5 / 9 | 14 |
+| complete | 0.1 | hostile | 0.200 ± 0.348 | -0.581 | 0.85 | 2680 | 3 / 5 / 12 | 17 |
+| complete | 0.1 | clustered | 0.188 ± 0.315 | -0.650 | 0.90 | 2250 | 2 / 9 / 9 | 18 |
+| complete | 1 | programs | 0.228 ± 0.351 | -0.650 | 0.85 | 370 | 3 / 9 / 8 | 17 |
+| complete | 1 | prior | 0.244 ± 0.396 | -0.637 | 0.80 | 380 | 4 / 9 / 7 | 16 |
+| complete | 1 | hostile | 0.215 ± 0.354 | -0.600 | 0.85 | 380 | 3 / 6 / 11 | 17 |
+| complete | 1 | clustered | 0.062 ± 0.092 | -0.762 | 1.00 | 470 | 0 / 8 / 12 | 20 |
+| ring | 0.1 | programs | 0.294 ± 0.377 | -0.475 | 0.80 | 14250 | 4 / 3 / 13 | 16 |
+| ring | 0.1 | prior | 0.403 ± 0.419 | -0.438 | 0.70 | 13060 | 6 / 4 / 10 | 14 |
+| ring | 0.1 | hostile | 0.234 ± 0.337 | -0.500 | 0.85 | 16630 | 3 / 2 / 15 | 17 |
+| ring | 0.1 | clustered | 0.204 ± 0.320 | -0.613 | 0.90 | 19060 | 2 / 6 / 12 | 18 |
+| ring | 1 | programs | 0.285 ± 0.340 | -0.450 | 0.85 | 1860 | 3 / 1 / 16 | 17 |
+| ring | 1 | prior | 0.171 ± 0.353 | -0.738 | 0.85 | 1370 | 3 / 12 / 5 | 17 |
+| ring | 1 | hostile | 0.432 ± 0.435 | -0.412 | 0.65 | 2030 | 7 / 4 / 9 | 13 |
+| ring | 1 | clustered | 0.166 ± 0.318 | -0.694 | 0.90 | 2090 | 2 / 9 / 9 | 18 |
+
+**Every PD run freezes**, at a median of 2,170 generations (max 40,280).
+Without mutation the island model is not ergodic, and a replicate is one
+draw from an absorption lottery over three families:
+
+- **All-`THEM(^C)`**: P(C,C) = 1, in 56 of 320 runs.
+- **Mutual defection**: D, `THEM(^D)`, `and(X,THEM(^D))` and the `THEM(ME)`-and-D
+  family, all mutually neutral at −1, in 97 runs.
+- **Exploitation probes**: `THEM(^ROLE)`, `THEM(^X)`, `THEM(^or(X,ROLE))`,
+  `THEM(^and(X,ROLE))` and the like, in 167 runs. Each copies a non-constant
+  third party (`THEM(^ROLE)` plays against you what you play against
+  `ROLE`), so against itself it reproduces `ROLE` against `ROLE`, an (C,D) pair
+  every match. Payoff is −0.25 to −0.875, and P(C,C) is 0 to 0.56.
+
+The persistent island-states are the absorbing ones. B′ is falsified in
+every cell: 0.65–1.00 of second-half island-time has DWL > 0.1.
+
+**The spoiler is the faker.** Island dominant-class changes out of
+`THEM(^C)` were sampled every 20 generations and pooled over all runs, 2,358
+in total:
+
+| destination | exits |
+|---|---|
+| strict faker (earns more against `THEM(^C)` than `THEM(^C)` earns against itself): `THEM(^ROLE)`, `THEM(^X)`, `THEM(^D)`, `THEM(^or(X,ROLE))`, … | 1,901 |
+| weak faker (earns 0 against it while `THEM(^C)` is exploited): `and(X,THEM(^D))`, `and(ROLE,THEM(^D))`, … | 437 |
+| D | 18 |
+| an on-path-identical shadow (ALLC-like) | 0 |
+| other | 2 |
+
+The shadow is consumed before it can matter. ALLC is extinct in all 320
+runs, at a median of generation 40 and by generation 1,320 at the latest.
+Shadow islands were taken by a class exploiting the shadow 945 times, the
+subsidized-front route. Transitions are pooled over time, so these cannot be
+dated. They do not end `THEM(^C)` islands, because no `THEM(^C)` island ever
+became a shadow island. `THEM(^C)`
+itself is lost early: 264 runs lose it, 168 of them within 100 generations,
+during the first within-island scramble. Where it survives it nucleates
+readily. Of 5,817 island entries into `THEM(^C)`, 5,404 are from D. It holds
+only when every faker has gone extinct first.
+
+**Conjecture A.**
+- *Set level: holds.* All three absorbing families occur under every seeding.
+- *Distribution level: fails for placement, not for composition.* Pooled over
+  graphs and migration rates, cooperative absorption comes out as follows:
+
+  | seeding | cooperative absorption | Fisher p against the rest |
+  |---|---|---|
+  | programs | 15 / 80 | |
+  | prior | 19 / 80 | |
+  | hostile | 16 / 80 | |
+  | clustered | 6 / 80 | 0.006 |
+
+  Filling every spare slot with D does not hurt cooperation. Concentrating
+  each class on a few islands does.
+- *Cell spread.* Within each graph × mN, the seeding means of P(C,C) spread
+  by 0.18–0.27, against a standard error of about 0.08 per mean. A single
+  cell can therefore not resolve seeding effects smaller than about 0.2.
+
+**The migration game mispredicts.** Its equilibrium set, the replicator
+time-average of ρ − ρᵀ over monomorphic island-states, is entirely
+mutual-defection classes. The runs absorb into all-`THEM(^C)` in 17.5% of
+cases and into exploitation-probe states in 52%. Neither is in the set. With
+64 islands, classes go globally extinct within about 10³ generations, and at
+ε = 0 each extinction is permanent. The dynamics reach the boundary long
+before a time average could form.
+
+### Chicken with `ROLE`
+
+| graph | mN | seeding | payoff mean ± sd | P(Swerve,Swerve) | island-time DWL > 0.1 | island-time DWL ≥ 0.45 | frozen (payoff at freeze) |
+|---|---|---|---|---|---|---|---|
+| complete | 0.1 | programs | 0.480 ± 0.025 | 0.029 | 0.07 | 0.029 | 1 (0.5) |
+| complete | 0.1 | hostile | 0.421 ± 0.161 | 0.150 | 0.18 | 0.150 | 4 (all at 0.5) |
+| complete | 0.1 | clustered | 0.473 ± 0.028 | 0.040 | 0.09 | 0.040 | 0 |
+| complete | 1 | programs | 0.409 ± 0.141 | 0.104 | 0.33 | 0.109 | 7 (at 0 and 0.5) |
+| complete | 1 | hostile | 0.411 ± 0.117 | 0.053 | 0.33 | 0.071 | 5 (all at 0.5) |
+| complete | 1 | clustered | 0.380 ± 0.129 | 0.127 | 0.41 | 0.131 | 2 (0.5, 0.5) |
+| ring | 0.1 | programs | 0.487 ± 0.011 | 0.021 | 0.05 | 0.011 | 0 |
+| ring | 0.1 | hostile | 0.485 ± 0.016 | 0.027 | 0.06 | 0.015 | 0 |
+| ring | 0.1 | clustered | 0.418 ± 0.083 | 0.162 | 0.24 | 0.090 | 1 (0.5) |
+| ring | 1 | programs | 0.432 ± 0.102 | 0.070 | 0.22 | 0.075 | 1 (0.5) |
+| ring | 1 | hostile | 0.453 ± 0.073 | 0.056 | 0.15 | 0.057 | 1 (0.5) |
+| ring | 1 | clustered | 0.394 ± 0.124 | 0.166 | 0.30 | 0.118 | 0 |
+
+In the table, payoff is 0.5 at the correlated optimum. A run is frozen when a
+single convention has taken every island.
+
+`ROLE` conventions dominate: `ROLE` holds 0.22–0.54 of dominant-island-time
+and `not(ROLE)` up to 0.38. In the ring at mN = 0.1 under the shuffled
+seedings they keep payoff within 0.02 of 0.5. Of the 22 frozen runs, 21 froze
+into a single convention. Mutual-Swerve islands also
+persist, in the self-referential `THEM(ME)` family:
+
+| class | cell | share of dominant-island-time |
+|---|---|---|
+| `not(or(THEM(THEM),X))` | complete, mN = 0.1, hostile | 0.14 |
+| `not(or(THEM(THEM),X))` | complete, mN = 1, programs | 0.10 |
+| `not(or(THEM(THEM),X))` | ring, mN = 1, clustered | 0.08 |
+| `not(or(THEM(ME),X))` | complete, mN = 1, clustered | 0.05 |
+
+These islands sit at payoff 0, because their self-play diverges to the minimax
+action Swerve. One run of 240 froze globally in that state (complete,
+mN = 1). B′ is therefore falsified in Chicken with `ROLE`, but narrowly. The
+remaining deadweight loss at mN = 1 is mostly migration load: a `not(ROLE)`
+migrant on a `ROLE` island crashes half its matches. Conjecture A holds at
+the outcome level. Within each graph × mN, the seeding means of payoff differ
+by 0.03–0.07.
+
+### Chicken without `ROLE`
+
+| graph | mN | seeding | payoff mean ± sd | P(Swerve,Swerve) | island-time DWL > 0.1 | island-time DWL ≥ 0.45 | frozen (payoff at freeze) |
+|---|---|---|---|---|---|---|---|
+| complete | 0.1 | programs | -0.216 ± 0.135 | 0.670 | 1.00 | 1.000 | 0 |
+| complete | 0.1 | hostile | -0.184 ± 0.077 | 0.702 | 1.00 | 1.000 | 0 |
+| complete | 0.1 | clustered | -0.127 ± 0.133 | 0.806 | 1.00 | 1.000 | 5 (all at 0) |
+| complete | 1 | programs | -0.343 ± 0.093 | 0.486 | 1.00 | 0.999 | 1 (0) |
+| complete | 1 | hostile | -0.271 ± 0.081 | 0.575 | 1.00 | 1.000 | 0 |
+| complete | 1 | clustered | -0.142 ± 0.115 | 0.784 | 1.00 | 1.000 | 4 (all at 0) |
+| ring | 0.1 | programs | -0.202 ± 0.121 | 0.686 | 1.00 | 1.000 | 0 |
+| ring | 0.1 | hostile | -0.173 ± 0.080 | 0.720 | 1.00 | 1.000 | 0 |
+| ring | 0.1 | clustered | -0.159 ± 0.119 | 0.751 | 1.00 | 1.000 | 2 (0, 0) |
+| ring | 1 | programs | -0.353 ± 0.065 | 0.470 | 1.00 | 1.000 | 0 |
+| ring | 1 | hostile | -0.292 ± 0.098 | 0.551 | 1.00 | 1.000 | 1 (0) |
+| ring | 1 | clustered | -0.159 ± 0.103 | 0.747 | 1.00 | 1.000 | 4 (all at 0) |
+
+Every island-sample has DWL above 0.45, against the correlated optimum of 0.5.
+At mN = 0.1 under the shuffled seedings, the islands sit at the mixed
+equilibrium:
+
+| | observed | mixed equilibrium |
+|---|---|---|
+| payoff | −0.17 to −0.22 | −2/11 = −0.18 |
+| P(Swerve,Swerve) | 0.67–0.72 | (9/11)² = 0.67 |
+
+The route is a polymorphism, not mixing programs. The dominant classes are
+self-referential best-responders: `not(THEM(ME))`, `not(THEM(THEM))` and
+`THEM(^Swerve)`. They swerve against a Straight player and against each
+other, the latter by divergence to the minimax action. A Straight minority
+lives among them, with the constant Straight at a global share of 0.10 ± 0.06
+at the end of the live mN = 0.1 runs, and it earns 2 against each of them.
+The minority grows until the two earn the same, which is the mixed
+equilibrium in population form. At mN = 1, migration adds Straight load, and
+payoff falls to −0.27 to −0.35. Under the clustered seeding the Straight
+players are sometimes lost globally: 15 of 17 frozen runs are clustered, and
+all freeze at mutual Swerve, payoff 0. That raises the clustered means to
+−0.13 to −0.16. None of these states approaches 0.5, so the falsifier THEORY
+§9.5 names (Chicken without `ROLE` persisting at the mixed equilibrium) fires,
+as THEORY predicted.
+
+### Verdicts against `predictions/2026-09-23-islands.md`
+
+| # | prediction | outcome |
+|---|---|---|
+| 1 | B′ falsified in the PD; every cell P(C,C) < 0.2; island-time at P(C,C) < 0.1 ≥ 0.8 | **B′ falsified: holds.** The level **failed**: P(C,C) is 0.06–0.43, below 0.2 in 4 of 16 cells, and island-time at P(C,C) < 0.1 is 0.37–0.78. The level falsifier (any cell ≥ 0.5) did not fire. |
+| 2 | faker exits outnumber shadow exits at least 2:1 | **Holds.** Strict fakers 1,901, weak fakers 437, shadow 0. |
+| 3 | ALLC below 0.01 by generation 1,000 and extinct in ≥ 90% of runs | **Holds.** Maximum share at generation 1,000 is 0.007, and ALLC is extinct in 320 of 320 runs. |
+| 4 | `THEM(^C)` extinct in ≥ half of complete mN = 0.1 runs, then a freeze into on-path defection | **Extinction holds** (64 of 80). **The freeze into defection failed**: of those 64, 40 froze into exploitation-probe states at payoff −0.25 to −0.875 and 24 into mutual defection. |
+| 5 | A in the PD holds at the outcome level, with seedings within 0.1; fails at the class level, with hostile D-share more than 0.2 above programs | **Failed on both counts.** Seeding spreads are 0.18–0.27. The falsifier (more than 0.2 apart) fired in ring mN = 1 (0.43 against 0.17) and sits at the boundary in complete mN = 0.1 (0.200). The clustered seeding is the one that differs, at p = 0.006. The hostile D-share is not above the programs D-share (0.11 against 0.12 in complete mN = 0.1). |
+| 6 | B′ falsified in Chicken with `ROLE`: ≥ 0.1 island-time at DWL ≥ 0.45 in some cell | **Holds** in 3 of 12 cells (0.15, 0.13, 0.11), with one global freeze at mutual Swerve. |
+| 7 | A fails at the outcome level in Chicken with `ROLE` | **Failed.** Seeding spreads are 0.03–0.07. |
+| 8 | Chicken without `ROLE` at mutual Swerve, payoff in [−0.1, 0.1] | **Failed.** Islands sit at the mixed equilibrium, as THEORY §9.5 predicted. My prediction took the migration game's monomorphic equilibria for the persistent states and missed the polymorphism. |
+| 9 | ring and mN = 1 do not change verdicts 1, 6 and 8 | **Holds** for 1 and 8. For 6 it holds in three of four graph × mN (ring mN = 0.1 peaks at 0.090). |
+
+The migration game, meaning the equilibrium set of ρ − ρᵀ over monomorphic
+island-states, was the basis of verdicts 1, 4, 6 and 8. It is not the ε-free
+object of this model. At ε = 0 with 64 islands, the PD reaches absorbing
+states within about 10³ generations, so the dynamics are extinction-driven,
+not time-averaged. In Chicken, island-states are polymorphic.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

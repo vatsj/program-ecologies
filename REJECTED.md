@@ -113,3 +113,40 @@ Bookkeeping. Each entry: what was proposed, why it was dropped, and what replace
 **FairBot pruning: "grounding noise makes roaming D neutral, so lone D prune ALLC and keep enforcement exercised" (Claude, 2026-09-21).** Falsified by the per-mutant rates (RESULTS.md, "Per-mutant rates"): a lone D in a FairBot sea lives 5 generations, not 10× a lone D in `THEM(^C)` (2–2.6), and ALLC lifetimes in the two seas are indistinguishable (medians ≈ 1 generation; means dominated by rare long lineages and flipping sign between sides). FairBot's advantage on the lattice is not pruning; it is that its D front is neutral (D earns 0 = FairBot's self-payoff) so a collapse cannot be subsidized — but it is unreachable from all-D by single-copy nucleation (ρ_enter ≈ 0.005, μ ≈ 4·10⁻⁵).
 
 **"Pair nucleation at ρ ≈ ¼" as the lattice entry rate.** The measured ρ_enter(`THEM(^C)`) is 0.11 at both 32² and 64². The ¼ was the win probability of one death-birth event, not the probability that a lineage reaches half the torus. Use the measured per-mutant rates.
+
+## Added 2026-09-23: island model (RESULTS.md, "Island model"; predictions/2026-09-23-islands.md)
+
+**"Fakers as the spatial/island spoiler" — re-opened and reversed for the island model.** The entry above
+stands for the chain and the lattice, where fakers arrive at μ-weight. It does not carry over when migration
+replaces mutation. Arrivals are then set by what neighbouring islands hold, not by class size under μ, and
+`THEM(^C)`'s 15 advantageous invaders are all fakers (ρ up to 0.26). Of 2,358 island exits out of
+`THEM(^C)`, 2,338 went to strict or weak fakers, 18 to D and 0 to the shadow.
+
+**Subsidized D fronts as the island spoiler (THEORY §9.5, CLAUDE.md queue).** Refuted at ε = 0. ALLC is
+eaten in the first within-island scramble: extinct in 320 of 320 PD runs, at a median of generation 40. No
+`THEM(^C)` island ever passed to a shadow.
+
+**B′ on islands at ε = 0** ("every persistent island-state is Pareto efficient among outcomes the language
+can stably express").
+- *PD:* falsified in all 16 cells. Every run absorbs, and 261 of 320 absorb into mutual defection or into
+  exploitation-probe states such as `THEM(^ROLE)` and `THEM(^X)`.
+- *Chicken with `ROLE`:* falsified narrowly. Self-referential mutual-Swerve islands, at payoff 0, persist
+  beside the `ROLE` conventions, and one run froze globally at payoff 0.
+
+**The migration game (the equilibrium set of ρ − ρᵀ over monomorphic island-states) as the island model's
+ε-free object (Claude, 2026-09-23).** It mispredicted all three games:
+- *PD:* its equilibrium set is all mutual defection, yet 17.5% of runs absorb into all-`THEM(^C)` and 52%
+  into exploitation-probe states outside the set. With 64 islands, global extinctions come within about 10³
+  generations, and at ε = 0 each is permanent, so the time average never forms.
+- *Chicken without `ROLE`:* it predicted mutual Swerve, but the islands hold a Straight minority among
+  self-referential best-responders at the mixed equilibrium, a polymorphism the monomorphic game cannot
+  represent.
+- *Downstream verdicts that failed with it:* "PD P(C,C) < 0.2 in every cell" (observed 0.06–0.43) and
+  "`THEM(^C)`-extinct runs freeze into on-path defection" (40 of 64 froze into exploitation probes instead).
+
+**Conjecture A verdicts (Claude, 2026-09-23).** I predicted A would hold at the outcome level in the PD
+and fail in Chicken with `ROLE`. The reverse happened:
+- *PD:* placement matters. Clustered seeding absorbs cooperatively in 6 of 80 runs against 50 of 240
+  shuffled (p = 0.006). Composition does not: the hostile seeding, with every spare slot D, gives 16 of 80.
+- *Chicken with `ROLE`:* the seedings agree within 0.07 in payoff.
+- *Also failed:* "the hostile seeding raises the D-dominated share by more than 0.2".
