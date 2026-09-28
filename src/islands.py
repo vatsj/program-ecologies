@@ -121,6 +121,9 @@ def _run(U, PCC, init, nbr, nnbr, N, w, m, gens, every, seed, iR, iC, eff, dwl_e
     nb = dwl_edges.shape[0] - 1
     isl_dwl_hist = np.zeros(nb)             # island deadweight-loss histogram, second half
     ext_R = -1; ext_C = -1; frozen_at = -1
+    # payoff dispersion among the agents of an island (0 iff the island is cool), second half
+    sp_sum = 0.0; rg_sum = 0.0; n_isl = 0; n_cool = 0
+    npairs = 0; pairs = np.zeros((nsamp * I // 20 + I, 2))
     glob = np.zeros(K, np.int64)
     events_per_gen = I * N
     s = 0
@@ -162,6 +165,21 @@ def _run(U, PCC, init, nbr, nnbr, N, w, m, gens, every, seed, iR, iC, eff, dwl_e
                         nn = counts[i, a] * counts[i, b] if a != b else counts[i, a] * (counts[i, a] - 1)
                         cc += nn * PCC[a, b]
                 cc /= N * (N - 1); pay /= N
+                if 2 * s >= nsamp:
+                    var = 0.0; fmin = 1e300; fmax = -1e300
+                    for t in range(npres[i]):
+                        a = pres[i, t]
+                        f = (paysum[i, a] - U[a, a]) / (N - 1)
+                        var += counts[i, a] * (f - pay) ** 2
+                        if 20 * counts[i, a] >= N:
+                            if f < fmin: fmin = f
+                            if f > fmax: fmax = f
+                    sd = np.sqrt(var / N)
+                    sp_sum += sd; rg_sum += (fmax - fmin) if fmax >= fmin else 0.0
+                    n_isl += 1
+                    if sd < 1e-9: n_cool += 1
+                    if s % 20 == 0 and npairs < pairs.shape[0]:
+                        pairs[npairs, 0] = sd; pairs[npairs, 1] = pay; npairs += 1
                 cc_tot += cc; pay_tot += pay
                 if 2 * s >= nsamp:
                     if dom >= 0: dom_time[dom] += 1
@@ -198,7 +216,8 @@ def _run(U, PCC, init, nbr, nnbr, N, w, m, gens, every, seed, iR, iC, eff, dwl_e
                     tr_cc[s2] = tr_cc[s - 1]; tr_pay[s2] = tr_pay[s - 1]
                     tr_R[s2] = tr_R[s - 1]; tr_C[s2] = tr_C[s - 1]; tr_npres[s2] = tr_npres[s - 1]
                 break
-    return tr_cc, tr_pay, tr_R, tr_C, tr_npres, dom_time, trans, isl_cc_hist, isl_dwl_hist, ext_R, ext_C, frozen_at, counts
+    disp = np.array([sp_sum, rg_sum, n_isl, n_cool])
+    return tr_cc, tr_pay, tr_R, tr_C, tr_npres, dom_time, trans, isl_cc_hist, isl_dwl_hist, ext_R, ext_C, frozen_at, counts, disp, pairs[:npairs]
 
 
 def graph(kind, I):
@@ -271,7 +290,8 @@ def run_one(job):
     nbr, nnbr = graph(graph_kind, I)
     t = time.time()
     out = _run(U, PCC, init, nbr, nnbr, N, w, mN / N, gens, every, 12345 + rep, iR, iC, game.efficient_symmetric(), DWL_EDGES)
-    tr_cc, tr_pay, tr_R, tr_C, tr_npres, dom_time, trans, hist, dwl_hist, ext_R, ext_C, frozen_at, counts = out
+    tr_cc, tr_pay, tr_R, tr_C, tr_npres, dom_time, trans, hist, dwl_hist, ext_R, ext_C, frozen_at, counts, disp, pairs = out
+    disp = disp.copy()
     h = len(tr_cc) // 2
     glob = counts.sum(0)
     if frozen_at >= 0:
@@ -289,6 +309,7 @@ def run_one(job):
             if len(dom): dom_time[dom[0]] += missing
             hist[min(10, int(cc * 10))] += missing
             dwl_hist[np.searchsorted(DWL_EDGES, eff - pay, side='right') - 1] += missing
+            disp[2] += missing; disp[3] += missing       # frozen: every island is cool (spread 0)
     return dict(game=_tag(game_name, norole, ''), graph=graph_kind, mN=mN, seeding=seeding, rep=rep,
                 pcc_2nd=float(tr_cc[h:].mean()), pay_2nd=float(tr_pay[h:].mean()),
                 pcc_final=float(tr_cc[-1]), pay_final=float(tr_pay[-1]),
@@ -298,6 +319,8 @@ def run_one(job):
                 dom_time={names[k]: float(v) for k, v in enumerate(dom_time) if v > 0},
                 trans=[(names[a], names[b], int(trans[a, b])) for a, b in zip(*np.nonzero(trans))],
                 isl_cc_hist=hist.tolist(), isl_dwl_hist=dwl_hist.tolist(),
+                spread=float(disp[0] / max(disp[2], 1)), resident_range=float(disp[1] / max(disp[2], 1)),
+                cool_frac=float(disp[3] / max(disp[2], 1)), spread_pay_pairs=pairs.tolist(),
                 final_classes={names[k]: int(v) for k, v in enumerate(glob) if v > 0},
                 trace_every=every * TRACE_THIN, trace_cc=tr_cc[::TRACE_THIN].tolist(), trace_pay=tr_pay[::TRACE_THIN].tolist(),
                 trace_R=tr_R[::TRACE_THIN].tolist(), trace_C=tr_C[::TRACE_THIN].tolist(),
