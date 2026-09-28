@@ -160,3 +160,12 @@ rise-and-fall. π(all-`THEM(^C)`) → 0 like N^(−1/2), from 0.013 at N = 1,000
 N-independent exit is the faker: `THEM(^D)`, `THEM(^X)` and `THEM(^ROLE)` strictly invade `THEM(^C)`.
 Faker exits are 0.92–0.99 of exits at N = 30,000. The shadow remains the dominant exit below N ≈ 300–3,000,
 depending on w.
+
+## Added 2026-09-28: cool check (RESULTS.md, "Cool check")
+
+**"The payoff spread among programs on an island shrinks to zero as migration → 0, and tracks migration load"
+(conversation, 2026-09-28; my predictions 1 and 3).** Not at fixed N. At N = 400 the spread is 0.142 over a
+100-fold range of mN, with no load. The spread is drift around a cool rest point and scales like N^(−1/2):
+0.267 at N = 100 against 0.142 at N = 400 in the same state. Migration changes which state the islands hold,
+not how cool they are. The surviving statement is the time-averaged one: island compositions sit on cool rest
+points, and the instantaneous spread vanishes as N → ∞.

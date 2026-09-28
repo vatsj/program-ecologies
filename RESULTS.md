@@ -978,6 +978,69 @@ binding exit is the faker, not the shadow. The shadow dominates exits only for N
 The falsifier did not fire. At w = 0.3, N = 30,000 gives 0.0044 against 0.0130 at N = 1,000, and the
 shadow share at N = 10,000 is at most 0.20.
 
+## Cool check: payoff dispersion per island vs migration rate (`runs/cool_check.md`, predictions in `predictions/2026-09-28-cool-check.md`)
+
+`src/cool_check.py` runs Chicken without `ROLE` with the programs seeding on a complete graph, replicate 0,
+for 5·10⁴ generations. At every sample in the second half it logs each island's **spread**, the
+agent-weighted SD of payoff, which is 0 iff the island is cool. It also logs the **resident range**,
+max − min payoff over classes holding at least 5% of the island.
+
+| N | I | mN | spread | resident range | cool island-samples | mean payoff | P(Swerve,Swerve) | frozen at |
+|---|---|---|---|---|---|---|---|---|
+| 100 | 64 | 0.01 | 0.000 | 0.000 | 1.00 | 0.000 | 1.000 | 11,380 |
+| 100 | 64 | 0.03 | 0.059 | 0.158 | 0.68 | −0.062 | 0.897 | – |
+| 100 | 64 | 0.1 | 0.161 | 0.343 | 0.00 | −0.414 | 0.399 | – |
+| 100 | 64 | 0.3 | 0.236 | 0.670 | 0.02 | −0.289 | 0.550 | – |
+| 100 | 64 | 1 | 0.267 | 0.771 | 0.00 | −0.342 | 0.478 | – |
+| 100 | 64 | 3 | 0.182 | 0.492 | 0.00 | −0.194 | 0.676 | – |
+| 400 | 16 | 0.01 | 0.142 | 0.418 | 0.00 | −0.348 | 0.436 | – |
+| 400 | 16 | 0.1 | 0.142 | 0.417 | 0.00 | −0.348 | 0.436 | – |
+| 400 | 16 | 1 | 0.142 | 0.416 | 0.00 | −0.350 | 0.435 | – |
+
+The replicate is dominated by which state each run fell into, not by migration.
+
+- **N = 100, mN = 0.01.** Straight players were lost globally and the run froze at mutual Swerve, so every
+  island is trivially cool.
+- **N = 100, mN = 0.03.** Two thirds of island-samples are all-Swerve.
+- **N = 100, mN = 0.1.** The islands hold `not(THEM(ME))` (0.63) with `not(or(X,THEM(ME)))` (0.37).
+- **N = 400 at every mN, and N = 100 at mN = 1.** The islands hold a three-class mixture: the
+  best-responder `not(THEM(THEM))`, the constant Straight, and the conditional Straight
+  `not(THEM(^Straight))`. The two Straight players split the role between them: when they meet, the
+  constant goes straight and the conditional one swerves.
+
+**The three-class mixture is a cool state.** Its interior rest point is (0.659, 0.195, 0.146), with a common
+payoff of −0.341. The global composition of the N = 400 runs is (0.664, 0.194, 0.143) at a mean payoff of
+−0.348. The islands therefore sit on a cool rest point on average, and aggregating each island into the
+mixed strategy of its rest point reproduces the payoff to within 0.01.
+
+**The rest point is worse than the mixed equilibrium.** It pays −0.341, against −2/11 = −0.182 at the
+mixed equilibrium. Coolness is an equilibrium property, not an efficiency property.
+
+**The instantaneous spread around the rest point is drift, not migration.**
+- At N = 400 it is 0.142 at mN = 0.01, 0.1 and 1, flat over a 100-fold range.
+- At the same rest point, it is 0.267 at N = 100 and mN = 1, against 0.142 at N = 400. The ratio is 0.53,
+  against N^(−1/2) = 0.5. This comparison is post hoc: the cell designated for the floor test,
+  N = 100 at mN = 0.01, froze.
+- Within runs, islands with a larger spread earn less. The correlation between spread and payoff is −0.2 to
+  −0.7.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| 1 | Spread rises with mN at N = 100 | **Failed.** The spread is 0 (frozen), then 0.06, 0.16, 0.24, 0.27, then falls to 0.18 at mN = 3. Across mN the runs sit in different states, so the curve compares attractors, not migration rates. |
+| 2 | Drift floor 0.05–0.3 at N = 100 and mN = 0.01; N = 400 / N = 100 ratio of 0.35–0.7 there | **Not testable** at the designated cell, which froze. The post-hoc same-state comparison gives a ratio of 0.53, inside the band. The falsifier, spread ≤ 0.02 with Straight players present, did not fire. |
+| 3 | Load non-decreasing in mN; Spearman(spread, load) ≥ 0.9 | **Failed:** Spearman 0.66, and the load is non-monotone. The load baseline is the frozen all-Swerve run, so "load" here measures attractor switching. At N = 400 the load is 0 to within 0.002 across mN. |
+| 4 | Payoff within 0.05 of −0.182 at mN = 0.01 and N = 100, unless frozen | **The exception applies:** frozen at mutual Swerve, payoff 0. |
+
+**Conclusion for the conversation's claim.** "Each program earns the same against its island in the limit" holds
+in two senses:
+- time-averaged composition sits on a cool rest point;
+- the instantaneous spread shrinks like N^(−1/2).
+
+It does not hold as "the spread shrinks as migration → 0" at fixed N. At N = 400 migration moves neither the
+spread nor the payoff. Migration's effect is on which cool state, or which absorbing state, the islands occupy.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
