@@ -910,6 +910,74 @@ object of this model. At ε = 0 with 64 islands, the PD reaches absorbing
 states within about 10³ generations, so the dynamics are extinction-driven,
 not time-averaged. In Chicken, island-states are polymorphic.
 
+## lim_N of the chain with `ROLE`: the shadow is finite-N, the faker is the limit (`runs/limN_pd.md`, predictions in `predictions/2026-09-28-limN-chain.md`)
+
+`src/limN.py` runs the ε→0 chain for the weak PD (L_6 with `ROLE`, exp fitness map). It splits the exits
+from all-`THEM(^C)` by mutant type:
+- **shadow:** on-path identical to `THEM(^C)`, meaning C and eight grounded or `ROLE`-guarded variants;
+- **faker:** earns more against `THEM(^C)` than `THEM(^C)` earns against itself, 13 classes;
+- **other.**
+
+| w | N | π(all-D) | π(all-`THEM(^C)`) | P(C,C) | ρ_enter | shadow share of exits | faker share of exits |
+|---|---|---|---|---|---|---|---|
+| 0.1 | 100 | 0.9709 | 0.0037 | 0.0069 | 2.48e-02 | 0.72 | 0.03 |
+| 0.1 | 300 | 0.9866 | 0.0078 | 0.0087 | 1.44e-02 | 0.88 | 0.11 |
+| 0.1 | 1,000 | 0.9847 | 0.0115 | 0.0119 | 7.92e-03 | 0.71 | 0.29 |
+| 0.1 | 3,000 | 0.9849 | 0.0126 | 0.0129 | 4.59e-03 | 0.45 | 0.55 |
+| 0.1 | 10,000 | 0.9882 | 0.0101 | 0.0103 | 2.52e-03 | 0.20 | 0.80 |
+| 0.1 | 30,000 | 0.9920 | 0.0068 | 0.0068 | 1.45e-03 | 0.08 | 0.92 |
+| 0.3 | 100 | 0.9865 | 0.0077 | 0.0086 | 4.21e-02 | 0.89 | 0.10 |
+| 0.3 | 300 | 0.9847 | 0.0112 | 0.0117 | 2.46e-02 | 0.74 | 0.26 |
+| 0.3 | 1,000 | 0.9845 | 0.0130 | 0.0132 | 1.36e-02 | 0.47 | 0.53 |
+| 0.3 | 3,000 | 0.9872 | 0.0110 | 0.0111 | 7.92e-03 | 0.23 | 0.77 |
+| 0.3 | 10,000 | 0.9915 | 0.0072 | 0.0073 | 4.35e-03 | 0.08 | 0.92 |
+| 0.3 | 30,000 | 0.9945 | 0.0044 | 0.0045 | 2.52e-03 | 0.03 | 0.97 |
+| 1 | 100 | 0.9841 | 0.0116 | 0.0121 | 7.42e-02 | 0.77 | 0.23 |
+| 1 | 300 | 0.9831 | 0.0141 | 0.0144 | 4.41e-02 | 0.52 | 0.48 |
+| 1 | 1,000 | 0.9856 | 0.0125 | 0.0127 | 2.46e-02 | 0.25 | 0.75 |
+| 1 | 3,000 | 0.9898 | 0.0088 | 0.0089 | 1.44e-02 | 0.10 | 0.90 |
+| 1 | 10,000 | 0.9937 | 0.0052 | 0.0053 | 7.92e-03 | 0.03 | 0.97 |
+| 1 | 30,000 | 0.9959 | 0.0031 | 0.0031 | 4.59e-03 | 0.01 | 0.99 |
+
+**Support and transitions.** The support is all-D and all-`THEM(^C)` in every cell. At w = 0.1 and
+N = 100 it also includes all-X (0.008) and all-`ROLE` (0.006). Polymorphic mass is at most 6·10⁻⁸ and
+no transition is indeterminate. Cooperation has one road in and two roads out:
+- **In:** all-D goes to all-`THEM(^C)` via the `THEM(^C)` mutant, at ρ_enter.
+- **Out, shadow:** all-`THEM(^C)` goes to all-C by ALLC drift, μ(C)/N, and all-C then falls to D.
+- **Out, faker:** all-`THEM(^C)` goes to the faker states `THEM(^D)`, `THEM(^X)` and `THEM(^ROLE)`. Their
+  shares are about 0.47, 0.24 and 0.23 of the faker flow. These states are on-path D and return to all-D
+  by drift.
+
+**The two-state reduction is exact.** π(all-`THEM(^C)`) equals π(all-D) × entry / exit to within 2% in
+every cell, so all the N-dependence sits in three rates:
+- **Entry** ρ_enter falls like N^(−1/2). The fitted slope over N ∈ [1,000, 30,000] is −0.498, −0.497 and
+  −0.494 at w = 0.1, 0.3 and 1.
+- **Shadow exit** falls like 1/N: μ(C)/N = 2.49·10⁻³ at N = 100 and 8.3·10⁻⁶ at N = 30,000.
+- **Faker exit** is flat: 1.0·10⁻⁴, 2.9·10⁻⁴ and 7.6·10⁻⁴ per mutation event at w = 0.1, 0.3 and 1,
+  from N = 100 to 30,000.
+
+The faker share of exits crosses ½ at N ≈ 3,000, 1,000 and 300 for w = 0.1, 0.3 and 1. It reaches
+0.92–0.99 at N = 30,000. π(all-`THEM(^C)`) peaks at the crossing, at 0.013–0.014 for every w, and then
+falls. From the peak to N = 30,000 it drops by a factor of 1.9, 3.0 and 4.6. Its log-slope over
+N ∈ [3,000, 30,000] is −0.27, −0.40 and −0.45, approaching the asymptotic −½.
+
+The earlier reading that the PD limit was answered at N = 1,000 with 1.5–2.4% cooperation (RESULTS,
+"Exponential fitness map", without `ROLE`) sampled the peak. The limit is 0, like N^(−1/2), and the
+binding exit is the faker, not the shadow. The shadow dominates exits only for N below the crossing.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| 1 | Rise, peak and fall; peak within one grid step of 3,000 / 1,000 / 300; the N = 30,000 value at most 1/1.5 of the peak | **Holds.** The peaks are exactly at 3,000 / 1,000 / 300, with factors 1.9 / 3.0 / 4.6. |
+| 2 | Faker share within 0.1 of the static single-edge rates; above 0.9 at N = 30,000 | **Holds** to within 0.01. This is close to tautological: the chain's exits from a monomorphic state are exactly its single-edge μ·ρ. The substantive part is that no other route carries weight, which the two-state reduction confirms. |
+| 3 | ρ_enter slope in [−0.55, −0.45] | **Holds:** −0.494 to −0.498. |
+| 4 | P(C,C) < 0.05 and all-D ≥ 0.9 everywhere | **Holds:** P(C,C) ≤ 0.015, all-D ≥ 0.971. |
+| 5 | No polymorphic state at π ≥ 10⁻³; polymorphic flow < 10⁻⁴ | **Holds.** Faker states, expected in the support, stay below 10⁻³. They drain to all-D faster than they are entered. |
+
+The falsifier did not fire. At w = 0.3, N = 30,000 gives 0.0044 against 0.0130 at N = 1,000, and the
+shadow share at N = 10,000 is at most 0.20.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

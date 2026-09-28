@@ -150,3 +150,13 @@ and fail in Chicken with `ROLE`. The reverse happened:
   shuffled (p = 0.006). Composition does not: the hostile seeding, with every spare slot D, gives 16 of 80.
 - *Chicken with `ROLE`:* the seedings agree within 0.07 in payoff.
 - *Also failed:* "the hostile seeding raises the D-dominated share by more than 0.2".
+
+## Added 2026-09-28: lim_N of the chain (RESULTS.md, "lim_N of the chain with `ROLE`")
+
+**"The PD limit is answered at N = 1,000: 1.5–2.4% cooperation" (THEORY §9.1).** N = 1,000 is the peak of a
+rise-and-fall. π(all-`THEM(^C)`) → 0 like N^(−1/2), from 0.013 at N = 1,000 to 0.0044 at N = 30,000 at w = 0.3.
+
+**The unconditional shadow as the lim_N obstruction.** The ALLC-drift exit is μ(C)/N and vanishes. The
+N-independent exit is the faker: `THEM(^D)`, `THEM(^X)` and `THEM(^ROLE)` strictly invade `THEM(^C)`.
+Faker exits are 0.92–0.99 of exits at N = 30,000. The shadow remains the dominant exit below N ≈ 300–3,000,
+depending on w.
