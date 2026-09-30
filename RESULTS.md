@@ -1194,6 +1194,52 @@ doubles from N = 100 to N = 200. It needs enough islands, and it has an interior
 consistent with it failing in lim_N at any fixed w_g, but not conclusive: this is three sizes, three
 replicates, and imperfect mixing.
 
+## ε = 0 islands vs island count (`runs/islands_count.md`, predictions in `predictions/2026-09-30-islands-count.md`)
+
+`src/islands_count.py` runs the PD with no mutation on a complete graph, N = 100, w = 0.3. Seeding is iid:
+each slot is drawn from the uniform law over programs. Horizon 2·10⁴ generations. Every run froze well
+before the horizon.
+
+| I | mN | runs | coop | defect | other | live-coop | live-defect | live-other | median freeze gen | mean final P(C,C) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 16 | 0.1 | 100 | 0.09 | 0.58 | 0.33 | 0.00 | 0.00 | 0.00 | 430 | 0.125 |
+| 16 | 1 | 100 | 0.09 | 0.64 | 0.27 | 0.00 | 0.00 | 0.00 | 140 | 0.126 |
+| 64 | 0.1 | 100 | 0.14 | 0.23 | 0.63 | 0.00 | 0.00 | 0.00 | 2620 | 0.199 |
+| 64 | 1 | 100 | 0.10 | 0.36 | 0.54 | 0.00 | 0.00 | 0.00 | 360 | 0.161 |
+| 256 | 0.1 | 40 | 0.00 | 0.62 | 0.38 | 0.00 | 0.00 | 0.00 | 2580 | 0.028 |
+| 256 | 1 | 40 | 0.00 | 0.65 | 0.35 | 0.00 | 0.00 | 0.00 | 420 | 0.043 |
+| 1024 | 0.1 | 10 | 0.00 | 1.00 | 0.00 | 0.00 | 0.00 | 0.00 | 2370 | 0.000 |
+| 1024 | 1 | 10 | 0.00 | 1.00 | 0.00 | 0.00 | 0.00 | 0.00 | 470 | 0.000 |
+
+**The lottery concentrates, on mutual defection.** At I = 1024 all 20 runs end in mutual defection, and at
+I = 256 no run ends cooperative. The frozen defecting states at I = 1024 hold `THEM(^D)` 0.64, D 0.30 and
+`and(X,THEM(^D))` 0.06, so the fakers that beat `THEM(^C)` are still there when the run freezes.
+
+**The migration game gets the outcome right but not the composition.** Its prediction, on-path mutual
+defection, is the I → ∞ outcome. The composition is outside its equilibrium set, which allows `THEM(^D)`
+at most 0.06. The frozen mixtures are mutually neutral at −1, so their composition is whatever the race
+left behind.
+
+**The trend is not monotone at small I.** I = 16 ends mostly in defection: 0.58–0.64 of runs, with
+cooperation at 0.09. With 1,600 iid slots, many programs are never seeded; `THEM(^C)` has about 6 copies
+expected. Cooperation peaks at I = 64, at 0.10–0.14, and then vanishes.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| 1 | cooperative share falls with I; below 0.05 at I = 1024 | **Partly.** Zero at 256 and 1024, holding. It is not monotone: 0.09 → 0.14 from I = 16 to 64 at mN = 0.1. |
+| 2 | "other frozen" falls with I; defection at least 0.8 at I = 1024 | **Partly.** Defection is 1.00 at 1024, holding. "Other frozen" is non-monotone: 0.33 → 0.63 → 0.38 → 0 at mN = 0.1. |
+| 3 | at least 90% of runs in one family at I = 1024 | **Holds:** 100% mutual defection |
+| 4 | median freeze generation increases with I | **Fails** at mN = 0.1 (430, 2,620, 2,580, 2,370). Holds roughly at mN = 1 (140, 360, 420, 470). |
+| 5 | cooperative share 0.1–0.3 at I = 64 | **Holds** (0.10–0.14) |
+
+Neither falsifier fired.
+
+**Reading.** The ε = 0 island model has a canonical I → ∞ answer in the PD, and it is inefficient.
+Seeding randomness does not substitute for mutation as a route to cooperation. More islands make the
+dilemma worse: the faker has more chances to reach every cooperative island before the fakers go extinct.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

@@ -260,6 +260,11 @@ def graph(kind, I):
 def seed_counts(kind, sizes, mu, iA0, I, N, rng):
     """(I, K) initial counts; every program of the language appears once."""
     K = len(sizes)
+    if kind == 'iid':          # each slot iid from the uniform law over programs
+        init = np.zeros((I, K), np.int64)
+        for i in range(I):
+            init[i] = rng.multinomial(N, sizes / sizes.sum())
+        return init
     if kind == 'alld':         # all A_0; only meaningful with mutation
         init = np.zeros((I, K), np.int64); init[:, iA0] = N
         return init
@@ -316,7 +321,7 @@ def run_one(job):
     A0, A1 = game.actions[0], game.actions[-1]
     iA0 = names.index(A0); iC = names.index(A1)
     iR = names.index('THEM(^%s)' % A1)
-    rng = np.random.default_rng(1000003 * rep + 7919 * ['programs', 'prior', 'hostile', 'clustered', 'alld'].index(seeding) + 17)
+    rng = np.random.default_rng(1000003 * rep + 7919 * ['programs', 'prior', 'hostile', 'clustered', 'alld', 'iid'].index(seeding) + 17)
     init = seed_counts(seeding, sizes, mu, iA0, I, N, rng)
     nbr, nnbr = graph(graph_kind, I)
     t = time.time()

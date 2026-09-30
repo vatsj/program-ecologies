@@ -201,3 +201,12 @@ halves. Later scaling runs need longer horizons or more replicates.
 
 **"P(C,C) is monotone in w_g" (implicit in the previous section's design).** There is an interior optimum
 at N = 50 and at I = 256.
+
+## Added 2026-09-30: ε = 0 islands vs island count (RESULTS.md, "ε = 0 islands vs island count")
+
+**Seeding randomness as a substitute for mutation** (conversation, 2026-09-30). At ε = 0 the absorption
+lottery concentrates as the island count grows: 100% mutual defection at 1,024 islands, and no cooperative
+end state at 256. The canonical ε = 0 answer in the PD is inefficient. Mutation stays in the object.
+
+**"The ε = 0 lottery shifts monotonically with I" and "freeze time grows with I" (Claude).** Both fail at
+small I, because iid seeding misses programs at I = 16. Freeze time is flat from I = 64 upward at mN = 0.1.
