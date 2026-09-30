@@ -180,3 +180,13 @@ holds only for the PD states with positive regret: all-`THEM(^C)` and the exploi
 
 **"A frozen PD defection state has positive regret iff its share of sucker-cooperating defectors exceeds 1/3"
 (prediction 4).** Only the "only if" direction survives. Other witnesses give positive regret at share 0.
+
+## Added 2026-09-30: island-level selection (RESULTS.md, "Island-level selection on emigration")
+
+**"Payoff-weighted emigration at w_g = 3 gives P(C,C) ≥ 0.5, and the exit mix flips to the shadow by about
+20 : 1" (Claude, 2026-09-30).** At w_g = 3 the result is 0.233 and faker exits still dominate. The rescue
+needs w_g ≈ 10, a between-island intensity about 30× the within-island one. The flip to shadow exits is 3 : 1.
+My rate estimates left out the faker states `THEM(^X)` and `THEM(^ROLE)`, which are exported by migration
+at intermediate w_g.
+
+**"Plain islands with mutation stay below 0.1 P(C,C)."** They reach 0.13.

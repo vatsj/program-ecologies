@@ -96,9 +96,12 @@ def _sample_parent(counts, paysum, U, pres, npres, isl, N, w):
 
 
 @njit(cache=True)
-def _run(U, PCC, init, nbr, nnbr, N, w, m, gens, every, seed, iR, iC, eff, dwl_edges):
-    """init: (I, K) counts.  nbr: (I, maxdeg) neighbour lists.  Returns
-    traces and summaries (see run_one)."""
+def _run(U, PCC, init, nbr, nnbr, N, w, m, gens, every, seed, iR, iC, eff, dwl_edges, eps, wg, mu_cdf):
+    """init: (I, K) counts.  nbr: (I, maxdeg) neighbour lists.  eps: mutation
+    probability per birth (offspring drawn from mu over classes); wg: island-level
+    selection on emigration (a migrant's source island is drawn among the
+    neighbours with probability proportional to exp(wg * island mean payoff);
+    wg = 0 is uniform).  Returns traces and summaries (see run_one)."""
     np.random.seed(seed)
     I, K = init.shape
     UT = np.ascontiguousarray(U.T)
@@ -125,6 +128,7 @@ def _run(U, PCC, init, nbr, nnbr, N, w, m, gens, every, seed, iR, iC, eff, dwl_e
     sp_sum = 0.0; rg_sum = 0.0; n_isl = 0; n_cool = 0
     npairs = 0; pairs = np.zeros((nsamp * I // 20 + I, 2))
     glob = np.zeros(K, np.int64)
+    gw = np.zeros(nbr.shape[1])
     events_per_gen = I * N
     s = 0
     for g in range(gens):
@@ -132,8 +136,31 @@ def _run(U, PCC, init, nbr, nnbr, N, w, m, gens, every, seed, iR, iC, eff, dwl_e
             i = np.random.randint(I)
             src = i
             if np.random.random() < m:
-                src = nbr[i, np.random.randint(nnbr[i])]
+                if wg == 0.0:
+                    src = nbr[i, np.random.randint(nnbr[i])]
+                else:
+                    mx = -1e300
+                    for t2 in range(nnbr[i]):
+                        j = nbr[i, t2]; pj = 0.0
+                        for t3 in range(npres[j]):
+                            a = pres[j, t3]
+                            pj += counts[j, a] * (paysum[j, a] - U[a, a]) / (N - 1)
+                        gw[t2] = pj / N
+                        if gw[t2] > mx: mx = gw[t2]
+                    tot = 0.0
+                    for t2 in range(nnbr[i]):
+                        gw[t2] = np.exp(wg * (gw[t2] - mx)); tot += gw[t2]
+                    u2 = np.random.random() * tot; acc2 = 0.0; src = nbr[i, nnbr[i] - 1]
+                    for t2 in range(nnbr[i]):
+                        acc2 += gw[t2]
+                        if u2 <= acc2:
+                            src = nbr[i, t2]; break
             child = _sample_parent(counts, paysum, U, pres, npres, src, N, w)
+            if eps > 0.0 and np.random.random() < eps:
+                u2 = np.random.random(); child = K - 1
+                for k in range(K):
+                    if u2 <= mu_cdf[k]:
+                        child = k; break
             # victim uniform on island i
             u = np.random.randint(N); acc = 0; victim = pres[i, 0]
             for t in range(npres[i]):
@@ -209,7 +236,7 @@ def _run(U, PCC, init, nbr, nnbr, N, w, m, gens, every, seed, iR, iC, eff, dwl_e
                     if U[a, b] < lo: lo = U[a, b]
                     if U[a, b] > hi: hi = U[a, b]
             s += 1
-            if hi - lo < 1e-12:
+            if eps == 0.0 and hi - lo < 1e-12:
                 frozen_at = g + 1
                 # fill the remaining trace with the frozen values
                 for s2 in range(s, nsamp):
@@ -243,6 +270,9 @@ def seed_counts(kind, sizes, mu, iA0, I, N, rng):
         add = rng.choice(K, size=extra, p=mu / mu.sum())
     elif kind == 'hostile':
         add = np.full(extra, iA0)
+    elif kind == 'alld':         # all A_0; only meaningful with mutation
+        init = np.zeros((I, K), np.int64); init[:, iA0] = N
+        return init
     else:
         raise ValueError(kind)
     slots = np.concatenate([slots, add])
@@ -280,16 +310,18 @@ def _tag(game_name, norole, extra):
 
 
 def run_one(job):
-    game_name, norole, graph_kind, mN, seeding, rep, I, N, w, gens, every = job
+    game_name, norole, graph_kind, mN, seeding, rep, I, N, w, gens, every = job[:11]
+    epsN, wg = (job[11], job[12]) if len(job) > 11 else (0.0, 0.0)
     game, U, PCC, names, sizes, mu = _load(game_name, norole)
     A0, A1 = game.actions[0], game.actions[-1]
     iA0 = names.index(A0); iC = names.index(A1)
     iR = names.index('THEM(^%s)' % A1)
-    rng = np.random.default_rng(1000003 * rep + 7919 * ['programs', 'prior', 'hostile', 'clustered'].index(seeding) + 17)
+    rng = np.random.default_rng(1000003 * rep + 7919 * ['programs', 'prior', 'hostile', 'clustered', 'alld'].index(seeding) + 17)
     init = seed_counts(seeding, sizes, mu, iA0, I, N, rng)
     nbr, nnbr = graph(graph_kind, I)
     t = time.time()
-    out = _run(U, PCC, init, nbr, nnbr, N, w, mN / N, gens, every, 12345 + rep, iR, iC, game.efficient_symmetric(), DWL_EDGES)
+    out = _run(U, PCC, init, nbr, nnbr, N, w, mN / N, gens, every, 12345 + rep, iR, iC, game.efficient_symmetric(), DWL_EDGES,
+               epsN / N, float(wg), np.cumsum(mu / mu.sum()))
     tr_cc, tr_pay, tr_R, tr_C, tr_npres, dom_time, trans, hist, dwl_hist, ext_R, ext_C, frozen_at, counts, disp, pairs = out
     disp = disp.copy()
     h = len(tr_cc) // 2
@@ -310,7 +342,7 @@ def run_one(job):
             hist[min(10, int(cc * 10))] += missing
             dwl_hist[np.searchsorted(DWL_EDGES, eff - pay, side='right') - 1] += missing
             disp[2] += missing; disp[3] += missing       # frozen: every island is cool (spread 0)
-    return dict(game=_tag(game_name, norole, ''), graph=graph_kind, mN=mN, seeding=seeding, rep=rep,
+    return dict(game=_tag(game_name, norole, ''), graph=graph_kind, mN=mN, seeding=seeding, rep=rep, epsN=epsN, wg=wg,
                 pcc_2nd=float(tr_cc[h:].mean()), pay_2nd=float(tr_pay[h:].mean()),
                 pcc_final=float(tr_cc[-1]), pay_final=float(tr_pay[-1]),
                 R_2nd=float(tr_R[h:].mean()), C_2nd=float(tr_C[h:].mean()),

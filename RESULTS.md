@@ -1091,6 +1091,51 @@ equilibrium that is worse for everyone.
 The falsifier (all-D positive, a non-faker top witness of all-`THEM(^C)`, a positive-regret convention,
 or a wrong mixed-eq witness) did not fire.
 
+## Island-level selection on emigration (`runs/multilevel_pd.md`, predictions in `predictions/2026-09-30-multilevel.md`)
+
+`src/islands.py` gains mutation and payoff-weighted emigration. The mutation rate is εN = 0.1 per island
+per generation. A migrant's source island is drawn among the neighbours with probability proportional to
+exp(w_g · island mean payoff).
+
+Setup: PD, weak L_6 with `ROLE`; 64 islands of N = 100 on a complete graph; mN = 1 migrant per island per
+generation; w = 0.3 within islands. Every island starts all-D. Each run is 5·10⁵ generations, with 5
+replicates per w_g. This is a finite-εN run, so it measures an approach rate and tests a mechanism; it is not
+the ε→0 object. Island weighting by mean payoff approximates policy regret at the island level. Because it
+weights islands by payoff, it sits close to rule 3.
+
+| w_g | P(C,C), 2nd half | P(C,C), 1st half | payoff | exits from `THEM(^C)` islands: faker / shadow / other | dominant classes, replicate 0 |
+|---|---|---|---|---|---|
+| 0 | 0.129 ± 0.023 | 0.140 | −0.786 | 6,582 / 4,286 / 341 | D 0.71, `THEM(^ROLE)` 0.13, `THEM(^X)` 0.04, `THEM(^C)` 0.03 |
+| 1 | 0.148 ± 0.023 | 0.141 | −0.763 | 6,188 / 3,375 / 357 | D 0.63, `THEM(^ROLE)` 0.13, `THEM(^X)` 0.11, C 0.06 |
+| 3 | 0.233 ± 0.016 | 0.226 | −0.669 | 2,225 / 1,159 / 370 | D 0.43, `THEM(^X)` 0.26, C 0.12, `and(X,THEM(ME))` 0.11 |
+| 10 | 0.748 ± 0.065 | 0.730 | −0.217 | 61,382 / 188,546 / 6,948 | `THEM(^C)` 0.61, D 0.16, C 0.12, X 0.02 |
+
+**It rescues cooperation, but only at a high intensity.** P(C,C) rises monotonically, but it stays below
+0.25 until w_g = 10. At w_g = 10 an island at payoff −1 exports e^(−10) as much as a cooperative island,
+and the between-island selection intensity is about 30× the within-island intensity w = 0.3. The
+multilevel threshold is steep.
+
+**Suppressing the faker brings back the shadow.** Island selection stops faker and D islands from
+exporting. It cannot see the shadow, because ALLC islands pay 0, the same as `THEM(^C)` islands. So the
+exit mix flips from faker-dominated at w_g ≤ 3 to shadow-dominated at w_g = 10, by 3 : 1. The shadow
+islands are then taken by D mutants and recolonized, and at w_g = 10 that churn accounts for about 190,000
+island transitions.
+
+**Plain islands with mutation (w_g = 0) reach P(C,C) = 0.13**, about ten times the well-mixed chain at
+N = 100. The ergodic island model is not the same object as the well-mixed one. That is queue item (i) of
+§9.5, answered only at this single setting.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| 1 | w_g = 0 below 0.1 in every replicate | **Failed.** Replicates are 0.10–0.17. |
+| 2 | monotone; w_g = 3 at least 0.5; w_g = 10 at least 0.7 | **Monotone holds**; w_g = 3 **failed** (0.233); w_g = 10 **holds** (0.748) |
+| 3 | faker exits dominate at w_g = 0; shadow exits dominate at w_g ≥ 3 | **Partly.** Faker exits dominate at w_g = 0 (holds) and still at w_g = 3 (fails). Shadow exits dominate at w_g = 10 by 3 : 1, not the estimated 20 : 1. |
+| 4 | halves within 0.1 at w_g ≥ 3 | **Holds** (0.226 vs 0.233; 0.730 vs 0.748) |
+
+The falsifier, mean P(C,C) < 0.2 at w_g = 3, did not fire, but only barely, at 0.233.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
