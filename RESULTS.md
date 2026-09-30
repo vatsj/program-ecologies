@@ -1041,6 +1041,56 @@ in two senses:
 It does not hold as "the spread shrinks as migration → 0" at fixed N. At N = 400 migration moves neither the
 spread nor the payoff. Migration's effect is on which cool state, or which absorbing state, the islands occupy.
 
+## Regret witnesses of persistent states (`runs/regret_witnesses.md`, predictions in `predictions/2026-09-30-regret-witnesses.md`)
+
+`src/regret.py` computes r(q) = u(q, σ) − u(σ, σ) over every class q, for states taken from earlier runs.
+This is a post-hoc analysis with no new simulation. A state is no-regret iff max r ≤ 10⁻⁹, which for a
+symmetric population is a symmetric Nash equilibrium of the program game.
+
+| game | state | payoff | max regret | witness |
+|---|---|---|---|---|
+| PD | all-D | −1 | 0 | — |
+| PD | all-`THEM(^C)` | 0 | 1 = T − R | `THEM(^D)` (the shadow C has 0) |
+| PD | all-X, all-`ROLE` | −0.5 | 0.5 | D |
+| PD islands | frozen all-`THEM(^C)` (56) | 0 | 1 in every run | `THEM(^D)`, extinct |
+| PD islands | frozen mutual defection (97) | −1 | 0 in 38 runs; median 0.013, max 1.99 | `not(THEM(ME))` ×23, `THEM(^C)` ×12, `not(THEM(^C))` ×11 |
+| PD islands | frozen exploitation probes (167) | −0.25 to −0.875 | > 0 in every run; median 0.75 | `not(and(THEM(ME),ROLE))` ×55, `C` ×44, `or(ROLE,THEM(^D))` ×37 |
+| Chicken + `ROLE` | all-`ROLE`, all-`not(ROLE)` | 0.5 | 0 | — |
+| Chicken + `ROLE` | all-`THEM(ME)`, all-`not(or(THEM(THEM),X))`, all-`not(or(THEM(ME),X))` | 0 | **0** | — |
+| Chicken, no `ROLE` | mixed equilibrium: `not(THEM(ME))` 9/11 + Straight 2/11 | −0.182 | 1.636 | `not(THEM(^Straight))` |
+| Chicken, no `ROLE` | three-class state (27/41, 8/41, 6/41) | −14/41 = −0.341 | **0** (exact rest point) | — |
+| Chicken, no `ROLE` | `not(THEM(ME))` 0.627 + `not(or(X,THEM(ME)))` 0.372 | −0.352 | 0.164 | `not(THEM(^Straight))` |
+
+**The Chicken mutual-Swerve states are no-regret.** `THEM(ME)` and its relatives are mirrors: they go
+straight against a Straight player, so Straight earns −10 against them. The islands that persisted at
+payoff 0 in Chicken with `ROLE` are symmetric Nash equilibria of the program game, not artifacts of ε = 0.
+In the ε→0 chain their only exits are neutral drift, which vanishes like 1/N. So in lim_N they compete with
+the `ROLE` conventions on drift rates alone. That is untested: the Chicken chain results are at N ≤ 1,000.
+
+**Chicken without `ROLE`: a no-regret state below the mixed equilibrium.**
+- The mixed-equilibrium state is strongly invaded by `not(THEM(^Straight))`. That program goes straight
+  against the swerver and swerves against Straight. Its regret is 1.64.
+- It invades until the three-class state `not(THEM(THEM))` 27/41, Straight 8/41, `not(THEM(^Straight))` 6/41,
+  which is an exact no-regret rest point.
+- That state pays −14/41 = −0.341. This is the state the N = 400 islands held in the cool check.
+
+Selection over programs moved this game from its base-game mixed equilibrium to a program-game Nash
+equilibrium that is worse for everyone.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| 1 | PD all-D no-regret | **Holds** |
+| 2 | all-`THEM(^C)` regret 1 by a faker; shadow 0 | **Holds** |
+| 3 | all-X and all-`ROLE` positive, D a witness | **Holds** (0.5, D) |
+| 4 | frozen PD island states | Cooperative and exploitation-probe runs **hold**. For mutual defection: every no-regret run has a sucker-cooperating share ≤ 1/3 (max 0.33), but "regret > 0 iff that share > 1/3" **fails**. 59 positive-regret runs have other witnesses, such as `not(THEM(ME))` and `THEM(^C)`, at shares down to 0. |
+| 5 | Chicken + `ROLE`: conventions no-regret; mutual-Swerve islands positive regret | Conventions **hold**. The mutual-Swerve part **fails**: regret 0, protected by mirrors. |
+| 6 | Chicken no `ROLE`: mixed-eq regret ≈ 1.6 by `not(THEM(^Straight))`; three-class state positive | Mixed-equilibrium part **holds** (1.636, that witness). The three-class part **fails**: it is exactly no-regret. |
+
+The falsifier (all-D positive, a non-faker top witness of all-`THEM(^C)`, a positive-regret convention,
+or a wrong mixed-eq witness) did not fire.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

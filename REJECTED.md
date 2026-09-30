@@ -169,3 +169,14 @@ depending on w.
 0.267 at N = 100 against 0.142 at N = 400 in the same state. Migration changes which state the islands hold,
 not how cool they are. The surviving statement is the time-averaged one: island compositions sit on cool rest
 points, and the instantaneous spread vanishes as N → ∞.
+
+## Added 2026-09-30: regret witnesses (RESULTS.md, "Regret witnesses")
+
+**"The islands' inefficient persistent states are ε = 0 artifacts, held only because their invaders went
+extinct" (my predictions 5 and 6).** Wrong for Chicken. The self-referential mutual-Swerve states (`THEM(ME)`
+family) and the three-class no-`ROLE` state at −14/41 are exact no-regret states, meaning symmetric Nash
+equilibria of the program game. They persist because nothing strictly invades them. The artifact reading
+holds only for the PD states with positive regret: all-`THEM(^C)` and the exploitation probes.
+
+**"A frozen PD defection state has positive regret iff its share of sucker-cooperating defectors exceeds 1/3"
+(prediction 4).** Only the "only if" direction survives. Other witnesses give positive regret at share 0.
