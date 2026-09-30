@@ -210,3 +210,18 @@ end state at 256. The canonical ε = 0 answer in the PD is inefficient. Mutation
 
 **"The ε = 0 lottery shifts monotonically with I" and "freeze time grows with I" (Claude).** Both fail at
 small I, because iid seeding misses programs at I = 16. Freeze time is flat from I = 64 upward at mN = 0.1.
+
+## Added 2026-09-30: modal arm (RESULTS.md, "Modal (Löbian) arm")
+
+**"Black-magic fixed points" (above), re-opened as the modal arm.** New justification: self-reference
+guarded by provability has a unique fixed point (de Jongh–Sambin), so no selection rule does hidden work.
+The arm is an instrument; it is not adopted into the theory.
+
+**"A free provability box is an upper bound" (Claude).** It is not. The arm adds a capability and also
+removes X, `ROLE` and unboxed simulation. It is a distinct idealization, raised by the astra review.
+
+**My modal-arm magnitude predictions (Claude).**
+- *Cooperation magnitudes:* I predicted P(C,C) 0.04–0.45, counting FairBot's entry alone. Three or four
+  unfakeable provers enter at equal μ, and P(C,C) was 0.19–0.73.
+- *PrudentBot:* I predicted π(PrudentBot) < 0.01; it reached 0.0127.
+- *The "no strict exits" falsifier:* it cannot fire, because soundness guarantees it.

@@ -1240,6 +1240,104 @@ Neither falsifier fired.
 Seeding randomness does not substitute for mutation as a route to cooperation. More islands make the
 dilemma worse: the faker has more chances to reach every cooperative island before the fakers go extinct.
 
+## Modal (Löbian) arm: lim_N in the PD (`runs/modal_limN.md`, predictions in `predictions/2026-09-30-modal-arm.md`)
+
+**The arm.** `src/modal.py` builds pure modal agents of rank 0:
+- **Operators.** Four provability boxes: `BOX`/`BOXD`, provable in PA that the opponent plays C/D against
+  P; and `BOX1`/`BOXD1`, the same in PA + Con(PA).
+- **Semantics.** Evaluated on the linear Kripke chain of provability logic GL.
+- **Excluded.** No X, no `ROLE`, no unboxed simulation.
+- **Prior.** Same length prior as the weak arm. The box is the application node, so FairBot costs 3 nodes.
+- **Sizes.** 1,020 / 19,544 / 89,842 programs at n = 6 / 8 / 9, which are 51 / 471 / 863 behavioural classes.
+- **Checks.** The evaluator agrees with direct recursion on syntax trees for all 1,040,400 pairs at n = 6,
+  and reproduces the known agent outcomes, with PrudentBot needing PA + 1.
+
+The runs are the ε→0 chain. Three cells were unfinished at write-up: n = 8 at N = 3,000 and 10⁴, and n = 9
+at w = 0.1, N = 10⁴. They will be appended.
+
+| n | w | N | P(C,C) | π(all-D) | π(all-FairBot) | π(all-PrudentBot) | ρ(FairBot \| all-D) | exit rate from all-FairBot | ALLC share of exits |
+|---|---|---|---|---|---|---|---|---|---|
+| 9 | 0.1 | 100 | 0.124 | 0.873 | 0.024 | 0.0002 | 0.0248 | 4.95e-03 | 0.94 |
+| 9 | 0.1 | 300 | 0.188 | 0.810 | 0.039 | 0.0007 | 0.0144 | 1.62e-03 | 0.96 |
+| 9 | 0.1 | 1,000 | 0.278 | 0.721 | 0.064 | 0.0016 | 0.0079 | 4.85e-04 | 0.96 |
+| 9 | 0.1 | 3,000 | 0.377 | 0.623 | 0.095 | 0.0030 | 0.0046 | 1.62e-04 | 0.96 |
+| 9 | 0.1 | 30,000 | 0.622 | 0.378 | 0.182 | 0.0077 | 0.0015 | 1.62e-05 | 0.96 |
+| 9 | 0.3 | 100 | 0.186 | 0.813 | 0.038 | 0.0007 | 0.0421 | 4.85e-03 | 0.96 |
+| 9 | 0.3 | 300 | 0.268 | 0.731 | 0.060 | 0.0014 | 0.0246 | 1.62e-03 | 0.96 |
+| 9 | 0.3 | 1,000 | 0.377 | 0.623 | 0.094 | 0.0029 | 0.0136 | 4.85e-04 | 0.96 |
+| 9 | 0.3 | 3,000 | 0.491 | 0.508 | 0.134 | 0.0050 | 0.0079 | 1.62e-04 | 0.96 |
+| 9 | 0.3 | 10,000 | 0.622 | 0.377 | 0.181 | 0.0076 | 0.0044 | 4.85e-05 | 0.96 |
+| 9 | 0.3 | 30,000 | 0.727 | 0.273 | 0.227 | 0.0101 | 0.0025 | 1.62e-05 | 0.96 |
+| 9 | 1 | 100 | 0.272 | 0.727 | 0.060 | 0.0013 | 0.0742 | 4.85e-03 | 0.96 |
+| 9 | 1 | 300 | 0.376 | 0.623 | 0.092 | 0.0027 | 0.0441 | 1.62e-03 | 0.96 |
+| 9 | 1 | 1,000 | 0.504 | 0.496 | 0.135 | 0.0050 | 0.0246 | 4.85e-04 | 0.96 |
+| 9 | 1 | 3,000 | 0.624 | 0.376 | 0.179 | 0.0074 | 0.0144 | 1.62e-04 | 0.96 |
+| 9 | 1 | 10,000 | 0.739 | 0.261 | 0.227 | 0.0100 | 0.0079 | 4.85e-05 | 0.96 |
+| 9 | 1 | 30,000 | 0.818 | 0.182 | 0.275 | 0.0127 | 0.0046 | 1.62e-05 | 0.96 |
+| 6 | 0.3 | 100 | 0.169 | 0.830 | 0.037 | — | 0.0421 | 4.87e-03 | 0.96 |
+| 6 | 0.3 | 300 | 0.246 | 0.754 | 0.059 | — | 0.0246 | 1.62e-03 | 0.96 |
+| 6 | 0.3 | 1,000 | 0.345 | 0.655 | 0.094 | — | 0.0136 | 4.87e-04 | 0.96 |
+| 6 | 0.3 | 3,000 | 0.452 | 0.548 | 0.137 | — | 0.0079 | 1.62e-04 | 0.96 |
+| 6 | 0.3 | 10,000 | 0.587 | 0.413 | 0.189 | — | 0.0044 | 4.87e-05 | 0.96 |
+| 6 | 0.3 | 30,000 | 0.707 | 0.293 | 0.233 | — | 0.0025 | 1.62e-05 | 0.96 |
+| 8 | 0.3 | 100 | 0.182 | 0.817 | 0.038 | 0.0006 | 0.0421 | 4.85e-03 | 0.96 |
+| 8 | 0.3 | 300 | 0.263 | 0.736 | 0.060 | 0.0012 | 0.0246 | 1.62e-03 | 0.96 |
+| 8 | 0.3 | 1,000 | 0.371 | 0.629 | 0.094 | 0.0026 | 0.0136 | 4.85e-04 | 0.96 |
+| 8 | 0.3 | 30,000 | 0.725 | 0.275 | 0.226 | 0.0084 | 0.0025 | 1.62e-05 | 0.96 |
+
+**Cooperation rises with N, with no peak.**
+- *Magnitude.* At n = 9 and w = 0.3, P(C,C) is 0.19 at N = 100, 0.38 at 10³, 0.62 at 10⁴ and 0.73 at
+  3·10⁴. At w = 1 it reaches 0.82.
+- *Rate.* The ratio of cooperative mass to all-D mass grows like N^0.43–0.45 over N ∈ [10³, 3·10⁴], at
+  every n and w. This approaches the predicted N^(1/2) from below.
+- *Mechanism.* Entry ρ(FairBot | all-D) falls like N^(−0.50). The exit rate from all-FairBot falls like
+  N^(−1.00): all of it is neutral drift, 94–96% of it into ALLC, which D then takes.
+- *Contrast with the weak arm.* The weak arm peaked at 0.013 and fell to 0.004 at N = 3·10⁴. The modal arm is
+  the first instrument whose cooperation rises toward 1 in lim_N.
+- *Extrapolation.* 90% cooperation would take roughly N ≈ 5·10⁵ at w = 0.3 and about 1.4·10⁵ at w = 1.
+
+**Support and transitions.** The support is all-D plus a family of mutually cooperating provers at roughly
+equal weight: `BOX(THEM(ME))` (FairBot), `BOX1(THEM(ME))`, `BOX(THEM(THEM))`, and from N ≈ 3,000 also
+`and(BOX1(THEM(ME)),not(BOX(THEM(ME))))`. PrudentBot sits at 0.0002–0.013, rising with N. Polymorphic mass
+is at most 3·10⁻⁷, and no transition is indeterminate.
+
+`BOX(THEM(THEM))`, "cooperate iff you provably cooperate with yourself", is a third-party probe, with
+yourself as the third party. At n ≥ 8 it has strict invaders, and at n = 9 it falls behind FairBot: 0.156
+against 0.227 at N = 3·10⁴. The faker law of the weak arm operates inside the modal arm too.
+
+**What this does and does not show** (from the reviews below).
+- A free, sound, self-referential oracle removes both obstacles by construction:
+  - grounding cost, because FairBot enters all-D neutrally;
+  - fakeability, because soundness forbids exploiting FairBot.
+- So "efficient in the limit" is built in once the primitive is granted. The empirical content is the rate,
+  a cooperative-to-defect ratio ∝ N^0.44, and the constant, set by the shadow's μ-weight, μ(C) ≈ 0.47.
+- "No strict exits" is a theorem of soundness, so it tests the evaluator, not the dynamics.
+- The comparison with the weak arm is confounded. The modal arm also drops X and `ROLE`, so fewer exploiting
+  classes exist. The effect cannot yet be attributed to provability alone.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| 1 | no peak; P(C,C) within 1.5× of 0.04 / 0.12 / 0.3 / 0.45 | **No peak holds.** The **magnitudes failed** (0.19 / 0.38 / 0.62 / 0.73). I counted FairBot's entry alone, but three or four unfakeable provers enter at equal μ. |
+| 2 | no strict exits from all-FairBot; exit slope in [−1.1, −0.9] | **Holds** (0; −1.00). The first part holds by construction. |
+| 3 | ρ(FairBot \| all-D) slope in [−0.55, −0.45] | **Holds** (−0.49 to −0.50) |
+| 4 | ALLC at least 0.9 of FairBot's exits | **Holds** (0.94–0.96) |
+| 5 | π(all-PrudentBot) < 0.01 at n = 8, 9; n = 9 within ±20% of n = 6 | PrudentBot **narrowly failed** (0.0101 at w = 0.3, N = 3·10⁴; 0.0127 at w = 1). The n-comparison **holds** (0.727 vs 0.707). |
+| 6 | P(C,C) at N = 3·10⁴ at least 10× the weak arm's 0.0044 | **Holds** (0.73, 165×) |
+
+Neither falsifier fired: there is no peak and no strict exit.
+
+**Reviews.** Posted after the run as a pilot of the review workflow: `reviews/2026-09-30-modal-arm-gpt-6-astra.md`
+and `reviews/2026-09-30-modal-arm-fable.md`. Points adopted:
+- Efficiency is built in, so the claim is the exponent.
+- Verdict 2 cannot fire.
+- The weak-vs-modal comparison is confounded by X and `ROLE`, and needs a control arm stripped of them.
+- "Upper bound" is the wrong word for a free box. The arm removes capabilities as well as adding one, so it
+  is a distinct idealization.
+- My 90% extrapolation, near 10⁶ from the static estimate, was arithmetically off. It is superseded by the
+  measured ratio above.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
