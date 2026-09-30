@@ -260,6 +260,9 @@ def graph(kind, I):
 def seed_counts(kind, sizes, mu, iA0, I, N, rng):
     """(I, K) initial counts; every program of the language appears once."""
     K = len(sizes)
+    if kind == 'alld':         # all A_0; only meaningful with mutation
+        init = np.zeros((I, K), np.int64); init[:, iA0] = N
+        return init
     slots = np.repeat(np.arange(K), sizes)
     extra = I * N - len(slots)
     if extra < 0:
@@ -270,9 +273,6 @@ def seed_counts(kind, sizes, mu, iA0, I, N, rng):
         add = rng.choice(K, size=extra, p=mu / mu.sum())
     elif kind == 'hostile':
         add = np.full(extra, iA0)
-    elif kind == 'alld':         # all A_0; only meaningful with mutation
-        init = np.zeros((I, K), np.int64); init[:, iA0] = N
-        return init
     else:
         raise ValueError(kind)
     slots = np.concatenate([slots, add])
@@ -342,7 +342,7 @@ def run_one(job):
             hist[min(10, int(cc * 10))] += missing
             dwl_hist[np.searchsorted(DWL_EDGES, eff - pay, side='right') - 1] += missing
             disp[2] += missing; disp[3] += missing       # frozen: every island is cool (spread 0)
-    return dict(game=_tag(game_name, norole, ''), graph=graph_kind, mN=mN, seeding=seeding, rep=rep, epsN=epsN, wg=wg,
+    return dict(game=_tag(game_name, norole, ''), graph=graph_kind, mN=mN, seeding=seeding, rep=rep, epsN=epsN, wg=wg, I=I, N=N,
                 pcc_2nd=float(tr_cc[h:].mean()), pay_2nd=float(tr_pay[h:].mean()),
                 pcc_final=float(tr_cc[-1]), pay_final=float(tr_pay[-1]),
                 R_2nd=float(tr_R[h:].mean()), C_2nd=float(tr_C[h:].mean()),

@@ -190,3 +190,14 @@ My rate estimates left out the faker states `THEM(^X)` and `THEM(^ROLE)`, which 
 at intermediate w_g.
 
 **"Plain islands with mutation stay below 0.1 P(C,C)."** They reach 0.13.
+
+## Added 2026-09-30: multilevel scaling (RESULTS.md, "Multilevel threshold vs island size and count")
+
+**"The multilevel threshold is flat in island count" (Claude).** It is flat from 64 to 256 islands, 4.8 at
+both, but rises to 10.5 at 16 islands.
+
+**"2·10⁵ generations mixes every cell at N ≤ 100" (Claude).** Seven cells differ by more than 0.1 between
+halves. Later scaling runs need longer horizons or more replicates.
+
+**"P(C,C) is monotone in w_g" (implicit in the previous section's design).** There is an interior optimum
+at N = 50 and at I = 256.

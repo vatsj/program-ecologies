@@ -1136,6 +1136,64 @@ N = 100. The ergodic island model is not the same object as the well-mixed one. 
 
 The falsifier, mean P(C,C) < 0.2 at w_g = 3, did not fire, but only barely, at 0.233.
 
+## Multilevel threshold vs island size and count (`runs/multilevel_scaling.md`, predictions in `predictions/2026-09-30-multilevel-scaling.md`)
+
+Same model as the previous section. Per-island rates are fixed at εN = 0.1 mutants and mN = 1 migrant per
+island per generation. Each run is 2·10⁵ generations, with 3 replicates per cell. Cells are mean
+second-half P(C,C), with the first-half mean in parentheses. w_g* is where the mean crosses ½. This is a
+finite-εN run, so it measures approach rates.
+
+| I | N | w_g=3 | w_g=6 | w_g=10 | w_g=15 | w_g=25 | w_g* |
+|---|---|---|---|---|---|---|---|
+| 64 | 50 | 0.241 (0.238) | 0.780 (0.708) | 0.818 (0.685) | 0.586 (0.574) | 0.561 (0.627) | 4.2 |
+| 64 | 100 | 0.227 (0.215) | 0.637 (0.441) | 0.817 (0.589) | 0.791 (0.625) | 0.883 (0.635) | 4.8 |
+| 64 | 200 | 0.216 (0.192) | 0.203 (0.187) | 0.577 (0.613) | 0.747 (0.697) | 0.651 (0.756) | 9.0 |
+| 16 | 100 | 0.184 (0.163) | 0.224 (0.296) | 0.482 (0.641) | 0.631 (0.777) | 0.674 (0.781) | 10.5 |
+| 256 | 100 | 0.246 (0.248) | 0.620 (0.598) | 0.735 (0.689) | 0.641 (0.595) | 0.512 (0.475) | 4.8 |
+
+**The threshold rises with island size.** w_g* goes from 4.2 at N = 50 to 4.8 at N = 100 to 9.0 at
+N = 200. At w_g = 6 the N = 200 islands stay at 0.20, against 0.64–0.78 for the smaller ones. This matches
+the rate argument:
+- recolonizing a D island needs a `THEM(^C)` migrant to fix, with ρ ~ N^(−1/2);
+- mutation-borne fakers take cooperative islands at an N-independent rate that island selection cannot
+  touch.
+
+At fixed w_g the rescue weakens as islands grow.
+
+**Small metapopulations do worse.** w_g* is 4.8 at both I = 64 and I = 256, but 10.5 at I = 16, with
+replicate spread 0.04–0.80. With 16 islands, one mutation-borne exit is a large share of the cooperative
+islands.
+
+**Too much island selection hurts.** At N = 50 and at I = 256, P(C,C) peaks at w_g = 6–10 and then falls:
+- N = 50: 0.82 at w_g = 10, then 0.56 at w_g = 25;
+- I = 256: 0.74 at w_g = 10, then 0.51 at w_g = 25.
+
+The fall appears in all three replicates. A post-hoc, untested hypothesis: at extreme w_g, migrants come
+almost only from payoff-0 islands. Those include ALLC shadow islands, which island selection cannot tell
+apart from `THEM(^C)` islands. So the shadow is exported as readily as the reciprocator.
+
+**Caveats.** Replicate spread is 0.1–0.3, and at N = 100 first and second halves differ by up to 0.25.
+The first half includes the approach from all-D, but several cells are not mixed within 2·10⁵ generations.
+The thresholds carry about one grid step of uncertainty.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| 1 | P(C,C) decreasing in N at w_g = 10 and w_g = 15 | **Partly.** w_g = 10: 0.818 ≈ 0.817 > 0.577. w_g = 15: fails, with N = 50 at 0.586 below N = 100 at 0.791. |
+| 2 | w_g* rises with N by at least one grid step from 100 to 200; N = 50 lower | **Holds:** 4.2 < 4.8 < 9.0 |
+| 3 | w_g* flat in I within one grid step | **Fails at I = 16** (10.5); holds from 64 to 256 (4.8, 4.8) |
+| 4 | halves within 0.1 at N ≤ 100 | **Fails** in 7 cells, with gaps up to 0.25 |
+| 5 | I = 64, N = 100, w_g = 10 reproduces 0.75 within 0.1 | **Holds** (0.817) |
+
+The falsifier did not fire: w_g* rises from N = 100 to N = 200, and w_g = 15 gives 0.747 at N = 200
+against 0.791 at N = 100.
+
+**Reading.** Payoff-weighted emigration is a finite-island-size rescue. The required intensity roughly
+doubles from N = 100 to N = 200. It needs enough islands, and it has an interior optimum. The evidence is
+consistent with it failing in lim_N at any fixed w_g, but not conclusive: this is three sizes, three
+replicates, and imperfect mixing.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
