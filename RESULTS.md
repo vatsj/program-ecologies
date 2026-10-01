@@ -1725,6 +1725,47 @@ n = 11 is within 0.002 of n = 10 in every variant. Entry ρ(main | all-D) is 0.0
 - Without self-reference, certificates fall back to the weak arm's faker limit.
 - Efficiency is built in here as in the modal arm: the mirror, like soundness, excludes FairBot's fakers. The static single-edge estimate was the whole answer, so the content is the comparison across semantics at a fixed grammar and prior, not any one curve.
 
+## Addendum to "Priced arm": chain polish fix and the c = 10⁻³ cells (`runs/priced_recheck.md`, commit a49a007)
+
+**The bug.** Fable found it while reviewing the price-scaling-path brief.
+- When a mutant's payoff gap at 1/N is below the polish threshold of 10⁻³, `replicator` projects onto any
+  equal-fitness point within 10⁻² and does not check stability.
+- For a priced prover entering all-D, that point is the *unstable* separatrix x* = 2c/(1+c). `Chain.fates` accepted
+  it as a target.
+- This created a polymorphic stepping stone over the cost barrier.
+
+**The fix.** A polished interior point reached from 1/N that is not attracting is now treated as a barrier: the
+mutant dies at first order and the valley search runs.
+
+**Who was affected.** Only cells where a payoff gap falls below 10⁻³:
+- *Affected:* every c = 10⁻³ cell.
+- *Unaffected:* costs at c ≥ 10⁻² are multiples of c, and c = 0 has exact ties. Those cells reproduce exactly
+  (0.3453, 0.7068, 0.0150; lazy n = 8 at 1.0000 and 0.8132). The weak, modal, matched-control and certificate arms
+  have no small payoff gaps.
+
+**Re-run of all 24 c = 10⁻³ cells.**
+
+| pricing | n | P(C,C) at N = 10² / 10³ / 10⁴ / 3·10⁴, after the fix | before |
+|---|---|---|---|
+| atoms = depth | 6 | 0.166 / **0.310** / 0.302 / 0.195 | 0.166 / 0.832 / 0.300 / 0.194 |
+| atoms | 8 | 0.178 / **0.332** / 0.319 / 0.207 | 0.178 / 0.840 / 0.318 / 0.205 |
+| depth | 8 | 0.179 / **0.335** / 0.360 / 0.295 | 0.179 / 0.842 / 0.376 / 0.328 |
+| lazy | 6 and 8 | unchanged | — |
+
+- The suspect cell (atoms/depth, c = 10⁻³, N = 10³) was 0.83 and is now 0.31, matching the two-edge prediction. The
+  attribution in "Suspect cell" above is confirmed.
+- **Prediction 2 now covers that cell.** The c = 10⁻³ curve peaks and falls (0.17 / 0.31 / 0.30 / 0.19 at n = 6),
+  inside the ±50% band around 0.17 / 0.36 / 0.39 / 0.27. Every fixed priced cell is at or below the free arm at the
+  same N.
+- **Remaining polymorphic mass at n = 8** (0.7–1.2% under atoms and depth) is genuine, not an artifact.
+  - `BOXD(THEM(^C))` cooperates with the incumbent `and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))` and pays less.
+  - It defects on its own kind.
+  - So it is a price-ladder rung with a stable interior rest point, at x* = c (depth) or 3c (atoms); the
+    2×2 game has a positive gap when rare and a negative gap when common.
+  - Its cost to P(C,C) is about 0.1%.
+- Lazy n = 8 at c = 10⁻³ remains above the free arm (0.813 against 0.725 at N = 3·10⁴). That is incumbency, not
+  numerics: the cell has zero polymorphic mass and is unchanged by the fix.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
