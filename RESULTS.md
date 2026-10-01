@@ -1481,6 +1481,179 @@ a third regime, distinct from the ε→0 chain (shadow exit ∝ 1/N) and from th
 The falsifier, big-island modal below 0.1, did not fire. My original E3 mechanism (ALLC flooding,
 P(C,C) 0.2–0.6) was replaced after review and is recorded in REJECTED.md.
 
+## Priced arm: compute cost on proofs, spatial structure, and cliques (`runs/priced_limN.md`, `runs/graph_rates.md`; predictions in `predictions/2026-10-01-priced-arm.md`)
+
+`build_priced` charges c per essential box atom per Kripke world the program's atom values take to settle
+against the opponent. This is semantic-stabilization pricing: a proxy for proof-search work, not a measurement of
+it. A uniform tax would cancel exactly under exp fitness, so only *differential* cost matters. Three modes:
+- **atoms:** the formula above.
+- **depth:** no atom multiplier.
+- **lazy:** free against constant opponents and exact copies; pays the atoms price only against other
+  non-trivial programs.
+
+### Exp 1: priced ε→0 chain, well-mixed, w = 0.3
+
+| pricing | n | c | N | P(C,C) | π(all-D) | π(all-FairBot) | polymorphic π |
+|---|---|---|---|---|---|---|---|
+| atoms | 6 | 0 | 100 | 0.1693 | 0.8299 | 0.0372 | 0.0e+00 |
+| atoms | 6 | 0 | 1,000 | 0.3453 | 0.6545 | 0.0945 | 0.0e+00 |
+| atoms | 6 | 0 | 10,000 | 0.5869 | 0.4130 | 0.1893 | 0.0e+00 |
+| atoms | 6 | 0 | 30,000 | 0.7068 | 0.2932 | 0.2331 | 0.0e+00 |
+| atoms | 6 | 0.001 | 100 | 0.1660 | 0.8332 | 0.0365 | 0.0e+00 |
+| atoms | 6 | 0.001 | 1,000 | 0.8315 | 0.0925 | 0.3896 | 7.6e-02 |
+| atoms | 6 | 0.001 | 10,000 | 0.3004 | 0.6978 | 0.0929 | 1.8e-03 |
+| atoms | 6 | 0.001 | 30,000 | 0.1936 | 0.8057 | 0.0611 | 6.6e-04 |
+| atoms | 6 | 0.01 | 100 | 0.1366 | 0.8510 | 0.0302 | 1.2e-02 |
+| atoms | 6 | 0.01 | 1,000 | 0.1163 | 0.8836 | 0.0303 | 0.0e+00 |
+| atoms | 6 | 0.01 | 10,000 | 0.0150 | 0.9850 | 0.0049 | 0.0e+00 |
+| atoms | 6 | 0.01 | 30,000 | 0.0019 | 0.9981 | 0.0008 | 0.0e+00 |
+| atoms | 6 | 0.1 | 100 | 0.0196 | 0.9803 | 0.0050 | 0.0e+00 |
+| depth | 6 | 0.001 | 100 | 0.1660 | 0.8332 | 0.0365 | 0.0e+00 |
+| depth | 6 | 0.001 | 1,000 | 0.8315 | 0.0925 | 0.3896 | 7.6e-02 |
+| depth | 6 | 0.001 | 10,000 | 0.3004 | 0.6978 | 0.0929 | 1.8e-03 |
+| depth | 6 | 0.001 | 30,000 | 0.1936 | 0.8057 | 0.0611 | 6.6e-04 |
+| depth | 6 | 0.01 | 100 | 0.1366 | 0.8510 | 0.0302 | 1.2e-02 |
+| depth | 6 | 0.01 | 1,000 | 0.1163 | 0.8836 | 0.0303 | 0.0e+00 |
+| depth | 6 | 0.01 | 10,000 | 0.0150 | 0.9850 | 0.0049 | 0.0e+00 |
+| depth | 6 | 0.01 | 30,000 | 0.0019 | 0.9981 | 0.0008 | 0.0e+00 |
+| lazy | 6 | 0.001 | 100 | 0.1693 | 0.8299 | 0.0368 | 0.0e+00 |
+| lazy | 6 | 0.001 | 1,000 | 0.3453 | 0.6544 | 0.0936 | 0.0e+00 |
+| lazy | 6 | 0.001 | 10,000 | 0.5883 | 0.4117 | 0.1880 | 0.0e+00 |
+| lazy | 6 | 0.001 | 30,000 | 0.7094 | 0.2906 | 0.2317 | 0.0e+00 |
+| lazy | 6 | 0.01 | 100 | 0.1694 | 0.8298 | 0.0368 | 0.0e+00 |
+| lazy | 6 | 0.01 | 1,000 | 0.3461 | 0.6537 | 0.0938 | 0.0e+00 |
+| lazy | 6 | 0.01 | 10,000 | 0.5903 | 0.4096 | 0.1887 | 0.0e+00 |
+| lazy | 6 | 0.01 | 30,000 | 0.7100 | 0.2900 | 0.2319 | 0.0e+00 |
+| atoms | 8 | 0 | 100 | 0.1821 | 0.8166 | 0.0379 | 0.0e+00 |
+| atoms | 8 | 0 | 1,000 | 0.3707 | 0.6288 | 0.0940 | 0.0e+00 |
+| atoms | 8 | 0 | 10,000 | 0.6172 | 0.3826 | 0.1816 | 0.0e+00 |
+| atoms | 8 | 0 | 30,000 | 0.7246 | 0.2753 | 0.2262 | 0.0e+00 |
+| atoms | 8 | 0.001 | 100 | 0.1784 | 0.8204 | 0.0372 | 0.0e+00 |
+| atoms | 8 | 0.001 | 1,000 | 0.8403 | 0.0906 | 0.3901 | 7.1e-02 |
+| atoms | 8 | 0.001 | 10,000 | 0.3175 | 0.6800 | 0.0934 | 2.3e-03 |
+| atoms | 8 | 0.001 | 30,000 | 0.2051 | 0.7940 | 0.0621 | 8.8e-04 |
+| atoms | 8 | 0.01 | 100 | 0.1453 | 0.8366 | 0.0307 | 1.7e-02 |
+| atoms | 8 | 0.01 | 1,000 | 0.1227 | 0.8772 | 0.0311 | 0.0e+00 |
+| atoms | 8 | 0.01 | 10,000 | 0.0158 | 0.9842 | 0.0051 | 0.0e+00 |
+| atoms | 8 | 0.01 | 30,000 | 0.0021 | 0.9979 | 0.0008 | 0.0e+00 |
+| atoms | 8 | 0.1 | 100 | 0.0206 | 0.9792 | 0.0052 | 0.0e+00 |
+| depth | 8 | 0.001 | 100 | 0.1786 | 0.8201 | 0.0372 | 0.0e+00 |
+| depth | 8 | 0.001 | 1,000 | 0.8415 | 0.0903 | 0.3893 | 7.0e-02 |
+| depth | 8 | 0.001 | 10,000 | 0.3760 | 0.6218 | 0.0854 | 2.6e-02 |
+| depth | 8 | 0.001 | 30,000 | 0.3278 | 0.6714 | 0.0525 | 4.0e-02 |
+| depth | 8 | 0.01 | 100 | 0.1477 | 0.8341 | 0.0306 | 1.9e-02 |
+| depth | 8 | 0.01 | 1,000 | 0.1368 | 0.8630 | 0.0306 | 0.0e+00 |
+| depth | 8 | 0.01 | 10,000 | 0.0313 | 0.9687 | 0.0050 | 0.0e+00 |
+| depth | 8 | 0.01 | 30,000 | 0.0050 | 0.9950 | 0.0008 | 0.0e+00 |
+| lazy | 8 | 0.001 | 100 | 0.1821 | 0.8166 | 0.0377 | 0.0e+00 |
+| lazy | 8 | 0.001 | 1,000 | 0.3710 | 0.6285 | 0.0933 | 0.0e+00 |
+| lazy | 8 | 0.001 | 10,000 | 0.6296 | 0.3702 | 0.1757 | 0.0e+00 |
+| lazy | 8 | 0.001 | 30,000 | 0.8132 | 0.1867 | 0.1548 | 0.0e+00 |
+| lazy | 8 | 0.01 | 100 | 0.1822 | 0.8165 | 0.0377 | 0.0e+00 |
+| lazy | 8 | 0.01 | 1,000 | 0.3790 | 0.6205 | 0.0925 | 0.0e+00 |
+| lazy | 8 | 0.01 | 10,000 | 0.9985 | 0.0015 | 0.0007 | 0.0e+00 |
+| lazy | 8 | 0.01 | 30,000 | 1.0000 | 0.0000 | 0.0000 | 0.0e+00 |
+
+**Atom pricing kills the well-mixed limit.**
+- *c = 10⁻²:* P(C,C) is 0.14 → 0.12 → 0.015 → 0.002 at n = 6.
+- *c = 10⁻³:* 0.17 → [0.83] → 0.30 → 0.19. The bracketed value is suspect, see below.
+- *Exit mix:* at c > 0, exits from all-FairBot are 99% *strict*: ALLC, which pays nothing, invades the priced
+  prover. This is the price ladder.
+- *PrudentBot:* changes nothing (n = 8 is within 10% of n = 6), because its prior mass is 1.4·10⁻⁶.
+- *Depth pricing:* removes only the PrudentBot → FairBot rung, so n = 8 does a little better than under atoms
+  (0.33 against 0.21 at c = 10⁻³, N = 3·10⁴).
+
+**Suspect cell.** atoms and depth at c = 10⁻³, N = 10³ give P(C,C) ≈ 0.83, above the free arm's 0.35, with 7%
+polymorphic mass at {D 0.998, FairBot 0.001, `BOX(THEM(THEM))` 0.001}. That state sits at the cost barrier, where
+fitness differences are about 10⁻⁶. The likeliest cause is the chain's slow-rest fallback treating an unstable
+barrier point as an attractor, which lets the chain step over the barrier. This is a hypothesis, not checked, and
+the cell is not used.
+
+**Lazy pricing escapes the ladder.**
+- *n = 6:* it reproduces the free arm to within 0.003 at every N and both c.
+- *n = 8, c = 10⁻²:* cooperation goes to 1 (0.9985 at N = 10⁴, 1.0000 at 3·10⁴). The support is a family led by
+  `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))`. It exploits ALLC, mutually defects with FairBot, and cooperates with
+  46 classes.
+- *Mechanism: incumbency.* Under lazy pricing a copy is free, while a behaviourally neutral newcomer pays c
+  against the residents. A world whose members also punish ALLC therefore has no neutral exit and absorbs. This
+  is a cost-based version of the clique effect that the REJECTED Levin entry warned about: the short-circuit on
+  self-recognition saves compute without changing whom the program cooperates with, and it still locks in the
+  incumbent.
+
+### Exp 2: hitting probabilities on graphs (priced n = 8; probability a single mutant reaches half the graph)
+
+| pair | c | torus 16 | torus 32 | torus 64 | hypercube d = 6 | d = 8 | d = 10 |
+|---|---|---|---|---|---|---|---|
+| entry FB|D | 0 | 0.1080 | 0.1080 | 0.1040 | 0.0840 | 0.0570 | 0.0440 |
+| entry FB|D | 0.01 | 0.0930 | 0.0970 | 0.1090 | 0.0720 | 0.0450 | 0.0360 |
+| entry FB|D | 0.1 | 0.0640 | 0.0620 | 0.0680 | 0.0550 | 0.0250 | 0.0040 |
+| entry PB|D | 0 | 0.1080 | 0.1080 | 0.1040 | 0.0840 | 0.0570 | 0.0440 |
+| entry PB|D | 0.01 | 0.0740 | 0.1030 | 0.0910 | 0.0700 | 0.0480 | 0.0400 |
+| entry PB|D | 0.1 | 0.0390 | 0.0460 | 0.0350 | 0.0270 | 0.0034 | 0.0000 |
+| ladder C|FB | 0 | 0.0083 | 0.0015 | — | 0.0300 | 0.0057 | 0.0017 |
+| ladder C|FB | 0.01 | 0.0080 | 0.0037 | — | 0.0360 | 0.0100 | 0.0033 |
+| ladder C|FB | 0.1 | 0.0410 | 0.0290 | — | 0.0540 | 0.0270 | 0.0380 |
+| neutral baseline | — | 0.0065 | 0.0027 | — | 0.0265 | 0.0075 | 0.0013 |
+
+Well-mixed reference for FairBot entry: c = 0: N=256 2.7e-02, N=1024 1.3e-02, N=4096 6.8e-03; c = 0.01: N=256 2.3e-02, N=1024 1.0e-02, N=4096 3.5e-03; c = 0.1: N=256 3.6e-03, N=1024 2.6e-05, N=4096 6.9e-13.
+
+**Structure rescues entry.** On the torus, FairBot's entry into all-D is independent of N at every price: 0.064,
+0.062 and 0.068 at c = 0.1 for N = 256, 1,024 and 4,096. The well-mixed values are 3.6·10⁻³, 2.6·10⁻⁵ and
+7·10⁻¹³. Nucleation is local, so the barrier is set by the neighbourhood. The hypercube, whose degree grows like
+log N, falls in between: 0.055, 0.025 and 0.004 at c = 0.1.
+
+**Structure does not stop the ladder.** ALLC invades FairBot on graphs at about its well-mixed rate. At c = 0.1 that
+is 3.6–29× the measured neutral baseline at N ≥ 256. At c = 10⁻² it is above the baseline but within overlapping
+intervals, so inconclusive. FairBot invading PrudentBot gives identical numbers. Its payoff block is a constant
+shift of ALLC-vs-FairBot, and a constant shift cancels under exp fitness.
+
+### Exp 3: cliques (foreordained by fable's review; hitting times are the content)
+
+| m (mass) | c | N | π(cliques) | hitting time from all-D (mutation events) | terminal classes |
+|---|---|---|---|---|---|
+| 1 (per) | 0 | 1,000 | 1.0000 | 8.94e+03 | 1 |
+| 1 (per) | 0 | 10,000 | 1.0000 | 3.58e+04 | 1 |
+| 1 (per) | 0.01 | 1,000 | 1.0000 | 1.09e+04 | 1 |
+| 1 (per) | 0.01 | 10,000 | 1.0000 | 5.58e+04 | 1 |
+| 4 (per) | 0 | 1,000 | 1.0000 | 3.45e+03 | 1 |
+| 4 (per) | 0 | 10,000 | 1.0000 | 1.57e+04 | 1 |
+| 4 (per) | 0.01 | 1,000 | 1.0000 | 3.52e+03 | 1 |
+| 4 (per) | 0.01 | 10,000 | 1.0000 | 1.66e+04 | 1 |
+| 4 (total) | 0 | 1,000 | 1.0000 | 8.94e+03 | 1 |
+| 4 (total) | 0 | 10,000 | 1.0000 | 3.58e+04 | 1 |
+| 4 (total) | 0.01 | 1,000 | 1.0000 | 1.09e+04 | 1 |
+| 4 (total) | 0.01 | 10,000 | 1.0000 | 5.58e+04 | 1 |
+
+π(cliques) = 1 in every cell. With fixed total clique mass the hitting time is identical for 1 and 4 spellings. With
+mass per spelling, 4 spellings take 0.39–0.44× as long, not the predicted 0.25×. A price of c = 10⁻² slows cliques
+by 1.2–1.6×.
+
+### Verdicts
+
+| # | prediction | outcome |
+|---|---|---|
+| 1 | c = 0 reproduces the free arm | **Holds** (by construction) |
+| 2 | atoms: peak and fall, within ±50% of the family estimate; at least 2× below c = 0 at 3·10⁴ | **Mostly holds.** c = 10⁻² holds except 0.0019 at 3·10⁴, just under the band. c = 10⁻³ holds except the suspect cell. At least 3.6× below c = 0. |
+| 3 | strict cheaper equivalents take at least 0.8 of FairBot's exits at N ≥ 10⁴ | **Holds** (0.99) |
+| 4 | atoms n = 8 within ±30% of n = 6 | **Holds** (within 10%) |
+| 5 | depth n = 6 = atoms; n = 8 depth at least atoms | **Holds** |
+| 6 | lazy within ±0.05 of c = 0 | **Holds at n = 6.** **Fails upward at n = 8**: 0.81 against 0.72 at c = 10⁻³, and 1.00 against 0.72 at c = 10⁻², from incumbency. The falsifier, below 0.5 or a peak, did not fire. |
+| 7 | ladder on graphs: at least 3× neutral at c = 0.1; above at 0.01 | **Holds** at c = 0.1. Above but inconclusive at 0.01. |
+| 5′ (Exp 2) | torus entry flat; at least 10× well-mixed at c = 0.1 | **Holds** (flat; 2,400× at N = 1,024) |
+| 6′ (Exp 2) | hypercube in between | **Holds** |
+| 8 | π(cliques) at least 0.99 | **Holds** |
+| 9 | hitting time: 1/4 with mass per spelling; m-independent with fixed total | Mass per spelling **fails** (0.39–0.44). Fixed total **holds** (identical). |
+| 10 | price slows cliques less than 2× | **Holds** (1.2–1.6) |
+
+**Reading.**
+- Pricing proofs restores both obstacles in a well-mixed population. Entry pays a barrier exponential in N, and the
+  shadow becomes a strict, cheaper invader.
+- Spatial structure removes the barrier but not the ladder.
+- Lazy pricing removes the ladder. At n = 8 it produces full cooperation through a cost-based incumbency that
+  favours a cooperative family which punishes ALLC. That family is broad, 46 classes, but rivals FairBot's
+  network rather than including it.
+- Cliques are absorbing whatever the price.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

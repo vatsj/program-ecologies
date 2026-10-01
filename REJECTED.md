@@ -240,3 +240,21 @@ collapses observed.
 
 **"The support ratchets from FairBot to PrudentBot as N grows" (fable, 2026-09-30 review).** No. The ratio
 plateaus near 0.04. What does shift is the fakeable `BOX(THEM(THEM))`, which leaves the family.
+
+## Added 2026-10-01: priced arm (RESULTS.md, "Priced arm")
+
+**"Priced provers recover cooperation if the population is spatially structured" (Claude, 2026-10-01).** Half
+right. Structure makes entry N-independent even at c = 0.1, but the price ladder survives on the torus and
+hypercube: ALLC invades FairBot at about its well-mixed rate. Under atom pricing, structure alone does not
+rescue universal provers.
+
+**"Lazy pricing reproduces the free arm" (Claude, prediction 6).** It does at n = 6. At n = 8 it overshoots, to
+P(C,C) = 1, through cost-based incumbency: copies are free and newcomers pay. That is a parochial lock-in, not
+the free arm's mechanism.
+
+**The original clique verdicts 8–10 (Claude, draft).** Withdrawn before the run (fable): a clique world has no exit,
+so π(cliques) = 1 is foreordained. Also: "four spellings fragment entry" was wrong for a monomorphic ε→0 chain,
+and "hitting time ∝ 1/m with mass per spelling" failed (0.39–0.44, not 0.25).
+
+**Literal ALLC as the dominant ladder exit (draft wording).** Correct, but restated over the class of cheaper
+on-path-equivalent programs (astra), since several classes can carry the flux.
