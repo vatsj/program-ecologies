@@ -1338,6 +1338,65 @@ and `reviews/2026-09-30-modal-arm-fable.md`. Points adopted:
 - My 90% extrapolation, near 10⁶ from the static estimate, was arithmetically off. It is superseded by the
   measured ratio above.
 
+## E1 matched control: simulation vs provability (`runs/matched_control.md`, predictions in `predictions/2026-10-01-modal-followups.md`)
+
+The two arms have identical grammars and identical priors: the program counts by size match exactly, and
+μ(C) = μ(D) = 0.488 in both. They differ only in what an application means.
+- **W0** is the weak arm without X and `ROLE`: applications are simulated, and self-reference that never
+  terminates gets D.
+- **M0** is the modal arm with the PA box only: applications are provability statements.
+
+ε→0 chain, PD, w = 0.3, with `eager_poly=False`, which was verified exact.
+
+| arm | n | N | programs | classes | P(C,C) | π(all-D) | top cooperative state | its π | ρ_enter | exits from it: strict / neutral / other | cut flow |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| W0 | 6 | 100 | 666 | 12 | 0.0171 | 0.9803 | `THEM(^C)` | 0.0152 | 0.0421 | 5.22e-04 / 4.88e-03 / 1.45e-08 | 1.7e-07 |
+| W0 | 6 | 1000 | 666 | 12 | 0.0266 | 0.9719 | `THEM(^C)` | 0.0263 | 0.0136 | 5.14e-04 / 4.88e-04 / 6.65e-39 | 8.5e-08 |
+| W0 | 6 | 10000 | 666 | 12 | 0.0152 | 0.9835 | `THEM(^C)` | 0.0151 | 0.0044 | 5.13e-04 / 4.88e-05 / 0.00e+00 | 4.3e-08 |
+| W0 | 6 | 30000 | 666 | 12 | 0.0094 | 0.9893 | `THEM(^C)` | 0.0093 | 0.0025 | 5.13e-04 / 1.63e-05 / 0.00e+00 | 2.6e-08 |
+| W0 | 7 | 100 | 2796 | 19 | 0.0180 | 0.9789 | `THEM(^C)` | 0.0160 | 0.0421 | 5.55e-04 / 4.87e-03 / 1.61e-08 | 2.1e-07 |
+| W0 | 7 | 1000 | 2796 | 19 | 0.0273 | 0.9707 | `THEM(^C)` | 0.0269 | 0.0136 | 5.46e-04 / 4.87e-04 / 9.07e-39 | 1.1e-07 |
+| W0 | 7 | 10000 | 2796 | 19 | 0.0152 | 0.9830 | `THEM(^C)` | 0.0151 | 0.0044 | 5.45e-04 / 4.87e-05 / 0.00e+00 | 5.1e-08 |
+| W0 | 7 | 30000 | 2796 | 19 | 0.0094 | 0.9888 | `THEM(^C)` | 0.0093 | 0.0025 | 5.45e-04 / 1.62e-05 / 0.00e+00 | 3.1e-08 |
+| M0 | 6 | 100 | 666 | 8 | 0.1292 | 0.8706 | `BOX(THEM(ME))` | 0.1109 | 0.0421 | 0.00e+00 / 4.91e-03 / 4.52e-08 | 0.0e+00 |
+| M0 | 6 | 1000 | 666 | 8 | 0.3059 | 0.6940 | `BOX(THEM(ME))` | 0.2857 | 0.0136 | 0.00e+00 / 4.91e-04 / 5.59e-38 | 0.0e+00 |
+| M0 | 6 | 10000 | 666 | 8 | 0.5703 | 0.4297 | `BOX(THEM(ME))` | 0.5633 | 0.0044 | 0.00e+00 / 4.91e-05 / 0.00e+00 | 0.0e+00 |
+| M0 | 6 | 30000 | 666 | 8 | 0.6955 | 0.3045 | `BOX(THEM(ME))` | 0.6925 | 0.0025 | 0.00e+00 / 1.64e-05 / 0.00e+00 | 0.0e+00 |
+| M0 | 7 | 100 | 2796 | 10 | 0.1332 | 0.8666 | `BOX(THEM(ME))` | 0.1140 | 0.0421 | 0.00e+00 / 4.90e-03 / 4.75e-08 | 0.0e+00 |
+| M0 | 7 | 1000 | 2796 | 10 | 0.3128 | 0.6871 | `BOX(THEM(ME))` | 0.2921 | 0.0136 | 0.00e+00 / 4.90e-04 / 5.94e-38 | 0.0e+00 |
+| M0 | 7 | 10000 | 2796 | 10 | 0.5782 | 0.4218 | `BOX(THEM(ME))` | 0.5711 | 0.0044 | 0.00e+00 / 4.90e-05 / 0.00e+00 | 0.0e+00 |
+| M0 | 7 | 30000 | 2796 | 10 | 0.7023 | 0.2976 | `BOX(THEM(ME))` | 0.6991 | 0.0025 | 0.00e+00 / 1.63e-05 / 0.00e+00 | 0.0e+00 |
+
+**Provability alone reproduces the gap.**
+- *W0 behaves like the weak arm.* P(C,C) is 0.017 → 0.027 → 0.015 → 0.009, peaking at N = 10³. Its best
+  reciprocator `THEM(^C)` leaves through a constant faker exit, 5.1·10⁻⁴ per mutation event at every N, which
+  overtakes the shadow's 1/N drift by N = 10³.
+- *M0 behaves like the full modal arm.* P(C,C) is 0.13 → 0.31 → 0.57 → 0.70, rising monotonically. FairBot has no
+  strict exits, and the cooperative-to-D ratio grows like N^0.48.
+- *The gap.* At N = 3·10⁴, M0 is 74× W0. X and `ROLE` were not what separated the weak and modal arms.
+- *M0 is cleaner than the full arm.* The full modal arm's exponent was 0.44. Its extra box kinds add fakeable
+  provers, such as `BOX(THEM(THEM))` at n ≥ 8.
+
+**What it cannot separate** (from the fable review). Provability does two things here:
+- it makes FairBot unfakeable;
+- it makes entry 7× cheaper. M0's FairBot class has μ = 0.0148, against W0's `THEM(^C)` at 0.002, because W0's
+  size-3 self-referential forms defect on themselves.
+
+The exponent comes from unfakeability: there is no constant exit. The constant comes from both. A sound,
+free prover is also more computational power than simulation, so this measures what a free prover buys, not
+what a realizable source-reading program buys.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| 1 | W0 peaks within one grid step of 10³, is 0.005–0.02 at 3·10⁴, and its exits are faker-dominated at N ≥ 10⁴ | **Holds:** peak at 10³, 0.009, strict 5.1·10⁻⁴ against neutral 4.9·10⁻⁵ |
+| 2 | M0 monotone; 0.70 ± 0.1 at 3·10⁴; exponent 0.50 ± 0.05; no strict invaders | **Holds:** 0.70, exponent 0.48, strict exits 0 |
+| 3 | M0 at least 10× W0 at 3·10⁴ | **Holds:** 74× |
+
+The falsifier, M0 below 2× W0, did not fire. Fable's static two-state prediction, 0.70 for M0 and 0.009 for
+W0, was exact.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
