@@ -270,3 +270,15 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **"Certificates suffice for lim_N efficiency" (stratified or D-seeded).** No. Both have only third-party probes, which are fakeable, so they reproduce the weak arm's faker limit (0.009 at N = 3·10⁴).
 
 **Tags as a universal route.** Honest tags are efficient (P(C,C) = 1) but parochial: `EQ(ME)` cooperates with no other conditional cooperator, with or without the equality axioms. Tags are the clique arm again.
+
+## Added 2026-10-01: price scaling paths (RESULTS.md, "Price scaling paths")
+
+**Self-play as the fix for reciprocator entry (RS proposal).** Dropped. Letting programs play themselves gives a lone reciprocator (R − P)/N, which is Hamilton's rule with r = 1/N. That is one copy's worth of advantage. It changes ρ(FairBot | all-D) by 0.4–6.5% (static), and flips FairBot's sign against all-D only when c < 1/(2N). Entry still scales as N^(−1/2), and the barrier is unchanged to leading order.
+
+**lim_N lim_c as the object (RS proposal).** Dropped as the object, kept as a limiting case. At fixed N the chain is continuous in c, so the iterated limit is the free arm and pricing has no bite. The informative object is the joint path c_N = c0·N^(−α), with boundary α = 1/2.
+
+**"The α = 1/2 boundary is set by entry, not the ladder" (Claude, in chat before the brief).** Wrong. On this grid the ladder sets the decline (odds ∝ N^(α−1+β)). The barrier, c²N, also has its boundary at 1/2 but only binds at larger N or c0. The two 1/2's coincide for different reasons (fable).
+
+**"A neutral lineage reaches about √N copies" (Claude, draft brief).** Wrong as a statement about typical lineages: the reach-k probability is 1/k (astra). √N is where accumulated selection in the fixation integral becomes order one.
+
+**"Barrier below 0.3 along α = 0.25" and "strict exits ≥ 0.9 of FairBot's exits" as a falsifier (Claude, draft verdict 1).** The first is wrong: 2wc²N reaches 1.04 by N = 3·10⁵. The second holds by construction (fable). Both were replaced by per-path slope predictions, which held.

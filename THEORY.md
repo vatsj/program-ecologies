@@ -151,6 +151,12 @@ Spatial structure removes the barrier: entry on the torus is $N$-independent eve
 
 So the realizable condition reads: *no price against defectors, and no price advantage for the shadow*. The price that remains, against strangers, favours incumbents. Open: the 'only if' direction, and whether any pricing yields one cooperative network rather than rival ones.
 
+*How fast must compute get cheap?* (RESULTS.md, "Price scaling paths"). This is stated as a proposition about the two-edge reduction (entry ρ(FB | D) against the ALLC exit ρ(C | FB), with explicit fixation integrals). Along c_N = c0·N^(−α), cooperation tends to 1 iff α > 1/2:
+- the ladder takes the odds as N^(α−1+β), where β is the free arm's odds exponent;
+- the barrier, exp(−Θ(c²N)), kills entry below 1/2.
+
+Its empirical premises are (i) β → 1/2 and (ii) the full chain following the reduction. Both are checked through N = 3·10⁵, at n = 6 and n = 8: the local β is 0.49–0.50; every path's slope matched; d(slope)/dα = 1.08. At α = 1/2 the plateau is set by c0. At α = 1, cooperation still tends to 1, with a constant odds penalty of (1 − e^(−w c0 10³))/(w c0 10³). The iterated limit lim_N lim_c is the free arm. So the realizable condition gains a rate: *a price is harmless in the limit iff it vanishes faster than $N^{-1/2}$ of the stakes, or is exempted on the ladder.*
+
 *Certificates without provability* (RESULTS.md, "Certificates-only arm"). The grammar is the matched control's, with the same prior. Programs see only honest certificates, and only the semantics of self-reference changes between variants:
 - *D-seeded* reasoning (least fixed point) gives no working self-reference. Only fakeable third-party probes cooperate, and the weak arm's faker limit returns: 0.009 at $N = 3\cdot10^4$.
 - *C-seeded* reasoning (greatest fixed point, a stated selection rule that re-opens "Black-magic fixed points") makes FairBot a *mirror*: it plays against $y$ what $y$ plays against it. It enters neutrally and has no faker. It rises without a peak to 0.575, in one cooperative network.

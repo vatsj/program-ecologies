@@ -1766,6 +1766,61 @@ mutant dies at first order and the valley search runs.
 - Lazy n = 8 at c = 10⁻³ remains above the free arm (0.813 against 0.725 at N = 3·10⁴). That is incumbency, not
   numerics: the cell has zero polymorphic mass and is unchanged by the fix.
 
+## Price scaling paths: c_N = c0·(N/10³)^(−α) (`runs/scaling_path.md`; predictions in `predictions/2026-10-01-price-scaling-path.md`)
+
+**Setup.** ε→0 chain, PD, w = 0.3, atoms pricing, fixed chain (a49a007), `eager_poly=False`. n = 6, with one n = 8
+path. Every cell has zero polymorphic mass, and every n = 6 priced cell is at or below the free arm at the same N, so
+no artifact flags fired.
+
+**P(C,C)** at N = 10² / 10³ / 10⁴ / 3·10⁴ / 10⁵ / 3·10⁵, with the fitted log-odds slope over [10⁴, 3·10⁵]:
+
+| path | P(C,C) | slope (predicted) |
+|---|---|---|
+| free arm, c = 0 | 0.169 / 0.345 / 0.587 / 0.707 / **0.814** / **0.883** | local β 0.49 (3·10⁴–10⁵), 0.50 (10⁵–3·10⁵) |
+| c0 = 10⁻², α = 0.25 | 0.118 / 0.116 / 0.050 / 0.029 / 0.014 / 0.0056 | −0.65 (−0.61 to −0.70) |
+| c0 = 10⁻², α = 0.5 | 0.088 / 0.116 / 0.110 / 0.105 / 0.101 / 0.098 | −0.04 (−0.05) |
+| c0 = 10⁻², α = 0.6 | 0.074 / 0.116 / 0.141 / 0.152 / 0.166 / 0.182 | +0.09 |
+| c0 = 10⁻², α = 0.75 | 0.052 / 0.116 / 0.196 / 0.242 / 0.302 / 0.365 | +0.25 (+0.24) |
+| c0 = 10⁻², α = 1 | 0.020 / 0.116 / 0.302 / 0.426 / 0.577 / 0.704 | +0.50 (+0.47) |
+| c0 = 10⁻², α = 1.5 | 0.0001 / 0.116 / 0.476 / 0.649 / 0.790 / 0.874 | +0.60 |
+| c0 = 10⁻³, α = 0.5 | 0.159 / 0.310 / 0.476 / 0.539 / 0.577 / 0.588 | +0.13 |
+| c0 = 10⁻¹, α = 0.5 | 10⁻⁴ / <10⁻⁴ at every N ≥ 10³ | — |
+| c0 = 3·10⁻², α = 0.25 (barrier path) | 0.055 / 0.019 / 0.0023 / 0.0005 / <10⁻⁴ (N ≤ 10⁵) | −1.7 |
+| n = 8, c0 = 10⁻², α = 0.5 | 0.094 / 0.123 / 0.116 / 0.111 / 0.107 / 0.104 | −0.04 |
+
+**All 11 verdicts held.**
+1. α = 0.25 declines monotonically from N = 10³, inside the FairBot-only/family band at every N. It sits nearer the
+   FairBot-only end.
+2. α = 0.5 stays in [0.06, 0.15] at every N ≥ 10³.
+3. The α = 0.5 plateau is set by c0: 0.59 at c0 = 10⁻³, 0.10 at 10⁻², below 10⁻⁴ at 10⁻¹. Fable's patched cells had
+   been seen before the commit.
+4. α = 0.75 rises within ±30% of prediction at every N.
+5. α = 1 rises; its odds are 0.304 / 0.308 / 0.312 / 0.315 of the free arm's at N ≥ 10⁴, against (1 − e⁻³)/3 = 0.317.
+6. α = 1.5 converges: it is within 0.023 and 0.009 of the free arm at 10⁵ and 3·10⁵, with an odds ratio of
+   0.64 → 0.77 → 0.86 → 0.92.
+7. α = 0.6 rises slowly, as predicted.
+8. The barrier path collapses: below 10⁻⁴ at N = 10⁵ as 2wc²N passes 5.
+9. The free arm extends to 0.814 and 0.883, inside 0.80 ± 0.05 and 0.87 ± 0.05.
+10. n = 8 is within 8% of n = 6.
+11. Every slope is inside its ±0.15 window. d(slope)/dα over the four c0 = 10⁻² paths with 0.5 ≤ α ≤ 1 is 1.08,
+    inside [0.8, 1.2].
+
+One falsifier was vacuous as implemented: "measured edge rates deviating > 2× from static". The diagnostic columns
+are themselves static fixation computations, so that check is not independent.
+
+**Reading.**
+- The full chain follows the two-edge reduction along shrinking-price paths, at n = 6 and n = 8. With the free arm's
+  local exponent now measured at 0.49–0.50, both empirical premises of the proposition hold over this range:
+  - (i) β → 1/2;
+  - (ii) the reduction holds.
+- So a compute price is compatible with efficiency in the limit iff it vanishes faster than N^(−1/2) of the stakes:
+  - α > 1/2 gives cooperation → 1;
+  - α = 1/2 is a knife edge, with a plateau set by c0;
+  - below 1/2 the ladder takes cooperation to 0, and then the barrier takes it down exponentially.
+- α = 1 still goes to 1, but with a constant odds penalty. Only α > 1 recovers the free arm's odds.
+- The RS's iterated limit lim_N lim_c is the safe end of this family and coincides with the free arm.
+- Self-play changes FairBot's entry by 0.4–6.5% (static) and does not move the boundary.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
