@@ -1397,6 +1397,90 @@ what a realizable source-reading program buys.
 The falsifier, M0 below 2× W0, did not fire. Fable's static two-state prediction, 0.70 for M0 and 0.009 for
 W0, was exact.
 
+## E2 ratchet: does the support migrate from FairBot to PrudentBot? (`runs/modal_ratchet.md`)
+
+Full modal arm, n = 8, w = 0.3, ε→0 chain. New cells at N = 10⁵ and 3·10⁵ use `eager_poly=False`, verified to
+reproduce all four earlier n = 8 cells exactly. The new cells are repeated at θ = 10⁻⁷, with identical results.
+
+| N | theta | P(C,C) | π(all-D) | π(FairBot) | π(PrudentBot) | π(PB)/π(FB) | cut flow | time (s) |
+|---|---|---|---|---|---|---|---|---|
+| 100 | 1e-06 (earlier run) | 0.1821 | 0.8166 | 0.0379 | 0.00062 | 0.0163 | 1.3e-06 | 16 |
+| 300 | 1e-06 (earlier run) | 0.2635 | 0.7358 | 0.0599 | 0.00123 | 0.0205 | 5.2e-07 | 17 |
+| 1000 | 1e-06 (earlier run) | 0.3707 | 0.6288 | 0.0940 | 0.00256 | 0.0272 | 2.0e-07 | 20 |
+| 3000 | 1e-06 (earlier run) | 0.4845 | 0.5152 | 0.1338 | 0.00432 | 0.0323 | 8.3e-08 | 7606 |
+| 10000 | 1e-06 (earlier run) | 0.6172 | 0.3826 | 0.1816 | 0.00643 | 0.0354 | 3.1e-08 | 15217 |
+| 30000 | 1e-06 (earlier run) | 0.7246 | 0.2753 | 0.2262 | 0.00837 | 0.0370 | 1.2e-08 | 260 |
+| 100000 | 1e-06 | 0.8135 | 0.1864 | 0.2791 | 0.01075 | 0.0385 | 1.5e-08 | 132 |
+| 100000 | 1e-07 | 0.8135 | 0.1864 | 0.2791 | 0.01075 | 0.0385 | 1.5e-08 | 132 |
+| 300000 | 1e-06 | 0.8733 | 0.1266 | 0.3277 | 0.01298 | 0.0396 | 8.4e-09 | 336 |
+| 300000 | 1e-07 | 0.8733 | 0.1266 | 0.3277 | 0.01298 | 0.0396 | 8.4e-09 | 336 |
+
+**A plateau, not a ratchet.** π(PrudentBot)/π(FairBot) is 0.016 → 0.027 → 0.032 → 0.035 → 0.037 → 0.0385 →
+0.0396 from N = 100 to 3·10⁵, flattening toward about 0.04. Total cooperation keeps rising: P(C,C) is 0.81 at
+10⁵ and 0.87 at 3·10⁵.
+
+**The prover family is shifting toward unfakeable members.** The fakeable `BOX(THEM(THEM))` holds 0.25 of the
+family at N = 10³, 0.24 at 3·10⁴, 0.17 at 10⁵ and 0.09 at 3·10⁵. Its strict invaders exit at an N-independent
+rate, as fable predicted. FairBot and `BOX1(THEM(ME))` each grow to 0.33.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| 4 | π(PB)/π(FB) < 0.06 at 3·10⁵, with the increase shrinking | **Holds:** 0.0396; +0.0047 from 3·10³ to 3·10⁴, then +0.0026 from 3·10⁴ to 3·10⁵ |
+| 5 | P(C,C) 0.80 ± 0.05 at 10⁵ and 0.86 ± 0.05 at 3·10⁵ | **Holds** (0.81, 0.87) |
+| — | the ratio is insensitive to θ | **Holds:** identical at 10⁻⁷ |
+
+The plateau falsifier, a ratio of at least 0.08, did not fire.
+
+## E3 finite-εN agent-based runs: modal vs weak arm, with and without structure (`runs/modal_abm.md`)
+
+Agent-based Moran, PD, w = 0.3, 2·10⁵ generations (a generation is I·N births), second half, 3 replicates per
+cell. Finite εN, so these are approach rates. The cooperative and all-D starts agree, so the second halves
+are mixed.
+
+| arm | configuration | P(C,C) per replicate | mean | R share | ALLC share of population | ALLC share of population during cooperative phases |
+|---|---|---|---|---|---|---|
+| modal n=6 | big island, eps 1e-3 | 0.99, 0.99, 0.99 | 0.989 | 0.090 | 0.258 | 0.261 |
+| modal n=6 | big island, eps 1e-3, cooperative start | 0.99, 0.99, 0.99 | 0.989 | 0.130 | 0.261 | 0.269 |
+| modal n=6 | big island, eps 1e-4 | 0.97, 1.00, 0.96 | 0.978 | 0.287 | 0.127 | 0.130 |
+| modal n=6 | 64 islands, w_g 0 | 0.98, 0.98, 0.98 | 0.980 | 0.125 | 0.105 | 0.105 |
+| modal n=6 | 64 islands, w_g 10 | 0.98, 0.98, 0.98 | 0.982 | 0.251 | 0.115 | 0.115 |
+| weak L_6 | big island, eps 1e-3 | 0.06, 0.06, 0.08 | 0.064 | 0.025 | 0.023 | 0.232 |
+| weak L_6 | big island, eps 1e-3, cooperative start | 0.06, 0.06, 0.08 | 0.064 | 0.025 | 0.023 | 0.232 |
+| weak L_6 | big island, eps 1e-4 | 0.00, 0.05, 0.00 | 0.018 | 0.012 | 0.004 | 0.065 |
+| weak L_6 | 64 islands, w_g 0 | 0.13, 0.17, 0.13 | 0.144 | 0.028 | 0.063 | 0.054 |
+| weak L_6 | 64 islands, w_g 10 | 0.88, 0.94, 0.63 | 0.817 | 0.662 | 0.123 | 0.132 |
+
+**The modal arm cooperates without any spatial structure.** On one well-mixed island of 6,400, P(C,C) is 0.989
+in every replicate, from an all-D start and from a cooperative start. It is 0.978 at the lower mutation rate.
+The weak arm on the same island is at 0.06; its cooperative start collapses within about 3,000 generations and
+then merges exactly with the all-D trajectory, since both runs draw the same random numbers per event. The
+64-island configurations add nothing for the modal arm: 0.98 at w_g = 0 and at w_g = 10. The weak arm needs
+w_g = 10 to reach 0.82.
+
+**The mechanism: mutation supplies its own pruner** (fable's review). At finite ε a standing fringe of
+defectors exploits ALLC. That keeps the shadow in check, so the shadow never reaches the (R − P)/(T − P) = ½
+needed for D to invade. ALLC sits at 0.26 of the population at ε = 10⁻³ and 0.13 at ε = 10⁻⁴. No collapses
+occur: every replicate stays at 0.96–1.00.
+
+This finite-εN result is stronger than the ε→0 chain at the same N, which gives about 0.5 at N ≈ 6,400. In the
+chain the population is monomorphic between mutations, so nothing prunes the shadow while it drifts in. This is
+a third regime, distinct from the ε→0 chain (shadow exit ∝ 1/N) and from the lattice.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| 6 | modal big island 0.6–0.95 at ε = 10⁻³ and lower at 10⁻⁴; weak below 0.1 | **Band failed (too high):** 0.989. The ordering holds (0.978 < 0.989), and weak is 0.064. Predicted collapse excursions did not occur. |
+| 7 | modal 64 islands, w_g = 0, at least 0.7 | **Holds** (0.98) |
+| 8 | modal 64 islands, w_g = 10, at least 0.75 | **Holds** (0.98) |
+| 9 | ALLC share 0.32 ± 0.1 at both ε | **Holds** at 10⁻³ (0.26). **Fails** at 10⁻⁴ (0.13): the pinning depends on ε, contrary to the mean-field x* = μ_C/(1 + μ_D). |
+| 10 | cooperative and all-D starts within 0.15 | **Holds** (0.989 both) |
+
+The falsifier, big-island modal below 0.1, did not fire. My original E3 mechanism (ALLC flooding,
+P(C,C) 0.2–0.6) was replaced after review and is recorded in REJECTED.md.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

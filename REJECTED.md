@@ -225,3 +225,18 @@ removes X, `ROLE` and unboxed simulation. It is a distinct idealization, raised 
   unfakeable provers enter at equal μ, and P(C,C) was 0.19–0.73.
 - *PrudentBot:* I predicted π(PrudentBot) < 0.01; it reached 0.0127.
 - *The "no strict exits" falsifier:* it cannot fire, because soundness guarantees it.
+
+## Added 2026-10-01: modal follow-ups (RESULTS.md, "E2 ratchet" and "E3 finite-εN")
+
+**"At finite ε the modal arm cycles through ALLC flooding, at P(C,C) 0.2–0.6" (Claude, pre-review draft).** Wrong.
+A standing D fringe prunes ALLC, and the big island holds P(C,C) = 0.99. The fable review caught this before
+the run.
+
+**"Modal big island at 0.6–0.95, with excursions" (revised prediction).** It came out at 0.989, with no
+collapses observed.
+
+**"The shadow is pinned at x* = μ_C/(1 + μ_D) ≈ 0.32, independent of ε" (from the fable review).** It holds at
+ε = 10⁻³ (0.26) and fails at 10⁻⁴ (0.13).
+
+**"The support ratchets from FairBot to PrudentBot as N grows" (fable, 2026-09-30 review).** No. The ratio
+plateaus near 0.04. What does shift is the fakeable `BOX(THEM(THEM))`, which leaves the family.
