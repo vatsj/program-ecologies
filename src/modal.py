@@ -278,3 +278,98 @@ def build(n, pay=PD, kinds=((0, 0), (1, 0), (0, 1), (1, 1))):
     prov = ModalProvider(U, PCC, L.mu_canon, L.rep, L.bits_canon)
     prov.sizes = np.array([L.count_canon[m].sum() for m in prov.members])
     return L, val, worlds, prov
+
+
+# ------------------------------------------------------------------ priced arm
+@njit(cache=True)
+def _evaluate_priced(nat, ak, al, af, aa, tt, is_clique, max_worlds):
+    """As _evaluate, plus (i) clique rows (is_clique[x] = 1: x plays C exactly
+    against itself, a syntactic check independent of worlds) and (ii) the last
+    world at which x's box-atom values against y changed (proof-search depth)."""
+    K = nat.shape[0]
+    hc = np.ones((2, K, K), np.bool_)
+    hd = np.ones((2, K, K), np.bool_)
+    val = np.zeros((K, K), np.int8)
+    prev = -np.ones((K, K), np.int64)
+    last = np.zeros((K, K), np.int64)
+    for n in range(max_worlds):
+        for x in range(K):
+            for y in range(K):
+                if is_clique[x] == 1:
+                    val[x, y] = 1 if x == y else 0
+                    continue
+                idx = 0
+                for j in range(nat[x]):
+                    f = af[x, j]
+                    if f == 0:
+                        p, q = y, x
+                    elif f == 1:
+                        p, q = y, y
+                    else:
+                        p, q = y, aa[x, j]
+                    L = al[x, j]
+                    b = hc[L, p, q] if ak[x, j] == 0 else hd[L, p, q]
+                    if b: idx |= 1 << j
+                if prev[x, y] >= 0 and idx != prev[x, y]:
+                    last[x, y] = n
+                prev[x, y] = idx
+                val[x, y] = (tt[x] >> idx) & 1
+        changed = False
+        for L in range(2):
+            if n < L:
+                continue
+            for x in range(K):
+                for y in range(K):
+                    c = val[x, y] == 1
+                    if hc[L, x, y] and not c:
+                        hc[L, x, y] = False; changed = True
+                    if hd[L, x, y] and c:
+                        hd[L, x, y] = False; changed = True
+        if not changed and n >= 2:
+            return val, n, last
+    return val, -1, last
+
+
+def build_priced(n, c=0.0, m_cliques=0, c_eq=None, pay=PD, kinds=((0, 0), (1, 0), (0, 1), (1, 1)), clique_mass='per', pricing='atoms'):
+    """Priced modal arm.  A program pays c per box atom per Kripke world its
+    atom values take to settle against the opponent: cost(x, y) = c * k(x) *
+    (1 + last change world), k(x) = number of essential box atoms (programs
+    short-circuit redundant reasoning).  Constants pay nothing.  Optionally m
+    clique spellings (cooperate iff the opponent is an exact copy), each paying
+    c_eq (default c) per match, each with prior mass mu(FairBot) (the clique
+    eq(THEM,ME) has FairBot's size, 3 nodes); masses are renormalized."""
+    L = ModalLanguage(n, kinds)
+    nat, ak, al, af, aa, tt = L.arrays()
+    K0 = len(nat); m = m_cliques
+    pad = lambda a, v=0: np.concatenate([a, np.full((m,) + a.shape[1:], v, a.dtype)]) if m else a
+    nat, ak, al, af, aa, tt = pad(nat), pad(ak), pad(al), pad(af), pad(aa), pad(tt)
+    is_clique = np.concatenate([np.zeros(K0, np.int64), np.ones(m, np.int64)])
+    val, worlds, last = _evaluate_priced(nat, ak, al, af, aa, tt, is_clique, 200)
+    if worlds < 0:
+        raise RuntimeError('priced modal evaluation did not stabilize')
+    U, PCC = pd_payoffs(val, pay)
+    U = U.astype(float)
+    # pricing: 'atoms' = c * k(x) * (1 + settle world); 'depth' = c * (1 + settle world) for any
+    # program with boxes (no atom multiplier); 'lazy' = 'atoms', but free against constant
+    # opponents (C, D: best reply read off syntactically) and against exact copies of itself
+    # (cheap triage first, proof search only otherwise).
+    if pricing == 'depth':
+        cost = c * (nat[:, None] > 0).astype(float) * (1.0 + last)
+    else:
+        cost = c * nat[:, None].astype(float) * (1.0 + last)
+    if pricing == 'lazy':
+        const = (nat == 0) & (is_clique == 0)
+        cost[:, const] = 0.0
+        np.fill_diagonal(cost, 0.0)
+    if m:
+        cost[K0:, :] = (c if c_eq is None else c_eq)
+    U = U - cost
+    names = list(L.rep) + ['CLIQUE_%d' % (i + 1) for i in range(m)]
+    iFB = names.index('BOX(THEM(ME))')
+    per = L.mu_canon[iFB] if clique_mass == 'per' else L.mu_canon[iFB] / max(m, 1)   # 'total': fixed total clique mass
+    mu = np.concatenate([L.mu_canon, np.full(m, per)])
+    bits = np.concatenate([L.bits_canon, np.full(m, L.bits_canon[iFB])])
+    prov = ModalProvider(U, PCC, mu, names, bits)
+    counts = np.concatenate([L.count_canon, np.ones(m)])
+    prov.sizes = np.array([counts[mm].sum() for mm in prov.members])
+    return L, val, worlds, prov
