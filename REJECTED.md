@@ -282,3 +282,17 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **"A neutral lineage reaches about √N copies" (Claude, draft brief).** Wrong as a statement about typical lineages: the reach-k probability is 1/k (astra). √N is where accumulated selection in the fixation integral becomes order one.
 
 **"Barrier below 0.3 along α = 0.25" and "strict exits ≥ 0.9 of FairBot's exits" as a falsifier (Claude, draft verdict 1).** The first is wrong: 2wc²N reaches 1.04 by N = 3·10⁵. The second holds by construction (fable). Both were replaced by per-path slope predictions, which held.
+
+## Added 2026-10-01: certificate pricing (RESULTS.md, "Certificate pricing (decidability-based free set)")
+
+**"Certificate pricing rewards legibility rather than sameness" (draft).** Too broad. On the GL chain "PA decides y's action toward me" is, to 3.6·10⁻³ of μ⊗μ, "y is monotone in its box atoms". It charges only for cooperation conditional on non-provability. The rival P* block is removed by the atom ladder acting on non-monotone programs, not by the free set: with a flat price (cert0flat) the block survives at its free-arm share.
+
+**"cert0 ≈ 0.60 / 0.71, two-level static estimate" (draft).** Replaced before the run by fable's renewal identity. The two-level estimate gave the P* block 4% of cooperative mass against the chain's 13–15%, because it ignored moves among cooperative states. The identity missed by +0.013 at one cell, where the block partly sits in a polymorphic rung.
+
+**Self-decidability as the criterion** (x is free iff its own action toward y is PA-decided). FairBot's defection on D is decided only in PA + Con(PA), so FairBot would pay against D and the entry barrier would return.
+
+**The opponent's settle world as the criterion.** It is retrospective, and it prices the opponent's computation rather than what the reader must check.
+
+**A small positive verification cost on certified checks.** It rebuilds the ladder: ALLC strictly invades FairBot at 1.4·10⁻⁴ (c = 10⁻²), independent of N (static).
+
+**"Removing P\*'s copy subsidy suffices for one network" (implicit in the brief).** Partly. cert0diag keeps the subsidy for copies whose self-play PA decides, and it locks in PrudentBot instead. Copy subsidies lock in whichever ALLC-punishing family they reach.

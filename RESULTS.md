@@ -1821,6 +1821,94 @@ are themselves static fixation computations, so that check is not independent.
 - The RS's iterated limit lim_N lim_c is the safe end of this family and coincides with the free arm.
 - Self-play changes FairBot's entry by 0.4–6.5% (static) and does not move the boundary.
 
+## Certificate pricing (decidability-based free set): one network, not faster (`runs/cert_pricing.md`; predictions in `predictions/2026-10-01-cert-pricing.md`)
+
+Designed and run by a subagent, reviewed by astra and fable before the run, and re-run in full on the fixed chain
+(a49a007). Old-chain cells differed by at most 6·10⁻⁵. Not to be confused with "Certificates-only arm" above.
+
+**The arm** (`src/cert_priced.py`). Lazy's price function, c·k(x)·(1 + settle world), is unchanged; only the set of
+free checks changes.
+- **cert0** (primary). x's check of y is free iff PA decides y's action toward x, meaning y's value toward x is
+  constant over all GL worlds. Constants are always decided, so entry into all-D stays neutral.
+- **Variants:**
+  - cert1: decided in PA + Con(PA);
+  - certC: constants plus PA-certified cooperation only;
+  - mono: a syntactic twin. Free iff y is constant, or y is monotone in its box atoms and either cooperates with x or
+    plays D at world 0.
+- **Controls:**
+  - cert0flat: cert0's free set with a flat price c on every other check;
+  - lazycert0: lazy's free set ∪ cert0's;
+  - cert0diag: constants plus only those copies whose self-play PA decides.
+
+Grid: ε→0, PD, w = 0.3, n ∈ {6, 8}, c ∈ {10⁻³, 10⁻²}, N ∈ {10², 10³, 10⁴, 3·10⁴}, plus N = 10⁵ for three cells.
+
+**What cert0 is.** Every box is true at world 0, and box truth only falls with the world index. So a program monotone
+in its atoms that ends up cooperating has cooperated at every world, and PA decides it.
+- 330 of 610 canonical functions are monotone, carrying 98.7% of the prior mass.
+- cert0 and mono differ on μ⊗μ weight 3.6·10⁻³ of 0.58, and their chains agree within 7.5·10⁻⁴.
+- In effect, cert0 charges only for cooperation conditional on *non*-provability. That is the P* family's defining
+  feature.
+- It is not sameness: 9,267 of 20,353 mutually cooperating pairs are free both ways, against 0 under lazy, and 142 of
+  287 self-cooperators pay to read their own copies.
+
+**n = 8.**
+- *X* is the π-weighted probability that two cooperative programs cooperate.
+- *Rival share* is 1 minus the largest block's share of the mutual-cooperation graph over cooperative states with
+  π ≥ 10⁻³, ALLC excluded.
+
+| pricing | c | P(C,C) at N = 10² / 10³ / 10⁴ / 3·10⁴ / 10⁵ | rival share at N = 10³ / 10⁴ / 3·10⁴ / 10⁵ | X at the same N |
+|---|---|---|---|---|
+| free | 0 | 0.182 / 0.371 / 0.617 / 0.725 / 0.814 | 0.067 / 0.100 / 0.110 / 0.125 | 0.87 / 0.81 / 0.80 / 0.77 |
+| lazy | 10⁻³ | 0.182 / 0.371 / 0.630 / 0.813 | 0.068 / 0.141 / 0.453 | 0.87 / 0.75 / 0.50 |
+| lazy | 10⁻² | 0.182 / 0.379 / 0.998 / 1.000 / 1.000 | 0.096 / 0 / 0 / unresolved | 0.82 / 0.99 / 1.00 |
+| cert0 = certC = mono | 10⁻³ | 0.182 / 0.368 / 0.597 / 0.702 | 0.035 / 0.018 / 0.007 | 0.92 / 0.96 / 0.98 |
+| cert0 = certC = mono | 10⁻² | 0.181 / 0.357 / 0.592 / 0.700 / 0.792 | 0.012 / 0 / 0 / 0 | 0.97 / 0.99 / 0.99 / 0.99 |
+| cert1 = cert0flat | both | free arm ± 0.0007 | as free | as free |
+| lazycert0 | both | lazy ± 0.0013 | as lazy | as lazy |
+| cert0diag | 10⁻² | 0.181 / 0.358 / 0.676 / 1.000 | 0.012 / 0 / 0 | 0.97 / 0.84 / 1.00 |
+
+- **n = 6.** Every certificate variant is within 0.0008 of c = 0; there is no P* at that size.
+- **Support and transitions under cert0.**
+  - Support: all-D plus one FairBot-containing block (FairBot, `BOX1(THEM(ME))`, `BOX(THEM(THEM))`,
+    `BOX1(THEM(THEM))`, and PrudentBot at 0.4–2%).
+  - Top state: FairBot. It has no strict exits, and its neutral exits equal the free arm's to three digits, 0.96 into
+    ALLC.
+  - One terminal class in every cell: no lottery, no near-closed classes, no indeterminate transitions. θ = 10⁻⁷ gives
+    results identical to 10⁻⁶.
+  - Polymorphic mass is 0.0078 in the c = 10⁻³, N = 10³ cells. That is the genuine ladder-rung state from the
+    priced-arm addendum; it is zero elsewhere.
+- **The P\* block under cert0.**
+  - It pays 4c at home. Its cheaper equivalents `not(BOX(THEM(ME)))` and `not(BOX(THEM(THEM)))` pay 2c and invade it
+    strictly, N-independent (1.85·10⁻⁵ at c = 10⁻²). Both cooperate with D, so D takes 0.93 of their exits.
+  - π(P* block) at 3·10⁴ is 0.0005 (c = 10⁻²), against 0.079 in the free arm and 1.0 under lazy.
+  - cert0 matches the renewal identity (P_free − p)/(1 − p), with p the block's free-arm mass, to within 0.0021. The
+    whole drop from c = 0 is the P* block's excursions being deleted.
+- **Controls: what does what.**
+  1. *The copy subsidy is the lock-in.* lazycert0 equals lazy. cert0diag at c = 10⁻² locks in PrudentBot instead
+     (0.9998 at N = 3·10⁴). PrudentBot cooperates with FairBot, so that lock-in is universal, not parochial.
+  2. *The atom ladder, not the free set, removes the rival block.* Under cert0flat, P*'s exits are neutral and ∝ 1/N,
+     and the block keeps its free-arm share (rival share 0.10–0.11).
+  3. *Without the subsidy, cert0 gives one network at the free arm's rate.* The cooperative-to-D local slope is
+     0.42–0.43, against 0.44–0.45 free; from 3·10⁴ to 10⁵ it is 0.406 against 0.420.
+  4. *An exact zero is load-bearing* (static only). Charging c/10 on certified checks by programs with boxes rebuilds
+     the ladder: ALLC strictly invades FairBot at 1.4·10⁻⁴ (c = 10⁻²), N-independent.
+- **Lazy, c = 10⁻², N = 10⁵** (not scored). Four locked-in states have exits near 10⁻⁵⁰, so their split is not
+  resolved in double precision, though P(C,C) = 1 is robust. The exits at 3·10⁴ suggest the resolved answer is the
+  P* block.
+
+**Verdicts.** 13 of 14 held. Verdict 3 held except at one cell, c = 10⁻³, N = 10³, which was +0.013 against a ±0.01
+tolerance because the P* block's polymorphic rung is not counted in p. No falsifier fired. Two cells were reproduced
+on main (cert0 and cert0flat at n = 8, c = 10⁻², N = 10⁴: 0.5919 and 0.6169).
+
+**Reading.**
+- On the GL chain, the certification criterion is, to 0.6% of pair weight, *syntactic monotonicity*: box-positive
+  programs certify themselves.
+- Certificate pricing yields one cooperative network containing FairBot, but no faster than the free arm.
+- Every mechanism here that beats the shadow's 1/N exit is a *moat*: a copy subsidy (lazy, cert0diag) or a clique. A
+  moat locks in whichever ALLC-punishing family it reaches first, chosen by prior and exit rate. That family can be
+  parochial (P*) or universal (PrudentBot).
+- "One network" and "faster than 1/N" have not been obtained together.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
