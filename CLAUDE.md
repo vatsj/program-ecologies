@@ -28,6 +28,11 @@ Research project: evolutionary game theory over source-observing programs ("prog
 - B fails well-mixed in dilemmas and fixed-role bargaining; mechanism = **unconditional shadow** (conditional program on-path identical to a constant; constant drifts in at μ/N with a large class-size advantage; then gets exploited).
 - Lattice (ε→0 object, `src/lattice_rates.py`): ρ_enter(`THEM(^C)`) = 0.11, N-independent; M_exit grows ~N^0.5–0.8; cooperative share 8% (32²) → 14% (64²). Not efficient in lim_N at any rate visible. FairBot sea long-lived but unreachable by nucleation; the FairBot-pruning hypothesis is falsified. Finite εN = 1 at 128² converges to a `THEM(^C)` sea (approach rate, not π).
 - lim_N chain (2026-09-28, `src/limN.py`): cooperation peaks at N ≈ 300–3,000 (0.013–0.014) and falls like N^(−1/2). The shadow's exit is μ(C)/N and vanishes; **the faker's exit is N-independent and binds in the limit.** Working conjecture (THEORY §9.2): Σ is efficient iff some efficient-supporting program enters neutrally (no grounding cost) and is unfakeable. Candidate: a modal (provability) arm.
+- Priced arm (2026-10-01, `build_priced`, `src/priced_limN.py`, `src/graph_rates.py`):
+  - *Atom pricing:* kills well-mixed cooperation through an entry barrier plus the price ladder (ALLC strictly invades FairBot).
+  - *Torus:* entry becomes N-independent, but the ladder stays.
+  - *Lazy pricing (free against constants and copies):* escapes the ladder; at n = 8 it locks in an ALLC-punishing prover family through cost incumbency.
+  - *Cliques:* absorbing.
 - Modal follow-ups (2026-10-01):
   - *Matched control:* same grammar and prior; simulation reaches 0.009 at N = 3·10⁴, provability 0.70. Provability alone carries the effect.
   - *Ratchet:* PrudentBot/FairBot plateaus near 0.04; P(C,C) is 0.87 at N = 3·10⁵.
