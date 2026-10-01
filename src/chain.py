@@ -494,6 +494,11 @@ class Chain:
             self.indeterminate.append((key, int(q), [(tuple(ids2.tolist()), t) for t in traj]))
             return []
         xq = xf[-1]
+        if 1e-6 < xq < 1 - 1e-6 and not self.is_attracting(Uq, xf):
+            # an unstable rest point reached from 1/N (the polish step can
+            # land on a separatrix when the mutant's payoff gap is below its
+            # threshold) is a barrier, not a target: q dies at first order
+            xq = 0.0; xf = np.append(x, 0.0)
         if xq > 1e-6:
             kstar = N if xq > 1 - 1e-6 else max(1, int(round(N * xq)))
             return self.targets(ids2, xf, kstar, Uq)
