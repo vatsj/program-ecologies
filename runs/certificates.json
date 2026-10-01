@@ -1,0 +1,6382 @@
+[
+ {
+  "variant": "tag",
+  "n": 10,
+  "N": 100,
+  "w": 0.3,
+  "classes": 43,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.9999730589250687,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 2.6930605756327868e-05,
+  "pi_C": 8.24606087282692e-09,
+  "pi_FB": 0.9998256115904529,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9998256115904529,
+   "mu": 0.007744540259508845,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 8.941633359046517e-09,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 8.941633359046517e-09,
+   "exit_shadow": 0.0,
+   "top_exits": [
+    [
+     "D",
+     8.498330519694618e-09
+    ],
+    [
+     "not(EQ(^EQ(ME)))",
+     1.768890708691736e-10
+    ],
+    [
+     "or(EQ(ME),EQ(^C))",
+     8.092198142911455e-11
+    ],
+    [
+     "or(EQ(ME),EQ(^D))",
+     7.948622702146725e-11
+    ]
+   ]
+  },
+  "pi_main": 0.9998256115904529,
+  "cut_flow": 2.6135612512272767e-13,
+  "floored_flow": 1.1254914380060459e-13,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 0.0,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.9998256115904529
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9998256115904529,
+   "mu": 0.007744540259508845,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 8.941633359046517e-09,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 8.941633359046517e-09,
+   "exit_shadow": 0.0,
+   "top_exits": [
+    [
+     "D",
+     8.498330519694618e-09
+    ],
+    [
+     "not(EQ(^EQ(ME)))",
+     1.768890708691736e-10
+    ],
+    [
+     "or(EQ(ME),EQ(^C))",
+     8.092198142911455e-11
+    ],
+    [
+     "or(EQ(ME),EQ(^D))",
+     7.948622702146725e-11
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 3,
+   "coop_mass": 0.9999729737461629,
+   "n_components": 3,
+   "components": [
+    [
+     1,
+     0.9998256115904529,
+     [
+      "EQ(ME)"
+     ]
+    ],
+    [
+     1,
+     7.368107790871721e-05,
+     [
+      "and(EQ(ME),not(EQ(^D)))"
+     ]
+    ],
+    [
+     1,
+     7.368107780120759e-05,
+     [
+      "and(EQ(ME),not(EQ(^C)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9998526338615353,
+   "cross": {
+    "mutual D": 3
+   },
+   "coverage_pi": 0.0,
+   "cc_coverage_mu": 9.22008710027384e-05,
+   "main_mutual_cc": [
+    0,
+    7
+   ]
+  },
+  "hit_cc_from_D": 2904.1305413474984,
+  "pcc_tol_alt": 0.9999730611516874,
+  "time_s": 0.12656688690185547
+ },
+ {
+  "variant": "tag",
+  "n": 10,
+  "N": 1000,
+  "w": 0.3,
+  "classes": 43,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 1.000000000000835,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.9998529027622349,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9998529027622349,
+   "mu": 0.007744540259508845,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "pi_main": 0.9998529027622349,
+  "cut_flow": 6.348960894585802e-41,
+  "floored_flow": 2.18880119286113e-37,
+  "indeterminate": 0,
+  "n_terminal": 3,
+  "near_closed": 0,
+  "absorb_error": 8.351097591230427e-13,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.9998529027622349
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9998529027622349,
+   "mu": 0.007744540259508845,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "graph": {
+   "n_states": 3,
+   "coop_mass": 1.000000000000835,
+   "n_components": 3,
+   "components": [
+    [
+     1,
+     0.9998529027622349,
+     [
+      "EQ(ME)"
+     ]
+    ],
+    [
+     1,
+     7.354861930005656e-05,
+     [
+      "and(EQ(ME),not(EQ(^D)))"
+     ]
+    ],
+    [
+     1,
+     7.354861930005656e-05,
+     [
+      "and(EQ(ME),not(EQ(^C)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9998529027613999,
+   "cross": {
+    "mutual D": 3
+   },
+   "coverage_pi": 0.0,
+   "cc_coverage_mu": 9.22008710027384e-05,
+   "main_mutual_cc": [
+    0,
+    7
+   ]
+  },
+  "hit_cc_from_D": 8963.042304662118,
+  "clique_split": [
+   [
+    "EQ(ME)",
+    0.9998529027622349,
+    -39.26250550686613,
+    0.9999996327545481
+   ],
+   [
+    "and(EQ(ME),not(EQ(^C)))",
+    7.354861930005656e-05,
+    -36.65979368327644,
+    1.8362272555247558e-07
+   ],
+   [
+    "and(EQ(ME),not(EQ(^D)))",
+    7.354861930005656e-05,
+    -36.65979368327644,
+    1.8362272555247558e-07
+   ]
+  ],
+  "pcc_tol_alt": 1.000000000000835,
+  "time_s": 0.1477189064025879
+ },
+ {
+  "variant": "tag",
+  "n": 10,
+  "N": 10000,
+  "w": 0.3,
+  "classes": 43,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 1.000000000006782,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.9998528720256203,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9998528720256203,
+   "mu": 0.007744540259508845,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "pi_main": 0.9998528720256203,
+  "cut_flow": 2.1498985245241197e-18,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 3,
+  "near_closed": 0,
+  "absorb_error": 6.781908368225231e-12,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.9998528720256203
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9998528720256203,
+   "mu": 0.007744540259508845,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "graph": {
+   "n_states": 3,
+   "coop_mass": 1.000000000006782,
+   "n_components": 3,
+   "components": [
+    [
+     1,
+     0.9998528720256203,
+     [
+      "EQ(ME)"
+     ]
+    ],
+    [
+     1,
+     7.35639905807883e-05,
+     [
+      "and(EQ(ME),not(EQ(^D)))"
+     ]
+    ],
+    [
+     1,
+     7.35639905807883e-05,
+     [
+      "and(EQ(ME),not(EQ(^C)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9998528720188394,
+   "cross": {
+    "mutual D": 3
+   },
+   "coverage_pi": 0.0,
+   "cc_coverage_mu": 9.22008710027384e-05,
+   "main_mutual_cc": [
+    0,
+    7
+   ]
+  },
+  "hit_cc_from_D": 28105.025385827987,
+  "clique_split": [
+   [
+    "EQ(ME)",
+    0.9998528720256203,
+    -332.9114763316375,
+    0.9999996326777811
+   ],
+   [
+    "and(EQ(ME),not(EQ(^C)))",
+    7.35639905807883e-05,
+    -330.30876450804783,
+    1.836611073835098e-07
+   ],
+   [
+    "and(EQ(ME),not(EQ(^D)))",
+    7.35639905807883e-05,
+    -330.30876450804783,
+    1.836611073835098e-07
+   ]
+  ],
+  "pcc_tol_alt": 1.000000000003095,
+  "time_s": 0.2550950050354004
+ },
+ {
+  "variant": "tag",
+  "n": 10,
+  "N": 30000,
+  "w": 0.3,
+  "classes": 43,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.9999999999999074,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.9998528636358788,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9998528636358788,
+   "mu": 0.007744540259508845,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "pi_main": 0.9998528636358788,
+  "cut_flow": 2.1182065647326165e-22,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 3,
+  "near_closed": 0,
+  "absorb_error": 9.259260025373806e-14,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.9998528636358788
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9998528636358788,
+   "mu": 0.007744540259508845,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "graph": {
+   "n_states": 3,
+   "coop_mass": 0.9999999999999074,
+   "n_components": 3,
+   "components": [
+    [
+     1,
+     0.9998528636358788,
+     [
+      "EQ(ME)"
+     ]
+    ],
+    [
+     1,
+     7.356818201435453e-05,
+     [
+      "and(EQ(ME),not(EQ(^D)))"
+     ]
+    ],
+    [
+     1,
+     7.356818201435453e-05,
+     [
+      "and(EQ(ME),not(EQ(^C)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9998528636359714,
+   "cross": {
+    "mutual D": 3
+   },
+   "coverage_pi": 0.0,
+   "cc_coverage_mu": 9.22008710027384e-05,
+   "main_mutual_cc": [
+    0,
+    7
+   ]
+  },
+  "hit_cc_from_D": 48596.965882291166,
+  "clique_split": [
+   [
+    "EQ(ME)",
+    0.9998528636358788,
+    -984.5917742913167,
+    0.9999996326569764
+   ],
+   [
+    "and(EQ(ME),not(EQ(^C)))",
+    7.356818201435453e-05,
+    -981.9890624677273,
+    1.8367157332516813e-07
+   ],
+   [
+    "and(EQ(ME),not(EQ(^D)))",
+    7.356818201435453e-05,
+    -981.9890624677273,
+    1.8367157332516813e-07
+   ]
+  ],
+  "pcc_tol_alt": 1.0000000000075164,
+  "time_s": 0.5070700645446777
+ },
+ {
+  "variant": "tageq",
+  "n": 10,
+  "N": 100,
+  "w": 0.3,
+  "classes": 33,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.9999730588987844,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 2.6931169975460983e-05,
+  "pi_C": 8.246930301402654e-09,
+  "pi_FB": 0.9999729737008112,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9999729737008112,
+   "mu": 0.007745680428367148,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 8.920543159451842e-09,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 8.920543159451842e-09,
+   "exit_shadow": 0.0,
+   "top_exits": [
+    [
+     "D",
+     8.498492213026545e-09
+    ],
+    [
+     "not(EQ(^EQ(ME)))",
+     1.7688907086917356e-10
+    ],
+    [
+     "or(EQ(ME),EQ(^C))",
+     8.092198142911454e-11
+    ],
+    [
+     "or(EQ(ME),EQ(^D))",
+     7.948622702146724e-11
+    ]
+   ]
+  },
+  "pi_main": 0.9999729737008112,
+  "cut_flow": 2.615112500696917e-13,
+  "floored_flow": 9.007168390150909e-14,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-16,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.9999729737008112
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9999729737008112,
+   "mu": 0.007745680428367148,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 8.920543159451842e-09,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 8.920543159451842e-09,
+   "exit_shadow": 0.0,
+   "top_exits": [
+    [
+     "D",
+     8.498492213026545e-09
+    ],
+    [
+     "not(EQ(^EQ(ME)))",
+     1.7688907086917356e-10
+    ],
+    [
+     "or(EQ(ME),EQ(^C))",
+     8.092198142911454e-11
+    ],
+    [
+     "or(EQ(ME),EQ(^D))",
+     7.948622702146724e-11
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 1,
+   "coop_mass": 0.9999729737008112,
+   "n_components": 1,
+   "components": [
+    [
+     1,
+     0.9999729737008112,
+     [
+      "EQ(ME)"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": NaN,
+   "cc_coverage_mu": 9.898940344846786e-06,
+   "main_mutual_cc": [
+    0,
+    4
+   ]
+  },
+  "hit_cc_from_D": 2904.127663803809,
+  "pcc_tol_alt": 0.9999730606357329,
+  "time_s": 0.06700015068054199
+ },
+ {
+  "variant": "tageq",
+  "n": 10,
+  "N": 1000,
+  "w": 0.3,
+  "classes": 33,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 1.0000000000000893,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 1.0000000000000893,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 1.0000000000000893,
+   "mu": 0.007745680428367148,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "pi_main": 1.0000000000000893,
+  "cut_flow": 3.964155379747915e-29,
+  "floored_flow": 5.141942844083264e-40,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 8.926193117986259e-14,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    1.0000000000000893
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 1.0000000000000893,
+   "mu": 0.007745680428367148,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "graph": {
+   "n_states": 1,
+   "coop_mass": 1.0000000000000893,
+   "n_components": 1,
+   "components": [
+    [
+     1,
+     1.0000000000000893,
+     [
+      "EQ(ME)"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": NaN,
+   "cc_coverage_mu": 9.898940344846786e-06,
+   "main_mutual_cc": [
+    0,
+    4
+   ]
+  },
+  "hit_cc_from_D": 8963.034819631006,
+  "clique_split": [
+   [
+    "EQ(ME)",
+    1.0000000000000893,
+    -39.2888727551216,
+    1.0
+   ]
+  ],
+  "pcc_tol_alt": 1.0000000000000893,
+  "time_s": 0.09114980697631836
+ },
+ {
+  "variant": "tageq",
+  "n": 10,
+  "N": 10000,
+  "w": 0.3,
+  "classes": 33,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 1.0000000000084273,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 1.0000000000084273,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 1.0000000000084273,
+   "mu": 0.007745680428367148,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "pi_main": 1.0000000000084273,
+  "cut_flow": 8.656044230699695e-25,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 8.427258890719713e-12,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    1.0000000000084273
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 1.0000000000084273,
+   "mu": 0.007745680428367148,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "graph": {
+   "n_states": 1,
+   "coop_mass": 1.0000000000084273,
+   "n_components": 1,
+   "components": [
+    [
+     1,
+     1.0000000000084273,
+     [
+      "EQ(ME)"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": NaN,
+   "cc_coverage_mu": 9.898940344846786e-06,
+   "main_mutual_cc": [
+    0,
+    4
+   ]
+  },
+  "hit_cc_from_D": 28105.008837106012,
+  "clique_split": [
+   [
+    "EQ(ME)",
+    1.0000000000084273,
+    -332.93784357989296,
+    1.0
+   ]
+  ],
+  "pcc_tol_alt": 1.0000000000047358,
+  "time_s": 0.12444901466369629
+ },
+ {
+  "variant": "tageq",
+  "n": 10,
+  "N": 30000,
+  "w": 0.3,
+  "classes": 33,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.9999999999972459,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.9999999999972459,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9999999999972459,
+   "mu": 0.007745680428367148,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "pi_main": 0.9999999999972459,
+  "cut_flow": 2.159837501718877e-25,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.754130257187626e-12,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.9999999999972459
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9999999999972459,
+   "mu": 0.007745680428367148,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "graph": {
+   "n_states": 1,
+   "coop_mass": 0.9999999999972459,
+   "n_components": 1,
+   "components": [
+    [
+     1,
+     0.9999999999972459,
+     [
+      "EQ(ME)"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": NaN,
+   "cc_coverage_mu": 9.898940344846786e-06,
+   "main_mutual_cc": [
+    0,
+    4
+   ]
+  },
+  "hit_cc_from_D": 48596.943934971285,
+  "clique_split": [
+   [
+    "EQ(ME)",
+    0.9999999999972459,
+    -984.6181415395722,
+    1.0
+   ]
+  ],
+  "pcc_tol_alt": 1.0000000000048546,
+  "time_s": 0.2375781536102295
+ },
+ {
+  "variant": "lfp",
+  "n": 10,
+  "N": 100,
+  "w": 0.3,
+  "classes": 82,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 13,
+   "period": 4,
+   "divergent": 819,
+   "inconsistent": [
+    7,
+    1.403171813393805e-10
+   ]
+  },
+  "pcc": 0.020193461729052124,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.9782982331232432,
+  "pi_C": 0.002064480072204529,
+  "pi_FB": 0.0005975453955555057,
+  "main": {
+   "name": "IMP(THEM(^C))",
+   "self_coop": true,
+   "pi": 0.017950892056852075,
+   "mu": 0.00238554653368931,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 0.0055118885704878,
+   "exit_faker": 0.0006378918056543021,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0048739788147697935,
+   "exit_other": 1.7950063704881505e-08,
+   "exit_shadow": 0.0048737702725890645,
+   "top_exits": [
+    [
+     "C",
+     0.0048736623931733645
+    ],
+    [
+     "IMP(THEM(^D))",
+     0.000628968448694638
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(ME)))))",
+     2.518648052578742e-06
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(THEM)))))",
+     2.518648052578742e-06
+    ]
+   ]
+  },
+  "pi_main": 0.017950892056852075,
+  "cut_flow": 5.290033705197022e-07,
+  "floored_flow": 8.722349934087246e-15,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 0.0,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9782982331232432
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.017950892056852075
+   ],
+   [
+    "mono {C:1}",
+    0.002064480072204529
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": false,
+   "pi": 0.0005975453955555057,
+   "mu": 0.007776262776020002,
+   "rho_enter": 0.010000000000000002,
+   "rho_enter_static": 0.010000000000000002,
+   "exit_total": 0.1279373586289693,
+   "exit_faker": 0.12292328842842734,
+   "exit_strict": 1.812541938362281e-05,
+   "exit_neutral": 0.004995944781158336,
+   "exit_other": 0.0,
+   "exit_shadow": 1.967794339914612e-05,
+   "top_exits": [
+    [
+     "C",
+     0.1217390100452003
+    ],
+    [
+     "D",
+     0.004873662393173359
+    ],
+    [
+     "IMP(THEM(^C))",
+     0.0005958846756289181
+    ],
+    [
+     "not(IMP(THEM(THEM)))",
+     0.0004706480310712034
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 6,
+   "coop_mass": 0.02018624331987227,
+   "n_components": 1,
+   "components": [
+    [
+     6,
+     0.02018624331987227,
+     [
+      "IMP(THEM(^C))",
+      "C",
+      "IMP(THEM(^IMP(THEM(^C))))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 0.9922765186408157,
+   "cc_coverage_mu": 0.9078948291838232,
+   "main_mutual_cc": [
+    5,
+    6
+   ]
+  },
+  "hit_cc_from_D": 9777.123070509871,
+  "pcc_tol_alt": 0.020193461771058727,
+  "time_s": 0.560286283493042
+ },
+ {
+  "variant": "lfp",
+  "n": 10,
+  "N": 1000,
+  "w": 0.3,
+  "classes": 82,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 13,
+   "period": 4,
+   "divergent": 819,
+   "inconsistent": [
+    7,
+    1.403171813393805e-10
+   ]
+  },
+  "pcc": 0.02905711324885138,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.9706469723830298,
+  "pi_C": 0.0003833245870347434,
+  "pi_FB": 5.9399099621515354e-05,
+  "main": {
+   "name": "IMP(THEM(^C))",
+   "self_coop": true,
+   "pi": 0.028381070799556502,
+   "mu": 0.00238554653368931,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0011155190934381653,
+   "exit_faker": 0.0006281212119611865,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.00048739788147697896,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0004873770272589061,
+   "top_exits": [
+    [
+     "IMP(THEM(^D))",
+     0.0006193512917869345
+    ],
+    [
+     "C",
+     0.00048736623931733606
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(ME)))))",
+     2.480137005534646e-06
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(THEM)))))",
+     2.480137005534646e-06
+    ]
+   ]
+  },
+  "pi_main": 0.028381070799556502,
+  "cut_flow": 1.4118952402608388e-07,
+  "floored_flow": 3.3922068428325628e-40,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 1.1102230246251565e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9706469723830298
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.028381070799556502
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": false,
+   "pi": 5.9399099621515354e-05,
+   "mu": 0.007776262776020002,
+   "rho_enter": 0.0009999999999999996,
+   "rho_enter_static": 0.0009999999999999996,
+   "exit_total": 0.1276473400107943,
+   "exit_faker": 0.12714186835559213,
+   "exit_strict": 5.877177086321405e-06,
+   "exit_neutral": 0.0004995944781158326,
+   "exit_other": 0.0,
+   "exit_shadow": 1.9677943399146096e-06,
+   "top_exits": [
+    [
+     "C",
+     0.1258952377168614
+    ],
+    [
+     "IMP(THEM(^C))",
+     0.0006162284617090592
+    ],
+    [
+     "not(IMP(THEM(THEM)))",
+     0.0005044634038221774
+    ],
+    [
+     "D",
+     0.00048736623931733535
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 6,
+   "coop_mass": 0.029051877128333112,
+   "n_components": 1,
+   "components": [
+    [
+     6,
+     0.029051877128333112,
+     [
+      "IMP(THEM(^C))",
+      "C",
+      "IMP(THEM(^IMP(THEM(^C))))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 0.9470970554776734,
+   "cc_coverage_mu": 0.9078948291838232,
+   "main_mutual_cc": [
+    5,
+    6
+   ]
+  },
+  "hit_cc_from_D": 30330.550224526585,
+  "pcc_tol_alt": 0.02905711324885138,
+  "time_s": 0.5916359424591064
+ },
+ {
+  "variant": "lfp",
+  "n": 10,
+  "N": 10000,
+  "w": 0.3,
+  "classes": 82,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 13,
+   "period": 4,
+   "divergent": 819,
+   "inconsistent": [
+    7,
+    1.403171813393805e-10
+   ]
+  },
+  "pcc": 0.015393835452530919,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.9845053723171767,
+  "pi_C": 9.367830941483183e-05,
+  "pi_FB": 6.0272510474865136e-06,
+  "main": {
+   "name": "IMP(THEM(^C))",
+   "self_coop": true,
+   "pi": 0.015133718337554981,
+   "mu": 0.00238554653368931,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 0.000675890544707284,
+   "exit_faker": 0.0006271507565595861,
+   "exit_strict": 0.0,
+   "exit_neutral": 4.873978814769791e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 4.8737702725890625e-05,
+   "top_exits": [
+    [
+     "IMP(THEM(^D))",
+     0.0006183962380514286
+    ],
+    [
+     "C",
+     4.873662393173362e-05
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(ME)))))",
+     2.4763125780358862e-06
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(THEM)))))",
+     2.4763125780358862e-06
+    ]
+   ]
+  },
+  "pi_main": 0.015133718337554981,
+  "cut_flow": 5.39342484181059e-08,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 1.1102230246251565e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9845053723171767
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.015133718337554981
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": false,
+   "pi": 6.0272510474865136e-06,
+   "mu": 0.007776262776020002,
+   "rho_enter": 9.999999999999998e-05,
+   "rho_enter_static": 9.999999999999998e-05,
+   "exit_total": 0.12757827496844115,
+   "exit_faker": 0.1275264402778537,
+   "exit_strict": 1.8752427758581718e-06,
+   "exit_neutral": 4.995944781158341e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.967794339914613e-07,
+   "top_exits": [
+    [
+     "C",
+     0.12627462546612328
+    ],
+    [
+     "IMP(THEM(^C))",
+     0.0006180854781725788
+    ],
+    [
+     "not(IMP(THEM(THEM)))",
+     0.0005071392883170431
+    ],
+    [
+     "not(IMP(THEM(^D)))",
+     0.00010898416752685912
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 6,
+   "coop_mass": 0.015388972035626065,
+   "n_components": 1,
+   "components": [
+    [
+     6,
+     0.015388972035626065,
+     [
+      "IMP(THEM(^C))",
+      "C",
+      "IMP(THEM(^IMP(THEM(^C))))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 0.9136276568960053,
+   "cc_coverage_mu": 0.9078948291838232,
+   "main_mutual_cc": [
+    5,
+    6
+   ]
+  },
+  "hit_cc_from_D": 95294.67801835081,
+  "pcc_tol_alt": 0.015393831441028367,
+  "time_s": 0.782905101776123
+ },
+ {
+  "variant": "lfp",
+  "n": 10,
+  "N": 30000,
+  "w": 0.3,
+  "classes": 82,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 13,
+   "period": 4,
+   "divergent": 819,
+   "inconsistent": [
+    7,
+    1.403171813393805e-10
+   ]
+  },
+  "pcc": 0.00940619924262221,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.9905325351487813,
+  "pi_C": 5.107376002699957e-05,
+  "pi_FB": 2.0214063557970014e-06,
+  "main": {
+   "name": "IMP(THEM(^C))",
+   "self_coop": true,
+   "pi": 0.009249612560947616,
+   "mu": 0.00238554653368931,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 0.0006433255142963405,
+   "exit_faker": 0.0006270789182471078,
+   "exit_strict": 0.0,
+   "exit_neutral": 1.6246596049232628e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.6245900908630196e-05,
+   "top_exits": [
+    [
+     "IMP(THEM(^D))",
+     0.0006183255411996642
+    ],
+    [
+     "C",
+     1.624554131057786e-05
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(ME)))))",
+     2.476029478798731e-06
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(THEM)))))",
+     2.476029478798731e-06
+    ]
+   ]
+  },
+  "pi_main": 0.009249612560947616,
+  "cut_flow": 3.194726362765316e-08,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 1.1102230246251565e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9905325351487813
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.009249612560947616
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": false,
+   "pi": 2.0214063557970014e-06,
+   "mu": 0.007776262776020002,
+   "rho_enter": 3.333333333333331e-05,
+   "rho_enter_static": 3.333333333333331e-05,
+   "exit_total": 0.12757244697557596,
+   "exit_faker": 0.1275547091929249,
+   "exit_strict": 1.0846333805544635e-06,
+   "exit_neutral": 1.6653149270527787e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 6.55931446638203e-08,
+   "top_exits": [
+    [
+     "C",
+     0.12630251510813548
+    ],
+    [
+     "IMP(THEM(^C))",
+     0.000618221991606339
+    ],
+    [
+     "not(IMP(THEM(THEM)))",
+     0.0005073345193193013
+    ],
+    [
+     "not(IMP(THEM(^D)))",
+     0.00010902612264401671
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 6,
+   "coop_mass": 0.009400129061583965,
+   "n_components": 1,
+   "components": [
+    [
+     6,
+     0.009400129061583965,
+     [
+      "IMP(THEM(^C))",
+      "IMP(THEM(^IMP(THEM(^C))))",
+      "C"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 0.9089386965605232,
+   "cc_coverage_mu": 0.9078948291838232,
+   "main_mutual_cc": [
+    5,
+    6
+   ]
+  },
+  "hit_cc_from_D": 164844.01798444896,
+  "pcc_tol_alt": 0.009406197452468413,
+  "time_s": 1.2831120491027832
+ },
+ {
+  "variant": "gfp",
+  "n": 10,
+  "N": 100,
+  "w": 0.3,
+  "classes": 82,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 13,
+   "period": 4,
+   "divergent": 819,
+   "inconsistent": [
+    8,
+    1.6221935656425086e-10
+   ]
+  },
+  "pcc": 0.13621700063145964,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.8634958618176422,
+  "pi_C": 0.005140618884939947,
+  "pi_FB": 0.05799463615645444,
+  "main": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.05799463615645444,
+   "mu": 0.007776262776020002,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 0.00497618534763635,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0049761684602538684,
+   "exit_other": 1.6887382481815125e-08,
+   "exit_shadow": 0.0048737735106932425,
+   "top_exits": [
+    [
+     "C",
+     0.00487366239317336
+    ],
+    [
+     "IMP(THEM(THEM))",
+     7.720727261128792e-05
+    ],
+    [
+     "IMP(THEM(^C))",
+     2.385546533689317e-05
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     5.517293626920608e-07
+    ]
+   ]
+  },
+  "pi_main": 0.05799463615645444,
+  "cut_flow": 1.4754928878494422e-07,
+  "floored_flow": 4.2586033062590704e-14,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 0.0,
+  "support": [
+   [
+    "mono {D:1}",
+    0.8634958618176422
+   ],
+   [
+    "mono {IMP(THEM(ME)):1}",
+    0.05799463615645444
+   ],
+   [
+    "mono {IMP(THEM(THEM)):1}",
+    0.056250916139478344
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.01579653532941005
+   ],
+   [
+    "mono {C:1}",
+    0.005140618884939947
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.05799463615645444,
+   "mu": 0.007776262776020002,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 0.00497618534763635,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0049761684602538684,
+   "exit_other": 1.6887382481815125e-08,
+   "exit_shadow": 0.0048737735106932425,
+   "top_exits": [
+    [
+     "C",
+     0.00487366239317336
+    ],
+    [
+     "IMP(THEM(THEM))",
+     7.720727261128792e-05
+    ],
+    [
+     "IMP(THEM(^C))",
+     2.385546533689317e-05
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     5.517293626920608e-07
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 16,
+   "coop_mass": 0.13620483278948267,
+   "n_components": 2,
+   "components": [
+    [
+     15,
+     0.13615057058417349,
+     [
+      "IMP(THEM(ME))",
+      "IMP(THEM(THEM))",
+      "IMP(THEM(^C))"
+     ]
+    ],
+    [
+     1,
+     5.426220530918758e-05,
+     [
+      "not(IMP(THEM(^C)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9996016132159344,
+   "cross": {
+    "one-way C": 1
+   },
+   "coverage_pi": 0.9985485770017232,
+   "cc_coverage_mu": 0.9997745011427338,
+   "main_mutual_cc": [
+    21,
+    24
+   ]
+  },
+  "faker_flux": {
+   "FB": 0.0,
+   "other": 0.0006915364630666885
+  },
+  "faker_flux_loop_only": {
+   "FB": 0.0,
+   "other": 2.9276250185907765e-07
+  },
+  "loop_only_pairs": [
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(ME)))))"
+    ],
+    1.453964056064849e-07
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(THEM)))))"
+    ],
+    1.4480872158716433e-07
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(ME)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    6.396631949740059e-10
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(THEM)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    6.373055442660149e-10
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(^IMP(THEM(THEM)))))))"
+    ],
+    5.876840193205419e-10
+   ],
+   [
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     "and(IMP(THEM(THEM)),not(IMP(THEM(ME))))"
+    ],
+    4.570950131478469e-10
+   ]
+  ],
+  "hit_cc_from_D": 1319.5617779789388,
+  "pcc_tol_alt": 0.1362170006777964,
+  "ablated": {
+   "pcc": 0.137410847625894,
+   "pi_TT": 0.057526866337277924,
+   "pi_FB": 0.05793654345746491
+  },
+  "pi_TT": 0.056250916139478344,
+  "time_s": 0.5040481090545654
+ },
+ {
+  "variant": "gfp",
+  "n": 10,
+  "N": 1000,
+  "w": 0.3,
+  "classes": 82,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 13,
+   "period": 4,
+   "divergent": 819,
+   "inconsistent": [
+    8,
+    1.6221935656425086e-10
+   ]
+  },
+  "pcc": 0.2986980450644664,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.7011683540971971,
+  "pi_C": 0.001247988597777537,
+  "pi_FB": 0.15175535787094974,
+  "main": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.15175535787094974,
+   "mu": 0.007776262776020002,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0004976168460253865,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0004976168460253865,
+   "exit_other": 0.0,
+   "exit_shadow": 0.00048737735106932427,
+   "top_exits": [
+    [
+     "C",
+     0.0004873662393173359
+    ],
+    [
+     "IMP(THEM(THEM))",
+     7.720727261128792e-06
+    ],
+    [
+     "IMP(THEM(^C))",
+     2.3855465336893163e-06
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     5.517293626920606e-08
+    ]
+   ]
+  },
+  "pi_main": 0.15175535787094974,
+  "cut_flow": 7.4106847267949e-08,
+  "floored_flow": 1.9130298345788917e-39,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.7011683540971971
+   ],
+   [
+    "mono {IMP(THEM(ME)):1}",
+    0.15175535787094974
+   ],
+   [
+    "mono {IMP(THEM(THEM)):1}",
+    0.12260850646951847
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.02075881920354919
+   ],
+   [
+    "mono {C:1}",
+    0.001247988597777537
+   ],
+   [
+    "mono {IMP(THEM(^IMP(THEM(THEM)))):1}",
+    0.001072429897767334
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.15175535787094974,
+   "mu": 0.007776262776020002,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0004976168460253865,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0004976168460253865,
+   "exit_other": 0.0,
+   "exit_shadow": 0.00048737735106932427,
+   "top_exits": [
+    [
+     "C",
+     0.0004873662393173359
+    ],
+    [
+     "IMP(THEM(THEM))",
+     7.720727261128792e-06
+    ],
+    [
+     "IMP(THEM(^C))",
+     2.3855465336893163e-06
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     5.517293626920606e-08
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 16,
+   "coop_mass": 0.298675411419804,
+   "n_components": 2,
+   "components": [
+    [
+     15,
+     0.298568639336638,
+     [
+      "IMP(THEM(ME))",
+      "IMP(THEM(THEM))",
+      "IMP(THEM(^C))"
+     ]
+    ],
+    [
+     1,
+     0.00010677208316598515,
+     [
+      "not(IMP(THEM(^C)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9996425146527514,
+   "cross": {
+    "one-way C": 1
+   },
+   "coverage_pi": 0.9985619641569388,
+   "cc_coverage_mu": 0.9997745011427338,
+   "main_mutual_cc": [
+    21,
+    24
+   ]
+  },
+  "faker_flux": {
+   "FB": 0.0,
+   "other": 0.00020134115100834245
+  },
+  "faker_flux_loop_only": {
+   "FB": 0.0,
+   "other": 6.16139231360205e-07
+  },
+  "loop_only_pairs": [
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(ME)))))"
+    ],
+    3.0606001572122243e-07
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(THEM)))))"
+    ],
+    3.048229385084668e-07
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(ME)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    1.2421712912783644e-09
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(THEM)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    1.2374335470966658e-09
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(^IMP(THEM(THEM)))))))"
+    ],
+    1.2370772127556224e-09
+   ],
+   [
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     "and(IMP(THEM(THEM)),not(IMP(THEM(ME))))"
+    ],
+    1.1735973542751353e-09
+   ]
+  ],
+  "hit_cc_from_D": 4069.440047343934,
+  "pcc_tol_alt": 0.2986980450644664,
+  "ablated": {
+   "pcc": 0.31848548599700083,
+   "pi_TT": 0.1468627336523505,
+   "pi_FB": 0.14790934249080465
+  },
+  "pi_TT": 0.12260850646951847,
+  "time_s": 0.730043888092041
+ },
+ {
+  "variant": "gfp",
+  "n": 10,
+  "N": 10000,
+  "w": 0.3,
+  "classes": 82,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 13,
+   "period": 4,
+   "divergent": 819,
+   "inconsistent": [
+    8,
+    1.6221935656425086e-10
+   ]
+  },
+  "pcc": 0.4777229219448297,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.5222272676222526,
+  "pi_C": 0.0002232836108305053,
+  "pi_FB": 0.35703574201858196,
+  "main": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.35703574201858196,
+   "mu": 0.007776262776020002,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 4.976168460253873e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 4.976168460253873e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 4.873773510693245e-05,
+   "top_exits": [
+    [
+     "C",
+     4.873662393173361e-05
+    ],
+    [
+     "IMP(THEM(THEM))",
+     7.720727261128795e-07
+    ],
+    [
+     "IMP(THEM(^C))",
+     2.3855465336893173e-07
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     5.5172936269206096e-09
+    ]
+   ]
+  },
+  "pi_main": 0.35703574201858196,
+  "cut_flow": 2.6605244950987558e-08,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 8.881784197001252e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.5222272676222526
+   ],
+   [
+    "mono {IMP(THEM(ME)):1}",
+    0.35703574201858196
+   ],
+   [
+    "mono {IMP(THEM(THEM)):1}",
+    0.1080542183880041
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.008170705809781088
+   ],
+   [
+    "mono {IMP(THEM(^IMP(THEM(THEM)))):1}",
+    0.002435982465236815
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.35703574201858196,
+   "mu": 0.007776262776020002,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 4.976168460253873e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 4.976168460253873e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 4.873773510693245e-05,
+   "top_exits": [
+    [
+     "C",
+     4.873662393173361e-05
+    ],
+    [
+     "IMP(THEM(THEM))",
+     7.720727261128795e-07
+    ],
+    [
+     "IMP(THEM(^C))",
+     2.3855465336893173e-07
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     5.5172936269206096e-09
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 14,
+   "coop_mass": 0.47767077777232253,
+   "n_components": 2,
+   "components": [
+    [
+     13,
+     0.47757777499952947,
+     [
+      "IMP(THEM(ME))",
+      "IMP(THEM(THEM))",
+      "IMP(THEM(^C))"
+     ]
+    ],
+    [
+     1,
+     9.300277279308762e-05,
+     [
+      "not(IMP(THEM(^C)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9998052994298149,
+   "cross": {
+    "one-way C": 1
+   },
+   "coverage_pi": 0.9988882338591675,
+   "cc_coverage_mu": 0.9997745011427338,
+   "main_mutual_cc": [
+    21,
+    24
+   ]
+  },
+  "faker_flux": {
+   "FB": 0.0,
+   "other": 5.871160366664753e-05
+  },
+  "faker_flux_loop_only": {
+   "FB": 0.0,
+   "other": 5.425438404017603e-07
+  },
+  "loop_only_pairs": [
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(ME)))))"
+    ],
+    2.6872771028975526e-07
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(THEM)))))"
+    ],
+    2.676415281367155e-07
+   ],
+   [
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     "and(IMP(THEM(THEM)),not(IMP(THEM(ME))))"
+    ],
+    2.661669682362342e-09
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(^IMP(THEM(THEM)))))))"
+    ],
+    1.086182153039729e-09
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(ME)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    1.0808470218248605e-09
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(THEM)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    1.076623724467104e-09
+   ]
+  ],
+  "hit_cc_from_D": 12754.336676086265,
+  "pcc_tol_alt": 0.477722968588904,
+  "ablated": {
+   "pcc": 0.5836531621922624,
+   "pi_TT": 0.2857326030207091,
+   "pi_FB": 0.2877424342137043
+  },
+  "pi_TT": 0.1080542183880041,
+  "time_s": 0.7748308181762695
+ },
+ {
+  "variant": "gfp",
+  "n": 10,
+  "N": 30000,
+  "w": 0.3,
+  "classes": 82,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 13,
+   "period": 4,
+   "divergent": 819,
+   "inconsistent": [
+    8,
+    1.6221935656425086e-10
+   ]
+  },
+  "pcc": 0.5753051848220516,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.42466834875217874,
+  "pi_C": 9.324273180408245e-05,
+  "pi_FB": 0.5022543525481232,
+  "main": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.5022543525481232,
+   "mu": 0.007776262776020002,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 1.6587228200846236e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 1.6587228200846236e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.6245911702310802e-05,
+   "top_exits": [
+    [
+     "C",
+     1.6245541310577855e-05
+    ],
+    [
+     "IMP(THEM(THEM))",
+     2.573575753709596e-07
+    ],
+    [
+     "IMP(THEM(^C))",
+     7.951821778964382e-08
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     1.8390978756402013e-09
+    ]
+   ]
+  },
+  "pi_main": 0.5022543525481232,
+  "cut_flow": 1.3174071671524972e-08,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 6.661338147750939e-16,
+  "support": [
+   [
+    "mono {IMP(THEM(ME)):1}",
+    0.5022543525481232
+   ],
+   [
+    "mono {D:1}",
+    0.42466834875217874
+   ],
+   [
+    "mono {IMP(THEM(THEM)):1}",
+    0.06361698957480985
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.004033279238323634
+   ],
+   [
+    "mono {IMP(THEM(^IMP(THEM(THEM)))):1}",
+    0.0031824106392150616
+   ],
+   [
+    "mono {and(IMP(THEM(ME)),IMP(THEM(THEM))):1}",
+    0.001271288424032188
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.5022543525481232,
+   "mu": 0.007776262776020002,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 1.6587228200846236e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 1.6587228200846236e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.6245911702310802e-05,
+   "top_exits": [
+    [
+     "C",
+     1.6245541310577855e-05
+    ],
+    [
+     "IMP(THEM(THEM))",
+     2.573575753709596e-07
+    ],
+    [
+     "IMP(THEM(^C))",
+     7.951821778964382e-08
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     1.8390978756402013e-09
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 12,
+   "coop_mass": 0.5752458651796086,
+   "n_components": 2,
+   "components": [
+    [
+     11,
+     0.5751911600196107,
+     [
+      "IMP(THEM(ME))",
+      "IMP(THEM(THEM))",
+      "IMP(THEM(^C))"
+     ]
+    ],
+    [
+     1,
+     5.4705159997975615e-05,
+     [
+      "not(IMP(THEM(^C)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9999049012547342,
+   "cross": {
+    "one-way C": 1
+   },
+   "coverage_pi": 0.9991561047027688,
+   "cc_coverage_mu": 0.9997745011427338,
+   "main_mutual_cc": [
+    21,
+    24
+   ]
+  },
+  "faker_flux": {
+   "FB": 0.0,
+   "other": 2.9189500913477755e-05
+  },
+  "faker_flux_loop_only": {
+   "FB": 0.0,
+   "other": 3.21280802353879e-07
+  },
+  "loop_only_pairs": [
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(ME)))))"
+    ],
+    1.5816971869595446e-07
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(THEM)))))"
+    ],
+    1.5753040567009038e-07
+   ],
+   [
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     "and(IMP(THEM(THEM)),not(IMP(THEM(ME))))"
+    ],
+    3.476854887503868e-09
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(^IMP(THEM(THEM)))))))"
+    ],
+    6.393130258640457e-10
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(ME)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    6.35718483212994e-10
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(THEM)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    6.332453784466467e-10
+   ]
+  ],
+  "hit_cc_from_D": 22051.398707996083,
+  "pcc_tol_alt": 0.5753053684254148,
+  "ablated": {
+   "pcc": 0.7069338171110963,
+   "pi_TT": 0.348979133986029,
+   "pi_FB": 0.35135677001699167
+  },
+  "pi_TT": 0.06361698957480985,
+  "time_s": 1.3180811405181885
+ },
+ {
+  "variant": "lob",
+  "n": 10,
+  "N": 100,
+  "w": 0.3,
+  "classes": 25,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 8,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.13747434311106868,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.8622765024582095,
+  "pi_C": 0.005187240295459536,
+  "pi_FB": 0.05853862493363874,
+  "main": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.05853862493363874,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 0.0049754209386920325,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.004975367860196602,
+   "exit_other": 5.30784954300987e-08,
+   "exit_shadow": 0.00487377027258906,
+   "top_exits": [
+    [
+     "C",
+     0.004873722421407539
+    ],
+    [
+     "BOX(THEM(THEM))",
+     7.753358008992029e-05
+    ],
+    [
+     "BOX(THEM(^C))",
+     2.3947017583793006e-05
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     1.1660225179178238e-07
+    ]
+   ]
+  },
+  "pi_main": 0.05853862493363874,
+  "cut_flow": 0,
+  "floored_flow": 7.756847560277838e-15,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.8622765024582095
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.05853862493363874
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.05777001504726279
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.015840008384770166
+   ],
+   [
+    "mono {C:1}",
+    0.005187240295459536
+   ]
+  ],
+  "FB": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.05853862493363874,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 0.0049754209386920325,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.004975367860196602,
+   "exit_other": 5.30784954300987e-08,
+   "exit_shadow": 0.00487377027258906,
+   "top_exits": [
+    [
+     "C",
+     0.004873722421407539
+    ],
+    [
+     "BOX(THEM(THEM))",
+     7.753358008992029e-05
+    ],
+    [
+     "BOX(THEM(^C))",
+     2.3947017583793006e-05
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     1.1660225179178238e-07
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 7,
+   "coop_mass": 0.13746893716535127,
+   "n_components": 2,
+   "components": [
+    [
+     5,
+     0.1374227210606705,
+     [
+      "BOX(THEM(ME))",
+      "BOX(THEM(THEM))",
+      "BOX(THEM(^C))"
+     ]
+    ],
+    [
+     2,
+     4.621610468076706e-05,
+     [
+      "not(BOX(THEM(ME)))",
+      "not(BOX(THEM(THEM)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9996638069251588,
+   "cross": {
+    "one-way C": 1
+   },
+   "coverage_pi": 0.9989285962646289,
+   "cc_coverage_mu": 1.0,
+   "main_mutual_cc": [
+    4,
+    4
+   ]
+  },
+  "hit_cc_from_D": 1319.899061591088,
+  "pcc_tol_alt": 0.13747434313316256,
+  "ablated": {
+   "pcc": 0.13747767624527968,
+   "pi_TT": 0.05777360423747718,
+   "pi_FB": 0.05853843377714363
+  },
+  "pi_TT": 0.05777001504726279,
+  "time_s": 0.038182973861694336
+ },
+ {
+  "variant": "lob",
+  "n": 10,
+  "N": 1000,
+  "w": 0.3,
+  "classes": 25,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 8,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.3186556680080139,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.6812295477748026,
+  "pi_C": 0.0013222178087083929,
+  "pi_FB": 0.1494200402078713,
+  "main": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.1494200402078713,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0004975367860196598,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0004975367860196598,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0004873770272589055,
+   "top_exits": [
+    [
+     "C",
+     0.0004873722421407534
+    ],
+    [
+     "BOX(THEM(THEM))",
+     7.753358008992023e-06
+    ],
+    [
+     "BOX(THEM(^C))",
+     2.3947017583792983e-06
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     1.1660225179178225e-08
+    ]
+   ]
+  },
+  "pi_main": 0.1494200402078713,
+  "cut_flow": 0,
+  "floored_flow": 1.0152813055373894e-38,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 0.0,
+  "support": [
+   [
+    "mono {D:1}",
+    0.6812295477748026
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.1494200402078713
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.14737464610861478
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.020304386534069317
+   ],
+   [
+    "mono {C:1}",
+    0.0013222178087083929
+   ]
+  ],
+  "FB": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.1494200402078713,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0004975367860196598,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0004975367860196598,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0004873770272589055,
+   "top_exits": [
+    [
+     "C",
+     0.0004873722421407534
+    ],
+    [
+     "BOX(THEM(THEM))",
+     7.753358008992023e-06
+    ],
+    [
+     "BOX(THEM(^C))",
+     2.3947017583792983e-06
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     1.1660225179178225e-08
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 5,
+   "coop_mass": 0.3186417372914413,
+   "n_components": 1,
+   "components": [
+    [
+     5,
+     0.3186417372914413,
+     [
+      "BOX(THEM(ME))",
+      "BOX(THEM(THEM))",
+      "BOX(THEM(^C))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 1.0,
+   "cc_coverage_mu": 1.0,
+   "main_mutual_cc": [
+    4,
+    4
+   ]
+  },
+  "hit_cc_from_D": 4070.132680092193,
+  "pcc_tol_alt": 0.3186556680080139,
+  "ablated": {
+   "pcc": 0.3187203070470082,
+   "pi_TT": 0.14745453062078234,
+   "pi_FB": 0.14940666634579933
+  },
+  "pi_TT": 0.14737464610861478,
+  "time_s": 0.04250907897949219
+ },
+ {
+  "variant": "lob",
+  "n": 10,
+  "N": 10000,
+  "w": 0.3,
+  "classes": 25,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 8,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.5834541421670576,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.4165121243540814,
+  "pi_C": 0.00025604211786575324,
+  "pi_FB": 0.29088527309264084,
+  "main": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.29088527309264084,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 4.9753678601966005e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 4.9753678601966005e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 4.873770272589058e-05,
+   "top_exits": [
+    [
+     "C",
+     4.8737224214075364e-05
+    ],
+    [
+     "BOX(THEM(THEM))",
+     7.753358008992026e-07
+    ],
+    [
+     "BOX(THEM(^C))",
+     2.3947017583792995e-07
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     1.1660225179178232e-09
+    ]
+   ]
+  },
+  "pi_main": 0.29088527309264084,
+  "cut_flow": 0,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 0.0,
+  "support": [
+   [
+    "mono {D:1}",
+    0.4165121243540814
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.29088527309264084
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.28528921964241544
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.0066117520529961026
+   ]
+  ],
+  "FB": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.29088527309264084,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 4.9753678601966005e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 4.9753678601966005e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 4.873770272589058e-05,
+   "top_exits": [
+    [
+     "C",
+     4.8737224214075364e-05
+    ],
+    [
+     "BOX(THEM(THEM))",
+     7.753358008992026e-07
+    ],
+    [
+     "BOX(THEM(^C))",
+     2.3947017583792995e-07
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     1.1660225179178232e-09
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 5,
+   "coop_mass": 0.5834495145421195,
+   "n_components": 1,
+   "components": [
+    [
+     5,
+     0.5834495145421195,
+     [
+      "BOX(THEM(ME))",
+      "BOX(THEM(THEM))",
+      "BOX(THEM(^C))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 1.0,
+   "cc_coverage_mu": 1.0,
+   "main_mutual_cc": [
+    4,
+    4
+   ]
+  },
+  "hit_cc_from_D": 12756.111930719664,
+  "pcc_tol_alt": 0.5834541418888475,
+  "ablated": {
+   "pcc": 0.5842134930087554,
+   "pi_TT": 0.28657618631342197,
+   "pi_FB": 0.29037026205501243
+  },
+  "pi_TT": 0.28528921964241544,
+  "time_s": 0.06367111206054688
+ },
+ {
+  "variant": "lob",
+  "n": 10,
+  "N": 30000,
+  "w": 0.3,
+  "classes": 25,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 8,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.7055510994613055,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.2944345479201757,
+  "pi_C": 0.00010400380791274688,
+  "pi_FB": 0.35666594482393577,
+  "main": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.35666594482393577,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 1.6584559533988654e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 1.6584559533988654e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.624590090863018e-05,
+   "top_exits": [
+    [
+     "C",
+     1.6245741404691774e-05
+    ],
+    [
+     "BOX(THEM(THEM))",
+     2.5844526696640066e-07
+    ],
+    [
+     "BOX(THEM(^C))",
+     7.98233919459766e-08
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     3.886741726392741e-10
+    ]
+   ]
+  },
+  "pi_main": 0.35666594482393577,
+  "cut_flow": 0,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-16,
+  "support": [
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.35666594482393577
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.34548527503503274
+   ],
+   [
+    "mono {D:1}",
+    0.2944345479201757
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.0028438500847042594
+   ]
+  ],
+  "FB": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.35666594482393577,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 1.6584559533988654e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 1.6584559533988654e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.624590090863018e-05,
+   "top_exits": [
+    [
+     "C",
+     1.6245741404691774e-05
+    ],
+    [
+     "BOX(THEM(THEM))",
+     2.5844526696640066e-07
+    ],
+    [
+     "BOX(THEM(^C))",
+     7.98233919459766e-08
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     3.886741726392741e-10
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 5,
+   "coop_mass": 0.7055474742056221,
+   "n_components": 1,
+   "components": [
+    [
+     5,
+     0.7055474742056221,
+     [
+      "BOX(THEM(ME))",
+      "BOX(THEM(THEM))",
+      "BOX(THEM(^C))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 1.0,
+   "cc_coverage_mu": 1.0,
+   "main_mutual_cc": [
+    4,
+    4
+   ]
+  },
+  "hit_cc_from_D": 22054.315515723996,
+  "pcc_tol_alt": 0.705551099252868,
+  "ablated": {
+   "pcc": 0.7074908648948679,
+   "pi_TT": 0.34974107047304553,
+   "pi_FB": 0.35437142622623824
+  },
+  "pi_TT": 0.34548527503503274,
+  "time_s": 0.11212491989135742
+ },
+ {
+  "variant": "lob1",
+  "n": 10,
+  "N": 100,
+  "w": 0.3,
+  "classes": 25,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 9,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.13747434311106868,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.8622765024582095,
+  "pi_C": 0.005187240295459536,
+  "pi_FB": 0.05853862493363874,
+  "main": {
+   "name": "BOX1(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.05853862493363874,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 0.0049754209386920325,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.004975367860196602,
+   "exit_other": 5.30784954300987e-08,
+   "exit_shadow": 0.00487377027258906,
+   "top_exits": [
+    [
+     "C",
+     0.004873722421407539
+    ],
+    [
+     "BOX1(THEM(THEM))",
+     7.753358008992029e-05
+    ],
+    [
+     "BOX1(THEM(^C))",
+     2.3947017583793006e-05
+    ],
+    [
+     "BOX1(THEM(^BOX1(THEM(^C))))",
+     1.1660225179178238e-07
+    ]
+   ]
+  },
+  "pi_main": 0.05853862493363874,
+  "cut_flow": 0,
+  "floored_flow": 7.756847560277838e-15,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.8622765024582095
+   ],
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.05853862493363874
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.05777001504726279
+   ],
+   [
+    "mono {BOX1(THEM(^C)):1}",
+    0.015840008384770166
+   ],
+   [
+    "mono {C:1}",
+    0.005187240295459536
+   ]
+  ],
+  "FB": {
+   "name": "BOX1(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.05853862493363874,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 0.0049754209386920325,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.004975367860196602,
+   "exit_other": 5.30784954300987e-08,
+   "exit_shadow": 0.00487377027258906,
+   "top_exits": [
+    [
+     "C",
+     0.004873722421407539
+    ],
+    [
+     "BOX1(THEM(THEM))",
+     7.753358008992029e-05
+    ],
+    [
+     "BOX1(THEM(^C))",
+     2.3947017583793006e-05
+    ],
+    [
+     "BOX1(THEM(^BOX1(THEM(^C))))",
+     1.1660225179178238e-07
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 7,
+   "coop_mass": 0.13746893716535127,
+   "n_components": 2,
+   "components": [
+    [
+     5,
+     0.1374227210606705,
+     [
+      "BOX1(THEM(ME))",
+      "BOX1(THEM(THEM))",
+      "BOX1(THEM(^C))"
+     ]
+    ],
+    [
+     2,
+     4.621610468076706e-05,
+     [
+      "not(BOX1(THEM(ME)))",
+      "not(BOX1(THEM(THEM)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9996638069251588,
+   "cross": {
+    "one-way C": 1
+   },
+   "coverage_pi": 0.9989285962646289,
+   "cc_coverage_mu": 1.0,
+   "main_mutual_cc": [
+    4,
+    4
+   ]
+  },
+  "hit_cc_from_D": 1319.899061591088,
+  "pcc_tol_alt": 0.13747434313316256,
+  "ablated": {
+   "pcc": 0.13747767624527968,
+   "pi_TT": 0.05777360423747718,
+   "pi_FB": 0.05853843377714363
+  },
+  "pi_TT": 0.05777001504726279,
+  "time_s": 0.037338972091674805
+ },
+ {
+  "variant": "lob1",
+  "n": 10,
+  "N": 1000,
+  "w": 0.3,
+  "classes": 25,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 9,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.3186556680080139,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.6812295477748026,
+  "pi_C": 0.0013222178087083929,
+  "pi_FB": 0.1494200402078713,
+  "main": {
+   "name": "BOX1(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.1494200402078713,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0004975367860196598,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0004975367860196598,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0004873770272589055,
+   "top_exits": [
+    [
+     "C",
+     0.0004873722421407534
+    ],
+    [
+     "BOX1(THEM(THEM))",
+     7.753358008992023e-06
+    ],
+    [
+     "BOX1(THEM(^C))",
+     2.3947017583792983e-06
+    ],
+    [
+     "BOX1(THEM(^BOX1(THEM(^C))))",
+     1.1660225179178225e-08
+    ]
+   ]
+  },
+  "pi_main": 0.1494200402078713,
+  "cut_flow": 0,
+  "floored_flow": 1.0152813055373894e-38,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 0.0,
+  "support": [
+   [
+    "mono {D:1}",
+    0.6812295477748026
+   ],
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.1494200402078713
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.14737464610861478
+   ],
+   [
+    "mono {BOX1(THEM(^C)):1}",
+    0.020304386534069317
+   ],
+   [
+    "mono {C:1}",
+    0.0013222178087083929
+   ]
+  ],
+  "FB": {
+   "name": "BOX1(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.1494200402078713,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0004975367860196598,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0004975367860196598,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0004873770272589055,
+   "top_exits": [
+    [
+     "C",
+     0.0004873722421407534
+    ],
+    [
+     "BOX1(THEM(THEM))",
+     7.753358008992023e-06
+    ],
+    [
+     "BOX1(THEM(^C))",
+     2.3947017583792983e-06
+    ],
+    [
+     "BOX1(THEM(^BOX1(THEM(^C))))",
+     1.1660225179178225e-08
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 5,
+   "coop_mass": 0.3186417372914413,
+   "n_components": 1,
+   "components": [
+    [
+     5,
+     0.3186417372914413,
+     [
+      "BOX1(THEM(ME))",
+      "BOX1(THEM(THEM))",
+      "BOX1(THEM(^C))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 1.0,
+   "cc_coverage_mu": 1.0,
+   "main_mutual_cc": [
+    4,
+    4
+   ]
+  },
+  "hit_cc_from_D": 4070.132680092193,
+  "pcc_tol_alt": 0.3186556680080139,
+  "ablated": {
+   "pcc": 0.3187203070470082,
+   "pi_TT": 0.14745453062078234,
+   "pi_FB": 0.14940666634579933
+  },
+  "pi_TT": 0.14737464610861478,
+  "time_s": 0.05478191375732422
+ },
+ {
+  "variant": "lob1",
+  "n": 10,
+  "N": 10000,
+  "w": 0.3,
+  "classes": 25,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 9,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.5834541421670576,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.4165121243540814,
+  "pi_C": 0.00025604211786575324,
+  "pi_FB": 0.29088527309264084,
+  "main": {
+   "name": "BOX1(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.29088527309264084,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 4.9753678601966005e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 4.9753678601966005e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 4.873770272589058e-05,
+   "top_exits": [
+    [
+     "C",
+     4.8737224214075364e-05
+    ],
+    [
+     "BOX1(THEM(THEM))",
+     7.753358008992026e-07
+    ],
+    [
+     "BOX1(THEM(^C))",
+     2.3947017583792995e-07
+    ],
+    [
+     "BOX1(THEM(^BOX1(THEM(^C))))",
+     1.1660225179178232e-09
+    ]
+   ]
+  },
+  "pi_main": 0.29088527309264084,
+  "cut_flow": 0,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 0.0,
+  "support": [
+   [
+    "mono {D:1}",
+    0.4165121243540814
+   ],
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.29088527309264084
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.28528921964241544
+   ],
+   [
+    "mono {BOX1(THEM(^C)):1}",
+    0.0066117520529961026
+   ]
+  ],
+  "FB": {
+   "name": "BOX1(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.29088527309264084,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 4.9753678601966005e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 4.9753678601966005e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 4.873770272589058e-05,
+   "top_exits": [
+    [
+     "C",
+     4.8737224214075364e-05
+    ],
+    [
+     "BOX1(THEM(THEM))",
+     7.753358008992026e-07
+    ],
+    [
+     "BOX1(THEM(^C))",
+     2.3947017583792995e-07
+    ],
+    [
+     "BOX1(THEM(^BOX1(THEM(^C))))",
+     1.1660225179178232e-09
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 5,
+   "coop_mass": 0.5834495145421195,
+   "n_components": 1,
+   "components": [
+    [
+     5,
+     0.5834495145421195,
+     [
+      "BOX1(THEM(ME))",
+      "BOX1(THEM(THEM))",
+      "BOX1(THEM(^C))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 1.0,
+   "cc_coverage_mu": 1.0,
+   "main_mutual_cc": [
+    4,
+    4
+   ]
+  },
+  "hit_cc_from_D": 12756.111930719664,
+  "pcc_tol_alt": 0.5834541418888475,
+  "ablated": {
+   "pcc": 0.5842134930087554,
+   "pi_TT": 0.28657618631342197,
+   "pi_FB": 0.29037026205501243
+  },
+  "pi_TT": 0.28528921964241544,
+  "time_s": 0.06446313858032227
+ },
+ {
+  "variant": "lob1",
+  "n": 10,
+  "N": 30000,
+  "w": 0.3,
+  "classes": 25,
+  "programs": 216292,
+  "eval_info": {
+   "iters": 9,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.7055510994613055,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.2944345479201757,
+  "pi_C": 0.00010400380791274688,
+  "pi_FB": 0.35666594482393577,
+  "main": {
+   "name": "BOX1(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.35666594482393577,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 1.6584559533988654e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 1.6584559533988654e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.624590090863018e-05,
+   "top_exits": [
+    [
+     "C",
+     1.6245741404691774e-05
+    ],
+    [
+     "BOX1(THEM(THEM))",
+     2.5844526696640066e-07
+    ],
+    [
+     "BOX1(THEM(^C))",
+     7.98233919459766e-08
+    ],
+    [
+     "BOX1(THEM(^BOX1(THEM(^C))))",
+     3.886741726392741e-10
+    ]
+   ]
+  },
+  "pi_main": 0.35666594482393577,
+  "cut_flow": 0,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-16,
+  "support": [
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.35666594482393577
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.34548527503503274
+   ],
+   [
+    "mono {D:1}",
+    0.2944345479201757
+   ],
+   [
+    "mono {BOX1(THEM(^C)):1}",
+    0.0028438500847042594
+   ]
+  ],
+  "FB": {
+   "name": "BOX1(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.35666594482393577,
+   "mu": 0.007855998971328548,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 1.6584559533988654e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 1.6584559533988654e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.624590090863018e-05,
+   "top_exits": [
+    [
+     "C",
+     1.6245741404691774e-05
+    ],
+    [
+     "BOX1(THEM(THEM))",
+     2.5844526696640066e-07
+    ],
+    [
+     "BOX1(THEM(^C))",
+     7.98233919459766e-08
+    ],
+    [
+     "BOX1(THEM(^BOX1(THEM(^C))))",
+     3.886741726392741e-10
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 5,
+   "coop_mass": 0.7055474742056221,
+   "n_components": 1,
+   "components": [
+    [
+     5,
+     0.7055474742056221,
+     [
+      "BOX1(THEM(ME))",
+      "BOX1(THEM(THEM))",
+      "BOX1(THEM(^C))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 1.0,
+   "cc_coverage_mu": 1.0,
+   "main_mutual_cc": [
+    4,
+    4
+   ]
+  },
+  "hit_cc_from_D": 22054.315515723996,
+  "pcc_tol_alt": 0.705551099252868,
+  "ablated": {
+   "pcc": 0.7074908648948679,
+   "pi_TT": 0.34974107047304553,
+   "pi_FB": 0.35437142622623824
+  },
+  "pi_TT": 0.34548527503503274,
+  "time_s": 0.11152410507202148
+ },
+ {
+  "variant": "tag",
+  "n": 11,
+  "N": 100,
+  "w": 0.3,
+  "classes": 68,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.9999730905065061,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 2.6898467914799052e-05,
+  "pi_C": 8.591085984861304e-09,
+  "pi_FB": 0.999730697796383,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.999730697796383,
+   "mu": 0.007787262160860399,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 9.002846735277131e-09,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 9.002846735277131e-09,
+   "exit_shadow": 0.0,
+   "top_exits": [
+    [
+     "D",
+     8.496028845474198e-09
+    ],
+    [
+     "not(EQ(^EQ(ME)))",
+     2.0310134420593667e-10
+    ],
+    [
+     "or(EQ(ME),EQ(^C))",
+     9.124803438910666e-11
+    ],
+    [
+     "or(EQ(ME),EQ(^D))",
+     9.008222015869091e-11
+    ]
+   ]
+  },
+  "pi_main": 0.999730697796383,
+  "cut_flow": 3.047594114583236e-13,
+  "floored_flow": 3.3533226754341106e-13,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 6.661338147750939e-16,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.999730697796383
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.999730697796383,
+   "mu": 0.007787262160860399,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 9.002846735277131e-09,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 9.002846735277131e-09,
+   "exit_shadow": 0.0,
+   "top_exits": [
+    [
+     "D",
+     8.496028845474198e-09
+    ],
+    [
+     "not(EQ(^EQ(ME)))",
+     2.0310134420593667e-10
+    ],
+    [
+     "or(EQ(ME),EQ(^C))",
+     9.124803438910666e-11
+    ],
+    [
+     "or(EQ(ME),EQ(^D))",
+     9.008222015869091e-11
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 3,
+   "coop_mass": 0.9999693587165255,
+   "n_components": 3,
+   "components": [
+    [
+     1,
+     0.999730697796383,
+     [
+      "EQ(ME)"
+     ]
+    ],
+    [
+     1,
+     0.00012024098865110333,
+     [
+      "and(EQ(ME),not(EQ(^C)))"
+     ]
+    ],
+    [
+     1,
+     0.00011841993149132446,
+     [
+      "and(EQ(ME),not(EQ(^D)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9997613317667565,
+   "cross": {
+    "mutual D": 3
+   },
+   "coverage_pi": 0.0,
+   "cc_coverage_mu": 0.0001462786712240731,
+   "main_mutual_cc": [
+    0,
+    11
+   ]
+  },
+  "hit_cc_from_D": 2879.138485695645,
+  "pcc_tol_alt": 0.9999730948354157,
+  "time_s": 0.2829000949859619
+ },
+ {
+  "variant": "tag",
+  "n": 11,
+  "N": 1000,
+  "w": 0.3,
+  "classes": 68,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 1.0000000000024434,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.9997581786633069,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9997581786633069,
+   "mu": 0.007787262160860399,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "pi_main": 0.9997581786633069,
+  "cut_flow": 7.178983997145399e-45,
+  "floored_flow": 1.8929522771294394e-37,
+  "indeterminate": 0,
+  "n_terminal": 5,
+  "near_closed": 0,
+  "absorb_error": 2.4433788325950445e-12,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.9997581786633069
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9997581786633069,
+   "mu": 0.007787262160860399,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "graph": {
+   "n_states": 3,
+   "coop_mass": 0.9999963651439293,
+   "n_components": 3,
+   "components": [
+    [
+     1,
+     0.9997581786633069,
+     [
+      "EQ(ME)"
+     ]
+    ],
+    [
+     1,
+     0.00012000195877889614,
+     [
+      "and(EQ(ME),not(EQ(^C)))"
+     ]
+    ],
+    [
+     1,
+     0.00011818452184348545,
+     [
+      "and(EQ(ME),not(EQ(^D)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9997618126536009,
+   "cross": {
+    "mutual D": 3
+   },
+   "coverage_pi": 0.0,
+   "cc_coverage_mu": 0.0001462786712240731,
+   "main_mutual_cc": [
+    0,
+    11
+   ]
+  },
+  "hit_cc_from_D": 8886.015263971527,
+  "clique_split": [
+   [
+    "EQ(ME)",
+    0.9997581786633069,
+    -39.19350968861665,
+    0.9999992962631754
+   ],
+   [
+    "and(EQ(ME),not(EQ(^C)))",
+    0.00012000195877889614,
+    -36.657321767907206,
+    3.4922485289276635e-07
+   ],
+   [
+    "and(EQ(ME),not(EQ(^D)))",
+    0.00011818452184348545,
+    -36.657320978940525,
+    3.439351965248227e-07
+   ],
+   [
+    "and(EQ(ME),not(EQ(^EQ(ME))))",
+    1.8174369354107496e-06,
+    -36.65727046586478,
+    5.288406810848304e-09
+   ],
+   [
+    "or(EQ(ME),EQ(^not(EQ(ME))))",
+    1.817421578805103e-06,
+    -36.65727046586478,
+    5.288362125953683e-09
+   ]
+  ],
+  "pcc_tol_alt": 1.0000000000001112,
+  "time_s": 0.34372878074645996
+ },
+ {
+  "variant": "tag",
+  "n": 11,
+  "N": 10000,
+  "w": 0.3,
+  "classes": 68,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 1.000000000013321,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.9997581277246478,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9997581277246478,
+   "mu": 0.007787262160860399,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "pi_main": 0.9997581277246478,
+  "cut_flow": 4.053353149777763e-54,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 5,
+  "near_closed": 0,
+  "absorb_error": 1.3320899938662478e-11,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.9997581277246478
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9997581277246478,
+   "mu": 0.007787262160860399,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "graph": {
+   "n_states": 3,
+   "coop_mass": 0.9999963643888826,
+   "n_components": 3,
+   "components": [
+    [
+     1,
+     0.9997581277246478,
+     [
+      "EQ(ME)"
+     ]
+    ],
+    [
+     1,
+     0.0001200272420433907,
+     [
+      "and(EQ(ME),not(EQ(^C)))"
+     ]
+    ],
+    [
+     1,
+     0.00011820942219140746,
+     [
+      "and(EQ(ME),not(EQ(^D)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9997617624696261,
+   "cross": {
+    "mutual D": 3
+   },
+   "coverage_pi": 0.0,
+   "cc_coverage_mu": 0.0001462786712240731,
+   "main_mutual_cc": [
+    0,
+    11
+   ]
+  },
+  "hit_cc_from_D": 27863.804220825314,
+  "clique_split": [
+   [
+    "EQ(ME)",
+    0.9997581277246478,
+    -332.842480513388,
+    0.9999992961148995
+   ],
+   [
+    "and(EQ(ME),not(EQ(^C)))",
+    0.0001200272420433907,
+    -330.30629259267863,
+    3.492984489731256e-07
+   ],
+   [
+    "and(EQ(ME),not(EQ(^D)))",
+    0.00011820942219140746,
+    -330.30629180371193,
+    3.440076778564122e-07
+   ],
+   [
+    "and(EQ(ME),not(EQ(^EQ(ME))))",
+    1.8178198519831769e-06,
+    -330.30624129063625,
+    5.28952129628491e-09
+   ],
+   [
+    "or(EQ(ME),EQ(^not(EQ(ME))))",
+    1.8178045863622484e-06,
+    -330.30624129063625,
+    5.289476876137291e-09
+   ]
+  ],
+  "pcc_tol_alt": 1.000000000009722,
+  "time_s": 0.6397809982299805
+ },
+ {
+  "variant": "tag",
+  "n": 11,
+  "N": 30000,
+  "w": 0.3,
+  "classes": 68,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.9999999999913638,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.9997581137573868,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9997581137573868,
+   "mu": 0.007787262160860399,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "pi_main": 0.9997581137573868,
+  "cut_flow": 7.5811208836428405e-56,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 5,
+  "near_closed": 0,
+  "absorb_error": 8.636091841651705e-12,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.9997581137573868
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9997581137573868,
+   "mu": 0.007787262160860399,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "graph": {
+   "n_states": 3,
+   "coop_mass": 0.9999963641573038,
+   "n_components": 3,
+   "components": [
+    [
+     1,
+     0.9997581137573868,
+     [
+      "EQ(ME)"
+     ]
+    ],
+    [
+     1,
+     0.00012003416228826789,
+     [
+      "and(EQ(ME),not(EQ(^C)))"
+     ]
+    ],
+    [
+     1,
+     0.0001182162376287569,
+     [
+      "and(EQ(ME),not(EQ(^D)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9997617487338389,
+   "cross": {
+    "mutual D": 3
+   },
+   "coverage_pi": 0.0,
+   "cc_coverage_mu": 0.0001462786712240731,
+   "main_mutual_cc": [
+    0,
+    11
+   ]
+  },
+  "hit_cc_from_D": 48180.02185329756,
+  "clique_split": [
+   [
+    "EQ(ME)",
+    0.9997581137573868,
+    -984.5227784730672,
+    0.9999992960745407
+   ],
+   [
+    "and(EQ(ME),not(EQ(^C)))",
+    0.00012003416228826789,
+    -981.9865905523579,
+    3.493185928572955e-07
+   ],
+   [
+    "and(EQ(ME),not(EQ(^D)))",
+    0.0001182162376287569,
+    -981.9865897633912,
+    3.440275166241565e-07
+   ],
+   [
+    "and(EQ(ME),not(EQ(^EQ(ME))))",
+    1.8179246595110706e-06,
+    -981.9865392503154,
+    5.289826340595383e-09
+   ],
+   [
+    "or(EQ(ME),EQ(^not(EQ(ME))))",
+    1.8179094005763847e-06,
+    -981.9865392503154,
+    5.2897819399019426e-09
+   ]
+  ],
+  "pcc_tol_alt": 0.9999999999910862,
+  "time_s": 1.3815932273864746
+ },
+ {
+  "variant": "tageq",
+  "n": 11,
+  "N": 100,
+  "w": 0.3,
+  "classes": 50,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.9999730898295762,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 2.689974071153776e-05,
+  "pi_C": 8.592375849899592e-09,
+  "pi_FB": 0.9999711790735761,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9999711790735761,
+   "mu": 0.00778913294235633,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 8.968431187312981e-09,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 8.968431187312981e-09,
+   "exit_shadow": 0.0,
+   "top_exits": [
+    [
+     "D",
+     8.496217974863906e-09
+    ],
+    [
+     "not(EQ(^EQ(ME)))",
+     2.0336366853353944e-10
+    ],
+    [
+     "or(EQ(ME),EQ(^C))",
+     9.124803438910668e-11
+    ],
+    [
+     "or(EQ(ME),EQ(^D))",
+     9.008222015869092e-11
+    ]
+   ]
+  },
+  "pi_main": 0.9999711790735761,
+  "cut_flow": 3.050509913043572e-13,
+  "floored_flow": 1.0939879733034843e-13,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 0.0,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.9999711790735761
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9999711790735761,
+   "mu": 0.00778913294235633,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 8.968431187312981e-09,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 8.968431187312981e-09,
+   "exit_shadow": 0.0,
+   "top_exits": [
+    [
+     "D",
+     8.496217974863906e-09
+    ],
+    [
+     "not(EQ(^EQ(ME)))",
+     2.0336366853353944e-10
+    ],
+    [
+     "or(EQ(ME),EQ(^C))",
+     9.124803438910668e-11
+    ],
+    [
+     "or(EQ(ME),EQ(^D))",
+     9.008222015869092e-11
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 1,
+   "coop_mass": 0.9999711790735761,
+   "n_components": 1,
+   "components": [
+    [
+     1,
+     0.9999711790735761,
+     [
+      "EQ(ME)"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": NaN,
+   "cc_coverage_mu": 1.5173986477596882e-05,
+   "main_mutual_cc": [
+    0,
+    7
+   ]
+  },
+  "hit_cc_from_D": 2879.1348670805555,
+  "pcc_tol_alt": 0.9999730933723707,
+  "time_s": 0.14960289001464844
+ },
+ {
+  "variant": "tageq",
+  "n": 11,
+  "N": 1000,
+  "w": 0.3,
+  "classes": 50,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 1.00000000000276,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.9999981825814718,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9999981825814718,
+   "mu": 0.00778913294235633,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "pi_main": 0.9999981825814718,
+  "cut_flow": 1.5548816865901668e-87,
+  "floored_flow": 2.201554970923523e-37,
+  "indeterminate": 0,
+  "n_terminal": 2,
+  "near_closed": 0,
+  "absorb_error": 2.760014439218139e-12,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.9999981825814718
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9999981825814718,
+   "mu": 0.00778913294235633,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "graph": {
+   "n_states": 1,
+   "coop_mass": 0.9999981825814718,
+   "n_components": 1,
+   "components": [
+    [
+     1,
+     0.9999981825814718,
+     [
+      "EQ(ME)"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": NaN,
+   "cc_coverage_mu": 1.5173986477596882e-05,
+   "main_mutual_cc": [
+    0,
+    7
+   ]
+  },
+  "hit_cc_from_D": 8886.005979324334,
+  "clique_split": [
+   [
+    "EQ(ME)",
+    0.9999981825814718,
+    -39.23088273340754,
+    0.9999999951488547
+   ],
+   [
+    "or(EQ(ME),EQ(^not(EQ(ME))))",
+    1.817421288208326e-06,
+    -36.65727046586478,
+    4.851143599775278e-09
+   ]
+  ],
+  "pcc_tol_alt": 1.0000000000004277,
+  "time_s": 0.17706799507141113
+ },
+ {
+  "variant": "tageq",
+  "n": 11,
+  "N": 10000,
+  "w": 0.3,
+  "classes": 50,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 1.0000000000080993,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.9999981822038894,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9999981822038894,
+   "mu": 0.00778913294235633,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "pi_main": 0.9999981822038894,
+  "cut_flow": 1.2429358536627106e-25,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 2,
+  "near_closed": 0,
+  "absorb_error": 8.099299009245442e-12,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.9999981822038894
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9999981822038894,
+   "mu": 0.00778913294235633,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "graph": {
+   "n_states": 1,
+   "coop_mass": 0.9999981822038894,
+   "n_components": 1,
+   "components": [
+    [
+     1,
+     0.9999981822038894,
+     [
+      "EQ(ME)"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": NaN,
+   "cc_coverage_mu": 1.5173986477596882e-05,
+   "main_mutual_cc": [
+    0,
+    7
+   ]
+  },
+  "hit_cc_from_D": 27863.78392219822,
+  "clique_split": [
+   [
+    "EQ(ME)",
+    0.9999981822038894,
+    -332.8798535581789,
+    0.9999999951478458
+   ],
+   [
+    "or(EQ(ME),EQ(^not(EQ(ME))))",
+    1.8178042099157903e-06,
+    -330.3062412906362,
+    4.8521657136480145e-09
+   ]
+  ],
+  "pcc_tol_alt": 1.0000000000053881,
+  "time_s": 0.29293012619018555
+ },
+ {
+  "variant": "tageq",
+  "n": 11,
+  "N": 30000,
+  "w": 0.3,
+  "classes": 50,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 0,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.9999999999937581,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.9999981820847494,
+  "main": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9999981820847494,
+   "mu": 0.00778913294235633,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "pi_main": 0.9999981820847494,
+  "cut_flow": 3.8892803754596313e-26,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 2,
+  "near_closed": 0,
+  "absorb_error": 6.241895889047555e-12,
+  "support": [
+   [
+    "mono {EQ(ME):1}",
+    0.9999981820847494
+   ]
+  ],
+  "FB": {
+   "name": "EQ(ME)",
+   "self_coop": true,
+   "pi": 0.9999981820847494,
+   "mu": 0.00778913294235633,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 0.0,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0,
+   "top_exits": []
+  },
+  "graph": {
+   "n_states": 1,
+   "coop_mass": 0.9999981820847494,
+   "n_components": 1,
+   "components": [
+    [
+     1,
+     0.9999981820847494,
+     [
+      "EQ(ME)"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": NaN,
+   "cc_coverage_mu": 1.5173986477596882e-05,
+   "main_mutual_cc": [
+    0,
+    7
+   ]
+  },
+  "hit_cc_from_D": 48179.99500472631,
+  "clique_split": [
+   [
+    "EQ(ME)",
+    0.9999981820847494,
+    -984.5601515178582,
+    0.999999995147391
+   ],
+   [
+    "or(EQ(ME),EQ(^not(EQ(ME))))",
+    1.8179090087119924e-06,
+    -981.9865392503156,
+    4.852445447941121e-09
+   ]
+  ],
+  "pcc_tol_alt": 0.9999999999993666,
+  "time_s": 0.6738028526306152
+ },
+ {
+  "variant": "lfp",
+  "n": 11,
+  "N": 100,
+  "w": 0.3,
+  "classes": 158,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 23,
+   "period": 12,
+   "divergent": 3313,
+   "inconsistent": [
+    72,
+    1.746746407361827e-10
+   ]
+  },
+  "pcc": 0.02058559008058354,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.9778851404896581,
+  "pi_C": 0.002091681897986638,
+  "pi_FB": 0.0006005202148593346,
+  "main": {
+   "name": "IMP(THEM(^C))",
+   "self_coop": true,
+   "pi": 0.018289074314127886,
+   "mu": 0.002437322051574152,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 0.00552551645407873,
+   "exit_faker": 0.0006530441372457502,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.004872453877658689,
+   "exit_other": 1.84391742900678e-08,
+   "exit_shadow": 0.004872212158624141,
+   "top_exits": [
+    [
+     "C",
+     0.004872078359998918
+    ],
+    [
+     "IMP(THEM(^D))",
+     0.0006426194786387204
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(ME)))))",
+     2.8825356248005224e-06
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(THEM)))))",
+     2.8806680626792046e-06
+    ]
+   ]
+  },
+  "pi_main": 0.018289074314127886,
+  "cut_flow": 5.500108082225279e-07,
+  "floored_flow": 8.716370468440952e-15,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9778851404896581
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.018289074314127886
+   ],
+   [
+    "mono {C:1}",
+    0.002091681897986638
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": false,
+   "pi": 0.0006005202148593346,
+   "mu": 0.00781675517474627,
+   "rho_enter": 0.010000000000000002,
+   "rho_enter_static": 0.010000000000000002,
+   "exit_total": 0.12792664132059442,
+   "exit_faker": 0.12291164587629427,
+   "exit_strict": 1.928677124652738e-05,
+   "exit_neutral": 0.004995708673053603,
+   "exit_other": 0.0,
+   "exit_shadow": 1.9939272727361335e-05,
+   "top_exits": [
+    [
+     "C",
+     0.12169944254647365
+    ],
+    [
+     "D",
+     0.004872078359998911
+    ],
+    [
+     "IMP(THEM(^C))",
+     0.0006088176606889992
+    ],
+    [
+     "not(IMP(THEM(THEM)))",
+     0.00047643040081575246
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 6,
+   "coop_mass": 0.020574383051561916,
+   "n_components": 1,
+   "components": [
+    [
+     6,
+     0.020574383051561916,
+     [
+      "IMP(THEM(^C))",
+      "C",
+      "IMP(THEM(^IMP(THEM(^C))))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 0.9915139245621424,
+   "cc_coverage_mu": 0.9100302849038642,
+   "main_mutual_cc": [
+    18,
+    20
+   ]
+  },
+  "hit_cc_from_D": 9556.438005984353,
+  "pcc_tol_alt": 0.02058559012778681,
+  "time_s": 2.059593915939331
+ },
+ {
+  "variant": "lfp",
+  "n": 11,
+  "N": 1000,
+  "w": 0.3,
+  "classes": 158,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 23,
+   "period": 12,
+   "divergent": 3313,
+   "inconsistent": [
+    72,
+    1.746746407361827e-10
+   ]
+  },
+  "pcc": 0.029334071632168442,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.9703603981606518,
+  "pi_C": 0.00038984866408445804,
+  "pi_FB": 5.970253373182374e-05,
+  "main": {
+   "name": "IMP(THEM(^C))",
+   "self_coop": true,
+   "pi": 0.028611219966874928,
+   "mu": 0.002437322051574152,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.001130282051152256,
+   "exit_faker": 0.000643036663386388,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.00048724538776586805,
+   "exit_other": 0.0,
+   "exit_shadow": 0.00048722121586241294,
+   "top_exits": [
+    [
+     "IMP(THEM(^D))",
+     0.0006327935925058909
+    ],
+    [
+     "C",
+     0.0004872078359998905
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(ME)))))",
+     2.8384606041006943e-06
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(THEM)))))",
+     2.8366215976851404e-06
+    ]
+   ]
+  },
+  "pi_main": 0.028611219966874928,
+  "cut_flow": 1.4871567207022697e-07,
+  "floored_flow": 3.6299511731748063e-40,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9703603981606518
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.028611219966874928
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": false,
+   "pi": 5.970253373182374e-05,
+   "mu": 0.00781675517474627,
+   "rho_enter": 0.0009999999999999996,
+   "rho_enter_static": 0.0009999999999999996,
+   "exit_total": 0.1276361626902535,
+   "exit_faker": 0.1271303380768891,
+   "exit_strict": 6.253746059063956e-06,
+   "exit_neutral": 0.000499570867305357,
+   "exit_other": 0.0,
+   "exit_shadow": 1.99392727273612e-06,
+   "top_exits": [
+    [
+     "C",
+     0.12585431936491903
+    ],
+    [
+     "IMP(THEM(^C))",
+     0.0006296029850267905
+    ],
+    [
+     "not(IMP(THEM(THEM)))",
+     0.0005106612283766605
+    ],
+    [
+     "D",
+     0.0004872078359998877
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 6,
+   "coop_mass": 0.029324001401140422,
+   "n_components": 1,
+   "components": [
+    [
+     6,
+     0.029324001401140422,
+     [
+      "IMP(THEM(^C))",
+      "C",
+      "IMP(THEM(^IMP(THEM(^C))))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 0.9447638077133076,
+   "cc_coverage_mu": 0.9100302849038642,
+   "main_mutual_cc": [
+    18,
+    20
+   ]
+  },
+  "hit_cc_from_D": 29647.159342946736,
+  "pcc_tol_alt": 0.029334071425619068,
+  "time_s": 2.394740104675293
+ },
+ {
+  "variant": "lfp",
+  "n": 11,
+  "N": 10000,
+  "w": 0.3,
+  "classes": 158,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 23,
+   "period": 12,
+   "divergent": 3313,
+   "inconsistent": [
+    72,
+    1.746746407361827e-10
+   ]
+  },
+  "pcc": 0.015414321741084466,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.9844804538789624,
+  "pi_C": 9.554050432158686e-05,
+  "pi_FB": 6.059661115166628e-06,
+  "main": {
+   "name": "IMP(THEM(^C))",
+   "self_coop": true,
+   "pi": 0.015129187892997501,
+   "mu": 0.002437322051574152,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 0.0006907671726163296,
+   "exit_faker": 0.0006420426338397426,
+   "exit_strict": 0.0,
+   "exit_neutral": 4.872453877658688e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 4.8722121586241386e-05,
+   "top_exits": [
+    [
+     "IMP(THEM(^D))",
+     0.0006318178104378782
+    ],
+    [
+     "C",
+     4.872078359998916e-05
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(ME)))))",
+     2.834083633488091e-06
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(THEM)))))",
+     2.8322474628621285e-06
+    ]
+   ]
+  },
+  "pi_main": 0.015129187892997501,
+  "cut_flow": 5.682889372673938e-08,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9844804538789624
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.015129187892997501
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": false,
+   "pi": 6.059661115166628e-06,
+   "mu": 0.00781675517474627,
+   "rho_enter": 9.999999999999998e-05,
+   "rho_enter_static": 9.999999999999998e-05,
+   "exit_total": 0.12756686092913186,
+   "exit_faker": 0.12751490844700197,
+   "exit_strict": 1.9953953993670616e-06,
+   "exit_neutral": 4.9957086730536025e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.9939272727361314e-07,
+   "top_exits": [
+    [
+     "C",
+     0.12623358380593153
+    ],
+    [
+     "IMP(THEM(^C))",
+     0.0006315003058766505
+    ],
+    [
+     "not(IMP(THEM(THEM)))",
+     0.0005133699887204039
+    ],
+    [
+     "not(IMP(THEM(^D)))",
+     0.00011556544644059686
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 6,
+   "coop_mass": 0.015404909102621137,
+   "n_components": 1,
+   "components": [
+    [
+     6,
+     0.015404909102621137,
+     [
+      "IMP(THEM(^C))",
+      "IMP(THEM(^IMP(THEM(^C))))",
+      "C"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 0.9123912809531455,
+   "cc_coverage_mu": 0.9100302849038642,
+   "main_mutual_cc": [
+    18,
+    20
+   ]
+  },
+  "hit_cc_from_D": 93150.81013275846,
+  "pcc_tol_alt": 0.015414314692199073,
+  "time_s": 2.935586929321289
+ },
+ {
+  "variant": "lfp",
+  "n": 11,
+  "N": 30000,
+  "w": 0.3,
+  "classes": 158,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 23,
+   "period": 12,
+   "divergent": 3313,
+   "inconsistent": [
+    72,
+    1.746746407361827e-10
+   ]
+  },
+  "pcc": 0.009410932691498414,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.9905245687407327,
+  "pi_C": 5.212747213271908e-05,
+  "pi_FB": 2.0323095466529435e-06,
+  "main": {
+   "name": "IMP(THEM(^C))",
+   "self_coop": true,
+   "pi": 0.009236766563970246,
+   "mu": 0.002437322051574152,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 0.0006582105629830574,
+   "exit_faker": 0.0006419690500575285,
+   "exit_strict": 0.0,
+   "exit_neutral": 1.6241512925528923e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.6240707195413765e-05,
+   "top_exits": [
+    [
+     "IMP(THEM(^D))",
+     0.0006317455791930251
+    ],
+    [
+     "C",
+     1.6240261199996362e-05
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(ME)))))",
+     2.83375963282606e-06
+    ],
+    [
+     "IMP(THEM(^not(IMP(THEM(THEM)))))",
+     2.83192367211645e-06
+    ]
+   ]
+  },
+  "pi_main": 0.009236766563970246,
+  "cut_flow": 3.372467067344721e-08,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9905245687407327
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.009236766563970246
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": false,
+   "pi": 2.0323095466529435e-06,
+   "mu": 0.00781675517474627,
+   "rho_enter": 3.333333333333331e-05,
+   "rho_enter_static": 3.333333333333331e-05,
+   "exit_total": 0.12756098369693325,
+   "exit_faker": 0.1275431772054829,
+   "exit_strict": 1.154129206853166e-06,
+   "exit_neutral": 1.6652362243511973e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 6.646424242453769e-08,
+   "top_exits": [
+    [
+     "C",
+     0.12626146438327857
+    ],
+    [
+     "IMP(THEM(^C))",
+     0.0006316397821759983
+    ],
+    [
+     "not(IMP(THEM(THEM)))",
+     0.000513567618325793
+    ],
+    [
+     "not(IMP(THEM(^D)))",
+     0.0001156099351214284
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 6,
+   "coop_mass": 0.009399679515435105,
+   "n_components": 1,
+   "components": [
+    [
+     6,
+     0.009399679515435105,
+     [
+      "IMP(THEM(^C))",
+      "IMP(THEM(^IMP(THEM(^C))))",
+      "C"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 0.9079718507628741,
+   "cc_coverage_mu": 0.9100302849038642,
+   "main_mutual_cc": [
+    18,
+    20
+   ]
+  },
+  "hit_cc_from_D": 161137.179455057,
+  "pcc_tol_alt": 0.009410928555326445,
+  "time_s": 4.84332799911499
+ },
+ {
+  "variant": "gfp",
+  "n": 11,
+  "N": 100,
+  "w": 0.3,
+  "classes": 158,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 23,
+   "period": 12,
+   "divergent": 3313,
+   "inconsistent": [
+    77,
+    2.0197019714994546e-10
+   ]
+  },
+  "pcc": 0.1370602484213377,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.8626399532804014,
+  "pi_C": 0.005176212331758722,
+  "pi_FB": 0.05825613245036392,
+  "main": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.05825613245036392,
+   "mu": 0.00781675517474627,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 0.004975673126603288,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.004975655678121399,
+   "exit_other": 1.7448481888902788e-08,
+   "exit_shadow": 0.004872217858698212,
+   "top_exits": [
+    [
+     "C",
+     0.004872078359998913
+    ],
+    [
+     "IMP(THEM(THEM))",
+     7.759764674884767e-05
+    ],
+    [
+     "IMP(THEM(^C))",
+     2.4373220515741655e-05
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     5.652359538855778e-07
+    ]
+   ]
+  },
+  "pi_main": 0.05825613245036392,
+  "cut_flow": 1.5558365650506637e-07,
+  "floored_flow": 5.707887979838821e-14,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.8626399532804014
+   ],
+   [
+    "mono {IMP(THEM(ME)):1}",
+    0.05825613245036392
+   ],
+   [
+    "mono {IMP(THEM(THEM)):1}",
+    0.056408284635974706
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.016085466976203097
+   ],
+   [
+    "mono {C:1}",
+    0.005176212331758722
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.05825613245036392,
+   "mu": 0.00781675517474627,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 0.004975673126603288,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.004975655678121399,
+   "exit_other": 1.7448481888902788e-08,
+   "exit_shadow": 0.004872217858698212,
+   "top_exits": [
+    [
+     "C",
+     0.004872078359998913
+    ],
+    [
+     "IMP(THEM(THEM))",
+     7.759764674884767e-05
+    ],
+    [
+     "IMP(THEM(^C))",
+     2.4373220515741655e-05
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     5.652359538855778e-07
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 16,
+   "coop_mass": 0.13704164621918707,
+   "n_components": 2,
+   "components": [
+    [
+     15,
+     0.13698387240687357,
+     [
+      "IMP(THEM(ME))",
+      "IMP(THEM(THEM))",
+      "IMP(THEM(^C))"
+     ]
+    ],
+    [
+     1,
+     5.777381231348718e-05,
+     [
+      "not(IMP(THEM(^C)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9995784214951628,
+   "cross": {
+    "one-way C": 1
+   },
+   "coverage_pi": 0.9984558720471309,
+   "cc_coverage_mu": 0.9997481797033436,
+   "main_mutual_cc": [
+    46,
+    51
+   ]
+  },
+  "faker_flux": {
+   "FB": 0.0,
+   "other": 0.0006975674061514103
+  },
+  "faker_flux_loop_only": {
+   "FB": 0.0,
+   "other": 3.367371721544603e-07
+  },
+  "loop_only_pairs": [
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(ME)))))"
+    ],
+    1.6667247731168484e-07
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(THEM)))))"
+    ],
+    1.6608627522388729e-07
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(ME)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    7.432332427194372e-10
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(THEM)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    7.409141152392432e-10
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(^IMP(THEM(THEM)))))))"
+    ],
+    5.862020877975832e-10
+   ],
+   [
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     "and(IMP(THEM(THEM)),not(IMP(THEM(ME))))"
+    ],
+    5.267705892974692e-10
+   ]
+  ],
+  "hit_cc_from_D": 1309.0109194754393,
+  "pcc_tol_alt": 0.13706024849439455,
+  "ablated": {
+   "pcc": 0.13833750015111226,
+   "pi_TT": 0.05777420000597294,
+   "pi_FB": 0.0581936565998762
+  },
+  "pi_TT": 0.056408284635974706,
+  "time_s": 1.8705248832702637
+ },
+ {
+  "variant": "gfp",
+  "n": 11,
+  "N": 1000,
+  "w": 0.3,
+  "classes": 158,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 23,
+   "period": 12,
+   "divergent": 3313,
+   "inconsistent": [
+    77,
+    2.0197019714994546e-10
+   ]
+  },
+  "pcc": 0.29888837539633345,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.7009713821743874,
+  "pi_C": 0.001251985642310102,
+  "pi_FB": 0.15251192340595482,
+  "main": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.15251192340595482,
+   "mu": 0.00781675517474627,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0004975655678121387,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0004975655678121387,
+   "exit_other": 0.0,
+   "exit_shadow": 0.00048722178586981993,
+   "top_exits": [
+    [
+     "C",
+     0.0004872078359998898
+    ],
+    [
+     "IMP(THEM(THEM))",
+     7.759764674884742e-06
+    ],
+    [
+     "IMP(THEM(^C))",
+     2.4373220515741575e-06
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     5.65235953885576e-08
+    ]
+   ]
+  },
+  "pi_main": 0.15251192340595482,
+  "cut_flow": 7.843578317202786e-08,
+  "floored_flow": 2.052614902558352e-39,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 1.6653345369377348e-15,
+  "support": [
+   [
+    "mono {D:1}",
+    0.7009713821743874
+   ],
+   [
+    "mono {IMP(THEM(ME)):1}",
+    0.15251192340595482
+   ],
+   [
+    "mono {IMP(THEM(THEM)):1}",
+    0.12166743433184936
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.020929399740221104
+   ],
+   [
+    "mono {C:1}",
+    0.001251985642310102
+   ],
+   [
+    "mono {IMP(THEM(^IMP(THEM(THEM)))):1}",
+    0.0010975123003065905
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.15251192340595482,
+   "mu": 0.00781675517474627,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0004975655678121387,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0004975655678121387,
+   "exit_other": 0.0,
+   "exit_shadow": 0.00048722178586981993,
+   "top_exits": [
+    [
+     "C",
+     0.0004872078359998898
+    ],
+    [
+     "IMP(THEM(THEM))",
+     7.759764674884742e-06
+    ],
+    [
+     "IMP(THEM(^C))",
+     2.4373220515741575e-06
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     5.65235953885576e-08
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 16,
+   "coop_mass": 0.2988555088983799,
+   "n_components": 2,
+   "components": [
+    [
+     15,
+     0.2987430617792588,
+     [
+      "IMP(THEM(ME))",
+      "IMP(THEM(THEM))",
+      "IMP(THEM(^C))"
+     ]
+    ],
+    [
+     1,
+     0.00011244711912112195,
+     [
+      "not(IMP(THEM(^C)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9996237408521074,
+   "cross": {
+    "one-way C": 1
+   },
+   "coverage_pi": 0.9984762984342015,
+   "cc_coverage_mu": 0.9997481797033436,
+   "main_mutual_cc": [
+    46,
+    51
+   ]
+  },
+  "faker_flux": {
+   "FB": 0.0,
+   "other": 0.0002040117397246763
+  },
+  "faker_flux_loop_only": {
+   "FB": 0.0,
+   "other": 7.012732113977853e-07
+  },
+  "loop_only_pairs": [
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(ME)))))"
+    ],
+    3.471820563311526e-07
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(THEM)))))"
+    ],
+    3.4596098582479307e-07
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(ME)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    1.4276840593826518e-09
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(THEM)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    1.4230240696145242e-09
+   ],
+   [
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     "and(IMP(THEM(THEM)),not(IMP(THEM(ME))))"
+    ],
+    1.352104952479918e-09
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(^IMP(THEM(THEM)))))))"
+    ],
+    1.221070506359551e-09
+   ]
+  ],
+  "hit_cc_from_D": 4036.912153776119,
+  "pcc_tol_alt": 0.29888837910010974,
+  "ablated": {
+   "pcc": 0.31981706482200345,
+   "pi_TT": 0.14735212715462023,
+   "pi_FB": 0.14842281105814537
+  },
+  "pi_TT": 0.12166743433184936,
+  "time_s": 2.2491471767425537
+ },
+ {
+  "variant": "gfp",
+  "n": 11,
+  "N": 10000,
+  "w": 0.3,
+  "classes": 158,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 23,
+   "period": 12,
+   "divergent": 3313,
+   "inconsistent": [
+    77,
+    2.0197019714994546e-10
+   ]
+  },
+  "pcc": 0.4765597830352948,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.5233877354839762,
+  "pi_C": 0.0002238555921255768,
+  "pi_FB": 0.3596682653734152,
+  "main": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.3596682653734152,
+   "mu": 0.00781675517474627,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 4.9756556781214046e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 4.9756556781214046e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 4.8722178586982176e-05,
+   "top_exits": [
+    [
+     "C",
+     4.872078359998917e-05
+    ],
+    [
+     "IMP(THEM(THEM))",
+     7.759764674884773e-07
+    ],
+    [
+     "IMP(THEM(^C))",
+     2.4373220515741676e-07
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     5.652359538855782e-09
+    ]
+   ]
+  },
+  "pi_main": 0.3596682653734152,
+  "cut_flow": 2.808321955882042e-08,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-15,
+  "support": [
+   [
+    "mono {D:1}",
+    0.5233877354839762
+   ],
+   [
+    "mono {IMP(THEM(ME)):1}",
+    0.3596682653734152
+   ],
+   [
+    "mono {IMP(THEM(THEM)):1}",
+    0.10394333245978554
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.00818637150284516
+   ],
+   [
+    "mono {IMP(THEM(^IMP(THEM(THEM)))):1}",
+    0.0024806614589700468
+   ],
+   [
+    "mono {and(IMP(THEM(ME)),IMP(THEM(THEM))):1}",
+    0.001050638941704742
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.3596682653734152,
+   "mu": 0.00781675517474627,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 4.9756556781214046e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 4.9756556781214046e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 4.8722178586982176e-05,
+   "top_exits": [
+    [
+     "C",
+     4.872078359998917e-05
+    ],
+    [
+     "IMP(THEM(THEM))",
+     7.759764674884773e-07
+    ],
+    [
+     "IMP(THEM(^C))",
+     2.4373220515741676e-07
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     5.652359538855782e-09
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 15,
+   "coop_mass": 0.4765070711879581,
+   "n_components": 2,
+   "components": [
+    [
+     14,
+     0.4764121327538141,
+     [
+      "IMP(THEM(ME))",
+      "IMP(THEM(THEM))",
+      "IMP(THEM(^C))"
+     ]
+    ],
+    [
+     1,
+     9.49384341439753e-05,
+     [
+      "not(IMP(THEM(^C)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9998007617517463,
+   "cross": {
+    "one-way C": 1
+   },
+   "coverage_pi": 0.9988295305457173,
+   "cc_coverage_mu": 0.9997481797033436,
+   "main_mutual_cc": [
+    46,
+    51
+   ]
+  },
+  "faker_flux": {
+   "FB": 0.0,
+   "other": 5.961812906929082e-05
+  },
+  "faker_flux_loop_only": {
+   "FB": 0.0,
+   "other": 5.986983970088368e-07
+  },
+  "loop_only_pairs": [
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(ME)))))"
+    ],
+    2.955046294219074e-07
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(THEM)))))"
+    ],
+    2.944653130721718e-07
+   ],
+   [
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     "and(IMP(THEM(THEM)),not(IMP(THEM(ME))))"
+    ],
+    3.051394068503271e-09
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(ME)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    1.2041395155700866e-09
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(THEM)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    1.2000883682881244e-09
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(^IMP(THEM(THEM)))))))"
+    ],
+    1.0393163497356202e-09
+   ]
+  ],
+  "hit_cc_from_D": 12652.437147522392,
+  "pcc_tol_alt": 0.47655993594844737,
+  "ablated": {
+   "pcc": 0.5850226846380171,
+   "pi_TT": 0.286298230363005,
+   "pi_FB": 0.28834710066551333
+  },
+  "pi_TT": 0.10394333245978554,
+  "time_s": 2.8167600631713867
+ },
+ {
+  "variant": "gfp",
+  "n": 11,
+  "N": 30000,
+  "w": 0.3,
+  "classes": 158,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 23,
+   "period": 12,
+   "divergent": 3313,
+   "inconsistent": [
+    77,
+    2.0197019714994546e-10
+   ]
+  },
+  "pcc": 0.5751722741173083,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.42479963795681913,
+  "pi_C": 9.366811882727415e-05,
+  "pi_FB": 0.5050348426237686,
+  "main": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.5050348426237686,
+   "mu": 0.00781675517474627,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 1.658551892707132e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 1.658551892707132e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.6240726195660707e-05,
+   "top_exits": [
+    [
+     "C",
+     1.6240261199996382e-05
+    ],
+    [
+     "IMP(THEM(THEM))",
+     2.58658822496159e-07
+    ],
+    [
+     "IMP(THEM(^C))",
+     8.124406838580554e-08
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     1.88411984628526e-09
+    ]
+   ]
+  },
+  "pi_main": 0.5050348426237686,
+  "cut_flow": 1.3904118175448384e-08,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.1094237467877974e-15,
+  "support": [
+   [
+    "mono {IMP(THEM(ME)):1}",
+    0.5050348426237686
+   ],
+   [
+    "mono {D:1}",
+    0.42479963795681913
+   ],
+   [
+    "mono {IMP(THEM(THEM)):1}",
+    0.060394780351588136
+   ],
+   [
+    "mono {IMP(THEM(^C)):1}",
+    0.004029258376674796
+   ],
+   [
+    "mono {IMP(THEM(^IMP(THEM(THEM)))):1}",
+    0.0031884794805582596
+   ],
+   [
+    "mono {and(IMP(THEM(ME)),IMP(THEM(THEM))):1}",
+    0.0014756489154947854
+   ]
+  ],
+  "FB": {
+   "name": "IMP(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.5050348426237686,
+   "mu": 0.00781675517474627,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 1.658551892707132e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 1.658551892707132e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.6240726195660707e-05,
+   "top_exits": [
+    [
+     "C",
+     1.6240261199996382e-05
+    ],
+    [
+     "IMP(THEM(THEM))",
+     2.58658822496159e-07
+    ],
+    [
+     "IMP(THEM(^C))",
+     8.124406838580554e-08
+    ],
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     1.88411984628526e-09
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 12,
+   "coop_mass": 0.5751019995493473,
+   "n_components": 2,
+   "components": [
+    [
+     11,
+     0.5750468879794346,
+     [
+      "IMP(THEM(ME))",
+      "IMP(THEM(THEM))",
+      "IMP(THEM(^C))"
+     ]
+    ],
+    [
+     1,
+     5.511156991269631e-05,
+     [
+      "not(IMP(THEM(^C)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9999041707906495,
+   "cross": {
+    "one-way C": 1
+   },
+   "coverage_pi": 0.9991197446515637,
+   "cc_coverage_mu": 0.9997481797033436,
+   "main_mutual_cc": [
+    46,
+    51
+   ]
+  },
+  "faker_flux": {
+   "FB": 0.0,
+   "other": 2.9515974761395242e-05
+  },
+  "faker_flux_loop_only": {
+   "FB": 0.0,
+   "other": 3.4995355684225316e-07
+  },
+  "loop_only_pairs": [
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(ME)))))"
+    ],
+    1.7165108840373974e-07
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(THEM)))))"
+    ],
+    1.7104737609311732e-07
+   ],
+   [
+    [
+     "IMP(THEM(^IMP(THEM(THEM))))",
+     "and(IMP(THEM(THEM)),not(IMP(THEM(ME))))"
+    ],
+    3.921613349012698e-09
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(ME)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    6.989480713486069e-10
+   ],
+   [
+    [
+     "not(IMP(THEM(^IMP(THEM(THEM)))))",
+     "not(IMP(THEM(THEM)))"
+    ],
+    6.966115668267181e-10
+   ],
+   [
+    [
+     "IMP(THEM(THEM))",
+     "not(IMP(THEM(^IMP(THEM(^IMP(THEM(THEM)))))))"
+    ],
+    6.037123106224177e-10
+   ]
+  ],
+  "hit_cc_from_D": 21875.245407256145,
+  "pcc_tol_alt": 0.5751725818546565,
+  "ablated": {
+   "pcc": 0.7080927944269702,
+   "pi_TT": 0.34944764482235846,
+   "pi_FB": 0.35185916288125246
+  },
+  "pi_TT": 0.060394780351588136,
+  "time_s": 4.815676927566528
+ },
+ {
+  "variant": "lob",
+  "n": 11,
+  "N": 100,
+  "w": 0.3,
+  "classes": 35,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 8,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.13840313952805158,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.8613388916584788,
+  "pi_C": 0.005226088216351837,
+  "pi_FB": 0.058835425490964245,
+  "main": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.058835425490964245,
+   "mu": 0.007901784618235952,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 0.00497485406146335,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.004974799966943404,
+   "exit_other": 5.4094519946156685e-08,
+   "exit_shadow": 0.0048722124419551096,
+   "top_exits": [
+    [
+     "C",
+     0.004872155211342838
+    ],
+    [
+     "BOX(THEM(THEM))",
+     7.797322293273214e-05
+    ],
+    [
+     "BOX(THEM(^C))",
+     2.4480012000731788e-05
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     1.3355026548458579e-07
+    ]
+   ]
+  },
+  "pi_main": 0.058835425490964245,
+  "cut_flow": 0,
+  "floored_flow": 7.747654624931767e-15,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 3.3306690738754696e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.8613388916584788
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.058835425490964245
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.05805148592864039
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.016137238360356194
+   ],
+   [
+    "mono {C:1}",
+    0.005226088216351837
+   ]
+  ],
+  "FB": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.058835425490964245,
+   "mu": 0.007901784618235952,
+   "rho_enter": 0.04205885404911444,
+   "rho_enter_static": 0.04205885404911444,
+   "exit_total": 0.00497485406146335,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.004974799966943404,
+   "exit_other": 5.4094519946156685e-08,
+   "exit_shadow": 0.0048722124419551096,
+   "top_exits": [
+    [
+     "C",
+     0.004872155211342838
+    ],
+    [
+     "BOX(THEM(THEM))",
+     7.797322293273214e-05
+    ],
+    [
+     "BOX(THEM(^C))",
+     2.4480012000731788e-05
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     1.3355026548458579e-07
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 7,
+   "coop_mass": 0.138396995749361,
+   "n_components": 2,
+   "components": [
+    [
+     5,
+     0.13834960751018274,
+     [
+      "BOX(THEM(ME))",
+      "BOX(THEM(THEM))",
+      "BOX(THEM(^C))"
+     ]
+    ],
+    [
+     2,
+     4.738823917827246e-05,
+     [
+      "not(BOX(THEM(ME)))",
+      "not(BOX(THEM(THEM)))"
+     ]
+    ]
+   ],
+   "largest_share": 0.9996575919952476,
+   "cross": {
+    "one-way C": 1
+   },
+   "coverage_pi": 0.9989104338569599,
+   "cc_coverage_mu": 1.0,
+   "main_mutual_cc": [
+    6,
+    6
+   ]
+  },
+  "hit_cc_from_D": 1309.369580323345,
+  "pcc_tol_alt": 0.13840313956282024,
+  "ablated": {
+   "pcc": 0.13840853180039706,
+   "pi_TT": 0.05805729618134507,
+   "pi_FB": 0.05883511426507211
+  },
+  "pi_TT": 0.05805148592864039,
+  "time_s": 0.0734100341796875
+ },
+ {
+  "variant": "lob",
+  "n": 11,
+  "N": 1000,
+  "w": 0.3,
+  "classes": 35,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 8,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.31998266176523216,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.6798987027983605,
+  "pi_C": 0.0013303323302972677,
+  "pi_FB": 0.1500341271440134,
+  "main": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.1500341271440134,
+   "mu": 0.007901784618235952,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0004974799966943401,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0004974799966943401,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0004872212441955107,
+   "top_exits": [
+    [
+     "C",
+     0.0004872155211342834
+    ],
+    [
+     "BOX(THEM(THEM))",
+     7.797322293273207e-06
+    ],
+    [
+     "BOX(THEM(^C))",
+     2.448001200073177e-06
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     1.335502654845857e-08
+    ]
+   ]
+  },
+  "pi_main": 0.1500341271440134,
+  "cut_flow": 0,
+  "floored_flow": 1.0427317534088192e-38,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 0.0,
+  "support": [
+   [
+    "mono {D:1}",
+    0.6798987027983605
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.1500341271440134
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.14789997776491923
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.020451318073315895
+   ],
+   [
+    "mono {C:1}",
+    0.0013303323302972677
+   ]
+  ],
+  "FB": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.1500341271440134,
+   "mu": 0.007901784618235952,
+   "rho_enter": 0.013637606284450302,
+   "rho_enter_static": 0.013637606284450302,
+   "exit_total": 0.0004974799966943401,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 0.0004974799966943401,
+   "exit_other": 0.0,
+   "exit_shadow": 0.0004872212441955107,
+   "top_exits": [
+    [
+     "C",
+     0.0004872155211342834
+    ],
+    [
+     "BOX(THEM(THEM))",
+     7.797322293273207e-06
+    ],
+    [
+     "BOX(THEM(^C))",
+     2.448001200073177e-06
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     1.335502654845857e-08
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 5,
+   "coop_mass": 0.3199675907137412,
+   "n_components": 1,
+   "components": [
+    [
+     5,
+     0.3199675907137412,
+     [
+      "BOX(THEM(ME))",
+      "BOX(THEM(THEM))",
+      "BOX(THEM(^C))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 1.0,
+   "cc_coverage_mu": 1.0,
+   "main_mutual_cc": [
+    6,
+    6
+   ]
+  },
+  "hit_cc_from_D": 4037.6682081097347,
+  "pcc_tol_alt": 0.31998266176522944,
+  "ablated": {
+   "pcc": 0.32008699250232375,
+   "pi_TT": 0.14802907872164342,
+   "pi_FB": 0.15001240927464377
+  },
+  "pi_TT": 0.14789997776491923,
+  "time_s": 0.0835869312286377
+ },
+ {
+  "variant": "lob",
+  "n": 11,
+  "N": 10000,
+  "w": 0.3,
+  "classes": 35,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 8,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.5844470109442832,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.4155184268633608,
+  "pi_C": 0.00025709060477114106,
+  "pi_FB": 0.2919377677892909,
+  "main": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.2919377677892909,
+   "mu": 0.007901784618235952,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 4.9747999669434034e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 4.9747999669434034e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 4.8722124419551083e-05,
+   "top_exits": [
+    [
+     "C",
+     4.8721552113428364e-05
+    ],
+    [
+     "BOX(THEM(THEM))",
+     7.797322293273211e-07
+    ],
+    [
+     "BOX(THEM(^C))",
+     2.448001200073178e-07
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     1.3355026548458575e-09
+    ]
+   ]
+  },
+  "pi_main": 0.2919377677892909,
+  "cut_flow": 0,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 1.1102230246251565e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.4155184268633608
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.2919377677892909
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.28518597664303996
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.006598720256798507
+   ]
+  ],
+  "FB": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.2919377677892909,
+   "mu": 0.007901784618235952,
+   "rho_enter": 0.004351378610733737,
+   "rho_enter_static": 0.004351378610733737,
+   "exit_total": 4.9747999669434034e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 4.9747999669434034e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 4.8722124419551083e-05,
+   "top_exits": [
+    [
+     "C",
+     4.8721552113428364e-05
+    ],
+    [
+     "BOX(THEM(THEM))",
+     7.797322293273211e-07
+    ],
+    [
+     "BOX(THEM(^C))",
+     2.448001200073178e-07
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     1.3355026548458575e-09
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 5,
+   "coop_mass": 0.5844411009134048,
+   "n_components": 1,
+   "components": [
+    [
+     5,
+     0.5844411009134048,
+     [
+      "BOX(THEM(ME))",
+      "BOX(THEM(THEM))",
+      "BOX(THEM(^C))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 1.0,
+   "cc_coverage_mu": 1.0,
+   "main_mutual_cc": [
+    6,
+    6
+   ]
+  },
+  "hit_cc_from_D": 12654.3987182034,
+  "pcc_tol_alt": 0.5844470450355711,
+  "ablated": {
+   "pcc": 0.585666002065792,
+   "pi_TT": 0.2872571016318832,
+   "pi_FB": 0.29110603980576094
+  },
+  "pi_TT": 0.28518597664303996,
+  "time_s": 0.12308192253112793
+ },
+ {
+  "variant": "lob",
+  "n": 11,
+  "N": 30000,
+  "w": 0.3,
+  "classes": 35,
+  "programs": 965158,
+  "eval_info": {
+   "iters": 8,
+   "period": 1,
+   "divergent": 0
+  },
+  "pcc": 0.7056356466597501,
+  "poly": 0.0,
+  "poly_states": [],
+  "pi_D": 0.2943496233156759,
+  "pi_C": 0.00010431523087174444,
+  "pi_FB": 0.35868622886348234,
+  "main": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.35868622886348234,
+   "mu": 0.007901784618235952,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 1.6582666556478003e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 1.6582666556478003e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.6240708139850358e-05,
+   "top_exits": [
+    [
+     "C",
+     1.624051737114278e-05
+    ],
+    [
+     "BOX(THEM(THEM))",
+     2.5991074310910695e-07
+    ],
+    [
+     "BOX(THEM(^C))",
+     8.160004000243923e-08
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     4.4516755161528565e-10
+    ]
+   ]
+  },
+  "pi_main": 0.35868622886348234,
+  "cut_flow": 0,
+  "floored_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 1.1102230246251565e-16,
+  "support": [
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.35868622886348234
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.34349718364352744
+   ],
+   [
+    "mono {D:1}",
+    0.2943496233156759
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.0028406858015937236
+   ]
+  ],
+  "FB": {
+   "name": "BOX(THEM(ME))",
+   "self_coop": true,
+   "pi": 0.35868622886348234,
+   "mu": 0.007901784618235952,
+   "rho_enter": 0.0025168210502624967,
+   "rho_enter_static": 0.0025168210502624967,
+   "exit_total": 1.6582666556478003e-05,
+   "exit_faker": 0.0,
+   "exit_strict": 0.0,
+   "exit_neutral": 1.6582666556478003e-05,
+   "exit_other": 0.0,
+   "exit_shadow": 1.6240708139850358e-05,
+   "top_exits": [
+    [
+     "C",
+     1.624051737114278e-05
+    ],
+    [
+     "BOX(THEM(THEM))",
+     2.5991074310910695e-07
+    ],
+    [
+     "BOX(THEM(^C))",
+     8.160004000243923e-08
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(^C))))",
+     4.4516755161528565e-10
+    ]
+   ]
+  },
+  "graph": {
+   "n_states": 5,
+   "coop_mass": 0.7056306277707557,
+   "n_components": 1,
+   "components": [
+    [
+     5,
+     0.7056306277707557,
+     [
+      "BOX(THEM(ME))",
+      "BOX(THEM(THEM))",
+      "BOX(THEM(^C))"
+     ]
+    ]
+   ],
+   "largest_share": 1.0,
+   "cross": {},
+   "coverage_pi": 1.0,
+   "cc_coverage_mu": 1.0,
+   "main_mutual_cc": [
+    6,
+    6
+   ]
+  },
+  "hit_cc_from_D": 21878.474814342873,
+  "pcc_tol_alt": 0.7056356766815634,
+  "ablated": {
+   "pcc": 0.708730451748185,
+   "pi_TT": 0.350309640196853,
+   "pi_FB": 0.3550034459148873
+  },
+  "pi_TT": 0.34349718364352744,
+  "time_s": 0.21910810470581055
+ }
+]

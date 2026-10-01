@@ -258,3 +258,15 @@ and "hitting time ∝ 1/m with mass per spelling" failed (0.39–0.44, not 0.25)
 
 **Literal ALLC as the dominant ladder exit (draft wording).** Correct, but restated over the class of cheaper
 on-path-equivalent programs (astra), since several classes can carry the flux.
+
+## Added 2026-10-01: certificates arm (RESULTS.md, "Certificates-only arm")
+
+**"The C-seeded rule adds no loop-only exploitation" (Claude, draft verdict 8).** False before the run (fable). Loop-only fakers of compound residents exist, for example `not(IMP(THEM(^IMP(THEM(ME)))))` against `IMP(THEM(THEM))`, which cooperates with itself only through FairBot's C-seeded loop. The surviving statement covers FairBot alone: a mirror has no faker. Loop-only flux elsewhere is at most 1.1% of faker flux.
+
+**"A stronger reader is more exploitable through its probe" (Claude, draft reading of verdict 7).** Wrong (fable). PA + Con(PA) gives exactly PA's numbers. The gap separates truth from provability, not strong logic from weak.
+
+**"C-seeded cooperation is universal" (draft wording).** Replaced by pairwise coverage: 0.999, with 3 rival-reference probes (μ 2·10⁻⁶) in mutual D with FairBot. Universality is also tautological for a mirror (astra, fable).
+
+**"Certificates suffice for lim_N efficiency" (stratified or D-seeded).** No. Both have only third-party probes, which are fakeable, so they reproduce the weak arm's faker limit (0.009 at N = 3·10⁴).
+
+**Tags as a universal route.** Honest tags are efficient (P(C,C) = 1) but parochial: `EQ(ME)` cooperates with no other conditional cooperator, with or without the equality axioms. Tags are the clique arm again.

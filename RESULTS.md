@@ -1654,6 +1654,118 @@ by 1.2–1.6×.
   network rather than including it.
 - Cliques are absorbing whatever the price.
 
+## Certificates-only arm: tags, D-seeded and C-seeded certificates (`runs/certificates.md`; predictions in `predictions/2026-10-01-certificates.md`)
+
+Designed and run by a subagent; reviewed by astra and fable before the run.
+
+**The arm.** Programs see only the opponent's certificate. Certificates are honest by construction: the certificate *is* the rule, so holding K and behaving as K are the same thing, and label fakers are impossible by definition. The grammar matches the matched control (W0 / M0) node for node, so the length prior is identical. Atoms cost 3 nodes, or 3 + |A| for a literal. Only the meaning of an atom changes:
+- **tag**: `EQ(ME)` / `EQ(^A)`, equivalence of certificates, propositional over independent atoms.
+- **tageq**: the same with the equality axioms; for example `and(EQ(ME),not(EQ(^D)))` ≡ `EQ(ME)`.
+- **lfp** (D-seeded): `IMP(THEM(·))`, "your certificate implies you play C against ·", by synchronous Kleene iteration from all-D.
+- **gfp** (C-seeded): the same iteration from all-C. This re-opens "Black-magic fixed points", with the rule stated.
+- **lob** / **lob1**: provability in PA (= M0) and in PA + Con(PA).
+
+Divergent pairs (negated self-reference) get D; the fallback breaks the fixed-point equations of 8 pairs at n = 10, with μ×μ weight 1.6·10⁻¹⁰. The evaluator agrees with a tree-level reference on every pair at n = 5 for all variants, and at n = 6 for the D-seeded, C-seeded and tag variants (`tests/test_certificates.py`).
+
+ε→0 chain, PD, w = 0.3, `eager_poly=False`, n = 10 (43 / 33 / 82 / 82 / 25 / 25 classes) and n = 11. Transitions below 10⁻¹³ were dropped, since clique exits are e^(−Θ(N)) and cannot be resolved next to a self-loop of 1; P(C,C) is unchanged at a 10⁻¹¹ cutoff. There were no indeterminate transitions and no polymorphic mass, and cut flow stayed at or below 5.5·10⁻⁷.
+
+| variant (n = 10) | N = 10² | 10³ | 10⁴ | 3·10⁴ | main cooperator | exits from it at 3·10⁴: faker / neutral |
+|---|---|---|---|---|---|---|
+| tag | 1.000 | 1.000 | 1.000 | 1.000 | `EQ(ME)`, π 0.9999 | none (deleterious only) |
+| tageq | 1.000 | 1.000 | 1.000 | 1.000 | `EQ(ME)`, π 1.0000 | none |
+| lfp | 0.020 | 0.029 | 0.015 | 0.009 | `IMP(THEM(^C))` | 6.3·10⁻⁴ / 1.6·10⁻⁵ |
+| gfp | 0.136 | 0.299 | 0.478 | 0.575 | `IMP(THEM(ME))`, π 0.50 | 0 / 1.7·10⁻⁵ (shadow 0.98) |
+| gfp, probe-faker edges suppressed | 0.137 | 0.319 | 0.584 | 0.707 | | |
+| lob | 0.138 | 0.319 | 0.584 | 0.706 | `BOX(THEM(ME))`, π 0.36 | 0 / 1.7·10⁻⁵ |
+| lob1 | identical to lob | | | | | |
+
+n = 11 is within 0.002 of n = 10 in every variant. Entry ρ(main | all-D) is 0.042 / 0.0136 / 0.0044 / 0.0025 in every arm, a slope of −0.50.
+
+**Tags are efficient, through one parochial clique.**
+- `EQ(ME)` has no faker, strict or neutral exit, so it absorbs.
+- It mutually cooperates with none of the language's other conditional cooperators: 0 of 7 (tag) and 0 of 4 (tageq) at n = 10; 0 of 11 and 0 of 7 at n = 11.
+- The π-support holds 3 mutually defecting clique blocks under tag. The length prior puts 0.9999 on the shortest.
+- At N ≥ 10³ the split among cliques is an absorption lottery, not π (rule 5). The log-space escape-rate correction also gives 1.000 to `EQ(ME)`.
+- Hitting time from all-D is 2.9·10³ / 9.0·10³ / 2.8·10⁴ / 4.9·10⁴ mutation events.
+
+**D-seeded certificates have no working self-reference.**
+- The inductive FairBot defects on itself.
+- The only cooperators are third-party probes, faked at an N-independent 6.3·10⁻⁴ by `IMP(THEM(^D))`.
+- The curve peaks at 10³ with W0's shape and values, although the semantics differ from W0 on 0.26% of pairs.
+- Stratified certificates have only such probes, so they land here too.
+
+**The C-seeded FairBot is a mirror.** It plays against y what y plays against it, so every pair is (C,C) or (D,D).
+- Hence it has no faker (π-weighted faker flux exactly 0), and it enters all-D neutrally.
+- Cooperation rises with no peak; the cooperative-to-D ratio grows like N^0.34.
+- The cooperative support is one network: 0.9999 of cooperative mass, pairwise coverage 0.999. Coverage is tautological for a mirror, so this is compatibility, not a separate finding.
+- The C-seeded rule does create loop-only fakers of other residents, for example `not(IMP(THEM(^IMP(THEM(ME)))))` against `IMP(THEM(THEM))`. They carry at most 1.1% of those residents' faker flux.
+
+**The gap between C-seeded certificates and Löb is entirely a fakeable probe.**
+- In gfp, `IMP(THEM(THEM))` ("cooperate iff you cooperate with yourself") is faked by `not(IMP(THEM(^C)))` at 1.1·10⁻⁴, independent of N. That faker's self-cooperation rests on a true negative fact, which C-seeded truth sees and no consistent prover proves.
+- So π(probe)/π(FairBot) is 0.13 in gfp against 0.97 in lob.
+- Suppressing those faker edges closes the gap to within 0.0013 at every N.
+- lob1 equals lob, so the gap is truth against provability, not logical strength.
+
+**Against the free modal arm's 0.73 at 3·10⁴:** gfp 0.575, Löb at this grammar 0.706, tags 1.000, lfp 0.009.
+
+**Verdicts.** All 9 held:
+1. Tags: P(C,C) ≥ 0.99, `EQ(ME)` ≥ 0.99 of cooperative mass, no non-deleterious exit, entry equal to FairBot's.
+2. Tags are parochial under both equivalences.
+3. Hitting time is within 1% of 1/(Σμρ); the effective split is ≥ 0.99 on `EQ(ME)`.
+4. lfp peaks then falls, as predicted; faker share 0.93 and 0.97 at N ≥ 10⁴.
+5. gfp matches the static estimate within ±0.03, with no peak; FairBot faker and strict exits are 0; exit slope −1, entry slope −0.5.
+6. gfp has one component with ≥ 0.99 of mass; coverage 0.999.
+7. gfp is 0.130 below lob; the probe ratio is 0.127 against 0.969; ablated gfp is within 0.0013 of lob; lob1 is identical to lob.
+8. There is no faker flux out of FairBot; the loop-only share is ≤ 1.1%.
+9. gfp 0.575, lob 0.706, tags 1.000 and lfp 0.009, all inside the predicted bands.
+
+**Reading.**
+- What the modal arm buys is *outcome symmetry*, not provability. A short program whose action against y equals y's action against it, and which defects on D, meets both conditions of the §9.2 conjecture. Löb, coinduction and self-recognition are three ways to get it, and only Löb needs no selection rule.
+- Seeing more truth is not free: a reader of truth can be faked through its self-cooperation probe, which costs 0.13 of P(C,C) at N = 3·10⁴.
+- Without self-reference, certificates fall back to the weak arm's faker limit.
+- Efficiency is built in here as in the modal arm: the mirror, like soundness, excludes FairBot's fakers. The static single-edge estimate was the whole answer, so the content is the comparison across semantics at a fixed grammar and prior, not any one curve.
+
+## Addendum to "Priced arm": chain polish fix and the c = 10⁻³ cells (`runs/priced_recheck.md`, commit a49a007)
+
+**The bug.** Fable found it while reviewing the price-scaling-path brief.
+- When a mutant's payoff gap at 1/N is below the polish threshold of 10⁻³, `replicator` projects onto any
+  equal-fitness point within 10⁻² and does not check stability.
+- For a priced prover entering all-D, that point is the *unstable* separatrix x* = 2c/(1+c). `Chain.fates` accepted
+  it as a target.
+- This created a polymorphic stepping stone over the cost barrier.
+
+**The fix.** A polished interior point reached from 1/N that is not attracting is now treated as a barrier: the
+mutant dies at first order and the valley search runs.
+
+**Who was affected.** Only cells where a payoff gap falls below 10⁻³:
+- *Affected:* every c = 10⁻³ cell.
+- *Unaffected:* costs at c ≥ 10⁻² are multiples of c, and c = 0 has exact ties. Those cells reproduce exactly
+  (0.3453, 0.7068, 0.0150; lazy n = 8 at 1.0000 and 0.8132). The weak, modal, matched-control and certificate arms
+  have no small payoff gaps.
+
+**Re-run of all 24 c = 10⁻³ cells.**
+
+| pricing | n | P(C,C) at N = 10² / 10³ / 10⁴ / 3·10⁴, after the fix | before |
+|---|---|---|---|
+| atoms = depth | 6 | 0.166 / **0.310** / 0.302 / 0.195 | 0.166 / 0.832 / 0.300 / 0.194 |
+| atoms | 8 | 0.178 / **0.332** / 0.319 / 0.207 | 0.178 / 0.840 / 0.318 / 0.205 |
+| depth | 8 | 0.179 / **0.335** / 0.360 / 0.295 | 0.179 / 0.842 / 0.376 / 0.328 |
+| lazy | 6 and 8 | unchanged | — |
+
+- The suspect cell (atoms/depth, c = 10⁻³, N = 10³) was 0.83 and is now 0.31, matching the two-edge prediction. The
+  attribution in "Suspect cell" above is confirmed.
+- **Prediction 2 now covers that cell.** The c = 10⁻³ curve peaks and falls (0.17 / 0.31 / 0.30 / 0.19 at n = 6),
+  inside the ±50% band around 0.17 / 0.36 / 0.39 / 0.27. Every fixed priced cell is at or below the free arm at the
+  same N.
+- **Remaining polymorphic mass at n = 8** (0.7–1.2% under atoms and depth) is genuine, not an artifact.
+  - `BOXD(THEM(^C))` cooperates with the incumbent `and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))` and pays less.
+  - It defects on its own kind.
+  - So it is a price-ladder rung with a stable interior rest point, at x* = c (depth) or 3c (atoms); the
+    2×2 game has a positive gap when rare and a negative gap when common.
+  - Its cost to P(C,C) is about 0.1%.
+- Lazy n = 8 at c = 10⁻³ remains above the free arm (0.813 against 0.725 at N = 3·10⁴). That is incumbency, not
+  numerics: the cell has zero polymorphic mass and is unchanged by the fix.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
