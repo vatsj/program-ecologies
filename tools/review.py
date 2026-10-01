@@ -20,12 +20,27 @@ efficient outcomes in the large-population limit. Be concrete and brief. Report,
 Say "nothing material" for any empty category. Under 600 words. No preamble."""
 
 
-def call(model, system, user, key):
-    body = json.dumps({"model": model, "input": [{"role": "system", "content": system}, {"role": "user", "content": user}]}).encode()
-    req = urllib.request.Request("https://api.openai.com/v1/responses", data=body,
-                                 headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=600) as r:
-        d = json.load(r)
+def _req(url, key, body=None):
+    req = urllib.request.Request(url, data=body, headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=120) as r:
+        return json.load(r)
+
+
+def call(model, system, user, key, poll=15, max_wait=3600):
+    """Background-mode request, polled until done (long reasoning drops plain connections)."""
+    import time
+    body = json.dumps({"model": model, "background": True,
+                       "input": [{"role": "system", "content": system}, {"role": "user", "content": user}]}).encode()
+    d = _req("https://api.openai.com/v1/responses", key, body)
+    rid, t0 = d["id"], time.time()
+    while d.get("status") in ("queued", "in_progress") and time.time() - t0 < max_wait:
+        time.sleep(poll)
+        try:
+            d = _req("https://api.openai.com/v1/responses/" + rid, key)
+        except Exception as e:          # transient network error: keep polling
+            print("poll error:", e, file=sys.stderr)
+    if d.get("status") != "completed":
+        return "REVIEW FAILED: status %s %s" % (d.get("status"), json.dumps(d.get("error") or d.get("incomplete_details"))[:500])
     out = []
     for item in d.get("output", []):
         for c in item.get("content", []) or []:

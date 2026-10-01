@@ -12,11 +12,11 @@ from chain import Chain
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-def cell(n, N, w, built):
+def cell(n, N, w, built, **chain_kw):
     L, val, worlds, prov = built
     lang = M.ClassLang(prov)
     t = time.time()
-    ch = Chain(prov, N=N, w=w, verbose=False).explore()
+    ch = Chain(prov, N=N, w=w, verbose=False, **chain_kw).explore()
     U, P = prov.Ufull, prov.PCC
     def cls(src):
         c = L.rep.index(src)
@@ -31,7 +31,7 @@ def cell(n, N, w, built):
         if len(ids) > 1: poly += wgt
         else: key_of[ids[0]] = key
     pi = lambda c: float(ch.pi[ch.keys_list.index(key_of[c])]) if c in key_of and key_of[c] in ch.keys_list else 0.0
-    out = dict(n=n, N=N, w=w, pcc=pcc, poly=poly, pi_D=pi(iD), pi_FB=pi(iFB), pi_PB=pi(iPB) if iPB is not None else None,
+    out = dict(n=n, N=N, w=w, chain_kw={k: v for k, v in chain_kw.items()}, pcc=pcc, poly=poly, pi_D=pi(iD), pi_FB=pi(iFB), pi_PB=pi(iPB) if iPB is not None else None,
                indeterminate=len(ch.indeterminate), cut_flow=ch.cut_flow)
     # entry D -> FB, exits from FB by type
     kD, kFB = key_of.get(iD), key_of.get(iFB)

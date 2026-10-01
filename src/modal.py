@@ -42,8 +42,11 @@ LEVELS = (0, 1)               # proof systems PA, PA + Con(PA)
 
 
 class ModalLanguage:
-    def __init__(self, n):
+    def __init__(self, n, kinds=((0, 0), (1, 0), (0, 1), (1, 1))):
+        """kinds: allowed boxes as (kind, level); (0, 0) alone = BOX only, the grammar
+        isomorphic to the weak arm without X and ROLE."""
         self.n = n
+        self.kinds = tuple(kinds)
         self.atoms = []           # atom id -> (kind, form, arg canon or -1)
         self.atom_id = {}
         self.funcs = []           # canon id -> (atoms tuple, tt, k)
@@ -138,8 +141,8 @@ class ModalLanguage:
                         for nm in ('and', 'or'):
                             c2 = self.op(nm, ca, cb); cnt[s][c2] += ma * mb
                             self._note(c2, s, '%s(%s,%s)' % (nm, self.rep[ca], self.rep[cb]))
-            for kind in (KC, KD):
-              for level in LEVELS:
+            for kind, level in self.kinds:
+              if True:
                 if s == 3:
                     for form in (TM, TT):
                         c2 = self.op((kind, level, form)); cnt[s][c2] += 1; self._note(c2, s, self._src_box(kind, level, form, -1))
@@ -154,6 +157,10 @@ class ModalLanguage:
             for c, m in cnt[s].items():
                 mu[c] += m * 2.0 ** (-b); bits_min[c] = min(bits_min[c], b)
         self.mu_canon = mu; self.bits_canon = bits_min
+        self.count_canon = np.zeros(K)
+        for s in range(1, n + 1):
+            for c, m in cnt[s].items():
+                self.count_canon[c] += m
         self.n_programs = int(self.a.sum())
 
     # ---- arrays for the evaluator ----------------------------------------
@@ -242,6 +249,7 @@ class ModalProvider:
         self.Ufull = U[np.ix_(idx, idx)]; self.PCC = PCC[np.ix_(idx, idx)]
         self.names = [names[c] for c in idx]; self.bits = np.array([bits[c] for c in idx])
         self.members = [t[1] for t in reps]
+        self.sizes = None
         self.ids = np.arange(len(idx))
 
     def prepare(self, support): pass
@@ -263,9 +271,10 @@ class ClassLang:
 PD = [[-1, 1], [-2, 0]]       # pay[a][b], level order (D, C): D/D -1, D/C 1, C/D -2, C/C 0
 
 
-def build(n, pay=PD):
-    L = ModalLanguage(n)
+def build(n, pay=PD, kinds=((0, 0), (1, 0), (0, 1), (1, 1))):
+    L = ModalLanguage(n, kinds)
     val, worlds = evaluate(L)
     U, PCC = pd_payoffs(val, pay)
     prov = ModalProvider(U, PCC, L.mu_canon, L.rep, L.bits_canon)
+    prov.sizes = np.array([L.count_canon[m].sum() for m in prov.members])
     return L, val, worlds, prov

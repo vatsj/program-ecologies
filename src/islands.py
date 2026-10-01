@@ -301,6 +301,13 @@ _CTX = {}
 def _load(game_name, norole):
     key = (game_name, norole)
     if key not in _CTX:
+        if game_name.startswith('modal'):          # modal arm, PD: 'modal6' = n = 6, all box kinds
+            import modal as MO
+            L, val, worlds, prov = MO.build(int(game_name[5:]))
+            game = Game.load(os.path.join(ROOT, 'games', 'pd.yaml'))
+            mu = np.array([c[2] for c in prov.classes])
+            _CTX[key] = (game, np.ascontiguousarray(prov.Ufull), np.ascontiguousarray(prov.PCC), list(prov.names), prov.sizes.astype(float), mu)
+            return _CTX[key]
         game = Game.load(os.path.join(ROOT, 'games', game_name + '.yaml'))
         if norole:
             game.role = False; game.nroles = 1
@@ -320,9 +327,12 @@ def run_one(job):
     game, U, PCC, names, sizes, mu = _load(game_name, norole)
     A0, A1 = game.actions[0], game.actions[-1]
     iA0 = names.index(A0); iC = names.index(A1)
-    iR = names.index('THEM(^%s)' % A1)
-    rng = np.random.default_rng(1000003 * rep + 7919 * ['programs', 'prior', 'hostile', 'clustered', 'alld', 'iid'].index(seeding) + 17)
-    init = seed_counts(seeding, sizes, mu, iA0, I, N, rng)
+    iR = names.index('THEM(^%s)' % A1) if 'THEM(^%s)' % A1 in names else names.index('BOX(THEM(ME))')
+    rng = np.random.default_rng(1000003 * rep + 7919 * ['programs', 'prior', 'hostile', 'clustered', 'alld', 'iid', 'allR'].index(seeding) + 17)
+    if seeding == 'allR':          # cooperative start: every agent the arm's reciprocator
+        init = np.zeros((I, len(names)), np.int64); init[:, iR] = N
+    else:
+        init = seed_counts(seeding, sizes, mu, iA0, I, N, rng)
     nbr, nnbr = graph(graph_kind, I)
     t = time.time()
     out = _run(U, PCC, init, nbr, nnbr, N, w, mN / N, gens, every, 12345 + rep, iR, iC, game.efficient_symmetric(), DWL_EDGES,

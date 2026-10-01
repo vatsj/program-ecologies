@@ -383,12 +383,20 @@ class Chain:
     the total dropped flow is reported as `cut_flow`.
     """
     def __init__(self, provider, N, w=1.0, seeds=None, rest_tol=1e-8, fit_tol=1e-9, theta=1e-6,
-                 p_eager=0.3, max_states=30000, max_rounds=60, verbose=False, key_dec=8):
+                 p_eager=0.3, max_states=30000, max_rounds=60, verbose=False, key_dec=8, eager_top=True, eager_poly=True):
         self.P = provider
         self.N = N
         self.w = w
         self.rest_tol, self.fit_tol = rest_tol, fit_tol
         self.theta, self.p_eager = theta, p_eager
+        # eager_top: always follow each expanded state's dominant successor.  False
+        # leaves low-flow successors to the theta-pruned lazy rounds (avoids walking a
+        # near-neutral polymorphic line one 1/N grid step at a time at large N).
+        self.eager_top = eager_top
+        # eager_poly: eagerly follow polymorphic successors.  False leaves them to the
+        # theta-pruned lazy rounds (they are expanded only if their stationary inflow
+        # exceeds theta).
+        self.eager_poly = eager_poly
         self.max_states, self.max_rounds = max_states, max_rounds   # max_states caps expanded states
         self.verbose = verbose
         self.key_dec = key_dec
@@ -594,7 +602,8 @@ class Chain:
                 z = sum(v for v, b in nonself)
                 top = max(nonself)
                 for v, b in nonself:
-                    if b not in self.trans and (v / z >= self.p_eager or b == top[1]):
+                    if b not in self.trans and (v / z >= self.p_eager or (self.eager_top and b == top[1])) \
+                            and (self.eager_poly or self.states[b][2] != 'poly'):
                         queue.append(b)
             pi = self.stationary()
             flow = defaultdict(float)

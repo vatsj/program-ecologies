@@ -17,9 +17,9 @@ Research project: evolutionary game theory over source-observing programs ("prog
 5. **Separate the ε→0 object from finite-εN dynamics.** Claims about π / conjecture B use ε-free quantities (per-mutant entry/exit rates). ABM runs at finite εN are about approach rates and must say so. A window shorter than mixing time is not π.
 6. **Dilemma statistic is P(C,C)**, not mean-payoff share.
 7. Update `REJECTED.md` whenever something is dropped, including your own wrong predictions.
-8. **External review before runs** (RS, 2026-09-30). Send each experiment brief (the predictions draft) to two reviewers before running:
-   - **fable**, as a Claude subagent: the Agent tool with model `fable`, allowed to read the repo;
-   - **astra**, `gpt-6-astra` through `python3 tools/review.py <brief> --context CLAUDE.md`, which needs OPENAI_API_KEY in `.env` (gitignored).
+8. **External review before runs** (RS, 2026-09-30). Send each experiment brief (the predictions draft) to two reviewers before running, in this order:
+   1. **astra**, a fast first check: `gpt-6-astra` through `python3 tools/review.py <brief> --context CLAUDE.md`, which needs OPENAI_API_KEY in `.env` (gitignored) and runs in background mode with polling;
+   2. **fable**, the thorough pass: a Claude subagent via the Agent tool with model `fable`. It may read the repo and should see astra's review, so it doesn't repeat it.
 
    Save both reviews under `reviews/`. Fold material points into the design before committing the predictions. Surface to Jacob only what matters for the program as a whole.
 
