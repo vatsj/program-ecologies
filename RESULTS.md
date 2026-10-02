@@ -1909,6 +1909,111 @@ on main (cert0 and cert0flat at n = 8, c = 10⁻², N = 10⁴: 0.5919 and 0.6169
   parochial (P*) or universal (PrudentBot).
 - "One network" and "faster than 1/N" have not been obtained together.
 
+## Rival networks under lazy pricing on graphs (`runs/rival_networks.md`; predictions in `predictions/2026-10-01-rival-networks.md`)
+
+Designed and run by a subagent, reviewed by astra and fable before the run.
+
+**Set-up.**
+- *Arm:* lazy-priced modal arm, n = 8, PD, w = 0.3, c ∈ {0, 10⁻², 10⁻¹}. P* = `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` and FB = `BOX(THEM(ME))`.
+- *Labels*, assigned from actions:
+  - D-type;
+  - exploitable (cooperates with D);
+  - FB-net: mutual cooperators with FB that defect on D, 72 classes, μ = 0.0237;
+  - P\*-net: the same with P*, 4 classes, μ = 5.5·10⁻⁶;
+  - other-coop.
+
+  FB-net outweighs P*-net in prior mass by 4,300×. The "46 classes" P* cooperates with are mostly exploitable.
+- *Update rule:* death-birth.
+- *Kernel check:* exact against Monte Carlo on hypercube d = 3 and a 3 × 3 torus.
+
+**Static blocks.**
+- FB | D and P* | D are one block, so the two networks enter all-D identically on any graph.
+- FB's only neutral mutant at c > 0 is ALLC. P* has no neutral and no strict mutant.
+- P*'s nearest exit is its own shadow, `not(BOX(THEM(ME)))`, which pays half P*'s price on their shared edges.
+
+**R1: per-mutant hitting probabilities to N/2 (ε-free).** Torus side 16 / 32 / 64; hypercube d = 6 / 8 / 10.
+- *Entry:* FB | D = P* | D is 0.109 / 0.105 / 0.103 on the torus, N-flat at every c. On the hypercube it is 0.081 / 0.063 / 0.044. Well-mixed values are 0.027 / 0.013 / 0.007.
+- *Shadows:*
+  - ALLC | FB is neutral (2/N) on every graph.
+  - ALLC | P* is 0 in 10⁵.
+  - D | FB and D | P* are 0 in 10⁵, except hypercube 6 (1.4·10⁻⁴, never fixing).
+  - D | ALLC is 0.15–0.21.
+- *Lazy incumbency is a well-mixed effect on the torus.* A newcomer cluster's interior is all copies, so it pays only on its border, and there P* pays more.
+  - P*'s shadow invades P* at 0.8–2.1 × 2/N at c = 10⁻², and at an N-independent 0.005–0.0075 at c = 10⁻¹. Well mixed, that rate is 4·10⁻²¹.
+  - FB | P* at c = 10⁻¹ is 3·10⁻⁴ / 5·10⁻⁵ / 9·10⁻⁵.
+  - On the hypercube the barrier returns as degree grows: at d = 10, c = 10⁻¹, P* has no exit in 10⁵ trials of any measured block.
+
+**R2: partially lumped ε→0 chain on graphs (a representative model).**
+- *States:* 16 residents, the heaviest members of each label.
+- *Inputs:* 534 measured blocks per graph. At torus 64, 144 tier-2 blocks fall back to the primary representative and 1 is missing.
+- *Validation:* well mixed, it matches the full chain within 0.003.
+
+| graph | c | self-cooperating mass | π(D) | π(FB-net) | π(P*-net) |
+|---|---|---|---|---|---|
+| torus 16 / 32 / 64 | 10⁻² | 0.661 / 0.821 / 0.956 | 0.339 / 0.180 / 0.044 | 0.626 / 0.789 / 0.946 | 0.022 / 0.025 / 0.009 |
+| torus 16 / 32 / 64 | 10⁻¹ | same within 0.003 | same | — | 0.010 / 0.008 / 0.001 |
+| hypercube 6 / 8 / 10 | 10⁻² | 0.148 / 0.520 / 0.665 | — | — | — |
+
+- *Rates of π(D):* on the torus it falls with log-slope −0.74 overall (−0.46, then −1.02 over the last doubling of side). Entry is N-independent and the shadow exit is 1/N, so π(D) heads toward N⁻¹, against N^(−1/2) well mixed.
+- *Comparison:* well mixed at N = 4,096, c = 10⁻², P*-net holds 0.45 and FB-net 0.27.
+- *Transitions, torus 64, c = 10⁻²* (per mutation event):
+
+  | from | to | rate |
+  |---|---|---|
+  | D | FB-net | 2.4·10⁻³ |
+  | D | P*-net | 5.6·10⁻⁷ |
+  | FB-net | ALLC | 1.1·10⁻⁴ (0.47/N) |
+  | P*-net | its shadow | 2.9·10⁻⁶ |
+  | exploitable | D | 8.1·10⁻² |
+
+- *Support:* monomorphic states only.
+- *Hypercube d = 10, c = 10⁻¹:* P* is absorbing in sample, so its π is not trusted. The upper-bound variant gives self-cooperating mass 0.65.
+- **Prior-swap control.** Give P*-net FB-net's prior mass and P*-net takes 0.95–0.98 of the torus mass (0.84 at side 64, c = 10⁻¹). FB-net's ε→0 dominance on graphs comes from prior mass, not universality.
+
+**R3: domain competition without mutation (ε-free).**
+- *c = 0:* symmetric, with P(FB first) between 0.517 and 0.54, every interval including ½.
+- *Band start, c > 0:* FB wins.
+  - c = 10⁻²: 0.56 / 0.71 / 0.93 on the torus, 0.54–0.62 on the hypercube.
+  - c = 10⁻¹: 0.90 / 1.0 / 1.0 on the torus, 0.68 / 0.85 / 0.99 on the hypercube.
+- *Front velocity:* matches first order (9.2·10⁻⁴ and 9.1·10⁻³ per cross edge per generation, at c = 10⁻² and 10⁻¹).
+- *Droplets:* a P* disc in FB is lost in every run at c > 0.
+- *Interface:* rival borders roughen to 3.3–4/side of edges.
+
+**R3b: controlled fronts (no mutation; ALLC seeded at density x in the FB half).**
+- *Torus:* P* eats the front's ALLC and nothing refills it. The crossing is 0.05–0.15 at c = 10⁻² and above 0.4 at c = 10⁻¹.
+- *Hypercube:* there is no depletion, and the crossing is near the static threshold, x* = 0.118 at c = 10⁻¹.
+
+**R4: agent-based runs at finite ε (approach rates, not π).** Torus 128² and hypercube d = 14, N = 16,384, ε = 10⁻³.
+- *From all-D:*
+  - FB-net is the majority by generation 2,000 in all 20 runs.
+  - Second-half P(C,C) is 0.977–0.999.
+  - The ALLC load x = ALLC/(ALLC + FB-net) is 0.20, and 0.10 at ε = 10⁻⁴.
+  - P* never establishes on the hypercube.
+  - One torus run went to a PrudentBot sea (0.988). PrudentBot punishes ALLC but sits inside FB-net.
+- *From a half split:*
+  - c ≤ 10⁻²: P* wins the torus (8 of 8, by generation 800–4,400).
+  - c = 10⁻¹: FB wins.
+  - Controls: with no ALLC in the mutation supply, FB wins; with only C and D in the supply, P* wins.
+- *Welfare:* while both networks hold at least 10% (1,000–4,000 generations), rival-border mutual defection covers 0.032–0.040 of edges, 6× the D fringe. Second-half interaction welfare loss is 0.005–0.020, and compute cost per edge is ≤ 0.0014.
+
+**Verdicts.** No falsifier fired. Of 23 verdicts:
+- *Held:* most, including entry, shadows, the partial-chain validation, symmetry, FB winning the band, velocity, droplets, the finite-ε outcomes and the split runs.
+- *Failed:*
+  - 4: torus-16 rival nucleation, more suppressed than predicted;
+  - 5: FB | P* at c = 10⁻¹, narrowly;
+  - 6: hypercube 10 at c = 10⁻², 0.58 of 2/N;
+  - 15: interface 3.3–4/side, not ≤ 3/side;
+  - 17: the torus front crossing, because of depletion;
+  - 19: torus ALLC load 0.20, not 0.01–0.10;
+  - 23: border welfare loss 6× the fringe, not below it.
+- *Narrow misses within 7:* the torus-16 mass (0.66) and the π(D) slope (−0.74).
+
+**Reading.**
+- *ε→0 on graphs:* structure makes both entry and P*'s shadow exit graph-local. That dissolves lazy pricing's cost incumbency on the torus, and which network holds the mass is then set by prior mass.
+- *Finite ε:* the border goes to whichever ALLC-punisher is present, because it converts the mutation-supplied shadow into food. That punisher may be outside the universal network (P*) or inside it (PrudentBot).
+- *The graph family matters:* as hypercube degree grows, the well-mixed lock-in returns.
+- *Welfare:* rival borders are costly while they exist, but they last only thousands of generations.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

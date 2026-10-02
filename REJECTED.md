@@ -296,3 +296,22 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **A small positive verification cost on certified checks.** It rebuilds the ladder: ALLC strictly invades FairBot at 1.4·10⁻⁴ (c = 10⁻²), independent of N (static).
 
 **"Removing P\*'s copy subsidy suffices for one network" (implicit in the brief).** Partly. cert0diag keeps the subsidy for copies whose self-play PA decides, and it locks in PrudentBot instead. Copy subsidies lock in whichever ALLC-punishing family they reach.
+
+## Added 2026-10-01: rival networks on graphs (RESULTS.md, "Rival networks under lazy pricing on graphs")
+
+**"Cost incumbency locks in P\* under lazy pricing" (RESULTS, "Priced arm"), as a claim about the arm rather than about well-mixed populations.** On the torus, P*'s shadow `not(BOX(THEM(ME)))` invades P* at 0.8–2.1 × 2/N at c = 10⁻², and at an N-independent 0.005–0.0075 at c = 10⁻¹; the well-mixed rate is 4·10⁻²¹. In the ε→0 representative chain on the torus, P*-net holds ≤ 0.025. The lock-in survives only as hypercube degree grows (d = 10, c = 10⁻¹).
+
+**"With equal priors the torus splits FB/P\* near even" (subagent, prediction 7).** Given FB-net's prior mass, P*-net takes 0.95–0.98. FB-net's torus dominance is its prior mass, not universality.
+
+**"The torus ALLC load is 0.02–0.10 because pruning is local" (fable; adopted as verdict 19).** It is 0.20 at ε = 10⁻³ and 0.10 at 10⁻⁴.
+
+**"P\* advances on a front iff bulk x > 4c/(3+4c)" (subagent, static; verdict 17).** On the torus without mutation, front ALLC is eaten and not refilled: the crossing is 0.05–0.15 at c = 10⁻² and above 0.4 at c = 10⁻¹. The mean-field threshold holds on the hypercube and at finite ε.
+
+**"Rival-border welfare loss is about 1/side and below the D fringe" (verdicts 15, 23).** Borders roughen to 3–4/side. While both networks hold at least 10%, border mutual defection is 0.032–0.040 of edges on the 128² torus, 6× the D fringe.
+
+**Narrow misses:**
+- torus-16 rival nucleation (0.005 × 2/N);
+- FB | P* at c = 10⁻¹ (5–9·10⁻⁵, ratio 0.29);
+- the torus π(D) slope (−0.74);
+- the torus-16 self-cooperating mass (0.66);
+- the P*-shadow ratio at hypercube 10, c = 10⁻² (0.58).
