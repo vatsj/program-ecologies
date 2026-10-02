@@ -315,3 +315,21 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 - the torus π(D) slope (−0.74);
 - the torus-16 self-cooperating mass (0.66);
 - the P*-shadow ratio at hypercube 10, c = 10⁻² (0.58).
+
+## Added 2026-10-02: ergodic islands (RESULTS.md, "Ergodic islands")
+
+**"Finite-ε weak islands are flat in I at fixed per-island rates" (subagent, verdict 10).** P(C,C) falls 0.15 → 0.14 → 0.040 from I = 16 to 256 at εN = 0.1, and R-dominant time falls 0.051 → 0.008. The global faker supply grows with I. This is the opposite of the ε→0 chain, where π_R rises.
+
+**"≥ 0.3 of finite-ε P(C,C) comes from polymorphic, no-dominant islands" (fable, adopted).** The share is 0.12. The excess over reciprocity is probe self-play (0.049) and ALLC islands (0.036).
+
+**"At mN = 10 islands merge, so entry is 1–3× the well-mixed ρ_IN" (subagent, verdicts 8 and 9).** Entry is 0.50 × ρ_N, which is 3.9× ρ_6400, and the patched π_R is 3.5× well-mixed.
+
+**Verdict 12 reversed after review, "N = 25 ≤ N = 100 + 0.02" (fable: D immigrants take small R islands).** It failed at I = 256 (0.076 against 0.040). The pre-review direction would have held.
+
+**"Lower ε at fixed m shifts R-island exits toward the faker" (subagent, pre-review).** Dropped before the run; the data go the other way (0.78 → 0.68 and 0.84 → 0.77).
+
+**"Modal odds = I·o(N) ± 15%, with no faker exits" (subagent, pre-review).** Wrong before the run (fable). The n = 6 family has six fakeable provers, and the odds fall to 0.65 × I·o(N) by I = 1024.
+
+**"Finite-ε islands sit above the ε→0 value (0.13 against 0.06)" (draft).** This compared different statistics. R-dominant island-time is 0.029, below π_R = 0.062.
+
+**Minor:** weak + other exits < 0.01 everywhere (fails at small M); support and entry claims at every N (fail at N ≤ 16, I = 1).

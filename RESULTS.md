@@ -2014,6 +2014,77 @@ Designed and run by a subagent, reviewed by astra and fable before the run.
 - *The graph family matters:* as hypercube degree grows, the well-mixed lock-in returns.
 - *Welfare:* rival borders are costly while they exist, but they last only thousands of generations.
 
+## Ergodic islands: mutation re-injected (`runs/ergodic-islands.md`; predictions in `predictions/2026-10-02-ergodic-islands.md`)
+
+Designed and run by a subagent, reviewed by astra and fable before the run. Fable computed some chain cells before the commit; they are disclosed in the brief, and those verdicts are marked *(seen)*.
+
+**Setup.**
+- PD, w = 0.3, no island-level selection (w_g = 0).
+- Arms: the weak arm L_6 with `ROLE` (reciprocator R = `THEM(^C)`), and the modal arm at n = 6 (R = FairBot).
+- mN, the migrants per island per generation, is held fixed as N varies.
+- **A. The ε→0 two-level chain** (`src/ergodic_islands.py`).
+  - It runs over monomorphic metapopulation states, with transitions μ(q)·Φ(q|a), where Φ is the chance that one mutant on a random island takes the whole metapopulation.
+  - Φ₂ is the rare-migration value ρ_N(q|a)·(1 − 1/r)/(1 − r^−I), with r = ρ_N(q|a)/ρ_N(a|q). It is the same on every regular island graph.
+  - At I = 1 the chain reproduces the existing lim_N and modal tables exactly.
+- **B. Φ_MC:** Monte Carlo to global absorption at fixed mN, with Wilson intervals, on complete, hypercube and torus island graphs.
+- **C. Finite-ε agent-based runs:** 2·10⁵ generations, 3 replicates. These are approach rates, not π.
+
+**Three rates set the ε→0 object.**
+- **Entry depends on island size.** At mN ≤ 1 it is independent of I and of the graph: 24 of 24 cells sit in their bands around ρ_N, and 12 of 12 graph ratios contain 1. It falls with migration: 0.043 / 0.042 / 0.033 / 0.021 at mN = 0.1 / 1 / 3 / 10 (I = 64, N = 100).
+- **The shadow exit is exactly 1/(IN).**
+- **The faker exit does not depend on structure.** In this PD the faker's selective edge is constant (T + S = R + P), so Φ = 1 − 1/r at any m, any I and on any regular graph. All 11 faker cells fit, at mN 0.1–10 on all three graphs: `THEM(^D)` 0.255–0.287 against 0.264.
+
+**Weak arm, ε→0.**
+- **The faker's share of exits depends only on total size M = IN**, to within 0.011 of f/(f + 0.2493/M).
+  - It crosses ½ at M ≈ 860.
+  - It is 0.88 for every split of M = 6,400, and 0.96 at M = 25,600.
+- **π(all-`THEM(^C)`) follows the three-rate reduction** to within 4.4% for N ≥ 10. It rises with I to a plateau p*(N) = μ_R·ρ_N(R|D)/f: 0.125 at N = 10–16, 0.069 at N = 100, 0.024 at N = 1,000.
+- **That plateau falls like N^−0.46.** P(C,C) never exceeds 0.127, which is 5–10× the well-mixed peak but not efficient along any island family.
+- **Support and transitions.**
+  - The support is all-D (0.85–0.99) and all-`THEM(^C)`.
+  - A weak-faker sink, `and(X,THEM(^D))`, grows ∝ I to at most 0.011.
+  - Entry is carried by `THEM(^C)` (0.99 of cooperative entry for N ≥ 25).
+  - The roads out are faker → all-C → D and shadow → all-C → D.
+  - There are no polymorphic states and no indeterminate transitions.
+- **Patched chain** (exploratory; measured Φ_MC substituted). It stays within 0.86–1.18 of the plain chain's π_R at mN ≤ 1. At mN = 10 it gives 0.030, 3.5× well-mixed, so islands keep half their entry advantage even at 10 migrants per island per generation.
+
+**Modal arm, ε→0: efficient faster on islands than well-mixed.**
+- At N = 100, P(C,C) is 0.418 / 0.712 / 0.899 / 0.972 / 0.993 at I = 4 / 16 / 64 / 256 / 1024.
+- Well-mixed at the same M it is 0.536 (M = 6,400) and 0.691 (M = 25,600).
+- The log-odds slope in I is 0.97, so odds grow ∝ M at fixed island size, against M^½ well-mixed. Islands beat well-mixed in all 19 equal-M cells.
+- The gain comes from the three unfakeable provers. The six fakeable provers' share falls like I^−0.92 (0.46 → 0.003), so islands purge fakeable provers from the cooperative family.
+
+**Finite ε (approach rates; I grows at fixed per-island εN).** Adding islands *hurts* the weak arm. At εN = 0.1, mN = 1, N = 100:
+
+| I | P(C,C) | R-dominant island-time |
+|---|---|---|
+| 16 | 0.154 (does not mix; indeterminate) | 0.051 |
+| 64 | 0.144 | 0.029 |
+| 256 | 0.040 (hypercube 0.024) | 0.008 |
+
+- *Why:* global mutation supply I·εN grows with I, so fakers are always present somewhere and spread by migration.
+- *Exits:* fakers carry 0.78–0.84 of exits from ≥ 90%-R islands. At N = 25 the shadow dominates instead.
+- *What makes up P(C,C):* at I = 64, of the 0.144, R-dominant islands contribute only 0.028, below the chain's π_R of 0.062. The rest is probe self-play (0.049), ALLC islands (0.036) and others.
+- *Modal arm:* 0.98 at εN = 0.1 and 0.997–0.999 at εN = 0.01, at every I.
+
+**Verdicts.**
+- *Held:* 1 (weak plateau), 4 *(seen)*, 5 (faker Φ invariant, 11/11), 6 (entry bands, 24/24), 7 (graph independence, 12/12), 11 and 13.
+- *Held on the interval rule:* 8. The mN = 10 entry was 0.0209, above its band and 0.0002 short of the falsifier.
+- *Partly held:*
+  - 2: "weak + other exits < 0.01" failed at small M;
+  - 3: support claims failed at N ≤ 16, I = 1;
+  - 9: the mN = 10 part failed;
+  - 12: failed at I = 256;
+  - 14: weak I = 16 does not mix.
+- *Failed:* 10, finite-ε flat in I.
+- No falsifier fired.
+
+**Reading.**
+- On regular island graphs without group selection, structure acts only on entry (local relatedness) and on the shadow (total size). It never acts on the faker, whose fixation is a constant-selection invariant.
+- So the weak arm stays at or below 0.13 along any island family. Its failure in the limit is fakeability.
+- Structure and unfakeability are complements. Islands make the modal arm's odds grow ∝ M and purge its fakeable provers.
+- The order of limits matters: many islands at fixed per-island ε are worse than the ε→0 chain (0.04 against 0.067 at I = 256), because faker supply grows with I.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
