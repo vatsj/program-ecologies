@@ -43,8 +43,23 @@ Research project: evolutionary game theory over source-observing programs ("prog
 - Modal arm (2026-09-30, `src/modal.py`, `src/modal_limN.py`): cooperation rises with no peak, to P(C,C) 0.73 at N = 3·10⁴ (w = 0.3), with the cooperative/D ratio ∝ N^0.44. The support is a family of provers (FairBot, `BOX1(THEM(ME))`, …); exits are neutral drift into ALLC, ∝ 1/N. Caveats: efficiency is built in by a free sound oracle, so the content is the exponent; the weak-vs-modal comparison is confounded by X and `ROLE`.
 - Islands at ε = 0 (`src/islands.py`): non-ergodic absorption lottery. B′ falsified in PD (all-`THEM(^C)` in 17.5% of runs) and narrowly in Chicken with `ROLE`. **Without mutation the spoiler is the faker, not the shadow or the subsidized front.** A holds as a set, fails for placement. The migration game (ρ − ρᵀ) is not the ε-free object.
 
+- Round of 2026-10-01/02 (RESULTS sections "Certificates-only arm", "Price scaling paths", "Certificate pricing", "Rival networks", "Ergodic islands", "Universality against drift-closure"; chain polish bug fixed in a49a007, which affected only c = 1e-3 priced cells):
+  - **Certificates:** what the conjecture needs is *outcome symmetry*.
+    - A C-seeded (coinductive) certificate FairBot is a mirror, with no faker and neutral entry. Löb is the way to get symmetry without a selection rule.
+    - D-seeded and stratified certificates reproduce the faker limit; tags give parochial cliques.
+    - Readers of truth are fakeable through probes; provers are not.
+  - **Price scaling** (c_N = c0·N^-α): cooperation goes to 1 iff α > 1/2. The chain follows the two-edge reduction, and the free arm's β is 0.49–0.50.
+  - **Certificate pricing:** the free set (PA decides the opponent's action) amounts to monotonicity in box atoms. It gives one network at the free arm's rate. Copy subsidies are what produce lock-in.
+  - **Lazy pricing on graphs:** incumbency is a well-mixed effect. On the torus, prior mass picks the network. At finite ε, an ALLC-punisher wins borders by eating the shadow.
+  - **Ergodic islands:** the faker's fixation is a constant-selection invariant (Maruyama), so islands act only on entry and the shadow. The weak arm stays at or below 0.13 on islands, while modal odds grow ∝ M.
+  - **Drift-closure** (proved in the pure PD game):
+    - universality and drift-closure are exclusive;
+    - β = 1/2 is derived;
+    - beating 1/N with free constants requires incumbency;
+    - a fringe closes families only onto the parochial P* at n ≥ 8.
+
 ## Queue after that
-1. Modal (Löbian) arm: provability-guarded self-reference; test whether it meets both conditions of the characterization (re-opens REJECTED 'Black-magic fixed points' — justify via unique fixed points).
-2. Optional: ergodic island model (mutation at ε ≪ m), where π exists: which exit dominates when fakers and shadows are both re-injected (THEORY §9.5 (i)).
+1. Conjecture 4 (THEORY §9.2): no drift-closed class in the unbounded modal language; a uniform leak/μ bound in n.
+2. A resident-dependent finite-ε fringe (drift-closure review, fable §5): does the shadow-as-food mechanism give a universal moat?
 3. Optional diagnostic: prior uniform over behaviours.
-4. Paper draft.
+4. Paper draft. The spine: the characterization (outcome symmetry + neutral entry), the faker invariance under structure, the drift-closure theorem, the price-rate boundary.
