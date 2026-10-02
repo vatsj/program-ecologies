@@ -266,7 +266,7 @@ def reduction(arm, N, I, U, names, mu):
     iD = names.index('D')
     iR = names.index('THEM(^C)') if arm == 'pd' else names.index('BOX(THEM(ME))')
     entry = mu[iR] * phi2(U, iR, iD, N, I)
-    ex = dict(shadow=0.0, faker=0.0, other=0.0)
+    ex = dict(shadow=0.0, faker=0.0, weak=0.0, other=0.0)
     for q in range(len(names)):
         if q != iR:
             ex[classify(U, iR, q)] += mu[q] * phi2(U, q, iR, N, I)
@@ -409,7 +409,8 @@ def patched_row(arm, N, I, mc, graph, mN):
     game, U, PCC, names, sizes, mu = _load(arm, False)
     mu = mu / mu.sum()
     P, _ = phi_matrix(U, N, I)
-    meas = {r['game']: r['phi'] for r in mc if r['graph'] == graph and r['I'] == I and r['N'] == N and r['mN'] == mN and r['succ'] > 0}
+    meas = {r['game']: r['phi'] for r in mc if r['graph'] == graph and r['I'] == I and r['N'] == N and r['mN'] == mN and r['succ'] > 0
+            and r['game'] != 'shadow C|R'}      # the neutral cell is a code check; its exact value is 1/(IN)
     n_rep = 0
     for gname, ph in meas.items():
         g = np.array(GAMES[gname])
@@ -587,6 +588,117 @@ def run_abm(procs=3, reps=3, gens=200000):
     return rows
 
 
+# ------------------------------------------------------------------ report
+def _load_json(name):
+    path = os.path.join(ROOT, 'runs', name)
+    return json.load(open(path)) if os.path.exists(path) else []
+
+
+def conditional_block_exits(arm, N, I):
+    """pi-weighted exits from conditional cooperators (unfakeable + fakeable)
+    to any class outside that set, by mutant type relative to the resident."""
+    game, U, PCC, names, sizes, mu = _load(arm, False)
+    mu = mu / mu.sum()
+    P, _ = phi_matrix(U, N, I)
+    pi, M = stationary(P, mu)
+    bt = {c: t for c, t in block_types(U, PCC, names).items() if t != 'unconditional'}
+    ex = dict(shadow=0.0, faker=0.0, weak=0.0, other=0.0)
+    for c in bt:
+        for q in range(len(names)):
+            if q != c and q not in bt:
+                ex[classify(U, c, q)] += pi[c] * M[c, q]
+    tot = sum(ex.values())
+    return {k: v / tot for k, v in ex.items()}
+
+
+def report():
+    st = _load_json('ergodic_islands_static.json')
+    mc = _load_json('ergodic_islands_mc.json')
+    ab = _load_json('ergodic_islands_abm.json')
+    L = ['# Ergodic islands: mutation re-injected (predictions/2026-10-02-ergodic-islands.md)', '',
+         'PD, w = 0.3. Weak arm L_6 with `ROLE` (R = `THEM(^C)`); modal arm n = 6 (R = FairBot `BOX(THEM(ME))`). '
+         'A: eps->0 two-level chain over monomorphic metapopulation states (graph-independent on regular island graphs). '
+         'B: Monte Carlo global fixation at fixed mN. C: finite-eps agent-based approach runs (not pi).', '']
+    Ns = sorted({r['N'] for r in st}); Is = sorted({r['I'] for r in st})
+    for arm, lab in (('pd', 'weak'), ('modal6', 'modal')):
+        for key, title in ((('pcc', 'P(C,C)'), ('pi_R', 'pi(all-R)')) if arm == 'pd' else (('pcc', 'P(C,C)'),)):
+            L += ['## A. %s arm: %s (rows N, columns I)' % (lab, title), '', '| N \\ I | ' + ' | '.join(map(str, Is)) + ' |', '|---|' + '---|' * len(Is)]
+            for N in Ns:
+                L.append('| %d | ' % N + ' | '.join('%.4f' % next(r[key] for r in st if r['arm'] == arm and r['N'] == N and r['I'] == I) for I in Is) + ' |')
+            L.append('')
+    L += ['## A. weak arm: exits from all-R (shares) and sinks', '',
+          '| N | I | M | faker | weak | shadow | other | formula f/(f+0.2493/M) | pi(faker states) | pi(weak-faker states) | R share of coop entry | support (top 5) |',
+          '|---|---|---|---|---|---|---|---|---|---|---|---|']
+    for r in st:
+        if r['arm'] != 'pd' or r['I'] not in (1, 16, 64, 256, 4096):
+            continue
+        t = r['exit_R']; f = r['exit_faker']
+        L.append('| %d | %d | %d | %.3f | %.4f | %.3f | %.4f | %.3f | %.1e | %.4f | %.3f | %s |' % (
+            r['N'], r['I'], r['N'] * r['I'], f / t, r['exit_weak'] / t, r['shadow_share'], r['exit_other'] / t, f / (f + 0.2493 / (r['N'] * r['I'])),
+            r['pi_faker_states'], r['pi_weak_faker_states'], r['entry_R'] / r['entry_coop'],
+            '; '.join('`%s` %.4f' % (a, b) for a, b in r['support'][:5])))
+    L += ['', '## A. modal arm: cooperative block', '',
+          'pi of unfakeable / fakeable / unconditional cooperators; pi-weighted exits from conditional cooperators (unfakeable + fakeable) to classes outside them.', '',
+          '| N | I | P(C,C) | odds | pi unfakeable | pi fakeable | fakeable/unfakeable | pi unconditional | exits: strict faker / weak / neutral shadow / other | well-mixed P(C,C) at M = IN |',
+          '|---|---|---|---|---|---|---|---|---|---|']
+    game, U, PCC, names, sizes, mu = _load('modal6', False); mun = mu / mu.sum()
+    wm_cache = {}
+    for r in st:
+        if r['arm'] != 'modal6' or r['N'] not in (50, 100, 1000) or r['I'] not in (1, 4, 16, 64, 256, 1024):
+            continue
+        M = r['N'] * r['I']
+        if M not in wm_cache:
+            wm_cache[M] = analyse('modal6', U, PCC, names, mun, M, 1)['pcc'] if M <= 30000 else float('nan')
+        be = conditional_block_exits('modal6', r['N'], r['I']); pb = r['pi_block']
+        L.append('| %d | %d | %.4f | %.3f | %.4f | %.4f | %.4f | %.4f | %.2f / %.2f / %.2f / %.2f | %.4f |' % (
+            r['N'], r['I'], r['pcc'], r['pcc'] / (1 - r['pcc']), pb['unfakeable'], pb['fakeable'], pb['fakeable'] / pb['unfakeable'], pb['unconditional'],
+            be['faker'], be['weak'], be['shadow'], be['other'], wm_cache[M]))
+    if mc:
+        L += ['', '## B. Monte Carlo global fixation at fixed mN', '',
+              'Phi_MC = successes / decided trials, 95% Wilson interval; [lo_u, hi_u] counts undecided trials as failures / successes. '
+              'rho_N = within-island Moran fixation; Phi_2 = two-level value.', '',
+              '| edge | graph | I | N | mN | Phi_MC [95%] | Phi_MC / rho_N [95%] | Phi_2 | succ / fail / undec | stop | [lo_u, hi_u] | gens per success |',
+              '|---|---|---|---|---|---|---|---|---|---|---|---|']
+        for r in sorted(mc, key=lambda r: (r['game'], r['N'], r['mN'], r['graph'], r['I'])):
+            L.append('| %s | %s | %d | %d | %g | %.4f [%.4f, %.4f] | %.3f [%.3f, %.3f] | %.4f | %d / %d / %d | %s | [%.4f, %.4f] | %.0f |' % (
+                r['game'], r['graph'], r['I'], r['N'], r['mN'], r['phi'], r['lo'], r['hi'], r['phi'] / r['rho_N'], r['lo'] / r['rho_N'], r['hi'] / r['rho_N'],
+                r['phi2'], r['succ'], r['fail'], r['undec'], r['stop'], r['lo_u'], r['hi_u'], r['gens_per_success']))
+        L += ['', '## B. Patched chain (exploratory): two-level chain with the measured 2x2 games replaced by Phi_MC', '',
+              '| graph | I | N | mN | measured | P(C,C) patched | pi_R patched | pi_R two-level | ratio | faker share |', '|---|---|---|---|---|---|---|---|---|---|']
+        cells = sorted({(r['graph'], r['I'], r['N'], r['mN']) for r in mc if r['game'] == 'entry R|D'})
+        pat = []
+        gm, Uw, PCw, nmw, szw, muw = _load('pd', False)
+        for g, I, N, mN in cells:
+            pr = patched_row('pd', N, I, mc, g, mN)
+            base = next((r for r in st if r['arm'] == 'pd' and r['N'] == N and r['I'] == I), None)
+            if base is None:
+                base = analyse('pd', Uw, PCw, nmw, muw / muw.sum(), N, I)
+            pr['pi_R_base'] = base['pi_R']; pat.append(pr)
+            L.append('| %s | %d | %d | %g | %s | %.4f | %.4f | %.4f | %.2f | %.3f |' % (g, I, N, mN, ', '.join(pr['measured']), pr['pcc'], pr['pi_R'], base['pi_R'], pr['pi_R'] / base['pi_R'], pr['faker_share']))
+        json.dump(pat, open(os.path.join(ROOT, 'runs', 'ergodic_islands_patched.json'), 'w'), indent=1)
+    if ab:
+        L += ['', '## C. Finite-eps agent-based approach runs (w_g = 0; 2e5 generations; second half; approach rates, not pi)', '',
+              '| arm | graph | I | N | mN | epsN | start | P(C,C) per rep (2nd half) | mean | 1st half | R-dominant island-time | P(C,C) by island dominant class: R / C / faker / other / none | exits from >=90%-R islands: faker / weak / shadow / other / none | dominance-flip exits from R: faker / weak / shadow / other | dominant classes (rep 0) |',
+              '|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|']
+        keys = sorted({(r['arm'], r['kind'], r['I'], r['N'], r['mN'], r['epsN'], r['seeding']) for r in ab}, key=lambda k: (k[0] != 'pd', k[5] != 0.1, k[6], k[1], k[3], k[4], k[2]))
+        for k in keys:
+            sub = sorted([r for r in ab if (r['arm'], r['kind'], r['I'], r['N'], r['mN'], r['epsN'], r['seeding']) == k], key=lambda r: r['rep'])
+            p2 = np.array([r['pcc_2nd'] for r in sub]); p1 = np.array([r['pcc_1st'] for r in sub])
+            dec = {d: np.mean([r['pcc_by_dom'][d] for r in sub]) for d in ('R', 'C', 'faker', 'other', 'none')}
+            e90 = {d: sum(r['exits_R90_split'][d] for r in sub) for d in ('faker', 'weak', 'shadow', 'other', 'none')}
+            efl = {d: sum(r['exits_R'].get(d, 0) for r in sub) for d in ('faker', 'weak', 'shadow', 'other')}
+            L.append('| %s | %s | %d | %d | %g | %g | %s | %s | %.3f | %.3f | %.3f | %s | %s | %s | %s |' % (
+                'weak' if k[0] == 'pd' else 'modal', k[1], k[2], k[3], k[4], k[5], k[6], ', '.join('%.3f' % x for x in p2), p2.mean(), p1.mean(),
+                np.mean([r['R_dom_time'] for r in sub]), ' / '.join('%.3f' % dec[d] for d in ('R', 'C', 'faker', 'other', 'none')),
+                ' / '.join(str(e90[d]) for d in ('faker', 'weak', 'shadow', 'other', 'none')),
+                ' / '.join(str(efl[d]) for d in ('faker', 'weak', 'shadow', 'other')),
+                ', '.join('`%s` %.2f' % kv for kv in list(sub[0]['dom_share'].items())[:4])))
+    out = os.path.join(ROOT, 'runs', 'ergodic-islands-tables.md')
+    open(out, 'w').write('\n'.join(L) + '\n')
+    json.dump(dict(static=st, mc=mc, abm=ab, patched=_load_json('ergodic_islands_patched.json')), open(os.path.join(ROOT, 'runs', 'ergodic-islands.json'), 'w'), indent=1)
+    print('\n'.join(L))
+
+
 if __name__ == '__main__':
     if sys.argv[1] == 'static':
         static_main(); static_grid()
@@ -600,3 +712,5 @@ if __name__ == '__main__':
         run_mc()
     elif sys.argv[1] == 'run_abm':
         run_abm()
+    elif sys.argv[1] == 'report':
+        report()
