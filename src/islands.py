@@ -120,6 +120,9 @@ def _run(U, PCC, init, nbr, nnbr, N, w, m, gens, every, seed, iR, iC, eff, dwl_e
     dom_time = np.zeros(K)                  # island-samples with class k dominant (> 1/2), second half
     trans = np.zeros((K, K), np.int64)      # dominant-class changes between samples (any time)
     prev_dom = -np.ones(I, np.int64)
+    dom_cc = np.zeros(K + 1)                # second-half sum of island P(C,C) by dominant class (K = none)
+    strongR = np.zeros(I, np.int64)         # island held >= 90% iR at the previous sample
+    exitR90 = np.zeros(K + 1, np.int64)     # islands >= 90% iR at one sample and not iR-dominant at the next: new dominant (K = none)
     isl_cc_hist = np.zeros(11)              # island P(C,C) histogram, second half
     nb = dwl_edges.shape[0] - 1
     isl_dwl_hist = np.zeros(nb)             # island deadweight-loss histogram, second half
@@ -210,11 +213,15 @@ def _run(U, PCC, init, nbr, nnbr, N, w, m, gens, every, seed, iR, iC, eff, dwl_e
                 cc_tot += cc; pay_tot += pay
                 if 2 * s >= nsamp:
                     if dom >= 0: dom_time[dom] += 1
+                    dom_cc[dom if dom >= 0 else K] += cc
                     isl_cc_hist[min(10, int(cc * 10))] += 1
                     dwl = eff - pay
                     for b in range(nb):
                         if dwl < dwl_edges[b + 1]:
                             isl_dwl_hist[b] += 1; break
+                if strongR[i] == 1 and dom != iR and 2 * s >= nsamp:
+                    exitR90[dom if dom >= 0 else K] += 1
+                strongR[i] = 1 if 10 * counts[i, iR] >= 9 * N else 0
                 if dom >= 0:
                     if prev_dom[i] >= 0 and prev_dom[i] != dom:
                         trans[prev_dom[i], dom] += 1
@@ -244,7 +251,7 @@ def _run(U, PCC, init, nbr, nnbr, N, w, m, gens, every, seed, iR, iC, eff, dwl_e
                     tr_R[s2] = tr_R[s - 1]; tr_C[s2] = tr_C[s - 1]; tr_npres[s2] = tr_npres[s - 1]
                 break
     disp = np.array([sp_sum, rg_sum, n_isl, n_cool])
-    return tr_cc, tr_pay, tr_R, tr_C, tr_npres, dom_time, trans, isl_cc_hist, isl_dwl_hist, ext_R, ext_C, frozen_at, counts, disp, pairs[:npairs]
+    return tr_cc, tr_pay, tr_R, tr_C, tr_npres, dom_time, trans, isl_cc_hist, isl_dwl_hist, ext_R, ext_C, frozen_at, counts, disp, pairs[:npairs], dom_cc, exitR90
 
 
 def graph(kind, I):
@@ -252,6 +259,13 @@ def graph(kind, I):
         nbr = np.array([[j for j in range(I) if j != i] for i in range(I)], np.int64)
     elif kind == 'ring':
         nbr = np.array([[(i - 1) % I, (i + 1) % I] for i in range(I)], np.int64)
+    elif kind == 'hypercube':          # I = 2^d islands, degree d
+        d = int(round(np.log2(I))); assert 1 << d == I
+        nbr = np.array([[i ^ (1 << b) for b in range(d)] for i in range(I)], np.int64)
+    elif kind == 'torus':              # I = side^2 islands, degree 4
+        sd = int(round(np.sqrt(I))); assert sd * sd == I
+        nbr = np.array([[(i // sd) * sd + (i % sd + 1) % sd, (i // sd) * sd + (i % sd - 1) % sd,
+                         ((i // sd + 1) % sd) * sd + i % sd, ((i // sd - 1) % sd) * sd + i % sd] for i in range(I)], np.int64)
     else:
         raise ValueError(kind)
     return nbr, np.full(I, nbr.shape[1], np.int64)
@@ -337,7 +351,8 @@ def run_one(job):
     t = time.time()
     out = _run(U, PCC, init, nbr, nnbr, N, w, mN / N, gens, every, 12345 + rep, iR, iC, game.efficient_symmetric(), DWL_EDGES,
                epsN / N, float(wg), np.cumsum(mu / mu.sum()))
-    tr_cc, tr_pay, tr_R, tr_C, tr_npres, dom_time, trans, hist, dwl_hist, ext_R, ext_C, frozen_at, counts, disp, pairs = out
+    tr_cc, tr_pay, tr_R, tr_C, tr_npres, dom_time, trans, hist, dwl_hist, ext_R, ext_C, frozen_at, counts, disp, pairs, dom_cc, exitR90 = out
+    dom_cc = dom_cc.copy()
     disp = disp.copy()
     h = len(tr_cc) // 2
     glob = counts.sum(0)
@@ -354,6 +369,7 @@ def run_one(job):
             pay = float(c @ fit) / N
             dom = np.nonzero(2 * counts[i] > N)[0]
             if len(dom): dom_time[dom[0]] += missing
+            dom_cc[dom[0] if len(dom) else len(names)] += missing * cc
             hist[min(10, int(cc * 10))] += missing
             dwl_hist[np.searchsorted(DWL_EDGES, eff - pay, side='right') - 1] += missing
             disp[2] += missing; disp[3] += missing       # frozen: every island is cool (spread 0)
@@ -366,6 +382,8 @@ def run_one(job):
                 dom_time={names[k]: float(v) for k, v in enumerate(dom_time) if v > 0},
                 trans=[(names[a], names[b], int(trans[a, b])) for a, b in zip(*np.nonzero(trans))],
                 isl_cc_hist=hist.tolist(), isl_dwl_hist=dwl_hist.tolist(),
+                dom_cc={(names[k] if k < len(names) else '(none)'): float(v) for k, v in enumerate(dom_cc) if v > 0},
+                exits_R90={(names[k] if k < len(names) else '(none)'): int(v) for k, v in enumerate(exitR90) if v > 0},
                 spread=float(disp[0] / max(disp[2], 1)), resident_range=float(disp[1] / max(disp[2], 1)),
                 cool_frac=float(disp[3] / max(disp[2], 1)), spread_pay_pairs=pairs.tolist(),
                 final_classes={names[k]: int(v) for k, v in enumerate(glob) if v > 0},
