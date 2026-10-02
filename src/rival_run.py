@@ -91,15 +91,15 @@ def rate_job(j):
         return out
     U2 = np.array([[rr, rq], [qr, qq]], float)
     if tier == 0:
-        target, tcap = 20, (400 if N <= 1024 else 1200)
-    else:
-        target, tcap = 10, (200 if N <= 1024 else 300)
+        target, tcap, tmax = 20, (400 if N <= 1024 else 1200), 100000
+    else:                                   # 2*10^4 trials bound a zero block below 2e-4 (< 2/N at N = 4,096)
+        target, tcap, tmax = 10, (200 if N <= 1024 else 300), 20000
     cap = max(500, 2 * N); cont = 4 * N
     h = l = u = fx = la = ua = 0; tr = 0; batch = 0
     while True:
         r = _invade_fix(U2, nb, W, 2000, cap, cont, max(0, target - (fx + la + ua)), 1000 + 7919 * batch + 31 * size)
         h += r[0]; l += r[1]; u += r[2]; fx += r[3]; la += r[4]; ua += r[5]; tr += 2000; batch += 1
-        if h >= target or tr >= 100000 or time.time() - t0 > tcap:
+        if h >= target or tr >= tmax or time.time() - t0 > tcap:
             break
     dec = h + l
     lo, hi = wilson(h, dec)
@@ -323,8 +323,14 @@ def run_abm():
 
 # ------------------------------------------------------------------------------------ report
 def _load(f):
+    """runs/<f>, or runs/<f>.gz (the committed, rounded copy of the agent-based records)."""
+    import gzip
     p = OUT(f)
-    return json.load(open(p)) if os.path.exists(p) else []
+    if os.path.exists(p):
+        return json.load(open(p))
+    if os.path.exists(p + '.gz'):
+        return json.load(gzip.open(p + '.gz', 'rt'))
+    return []
 
 
 def rate_table():
@@ -529,7 +535,7 @@ def report():
         mdb_both = float(rec[both, 3].mean()) if both.any() else float('nan')
         mdd_both = float(rec[both, 4].mean()) if both.any() else float('nan')
         g90 = rec[rec[:, 13] > 0.9, 0]; g01 = rec[rec[:, 13] > 0.01, 0]
-        row = dict(graph=r['graph'], c=r['c'], eps=r['eps'], start=r['start'], seed=r['seed'], pcc=s[:, 1].mean(),
+        row = dict(graph=r['graph'], size=r['size'], c=r['c'], eps=r['eps'], start=r['start'], seed=r['seed'], pcc=s[:, 1].mean(),
                    fbnet=s[:, 12].mean(), psnet=s[:, 13].mean(), expl=s[:, 14].mean(), dtype=s[:, 11].mean(), x=x,
                    md=s[:, 2].mean(), md_border=s[:, 3].mean(), md_d=s[:, 4].mean(), cost=s[:, 7].mean(),
                    x_front=xfront, iwl=iwl, md_border_both=mdb_both, md_d_both=mdd_both, gens_both=int(both.sum()) * r['every'],
@@ -537,11 +543,11 @@ def report():
                    md_border_max=float(rec[:, 3].max()), traj=rec[::max(1, len(rec) // 20)][:, [0, 1, 2, 3, 4, 10, 11, 12, 13, 14]].tolist())
         r4.append(row)
         L.append('| %s | %g | %g | %s | %d | %.3f | %.3f | %.3f | %.3f | %.3f | %.3f | %.3f | %.4f | %.4f | %.4f | %.4f / %.4f (%d) | %.4f | %.4f | %.4f | %s | %s |' % (
-            r['graph'], r['c'], r['eps'], r['start'], r['seed'], row['pcc'], row['fbnet'], row['psnet'], row['expl'], row['dtype'], x, xfront,
+            '%s %d' % (r['graph'], r['size']), r['c'], r['eps'], r['start'], r['seed'], row['pcc'], row['fbnet'], row['psnet'], row['expl'], row['dtype'], x, xfront,
             row['md'], row['md_border'], row['md_d'], mdb_both, mdd_both, row['gens_both'], row['md_border_max'], iwl, row['cost'], '%.0f' % row['g90'] if row['g90'] else '—', '%.0f' % row['g01'] if row['g01'] else '—'))
     L += ['', 'Trajectories (every 5% of the run): generation, P(C,C), MD, MD rival border, MD with D end, ALLC, D-type, FB-net, P*-net, exploitable.', '']
     for row in r4:
-        L.append('- %s c=%g ε=%g %s seed %d: %s' % (row['graph'], row['c'], row['eps'], row['start'], row['seed'],
+        L.append('- %s %d c=%g ε=%g %s seed %d: %s' % (row['graph'], row['size'], row['c'], row['eps'], row['start'], row['seed'],
                  ' | '.join('g%d: cc %.2f FB %.2f P* %.2f ALLC %.2f D %.2f bMD %.4f' % (t[0], t[1], t[7], t[8], t[5], t[6], t[3]) for t in row['traj'])))
     summary['R4'] = [{k: v for k, v in row.items() if k != 'traj'} for row in r4]
     open(OUT('rival_networks.md'), 'w').write('\n'.join(L) + '\n')
