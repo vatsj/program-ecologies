@@ -333,3 +333,19 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **"Finite-ε islands sit above the ε→0 value (0.13 against 0.06)" (draft).** This compared different statistics. R-dominant island-time is 0.029, below π_R = 0.062.
 
 **Minor:** weak + other exits < 0.01 everywhere (fails at small M); support and entry claims at every N (fail at N ≤ 16, I = 1).
+
+## Added 2026-10-02: universality against drift-closure (RESULTS.md, "Universality against drift-closure")
+
+**"Higher-order behavioural prudence beats the shadow's 1/N exit" (the §9.7 ladder as a fix).** Rejected by Corollary 1 and Proposition 2. Every class that cooperates with FairBot has a leak floor of about 0.9·μ(FB)/N, and no class is drift-closed at n ≤ 11. P12b's apparent 3,000× advantage was language coverage; with its siblings it is 4–7×.
+
+**"A price that subsidizes no copies can give one network and a faster exit."** Rejected by Proposition 3: any successful price gives the incumbent a local advantage, which is a moat.
+
+**"A fringe rescues universality"** (standing variance re-opened in ε→0 form). Partly rejected. The D fringe keeps exponent 1/2 and hands the network to P* at n ≥ 8. The μ fringe closes families but, at n ≥ 8, ends on the parochial P*: a fixed ordering that rewards exploiting the background.
+
+**"Positive universality implies FairBot's leak floor" (draft).** Wrong (astra). P* has universality 0.10 through D-cooperating mates, not through FairBot. The floor applies only to classes that cooperate with FairBot itself.
+
+**"The fringe is a behavioural moat" (draft).** Wrong (fable). It is an opponent-independent price that charges constants, so it is a fixed ordering, not incumbency.
+
+**"If P\* fails to take over, the deep chain found routes the local estimate missed" (draft).** Backwards (fable). At depth 3 the local estimate covers all 471 classes, so a disagreement would point at the driver.
+
+**"μ-fringe closure is a property of the language" (draft).** Wrong (fable). It is a crossover at N ≈ 1/(wδΔf), and it is not uniform in n.

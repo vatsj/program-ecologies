@@ -2085,6 +2085,69 @@ Designed and run by a subagent, reviewed by astra and fable before the run. Fabl
 - Structure and unfakeability are complements. Islands make the modal arm's odds grow ∝ M and purge its fakeable provers.
 - The order of limits matters: many islands at fixed per-island ε are worse than the ε→0 chain (0.04 against 0.067 at I = 256), because faker supply grows with I.
 
+## Universality against drift-closure: moats without copy subsidies (`runs/drift_closure.md`, `runs/drift_closure_static.md`; predictions in `predictions/2026-10-02-drift-closure.md`)
+
+Designed and run by a subagent, reviewed by astra and fable before the run. ε→0 chain, PD, w = 0.3, `eager_poly=False`, 102 cells. Two cells were reproduced on main: D fringe n = 6, N = 10⁴ gives 0.9885, and the PrudentBot prior boost at n = 8 gives 0.9761.
+
+**Part 1: proofs.** The setting is the PD with four distinct payoffs, deterministic programs (self-play is (C,C) or (D,D)), and the chain's fixation rule (mean field, no self-play, exp fitness).
+- **Lemma 1.** From a world of self-cooperating x, a single mutant has one of three fates:
+  - a *faker* (defects on x while x cooperates with it) fixes with N-independent probability;
+  - a self-cooperator that plays (C,C) with x is exactly neutral and fixes with probability 1/N;
+  - every other mutant fixes with probability e^(−Θ(N)).
+
+  Polymorphic and valley routes add only e^(−Θ(N)).
+- **Proposition 1.** x's neutral closure is its component K(x) in the graph of mutual cooperation among self-cooperators. x is *drift-closed* iff no member of K(x) can be suckered.
+- **Corollary 1** (the §9.7 regress, exact). ALLC is in FairBot's component, and D suckers ALLC. So every drift-closed class has universality 0, meaning it mutually cooperates with nothing in FairBot's component. The content is the static fact that ALLC lies in that component.
+- **Proposition 2** (rate law). Assumptions:
+  - an unsuckerable core;
+  - entry neutral at one copy;
+  - fakers that leave the network;
+  - all-D holding the non-cooperative mass.
+
+  Then a non-closed network exits at Θ(1/N), and the cooperative odds are Θ(N^(1/2)). So β = 1/2, an empirical premise of the price-scaling proposition, is derived. Any class that cooperates with FairBot has a leak floor of about 0.9·μ(FB)/N.
+- **Proposition 3** (prices). Let prices be non-negative, with constants free. Then in any world that tolerates ALLC, ALLC weakly dominates the resident. A family exits faster than 1/N only if every path into ALLC-tolerant worlds is blocked by local incumbency: a newcomer must pay more to read the incumbent than the incumbent pays to read itself. For a family that cooperates with FairBot, that is c(FB, y) > c(y, y), a moat.
+
+**Static map.** The mutual-cooperation graph is one component at every n tested (6–11 with boxes up to PA + Con; 8–9 up to PA + Con²), with or without ALLC. No class is drift-closed. Along the rungs of prudence, universality and leak fall together (n = 10):
+
+| class | order of prudence | cooperates with FairBot | universality | leak |
+|---|---|---|---|---|
+| FairBot | 0 | yes | 0.77 | 0.48 |
+| PrudentBot | 1 (defects on D-cooperators) | yes | 0.33 | 5.2·10⁻³ |
+| P* | 2 (defects on ALLC-cooperators) | no | 0.10 | 3.3·10⁻³ |
+| P12b (size 14, needs PA + Con²) | 1 and 2 | no | ~10⁻⁴ | 2·10⁻⁶ |
+
+- P* is behaviourally second-order prudence. The positive form `and(BOX(THEM(ME)),BOXD_L(THEM(^C)))` never self-cooperates at any level tested.
+- Each added order of prudence costs one Con level.
+- Per unit of prior, FairBot has the smallest leak of any unsuckerable class: leak/μ is 93–96 at n = 6–11, against about 3,700 for PrudentBot and 1,100 for P*.
+
+**Chain verdicts.** 11 of 12 held.
+1. The references reproduce. The free arm at n = 9, N = 10⁵ gives 0.814.
+2. *PrudentBot at FairBot's prior mass.* The family and the constant change, not the exponent.
+   - P(C,C) 0.752 / 0.924 / 0.976 / 0.986 / 0.992 at N = 10²–10⁵.
+   - The prudent family holds 0.94–0.95 of cooperative mass.
+   - Exit slope −0.99, odds slope 0.49.
+3. *High-order prudence gains nothing once its siblings are in the language.* P12b added alone takes everything, but that is a language-coverage artifact. With its five same-size siblings, odds are only 4–7× the boosted PrudentBot's, with exit slope −0.84.
+4. *D fringe at n = 6* (a fixed background of D that charges cooperation with D). The network stays universal: P(C,C) 0.9885 / 0.9933 / 0.9963 at 10⁴ / 3·10⁴ / 10⁵, with exit slope −1.00.
+5. *D fringe at n = 8.* The network goes to the parochial P* family (rival share 0.92–0.95), still at exit slope −1.
+6. *CD fringe at n = 8* (also rewards exploiting ALLC). Two rival blocks; prudent/rival goes 0.46/0.51 → 0.86/0.14 by 3·10⁵.
+7. *CD fringe at n = 6.* FairBot's entry barrier shows as an odds slope of 0.14.
+8. *μ fringe at n = 8* (the prior as a background population). Families close as a crossover in N: exit slopes −3.2 and then about −22, ending on P* at 1.000 by 3·10⁵, where exits are 3·10⁻¹⁸.
+9. *μ fringe at n = 6* (no parochial family exists at this size). One universal network with an exit faster than 1/N: exit slopes −2.45 and −5.72, and 1 − P = 3.4·10⁻⁵ at 10⁶.
+10. *D fringe along δ_N = 10/N.* P(C,C) 0.890 / 0.933 / 0.962, odds slope 0.50.
+11. *The open problem.* No cell at n ≥ 8 has one FairBot-cooperating network (rival < 0.05) together with an exit slope ≤ −1.3.
+12. *Numerics: failed in part.*
+    - Indeterminate transitions in four μ cells, with π-weighted mass ≤ 2.4·10⁻⁹.
+    - Cut flow up to 2.7·10⁻⁵ in four small-N cells, against a limit of 10⁻⁵.
+    - Kept exit share below 0.99 in the CD and μ cells at n = 8, the dropped exits going to one-copy polymorphic twins.
+    - A θ = 10⁻⁹ re-run leaves the family shares and P(C,C) unchanged.
+
+**Support and transitions.** Every cell has one terminal class and no near-closed classes. Polymorphic flow is below 2·10⁻⁴. Top states: FairBot (free), PrudentBot (boost, CD), P* (D and μ fringes at n = 8), `BOX(THEM(THEM))` (μ fringe at n = 6).
+
+**Reading.**
+- In the pure game, one universal network and an exit faster than 1/N are incompatible: Corollary 1 with Proposition 2. The exponent 1/2 is derived.
+- Prices with free constants beat 1/N only through incumbency (Proposition 3).
+- The one mechanism outside both results is a fringe, which acts like an opponent-independent price on constants. It can close families, but at n ≥ 8 it hands the mass to the parochial P*, because it selects for exploiting the background.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
