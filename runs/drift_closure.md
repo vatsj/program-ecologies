@@ -362,7 +362,7 @@ Predictions: predictions/2026-10-02-drift-closure.md. Families (monomorphic self
 
 No falsifier fired.
 
-**Unpruned-chain cross-check** (fable 1.1). The driver matches `src/moat_estimates.py` to the third decimal in P(C,C) in every
+**Unpruned-chain cross-check** (fable 1.1). The driver matches `src/moat_estimates.py` within 0.002 in P(C,C) in every
 D, CD, prior and grammar cell. In the μ cells it differs in the family split (n = 8, 10⁴: driver 0.40 / 0.57 against
 0.61 / 0.34). The estimate lumps polymorphic targets into all-D, while the driver reflects them. The θ = 10⁻⁹ check above
 shows the driver's split is the right one.
