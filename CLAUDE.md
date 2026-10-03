@@ -2,6 +2,9 @@
 
 Research project: evolutionary game theory over source-observing programs ("program ecologies"). Paper title: *Program ecologies: stochastic stability in open-source games.* Collaborator: Jacob. You (Claude Code) now own the whole loop: read results, reason about theory, write predictions, run, and edit docs.
 
+## Long-term goal (RS, 2026-10-02)
+Get Turing-complete program classes with source access to cooperate. The DSL arms, including the modal arm's free sound oracle, are approximations. Judge each result by what it says about realizable source-reading programs.
+
 ## Files
 - `THEORY.md` — the operating hypothesis. Change only with a stated reason tied to a result.
 - `IMPLEMENTATION.md` — DSL, evaluator, chain, runtime rules.
@@ -62,4 +65,7 @@ Research project: evolutionary game theory over source-observing programs ("prog
 1. Conjecture 4 (THEORY §9.2): no drift-closed class in the unbounded modal language; a uniform leak/μ bound in n.
 2. A resident-dependent finite-ε fringe (drift-closure review, fable §5): does the shadow-as-food mechanism give a universal moat?
 3. Optional diagnostic: prior uniform over behaviours.
-4. Paper draft. The spine: the characterization (outcome symmetry + neutral entry), the faker invariance under structure, the drift-closure theorem, the price-rate boundary.
+4. Divide-the-dollar partitions across islands, weak arm, with and without `ROLE` (RS, 2026-10-02).
+5. Toward the long-term goal: an arm of realizable source-reading programs, such as bounded proof search over source (Critch 2019), in place of the free modal oracle.
+
+No paper draft yet (RS, 2026-10-02).
