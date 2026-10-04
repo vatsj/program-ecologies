@@ -349,3 +349,13 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **"If P\* fails to take over, the deep chain found routes the local estimate missed" (draft).** Backwards (fable). At depth 3 the local estimate covers all 471 classes, so a disagreement would point at the driver.
 
 **"μ-fringe closure is a property of the language" (draft).** Wrong (fable). It is a crossover at N ≈ 1/(wδΔf), and it is not uniform in n.
+
+## Added 2026-10-04: Conjecture 4 (RESULTS.md, "Conjecture 4: the sibling theorem")
+
+**"The sibling's extra disjunct is a provable-cooperation test" (Fable, prediction 1).** The reverse: it is an undecidedness test, two negated boxes. Any test that is true when every box is true fires at world 0, and against prudent readers it makes the sibling cooperate with D. Membership in the mutual-cooperation graph comes from mimicry, not from a cooperation test.
+
+**"The shell contribution to FairBot's leak decays geometrically, ratio below 0.7" (Fable, prediction 3).** Under the length prior each shell has mass 1/(2s²) and a constant 0.42 of each shell leaks, so the ratios are 0.83–0.86, a 1/s² tail.
+
+**A uniform leak/μ bound as an open question.** Trivial under the length prior (≤ 27π²). The question with content is the limit value, about 89–90.
+
+**Conjecture 4 as a statement about source-reading programs in general.** False with syntactic equality: CliqueBot is drift-closed. The theorem is about extensional readers.

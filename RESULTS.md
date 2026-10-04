@@ -2148,6 +2148,54 @@ Designed and run by a subagent, reviewed by astra and fable before the run. ε�
 - Prices with free constants beat 1/N only through incumbency (Proposition 3).
 - The one mechanism outside both results is a fringe, which acts like an opponent-independent price on constants. It can close families, but at n ≥ 8 it hands the mass to the parochial P*, because it selects for exploiting the background.
 
+## Conjecture 4: the sibling theorem, and the leak at n ≤ 13 (`runs/conjecture4.md`, `notes/conjecture4.md`; spec `specs/2026-10-04-conjecture4.md`, predictions in `predictions/2026-10-04-conjecture4.md`)
+
+Designed by the RE under the spec workflow, reviewed by gpt-6.1-sol, run by an Opus subagent. The RE re-checked the construction on FairBot, PrudentBot and P* with the independent evaluator `src/conj4.py` after the merge.
+
+**Theorem (no drift-closed class, levels unbounded).** In the modal language with boxes at every PA + Con^k level, every self-cooperating class has a suckerable neighbour in the mutual-cooperation graph, one step away. So no class is drift-closed.
+
+*Construction.* Take a self-cooperating x that defects on D (otherwise x is suckerable at distance 0). Let F(x) be x together with all its fixed arguments ^A, recursively, and let K be the largest world by which any P ∈ F(x) has settled against D.
+- ψ_K = `and(not(BOX_K(THEM(^D))),not(BOXD_K(THEM(^D))))`: "your play against D is undecided in PA + Con^K".
+- Sibling y = `or(x, ψ_K)`, of size |x| + 12.
+- Faker z = `BOX_K(THEM(^D))`, of size 4.
+
+*Lemmas.*
+- A (finite settling): each box atom flips at most once after its level, so every play sequence settles.
+- B: ψ_K is false at every world against any opponent whose play against D has settled by world K.
+- C (mimicry): by induction on worlds, y and x play identically against every P ∈ F(x) ∪ {D}; every such P plays y as it plays x; and y against y matches x against x. x sees an opponent only through finitely many probes (its play against x, against itself, against x's fixed arguments), and ψ_K is silent on all of them.
+- D: settle(P, D) ≤ maxlevel(P) + 1, so K ≤ maxlevel(x) + 1. The sibling needs exactly one more Con level than x uses.
+
+*Proof.* By C, y and x cooperate with each other and y cooperates with itself, so y is adjacent to x. z defects on y because y defects on D. z's own play against D is C up to world K and D after, so it is undecided at level K: ψ_K(z) holds and y cooperates with z. So y is suckerable. ∎
+
+*Dependency ledger.* Lemmas A, B, D use the linear chain and the level structure. Lemma C and the theorem use only extensional observation through finitely many probes. No step uses Löb; Löb supplies only x's self-cooperation, which y inherits. The arithmetic lift uses de Jongh–Sambin uniqueness, the letterless reduction, arithmetic soundness of GL, and the consistency of every PA + Con^k. The theorem is about monomorphic residents only.
+
+*Evaluator check.* `src/conj4.py` is an independent trace evaluator; it agrees with `modal_lv` on 3,000 random pairs per language. It checked every self-cooperating canonical function at n = 6–11 with one level and n = 6–9 with two levels, up to 3,481 self-cooperators per language, with y and z added: 0 failures. The full prudence ladder passes (FairBot, PrudentBot, P*, P2, P12b, P*1b, PB2); P* needs K = 2.
+
+**Fixed level cap: open.** A level-preserving sibling (K ≤ lmax) works for every class at 9/1, 10/1, 8/2 and 9/2 and first fails at 11/1, for 4 classes such as `and(BOX(THEM(ME)),BOXD1(THEM(^not(BOX1(THEM(ME))))))`. They are not truncation-closed candidates: the graph is one component at n = 11, so they reach suckerable classes by other paths.
+
+**Static map, extended.** The new code reproduces the committed n ≤ 11 numbers exactly.
+- n = 12: 13,514 classes, 6,286 self-cooperating, one component, 0 closed, maximum drift distance 1.
+- n = 13: 27,189 classes, 12,310 self-cooperating, one component, 0 closed, maximum drift distance 1 (388 s on 3 threads, 2.7 GB).
+
+**Leak ratio.** FairBot's leak/μ is the minimum at both sizes: 92.45 at n = 12 and 92.22 at n = 13, with `BOX1(THEM(ME))` 2·10⁻⁴ above it. Of every length shell from s = 5 to 13, 0.41–0.42 is a suckerable FairBot mate and 0.007–0.009 is FairBot's own class. Under the length prior each shell has mass 1/(2s²), so shell contributions fall like 1/s², with successive ratios 0.75 rising to 0.856, not geometrically. The extrapolated limit of leak/μ is about 89–90. A uniform bound is trivial under the length prior (leak/μ ≤ 27π² ≈ 266); the content is the limit value.
+
+**Verdicts.**
+| # | prediction | outcome |
+|---|---|---|
+| 1 | Conjecture 4 holds, by a sibling with a provable-cooperation disjunct | **Conclusion held; mechanism failed.** The disjunct is an *undecidedness* test, and membership in the graph comes from mimicry, not from a cooperation test. |
+| 2a | Lemma 1 and Corollary 1 transfer to bounded proof search | **Held** |
+| 2b | the sibling transfers only under budget assumptions | **Held** (see transfer) |
+| 3 | FairBot leak/μ-optimal in [85, 105]; shells decay geometrically (ratio < 0.7) | **Partly.** Optimal and in range; shell ratios 0.83–0.86, a 1/s² tail. |
+| 4 | no drift-closed class at n = 12, 13 | **Held** |
+
+**Transfer to bounded proof search over source** (`notes/conjecture4.md` §6). Drift-closure needs a reader that can tell a sibling from a copy. The theorem's mechanism is extensional: a reader that sees opponents only through finitely many behavioural probes always has a sibling it cannot distinguish, and that sibling can be exploited through the probe the reader never runs. So the transfer condition is: the sibling construction goes through for a bounded reader whose budget k exceeds its own self-check by poly(b_x) + O(|x| + log k), with the faker's budget B ≥ poly(b) by Pudlák's bounds. With tight budgets, a proof-length fingerprint (a soft clique) may allow closure. Both routes to closure, syntax (cliques) and proof length, are self-recognition or incumbency. With syntactic equality the conjecture is false: CliqueBot is drift-closed.
+
+**Reading.**
+- Exact closure is impossible in the free modal arm, so every cooperative network exits at Θ(1/N) at least and odds are capped near N^(1/2) unless a fringe or incumbency is added.
+- The obstruction is extensionality, not GL.
+- The guaranteed leak from the theorem is tiny (μ(x)·5^(−12)); the real leak is far larger (leak/μ ≥ 92). The quantitative theorem linking witness size and escape rate is the next object.
+- Each order of prudence has a sibling one Con level up, so more prudence never escapes the regress.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
