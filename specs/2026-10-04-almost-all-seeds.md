@@ -142,3 +142,14 @@ cell is 25,600 programs for 10⁵ generations, so measure one run's time first a
 it exceeds the budget, stating the change. At most 3 workers; stop cells projected beyond 2 hours; do not edit
 RESULTS.md, REJECTED.md, THEORY.md or CLAUDE.md; do not touch `runs/d8dcd7ee9a/row.json`; hand back draft RESULTS,
 REJECTED and THEORY text, at most 5 lines on what matters, and the branch and commits.
+
+## RE addendum after commit (2026-10-04, before results)
+
+Back-of-envelope for the modal arm per island: copies of the unfakeable prover family in the seed ≈ 0.03·N; a fraction
+≈ e^(−1.4) ≈ 0.25 survives the scramble while D eats ALLC (the prover earns R where D earns T); each survivor then fixes
+in the D sea at ∝ N^(−1/2) (≈ 0.04 at N = 100, ≈ 0.005 at N = 6,400). So P(island ends cooperative) grows only like √N:
+≈ 0.03 at N = 100 and ≈ 0.3–0.5 at N = 6,400. With I = 4 that is ≈ 0.1 and ≈ 0.5–0.8, below prediction 4's ≥ 0.9. Once
+one island is cooperative the rest follow fast (D migrants die; prover migrants enter neutrally every generation), so
+the outcome hinges on whether any island comes out cooperative, which islands raise linearly and N only as √N. Expected
+split by arm: many islands help the unfakeable arm and hurt the fakeable ones. Prediction 4 stands as committed for
+scoring; this note lowers the RE's expectation at (6,400, 4) to 0.5–0.8.
