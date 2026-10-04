@@ -116,9 +116,11 @@ def settle(p, q, W=40):
 D_ = ('D',)
 
 
-def sibling(x, W=40):
-    """y = or(x, psi_K), z = BOX_K(THEM(^D)), K = max settle(P, D) over P in F(x)."""
+def sibling(x, W=40, Kcap=None):
+    """y = or(x, psi_K), z = BOX_K(THEM(^D)), K = max settle(P, D) over P in F(x).  Kcap: force K <= Kcap (a
+    level-preserving variant, not covered by Theorem 1; used to probe the fixed-level sub-language)."""
     K = max(settle(P, D_, W) for P in args(x))
+    if Kcap is not None: K = min(K, Kcap)
     psi = parse('and(not(BOX{0}(THEM(^D))),not(BOXD{0}(THEM(^D))))'.format(K if K else ''))
     y = ('or', x, psi)
     z = parse('BOX{0}(THEM(^D))'.format(K if K else ''))
@@ -165,6 +167,21 @@ def max_level(p):
     return max(p[2], max_level(p[4]) if p[3] == 'ARG' else -1)
 
 
+def wide_arrays(L):
+    """modal.ModalLanguage.arrays without the 4-atom limit (siblings add two atoms)."""
+    import numpy as np
+    K = len(L.funcs); w = max(1, max(f[2] for f in L.funcs))
+    assert w <= 6
+    nat = np.zeros(K, np.int64); ak = np.zeros((K, w), np.int64); af = np.zeros((K, w), np.int64)
+    al = np.zeros((K, w), np.int64); aa = np.zeros((K, w), np.int64); tt = np.zeros(K, np.int64)
+    for c, (atoms, t, k) in enumerate(L.funcs):
+        nat[c] = k; tt[c] = np.int64(np.uint64(t).astype(np.int64)) if t >= 2**63 else t
+        for j, aid in enumerate(atoms):
+            kind, level, form, arg = L.atoms[aid]
+            ak[c, j] = kind; al[c, j] = level; af[c, j] = form; aa[c, j] = arg
+    return nat, ak, al, af, aa, tt
+
+
 def to_op(L, p):
     import modal as M
     t = p[0]
@@ -176,7 +193,7 @@ def to_op(L, p):
     return L.op((kind, lev, f), to_op(L, arg) if form == 'ARG' else None)
 
 
-def crosscheck(n, lmax, W=40, sample=3000, seed=0):
+def crosscheck(n, lmax, W=40, sample=3000, seed=0, Kcap=None):
     """Every self-cooperating class of L_n (boxes up to level lmax): build its sibling and faker, add them to the
     modal_lv language, evaluate everything with modal_lv, and check (a) the sibling property there, (b) agreement of
     this file's evaluator with modal_lv on a random sample of pairs."""
@@ -193,10 +210,10 @@ def crosscheck(n, lmax, W=40, sample=3000, seed=0):
         x = reps[c]
         if stable(x, D_, W):
             jobs.append((c, None, None, None)); continue
-        K, y, z = sibling(x, W)
+        K, y, z = sibling(x, W, Kcap)
         jobs.append((c, K, to_op(L, y), to_op(L, z)))
     nlev = max(L.atoms[a][1] for a in range(len(L.atoms))) + 1
-    val, worlds = LV._evaluate_lv(*L.arrays(), nlev, 400)
+    val, worlds = LV._evaluate_lv(*wide_arrays(L), nlev, 400)
     assert worlds >= 0
     iD = L.op('D')
     bad = []; Ks = []
@@ -211,12 +228,28 @@ def crosscheck(n, lmax, W=40, sample=3000, seed=0):
     for _ in range(sample):
         a, b = rng.choice(cl, 2)
         if stable(reps[a], reps[b], W) != val[a, b]: dis += 1
-    return dict(n=n, lmax=lmax, classes=len(reps), self_coop=len(sc), coop_D=sum(1 for j in jobs if j[1] is None),
+    return dict(n=n, lmax=lmax, Kcap=Kcap, classes=len(reps), self_coop=len(sc), coop_D=sum(1 for j in jobs if j[1] is None),
                 K_hist={k: Ks.count(k) for k in sorted(set(Ks))}, n_fail=len(bad), failures=bad[:10],
                 sample=sample, disagreements=dis)
 
 
+def to_json(specs):
+    import json, os
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'runs', 'conjecture4.json')
+    res = json.load(open(path)) if os.path.exists(path) else {}
+    cc = []
+    for n, lmax, Kcap in specs:
+        r = crosscheck(n, lmax, Kcap=Kcap); print(r, flush=True)
+        r['K_hist'] = {str(k): v for k, v in r['K_hist'].items()}
+        cc.append(r)
+    res['sibling'] = dict(ladder=[check(c) for c in CASES], crosschecks=cc)
+    json.dump(res, open(path, 'w'), indent=1)
+
+
 if __name__ == '__main__':
+    if sys.argv[1:2] == ['json']:
+        to_json([tuple(int(v) if v != '-' else None for v in a.split('/')) for a in sys.argv[2:]])
+        sys.exit()
     for c in CASES:
         print(check(c))
     for n, lmax in [(int(a.split('/')[0]), int(a.split('/')[1])) for a in sys.argv[1:]]:
