@@ -126,9 +126,10 @@ is the condition, and mutation is not what makes the weak arm fail. The static p
 object for the N ≫ I regime: the claim becomes "μ lies in the basin of a persistent efficient endpoint", checkable at
 each n.
 
-## RS predictions (Jacob)
+## RS predictions (Jacob, 2026-10-04, before results)
 
-(Optional.)
+Along the N ≫ I path, cooperation should appear as islands grow. No claim is staked for few islands; the hope is about
+large island populations, not about the small-N cells.
 
 ## Procedure for the subagent
 
