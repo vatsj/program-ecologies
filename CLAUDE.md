@@ -20,11 +20,12 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 5. **Separate the ε→0 object from finite-εN dynamics.** Claims about π / conjecture B use ε-free quantities (per-mutant entry/exit rates). ABM runs at finite εN are about approach rates and must say so. A window shorter than mixing time is not π.
 6. **Dilemma statistic is P(C,C)**, not mean-payoff share.
 7. Update `REJECTED.md` whenever something is dropped, including your own wrong predictions.
-8. **External review before runs** (RS, 2026-09-30). Send each experiment brief (the predictions draft) to two reviewers before running, in this order:
-   1. **astra**, a fast first check: `gpt-6-astra` through `python3 tools/review.py <brief> --context CLAUDE.md`, which needs OPENAI_API_KEY in `.env` (gitignored) and runs in background mode with polling;
-   2. **fable**, the thorough pass: a Claude subagent via the Agent tool with model `fable`. It may read the repo and should see astra's review, so it doesn't repeat it.
+8. **Experiment workflow** (RS, 2026-10-04; replaces the astra-then-fable gauntlet). Three steps:
+   1. **Spec.** The RE (Fable) drafts a subagent spec in `specs/YYYY-MM-DD-<slug>.md`: the object, the design, the required outputs, and the RE's own numbered predictions with falsifiers. The RS is invited to add his own predictions now and then; the RE should prompt him for them when a result is genuinely uncertain.
+   2. **Review by sol.** `python3 tools/review.py specs/<file> --context CLAUDE.md --model gpt-6.1-sol` (needs OPENAI_API_KEY in `.env`, gitignored; background mode with polling). Fold the material points into the spec, marked [after review], and commit the spec before launch.
+   3. **Run by an Opus subagent** (Agent tool, model `opus`, own worktree). It computes the static numbers, writes `predictions/` from the spec (committed before the run), runs within 3 workers, writes `runs/`, and hands back drafts for RESULTS/REJECTED/THEORY. The RE merges, writes the shared docs, and surfaces to the RS only what matters for the program.
 
-   Save both reviews under `reviews/`. Fold material points into the design before committing the predictions. Surface to Jacob only what matters for the program as a whole.
+   Keep-awake must be on while subagents run (`mcp__ccd_host__request_keep_awake`, session_idle). A closed lid still stalls them; stalled agents stay paused until the RS says go.
 
 ## Current state (2026-09-23, after the island model)
 - `ROLE` is first-class (modeling commitment: public correlating signal).
