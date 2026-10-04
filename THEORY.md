@@ -174,7 +174,7 @@ So the open question above is answered for $n = 8$, well-mixed and ε→0: one n
 
 *Proposition 3:* with non-negative prices and free constants, a family beats $1/N$ only if newcomers pay more to read the incumbent than the incumbent pays to read itself, which is a moat.
 
-A fixed background fringe acts as a price on constants. It can close families, but at $n \ge 8$ it ends on the parochial P\*.
+*Amortized verification* (RS proposal, 2026-10-04; derived from RESULTS.md, "Price scaling paths"). If a program verifies an opponent's certificate once and caches it, the per-match price is c/N over the ~N matches of a lifetime. That is the atoms-pricing path α = 1, already measured: cooperation → 1 with exit slope −1, one universal network, and a constant odds penalty of $(1 - e^{-wc})/(wc)$ against free proofs, which is 0.9985 at $c = 0.01$. Both sides pay once, so caching makes no ladder and no moat. Proof-carrying cooperation with amortized checking behaves as free provability. A fixed background fringe acts as a price on constants. It can close families, but at $n \ge 8$ it ends on the parochial P\*.
 
 *Conjecture 4:* no drift-closed class exists in the unbounded modal language. The static evidence is that none exists at $n \le 11$.
 
