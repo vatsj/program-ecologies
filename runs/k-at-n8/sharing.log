@@ -1,0 +1,69 @@
+done BOX(THEM(ME)) BOX(THEM(ME)) 0s
+done BOX(THEM(THEM)) BOX(THEM(THEM)) 0s
+done BOX(THEM(THEM)) or(BOX(THEM(THEM)),and(not(BOX1(THEM(^D) 0s
+done BOX1(THEM(ME)) BOX1(THEM(ME)) 0s
+done BOX1(THEM(THEM)) BOX1(THEM(THEM)) 0s
+done BOX(THEM(ME)) or(BOX(THEM(ME)),and(not(BOX1(THEM(^D))) 1s
+done BOX(THEM(^C)) BOX(THEM(^C)) 1s
+done BOX1(THEM(THEM)) or(BOX1(THEM(THEM)),and(not(BOX2(THEM(^D 1s
+done BOX1(THEM(^C)) BOX1(THEM(^C)) 1s
+done BOX(THEM(^C)) or(BOX(THEM(^C)),and(not(BOX1(THEM(^D))) 1s
+done not(BOX(THEM(ME))) not(BOX(THEM(ME))) 1s
+done BOX(THEM(^BOX(THEM(ME)))) BOX(THEM(^BOX(THEM(ME)))) 1s
+done BOX1(THEM(^C)) or(BOX1(THEM(^C)),and(not(BOX2(THEM(^D)) 1s
+done BOX1(THEM(ME)) or(BOX1(THEM(ME)),and(not(BOX2(THEM(^D)) 1s
+done and(BOX1(THEM(ME)),not(BOX(THEM(ME)))) and(BOX1(THEM(ME)),not(BOX(THEM(ME)))) 1s
+done and(BOX(THEM(ME)),BOXD1(THEM(^D))) and(BOX(THEM(ME)),BOXD1(THEM(^D))) 2s
+done and(BOX(THEM(ME)),BOXD2(THEM(^D))) and(BOX(THEM(ME)),BOXD2(THEM(^D))) 4s
+done and(BOX1(THEM(ME)),not(BOX(THEM(^C)))) and(BOX1(THEM(ME)),not(BOX(THEM(^C)))) 4s
+done and(and(BOX1(THEM(ME)),not(BOX(THEM(ME)))),BOXD2(T and(and(BOX1(THEM(ME)),not(BOX(THEM(ME)) 25s
+done and(and(BOX1(THEM(ME)),not(BOX(THEM(^C)))),BOXD2(T and(and(BOX1(THEM(ME)),not(BOX(THEM(^C)) 82s
+done and(BOX(THEM(ME)),BOXD1(THEM(^D))) or(and(BOX(THEM(ME)),BOXD1(THEM(^D))),an 88s
+done and(BOX1(THEM(ME)),not(BOX(THEM(ME)))) or(and(BOX1(THEM(ME)),not(BOX(THEM(ME))) 127s
+done and(BOX(THEM(ME)),BOXD2(THEM(^D))) or(and(BOX(THEM(ME)),BOXD2(THEM(^D))),an 181s
+done and(BOX1(THEM(ME)),not(BOX(THEM(^C)))) or(and(BOX1(THEM(ME)),not(BOX(THEM(^C))) 541s
+done and(and(BOX1(THEM(ME)),not(BOX(THEM(ME)))),BOXD2(T or(and(and(BOX1(THEM(ME)),not(BOX(THEM(M 572s
+done and(and(BOX1(THEM(ME)),not(BOX(THEM(^C)))),BOXD2(T or(and(and(BOX1(THEM(ME)),not(BOX(THEM(^ 1307s
+BOX(THEM(ME)) vs self C0 tree 4(1) cut 4(1) DAGex 4/4 DAGsub 4/4
+BOX(THEM(ME)) vs self C1 tree 5(1) cut 5(1) DAGex 5/5 DAGsub 5/5
+BOX(THEM(THEM)) vs self C0 tree 4(1) cut 4(1) DAGex 4/4 DAGsub 4/4
+BOX(THEM(THEM)) vs self C1 tree 5(1) cut 5(1) DAGex 5/5 DAGsub 5/5
+BOX(THEM(THEM)) vs or(BOX(THEM(THEM)),and(not(BOX C0 tree 5(1) cut 5(1) DAGex 5/5 DAGsub 5/5
+BOX(THEM(THEM)) vs or(BOX(THEM(THEM)),and(not(BOX C1 tree 6(1) cut 6(1) DAGex 6/6 DAGsub 6/6
+BOX1(THEM(ME)) vs self C0 tree 5(1) cut 5(1) DAGex 5/5 DAGsub 5/5
+BOX1(THEM(ME)) vs self C1 tree 6(1) cut 6(1) DAGex 6/6 DAGsub 6/6
+BOX1(THEM(THEM)) vs self C0 tree 5(1) cut 5(1) DAGex 5/5 DAGsub 5/5
+BOX1(THEM(THEM)) vs self C1 tree 6(1) cut 6(1) DAGex 6/6 DAGsub 6/6
+BOX(THEM(ME)) vs or(BOX(THEM(ME)),and(not(BOX1( C0 tree 7(2) cut 7(2) DAGex 7/7 DAGsub 7/7
+BOX(THEM(ME)) vs or(BOX(THEM(ME)),and(not(BOX1( C1 tree 8(2) cut 8(2) DAGex 8/8 DAGsub 8/8
+BOX(THEM(^C)) vs self C0 tree 6(2) cut 6(2) DAGex 6/6 DAGsub 6/6
+BOX(THEM(^C)) vs self C1 tree 7(2) cut 7(2) DAGex 7/7 DAGsub 7/7
+BOX1(THEM(THEM)) vs or(BOX1(THEM(THEM)),and(not(BO C0 tree 6(1) cut 6(1) DAGex 6/6 DAGsub 6/6
+BOX1(THEM(THEM)) vs or(BOX1(THEM(THEM)),and(not(BO C1 tree 7(1) cut 7(1) DAGex 7/7 DAGsub 7/7
+BOX1(THEM(^C)) vs self C0 tree 8(2) cut 8(2) DAGex 8/8 DAGsub 8/8
+BOX1(THEM(^C)) vs self C1 tree 9(2) cut 9(2) DAGex 9/9 DAGsub 9/9
+BOX(THEM(^C)) vs or(BOX(THEM(^C)),and(not(BOX1( C0 tree 7(2) cut 7(2) DAGex 7/7 DAGsub 7/7
+BOX(THEM(^C)) vs or(BOX(THEM(^C)),and(not(BOX1( C1 tree 8(2) cut 8(2) DAGex 8/8 DAGsub 8/8
+not(BOX(THEM(ME))) vs self C1 tree 8(1) cut 8(1) DAGex 8/8 DAGsub 8/8
+BOX(THEM(^BOX(THEM(ME)))) vs self C0 tree 6(2) cut 6(2) DAGex 6/6 DAGsub 6/6
+BOX(THEM(^BOX(THEM(ME)))) vs self C1 tree 7(2) cut 7(2) DAGex 7/7 DAGsub 7/7
+BOX1(THEM(^C)) vs or(BOX1(THEM(^C)),and(not(BOX2 C0 tree 9(2) cut 9(2) DAGex 9/9 DAGsub 9/9
+BOX1(THEM(^C)) vs or(BOX1(THEM(^C)),and(not(BOX2 C1 tree 10(2) cut 10(2) DAGex 10/10 DAGsub 10/10
+BOX1(THEM(ME)) vs or(BOX1(THEM(ME)),and(not(BOX2 C0 tree 9(2) cut 9(2) DAGex 9/9 DAGsub 9/9
+BOX1(THEM(ME)) vs or(BOX1(THEM(ME)),and(not(BOX2 C1 tree 10(2) cut 10(2) DAGex 10/10 DAGsub 10/10
+and(BOX1(THEM(ME)),not(BOX(THEM(ME)))) vs self C1 tree 22(3) cut 22(3) DAGex 22/22 DAGsub 16/16
+and(BOX(THEM(ME)),BOXD1(THEM(^D))) vs self C0 tree 24(5) cut 18(3) DAGex 24/18 DAGsub 15/17
+and(BOX(THEM(ME)),BOXD1(THEM(^D))) vs self C1 tree 25(5) cut 19(3) DAGex 25/19 DAGsub 16/18
+and(BOX(THEM(ME)),BOXD2(THEM(^D))) vs self C0 tree 24(5) cut 18(3) DAGex 24/18 DAGsub 15/17
+and(BOX(THEM(ME)),BOXD2(THEM(^D))) vs self C1 tree 25(5) cut 19(3) DAGex 25/19 DAGsub 16/18
+and(BOX1(THEM(ME)),not(BOX(THEM(^C)))) vs self C1 tree 24(5) cut 24(5) DAGex 24/24 DAGsub 17/17
+and(and(BOX1(THEM(ME)),not(BOX(THEM(ME)))),BOXD2(T vs self C1 tree 52(7) cut 52(7)* DAGex 52/52 DAGsub 32/32
+and(and(BOX1(THEM(ME)),not(BOX(THEM(^C)))),BOXD2(T vs self C1 tree 54(9) cut 54(9)* DAGex 54/54 DAGsub 33/33
+and(BOX(THEM(ME)),BOXD1(THEM(^D))) vs or(and(BOX(THEM(ME)),BOXD1(THE C0 tree 53(10) cut 53(10)* DAGex 53/53 DAGsub 35/35
+and(BOX(THEM(ME)),BOXD1(THEM(^D))) vs or(and(BOX(THEM(ME)),BOXD1(THE C1 tree 54(10) cut 54(10)* DAGex 54/54 DAGsub 36/36
+and(BOX1(THEM(ME)),not(BOX(THEM(ME)))) vs or(and(BOX1(THEM(ME)),not(BOX( C1 tree 47(10) cut 47(10)* DAGex 47/47 DAGsub 35/35
+and(BOX(THEM(ME)),BOXD2(THEM(^D))) vs or(and(BOX(THEM(ME)),BOXD2(THE C0 tree 53(10) cut 53(10)* DAGex 53/53 DAGsub 36/36
+and(BOX(THEM(ME)),BOXD2(THEM(^D))) vs or(and(BOX(THEM(ME)),BOXD2(THE C1 tree 54(10) cut 54(10)* DAGex 54/54 DAGsub 37/37
+and(BOX1(THEM(ME)),not(BOX(THEM(^C)))) vs or(and(BOX1(THEM(ME)),not(BOX( C1 tree 47(10) cut 47(10)* DAGex 47/47 DAGsub 35/35
+and(and(BOX1(THEM(ME)),not(BOX(THEM(ME)))),BOXD2(T vs or(and(and(BOX1(THEM(ME)),not( C1 tree 108(18) cut 108(18)* DAGex 108/108 DAGsub 73/73
+and(and(BOX1(THEM(ME)),not(BOX(THEM(^C)))),BOXD2(T vs or(and(and(BOX1(THEM(ME)),not( C1 tree 108(18) cut 108(18)* DAGex 108/108 DAGsub 73/73

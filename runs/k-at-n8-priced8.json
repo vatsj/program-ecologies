@@ -1,0 +1,364 @@
+[
+ {
+  "schedule": "amortized",
+  "c": 0.0,
+  "N": 10000,
+  "copy": "a",
+  "B": [
+   4,
+   16
+  ],
+  "pcc": 0.6820578146813716,
+  "pi_by_budget": {
+   "16": 0.17026698085330233,
+   "0": 0.3179308959159565,
+   "4": 0.5118021232307396
+  },
+  "pi_D": 0.31767416837840573,
+  "pi_C": 0.0002567275375508019,
+  "support": [
+   [
+    "mono {D:1}",
+    0.31767416837840573
+   ],
+   [
+    "mono {BOX1(THEM(ME))@4:1}",
+    0.2170052727672988
+   ],
+   [
+    "mono {BOX(THEM(ME))@4:1}",
+    0.15247273339604017
+   ],
+   [
+    "mono {BOX(THEM(THEM))@4:1}",
+    0.1326924061773141
+   ],
+   [
+    "mono {BOX(THEM(ME))@16:1}",
+    0.07864571658458486
+   ],
+   [
+    "mono {BOX1(THEM(ME))@16:1}",
+    0.07851614593450094
+   ],
+   [
+    "mono {BOX(THEM(THEM))@16:1}",
+    0.005386223665881332
+   ],
+   [
+    "mono {or(BOX(THEM(ME)),BOX1(THEM(ME)))@4:1}",
+    0.003078892574903817
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),BOXD1(THEM(^D)))@16:1}",
+    0.0025424398130026553
+   ],
+   [
+    "mono {BOX1(THEM(THEM))@4:1}",
+    0.0025028514648428525
+   ]
+  ],
+  "cut_flow": 9.111286018415246e-09,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "n_classes": 589,
+  "top_coop": "BOX1(THEM(ME))@4",
+  "pi_top": 0.2170052727672988,
+  "top_exit": 4.664711358031962e-05,
+  "top_exit_strict": 0.0,
+  "top_exit_neutral": 4.664711358031962e-05,
+  "top_exit_other": 0.0,
+  "allc_share": 1.0,
+  "top_dest": [
+   [
+    "C",
+    "neutral",
+    4.664711358031962e-05
+   ],
+   [
+    "D",
+    "other",
+    0.0
+   ],
+   [
+    "BOXD(THEM(ME))@4",
+    "other",
+    0.0
+   ],
+   [
+    "BOXD(THEM(ME))@16",
+    "other",
+    0.0
+   ]
+  ],
+  "t": 56.17417097091675
+ },
+ {
+  "schedule": "lazy",
+  "c": 0.1,
+  "N": 10000,
+  "copy": "a",
+  "B": [
+   4,
+   16
+  ],
+  "pcc": 1.000000000000022,
+  "pi_by_budget": {
+   "16": 1.000000000000022,
+   "0": 1.1064084356702073e-17,
+   "4": 3.557504004730585e-17
+  },
+  "pi_D": 1.1064084356702073e-17,
+  "pi_C": 0.0,
+  "support": [
+   [
+    "mono {and(BOX(THEM(ME)),BOXD1(THEM(^D)))@16:1}",
+    1.000000000000022
+   ]
+  ],
+  "cut_flow": 0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "n_classes": 1218,
+  "top_coop": "and(BOX(THEM(ME)),BOXD1(THEM(^D)))@16",
+  "pi_top": 1.000000000000022,
+  "top_exit": 0.0,
+  "top_exit_strict": 0.0,
+  "top_exit_neutral": 0.0,
+  "top_exit_other": 0.0,
+  "allc_share": NaN,
+  "top_dest": [
+   [
+    "C",
+    "other",
+    0.0
+   ],
+   [
+    "D",
+    "other",
+    0.0
+   ],
+   [
+    "BOX(THEM(ME))@4",
+    "other",
+    0.0
+   ],
+   [
+    "BOX(THEM(THEM))@4",
+    "other",
+    0.0
+   ]
+  ],
+  "t": 289.99035596847534
+ },
+ {
+  "schedule": "lazy",
+  "c": 0.01,
+  "N": 10000,
+  "copy": "a",
+  "B": [
+   4,
+   16
+  ],
+  "pcc": 1.0000000000000222,
+  "pi_by_budget": {
+   "16": 1.0000000000000222,
+   "0": 0.0,
+   "4": 1.3210572148551521e-17
+  },
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "support": [
+   [
+    "mono {and(BOX(THEM(ME)),BOXD1(THEM(^D)))@16:1}",
+    1.0000000000000222
+   ]
+  ],
+  "cut_flow": 4.037213347788882e-24,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "n_classes": 1218,
+  "top_coop": "and(BOX(THEM(ME)),BOXD1(THEM(^D)))@16",
+  "pi_top": 1.0000000000000222,
+  "top_exit": 4.863861015622053e-58,
+  "top_exit_strict": 0.0,
+  "top_exit_neutral": 0.0,
+  "top_exit_other": 4.863861015622053e-58,
+  "allc_share": 0.0,
+  "top_dest": [
+   [
+    "BOX(THEM(ME))@16",
+    "other",
+    2.4197478890559214e-58
+   ],
+   [
+    "BOX(THEM(THEM))@16",
+    "other",
+    2.4197478890559214e-58
+   ],
+   [
+    "BOX(THEM(^BOX(THEM(ME))))@16",
+    "other",
+    1.483909672696695e-60
+   ],
+   [
+    "or(BOX(THEM(ME)),BOX(THEM(THEM)))@16",
+    "other",
+    3.6391220006665054e-61
+   ]
+  ],
+  "t": 315.82608366012573
+ },
+ {
+  "schedule": "amortized",
+  "c": 0.1,
+  "N": 10000,
+  "copy": "a",
+  "B": [
+   4,
+   16
+  ],
+  "pcc": 0.6595655941353277,
+  "pi_by_budget": {
+   "16": 0.13091083484375965,
+   "0": 0.34043941486959417,
+   "4": 0.5135582582743216
+  },
+  "pi_D": 0.3401656795725803,
+  "pi_C": 0.00027373529701387,
+  "support": [
+   [
+    "mono {D:1}",
+    0.3401656795725803
+   ],
+   [
+    "mono {BOX1(THEM(ME))@4:1}",
+    0.2160053864137677
+   ],
+   [
+    "mono {BOX(THEM(ME))@4:1}",
+    0.1534254476493666
+   ],
+   [
+    "mono {BOX(THEM(THEM))@4:1}",
+    0.1344410674557249
+   ],
+   [
+    "mono {BOX1(THEM(ME))@16:1}",
+    0.06651071090006595
+   ],
+   [
+    "mono {BOX(THEM(ME))@16:1}",
+    0.05128174722949143
+   ],
+   [
+    "poly {BOX(THEM(ME))@16:1, or(BOXD(THEM(ME)),BOX1(THEM(THEM)))@4:0.0001}",
+    0.015091492012326591
+   ],
+   [
+    "mono {BOX(THEM(THEM))@16:1}",
+    0.0055970226334583284
+   ],
+   [
+    "mono {or(BOX(THEM(ME)),BOX1(THEM(ME)))@4:1}",
+    0.0029503110021530795
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),BOXD1(THEM(^D)))@16:1}",
+    0.0026985166248372507
+   ]
+  ],
+  "cut_flow": 1.0122185835179107e-06,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "n_classes": 594,
+  "top_coop": "BOX1(THEM(ME))@4",
+  "pi_top": 0.2160053864137677,
+  "top_exit": 4.950160649143786e-05,
+  "top_exit_strict": 4.950160649143786e-05,
+  "top_exit_neutral": 0.0,
+  "top_exit_other": 0.0,
+  "allc_share": 1.0,
+  "top_dest": [
+   [
+    "C",
+    "strict",
+    4.950160649143786e-05
+   ],
+   [
+    "D",
+    "other",
+    0.0
+   ],
+   [
+    "BOXD(THEM(ME))@4",
+    "other",
+    0.0
+   ],
+   [
+    "BOXD(THEM(ME))@16",
+    "other",
+    0.0
+   ]
+  ],
+  "t": 193.074444770813
+ },
+ {
+  "schedule": "per-match",
+  "c": 0.01,
+  "N": 10000,
+  "copy": "a",
+  "B": [
+   4,
+   16
+  ],
+  "pcc": 0.00048250815470114196,
+  "pi_by_budget": {
+   "16": 2.1733378625882915e-05,
+   "0": 0.9995353591625671,
+   "4": 0.0004429074588155194
+  },
+  "pi_D": 0.9995152960629028,
+  "pi_C": 2.0063099664265858e-05,
+  "support": [
+   [
+    "mono {D:1}",
+    0.9995152960629028
+   ]
+  ],
+  "cut_flow": 2.6678749220157977e-10,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "n_classes": 594,
+  "top_coop": "BOX(THEM(ME))@4",
+  "pi_top": 0.00010560612906869182,
+  "top_exit": 0.005564459123516145,
+  "top_exit_strict": 0.005564201649481954,
+  "top_exit_neutral": 2.5747403419129483e-07,
+  "top_exit_other": 8.362158538037866e-161,
+  "allc_share": 0.9999537288299768,
+  "top_dest": [
+   [
+    "C",
+    "strict",
+    0.005564201649481954
+   ],
+   [
+    "BOX(THEM(THEM))@4",
+    "neutral",
+    2.5224874611809265e-07
+   ],
+   [
+    "BOX(THEM(^BOX(THEM(ME))))@4",
+    "neutral",
+    1.546914684720694e-09
+   ],
+   [
+    "or(BOX(THEM(THEM)),BOXD(THEM(ME)))@4",
+    "neutral",
+    7.587269448942796e-10
+   ]
+  ],
+  "t": 54.53916120529175
+ }
+]

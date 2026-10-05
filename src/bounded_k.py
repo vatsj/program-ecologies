@@ -29,8 +29,14 @@ def has_box(t):
 
 
 class KTheory:
-    def __init__(self, cap=60, arity=3):
+    def __init__(self, cap=60, arity=3, prune=None, ustar_limit=40, filter_first=False):
+        """prune(A) -> False when A's budget erasure is known not to be a GL theorem (then K cannot derive |- A:
+        every K rule is GL-sound after erasing budgets, notes/proof-length.md §3; specs/2026-10-05-k-at-n8.md), None
+        when unknown.  A pruning only: it removes derivations that cannot exist.  ustar_limit / filter_first: the JLoeb
+        candidate set is the reachable box-content closure truncated at ustar_limit elements (the n = 6 run's rule);
+        with filter_first the prune is applied before truncation (src/k_at_n8.py)."""
         self.cap = cap; self.arity = arity
+        self.prune = prune; self._dead = {}; self.ustar_limit = ustar_limit; self.filter_first = filter_first
         self.trees = []; self.tree_id = {}
         self.genos = []; self.geno_id = {}
         self.forms = []; self.form_id = {}
@@ -214,20 +220,31 @@ class KTheory:
         self.U1[A] = out
         return out
 
-    def ustar(self, A, limit=40):
+    def dead(self, A):
+        """True when the prune hook rules out any K derivation of |- A."""
+        if self.prune is None: return False
+        d = self._dead.get(A)
+        if d is None:
+            d = self._dead[A] = (self.prune(A) is False)
+        return d
+
+    def ustar(self, A, limit=None):
         if A in self.Ustar: return self.Ustar[A]
-        seen = set(); stack = [A]
-        while stack and len(seen) < limit:
+        limit = self.ustar_limit if limit is None else limit
+        seen = set(); stack = [A]; kept = set()
+        while stack and len(kept if self.filter_first else seen) < limit:
             a = stack.pop()
             for b in self.one_phase(a):
                 if b not in seen and b != A:
                     seen.add(b); stack.append(b)
-        out = sorted(seen)
+                    if not self.dead(b): kept.add(b)
+        out = sorted(kept if self.filter_first else [u for u in seen if not self.dead(u)])
         self.Ustar[A] = out
         return out
 
     def j_value(self, A, memo):
         best = INF; wit = None
+        if self.dead(A): return best, wit
         U = self.ustar(A)
         cands = [()] + [(u,) for u in U]
         if self.arity >= 3:
@@ -259,6 +276,7 @@ class KTheory:
                 if v < self.J.get(A, INF):
                     self.J[A] = v; self.Jw[A] = w; changed = True; memo = {}
             for A in sorted(self.goalsT):
+                if self.dead(A): continue
                 v = self.m(frozenset(), frozenset([A]), memo)
                 if v < self.T.get(A, INF):
                     self.T[A] = v; changed = True; memo = {}
