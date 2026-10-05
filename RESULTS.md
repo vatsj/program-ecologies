@@ -2251,6 +2251,50 @@ Designed by the RE under the spec workflow, reviewed by gpt-6.1-sol, run by an O
 - The static replicator from μ predicts the modal arm but not the weak arms (all-D statically against up to 0.55 efficient on islands). lim_t lim_N and lim_N lim_t differ, as sol warned; the proof object for the seed claim has to go through spread and extinction rates, not basin membership alone.
 - The 2026-09-30 conclusion that the ε = 0 lottery concentrates on defection depended on the seeding law (uniform over programs, heavy in fakers) in L6R.
 
+## The closed club: semantic self-recognition as an oracle benchmark (`runs/club.md`; spec `specs/2026-10-04-club.md`; predictions in `predictions/2026-10-04-club.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent. The RS had objected to the club on normative grounds before the run; the result supports the objection on structural grounds too.
+
+**The arm.** `CLUB(THEM)` (3 nodes) is a global semantic oracle over L_n: true iff the opponent is in K, where K is a fixed point of F(K) = {x : x self-cooperates under K and cooperates with nothing outside K}. This is an upper bound on semantic self-recognition, not a realizability result. Membership is solved over canonical functions of atoms; behavioural classes are formed afterwards.
+
+**Fixed-point structure.**
+- F is deflationary (F(K) ⊆ K), so iteration always descends to a fixed point and there are no cycles.
+- **Every subset of the full-set limit is a fixed point**: 2, 32 and 512 of them at n = 6, 7, 8. Membership of a guarded program `and(CLUB(THEM), ψ)` is self-fulfilling: inside K it cooperates with itself, outside K it defects on itself. So "the club" is one choice out of 2^|K*|.
+- F is not monotone at n = 8 (50 of 200 random nested pairs violate it, in both grammars), so the full-set start misses the maximal fixed point from n = 8 on; a guarded-set start with greedy ascent finds one maximal fixed point at each n (|K_max| = 1 / 5 / 13 / 17 canons at n = 6–9), with no incomparable fixed point found. Every member at every n is guarded.
+- K is empty in the base language at n = 6–9.
+
+**Composition at K_max.** 1 / 1 / 7 / 10 behavioural classes at n = 6 / 7 / 8 / 9, with μ(K) = 0.0047–0.0049, of which about 99% is `CLUB(THEM)`, "cooperate iff you are a member", the semantic CliqueBot, whose prior matches the m = 1 clique's within 1%. At n ≤ 7 K is one behavioural class. At n = 8 the within-K graph has three complete components, one of them {`CLUB(THEM)`, club-FairBot, `and(BOX1(THEM(THEM)),CLUB(THEM))`}; at n = 9 one component of 10 classes. For comparison the P* block has 46 classes (μ 0.0030) and FairBot's component 292 (μ 0.031).
+
+**Drift-closure.** No program outside K is a neutral entrant into any club state. But from n = 8 on the members are suckerable by other members: 5 of 7 at n = 8, 7 of 10 at n = 9 (`CLUB(THEM)` is suckered by `and(CLUB(THEM),not(BOX(THEM(ME))))`). **K is closed as a set, not state by state: Corollary 1's leak returns inside the club as a ladder of member-fakers.**
+
+**Collateral.** Unsuckerable self-cooperators excluded from K (FairBot, `BOX1(THEM(ME))`, PrudentBot, …) carry 2.0× K's mass at every n; suckerable excluded mass is 0.486; old-sense universality is exactly 0. No member drops out across cutoffs 6→9.
+
+**ε→0 chain** (PD, w = 0.3, club at K_max, against the m = 1 clique and the free arm):
+
+| n | N | club P(C,C) | clique P(C,C) | free | log(1 − π(K)) club / clique | hitting time all-D → K, club / clique |
+|---|---|---|---|---|---|---|
+| 6 | 10² | 0.9989 | 0.9990 | 0.169 | −6.6 / −6.7 | 4.1·10³ / 3.9·10³ |
+| 6 | 10⁵ | 1.0000 | 1.0000 | 0.814 | −7498.3 / −7498.3 | 2.1·10⁵ / 2.1·10⁵ |
+| 8 | 10² | 0.9988 | 0.9990 | 0.182 | −6.5 / −6.7 | 4.0·10³ / 3.8·10³ |
+| 8 | 10⁵ | 1.0000 | 1.0000 | 0.814 | −7498.2 / −7498.1 | 2.3·10⁵ / 2.3·10⁵ |
+
+- **The club is numerically a clique.** Exits out of K fall as e^(−wN/4) (d log rate/dN = −0.0750), a symmetric coordination against FairBot or `BOX1(THEM(ME))`; entry is identical to FairBot's to all digits (same 2×2 against D); hitting times match the clique's within 5%.
+- **Where π sits is chosen by the fixed point.** At n = 8 on K_max, π lands on `and(CLUB(THEM),not(BOX1(THEM(THEM))))` (0.995 at N = 10³, 0.999 above), the unsuckerable end of the internal faker ladder, with prior mass 1.3·10⁻⁶; its only non-exponential exit is neutral, inside K, at μ/N. On the smaller fixed point K′ (the four `BOX`-guarded variants) all of K′ is one class and `CLUB(THEM)` holds π = 1. One terminal class and no polymorphic mass in every cell; residuals ≤ 3·10⁻¹⁵; the log-domain chain agrees on π(K) to 10⁻⁸; the free-arm control reproduces 0.8135 at n = 8, N = 10⁵.
+
+**Verdicts.**
+| # | prediction | outcome |
+|---|---|---|
+| 1 | K empty in base language; club-FairBot in K; 3–30 classes, μ < 0.01 | **Held** (7 classes, μ 0.0048, 99% `CLUB(THEM)`) |
+| 2 | drift-closed: no outside neutral entrant, no suckerable member | **Failed:** members are suckerable by members from n = 8 |
+| 2b | unique maximal fixed point; empty set the only other; no cycles | **Failed in part:** unique maximum and no cycles held; 32 fixed points at n = 7; the full-set start misses the maximum at n ≥ 8 |
+| 3 | exits deleterious below e^(−0.2N); slope steeper than −3; π(K) ≥ 0.99 | **Failed in part:** a neutral exit inside K; the exit out of K is e^(−0.075N); slope −29.8 and π(K) ≥ 0.998 held |
+| 4 | entry equals FairBot's; hitting time within 2× of the clique's | **Held** (Δ = 0; ratio 0.98–1.05) |
+| 5 | excluded unsuckerable mass ≥ 10× K's; universality 0 | **Failed on magnitude** (2.0×); universality 0 held |
+| 6 | not a clique in disguise; K < 10% of classes | **Held statically** (a 3-member complete component; 2.3%), but K is one class at n ≤ 7 and π sits on a single-class block at n = 8 |
+| 7 | ≤ 20% of members drop out per cutoff step | **Held** (none) |
+
+**Reading.** Semantic membership closes the network as a set at exactly the clique's rate, and the club is about 99% the semantic CliqueBot. Membership is a free bit per guarded program, so the imposed fixed point is chosen, not derived, and the choice does hidden work twice: it picks one of 2^|K*| clubs, and it decides which member holds π. Corollary 1 is not evaded: universality is 0, and the leak reappears inside the club as member-fakers. Closure by declaration is a third route to self-recognition beside syntax and proof length, and it carries no more information than a tag. The open lever remains realizability: bounded, sound membership certificates with explicit proof costs.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

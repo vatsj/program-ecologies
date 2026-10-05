@@ -377,3 +377,19 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **"No cooperative island is lost after ALLC dies" (subagent, S3).** 69 were lost, all fakeable probe-reading classes, to `BOX(THEM(^D))`-type fakers.
 
 **Integrator endpoints as persistence certificates.** The replicator's pruning at 10⁻⁹ gave endpoints that failed the persistence check at modal n = 8, 9 and in every weak arm. Persistence must be checked on closed endpoints or without pruning.
+
+## Added 2026-10-04: the closed club (RESULTS.md, "The closed club")
+
+**"Semantic membership is a selection-free route to closure that is not a clique" (Fable, the spec's re-opening justification).** Rejected. The club is a clique over a declared predicate: about 99% of its mass is `CLUB(THEM)`, the semantic CliqueBot; its exit rate e^(−wN/4), entry and hitting times match the m = 1 clique's within 5%; and its fixed point is chosen, not derived.
+
+**"Black-magic fixed points", re-opened by the club spec: re-closed for membership-level fixed points.** New evidence: membership of every guarded program is self-fulfilling, so every subset of the full-set limit is a fixed point (512 at n = 8); F is not monotone at n ≥ 8, so even "greatest" needs a search; and the choice decides which member holds π (K_max gives `and(CLUB(THEM),not(BOX1(THEM(THEM))))`, the smaller K′ gives `CLUB(THEM)`). The imposed fixed point does hidden work twice. Löb-guarded self-reference remains the only selection-free route, as in "Certificates-only arm".
+
+**"The club K is drift-closed member by member" (Fable, prediction 2).** From n = 8, `CLUB(THEM)` is suckered by the member `and(CLUB(THEM),not(BOX(THEM(ME))))`. Only the set is closed; Corollary 1's leak returns inside it.
+
+**"The empty set is the only fixed point besides the maximum" (Fable, 2b)** and **"iterating F from the full set gives the greatest fixed point" (spec design).** Wrong: 32 fixed points at n = 7; F is deflationary but not monotone, and the full-set start misses four BOXD-guarded members at n = 8, 9.
+
+**"Every exit from the top club state is deleterious below e^(−0.2N)" (Fable, 3).** There is a neutral exit inside K at μ/N, and the exit out of K is e^(−0.075N), a symmetric coordination against FairBot.
+
+**"Collateral at least 10× K's mass" (Fable, 5).** It is 2.0×.
+
+**"The club reaches K faster than the clique" and "F is monotone in the positive-only grammar" (subagent, S7, S9).** Within ±5%; monotonicity fails in ~26% of nested pairs at n = 8 in both grammars.

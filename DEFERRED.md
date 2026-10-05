@@ -43,14 +43,14 @@ REJECTED.md the ones we dropped.
 - *Options:* Löb only (unique fixed points, no rule); greatest-fixed-point rules (C-seeded certificates, the club).
 - *Operating hypothesis:* avoid imposed fixed points; Löb is the selection-free route to outcome symmetry. The club is
   run as an oracle benchmark only. The RS objects to the club normatively: it punishes the merely tolerant.
-- *Evidence:* RESULTS "Certificates-only arm" (gfp vs Löb differ by one fakeable probe); the club spec.
+- *Evidence:* RESULTS "Certificates-only arm" (gfp vs Löb differ by one fakeable probe); RESULTS "The closed club": the club is a clique over a declared predicate, its fixed point is one of 2^|K*| and the choice decides which member holds π. "Black-magic fixed points" re-closed for membership-level rules. The RS's objection stands on structural grounds as well.
 
 ## 6. The normative target
 - *Options:* Pareto efficiency in the limit (the standing goal); universality (cooperate with FairBot's network) vs a
   closed club; Θ(1/n) fair partition as a stochastically stable *state*; democracy as May's axioms with anonymity
   deliberately violable; "threats hard to enforce" ≡ a symmetric threat point.
 - *Operating hypothesis:* efficiency first; for distribution, Θ(1/n) as a stable state with anonymity violable by slot
-  asymmetry; universality over the club, accepting the 1/N leak as a mutation artifact (entry 1).
+  asymmetry; universality over the club, accepting the 1/N leak as a mutation artifact (entry 1). The club is dropped as a target: it is a clique by declaration (RESULTS "The closed club").
 - *Evidence:* THEORY §3 "Distribution"; the three-player spec; the club spec.
 
 ## 7. Rates
