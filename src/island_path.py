@@ -356,13 +356,16 @@ def static_main(a):
 # ------------------------------------------------------------------ unskipped reference (propagule batch path)
 @njit(cache=True)
 def _ref(U, coopmask, tag, init, N, w, m, kprop, gens, seed, preest):
-    """Plain simulation, no skipping, no lumping: every birth drawn.  Propagule events with probability m/kprop per
+    """Plain simulation, no skipping, no lumping: every birth drawn; stops at global outcome-freezing as the kernel does.  Propagule events with probability m/kprop per
     birth.  Returns end counts, establishment times (checks every 5 generations), local share of the holder at
     establishment, and the first generation at which tags 1 / 2 hold no island."""
     np.random.seed(seed)
     I, K = init.shape
     counts = init.copy(); loc = init.copy()
-    est = preest.copy(); t_est = np.where(preest == 1, 0, -1); hloc = np.where(preest == 1, 1.0, -1.0)
+    est = preest.copy(); t_est = -np.ones(I, np.int64); hloc = -np.ones(I)
+    for i in range(I):
+        if preest[i] == 1:
+            t_est[i] = 0; hloc[i] = 1.0
     held_zero = -np.ones(4, np.int64)
     mp = m / kprop
     rem = np.zeros(K, np.int64); vic = np.zeros(K, np.int64)
@@ -450,6 +453,16 @@ def _ref(U, coopmask, tag, init, N, w, m, kprop, gens, seed, preest):
                         est[i] = 1; t_est[i] = g; hloc[i] = loc[i, big] / counts[i, big]
             for t in range(1, 3):
                 if held[t] == 0 and held_zero[t] < 0: held_zero[t] = g
+            # the kernel's stopping rule: globally outcome-frozen (every present class pairwise payoff-identical)
+            lo = 1e300; hi = -1e300
+            for x in range(K):
+                if counts[:, x].sum() == 0: continue
+                for y in range(K):
+                    if counts[:, y].sum() == 0: continue
+                    if U[x, y] < lo: lo = U[x, y]
+                    if U[x, y] > hi: hi = U[x, y]
+            if hi - lo < 1e-12:
+                break
     return counts, t_est, hloc, held_zero
 
 
@@ -474,7 +487,9 @@ def _vjob(j):
     for i in range(I):
         c = counts[i].astype(float)
         cc += (c @ PCC @ c - (np.diag(PCC) * c).sum()) / (N * (N - 1))
-    return dict(impl=impl, preset=preset, pair=pair, k=k, mN=mN, rep=rep, heldA=int((ht == 1).sum()), heldB=int((ht == 2).sum()),
+    gB = int(counts[:, tag == 2].sum()); gcoop = int(counts[:, coop].sum())
+    return dict(impl=impl, preset=preset, pair=pair, k=k, mN=mN, rep=rep, gens=gens, gB=gB, gcoop=gcoop,
+                heldA=int((ht == 1).sum()), heldB=int((ht == 2).sum()),
                 both=bool((ht == 1).any() and (ht == 2).any()), n_est=int((t_est >= 0).sum()), n_loc=int(((t_est >= 0) & (hloc >= 0.5)).sum()),
                 pcc=cc / I, t_first=int(t_est[t_est >= 0].min()) if (t_est >= 0).any() else -1,
                 lossB=int(hz[2]) if hz[2] >= 0 else -1)
@@ -505,11 +520,12 @@ def _sjob(j):
 def validate_main(a):
     out = {}
     jobs = []
-    for preset, pair in (('AB', 2), ('AB', 0), ('iid', None)):
-        for k in (1, 5, 10):
-            for rep in range(a.vreps):
-                for impl in ('ref', 'kern'):
-                    jobs.append((impl, preset, pair, 50, 4, 1.0, k, rep, 1000))
+    VC = [(preset, pair, k, mN, gens) for preset, pair in (('AB', 2), ('AB', 0), ('iid', None)) for k in (1, 5, 10)
+          for mN, gens in ((1.0, 1000), (3.0, 100))]
+    for preset, pair, k, mN, gens in VC:
+        for rep in range(a.vreps):
+            for impl in ('ref', 'kern'):
+                jobs.append((impl, preset, pair, 50, 4, mN, k, rep, gens))
     sjobs = []
     for N, I, mN, reps in ((100, 4, 1.0, 600), (100, 16, 0.1, 300)):
         for rep in range(reps):
@@ -522,28 +538,31 @@ def validate_main(a):
         srows = list(pool.imap_unordered(_sjob, sjobs, chunksize=8))
     print('default regression done %.0fs' % (time.time() - t0), flush=True)
     res = []
-    for preset, pair in (('AB', 2), ('AB', 0), ('iid', None)):
-        for k in (1, 5, 10):
+    for preset, pair, k, mN, gens in VC:
+        if True:
             cell = {}
             for impl in ('ref', 'kern'):
-                rs = [r for r in rows if r['impl'] == impl and r['preset'] == preset and r['pair'] == pair and r['k'] == k]
+                rs = [r for r in rows if r['impl'] == impl and r['preset'] == preset and r['pair'] == pair and r['k'] == k
+                      and r['mN'] == mN and r['gens'] == gens]
                 cell[impl] = dict(n=len(rs), both=float(np.mean([r['both'] for r in rs])), heldA=float(np.mean([r['heldA'] for r in rs])),
                                   heldB=float(np.mean([r['heldB'] for r in rs])), n_est=float(np.mean([r['n_est'] for r in rs])),
                                   n_loc=float(np.mean([r['n_loc'] for r in rs])), pcc=float(np.mean([r['pcc'] for r in rs])),
                                   lossB=float(np.mean([r['lossB'] >= 0 for r in rs])),
+                                  gB=float(np.mean([r['gB'] for r in rs])), gcoop=float(np.mean([r['gcoop'] for r in rs])),
                                   sd=dict(heldA=float(np.std([r['heldA'] for r in rs])), n_est=float(np.std([r['n_est'] for r in rs])),
+                                          gB=float(np.std([r['gB'] for r in rs])), gcoop=float(np.std([r['gcoop'] for r in rs])),
                                           n_loc=float(np.std([r['n_loc'] for r in rs])), pcc=float(np.std([r['pcc'] for r in rs]))))
             z = {}
             n1, n2 = cell['ref']['n'], cell['kern']['n']
-            for s in ('heldA', 'n_est', 'n_loc', 'pcc'):
+            for s in ('heldA', 'n_est', 'n_loc', 'pcc', 'gB', 'gcoop'):
                 se = math.sqrt(cell['ref']['sd'][s] ** 2 / n1 + cell['kern']['sd'][s] ** 2 / n2)
                 z[s] = (cell['kern'][s] - cell['ref'][s]) / se if se > 0 else 0.0
             for s in ('both', 'lossB'):
                 p1, p2 = cell['ref'][s], cell['kern'][s]; pp = (p1 * n1 + p2 * n2) / (n1 + n2)
                 se = math.sqrt(pp * (1 - pp) * (1 / n1 + 1 / n2))
                 z[s] = (p2 - p1) / se if se > 0 else 0.0
-            res.append(dict(preset=preset, pair=pair, k=k, ref=cell['ref'], kern=cell['kern'], z=z))
-            print(preset, pair, k, {s: round(v, 2) for s, v in z.items()},
+            res.append(dict(preset=preset, pair=pair, k=k, mN=mN, gens=gens, ref=cell['ref'], kern=cell['kern'], z=z))
+            print(preset, pair, k, mN, gens, {s: round(v, 2) for s, v in z.items()},
                   'both %.3f/%.3f n_loc %.3f/%.3f pcc %.3f/%.3f' % (cell['ref']['both'], cell['kern']['both'], cell['ref']['n_loc'],
                                                                    cell['kern']['n_loc'], cell['ref']['pcc'], cell['kern']['pcc']))
     out['propagule'] = res
