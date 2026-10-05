@@ -1,0 +1,461 @@
+{
+ "outcome": {
+  "1/3-2/3": 0.6268834640926199,
+  "1/2-1/2": 0.36150745526166345,
+  "ineff": 0.010485298883408135,
+  "clash": 0.0011237817623051783,
+  "eff": 0.988390919354283,
+  "E_max_pay": 0.6036685572120215,
+  "dwl": 0.0015607304159000433,
+  "mean_pay": 0.4984392695840986,
+  "exante_max": 0.6036307391425706,
+  "slot1": 0.49843926958409873,
+  "slot2": 0.4984392695840987,
+  "o:1/3|2/3": 0.3134417320463113,
+  "o:1/2|1/2": 0.36150745526166345,
+  "o:2/3|1/3": 0.31344173204631104,
+  "E_max_share_compat": 0.605497585946811
+ },
+ "state_label_mass": {
+  "ineff": 0.004745553291221615,
+  "1/3-2/3": 0.624667285152216,
+  "mixed": 0.01309392230262907,
+  "clash": 2.1486091091003014e-05,
+  "1/2-1/2": 0.357471753162842
+ },
+ "ordered_label_mass": {
+  "ineff": 0.004745553291221615,
+  "1/3|2/3": 0.31233364257610813,
+  "mixed": 0.01309392230262907,
+  "2/3|1/3": 0.31233364257610785,
+  "clash": 2.1486091091003014e-05,
+  "1/2|1/2": 0.357471753162842
+ },
+ "slot_more": {
+  "equal": 0.35844272900206764,
+  "slot2": 0.3207786354989657,
+  "slot1": 0.3207786354989654
+ },
+ "mass_constant_pairs": 0.9612622392714237,
+ "support": [
+  {
+   "state": "M | M",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.3392719409133207,
+   "label": "1/2|1/2"
+  },
+  {
+   "state": "L | H",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.3086452267258121,
+   "label": "1/3|2/3"
+  },
+  {
+   "state": "H | L",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.30864522672581185,
+   "label": "2/3|1/3"
+  },
+  {
+   "state": "M | THEM(ME)",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.0029815928599388653,
+   "label": "1/2|1/2"
+  },
+  {
+   "state": "THEM(ME) | M",
+   "kinds": [
+    "reader",
+    "constant"
+   ],
+   "pi": 0.002981592859938852,
+   "label": "1/2|1/2"
+  },
+  {
+   "state": "M | THEM(THEM)",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.0029808934638821407,
+   "label": "1/2|1/2"
+  },
+  {
+   "state": "THEM(THEM) | M",
+   "kinds": [
+    "reader",
+    "constant"
+   ],
+   "pi": 0.0029808934638821303,
+   "label": "1/2|1/2"
+  },
+  {
+   "state": "M | L",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.0023313075202283273,
+   "label": "ineff"
+  },
+  {
+   "state": "L | M",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.002331307520228323,
+   "label": "ineff"
+  },
+  {
+   "state": "M | min(M,X)",
+   "kinds": [
+    "constant",
+    "coin"
+   ],
+   "pi": 0.0022408512691242236,
+   "label": "mixed"
+  },
+  {
+   "state": "min(M,X) | M",
+   "kinds": [
+    "coin",
+    "constant"
+   ],
+   "pi": 0.0022408512691242236,
+   "label": "mixed"
+  },
+  {
+   "state": "L | X",
+   "kinds": [
+    "constant",
+    "coin"
+   ],
+   "pi": 0.0019205454306830754,
+   "label": "mixed"
+  },
+  {
+   "state": "X | L",
+   "kinds": [
+    "coin",
+    "constant"
+   ],
+   "pi": 0.001920545430683072,
+   "label": "mixed"
+  },
+  {
+   "state": "flip(THEM(ME)) | H",
+   "kinds": [
+    "reader",
+    "constant"
+   ],
+   "pi": 0.0014506279137922668,
+   "label": "1/3|2/3"
+  },
+  {
+   "state": "H | flip(THEM(ME))",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.0014506279137922646,
+   "label": "2/3|1/3"
+  }
+ ],
+ "transitions": [
+  {
+   "src": "1/2|1/2",
+   "dst": "ineff",
+   "flux": 0.08717392224272251,
+   "share_from_nonconstant_states": 0.050624853667215655,
+   "rate_per_unit_mass": 0.24386240722917052
+  },
+  {
+   "src": "ineff",
+   "dst": "1/2|1/2",
+   "flux": 0.08049832599884084,
+   "share_from_nonconstant_states": 0.00704507152815425,
+   "rate_per_unit_mass": 16.962895801370024
+  },
+  {
+   "src": "mixed",
+   "dst": "1/2|1/2",
+   "flux": 0.07369035229718258,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 5.62782874329311
+  },
+  {
+   "src": "1/2|1/2",
+   "dst": "mixed",
+   "flux": 0.05969425960722931,
+   "share_from_nonconstant_states": 0.05568212183073202,
+   "rate_per_unit_mass": 0.16699014419759287
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "mixed",
+   "flux": 0.05382307635631209,
+   "share_from_nonconstant_states": 0.00659956816573766,
+   "rate_per_unit_mass": 0.17232558078720805
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "mixed",
+   "flux": 0.05382307635631204,
+   "share_from_nonconstant_states": 0.006599568165737641,
+   "rate_per_unit_mass": 0.17232558078720805
+  },
+  {
+   "src": "mixed",
+   "dst": "1/3|2/3",
+   "flux": 0.04601944828771557,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 3.5145655537054417
+  },
+  {
+   "src": "mixed",
+   "dst": "2/3|1/3",
+   "flux": 0.046019448287715474,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 3.514565553705434
+  },
+  {
+   "src": "ineff",
+   "dst": "2/3|1/3",
+   "flux": 0.04171500520658719,
+   "share_from_nonconstant_states": 0.020911976274011715,
+   "rate_per_unit_mass": 8.790335424902327
+  },
+  {
+   "src": "ineff",
+   "dst": "1/3|2/3",
+   "flux": 0.04171500520658711,
+   "share_from_nonconstant_states": 0.020911976274011715,
+   "rate_per_unit_mass": 8.79033542490231
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "ineff",
+   "flux": 0.03728317900793452,
+   "share_from_nonconstant_states": 0.0013660961487297768,
+   "rate_per_unit_mass": 0.1193697185497701
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "ineff",
+   "flux": 0.037283179007934486,
+   "share_from_nonconstant_states": 0.001366096148729776,
+   "rate_per_unit_mass": 0.1193697185497701
+  },
+  {
+   "src": "mixed",
+   "dst": "ineff",
+   "flux": 0.02997809674947046,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 2.2894665216893255
+  },
+  {
+   "src": "ineff",
+   "dst": "mixed",
+   "flux": 0.028060225749027095,
+   "share_from_nonconstant_states": 0.05582137916675088,
+   "rate_per_unit_mass": 5.912951351938932
+  },
+  {
+   "src": "1/2|1/2",
+   "dst": "1/3|2/3",
+   "flux": 0.005642020610051272,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.015783122890499032
+  },
+  {
+   "src": "1/2|1/2",
+   "dst": "2/3|1/3",
+   "flux": 0.005642020610051271,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.01578312289049903
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "2/3|1/3",
+   "flux": 0.0027141901087910404,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.008690034433705482
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "1/3|2/3",
+   "flux": 0.002714190108791029,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.008690034433705454
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "1/2|1/2",
+   "flux": 0.001785632695770089,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.005717068071957614
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "1/2|1/2",
+   "flux": 0.0017856326957700836,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.005717068071957602
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "clash",
+   "flux": 0.001059220279080936,
+   "share_from_nonconstant_states": 0.011547382493138542,
+   "rate_per_unit_mass": 0.0033913102358892693
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "clash",
+   "flux": 0.001059220279080935,
+   "share_from_nonconstant_states": 0.011547382493138553,
+   "rate_per_unit_mass": 0.0033913102358892693
+  },
+  {
+   "src": "clash",
+   "dst": "mixed",
+   "flux": 0.000687762732758055,
+   "share_from_nonconstant_states": 0.06399811294393648,
+   "rate_per_unit_mass": 32.00967220352359
+  },
+  {
+   "src": "clash",
+   "dst": "1/3|2/3",
+   "flux": 0.0005746342323738334,
+   "share_from_nonconstant_states": 0.01664742885430398,
+   "rate_per_unit_mass": 26.744475295204023
+  },
+  {
+   "src": "clash",
+   "dst": "2/3|1/3",
+   "flux": 0.0005746342323738328,
+   "share_from_nonconstant_states": 0.016647428854303974,
+   "rate_per_unit_mass": 26.744475295203998
+  },
+  {
+   "src": "clash",
+   "dst": "1/2|1/2",
+   "flux": 0.00040468091926850727,
+   "share_from_nonconstant_states": 0.02532267556887777,
+   "rate_per_unit_mass": 18.834552900036876
+  },
+  {
+   "src": "mixed",
+   "dst": "clash",
+   "flux": 0.0003810551925927234,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.02910168426127082
+  },
+  {
+   "src": "clash",
+   "dst": "ineff",
+   "flux": 0.0002780509990859352,
+   "share_from_nonconstant_states": 0.02652220234609365,
+   "rate_per_unit_mass": 12.940976462785498
+  },
+  {
+   "src": "1/2|1/2",
+   "dst": "clash",
+   "flux": 1.2401539994615412e-05,
+   "share_from_nonconstant_states": 0.05012643838587787,
+   "rate_per_unit_mass": 3.4692363480160175e-05
+  },
+  {
+   "src": "ineff",
+   "dst": "clash",
+   "flux": 7.865846796715358e-06,
+   "share_from_nonconstant_states": 0.007421657027426402,
+   "rate_per_unit_mass": 0.0016575194321947035
+  }
+ ],
+ "net_flux": {
+  "ineff -> mixed": -0.0019178710004433656,
+  "1/3|2/3 -> ineff": -0.004431826198652587,
+  "1/3|2/3 -> clash": 0.00048458604670710255,
+  "1/3|2/3 -> mixed": 0.007803628068596517,
+  "1/3|2/3 -> 2/3|1/3": 1.1275702593849246e-17,
+  "2/3|1/3 -> ineff": -0.004431826198652705,
+  "2/3|1/3 -> clash": 0.00048458604670710223,
+  "2/3|1/3 -> mixed": 0.007803628068596566,
+  "clash -> mixed": 0.00030670754016533166,
+  "clash -> ineff": 0.00027018515228921985,
+  "1/2|1/2 -> ineff": 0.006675596243881671,
+  "1/2|1/2 -> clash": -0.00039227937927389185,
+  "1/2|1/2 -> mixed": -0.013996092689953277,
+  "1/2|1/2 -> 2/3|1/3": 0.0038563879142811874,
+  "1/2|1/2 -> 1/3|2/3": 0.003856387914281183
+ },
+ "cut": 0.0,
+ "hitting": {
+  "1/3|2/3": {
+   "next_convention": {
+    "1/2|1/2": 0.7792948356824683,
+    "2/3|1/3": 0.2207051643175341
+   },
+   "time_to_next": 23136.845933871526,
+   "exit_time": 9138.402655284362,
+   "exit_to": {
+    "ineff": 0.3887608957637216,
+    "mixed": 0.5602905867142665,
+    "2/3|1/3": 0.025727041043288386,
+    "clash": 0.010965790209281158,
+    "1/2|1/2": 0.014255686269444045
+   }
+  },
+  "1/2|1/2": {
+   "next_convention": {
+    "1/3|2/3": 0.5000000000000028,
+    "2/3|1/3": 0.5000000000000016
+   },
+   "time_to_next": 17277.56986345997,
+   "exit_time": 6531.39394070328,
+   "exit_to": {
+    "ineff": 0.5636899659891739,
+    "1/3|2/3": 0.025240163391356027,
+    "mixed": 0.38574951173190064,
+    "2/3|1/3": 0.02524016339134664,
+    "clash": 8.019549622520176e-05
+   }
+  },
+  "2/3|1/3": {
+   "next_convention": {
+    "1/3|2/3": 0.22070516431753096,
+    "1/2|1/2": 0.7792948356824582
+   },
+   "time_to_next": 23136.845933871384,
+   "exit_time": 9138.40265528437,
+   "exit_to": {
+    "ineff": 0.3887608957637213,
+    "1/3|2/3": 0.025727041043301067,
+    "mixed": 0.5602905867142655,
+    "clash": 0.010965790209281142,
+    "1/2|1/2": 0.014255686269445712
+   }
+  }
+ },
+ "game": "dollar3",
+ "n": 5,
+ "arm": "fixed",
+ "N": 100,
+ "w": 0.3,
+ "K": 45,
+ "time_s": 20.158280849456787
+}
