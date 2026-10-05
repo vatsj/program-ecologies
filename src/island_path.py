@@ -139,7 +139,7 @@ def job(j):
     r['inv'] = dict(inv); r['first_strong'] = {str(t): v for t, v in nuc.items()}
     if pair is not None:
         hz = [v for v in (held_zero[1], held_zero[2]) if v >= 0]
-        tl = min(hz) if hz else None
+        tl = int(min(hz)) if hz else None
         r['loss_t'] = tl
         r['loss_net'] = None if tl is None else (1 if held_zero[1] == tl else 2)
         r['expo'] = integ(trace, 3, 4, tl if tl is not None else float(sg))
@@ -234,7 +234,15 @@ def load(exp):
 
 
 def save(exp, rows):
-    json.dump(rows, gzip.open(rows_path(exp), 'wt'))
+    def conv(o):
+        if isinstance(o, np.integer): return int(o)
+        if isinstance(o, np.floating): return float(o)
+        if isinstance(o, np.ndarray): return o.tolist()
+        raise TypeError(type(o))
+    tmp = rows_path(exp) + '.tmp'
+    with gzip.open(tmp, 'wt') as f:
+        json.dump(rows, f, default=conv)
+    os.replace(tmp, rows_path(exp))
 
 
 def ckey(r):
