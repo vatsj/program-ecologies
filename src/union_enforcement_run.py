@@ -43,7 +43,7 @@ def run_part_b(args):
     os.makedirs(OUT, exist_ok=True)
     E.make_base()                      # build the class cache once
     keys = [(arm, pool, c, tie, prior, N) for arm in E.ARMS for pool in (0, 1) for c in (0.1, 0.5) for tie in ('whack', 'nowhack')
-            for prior in ('uniform', 'mu') for N in (100, 1000)]
+            for prior in ('uniform', 'mu') for N in (100, 1000, 10000)]
     with Pool(args.workers) as p:
         res = dict(p.map(_cell, keys))
     out = {'%s|pool%d|c%g|%s|%s|N%d' % k: v for k, v in res.items()}
@@ -122,9 +122,150 @@ def run_part_c(args):
                                           'strike_incidence', 'repression_given_strike', 'time_s')}, indent=1, default=float))
 
 
+SH = ['fair', 'intermediate', 'zero wage', 'strike', 'scab split', 'repression:strike', 'repression:source']
+
+
+def _f(x, d=3):
+    if x is None:
+        return '–'
+    if x != 0 and abs(x) < 10 ** (-d):
+        return '%.1e' % x
+    return ('%.' + str(d) + 'f') % x
+
+
+def run_report(args):
+    """Markdown tables for runs/enforcement.md (written to runs/enforcement/tables.md)
+    and the collected runs/enforcement.json."""
+    A = json.load(open(os.path.join(OUT, 'part_a.json')))
+    B = json.load(open(os.path.join(OUT, 'part_b.json')))
+    cells = B['cells']
+    L = []
+    # Part A
+    for lev, R in A.items():
+        L.append('### Part A, boss language %s (%d functions; constants %.3f of μ)\n' % (lev, R['boss_functions'], R['boss_mass']['constants']))
+        L.append('Audit: %d encounters, %d violations, %d Lemma 0 counterexamples.\n' % (R['audit']['encounters'], R['audit']['violations'], R['audit']['lemma0_counterexamples']))
+        L.append('| self-pair | strikes, s(w0) low | works, s(w0) low | strikes, s(w0) fair | works, s(w0) fair |')
+        L.append('|---|---|---|---|---|')
+        for k, v in R['self_pair_activation'].items():
+            L.append('| %s | %d | %d | %d | %d |' % (k, v['strike_w0low'], v['work_w0low'], v['strike_w0fair'], v['work_w0fair']))
+        L.append('')
+        L.append('| pair (W1 \\| W2) | low, struck | low, worked (of which fakers: fair at w0) | fair, worked | fair, struck (self-harm) |')
+        L.append('|---|---|---|---|---|')
+        for k, v in R['pairs'].items():
+            g = lambda key: v.get(key, dict(n=0, mass=0.0))
+            lw = g('low worked'); lf = g('low worked (faker: fair at world 0)')
+            L.append('| %s | %d (%.4f) | %d (%.4f); fakers %d (%.4f) | %d (%.4f) | %d (%.4f) |' % (
+                k.replace('|', '\\|'), g('low struck')['n'], g('low struck')['mass'], lw['n'] + lf['n'], lw['mass'] + lf['mass'], lf['n'], lf['mass'],
+                g('fair worked')['n'], g('fair worked')['mass'], g('fair struck')['n'], g('fair struck')['mass']))
+        L.append('')
+    L.append('### Part A traces (levels {0,1}; committed play)\n')
+    for k, v in A['levels_01']['traces'].items():
+        L.append('- `%s`' % k)
+        for line in v[:4]:
+            L.append('  - `%s`' % line)
+    L.append('')
+    # Part B main tables
+    def row(k, label):
+        v = cells[k]
+        return '| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |' % (
+            label, ' | '.join(_f(v['summary'][s]) for s in SH), _f(v['strike_incidence']), _f(v['repression_given_strike']),
+            _f(v['realized_repression']), _f(v['mean_payoff']['boss']), _f(v['mean_payoff']['W1']), _f(v['efficiency_slots']),
+            _f(v['total_surplus']), _f(v['zero_strike_boss_mass']))
+    hdr = ('| cell | fair | interm. | zero | strike | scab split | rep:strike | rep:source | strike inc. | rep \\| strike | realized rep. | boss | worker | eff. (slots) | total surplus | (0,strike) boss |\n'
+           '|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|')
+    for prior in ('uniform', 'mu'):
+        for c in (0.5, 0.1):
+            for N in (1000, 100, 10000):
+                L.append('### Reduced chain, %s prior, c = %g, N = %d (tie = whack)\n' % ('uniform' if prior == 'uniform' else 'length', c, N))
+                L.append(hdr)
+                for arm in ('CC', 'RC', 'CR', 'RR'):
+                    for pool in (0, 1):
+                        L.append(row('%s|pool%d|c%g|whack|%s|N%d' % (arm, pool, c, prior, N), arm + (' + pool' if pool else '')))
+                L.append('')
+    mx = 0.0
+    for k, v in cells.items():
+        if '|whack|' in k:
+            v2 = cells[k.replace('|whack|', '|nowhack|')]
+            mx = max(mx, max(abs(v['summary'][s] - v2['summary'][s]) for s in SH))
+    L.append('Tie rule at 1 − s = c: max |Δ| over all summaries and cells between tie = whack and tie = nowhack: %g.\n' % mx)
+    # threats
+    L.append('### Committed threats: payoff advantage over the feasible deviation (uniform prior, N = 10³)\n')
+    L.append('| c | cell | boss threat untriggered: π mass, value if called | boss whack executed: π mass, advantage | worker strike executed: π mass (each slot), advantage |')
+    L.append('|---|---|---|---|---|')
+    for c in (0.5, 0.1):
+        for arm in ('CC', 'RC', 'CR', 'RR'):
+            for pool in (0, 1):
+                v = cells['%s|pool%d|c%g|whack|uniform|N1000' % (arm, pool, c)]['threats']
+                g = lambda key: ('%s, %s' % (_f(v[key]['mass']), _f(v[key]['mean_adv'], 2))) if key in v else '– (not committed or never)'
+                L.append('| %g | %s | %s | %s | %s |' % (c, arm + (' + pool' if pool else ''), g('boss_if_called'), g('boss_exec'), g('w1_exec')))
+    L.append('')
+    # support and transitions
+    for c in (0.5,):
+        for arm in ('CC', 'RC', 'CR', 'RR'):
+            for pool in (0, 1):
+                v = cells['%s|pool%d|c%g|whack|uniform|N1000' % (arm, pool, c)]
+                L.append('#### Support and transitions: %s%s, uniform, c = %g, N = 10³ (99%% of π on %d of 81 states)\n' % (arm, ' + pool' if pool else '', c, v['support_size_99']))
+                L.append('| π | state (boss, W1, W2) | implemented play | summary |')
+                L.append('|---|---|---|---|')
+                for s in v['support'][:6]:
+                    L.append('| %s | %s | %s | %s |' % (_f(s['pi'], 4), s['state'], s['play'], s['summary']))
+                cur = sorted(v['currents'].items(), key=lambda kv: -kv[1])[:6]
+                L.append('\nLargest currents between summaries (per mutation event): ' + '; '.join('%s %.1e' % (k, x) for k, x in cur) + '.')
+                t = v['transitions'][0]
+                L.append('Exits from the top state `%s`: total %.1e per event (strict %.1e, neutral %.1e, deleterious %.1e); top moves: %s.\n' % (
+                    t['state'], t['exit_total'], t['by_kind']['strict'], t['by_kind']['neutral'], t['by_kind']['deleterious'],
+                    '; '.join('%s → %s (%s, %.1e)' % (e['slot'], e['to'], e['kind'], e['p']) for e in t['top'][:3])))
+    # full-language audit
+    au = json.load(open(os.path.join(OUT, 'audit_full.json'))) if os.path.exists(os.path.join(OUT, 'audit_full.json')) else {}
+    if au:
+        L.append('### Full-language tensors (297 boss × 452 × 452 worker functions)\n')
+        L.append('| arm \\| pool \\| c \\| tie | unstable | strikes at s > 0 | strikes | implemented source targeting |')
+        L.append('|---|---|---|---|---|')
+        for k, v in au.items():
+            L.append('| %s | %d | %d | %d | %d |' % (k.replace('|', ' \\| '), v['unstable'], v['strikes_at_positive_wage'], v['strikes_total'], v['source_targeting_implemented']))
+        L.append('')
+    # Part C
+    pc = sorted(f for f in os.listdir(OUT) if f.startswith('partC_') and f.endswith('.json'))
+    if pc:
+        L.append('### Part C, full chain, length prior, N = 10³\n')
+        L.append('| cell | θ | states | outcome cut | classes B/W | fair | interm. | zero | strike | scab split | rep:strike | rep:source | strike inc. | rep \\| strike | boss | worker | eff. | total surplus |')
+        L.append('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|')
+        for f in pc:
+            d = json.load(open(os.path.join(OUT, f)))
+            L.append('| %s | %g | %d | %s | %d/%d | %s | %s | %s | %s | %s | %s | %s |' % (
+                f[6:-5], d['theta'], d['states'], _f(d['rel_cut_change']), d['class_counts']['boss'], d['class_counts']['worker'],
+                ' | '.join(_f(d['summary'][s], 4) for s in SH), _f(d['strike_incidence'], 4), _f(d['repression_given_strike']),
+                _f(d['mean_payoff']['boss']), _f(d['mean_payoff']['W1'], 4), _f(d['efficiency']), _f(d['total_surplus'])))
+        L.append('')
+        for f in pc:
+            d = json.load(open(os.path.join(OUT, f)))
+            L.append('#### Support and transitions: %s\n' % f[6:-5])
+            L.append('Whack policy held (implemented): %s; conditional programs hold %s of π; 99%% of π on %d states.\n' % (
+                ', '.join('%s %s' % (k, _f(x)) for k, x in d['whack_policy_dist'].items()), _f(d['mass_with_conditional']), d['support_size_99']))
+            L.append('| π | state | summary |')
+            L.append('|---|---|---|')
+            for s in d['support'][:6]:
+                L.append('| %s | `%s` | %s |' % (_f(s['pi'], 4), s['state'], s['summary']))
+            t = d['transitions'][0]
+            L.append('\nExits from `%s`: %s; top: %s. Net currents: %s.\n' % (
+                t['state'], ', '.join('%s %.1e' % (k, x) for k, x in t['exit_by_kind'].items()),
+                '; '.join('%s %s (%s, %.1e) → %s' % (e['slot'], e['mutant'], e['kind'], e['p'], e['to']) for e in t['top'][:3]),
+                '; '.join('%s %.1e' % (k, x) for k, x in sorted(d['net_currents'].items(), key=lambda kv: -abs(kv[1]))[:4])))
+    open(os.path.join(OUT, 'tables.md'), 'w').write('\n'.join(L) + '\n')
+    # collected json (without the per-state pi dumps)
+    slim = {k: {kk: vv for kk, vv in v.items() if kk not in ('pi_all',)} for k, v in cells.items()}
+    coll = dict(part_a=A, part_b=dict(cells=slim, masses=B['masses']), audit_full=au,
+                part_c={f[6:-5]: json.load(open(os.path.join(OUT, f))) for f in pc})
+    json.dump(coll, open(os.path.join(ROOT_RUNS, 'enforcement.json'), 'w'), indent=1, default=float)
+    print('wrote tables.md and enforcement.json')
+
+
+ROOT_RUNS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'runs')
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
-    ap.add_argument('what', choices=['partA', 'partB', 'audit', 'partC'])
+    ap.add_argument('what', choices=['partA', 'partB', 'audit', 'partC', 'report'])
     ap.add_argument('--workers', type=int, default=3)
     ap.add_argument('--arm', default='RC')
     ap.add_argument('--pool', type=int, default=1)
@@ -133,4 +274,4 @@ if __name__ == '__main__':
     ap.add_argument('--tie', default='whack')
     ap.add_argument('--theta', type=float, default=1e-9)
     a = ap.parse_args()
-    {'partA': run_part_a, 'partB': run_part_b, 'audit': run_audit, 'partC': run_part_c}[a.what](a)
+    {'partA': run_part_a, 'partB': run_part_b, 'audit': run_audit, 'partC': run_part_c, 'report': run_report}[a.what](a)

@@ -1,0 +1,1617 @@
+{
+ "arm": "RC_pool1_c0.5_N1000_whack",
+ "c": 0.5,
+ "N": 1000.0,
+ "w": 0.3,
+ "theta": 1e-11,
+ "states": 4320,
+ "core": 288,
+ "ring": 4032,
+ "cut_flow": 1.2947948069763028e-08,
+ "rel_cut": 0.0004896258229001296,
+ "rel_cut_change": 0.004947992344954363,
+ "rounds": [
+  {
+   "round": 0,
+   "core": 75,
+   "ring": 128,
+   "ring_mass": 0.07742674179441539,
+   "total_flow": 2.806012562730629e-05,
+   "change_flow": 3.964909659272134e-06,
+   "promoted": 124,
+   "time_s": 0.02936100959777832,
+   "cut_flow": 4.504236554283863e-06,
+   "rel_cut": 0.16052089766485694,
+   "cut_change": 3.964909659272122e-06,
+   "rel_cut_change": 0.999999999999997,
+   "new_candidates": 1856
+  },
+  {
+   "round": 1,
+   "core": 199,
+   "ring": 1860,
+   "ring_mass": 0.004994208524627983,
+   "total_flow": 4.1754882995453665e-05,
+   "change_flow": 1.6900023055835027e-05,
+   "promoted": 85,
+   "time_s": 0.33885884284973145,
+   "cut_flow": 1.5509707948455264e-05,
+   "rel_cut": 0.3714465671031574,
+   "cut_change": 1.529410295024346e-05,
+   "rel_cut_change": 0.9049752713185149,
+   "new_candidates": 1641
+  },
+  {
+   "round": 2,
+   "core": 284,
+   "ring": 3416,
+   "ring_mass": 0.0011185492527588112,
+   "total_flow": 2.6697327151920658e-05,
+   "change_flow": 2.173137485442938e-06,
+   "promoted": 4,
+   "time_s": 2.0436809062957764,
+   "cut_flow": 2.6949943005216587e-07,
+   "rel_cut": 0.010094622151445506,
+   "cut_change": 2.62726903438826e-07,
+   "rel_cut_change": 0.12089750657689102,
+   "new_candidates": 620
+  },
+  {
+   "round": 3,
+   "core": 288,
+   "ring": 4032,
+   "ring_mass": 0.0010116553947304933,
+   "total_flow": 2.644457760228071e-05,
+   "change_flow": 1.925254349825739e-06,
+   "promoted": 0,
+   "time_s": 8.368741035461426,
+   "cut_flow": 1.2947948069763028e-08,
+   "rel_cut": 0.0004896258229001296,
+   "cut_change": 9.526143785027846e-09,
+   "rel_cut_change": 0.004947992344954363,
+   "new_candidates": 36
+  }
+ ],
+ "KcB": 27,
+ "KcW": 122,
+ "summary": {
+  "fair": 1.3050868438835603e-05,
+  "intermediate": 0.0003194473868128828,
+  "zero wage": 0.9996644860192543,
+  "strike": 0.0,
+  "scab split": 0.0,
+  "repression:strike": 3.0157254938403937e-06,
+  "repression:source": 0.0
+ },
+ "joint": {
+  "s=0, both work, strike": 0.9996644860192543,
+  "s=1/4, both work, strike": 0.0003194473868128828,
+  "s=1/2, both work, strike": 1.3050868438835603e-05,
+  "s=0, one strikes, strike": 2.8925677255502095e-06,
+  "s=1/4, one strikes, strike": 6.890659185409335e-08,
+  "s=1/2, one strikes, strike": 5.2815376322264465e-08,
+  "s=0, both strike, strike": 1.4358001138264052e-09,
+  "s=1/4, both strike, strike": 3.802236454545791e-77,
+  "s=1/2, both strike, strike": 4.541956120354498e-146
+ },
+ "wage_dist": {
+  "0": 0.9996673800227798,
+  "1/4": 0.0003195162934047369,
+  "1/2": 1.3103683815157866e-05
+ },
+ "whack_policy_dist": {
+  "strike": 0.9999999999999999,
+  "none": 0.0,
+  "source": 0.0
+ },
+ "mean_payoff": {
+  "boss": 1.9998256295888222,
+  "W1": 8.490051744372367e-05,
+  "W2": 8.490051744372364e-05
+ },
+ "efficiency": 1.9999954306237213,
+ "P_both_work_no_whack": 0.9999969842745059,
+ "P_equal_division": 1.3050868438835603e-05,
+ "currents": {
+  "fair>intermediate": 1.134983840668107e-07,
+  "fair>zero wage": 2.562052116702119e-07,
+  "fair>repression:strike": 6.15314439326766e-08,
+  "intermediate>fair": 3.071298483121296e-10,
+  "intermediate>zero wage": 4.679523821069428e-07,
+  "intermediate>repression:strike": 3.1818531666419756e-08,
+  "zero wage>fair": 4.2842041781992e-07,
+  "zero wage>intermediate": 3.8330819152432383e-07,
+  "zero wage>repression:strike": 3.743562895392385e-08,
+  "repression:strike>fair": 2.5074920014679265e-09,
+  "repression:strike>intermediate": 3.271468030541441e-09,
+  "repression:strike>zero wage": 1.250066445210107e-07
+ },
+ "net_currents": {
+  "fair>intermediate": 1.1319125421849856e-07,
+  "fair>zero wage": -1.7221520614970811e-07,
+  "fair>repression:strike": 5.902395193120867e-08,
+  "intermediate>zero wage": 8.464419058261896e-08,
+  "intermediate>repression:strike": 2.8547063635878315e-08,
+  "zero wage>repression:strike": -8.757101556708684e-08
+ },
+ "dwell_events": {
+  "fair": 30.263933211067,
+  "intermediate": 638.7950658648696,
+  "zero wage": 1177233.3795199713,
+  "strike": null,
+  "scab split": null,
+  "repression:strike": 23.058543057143787,
+  "repression:source": null
+ },
+ "lumped_relaxation_events": 639.9827393955829,
+ "support": [
+  {
+   "pi": 0.9233092203696662,
+   "state": "(0,strike) | work | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.008315879366155195,
+   "state": "(0,strike) | work | if(BOX(h in {none}),strike,work)",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.008315879366155195,
+   "state": "(0,strike) | if(BOX(h in {none}),strike,work) | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0026419861967693845,
+   "state": "(0,strike) | work | if(BOX(s in {1/2}),strike,work)",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0026419861967693797,
+   "state": "(0,strike) | if(BOX(s in {1/2}),strike,work) | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0026419161223886966,
+   "state": "(0,strike) | if(BOX(s in {1/4}),strike,work) | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0026419161223886966,
+   "state": "(0,strike) | work | if(BOX(s in {1/4}),strike,work)",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.002621798377264228,
+   "state": "(0,strike) | if(BOX(s in {1/4,1/2}),strike,work) | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.002621798377264223,
+   "state": "(0,strike) | work | if(BOX(s in {1/4,1/2}),strike,work)",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0026181919900619692,
+   "state": "(0,strike) | if(BOX(QUORUM),strike,work) | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0026181919900619645,
+   "state": "(0,strike) | work | if(BOX(QUORUM),strike,work)",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0025786524899452873,
+   "state": "(0,strike) | if(BOX(OTHER=strike),strike,work) | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0025786524899452825,
+   "state": "(0,strike) | work | if(BOX(OTHER=strike),strike,work)",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0024241725111703296,
+   "state": "(0,strike) | if(BOX(s in {0}),work,strike) | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0024241725111703253,
+   "state": "(0,strike) | work | if(BOX(s in {0}),work,strike)",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0024069704148786592,
+   "state": "(0,strike) | if(BOX(s in {0,1/4}),work,strike) | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0024069704148786592,
+   "state": "(0,strike) | work | if(BOX(s in {0,1/4}),work,strike)",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.002406681158086428,
+   "state": "(0,strike) | work | if(BOX(s in {0,1/2}),work,strike)",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.002406681158086428,
+   "state": "(0,strike) | if(BOX(s in {0,1/2}),work,strike) | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0023113668622038066,
+   "state": "(0,strike) | if(BOX(OTHER=work),work,strike) | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0023113668622038023,
+   "state": "(0,strike) | work | if(BOX(OTHER=work),work,strike)",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.002201403364608587,
+   "state": "if(BOX(W1=strike),(1/4,strike),(0,strike)) | work | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.002201403364608583,
+   "state": "if(BOX(W2=strike),(1/4,strike),(0,strike)) | work | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.002159831506351844,
+   "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | work | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0021598315063518403,
+   "state": "if(BOX(W2=strike),(1/2,strike),(0,strike)) | work | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0005456118834306694,
+   "state": "if(BOX(W1=work),(0,strike),(1/4,strike)) | work | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.0005456118834306685,
+   "state": "if(BOX(W2=work),(0,strike),(1/4,strike)) | work | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.00032323692962044114,
+   "state": "if(BOX(W1=work),(0,strike),(1/2,strike)) | work | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 0.00032323692962044114,
+   "state": "if(BOX(W2=work),(0,strike),(1/2,strike)) | work | work",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "pi": 7.536613851081183e-05,
+   "state": "(0,strike) | if(BOX(h in {none}),strike,work) | if(BOX(h in {none}),strike,work)",
+   "summary": "zero wage",
+   "pay": [
+    2.0,
+    0.0,
+    0.0
+   ]
+  }
+ ],
+ "support_size_99": 24,
+ "mass_with_conditional": 0.07668934563997992,
+ "mass_conditional_worker": 0.06622732309781756,
+ "mass_conditional_boss": 0.011512372753295445,
+ "named_worker_presence": {
+  "scab": 0.9989610586994765,
+  "always strike": 9.664470093283173e-09,
+  "militant": 3.032549103774481e-05,
+  "union": 4.260824252603646e-05,
+  "union' (BOX(OTHER=strike))": 4.2608242526036406e-05
+ },
+ "mass_tagged_worker_present": 0.006258764695572416,
+ "transitions": [
+  {
+   "state": "(0,strike) | work | work",
+   "pi": 0.9233092203696662,
+   "summary": "zero wage",
+   "exit_by_kind": {
+    "strict": 0,
+    "neutral-change": 0,
+    "neutral-keep": 1.2598130133579062e-05,
+    "deleterious": 1.2901958036886688e-67
+   },
+   "top": [
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/4}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/2}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    }
+   ]
+  },
+  {
+   "state": "(0,strike) | work | if(BOX(h in {none}),strike,work)",
+   "pi": 0.008315879366155195,
+   "summary": "zero wage",
+   "exit_by_kind": {
+    "strict": 0,
+    "neutral-change": 0,
+    "neutral-keep": 0.00017263149197969482,
+    "deleterious": 1.2901958036886688e-67
+   },
+   "top": [
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "work",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/4}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/2}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    }
+   ]
+  },
+  {
+   "state": "(0,strike) | if(BOX(h in {none}),strike,work) | work",
+   "pi": 0.008315879366155195,
+   "summary": "zero wage",
+   "exit_by_kind": {
+    "strict": 0,
+    "neutral-change": 0,
+    "neutral-keep": 0.00017263149197969496,
+    "deleterious": 1.2901958036886688e-67
+   },
+   "top": [
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "work",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/4}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/2}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    }
+   ]
+  },
+  {
+   "state": "(0,strike) | work | if(BOX(s in {1/2}),strike,work)",
+   "pi": 0.0026419861967693845,
+   "summary": "zero wage",
+   "exit_by_kind": {
+    "strict": 0,
+    "neutral-change": 0,
+    "neutral-keep": 0.0001732923017226703,
+    "deleterious": 1.2872899572839646e-67
+   },
+   "top": [
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "work",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/4}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/2}),strike,work)",
+     "to": "zero wage"
+    }
+   ]
+  },
+  {
+   "state": "(0,strike) | if(BOX(s in {1/2}),strike,work) | work",
+   "pi": 0.0026419861967693797,
+   "summary": "zero wage",
+   "exit_by_kind": {
+    "strict": 0,
+    "neutral-change": 0,
+    "neutral-keep": 0.00017329230172267044,
+    "deleterious": 1.2872899572839646e-67
+   },
+   "top": [
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "work",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/4}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    }
+   ]
+  },
+  {
+   "state": "(0,strike) | if(BOX(s in {1/4}),strike,work) | work",
+   "pi": 0.0026419161223886966,
+   "summary": "zero wage",
+   "exit_by_kind": {
+    "strict": 0,
+    "neutral-change": 0,
+    "neutral-keep": 0.00017329230172267044,
+    "deleterious": 1.7435078428225226e-69
+   },
+   "top": [
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "work",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/2}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    }
+   ]
+  },
+  {
+   "state": "(0,strike) | work | if(BOX(s in {1/4}),strike,work)",
+   "pi": 0.0026419161223886966,
+   "summary": "zero wage",
+   "exit_by_kind": {
+    "strict": 0,
+    "neutral-change": 0,
+    "neutral-keep": 0.0001732923017226703,
+    "deleterious": 1.7435078428225226e-69
+   },
+   "top": [
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "work",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/4}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/2}),strike,work)",
+     "to": "zero wage"
+    }
+   ]
+  },
+  {
+   "state": "(0,strike) | if(BOX(s in {1/4,1/2}),strike,work) | work",
+   "pi": 0.002621798377264228,
+   "summary": "zero wage",
+   "exit_by_kind": {
+    "strict": 0,
+    "neutral-change": 0,
+    "neutral-keep": 0.00017304535139190188,
+    "deleterious": 8.717539214112612e-70
+   },
+   "top": [
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "work",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/4}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/2}),strike,work)",
+     "to": "zero wage"
+    }
+   ]
+  },
+  {
+   "state": "(0,strike) | work | if(BOX(s in {1/4,1/2}),strike,work)",
+   "pi": 0.002621798377264223,
+   "summary": "zero wage",
+   "exit_by_kind": {
+    "strict": 0,
+    "neutral-change": 0,
+    "neutral-keep": 0.00017304535139190175,
+    "deleterious": 8.717539214112612e-70
+   },
+   "top": [
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "work",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/4}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/2}),strike,work)",
+     "to": "zero wage"
+    }
+   ]
+  },
+  {
+   "state": "(0,strike) | if(BOX(QUORUM),strike,work) | work",
+   "pi": 0.0026181919900619692,
+   "summary": "zero wage",
+   "exit_by_kind": {
+    "strict": 0,
+    "neutral-change": 0,
+    "neutral-keep": 0.00017241424092426152,
+    "deleterious": 1.2872899572839646e-67
+   },
+   "top": [
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "work",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/4}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/2}),strike,work)",
+     "to": "zero wage"
+    }
+   ]
+  }
+ ],
+ "drift": {
+  "union_like_into_worker_slot": 1.4194022442532247e-08,
+  "tagged_into_worker_slot": 1.044238982974847e-06,
+  "source_targeting_into_boss_slot": 0.0,
+  "strike_targeting_into_boss_slot": 0.0,
+  "source_targeting_into_boss_from_tagged_states": 0.0,
+  "total_flow": 2.6431629654210995e-05
+ },
+ "named_states": {
+  "Z: (0,none) scab scab": {
+   "pi": 0.9233092203696662,
+   "exit_by_kind": {
+    "strict": 0,
+    "neutral-change": 0,
+    "neutral-keep": 1.2598130133579062e-05,
+    "deleterious": 1.2901958036886688e-67
+   },
+   "top": [
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/4}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/2}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    }
+   ]
+  },
+  "I: (1/4,none) scab scab": {
+   "pi": 1.4240698723174612e-06,
+   "exit_by_kind": {
+    "strict": 0.015476891508326946,
+    "neutral-change": 0,
+    "neutral-keep": 1.2598130133579062e-05,
+    "deleterious": 1.2901958036886688e-67
+   },
+   "top": [
+    {
+     "p": 0.015198028598266997,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "(0,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 3.485786375749305e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=work),(0,strike),(1/4,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 3.485786375749305e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=work),(0,strike),(1/2,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 3.485786375749305e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=strike),(1/4,strike),(0,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 3.485786375749305e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=strike),(1/2,strike),(0,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 3.485786375749305e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W2=work),(0,strike),(1/4,strike))",
+     "to": "zero wage"
+    }
+   ]
+  },
+  "Fs: (1/2,none) scab scab": {
+   "pi": 1.1198383228232087e-09,
+   "exit_by_kind": {
+    "strict": 0.04427486698813612,
+    "neutral-change": 0,
+    "neutral-keep": 1.2598130133579062e-05,
+    "deleterious": 6.997595865324004e-197
+   },
+   "top": [
+    {
+     "p": 0.02827909303873154,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "(0,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 0.015198028598266997,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "(1/4,strike)",
+     "to": "intermediate"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=work),(0,strike),(1/4,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=work),(0,strike),(1/2,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=strike),(1/4,strike),(0,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=strike),(1/2,strike),(0,strike))",
+     "to": "zero wage"
+    }
+   ]
+  },
+  "Fm: (1/2,none) militant militant": {
+   "pi": 3.714972310632796e-11,
+   "exit_by_kind": {
+    "strict": 0.00039887267556879317,
+    "neutral-change": 0.00011061061061061089,
+    "neutral-keep": 0.00033349257265022293,
+    "deleterious": 1.2843841108792604e-67
+   },
+   "top": [
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "work",
+     "to": "fair"
+    },
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "work",
+     "to": "fair"
+    },
+    {
+     "p": 0.00010910910910910935,
+     "kind": "neutral-change",
+     "slot": "B",
+     "mutant": "(0,strike)",
+     "to": "repression:strike"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=work),(1/2,strike),(0,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=strike),(1/2,strike),(0,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W2=work),(1/2,strike),(0,strike))",
+     "to": "zero wage"
+    }
+   ]
+  },
+  "Zm: (0,none) militant scab": {
+   "pi": 4.282070459329924e-07,
+   "exit_by_kind": {
+    "strict": 0.0433015368109862,
+    "neutral-change": 7.507507507507511e-07,
+    "neutral-keep": 0.00017304535139190188,
+    "deleterious": 2.5687682217585228e-67
+   },
+   "top": [
+    {
+     "p": 0.04182380154820038,
+     "kind": "strict",
+     "slot": "W1",
+     "mutant": "work",
+     "to": "zero wage"
+    },
+    {
+     "p": 0.0003460700746376594,
+     "kind": "strict",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "strike",
+     "to": "repression:strike"
+    },
+    {
+     "p": 0.00010993992452770998,
+     "kind": "strict",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 0.00010993992452770998,
+     "kind": "strict",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/4}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 0.00010993992452770998,
+     "kind": "strict",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/2}),strike,work)",
+     "to": "zero wage"
+    }
+   ]
+  },
+  "F: (1/2,none) union union": {
+   "pi": 1.311859129241359e-16,
+   "exit_by_kind": {
+    "strict": 0.00039887267556879317,
+    "neutral-change": 0.00011061061061061089,
+    "neutral-keep": 0.00033432773449537,
+    "deleterious": 1.2843841108792604e-67
+   },
+   "top": [
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "work",
+     "to": "fair"
+    },
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "work",
+     "to": "fair"
+    },
+    {
+     "p": 0.00010910910910910935,
+     "kind": "neutral-change",
+     "slot": "B",
+     "mutant": "(0,strike)",
+     "to": "repression:strike"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=work),(1/2,strike),(0,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=strike),(1/2,strike),(0,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W2=work),(1/2,strike),(0,strike))",
+     "to": "zero wage"
+    }
+   ]
+  },
+  "Fu1: (1/2,none) union scab": {
+   "pi": 8.443031030654558e-12,
+   "exit_by_kind": {
+    "strict": 0.04427486698813612,
+    "neutral-change": 0,
+    "neutral-keep": 0.00017396343281497588,
+    "deleterious": 6.997595865324004e-197
+   },
+   "top": [
+    {
+     "p": 0.02827909303873154,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "(0,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 0.015198028598266997,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "(1/4,strike)",
+     "to": "intermediate"
+    },
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "work",
+     "to": "fair"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=work),(1/4,strike),(0,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=work),(1/2,strike),(0,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=strike),(1/4,strike),(0,strike))",
+     "to": "zero wage"
+    }
+   ]
+  },
+  "Zu1: (0,none) union scab": {
+   "pi": 2.0556165924880438e-05,
+   "exit_by_kind": {
+    "strict": 0,
+    "neutral-change": 0,
+    "neutral-keep": 0.00017308207209708527,
+    "deleterious": 1.2901958036886688e-67
+   },
+   "top": [
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "work",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/4}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/2}),strike,work)",
+     "to": "zero wage"
+    }
+   ]
+  },
+  "S: (0,none) union union": {
+   "pi": 1.6628600038173988e-19,
+   "exit_by_kind": {
+    "strict": 0.08633593383682797,
+    "neutral-change": 0.00011804235657112573,
+    "neutral-keep": 0.00032865870997063687,
+    "deleterious": 1.2843841108792604e-67
+   },
+   "top": [
+    {
+     "p": 0.04182380154820038,
+     "kind": "strict",
+     "slot": "W1",
+     "mutant": "work",
+     "to": "zero wage"
+    },
+    {
+     "p": 0.04182380154820038,
+     "kind": "strict",
+     "slot": "W2",
+     "mutant": "work",
+     "to": "zero wage"
+    },
+    {
+     "p": 0.0003460700746376594,
+     "kind": "strict",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 0.0003460700746376594,
+     "kind": "strict",
+     "slot": "W2",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "strike",
+     "to": "repression:strike"
+    },
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "strike",
+     "to": "repression:strike"
+    }
+   ]
+  },
+  "Zsrc: (0,source) scab scab": {
+   "pi": 0.9233092203696662,
+   "exit_by_kind": {
+    "strict": 0,
+    "neutral-change": 0,
+    "neutral-keep": 1.2598130133579062e-05,
+    "deleterious": 1.2901958036886688e-67
+   },
+   "top": [
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 1.3352407547626108e-06,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(h in {none}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/4}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "if(BOX(s in {1/2}),strike,work)",
+     "to": "zero wage"
+    },
+    {
+     "p": 4.2418076153687043e-07,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "if(BOX(s in {0}),work,strike)",
+     "to": "zero wage"
+    }
+   ]
+  },
+  "F': (1/2,none) union' union'": {
+   "pi": 1.311859129241359e-16,
+   "exit_by_kind": {
+    "strict": 0.00039887267556879317,
+    "neutral-change": 0.00011061061061061089,
+    "neutral-keep": 0.00033432773449537,
+    "deleterious": 1.2843841108792604e-67
+   },
+   "top": [
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W1",
+     "mutant": "work",
+     "to": "fair"
+    },
+    {
+     "p": 0.00016136860260087824,
+     "kind": "neutral-keep",
+     "slot": "W2",
+     "mutant": "work",
+     "to": "fair"
+    },
+    {
+     "p": 0.00010910910910910935,
+     "kind": "neutral-change",
+     "slot": "B",
+     "mutant": "(0,strike)",
+     "to": "repression:strike"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=work),(1/2,strike),(0,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W1=strike),(1/2,strike),(0,strike))",
+     "to": "zero wage"
+    },
+    {
+     "p": 6.486030513470525e-05,
+     "kind": "strict",
+     "slot": "B",
+     "mutant": "if(BOX(W2=work),(1/2,strike),(0,strike))",
+     "to": "zero wage"
+    }
+   ]
+  }
+ },
+ "strike_incidence": 3.0157254938403937e-06,
+ "repression_given_strike": 1.0,
+ "total_surplus": 1.999995474258058,
+ "class_counts": {
+  "boss": 27,
+  "worker": 122
+ },
+ "tie": "whack",
+ "pool": 1,
+ "enf_arm": "RC",
+ "time_s": 19.102629899978638
+}
