@@ -1,0 +1,386 @@
+{
+ "outcome": {
+  "1/3-2/3": 0.9981118679401612,
+  "1/2-1/2": 0.0018874256222406773,
+  "ineff": 5.777947473027897e-07,
+  "clash": 1.286428499972124e-07,
+  "eff": 0.9999992935623998,
+  "E_max_pay": 0.6663518190391927,
+  "dwl": 1.597856916341513e-07,
+  "mean_pay": 0.4999998402143078,
+  "exante_max": 0.666351737687592,
+  "slot1": 0.49999984021430743,
+  "slot2": 0.49999984021430754,
+  "o:1/3|2/3": 0.49905593397008097,
+  "o:1/2|1/2": 0.0018874256222406773,
+  "o:2/3|1/3": 0.49905593397008097,
+  "E_max_share_compat": 0.6663520003918523
+ },
+ "state_label_mass": {
+  "ineff": 7.939914904110015e-08,
+  "1/3-2/3": 0.9981113722002014,
+  "mixed": 1.1358495105584226e-06,
+  "clash": 0.0,
+  "1/2-1/2": 0.0018874125511388021
+ },
+ "ordered_label_mass": {
+  "ineff": 7.939914904110015e-08,
+  "1/3|2/3": 0.4990556861001009,
+  "mixed": 1.1358495105584226e-06,
+  "2/3|1/3": 0.4990556861001009,
+  "clash": 0.0,
+  "1/2|1/2": 0.0018874125511388021
+ },
+ "slot_more": {
+  "equal": 0.0018885904419647928,
+  "slot2": 0.49905570477901723,
+  "slot1": 0.49905570477901723
+ },
+ "mass_constant_pairs": 0.9917166115034983,
+ "support": [
+  {
+   "state": "L | H",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.49496893458284125,
+   "label": "1/3|2/3"
+  },
+  {
+   "state": "H | L",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.49496893458284125,
+   "label": "2/3|1/3"
+  },
+  {
+   "state": "M | M",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.0017787422079578793,
+   "label": "1/2|1/2"
+  },
+  {
+   "state": "flip(THEM(THEM)) | H",
+   "kinds": [
+    "reader",
+    "constant"
+   ],
+   "pi": 0.0016093176828455168,
+   "label": "1/3|2/3"
+  },
+  {
+   "state": "H | flip(THEM(THEM))",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.0016093176828455168,
+   "label": "2/3|1/3"
+  },
+  {
+   "state": "flip(THEM(ME)) | H",
+   "kinds": [
+    "reader",
+    "constant"
+   ],
+   "pi": 0.0016079675275075637,
+   "label": "1/3|2/3"
+  },
+  {
+   "state": "H | flip(THEM(ME))",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.0016079675275075637,
+   "label": "2/3|1/3"
+  },
+  {
+   "state": "flip(THEM(^L)) | H",
+   "kinds": [
+    "reader",
+    "constant"
+   ],
+   "pi": 0.000146434071518418,
+   "label": "1/3|2/3"
+  },
+  {
+   "state": "H | flip(THEM(^L))",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.000146434071518418,
+   "label": "2/3|1/3"
+  },
+  {
+   "state": "min(THEM(ME),L) | H",
+   "kinds": [
+    "reader",
+    "constant"
+   ],
+   "pi": 0.0001459113045926208,
+   "label": "1/3|2/3"
+  },
+  {
+   "state": "H | min(THEM(ME),L)",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.00014591130459262026,
+   "label": "2/3|1/3"
+  },
+  {
+   "state": "flip(THEM(^M)) | H",
+   "kinds": [
+    "reader",
+    "constant"
+   ],
+   "pi": 0.00014555730026393824,
+   "label": "1/3|2/3"
+  },
+  {
+   "state": "H | flip(THEM(^M))",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.00014555730026393797,
+   "label": "2/3|1/3"
+  },
+  {
+   "state": "H | flip(THEM(^X))",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.00014554594178601323,
+   "label": "2/3|1/3"
+  },
+  {
+   "state": "flip(THEM(^X)) | H",
+   "kinds": [
+    "reader",
+    "constant"
+   ],
+   "pi": 0.00014554594178601272,
+   "label": "1/3|2/3"
+  }
+ ],
+ "transitions": [
+  {
+   "src": "1/3|2/3",
+   "dst": "2/3|1/3",
+   "flux": 0.05804456372232251,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.11630879146156024
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "1/3|2/3",
+   "flux": 0.058044563722322334,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.1163087914615599
+  },
+  {
+   "src": "1/2|1/2",
+   "dst": "2/3|1/3",
+   "flux": 0.029582679516300017,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 15.67366895936493
+  },
+  {
+   "src": "1/2|1/2",
+   "dst": "1/3|2/3",
+   "flux": 0.02958267951629997,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 15.673668959364905
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "1/2|1/2",
+   "flux": 0.029231347080327173,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.05857331735613955
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "1/2|1/2",
+   "flux": 0.029231347080327083,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.05857331735613937
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "mixed",
+   "flux": 0.0007092179686986605,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.0014211199039547765
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "mixed",
+   "flux": 0.0007092179686986581,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.0014211199039547717
+  },
+  {
+   "src": "mixed",
+   "dst": "2/3|1/3",
+   "flux": 0.00048575902812216486,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 427.6614319121809
+  },
+  {
+   "src": "mixed",
+   "dst": "1/3|2/3",
+   "flux": 0.00048575902812216426,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 427.6614319121804
+  },
+  {
+   "src": "mixed",
+   "dst": "1/2|1/2",
+   "flux": 0.0004408385291709514,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 388.11350013631653
+  },
+  {
+   "src": "ineff",
+   "dst": "1/2|1/2",
+   "flux": 0.0002633059617024372,
+   "share_from_nonconstant_states": 0.9889997146354936,
+   "rate_per_unit_mass": 3316.2315324832966
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "ineff",
+   "flux": 0.00015508907317811138,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.0003107650658988855
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "ineff",
+   "flux": 0.0001550890731781112,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.00031076506589888515
+  },
+  {
+   "src": "mixed",
+   "dst": "ineff",
+   "flux": 2.794914777775446e-05,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 24.60638272759716
+  },
+  {
+   "src": "ineff",
+   "dst": "2/3|1/3",
+   "flux": 2.7212027710372144e-05,
+   "share_from_nonconstant_states": 0.9462336098125909,
+   "rate_per_unit_mass": 342.72442512307174
+  },
+  {
+   "src": "ineff",
+   "dst": "1/3|2/3",
+   "flux": 2.721202771037211e-05,
+   "share_from_nonconstant_states": 0.9462336098125903,
+   "rate_per_unit_mass": 342.72442512307134
+  },
+  {
+   "src": "ineff",
+   "dst": "mixed",
+   "flux": 2.1129090236670672e-05,
+   "share_from_nonconstant_states": 0.9935438982661944,
+   "rate_per_unit_mass": 266.11230084762514
+  },
+  {
+   "src": "1/2|1/2",
+   "dst": "mixed",
+   "flux": 7.495251960273601e-07,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.0003971178402809293
+  },
+  {
+   "src": "1/2|1/2",
+   "dst": "ineff",
+   "flux": 7.407525092633349e-07,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.0003924698438697938
+  }
+ ],
+ "net_flux": {
+  "ineff -> mixed": -6.820057541083788e-06,
+  "1/3|2/3 -> 2/3|1/3": 1.734723475976807e-16,
+  "1/3|2/3 -> mixed": 0.00022345894057649625,
+  "1/3|2/3 -> ineff": 0.00012787704546773926,
+  "1/2|1/2 -> mixed": -0.000440089003974924,
+  "1/2|1/2 -> 2/3|1/3": 0.0003513324359729342,
+  "1/2|1/2 -> ineff": -0.0002625652091931739,
+  "1/2|1/2 -> 1/3|2/3": 0.0003513324359727954,
+  "2/3|1/3 -> ineff": 0.00012787704546773907,
+  "2/3|1/3 -> mixed": 0.00022345894057649327
+ },
+ "cut": 1.213216041869214e-28,
+ "hitting": {
+  "1/3|2/3": {
+   "next_convention": {
+    "1/2|1/2": 0.005401621496989093,
+    "2/3|1/3": 0.9945983785014386
+   },
+   "time_to_next": 21151268.464182172,
+   "exit_time": 21041964.985577982,
+   "exit_to": {
+    "ineff": 0.0017569583869874604,
+    "mixed": 0.007948941191217439,
+    "2/3|1/3": 0.6613162413708341,
+    "clash": 0.0,
+    "1/2|1/2": 0.3289778590498824
+   }
+  },
+  "1/2|1/2": {
+   "next_convention": {
+    "1/3|2/3": 0.4999999999992239,
+    "2/3|1/3": 0.49999999999862016
+   },
+   "time_to_next": 7404332.84069992,
+   "exit_time": 6771006.137771433,
+   "exit_to": {
+    "ineff": 0.00029938758415018056,
+    "1/3|2/3": 0.49970056506667143,
+    "mixed": 0.00029948228246764715,
+    "2/3|1/3": 0.49970056506706717,
+    "clash": 0.0
+   }
+  },
+  "2/3|1/3": {
+   "next_convention": {
+    "1/3|2/3": 0.9945983785030026,
+    "1/2|1/2": 0.005401621497285982
+   },
+   "time_to_next": 21151268.464194734,
+   "exit_time": 21041964.98557804,
+   "exit_to": {
+    "ineff": 0.0017569583869875207,
+    "1/3|2/3": 0.6613162413720972,
+    "mixed": 0.007948941191217139,
+    "clash": 0.0,
+    "1/2|1/2": 0.3289778590501429
+   }
+  }
+ },
+ "game": "dollar3",
+ "n": 5,
+ "arm": "fixed",
+ "N": 10000,
+ "w": 0.3,
+ "K": 45,
+ "time_s": 25.150354862213135
+}

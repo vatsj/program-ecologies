@@ -560,6 +560,55 @@ def fixed_summary(d, ch, top=15):
                 slot_more=dict(slot_more), mass_constant_pairs=mass_const_pair, support=support, transitions=trans, net_flux=net, cut=ch['cut'])
 
 
+def fixed_generator(d, N, w=W):
+    U, mu, K = d['U'], d['mu'], d['K']
+    R1 = np.exp(lrho_vec(U.T[None, :, :] - U[:, :, None], N, w)) * 0.5 * mu[None, None, :]
+    R2 = np.exp(lrho_vec(U.T[:, None, :] - U.T[:, :, None], N, w)) * 0.5 * mu[None, None, :]
+    S = K * K
+    Q = np.zeros((S, S)); idx = np.arange(K)
+    for a in range(K):
+        for b in range(K):
+            r1 = R1[a, b].copy(); r1[a] = 0
+            r2 = R2[a, b].copy(); r2[b] = 0
+            Q[a * K + b, idx * K + b] += r1
+            Q[a * K + b, a * K + idx] += r2
+    np.fill_diagonal(Q, 0); np.fill_diagonal(Q, -Q.sum(1))
+    return Q
+
+
+def fixed_hitting(d, N, w=W):
+    """convention-to-convention moves of the fixed-role chain: from each efficient constant pair, the distribution of
+    the next *different* efficient constant pair hit (returns to the source allowed), the expected time to it (mutation
+    events), and the exact exit time and exit distribution by ordered label (the first state of another label, often
+    a transient conceder state)."""
+    K = d['K']; acts = d['game'].actions; v = d['values']; ci = const_index(d)
+    Q = fixed_generator(d, N, w)
+    S = K * K
+    lab = np.array([[olabel_of(slot_outcome(d, a, b)) for b in range(K)] for a in range(K)], dtype=object).ravel()
+    conv = [(ci[acts[i]] * K + ci[acts[j]], '%s|%s' % (D.frac(v[i]), D.frac(v[j]))) for i in range(len(acts)) for j in range(len(acts)) if abs(v[i] + v[j] - 1) < 1e-9]
+    cs = [c for c, _ in conv]
+    out = {}
+    for s0, name in conv:
+        A = [c for c in cs if c != s0]
+        rest = np.setdiff1d(np.arange(S), A)
+        Qrr = Q[np.ix_(rest, rest)]
+        H = np.linalg.solve(-Qrr, Q[np.ix_(rest, A)])
+        T = np.linalg.solve(-Qrr, np.ones(len(rest)))
+        p = int(np.searchsorted(rest, s0))
+        nxt = {conv[cs.index(c)][1]: float(h) for c, h in zip(A, H[p])}
+        X = np.nonzero(lab == lab[s0])[0]
+        Qxx = Q[np.ix_(X, X)]
+        tx = np.linalg.solve(-Qxx, np.ones(len(X)))
+        outside = np.setdiff1d(np.arange(S), X)
+        Hx = np.linalg.solve(-Qxx, Q[np.ix_(X, outside)])
+        px = int(np.searchsorted(X, s0))
+        ex = defaultdict(float)
+        for o, h in zip(outside, Hx[px]):
+            ex[lab[o]] += h
+        out[name] = dict(next_convention=nxt, time_to_next=float(T[p]), exit_time=float(tx[px]), exit_to=dict(ex))
+    return out
+
+
 class ClassProvider:
     """chain.Chain provider over the class-level payoff matrix (classes are already deduplicated)."""
     def __init__(self, U, mu):
@@ -657,6 +706,7 @@ def cmd_chain(a):
         d = data(a.game, a.n, a.arm)
         if a.arm == 'fixed':
             r = fixed_summary(d, fixed_chain(d, N))
+            r['hitting'] = fixed_hitting(d, N)
         else:
             ch, prov = onepop_chain(d, N)
             r = onepop_summary(d, ch)
@@ -1195,6 +1245,148 @@ def cell_summary(rs, fixed):
     return out
 
 
+def _f(x, p=3):
+    if x is None or (isinstance(x, float) and x != x): return '-'
+    return ('%.' + str(p) + 'f') % x
+
+
+def _ci(t, p=3):
+    return '%s [%s, %s]' % (_f(t[0], p), _f(t[1], p), _f(t[2], p))
+
+
+def report_chains(game, lines, J):
+    uns_all = None
+    for arm in ARMS:
+        rows = []
+        for N in (100, 1000, 3000, 10000):
+            fn = os.path.join(OUT, 'chain_%s_n%d_%s_N%d.json' % (game, NDEF, arm, N))
+            if os.path.exists(fn):
+                rows.append(json.load(open(fn)))
+        if not rows: continue
+        J.setdefault('chains', {})['%s_%s' % (game, arm)] = rows
+        d = data(game, NDEF, arm)
+        uns, ords = split_names(d['values'])
+        lines += ['### %s, %s (%s)' % (game, arm, 'N per slot' if arm == 'fixed' else 'one population of N'), '',
+                  'Encounter-level π-weighted outcome shares (per ordered split: slot 1 | slot 2 for fixed roles; the focal program first otherwise).', '',
+                  '| N | ' + ' | '.join(ords) + ' | ineff | clash | P(efficient) | E[max share] | ex ante max | E[max norm. share \\| compatible] | dwl | cut |',
+                  '|' + '---|' * (len(ords) + 9)]
+        for r in rows:
+            o = r['outcome']
+            lines.append('| %d | ' % r['N'] + ' | '.join(_f(o.get('o:' + s, 0.0), 4) for s in ords) + ' | %s | %s | %s | %s | %s | %s | %s | %.1e |' % (
+                _f(o['ineff'], 4), _f(o['clash'], 4), _f(o['eff'], 4), _f(o['E_max_pay']), _f(o['exante_max']), _f(o['E_max_share_compat']), _f(o['dwl'], 4),
+                r.get('cut', r.get('cut_flow', 0.0))))
+        lines += ['', 'Support (top states, π, label):', '']
+        for r in rows:
+            lines.append('- N = %d: ' % r['N'] + '; '.join('`%s` %.4f (%s)' % (s['state'], s['pi'], s['label']) for s in r['support'][:6]))
+            if arm != 'fixed':
+                lines[-1] += ' — polymorphic mass %.4f, monomorphic-constant mass %.4f, states %d, indeterminate %d' % (
+                    r['mass_polymorphic'], r['mass_mono_constant'], r['n_states'], r['indeterminate'])
+            else:
+                lines[-1] += ' — constant pairs %.4f; slot 1 gets more %.4f, slot 2 %.4f, equal %.4f' % (
+                    r['mass_constant_pairs'], r['slot_more'].get('slot1', 0), r['slot_more'].get('slot2', 0), r['slot_more'].get('equal', 0))
+        lines += ['', 'Transitions between state labels (largest fluxes; rate = flux / label mass, relative units within a row of N; '
+                  '"via" = share of the flux leaving from a state with a non-constant program, i.e. a shadow or conceder path):', '']
+        for r in rows:
+            lines.append('- N = %d: ' % r['N'] + '; '.join('%s → %s %.3g (via %.2f)' % (t['src'], t['dst'], t['rate_per_unit_mass'], t['share_from_nonconstant_states'])
+                                                         for t in r['transitions'][:8]))
+        if arm == 'fixed':
+            lines += ['', 'Convention-to-convention moves (exact, from the generator): from each efficient constant pair, the next different '
+                      'efficient constant pair hit, the expected time to it, and the exact exit time from its label (mutation events).', '',
+                      '| N | from | next convention hit | time to next | exit time from label | first label after exit |', '|---|---|---|---|---|---|']
+            for r in rows:
+                for nm, h in r.get('hitting', {}).items():
+                    lines.append('| %d | %s | %s | %.3g | %.3g | %s |' % (r['N'], nm, ', '.join('%s %.2f' % kv for kv in sorted(h['next_convention'].items(), key=lambda kv: -kv[1])),
+                                                                     h['time_to_next'], h['exit_time'], ', '.join('%s %.2f' % kv for kv in sorted(h['exit_to'].items(), key=lambda kv: -kv[1])[:4])))
+        else:
+            lines += ['', 'Top exits of the heaviest states (probability per mutation event; mutants):', '']
+            for r in rows:
+                for e in r['top_exits'][:3]:
+                    lines.append('- N = %d, from `%s`: ' % (r['N'], e['state']) + '; '.join('`%s` (%s) %.2g by %s' % (x['to'], x['label'], x['p'], ', '.join('`%s`' % m for m, _ in x['mutants'][:2])) for x in e['exits'][:4]))
+        lines.append('')
+
+
+def report_lotteries(game, lines, J):
+    import glob
+    files = sorted(glob.glob(os.path.join(OUT, 'lottery_%s_n%d_I*_N*_main.json' % (game, NDEF))))
+    for fn in files:
+        L = json.load(open(fn))
+        m_ = re.search(r'_I(\d+)_N(\d+)_', fn); I, N = int(m_.group(1)), int(m_.group(2))
+        lines += ['### Lottery %s at (N, I) = (%d, %d)' % (game, N, I), '']
+        lines += ['Island partition labels at the horizon (share of islands; mean over runs with run-level 95% t-intervals); fixed roles: '
+                  'ordered slot 1 | slot 2, with the unordered view.', '']
+        for key in sorted(L, key=lambda k: (ARMS.index(k.split('|')[0]), float(k.split('|')[1]))):
+            arm, mN = key.split('|')
+            rs = L[key]
+            cs = cell_summary(rs, arm == 'fixed')
+            J.setdefault('lotteries', {})['%s_I%d_N%d_%s_mN%s' % (game, I, N, arm, mN)] = cs
+            lines.append('**%s, mN = %s** (%d runs): ' % (arm, mN, cs['runs']) + '; '.join('%s %s' % (l, _ci(t)) for l, t in sorted(cs['label_share'].items(), key=lambda kv: -kv[1][0])))
+            if arm == 'fixed':
+                lines.append('  unordered: ' + '; '.join('%s %s' % (l, _ci(t)) for l, t in sorted(cs['unordered_share'].items(), key=lambda kv: -kv[1][0]))
+                             + '. Slot 1 gets more on %s of islands, slot 2 on %s; mean slot-1 minus slot-2 payoff %s; mean slot payoff %s.' % (
+                                 _ci(cs['slot1_more']), _ci(cs['slot2_more']), _ci(cs['slot_diff']), _ci(cs['mean_slot_payoff'])))
+            lines.append('  Efficient islands %s; encounter efficiency %s; dwl %s; E[max share] %s; ex ante max %s; conventions per run %s; '
+                         'runs with ≥ 2 conventions %s; closed %s; censored %s; partition-frozen in %d runs (median generation %s); '
+                         'escapes after it %d (%s per island-generation); label losses %d (%s per generation); island establishment median %s generations '
+                         '(%d islands never locally closed); holders %s.' % (
+                             _ci(cs['eff_islands']), _ci(cs['eff_encounters']), _ci(cs['dwl']), _ci(cs['E_max_pay']), _ci(cs['exante_max']), _ci(cs['n_conventions'], 2),
+                             _ci(cs['patchwork']), _ci(cs['closed']), _ci(cs['censored']), cs['partition_frozen_runs'], _f(cs['t_pf_median'], 0), cs['escapes'],
+                             '%.2g' % cs['escape_rate_per_island_gen'] if cs['escape_rate_per_island_gen'] is not None else '-', cs['losses'],
+                             '%.2g' % cs['loss_hazard_per_gen'] if cs['loss_hazard_per_gen'] is not None else '-', _f(cs['T_est_median'], 0),
+                             cs['not_established_islands'], ', '.join('`%s` %.2f' % kv for kv in list(cs['holders'].items())[:5])))
+            lines.append('')
+
+
+def report_merges(lines, J):
+    fn = os.path.join(OUT, 'merge_dollar5.json')
+    if not os.path.exists(fn): return
+    recs = json.load(open(fn))
+    tab = defaultdict(lambda: [0, 0, []])
+    for r in recs:
+        k = (r['kind'], r['N'], r['share'])
+        tab[k][0] += r['label'] == '1/2-1/2'; tab[k][1] += 1; tab[k][2].append(r['label'])
+    shares = sorted({k[2] for k in tab})
+    lines += ['### Merges (`role` arm, one population, 50–50 share s; fraction ending on 1/2–1/2, Wilson 95%)', '',
+              '| kind | N | ' + ' | '.join('s = %g' % s for s in shares) + ' |', '|---|---|' + '---|' * len(shares)]
+    J['merges'] = {}
+    for kind in ('pure', 'sampled'):
+        for N in sorted({k[1] for k in tab}):
+            if (kind, N, shares[0]) not in tab: continue
+            cells = []
+            for s in shares:
+                k_, n_, labs = tab[(kind, N, s)]
+                w_ = wilson(k_, n_); cells.append('%.2f [%.2f, %.2f]' % w_)
+                J['merges']['%s_N%d_s%g' % (kind, N, s)] = dict(fair=k_, n=n_, other=Counter(labs).most_common())
+            lines.append('| %s | %d | ' % (kind, N) + ' | '.join(cells) + ' |')
+    lines.append('')
+
+
+def cmd_report(a):
+    J = {}
+    lines = ['# Divide-the-dollar partitions across islands, with `ROLE`, without `ROLE`, and with fixed roles', '',
+             'Spec `specs/2026-10-05-dollar-partitions.md`; predictions `predictions/2026-10-05-dollar-partitions.md`; code `src/dollar_partitions.py`. '
+             'Weak arm, n = 5 in every arm, w = 0.3. Static tables: `runs/dollar_partitions/static_dollar5.md`, `static_dollar3.md`. '
+             'Per-cell JSON under `runs/dollar_partitions/`.', '']
+    for game in ('dollar5', 'dollar3'):
+        lines += ['## ε → 0 chains: %s' % game, '']
+        report_chains(game, lines, J)
+    vfn = os.path.join(OUT, 'validate_dollar5_N50_eps0.001.json')
+    if os.path.exists(vfn):
+        V = json.load(open(vfn)); J['validate'] = V
+        lines += ['## Validation of the fixed-role reduction (joint two-slot simulation, N = 50 per slot, ε = 10⁻³ per birth, %d seeds × %d generations)' % (V['seeds'], V['gens']), '',
+                  '| category | chain | simulation (± s.e. over seeds) |', '|---|---|---|']
+        for c in V['chain']:
+            lines.append('| %s | %.4f | %.4f ± %.4f |' % (c, V['chain'][c], V['sim_mean'][c], V['sim_se'][c]))
+        lines += ['', 'Total variation %.4f; slot-checks with the largest class below 0.9: %.4f (mean over seeds).' % (V['tv'], float(np.mean(V['poly_frac']))), '']
+    for game in ('dollar5', 'dollar3'):
+        lines += ['## ε = 0 lotteries: %s' % game, '']
+        report_lotteries(game, lines, J)
+    lines += ['## Merges', '']
+    report_merges(lines, J)
+    open(os.path.join(ROOT, 'runs', 'dollar-partitions.md'), 'w').write('\n'.join(lines) + '\n')
+    json.dump(J, open(os.path.join(ROOT, 'runs', 'dollar-partitions.json'), 'w'), indent=1, default=str)
+    print('\n'.join(lines))
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest='cmd')
@@ -1214,8 +1406,11 @@ if __name__ == '__main__':
     mg.add_argument('--N', type=int, nargs='+', default=[100, 400]); mg.add_argument('--shares', type=float, nargs='+', default=[0.25, 0.3, 0.35, 0.375, 0.4, 0.45, 0.5])
     mg.add_argument('--reps', type=int, default=100); mg.add_argument('--ends', default=None); mg.add_argument('--procs', type=int, default=3)
     mg.add_argument('--salt', type=int, default=4242)
+    rp = sub.add_parser('report')
     a = ap.parse_args()
-    if a.cmd == 'validate':
+    if a.cmd == 'report':
+        cmd_report(a)
+    elif a.cmd == 'validate':
         cmd_validate(a)
     elif a.cmd == 'merge':
         cmd_merge(a)

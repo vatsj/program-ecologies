@@ -1,0 +1,611 @@
+{
+ "outcome": {
+  "1/6-5/6": 0.027120595471925572,
+  "1/3-2/3": 0.0020253129486517214,
+  "1/2-1/2": 0.9383999055605416,
+  "ineff": 0.004630747621242999,
+  "clash": 0.027823438397638015,
+  "eff": 0.967545813981119,
+  "E_max_pay": 0.49395002873671473,
+  "dwl": 0.015428774240506581,
+  "mean_pay": 0.4845712257594935,
+  "exante_max": 0.4845687254898818,
+  "o:1/6|5/6": 0.013560297735962786,
+  "o:1/3|2/3": 0.0010126564743258607,
+  "o:1/2|1/2": 0.9383999055605416,
+  "o:2/3|1/3": 0.0010126564743258607,
+  "o:5/6|1/6": 0.013560297735962786,
+  "E_max_share_compat": 0.5096476535946292
+ },
+ "state_label_mass": {
+  "ineff": 0.003985343494575519,
+  "1/2-1/2": 0.9315425712809048,
+  "mixed": 0.06447208522451968,
+  "clash": 5.104281418410603e-17
+ },
+ "mass_mono_constant": 0.9304059465576789,
+ "mass_polymorphic": 0.06447198815609627,
+ "support": [
+  {
+   "state": "S3:1.00",
+   "kinds": [
+    "constant"
+   ],
+   "pi": 0.9304058948443207,
+   "label": "1/2-1/2"
+  },
+  {
+   "state": "S5:0.67 + flip(THEM(^S3)):0.33",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.060767107970231375,
+   "label": "mixed"
+  },
+  {
+   "state": "max(THEM(THEM),S5):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.002308837395620117,
+   "label": "ineff"
+  },
+  {
+   "state": "max(THEM(ME),S5):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0016762833690863292,
+   "label": "ineff"
+  },
+  {
+   "state": "S2:0.17 + S4:0.50 + flip(THEM(THEM)):0.07 + flip(THEM(^S5)):0.27",
+   "kinds": [
+    "constant",
+    "constant",
+    "reader",
+    "reader"
+   ],
+   "pi": 0.0014011507215285388,
+   "label": "mixed"
+  },
+  {
+   "state": "THEM(^S3):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0011365146072148708,
+   "label": "1/2-1/2"
+  },
+  {
+   "state": "S2:0.33 + max(S4,THEM(THEM)):0.67",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.000573322906189997,
+   "label": "mixed"
+  },
+  {
+   "state": "max(S4,THEM(THEM)):0.50 + flip(THEM(^S3)):0.50",
+   "kinds": [
+    "reader",
+    "reader"
+   ],
+   "pi": 0.0003795911394222153,
+   "label": "mixed"
+  },
+  {
+   "state": "S2:0.17 + S4:0.50 + flip(THEM(ME)):0.07 + flip(THEM(^S5)):0.27",
+   "kinds": [
+    "constant",
+    "constant",
+    "reader",
+    "reader"
+   ],
+   "pi": 0.000339714128769586,
+   "label": "mixed"
+  },
+  {
+   "state": "S2:0.17 + S4:0.50 + flip(THEM(THEM)):0.33",
+   "kinds": [
+    "constant",
+    "constant",
+    "reader"
+   ],
+   "pi": 0.00031222393637848,
+   "label": "mixed"
+  },
+  {
+   "state": "S2:0.17 + S4:0.50 + flip(THEM(ME)):0.33",
+   "kinds": [
+    "constant",
+    "constant",
+    "reader"
+   ],
+   "pi": 0.00023984341287180388,
+   "label": "mixed"
+  },
+  {
+   "state": "S2:0.12 + S4:0.50 + flip(THEM(^X)):0.38",
+   "kinds": [
+    "constant",
+    "constant",
+    "reader"
+   ],
+   "pi": 0.00014872872170004517,
+   "label": "mixed"
+  },
+  {
+   "state": "S2:0.33 + max(S4,THEM(ME)):0.67",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 8.452860015293856e-05,
+   "label": "mixed"
+  },
+  {
+   "state": "max(S4,THEM(ME)):0.50 + flip(THEM(^S3)):0.50",
+   "kinds": [
+    "reader",
+    "reader"
+   ],
+   "pi": 5.624135133338408e-05,
+   "label": "mixed"
+  },
+  {
+   "state": "S2:0.50 + S4:0.50",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 4.3373334135361726e-05,
+   "label": "mixed"
+  }
+ ],
+ "transitions": [
+  {
+   "src": "mixed",
+   "dst": "ineff",
+   "flux": 5.183750299993423e-09,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 8.040301910418072e-08
+  },
+  {
+   "src": "1/2-1/2",
+   "dst": "mixed",
+   "flux": 3.799755313259842e-09,
+   "share_from_nonconstant_states": 0.9999999999943504,
+   "rate_per_unit_mass": 4.078992662713247e-09
+  },
+  {
+   "src": "ineff",
+   "dst": "1/2-1/2",
+   "flux": 2.8218595302158786e-09,
+   "share_from_nonconstant_states": 0.8548672533251747,
+   "rate_per_unit_mass": 7.080593013015648e-07
+  },
+  {
+   "src": "ineff",
+   "dst": "mixed",
+   "flux": 2.344699244212703e-09,
+   "share_from_nonconstant_states": 0.6478571924610373,
+   "rate_per_unit_mass": 5.883305284485743e-07
+  },
+  {
+   "src": "mixed",
+   "dst": "1/2-1/2",
+   "flux": 9.720457866732558e-10,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 1.507700244668948e-08
+  },
+  {
+   "src": "1/2-1/2",
+   "dst": "ineff",
+   "flux": 3.7678248714283575e-13,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 4.04471570874905e-13
+  },
+  {
+   "src": "ineff",
+   "dst": "clash",
+   "flux": 5.692529394477485e-19,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 1.4283660623546326e-16
+  },
+  {
+   "src": "mixed",
+   "dst": "clash",
+   "flux": 3.027047880683319e-22,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 4.695129481452057e-21
+  },
+  {
+   "src": "1/2-1/2",
+   "dst": "clash",
+   "flux": 9.621203842028844e-88,
+   "share_from_nonconstant_states": 0.9999999999999585,
+   "rate_per_unit_mass": 1.0328249227299768e-87
+  }
+ ],
+ "top_exits": [
+  {
+   "state": "S3:1.00",
+   "exits": [
+    {
+     "to": "THEM(^S3):1.00",
+     "label": "1/2-1/2",
+     "p": 6.597664493434844e-08,
+     "mutants": [
+      [
+       "THEM(^S3)",
+       6.597664493434844e-08
+      ]
+     ]
+    },
+    {
+     "to": "flip(THEM(^S3)):1.00",
+     "label": "1/2-1/2",
+     "p": 4.08881868235773e-09,
+     "mutants": [
+      [
+       "flip(THEM(^S3))",
+       4.08881868235773e-09
+      ]
+     ]
+    },
+    {
+     "to": "min(S3,max(X,X)):1.00",
+     "label": "mixed",
+     "p": 2.3072149305798438e-20,
+     "mutants": [
+      [
+       "min(S3,max(X,X))",
+       2.3072149305798438e-20
+      ]
+     ]
+    },
+    {
+     "to": "max(S2,min(S3,X)):1.00",
+     "label": "mixed",
+     "p": 1.7358821223213458e-32,
+     "mutants": [
+      [
+       "max(S2,min(S3,X))",
+       1.7358821223213458e-32
+      ]
+     ]
+    },
+    {
+     "to": "max(S3,min(X,X)):1.00",
+     "label": "mixed",
+     "p": 8.76131305215223e-36,
+     "mutants": [
+      [
+       "max(S3,min(X,X))",
+       8.76131305215223e-36
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "state": "S5:0.67 + flip(THEM(^S3)):0.33",
+   "exits": [
+    {
+     "to": "max(THEM(ME),S5):1.00",
+     "label": "ineff",
+     "p": 3.271611012325956e-08,
+     "mutants": [
+      [
+       "max(THEM(ME),S5)",
+       3.271611012325956e-08
+      ]
+     ]
+    },
+    {
+     "to": "max(THEM(THEM),S5):1.00",
+     "label": "ineff",
+     "p": 3.271611012325956e-08,
+     "mutants": [
+      [
+       "max(THEM(THEM),S5)",
+       3.271611012325956e-08
+      ]
+     ]
+    },
+    {
+     "to": "S3:1.00",
+     "label": "1/2-1/2",
+     "p": 1.5995606728329467e-09,
+     "mutants": [
+      [
+       "S3",
+       1.5995606728329467e-09
+      ]
+     ]
+    },
+    {
+     "to": "THEM(^S3):1.00",
+     "label": "1/2-1/2",
+     "p": 1.953941770533802e-12,
+     "mutants": [
+      [
+       "THEM(^S3)",
+       1.953941770533802e-12
+      ]
+     ]
+    },
+    {
+     "to": "max(S4,THEM(ME)):1.00",
+     "label": "ineff",
+     "p": 1.2415807176732626e-13,
+     "mutants": [
+      [
+       "max(S4,THEM(ME))",
+       1.2415807176732626e-13
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "state": "max(THEM(THEM),S5):1.00",
+   "exits": [
+    {
+     "to": "THEM(ME):1.00",
+     "label": "ineff",
+     "p": 3.367596498108521e-07,
+     "mutants": [
+      [
+       "THEM(ME)",
+       3.367596498108521e-07
+      ]
+     ]
+    },
+    {
+     "to": "THEM(THEM):1.00",
+     "label": "ineff",
+     "p": 3.367596498108521e-07,
+     "mutants": [
+      [
+       "THEM(THEM)",
+       3.367596498108521e-07
+      ]
+     ]
+    },
+    {
+     "to": "flip(THEM(THEM)):1.00",
+     "label": "ineff",
+     "p": 6.18878262519907e-08,
+     "mutants": [
+      [
+       "flip(THEM(THEM))",
+       6.18878262519907e-08
+      ]
+     ]
+    },
+    {
+     "to": "flip(THEM(ME)):1.00",
+     "label": "ineff",
+     "p": 6.18878262519907e-08,
+     "mutants": [
+      [
+       "flip(THEM(ME))",
+       6.18878262519907e-08
+      ]
+     ]
+    },
+    {
+     "to": "max(S2,THEM(THEM)):1.00",
+     "label": "ineff",
+     "p": 8.177637364715459e-09,
+     "mutants": [
+      [
+       "max(S2,THEM(THEM))",
+       8.177637364715459e-09
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "state": "max(THEM(ME),S5):1.00",
+   "exits": [
+    {
+     "to": "max(X,THEM(THEM)):0.27 + max(THEM(ME),S5):0.73",
+     "label": "mixed",
+     "p": 3.465040814587095e-07,
+     "mutants": [
+      [
+       "max(X,THEM(THEM))",
+       3.465040814587095e-07
+      ]
+     ]
+    },
+    {
+     "to": "THEM(ME):1.00",
+     "label": "ineff",
+     "p": 3.367596498108521e-07,
+     "mutants": [
+      [
+       "THEM(ME)",
+       3.367596498108521e-07
+      ]
+     ]
+    },
+    {
+     "to": "THEM(THEM):1.00",
+     "label": "ineff",
+     "p": 3.367596498108521e-07,
+     "mutants": [
+      [
+       "THEM(THEM)",
+       3.367596498108521e-07
+      ]
+     ]
+    },
+    {
+     "to": "flip(THEM(THEM)):1.00",
+     "label": "ineff",
+     "p": 6.18878262519907e-08,
+     "mutants": [
+      [
+       "flip(THEM(THEM))",
+       6.18878262519907e-08
+      ]
+     ]
+    },
+    {
+     "to": "flip(THEM(ME)):1.00",
+     "label": "ineff",
+     "p": 6.18878262519907e-08,
+     "mutants": [
+      [
+       "flip(THEM(ME))",
+       6.18878262519907e-08
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "state": "S2:0.17 + S4:0.50 + flip(THEM(THEM)):0.07 + flip(THEM(^S5)):0.27",
+   "exits": [
+    {
+     "to": "S2:0.33 + max(S4,THEM(THEM)):0.67",
+     "label": "mixed",
+     "p": 1.0405623053747965e-07,
+     "mutants": [
+      [
+       "max(S4,THEM(THEM))",
+       1.0405623053747965e-07
+      ]
+     ]
+    },
+    {
+     "to": "S3:1.00",
+     "label": "1/2-1/2",
+     "p": 6.764834324709466e-08,
+     "mutants": [
+      [
+       "S3",
+       6.764834324709466e-08
+      ]
+     ]
+    },
+    {
+     "to": "S2:0.33 + flip(THEM(THEM)):0.02 + max(S3,THEM(THEM)):0.56 + flip(THEM(^S5)):0.08",
+     "label": "?",
+     "p": 4.896969036006353e-09,
+     "mutants": [
+      [
+       "max(S3,THEM(THEM))",
+       4.896969036006353e-09
+      ]
+     ]
+    },
+    {
+     "to": "S4:0.33 + flip(THEM(^S3)):0.67",
+     "label": "mixed",
+     "p": 1.692265505088616e-09,
+     "mutants": [
+      [
+       "flip(THEM(^S3))",
+       1.692265505088616e-09
+      ]
+     ]
+    },
+    {
+     "to": "THEM(THEM):1.00",
+     "label": "ineff",
+     "p": 1.8042093917083023e-10,
+     "mutants": [
+      [
+       "THEM(THEM)",
+       1.8042093917083023e-10
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "state": "THEM(^S3):1.00",
+   "exits": [
+    {
+     "to": "S3:1.00",
+     "label": "1/2-1/2",
+     "p": 5.401064051853286e-05,
+     "mutants": [
+      [
+       "S3",
+       5.401064051853286e-05
+      ]
+     ]
+    },
+    {
+     "to": "flip(THEM(^S3)):1.00",
+     "label": "1/2-1/2",
+     "p": 4.088818682357729e-09,
+     "mutants": [
+      [
+       "flip(THEM(^S3))",
+       4.088818682357729e-09
+      ]
+     ]
+    },
+    {
+     "to": "min(S3,max(X,X)):1.00",
+     "label": "mixed",
+     "p": 1.1027936412238576e-14,
+     "mutants": [
+      [
+       "min(S3,max(X,X))",
+       1.1027936412238576e-14
+      ]
+     ]
+    },
+    {
+     "to": "max(S2,min(S3,X)):1.00",
+     "label": "mixed",
+     "p": 1.9263402383281837e-20,
+     "mutants": [
+      [
+       "max(S2,min(S3,X))",
+       1.9263402383281837e-20
+      ]
+     ]
+    },
+    {
+     "to": "min(S3,X):1.00",
+     "label": "mixed",
+     "p": 2.7827745342914377e-25,
+     "mutants": [
+      [
+       "min(S3,X)",
+       2.7827745342914377e-25
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "net_flux": {
+  "ineff -> mixed": -2.8390510557807202e-09,
+  "1/2-1/2 -> ineff": -2.821482747728736e-09,
+  "1/2-1/2 -> mixed": 2.8277095265865864e-09
+ },
+ "cut_flow": 1.964785122377979e-09,
+ "poly_flow": 1.1286374182972344e-08,
+ "indeterminate": 2,
+ "n_states": 146,
+ "game": "dollar5",
+ "n": 5,
+ "arm": "norole",
+ "N": 3000,
+ "w": 0.3,
+ "K": 78,
+ "time_s": 38.97562789916992
+}
