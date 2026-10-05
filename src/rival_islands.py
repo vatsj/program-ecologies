@@ -137,7 +137,11 @@ def _isactive(i, npres, est, locsum, N):
 
 
 @njit(cache=True)
-def _kern(U, PCC, coopmask, tag, init, N, w, m, seed, checks, lump, iD, r1, r2, preest):
+def _kern(U, PCC, coopmask, tag, init, N, w, m, seed, checks, lump, iD, r1, r2, preest, kprop):
+    """kprop = 1: the single-migrant kernel (draw for draw as before).  kprop > 1: propagule migration
+    (src/island_path.py): a migration event happens with probability m/kprop per birth instead of m, draws kprop
+    offspring without replacement from one uniformly chosen other island (fitness-weighted per individual, as the
+    single-migrant parent) and replaces kprop uniformly chosen residents of the recipient simultaneously."""
     np.random.seed(seed)
     I, K = init.shape
     counts = init.copy(); loc = init.copy()
@@ -167,7 +171,11 @@ def _kern(U, PCC, coopmask, tag, init, N, w, m, seed, checks, lump, iD, r1, r2, 
     nloss = 0; loss_log = np.zeros((2000, 4), np.int64)       # gen, island, holder before (last strong check), holder after
     lasthold = -np.ones(I, np.int64)
     nchk = len(checks)
-    trace = np.zeros((nchk, 12))
+    trace = np.zeros((nchk, 14))
+    # strong-holder transitions (class with >= 0.9 of an island; additions for island_path, no effect on dynamics)
+    shold = -np.ones(I, np.int64); ntr = 0; tr_log = np.zeros((50000, 4), np.int64)   # gen, island, old cls, new cls
+    mig_ct = np.zeros((4, 5), np.int64)        # migrant individuals by (child tag, recipient strong-holder tag; 4 = none)
+    prem = np.zeros(K, np.int64); pvic = np.zeros(K, np.int64); pch = np.zeros(K, np.int64)
     first_sep = -1; sep_a = -1; sep_b = -1; nsepchk = 0
     held_zero = -np.ones(4, np.int64)
     act = np.arange(I); apos = np.arange(I); nact = 0
@@ -178,9 +186,12 @@ def _kern(U, PCC, coopmask, tag, init, N, w, m, seed, checks, lump, iD, r1, r2, 
             e_hold[i] = h; e_hloc[i] = 1.0; e_imm[i] = 0.0; t90[i] = 0; h90[i] = h; hl90[i] = 1.0; imm90[i] = 0.0
         if _isactive(i, npres, est, locsum, N):
             nact = _setact(i, True, act, apos, nact)
+        for t in range(npres[i]):
+            if 10 * counts[i, pres[i, t]] >= 9 * N: shold[i] = pres[i, t]
     IN = I * N
     total = checks[nchk - 1] * IN
     mm = m if I > 1 else 0.0
+    mm = mm / kprop
     b = 0
     ci = 0
     nextchk = checks[0] * IN
@@ -262,7 +273,15 @@ def _kern(U, PCC, coopmask, tag, init, N, w, m, seed, checks, lump, iD, r1, r2, 
                 if glob[k] > 0: nP += 1
             trace[ci, 0] = g; trace[ci, 1] = gtag[1]; trace[ci, 2] = gtag[2]; trace[ci, 3] = held[1]; trace[ci, 4] = held[2]
             trace[ci, 5] = heldc[1]; trace[ci, 6] = heldc[2]; trace[ci, 7] = ncert; trace[ci, 8] = sepf; trace[ci, 9] = cc_tot / I
-            trace[ci, 10] = nact; trace[ci, 11] = nP
+            trace[ci, 10] = nact; trace[ci, 11] = nP; trace[ci, 12] = held[3]; trace[ci, 13] = heldc[3]
+            for i in range(I):
+                for t in range(npres[i]):
+                    k = pres[i, t]
+                    if 10 * counts[i, k] >= 9 * N and shold[i] != k:
+                        if ntr < 50000:
+                            tr_log[ntr, 0] = g; tr_log[ntr, 1] = i; tr_log[ntr, 2] = shold[i]; tr_log[ntr, 3] = k
+                        ntr += 1
+                        shold[i] = k
             ci += 1
             # ---------------- stopping
             if mm > 0.0:
@@ -337,6 +356,7 @@ def _kern(U, PCC, coopmask, tag, init, N, w, m, seed, checks, lump, iD, r1, r2, 
                             pres[i, p] = last; pos[i, last] = p; pos[i, q] = -1; npres[i] -= 1
                             _repay(i, counts, paysum, U, pres, npres)
                             if lasthold[i] == q: lasthold[i] = a
+                            if shold[i] == q: shold[i] = a
                             nact = _setact(i, _isactive(i, npres, est, locsum, N), act, apos, nact)
                         glob[a] += glob[q]; glob[q] = 0
                 nP2 = 0
@@ -356,6 +376,78 @@ def _kern(U, PCC, coopmask, tag, init, N, w, m, seed, checks, lump, iD, r1, r2, 
         if mig:
             src = np.random.randint(I - 1)
             if src >= i: src += 1
+        if mig and kprop > 1:
+            # ---------------- propagule event: kprop offspring from src replace kprop residents of i at once
+            fm = -1e300
+            for t in range(npres[src]):
+                k = pres[src, t]
+                f = (paysum[src, k] - U[k, k]) / (N - 1)
+                if f > fm: fm = f
+            for t in range(npres[src]):
+                k = pres[src, t]; prem[k] = counts[src, k]
+            for t in range(npres[i]):
+                k = pres[i, t]; pvic[k] = 0
+            for x in range(kprop):
+                tot = 0.0
+                for t in range(npres[src]):
+                    k = pres[src, t]
+                    tot += prem[k] * np.exp(w * ((paysum[src, k] - U[k, k]) / (N - 1) - fm))
+                u = np.random.random() * tot; acc = 0.0; ch = -1
+                for t in range(npres[src]):
+                    if prem[pres[src, t]] > 0: ch = pres[src, t]          # fallback: last class with copies left
+                for t in range(npres[src]):
+                    k = pres[src, t]
+                    acc += prem[k] * np.exp(w * ((paysum[src, k] - U[k, k]) / (N - 1) - fm))
+                    if u <= acc and prem[k] > 0:
+                        ch = k; break
+                prem[ch] -= 1; pch[ch] += 1
+            nleft = N
+            for x in range(kprop):
+                u2 = np.random.randint(nleft); acc2 = 0; vc = pres[i, 0]
+                for t in range(npres[i]):
+                    k = pres[i, t]; acc2 += counts[i, k] - pvic[k]
+                    if u2 < acc2:
+                        vc = k; break
+                pvic[vc] += 1; nleft -= 1
+            arr_all[i] += kprop
+            hs = shold[i]
+            hst = 4 if hs < 0 else tag[hs]
+            # removals first (victim labels drawn among the pre-event residents of their class), then additions
+            for t in range(npres[i]):
+                k = pres[i, t]
+                for x in range(pvic[k]):
+                    if est[i] == 0:
+                        vl = 1 if np.random.random() * (counts[i, k] - x) < loc[i, k] else 0
+                        loc[i, k] -= vl; locsum[i] -= vl
+            nt = npres[i]
+            t = 0
+            while t < nt:
+                k = pres[i, t]
+                if pvic[k] > 0:
+                    counts[i, k] -= pvic[k]; glob[k] -= pvic[k]; gtag[tag[k]] -= pvic[k]
+                    pvic[k] = 0
+                if counts[i, k] == 0:
+                    p = pos[i, k]; last = pres[i, npres[i] - 1]
+                    pres[i, p] = last; pos[i, last] = p; pos[i, k] = -1; npres[i] -= 1; nt -= 1
+                    continue
+                t += 1
+            for t in range(npres[src]):
+                k = pres[src, t]
+                if pch[k] == 0: continue
+                c = pch[k]; pch[k] = 0
+                mig_ct[tag[k], hst] += c
+                if est[i] == 0:
+                    arr[i] += c
+                    if coopmask[k]: arrC[i] += c
+                    if k == iD: arrD[i] += c
+                if counts[i, k] == 0:
+                    pres[i, npres[i]] = k; pos[i, k] = npres[i]; npres[i] += 1
+                counts[i, k] += c; glob[k] += c; gtag[tag[k]] += c
+            for t in range(4):
+                if gtag[t] == 0 and t_ext[t] < 0: t_ext[t] = b / IN
+            _repay(i, counts, paysum, U, pres, npres)
+            nact = _setact(i, _isactive(i, npres, est, locsum, N), act, apos, nact)
+            continue
         child = AS._sample_parent(counts, paysum, U, pres, npres, src, N, w)
         u = np.random.randint(N); acc = 0; victim = pres[i, 0]
         for t in range(npres[i]):
@@ -364,6 +456,7 @@ def _kern(U, PCC, coopmask, tag, init, N, w, m, seed, checks, lump, iD, r1, r2, 
                 victim = k; break
         if mig:
             arr_all[i] += 1
+            mig_ct[tag[child], 4 if shold[i] < 0 else tag[shold[i]]] += 1
         if est[i] == 0:
             if mig:
                 cl = 0
@@ -416,7 +509,7 @@ def _kern(U, PCC, coopmask, tag, init, N, w, m, seed, checks, lump, iD, r1, r2, 
         isl_cc[i], isl_pay[i] = AS._island_cc(counts, PCC, U, pres, npres, paysum, i, N)
     return (status, stop_gen, counts, isl_cc, isl_pay, trace[:ci], t_ext, held_zero, parent,
             t_est, e_arr, e_arrC, e_arrD, e_imm, e_hold, e_hloc, t90, a90, imm90, h90, hl90, arr_all,
-            loss_log[:min(nloss, 2000)], nloss, first_sep, sep_a, sep_b, nsepchk)
+            loss_log[:min(nloss, 2000)], nloss, first_sep, sep_a, sep_b, nsepchk, tr_log[:min(ntr, 50000)], ntr, mig_ct)
 
 
 STATUS = {1: 'frozen', 3: 'horizon-certified', 4: 'unresolved', 5: 'local-frozen'}
@@ -476,7 +569,7 @@ def simulate(d, init, pre, A, B, N, mN, seed, gens, lump=True):
     rr = np.random.default_rng(seed)
     r1 = rr.random(K); r2 = rr.random(K)
     iDl = int(np.searchsorted(sup, d['iD'])) if d['iD'] in set(sup.tolist()) else -1
-    out = _kern(U, PCC, coop, tag, loc_init, N, W, mN / N, seed, checks_schedule(gens), lump, iDl, r1, r2, pre)
+    out = _kern(U, PCC, coop, tag, loc_init, N, W, mN / N, seed, checks_schedule(gens), lump, iDl, r1, r2, pre, 1)
     return sup, U, PCC, coop, tag, out
 
 
@@ -494,7 +587,7 @@ def job(j):
     t0 = time.time()
     sup, U, PCC, coop, tag, o = simulate(d, init, pre, A, B, N, mN, ss, gens)
     (st, sg, counts, isl_cc, isl_pay, trace, t_ext, held_zero, parent, t_est, e_arr, e_arrC, e_arrD, e_imm, e_hold, e_hloc,
-     t90, a90, imm90, h90, hl90, arr_all, loss_log, nloss, first_sep, sep_a, sep_b, nsepchk) = o
+     t90, a90, imm90, h90, hl90, arr_all, loss_log, nloss, first_sep, sep_a, sep_b, nsepchk) = o[:28]
     G = lambda k: nm[int(sup[k])] if k >= 0 else None
     glob = counts.sum(0)
     hold = [holder(counts[i]) for i in range(I)]
@@ -699,7 +792,7 @@ def merge_one(r):
     rr = np.random.default_rng(seed)
     t0 = time.time()
     out = _kern(U, PCC, coop, tag, init, NN, W, 0.0, seed, checks_schedule(GENS), True, -1, rr.random(K), rr.random(K),
-                np.ones(1, np.int64))
+                np.ones(1, np.int64), 1)
     st, sg, counts = out[0], out[1], out[2]
     fin = counts[0]
     # clean two-type merge: two largest classes >= 0.98 of the population and mutually defecting
