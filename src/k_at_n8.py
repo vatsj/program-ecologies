@@ -623,6 +623,79 @@ def cmd_priced(a):
                 r.get('top_coop'), r.get('pi_top', 0), r.get('top_exit', 0), r.get('top_exit_strict', 0), r['t']), flush=True)
 
 
+# ------------------------------------------------------------------ the eps = 0 lottery at n = 8
+def lottery_job(j):
+    """As proof_length_arm._lottery_job, for L_n (seeding: iid from mu, paired across arms by seed)."""
+    import almost_all_seeds as AS
+    label, n, val, N, I, rep = j
+    L = tables(n)[0]
+    prov = build_prov(n, val)
+    names = list(prov.names)
+    U = np.ascontiguousarray(prov.Ufull, dtype=float); PCC = np.ascontiguousarray(prov.PCC, dtype=float)
+    K = len(names)
+    cls = np.zeros(len(L.rep), np.int64)
+    for k, mem in enumerate(prov.canon):
+        for c in mem: cls[c] = k
+    iC = names.index('C')
+    coop = [k for k in range(K) if PCC[k, k] >= 0.95 and k != iC]
+    mu = L.mu_canon / L.mu_canon.sum()
+    rng = np.random.default_rng([N, I, n, rep, 2026104])
+    init = np.zeros((I, K), np.int64)
+    for i in range(I):
+        cnt = rng.multinomial(N, mu)
+        np.add.at(init[i], cls, cnt)
+    coopmask = np.zeros(K, np.bool_); coopmask[coop] = True
+    t = time.time()
+    res = AS._run(U, PCC, init, N, AS.W, 1.0 / N, 100000, 20, 100003 * rep + 7 * N + I + 1000 + 99991, iC, coopmask)
+    st, sg, counts, isl_cc, isl_pay = res[:5]
+    cc = float(isl_cc.mean()); pay = float(isl_pay.mean())
+    glob = counts.sum(0)
+    return dict(label=label, n=n, N=N, I=I, rep=rep, status=AS.STATUS[st], stop_gen=int(sg), pcc=cc, pay=pay,
+                outcome=AS.outcome(cc, pay) if st in (1, 2, 3) else ('unresolved' if st == 4 else None),
+                final={names[k]: int(v) for k, v in enumerate(glob) if v > 0}, t=time.time() - t)
+
+
+def cmd_lottery(a):
+    import almost_all_seeds as AS
+    arms = [('free', load_val(8, 'free'))] + [('K b=%d' % b, load_val(8, b)) for b in a.budgets]
+    jobs = [(lab, 8, v, 100, 64, rep) for lab, v in arms for rep in range(a.reps)]
+    path = os.path.join(RUNS, 'k-at-n8-lottery.json')
+    t = time.time(); rows = []
+    with Pool(a.workers) as pool:
+        for r in pool.imap_unordered(lottery_job, jobs, chunksize=1):
+            rows.append(r)
+            json.dump(dict(rows=rows), open(path, 'w'), default=str)
+            print(r['label'], r['rep'], r['outcome'], r['status'], '%.0fs' % r['t'], flush=True)
+    summ = []
+    for lab, _ in arms:
+        R = [r for r in rows if r['label'] == lab]
+        res = [r for r in R if r['outcome'] not in ('unresolved', None)]
+        k = sum(1 for r in res if r['outcome'] == 'efficient')
+        lo, hi = AS.wilson(k, len(res))
+        summ.append(dict(label=lab, n=len(res), efficient=k, frac=k / max(len(res), 1), wilson=[lo, hi], unresolved=len(R) - len(res)))
+        print('%-8s efficient %d/%d [%.2f, %.2f], unresolved %d' % (lab, k, len(res), lo, hi, len(R) - len(res)))
+    json.dump(dict(rows=rows, summary=summ, wall_s=time.time() - t), open(path, 'w'), default=str)
+
+
+def cmd_family(a):
+    """Named family beyond L_8 (P2, the level-2 ladder, Conjecture-4 siblings and fakers): K plays at each budget."""
+    import conj4 as C4
+    from proof_length_arm import LADDER
+    progs = list(LADDER) + ['not(BOX(THEM(ME)))', 'not(BOX(THEM(THEM)))', 'BOX1(THEM(^not(BOX(THEM(ME)))))']
+    sib = {}
+    for x in LADDER:
+        K_, y, z = C4.sibling(C4.parse(x), 60)
+        sib[x] = dict(y=C4.src(y), z=C4.src(z))
+        progs += [C4.src(y), C4.src(z)]
+    progs = list(dict.fromkeys(progs + ['C', 'D']))
+    out = dict(progs=progs, siblings=sib, tables={}, meta={})
+    for b in a.budgets:
+        v, m = family_table(progs, b)
+        out['tables'][str(b)] = v.tolist(); out['meta'][str(b)] = m
+        print('b=%d sound %d/%d contents %d %.0fs' % (b, m['sound_bad'], m['sound_checked'], m['n_contents'], m['t']), flush=True)
+        json.dump(out, open(os.path.join(RUNS, 'k-at-n8-family.json'), 'w'), indent=1)
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('cmd')
@@ -634,6 +707,7 @@ if __name__ == '__main__':
     ap.add_argument('--arms', nargs='*', default=[])
     ap.add_argument('--ref', type=int, default=16)
     ap.add_argument('--limit', type=int, default=0)
+    ap.add_argument('--reps', type=int, default=20)
     a = ap.parse_args()
     {'ktables': cmd_ktables, 'static': cmd_static, 'chain': cmd_chain, 'fakers': cmd_fakers, 'sharing': cmd_sharing,
-     'mce': cmd_mce, 'priced': cmd_priced}[a.cmd](a)
+     'mce': cmd_mce, 'priced': cmd_priced, 'lottery': cmd_lottery, 'family': cmd_family}[a.cmd](a)
