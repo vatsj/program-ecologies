@@ -78,7 +78,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 2. ~~Rival networks across islands; the mN rule~~ (done; RESULTS "Rival networks across islands, and the mN rule": a metastable patchwork with hazard ≈ mN·ρ_DD(N), exponential in N; island efficiency never at risk; the rule is x = mN·T_nuc/N ≲ 0.3; metapopulation universality is an order-of-limits question, DEFERRED 1).
 3. ~~The demographic lemma, the per-founder spoiler bound, and the establishment formula~~ (done; RESULTS "The demographic lemma": Lemma D′ proved for any lineage and stopping time; the per-island bound positive in 27/27 cells once spoilers are charged per founder; p(N) has a formula and tends to 1 at fixed n, 0.98 at N = 25,600).
 4. An explicit proof system with measured proof length (GLS+Def on the frozen syntax; the bounded calculus K with an annotated Löb rule), in place of the stabilization proxy. (Running: `specs/2026-10-05-proof-length.md`.)
-5. Incentive-compatible enforcement (sol's follow-up to the union game); the worker grammar/prior (DEFERRED 10).
+5. Incentive-compatible enforcement in the union game and the unfakeable-polarity pact (DEFERRED 10). (Running: `specs/2026-10-05-enforcement.md`.)
 6. Divide-the-dollar partitions across islands, three role structures (RS, 2026-10-02). (Running: `specs/2026-10-05-dollar-partitions.md`; the paused worktree's partial files were carried into main in 5c9b1f9.)
 
 No paper draft (RS, 2026-10-04).
