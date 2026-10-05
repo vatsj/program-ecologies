@@ -72,3 +72,6 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
 - **mutation object** — π of the ε → 0 chain as N → ∞; selects on establishment + unfakeability.
 - **seed lottery** — ε = 0, iid seeds from μ; P(efficient) along a path in (N, I); selects on establishment +
   compatibility among the establishers present.
+- **τ_A** — the island's ALLC-extinction time (≈ 13–19 generations at N = 100–400, ∝ log N); **ghost** — a control
+  lineage that plays as a faker but has fitness pinned to the population mean; **Λ_t** — a lineage's integrated
+  relative fitness deficit; **Lemma 0** — box soundness at the evaluator's stable world.

@@ -447,3 +447,17 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Spec treatment (c), "k copies of the target's own class", as the replacement control.** Changes target dosage; replaced by replacement with D (cD).
 
 **Subagent S3 and S4 (neutral part).**
+
+## Added 2026-10-05: the scramble lemma (RESULTS.md, "The scramble lemma and Claim A")
+
+**"Fakers die in the scramble because they are strictly worse than D" (RESULTS "Spoiler-conditioned establishment", THEORY §3 as written on 2026-10-05).** Corrected. Probe-fakers are mean-neutral to first order (π̄ − π_q = x_A·x_q) and survive exactly as a fitness-pinned ghost does (ratio 1.02–1.05). The scramble kills by demography: a critical lineage over τ ≈ 13–19 generations survives with probability ≈ 1/(1 + τ). Selection contributes only for D-cooperating fakers (factor 2–7).
+
+**"The first-moment bound q̄ ≤ exp(−integrated deficit) is within 10× of measured survival" (Fable, prediction 2; falsifier fired).** Vacuous for probe-fakers, 10–20× loose for D-cooperators: the first moment discards the demographic factor.
+
+**"The combined per-island bound ρ[1 − ΣKq̄h] is positive" (Fable, prediction 3).** Non-positive in 16 of 18 cells: the union step loses 1/P(A) ≈ 7–20.
+
+**The spec's example establisher-faker `and(BOX(THEM(THEM)),not(BOX(THEM(^C))))` (Fable, in chat and in the spec).** Wrong: it defects on itself; its self-play fixed point is ⊥. Working example: `BOX1(THEM(^not(BOX(THEM(ME)))))`.
+
+**"Death–birth" as the kernel's update rule (spec).** It is birth–death (parent by fitness, victim uniform).
+
+**"Almost all seeds" on all establishers.** Narrowed to the fakerless establishers (FairBot's pair): for fakeable establishers the spoiler term grows like N/log N unless the post-scramble harm falls.

@@ -2462,6 +2462,43 @@ The raw target-survival ratio across cells (0.33–0.56) is confounded by target
 - **The spoiler that would matter is a faker payoff-identical to D on {D, ALLC}.** None exists for any main prover to n = 12, and for the probe-readers none can by construction. The open part of "almost all seeds" narrows to bounding the mass of such fakers in n (≤ 5·10⁻⁴ here, for the suckers only).
 - **The lemma, in the form the logs support:** P(target survives | faker co-seeded) ≈ P(target survives)·[1 − q·h], with h ≤ 0.9 measured, and q bounded by the faker's integrated payoff deficit against D over the scramble, which ∫x_ALLC dt makes strictly positive for any faker that does not tie D on {D, ALLC}. That is a bound on integrated selection, not on instantaneous advantage, as sol framed it.
 
+## The scramble lemma and Claim A (`runs/scramble-lemma.md`, `notes/scramble-lemma.md`; spec `specs/2026-10-05-scramble-lemma.md`, predictions in `predictions/2026-10-05-scramble-lemma.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent. Claim A is proved and exhaustively checked; Claim B is proved in its stated form but turns out to carry little content, and the result *corrects* the reading of RESULTS "Spoiler-conditioned establishment": fakers die in the scramble mostly by demographic extinction, not by selection.
+
+**Lemma 0 (box soundness at the stable world).** `_evaluate` runs one chain of worlds shared by every ordered pair and stops at a global fixed point (the first n* ≥ 2 at which no entry changes), so values at n* repeat at every later world, and any box atom true at n* at any level L ≤ n* covers world n*: the boxed pair really plays the boxed action. The nested call `THEM(THEM)` reads the pair (q, q) at the same world, so there is no level/world mismatch. *Ledger:* shared chain, box quantifies over L ≤ m < n, global fixed-point stop. No Löb, no fixed-point uniqueness, every level.
+
+**Claim A, proved member by member** (every level and cutoff, no Löb): FairBot and `BOX1(THEM(ME))` have no fakers at all (if x cooperates with q, Lemma 0 gives that q cooperates with x; Löb is needed only for x to self-cooperate, not for unfakeability); every faker of `BOX(THEM(^C))` / `BOX1(THEM(^C))` cooperates with ALLC (the probe is the population's ALLC class); every faker of `BOX(THEM(THEM))` / `BOX1(THEM(THEM))` self-cooperates, so it is an establisher or cooperates with D. The case is not vacuous: `not(BOX(THEM(ME)))` is a D-cooperating faker of `BOX1(THEM(THEM))`. Exhaustive at n = 6, 9, 12: 0 counterexamples (at n = 12: 374 / 643 / 1,846 / 1,712 non-establisher fakers of the four fakeable members, every one cooperating with D or ALLC or both; 92–118 establisher-fakers each, mass ≈ 2·10⁻⁵); the independent evaluator agrees on all 24,981 (x, q) pairs. The spec's example establisher-faker `and(BOX(THEM(THEM)),not(BOX(THEM(^C))))` was wrong: it defects on itself (its self-play fixed point is ⊥). Working examples: `BOX1(THEM(^not(BOX(THEM(ME)))))` fakes `BOX(THEM(THEM))`.
+
+**The kernel** is a birth–death Moran process (parent by fitness, victim uniform), not death–birth as the spec said; for a class with k copies the expected change per event is exactly (k/N)(f_q/F̄ − 1), with no rarity assumption.
+
+**Claim B.** (B1, exact) k_t·e^{Λ_t} is a martingale with Λ_t = −Σ log(1 + r/N), r = f_q/F̄ − 1; optional stopping at τ = ALLC extinction ∧ freeze ∧ 2,000 generations gives P(q alive at τ | E) ≤ P(Λ_τ < Λ | E) + E[k₀ | E]·e^{−Λ} for any Λ, handling the stopping-time correlation exactly. (B2) Λ_τ ≥ w∫[0.659·(π̄ − π_q)⁺ − 1.615·(π_q − π̄)⁺] dt at w = 0.3. (B3, exact in {D, ALLC, q} with q rare) π̄ − π_q is x_A·x_q for a probe-faker (**mean-neutral to first order**), x_D² − x_A² for a D-cooperator (above the mean while ALLC outnumbers D), x_D(x_D + x_A) for one that cooperates with both. (B4) The seed event E = {x_A(0), x_D(0) ≥ 0.3} fails with probability ≤ 2e^{−0.042N} uniformly in n; the distribution of Λ_τ is measured, not proved. The instrumented kernel reproduces the spoiler run draw for draw (124/124), and the martingale identity holds (E[k_τe^Λ]/E[k₀] = 0.96–1.07 in 14 of 15 cells).
+
+**Neutral-lineage ("ghost") control.** The inserted faker is replaced by a ghost that plays as the faker but has its fitness pinned to the population mean, on the same seeds and stopping rule (3,000 backgrounds per pair), at k = 1 in E:
+
+| N | faker type | faker alive at τ | ghost alive at τ | ghost/faker | selection share of log deficit | B1 bound (× measured) | median τ |
+|---|---|---|---|---|---|---|---|
+| 100 | D-cooperator | 0.038 | 0.082 | 2.1 | 0.23 | 10.7× | 13.4 |
+| 100 | probe-faker | 0.071 | 0.072 | 1.02 | 0.01 | vacuous | 13.6 |
+| 400 | D-cooperator | 0.0077 | 0.052 | 6.8 | 0.39 | 20× | 19.0 |
+| 400 | probe-faker | 0.046 | 0.048 | 1.05 | 0.02 | vacuous | 19.1 |
+
+The ghost survives like a critical lineage, P(alive) ≈ E[1/(1 + τ)]; establisher-fakers behave like ghosts; everything is flat in n. Along the scrambles at N = 400, D holds about 86% of the time and the probe-faker's loss to D (+1.7) and gain over ALLC (−1.6) cancel, as B3 says.
+
+**Combined per-island bound.** The exact identity P(target survives) = ρ̃ − P(A∩F)·h (A: target alive at τ; F: some co-seeded faker alive at τ; h the conditional harm) with the union step P(A∩F) ≤ Σ_q E[K_q | E]·q̄_q gives P ≥ ρ̃ − Σ_q E[K_q|E]·q̄_q·h_q⁺, which is **non-positive in 16 of 18 cells with B1's q̄**: the union step loses a factor 1/P(A) ≈ 7–20 because the target itself survives the scramble in only 5–14% of islands. Proved: the identity, the union bound, B1–B3, Claim A, P(Eᶜ). Measured: Λ's distribution, h, P(A). Assumed: ρ̃ ≈ the faker-free establishment chance.
+
+**Verdicts.**
+| # | prediction | outcome |
+|---|---|---|
+| 1 | Claim A for all six members | **Held** |
+| 2 | first-moment bound within 10×; selection ≥ half the deficit | **Failed, falsifier fired:** vacuous for probe-fakers (ghost/faker 1.02–1.05); 10.7× / 20× loose for D-cooperators; selection share 0.23 / 0.39 |
+| 3 | combined bound positive and uniform in n | **Failed on positivity, held on uniformity** |
+
+**Reading.**
+- **Unfakeability needs only soundness, not Löb.** Löb buys self-cooperation; soundness buys unfakeability; the two are independent. Lemma 0 is the one fact behind the whole FairBot family's unfakeability at every level.
+- **A co-seeded faker of a probe-reader is a neutral lineage, not a disadvantaged one.** The scramble kills it by demography, with per-copy survival ≈ 1/(1 + τ_A), and τ_A grows like log N (13 → 19 over N = 100–400); selection adds a factor of 2–7 only for D-cooperating fakers.
+- So for fakeable establishers the expected spoiler term N·μ_q·q̄_q·h_q grows like N/log N unless the post-scramble harm h falls (it fell from 0.44 to ≈ 0.2 between N = 100 and 400). **"Almost all seeds" is clean only for the fakerless establishers, FairBot and `BOX1(THEM(ME))`** (μ_core ≈ 0.0102), whose per-island chance needs no spoiler term at all; the fakeable provers are a bonus measured to n = 12 and N = 400.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
