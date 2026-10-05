@@ -672,6 +672,80 @@ def priced_cell(j):
     return out
 
 
+def catalogue_val8(B):
+    """The n = 8 catalogue over budgets B (as cmd_catalogue8): val, base canon ids, budgets per genotype, L."""
+    L = tables(8)[0]
+    nat = L.arrays()[0]
+    const = [c for c in range(len(nat)) if nat[c] == 0]; nonc = [c for c in range(len(nat)) if nat[c] > 0]
+    base = np.array(const + [c for b in B for c in nonc]); gb = np.array([0] * len(const) + [b for b in B for c in nonc])
+    blocks = {}
+    for bx in B:
+        for by in B:
+            blocks[(bx, by)] = load_val(8, bx) if bx == by else np.load(os.path.join(KDIR, 'kcross_n8_%d_%d.npy' % (bx, by)))
+    G_ = len(base); val = np.zeros((G_, G_), np.int8)
+    for bx in B:
+        for by in B:
+            ii = np.nonzero((gb == bx) | ((gb == 0) & (bx == B[0])))[0]
+            jj = np.nonzero((gb == by) | ((gb == 0) & (by == B[0])))[0]
+            val[np.ix_(ii, jj)] = blocks[(bx, by)][np.ix_(base[ii], base[jj])]
+    return val, base, gb, L
+
+
+def priced8_cell(j):
+    """priced_cell on the n = 8 catalogue (addendum S10, S11)."""
+    import modal as M
+    from chain import Chain
+    from cert_limN import top_exits
+    schedule, c, N, copy, B = j
+    val, base, gb, L = catalogue_val8(B)
+    U0, PCC = M.pd_payoffs(val, M.PD)
+    U = U0.astype(float) - price_matrix(schedule, c, N, val, base, gb, copy)
+    nb = len(B)
+    mu = np.array([L.mu_canon[bc] / (1.0 if gb[g] == 0 else nb) for g, bc in enumerate(base)])
+    names = [L.rep[bc] if gb[g] == 0 else '%s@%d' % (L.rep[bc], gb[g]) for g, bc in enumerate(base)]
+    prov = M.ModalProvider(U, PCC, mu, names, np.array([L.bits_canon[bc] for bc in base]))
+    prov.sizes = np.ones(len(prov.names))
+    lang = M.ClassLang(prov)
+    t = time.time()
+    ch = Chain(prov, N=N, w=0.3, verbose=False, eager_poly=False).explore()
+    P = prov.PCC; nm = prov.names
+    pcc = 0.0; pis = {}; key_of = {}
+    for key, wgt in zip(ch.keys_list, ch.pi):
+        ids, x, kd = ch.states[key]; ids = list(ids); x = np.asarray(x)
+        pcc += wgt * float(x @ P[np.ix_(ids, ids)] @ x)
+        if kd == 'mono':
+            pis[ids[0]] = pis.get(ids[0], 0.0) + wgt; key_of[ids[0]] = key
+    byb = {}
+    for q, p in pis.items():
+        mem = prov.members[q]; w_ = np.array([mu[g] for g in mem]); w_ = w_ / w_.sum()
+        for g, ww in zip(mem, w_):
+            byb[str(int(gb[g]))] = byb.get(str(int(gb[g])), 0.0) + p * ww
+    out = dict(schedule=schedule, c=c, N=N, copy=copy, B=B, pcc=pcc, pi_by_budget=byb, pi_D=pis.get(nm.index('D'), 0.0),
+               pi_C=pis.get(nm.index('C'), 0.0), support=[(ch.describe_state(k, lang), float(p)) for k, p in ch.support(1e-3)][:10],
+               cut_flow=ch.cut_flow, indeterminate=len(ch.indeterminate), n_terminal=len(ch.terminal), n_classes=len(nm))
+    top = sorted(((v, q) for q, v in pis.items() if P[q, q] == 1 and nm[q] != 'C'), reverse=True)
+    if top:
+        v, q = top[0]
+        out.update(top_coop=nm[q], pi_top=v, **top_exits(ch, prov, key_of[q]))
+    out['t'] = time.time() - t
+    return out
+
+
+def cmd_priced8(a):
+    B = [4, 16]
+    jobs = [('amortized', 0.0, 10000, 'a', B), ('lazy', 0.1, 10000, 'a', B), ('lazy', 0.01, 10000, 'a', B), ('amortized', 0.1, 10000, 'a', B),
+            ('per-match', 0.01, 10000, 'a', B)]
+    path = os.path.join(RUNS, 'k-at-n8-priced8.json')
+    rows = []
+    with Pool(a.workers) as pool:
+        for r in pool.imap_unordered(priced8_cell, jobs):
+            rows.append(r)
+            json.dump(rows, open(path, 'w'), indent=1, default=str)
+            print('%-10s c=%-5g P(C,C) %.4f pi(D) %.3f pi(C) %.3f by budget %s top %s %.3f exit %.2e strict %.2e support %s (%.0fs)' % (
+                r['schedule'], r['c'], r['pcc'], r['pi_D'], r['pi_C'], {k: round(v, 3) for k, v in r['pi_by_budget'].items()},
+                r.get('top_coop'), r.get('pi_top', 0), r.get('top_exit', 0), r.get('top_exit_strict', 0), r['support'][:4], r['t']), flush=True)
+
+
 def cmd_priced(a):
     jobs = []
     for c in (0.01, 0.1, 1.0):
@@ -1113,6 +1187,22 @@ def cmd_report(a):
             md.append('| %s | %d (%d) | %.2f | %.3f (%.3f) | %.2f | %.3f [%.3f, %.3f] |' % (nm, v['n'], v['uncertified'], v['mean'], v['slope'], v['slope_se'],
                                                                                     v['resid_sd_over_mean'], v['quad'], v['quad_ci'][0], v['quad_ci'][1]))
         md.append('')
+        if mcec:
+            a_ = []; b_ = []; s_ = []; unc = []
+            for r in mcec['rows']:
+                m = r['C0'] or r['C1']
+                if m is None: continue
+                if m['cut']['certified']:
+                    a_.append(m['nocut']['size']); b_.append(m['cut']['size']); s_.append(m['nocut']['subs'])
+                else:
+                    unc.append(m['nocut']['size'])
+            a_, b_, s_ = map(np.array, (a_, b_, s_))
+            md += ['The cut rows drop the %d uncertified pairs, which are the long proofs (mean cut-free size %.1f), so their fits are not comparable with the '
+                   'cut-free rows. Paired on the %d certified pairs: mean size %.2f cut-free, %.2f with cut (shorter in %d, max saving %d), %.2f subsumption DAG '
+                   '(shorter in %d). Over all %d pairs with a cooperation proof, the subsumption DAG is shorter than the tree in %d and exact identity in %d.' % (
+                       len(unc), np.mean(unc) if unc else 0, len(a_), a_.mean(), b_.mean(), int((b_ < a_).sum()), int((a_ - b_).max()), s_.mean(), int((s_ < a_).sum()),
+                       S['tree/no cut']['n'], sum(1 for r in mce['rows'] if (r['C0'] or r['C1']) and (r['C0'] or r['C1'])['nocut']['subs'] < (r['C0'] or r['C1'])['nocut']['size']),
+                       sum(1 for r in mce['rows'] if (r['C0'] or r['C1']) and (r['C0'] or r['C1'])['nocut']['exact'] < (r['C0'] or r['C1'])['nocut']['size'])), '']
     # ---- prices
     if pr:
         md += ['## 4. Prices in K (n = 6, per-program budgets {2, 3, 4, 6, 10, 16}, μ split equally, N = 10⁴ unless stated; imposed schedules)', '',
@@ -1148,6 +1238,18 @@ def cmd_report(a):
         am = {(r['c'], r['N']): r for r in pr if r['schedule'] == 'amortized'}
         md += ['', 'Amortized exit slopes over N = 10³–3·10⁴: ' + ', '.join('c = %g: %.3f' % (c, _fit((1000, 10000, 30000), [am[(c, N)]['top_exit'] for N in (1000, 10000, 30000)]))
                                                                          for c in (0.01, 0.1, 1.0)) + '.', '']
+    p8 = _J('k-at-n8-priced8.json')
+    if p8:
+        J['priced8'] = p8
+        md += ['## 5. Addendum (not in the spec; predictions addendum S10, S11): prices on the n = 8 K catalogue over b ∈ {4, 16}, N = 10⁴', '',
+               '| schedule | c | P(C,C) | π(all-D) | π by budget (0 = constants) | top state (π) | its exit (strict) | support (π ≥ 10⁻³) | terminal / indeterminate |',
+               '|---|---|---|---|---|---|---|---|---|']
+        for r in sorted(p8, key=lambda r: ({'per-match': 0, 'amortized': 1, 'lazy': 2}[r['schedule']], r['c'])):
+            md.append('| %s | %g | %.4f | %.3f | %s | `%s` (%.3f) | %.1e (%.1e) | %s | %d / %d |' % (
+                r['schedule'], r['c'], r['pcc'], r['pi_D'], ', '.join('%s: %.3f' % kv for kv in sorted(r['pi_by_budget'].items(), key=lambda kv: int(kv[0]))),
+                r.get('top_coop'), r.get('pi_top', 0), r.get('top_exit', 0), r.get('top_exit_strict', 0),
+                ', '.join('%s %.3f' % (s.replace('mono ', ''), p) for s, p in r['support'][:4]), r['n_terminal'], r['indeterminate']))
+        md.append('')
     open(os.path.join(RUNS, 'k-at-n8.md'), 'w').write('\n'.join(md) + '\n')
     json.dump(J, open(os.path.join(RUNS, 'k-at-n8.json'), 'w'), indent=1, default=str)
     print('\n'.join(md))
@@ -1168,4 +1270,4 @@ if __name__ == '__main__':
     a = ap.parse_args()
     {'ktables': cmd_ktables, 'static': cmd_static, 'chain': cmd_chain, 'fakers': cmd_fakers, 'sharing': cmd_sharing,
      'mce': cmd_mce, 'priced': cmd_priced, 'lottery': cmd_lottery, 'family': cmd_family,
-     'cutcheck': cmd_cutcheck, 'kpairs': cmd_kpairs, 'report': cmd_report, 'catalogue8': cmd_catalogue8}[a.cmd](a)
+     'cutcheck': cmd_cutcheck, 'kpairs': cmd_kpairs, 'report': cmd_report, 'catalogue8': cmd_catalogue8, 'priced8': cmd_priced8}[a.cmd](a)
