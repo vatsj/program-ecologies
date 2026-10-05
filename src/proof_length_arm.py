@@ -199,6 +199,378 @@ def partA_uniform(a):
     print('uniform: %d rows, %d disagreements, %.0fs' % (len(rows), sum(1 for r in rows if r['audit_bad']), time.time() - t))
 
 
+# ------------------------------------------------------------------ Part B, run 1: the budget grid
+def _grid_cell(j):
+    import bounded_k as BK
+    px, py, bx, by = j
+    K = BK.KTheory(cap=80)
+    gx, gy = K.geno(px, bx), K.geno(py, by)
+    ax = K.atoms(gx, gy); ay = K.atoms(gy, gx)
+    passes = K.solve([K.forms[a][1] for a in ax + ay])
+    play = K.play_fn()
+    nchk, bad = K.soundness_check()
+    return dict(px=px, py=py, bx=bx, by=by, xy=int(play(gx, gy)), yx=int(play(gy, gx)),
+                Tx=[K.T.get(K.forms[a][1]) for a in ax], Ty=[K.T.get(K.forms[a][1]) for a in ay], passes=passes,
+                sound_checked=nchk, sound_bad=len(bad))
+
+
+def grid(a):
+    B = list(range(2, 41))
+    fams = [(FB, FB), ('BOX1(THEM(ME))', 'BOX1(THEM(ME))'), (FB, 'BOX1(THEM(ME))')]
+    jobs = [(px, py, bx, by) for px, py in fams for bx in B for by in B]
+    t = time.time()
+    with Pool(a.workers) as pool:
+        rows = pool.map(_grid_cell, jobs, chunksize=40)
+    out = dict(rows=rows, wall_s=time.time() - t)
+    json.dump(out, open(os.path.join(RUNS, 'proof-length-grid.json'), 'w'))
+    for px, py in fams:
+        R = [r for r in rows if r['px'] == px and r['py'] == py]
+        asym = [(r['bx'], r['by'], r['xy'], r['yx']) for r in R if r['xy'] != r['yx']]
+        diag = min([r['bx'] for r in R if r['bx'] == r['by'] and r['xy'] and r['yx']] or [None])
+        off = sorted(set((min(r['bx'], r['by'])) for r in R if r['bx'] != r['by'] and r['xy'] and r['yx']))
+        offmin = off[0] if off else None
+        # is cooperation exactly {min(bx, by) >= threshold} off the diagonal?
+        exact = all((r['xy'] and r['yx']) == (min(r['bx'], r['by']) >= offmin) for r in R if r['bx'] != r['by']) if offmin else None
+        print(px, 'vs', py, 'asymmetric cells', len(asym), asym[:5], 'diag threshold', diag, 'off-diag min-threshold', offmin, 'exactly min-rule', exact,
+              'soundness violations', sum(r['sound_bad'] for r in R), 'checked', sum(r['sound_checked'] for r in R))
+    print('%.0fs' % (time.time() - t))
+
+
+# ------------------------------------------------------------------ Part B, run 2: the bounded arm at n = 6
+KVALS = os.path.join(RUNS, 'proof-length-karm.npz')
+
+
+def _kval(b):
+    """Play matrix of L_6 with every class at global budget b, decided by K; plus soundness and GL-comparison."""
+    import bounded_k as BK
+    import modal as M
+    L = M.ModalLanguage(6)
+    t = time.time()
+    K = BK.KTheory(cap=max(b, 1))
+    g = [K.geno(s, b) for s in L.rep]
+    contents = set()
+    for x in g:
+        for y in g:
+            for a in K.atoms(x, y): contents.add(K.forms[a][1])
+    passes = K.solve(sorted(contents))
+    play = K.play_fn()
+    val = np.array([[int(play(x, y)) for y in g] for x in g], np.int8)
+    nchk, bad = K.soundness_check()
+    Ts = sorted(v for v in K.T.values() if v < BK.INF)
+    return b, val, dict(b=b, passes=passes, sound_checked=nchk, sound_bad=len(bad), n_contents=len(contents),
+                        T_hist=np.bincount(Ts).tolist() if Ts else [], t=time.time() - t)
+
+
+def karm_vals(a):
+    B = list(range(1, 41))
+    out = {}; meta = []
+    with Pool(a.workers) as pool:
+        for b, val, m in pool.imap_unordered(_kval, B):
+            out['b%d' % b] = val; meta.append(m)
+            print('b=%d sound %d/%d bad, %.0fs' % (b, m['sound_bad'], m['sound_checked'], m['t']), flush=True)
+    np.savez_compressed(KVALS, **out)
+    json.dump(sorted(meta, key=lambda m: m['b']), open(os.path.join(RUNS, 'proof-length-karm-meta.json'), 'w'))
+
+
+def _free6():
+    import modal as M
+    L = M.ModalLanguage(6); val, _ = M.evaluate(L)
+    return L, val.astype(np.int8)
+
+
+def matched_control(val_k, val_free, seed=20261005):
+    """Random flips of the free table, matched to the K arm stratum by stratum: stratum = (opponent class y, free
+    play C/D, reader has boxes); within each stratum, as many plays flipped as the K arm changed."""
+    import modal as M
+    L = M.ModalLanguage(6); nat = L.arrays()[0]
+    rng = np.random.default_rng(seed)
+    out = val_free.copy()
+    K = len(nat)
+    for y in range(K):
+        for v in (0, 1):
+            for hb in (0, 1):
+                cells = [x for x in range(K) if val_free[x, y] == v and (nat[x] > 0) == hb]
+                nch = sum(1 for x in cells if val_k[x, y] != val_free[x, y])
+                if nch:
+                    for x in rng.choice(cells, nch, replace=False):
+                        out[x, y] = 1 - out[x, y]
+    return out
+
+
+def leak_test(val):
+    """Drift-closure at n = 6: x self-cooperating; its mutual-cooperation component; closed iff no member is
+    suckerable (cooperates with some z that defects on it)."""
+    K = val.shape[0]
+    S = [x for x in range(K) if val[x, x] == 1]
+    comp = {}; comps = []
+    for s in S:
+        if s in comp: continue
+        stack = [s]; mem = []; comp[s] = len(comps)
+        while stack:
+            a = stack.pop(); mem.append(a)
+            for b in S:
+                if b not in comp and val[a, b] == 1 and val[b, a] == 1:
+                    comp[b] = len(comps); stack.append(b)
+        comps.append(mem)
+    suck = [x for x in range(K) if any(val[x, z] == 1 and val[z, x] == 0 for z in range(K))]
+    closed = [c for c in comps if not any(m in suck for m in c)]
+    return dict(n_selfcoop=len(S), n_components=len(comps), closed_components=closed, n_closed=len(closed))
+
+
+def _arm_prov(val):
+    import modal as M
+    L = M.ModalLanguage(6)
+    U, PCC = M.pd_payoffs(val, M.PD)
+    prov = M.ModalProvider(U.astype(float), PCC, L.mu_canon, L.rep, L.bits_canon)
+    prov.sizes = np.array([L.count_canon[m].sum() for m in prov.members])
+    return prov
+
+
+def _chain_cell(j):
+    import modal as M
+    from chain import Chain
+    label, val, N = j
+    t = time.time()
+    prov = _arm_prov(val)
+    names = prov.names; P = prov.PCC
+    lang = M.ClassLang(prov)
+    ch = Chain(prov, N=N, w=0.3, verbose=False, eager_poly=False).explore()
+    pcc = 0.0; pis = {}; key_of = {}; poly = 0.0
+    for key, wgt in zip(ch.keys_list, ch.pi):
+        ids, x, kd = ch.states[key]; ids = list(ids); x = np.asarray(x)
+        pcc += wgt * float(x @ P[np.ix_(ids, ids)] @ x)
+        if kd == 'mono':
+            pis[ids[0]] = pis.get(ids[0], 0.0) + wgt; key_of[ids[0]] = key
+        else:
+            poly += wgt
+    iD = names.index('D'); iC = names.index('C')
+    coop = [(v, q) for q, v in pis.items() if P[q, q] == 1 and q != iC]
+    out = dict(label=label, N=N, n_classes=len(names), pcc=pcc, pi_D=pis.get(iD, 0.0), pi_C=pis.get(iC, 0.0), poly=poly,
+               cut_flow=ch.cut_flow, indeterminate=len(ch.indeterminate), n_terminal=len(ch.terminal),
+               support=[(ch.describe_state(k, lang), float(p)) for k, p in ch.support(1e-3)][:8], t=time.time() - t)
+    if coop:
+        v, qtop = max(coop)
+        from cert_limN import top_exits
+        e = top_exits(ch, prov, key_of[qtop])
+        out.update(top_coop=names[qtop], pi_top=v, top_exit=e['top_exit'], top_exit_strict=e['top_exit_strict'],
+                   top_exit_neutral=e['top_exit_neutral'], top_dest=e['top_dest'][:3])
+    return out
+
+
+BUDGETS_B = None
+
+
+def _chosen(meta_vals):
+    """6 budgets spanning K's minimal lengths: the budgets at which the n = 6 play table changes, thinned to 6."""
+    keys = sorted(int(k[1:]) for k in meta_vals)
+    brk = [b for b in keys[1:] if (meta_vals['b%d' % b] != meta_vals['b%d' % (b - 1)]).any()]
+    return keys, brk
+
+
+def karm_chain(a):
+    vals = dict(np.load(KVALS))
+    keys, brk = _chosen(vals)
+    B = a.budgets
+    L, vf = _free6()
+    jobs = []
+    for N in (1000, 10000, 30000):
+        jobs.append(('free', vf, N))
+        for b in B:
+            jobs.append(('K b=%d' % b, vals['b%d' % b], N))
+            jobs.append(('control b=%d' % b, matched_control(vals['b%d' % b], vf), N))
+    t = time.time()
+    with Pool(a.workers) as pool:
+        rows = pool.map(_chain_cell, jobs, chunksize=1)
+    static = {}
+    for b in keys:
+        v = vals['b%d' % b]
+        lt = leak_test(v)
+        static[b] = dict(diff_vs_free=int((v != vf).sum()), coop=int(v.sum()), n_closed=lt['n_closed'],
+                         closed=[[L.rep[i] for i in c] for c in lt['closed_components']], n_selfcoop=lt['n_selfcoop'],
+                         n_components=lt['n_components'])
+    static['free'] = dict(diff_vs_free=0, coop=int(vf.sum()), **{k: v for k, v in leak_test(vf).items() if k != 'closed_components'})
+    json.dump(dict(rows=rows, static=static, breakpoints=brk, budgets=B, wall_s=time.time() - t),
+              open(os.path.join(RUNS, 'proof-length-karm-chain.json'), 'w'), indent=1, default=str)
+    for r in sorted(rows, key=lambda r: (r['N'], r['label'])):
+        print('%-14s N=%-6d P(C,C) %.4f pi(D) %.3f pi(C) %.3f top %s %.3f exit %.2e (strict %.2e) dest %s' % (
+            r['label'], r['N'], r['pcc'], r['pi_D'], r['pi_C'], r.get('top_coop'), r.get('pi_top', 0), r.get('top_exit', 0), r.get('top_exit_strict', 0), r.get('top_dest')))
+    print('breakpoints', brk)
+    for b, s in static.items(): print(b, s)
+
+
+def _lottery_job(j):
+    import almost_all_seeds as AS
+    label, val, N, I, rep = j
+    import modal as M
+    prov = _arm_prov(val)
+    L = M.ModalLanguage(6)
+    names = list(prov.names)
+    U = np.ascontiguousarray(prov.Ufull, dtype=float); PCC = np.ascontiguousarray(prov.PCC, dtype=float)
+    K = len(names)
+    cls = np.zeros(len(L.funcs), np.int64)
+    for k, mem in enumerate(prov.members):
+        for c in mem: cls[c] = k
+    iC = names.index('C')
+    coop = [k for k in range(K) if PCC[k, k] >= 0.95 and k != iC]
+    mu = L.mu_canon / L.mu_canon.sum()
+    rng = np.random.default_rng([N, I, 10, rep, 2026104])        # same seeding as src/bounded_lottery.py: paired
+    init = np.zeros((I, K), np.int64)
+    for i in range(I):
+        cnt = rng.multinomial(N, mu)
+        np.add.at(init[i], cls, cnt)
+    coopmask = np.zeros(K, np.bool_); coopmask[coop] = True
+    t = time.time()
+    res = AS._run(U, PCC, init, N, AS.W, 1.0 / N, 100000, 20, 100003 * rep + 7 * N + I + 1000 + 99991, iC, coopmask)
+    st, sg, counts, isl_cc, isl_pay = res[:5]
+    cc = float(isl_cc.mean()); pay = float(isl_pay.mean())
+    glob = counts.sum(0)
+    return dict(label=label, N=N, I=I, rep=rep, status=AS.STATUS[st], stop_gen=int(sg), pcc=cc, pay=pay,
+                outcome=AS.outcome(cc, pay) if st in (1, 2, 3) else ('unresolved' if st == 4 else None),
+                final={names[k]: int(v) for k, v in enumerate(glob) if v > 0}, t=time.time() - t)
+
+
+def karm_lottery(a):
+    import almost_all_seeds as AS
+    vals = dict(np.load(KVALS))
+    L, vf = _free6()
+    arms = [('free', vf)] + [('K b=%d' % b, vals['b%d' % b]) for b in a.budgets]
+    jobs = [(lab, v, N, I, rep) for lab, v in arms for N, I in ((100, 4), (100, 64)) for rep in range(20)]
+    jobs.sort(key=lambda j: -j[3])
+    t = time.time()
+    with Pool(a.workers) as pool:
+        rows = pool.map(_lottery_job, jobs, chunksize=1)
+    summ = []
+    for lab, _ in arms:
+        for N, I in ((100, 4), (100, 64)):
+            R = [r for r in rows if r['label'] == lab and r['N'] == N and r['I'] == I]
+            res = [r for r in R if r['outcome'] not in ('unresolved', None)]
+            k = sum(1 for r in res if r['outcome'] == 'efficient')
+            lo, hi = AS.wilson(k, len(res))
+            summ.append(dict(label=lab, N=N, I=I, n=len(res), efficient=k, frac=k / max(len(res), 1), wilson=[lo, hi],
+                             unresolved=len(R) - len(res)))
+            print('%-10s (%d, %d): efficient %d/%d = %.2f [%.2f, %.2f]' % (lab, N, I, k, len(res), k / max(len(res), 1), lo, hi), flush=True)
+    json.dump(dict(rows=rows, summary=summ, wall_s=time.time() - t), open(os.path.join(RUNS, 'proof-length-karm-lottery.json'), 'w'), default=str)
+
+
+# ------------------------------------------------------------------ Part B, run 3: per-program budgets with a price
+KPAIRS = os.path.join(RUNS, 'proof-length-kpairs.npz')
+
+
+def _kpair(j):
+    """Plays of every L_6 class at budget bx against every class at budget by (and by against bx), by K."""
+    import bounded_k as BK
+    import modal as M
+    bx, by = j
+    L = M.ModalLanguage(6)
+    t = time.time()
+    K = BK.KTheory(cap=max(bx, by))
+    gx = [K.geno(s, bx) for s in L.rep]; gy = [K.geno(s, by) for s in L.rep]
+    contents = set()
+    for x in gx:
+        for y in gy:
+            for a in K.atoms(x, y) + K.atoms(y, x): contents.add(K.forms[a][1])
+    K.solve(sorted(contents))
+    play = K.play_fn()
+    vxy = np.array([[int(play(x, y)) for y in gy] for x in gx], np.int8)
+    vyx = np.array([[int(play(y, x)) for x in gx] for y in gy], np.int8)
+    nchk, bad = K.soundness_check()
+    return bx, by, vxy, vyx, nchk, len(bad), time.time() - t
+
+
+def kpairs(a):
+    B = a.budgets
+    jobs = [(bx, by) for i, bx in enumerate(B) for by in B[i:]]
+    jobs.sort(key=lambda j: -(j[0] + j[1]))
+    out = dict(np.load(KPAIRS)) if os.path.exists(KPAIRS) else {}
+    jobs = [j for j in jobs if 'v%d_%d' % j not in out]
+    sb = 0
+    with Pool(a.workers) as pool:
+        for bx, by, vxy, vyx, nchk, nbad, dt in pool.imap_unordered(_kpair, jobs):
+            out['v%d_%d' % (bx, by)] = vxy; out['v%d_%d' % (by, bx)] = vyx; sb += nbad
+            print('(%d, %d) sound bad %d / %d, %.0fs' % (bx, by, nbad, nchk, dt), flush=True)
+            np.savez_compressed(KPAIRS, **out)
+    print('soundness violations', sb)
+
+
+def priced_val(B):
+    """Genotypes: C, D unbudgeted; every non-constant class at each budget in B.  Returns val, base, gb."""
+    import modal as M
+    L = M.ModalLanguage(6); nat = L.arrays()[0]
+    V = dict(np.load(KPAIRS))
+    const = [c for c in range(len(nat)) if nat[c] == 0]
+    nonc = [c for c in range(len(nat)) if nat[c] > 0]
+    base = list(const) + [c for b in B for c in nonc]
+    gb = [0] * len(const) + [b for b in B for c in nonc]
+    G_ = len(base); val = np.zeros((G_, G_), np.int8)
+    bref = B[0]
+    for i in range(G_):
+        for j in range(G_):
+            bi = gb[i] if gb[i] else bref; bj = gb[j] if gb[j] else bref
+            val[i, j] = V['v%d_%d' % (bi, bj)][base[i], base[j]]
+    return val, np.array(base), np.array(gb), L
+
+
+def _priced_cell(j):
+    import modal as M
+    from chain import Chain
+    B, c, N = j
+    val, base, gb, L = priced_val(B)
+    U, PCC = M.pd_payoffs(val, M.PD)
+    U = U.astype(float) - c * gb[:, None].astype(float)
+    nb = len(B)
+    nat = L.arrays()[0]
+    mu = np.array([L.mu_canon[bc] / (1.0 if gb[g] == 0 else nb) for g, bc in enumerate(base)])
+    names = [L.rep[bc] if gb[g] == 0 else '%s@%d' % (L.rep[bc], gb[g]) for g, bc in enumerate(base)]
+    bits = np.array([L.bits_canon[bc] for bc in base])
+    prov = M.ModalProvider(U, PCC, mu, names, bits)
+    prov.sizes = np.ones(len(prov.names))
+    lang = M.ClassLang(prov)
+    t = time.time()
+    ch = Chain(prov, N=N, w=0.3, verbose=False, eager_poly=False).explore()
+    P = prov.PCC; nm = prov.names
+    pcc = 0.0; pis = {}; poly = 0.0; key_of = {}
+    for key, wgt in zip(ch.keys_list, ch.pi):
+        ids, x, kd = ch.states[key]; ids = list(ids); x = np.asarray(x)
+        pcc += wgt * float(x @ P[np.ix_(ids, ids)] @ x)
+        if kd == 'mono':
+            pis[ids[0]] = pis.get(ids[0], 0.0) + wgt; key_of[ids[0]] = key
+        else:
+            poly += wgt
+    # pi by budget (class members may mix budgets: mu-weighted split) and by cooperation
+    gid = {n_: g for g, n_ in enumerate(names)}
+    byb = {}; coop_pi = 0.0
+    for q, p in pis.items():
+        mem = prov.members[q]
+        w_ = np.array([mu[g] for g in mem]); w_ = w_ / w_.sum()
+        for g, ww in zip(mem, w_):
+            byb[str(int(gb[g]))] = byb.get(str(int(gb[g])), 0.0) + p * ww
+        if P[q, q] == 1: coop_pi += p
+    out = dict(B=list(B), c=c, N=N, pcc=pcc, pi_by_budget=byb, pi_selfcoop_mono=coop_pi, poly=poly,
+               pi_D=pis.get(nm.index('D'), 0.0) if 'D' in nm else None, pi_C=pis.get(nm.index('C'), 0.0) if 'C' in nm else None,
+               support=[(ch.describe_state(k, lang), float(p)) for k, p in ch.support(1e-3)][:8], cut_flow=ch.cut_flow,
+               indeterminate=len(ch.indeterminate), t=time.time() - t)
+    coop = [(v, q) for q, v in pis.items() if P[q, q] == 1 and nm[q] != 'C']
+    if coop:
+        from cert_limN import top_exits
+        v, qtop = max(coop)
+        e = top_exits(ch, prov, key_of[qtop])
+        out.update(top_coop=nm[qtop], pi_top=v, top_exit=e['top_exit'], top_exit_strict=e['top_exit_strict'], top_dest=e['top_dest'][:3])
+    return out
+
+
+def priced(a):
+    B = a.budgets
+    jobs = [(B, c, 10000) for c in (0.0, 0.01, 0.1)]
+    with Pool(a.workers) as pool:
+        rows = pool.map(_priced_cell, jobs, chunksize=1)
+    json.dump(rows, open(os.path.join(RUNS, 'proof-length-priced.json'), 'w'), indent=1, default=str)
+    for r in rows:
+        print('c=%g N=%d P(C,C) %.4f pi(D) %s pi(C) %s pi by budget %s top %s %.3f exit %s strict %s dest %s' % (
+            r['c'], r['N'], r['pcc'], r['pi_D'], r['pi_C'], {k: round(v, 3) for k, v in r['pi_by_budget'].items()},
+            r.get('top_coop'), r.get('pi_top', 0), r.get('top_exit'), r.get('top_exit_strict'), r.get('top_dest')))
+        print('   support', r['support'][:5])
+
+
 # ------------------------------------------------------------------ Part A report
 def _proxy(n):
     import modal as M
@@ -402,5 +774,7 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('cmd')
     ap.add_argument('--workers', type=int, default=3)
+    ap.add_argument('--budgets', type=int, nargs='+', default=[])
     a = ap.parse_args()
-    {'partA': partA, 'partA_uniform': partA_uniform, 'reportA': reportA}[a.cmd](a)
+    {'partA': partA, 'partA_uniform': partA_uniform, 'reportA': reportA, 'grid': grid, 'karm_vals': karm_vals,
+     'karm_chain': karm_chain, 'karm_lottery': karm_lottery, 'kpairs': kpairs, 'priced': priced}[a.cmd](a)

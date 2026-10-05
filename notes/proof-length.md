@@ -211,3 +211,34 @@ premise would not give a closed derivation of ⊢ A_j).
 **Decidability.** "K ⊢ A within b" is decided exactly by a size-bounded search: JLöb's S ranges over subsets of
 size ≤ 3 of the box contents reachable from A by unfolding (a member outside that set can only add premises, so it
 never helps a minimal derivation), its b over [1, cap], and every other rule is analytic.
+
+**Implementation** (`src/bounded_k.py`). Minimal sizes T(A) = min size of ⊢ A and J(A) = min JLöb instance concluding A
+are the greatest fixed point below ∞ of the Bellman equations, reached by Gauss–Seidel passes from ∞ (each value is
+witnessed by a real derivation; after k passes every derivation of JLöb/Nec nesting depth ≤ k is found). Inside a
+phase (no GLR, so a phase never reopens a context) the normal form of §1 holds with one extra option: a
+single-premise formula on the right may also be closed by a JLöb leaf on itself (its context is arbitrary). The
+soundness check re-evaluates every K-derived closed formula and every JLöb conclusion in the computed model.
+
+## 4. The FairBot budget expectation, checked against K
+
+*Spec's expectation:* the joint route A = P_xy ∧ P_yx with b = min(b_x, b_y) − c₁, so mutual cooperation needs
+min(b_x, b_y) ≥ s + c₁ + c₂; the nested route is impossible; play symmetric in every cell.
+
+*What K does* (`runs/proof-length-grid.json`, b ∈ {2..40}², 0 soundness violations in 26,050 checked formulas):
+- **Copies** (b_x = b_y = b; x and y are the same program, P_xy = P_yx): JLöb({P}, b′ = 3): premise □_3 P ⊢ P is UnfR
+  then BoxEq (□_3 P ⊢ □_b P, 3 ≤ b), 2 sequents; instance 3. FairBot_b cooperates with its copy iff **b ≥ 3**.
+- **Distinct budgets**: the minimal route is a joint Löb, but over the *unfolded* formulas,
+  S = {□_bx P_yx, □_by P_xy} = {φ(P_xy), φ(P_yx)}, b′ = 3: premise □_3 φ(P_xy), □_3 φ(P_yx) ⊢ □_bx P_yx closes at once by
+  BoxEq(iii) (hypothesis content φ(P_yx), right content P_yx, needs 3 + 1 ≤ b_x), likewise the other; instance
+  1 + 1 + 1 = 3; T(P_yx) = UnfR + 3 = 4. So mutual cooperation iff **min(b_x, b_y) ≥ 4**, exactly (every off-diagonal
+  cell obeys the min-rule). c₁ = 0 (no projection: the conjunction's members are separate hypotheses) and c₂ = 1.
+- The nested route (b_x ≥ b_y + c and b_y ≥ b_x + c) is indeed never used; no (C, D) cell exists.
+- `BOX1(THEM(ME))`: copies from b = 4 (S = {¬□_b⊥ → P}, premise 3: →R, delete ¬□⊥, UnfR, BoxEq), distinct budgets iff
+  min ≥ 7 (min-rule exact).
+- Mixed FairBot_bx vs `BOX1(THEM(ME))`_by (not in the spec): mutual cooperation iff b_x ≥ 6 and b_y ≥ 5 — still
+  symmetric in every cell, but a rectangle, not a threshold on the min.
+
+So the expectation holds in structure (symmetric, joint, min-threshold), with two corrections: the joint Löb is over
+the boxed definitions rather than the conjunction of constants, and **copies are cheaper than distinct budgets**
+(3 vs 4; 4 vs 7): budgets just above the copy threshold are soft cliques (FairBot_3 cooperates with FairBot_3 and
+with nothing else in its family).
