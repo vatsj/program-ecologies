@@ -82,5 +82,6 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 6. ~~Divide-the-dollar partitions across islands~~ (done; RESULTS "Divide-the-dollar partitions": fixed-role π is a rotating dictatorship of the largest demand by an accommodator ratchet; one-population 50–50 is finite-N and loses to a greedy polymorphism by N ≈ 10⁴; the seed lottery makes 50–50 modal in every role structure; the two objects disagree on distribution).
 7. K at n = 8, lemma sharing (analytic cut vs DAG), and non-per-match budget prices in K (follow-up to "Proof length"; running: `specs/2026-10-05-k-at-n8.md`).
 8. A path in (N, I, mN) on which islands nucleate independently and rival networks still resolve: calibrated boundary path, propagule migration, the bridge (follow-up to "Rival networks"; running: `specs/2026-10-05-island-path.md`).
+9. The modal arm on divide-the-dollar, one population: does sound reading rescue efficiency, or does certified commitment help the greedy? (follow-up to "Divide-the-dollar partitions"; running: `specs/2026-10-05-modal-dollar.md`).
 
 No paper draft (RS, 2026-10-04).
