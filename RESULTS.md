@@ -3109,6 +3109,65 @@ In the one-population rows at N = 10⁴ (`norole`) and 3·10⁴ (`role`) the "un
 - **`ROLE` adds a correlated alternative, not a different answer** (it costs 50–50 between 0.05 and 0.3 of π and at most 0.06 of islands at mN ≥ 0.1); the no-`ROLE` control shows the 50–50 advantage comes from the population structure, not the signal.
 - **N = 10² is a different regime** (the fixed-role order reverses below N ≈ 200), so distribution results must state N.
 - Next: the modal arm on `dollar5`, where a sound accommodator (conceding only to provable constants) might close the one-population leak.
+## A path in (N, I, mN): independent nucleation against rival resolution (`runs/island-path.md`, `runs/island-path.json`, `runs/island-path-static.json`, `runs/island-path-calib.json`, `runs/island-path-validate.json`; spec `specs/2026-10-05-island-path.md`, predictions in `predictions/2026-10-05-island-path.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/island_path.py`, `src/island_path_report.py`, a propagule option in `rival_islands._kern` with the k = 1 path draw-for-draw identical to the previous kernel, `tests/check_rival_kernel_identity.py`). ε = 0, modal arm, n = 9, w = 0.3, horizon 10⁵ generations; finite-horizon lottery and hazard results, not π. All five cells ran in the fixed order 0 → 1 → 3 → 2 → 4 (960 calibration runs, 120 static cells of 10⁴, 480 pre-seeded and 480 iid runs on the path, 1,000 natural runs, 560 propagule and 600 q runs, 240 bridge runs, 180 merges), no censoring. RE spot-check: the k-migrant fixation table recomputed independently agrees at every cell.
+
+**Kernel and validation.** Propagule rule: k offspring drawn without replacement, fitness-weighted, from one uniformly chosen other island, replacing k uniformly chosen residents at once; donors keep their individuals; mN/k events per island-generation. Checked against an unskipped reference with the same stopping rule (N = 50, I = 4, 18 cells, 1,000 runs per side): largest |z| 2.7 over ≈ 100 statistics, 5 above 2, as chance predicts. *Declared deviation:* a first reference without the global-freeze stop disagreed on the establishment count (|z| to 4.3), from neutral drift after freezing, not the law of the process. The first path launch crashed at its first save (numpy ints in JSON); the cell was rerun from scratch.
+
+**Calibration (cell 0).** m = 0, I = 16, 120 runs per N: T_nuc = 45 / 55 / 70 generations at N = 100 / 200 / 400 ([40, 45], [50, 55], [65, 75]), exponent N^0.32; per-island p = 0.086 / 0.131 / 0.179; the boundary mN = 0.3·N/T_nuc = 0.667 / 1.091 / 1.714.
+
+**Statics** (exact; 116 of 120 cells inside the 95% interval of 10⁴ runs). A ↔ B: P(fix) from k migrants at once is 1.85·10⁻⁵ / 8.7·10⁻⁴ / 0.060 / 0.78 at N = 100 for k = 1 / 10 / 30 / 60, and 1.6·10⁻¹⁵ / 8.2·10⁻¹⁴ / 2.2·10⁻¹¹ / 2.8·10⁻⁸ at N = 400; at k/N = 0.15 it is 6.1·10⁻⁵ (N = 200) and 2.8·10⁻⁸ (N = 400). **The barrier is ≈ N·w·(1/2 − k/N)², so k/N is not a scaling variable short of 1/2.** Bridge (`BOX1(THEM(THEM))`) ↔ A and ↔ B₁: exactly neutral (k/N). P\* exploits the bridge (invades it from one migrant with probability 0.26; the bridge never invades P\*): pair 3 has no bridge, and the bridge is P\*'s prey.
+
+**Cell 1: the boundary path** (A on island 0, B on island 1, rest iid; 40 runs per cell; "both" = each network holds ≥ 1 island at the horizon; hazard per minority-island-generation):
+
+| pair | N | both at I = 16 / 64 | hazard | mN·ρ_DD | B-island losses by replacement / bridge absorption / capture (I = 16 · 64) | island P(C,C) | cf cross-island P(C,C) |
+|---|---|---|---|---|---|---|---|
+| 3 (P\*) | 100 | 0.10 / 0.10 | 5.8·10⁻⁶ / 2.0·10⁻⁶ | 1.2·10⁻⁵ | 225/0/0 · 756/0/0 | 1.00 | 0.97–1.00 |
+| 3 | 200 | 1.00 / 1.00 | 0 [0, 1.9·10⁻⁷] / 0 [0, 4.9·10⁻⁸] | 7.9·10⁻⁹ | 2/0/0 · 10/0/0 | 0.98 | 0.61–0.62 |
+| 3 | 400 | 1.00 / 1.00 | 0 / 0 | 2.7·10⁻¹⁵ | 0 | 0.99 | 0.61–0.65 |
+| 1 (bridge) | 100 | 0.07 / 0.10 | 7.1·10⁻⁶ / 3.8·10⁻⁶ | 1.2·10⁻⁵ | 157/55/0 · 234/1,223/1 | 1.00 | 0.99 |
+| 1 | 200 | 0.65 / 0.15 | 1.1·10⁻⁶ / 2.9·10⁻⁶ | 7.9·10⁻⁹ | 5/63/6 · 16/852/39 | 0.99–1.00 | 0.73 / 0.94 |
+| 1 | 400 | 0.50 / 0.12 | 2.2·10⁻⁶ / 2.9·10⁻⁶ | 2.7·10⁻¹⁵ | 2/68/6 · 11/684/44 | 0.99–1.00 | 0.79 / 0.95 |
+
+- **Every pair-1 run that ends with both networks present has lost the bridge early**, during the scramble (median extinction at generation 9–58; at (200, 16) 26 of the 27 bridge-extinct runs end both-present). Wherever the bridge survives it absorbs B neutrally, at a hazard ≈ 10⁻⁶ per minority-island-generation at every N, 300–10⁹ times the coordination reference.
+- Pair 3 never resolves at N ≥ 200: B colonizes 6–20 background islands before the patchwork sets and also takes A-network islands held by the bridge. KM survival stays at 1.00; pair 1 at I = 16 plateaus after 10³ generations (S(10⁵) = 0.62 at N = 200, 0.45 at N = 400).
+- Island P(C,C) is 0.98–0.99 at N ≥ 200 (migrant load); the counterfactual cross-island P(C,C) is ≈ 0.62.
+- **q on the path** (holder form, run-pair bootstrap): 0.90 / 0.90 / 0.97 at I = 16 and 0.86 / 0.83 / 0.82 at I = 64 for N = 100 / 200 / 400 (intervals ≈ ±0.15); x = 0.3 holds q roughly constant across N.
+
+**Cell 3: natural separation** (iid, boundary mN): ever separated 2 / 10 / 4 / 1 of 300 / 300 / 300 / 100 at (100, 64) / (100, 256) / (200, 64) / (200, 256); **at the horizon 0 in every cell**; a rival established before the first immigrant-founded island in 6 of 17; median colonization time / rival interval 25/28, 20/20, 32/48, 20/40. Every natural rival sampled at N = 200 was an R₁ or R₂ type, which has the bridge, and all were absorbed. Every natural run ends with every island efficient.
+
+**Cell 2: propagules** (I = 16, flux mN):
+
+| pair | N | k (k/N) | both [95%] | hazard | (mN/k)·P_k |
+|---|---|---|---|---|---|
+| 3 | 200 | 1 / 10 / 30 (0.15) | 1.00 / 0.97 / **0.00 [0, 0.09]** | 0 / 5·10⁻⁸ / 1.4·10⁻⁵ | 7.9·10⁻⁹ / 4·10⁻⁸ / 2.2·10⁻⁶ |
+| 3 | 400 | 1 / 10 / 30 / 60 (0.15) | 1.00 / 1.00 / 1.00 / **0.82 [0.68, 0.91]** | 0 / 0 / 0 / 4.7·10⁻⁷ | … / 8.1·10⁻¹⁰ |
+| 1 | 200 | 1 / 10 / 30 | 0.65 / 0.72 / 0.00 | 1.1·10⁻⁶ / 9.5·10⁻⁷ / 1.8·10⁻⁵ | |
+| 1 | 400 | 1 / 10 / 30 / 60 | 0.50 / 0.40 / 0.53 / 0.42 | 2–3·10⁻⁶ | |
+
+**Propagules stack:** the measured hazard is 6× the single-propagule reference at (200, 30) and 580× at (400, 60), since two arrivals within the decay time act as one propagule of size 2k (P(fix) from 120 of 400 is 9.6·10⁻⁴ against 2.8·10⁻⁸ from 60). Even so (400, 60) mostly does not resolve within 10⁵ generations. Δq against k = 1 ranges −0.10 to +0.03, every interval including 0. Pair 1 is unchanged by k, because absorption is flux-invariant.
+
+**Cell 4: the bridge test** (N = 100, I = 16): bridge share / majority at mN = 0.1: A, B, bridge 0.44 ± 0.12 / 0.42; the matched A, A, bridge control 0.30 ± 0.07 / 0.15; bridge alone 0.52 ± 0.13 / 0.42. At mN = 1: 0.62 ± 0.10 / 0.65 [0.50, 0.78]; control 0.30 ± 0.06 / 0.12; bridge alone 0.62 ± 0.11 / 0.57. Per-migrant invasion probabilities under conflict at mN = 1: bridge into A-held 0.0072 vs A into bridge-held 0.0035, bridge into B-held 0.0068 vs B into bridge-held 0.0033; in the A, A, bridge control 0.0019 vs 0.0025. **The bridge gains a migrant-load advantage on islands that receive the rival's migrants, and never gains in the absence of conflict.** All bridge shares are set by generation 10³. **Merge test:** the larger network wins 175 of 180 clean merges (N = 200, conditional on survival).
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | N = 100: both ≤ 0.2 (pair 1), ≤ 0.5 (pair 3); N ≥ 200: pair 3 both ≥ 0.8, hazard ≤ 10⁻⁵, q ≥ 0.75 | **held** on every clause; the headline "rivals resolve only at N = 100" is wrong for pair 1, which resolves at N ≥ 200 on I = 64 by absorption |
+| RE 2 | propagules resolve rivals at k/N ≥ 0.15, not at 0.075; \|Δq\| ≤ 0.3 | **failed, falsifier fired** ((400, 60) both 0.82); (200, 30) = 0 and Δq held |
+| RE 3 | natural horizon separation < 0.05 at N = 100 and ≥ 0.05 at (200, 256); colonization faster than the rival interval at N = 100 | failed, falsifier not fired (0 at every cell; the colonization clause failed at N = 100) |
+| RE 4 | bridge share at mN = 1 ≥ bridge-alone control + 0.1; majority 0.3–0.6 at mN = 1, ≤ 0.3 at mN = 0.1 | **failed, falsifier fired** (share equal to the bridge-alone control, 0.62 = 0.62; majority 0.65 and 0.42); the matched control shows +0.32 from conflict |
+| S3, S5 | subagent's own | held |
+| S1 (pair 1 resolves at every N; 0.65 at (200, 16)), S7 (bridge share set by abundance; conflict adds 0.32) | subagent's own | failed, falsifiers fired |
+| S2, S4, S6 | subagent's own | failed, falsifiers not fired (q 0.97 at (400, 16); k/N-matched propagules resolve at (200, 30) by stacking; separations did not survive longer at N = 200) |
+
+**Reading.**
+- **Whether rival networks resolve is decided by the prior's bridges, not by N or by m.** A class neutral to both rivals absorbs the minority at a polynomial rate (≈ mN·share/N), whatever the coordination barrier, provided it survives the scramble on some island; that survival is a per-island lottery, so it becomes certain as I grows (pair 1 resolves in 85–88% of runs at I = 64 for N = 100–400). Where no bridge exists (P\*, which eats the bridge) the patchwork is permanent at N ≥ 200 on the boundary: 0 losses in 160 runs.
+- **The concession is forced only for bridge-less rivals.** On the boundary, independent nucleation (q ≈ 0.82–0.97) and resolution coexist for bridged rivals and fail for P\*-type rivals. Every island stays efficient (island P(C,C) ≥ 0.98); separation costs only the counterfactual cross-island P(C,C), ≈ 0.62.
+- **Propagules are not a scaling fix:** the barrier is N·w·(1/2 − k/N)², so resolution needs k ≈ N/2, which is colonization; stacking helps at N = 200 and fails at N = 400; clustering leaves q unchanged.
+- **The bridge is a conflict mediator**, gaining ≈ 0.3 of island share over a matched-abundance control through a migrant-load advantage on islands receiving the rival's migrants. The RE's bridge-alone control confounded conflict with prior abundance.
+- **Natural separation at the boundary is zero at the horizon in 1,000 runs**; rival nucleation is rare (1–3% ever separate) and every rival sampled had a bridge. P\*-type natural rivals at N ≥ 200 (≈ 1/4 of rival mass at n = 9) are the unmeasured risk.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

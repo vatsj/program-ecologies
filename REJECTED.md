@@ -632,3 +632,18 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Subagent S3** (norole 50–50 ≥ 0.9 at 10⁴; 0.0004), **S4** (no `role` growth 10³ → 10⁴; 0.69 → 0.81), **S5** (the scramble is fair; 50–50 0.225 at m = 0, drift-dominated, deterministic basins 0.92–0.99 overstate it), **S6** (escape < 10⁻⁵; 2.4·10⁻⁵ and 8·10⁻⁵), **S8** (as above).
 
 **Design choices dropped:** n = 6 for `dollar5` (29 GB); island labels at 0.99 (migrant lineages trip them); counting every label flicker as an escape; the two-step adjacent-move table as a predictor of fixed-role π (implies ≈ 0.7 on the endpoints against the exact hitting's 0.99; kept as a static number); deterministic replicator basins as a proxy for the N = 100 scramble.
+
+
+## Added 2026-10-05: the island path (RESULTS.md, "A path in (N, I, mN)")
+
+**"Propagules resolve rivals when k/N ≥ 0.15" (Fable, prediction 2; falsifier fired).** (400, 60) left both networks present in 0.82 of runs. k/N is not a scaling variable: the coordination barrier is ≈ N·w·(1/2 − k/N)², so fixed k/N < 1/2 loses exponentially in N (6·10⁻⁵ → 3·10⁻⁸ from N = 200 to 400). (200, 30) resolved only through stacking of near-simultaneous propagules (6× the single-propagule reference).
+
+**"Natural separation grows with I at N = 200 and reaches ≥ 0.05 at (200, 256)" (Fable, prediction 3).** 0 of 100 at the horizon, 1 of 100 ever; every N = 200 natural rival sampled had a bridge and was absorbed. The colonization-before-rival clause failed at N = 100 (equal medians).
+
+**"The bridge grows during conflict by ≥ 0.1 over the bridge-alone control" (Fable, prediction 4; falsifier fired).** The shares were equal (0.62). Design dropped: the bridge-alone control, which confounds conflict with prior abundance; the matched A, A, bridge control shows conflict mediation of +0.32. The majority band 0.3–0.6 also failed (0.65).
+
+**"Rivals resolve only at N = 100" (Fable, prediction 1's headline; its clauses held).** Bridged rivals resolve at N = 200 and 400 on I = 64 by neutral absorption. The statement that survives: *bridge-less* rivals resolve only at N = 100.
+
+**Subagent S1** (pair 1 resolves at every N; 0.65 both-present at (200, 16) because the bridge dies in the scramble on 50–70% of 16-island runs), **S2** (q ≤ 0.95; 0.97 at (400, 16)), **S4** (k/N-matched propagules never resolve; ignored stacking), **S6** (separations survive longer at N = 200; degenerate, 0 survivors at both N), **S7** (bridge share set by prior abundance; conflict adds 0.32).
+
+**Design choice dropped: the propagule-validation reference without the stopping rule.** It compared post-freeze neutral drift rather than the law of the process; replaced by the same-stop reference.

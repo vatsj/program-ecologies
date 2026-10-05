@@ -145,3 +145,11 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   Hawk–Dove mixture (S5 ≈ 0.67–0.75, efficiency ≈ 0.41) that absorbs one-population π at large N.
   **Partition-frozen** — the first check at which every island is locally closed; **escape** — an island locally
   closed on one convention and later on another.
+- **Island path:** **boundary path** — mN(N) = 0.3·N/T_nuc(N) with T_nuc calibrated at m = 0 (45 / 55 / 70
+  generations at N = 100 / 200 / 400, giving mN = 0.667 / 1.091 / 1.714); **q (holder form)** — horizon holders of
+  local ancestry relative to the paired m = 0 reference; **propagule (k)** — k fitness-weighted offspring from one
+  source island replacing k residents at once, mN/k events per island-generation; **stacking** — near-simultaneous
+  propagules acting as one of size 2k; **bridge absorption / replacement / capture** — loss of a minority island to
+  the bridge, to the majority network, or to an untagged class; **migrant-load advantage** — the bridge's edge on
+  islands receiving the rival's migrants; **separation-loss hazard** — losses per minority-island-generation;
+  **coordination barrier** — ≈ N·w·(1/2 − k/N)² for k migrants into a rival island.

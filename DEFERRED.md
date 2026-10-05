@@ -32,10 +32,15 @@ REJECTED.md the ones we dropped.
   resolves them by majority within 10³–10⁴ generations while every island stays efficient (RESULTS "Rival networks
   across islands"). *The mN rule the data support:* keep x = mN·T_nuc/N ≲ 0.3 (replacement fraction during
   nucleation; the control collapses N = 100 and 400), i.e. mN ≲ 0.3·N/T_nuc(N) ∝ N^0.7.
-- *New open item:* independent nucleation needs small m·T_nuc while resolving rival networks needs large m or small
-  N; whether a path exists on which both hold, and whether the program wants universality across islands at all rather
-  than island-level efficiency, is undecided. *Operating hypothesis (RE, 2026-10-05):* island-level efficiency is the
-  claim; metapopulation universality is not claimed beyond N ≈ 100.
+- *Open item (2026-10-05h, partly settled by RESULTS "A path in (N, I, mN)"):* on the calibrated boundary
+  mN = 0.3·N/T_nuc independent nucleation (q ≈ 0.82–0.97) and resolution coexist for rivals the prior *bridges*
+  (a class neutral to both absorbs the minority polynomially, and its scramble survival → 1 in I), and fail for
+  bridge-less rivals (P*-type, ≈ 1/4 of rival mass at n = 9), which form permanent patchworks at N ≥ 200. No natural
+  run in 1,000 ended separated. Propagules are not a scaling fix (barrier ≈ N·w·(1/2 − k/N)²).
+  *Operating hypothesis (RE, 2026-10-05, refined):* island-level efficiency is the claim; metapopulation
+  universality is claimed for rival pairs the prior bridges and conceded beyond N ≈ 100 for bridge-less pairs.
+  *Would settle it:* the prior mass of bridge-less rival establishers as n grows, and natural runs at N ≥ 200 large
+  enough to sample one.
 - *Evidence (2026-10-05g):* (i) is done and stronger than conjectured: Lemma D′ is proved for any lineage and any
   stopping time with no fitness hypothesis (Lemma D is the killed fixed-time case); (ii) is done: the per-founder
   union bound replaces 1/P(A) by a measured r_q = 0.8–1.7 and the bound is positive in 27/27 cells; the per-island
