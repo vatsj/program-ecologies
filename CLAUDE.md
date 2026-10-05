@@ -79,6 +79,6 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 3. The demographic lemma, the per-founder spoiler bound, and the establishment formula p(N) ≈ μ_est·√(2wN(R−P)/π) with its corrections. (Running: `specs/2026-10-05-demographic-lemma.md`.)
 4. An explicit proof system with measured proof length (GLS+Def on the frozen syntax; the bounded calculus K with an annotated Löb rule), in place of the stabilization proxy. (Running: `specs/2026-10-05-proof-length.md`.)
 5. Incentive-compatible enforcement (sol's follow-up to the union game); the worker grammar/prior (DEFERRED 10).
-6. Divide-the-dollar partitions across islands with `ROLE` (RS, 2026-10-02; paused worktree agent-aefc4dd3cf297898f holds partial game files).
+6. Divide-the-dollar partitions across islands, three role structures (RS, 2026-10-02). (Running: `specs/2026-10-05-dollar-partitions.md`; the paused worktree's partial files were carried into main in 5c9b1f9.)
 
 No paper draft (RS, 2026-10-04).
