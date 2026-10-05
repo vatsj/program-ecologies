@@ -139,3 +139,12 @@ N·w/4, not the D-into-FairBot barrier.
 - **S3.** At mN ≤ 1 in item 2, the network-loss hazard is dominated by the nucleation phase (first 10³ generations,
   while the iid background is still being colonized), with a lower post-nucleation hazard; both-present fractions
   at mN = 0.1 are at least 0.8 in every item-2 cell.
+
+## Addendum (committed before running it; after seeing partial item-2 data at N = 100)
+
+Partial item-2 data show one network lost in every run so far at N = 100 (hazard ~7·10⁻⁴ at mN = 1). The static
+barrier says the lifetime should grow exponentially in N. One extra control, not in the spec, labelled as an addition:
+control (c) at **N = 200**, I = 64, mN ∈ {1, 10}, half/half and one-minority-island presets, 40 runs each.
+- **S4.** At N = 200, mN = 1, no network is lost within 10⁵ generations in either preset (S1's rate mN·ρ_DD(200) =
+  7·10⁻⁹ per generation); at mN = 10 the half/half preset still loses a network in at least 0.5 of runs (strong
+  coupling), the minority preset in at most 0.2.
