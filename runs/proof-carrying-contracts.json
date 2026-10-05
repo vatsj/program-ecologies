@@ -1,0 +1,1445 @@
+{
+ "static": {
+  "programs": 19544,
+  "canon": 610,
+  "classes": 471,
+  "worlds_free": 7,
+  "types": 1632,
+  "valid_pairs": 1022,
+  "own_valid": 610,
+  "policy_dups": [
+   [
+    "<C>",
+    "<not(and(BOX(THEM(ME)),BOXD(THEM(ME))))>",
+    "<not(and(BOX(THEM(ME)),BOXD1(THEM(ME))))>",
+    "<not(and(BOXD(THEM(ME)),BOX1(THEM(ME))))>",
+    "<not(and(BOX1(THEM(ME)),BOXD1(THEM(ME))))>"
+   ],
+   [
+    "<D>",
+    "<and(BOX(THEM(ME)),BOXD(THEM(ME)))>",
+    "<and(BOX(THEM(ME)),BOXD1(THEM(ME)))>",
+    "<and(BOXD(THEM(ME)),BOX1(THEM(ME)))>",
+    "<and(BOX1(THEM(ME)),BOXD1(THEM(ME)))>"
+   ],
+   [
+    "<BOX(THEM(THEM))>",
+    "<and(BOX(THEM(THEM)),not(BOXD(THEM(ME))))>",
+    "<and(BOX(THEM(THEM)),not(BOXD1(THEM(THEM))))>"
+   ],
+   [
+    "<BOXD(THEM(THEM))>",
+    "<and(BOXD(THEM(THEM)),not(BOX(THEM(ME))))>",
+    "<and(BOXD(THEM(THEM)),not(BOX1(THEM(ME))))>"
+   ],
+   [
+    "<BOX1(THEM(THEM))>",
+    "<and(BOX1(THEM(THEM)),not(BOXD(THEM(ME))))>",
+    "<and(BOX1(THEM(THEM)),not(BOXD1(THEM(THEM))))>"
+   ],
+   [
+    "<BOXD1(THEM(THEM))>",
+    "<and(BOXD1(THEM(THEM)),not(BOX(THEM(THEM))))>",
+    "<and(BOXD1(THEM(THEM)),not(BOX1(THEM(THEM))))>"
+   ],
+   [
+    "<not(BOX(THEM(THEM)))>",
+    "<or(BOXD(THEM(ME)),not(BOX(THEM(THEM))))>",
+    "<or(BOXD1(THEM(ME)),not(BOX(THEM(THEM))))>"
+   ],
+   [
+    "<not(BOXD(THEM(THEM)))>",
+    "<or(BOX(THEM(ME)),not(BOXD(THEM(THEM))))>",
+    "<or(BOX1(THEM(THEM)),not(BOXD(THEM(THEM))))>"
+   ],
+   [
+    "<not(BOX1(THEM(THEM)))>",
+    "<or(BOXD(THEM(THEM)),not(BOX1(THEM(THEM))))>",
+    "<or(BOXD1(THEM(THEM)),not(BOX1(THEM(THEM))))>"
+   ],
+   [
+    "<not(BOXD1(THEM(THEM)))>",
+    "<or(BOX(THEM(ME)),not(BOXD1(THEM(THEM))))>",
+    "<or(BOX1(THEM(THEM)),not(BOXD1(THEM(THEM))))>"
+   ],
+   [
+    "<and(BOX(THEM(THEM)),BOXD1(THEM(^D)))>",
+    "<and(BOX1(THEM(THEM)),BOXD1(THEM(^D)))>"
+   ],
+   [
+    "<and(BOXD(THEM(THEM)),BOX1(THEM(^C)))>",
+    "<and(BOXD1(THEM(THEM)),BOX1(THEM(^C)))>"
+   ],
+   [
+    "<and(BOX1(THEM(THEM)),BOXD(THEM(^C)))>",
+    "<and(BOX1(THEM(THEM)),BOXD1(THEM(^C)))>"
+   ],
+   [
+    "<and(BOXD1(THEM(THEM)),BOX(THEM(^D)))>",
+    "<and(BOXD1(THEM(THEM)),BOX1(THEM(^D)))>"
+   ]
+  ],
+  "truth_table": {
+   "iters": 9,
+   "period": 4,
+   "divergent": 58996,
+   "entries": 372100
+  },
+  "sources_by_n_valid": [
+   0,
+   427,
+   48,
+   83,
+   10,
+   42
+  ],
+  "selfcoop_contracts": 237,
+  "breadth_rank_selfcoop": [
+   [
+    "<not(and(BOX1(THEM(ME)),BOXD1(THEM(ME))))>",
+    19,
+    0.46649568370115746
+   ],
+   [
+    "<C>",
+    17,
+    0.46649295615694053
+   ],
+   [
+    "<not(and(BOX(THEM(ME)),BOXD(THEM(ME))))>",
+    17,
+    0.46649295615694053
+   ],
+   [
+    "<not(and(BOX(THEM(ME)),BOXD1(THEM(ME))))>",
+    17,
+    0.46649295615694053
+   ],
+   [
+    "<not(and(BOXD(THEM(ME)),BOX1(THEM(ME))))>",
+    17,
+    0.46649295615694053
+   ],
+   [
+    "<BOX(THEM(ME))>",
+    7,
+    0.005088955573939171
+   ],
+   [
+    "<BOX1(THEM(ME))>",
+    6,
+    0.005087591801830703
+   ],
+   [
+    "<BOX(THEM(THEM))>",
+    6,
+    0.005058017280244757
+   ],
+   [
+    "<or(BOXD(THEM(ME)),not(BOX(THEM(ME))))>",
+    6,
+    0.001301457462188155
+   ],
+   [
+    "<or(BOXD(THEM(ME)),not(BOX(THEM(THEM))))>",
+    6,
+    0.001301457462188155
+   ],
+   [
+    "<or(BOXD1(THEM(ME)),not(BOX(THEM(ME))))>",
+    6,
+    0.001301457462188155
+   ],
+   [
+    "<or(BOXD1(THEM(ME)),not(BOX(THEM(THEM))))>",
+    6,
+    0.001301457462188155
+   ],
+   [
+    "<not(BOX(THEM(ME)))>",
+    6,
+    0.0013007755761339206
+   ],
+   [
+    "<not(BOX1(THEM(ME)))>",
+    6,
+    0.0013007755761339206
+   ],
+   [
+    "<not(BOX(THEM(THEM)))>",
+    5,
+    0.0013000936900796863
+   ],
+   [
+    "<not(BOX1(THEM(THEM)))>",
+    5,
+    0.0013000936900796863
+   ],
+   [
+    "<or(BOX(THEM(ME)),not(BOXD(THEM(ME))))>",
+    5,
+    0.0013000936900796863
+   ],
+   [
+    "<or(BOX(THEM(ME)),not(BOXD(THEM(THEM))))>",
+    5,
+    0.0013000936900796863
+   ],
+   [
+    "<or(BOX(THEM(ME)),not(BOXD1(THEM(ME))))>",
+    5,
+    0.0013000936900796863
+   ],
+   [
+    "<or(BOX(THEM(ME)),not(BOXD1(THEM(THEM))))>",
+    5,
+    0.0013000936900796863
+   ]
+  ],
+  "tags": [],
+  "gate": {
+   "inf": {
+    "info": {
+     "rounds": 1,
+     "cycle": false,
+     "worlds": 7,
+     "masked": 0
+    },
+    "audit": {
+     "contract_reads": 2452800,
+     "contract_box_true": 566032,
+     "contract_violations": 0,
+     "source_reads_legible": 1947072,
+     "source_reads_masked": 0,
+     "source_box_true": 554145,
+     "source_violations": 0,
+     "carrier_pairs": 1044484,
+     "carrier_pairs_off_table": 0,
+     "recompute_mismatch": 0
+    },
+    "time_s": 1.0363988876342773,
+    "masked_noncarrier_pairs": 0,
+    "selfcoop_noncarrier": {
+     "BOX(THEM(ME))": 1,
+     "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": 1,
+     "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))": 1,
+     "BOX1(THEM(ME))": 1,
+     "BOX(THEM(THEM))": 1
+    },
+    "n_free_selfcoop": 287,
+    "n_selfcoop_noncarrier": 287,
+    "mu_free_selfcoop": 0.49708768984407303,
+    "mu_selfcoop_noncarrier": 0.49708768984407303,
+    "fb_nc_vs_fb_carrier": 1,
+    "fb_carrier_vs_fb_nc": 1,
+    "noncarrier_equals_free": 1
+   },
+   "4": {
+    "info": {
+     "rounds": 6,
+     "cycle": true,
+     "worlds": 7,
+     "masked": 611289,
+     "changes": [
+      607287,
+      318983,
+      311412,
+      309693,
+      309677,
+      309677
+     ]
+    },
+    "audit": {
+     "contract_reads": 2452800,
+     "contract_box_true": 566032,
+     "contract_violations": 0,
+     "source_reads_legible": 1308948,
+     "source_reads_masked": 638124,
+     "source_box_true": 510417,
+     "source_violations": 0,
+     "carrier_pairs": 1044484,
+     "carrier_pairs_off_table": 0,
+     "recompute_mismatch": 0
+    },
+    "time_s": 4.828380823135376,
+    "masked_noncarrier_pairs": 169746,
+    "selfcoop_noncarrier": {
+     "BOX(THEM(ME))": 1,
+     "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": 1,
+     "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))": 1,
+     "BOX1(THEM(ME))": 1,
+     "BOX(THEM(THEM))": 1
+    },
+    "n_free_selfcoop": 287,
+    "n_selfcoop_noncarrier": 253,
+    "mu_free_selfcoop": 0.49708768984407303,
+    "mu_selfcoop_noncarrier": 0.49698667388842926,
+    "fb_nc_vs_fb_carrier": 1,
+    "fb_carrier_vs_fb_nc": 1,
+    "noncarrier_equals_free": null
+   },
+   "2": {
+    "info": {
+     "rounds": 7,
+     "cycle": true,
+     "worlds": 6,
+     "masked": 967975,
+     "changes": [
+      963686,
+      639015,
+      626619,
+      622031,
+      621696,
+      621652,
+      621652
+     ]
+    },
+    "audit": {
+     "contract_reads": 2452800,
+     "contract_box_true": 566032,
+     "contract_violations": 0,
+     "source_reads_legible": 943144,
+     "source_reads_masked": 1003928,
+     "source_box_true": 460376,
+     "source_violations": 0,
+     "carrier_pairs": 1044484,
+     "carrier_pairs_off_table": 0,
+     "recompute_mismatch": 0
+    },
+    "time_s": 2.9472577571868896,
+    "masked_noncarrier_pairs": 277479,
+    "selfcoop_noncarrier": {
+     "BOX(THEM(ME))": 1,
+     "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": 1,
+     "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))": 0,
+     "BOX1(THEM(ME))": 1,
+     "BOX(THEM(THEM))": 1
+    },
+    "n_free_selfcoop": 287,
+    "n_selfcoop_noncarrier": 212,
+    "mu_free_selfcoop": 0.49708768984407303,
+    "mu_selfcoop_noncarrier": 0.4968805005259526,
+    "fb_nc_vs_fb_carrier": 1,
+    "fb_carrier_vs_fb_nc": 1,
+    "noncarrier_equals_free": null
+   }
+  }
+ },
+ "compatibility_top": [
+  {
+   "contract": "<D>",
+   "id": 1,
+   "n_valid": 37,
+   "mu_valid": 0.4665949135671955,
+   "mu_own_class": 0.4664793184358559,
+   "self_coop": 0,
+   "n_coop_with": 0,
+   "sources": [
+    "D",
+    "and(BOX1(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOXD(THEM(THEM)),BOX1(THEM(THEM)))",
+    "and(BOXD(THEM(THEM)),BOX1(THEM(ME)))",
+    "and(BOXD(THEM(ME)),BOX1(THEM(THEM)))",
+    "and(BOXD(THEM(ME)),BOX1(THEM(ME)))",
+    "and(BOX1(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOX(THEM(THEM)),BOXD(THEM(THEM)))",
+    "and(BOX(THEM(THEM)),BOXD(THEM(ME)))",
+    "and(BOX(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOX(THEM(ME)),BOXD(THEM(THEM)))",
+    "and(BOX(THEM(ME)),BOXD(THEM(ME)))"
+   ]
+  },
+  {
+   "contract": "<and(BOX1(THEM(ME)),BOXD1(THEM(ME)))>",
+   "id": 121,
+   "n_valid": 37,
+   "mu_valid": 0.4665949135671955,
+   "mu_own_class": 1.7902083114822915e-05,
+   "self_coop": 0,
+   "n_coop_with": 0,
+   "sources": [
+    "D",
+    "and(BOX1(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOXD(THEM(THEM)),BOX1(THEM(THEM)))",
+    "and(BOXD(THEM(ME)),BOX1(THEM(ME)))",
+    "and(BOX(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOX(THEM(THEM)),BOXD1(THEM(ME)))",
+    "and(BOX1(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOX(THEM(THEM)),BOXD(THEM(ME)))",
+    "and(BOX(THEM(ME)),BOXD1(THEM(THEM)))",
+    "and(BOX(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOX(THEM(ME)),BOXD(THEM(THEM)))",
+    "and(BOX(THEM(ME)),BOXD(THEM(ME)))"
+   ]
+  },
+  {
+   "contract": "<and(BOXD(THEM(ME)),BOX1(THEM(ME)))>",
+   "id": 110,
+   "n_valid": 35,
+   "mu_valid": 0.4665921860229786,
+   "mu_own_class": 2.062962733175997e-05,
+   "self_coop": 0,
+   "n_coop_with": 0,
+   "sources": [
+    "D",
+    "and(BOX1(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOXD(THEM(THEM)),BOX1(THEM(THEM)))",
+    "and(BOXD(THEM(ME)),BOX1(THEM(ME)))",
+    "and(BOX(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOX(THEM(THEM)),BOXD1(THEM(ME)))",
+    "and(BOX1(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOX(THEM(THEM)),BOXD(THEM(ME)))",
+    "and(BOX(THEM(ME)),BOXD1(THEM(THEM)))",
+    "and(BOX(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOX(THEM(ME)),BOXD(THEM(THEM)))",
+    "and(BOX(THEM(ME)),BOXD(THEM(ME)))"
+   ]
+  },
+  {
+   "contract": "<and(BOX(THEM(ME)),BOXD1(THEM(ME)))>",
+   "id": 100,
+   "n_valid": 35,
+   "mu_valid": 0.4665921860229786,
+   "mu_own_class": 3.580416622964583e-05,
+   "self_coop": 0,
+   "n_coop_with": 0,
+   "sources": [
+    "D",
+    "and(BOX1(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOXD(THEM(THEM)),BOX1(THEM(THEM)))",
+    "and(BOXD(THEM(ME)),BOX1(THEM(ME)))",
+    "and(BOX(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOX(THEM(THEM)),BOXD1(THEM(ME)))",
+    "and(BOX1(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOX(THEM(THEM)),BOXD(THEM(ME)))",
+    "and(BOX(THEM(ME)),BOXD1(THEM(THEM)))",
+    "and(BOX(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOX(THEM(ME)),BOXD(THEM(THEM)))",
+    "and(BOX(THEM(ME)),BOXD(THEM(ME)))"
+   ]
+  },
+  {
+   "contract": "<and(BOX(THEM(ME)),BOXD(THEM(ME)))>",
+   "id": 96,
+   "n_valid": 35,
+   "mu_valid": 0.4665921860229786,
+   "mu_own_class": 4.125925466351995e-05,
+   "self_coop": 0,
+   "n_coop_with": 0,
+   "sources": [
+    "D",
+    "and(BOX1(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOXD(THEM(THEM)),BOX1(THEM(THEM)))",
+    "and(BOXD(THEM(ME)),BOX1(THEM(ME)))",
+    "and(BOX(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOX(THEM(THEM)),BOXD1(THEM(ME)))",
+    "and(BOX1(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOX(THEM(THEM)),BOXD(THEM(ME)))",
+    "and(BOX(THEM(ME)),BOXD1(THEM(THEM)))",
+    "and(BOX(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOX(THEM(ME)),BOXD(THEM(THEM)))",
+    "and(BOX(THEM(ME)),BOXD(THEM(ME)))"
+   ]
+  },
+  {
+   "contract": "<not(and(BOX1(THEM(ME)),BOXD1(THEM(ME))))>",
+   "id": 217,
+   "n_valid": 19,
+   "mu_valid": 0.46649568370115746,
+   "mu_own_class": 2.7275442169370578e-06,
+   "self_coop": 1,
+   "n_coop_with": 471,
+   "sources": [
+    "C",
+    "or(BOXD1(THEM(ME)),not(BOXD(THEM(ME))))",
+    "or(BOX1(THEM(THEM)),not(BOX(THEM(THEM))))",
+    "or(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    "or(BOXD(THEM(THEM)),not(BOXD(THEM(ME))))",
+    "not(and(BOX1(THEM(THEM)),BOXD1(THEM(THEM))))",
+    "not(and(BOX1(THEM(ME)),BOXD1(THEM(ME))))",
+    "not(and(BOXD(THEM(THEM)),BOX1(THEM(THEM))))",
+    "or(BOXD1(THEM(THEM)),not(BOXD(THEM(ME))))",
+    "not(and(BOXD(THEM(THEM)),BOX1(THEM(ME))))",
+    "not(and(BOXD(THEM(ME)),BOX1(THEM(ME))))",
+    "not(and(BOX(THEM(THEM)),BOXD1(THEM(THEM))))"
+   ]
+  },
+  {
+   "contract": "<not(and(BOXD(THEM(ME)),BOX1(THEM(ME))))>",
+   "id": 208,
+   "n_valid": 17,
+   "mu_valid": 0.46649295615694053,
+   "mu_own_class": 5.4550884338741155e-06,
+   "self_coop": 1,
+   "n_coop_with": 471,
+   "sources": [
+    "C",
+    "or(BOX1(THEM(THEM)),not(BOX(THEM(THEM))))",
+    "or(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    "not(and(BOX1(THEM(THEM)),BOXD1(THEM(THEM))))",
+    "not(and(BOX1(THEM(ME)),BOXD1(THEM(ME))))",
+    "not(and(BOXD(THEM(THEM)),BOX1(THEM(THEM))))",
+    "not(and(BOXD(THEM(THEM)),BOX1(THEM(ME))))",
+    "or(BOXD1(THEM(ME)),not(BOXD(THEM(ME))))",
+    "not(and(BOXD(THEM(ME)),BOX1(THEM(THEM))))",
+    "not(and(BOX(THEM(THEM)),BOXD1(THEM(THEM))))",
+    "not(and(BOX(THEM(THEM)),BOXD(THEM(THEM))))",
+    "not(and(BOX(THEM(THEM)),BOXD(THEM(ME))))"
+   ]
+  },
+  {
+   "contract": "<not(and(BOX(THEM(ME)),BOXD1(THEM(ME))))>",
+   "id": 196,
+   "n_valid": 17,
+   "mu_valid": 0.46649295615694053,
+   "mu_own_class": 2.7275442169370578e-06,
+   "self_coop": 1,
+   "n_coop_with": 471,
+   "sources": [
+    "C",
+    "or(BOX1(THEM(THEM)),not(BOX(THEM(THEM))))",
+    "or(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    "not(and(BOX1(THEM(THEM)),BOXD1(THEM(THEM))))",
+    "not(and(BOX1(THEM(ME)),BOXD1(THEM(ME))))",
+    "not(and(BOXD(THEM(THEM)),BOX1(THEM(THEM))))",
+    "not(and(BOXD(THEM(THEM)),BOX1(THEM(ME))))",
+    "or(BOXD1(THEM(ME)),not(BOXD(THEM(ME))))",
+    "not(and(BOXD(THEM(ME)),BOX1(THEM(THEM))))",
+    "not(and(BOX(THEM(THEM)),BOXD1(THEM(THEM))))",
+    "not(and(BOX(THEM(THEM)),BOXD(THEM(THEM))))",
+    "not(and(BOX(THEM(THEM)),BOXD(THEM(ME))))"
+   ]
+  },
+  {
+   "contract": "<not(and(BOX(THEM(ME)),BOXD(THEM(ME))))>",
+   "id": 192,
+   "n_valid": 17,
+   "mu_valid": 0.46649295615694053,
+   "mu_own_class": 5.4550884338741155e-06,
+   "self_coop": 1,
+   "n_coop_with": 471,
+   "sources": [
+    "C",
+    "or(BOX1(THEM(THEM)),not(BOX(THEM(THEM))))",
+    "or(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    "not(and(BOX1(THEM(THEM)),BOXD1(THEM(THEM))))",
+    "not(and(BOX1(THEM(ME)),BOXD1(THEM(ME))))",
+    "not(and(BOXD(THEM(THEM)),BOX1(THEM(THEM))))",
+    "not(and(BOXD(THEM(THEM)),BOX1(THEM(ME))))",
+    "or(BOXD1(THEM(ME)),not(BOXD(THEM(ME))))",
+    "not(and(BOXD(THEM(ME)),BOX1(THEM(THEM))))",
+    "not(and(BOX(THEM(THEM)),BOXD1(THEM(THEM))))",
+    "not(and(BOX(THEM(THEM)),BOXD(THEM(THEM))))",
+    "not(and(BOX(THEM(THEM)),BOXD(THEM(ME))))"
+   ]
+  },
+  {
+   "contract": "<C>",
+   "id": 0,
+   "n_valid": 17,
+   "mu_valid": 0.46649295615694053,
+   "mu_own_class": 0.46647659089163895,
+   "self_coop": 1,
+   "n_coop_with": 471,
+   "sources": [
+    "C",
+    "or(BOX1(THEM(THEM)),not(BOX(THEM(THEM))))",
+    "or(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    "not(and(BOX1(THEM(THEM)),BOXD1(THEM(THEM))))",
+    "not(and(BOX1(THEM(ME)),BOXD1(THEM(ME))))",
+    "not(and(BOXD(THEM(THEM)),BOX1(THEM(THEM))))",
+    "not(and(BOXD(THEM(ME)),BOX1(THEM(ME))))",
+    "or(BOXD1(THEM(ME)),not(BOXD(THEM(ME))))",
+    "not(and(BOX(THEM(THEM)),BOXD1(THEM(THEM))))",
+    "not(and(BOX(THEM(THEM)),BOXD(THEM(THEM))))",
+    "not(and(BOX(THEM(THEM)),BOXD(THEM(ME))))",
+    "not(and(BOX(THEM(ME)),BOXD1(THEM(THEM))))"
+   ]
+  },
+  {
+   "contract": "<BOX(THEM(ME))>",
+   "id": 2,
+   "n_valid": 7,
+   "mu_valid": 0.005088955573939171,
+   "mu_own_class": 0.005083500485505299,
+   "self_coop": 1,
+   "n_coop_with": 126,
+   "sources": [
+    "BOX(THEM(ME))",
+    "BOX(THEM(^BOX(THEM(ME))))",
+    "and(BOX(THEM(ME)),BOX1(THEM(ME)))",
+    "and(BOX(THEM(ME)),not(BOXD(THEM(ME))))",
+    "and(BOX(THEM(ME)),not(BOXD(THEM(THEM))))",
+    "and(BOX(THEM(ME)),not(BOXD1(THEM(ME))))",
+    "and(BOX(THEM(ME)),not(BOXD1(THEM(THEM))))"
+   ]
+  },
+  {
+   "contract": "<BOXD1(THEM(ME))>",
+   "id": 8,
+   "n_valid": 7,
+   "mu_valid": 0.005088955573939171,
+   "mu_own_class": 0.005084864257613767,
+   "self_coop": 0,
+   "n_coop_with": 96,
+   "sources": [
+    "BOXD1(THEM(ME))",
+    "BOXD1(THEM(^BOXD1(THEM(ME))))",
+    "or(BOXD(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOXD1(THEM(ME)),not(BOX(THEM(ME))))",
+    "and(BOXD1(THEM(ME)),not(BOX(THEM(THEM))))",
+    "and(BOXD1(THEM(ME)),not(BOX1(THEM(ME))))",
+    "and(BOXD1(THEM(ME)),BOXD1(THEM(^C)))"
+   ]
+  },
+  {
+   "contract": "<BOXD(THEM(ME))>",
+   "id": 4,
+   "n_valid": 6,
+   "mu_valid": 0.005087591801830703,
+   "mu_own_class": 0.005083500485505299,
+   "self_coop": 0,
+   "n_coop_with": 66,
+   "sources": [
+    "BOXD(THEM(ME))",
+    "BOXD(THEM(^BOXD(THEM(ME))))",
+    "and(BOXD(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOXD(THEM(ME)),not(BOX(THEM(ME))))",
+    "and(BOXD(THEM(ME)),not(BOX(THEM(THEM))))",
+    "and(BOXD(THEM(ME)),not(BOX1(THEM(ME))))"
+   ]
+  },
+  {
+   "contract": "<BOX1(THEM(ME))>",
+   "id": 6,
+   "n_valid": 6,
+   "mu_valid": 0.005087591801830703,
+   "mu_own_class": 0.005084864257613767,
+   "self_coop": 1,
+   "n_coop_with": 144,
+   "sources": [
+    "BOX1(THEM(ME))",
+    "BOX1(THEM(^BOX1(THEM(ME))))",
+    "or(BOX(THEM(ME)),BOX1(THEM(ME)))",
+    "and(BOX1(THEM(ME)),not(BOXD(THEM(ME))))",
+    "and(BOX1(THEM(ME)),not(BOXD1(THEM(ME))))",
+    "and(BOX1(THEM(ME)),BOX1(THEM(^C)))"
+   ]
+  },
+  {
+   "contract": "<and(BOXD(THEM(THEM)),not(BOX1(THEM(ME))))>",
+   "id": 343,
+   "n_valid": 9,
+   "mu_valid": 0.005062108596570161,
+   "mu_own_class": 2.7275442169370578e-06,
+   "self_coop": 0,
+   "n_coop_with": 59,
+   "sources": [
+    "BOXD(THEM(THEM))",
+    "and(BOXD(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOXD(THEM(THEM)),not(BOX(THEM(ME))))",
+    "and(BOXD(THEM(THEM)),not(BOX(THEM(THEM))))",
+    "and(BOXD(THEM(THEM)),not(BOX1(THEM(ME))))",
+    "and(BOXD(THEM(THEM)),not(BOX1(THEM(THEM))))",
+    "and(BOXD(THEM(THEM)),BOXD(THEM(^D)))",
+    "and(BOXD(THEM(THEM)),BOXD1(THEM(^D)))",
+    "and(BOXD1(THEM(THEM)),BOXD(THEM(^D)))"
+   ]
+  },
+  {
+   "contract": "<and(BOXD(THEM(THEM)),not(BOX(THEM(ME))))>",
+   "id": 341,
+   "n_valid": 9,
+   "mu_valid": 0.005062108596570161,
+   "mu_own_class": 2.7275442169370578e-06,
+   "self_coop": 0,
+   "n_coop_with": 59,
+   "sources": [
+    "BOXD(THEM(THEM))",
+    "and(BOXD(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOXD(THEM(THEM)),not(BOX(THEM(ME))))",
+    "and(BOXD(THEM(THEM)),not(BOX(THEM(THEM))))",
+    "and(BOXD(THEM(THEM)),not(BOX1(THEM(ME))))",
+    "and(BOXD(THEM(THEM)),not(BOX1(THEM(THEM))))",
+    "and(BOXD(THEM(THEM)),BOXD(THEM(^D)))",
+    "and(BOXD(THEM(THEM)),BOXD1(THEM(^D)))",
+    "and(BOXD1(THEM(THEM)),BOXD(THEM(^D)))"
+   ]
+  },
+  {
+   "contract": "<and(BOXD(THEM(ME)),not(BOX1(THEM(ME))))>",
+   "id": 326,
+   "n_valid": 9,
+   "mu_valid": 0.005062108596570161,
+   "mu_own_class": 2.7275442169370578e-06,
+   "self_coop": 0,
+   "n_coop_with": 60,
+   "sources": [
+    "BOXD(THEM(ME))",
+    "and(BOXD(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOXD(THEM(ME)),not(BOX(THEM(ME))))",
+    "and(BOXD(THEM(ME)),not(BOX(THEM(THEM))))",
+    "and(BOXD(THEM(ME)),not(BOX1(THEM(ME))))",
+    "and(BOXD(THEM(ME)),not(BOX1(THEM(THEM))))",
+    "and(BOXD(THEM(ME)),BOXD(THEM(^D)))",
+    "and(BOXD(THEM(ME)),BOXD1(THEM(^D)))",
+    "and(BOXD1(THEM(ME)),BOXD(THEM(^D)))"
+   ]
+  },
+  {
+   "contract": "<BOXD(THEM(THEM))>",
+   "id": 5,
+   "n_valid": 8,
+   "mu_valid": 0.005060744824461693,
+   "mu_own_class": 0.005056653508136289,
+   "self_coop": 0,
+   "n_coop_with": 59,
+   "sources": [
+    "BOXD(THEM(THEM))",
+    "and(BOXD(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOXD(THEM(THEM)),not(BOX(THEM(ME))))",
+    "and(BOXD(THEM(THEM)),not(BOX(THEM(THEM))))",
+    "and(BOXD(THEM(THEM)),not(BOX1(THEM(THEM))))",
+    "and(BOXD(THEM(THEM)),BOXD(THEM(^D)))",
+    "and(BOXD(THEM(THEM)),BOXD1(THEM(^D)))",
+    "and(BOXD1(THEM(THEM)),BOXD(THEM(^D)))"
+   ]
+  },
+  {
+   "contract": "<and(BOX(THEM(ME)),not(BOXD1(THEM(ME))))>",
+   "id": 289,
+   "n_valid": 8,
+   "mu_valid": 0.005060744824461693,
+   "mu_own_class": 1.3637721084685289e-06,
+   "self_coop": 0,
+   "n_coop_with": 98,
+   "sources": [
+    "BOX(THEM(ME))",
+    "and(BOX(THEM(ME)),BOX1(THEM(ME)))",
+    "and(BOX(THEM(ME)),not(BOXD(THEM(ME))))",
+    "and(BOX(THEM(ME)),not(BOXD(THEM(THEM))))",
+    "and(BOX(THEM(ME)),not(BOXD1(THEM(ME))))",
+    "and(BOX(THEM(ME)),BOX(THEM(^D)))",
+    "and(BOX(THEM(ME)),BOX1(THEM(^D)))",
+    "and(BOX1(THEM(ME)),BOX(THEM(^D)))"
+   ]
+  },
+  {
+   "contract": "<BOX(THEM(THEM))>",
+   "id": 3,
+   "n_valid": 6,
+   "mu_valid": 0.005058017280244757,
+   "mu_own_class": 0.005052562191810884,
+   "self_coop": 1,
+   "n_coop_with": 117,
+   "sources": [
+    "BOX(THEM(THEM))",
+    "and(BOX(THEM(THEM)),BOX1(THEM(THEM)))",
+    "and(BOX(THEM(THEM)),not(BOXD(THEM(ME))))",
+    "and(BOX(THEM(THEM)),not(BOXD(THEM(THEM))))",
+    "and(BOX(THEM(THEM)),not(BOXD1(THEM(ME))))",
+    "and(BOX(THEM(THEM)),not(BOXD1(THEM(THEM))))"
+   ]
+  },
+  {
+   "contract": "<and(BOXD(THEM(ME)),not(BOX(THEM(ME))))>",
+   "id": 321,
+   "n_valid": 6,
+   "mu_valid": 0.005058017280244757,
+   "mu_own_class": 2.7275442169370578e-06,
+   "self_coop": 0,
+   "n_coop_with": 63,
+   "sources": [
+    "BOXD(THEM(ME))",
+    "and(BOXD(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOXD(THEM(ME)),not(BOX(THEM(ME))))",
+    "and(BOXD(THEM(ME)),not(BOX(THEM(THEM))))",
+    "and(BOXD(THEM(ME)),not(BOX1(THEM(ME))))",
+    "and(BOXD(THEM(ME)),not(BOX1(THEM(THEM))))"
+   ]
+  },
+  {
+   "contract": "<and(BOX1(THEM(ME)),not(BOXD1(THEM(ME))))>",
+   "id": 362,
+   "n_valid": 6,
+   "mu_valid": 0.005058017280244757,
+   "mu_own_class": 1.3637721084685289e-06,
+   "self_coop": 0,
+   "n_coop_with": 126,
+   "sources": [
+    "BOX1(THEM(ME))",
+    "or(BOX(THEM(ME)),BOX1(THEM(ME)))",
+    "and(BOX1(THEM(ME)),not(BOXD(THEM(ME))))",
+    "and(BOX1(THEM(ME)),not(BOXD(THEM(THEM))))",
+    "and(BOX1(THEM(ME)),not(BOXD1(THEM(ME))))",
+    "and(BOX1(THEM(ME)),BOX1(THEM(^D)))"
+   ]
+  },
+  {
+   "contract": "<and(BOX1(THEM(THEM)),not(BOXD1(THEM(THEM))))>",
+   "id": 383,
+   "n_valid": 5,
+   "mu_valid": 0.005056653508136289,
+   "mu_own_class": 1.3637721084685289e-06,
+   "self_coop": 0,
+   "n_coop_with": 153,
+   "sources": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))",
+    "and(BOX1(THEM(THEM)),not(BOXD(THEM(ME))))",
+    "and(BOX1(THEM(THEM)),not(BOXD(THEM(THEM))))",
+    "and(BOX1(THEM(THEM)),not(BOXD1(THEM(THEM))))"
+   ]
+  },
+  {
+   "contract": "<and(BOXD1(THEM(ME)),not(BOX1(THEM(ME))))>",
+   "id": 404,
+   "n_valid": 5,
+   "mu_valid": 0.005056653508136289,
+   "mu_own_class": 1.3637721084685289e-06,
+   "self_coop": 0,
+   "n_coop_with": 103,
+   "sources": [
+    "BOXD1(THEM(ME))",
+    "or(BOXD(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOXD1(THEM(ME)),not(BOX(THEM(ME))))",
+    "and(BOXD1(THEM(ME)),not(BOX1(THEM(ME))))",
+    "and(BOXD1(THEM(ME)),BOXD1(THEM(^D)))"
+   ]
+  },
+  {
+   "contract": "<BOXD1(THEM(THEM))>",
+   "id": 9,
+   "n_valid": 5,
+   "mu_valid": 0.005056653508136289,
+   "mu_own_class": 0.005052562191810884,
+   "self_coop": 0,
+   "n_coop_with": 109,
+   "sources": [
+    "BOXD1(THEM(THEM))",
+    "or(BOXD(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOXD1(THEM(THEM)),not(BOX(THEM(ME))))",
+    "and(BOXD1(THEM(THEM)),not(BOX(THEM(THEM))))",
+    "and(BOXD1(THEM(THEM)),not(BOX1(THEM(THEM))))"
+   ]
+  },
+  {
+   "contract": "<and(BOX(THEM(THEM)),not(BOXD1(THEM(THEM))))>",
+   "id": 309,
+   "n_valid": 5,
+   "mu_valid": 0.005056653508136289,
+   "mu_own_class": 1.3637721084685289e-06,
+   "self_coop": 0,
+   "n_coop_with": 117,
+   "sources": [
+    "BOX(THEM(THEM))",
+    "and(BOX(THEM(THEM)),BOX1(THEM(THEM)))",
+    "and(BOX(THEM(THEM)),not(BOXD(THEM(ME))))",
+    "and(BOX(THEM(THEM)),not(BOXD(THEM(THEM))))",
+    "and(BOX(THEM(THEM)),not(BOXD1(THEM(THEM))))"
+   ]
+  },
+  {
+   "contract": "<and(BOX(THEM(THEM)),not(BOXD(THEM(ME))))>",
+   "id": 305,
+   "n_valid": 5,
+   "mu_valid": 0.005056653508136289,
+   "mu_own_class": 2.7275442169370578e-06,
+   "self_coop": 0,
+   "n_coop_with": 117,
+   "sources": [
+    "BOX(THEM(THEM))",
+    "and(BOX(THEM(THEM)),BOX1(THEM(THEM)))",
+    "and(BOX(THEM(THEM)),not(BOXD(THEM(ME))))",
+    "and(BOX(THEM(THEM)),not(BOXD(THEM(THEM))))",
+    "and(BOX(THEM(THEM)),not(BOXD1(THEM(THEM))))"
+   ]
+  },
+  {
+   "contract": "<and(BOX1(THEM(THEM)),not(BOXD(THEM(ME))))>",
+   "id": 376,
+   "n_valid": 5,
+   "mu_valid": 0.005056653508136289,
+   "mu_own_class": 2.7275442169370578e-06,
+   "self_coop": 0,
+   "n_coop_with": 153,
+   "sources": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))",
+    "and(BOX1(THEM(THEM)),not(BOXD(THEM(ME))))",
+    "and(BOX1(THEM(THEM)),not(BOXD(THEM(THEM))))",
+    "and(BOX1(THEM(THEM)),not(BOXD1(THEM(THEM))))"
+   ]
+  },
+  {
+   "contract": "<and(BOX(THEM(ME)),not(BOXD(THEM(ME))))>",
+   "id": 284,
+   "n_valid": 5,
+   "mu_valid": 0.005056653508136289,
+   "mu_own_class": 2.7275442169370578e-06,
+   "self_coop": 0,
+   "n_coop_with": 118,
+   "sources": [
+    "BOX(THEM(ME))",
+    "and(BOX(THEM(ME)),BOX1(THEM(ME)))",
+    "and(BOX(THEM(ME)),not(BOXD(THEM(ME))))",
+    "and(BOX(THEM(ME)),not(BOXD(THEM(THEM))))",
+    "and(BOX(THEM(ME)),not(BOXD1(THEM(ME))))"
+   ]
+  },
+  {
+   "contract": "<and(BOX1(THEM(ME)),not(BOXD(THEM(ME))))>",
+   "id": 357,
+   "n_valid": 5,
+   "mu_valid": 0.005056653508136289,
+   "mu_own_class": 2.7275442169370578e-06,
+   "self_coop": 0,
+   "n_coop_with": 146,
+   "sources": [
+    "BOX1(THEM(ME))",
+    "or(BOX(THEM(ME)),BOX1(THEM(ME)))",
+    "and(BOX1(THEM(ME)),not(BOXD(THEM(ME))))",
+    "and(BOX1(THEM(ME)),not(BOXD(THEM(THEM))))",
+    "and(BOX1(THEM(ME)),not(BOXD1(THEM(ME))))"
+   ]
+  },
+  {
+   "contract": "<and(BOXD1(THEM(THEM)),not(BOX(THEM(THEM))))>",
+   "id": 421,
+   "n_valid": 4,
+   "mu_valid": 0.00505528973602782,
+   "mu_own_class": 1.3637721084685289e-06,
+   "self_coop": 0,
+   "n_coop_with": 109,
+   "sources": [
+    "BOXD1(THEM(THEM))",
+    "or(BOXD(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOXD1(THEM(THEM)),not(BOX(THEM(THEM))))",
+    "and(BOXD1(THEM(THEM)),not(BOX1(THEM(THEM))))"
+   ]
+  },
+  {
+   "contract": "<and(BOXD1(THEM(ME)),not(BOX(THEM(ME))))>",
+   "id": 398,
+   "n_valid": 4,
+   "mu_valid": 0.00505528973602782,
+   "mu_own_class": 1.3637721084685289e-06,
+   "self_coop": 0,
+   "n_coop_with": 106,
+   "sources": [
+    "BOXD1(THEM(ME))",
+    "or(BOXD(THEM(ME)),BOXD1(THEM(ME)))",
+    "and(BOXD1(THEM(ME)),not(BOX(THEM(ME))))",
+    "and(BOXD1(THEM(ME)),not(BOX1(THEM(ME))))"
+   ]
+  },
+  {
+   "contract": "<BOX1(THEM(THEM))>",
+   "id": 7,
+   "n_valid": 4,
+   "mu_valid": 0.00505528973602782,
+   "mu_own_class": 0.005052562191810884,
+   "self_coop": 1,
+   "n_coop_with": 153,
+   "sources": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))",
+    "and(BOX1(THEM(THEM)),not(BOXD(THEM(THEM))))",
+    "and(BOX1(THEM(THEM)),not(BOXD1(THEM(THEM))))"
+   ]
+  },
+  {
+   "contract": "<and(BOXD1(THEM(THEM)),not(BOX1(THEM(THEM))))>",
+   "id": 426,
+   "n_valid": 4,
+   "mu_valid": 0.00505528973602782,
+   "mu_own_class": 1.3637721084685289e-06,
+   "self_coop": 0,
+   "n_coop_with": 109,
+   "sources": [
+    "BOXD1(THEM(THEM))",
+    "or(BOXD(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "and(BOXD1(THEM(THEM)),not(BOX(THEM(THEM))))",
+    "and(BOXD1(THEM(THEM)),not(BOX1(THEM(THEM))))"
+   ]
+  },
+  {
+   "contract": "<BOX1(THEM(^C))>",
+   "id": 22,
+   "n_valid": 4,
+   "mu_valid": 0.0015356063708759273,
+   "mu_own_class": 0.0015356063708759273,
+   "self_coop": 1,
+   "n_coop_with": 202,
+   "sources": [
+    "BOX1(THEM(^C))",
+    "or(BOX(THEM(ME)),BOX1(THEM(^C)))",
+    "or(BOX1(THEM(ME)),BOX(THEM(^C)))",
+    "or(BOX1(THEM(ME)),BOX1(THEM(^C)))"
+   ]
+  },
+  {
+   "contract": "<BOXD1(THEM(^C))>",
+   "id": 24,
+   "n_valid": 3,
+   "mu_valid": 0.0015342425987674587,
+   "mu_own_class": 0.0015342425987674587,
+   "self_coop": 0,
+   "n_coop_with": 152,
+   "sources": [
+    "BOXD1(THEM(^C))",
+    "or(BOXD(THEM(ME)),BOXD1(THEM(^C)))",
+    "or(BOXD1(THEM(ME)),BOXD1(THEM(^C)))"
+   ]
+  },
+  {
+   "contract": "<BOXD(THEM(^D))>",
+   "id": 21,
+   "n_valid": 2,
+   "mu_valid": 0.00153287882665899,
+   "mu_own_class": 0.00153287882665899,
+   "self_coop": 0,
+   "n_coop_with": 96,
+   "sources": [
+    "BOXD(THEM(^D))",
+    "or(BOXD(THEM(THEM)),BOXD(THEM(^D)))"
+   ]
+  },
+  {
+   "contract": "<BOXD1(THEM(^D))>",
+   "id": 25,
+   "n_valid": 2,
+   "mu_valid": 0.00153287882665899,
+   "mu_own_class": 0.00153287882665899,
+   "self_coop": 0,
+   "n_coop_with": 151,
+   "sources": [
+    "BOXD1(THEM(^D))",
+    "or(BOXD(THEM(THEM)),BOXD1(THEM(^D)))"
+   ]
+  },
+  {
+   "contract": "<BOX1(THEM(^D))>",
+   "id": 23,
+   "n_valid": 1,
+   "mu_valid": 0.0015315150545505214,
+   "mu_own_class": 0.0015315150545505214,
+   "self_coop": 0,
+   "n_coop_with": 197,
+   "sources": [
+    "BOX1(THEM(^D))"
+   ]
+  },
+  {
+   "contract": "<BOXD(THEM(^C))>",
+   "id": 20,
+   "n_valid": 1,
+   "mu_valid": 0.0015315150545505214,
+   "mu_own_class": 0.0015315150545505214,
+   "self_coop": 0,
+   "n_coop_with": 99,
+   "sources": [
+    "BOXD(THEM(^C))"
+   ]
+  }
+ ],
+ "cells": {
+  "Npath|2|0|0.01|0.0|mu|25600|False": {
+   "n": 3,
+   "pcc": [
+    0.9915456680570991,
+    0.9771812318022692,
+    0.9838937348993121
+   ],
+   "pcc_mean": 0.9842068782528934,
+   "carrier": 0.0,
+   "coop_mass": 0.9803391458333318,
+   "src_allc": 0.17576782680631473,
+   "con_allc": 0.0,
+   "anti": 3.358854166666662e-05,
+   "fb_con": 0.0,
+   "max_con": 0.0,
+   "ps_con": 0.0,
+   "fb_lab": 0.0,
+   "max_lab": 0.0,
+   "labelled": 0.0,
+   "top_contracts": [],
+   "top_labels": [],
+   "top_sources": [
+    [
+     "BOX(THEM(ME))",
+     0.4088042500000001
+    ],
+    [
+     "BOX1(THEM(ME))",
+     0.23293885416666665
+    ],
+    [
+     "C",
+     0.17246664583333338
+    ],
+    [
+     "BOX1(THEM(^C))",
+     0.08421981770833331
+    ],
+    [
+     "BOX(THEM(^C))",
+     0.046761593749999754
+    ],
+    [
+     "and(BOX(THEM(THEM)),BOX1(THEM(ME)))",
+     0.012560770833333344
+    ]
+   ],
+   "con_trans": [
+    [
+     "<D>",
+     "no-carriers",
+     3
+    ]
+   ],
+   "n_con_trans": 3,
+   "swaps": {
+    "accepted": 0,
+    "same": 0,
+    "rejected": 0,
+    "donor_none": 0,
+    "accepted_2nd": 0,
+    "same_2nd": 0,
+    "rejected_2nd": 0,
+    "donor_none_2nd": 0,
+    "label_changed": 0
+   },
+   "routes": [],
+   "swap_by_contract": [],
+   "first_half_cross": [
+    1000,
+    1000,
+    1000
+   ],
+   "frac_coop_samples": [
+    0.99,
+    0.97,
+    0.97
+   ],
+   "time_s": 3960.4258840084076
+  },
+  "Npath|2|0|0.01|1.0|mu|25600|False": {
+   "n": 3,
+   "pcc": [
+    0.9932260912022918,
+    0.990811216299954,
+    0.9933044607052519
+   ],
+   "pcc_mean": 0.9924472560691658,
+   "carrier": 0.0,
+   "coop_mass": 0.9820576302083337,
+   "src_allc": 0.11911939088870872,
+   "con_allc": 0.0,
+   "anti": 7.635416666666633e-06,
+   "fb_con": 0.0,
+   "max_con": 0.0,
+   "ps_con": 0.0,
+   "fb_lab": 0.0,
+   "max_lab": 1.0,
+   "labelled": 1.0,
+   "top_contracts": [],
+   "top_labels": [
+    [
+     "<C>",
+     0.6666666666666666
+    ],
+    [
+     "<D>",
+     0.3333333333333333
+    ]
+   ],
+   "top_sources": [
+    [
+     "BOX(THEM(ME))",
+     0.6624201250000001
+    ],
+    [
+     "C",
+     0.11808806250000004
+    ],
+    [
+     "BOX1(THEM(ME))",
+     0.11643265104166653
+    ],
+    [
+     "BOX1(THEM(^C))",
+     0.0622639374999999
+    ],
+    [
+     "BOXD1(THEM(^D))",
+     0.014039520833333322
+    ],
+    [
+     "BOX(THEM(^C))",
+     0.0097957552083333
+    ]
+   ],
+   "con_trans": [
+    [
+     "<D>",
+     "<BOX1(THEM(ME))>",
+     2
+    ],
+    [
+     "<BOX1(THEM(ME))>",
+     "no-carriers",
+     2
+    ],
+    [
+     "<D>",
+     "no-carriers",
+     1
+    ]
+   ],
+   "n_con_trans": 5,
+   "swaps": {
+    "accepted": 63543,
+    "same": 8589001,
+    "rejected": 2513899,
+    "donor_none": 7668833557,
+    "accepted_2nd": 0,
+    "same_2nd": 0,
+    "rejected_2nd": 0,
+    "donor_none_2nd": 3840000000,
+    "label_changed": 642554792
+   },
+   "routes": [
+    [
+     "none",
+     "<D>",
+     60227
+    ],
+    [
+     "none",
+     "<BOX1(THEM(ME))>",
+     2747
+    ],
+    [
+     "none",
+     "<C>",
+     564
+    ],
+    [
+     "none",
+     "<BOX(THEM(ME))>",
+     4
+    ],
+    [
+     "none",
+     "<BOXD(THEM(THEM))>",
+     1
+    ]
+   ],
+   "swap_by_contract": [
+    [
+     "<D>",
+     60227,
+     8451994,
+     1077645
+    ],
+    [
+     "<BOX1(THEM(ME))>",
+     2747,
+     136991,
+     1432609
+    ],
+    [
+     "<C>",
+     564,
+     15,
+     2791
+    ],
+    [
+     "<BOX(THEM(ME))>",
+     4,
+     1,
+     516
+    ],
+    [
+     "<BOXD(THEM(THEM))>",
+     1,
+     0,
+     79
+    ],
+    [
+     "<BOX1(THEM(^D))>",
+     0,
+     0,
+     67
+    ]
+   ],
+   "first_half_cross": [
+    1000,
+    1000,
+    1000
+   ],
+   "frac_coop_samples": [
+    0.99,
+    0.99,
+    0.99
+   ],
+   "time_s": 7254.5009751319885
+  },
+  "grid|2|0|0.0|0.0|mu|6400|False": {
+   "n": 3,
+   "pcc": [
+    0.9901984428426309,
+    0.9913772990506337,
+    0.9910418089740571
+   ],
+   "pcc_mean": 0.9908725169557738,
+   "carrier": 0.0,
+   "coop_mass": 0.9952759999999987,
+   "src_allc": 0.1817812478374894,
+   "con_allc": 0.0,
+   "anti": 7.79166666666667e-06,
+   "fb_con": 0.0,
+   "max_con": 0.0,
+   "ps_con": 0.0,
+   "fb_lab": 0.0,
+   "max_lab": 0.0,
+   "labelled": 0.0,
+   "top_contracts": [],
+   "top_labels": [],
+   "top_sources": [
+    [
+     "BOX1(THEM(ME))",
+     0.429564812499999
+    ],
+    [
+     "BOX1(THEM(^C))",
+     0.2525696666666665
+    ],
+    [
+     "C",
+     0.18071193750000003
+    ],
+    [
+     "BOX(THEM(ME))",
+     0.06934150000000008
+    ],
+    [
+     "not(BOX1(THEM(THEM)))",
+     0.021607020833333337
+    ],
+    [
+     "not(BOX(THEM(THEM)))",
+     0.014015395833333331
+    ]
+   ],
+   "con_trans": [],
+   "n_con_trans": 0,
+   "swaps": {
+    "accepted": 0,
+    "same": 0,
+    "rejected": 0,
+    "donor_none": 0,
+    "accepted_2nd": 0,
+    "same_2nd": 0,
+    "rejected_2nd": 0,
+    "donor_none_2nd": 0,
+    "label_changed": 0
+   },
+   "routes": [],
+   "swap_by_contract": [],
+   "first_half_cross": [
+    1000,
+    2000,
+    1000
+   ],
+   "frac_coop_samples": [
+    0.98,
+    0.98,
+    0.99
+   ],
+   "time_s": 484.2403709888458
+  },
+  "grid|2|0|0.01|0.0|mu|6400|False": {
+   "n": 3,
+   "pcc": [
+    0.9641450649906221,
+    0.984171657368337,
+    0.9876916554930449
+   ],
+   "pcc_mean": 0.9786694592840014,
+   "carrier": 0.0,
+   "coop_mass": 0.9809216041666665,
+   "src_allc": 0.20840502716325415,
+   "con_allc": 0.0,
+   "anti": 9.041666666666672e-06,
+   "fb_con": 0.0,
+   "max_con": 0.0,
+   "ps_con": 0.0,
+   "fb_lab": 0.0,
+   "max_lab": 0.0,
+   "labelled": 0.0,
+   "top_contracts": [],
+   "top_labels": [],
+   "top_sources": [
+    [
+     "BOX(THEM(ME))",
+     0.43443233333333253
+    ],
+    [
+     "BOX1(THEM(^C))",
+     0.23205710416666692
+    ],
+    [
+     "C",
+     0.2017682708333334
+    ],
+    [
+     "BOX1(THEM(ME))",
+     0.07183056249999997
+    ],
+    [
+     "D",
+     0.014767374999999989
+    ],
+    [
+     "BOX1(THEM(THEM))",
+     0.011734916666666708
+    ]
+   ],
+   "con_trans": [
+    [
+     "<D>",
+     "no-carriers",
+     2
+    ]
+   ],
+   "n_con_trans": 2,
+   "swaps": {
+    "accepted": 0,
+    "same": 0,
+    "rejected": 0,
+    "donor_none": 0,
+    "accepted_2nd": 0,
+    "same_2nd": 0,
+    "rejected_2nd": 0,
+    "donor_none_2nd": 0,
+    "label_changed": 0
+   },
+   "routes": [],
+   "swap_by_contract": [],
+   "first_half_cross": [
+    2000,
+    1000,
+    1000
+   ],
+   "frac_coop_samples": [
+    0.96,
+    0.96,
+    0.98
+   ],
+   "time_s": 317.49215841293335
+  }
+ },
+ "lottery": {}
+}
