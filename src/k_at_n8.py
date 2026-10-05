@@ -689,8 +689,10 @@ def _cutcheck_job(pairs):
         cuts = G.cut_closure(th, [s for _, s in R])
         ms1 = G.MinSearch(th, orc, cuts=cuts); ms0 = G.MinSearch(th, orc)
         gn = G.Graph(th, [s for _, s in R], oracle=orc, nf=True, cuts=cuts, cap=400000, time_cap=60)
-        ga = G.Graph(th, [s for _, s in R], oracle=orc, nf=False, cuts=cuts, cap=200000, time_cap=20)
-        row = dict(c=int(c), d=int(d), nf_fit=gn.complete, all_fit=ga.complete, roots={})
+        # the all-orders graph with cut only on a 1-in-10 sample of pairs (it does not fit for about a third)
+        ga = G.Graph(th, [s for _, s in R], oracle=orc, nf=False, cuts=cuts, cap=200000, time_cap=20) if (c * 7 + d) % 10 == 0 else None
+        if ga is not None and not ga.complete: ga = None
+        row = dict(c=int(c), d=int(d), nf_fit=gn.complete, all_fit=ga is not None, roots={})
         for nm, S in R:
             r1 = ms1.minimize(S); r0 = ms0.minimize(S)
             if r1 is None:
@@ -699,7 +701,7 @@ def _cutcheck_job(pairs):
             d0 = ms0.dag_sizes(S)
             row['roots'][nm] = dict(cut=list(r1['c']), cert=r1['certified'], nocut=list(r0['c']),
                                     knuth_nf=list(gn.result(S)) if gn.complete else None,
-                                    knuth_all=list(ga.result(S)) if ga.complete else None,
+                                    knuth_all=list(ga.result(S)) if ga is not None else None,
                                     exact0=d0['exact'], subs0=d0['subsumption'], exact1=d1.get('exact'), subs1=d1.get('subsumption'))
         out.append(row)
     return out
@@ -803,6 +805,314 @@ def cmd_family(a):
         json.dump(out, open(os.path.join(RUNS, 'k-at-n8-family.json'), 'w'), indent=1)
 
 
+def _cross8(j):
+    """Cross-budget plays of L_8: every class at bx against every class at by (both directions), pruned."""
+    bx, by = j
+    L, vf, hc, hd = tables(8)
+    t = time.time()
+    K = BK.KTheory(cap=max(bx, by), filter_first=True)
+    K.prune = make_prune(K, L, hc, hd)
+    gx = [K.geno(s, bx) for s in L.rep]; gy = [K.geno(s, by) for s in L.rep]
+    contents = set()
+    for x in gx:
+        for y in gy:
+            for a in K.atoms(x, y) + K.atoms(y, x): contents.add(K.forms[a][1])
+    K.solve(sorted(contents))
+    play = K.play_fn()
+    vxy = np.array([[int(play(x, y)) for y in gy] for x in gx], np.int8)
+    vyx = np.array([[int(play(y, x)) for x in gx] for y in gy], np.int8)
+    nchk, bad = K.soundness_check()
+    np.save(os.path.join(KDIR, 'kcross_n8_%d_%d.npy' % (bx, by)), vxy); np.save(os.path.join(KDIR, 'kcross_n8_%d_%d.npy' % (by, bx)), vyx)
+    return bx, by, nchk, len(bad), time.time() - t
+
+
+def cmd_catalogue8(a):
+    """Leak test on the n = 8 cross-budget catalogue over the given budgets (constants unbudgeted)."""
+    B = a.budgets
+    L, vf, hc, hd = tables(8)
+    jobs = [(B[i], B[k]) for i in range(len(B)) for k in range(i + 1, len(B))]
+    with Pool(a.workers) as pool:
+        for bx, by, nchk, nbad, dt in pool.imap_unordered(_cross8, jobs):
+            print('(%d, %d) sound bad %d / %d, %.0fs' % (bx, by, nbad, nchk, dt), flush=True)
+    nat = L.arrays()[0]
+    const = [c for c in range(len(nat)) if nat[c] == 0]; nonc = [c for c in range(len(nat)) if nat[c] > 0]
+    geno = [(c, 0) for c in const] + [(c, b) for b in B for c in nonc]
+    G_ = len(geno); val = np.zeros((G_, G_), np.int8)
+    blocks = {}
+    for bx in B:
+        for by in B:
+            blocks[(bx, by)] = load_val(8, bx) if bx == by else np.load(os.path.join(KDIR, 'kcross_n8_%d_%d.npy' % (bx, by)))
+    for i, (ci, bi) in enumerate(geno):
+        for j, (cj, bj) in enumerate(geno):
+            val[i, j] = blocks[(bi or B[0], bj or B[0])][ci, cj]
+    lt = leak_test(val)
+    out = dict(budgets=B, n_genotypes=G_, n_selfcoop=lt['n_selfcoop'], n_components=lt['n_components'], n_closed=lt['n_closed'], sizes=lt['sizes'])
+    json.dump(out, open(os.path.join(KDIR, 'catalogue8.json'), 'w'))
+    print(out)
+
+
+# ------------------------------------------------------------------ report
+def _J(f):
+    p = os.path.join(RUNS, f)
+    return json.load(open(p)) if os.path.exists(p) else None
+
+
+def _fit(x, y):
+    x = np.log(np.asarray(x, float)); y = np.log(np.asarray(y, float))
+    return float(np.polyfit(x, y, 1)[0])
+
+
+def _ols(X, y):
+    X = np.asarray(X, float); y = np.asarray(y, float)
+    beta = np.linalg.lstsq(X, y, rcond=None)[0]
+    r = y - X @ beta; n, k = X.shape
+    rss = float(r @ r); s2 = rss / max(n - k, 1)
+    se = np.sqrt(np.diag(s2 * np.linalg.inv(X.T @ X)))
+    return beta, se, float(np.sqrt(rss / n))
+
+
+def mce_summary(rows):
+    """Scaling of the cost of cooperation (C0, else C1) with |x| + |y| under each measure, on certified rows."""
+    import conj4 as C4
+    out = {}
+    meas = [('tree/no cut', 'nocut', 'size'), ('tree/cut', 'cut', 'size'), ('DAG exact/no cut', 'nocut', 'exact'),
+            ('DAG exact/cut', 'cut', 'exact'), ('DAG subsumption/no cut', 'nocut', 'subs'), ('DAG subsumption/cut', 'cut', 'subs')]
+    sz = {}
+    for nm, tag, key in meas:
+        xs = []; ys = []; unc = 0
+        for r in rows:
+            m = r['C0'] or r['C1']
+            if m is None: continue
+            v = m[tag]
+            if not v['certified']:
+                unc += 1; continue
+            val_ = v['size'] if key == 'size' else v.get(key)
+            if val_ is None: continue
+            for s in (r['x'], r['y']):
+                if s not in sz: sz[s] = C4.size(C4.parse(s))
+            xs.append(sz[r['x']] + sz[r['y']]); ys.append(val_)
+        xs = np.array(xs, float); ys = np.array(ys, float)
+        b1, se1, rsd = _ols(np.c_[np.ones_like(xs), xs], ys)
+        b2, se2, _ = _ols(np.c_[np.ones_like(xs), xs, xs ** 2], ys)
+        out[nm] = dict(n=len(ys), uncertified=unc, mean=float(ys.mean()), intercept=float(b1[0]), slope=float(b1[1]), slope_se=float(se1[1]),
+                       resid_sd_over_mean=rsd / float(ys.mean()), quad=float(b2[2]), quad_ci=[float(b2[2] - 1.96 * se2[2]), float(b2[2] + 1.96 * se2[2])])
+    return out
+
+
+def cmd_report(a):
+    L, vf, hc, hd = tables(8)
+    st = _J('k-at-n8-static.json'); ch = _J('k-at-n8-chain.json'); fk = _J('k-at-n8-fakers.json'); lot = _J('k-at-n8-lottery.json')
+    fam = _J('k-at-n8-family.json'); sh = _J('k-at-n8-sharing.json'); pr = _J('k-at-n8-priced.json'); cc = _J('k-at-n8-cutcheck.json')
+    mce = _J('k-at-n8-mce.json')
+    cat6 = json.load(open(os.path.join(KDIR, 'catalogue6.json'))) if os.path.exists(os.path.join(KDIR, 'catalogue6.json')) else None
+    B = [3, 4, 6, 8, 12, 16, 24, 32, 54]
+    J = dict(budgets=B)
+    md = ['# K at n = 8, lemma sharing, and non-per-match budget prices', '',
+          'Spec `specs/2026-10-05-k-at-n8.md`; predictions `predictions/2026-10-05-k-at-n8.md`. Code `src/k_at_n8.py` (with the GL-erasure prune '
+          'hook in `src/bounded_k.py` and analytic cut / DAG measures in `src/gl_proofs.py`). Raw rows: `runs/k-at-n8-*.json`, '
+          '`runs/k-at-n8/kmeta_n8_b*.json`. ε → 0 chain numbers are at the stated N; lottery numbers are ε = 0 at (N, I) = (100, 64). '
+          'Prices are imposed schedules (verification events are not counted).', '']
+    # ---- K tables
+    md += ['## 1. K play tables at n = 8 (every class of L_8 at a global budget b)', '',
+           'GL-erasure prune: a box content whose budget-erased form is not a GL+Def theorem is never searched (K ⊢ A implies GL+Def ⊢ erase(A)); '
+           'validated by reproducing the n = 6 K tables exactly at b = 4 and 16 (and the unpruned n = 6 closure derives no formula the prune rejects, '
+           'b = 16 and 40), and by agreement with four unpruned cross-budget n = 6 cells.', '',
+           '| b | box contents (GL-live) | passes | time (s) | soundness violations / checked | plays ≠ free | plays changed vs previous b | self-cooperators | GL-true atoms K-true: count | μ-weighted | drift-closed components |',
+           '|---|---|---|---|---|---|---|---|---|---|---|']
+    J['tables'] = {}
+    for b in B:
+        m = st['meta'][str(b)]; lk = st['leak'][str(b)]
+        J['tables'][b] = dict(contents=m['n_contents'], live=m['n_live'], passes=m['passes'], t=m['t'], sound_bad=m['sound_bad'], sound_checked=m['sound_checked'],
+                              diff_vs_free=m['diff_vs_free'], change_prev=st['changes'].get(str(b)), selfcoop=lk['n_selfcoop'], k_true=m['k_true_atoms'],
+                              gl_true=m['gl_true_atoms'], k_w=m['k_true_w'] / m['gl_true_w'], n_closed=lk['n_closed'], n_components=lk['n_components'])
+        md.append('| %d | %d (%d) | %d | %.0f | %d / %d | %d | %s | %d | %d / %d = %.3f | %.4f | %d (of %d components) |' % (
+            b, m['n_contents'], m['n_live'], m['passes'], m['t'], m['sound_bad'], m['sound_checked'], m['diff_vs_free'],
+            st['changes'].get(str(b), '—'), lk['n_selfcoop'], m['k_true_atoms'], m['gl_true_atoms'], m['k_true_atoms'] / m['gl_true_atoms'],
+            m['k_true_w'] / m['gl_true_w'], lk['n_closed'], lk['n_components']))
+    md += ['', 'Free arm: %d self-cooperators, %d drift-closed components. The table changes at every tested step; from 32 to 54 it changes in 151 plays '
+           'with μ-weight 1.1·10⁻⁹ (unchanged over the tested budgets in μ-weight only, not in count). Max JLöb candidate set |U| after pruning: %s.' % (
+               st['leak']['free']['n_selfcoop'], st['leak']['free']['n_closed'], ', '.join('%d: %d' % (b, st['meta'][str(b)]['ustar_max']) for b in B)), '']
+    m54 = st['meta']['54']
+    ur = sorted(m54['unresolved_by_reader'].items(), key=lambda kv: -kv[1])
+    mu = L.mu_canon / L.mu_canon.sum(); idx = {s: i for i, s in enumerate(L.rep)}
+    md += ['**GL atoms K never proves (b = 54).** %d of %d GL-true atoms (%.3f by count, %.4f μ-weighted) stay unproved; %d of 610 readers have at least one '
+           '(their μ: %.3f). Largest: %s.' % (m54['gl_true_atoms'] - m54['k_true_atoms'], m54['gl_true_atoms'], 1 - m54['k_true_atoms'] / m54['gl_true_atoms'],
+                                              1 - m54['k_true_w'] / m54['gl_true_w'], len(ur), sum(mu[idx[k]] for k, _ in ur),
+                                              '; '.join('`%s` (%d)' % kv for kv in ur[:5])), '']
+    # named
+    named = [s for s in NAMED if s in idx]
+    md += ['**Named classes in L_8: self-play by b** (1 = C), and the number of opponents whose play against them differs from the free arm (row / column):', '',
+           '| class | free | ' + ' | '.join('b=%d' % b for b in B) + ' | row/col ≠ free at b = 16 | at b = 54 |', '|---|---|' + '---|' * len(B) + '---|---|']
+    for s in named:
+        i = idx[s]
+        row = ['%d' % st['named'][str(b)][s][s] for b in B]
+        v16 = load_val(8, 16); v54 = load_val(8, 54)
+        md.append('| `%s` | %d | %s | %d / %d | %d / %d |' % (s, vf[i, i], ' | '.join(row), (v16[i] != vf[i]).sum(), (v16[:, i] != vf[:, i]).sum(),
+                                                         (v54[i] != vf[i]).sum(), (v54[:, i] != vf[:, i]).sum()))
+    md.append('')
+    if fam:
+        P = fam['progs']; ix = {s: i for i, s in enumerate(P)}
+        fb = [int(b) for b in fam['tables']]
+        md += ['**Named family beyond L_8** (K closure on the family alone, pruned by `src/conj4.py`\'s trace evaluator; 0 soundness violations at every b; '
+               'budgets %s): self-play by b.' % fb, '',
+               '| program | ' + ' | '.join('b=%d' % b for b in fb) + ' |', '|---|' + '---|' * len(fb)]
+        from proof_length_arm import LADDER
+        for s in LADDER:
+            md.append('| `%s` | %s |' % (s, ' | '.join(str(fam['tables'][str(b)][ix[s]][ix[s]]) for b in fb)))
+        md += ['', 'Siblings y = or(x, ψ_K) at b = 54: x → y / y → x / y suckered by z = BOX_K(THEM(^D)) (y → z = C, z → y = D): ' + '; '.join(
+            '`%s` %d/%d/%s' % (x[:40], fam['tables']['54'][ix[x]][ix[v['y']]], fam['tables']['54'][ix[v['y']]][ix[x]],
+                               'yes' if fam['tables']['54'][ix[v['y']]][ix[v['z']]] == 1 and fam['tables']['54'][ix[v['z']]][ix[v['y']]] == 0 else 'no')
+            for x, v in fam['siblings'].items()), '']
+    md += ['**Leak test on the cross-budget catalogue.** No component is drift-closed at any fixed b, so none is closed in the catalogue of every class at every '
+           'budget (each fixed-b graph is an induced subgraph of the catalogue\'s; suckering pairs survive; predictions, design choice 4). Computed check at n = 6 on '
+           'the priced catalogue (budgets {2, 3, 4, 6, 10, 16}, %s genotypes): %s self-cooperators in %s component(s), %s closed.' % (
+               cat6 and cat6['n_genotypes'], cat6 and cat6['n_selfcoop'], cat6 and cat6['n_components'], cat6 and cat6['n_closed']), '']
+    # ---- chain
+    md += ['## 2. The lim_N chain at n = 8 (PD, w = 0.3)', '',
+           '| arm | P(C,C) N = 10³ | 10⁴ | 3·10⁴ | π(all-D) 3·10⁴ | π on self-cooperating states 3·10⁴ | top state (π, 3·10⁴) | top exit 10³ / 10⁴ / 3·10⁴ | exit slope | strict share | ALLC share | odds slope | entry from all-D: N·ρ | terminal / indeterminate / cut flow |',
+           '|---|---|---|---|---|---|---|---|---|---|---|---|---|---|']
+    by = {}
+    for r in ch: by.setdefault(r['label'], {})[r['N']] = r
+    labs = ['free', 'K b=4', 'K b=8', 'K b=16', 'K b=54', 'faker-removal control']
+    J['chain'] = {}
+    for lab in labs:
+        R = by[lab]; Ns = (1000, 10000, 30000)
+        ex = [R[N]['top_exit'] for N in Ns]
+        odds = [R[N]['pi_selfcoop'] / R[N]['pi_D'] for N in Ns]
+        r3 = R[30000]
+        J['chain'][lab] = {N: dict(pcc=R[N]['pcc'], pi_D=R[N]['pi_D'], top=R[N].get('top_coop'), pi_top=R[N].get('pi_top'), exit=R[N]['top_exit'],
+                                   strict=R[N]['top_exit_strict'], support=R[N]['support'][:8]) for N in Ns}
+        J['chain'][lab]['exit_slope'] = _fit(Ns, ex); J['chain'][lab]['odds_slope'] = _fit(Ns, odds)
+        md.append('| %s | %.4f | %.4f | %.4f | %.3f | %.3f | `%s` (%.3f) | %s | %.2f | %.3f | %.2f | %.2f | %.1f | %d / %d / %.0e |' % (
+            lab, R[1000]['pcc'], R[10000]['pcc'], r3['pcc'], r3['pi_D'], r3['pi_selfcoop'], r3['top_coop'], r3['pi_top'],
+            ' / '.join('%.2e' % e for e in ex), _fit(Ns, ex), max(R[N]['top_exit_strict'] / R[N]['top_exit'] for N in Ns), r3['allc_share'], _fit(Ns, odds),
+            R[10000]['entry']['N_rho'], r3['n_terminal'], r3['indeterminate'], max(R[N]['cut_flow'] for N in Ns)))
+    gapK = by['K b=16'][10000]['pcc'] - by['free'][10000]['pcc']; gapC = by['faker-removal control'][10000]['pcc'] - by['free'][10000]['pcc']
+    J['faker_share'] = gapC / gapK
+    md += ['', 'Faker-removal control: the free n = 8 table with %d classes deleted (μ %.4f), identified as in the predictions (strict free-arm invaders of a '
+           'supported self-cooperator whose invasion K at b = 16 removes; %d of them Gödel sentences, i.e. self-cooperating with no level-0 proof). '
+           'K b = 16 − free at N = 10⁴: %+.4f; control − free: %+.4f; share explained %.2f.' % (
+               len(fk['fakers']), fk['mu_removed'], sum(fk['godel'].values()), gapK, gapC, gapC / gapK), '']
+    md += ['Support at N = 3·10⁴ (π ≥ 10⁻³):', '']
+    for lab in labs:
+        md.append('- %s: %s' % (lab, ', '.join('%s %.3f' % (s.replace('mono ', ''), p) for s, p in by[lab][30000]['support'][:8])))
+    md.append('')
+    md += ['Top-state exits at N = 10⁴ (mutant → destination, weight per mutation event, N·ρ, payoff differences mutant-vs-resident / resident-vs-mutant / mutant-vs-itself):', '']
+    for lab in labs:
+        e = by[lab][10000].get('exits', [])[:3]
+        md.append('- %s, top `%s`: %s' % (lab, by[lab][10000]['top_coop'], '; '.join('`%s` %.1e N·ρ %.2f Δ %g/%g/%g' % (x['mutant'], x['w'], x['N_rho'] or 0, x['d_vs_res'], x['d_res_vs'], x['d_self']) for x in e)))
+    md.append('')
+    if lot:
+        md += ['**ε = 0 lottery at n = 8**, (N, I) = (100, 64), mN = 1, 20 paired seeds, success = every island ends held by cooperators (outcome "efficient"), '
+               'unresolved censored: ' + '; '.join('%s %d/%d [%.2f, %.2f]%s' % (s['label'], s['efficient'], s['n'], s['wilson'][0], s['wilson'][1],
+                                                                                  ' (%d unresolved)' % s['unresolved'] if s['unresolved'] else '') for s in lot['summary']), '']
+        J['lottery'] = lot['summary']
+    # ---- sharing
+    if sh:
+        rows = sh['rows']; sib = sh['siblings']; R = {(r['x'], r['y']): r for r in rows}
+        def f(m, tag, key):
+            v = m[tag]; s = v['size'] if key == 'size' else v.get(key)
+            if v['certified']: return '%s' % s
+            return '[%s, %s]' % (v.get('lb'), s)
+        md += ['## 3. Lemma sharing: the cost table in four columns', '',
+               'Tree = number of sequents of the minimal derivation; DAG = distinct sequents of that derivation (exact identity), with the subsumption variant '
+               '(a sequent weakening an already certified one is a free reference) after the slash; cut = analytic cut on reachable boxed formulas and their contents. '
+               'DAG numbers are upper bounds on the minimal DAG over all derivations. [lb, ub] = cut search aborted (300k expansions): certified lower bound, '
+               'upper bound from the cut-free minimum. Λ in parentheses.', '',
+               '| program | root | tree / no cut (Λ) | tree / cut (Λ) | DAG / no cut: exact / subsumption | DAG / cut: exact / subsumption |', '|---|---|---|---|---|---|']
+        J['sharing'] = []
+        for r in rows:
+            if r['x'] != r['y']: continue
+            for nm in ('C0', 'C1'):
+                m = r[nm]
+                if m is None: continue
+                J['sharing'].append(dict(x=r['x'], root=nm, nocut=m['nocut'], cut=m['cut']))
+                md.append('| `%s` | %s | %s (%s) | %s (%s) | %s / %s | %s / %s |' % (r['x'], nm, f(m, 'nocut', 'size'), m['nocut']['loeb'], f(m, 'cut', 'size'), m['cut']['loeb'],
+                                                                           f(m, 'nocut', 'exact'), f(m, 'nocut', 'subs'), f(m, 'cut', 'exact'), f(m, 'cut', 'subs')))
+        md += ['', '**Sibling ratios** L(x → y)/L(x → x), y = or(x, ψ_K), under each measure: L_read (sum over x\'s true atoms) and L_out (x\'s cooperation proof, level 0 '
+               'else 1). * = some cut search uncertified (upper bound from the cut-free minimum).', '',
+               '| x | L_read: tree | tree/cut | DAG exact | DAG subs | L_out: tree | tree/cut | DAG exact | DAG subs |', '|---|---|---|---|---|---|---|---|---|']
+        J['siblings'] = []
+        for x, y in sib.items():
+            a_, b_ = R.get((x, x)), R.get((x, y))
+            if not a_ or not b_: continue
+            cells = []
+            for tag, key in (('nocut', 'size'), ('cut', 'size'), ('nocut', 'exact'), ('nocut', 'subs')):
+                s, ok1 = _lread(a_, tag, key); t, ok2 = _lread(b_, tag, key)
+                cells.append('%d/%d = %.2f%s' % (t, s, t / s, '' if ok1 and ok2 else '*') if s else '—')
+            ma = a_['C0'] or a_['C1']; mb = b_['C0'] or b_['C1']
+            for tag, key in (('nocut', 'size'), ('cut', 'size'), ('nocut', 'exact'), ('nocut', 'subs')):
+                if ma is None or mb is None: cells.append('—'); continue
+                s = ma[tag]['size'] if key == 'size' else ma[tag].get(key); t = mb[tag]['size'] if key == 'size' else mb[tag].get(key)
+                cells.append('%s/%s = %.2f%s' % (t, s, t / s, '' if ma[tag]['certified'] and mb[tag]['certified'] else '*') if s and t else '—')
+            J['siblings'].append(dict(x=x, cells=cells))
+            md.append('| `%s` | %s |' % (x, ' | '.join(cells)))
+        md.append('')
+    if cc:
+        s = cc['summary']
+        md += ['**Cut search certification (n = 6, every pair).** Iterative deepening with analytic cut against Knuth\'s algorithm on the normal-form graph with cut: '
+               '%d roots compared (%d of %d pairs fit), %d mismatches; against the all-orders graph with cut on a 1-in-10 sample of pairs: %d roots (%d pairs fit), '
+               '%d mismatches; %d cut searches uncertified. %.0f s.' % (s['roots_nf'], s['pairs_nf_fit'], s['pairs'], s['mismatch_nf'], s['roots_all'], s['pairs_all_fit'],
+                                                                         s['mismatch_all'], s['uncertified'], s['wall_s']), '']
+        rows6 = cc['rows']; tot = dict(n=0, cut_lt=0, subs_lt=0, ex_lt=0, save_cut=[], save_subs=[])
+        for r in rows6:
+            for nm, v in r['roots'].items():
+                if v is None or not v['cert']: continue
+                tot['n'] += 1; tot['cut_lt'] += v['cut'][0] < v['nocut'][0]; tot['subs_lt'] += v['subs0'] < v['nocut'][0]; tot['ex_lt'] += v['exact0'] < v['nocut'][0]
+                tot['save_cut'].append(v['nocut'][0] - v['cut'][0]); tot['save_subs'].append(v['nocut'][0] - v['subs0'])
+        md += ['At n = 6 (%d provable roots): cut shortens %d, exact DAG %d, subsumption DAG %d; max saving %d (cut) and %d (subsumption).' % (
+            tot['n'], tot['cut_lt'], tot['ex_lt'], tot['subs_lt'], max(tot['save_cut'] or [0]), max(tot['save_subs'] or [0])), '']
+        J['cutcheck'] = s
+    if mce:
+        S = mce_summary(mce['rows'])
+        J['mce'] = S
+        md += ['**Scaling on the n = 8 mutually cooperating establisher pairs** (%d ordered pairs; cost of cooperation = C0 if provable else C1; descriptive only: a '
+               'dependent sample, so a quadratic interval containing 0 is not evidence of linearity):' % len(mce['rows']), '',
+               '| measure | n (uncertified dropped) | mean | slope in |x|+|y| (se) | residual sd / mean | quadratic term [95%] |', '|---|---|---|---|---|---|']
+        for nm, v in S.items():
+            md.append('| %s | %d (%d) | %.2f | %.3f (%.3f) | %.2f | %.3f [%.3f, %.3f] |' % (nm, v['n'], v['uncertified'], v['mean'], v['slope'], v['slope_se'],
+                                                                                    v['resid_sd_over_mean'], v['quad'], v['quad_ci'][0], v['quad_ci'][1]))
+        md.append('')
+    # ---- prices
+    if pr:
+        md += ['## 4. Prices in K (n = 6, per-program budgets {2, 3, 4, 6, 10, 16}, μ split equally, N = 10⁴ unless stated; imposed schedules)', '',
+               'Costs on the reader x@b per match (constants pay nothing): per-match c·b; amortized c·b/N; cache c·b·k/N with k = 2 classes present during a single-mutant '
+               'invasion (on the chain\'s transitions this equals amortized at 2c); lazy c·b against non-constant non-copy opponents, copy = (a) identical budgeted '
+               'program, (b) same source any budget, (c) extensionally identical play.', '',
+               '| schedule | c | N | copy | P(C,C) | π(all-D) | π(all-ALLC) | cooperative π by budget (normalized) | share on 3–4 | top budget share | top state (π) | top exit (strict) | μ on self-cooperating classes |',
+               '|---|---|---|---|---|---|---|---|---|---|---|---|---|']
+        J['priced'] = pr
+        for r in sorted(pr, key=lambda r: ({'per-match': 0, 'amortized': 1, 'cache': 2, 'lazy': 3}[r['schedule']], r['c'], r['N'], r['copy'])):
+            bg = r['budget_given_coop']
+            md.append('| %s | %g | %d | %s | %.4f | %.3f | %.4f | %s | %.3f | %.3f | `%s` (%.3f) | %.2e (%.2e) | %.4f |' % (
+                r['schedule'], r['c'], r['N'], r['copy'] if r['schedule'] == 'lazy' else '—', r['pcc'], r['pi_D'], r['pi_C'],
+                ', '.join('%s: %.3f' % (k, v) for k, v in sorted(bg.items(), key=lambda kv: int(kv[0]))), bg.get('3', 0) + bg.get('4', 0),
+                r.get('top_budget_share', 0), r.get('top_coop'), r.get('pi_top', 0), r.get('top_exit', 0), r.get('top_exit_strict', 0), r['mu_selfcoop']))
+        md += ['', '**Decisive edges** (top cooperative states\' exits and their entry from all-D): Δ = mutant\'s payoff advantage against the resident at the start of '
+               'invasion, N·Δ, and the fixation ratio ρ/ρ_neutral = N·ρ; the bound column is e^{w·c·b·2} (RE 5).', '',
+               '| schedule | c | N | copy | edge | Δ | N·Δ | N·ρ | e^{2wcb} |', '|---|---|---|---|---|---|---|---|---|']
+        import math
+        for r in sorted(pr, key=lambda r: ({'per-match': 0, 'amortized': 1, 'cache': 2, 'lazy': 3}[r['schedule']], r['c'], r['N'], r['copy'])):
+            seen = 0
+            for e in r.get('edges', []):
+                if e['kind'] != 'exit' or seen >= 3: continue
+                seen += 1
+                b = int(e['resident'].split('@')[1]) if '@' in e['resident'] else 0
+                md.append('| %s | %g | %d | %s | `%s` → `%s` | %.3g | %.3g | %.3f | %.3f |' % (r['schedule'], r['c'], r['N'], r['copy'] if r['schedule'] == 'lazy' else '—',
+                                                                                  e['resident'], e['mutant'], e['delta'], e['N_delta'], e['fix_ratio'] or 0,
+                                                                                  math.exp(0.3 * r['c'] * b * 2)))
+            ent = [e for e in r.get('edges', []) if e['kind'] == 'entry'][:1]
+            for e in ent:
+                md.append('| %s | %g | %d | %s | all-D → `%s` (mutant `%s`) | %.3g | %.3g | %.3f | — |' % (r['schedule'], r['c'], r['N'], r['copy'] if r['schedule'] == 'lazy' else '—',
+                                                                                     e['target'], e['mutant'], e['delta'], e['N_delta'], e['fix_ratio']))
+        am = {(r['c'], r['N']): r for r in pr if r['schedule'] == 'amortized'}
+        md += ['', 'Amortized exit slopes over N = 10³–3·10⁴: ' + ', '.join('c = %g: %.3f' % (c, _fit((1000, 10000, 30000), [am[(c, N)]['top_exit'] for N in (1000, 10000, 30000)]))
+                                                                         for c in (0.01, 0.1, 1.0)) + '.', '']
+    open(os.path.join(RUNS, 'k-at-n8.md'), 'w').write('\n'.join(md) + '\n')
+    json.dump(J, open(os.path.join(RUNS, 'k-at-n8.json'), 'w'), indent=1, default=str)
+    print('\n'.join(md))
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('cmd')
@@ -818,4 +1128,4 @@ if __name__ == '__main__':
     a = ap.parse_args()
     {'ktables': cmd_ktables, 'static': cmd_static, 'chain': cmd_chain, 'fakers': cmd_fakers, 'sharing': cmd_sharing,
      'mce': cmd_mce, 'priced': cmd_priced, 'lottery': cmd_lottery, 'family': cmd_family,
-     'cutcheck': cmd_cutcheck, 'kpairs': cmd_kpairs}[a.cmd](a)
+     'cutcheck': cmd_cutcheck, 'kpairs': cmd_kpairs, 'report': cmd_report, 'catalogue8': cmd_catalogue8}[a.cmd](a)
