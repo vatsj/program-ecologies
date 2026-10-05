@@ -30,6 +30,8 @@ both views are reported (ex ante max share = the largest class-mean payoff in th
     python3 src/dollar_partitions.py report
 """
 import argparse, json, math, os, re, sys, time
+for _v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS", "VECLIB_MAXIMUM_THREADS", "NUMBA_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")          # one thread per worker (3-worker budget)
 from collections import defaultdict, Counter
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
@@ -1028,20 +1030,33 @@ def run_islands(job):
     t0 = time.time()
     JA = np.ascontiguousarray(d['JA'])
     lab, lcl, gcl, counts, _, polyc, last_c = _sim(np.ascontiguousarray(d['U']), JA, cat, len(cnames), init, S, N, W, m, 0.0,
-                                                    np.cumsum(d['mu']), checks, int(job['seed'] % (2**31 - 1)), job.get('thr', 0.99), True)
+                                                    np.cumsum(d['mu']), checks, int(job['seed'] % (2**31 - 1)), job.get('thr', 0.95), True)
     gens_end = float(gcl) if gcl >= 0 else float(checks[-1])
     nchk = len(checks)
     # per-island establishment (first locally closed check), run-level partition-frozen time and escapes after it
     allc = lcl.all(axis=1)
     c_pf = int(np.argmax(allc)) if allc.any() else -1
     t_est = [float(checks[int(np.argmax(lcl[:, i]))]) if lcl[:, i].any() else None for i in range(I)]
+    # escapes: an island locally closed on label A at one check and locally closed on label B != A at a later check
+    # (transient migrant lineages, which make an island briefly 'mixed' or not closed, are not escapes); losses: an
+    # efficient label held by some locally closed island at one check and by none at the next check at which every
+    # island is again locally closed.  Both counted after the partition-frozen check.
     esc = 0; losses = 0; exposure = 0.0
+    eff_cat = np.array([('-' in x or '|' in x) for x in cnames])
     if c_pf >= 0:
         cend = nchk if gcl < 0 else int(np.searchsorted(checks, gcl)) + 1
-        for c in range(c_pf + 1, min(cend, nchk)):
-            esc += int((lab[c] != lab[c - 1]).sum())
-            prev = set(lab[c - 1].tolist()) - {-1}; cur = set(lab[c].tolist()) - {-1}
-            losses += len(prev - cur)
+        cend = min(cend, nchk)
+        last = lab[c_pf].copy()
+        prevset = {int(x) for x in lab[c_pf] if x >= 0 and eff_cat[x]}
+        for c in range(c_pf + 1, cend):
+            ok = lcl[c] & (lab[c] >= 0)
+            ch_ = ok & (lab[c] != last)
+            esc += int(ch_.sum())
+            last = np.where(ok, lab[c], last)
+            if lcl[c].all():
+                cur = {int(x) for x in lab[c] if x >= 0 and eff_cat[x]}
+                losses += len(prevset - cur)
+                prevset = cur
         exposure = (min(gens_end, float(checks[-1])) - float(checks[c_pf]))
     isl = [final_island(d, S, counts[i]) for i in range(I)]
     finlab = [cnames[x] if x >= 0 else 'mixed' for x in lab[min(last_c, nchk - 1)]]
@@ -1336,6 +1351,21 @@ def report_lotteries(game, lines, J):
             lines.append('')
 
 
+def merge_exact(N, k, w=W):
+    """exact probability that k copies of S3 among N - k copies of ROLE fix (one population, Moran, exp fitness, no
+    self-matching): mismatch payoffs u(S3,S3) = u(ROLE,ROLE) = 1/2, u(S3,ROLE) = 1/4, u(ROLE,S3) = 1/12."""
+    logs = [0.0]
+    acc = 0.0
+    for i in range(1, N):
+        fs = ((i - 1) * 0.5 + (N - i) * 0.25) / (N - 1)
+        fr = (i * (1 / 12) + (N - i - 1) * 0.5) / (N - 1)
+        acc += w * (fr - fs)
+        logs.append(acc)
+    logs = np.array(logs); m = logs.max()
+    e = np.exp(logs - m)
+    return float(e[:k].sum() / e.sum())
+
+
 def report_merges(lines, J):
     fn = os.path.join(OUT, 'merge_dollar5.json')
     if not os.path.exists(fn): return
@@ -1357,6 +1387,10 @@ def report_merges(lines, J):
                 w_ = wilson(k_, n_); cells.append('%.2f [%.2f, %.2f]' % w_)
                 J['merges']['%s_N%d_s%g' % (kind, N, s)] = dict(fair=k_, n=n_, other=Counter(labs).most_common())
             lines.append('| %s | %d | ' % (kind, N) + ' | '.join(cells) + ' |')
+    for N in sorted({k[1] for k in tab}):
+        ex = [merge_exact(N, int(round(s * N))) for s in shares]
+        J['merges']['exact_N%d' % N] = ex
+        lines.append('| exact (pure) | %d | ' % N + ' | '.join('%.2f' % x for x in ex) + ' |')
     lines.append('')
 
 
