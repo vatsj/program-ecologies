@@ -2295,6 +2295,48 @@ Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent. The RS had
 
 **Reading.** Semantic membership closes the network as a set at exactly the clique's rate, and the club is about 99% the semantic CliqueBot. Membership is a free bit per guarded program, so the imposed fixed point is chosen, not derived, and the choice does hidden work twice: it picks one of 2^|K*| clubs, and it decides which member holds π. Corollary 1 is not evaded: universality is 0, and the leak reappears inside the club as member-fakers. Closure by declaration is a third route to self-recognition beside syntax and proof length, and it carries no more information than a tag. The open lever remains realizability: bounded, sound membership certificates with explicit proof costs.
 
+## Bounded provers: a semantic legibility gate (`runs/bounded-provers.md`; spec `specs/2026-10-04-bounded-provers.md`, predictions in `predictions/2026-10-04-bounded-provers.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent. Everything here is specific to this gate and to L_6 and L_8. The cost proxy is semantic stabilization (essential atoms × settle world), not measured proof length; this is not a bounded-Löb implementation. The RE re-checked FairBot's threshold and the b = ∞ reproduction at n = 6 after the merge.
+
+**The gate.** x reading y pays v(x, y) = k(y)·(1 + settle(y, x)); constants cost 0; a box is true only if true in the free sense and v ≤ b. ε→0 chain, PD, w = 0.3, n = 6 and 8.
+
+**Semantics: a design deviation.** The spec's synchronous joint fixed point never converges: it falls into a period-2 cycle at every finite b (mutual readers whose gates close and reopen together; at n = 8, b = 4 the two phases differ in 32,063 of 372,100 plays). The subagent redefined the gate on the bounded trace, world by world: at world n, x's boxes reading y are open iff k(y)·(1 + the last world before n at which y's atoms toward x changed) ≤ b. Cost only grows with n, so each gate closes at most once, box truth is monotone, the trace settles by world 7–11, and no fixed point has to be selected. Soundness holds on every pair (0 violations in 70,862 true open atoms at n = 8, b = 4); b = ∞ reproduces the free arm exactly. Masking is not monotone in b (share of box-reading pairs masked at n = 8: 0.75 / 0.86 / 0.67 / 0.52 / 0.22 / 0.05 at b = 1–8).
+
+**Thresholds b\*.** FairBot, `BOX1(THEM(ME))`, `BOX(THEM(THEM))` and `BOX1(THEM(THEM))` all have b* = 1: FairBot's atom against a copy never changes, so its self-cost is 1·(1 + 0). PrudentBot has b* = 2, P* b* = 4. 99.45% of prover mass at n = 8 has b* = 1. Below threshold, FairBot-like provers still cooperate with ALLC (0.94 of that mass at b = 1); PrudentBot and P* below threshold defect on ALLC and on every named prover.
+
+**Static map.** One component at every b (except n = 6, b = 3: two, neither closed). **0 drift-closed classes at every b**, at n = 6 and 8. Old-sense universality: FairBot 0.77–0.80 at every b.
+
+**Siblings.** y = or(x, ψ_K) was built for every D-defecting self-cooperator whatever its size (16 at n = 6, 104–122 at n = 8). At every finite b ≤ 8, 0 siblings are legible to their original: sibling cost is 9–15 for FairBot (self-cost 1), 9–15 for PrudentBot (2), 16–24 for P* (4), ratio ≥ 2. At b = ∞ every sibling is legible, adjacent and suckered, reproducing the sibling theorem.
+
+**Why nothing closes.** The leaks run through neighbours *cheaper* than the resident, which the gate never cuts: FairBot leaks through ALLC (cost 0); PrudentBot through `BOX(THEM(THEM))` (cost 1), suckered by `BOX1(THEM(^not(BOX(THEM(ME)))))`; P* through 33 suckerable mates (μ 3.1·10⁻³) led by `not(BOX(THEM(ME)))` (cost ≤ 2), suckered by D. So a reader whose legibility is monotone in opponent cost cannot be drift-closed in these languages.
+
+**Chain, n = 8, N = 10⁵.** P(C,C) = 0.847 / 0.848 / 0.822 / 0.823 / 0.8135 at b = 1 / 2 / 3 / 4 / {6, 8, ∞}. Everywhere the top exit is neutral into ALLC with fitted exit slope −1.00 over N = 10³–10⁵ and odds slope 0.43–0.48; rival share 0 at b ≤ 3 (P* does not self-cooperate) and 0.122 at b = 4 against 0.125 free; one terminal class, no indeterminate transitions, cut flow ≤ 10⁻⁶. The arm under mutation is the free arm with the P* block thinned.
+
+**Controls.** The atom-count gate is trivial (k ≤ 2) except at n = 8, b = 1 (0.802, slope −1). The **random gate** at matched masking count locks in P* at n = 8, b ∈ {1, 3, 4} (P(C,C) 0.9998 / 0.994 / 0.984) with exits of 6–8·10⁻¹¹ but still slope −1.00: a leak cut by about 10⁵ in mass, not a closure, achieved by randomly cutting P*'s cheap mates, which is a tag. At n = 6, b = 1 the random gate creates strict fakers (0.36). The clique arm is 1.000 from N = 10³.
+
+**Per-program budgets.** Fixed support: prover π by b = 1–4 is 0.235 / 0.223 / 0.189 / 0.184 at n = 8, N = 10⁵, a weak tilt to small budgets. Length-penalized: b = 1 holds the mass by prior and P(C,C) falls to 0.613 because the penalty shrinks the provers' prior; the penalty removes PrudentBot and P* at n = 8 at every b.
+
+**ε = 0 lottery** (n = 6, iid from μ, paired seeds, 20–40 runs). Free arm under this seeding: 0.20 / 0.55 / 0.82 at I = 4, N = 100 / 400 / 1,600; 1.00 at I ≥ 64. Paired differences against b = ∞: **0.00 at every cell for b ≥ 4**; within ±0.07 at b = 1–3 (two cells unresolved at 40 runs); every I ≥ 64 cell is 1.00 at every b. The random gate at b = 1 lowers it by 0.20–0.40 at I = 4. Runs that end defecting are, almost exactly, the runs whose cooperative core is gone when ALLC goes extinct at generation 40–60; loss happens in the scramble at the same rate at every b. Caveat: n = 6 has no prudent provers and b = 4 changes only 21 canonical plays.
+
+**Verdicts.**
+| # | prediction | outcome |
+|---|---|---|
+| 1 | FairBot b* = 2, PrudentBot 4, P* 4; selective cooperation below threshold | **Failed, falsifier fired:** 1, 2, 4. Selective cooperation holds for FairBot-like mass only |
+| 2 | first drift-closed classes at b = 4 | **Failed, falsifier fired:** none at any b; the sibling-exclusion clause held |
+| 3 | FairBot leaks neutrally at 1/N, odds ∝ N^½ | **Held** (−1.00; 0.43–0.48) |
+| 4 | π at b = 4 goes to a closed prudent family, slope < −1.5 | **Failed, falsifier fired:** slope −1.00, rival 0.10; "b ≥ 8 within 0.05 of free" held; no control beat slope −1 |
+| 5 | fixed support puts π on the smallest closed b | **Mechanism failed** (nothing closed); the tilt to small b is weak |
+| 6 | lottery unaffected at b ≥ 4, weakened at b = 2, zero at b = 1 | **Partly:** b ≥ 4 held exactly; b = 2 not lower; b = 1 not zero |
+| 7 | budget decides closure under mutation, not seeding | **First half failed;** second half held (no core fragmentation) |
+| S1–S3 | subagent's own | S1 held; S2 failed (the joint iteration cycles); S3 second clause failed |
+
+**Reading.**
+- Budget-limited legibility is *harmless* in this proxy: the free modal results (1/N leak, odds ∝ N^½, the seeding lottery) survive at every b at n ≤ 8, and the gate creates no fakers. The operating hypothesis "sound bounded prover" is not undermined at this level.
+- Proof length is not a moat here. The gate prices out every sibling (ratio ≥ 2) and still closes nothing, because every unsuckerable class leaks through a neighbour cheaper than itself.
+- What does close, the random gate, works as a tag: closure keeps coming from self-recognition.
+- The cost proxy does not charge the Löb step (a stable self-proof has settle world 0), so budgets 1–4 barely bind on occupied states. The next instrument needs an explicit proof system with measured length, to see whether `not(BOX(THEM(ME)))`-type neighbours are cheap to prove about there as well.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

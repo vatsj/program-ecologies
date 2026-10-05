@@ -24,7 +24,8 @@ REJECTED.md the ones we dropped.
   on the probes you run and defects where you don't look); soundness rules them out at any budget.
 - *Evidence:* E1 matched control; the certificates-only arm; the sibling theorem's dependency ledger (RESULTS
   "Conjecture 4"), whose mechanism is extensional and whose transfer to bounded proof search is conditional on budget.
-- *Would settle it:* the bounded-prover arm (spec 2026-10-04-bounded-provers).
+- *Evidence (2026-10-04):* a sound stabilization-cost gate preserves the free arm in both objects at n ≤ 8 and creates no fakers (RESULTS "Bounded provers"); the proxy does not charge the Löb step, so it barely binds on occupied states.
+- *Would settle it:* an explicit proof system with measured proof length and a sound checker; the stabilization proxy is exhausted.
 
 ## 3. Roles: `ROLE` or fixed roles with separate populations?
 - *Operating hypothesis (RS, 2026-10-04):* fixed roles with separate slot populations for every social-choice question;
@@ -38,10 +39,11 @@ REJECTED.md the ones we dropped.
   proofs (THEORY §9.2); realizability enters through proof budgets, not per-match prices.
 - *Constraints established:* a price is harmless in the limit iff it vanishes faster than N^(−1/2) of the stakes or is
   exactly zero on the ladder's rungs; copy subsidies are moats; any price that beats 1/N is incumbency (Proposition 3).
+- *Proof budgets (2026-10-04):* at this level of idealization a budget neither prices nor closes; it is harmless, and proof length is not a moat because leaks run through cheaper neighbours (RESULTS "Bounded provers").
 
 ## 5. Imposed fixed points
 - *Options:* Löb only (unique fixed points, no rule); greatest-fixed-point rules (C-seeded certificates, the club).
-- *Operating hypothesis:* avoid imposed fixed points; Löb is the selection-free route to outcome symmetry. The club is
+- *Operating hypothesis:* avoid imposed fixed points; Löb is the selection-free route to outcome symmetry. The gate's own semantics needed a choice too (world-indexed trace vs a cycling joint fixed point); the world-indexed trace selects nothing and was adopted. The club is
   run as an oracle benchmark only. The RS objects to the club normatively: it punishes the merely tolerant.
 - *Evidence:* RESULTS "Certificates-only arm" (gfp vs Löb differ by one fakeable probe); RESULTS "The closed club": the club is a clique over a declared predicate, its fixed point is one of 2^|K*| and the choice decides which member holds π. "Black-magic fixed points" re-closed for membership-level rules. The RS's objection stands on structural grounds as well.
 

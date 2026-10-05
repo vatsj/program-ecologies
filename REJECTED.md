@@ -393,3 +393,17 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **"Collateral at least 10× K's mass" (Fable, 5).** It is 2.0×.
 
 **"The club reaches K faster than the clique" and "F is monotone in the positive-only grammar" (subagent, S7, S9).** Within ±5%; monotonicity fails in ~26% of nested pairs at n = 8 in both grammars.
+
+## Added 2026-10-04: the legibility gate (RESULTS.md, "Bounded provers: a semantic legibility gate")
+
+**Joint fixed-point semantics for the gate (spec design).** The synchronous iteration cycles with period 2 at every finite b. Replaced by the world-indexed gate, which settles, is sound, and selects no fixed point; choosing among fixed points of the non-monotone operator would have been an imposed fixed point (DEFERRED 5).
+
+**"FairBot's threshold is b = 2, PrudentBot's and P\*'s are 4" (Fable, prediction 1; falsifier fired).** They are 1, 2 and 4: a stable self-proof has settle world 0, so FairBot's self-cost is 1. The proxy never charges the Löb step.
+
+**"Tight budgets give the first drift-closed classes, at b = 4" and the "soft clique by proof length" hypothesis in this proxy (Fable, predictions 2, 4, 7; falsifiers fired).** No class is drift-closed at any b at n ≤ 8. Siblings are priced out (cost ratio ≥ 2), but every unsuckerable class leaks through a neighbour cheaper than itself (ALLC for FairBot, `BOX(THEM(THEM))` for PrudentBot, `not(BOX(THEM(ME)))` for P*), and a cost-monotone reader cannot cut those. Proxy-specific: real proof length is not measured.
+
+**"The lottery weakens at b = 2 and is zero at b = 1" (Fable, prediction 6).** Paired differences at b = 1–3 are within ±0.07; the gate does not fragment the core because the provers' mutual costs are 1.
+
+**Subagent S2 (no cycle) and S3's second clause (FairBot's sibling legible at b ≥ 8; it costs 15).**
+
+**The atom-count control as specified.** Trivial at n ≤ 8 because k ≤ 2.
