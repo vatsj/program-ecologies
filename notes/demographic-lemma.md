@@ -162,3 +162,133 @@ sign: (i) the establisher family's own advantage, π_E − π̄ = x_D x_E in {AL
 same order as the curvature at x_E ≈ 0.025); (ii) a surviving lineage's own frequency, which adds ≈ (w x̄_D/N)·E[k(k−1)]
 ≈ (w x̄_D/N)·τ² to E[k_τ] (≈ +0.4 / +0.2 / +0.1 / +0.04 at N = 100 / 400 / 1,600 / 6,400 for τ ≈ 13 / 19 / 25 / 30).
 These are order-of-magnitude estimates that motivate predictions S2 and S6; they are not used as results.
+
+## 3. The factorized spoiler bound (Task 2)
+
+### 3.1 Exact per-founder union bound [proved]
+
+Fix a seeded establisher x (the target), the seed event E, τ = ALLC extinction ∧ local freeze ∧ 2,000 generations.
+A = {class x alive at τ}; for each founder j of a faker class q of x (every seeded copy of q is a founder), F_j =
+{j's lineage alive at τ} (genealogical survival: in the untagged kernel a birth from j's lineage onto a copy of i's
+lineage of the same class is a null event at the class level and a replacement at the lineage level, so tagging every
+founder as its own payoff-identical class leaves the class-level law unchanged and makes F_j observable);
+F = ∪_j F_j; Est = {x's class in the final support}. With h = P(Est | A, Fᶜ) − P(Est | A, F) (absolute harm) and
+N_q = Σ_{j ∈ q} 1{F_j} the number of q-founders alive at τ:
+
+  P(Est | E) = P(A | E)·P(Est | A, Fᶜ, E) − P(A ∩ F | E)·h            (identity, notes/scramble-lemma.md §4)
+  P(A ∩ F | E) ≤ Σ_j P(A ∩ F_j | E) = P(A | E)·Σ_q E[N_q | A, E]       (union over founders, linearity)
+
+Define the per-founder survival q̄_q = E[N_q | E]/E[K_q | E] (K_q the number of q-founders) and the **per-founder
+dependence correction r_q = E[N_q | A, E]/E[N_q | E]**. Then, exactly,
+
+  **P(Est | E) ≥ ρ̃·[1 − Σ_q E[K_q | E]·q̄_q·r_q·h_q^rel],   ρ̃ = P(A | E)·P(Est | A, Fᶜ, E),  h^rel = h⁺/P(Est | A, Fᶜ, E) ∈ [0, 1],**
+
+with the harm charged to each faker class at the cell's h (the union over-counts when several fakers are alive, which
+keeps it valid). Nothing here is assumed beyond the definitions. The old step (RESULTS "The scramble lemma") used
+P(A ∩ F) ≤ P(F), i.e. it charged q̄_q/P(A) where this charges q̄_q·r_q; since E[N_q | A] ≤ E[N_q]/P(A), **r_q ≤ 1/P(A)
+always**, so the new bound is never worse, and the 1/P(A) loss is replaced by the measured association r_q.
+
+In the forced design (one inserted target founder, one inserted faker founder, tagged; the paired faker class only)
+K_q = 1 + bg_q and r_q is measured on the inserted founder: r = P(F_j | A, E)/P(F_j | E). By exchangeability of the
+founders of one class (identical rates, symmetric initial state), the inserted founder's r and q̄ equal the per-founder
+averages over all q-founders.
+
+### 3.2 What can be said about r_q [proved under named hypotheses]
+
+- (H_ci) Suppose there is a σ-field 𝒢 (the "environment") given which A and F_j are conditionally independent. Then
+  r = E[P(A|𝒢)P(F_j|𝒢)]/(P(A)P(F_j)) = 1 + Cov(P(A|𝒢), P(F_j|𝒢))/(P(A)P(F_j)) **[proved given H_ci]**, and by
+  Cauchy–Schwarz **r ≤ 1 + CV(P(A|𝒢))·CV(P(F_j|𝒢))**.
+- (H_mono) If in addition both conditional probabilities are nonincreasing functions of one scalar statistic of 𝒢 (the
+  scramble duration τ is the natural one: Lemma D gives survivals ≈ 1/Φ_τ ≈ 1/(1 + τ) for both near-neutral lineages),
+  Chebyshev's association inequality gives **r ≥ 1**: a shared background makes the target's and the faker's survival
+  positively associated.
+- Neither hypothesis is proved for the kernel. H_ci fails in two known ways: *slot competition* (one lineage's births
+  remove the other's copies; negative, of order the lineages' joint share k/N) and *direct interaction* (a faker earns T
+  against the target, so a large surviving target helps the faker; positive). So r is **[measured]**, and the
+  shared-background part is estimated by r_env = E[s_A(τ)s_F(τ)]/(E[s_A(τ)]E[s_F(τ)]), s_·(τ) the conditional survivals
+  in τ bins: the value r would take if the association ran through τ alone.
+- Under H_ci with s(τ) = 1/(1 + τ) for both and τ with coefficient of variation v, r ≈ 1 + v²·(τ̄/(1 + τ̄))² ≈ 1 + v²:
+  a scramble-duration spread of 20–30% gives r ≈ 1.04–1.09. A larger measured r points at direct interaction.
+
+### 3.3 The confidence-qualified empirical bound (not a theorem)
+
+Per cell (N, n, faker type), in the forced design: ρ̃ and h^rel measured on the faker runs (run to local freeze);
+q̄ from Lemma D′ on the faker founder (binned form, Φ on the Poisson clock, measured distribution), which is a proved
+inequality evaluated at a measured distribution; r measured. Point version: all at their estimates. Conservative
+version: ρ̃ at its 95% lower bound, q̄ from the binned bound with each bin's probability at its Wilson upper bound, r
+and h^rel at their 95% upper bounds. Label: **confidence-qualified empirical bound**; proved: the inequality in 3.1 and
+Lemma D′; measured: every number plugged in.
+
+*Correction made after the first report (declared in the run file):* the binned form Σ_i min{P(Φ ∈ bin_i), k₀/φ_i}
+charges one cap k₀/φ_i per bin, so when Φ_τ ≈ 1 + τ is spread over ~20 unit bins it sums to ≈ 0.8–1 (vacuous). The
+single-level form inf_φ [1 − (1 − 1/φ)^{k₀} + P(Φ_τ < φ)] is the inequality of Lemma D′ itself; the bound used is the
+smaller of the two (both valid). Averaging the single-level bound over a mixing measure on φ cannot beat its infimum,
+so within this family the single level is optimal; what it pays is the spread of τ (the bound is ≈ 1/(1 + τ_low) +
+P(τ < τ_low), where the true survival is ≈ E[1/(1 + τ)]).
+
+## 4. The establishment formula (Task 3)
+
+**4.1 Post-scramble escape is two-type [proved formula, measured applicability].** At ALLC extinction the island is D
+plus a remainder plus surviving establisher lineages. If the largest mutually-cooperating establisher block has K copies
+and the remainder is treated as D, the exact birth–death formula gives the escape u_N(K) (§2). Applied island by island
+to the measured state at τ, it predicts the per-island cooperative-fixation chance within 0–4% at N = 100 … 25,600 and
+is calibrated in every bin of predicted u (runs file). **[measured]** Pooling is real: the "independent founders after
+the scramble" form 1 − Π_j(1 − u(k_j)) under-predicts by 11% at N = 6,400 and 13% at 25,600.
+
+**4.2 The scramble as near-critical branching [coupled + measured].** Each establisher founder is a lineage with per-copy
+rates b = a(N − k)/N, d = 1 − ak/N (§0). Approximating it by a linear birth–death process in a deterministic
+environment (the *coupling assumption*: the lineage's own effect on the environment and its frequency-dependent term are
+dropped) gives Kendall's law: alive at τ with probability 1/Φ(τ), Φ(τ) = 1 + ∫_0^τ e^{−R}, and geometric with mean
+e^{R(τ)}Φ(τ) given alive; so E[k_τ] = e^{R(τ)} per seeded copy. Measured: P(alive at τ) ≈ E[1/(1 + τ)]-like values
+(0.069 / 0.052 / 0.040 / 0.033 / 0.029 at N = 100 … 25,600) and E[k_τ | alive] ≈ 20 / 30 / 34 / 39 / 46, close to 1 + τ.
+
+**4.3 What sets E[k_τ] [measured, with a mean-field account].** E[k_τ]/k₀ for ALLC-cooperating establishers is
+1.41 / 1.55 / 1.36 / 1.26 / 1.32 at N = 100 / 400 / 1,600 / 6,400 / 25,600 (lottery; forced targets 1.36 / 1.45 / 1.17),
+not the curvature value 0.93. Two positive terms the spec omitted:
+- *the family's own advantage:* in {ALLC, D, E}, π_E − π̄ = x_D·x_E, so an establisher gains w·x_D·x_E per generation
+  from the other establishers it cooperates with; it grows as D replaces ALLC and does not vanish with N. The kernel's
+  replicator flow from the full seed x = μ (n = 9) gives e^{R(τ)} = 1.03 / 1.09 / 1.15 / 1.22 / 1.30 at the mean-field
+  τ for N = 100 … 25,600 (curvature included): it matches the measured E[k_τ] at N ≥ 6,400. **[derived numerically,
+  post hoc]**
+- *a survivor's own frequency:* a lineage with k copies gains ≈ w x_D (k − 1)/N; since E[k(k − 1)] ≈ 2t for a critical
+  lineage, this adds ≈ (w x̄_D/N)·τ² to E[k_τ]: ≈ +0.4 / +0.2 / +0.1 at N = 100 / 400 / 1,600 (measured excess over the
+  mean field: +0.38 / +0.46 / +0.21). It fades as τ²/N → 0.
+
+**4.4 The formula.** With founders M ~ Bin(N, μ_est), τ the island's ALLC-extinction time, and each founder independently
+alive with probability 1/Φ(τ) and geometric with mean ℓ(τ)Φ(τ),
+
+  **p(N) ≈ E[u_N(K_τ)],  K_τ = Σ_{j ≤ M} k_j.**
+
+- With ℓ = the curvature-only path (the spec's correction): under-predicts by 1.21–1.27 at N = 100–1,600 (S6).
+- With ℓ = the full-seed mean field [post hoc, no fitted parameter]: ratio measured/predicted 1.17 / 1.16 / 1.07 / 1.01
+  / 1.02 at N = 100 … 25,600. The residual at small N is the own-frequency term.
+- Linear regime (N μ_est u₁ ≪ 1): p ≈ N μ_est·ℓ·u₁·κ_N with κ_N = E[u(k_τ)]/(u₁E[k_τ]) the concavity factor (measured
+  0.59 / 0.66 / 0.80 / 0.93 / 0.97): the gap closes with N, which is why the local exponent (0.533 [0.495, 0.571] over
+  100–1,600) exceeds 1/2. Since u₁ ≈ √(2c/(πN)), the leading behaviour is the naive √N law times ℓκ_N.
+- Saturation: K_τ/N → μ_est·ℓ(τ_N) in probability as N → ∞ (the number of surviving founders, ~N μ_est/Φ(τ_N) with
+  Φ ~ log N, grows like N/log N, so the compound sum concentrates) and u_N(x) = erf(x√(Nc/2))/erf(√(Nc/2)) → 1 for
+  every fixed x > 0, so **p(N) → 1 at fixed cutoff**, with 1 − p decaying like erfc(μ_est ℓ √(Nc/2)) once K_τ
+  concentrates. Measured: 0.686 at 6,400, 0.980 at 25,600; the pooled-family form 0.719 / 0.969 tracks it, the
+  independent-founder form 0.577 / 0.821 does not. **[the limit statement is a consequence of the formula: proved for
+  u_N, measured for the formula's applicability, heuristic (Kendall coupling) for the concentration of K_τ]**
+
+## 5. Dependency ledger
+
+| statement | status | rests on |
+|---|---|---|
+| Lemma D′ (P(alive at τ, Φ_τ ≥ φ) ≤ 1 − (1 − 1/φ)^{k₀}, any stopping time) | proved | kernel rates; Poisson clock; optional stopping for a bounded supermartingale |
+| Lemma D (fixed T, killed at K and at f_q > F̄): ≤ k₀/(1 + d_min T), d_min = 1 − (K − 1)/N | proved | Lemma D′'s proof with deterministic θ |
+| Unkilled survival ≤ Lemma D + k₀/K (if f_q ≤ F̄ on reachable states) | proved | supermartingale k, optional stopping |
+| Event-clock transfer (factor ≤ 1.10 at N ≥ 100, T ≥ 5) | proved | monotonicity of S(m); Poisson independence of the event count |
+| Stopped lower-tail form P(alive at τ) ≤ Lemma D(t₁) + P(hit K) + P(τ < t₁) | proved | inclusion; P(τ < t₁) measured |
+| Per-founder union bound P(Est) ≥ ρ̃[1 − Σ E[K_q] q̄ r h^rel]; r ≤ 1/P(A) | proved | identity + union bound; definitions |
+| r = 1 + Cov/(…) ≤ 1 + CV·CV; r ≥ 1 under H_mono | proved under H_ci (and H_mono) | hypotheses not proved for the kernel |
+| r_q values (0.64–2.01 per cell; pooled 0.80–1.66) | measured | 10,000 forced backgrounds per (N, n, type) |
+| Combined bound positive in 27/27 cells | confidence-qualified empirical | Lemma D′ evaluated at measured Φ; r, h, ρ̃ measured |
+| Exact u_N(K) for a prover in a D sea | proved | kernel's birth–death ratios with self-excluded payoffs |
+| Diffusion u(x) = erf/erf | derived (standard diffusion limit, not proved here) | drift c x²(1 − x), variance 2x(1 − x)/N |
+| Post-scramble escape is two-type (semi-empirical within 4%) | measured | 17,400 lottery islands |
+| Kendall form of the scramble (alive 1/Φ, geometric) | coupled (assumption: environment deterministic, own effects dropped) | measured sizes ≈ 1 + τ |
+| ℓ = E[k_τ]/k₀ ≈ full-seed mean-field e^{R} at large N | derived numerically, post hoc; measured agreement at N ≥ 6,400 | replicator flow of the kernel |
+| p(N) → 1 at fixed n | consequence of the formula; heuristic in the concentration step | u_N proved; formula measured to N = 25,600 |
+| ρ̃ ≈ faker-free establishment | assumed (as in the scramble lemma) | — |
