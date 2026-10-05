@@ -461,3 +461,21 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **"Death–birth" as the kernel's update rule (spec).** It is birth–death (parent by fitness, victim uniform).
 
 **"Almost all seeds" on all establishers.** Narrowed to the fakerless establishers (FairBot's pair): for fakeable establishers the spoiler term grows like N/log N unless the post-scramble harm falls.
+
+## Added 2026-10-05: proof-carrying contracts (RESULTS.md, "Proof-carrying contracts v1")
+
+**Truth-table contract semantics (spec, v1 as first implemented).** Paradoxical: a period-4 cycle with 16% of entries divergent. Contracts must carry provability semantics, as the Löb certificate arm does.
+
+**"Contracts restore legibility at b = 2" (Fable, P1's premise).** The settle-cost gate is inert for b ≥ 1 (FairBot's self-cost is 1), so nothing was lost at b = 2. The legibility question is posed only at b = 0, where the supplement answered it.
+
+**"Under swapping the universal contract wins on validity breadth" (Fable, P2).** Validity binds each contract to about one source (427 of 610 sources valid for exactly one), so swaps are no-ops or rejections and contract composition equals source composition. Breadth favours D and ALLC-like contracts and plays no measurable role.
+
+**"Swapping spreads a contract from a 1% seed" (Fable, P3) and "a small seed spreads to every program that can carry it" (RS, in chat).** A μ-drawn 1% seed holds about one prover carrier at N = 6,400 and dies by drift at every σ, N and budget, including b = 0. Untested: a 1% seed of *prover* carriers.
+
+**"Source-ALLC load 0.2–0.35, coinciding with contract load when f₀ = 1" (Fable, P4).** 0.155–0.283; the loads coincide when s = 1.
+
+**"The neutral label concentrates less than the FairBot-contract" (Fable, P6; falsifier fired).** The label fixes at 1.00; copying alone concentrates more than contracts, which validity pins to sources.
+
+**The all-D start (144 cells).** Not run, by the RE's decision after the gate proved inert at b = 2.
+
+**The μ-drawn carrier seed as the design for testing spread (Fable, spec).** It conflates carrier rarity with prover rarity: 94% of a μ-seed is ALLC and D. A carrier seed drawn over provers is the right design for that question.

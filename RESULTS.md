@@ -2499,6 +2499,57 @@ The ghost survives like a critical lineage, P(alive) ≈ E[1/(1 + τ)]; establis
 - **A co-seeded faker of a probe-reader is a neutral lineage, not a disadvantaged one.** The scramble kills it by demography, with per-copy survival ≈ 1/(1 + τ_A), and τ_A grows like log N (13 → 19 over N = 100–400); selection adds a factor of 2–7 only for D-cooperating fakers.
 - So for fakeable establishers the expected spoiler term N·μ_q·q̄_q·h_q grows like N/log N unless the post-scramble harm h falls (it fell from 0.44 to ≈ 0.2 between N = 100 and 400). **"Almost all seeds" is clean only for the fakerless establishers, FairBot and `BOX1(THEM(ME))`** (μ_core ≈ 0.0102), whose per-island chance needs no spoiler term at all; the fakeable provers are a bonus measured to n = 12 and N = 400.
 
+## Proof-carrying contracts v1 (`runs/proof-carrying-contracts.md`; spec `specs/2026-10-04-proof-carrying-contracts.md`, predictions in `predictions/2026-10-04-proof-carrying-contracts.md`)
+
+Designed by the RE from the RS's pitch, reviewed by gpt-6.1-sol, run by an Opus subagent. Finite-size mechanism results; swapping is a second operator outside the ε→0 chain. The all-D-start cells (144 runs) were not run, by the RE's decision after the gate proved inert at b = 2; they are recorded as not run, not censored. A b = 0 supplement was preregistered in a predictions addendum before any b = 0 run.
+
+**Semantics.** Reading contracts as bare truth tables is paradoxical: iterating the all-carrier table from the GL play cycles with period 4 and 58,996 of 372,100 entries never settle (negated mutual reference: FairBot's entry against `BOXD(THEM(ME))` must equal its own negation). So contracts are read through provability: the alphabet C is the 471 behavioural classes of the free n = 8 game (19,544 programs, 610 canonical sources), each represented by its shortest source, and a contract read is the ungated free-GL stable box over the representatives; a 'none' entry is read from source through the gate. 14 policy-duplicate groups (42 classes) share a row but not a column.
+
+**Compatibility.** 1,022 valid (source, contract) pairs over 1,632 types; every source is valid for its own signature; 427 of 610 sources are valid for exactly one contract, 48 for 2, 83 for 3, 10 for 4, 42 for 5. Validity breadth is largest for the D contract and its policy duplicates (35–37 sources) and, among self-cooperating contracts, for ALLC-like ones (17–19). FairBot's contract is the broadest conditional one, valid for 7 sources (μ 0.0051); P*'s for 2, PrudentBot's for 1. There are no tags.
+
+**Certified-implication audit.** Exhaustive over every (type, type, atom) at b ∈ {∞, 4, 2, 0}: 2,452,800 contract reads, 566,032 with a true box, **0 violations**; 0 source-box violations; 0 of 1,044,484 carrier pairs off-table; at b = ∞ the non-carrier block equals `modal.evaluate` exactly.
+
+**Gate** (v = k(y)·(1 + settle(y, x)), the semantic-stabilization proxy). The joint fixed point cycles with period 2 at b = 4 and b = 2 (the intersection of the cycling masks was used; the sibling gate run used a world-indexed trace instead). Masked μ×μ share 0.0005 / 0.018 / 0.067 at b = 4 / 2 / 0. FairBot's self-cost is 1, so the prover network stays mutually legible for every b ≥ 1 and the gate binds only at b = 0, where only constants are legible from source.
+
+**Finite-ε runs** (well-mixed, N = 6,400, ε = 10⁻³, w = 0.3, 10⁵ generations, second half, μ seed, 3 seeds; b ∈ {2, 4, ∞} × s ∈ {0, 1} × f₀ ∈ {0, 0.01, 1} × σ ∈ {0, 0.1, 1}). Every cell lies between 0.93 and 0.99: source oracle 0.991; b = 2 with no contracts 0.991; contract baseline (b = ∞, f₀ = 1, s = 1) 0.980; b = 2, f₀ = 1: 0.970 (s = 0) and 0.975 (s = 1). Where contracts are carried, **contract composition equals source composition** (e.g. FairBot 0.50 / C 0.22 / `BOX(THEM(THEM))` 0.19 as contracts and as sources). Swaps at σ = 1, s = 1 over 3 seeds: about 1.1·10⁹ copied the recipient's own contract, about 7.5·10⁸ were rejected as invalid, and 1–4·10⁴ were accepted changes, mostly none → `<D>` on D-source newborns. With s = 0, carriers die out (second-half fraction 0.000 at f₀ = 0.01, 0.00–0.04 at f₀ = 1). Source-ALLC load 0.155–0.283; contract-ALLC load equals it when s = 1 and is 0 when s = 0. The anti-prover ("exploit if provable") share is 0.000 in every cell.
+
+**Uniform-donor control** (σ = 1): FairBot's contract share 0.14–0.57 with uniform donors against 0.01–0.50 payoff-weighted; at b = ∞, s = 1, f₀ = 1 `<BOX1(THEM(ME))>` (0.45) beat FairBot's contract (0.009). Composition tracks the sources, not breadth or donor fitness. **Neutral-label control:** a behaviourally neutral label copied the same way fixes at 1.00 in nearly every σ = 1 cell, while the largest contract share is ≈ 0.70: copying alone concentrates more than contracts do, because validity pins contracts to sources.
+
+**N path** (b = 2, s = 0, f₀ = 0.01): σ = 1 gives 0.854 / 0.977 / 0.992 and σ = 0 gives 0.987 / 0.979 / 0.984 at N = 1,600 / 6,400 / 25,600; carriers 0 throughout.
+
+**Lottery** (ε = 0, iid μ seeding, mN = 1, 40 runs per cell). Efficient fraction at (100, 4) / (400, 4) / (100, 64) / (100, 256): free arm (b = ∞) 0.33 / 0.55 / 0.97 / 1.00; b = 2 with no contracts 0.30 / 0.55 / 1.00 / 1.00; every b = 2 and b = ∞ contract configuration within Wilson noise of these (the one marginal cell is b = 2, f₀ = 1, σ = 1 at (400, 4): 0.40 against 0.55). Every run froze. **The n = 8 free-arm lottery reproduces the n = 6 pattern** (0.25 / 0.45 / 1.00 / 1.00) within its intervals.
+
+**b = 0 supplement** (the gate binds; N = 6,400, μ seed):
+
+| s | f₀ | σ | P(C,C) | carriers | top contract |
+|---|---|---|---|---|---|
+| 0 | 0 | 0 | 0.001 | 0 | — |
+| 0 | 0.01 | 0 / 1 | 0.002 / 0.003 | 0 / 0.17 (all `<D>`) | — |
+| 0 | 1 | 0 | **0.989** | 0.72 | `<BOX(THEM(THEM))>` 0.33, FairBot's 0.33 |
+| 0 | 1 | 1 | 0.659 (one seed collapsed to D) | 0.80 | FairBot's 0.33 |
+| 1 | any | any | 0.95–0.99 | 1.00 | FairBot's 0.15–0.67 |
+
+b = 0 lottery: with f₀ = 1 the efficient fractions are 0.25 / 0.42 / 0.97 / 1.00 (σ = 0) and 0.35 / 0.57 / 0.97 / 1.00 (σ = 1), the free arm's levels; with f₀ = 0.01 they are 0.00–0.17 at every (N, I) and σ, and with f₀ = 0 they are 0.00–0.05.
+
+**Verdicts.**
+| # | prediction | outcome |
+|---|---|---|
+| P1 | contracts restore legibility at b = 2 | **Failed on its premise:** b = 2 without contracts is 0.991 (the gate is inert); the other clauses hold |
+| P2 | under swapping the FairBot-contract wins on validity breadth | **Failed:** ≤ 0.50; composition tracks sources; P* is 0 and there are no tags, so the falsifier did not fire |
+| P3 | swapping spreads a contract from a 1% seed | **Failed:** σ = 0 and σ = 1 agree (0.98) with carriers 0; the seed dies at every σ and N |
+| P4 | source-ALLC load 0.2–0.35, unchanged by σ | **Partly:** 0.155–0.283; loads coincide when s = 1, not when f₀ = 1 |
+| P5 | lottery: f₀ = 1 within 0.15 of free at b = 2; f₀ = 0.01, σ = 0 at least 0.3 lower | **Mixed:** first clause holds (one cell at the margin); second fails because nothing was lost at b = 2 |
+| P6 | neutral label concentrates less than the FairBot-contract | **Failed, falsifier fired:** the label fixes at 1.00 |
+| RS-a | with rich contracts, limits to the free-proof case | **Mostly holds:** f₀ = 1 cells 0.933–0.988 against 0.991; two cells 0.057–0.058 below |
+| RS-b | "defect if their cooperation is provable" does poorly | **Holds:** share 0.000 everywhere |
+| S1–S4 | b = 0 supplement: collapse without contracts; restoration with | **Hold:** 0.001–0.003 without; 0.95–0.99 with f₀ = 1 or s = 1 |
+
+**Reading.**
+- **Proof-carrying contracts need Löb.** Read as truth tables they are paradoxical; read through provability they are certified-sound (0 violations in 2.45 million reads) and, among carriers, exactly the ungated free box, the α = 1 amortized path. They add nothing to a reader that can already read source.
+- **Where legibility is lost, carried contracts restore it.** At b = 0 cooperation collapses to 0.001 without contracts and returns to 0.95–0.99 when contracts are produced at birth (s = 1) or inherited from an established carrier population (f₀ = 1), with FairBot's contract and its family carrying it. This is the RS's pitch confirmed for the case it was made for.
+- **Swapping is inert, and a 1% seed dies.** Validity binds each contract to about one source, so transmission reduces to source selection; the few prover carriers in a μ-drawn 1% seed die by drift before any advantage acts, at every budget, including b = 0. The RS's intuition that a small seed spreads to every program that can carry it fails for a seed drawn from μ; a seed of prover carriers was not tested.
+- The anti-prover program's share is 0 everywhere, as the RS predicted.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

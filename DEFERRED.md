@@ -40,6 +40,7 @@ REJECTED.md the ones we dropped.
 - *Evidence:* E1 matched control; the certificates-only arm; the sibling theorem's dependency ledger (RESULTS
   "Conjecture 4"), whose mechanism is extensional and whose transfer to bounded proof search is conditional on budget.
 - *Evidence (2026-10-04):* a sound stabilization-cost gate preserves the free arm in both objects at n ≤ 8 and creates no fakers (RESULTS "Bounded provers"); the proxy does not charge the Löb step, so it barely binds on occupied states.
+- *Evidence (2026-10-05):* proof-carrying contracts need provability semantics; with it they equal the ungated free box among carriers; where a gate removes legibility (b = 0) they restore cooperation to 0.95–0.99 by production or inheritance, not swapping (RESULTS "Proof-carrying contracts v1"). The RS's contract pitch is confirmed for legibility and refuted as a selector.
 - *Would settle it:* an explicit proof system with measured proof length and a sound checker; the stabilization proxy is exhausted.
 
 ## 3. Roles: `ROLE` or fixed roles with separate populations?
@@ -52,6 +53,7 @@ REJECTED.md the ones we dropped.
   verification (caching); proof budgets.
 - *Operating hypothesis:* free box with amortized verification, which is the α = 1 price path and behaves as free
   proofs (THEORY §9.2); realizability enters through proof budgets, not per-match prices.
+- *Evidence (2026-10-05):* carried contracts are the realization of amortized verification; they are inert where legibility is free and restorative where it is not (RESULTS "Proof-carrying contracts v1").
 - *Constraints established:* a price is harmless in the limit iff it vanishes faster than N^(−1/2) of the stakes or is
   exactly zero on the ladder's rungs; copy subsidies are moats; any price that beats 1/N is incumbency (Proposition 3).
 - *Proof budgets (2026-10-04):* at this level of idealization a budget neither prices nor closes; it is harmless, and proof length is not a moat because leaks run through cheaper neighbours (RESULTS "Bounded provers").
