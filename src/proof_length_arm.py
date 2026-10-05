@@ -770,6 +770,75 @@ def reportA(a):
     print('\n'.join(md))
 
 
+# ------------------------------------------------------------------ final report
+def report(a):
+    J = lambda f: json.load(open(os.path.join(RUNS, f))) if os.path.exists(os.path.join(RUNS, f)) else None
+    A = J('proof-length-partA-summary.json'); grid_ = J('proof-length-grid.json'); kc = J('proof-length-karm-chain.json')
+    kl = J('proof-length-karm-lottery.json'); kp = J('proof-length-priced.json'); km = J('proof-length-karm-meta.json')
+    md = ['# Proof length: GLS+Def on the free arm, and the bounded calculus K', '',
+          'Spec `specs/2026-10-05-proof-length.md`; predictions `predictions/2026-10-05-proof-length.md`; calculi, soundness and hand-checked '
+          'derivations in `notes/proof-length.md`. Raw rows: `runs/proof-length-partA.json`, `runs/proof-length-grid.json`, '
+          '`runs/proof-length-karm-*.json`, `runs/proof-length-priced.json`.', '']
+    md += open(os.path.join(RUNS, 'proof-length-partA.md')).read().split('\n')
+    md += ['## Part B: the bounded calculus K', '', '### Run 1: budget grid, b ∈ {2..40}²', '',
+           '| pair | (C, D) cells | copy threshold (b_x = b_y) | distinct-budget rule | soundness violations / checked |', '|---|---|---|---|---|']
+    rows = grid_['rows']; out = dict(partA=A, grid={})
+    for px, py in ((FB, FB), ('BOX1(THEM(ME))', 'BOX1(THEM(ME))'), (FB, 'BOX1(THEM(ME))')):
+        R = [r for r in rows if r['px'] == px and r['py'] == py]
+        asym = sum(1 for r in R if r['xy'] != r['yx'])
+        diag = min([r['bx'] for r in R if r['bx'] == r['by'] and r['xy'] and r['yx']] or [None])
+        coop = [(r['bx'], r['by']) for r in R if r['bx'] != r['by'] and r['xy'] and r['yx']]
+        mx = min(b for b, _ in coop); my = min(b for _, b in coop)
+        rect = all((r['xy'] and r['yx']) == (r['bx'] >= mx and r['by'] >= my) for r in R if r['bx'] != r['by'])
+        rule = ('min(b_x, b_y) ≥ %d' % mx) if (mx == my and rect) else ('b_x ≥ %d and b_y ≥ %d' % (mx, my) if rect else 'irregular')
+        sb = sum(r['sound_bad'] for r in R); sc = sum(r['sound_checked'] for r in R)
+        out['grid']['%s|%s' % (px, py)] = dict(asym=asym, copy_threshold=diag, rule=rule, sound_bad=sb, sound_checked=sc)
+        md.append('| `%s` vs `%s` | %d | %s | %s | %d / %d |' % (px, py, asym, diag if px == py else '—', rule, sb, sc))
+    md += ['', 'Payoffs per cell follow from the play (PD: both C → 0 each, both D → −1 each); no cell is (C, D), so no budget is exploited.', '']
+    md += ['### Run 2: the n = 6 arm, every class at a global budget b (ε → 0 chain, w = 0.3; ε = 0 lottery)', '',
+           'K soundness: %d violations in %d checked K-derived formulas over b = 1..40. Plays differing from the free arm by b: %s.' % (
+               sum(m['sound_bad'] for m in km), sum(m['sound_checked'] for m in km),
+               ', '.join('%s: %d' % (b, kc['static'][str(b)]['diff_vs_free']) for b in (1, 2, 3, 4, 6, 10, 16, 40))), '',
+           '| arm | P(C,C) N = 10³ | 10⁴ | 3·10⁴ | π(all-D) at 3·10⁴ | top cooperative state (π) | its exit rate 10³ / 10⁴ / 3·10⁴ (strict share) | indeterminate | cut flow |', '|---|---|---|---|---|---|---|---|---|']
+    labs = ['free'] + ['K b=%d' % b for b in kc['budgets']] + ['control b=%d' % b for b in kc['budgets']]
+    out['chain'] = {}
+    for l in labs:
+        R = {r['N']: r for r in kc['rows'] if r['label'] == l}
+        r3 = R[30000]
+        out['chain'][l] = {str(N): dict(pcc=R[N]['pcc'], pi_D=R[N]['pi_D'], top=R[N].get('top_coop'), pi_top=R[N].get('pi_top'), exit=R[N].get('top_exit'),
+                                        strict=R[N].get('top_exit_strict'), support=R[N]['support']) for N in R}
+        md.append('| %s | %.4f | %.4f | %.4f | %.3f | `%s` (%.3f) | %s (%s) | %d | %.1e |' % (
+            l, R[1000]['pcc'], R[10000]['pcc'], r3['pcc'], r3['pi_D'], r3.get('top_coop'), r3.get('pi_top', 0),
+            ' / '.join('%.1e' % R[N].get('top_exit', 0) for N in (1000, 10000, 30000)),
+            '%.2f' % (r3.get('top_exit_strict', 0) / r3['top_exit']) if r3.get('top_exit') else '—', r3['indeterminate'], r3['cut_flow']))
+    md += ['', 'Support at N = 3·10⁴ (π ≥ 10⁻³): ' + '; '.join('%s: %s' % (l, ', '.join('%s %.3f' % (s, p) for s, p in out['chain'][l]['30000']['support'][:5]))
+                                                             for l in ('free', 'K b=3', 'K b=6', 'K b=16')), '',
+           'Control = the free table with plays flipped at random, matched to the K arm stratum by stratum (opponent class × free play × reader has boxes).', '',
+           'Leak test (drift-closed components among self-cooperators, n = 6): ' + ', '.join('b=%s: %d' % (b, kc['static'][str(b)]['n_closed']) for b in range(1, 41)) + '; free: %d.' % kc['static']['free']['n_closed'], '']
+    if kl:
+        md += ['ε = 0 lottery, n = 6, mN = 1, 20 paired seeds per cell (seeding as `src/bounded_lottery.py`), efficient fraction with Wilson 95%:', '',
+               '| arm | (N, I) = (100, 4) | (100, 64) |', '|---|---|---|']
+        out['lottery'] = kl['summary']
+        for l in ['free'] + ['K b=%d' % b for b in kc['budgets']]:
+            S = {(s['N'], s['I']): s for s in kl['summary'] if s['label'] == l}
+            md.append('| %s | %s |' % (l, ' | '.join('%d/%d = %.2f [%.2f, %.2f]%s' % (S[c]['efficient'], S[c]['n'], S[c]['frac'], S[c]['wilson'][0], S[c]['wilson'][1],
+                                                                                   (' (%d unresolved)' % S[c]['unresolved']) if S[c]['unresolved'] else '') for c in ((100, 4), (100, 64)))))
+        md.append('')
+    if kp:
+        md += ['### Run 3: per-program budgets with a price c·b per match (budgets {%s}, μ split equally across budgets, N = 10⁴)' % ', '.join(map(str, kp[0]['B'])), '',
+               '| c | P(C,C) | π(all-D) | π(all-ALLC) | π by budget (0 = constants) | π on self-cooperating monomorphic states | top cooperative state (π) | its exit (strict) | top destinations |', '|---|---|---|---|---|---|---|---|---|']
+        out['priced'] = kp
+        for r in kp:
+            md.append('| %g | %.4f | %.3f | %.3f | %s | %.3f | `%s` (%.3f) | %s (%s) | %s |' % (
+                r['c'], r['pcc'], r['pi_D'] or 0, r['pi_C'] or 0, ', '.join('%s: %.3f' % (k, v) for k, v in sorted(r['pi_by_budget'].items(), key=lambda kv: int(kv[0]))),
+                r['pi_selfcoop_mono'], r.get('top_coop'), r.get('pi_top', 0), '%.1e' % r['top_exit'] if r.get('top_exit') else '—',
+                '%.1e' % r['top_exit_strict'] if r.get('top_exit') else '—', '; '.join('%s %s %.1e' % tuple(t) for t in (r.get('top_dest') or []))))
+        md.append('')
+    open(os.path.join(RUNS, 'proof-length.md'), 'w').write('\n'.join(md) + '\n')
+    json.dump(out, open(os.path.join(RUNS, 'proof-length.json'), 'w'), indent=1, default=str)
+    print('\n'.join(md[-60:]))
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('cmd')
@@ -777,4 +846,4 @@ if __name__ == '__main__':
     ap.add_argument('--budgets', type=int, nargs='+', default=[])
     a = ap.parse_args()
     {'partA': partA, 'partA_uniform': partA_uniform, 'reportA': reportA, 'grid': grid, 'karm_vals': karm_vals,
-     'karm_chain': karm_chain, 'karm_lottery': karm_lottery, 'kpairs': kpairs, 'priced': priced}[a.cmd](a)
+     'karm_chain': karm_chain, 'karm_lottery': karm_lottery, 'kpairs': kpairs, 'priced': priced, 'report': report}[a.cmd](a)

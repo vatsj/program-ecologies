@@ -242,3 +242,17 @@ So the expectation holds in structure (symmetric, joint, min-threshold), with tw
 the boxed definitions rather than the conjunction of constants, and **copies are cheaper than distinct budgets**
 (3 vs 4; 4 vs 7): budgets just above the copy threshold are soft cliques (FairBot_3 cooperates with FairBot_3 and
 with nothing else in its family).
+
+## 5. The n = 6 bounded arm (every class at a global budget b)
+
+K play tables for b = 1..40 (`runs/proof-length-karm-meta.json`): 0 soundness violations in 34,679 checked
+K-derived formulas. The table changes at every b from 2 to 16 and is constant from b = 16 on. Self-cooperation
+thresholds in K: FairBot and `BOX(THEM(THEM))` 3; `BOX1(THEM(ME))`, `BOX1(THEM(THEM))` and `BOX(THEM(^C))` 4;
+`BOX1(THEM(^C))` 6. `BOX(THEM(^D))` already cooperates with ALLC at b = 2.
+
+**K is incomplete against GL, and the incompleteness is permanent.** At every b ≥ 16, 304 of 4,356 plays differ from
+the free arm. Of the 994 GL-true box atoms at n = 6, 690 (0.69) are K-true at b = 40, but they carry 0.992 of the
+μ-weighted mass. The missing ones need GLR's context Γ, i.e. reasoning *under* a box from boxed hypotheses (□A ⊢ □B
+with B ≠ A up to one unfolding). Examples: `BOX1(THEM(ME))` against `not(BOXD(THEM(ME)))`, and
+`BOXD1(THEM(ME))` against `BOXD(THEM(ME))`. K has no rule for this without cut, and its soundness argument does not
+allow a contextual Löb rule. So the bounded arm is a different game, not the free arm with some boxes masked.
