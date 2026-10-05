@@ -345,6 +345,8 @@ def two(L1, a1, L2, a2, tt, tf, ft, ff):
     return (atoms, (ff, tf, ft, tt))
 # P = if(BOX(THEM=S1), S5, if(BOX(THEM=S5), S1, S3)): atoms (0,0) [S1] and (0,4) [S5]
 PPROG = two(0, 0, 0, 4, 4, 4, 0, 2)
+PPRIME_1 = one(1, 0, 4, 2)          # the PA + Con twins ("policy duplicates")
+PPROG_1 = two(1, 0, 1, 4, 4, 4, 0, 2)
 
 
 # ---------------------------------------------------------------- GLS+Def certificates for multi-valued box atoms
@@ -594,11 +596,290 @@ def audit(fs, pairs, th=None):
     return len(pairs), natoms, bad
 
 
+# ---------------------------------------------------------------- chains
+def state_sets(d, ch):
+    """per expanded state: efficient (>= 0.99 of encounters efficient), greedy (polymorphic with S5 >= 0.5), label."""
+    from dollar_partitions import pop_outcome, label_of
+    s5 = find(d, S['S5'])
+    info = {}
+    for key in ch.keys_list:
+        ids, x, kind = ch.states[key]
+        cnt = np.round(np.asarray(x) * ch.N).astype(int)
+        o = pop_outcome(d, ids, cnt)
+        xs5 = dict(zip(ids, x)).get(s5, 0.0)
+        info[key] = dict(eff=o['eff'], effset=o['eff'] >= 0.99, greedy=(len(ids) > 1 and xs5 >= 0.5), label=label_of(o), xs5=xs5)
+    return info
+
+
+def set_rates(ch, info, which):
+    """exit rate (per mutation event, from inside the set) and entry rate (per event, from outside) of a set of states."""
+    pin = 0.0; pout = 0.0; fout = 0.0; fin = 0.0
+    for key, p in zip(ch.keys_list, ch.pi):
+        inside = info[key][which]
+        if inside: pin += p
+        else: pout += p
+        for k2, pr in ch.trans[key].items():
+            if k2 == key or k2 not in info: continue
+            if inside and not info[k2][which]: fout += p * pr
+            if not inside and info[k2][which]: fin += p * pr
+    return dict(mass=pin, exit_rate=fout / pin if pin > 0 else None, entry_rate=fin / pout if pout > 0 else None, flux_out=fout, flux_in=fin)
+
+
+def flux_by_mutant(d, ch, info, src_pred, dst_pred, top=12):
+    """stationary flux from states satisfying src_pred to states satisfying dst_pred, decomposed by mutant class."""
+    acc = defaultdict(float); tot = 0.0
+    for key, p in zip(ch.keys_list, ch.pi):
+        if not src_pred(info[key]): continue
+        for k2, pr in ch.trans[key].items():
+            if k2 == key or k2 not in info or not dst_pred(info[k2]): continue
+            for q, v in ch.trans_mut[(key, k2)].items():
+                acc[q] += p * v; tot += p * v
+    rows = sorted(acc.items(), key=lambda kv: -kv[1])[:top]
+    return dict(total=tot, by_mutant=[dict(q=d['names'][int(q)], flux=float(f), share=float(f / tot) if tot > 0 else 0.0) for q, f in rows])
+
+
+def run_chain(arm, n, N, theta, aug=None, aug_mass=0.0, d=None, tag=''):
+    from dollar_partitions import onepop_summary
+    t0 = time.time()
+    if d is None:
+        d = data(arm, n, aug=aug, aug_mass=aug_mass)
+    ch, prov = make_chain(d, N, theta=theta, max_states=30000, eager_poly=False)
+    ch.explore()
+    r = onepop_summary(d, ch, top=20)
+    info = state_sets(d, ch)
+    r['P_efficient'] = r['outcome']['eff']
+    r['effset'] = set_rates(ch, info, 'effset')
+    r['greedy'] = set_rates(ch, info, 'greedy')
+    r['reentry_greedy_to_eff'] = flux_by_mutant(d, ch, info, lambda i: i['greedy'], lambda i: i['effset'])
+    r['exit_eff_to_any'] = flux_by_mutant(d, ch, info, lambda i: i['effset'], lambda i: not i['effset'])
+    r['exit_eff_to_greedy'] = flux_by_mutant(d, ch, info, lambda i: i['effset'], lambda i: i['greedy'])
+    # top states with their efficient/greedy flags
+    r['top_states'] = [dict(state=state_desc(d, ch, ch.keys_list[i]), pi=float(ch.pi[i]), **{k: (bool(v) if isinstance(v, (bool, np.bool_)) else v) for k, v in info[ch.keys_list[i]].items()})
+                       for i in np.argsort(-ch.pi)[:20]]
+    r.update(arm=arm, n=n, N=N, theta=theta, K=d['K'], aug_mass=aug_mass, aug=[fsrc(f) for f in (aug or [])], time_s=time.time() - t0,
+             n_expanded=len(ch.trans), tag=tag)
+    return r, ch, d
+
+
+def subdata(d, funcs):
+    """the class data restricted to the classes of the given canonical functions (masses renormalized)."""
+    cls = [find(d, f) for f in funcs]
+    assert len(set(cls)) == len(cls), 'two named programs share a class'
+    c = np.array(cls)
+    sd = dict(d)
+    sd['U'] = d['U'][np.ix_(c, c)]; sd['JA'] = d['JA'][np.ix_(c, c)]
+    sd['mu'] = d['mu'][c] / d['mu'][c].sum()
+    sd['names'] = [d['names'][i] for i in c]; sd['kinds'] = [d['kinds'][i] for i in c]
+    sd['self_out'] = [d['self_out'][i] for i in c]; sd['K'] = len(c)
+    sd['sizes'] = d['sizes'][c]; sd['members'] = [d['members'][i] for i in c]
+    sd['fs'] = [d['fs'][d['rep'][i]] for i in c]; sd['cls_of'] = np.arange(len(c)); sd['rep'] = list(range(len(c)))
+    return sd
+
+
+def _job_chain(job):
+    r, ch, d = run_chain(job['arm'], job['n'], job['N'], job['theta'], aug=job.get('aug'), aug_mass=job.get('aug_mass', 0.0), tag=job.get('tag', ''))
+    fn = os.path.join(OUT, 'chain_%s_n%d_N%d_th%g%s.json' % (job['arm'], job['n'], job['N'], job['theta'], job.get('tag', '')))
+    json.dump(r, open(fn, 'w'), indent=1, default=str)
+    return dict(fn=fn, arm=job['arm'], N=job['N'], theta=job['theta'], tag=job.get('tag', ''), P_eff=r['P_efficient'],
+                greedy=r['greedy']['mass'], effset=r['effset']['mass'], time_s=r['time_s'], cut=r['cut_flow'])
+
+
+# ---------------------------------------------------------------- fixed roles: lazy version of dollar_partitions.fixed_chain
+def fixed_chain_lazy(d, N, w=W, theta=1e-12, rel_drop=1e-25, max_states=5000, verbose=False):
+    """dollar_partitions.fixed_chain's chain (joint monomorphic slot configurations, constant-selection Moran
+    fixation per slot, embedded jump chain, pi(s) = pi_jump(s)/R(s)) solved by GTH on a lazily grown state set:
+    start from the 25 constant pairs, add every unexpanded state whose stationary inflow exceeds theta (reflecting
+    boundary), until none does.  Returns the same dict as fixed_chain (pi over all K^2 pairs, zero off the set) plus
+    the cut flow and the set size.  K^2 = 42,025 at modal n = 7 does not fit the dense K^2 x K^2 solve."""
+    from dollar_partitions import lrho_vec, gth_linear
+    U, mu, K = d['U'], d['mu'], d['K']
+    lmu = np.log(0.5 * mu)
+    du1 = U.T[None, :, :] - U[:, :, None]
+    du2 = U.T[:, None, :] - U.T[:, :, None]
+    L1 = lrho_vec(du1, N, w) + lmu[None, None, :]
+    L2 = lrho_vec(du2, N, w) + lmu[None, None, :]
+    del du1, du2
+    idx = np.arange(K)
+    L1[idx, :, idx] = -np.inf
+    L2[:, idx, idx] = -np.inf
+    mm = np.maximum(L1.max(axis=2), L2.max(axis=2))
+    R = mm + np.log(np.exp(L1 - mm[:, :, None]).sum(axis=2) + np.exp(L2 - mm[:, :, None]).sum(axis=2))
+    P1 = np.exp(L1 - R[:, :, None]); P2 = np.exp(L2 - R[:, :, None])
+    del L1, L2
+    P1[P1 < rel_drop] = 0.0; P2[P2 < rel_drop] = 0.0
+    const = [c for c in range(K) if d['kinds'][c] == 'constant']
+    E = [a * K + b for a in const for b in const]
+    for rnd in range(200):
+        pos = {s: i for i, s in enumerate(E)}
+        n = len(E)
+        P = np.zeros((n, n))
+        inflow = defaultdict(float)
+        rows_out = []
+        for i, s0 in enumerate(E):
+            a, b = divmod(s0, K)
+            for q in range(K):
+                for pr, t in ((P1[a, b, q], q * K + b), (P2[a, b, q], a * K + q)):
+                    if pr <= 0: continue
+                    j = pos.get(t)
+                    if j is None:
+                        rows_out.append((i, t, pr))
+                    else:
+                        P[i, j] += pr
+        # reflecting boundary: dropped mass stays (self-loop)
+        for i in range(n):
+            P[i, i] += max(0.0, 1.0 - P[i].sum())
+        xj = gth_linear(P)
+        for i, t, pr in rows_out:
+            inflow[t] += xj[i] * pr
+        cand = [t for t, f in inflow.items() if f > theta]
+        cut = float(sum(f for t, f in inflow.items() if f <= theta))
+        if verbose:
+            print('  round %d: %d states, %d candidates, cut %.2e' % (rnd, n, len(cand), cut), flush=True)
+        if not cand or n >= max_states:
+            break
+        cand.sort(key=lambda t: -inflow[t])
+        E = E + cand[:max(1, max_states - n)]
+    lpi = np.full(K * K, -np.inf)
+    lpi[E] = np.log(np.maximum(xj, 1e-320)) - R.ravel()[E]
+    lpi -= lpi.max()
+    pi = np.exp(lpi); pi /= pi.sum()
+    return dict(pi=pi.reshape(K, K), logR=R, P1=P1, P2=P2, cut=cut, n_states=len(E), rounds=rnd + 1)
+
+
+def cmd_fixed(a):
+    from dollar_partitions import fixed_summary
+    for arm in a.arm:
+        d = data(arm, 7)
+        for N in a.N:
+            t0 = time.time()
+            ch = fixed_chain_lazy(d, N, theta=a.theta[0], verbose=True)
+            r = fixed_summary(d, ch)
+            r.update(arm=arm, n=7, N=N, theta=a.theta[0], n_states=ch['n_states'], time_s=time.time() - t0, K=d['K'])
+            fn = os.path.join(OUT, 'fixed_%s_n7_N%d_th%g.json' % (arm, N, a.theta[0]))
+            json.dump(r, open(fn, 'w'), indent=1, default=str)
+            o = r['outcome']
+            print('%s fixed N=%d: %s | eff %.4f Emax %.3f; const pairs %.3f; states %d; cut %.1e (%.0fs)' % (
+                arm, N, ', '.join('%s %.4f' % (k, v) for k, v in sorted(r['ordered_label_mass'].items()) if v > 1e-3),
+                o['eff'], o['E_max_pay'], r['mass_constant_pairs'], ch['n_states'], ch['cut'], r['time_s']), flush=True)
+
+
+# ---------------------------------------------------------------- lotteries (dollar_partitions' kernel and stop rule)
+def _job_lottery(job):
+    import dollar_partitions as DP
+    marm = job['marm']
+    DP.data = lambda game, n, arm, _m=marm, _n=job['n']: data(_m, _n)
+    r = DP.run_islands(dict(job, game='dollar5', arm='norole'))
+    r.update(marm=marm, I=job['I'], N=job['N'], mN=job['mN'], run=job['run'])
+    return r
+
+
+def cmd_lottery(a):
+    jobs = []
+    for marm in a.arm:
+        for (N, I) in a.cells:
+            for mN in a.mN:
+                for r in range(a.runs):
+                    # identical initialization seeds across the two arms (the multinomial draw is over each arm's own
+                    # classes, so 'identical' means identical seeds and stopping rules)
+                    seed = (7919 * I + 31 * N + int(mN * 1000) * 13 + r) % (2**31 - 1)
+                    jobs.append(dict(marm=marm, n=7, I=I, N=N, mN=mN, gens=a.gens, seed=seed, run=r, thr=0.95))
+    if a.shard is not None:
+        i, m = a.shard
+        jobs = jobs[i::m]
+    out = defaultdict(list)
+    fn = os.path.join(OUT, 'lottery_%s.json' % (a.tag or 'all'))
+    for j in jobs:
+        r = _job_lottery(j)
+        out['%s|%d|%d|%g' % (r['marm'], r['N'], r['I'], r['mN'])].append(r)
+        json.dump(out, open(fn, 'w'), default=str)
+        labs = Counter(r['labels'])
+        print('%s (%d,%d) mN=%g run %d: %s closed_at %s censored %s (%.0fs)' % (r['marm'], r['N'], r['I'], r['mN'], r['run'],
+              dict(labs.most_common(4)), r['closed_at'], r['censored'], r['time_s']), flush=True)
+
+
+def cmd_proofs(a):
+    """certificates for the representative encounters -> notes/modal-dollar.md (derivation section) + json."""
+    th = Theory5()
+    ms = GP.MinSearch(th)
+    F = {"P'": PPRIME, 'A5': ACC5, 'P': PPROG, 'S5': S['S5'], 'S3': S['S3'], "P'1": PPRIME_1,
+         'C3': one(0, 2, 2, 0)}      # C3 = if(BOX(S3), S3, S1): the 'concede unless provably fair' accommodator
+    pairs = [("P'", "P'"), ("P'", 'A5'), ("P'", 'P'), ('P', 'S5'), ('A5', 'S5'), ('A5', 'A5'), ('P', 'P'), ('P', 'A5'),
+             ("P'", 'S5'), ("P'", 'C3'), ("P'1", 'A5'), ('C3', 'S5')]
+    names = {th.prog(f): k for k, f in F.items()}
+    nat, atL, atA, tab = to_arrays([F[k] for k in F])
+    keys = list(F)
+    out = np.zeros(2, np.int64)
+    recs = []
+    lines = ['## Certificates (GLS+Def, five-valued definitional constants)', '',
+             'P^a[x,y] reads "x demands S_a against y"; its definition is x\'s source read against y (a disjunction over the',
+             'atom valuations whose table entry is a). An atom BOX_L(THEM = S_b) of x read against y is [](~[]^L F -> P^b[y,x]).',
+             'For each encounter: every box atom of each side, its provability (the terminating GL decision procedure of',
+             '`src/gl_proofs.py`; "not provable" is the exhaustive search failing, so the atom is false at the stable world),',
+             'the certified minimal derivation (size in sequents, Löb steps) of each provable atom, and the evaluator\'s play.', '']
+    for x, y in pairs:
+        r = certify_pair(th, F[x], F[y], ms=ms, want_render=True, names=names)
+        eval_modal2(nat, atL, atA, tab, keys.index(x), keys.index(y), out)
+        ev = [SNAME[o] for o in out]
+        recs.append(dict(x=x, y=y, x_src=fsrc(F[x]), y_src=fsrc(F[y]), plays=r['plays'], evaluator=ev, agree=r['plays'] == ev,
+                         atoms=[[{k: v for k, v in s.items() if k != 'derivation'} for s in side] for side in r['sides']]))
+        lines.append('### %s = `%s` vs %s = `%s`: plays (%s, %s); evaluator (%s, %s)' % (x, fsrc(F[x]), y, fsrc(F[y]), *r['plays'], *ev))
+        lines.append('')
+        for who, side in zip((x, y), r['sides']):
+            for s_ in side:
+                if s_['provable']:
+                    lines.append('- %s\'s atom %s: **provable**, %d sequents, %d Löb step(s)%s' % (
+                        who, s_['atom'], s_['size'], s_['loeb'], '' if s_['certified'] else ' (upper bound, uncertified)'))
+                    if s_.get('derivation'):
+                        lines += ['', '```', s_['derivation'], '```', '']
+                else:
+                    lines.append('- %s\'s atom %s: not provable' % (who, s_['atom']))
+        lines.append('')
+    open(os.path.join(OUT, 'certificates.md'), 'w').write('\n'.join(lines) + '\n')
+    json.dump(recs, open(os.path.join(OUT, 'certificates.json'), 'w'), indent=1)
+    for r in recs:
+        print(r['x'], r['y'], r['plays'], r['evaluator'], r['agree'])
+
+
+def cmd_static(a):
+    out = {}
+    for arm in ('modal', 'weak'):
+        r, d = static_checkpoint(arm)
+        out[arm] = r
+    json.dump(out, open(os.path.join(OUT, 'static.json'), 'w'), default=str)
+    print('wrote static.json')
+
+
+def cmd_chain(a):
+    from multiprocessing import Pool
+    jobs = [dict(arm=arm, n=n, N=N, theta=th, tag=a.tag) for arm in a.arm for n in a.n for N in a.N for th in a.theta]
+    if a.aug:
+        AUG = dict(P=[PPROG, PPROG_1], Pp=[PPRIME, PPRIME_1], both=[PPROG, PPROG_1, PPRIME, PPRIME_1])[a.aug]
+        jobs = [dict(j, aug=AUG, aug_mass=m, tag='%s_aug%s%g' % (a.tag, a.aug, m)) for j in jobs for m in a.aug_mass]
+    jobs.sort(key=lambda j: -j['N'])
+    if a.shard is not None:
+        i, m = a.shard
+        jobs = jobs[i::m]
+    for r in map(_job_chain, jobs):
+            print('%s N=%d theta=%g %s: P(eff) %.4f effset %.4f greedy %.4f cut %.1e (%.0fs)' % (
+                r['arm'], r['N'], r['theta'], r['tag'], r['P_eff'], r['effset'], r['greedy'], r['cut'], r['time_s']), flush=True)
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('cmd')
     ap.add_argument('--n', type=int, nargs='+', default=[7])
     ap.add_argument('--arm', nargs='+', default=['modal', 'weak'])
+    ap.add_argument('--N', type=int, nargs='+', default=[100, 1000, 10000, 30000, 100000])
+    ap.add_argument('--theta', type=float, nargs='+', default=[1e-7, 1e-9])
+    ap.add_argument('--procs', type=int, default=3)
+    ap.add_argument('--tag', default='')
+    ap.add_argument('--aug', default=None)
+    ap.add_argument('--shard', type=int, nargs=2, default=None)
+    ap.add_argument('--cells', type=lambda s: tuple(int(x) for x in s.split(',')), nargs='+', default=[(100, 64), (400, 16)])
+    ap.add_argument('--mN', type=float, nargs='+', default=[0.0, 0.1])
+    ap.add_argument('--runs', type=int, default=40)
+    ap.add_argument('--gens', type=int, default=100000)
+    ap.add_argument('--aug_mass', type=float, nargs='+', default=[1e-4, 1e-3, 1e-2])
     a = ap.parse_args()
     if a.cmd == 'classes':
         for n in a.n:
@@ -607,3 +888,13 @@ if __name__ == '__main__':
                 d = data(arm, n)
                 print('%s n=%d: a(s)=%s, %d canonical functions, %d payoff classes, classes with mixed joint actions %d (%.1fs)' % (
                     arm, n, [int(x) for x in d['a_counts']], d['n_funcs'], d['K'], d['mixed_actions'], time.time() - t0), flush=True)
+    elif a.cmd == 'chain':
+        cmd_chain(a)
+    elif a.cmd == 'lottery':
+        cmd_lottery(a)
+    elif a.cmd == 'fixed':
+        cmd_fixed(a)
+    elif a.cmd == 'proofs':
+        cmd_proofs(a)
+    elif a.cmd == 'static':
+        cmd_static(a)
