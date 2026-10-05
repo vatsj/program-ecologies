@@ -529,15 +529,301 @@ def job(j):
              first_sep=int(first_sep), first_sep_pair=(G(sep_a), G(sep_b)) if first_sep >= 0 else None,
              n_sep_checks=int(nsepchk), sep_end=sep_end[:10], n_sep_end_pairs=len(sep_end),
              sep_end_holders=[(G(h), int(sum(1 for i, hh in enumerate(hold) if hh == h and isl_cc[i] >= 0.95))) for h in hc] if sep_end else None,
-             t_est=t_est.tolist(), e_arr=e_arr.tolist(), e_arrC=e_arrC.tolist(), e_arrD=e_arrD.tolist(),
-             e_imm=[round(float(v), 4) for v in e_imm], e_hold=[G(k) for k in e_hold], e_hold_tag=[int(tag[k]) if k >= 0 else -1 for k in e_hold],
-             e_hloc=[round(float(v), 4) for v in e_hloc], t90=t90.tolist(), a90=a90.tolist(), imm90=[round(float(v), 4) for v in imm90],
-             h90_tag=[int(tag[k]) if k >= 0 else -1 for k in h90], hl90=[round(float(v), 4) for v in hl90],
-             arr_all=arr_all.tolist(), preest=pre.tolist(),
-             n_loss=int(nloss), losses=[(int(a), int(b_), G(int(c)), G(int(e))) for a, b_, c, e in loss_log[:50]],
-             trace=trace[::max(1, len(trace) // 400)].round(4).tolist(),
+             n_loss=int(nloss), losses=[(int(a), int(b_), G(int(c)), G(int(e))) for a, b_, c, e in loss_log[:30]],
              time_s=time.time() - t0)
+    # rival flags relative to the FairBot pair (natural runs): cooperative, mutually defecting with FairBot or BOX1(THEM(ME))
+    V = d['V']
+    refs = [d['idx']['BOX(THEM(ME))'], d['idx']['BOX1(THEM(ME))']]
+    vr = np.zeros(len(sup), bool)
+    for ref in refs:
+        vr |= (np.asarray(V[sup, ref]) == 0) & (np.asarray(V[ref, sup]) == 0)
+    riv = coop & vr
+    mainnet = coop & (np.asarray(V[sup, refs[1]]) == 1) & (np.asarray(V[refs[1], sup]) == 1)
+    local = e_hloc >= 0.5
+    estd = t_est >= 0
+    bg = pre == 0
+    # establishment summary over background islands: (category of holder at establishment) x ancestry
+    def cat(k):
+        if k < 0: return 'none'
+        if tag[k] in (1, 2, 3): return 'tag%d' % tag[k]
+        if riv[k]: return 'rival'
+        if mainnet[k]: return 'main'
+        return 'other'
+    es = Counter()
+    for i in range(I):
+        if bg[i]:
+            es[cat(int(e_hold[i])) + ('/local' if (estd[i] and local[i]) else ('/imm' if estd[i] else ''))] += 1
+    r['est_summary'] = dict(es)
+    # first immigrant-founded establishment (background islands) and local establishments by tag before it
+    order = sorted([i for i in range(I) if bg[i] and estd[i]], key=lambda i: t_est[i])
+    fimm = next((int(t_est[i]) for i in order if not local[i]), -1)
+    before = Counter(cat(int(e_hold[i])) for i in order if local[i] and (fimm < 0 or t_est[i] < fimm))
+    r['first_imm_est'] = fimm; r['local_before_first_imm'] = dict(before)
+    first_est = next((i for i in order), None)
+    r['first_est_cat'] = cat(int(e_hold[first_est])) if first_est is not None else None
+    r['first_est_t'] = int(t_est[first_est]) if first_est is not None else -1
+    r['n_local_est'] = int(sum(1 for i in range(I) if bg[i] and estd[i] and local[i]))
+    r['n_bg'] = int(bg.sum())
+    if exp != 'nat' or sep_end:
+        r.update(t_est=t_est.tolist(), e_arr=e_arr.tolist(), e_arrC=e_arrC.tolist(), e_arrD=e_arrD.tolist(),
+                 e_imm=[round(float(v), 3) for v in e_imm], e_cat=[cat(int(k)) for k in e_hold],
+                 e_hloc=[round(float(v), 3) for v in e_hloc], t90=t90.tolist(), a90=a90.tolist(),
+                 imm90=[round(float(v), 3) for v in imm90], hl90=[round(float(v), 3) for v in hl90], arr_all=arr_all.tolist())
+    else:
+        ok = bg & estd
+        r['est_stats'] = dict(n=int(ok.sum()), t_med=float(np.median(t_est[ok])) if ok.any() else None,
+                              arr_mean=float(e_arr[ok].mean()) if ok.any() else None, imm_mean=float(e_imm[ok].mean()) if ok.any() else None)
+    if exp in ('sep', 'ctrl'):
+        g = trace[:, 0]
+        grid = sorted(set(int(np.searchsorted(g, x)) for x in np.unique(np.round(np.logspace(1, 5, 60)))))
+        grid = [k for k in grid if k < len(trace)]
+        r['trace'] = trace[grid][:, [0, 1, 2, 3, 4, 7, 8, 9]].round(3).tolist()   # g, nA, nB, heldA, heldB, ncert, sep, cc
     if exp in ('sep', 'ctrl', 'nat', 'time') and mN > 0 and st in (3, 4):
         r['end_counts'] = {G(k): counts[:, k].tolist() for k in np.nonzero(glob)[0]}      # for the merge test
         r['end_tag'] = {G(k): int(tag[k]) for k in np.nonzero(glob)[0]}
     return r
+
+
+# ------------------------------------------------------------------ cells and runner
+def cells(exp):
+    """(exp, n, N, I, mN, reps, pair, preset)."""
+    out = []
+    if exp == 'sep':
+        for p in range(3):
+            for I in (16, 64, 256):
+                for mN in (0.1, 1.0, 10.0):
+                    out.append(('sep', 9, 100, I, mN, 40, p, 'AB'))
+    elif exp == 'ctrl':
+        for p in range(3):
+            for I in (16, 64, 256):
+                out.append(('ctrl', 9, 100, I, 0.0, 40, p, 'AB'))
+        for preset in ('A', 'halfAB', 'minorB'):
+            for I in (16, 64, 256):
+                for mN in (0.1, 1.0, 10.0):
+                    out.append(('ctrl', 9, 100, I, mN, 40, 0, preset))
+        for preset in ('halfAB', 'minorB'):          # addendum S4: N = 200
+            for mN in (1.0, 10.0):
+                out.append(('ctrl', 9, 200, 64, mN, 40, 0, preset))
+    elif exp == 'nat':
+        for n in (9, 12):
+            for I in (64, 256, 1024):
+                for mN in (0.1, 1.0):
+                    out.append(('nat', n, 100, I, mN, 100, None, 'iid'))
+    elif exp == 'nat2':           # extra replication at rare cells (decided from the first 100)
+        rows = load('nat')
+        for c in cells('nat'):
+            rs = [r for r in rows if ckey(r) == c[:5] + c[6:]]
+            if len(rs) >= 100 and sum(1 for r in rs if r['sep_end']) / len(rs) < 0.05:
+                out.append(c[:5] + (300,) + c[6:])
+    elif exp == 'rule':
+        for N, I in ((100, 16), (100, 64), (400, 16), (400, 64), (100, 256)):
+            for mN in (0.03, 0.1, 0.3, 1.0, 3.0, 10.0):
+                out.append(('rule', 9, N, I, mN, 40, None, 'iid'))
+        for N in (100, 400):
+            out.append(('rule', 9, N, 16, 0.0, 40, None, 'iid'))
+    return out
+
+
+def rows_path(exp):
+    return os.path.join(RUNS, 'rival-islands-rows-%s.json.gz' % exp)
+
+
+def load(exp):
+    import gzip
+    p = rows_path(exp)
+    return json.load(gzip.open(p, 'rt')) if os.path.exists(p) else []
+
+
+def save(exp, rows):
+    import gzip
+    json.dump(rows, gzip.open(rows_path(exp), 'wt'))
+
+
+def ckey(r):
+    return (r['exp'], r['n'], r['N'], r['I'], r['mN'], r['pair'], r['preset'])
+
+
+def warm():
+    d = cls(9)
+    job(('time', 9, 20, 4, 1.0, 0, 50, 0, 'AB'))
+
+
+def run_main(a):
+    exp = a.exp
+    store = 'nat' if exp == 'nat2' else exp
+    rows = load(store)
+    done = Counter(ckey(r) for r in rows)
+    jobs = []
+    for c in cells(exp):
+        e, n, N, I, mN, reps, pair, preset = c
+        k = (e, n, N, I, mN, pair, preset)
+        for rep in range(done[k], reps):
+            jobs.append((e, n, N, I, mN, rep, a.gens, pair, preset))
+    jobs.sort(key=lambda j: -j[2] * j[3] * (1 + j[4]))
+    print('%d jobs' % len(jobs), flush=True)
+    t0 = time.time()
+    cell_t = Counter(); censored = set()
+    with Pool(a.procs, initializer=warm) as pool:
+        for r in pool.imap_unordered(job, jobs):
+            rows.append(r)
+            k = ckey(r); cell_t[k] += r['time_s']
+            if cell_t[k] > 3 * CAP_S:
+                censored.add(k)
+            print('%s n=%d N=%d I=%d mN=%g pair=%s %s rep %d: %s gen %d %s held %s ext %s sep %s (%.1fs; %.0fs total)' % (
+                r['exp'], r['n'], r['N'], r['I'], r['mN'], r['pair'], r['preset'], r['rep'], r['status'], r['stop_gen'],
+                r['outcome'], r['held_final'], [round(x) for x in r['t_ext'][1:3]], r['n_sep_end_pairs'], r['time_s'],
+                time.time() - t0), flush=True)
+            if len(rows) % 50 == 0:
+                save(store, rows)
+    save(store, rows)
+    if censored:
+        print('CELLS OVER CAP:', censored)
+
+
+# ------------------------------------------------------------------ merge test (item 5)
+def merge_one(r):
+    """Merge a run's end state into one well-mixed island of I*N at eps = 0 and run to local freezing."""
+    n = r['n']; d = cls(n)
+    names = list(r['end_counts'].keys())
+    gi = np.array([d['idx'][x] for x in names], np.int64)
+    o = np.argsort(gi); gi = gi[o]; names = [names[k] for k in o]
+    tot = np.array([sum(r['end_counts'][x]) for x in names], np.int64)
+    NN = int(tot.sum())
+    Vs = np.asarray(d['V'][np.ix_(gi, gi)]).astype(np.int64)
+    U = np.ascontiguousarray(PDP[Vs, Vs.T]); PCC = np.ascontiguousarray((Vs * Vs.T).astype(float))
+    coop = d['coop'][gi].copy()
+    tag = np.array([r['end_tag'][x] for x in names], np.int64)
+    init = tot.reshape(1, -1).copy()
+    K = len(names)
+    seed = (int(r['rep']) * 7 + int(r['I']) * 13 + int(round(r['mN'] * 100)) + 99991) % (2 ** 31 - 1)
+    rr = np.random.default_rng(seed)
+    t0 = time.time()
+    out = _kern(U, PCC, coop, tag, init, NN, W, 0.0, seed, checks_schedule(GENS), True, -1, rr.random(K), rr.random(K),
+                np.ones(1, np.int64))
+    st, sg, counts = out[0], out[1], out[2]
+    fin = counts[0]
+    # clean two-type merge: two largest classes >= 0.98 of the population and mutually defecting
+    top = np.argsort(-tot)[:2]
+    clean = len(top) == 2 and tot[top].sum() >= 0.98 * NN and U[top[0], top[1]] == -1 and U[top[1], top[0]] == -1
+    # network shares before (by tag if tagged, else by mutual-cooperation component of the cooperative classes)
+    pre = {str(t): int(tot[tag == t].sum()) for t in range(4)}
+    post = {str(t): int(fin[tag == t].sum()) for t in range(4)}
+    win = [names[k] for k in np.nonzero(fin)[0]]
+    larger = names[top[0]]; smaller = names[top[1]] if len(top) > 1 else None
+    larger_won = bool(fin[top[0]] > 0 and (len(top) < 2 or fin[top[1]] == 0))
+    minority_won = bool(len(top) == 2 and fin[top[1]] > 0 and fin[top[0]] == 0)
+    return dict(exp=r['exp'], n=n, N=r['N'], I=r['I'], mN=r['mN'], pair=r['pair'], preset=r['preset'], rep=r['rep'],
+                NN=NN, status=STATUS[int(st)], gens_to_freeze=int(sg), clean=bool(clean),
+                top2=[(names[k], int(tot[k])) for k in top], share_larger=float(tot[top[0]] / tot[top].sum()) if len(top) == 2 else 1.0,
+                pre_tags=pre, post_tags=post, winners=win[:6], larger_won=larger_won, minority_won=minority_won,
+                time_s=time.time() - t0)
+
+
+def merge_main(a):
+    src = []
+    for e in ('sep', 'ctrl', 'nat'):
+        src += [r for r in load(e) if 'end_counts' in r and (r['n_sep_end_pairs'] > 0 or
+                (r.get('held_final', {}).get('1', 0) > 0 and r.get('held_final', {}).get('2', 0) > 0))]
+    print('%d separated end states to merge' % len(src), flush=True)
+    out = []
+    with Pool(a.procs) as pool:
+        for m in pool.imap_unordered(merge_one, src):
+            out.append(m)
+            print('%s I=%d mN=%g %s rep %d: clean %s share %.3f -> %s, %s in %d gens' % (
+                m['exp'], m['I'], m['mN'], m['preset'], m['rep'], m['clean'], m['share_larger'], m['winners'][:2],
+                'larger won' if m['larger_won'] else ('MINORITY WON' if m['minority_won'] else 'mixed'), m['gens_to_freeze']), flush=True)
+    import gzip
+    json.dump(out, gzip.open(os.path.join(RUNS, 'rival-islands-merge.json.gz'), 'wt'))
+
+
+# ------------------------------------------------------------------ static (item 1)
+def fix_k(N, w, k, uqq=0.0, uqa=-1.0, uaq=-1.0, uaa=0.0):
+    """P(k copies of q reach N before 0) against resident a (Moran, exp fitness)."""
+    logs = np.zeros(N)
+    acc = 0.0
+    for j in range(1, N):
+        pq = (j - 1) / (N - 1) * uqq + (N - j) / (N - 1) * uqa
+        pa = j / (N - 1) * uaq + (N - j - 1) / (N - 1) * uaa
+        acc += w * (pa - pq); logs[j] = acc
+    lm = logs.max()
+    s = np.exp(logs - lm)
+    return float(s[:k].sum() / s.sum())
+
+
+def static_main(a):
+    from compatibility import coseed
+    out = {}
+    out['rho'] = {str(N): dict(dd_migrant=fixation(0, -1, -1, 0, N, W, N), D_into_FairBot=fixation(-1, -1, -1, 0, N, W, N),
+                               est_into_D=fixation(0, -1, -1, -1, N, W, N),
+                               dd_k={str(k): fix_k(N, W, k) for k in (1, 2, 5, 10, 20, 30, 40)})
+                  for N in (100, 200, 400)}
+    for n in (9, 12):
+        d = cls(n); V = d['V']; mu = d['mu']; nm = d['names']
+        E = np.nonzero(d['est'])[0]
+        Ve = np.asarray(V[np.ix_(E, E)]).astype(bool)
+        DD = ~Ve & ~Ve.T; np.fill_diagonal(DD, False)
+        iu = np.argwhere(np.triu(DD, 1)); pm = mu[E[iu[:, 0]]] * mu[E[iu[:, 1]]]
+        top = np.argsort(-pm)[:20]
+        rows = []
+        for k in top:
+            x, y = E[iu[k]]
+            if mu[x] < mu[y]: x, y = y, x
+            rows.append(dict(x=nm[x], y=nm[y], mu_x=float(mu[x]), mu_y=float(mu[y]), prod=float(mu[x] * mu[y]),
+                             co100=coseed(mu[x], mu[y], 100), co400=coseed(mu[x], mu[y], 400)))
+        # mass of all establishers that mutually defect with the FairBot pair (rivals) and expected seeds per run
+        refs = [d['idx']['BOX(THEM(ME))'], d['idx']['BOX1(THEM(ME))']]
+        rv = np.zeros(len(mu), bool)
+        for ref in refs:
+            rv |= (np.asarray(V[:, ref]) == 0) & (np.asarray(V[ref, :]) == 0)
+        rv &= d['coop']
+        rv_est = rv & d['est']
+        out[str(n)] = dict(n_dd_pairs=int(len(iu)), dd_pair_mass=float(pm.sum()), top_pairs=rows,
+                           mu_rival_coop=float(mu[rv].sum()), mu_rival_est=float(mu[rv_est].sum()), n_rival_est=int(rv_est.sum()),
+                           rival_seeds_per_run={str(I): float(I * 100 * mu[rv_est].sum()) for I in (64, 256, 1024)},
+                           top_rivals=[(nm[k], float(mu[k])) for k in np.argsort(-np.where(rv_est, mu, 0))[:10]])
+        if n == 9:
+            heavy = [k for k in range(len(mu)) if mu[k] >= 1e-4]
+            pairs = []
+            for p, (an, bn) in enumerate(PAIRS):
+                A = d['idx'][an]; B = d['idx'][bn]
+                sup = np.array(sorted(set(heavy) | {A, B}))
+                tg = tags_for(d, sup, A, B)
+                allsup = np.arange(len(mu)); tga = tags_for(d, allsup, A, B)
+                rel = []
+                for k in sup:
+                    rel.append(dict(name=nm[k], mu=float(mu[k]), tag=int(tg[list(sup).index(k)]),
+                                    k_vs_A=int(V[k, A]), A_vs_k=int(V[A, k]), k_vs_B=int(V[k, B]), B_vs_k=int(V[B, k])))
+                pairs.append(dict(A=an, B=bn, mu_A=float(mu[A]), mu_B=float(mu[B]), co100=coseed(mu[A], mu[B], 100),
+                                  net_mass={str(t): float(mu[tga == t].sum()) for t in range(4)},
+                                  net_est_mass={str(t): float(mu[(tga == t) & d['est']].sum()) for t in range(4)},
+                                  B_fakers_mass=float(mu[(np.asarray(V[:, B]) == 0) & (np.asarray(V[B, :]) == 1)].sum()),
+                                  A_fakers_mass=float(mu[(np.asarray(V[:, A]) == 0) & (np.asarray(V[A, :]) == 1)].sum()),
+                                  heavy_relations=rel))
+            out['pairs'] = pairs
+    json.dump(out, open(os.path.join(RUNS, 'rival-islands-static.json'), 'w'), indent=1)
+    for N, v in out['rho'].items():
+        print('N=%s: rho_DD %.3g, rho(D|FB) %.3g, rho(est|D) %.4f; k-copy %s' % (N, v['dd_migrant'], v['D_into_FairBot'], v['est_into_D'],
+              {k: '%.3g' % x for k, x in v['dd_k'].items()}))
+    for n in ('9', '12'):
+        v = out[n]
+        print('n=%s: %d DD pairs mass %.3g; rival est mass %.3g (%d classes); rival seeds per run %s' % (
+            n, v['n_dd_pairs'], v['dd_pair_mass'], v['mu_rival_est'], v['n_rival_est'], v['rival_seeds_per_run']))
+        for p in v['top_pairs'][:6]:
+            print('   %s x %s  %.3g %.3g co100 %.2e' % (p['x'], p['y'], p['mu_x'], p['mu_y'], p['co100']))
+    for p in out['pairs']:
+        print(p['A'], 'x', p['B'], 'net mass', {k: '%.3g' % v for k, v in p['net_mass'].items()}, 'fakers of B %.3g, of A %.3g' % (p['B_fakers_mass'], p['A_fakers_mass']))
+
+
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser()
+    ap.add_argument('what', choices=['static', 'run', 'merge', 'report'])
+    ap.add_argument('--exp', default='sep')
+    ap.add_argument('--procs', type=int, default=3)
+    ap.add_argument('--gens', type=int, default=GENS)
+    a = ap.parse_args()
+    if a.what == 'static': static_main(a)
+    elif a.what == 'run': run_main(a)
+    elif a.what == 'merge': merge_main(a)
+    elif a.what == 'report':
+        import rival_islands_report as RR
+        RR.main()
