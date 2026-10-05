@@ -16,11 +16,14 @@ REJECTED.md the ones we dropped.
   against drift-closure").
 - *Evidence (2026-10-05):* the per-island chance is flat in the cutoff at n = 6–9 and tracks the mass of D-entering
   self-cooperators, fakeable or not (RESULTS "cutoff sensitivity in n"). Unfakeability belongs to the mutation object.
-- *Would settle it:* a tail bound on μ_est(n), the prior mass of D-entering self-cooperators, which should be monotone
-  if they only accumulate, plus a bound on probe-faker mass (0.0030 → 0.0036 at n = 6–9); and whether any question the
-  program cares about needs π rather than the lottery. Open observation: at I = 4 with mN = 1 the islands partly merge
-  during nucleation, so the run-level chance sits near p(4N) rather than 1 − (1 − p)^4; a cheap check is I = 4 at
-  mN ∈ {0.1, 1, 10}.
+- *Evidence (2026-10-05b):* μ_est ≥ 0.0207 at every cutoff, rigorously (establisher status only accumulates), with a
+  1/s² tail and an extrapolated limit ≈ 0.027; the resident-conditioned spoiler exposure is 0.27 at n = 12 and
+  flattening; at I = 4 the mN = 0.1 − mN = 10 contrast is 0.18 [0.005, 0.35], by merging during nucleation, not by
+  spoilers (RESULTS "the tail in n").
+- *Would settle it:* (i) a proof that resident-conditioned spoiler exposure stays bounded, or vanishes after the
+  scramble, uniformly in n; (ii) a rule for scaling mN along the I ≫ N path: migrants per island during nucleation must
+  be small relative to N (mN·T_nuc ≈ 6 / 60 / 600 against N = 400 gave independent / partly merged / merged); and
+  whether any question the program cares about needs π rather than the lottery.
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,

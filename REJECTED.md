@@ -421,3 +421,15 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Design choice dropped: "core = unfakeable" as the class set the seed lottery selects on.** Unfakeability predicts only the absence of strict invasions, not establishment, composition or persistence at ε = 0.
 
 **Subagent S3 and S4.**
+
+## Added 2026-10-05: the seed lottery's tail (RESULTS.md, "Almost all seeds: the tail in n")
+
+**Global probe-faker mass as the lottery's spoiler measure (Fable, prediction 2; subagent S1; falsifier fired).** μ_pf(12) = 0.064 and r = 2.5 against predicted ≤ 0.006 and ≤ 0.25. The union is dominated by the fakers of two near-universal suckers and counts FairBot as a faker. Dropped for resident-conditioned exposure (P(K_pf > 0 | A), μ-weighted exposure), as sol argued.
+
+**"Shell fraction of D-entering self-cooperators is 0.03–0.06" (Fable, prediction 1 clause).** 0.061–0.091 at s = 6–12; the 1/s² form held.
+
+**"Retained mass → 1" (spec wording).** The infinite length prior totals π²/12; limits are stated in inf units with raw(∞) ≤ raw(n) + ω(n).
+
+**"Migration hurts at I = 4 by importing spoilers" / "an intermediate maximum in mN" (spec framing; sol's alternative).** 0 losses in 180 runs and a monotone decline: migration hurts only by merging islands during nucleation.
+
+**The seed-membership label for local nucleation (design choice).** Uninformative when every island seeds about 9 establishers; nucleation is identified by timing against the no-migration window.

@@ -2387,6 +2387,40 @@ Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent. A local te
 - The sound core was never strictly invaded in 1,920 runs; its only loss route is displacement from a mixed island where a probe-faker feeds on a fakeable neighbour.
 - Uniformity beyond n = 9 needs a tail bound on μ_est(n), which should be monotone if D-entering self-cooperators only accumulate, plus a bound on probe-faker mass (0.0030 → 0.0036 here).
 
+## Almost all seeds: the tail in n (static, n ≤ 12) and island merging at I = 4 (`runs/seeds-tail.md`; spec `specs/2026-10-05-seeds-tail.md`, predictions in `predictions/2026-10-05-seeds-tail.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent. Nothing censored, nothing unresolved. One correction fixed in the predictions before computing: the infinite length prior totals Σ 1/(2s²) = π²/12 ≈ 0.822, not 1, so masses are given raw (unnormalized), in *inf* units (raw/(π²/12)) and in *cut* units (raw/retained(n)); the published μ_est values are cut units.
+
+**Part A: the tail.** The modal language evaluated once at n = 12 (22,690 canonical functions, 51 s); smaller cutoffs are sub-blocks (canonical ids form a prefix; the n = 9 sub-block reproduces `modal.build(9)` to 10⁻¹⁵). *Establisher:* self-cooperates and defects on D. *Probe-faker:* strictly invades some establisher's monomorphic world.
+
+| n | classes | establishers / fakers / core | μ_est cut | μ_core cut | μ_pf cut (union) | r = μ_pf/μ_est | P(K_pf > 0 \| A) |
+|---|---|---|---|---|---|---|---|
+| 6 | 51 | 9 / 37 / 3 | 0.0229 | 0.0149 | 0.053 | 2.30 | 0.189 |
+| 8 | 471 | 96 / 381 / 9 | 0.0242 | 0.0102 | 0.060 | 2.46 | 0.233 |
+| 10 | 1,752 | 319 / 1,524 / 15 | 0.0249 | 0.0104 | 0.062 | 2.49 | 0.260 |
+| 12 | 13,514 | 2,505 / 12,245 / 85 | 0.0253 | 0.0104 | 0.064 | 2.53 | 0.274 |
+
+- **A rigorous lower bound, uniform in n.** Establisher status switched 0 times at every step (it depends only on self-play and play against D), so raw μ_est only accumulates, and **μ_est(cut) ≥ raw(6)/(π²/12) = 0.0207 at every cutoff**. The omitted mass ω(n) is 0.077 at n = 6 and 0.040 at n = 12, giving 0.0240 ≤ μ_est(∞) ≤ 0.0726 in inf units rigorously; the 1/s²-tail extrapolation gives μ_est(∞) ≈ 0.027.
+- **Shells.** The shell fraction f_est(s) is 0.061–0.091 at s = 6–12 (odd shells heavier, from the grammar's parity); two-step ratios 0.58 / 0.65 / 0.69 against (s/(s+2))² = 0.56 / 0.64 / 0.69: a 1/s² tail, not geometric.
+- **Global faker mass is the wrong spoiler measure.** The union is 2.5× μ_est and is dominated by the fakers of two near-universal suckers, `not(BOXD(THEM(^C)))` and `not(BOXD1(THEM(^C)))` (μ 0.0003 each), which count FairBot among their fakers. The resident-conditioned exposure, from 10⁵ seeds of N = 100 conditioned on containing an establisher (P(A) ≈ 0.91): P(K_pf > 0 | A) = 0.19 → 0.27 at n = 6–12 with shrinking increments (0.022 → 0.007); E[K_pf | A] = 0.32 → 0.61, a quarter of it establishers faking the two suckers, which leaves a cooperative island. The μ-weighted exposure is 0.0015 → 0.0026.
+- The 8 establishers with raw mass ≥ 10⁻⁴ carry 97% of μ_est; all have the same ρ(x | all-D) (0.0421 / 0.0214 / 0.0108 at N = 100 / 400 / 1,600), so Σ μρ = ρ·μ_est exactly. **FairBot and `BOX1(THEM(ME))` have no strict invader at any n ≤ 12.** The core lost `BOX(THEM(THEM))` to reclassification at n = 7 (0.0037 raw) and ≤ 2.5·10⁻⁵ per step after.
+
+**Part B: merging at I = 4** (n = 6, four islands of N = 400, horizon 10⁵, 60 runs per mN, all certified). References rerun: no-migration per-island p(400) = 0.190 [0.155, 0.231]; one island of 1,600: 0.371 [0.312, 0.434] (240 runs). Run-level efficient fraction: **0.617 [0.49, 0.73] at mN = 0.1; 0.517 at mN = 1; 0.433 at mN = 10**, every run ending all-efficient or all-D. Predeclared contrast (mN = 0.1 − mN = 10): 0.183, 95% interval [0.005, 0.346]. Monotone, no intermediate maximum. Event logs: before the first certified island, D migrants per run are 24 / 280 / 2,206 at mN = 0.1 / 1 / 10 and establisher migrants 3 / 58 / 668; islands ≥ 90% cooperative by generation 200 in efficient runs are mostly one (mN = 0.1, matching independent trials) or all four (mN = 10); spread time from first to last cooperative island 940 / 120 / 20 generations. **0 cooperative islands lost in 180 migration runs; no probe-faker ever migrated into a cooperative island.** Migration hurts only by diluting the nucleating minority with D migrants, which merges the islands during nucleation and moves the run-level chance toward p(IN).
+
+**Verdicts.**
+| # | prediction | outcome |
+|---|---|---|
+| 1 | μ_est(12) ∈ [0.024, 0.028], 1/s² tail, shell fraction within ±50% of f(6) | **Held in substance** (0.0253; 1/s²; within ±50% at s = 6–12); the 0.03–0.06 band failed narrowly (0.061–0.091); "limit below 0.03" consistent but not rigorous |
+| 2 | μ_pf(12) ≤ 0.006, r ≤ 0.25, E[K_pf \| A] < 0.5, P(K_pf > 0 \| A) < 0.35 | **Failed, falsifier fired** on the global union (0.064; r = 2.5) and E[K] from n = 9; P(K > 0 \| A) < 0.35 **held** |
+| 3 | FairBot and `BOX1(THEM(ME))` unfakeable to n = 12 | **Held** |
+| 4 | merging: 0.50 / 0.42 / 0.38 ± bands, contrast > 0 | **Contrast held** (0.18 [0.005, 0.35]); bands inconclusive (point estimates inside, intervals straddling) |
+| S1–S5 | subagent's own | S1 failed (global union), S2, S3, S5 held, S4 mixed |
+
+**Reading.**
+- The establishment term of the seed lottery is rigorously positive uniformly in the cutoff, by construction rather than extrapolation: establisher status cannot be lost by adding opponents.
+- The spoiler term must be resident-conditioned. The global faker union is meaningless here; the conditioned chance that an establishing seed also carries one of its own fakers is 0.27 at n = 12 and flattening. This is now the sole open ingredient for "almost all seeds" in this language family.
+- Migration between islands costs only through merging during nucleation, never through spoilers. The I ≫ N path keeps islands as independent trials only when migrants per island during nucleation are small relative to N (mN·T_nuc ≈ 6 / 60 / 600 against N = 400 gave independent / partly merged / merged).
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
