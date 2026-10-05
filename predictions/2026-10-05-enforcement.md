@@ -100,3 +100,20 @@ A prediction **holds** if every clause holds at its evaluation point; **fails** 
 **partial**, with the clause that failed named. Failures are reported as failures and get REJECTED entries. Shares
 are the union run's disjoint summaries computed from the *implemented* joint action. Every π is reported with its
 support and transition structure.
+
+## Addendum (after Part A, before any Part B run)
+
+Part A ran (`runs/enforcement/part_a.json`; committed play, the union run's evaluator semantics through the
+independent history-based evaluator). Recorded here before Part B; verdicts are given in `runs/enforcement.md`.
+- Boss language n = 6, levels {0, 1}: 585 functions (constants 0.976 of μ). Level 0 only: 297 functions.
+- Box audit over all 585 × 36 ordered pairs of the six variants: 21,060 encounters, 0 violations, 0 Lemma 0
+  counterexamples (no worker's wage box true at the stable world while the boss pays low there).
+- Self-pair activation (585 bosses; 390 pay low at world 0, 195 fair): union⁻₀ never strikes (either wage level);
+  union⁻₁ (PA wage) strikes against all 390 world-0-low bosses and none of the 195 world-0-fair ones; union⁻₁ with
+  the BOX1 wage check never strikes; militant⁻ strikes against all 390 plus 72 world-0-fair bosses.
+- union⁻₁ pair: 72 faker classes (mass 0.003) pay low at the stable world while the pair works, all fair at world 0
+  (e.g. `if(BOX(W1 = strike), (1/2,·), (0,·))`, and `if(BOX1(W1 = strike), …)` fair through world 1); it strikes
+  108 fair bosses (mass 0.0045). militant⁻ pair: 0 low bosses worked for, 108 fair bosses struck (mass 0.0045;
+  0.006 in the level-0 language).
+- The union run's wage faker `if(BOX(W1 = work), (1/2,·), (0,·))` pays fair forever to every union⁻ and militant⁻
+  pair; the faker against the unfakeable polarity is its mirror, "pay fair only while provably struck".

@@ -467,6 +467,109 @@ def reduced_static(base, arm, pool, c, tie):
     return rows
 
 
+def part_a(nB=6, levels=(0, 1), K=10):
+    """Part A: the unfakeable-polarity union, static only, committed play (CC).
+    Every boss function at n = nB with box levels `levels` against every ordered pair
+    of the six militant-/union- variants (plus scab and the union run's union for
+    reference)."""
+    LB = U.RoleLang(nB, U.boss_atoms(levels), U.NB)
+    fb, mb, cb, sb = LB.canon()
+    mb = mb / mb.sum()
+    mp = minus_programs()
+    names = list(mp.keys())
+    fw = [mp[k] for k in names]
+    P = U.Programs(fb, fw)
+    Wn = len(fw)
+    res = dict(boss_functions=len(fb), levels=list(levels), nB=nB, programs={k: str(v) for k, v in mp.items()})
+    # per ordered pair: classify every boss function
+    pairs = {}
+    audit_viol = 0; audit_n = 0
+    lemma0 = 0
+    stable = {}
+    for x in range(Wn):
+        for y in range(Wn):
+            cat = {}
+            rows = []
+            for b in range(len(fb)):
+                tr = trace(P, b, x, y, 0, 0, 0, 0.5, 0, K)
+                js = [w['imp'] for w in tr]
+                j = js[-1]
+                v = audit_one(P, b, x, y, j, 0, 0, 0, 0.5, 0, K)
+                audit_n += 1
+                if v: audit_viol += 1
+                si, h, a1, a2 = _decode(j)
+                s0 = _decode(js[0])[0]
+                # Lemma 0 on the wage boxes: a worker judging the boss fair (BOX_a(s = 1/2) true at the stable world) while it pays low
+                for slot in (1, 2):
+                    for (L, p, tv) in tr[-1]['atoms'][slot]:
+                        if p == KFAIR and tv and si != 2:
+                            lemma0 += 1
+                fair = si == 2
+                strike = bool(a1 or a2)
+                key = ('fair' if fair else 'low') + (' struck' if strike else ' worked')
+                if not fair and not strike and s0 == 2:
+                    key = 'low worked (faker: fair at world 0)'
+                cat.setdefault(key, [0, 0.0]); cat[key][0] += 1; cat[key][1] += float(mb[b])
+                stable[(b, x, y)] = (j, s0)
+            pairs['%s | %s' % (names[x], names[y])] = {k: dict(n=v[0], mass=v[1]) for k, v in sorted(cat.items())}
+    res['pairs'] = pairs
+    res['audit'] = dict(encounters=audit_n, violations=audit_viol, lemma0_counterexamples=lemma0)
+    # activation rule of each self-pair (S8): strikes iff s(world 0) < 1/2 ?
+    act = {}
+    for x in range(Wn):
+        cnt = dict(strike_w0low=0, work_w0low=0, strike_w0fair=0, work_w0fair=0)
+        for b in range(len(fb)):
+            j, s0 = stable[(b, x, x)]
+            st = bool(_decode(j)[2] or _decode(j)[3])
+            cnt[('strike' if st else 'work') + ('_w0fair' if s0 == 2 else '_w0low')] += 1
+        act[names[x]] = cnt
+    res['self_pair_activation'] = act
+    # constant low bosses against union- self-pairs
+    const = {}
+    for x in range(Wn):
+        for si in range(3):
+            for hi in range(3):
+                b = P.index_b[((), (U.bact(si, hi),))]
+                j, _ = stable[(b, x, x)]
+                const.setdefault(names[x], {})[U.bname(U.bact(si, hi))] = U.joint_name(j)
+    res['constants'] = const
+    # named bosses: world-by-world traces
+    W1w, W1s = (0, 0), (0, 1)
+    nb_ = {
+        '(0,none)': ((), (U.bact(0, 1),)),
+        '(1/4,none)': ((), (U.bact(1, 1),)),
+        '(1/2,none)': ((), (U.bact(2, 1),)),
+        'union-run faker if(BOX(W1=work),(1/2,none),(0,none))': boss_fn([(0, 0)], lambda tv: U.bact(2, 1) if tv[(0, 0)] else U.bact(0, 1)),
+        'bottom-world faker if(BOX(W1=strike),(1/2,none),(0,none))': boss_fn([(0, 1)], lambda tv: U.bact(2, 1) if tv[(0, 1)] else U.bact(0, 1)),
+        'level-1 faker if(BOX1(W1=strike),(1/2,none),(0,none))': boss_fn([(1, 1)], lambda tv: U.bact(2, 1) if tv[(1, 1)] else U.bact(0, 1)),
+        'low-then-fair if(BOX(W1=work),(0,none),(1/2,none))': boss_fn([(0, 0)], lambda tv: U.bact(0, 1) if tv[(0, 0)] else U.bact(2, 1)),
+        'low-then-fair-1 if(BOX1(W1=work),(0,none),(1/2,none))': boss_fn([(1, 0)], lambda tv: U.bact(0, 1) if tv[(1, 0)] else U.bact(2, 1)),
+        'low-at-0-only if(BOX(W1=strike),(0,none),(1/2,none))': boss_fn([(0, 1)], lambda tv: U.bact(0, 1) if tv[(0, 1)] else U.bact(2, 1)),
+    }
+    pair_list = [(0, 0), (1, 1), (2, 2), (4, 4), (5, 5), (3, 3), (2, 0), (1, 0), (2, 5), (2, 4)]
+    traces = {}
+    for bn, f in nb_.items():
+        b = P.index_b.get(f)
+        if b is None:
+            continue
+        for (x, y) in pair_list:
+            tr = trace(P, b, x, y, 0, 0, 0, 0.5, 0, 6)
+            rowsT = []
+            for w in tr:
+                si, h, a1, a2 = _decode(w['imp'])
+                boxes = []
+                for slot in (1, 2):
+                    for (L, p, tv) in w['atoms'][slot]:
+                        lab = ('BOX%s(%s)' % ('1' if L else '', 's=1/2' if p == KFAIR else 'OTHER=strike'))
+                        boxes.append('W%d:%s=%s' % (slot, lab, 'T' if tv else 'F'))
+                rowsT.append('w%d: s=%s %s%s  [%s]' % (w['n'], U.WNAME[si], 'WS'[a1], 'WS'[a2], ', '.join(boxes)))
+            traces['%s || %s | %s' % (bn, names[x], names[y])] = rowsT
+    res['traces'] = traces
+    res['boss_mass'] = dict(constants=float(sum(mb[i] for i, f in enumerate(fb) if not f[0])),
+                            conditionals=float(sum(mb[i] for i, f in enumerate(fb) if f[0])))
+    return res
+
+
 def make_base():
     d, C, nmw_f, nmb_f = load_base()
     Bn, Bf, Wf, mB, mW = named_lists(d, C, nmw_f, nmb_f)
