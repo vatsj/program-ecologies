@@ -78,6 +78,8 @@ def main(a):
         for p, L in runs_of(ph, a.every)[:-1]:          # drop the censored last run
             dw[PH[p]].append(L)
     ph_all = np.array(ph_all)
+    fr = [runs_of(p, a.every)[0] for p in ph_all]
+    res['first_run'] = [dict(phase=PH[p], gens=L) for p, L in fr]
     res['phase_share'] = {PH[p]: float((ph_all == p).mean()) for p in range(8)}
     res['first_fair_gen'] = first_fair
     res['dwell_gens'] = {p: dict(n=len(v), mean=float(np.mean(v)), median=float(np.median(v))) for p, v in dw.items() if v}

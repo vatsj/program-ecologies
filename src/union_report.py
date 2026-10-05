@@ -48,6 +48,44 @@ def chain_tables(cells):
     return L
 
 
+def abm_tables(abm):
+    L = ['', '## Agent-based runs (N = 100 per slot, εN = 0.1 per slot per generation, 10⁵ generations; approach rates, not π)', '',
+         '| c | start | seed | encounter-level ' + ' / '.join(SUMM) + ' | majority phase fair / int / zero / strike / split / mixed | first fair phase (gen) | initial phase held (gen) | fair phases: n, mean dwell (gen) | phase switches | boss / worker payoff | efficiency |',
+         '|---|---|---|---|---|---|---|---|---|---|---|']
+    for o in sorted(abm, key=lambda o: (o['c'], o['start'] != 'low', o['seed'])):
+        ps = o['phase_share']; dw = o['dwell_gens']; fd = dw.get('fair', {'n': 0, 'mean': 0})
+        fr = o.get('first_run', [{}])[0]
+        L.append('| %g | %s | %d | %s | %s | %s | %s %s | %d, %.0f | %d | %.2f / %.3f | %.2f |' % (
+            o['c'], o['start'], o['seed'], ' / '.join('%.3f' % o['summary_mean'][k] for k in SUMM),
+            ' / '.join('%.3f' % ps[k] for k in ('fair', 'intermediate', 'zero wage', 'strike', 'scab split', 'mixed')),
+            o['first_fair_gen'][0], fr.get('phase'), fr.get('gens'), fd['n'], fd['mean'], sum(v['n'] for v in dw.values()),
+            o['pay_mean']['boss'], (o['pay_mean']['W1'] + o['pay_mean']['W2']) / 2, o['efficiency']))
+    return L
+
+
+def island_tables(isl):
+    L = ['', '## Spatial selection on bosses (I = 16, N = 100 per slot, mN = 1, εN = 0.1, 10⁵ generations, low-wage start; approach rates)', '',
+         '| c | w_g (B, W1, W2) | ' + ' | '.join(SUMM) + ' | s = 1/2 (any policy) | policy strike / none / source | boss / worker payoff | efficiency |',
+         '|---|---|' + '---|' * len(SUMM) + '---|---|---|---|']
+    groups = {}
+    for o in isl:
+        groups.setdefault((o['c'], tuple(o['wg'])), []).append(o)
+    for (c, wg), os_ in sorted(groups.items()):
+        def ms(get):
+            v = np.array([get(o) for o in os_]); return '%.3f ± %.3f' % (v.mean(), v.std())
+        sw = lambda o, si: sum(o['wage_whack_mean']['s=%s,%s' % (si, h)] for h in ('strike', 'none', 'source'))
+        pol = lambda o, h: sum(o['wage_whack_mean']['s=%s,%s' % (si, h)] for si in ('0', '1/4', '1/2'))
+        L.append('| %g | %s | %s | %s | %s / %s / %s | %s / %s | %s |' % (
+            c, ', '.join('%g' % v for v in wg), ' | '.join(ms(lambda o, k=k: o['summary_mean'][k]) for k in SUMM), ms(lambda o: sw(o, '1/2')),
+            ms(lambda o: pol(o, 'strike')), ms(lambda o: pol(o, 'none')), ms(lambda o: pol(o, 'source')),
+            ms(lambda o: o['pay_mean']['boss']), ms(lambda o: (o['pay_mean']['W1'] + o['pay_mean']['W2']) / 2), ms(lambda o: o['efficiency'])))
+    L.append('')
+    L.append('Per-seed fair and zero-wage shares: ' + '; '.join('c=%g w_g=%s: %s' % (c, '-'.join('%g' % v for v in wg), ', '.join(
+        '%.3f/%.3f' % (o['summary_mean']['fair'], o['summary_mean']['zero wage']) for o in sorted(os_, key=lambda o: o['seed'])))
+        for (c, wg), os_ in sorted(groups.items())))
+    return L
+
+
 def main():
     cells = []
     for f in sorted(glob.glob(os.path.join(D, '*_c*_N*.json'))):
@@ -55,7 +93,7 @@ def main():
         cells.append(o)
     order = {'quorum': 0, 'noquorum': 1, 'blind': 2}
     cells.sort(key=lambda o: (order[o['arm']], o['c'], o['N']))
-    L = chain_tables(cells)
+    L = chain_tables(cells) + abm_tables([json.load(open(f)) for f in sorted(glob.glob(os.path.join(D, "abm_*.json")))]) + island_tables([json.load(open(f)) for f in sorted(glob.glob(os.path.join(D, "islands_*.json")))])
     print('\n'.join(L))
     allj = dict(chain=cells, static=json.load(open(os.path.join(D, 'static.json'))),
                 abm=[json.load(open(f)) for f in sorted(glob.glob(os.path.join(D, 'abm_*.json')))],
