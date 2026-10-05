@@ -479,3 +479,21 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **The all-D start (144 cells).** Not run, by the RE's decision after the gate proved inert at b = 2.
 
 **The μ-drawn carrier seed as the design for testing spread (Fable, spec).** It conflates carrier rarity with prover rarity: 94% of a μ-seed is ALLC and D. A carrier seed drawn over provers is the right design for that question.
+
+## Added 2026-10-05: three-player divide-the-dollar (RESULTS.md, "Three-player majority divide-the-dollar")
+
+**"The bidding war is capped at the fair pair; unfair pairs below fair" (Fable, prediction 3; falsifier fired).** Unfair pairs hold 0.59–0.63 in every arm and N: each pair has two unfair orientations, and pivots only ratchet up because the excluded slot buys a member with 2/3 at its own cost of 1/3.
+
+**"A net current around the three pair states" as a statistic (Fable, prediction 2).** It vanishes identically under relabeling symmetry. Replaced by currents between outcome types (fair → unfair → wasteful → fair) and moves by pivot role.
+
+**"The constant grand coalition needs a three-step neutral path, so fair pairs ≥ 0.5" (Fable, prediction 8).** Its entry and exit both cost 1/3 (deleterious), so its share is N-independent at 0.003; fair pairs are 0.37.
+
+**"Grand coalition entry is three neutral steps" (Fable, prediction 5).** It runs through a "join iff j joins" reader and a strict step, flat in N.
+
+**"The weak arm has ≥ 2× the modal arm's disagreement" (Fable, prediction 6).** Identical: at n = 6 provability and simulation differ only on handshakes, which carry no mass.
+
+**"The grand start decays into pairs within 10⁴ generations" (Fable, prediction 7).** It holds for 26k, 67k and > 10⁵ generations.
+
+**"Unfakeability is the condition for coalition stability" (implicit in the spec's framing).** In k ≥ 3 games the binding exit is a partner's strict defection to a third party's offer, which reading the partner cannot police.
+
+**Solver designs dropped:** sparse LU on the generator at N ≥ 10³ (assigned grand = 1.0); row-scaled linear GTH at N = 10⁴ (loses classes bridged by underflowing rates); an excursion-only ring without ring-to-ring edges (underestimates the grand coalition 3× at N = 100); MMD ordering (hours); a k-ary min/max DSL for the weak arm (the 9 actions have no natural order).

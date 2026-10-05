@@ -2550,6 +2550,53 @@ b = 0 lottery: with f₀ = 1 the efficient fractions are 0.25 / 0.42 / 0.97 / 1.
 - **Swapping is inert, and a 1% seed dies.** Validity binds each contract to about one source, so transmission reduces to source selection; the few prover carriers in a μ-drawn 1% seed die by drift before any advantage acts, at every budget, including b = 0. The RS's intuition that a small seed spreads to every program that can carry it fails for a seed drawn from μ; a seed of prover carriers was not tested.
 - The anti-prover program's share is 0 everywhere, as the RS predicted.
 
+## Three-player majority divide-the-dollar with separate slot populations (`runs/three-player-dollar.md`, `runs/dollar3/`; spec `specs/2026-10-04-three-player-dollar.md`, predictions in `predictions/2026-10-04-three-player-dollar.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent over two days under heavy machine load. The modal (PA + Con) full chain at every N and modalPA at N = 10⁴ did not finish (projected beyond 2 hours at load averages near 260); modalPA at N ≤ 10³, one-ring runs of both modal arms at N = 100 (agreeing within 0.01), and static exit and bridge analyses that match between the arms stand in for them.
+
+**Game and language.** Three slots, each submitting (partner, demand) with partner ∈ {other two, ALL} and demand ∈ {1/3, 1/2, 2/3}; pairs form on mutual naming with demands summing ≤ 1, the excluded slot gets 0; the grand coalition needs all three at ALL with thirds; else zeros. Three separate populations, fixed roles. Grammar `A ::= a | if(B, A, A)`, `B ::= BOX_L(THEM_j = a) | not | and | or`, with 3-node atoms about the current encounter. n ≤ 5 is the 9 constants (a conditional needs an `if`); n = 6–9 give identical canonical sets (one-atom conditionals); n = 10 (23k–93k functions per slot) is out of reach for a K³ chain, so n = 6. Arms: modal (PA and PA + Con, 2,475 payoff classes per slot), modalPA (PA only, 1,179; the weak arm's grammar), weak (simulation, 903; it has no probes and hence no fakers), and the constants baseline. Relabeling invariance: 0 mismatches over 20,000 triples × 6 permutations; π invariant to 10⁻¹³.
+
+**Solver.** Rates reach e^(−1000) at N = 10⁴; sparse LU on the generator fails at N = 10³ (it assigned the grand coalition π = 1.0 against 0.003 from GTH). The 729 constant triples plus promoted states are solved by log-scaled GTH, and explored non-core states are eliminated exactly as a stochastic complement. Exploration admits states whose π-weighted inflow exceeds θ with θN = 10⁻⁷; outcome-changing flow leaving the explored set is 0.3–1.1% of all outcome-changing flow.
+
+**π by outcome** (grand / fair pair / unfair pair / wasteful pair / disagreement):
+
+| arm | N = 10² | N = 10³ | N = 10⁴ |
+|---|---|---|---|
+| constants | .0025 / .376 / .596 / .026 / 1e-4 | .0029 / .371 / .624 / .002 / 0 | .0029 / .368 / .629 / .0002 / 0 |
+| weak | .0101 / .373 / .591 / .026 / 4e-4 | .0161 / .366 / .615 / .002 / 1e-4 | .0167 / .364 / .620 / .0002 / 0 |
+| modalPA | .0099 / .373 / .591 / .026 / 4e-4 | .0161 / .366 / .615 / .002 / 1e-4 | not finished |
+
+Encounter-level: E[max share] 0.596 at N = 100 and 0.600–0.604 at N ≥ 10³; P(some slot gets 0) 0.983–0.998; efficiency ≥ 0.995.
+
+**Support.** About 0.94 of π sits on constant triples; the rest is one-conditional "shadow" states (a constant pair plus a reader in one slot, each ≈ 10⁻⁵). States with two or three conditionals have zero mass: hand-built Löbian handshakes leak at least as fast as their constant counterparts (pair handshake neutral exit 3.7·10⁻⁴ against 3.0·10⁻⁴ for the constant pair at N = 10³; grand handshakes 0.7–1.1·10⁻⁴ against 2.7·10⁻⁶ for the constant grand coalition).
+
+**Transitions.** The pair mechanism is identical in every arm: (1) the excluded slot drifts neutrally to an offer that pays one member more (0.299/N per mutation event); (2) that member, the pivot, takes it by a strict move (ρ = 0.049 or 0.095); (3) pivots only move up, 1/3 → 1/2 → 2/3. **No program in a pair can stop its partner's own slot from defecting, so reading source does not plug this exit.** Currents: the net circulation P12 → P13 → P23 is 0 (10⁻²⁰), forced by relabeling symmetry; between outcome types there is a consistent net current fair → unfair → wasteful → fair of 1.9·10⁻⁵ / 3.6·10⁻⁶ / 3.9·10⁻⁷ per event at N = 10² / 10³ / 10⁴, ∝ 1/N.
+
+**Grand coalition.** With constants only it is drift-closed (every exit and the entry cost a member 1/3), with a flat share 0.003. At n = 6 it is not: 54 bridges (108 in modal) such as `if(BOX(2 = (1, 1/2)), (2, 1/3), (ALL, 1/3))`, which plays (ALL, 1/3) on path and accepts a pair offer, with mass 3.3·10⁻⁴ per event against 0.149 for a constant pair; neutral exits 2.67·10⁻³/N, then strict or neutral pair formation. Entry runs through "join iff slot j joins" readers plus a strict last step, flat in N. Net: 3–6× the constants' grand coalition, at an N-independent ≈ 0.016.
+
+**Dwell and mixing** (weak arm, mutation events): grand 2.1·10⁵ / 3.7·10⁶ / 3.7·10⁷; pair 2.2·10³ / 1.35·10⁴ / 1.2·10⁵; disagreement ≈ 80. Lumped relaxation time 2.1·10⁵ / 3.7·10⁶ / 3.6·10⁷.
+
+**Agent-based check** (εN = 0.1 per slot per generation; approach rates). Uniform starts reach pairs within 10–900 generations; mean interior pair dwell 790–2,130 generations with 5–37 pair-to-pair switches per 10⁵ generations; the grand-coalition start holds for 26,440 and 67,100 generations, and for all 10⁵ in one seed.
+
+**Verdicts.**
+| # | prediction | outcome |
+|---|---|---|
+| 1 | no efficient triple is drift-closed at the n run | **Held** at n = 6 (none of 150 efficient states per cell); the constant grand coalition is drift-closed at n = 1, sol's trapped state one language down |
+| 2 | pairs ≥ 0.6, grand ≤ 0.2; a net current around the three pairs | mass **held** (pairs 0.99); the circulation clause **failed as stated**: it is 0 by symmetry; the real current is among outcome types |
+| 3 | unfair pairs below fair pairs (bidding war capped) | **Failed, falsifier fired:** unfair 0.59–0.63 against fair 0.36–0.38 everywhere |
+| 4 | E[max share] ∈ [0.45, 0.60], exclusion ≥ 0.6 | **Held** (0.596–0.604; at the upper edge by 2:1 arithmetic; the > 0.62 falsifier never met) |
+| 5 | grand coalition leaks like the shadow; share < 0.2 | share and exit mechanism **held**; the "three neutral steps" entry clause **failed** (reader plus strict step) |
+| 6 | weak arm has ≥ 2× the modal arm's disagreement | **Failed:** identical |
+| 7 | finite ε: pair turnover; grand start decays within 10⁴ generations | turnover **held**; decay clause **failed** (26k, 67k, > 100k) |
+| 8 | constants baseline: fair pairs ≥ 0.5, grand < 0.1 | **Failed** on fair (0.37); grand clause held; the stated reason was wrong too |
+
+**Reading.**
+- **Source reading adds nothing to coalition stability here.** Modal equals weak to three decimals, and both equal the constants apart from a 3–6× bump in the grand coalition.
+- **The binding exit is new to k ≥ 3:** a pair member defecting to the excluded slot's better offer. That is a strict move in the defector's own slot, which no program reading its partner can prevent. Unfakeability, the PD lesson, does not cover it.
+- **Stochastic stability selects rotating, mostly unfair pairs:** a dictatorship of the pivot, rotated by symmetry. Unfair pairs win because each pair has two unfair orientations and pivots only ratchet up: the excluded slot buys a member with 2/3 at its own cost of 1/3.
+- **The grand coalition is drift-closed only in the constants language** and loses closure at n = 6 to one-atom "accept a pair offer" bridges, a k = 3 instance of the sibling theorem's lesson that larger languages open leaks.
+- As with the fixed-role ultimatum game, the selected outcome is the one whose deviations are generous rather than self-punishing.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
