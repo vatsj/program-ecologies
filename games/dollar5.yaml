@@ -1,0 +1,13 @@
+# Divide the dollar (Nash demand), five demands S1..S5 = 1/6, 1/3, 1/2, 2/3, 5/6.
+# Each player demands d; if the demands sum to at most 1 each gets its demand, otherwise both get 0.
+# Level order is ascending demand, so ROLE plays (S1 | S5) and flip maps d -> 1 - d.
+# Maximin action: S1 (compatible with every demand, guarantees 1/6).
+actions: [S1, S2, S3, S4, S5]
+values: {S1: 0.16666666666666666, S2: 0.3333333333333333, S3: 0.5, S4: 0.6666666666666666, S5: 0.8333333333333334}
+payoffs:
+  S1: {S1: 0.16666666666666666, S2: 0.16666666666666666, S3: 0.16666666666666666, S4: 0.16666666666666666, S5: 0.16666666666666666}
+  S2: {S1: 0.3333333333333333, S2: 0.3333333333333333, S3: 0.3333333333333333, S4: 0.3333333333333333, S5: 0.0}
+  S3: {S1: 0.5, S2: 0.5, S3: 0.5, S4: 0.0, S5: 0.0}
+  S4: {S1: 0.6666666666666666, S2: 0.6666666666666666, S3: 0.0, S4: 0.0, S5: 0.0}
+  S5: {S1: 0.8333333333333334, S2: 0.0, S3: 0.0, S4: 0.0, S5: 0.0}
+minimax_action: S1
