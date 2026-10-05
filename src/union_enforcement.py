@@ -283,3 +283,191 @@ def minus_programs():
             name = 'union-%d%s' % (b, '' if a == 0 else ' [BOX1 wage]')
             out[name] = worker_fn([fa, ob], lambda tv, fa=fa, ob=ob: int((not tv[fa]) and tv[ob]))
     return out
+
+
+# ---------------------------------------------------------------- shared setup
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(ROOT, 'runs', 'enforcement')
+NAMED_W = ['scab', 'militant', 'union']
+WORK = ['both work', 'one strikes', 'both strike']
+
+
+def load_base():
+    """The union run's language (quorum arm, boss n = 6, workers n = 10, level 0)
+    and its CC class lumping (class masses are the union run's, frozen across arms)."""
+    os.makedirs(OUT, exist_ok=True)
+    d = U.build()
+    f = os.path.join(OUT, 'classes_CC.npz')
+    if os.path.exists(f):
+        z = np.load(f); C = {k: z[k] for k in z.files}
+        for k in ('KcW', 'KcB'): C[k] = int(C[k])
+    else:
+        C = U.classes(d); C.pop('J'); np.savez(f, **C)
+    P = d['P']
+    nmw_f = U.named(P); nmb_f = U.named_boss(P)
+    return d, C, nmw_f, nmb_f
+
+
+def named_lists(d, C, nmw_f, nmb_f):
+    """Function indices and frozen class masses of the reduced chain's programs."""
+    Bn = [U.bname(b) for b in range(U.NB)]
+    Bf = np.array([nmb_f[k] for k in Bn], np.int64)
+    Wf = np.array([nmw_f[k] for k in NAMED_W], np.int64)
+    mB = C['massB'][C['cb'][Bf]]; mW = C['massW'][C['cw'][Wf]]
+    return Bn, Bf, Wf, mB, mW
+
+
+def reduced_J(d, Bf, Wf, arm, pool, c, tie):
+    P = d['P']; rb, rw = ARMS[arm]
+    return tensor_sub(*P.arrays(), U.TT, Bf, Wf, P.tag.astype(np.int64), rb, rw, pool, c, TIES[tie])
+
+
+def _decode(j):
+    b = j // 4
+    return b // 3, b % 3, (j // 2) % 2, j % 2      # wage index, implemented whack, a1, a2
+
+
+def threat_stats(j, t1, t2, PAY, arm, c, pool):
+    """Committed threats in a state with implemented code j: per committed
+    enforcement move that is executed, its payoff advantage over the feasible
+    deviation (the boss: whack nobody; a worker: work), and the boss's 'if called'
+    value of a committed strike-targeting threat that nobody triggers."""
+    rb, rw = ARMS[arm]
+    si, h, a1, a2 = _decode(j)
+    out = {}
+    if not rb:
+        whacks = [(h == 0 and a == 1) or (h == 2 and tg == 1) for a, tg in ((a1, t1), (a2, t2))]
+        if any(whacks):
+            alt = 4 * (3 * si + 1) + 2 * a1 + a2
+            out['boss_exec'] = PAY[j, t1, t2, 0] - PAY[alt, t1, t2, 0]
+        if h == 0 and not (a1 or a2):
+            out['boss_if_called'] = -c + ((1 - WAGES[si]) if pool else 0.0)
+    if not rw:
+        for i, a in ((1, a1), (2, a2)):
+            if a == 1:
+                aa = [a1, a2]; aa[i - 1] = 0
+                alt = 4 * (3 * si + h) + 2 * aa[0] + aa[1]
+                out['w%d_exec' % i] = PAY[j, t1, t2, i] - PAY[alt, t1, t2, i]
+    return out
+
+
+def chain_stats(st, lpi, A, js, t1, t2, PAY, REP, arm, c, pool, name, top_trans=6):
+    """Summaries, support and transitions of a dense chain over states st."""
+    pi = np.exp(lpi - lpi.max()); pi /= pi.sum()
+    n = len(st)
+    pay = np.array([PAY[js[k], t1[k], t2[k]] for k in range(n)])
+    sur = np.array([surplus(js[k], t1[k], t2[k], PAY, REP) for k in range(n)])
+    summ = np.array([U.summary(js[k], t1[k], t2[k]) for k in range(n)])
+    dec = [_decode(j) for j in js]
+    striker = np.array([bool(a1 or a2) for (_, _, a1, a2) in dec])
+    whacked_striker = np.array([bool((h == 0 and (a1 or a2)) or (h == 2 and ((a1 and t1[k]) or (a2 and t2[k]))))
+                                for k, (_, h, a1, a2) in enumerate(dec)])
+    any_whack = np.array([bool((h == 0 and (a1 or a2)) or (h == 2 and (t1[k] or t2[k]))) for k, (_, h, a1, a2) in enumerate(dec)])
+    out = {}
+    out['summary'] = {U.SUMM[k]: float(pi[summ == k].sum()) for k in range(7)}
+    out['wage_dist'] = {U.WNAME[s]: float(sum(pi[k] for k in range(n) if dec[k][0] == s)) for s in range(3)}
+    out['strike_incidence'] = float(pi[striker].sum())
+    ps = pi[striker].sum()
+    out['repression_given_strike'] = float(pi[whacked_striker].sum() / ps) if ps > 0 else None
+    out['realized_repression'] = float(pi[any_whack].sum())
+    out['mean_payoff'] = dict(zip(['boss', 'W1', 'W2'], (pi @ pay).tolist()))
+    out['efficiency_slots'] = float(pi @ pay.sum(1))
+    out['total_surplus'] = float(pi @ sur)
+    out['implemented_whack_dist'] = {U.HNAME[h]: float(sum(pi[k] for k in range(n) if dec[k][1] == h)) for h in range(3)}
+    th = {}
+    for k in range(n):
+        for key, v in threat_stats(js[k], t1[k], t2[k], PAY, arm, c, pool).items():
+            th.setdefault(key, []).append((pi[k], v))
+    out['threats'] = {key: dict(mass=float(sum(p for p, _ in L)),
+                                mean_adv=float(sum(p * v for p, v in L) / max(sum(p for p, _ in L), 1e-300)),
+                                mass_negative=float(sum(p for p, v in L if v < -1e-12)))
+                      for key, L in th.items()}
+    order = np.argsort(-pi)
+    out['support'] = [dict(pi=float(pi[k]), state=name(k), play=U.joint_name(int(js[k])), summary=U.SUMM[summ[k]],
+                           pay=np.round(pay[k], 3).tolist()) for k in order[:12]]
+    out['support_size_99'] = int(np.searchsorted(np.cumsum(pi[order]), 0.99) + 1)
+    with np.errstate(over='ignore', invalid='ignore'):
+        F = np.exp(np.log(pi + 1e-300)[:, None] + A)
+    F[~np.isfinite(F)] = 0
+    cur = {}
+    for a_ in range(7):
+        for b_ in range(7):
+            if a_ != b_:
+                v = float(F[np.ix_(summ == a_, summ == b_)].sum())
+                if v > 0: cur[U.SUMM[a_] + '>' + U.SUMM[b_]] = v
+    out['currents'] = cur
+    trans = []
+    for k in order[:top_trans]:
+        mv = []
+        for k2 in range(n):
+            if k2 != k and A[k, k2] > -np.inf:
+                diff = [i for i in range(3) if st[k][i] != st[k2][i]]
+                s_ = diff[0]
+                du = pay[k2][s_] - pay[k][s_]
+                mv.append(dict(p=float(np.exp(A[k, k2])), to=name(k2), to_summary=U.SUMM[summ[k2]], slot=['B', 'W1', 'W2'][s_],
+                               kind='strict' if du > 1e-12 else ('deleterious' if du < -1e-12 else 'neutral')))
+        mv.sort(key=lambda e: -e['p'])
+        trans.append(dict(state=name(k), pi=float(pi[k]), summary=U.SUMM[summ[k]], exit_total=float(sum(e['p'] for e in mv)),
+                          by_kind={kk: float(sum(e['p'] for e in mv if e['kind'] == kk)) for kk in ('strict', 'neutral', 'deleterious')},
+                          top=mv[:5]))
+    out['transitions'] = trans
+    return out, pi
+
+
+def reduced_cell(base, arm, pool, c, tie, prior, N, w=0.3):
+    """One reduced canonical chain cell; exact dense log-GTH over 9 x 3 x 3 states."""
+    from union_chain import dense_chain
+    d, C, Bn, Bf, Wf, mB, mW = base
+    P = d['P']
+    Jr = reduced_J(d, Bf, Wf, arm, pool, c, tie)
+    tg = P.tag[Wf].astype(np.int64)
+    PAY, REP = payoff_table_e(c, pool)
+    mb = np.ones(len(Bf)) if prior == 'uniform' else mB
+    mw = np.ones(len(Wf)) if prior == 'uniform' else mW
+    st, lpi, A = dense_chain(Jr, tg, PAY, list(range(len(Bf))), list(range(len(Wf))), mb, mw, float(N), w)
+    js = np.array([int(Jr[b, x, y]) for (b, x, y) in st])
+    t1 = tg[[x for (_, x, _) in st]]; t2 = tg[[y for (_, _, y) in st]]
+    name = lambda k: '%s %s %s' % (Bn[st[k][0]], NAMED_W[st[k][1]], NAMED_W[st[k][2]])
+    out, pi = chain_stats(st, lpi, A, js, t1, t2, PAY, REP, arm, c, pool, name)
+    out.update(arm=arm, pool=pool, c=c, tie=tie, prior=prior, N=N)
+    out['zero_strike_boss_mass'] = float(sum(pi[k] for k, (b, x, y) in enumerate(st) if b == U.bact(0, 0)))
+    out['pi_all'] = {name(k): float(pi[k]) for k in range(len(st))}
+    return out
+
+
+def reduced_static(base, arm, pool, c, tie):
+    """Static table of the reduced chain's named triples: implemented play, payoffs,
+    and every move with its payoff change (the ε-free per-mutant quantities)."""
+    from union_chain import log_rho
+    d, C, Bn, Bf, Wf, mB, mW = base
+    P = d['P']
+    Jr = reduced_J(d, Bf, Wf, arm, pool, c, tie)
+    tg = P.tag[Wf].astype(np.int64)
+    PAY, REP = payoff_table_e(c, pool)
+    rows = []
+    for b in range(len(Bf)):
+        for x in range(len(Wf)):
+            for y in range(x, len(Wf)):
+                j = int(Jr[b, x, y]); r = PAY[j, tg[x], tg[y]]
+                mov = []
+                for s in range(3):
+                    K = len(Bf) if s == 0 else len(Wf)
+                    for q in range(K):
+                        t = [b, x, y]
+                        if t[s] == q: continue
+                        t[s] = q
+                        j2 = int(Jr[t[0], t[1], t[2]]); u = PAY[j2, tg[t[1]], tg[t[2]]]
+                        du = float(u[s] - r[s])
+                        mov.append(dict(slot=['B', 'W1', 'W2'][s], mutant=(Bn[q] if s == 0 else NAMED_W[q]), du=du,
+                                        rhoN={str(N): float(np.exp(log_rho(0.3 * du, float(N)))) * N for N in (100, 1000)},
+                                        to=U.joint_name(j2), to_summary=U.SUMM[U.summary(j2, tg[t[1]], tg[t[2]])]))
+                rows.append(dict(boss=Bn[b], W1=NAMED_W[x], W2=NAMED_W[y], play=U.joint_name(j),
+                                 summary=U.SUMM[U.summary(j, tg[x], tg[y])], pay=r.round(3).tolist(),
+                                 surplus=float(surplus(j, tg[x], tg[y], PAY, REP)), moves=mov))
+    return rows
+
+
+def make_base():
+    d, C, nmw_f, nmb_f = load_base()
+    Bn, Bf, Wf, mB, mW = named_lists(d, C, nmw_f, nmb_f)
+    return (d, C, Bn, Bf, Wf, mB, mW)
