@@ -88,6 +88,78 @@ UnfR; ⊢ ⊤ is initial. Minimal.
 L_C = 4, Λ = 1. Hand check: each line has exactly one applicable rule except the last, which is initial (a boxed
 formula on both sides). The Löb step is the GLR: the diagonal □P on the left closes the leaf. Minimal.
 
+**BOX1(THEM(ME)) against itself, L_C.** roots (size, Λ): C0 (5, 1), D0 None, C1 (6, 1), D1 None.
+```
+ |- P[FB1,FB1]   [UnfR]
+   |- [](~[]F -> P[FB1,FB1])   [GLR]
+    [](~[]F -> P[FB1,FB1]) |- (~[]F -> P[FB1,FB1])   [->R]
+      [](~[]F -> P[FB1,FB1]) |- P[FB1,FB1]   [UnfR]
+        [](~[]F -> P[FB1,FB1]) |- [](~[]F -> P[FB1,FB1])   [Ax]
+```
+
+**FairBot against D, L_D at level 1 (needs Con).** roots (size, Λ): C0 None, D0 None, C1 None, D1 (7, 1).
+```
+ |- (~[]F -> ~P[FB,D])   [->R]
+  ~[]F |- ~P[FB,D]   [~L]
+     |- []F, ~P[FB,D]   [~R]
+      P[FB,D] |- []F   [UnfL]
+        []P[D,FB] |- []F   [GLR]
+          P[D,FB], []F, []P[D,FB] |- F   [UnfL]
+            F, []F, []P[D,FB] |- F   [Ax]
+```
+
+**`BOX(THEM(^D))` against ALLC, L_C (a reader of the probe "your play against D").** roots (size, Λ): C0 (4, 1), D0 None, C1 (5, 1), D1 None.
+```
+ |- P[BD,C]   [UnfR]
+   |- []P[C,D]   [GLR]
+    []P[C,D] |- P[C,D]   [UnfR]
+      []P[C,D] |- T   [Ax]
+```
+
+**`BOX(THEM(^D))` against D: the □⊥ reader. Content P[D,D] = ⊥, so x plays C iff □⊥; L_D at level 1.** roots (size, Λ): C0 None, D0 None, C1 None, D1 (7, 1).
+```
+ |- (~[]F -> ~P[BD,D])   [->R]
+  ~[]F |- ~P[BD,D]   [~L]
+     |- []F, ~P[BD,D]   [~R]
+      P[BD,D] |- []F   [UnfL]
+        []P[D,D] |- []F   [GLR]
+          P[D,D], []F, []P[D,D] |- F   [UnfL]
+            F, []F, []P[D,D] |- F   [Ax]
+```
+
+**Nested: `BOX(THEM(^BOX(THEM(ME))))` against FairBot, L_C.** roots (size, Λ): C0 (4, 1), D0 None, C1 (5, 1), D1 None.
+```
+ |- P[NEST,FB]   [UnfR]
+   |- []P[FB,FB]   [GLR]
+    []P[FB,FB] |- P[FB,FB]   [UnfR]
+      []P[FB,FB] |- []P[FB,FB]   [Ax]
+```
+
+**Nested, reverse: FairBot against `BOX(THEM(^BOX(THEM(ME))))`, L_C.** roots (size, Λ): C0 (6, 2), D0 None, C1 (7, 2), D1 None.
+```
+ |- P[FB,NEST]   [UnfR]
+   |- []P[NEST,FB]   [GLR]
+    []P[NEST,FB] |- P[NEST,FB]   [UnfR]
+      []P[NEST,FB] |- []P[FB,FB]   [GLR]
+        P[NEST,FB], []P[FB,FB], []P[NEST,FB] |- P[FB,FB]   [UnfR]
+          P[NEST,FB], []P[FB,FB], []P[NEST,FB] |- []P[FB,FB]   [Ax]
+```
+
+Hand checks of the above. *BOX1 self (5, not 6 as S3 predicted):* after →R the antecedent ¬□⊥ is never needed, because
+the unfolded right side □(¬□⊥ → P) already matches the diagonal; my hand count wrongly decomposed ¬□⊥ (an extra ¬L).
+*FairBot vs D:* GL does not prove ¬P[FB,D] (that would be ¬□⊥ in disguise); with the Con antecedent the GLR on □⊥ puts
+⊥ into the context through P[D,FB] = ⊥. Λ = 1, but the Löb step is used here as plain necessitation-under-□⊥, not for
+self-reference. *The □⊥ reader* is the trichotomy example: neither ⊢ P nor P ⊢ at level 0 (x cooperates exactly at
+world 0), decided at level 1 in 7 sequents. *Nested pair:* the reverse direction needs two GLRs (Λ = 2 = depth + 0).
+
+**PrudentBot against PrudentBot: L_C = 24, Λ = 5** (rendered in the run log). The □Q conjunct
+Q = ¬□⊥ → ¬P[PB,D] is proved twice: once at the root and once inside the Löb branch for □P[PB,PB], because the
+unfolded right side there contains □P ∧ □Q again and cut-free GLS has no lemma sharing. Each proof of □Q costs one
+GLR for □Q and one for □⊥ (the Con step), so Λ = 1 (the self-reference) + 2 × 2 = 5 at nesting depth 1. This is the
+general mechanism behind Λ ≫ depth + 1 at n = 8: conjunctions of boxed obligations are re-proved in every branch
+of every outer GLR, so both size and Λ grow with the number of obligations times the number of Löb branches that
+re-encounter them, not with node count.
+
 ## 3. The bounded calculus K (Part B)
 
 **Language.** As GLS+Def, but every box carries a budget: □_b A, b ∈ ℕ. A budgeted program x_b reads its atoms with
