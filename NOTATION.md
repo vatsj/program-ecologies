@@ -75,3 +75,8 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
 - **τ_A** — the island's ALLC-extinction time (≈ 13–19 generations at N = 100–400, ∝ log N); **ghost** — a control
   lineage that plays as a faker but has fitness pinned to the population mean; **Λ_t** — a lineage's integrated
   relative fitness deficit; **Lemma 0** — box soundness at the evaluator's stable world.
+- **κ** — compatibility index: P(mutual cooperation | two iid μ-draws are both establishers), denominator μ_est²,
+  same-class draws counting as cooperation. **Incompatible pair** — two establisher classes that mutually defect or
+  where one exploits the other; **consequential** if co-seeded with probability ≥ 0.01 at N = 400.
+  **Anti-coordinators** — x(y) = y(x) = C and x(x) = y(y) = D; never establishers. **Unresolved incompatibility
+  risk** — P(co-seed) × P(resolution fails). **Near-universal suckers** — `not(BOXD(THEM(^C)))`, `not(BOXD1(THEM(^C)))`.

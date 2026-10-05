@@ -497,3 +497,15 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **"Unfakeability is the condition for coalition stability" (implicit in the spec's framing).** In k ≥ 3 games the binding exit is a partner's strict defection to a third party's offer, which reading the partner cannot police.
 
 **Solver designs dropped:** sparse LU on the generator at N ≥ 10³ (assigned grand = 1.0); row-scaled linear GTH at N = 10⁴ (loses classes bridged by underflowing rates); an excursion-only ring without ring-to-ring edges (underestimates the grand coalition 3× at N = 100); MMD ordering (hours); a k-ary min/max DSL for the weak arm (the 9 actions have no natural order).
+
+## Added 2026-10-05: compatibility (RESULTS.md, "Almost all seeds: compatibility among co-seeded establishers")
+
+**"Anti-coordinators are rare (co-seeding < 0.02 at N = 400)" (Fable, prediction 4).** They carry 2–3% of μ; some pair is co-seeded on 89–93% of islands and a both-defect-on-D pair on 2.4–7.3%. They are harmless because they almost never outlive D together, not because they are rare.
+
+**"The μ background changes pair outcomes in fewer than 20% of cases" (Fable, prediction 4).** TV 0.19–1.0: the background feeds ALLC to ALLC-exploiting establishers and lets D remove anti-coordinators. Pair-only competitions do not stand in for island outcomes.
+
+**"Island co-seeding of an incompatible pair below 0.1 at N = 400" (Fable, first draft of prediction 2; withdrawn after sol's review).** 0.26 at n = 12, N = 400, rising to 0.99 at N = 6,400.
+
+**Connected components as a compatibility measure (spec design).** One component at every n; no information.
+
+**"Frozen cooperative islands below P(C,C) = 0.95" as a diagnostic.** Vacuous under pairwise-payoff-identity certification in the PD, which forces all-CC or all-DD.

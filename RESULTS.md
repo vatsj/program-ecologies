@@ -2597,6 +2597,38 @@ Encounter-level: E[max share] 0.596 at N = 100 and 0.600–0.604 at N ≥ 10³; 
 - **The grand coalition is drift-closed only in the constants language** and loses closure at n = 6 to one-atom "accept a pair offer" bridges, a k = 3 instance of the sibling theorem's lesson that larger languages open leaks.
 - As with the fixed-role ultimatum game, the selected outcome is the one whose deviations are generous rather than self-punishing.
 
+## Almost all seeds: compatibility among co-seeded establishers (`runs/compatibility.md`; spec `specs/2026-10-05-compatibility.md`, predictions in `predictions/2026-10-05-compatibility.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (about 35 minutes on 3 workers; nothing censored). Modal arm, PD, w = 0.3, ε = 0; classes are the behavioural classes at the cutoff.
+
+**Compatibility index** κ = P(mutual cooperation | both μ-draws are establishers), denominator μ_est², same-class draws counting as cooperation (18% of the denominator at n = 12): κ = 0.977 / 0.958 / 0.951 at n = 6 / 9 / 12 (0.971 / 0.949 / 0.941 excluding same-class draws); mutual-defection rate 0 / 0.0010 / 0.0017; exploitation rate 0.023 / 0.041 / 0.047. All establishers form one mutual-cooperation component at every n, so components carry no information (as sol said); the missing-edge mass inside it is 2.3% / 4.2% / 4.9%, rising with n. In the heavy set at n = 12, FairBot's pair, the THEM(THEM) pair and the probe-readers are a pairwise clique; every other heavy incompatibility involves the two near-universal suckers `not(BOXD(THEM(^C)))` / `not(BOXD1(THEM(^C)))` (establishers that every prover exploits) or PrudentBot (μ ≈ 3·10⁻⁶), which mutually defects with `BOX1(THEM(ME))` and both probe-readers.
+
+**Co-seeding.** Incompatible pairs number 11 / 4,360 / 1,401,462 at n = 6 / 9 / 12 (mutual defection 0 / 770 / 283,091; the rest exploitation). The 10 consequential pairs at every n are all a prover exploiting a sucker (co-seeding 0.053–0.095 each at N = 400). P(an island co-seeds some incompatible establisher pair), simulated: 0.026 / 0.053 / 0.063 at N = 100 and 0.119 / 0.219 / 0.260 at N = 400 (n = 6 / 9 / 12); at n = 12, 0.696 at N = 1,600 and 0.992 at N = 6,400. **Co-seeding tends to 1 in N**, as sol predicted. **Anti-coordinators** (x(y) = y(x) = C, x(x) = y(y) = D; never establishers) carry 2–3% of μ; some pair is co-seeded on 0.89–0.93 of islands at N = 400, 0.024–0.073 for pairs that both defect on D; the observed unresolved pair co-seeds at 0.001.
+
+**Re-analysis by the certification rule alone** (1,920 seeds-in-n runs, 520 seeds-tail runs, 24,000 natural and 525,000 forced spoiler islands). In the PD, a certified island has every present class pairwise payoff-identical, and since T ≠ S that forces all-CC or all-DD: P(C,C) is 0 or 1 on every certified island and P(C,C) < 0.95 coincides with Pareto inefficiency. 0 frozen cooperative islands are below 0.95; 1,920 certified islands hold two or more establisher classes, all mutually cooperating. The only uncertified islands in the programme are 9 anti-coordinator polymorphisms at P(C,C) ≈ 0.5 with no establisher (1 of 4,800 seeds-in-n islands, 8 of 525,000 forced, 0 of 24,000 natural). Two runs at n = 9, (100, 256) are certified-*separated*: `BOX1(THEM(ME))` on 255 islands and a P*-family program on one, mutually defecting across islands yet every island efficient: a rival network between islands. Natural-island efficiency is not lower when an incompatible pair is co-seeded (0.269 with a mutually-defecting pair, 0.204 exploitation-only, 0.180 compatible, at n = 12, N = 400).
+
+**Conditioned lottery** (n = 12, N = 400, 400 islands each): conditioned on a consequential pair (acceptance 0.199), 84 efficient and 0 with an incompatible pair in the terminal support (exploiter survives 82, exploited 18, both 0); conditioned on a mutually-defecting establisher pair (acceptance 0.017), 89 efficient and 0 polymorphic; unconditioned, 68 efficient. All certified.
+
+**Pair competitions** (N = 400, 100 runs per start): exploitation pairs, the exploiter wins 100% pair-only and dies alongside in up to 15% of runs in a full-μ background; mutually-defecting pairs are bistable (coin flip at 1:1, the larger class wins 100% at 3:1, never polymorphic), shifted in the background toward the ALLC-exploiting member (TV 0.19–0.34 at 1:1); anti-coordinators are 100% polymorphic pair-only and collapse in the background unless both defect on D (then polymorphic in 29–41%).
+
+**The two-class argument.** Two self-cooperating classes both earn R = 0 against themselves; a stable mixed state would need each to earn more than 0 against the other, so each would have to exploit the other, which is impossible. Establisher pairs are neutral, bistable or dominated, and only self-defecting classes can hold a stable two-class polymorphism. With three or more classes a cycle is not excluded analytically; none was observed.
+
+**Unresolved incompatibility risk** = P(co-seed) × P(resolution fails): the first factor rises to 1 in N; the second is 0 of 3,814 co-seeded islands (rule-of-three bound 7.9·10⁻⁴). Per-island risk ≤ 7.9·10⁻⁴ at N ≤ 400, n ≤ 12, with uniformity in N resting on the two-class argument.
+
+**Verdicts.**
+| # | prediction | outcome |
+|---|---|---|
+| 1 | κ ≥ 0.9; heavy set one network except PrudentBot | **Held** on the falsifier; "one component" vacuous; PrudentBot also mutually defects with `BOX1(THEM(ME))` |
+| 2 | pair mass < 0.05 of μ_est²; co-seeding 0.1–0.4 at N = 400, rising | **Held** (0.0017; 0.26) |
+| 3 | certified cooperative islands efficient | **Held structurally** |
+| 4 | resolution by pattern; anti-coordinator co-seeding < 0.02; background changes < 20% | **Failed** on the last two clauses (0.024–0.073; TV 0.19–1.0); pattern clauses held; falsifier not fired |
+
+**Reading.**
+- Compatibility is not where the seed lottery fails at n ≤ 12: incompatible establishers meet on most large islands and selection settles every pair, because two self-cooperators cannot hold a stable mixture.
+- The only unresolved islands in the programme are anti-coordinator polymorphisms with no establisher, ≈ 3·10⁻⁵ per natural island.
+- The real compatibility risk is *between* islands: mutually-defecting establishers held on separate islands, each efficient, a rival network at the metapopulation level, which is DEFERRED 1's I ≫ N migration question.
+- κ < 1 comes from the provers' exploitation of the near-universal suckers, the faker structure of the mutation object seen from the other side; it is a property of the prior and language-relative.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
