@@ -80,3 +80,10 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   where one exploits the other; **consequential** if co-seeded with probability ≥ 0.01 at N = 400.
   **Anti-coordinators** — x(y) = y(x) = C and x(x) = y(y) = D; never establishers. **Unresolved incompatibility
   risk** — P(co-seed) × P(resolution fails). **Near-universal suckers** — `not(BOXD(THEM(^C)))`, `not(BOXD1(THEM(^C)))`.
+- **Union game:** boss actions (s, h) with wage s ∈ {0, 1/4, 1/2} and whack policy h ∈ {strike targeting, none,
+  source targeting}; **c** the per-whack cost, **L** = 1 the striker's loss; **scab** = work always; **militant** =
+  strike iff s < 1/2; **union** = strike iff s < 1/2 and QUORUM; **QUORUM** = BOX(s < 1/2 → OTHER = strike);
+  **union′** = the same with BOX(OTHER = strike), untagged and behaviourally identical; **wage faker** =
+  `if(BOX(W_j = work), (1/2, ·), (s < 1/2, ·))`; summaries fair / intermediate / zero wage / strike / scab split /
+  repression; **w_g^B** = island selection on the boss slot only; **polarity dilemma** = a strike pact needs □(low
+  wage), which is fakeable, while □(fair) is unfakeable but cannot carry a pact.

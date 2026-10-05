@@ -2629,6 +2629,57 @@ Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (about 35 m
 - The real compatibility risk is *between* islands: mutually-defecting establishers held on separate islands, each efficient, a rival network at the metapopulation level, which is DEFERRED 1's I ≫ N migration question.
 - κ < 1 comes from the provers' exploitation of the near-universal suckers, the faker structure of the mutation object seen from the other side; it is a property of the prior and language-relative.
 
+## The union game: a population-state precondition against a boss with a monopoly on force (`runs/union.md`, `runs/union/`; spec `specs/2026-10-05-union.md`, predictions in `predictions/2026-10-05-union.md`)
+
+Designed by the RE from the RS's proposal, reviewed by gpt-6.1-sol, run by an Opus subagent. Everything specified ran: static tables, the reduced chain, 27 full-chain cells (3 arms × 3 c × 3 N), 18 agent-based and 18 island runs; nothing censored. Machine sleep killed background runs once after the chain cells had finished; 4 cells were re-run with π unchanged.
+
+**Language, as run** (fixed in the predictions). Atoms are PA boxes of propositions about the current encounter: workers read the wage through `BOX(s ∈ S)` (set atoms, since a negated wage box breaks both the militant's provability and the union's Löb loop) and the whack policy through `BOX(h ∈ H)`, and read the other worker through `BOX(OTHER = work/strike)` and `QUORUM = BOX(s < 1/2 → OTHER = strike)`; the boss reads `BOX(W_j = work/strike)`. Boss n = 6 (297 classes); workers n = 10, the smallest cutoff containing `if(and(BOX(s ∈ {0, 1/4}), QUORUM), strike, work)` (364 classes, 54 tagged). Mutation masses: scab 0.480, always-strike 0.480, militant 1.2·10⁻³, union 9.9·10⁻⁶, each boss constant 0.108. **union′** = `if(and(BOX(s ∈ {0, 1/4}), BOX(OTHER = strike)), strike, work)` has the same mass and plays exactly like the union in every encounter (in GL, □low ∧ □(low → X) ≡ □low ∧ □X), and carries no tag. Arms: QUORUM; matched no-QUORUM; blind (no reading of the other worker). Unit tests: QUORUM resolves by Löb; union ≡ union′; slot symmetry; a slot mutant's payoff equals the pairwise payoff at every intermediate count.
+
+**Static tables** (c = 0.5): at s = 0 every worker earns 0 unless whacked, so scab, striker, militant and union are all neutral there; at s = 1/4 a second union strikes and earns 0 against 1/4, so it is deleterious; a union beside a scab works at any wage, so a boss facing (union, scab) at s = 1/2 cuts to 0 strictly.
+
+**Reduced canonical chain** (boss over 9 constants, workers over scab, militant, union): fair 0.31 at every c and N under a uniform prior, 0.001 under the length prior (zero wage 0.997). Worker-set ablations at N = 10³, uniform prior, fair share: scab + militant 0.30 / 0.39 (c = 0 / 0.5); scab + union 0.03 / 0.07; scab + union′ 0.14 / 0.14; all three 0.31 / 0.31. The lone militant carries the fair share; the tagged union is 2–4× weaker than its untagged twin.
+
+**ε→0 chain** (QUORUM arm; N = 10² / 10³ / 10⁴):
+
+| c | fair | intermediate | zero wage | strike | scab split | repression (strike / source) | efficiency | worker payoff |
+|---|---|---|---|---|---|---|---|---|
+| 0 | .004 / .002 / .001 | .018 / .010 / .007 | .62 / .64 / .64 | .075 | .28 | .005 → 5·10⁻⁵ / ≤ 2·10⁻⁵ | 1.56–1.58 | .004–.003 |
+| 0.1 | .005 / .003 / .002 | .021 / .013 / .009 | .49 | .12 | .36–.38 | 10⁻³ → 7·10⁻⁶ / ≤ 6·10⁻⁶ | 1.38–1.40 | .008–.004 |
+| 0.5 | .005 / .003 / .002 | .022 / .013 / .009 | .46 / .48 / .48 | .13 | .38 | 2·10⁻⁴ → 2·10⁻⁶ / ≤ 10⁻⁶ | 1.36–1.37 | .010–.004 |
+
+The no-QUORUM and blind arms match the QUORUM arm to 10⁻³. s = 0 holds 0.96–0.99 of π; boss payoff 1.34–1.57. Whack policies held: strike targeting 0.23, none 0.39, source targeting 0.38, with realized repression ≤ 2·10⁻⁶. Support at c = 0.5, N = 10⁴: `(0, strike) | work | work` 0.197; `(0, source)` and `(0, none)` with both working 0.112 each; four scab/striker splits 0.090 each; two striker pairs 0.061 each; conditional programs 0.10; the militant present in 0.002 of π, the union in 1.7·10⁻⁵.
+
+**Transitions.** At s = 0 the worker slots drift neutrally among scab and striker and the boss among its whack policies; strike targeting freezes strikers out and the boss leaves it only by its own neutral drift; when both workers strike every boss move is neutral, and at s > 0 a scab then enters strictly and the boss cuts back to 0 strictly (ρ = 0.26). Net current at N = 10⁴, c = 0.5: zero wage → scab split (1.8·10⁻⁶ per event) → fair or intermediate → zero wage, ∝ 1/N; a circulation in an ergodic chain. Dwell (events): fair 73 / 445 / 3,380; zero wage 568 / 5,720 / 56,900; repression 10–25; relaxation time ∝ N.
+
+**Fair states.** At N = 10⁴ the fair mass sits mainly on a scab beside "work only if provably fair", `if(BOX(s ∈ {1/2}), work, strike)` (mass 1.2·10⁻³), whose exit is the boss's neutral cut. The union pair F has π = 1.4·10⁻¹⁰. The exit rate from the fair summary is 1.36·10⁻² / 2.25·10⁻³ / 2.96·10⁻⁴, slope −0.83.
+
+**A wage faker.** 72 boss classes (mass 0.006) of the form `if(BOX(W_j = work), (1/2, ·), (s < 1/2, ·))` pay below 1/2 to a working union pair, and to militant and union′ pairs: at the bottom world the boss pays 1/2, so "the wage is provably low" fails at every later world. At F this is a strict, N-independent exit of 2.7·10⁻⁴ per event, overtaking the scab's neutral exit between N = 10³ and 10⁴. The positive polarity, □(fair), is unfakeable this way, but a strike pact needs the positive box of the *low* wage to resolve its Löb loop.
+
+**The drift race** (per event, c = 0.5, N = 10² / 10³ / 10⁴): union or union′ into a worker slot 1.1·10⁻⁷ / 10⁻⁸ / 10⁻⁹; source targeting into the boss slot 3.4·10⁻⁴ / 10⁻⁵ / 10⁻⁶, of which from states with a tagged worker only 1.1·10⁻⁷ / 3·10⁻⁹ / 3·10⁻¹¹; strike targeting 1.7·10⁻⁴ / 10⁻⁵ / 10⁻⁶. Repression wins the race but mostly drifts in with no target. Strike targeting is neutral against strikers only at c = 0, where it disciplines them: zero wage 0.64 against 0.48, efficiency 1.57 against 1.37.
+
+**Agent-based runs** (N = 100 per slot, εN = 0.1, 10⁵ generations, 3 seeds; approach rates): fair 0.001–0.047, intermediate 0.002–0.095, zero wage 0.23–0.65; first fair phase from the low-wage start at generation 5,540 / 9,530 / 77,580 (c = 0.5), with "never" in one seed at c = 0.1 and c = 0; the fair start holds 580–1,350 generations; 236–418 phase switches per run.
+
+**Spatial selection on bosses** (I = 16, N = 100 per slot, mN = 1, 10⁵ generations; approach rates): fair 0.001 ± 0.000 in every condition. Zero wage at c = 0.5: 0.485 ± 0.016 (no w_g), 0.677 ± 0.036 (boss slot, w_g = 10; strike-targeting policy 0.26, boss payoff 1.61), 0.789 ± 0.041 (all slots); at c = 0: 0.905 / 0.972 / 0.967. Realized repression 0.002–0.004 throughout.
+
+**Verdicts.**
+| # | prediction | outcome |
+|---|---|---|
+| 1 | fair not drift-closed; leaks through the scab | **Held** (slope −0.78 to −0.83); mechanism amended: the fair mass is "work iff provably fair" beside a scab, and the union pair's binding exit at large N is the strict wage faker |
+| 2 | alternation with fair in [0.2, 0.6], intermediate ≥ 0.2 | **Failed, falsifier fired:** fair 0.0025, intermediate 0.009 at N = 10⁴ |
+| 3 | fair monotone in c with gaps ≥ 0.1 | **Failed on magnitude**; direction held |
+| 4 | boss-slot island selection lowers fair by ≥ 0.15 | **Failed** (nothing to lower); sol's alternative held: it spreads cheap exploitation and the deterrent policy, and the all-slot effect is larger |
+| 5 | first fair phase within 10⁴ generations in all seeds | **Failed** in one seed of three |
+| 6 | without QUORUM the chain settles at the intermediate wage | **Failed, falsifier fired:** the arms are identical, because union′ is the same program without the tag |
+| RS | public membership strangles the union | **Direction held, not decisive:** the tagged union is 0.6× its twin in the chain and 2–4× weaker in the reduced chain, but the union is absent equally without repression |
+| A1–A4 | subagent's own | all held |
+
+**Reading.**
+- **Refusal enters only where it is free** (s = 0), and there it is swamped by the constant striker and the scab, which carry 0.48 of the prior each. Under the length prior the boss takes almost everything (worker payoff ≈ 0.004); under a uniform prior over the named programs the fair share is 0.31. The prior decides, not the institution.
+- **The quorum is FairBot's handshake on strikes**, with an untagged twin of equal size; it is neither needed (a lone militant does the job at s = 0) nor sufficient (a scab neighbour undoes it, and so does the wage faker). Making it a syntactic atom only creates a target for source repression that the twin evades.
+- **The polarity dilemma.** In PA alone, a strike pact needs the positive box of the *low* wage to resolve by Löb, and that box is fakeable by a boss that pays fair only at the bottom world; the unfakeable polarity, "provably fair", cannot carry a strike pact. This is the PD faker lesson transposed to the wage: unfakeability is the binding issue for distribution too.
+- **Island selection on bosses spreads exploitation and deterrence, not realized repression**, and cheap repression raises efficiency by suppressing strikes: efficiency and equal division come apart sharply here.
+- The k ≥ 3 lesson holds again: the exits sit in the workers' own slots (the scab) and in a strict boss move.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

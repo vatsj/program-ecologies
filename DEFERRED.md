@@ -72,7 +72,7 @@ REJECTED.md the ones we dropped.
   deliberately violable; "threats hard to enforce" ≡ a symmetric threat point.
 - *Operating hypothesis:* efficiency first; for distribution, Θ(1/n) as a stable state with anonymity violable by slot
   asymmetry; universality over the club, accepting the 1/N leak as a mutation artifact (entry 1). The club is dropped as a target: it is a clique by declaration (RESULTS "The closed club").
-- *Evidence:* THEORY §3 "Distribution"; the club spec; RESULTS "Three-player majority divide-the-dollar" (2026-10-05): the pure chain with fixed roles selects rotating, mostly unfair pairs (a rotated dictatorship of the pivot); the grand coalition at thirds gets ≤ 0.017 and leaks through "accept a pair offer" bridges; source reading does not change it. Democracy as a stable state needs something beyond the pure chain, which the union game is to test.
+- *Evidence:* THEORY §3 "Distribution"; the club spec; RESULTS "Three-player majority divide-the-dollar" (2026-10-05): the pure chain with fixed roles selects rotating, mostly unfair pairs (a rotated dictatorship of the pivot); the grand coalition at thirds gets ≤ 0.017 and leaks through "accept a pair offer" bridges; source reading does not change it. Democracy as a stable state needs something beyond the pure chain. The union game (RESULTS "The union game", 2026-10-05) did not supply it: a quorum precondition is FairBot's handshake on strikes, the fair share is set by the prior (0.31 uniform vs 0.001 length prior), and the strike pact's wage check is fakeable (the polarity dilemma).
 
 ## 7. Rates
 - *RS:* no normative opinion. *RE's opinion:* the relevant quantity is the cost of a given confidence; in the seeds run
@@ -81,6 +81,15 @@ REJECTED.md the ones we dropped.
 ## 8. Ablating myopia
 - *Operating hypothesis (RS, 2026-10-04):* island-level selection on boss populations (w_g), not free punishment (tilts
   toward repression by fiat) and not lookahead fitness (builds the phenomenon into the selector).
+- *Evidence (2026-10-05):* island selection on the boss slot spreads cheap exploitation and the deterrent strike-targeting policy, not realized repression (0.002–0.004 throughout); the all-slot effect is larger (RESULTS "The union game"). It is spatial selection on realized payoff differences, not a horizon ablation.
 
 ## 9. Paper
 - *RS (2026-10-04):* no paper, no draft. The title in CLAUDE.md is a working title only.
+
+## 10. The worker grammar and prior for wage reading
+- *Options:* set atoms over the wage (as run), PA + Con(PA) boxes, a uniform prior over behaviours, or a prior that does
+  not give the constant striker and scab 0.48 each.
+- *Operating hypothesis:* none yet. The reduced chain shows the prior decides the fair share (0.31 uniform vs 0.001
+  length prior), so any distribution result must be stated relative to the prior.
+- *Would settle it:* sol's follow-up, incentive-compatible enforcement (repression that must pay for itself within
+  the encounter), and a wage check in the unfakeable polarity that can still carry a pact (needs PA + Con?).

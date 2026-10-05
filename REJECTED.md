@@ -509,3 +509,21 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Connected components as a compatibility measure (spec design).** One component at every n; no information.
 
 **"Frozen cooperative islands below P(C,C) = 0.95" as a diagnostic.** Vacuous under pairwise-payoff-identity certification in the PD, which forces all-CC or all-DD.
+
+## Added 2026-10-05: the union game (RESULTS.md, "The union game")
+
+**"The chain alternates fair ↔ low wage with an N-independent fair share in [0.2, 0.6] and intermediate ≥ 0.2" (Fable, prediction 2; falsifier fired).** Fair is 0.002–0.005 and intermediate ≤ 0.022 under the length prior. The mechanism was wrong too: a second union is deleterious at s = 1/4, and at s = 0 refusal is neutral for every program, so the constant striker and the scab (0.48 mass each) dominate. The 0.31 fair share appears only under a uniform prior over named programs.
+
+**"Without QUORUM the chain settles at the intermediate wage" (Fable, prediction 6; falsifier fired).** union′, with `BOX(OTHER = strike)` in place of QUORUM, is the same program at the same size, untagged. QUORUM is not a new capability: in GL, □low ∧ □(low → X) ≡ □low ∧ □X.
+
+**"Fair share falls by ≥ 0.1 as c drops" (Fable, prediction 3).** Direction held, magnitude not; the c effect runs through strike-targeting discipline of strikers, not source targeting.
+
+**"Boss-slot island selection lowers the fair share by ≥ 0.15" (Fable, prediction 4).** There was no fair share to lower; selection spreads cheap exploitation and the deterrent policy (sol's alternative), and the all-slot effect is larger.
+
+**"First fair phase within 10⁴ generations in all seeds" (Fable, prediction 5).** 77,580 in one seed.
+
+**Design choice dropped: QUORUM as the union's distinguishing atom.** Equivalent in GL to FairBot's strike handshake given □low; source targeting reads only a spelling.
+
+**Design choice dropped: a wage check of the form "strike iff provably low".** Fakeable by bosses that pay fair only at the bottom world (72 classes, mass 0.006), an N-independent strict exit of 2.7·10⁻⁴ per event.
+
+**Not run (declared):** the PA + Con(PA) worker language (1,462 classes).
