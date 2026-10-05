@@ -2680,6 +2680,40 @@ The no-QUORUM and blind arms match the QUORUM arm to 10⁻³. s = 0 holds 0.96�
 - **Island selection on bosses spreads exploitation and deterrence, not realized repression**, and cheap repression raises efficiency by suppressing strikes: efficiency and equal division come apart sharply here.
 - The k ≥ 3 lesson holds again: the exits sit in the workers' own slots (the scab) and in a strict boss move.
 
+## Prover-carrier seed at b = 0: establishment is a race through the scramble, not a carrier–carrier threshold (`runs/prover-carrier-seed.md`; spec `specs/2026-10-05-prover-carrier-seed.md`, predictions in `predictions/2026-10-05-prover-carrier-seed.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent. An invasion/establishment experiment at finite sizes; finite-ε results are approach rates. Deviations, each committed before the runs it affects: with the lid closed and workers at ~3% CPU, finite-ε runs used 2·10⁴ generations (second half as the window), with a 10⁵-generation check on 12 runs; at b = 0 with s = 0 a run stops at carrier extinction and counts as a failure (from then on it is exactly the no-contract process); a bug that applied that stop in the b = ∞ control was fixed and all 110 affected rows rerun; the N = 25,600 sweep was cut to 3 seeds while starved, then restored to 5.
+
+**Setup.** Contracts kernel at n = 8, b = 0, PD, w = 0.3, s = 0 (no search); `src/prover_carrier_seed.py` is bit-identical to `contracts_abm` plus transition counters and lineage tracking. Seeds: 'mix', iid μ with round(f₀·N) slots replaced by carriers drawn from the 118 establisher sources in proportion to μ (FairBot, `BOX1(THEM(ME))`, `BOX(THEM(THEM))`, `BOX1(THEM(THEM))` at 0.21 each); 'fb', all FairBot. σ, b and the contract toggle are paired on identical populations.
+
+**Static diagnostics.** At b = 0 a carrier gets R from ALLC, P from D and P from non-carrier provers it cannot read, and **T from a sucker fringe** of non-carriers (`BOX(THEM(THEM))`, `BOX(THEM(^C))`, `BOXD1(THEM(^D))`, μ 0.024) whose atoms are answered by the carrier's contract, so they cooperate with it while it cannot read them and defects. Nothing exploits a FairBot carrier. Rare-carrier growth per generation at frequency 10⁻³: −0.006 in the μ background, +0.010 after ALLC's extinction, +0.010 at the ε = 0 endpoint, +0.009 at the ε = 10⁻³ equilibrium net of contract stripping. **f\*** (the frequency at which carrier fitness exceeds the mean) is 0.033 (mix) / 0.028 (FairBot) at μ and **0 after the scramble**: the advantage of ≈ 0.010 per generation is the same at every frequency, so it comes from the fringe, not from carriers meeting each other. The deterministic flow ends in carrier takeover from every f₀ ≥ 10⁻⁴; the carriers dip 1–3% in generations 1–7.
+
+**Outcome is lineage survival.** Every finite-ε b = 0 run either lost its carriers or established (0 surviving-but-failing runs); established runs reach second-half P(C,C) 0.985–0.992 with carrier-conditional P(C,C) 1.000. Extinction comes early (median generation 8 / 29 / 77 / 98 at f₀ = 0.001 / 0.003 / 0.01 / 0.03); survivors grow at 0.011–0.035 per generation and pass 50% by generation 29–357. Success by f₀ (pooled mix + FairBot, σ ∈ {0, 1}; 6 / 19 / 64 / 192 / 640 carriers): finite ε 3/80, 18/80, 10/20, 17/20, 20/20; ε = 0 twins 6/80, 12/80, 52/80, 72/80, 80/80. Mutation creates no threshold. FairBot seed vs mixture: 37/110 vs 31/110 (finite ε), 111/200 vs 111/200 (twins). Final composition over successes: FairBot 0.46, ALLC 0.27, `BOX1(THEM(ME))` 0.08, `BOX1(THEM(THEM))` 0.08, `BOX(THEM(THEM))` 0.06; carriers are 0.72 of the population, the rest a contract-less ALLC shadow fed by mutation (99.5% of carrier mutations drop the contract). Every successful run descends from a single founder. The 10⁵-generation check: all 9 established runs stayed established (second half 0.988–0.990).
+
+**Swapping and transfer.** σ = 1 vs σ = 0: 33/110 vs 35/110 (finite ε), 110/200 vs 112/200 (twins). Accepted swaps, all to recipients without a contract (non-carrier copies of prover sources): 1.8·10⁻⁶ per birth in the finite-ε grid, up to 1.2·10⁻⁴ per cell in the twins. **Contracts do cross lineages:** in 52 of 110 σ = 1 twin successes the contract came from another lineage for > 5% of final carriers, and for all of them in 3; this changes which lineage wins, not whether carriers win. 0 contracts were ever created.
+
+**Controls.** (ii) Same sources, contracts off: P(C,C) 0.001–0.003 in every cell, 0/200 twins efficient. (i) b = ∞: 36/40, 36/40, 10/10, 10/10, 10/10 at finite ε; the free arm establishes from μ with or without a seed. (iii) μ-drawn f₀ = 0.01, same seeds: 0/10; at σ = 1, 0.93–0.97 of agents carry `<D>` on D sources, reproducing the published failure.
+
+**N sweep** (f₀ = 0.01, mix): finite ε 2/10, 5/10, 6/10 and twins 3/20 [0.05, 0.36], 14/20 [0.48, 0.85], 19/20 [0.76, 0.99] at N = 1,600 / 6,400 / 25,600. At fixed f₀, establishment rises with N: more copies face a drift barrier whose per-copy advantage does not scale with N.
+
+**Lottery** (ε = 0, mN = 1, b = 0; σ = 0 / σ = 1): (100, 4): k = 0 0/40; k = 1 12/40 / 9/40; k = 3 14/40 / 24/40; k = 16 38/40 / 34/40. (100, 64): k = 0 5/40 (non-carrier `not(BOXD…)` monocultures, which cooperate with programs they cannot read and defect on D); k = 1 37/40 / 38/40; k = 3 40/40 / 40/40. Fixed total of 64 carriers: 0.95 (16 per island on 4) vs 0.925 (1 per island on 64), unresolved.
+
+**Verdicts.**
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | spreads above a carrier–carrier threshold f* ≈ 0.003–0.01 | **Partly held; mechanism failed:** success is steep in f₀ and FairBot ≈ mix, but f* = 0 after the scramble and the advantage is the sucker fringe; falsifier not fired |
+| RE 2 | swapping inert (acceptance < 10⁻⁴, σ effect < 0.05) | **Failed as stated; inert in outcome:** acceptance 1.2·10⁻⁴ in two cells; a 0.30 cell-level σ effect by sampling noise fired the > 0.2 falsifier; pooled σ has no effect on success |
+| RE 3 | contracts off < 0.1; b = ∞ ≥ 0.9 | **Held** |
+| RE 4 | lottery k = 0 < 0.1; 1-per-island beats 16-per-island | **Failed on both clauses** (0.125 from `not(BOXD…)` monocultures; 0.925 vs 0.95 unresolved); falsifier not fired |
+| RS | a small seed spreads to every program that can carry it | **Partly:** ≈ 0.85 at 3%, 0.5 at 1%, mostly dies at ≤ 0.3%, rising with N; one founder lineage wins and 28% of the final population is an ALLC shadow |
+| S1–S6 | subagent's own | S1 failed (f* = 0), S5 failed (contracts cross lineages), S4, S6 held, S2, S3 mostly/partly |
+
+**Reading.**
+- The RS's intuition holds for prover seeds above about 1–3% where legibility is lost, and more easily at larger N; the earlier failure was the μ-drawn seed's composition.
+- There is no deterministic threshold: the barrier is drift through the ~100-generation scramble, as in the seed lottery.
+- **The invasion advantage rests on a one-sided rule:** non-carriers can read a carrier's contract while staying unreadable themselves, so a fringe of them cooperates with carriers that defect on them. That asymmetry is an artifact of the 'none' entry being read from source. A symmetric gate (a non-carrier's atoms about a carrier also gated) is the control needed before reading this as "carrying is heritable legibility".
+- Swapping moves contracts across lineages within a source class but never changed whether carriers won.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

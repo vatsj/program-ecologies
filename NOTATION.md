@@ -87,3 +87,6 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   `if(BOX(W_j = work), (1/2, ·), (s < 1/2, ·))`; summaries fair / intermediate / zero wage / strike / scab split /
   repression; **w_g^B** = island selection on the boss slot only; **polarity dilemma** = a strike pact needs □(low
   wage), which is fakeable, while □(fair) is unfakeable but cannot carry a pact.
+- **sucker fringe** (carrier seeds) — non-carrier programs that cooperate with a carrier through contract reads while
+  being illegible to it; **cross-lineage share** — the fraction of final carriers whose contract came from another
+  lineage by swapping; **f\*** — the carrier frequency at which carrier fitness first exceeds the population mean.

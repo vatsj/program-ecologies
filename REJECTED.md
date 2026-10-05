@@ -527,3 +527,17 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Design choice dropped: a wage check of the form "strike iff provably low".** Fakeable by bosses that pay fair only at the bottom world (72 classes, mass 0.006), an N-independent strict exit of 2.7·10⁻⁴ per event.
 
 **Not run (declared):** the PA + Con(PA) worker language (1,462 classes).
+
+## Added 2026-10-05: prover-carrier seed (RESULTS.md, "Prover-carrier seed at b = 0")
+
+**"Carrier spread has a carrier–carrier encounter threshold f* ≈ 0.003–0.01" (Fable, prediction 1 mechanism).** After the scramble f* = 0: the carrier's advantage (≈ 0.01 per generation at every frequency) comes from a sucker fringe of non-carriers that trust contracts but cannot be read. The barrier is stochastic, survival through the first ~100 generations.
+
+**"Swapping inert: acceptance < 10⁻⁴ per birth and σ effect < 0.05 in every cell" (Fable, prediction 2).** Acceptance reached 1.2·10⁻⁴; a cell-level σ effect of 0.30 arose by sampling noise (five seeds cannot resolve 0.05). Pooled, σ is inert in outcome but not in lineage: contracts cross lineages within a source class.
+
+**"1 carrier per island on (100, 64) beats 16 per island on (100, 4); k = 0 < 0.1" (Fable, prediction 4).** 0.925 vs 0.95, unresolved; k = 0 on (100, 64) is 0.125 because of non-carrier `not(BOXD…)` cooperators.
+
+**"Mutation stripping sets a finite-ε threshold" (subagent S1) and "no cross-lineage transfer" (subagent S5).** The fringe outweighs stripping and standing ALLC; acquirers' lineages sometimes win.
+
+**The extinction stop applied in the b = ∞ control (subagent's bug).** Invalid where sources are readable; fixed and rerun.
+
+**The asymmetric read rule as a test of "carrying is heritable legibility" (spec design).** Non-carriers read contracts while remaining unreadable; this one-sided rule powers the invasion. A symmetric gate is the needed control.

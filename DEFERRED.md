@@ -43,6 +43,7 @@ REJECTED.md the ones we dropped.
   "Conjecture 4"), whose mechanism is extensional and whose transfer to bounded proof search is conditional on budget.
 - *Evidence (2026-10-04):* a sound stabilization-cost gate preserves the free arm in both objects at n ≤ 8 and creates no fakers (RESULTS "Bounded provers"); the proxy does not charge the Löb step, so it barely binds on occupied states.
 - *Evidence (2026-10-05):* proof-carrying contracts need provability semantics; with it they equal the ungated free box among carriers; where a gate removes legibility (b = 0) they restore cooperation to 0.95–0.99 by production or inheritance, not swapping (RESULTS "Proof-carrying contracts v1"). The RS's contract pitch is confirmed for legibility and refuted as a selector.
+- *Evidence (2026-10-05b):* carried proofs make legibility heritable at b = 0: a 1–3% prover-carrier seed establishes, contracts cross lineages within a source class by swapping; but the invasion advantage rests on non-carriers reading contracts while staying unreadable (RESULTS "Prover-carrier seed at b = 0"). *Open:* a symmetric gate, where a non-carrier's atoms about a carrier are also gated, to test whether carrying alone confers an advantage.
 - *Would settle it:* an explicit proof system with measured proof length and a sound checker; the stabilization proxy is exhausted.
 
 ## 3. Roles: `ROLE` or fixed roles with separate populations?
