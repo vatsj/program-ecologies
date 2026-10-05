@@ -30,19 +30,22 @@ def med(a):
 
 def finite_summary(rs):
     n = len(rs)
-    pc = np.array([r['pcc'] for r in rs])
+    full = [r for r in rs if r['pcc'] is not None]
+    nstop = n - len(full)                               # stopped at carrier extinction (s = 0): no-contract b = 0 process
+    pc = np.array([r['pcc'] for r in full]) if full else np.array([np.nan])
     succ = int((pc >= 0.9).sum())
     births = sum(r['births'] for r in rs)
     T = defaultdict(int); Sw = defaultdict(int)
     for r in rs:
         for k, v in r['transitions'].items(): T[k] += v
         for k, v in r['swaps'].items(): Sw[k] += v
-    good = [r for r in rs if r['pcc'] >= 0.9]
+    good = [r for r in full if r['pcc'] >= 0.9]
     con = defaultdict(float); src = defaultdict(float)
-    for r in rs:
-        for c, v in r['top_contracts']: con[c] += v / n
-        for p, v in r['top_sources']: src[p] += v / n
-    return dict(n=n, success=succ, success_ci=wilson(succ, n), pcc_mean=float(pc.mean()), pcc_min=float(pc.min()), pcc_max=float(pc.max()),
+    for r in full:
+        for c, v in r['top_contracts']: con[c] += v / len(full)
+        for p, v in r['top_sources']: src[p] += v / len(full)
+    return dict(n=n, stopped_extinct=nstop, success=succ, success_ci=wilson(succ, n), pcc_mean=float(np.nanmean(pc)), pcc_min=float(np.nanmin(pc)),
+                pcc_max=float(np.nanmax(pc)),
                 pcc_success_mean=float(np.mean([r['pcc'] for r in good])) if good else None,
                 carrier_mean=float(np.mean([r['carrier'] for r in rs])),
                 carrier_pcc_mean=med([r['carrier_pcc'] for r in good]) if good else None,
@@ -61,8 +64,9 @@ def finite_summary(rs):
                 from_seed_min=min([r.get('final_carriers_from_seed_carrier_founder', 1) for r in good], default=None),
                 cross_lineage_max=max([r.get('final_carriers_contract_from_other_lineage', 0) for r in good], default=None),
                 top_contracts=sorted(con.items(), key=lambda kv: -kv[1])[:5], top_sources=sorted(src.items(), key=lambda kv: -kv[1])[:6],
-                fb_con_share=float(np.mean([r['fb_con_share'] for r in rs])), src_allc_load=float(np.mean([r['src_allc_load'] for r in rs])),
-                pcc_list=[round(float(x), 3) for x in pc])
+                fb_con_share=float(np.mean([r['fb_con_share'] for r in full])) if full else None,
+                src_allc_load=float(np.mean([r['src_allc_load'] for r in full])) if full else None,
+                pcc_list=[round(float(r['pcc']), 3) if r['pcc'] is not None else 'ext@%d' % r['stop_gen'] for r in rs])
 
 
 def lottery_summary(rs):
@@ -103,7 +107,9 @@ def main():
     L = []
     def fin_table(title, sets, by=('seed', 'f0', 'sigma')):
         L.append('### ' + title); L.append('')
-        L.append('| set | seed | b | ctl | N | f₀ | σ | success (P(C,C) ≥ 0.9) | mean P(C,C) [min, max] | carriers | carrier P(C,C) | extinct | t₁₀ / t₅₀ med (max t₅₀) | growth₂₀₀ | lost-invalid / birth | accepted swaps (onto none) / birth | founders (med) | cross-lineage max |')
+        L.append('Mean P(C,C) is over runs run to the end; runs stopped at carrier extinction (s = 0, the rest is the no-contract b = 0 process, published P(C,C) 0.001–0.003) count as failures and are listed under *extinct*.')
+        L.append('')
+        L.append('| set | seed | b | ctl | N | f₀ | σ | success (P(C,C) ≥ 0.9) | mean P(C,C) [min, max] (full runs) | carriers | carrier P(C,C) | extinct | t₁₀ / t₅₀ med (max t₅₀) | growth₂₀₀ | lost-invalid / birth | accepted swaps (onto none) / birth | founders (med) | cross-lineage max |')
         L.append('|' + '---|' * 18)
         for k, s in summ.items():
             kk = s['key']
@@ -136,7 +142,7 @@ def main():
         if kk['set'] in ('main', 'nsweep') and kk['eps'] > 0:
             L.append('- %s %s f₀ = %g σ = %g N = %d: contracts %s; sources %s; FairBot-contract share %.3f; source-ALLC load %.3f; P(C,C) by seed %s' % (
                 kk['set'], kk['seed'], kk['f0'], kk['sigma'], kk['N'], ', '.join('`%s` %.2f' % kv for kv in s['top_contracts'][:3]),
-                ', '.join('`%s` %.2f' % kv for kv in s['top_sources'][:4]), s['fb_con_share'], s['src_allc_load'], s['pcc_list']))
+                ', '.join('`%s` %.2f' % kv for kv in s['top_sources'][:4]), s['fb_con_share'] or 0, s['src_allc_load'] or 0, s['pcc_list']))
     L.append('')
     gen = '\n'.join(L)
     path = os.path.join(RUNS, 'prover-carrier-seed.md')

@@ -142,3 +142,13 @@ pool of 3 workers accumulated about 3 CPU-minutes each in 98 wall-minutes withou
    long-window check. Any cell projected beyond about 2 hours of wall time is stopped and recorded as administratively
    censored with its completed generations.
 5. The thresholds in every prediction are unchanged; "second half" now means generations 10⁴–2·10⁴.
+
+## Addendum 2 (2026-10-05, 03:20): stop at carrier extinction
+
+Five f₀ = 0.001 main runs (mix, σ = 0, reps 0–4) finished under the reduced window before this change; each took
+2,000–2,400 wall-seconds with the lid closed, and their carriers died at generations 3–13. With s = 0 a contract is never
+created, so once carriers are extinct the run is exactly the no-contract b = 0 process (published P(C,C) 0.001–0.003)
+for the rest of its window. From here on a finite-ε run with s = 0 stops when the carrier count first reaches 0; it is
+recorded as a failure with its extinction generation and its P(C,C) at that moment, and it is left out of mean-P(C,C)
+statistics (which are over runs run to the end). The five finished runs are kept as they are. ε = 0 twins and lottery
+runs are unchanged (they stop at the freeze). No prediction or threshold changes.

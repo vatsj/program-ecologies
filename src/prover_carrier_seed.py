@@ -48,7 +48,7 @@ def establishers(d, b='inf'):
 @njit(cache=True)
 def _run(init_t, init_l, I, N, w, m, eps, s, sigma, uniform, gens, every, seed,
          tsrc, tcon, pc, U, PCC, type_of, valid, own_type, mu_cdf, cls, iC, cC, cFB, anti, NC, K, lottery, thin,
-         init_anc, init_canc):
+         init_anc, init_canc, stop_ext):
     np.random.seed(seed)
     NP = U.shape[0]
     NA = I * N
@@ -92,6 +92,7 @@ def _run(init_t, init_l, I, N, w, m, eps, s, sigma, uniform, gens, every, seed,
     reach = np.zeros(NP, np.bool_)
     ncar = NA - cnt_con[0]
     gdone = 0
+    last_pcc = -1.0
     for g in range(gens):
         for e in range(NA):
             i = np.random.randint(I)
@@ -174,7 +175,8 @@ def _run(init_t, init_l, I, N, w, m, eps, s, sigma, uniform, gens, every, seed,
                 paysum[i, kn] = v
         carr_g[g] = ncar
         gdone = g + 1
-        if (g + 1) % every == 0:
+        force = stop_ext and ncar == 0
+        if (g + 1) % every == 0 or force:
             pcc_tot = 0.0; coop = 0
             for i in range(I):
                 cc = 0.0
@@ -187,6 +189,10 @@ def _run(init_t, init_l, I, N, w, m, eps, s, sigma, uniform, gens, every, seed,
                         cc += nn * PCC[a1, b1]
                 pcc_tot += cc / (N * (N - 1))
             pcc = pcc_tot / I
+            last_pcc = pcc
+            if force:
+                status = 2; stop_gen = g + 1
+                break
             carriers = NA - cnt_con[0]
             # carrier-conditional P(C,C) (pooled over islands; exact for I = 1)
             ccc = -1.0
@@ -263,7 +269,7 @@ def _run(init_t, init_l, I, N, w, m, eps, s, sigma, uniform, gens, every, seed,
                 cc += nn * PCC[a1, b1]
         isl_cc[i] = cc / (N * (N - 1))
     return (acc, con_share, src_share, trn, sw, sw_onto_none, sw_cross, carr_g[:gdone], tr[:ntrace], status, stop_gen,
-            isl_cc, cnt_con, cnt_src, cnt_type, agent_t, anc, canc)
+            isl_cc, cnt_con, cnt_src, cnt_type, agent_t, anc, canc, last_pcc)
 
 
 A_sample = A._sample
@@ -347,9 +353,10 @@ def run_job(job):
     t0 = time.time()
     out = _run(it, il, I, N, W, job.get('mN', 0.0) / N, job['eps'], float(job.get('s', 0)), float(job['sigma']), False,
                job['gens'], every, seed, d['tsrc'], d['tcon'], d['pc'], d['U'], d['PCC'], d['type_of'], d['valid'], d['own_type'],
-               d['mu_cdf'], d['cls'], d['iC'], d['cC'], d['cFB'], d['anti'], d['NC'], d['K'], lottery, thin, anc0, canc0)
+               d['mu_cdf'], d['cls'], d['iC'], d['cC'], d['cFB'], d['anti'], d['NC'], d['K'], lottery, thin, anc0, canc0,
+               bool((not lottery) and job['eps'] > 0 and float(job.get('s', 0)) == 0.0 and bool(car0.any())))
     (acc, con_share, src_share, trn, sw, sw_none, sw_cross, carr_g, tr, status, stop_gen, isl_cc, cnt_con, cnt_src, cnt_type,
-     agent_t, anc, canc) = out
+     agent_t, anc, canc, last_pcc) = out
     r = dict(job)
     r['time_s'] = time.time() - t0
     nm = d['names']; cn = d['cname']; tsrc = d['tsrc']; tcon = d['tcon']
@@ -389,7 +396,12 @@ def run_job(job):
         r['final_carriers_contract_founder_n'] = int(len(np.unique(ca)))
     r['final_contracts'] = {(cn[c - 1] if c > 0 else 'none'): int(v) for c, v in enumerate(cnt_con) if v > 0 and v >= 0.005 * NA}
     r['final_sources'] = {nm[p]: int(v) for p, v in enumerate(cnt_src) if v > 0 and v >= 0.005 * NA}
-    if not lottery:
+    if not lottery and status == 2:
+        # carriers extinct at s = 0: the rest of the run is the no-contract b = 0 process (published P(C,C) 0.001-0.003)
+        r.update(stopped_extinct=True, stop_gen=int(stop_gen), pcc=None, pcc_at_stop=float(last_pcc), carrier=0.0, coop_mass=None, src_allc_load=None,
+                 con_allc_load=None, anti_share=None, fb_con_share=0.0, max_con_share=None, carrier_pcc=None, top_contracts=[], top_sources=[])
+    elif not lottery:
+        r['stopped_extinct'] = False
         cs = con_share / n; ss = src_share / n
         r.update(pcc=acc[0] / n, carrier=acc[1] / n, coop_mass=acc[2] / n, src_allc_load=acc[3] / n, con_allc_load=acc[4] / n,
                  anti_share=acc[5] / n, fb_con_share=acc[6] / n, max_con_share=acc[7] / n,
