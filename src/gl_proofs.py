@@ -199,6 +199,39 @@ def expand(th, seq):
     return out
 
 
+def cut_closure(th, seqs):
+    """Analytic cut formulas for a set of root sequents (specs/2026-10-05-k-at-n8.md, lemma sharing (a)): every boxed
+    formula []B reachable from the roots by subformulas and unfolding, and its content B.  Finite."""
+    F = th.forms
+    seen = set(); stack = [a for L, R in seqs for a in list(L) + list(R)]
+    boxes = set()
+    while stack:
+        a = stack.pop()
+        if a in seen: continue
+        seen.add(a); t = F[a]; k = t[0]
+        if k == FBOX:
+            boxes.add(a); stack.append(t[1])
+        elif k == FP: stack.append(th.unfold(a))
+        elif k == FNOT: stack.append(t[1])
+        elif k in (FAND, FOR, FIMP): stack += [t[1], t[2]]
+    out = set(boxes) | {F[b][1] for b in boxes}
+    return sorted(out)
+
+
+def expand_cut(th, seq, cuts, nf=True):
+    """Backward rule instances with analytic cut: the normal-form (or all-orders) instances, plus, for every cut
+    formula A not already in the sequent, Cut: (L, R + A) and (L + A, R).  The normal form stays exact with cut (cut
+    shares its context like any two-premise rule, so the permutation argument of notes/proof-length.md §1 applies)."""
+    out = list(expand_nf(th, seq) if nf else expand(th, seq))
+    if nf and single_premise(th, seq) is not None:
+        return out
+    L, R = seq
+    for A in cuts:
+        if A in L or A in R: continue
+        out.append((((L, R | {A}), (L | {A}, R)), 0, 'Cut'))
+    return out
+
+
 class Oracle:
     """GL+Def provability by the standard terminating decision procedure: invertible rules (every propositional
     rule and unfolding) applied eagerly in a fixed order, then an OR over GLR on each right box not already on the
@@ -250,10 +283,11 @@ class Oracle:
 class Graph:
     """Backward-reachable AND-OR graph from a set of roots, and exact minimal (size, Loeb) costs."""
 
-    def __init__(self, th, roots, cap=2_000_000, time_cap=None, oracle=None, nf=False):
+    def __init__(self, th, roots, cap=2_000_000, time_cap=None, oracle=None, nf=False, cuts=None):
         self.th = th
         self.oracle = oracle
         self.nf = nf
+        self.cuts = cuts
         self.roots = [r for r in roots]
         self.id = {}
         self.seqs = []
@@ -271,7 +305,9 @@ class Graph:
             seq = self.seqs[s]
             if self.axiom[s]:
                 continue
-            for prem, glr, lab in (expand_nf(th, seq) if self.nf else expand(th, seq)):
+            rules = (expand_cut(th, seq, self.cuts, self.nf) if self.cuts is not None else
+                     (expand_nf(th, seq) if self.nf else expand(th, seq)))
+            for prem, glr, lab in rules:
                 if self.oracle is not None and not all(self.oracle.prov(p) for p in prem):
                     continue          # a derivation never contains an unprovable sequent: exactness is kept
                 pids = tuple(self._add(p, stack) for p in prem)
@@ -464,8 +500,9 @@ class MinSearch:
 
     INF = 1 << 30
 
-    def __init__(self, th, oracle=None, cap=3_000_000):
+    def __init__(self, th, oracle=None, cap=3_000_000, cuts=None):
         self.th = th
+        self.cuts = cuts          # None: cut-free GLS+Def; a list: analytic cut on these formulas
         self.oracle = oracle or Oracle(th)
         self.exact = {}          # seq -> (size, loeb, label, premises)
         self.lb = {}
@@ -493,7 +530,7 @@ class MinSearch:
         if self.count > self.cap:
             raise Abort()
         best = None; newlb = self.INF
-        for prem, glr, lab in expand_nf(th, S):
+        for prem, glr, lab in (expand_nf(th, S) if self.cuts is None else expand_cut(th, S, self.cuts)):
             prem = tuple((frozenset(p[0]), frozenset(p[1])) for p in prem)
             if not all(self.oracle.prov(p) for p in prem):
                 continue
@@ -582,6 +619,14 @@ class MinSearch:
         acc['dag'] = len(seen)
         return acc
 
+    def dag_sizes(self, root):
+        """DAG measures of the minimal derivation (specs/2026-10-05-k-at-n8.md, lemma sharing (b)): `exact` = number of
+        distinct sequents; `subsumption` = number of certified sequents when a sequent subsumed by an already certified
+        one (its left side contains, and its right side contains, the certified sequent's) is a free reference,
+        children certified before parents, siblings in the better of the two orders.  Both are upper bounds on the
+        minimal DAG size over all derivations."""
+        return dag_measures(self.derivation(root))
+
     def render(self, root, names=None):
         lines = []
         def walk(t, ind):
@@ -590,3 +635,30 @@ class MinSearch:
             for c in ch: walk(c, ind + 1)
         walk(self.derivation(root), 0)
         return '\n'.join(lines)
+
+
+def _subsumes(a, b):
+    """Sequent a = (L, R) subsumes b: b is a weakening of a."""
+    return a[0] <= b[0] and a[1] <= b[1]
+
+
+def dag_measures(d):
+    """d = (seq, label, children) tree (MinSearch.derivation).  Returns dict(tree, exact, subsumption)."""
+    seen = set(); n = [0]
+    def walk(t):
+        S, lab, ch = t
+        n[0] += 1; seen.add(S)
+        for c in ch: walk(c)
+    walk(d)
+
+    def subs(order):
+        cert = []
+        def go(t):
+            S, lab, ch = t
+            for c in cert:
+                if _subsumes(c, S): return 0
+            tot = 1 + sum(go(c) for c in (ch if order == 0 else ch[::-1]))
+            cert.append(S)
+            return tot
+        return go(d)
+    return dict(tree=n[0], exact=len(seen), subsumption=min(subs(0), subs(1)))
