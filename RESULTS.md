@@ -2714,6 +2714,64 @@ Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent. An invasio
 - **The invasion advantage rests on a one-sided rule:** non-carriers can read a carrier's contract while staying unreadable themselves, so a fringe of them cooperates with carriers that defect on them. That asymmetry is an artifact of the 'none' entry being read from source. A symmetric gate (a non-carrier's atoms about a carrier also gated) is the control needed before reading this as "carrying is heritable legibility".
 - Swapping moves contracts across lineages within a source class but never changed whether carriers won.
 
+## The symmetric gate: the sucker fringe is worth about 0.1 of establishment, not the mechanism (`runs/symmetric-gate.md`, `runs/symmetric-gate.json`; spec `specs/2026-10-05-symmetric-gate.md`, predictions in `predictions/2026-10-05-symmetric-gate.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/symmetric_gate.py`, `src/symmetric_gate_static.py`, `src/symmetric_gate_run.py`, `src/symmetric_gate_report.py`; `tests/test_symmetric_gate.py`). Finite-size trajectory and lottery outcomes, not π. Control for "Prover-carrier seed at b = 0", whose invasion advantage ran through non-carriers that read contracts while staying unreadable.
+
+**Rules.** A box atom of reader t about opponent u with target τ is a *contract read* only if rc(t) = 1 and both u and τ carry. *Asymmetric:* rc ≡ 1 (reproduces the published `contracts_types_b0.npz` bit for bit; the 35 overlapping published runs reproduce exactly). *Symmetric:* rc(t) = 1 iff t carries. *Quenched q:* a fixed reader assignment per canonical source, nested in q. "Reader" is the executing program at every level; a box concerns the opponent's actual play under the opponent's own access. The certified-implication audit finds 0 violations under every rule at b ∈ {0, ∞}.
+
+**Deviations.** The full design ran (2·10⁴ generations, window the second half, 20 paired seeds per cell, N = 25,600 at 10). One cell added before the grid: a paired b = ∞ comparison, because the exact b = ∞ equality check failed. A 100-seed extension (asymmetric vs symmetric at f₀ ≤ 0.03) was declared after the 20-seed cells were seen; it is exploratory. A bookkeeping bug crashed the invasion challenge before any row was saved; fixed and rerun.
+
+**Where the rule acts (b = 0).** Every changed table entry is a non-carrier → carrier action: 107,188 entries, 69,849 C → D and 37,339 D → C. Carrier rows and the non-carrier block are identical under all rules, so the frozen backgrounds are shared. The **b = ∞ baseline is not exact**: 172,517 entries differ (47,372 carrier → non-carrier), μ×μ mass 0.0006. A contract read is the box over the representative's free-GL trace, a source read the box over the carrier's actual trace, and the two coincide only among carriers. Over 20 paired b = ∞ runs at f₀ = 0.01 the population P(C,C) differs by +0.011 (sd 0.039).
+
+**Frozen backgrounds (mix carrier group).** The post-scramble background (ALLC < 10⁻³ from generation 24) cooperates with carriers at 0.0178 (asymmetric) / 0.0162 (q = 0.5) / 0.0101 (q = 0.25) / 0.0054 (symmetric) / 0.0053 (fringe forced to D). Carrier payoff against it: −0.966 → −0.991. Carrier–carrier play (P(C) 0.981), carrier → background play (0.0017), background–background payoff (−0.9987) and D's payoff against carriers (−1.000) are rule-independent. The fringe is 0.019 of μ and 0.013 after the scramble: `BOX(THEM(THEM))`, `BOX1(THEM(THEM))`, `BOX(THEM(^C))`, `BOX1(THEM(^C))`, `BOXD1(THEM(^D))`.
+
+Rare-carrier growth per generation at f = 10⁻³:
+
+| background | asymmetric | q = 0.5 | q = 0.25 | symmetric | fringe → D |
+|---|---|---|---|---|---|
+| μ | −0.0062 | −0.0068 | −0.0099 | −0.0127 | −0.0145 |
+| post-scramble | +0.0101 | +0.0091 | +0.0054 | +0.0026 | +0.0026 |
+| ε = 10⁻³ equilibrium | +0.0093 | +0.0080 | +0.0031 | −0.0007 | −0.0007 |
+
+- The fringe-to-D intervention reproduces the symmetric rule within 10⁻⁴ (100.7% of the post-scramble gap).
+- Growth is linear in the *fringe mass assigned to read*, not in q: q = 0.25 covers 38% of that mass, q = 0.5 covers 87%; predicted 0.0055 / 0.0091, measured 0.0054 / 0.0091. Monotone over a 10-point q grid on both post-scramble backgrounds; at μ non-monotone by ≤ 0.0006.
+- Of the symmetric +0.0026, +0.0003 is the linear carrier–carrier term; the rest is a transient **legibility shield**: `not(BOXD…)` programs cooperate with the illegible carriers and defect on the legible D. It is gone at the ε equilibrium.
+- f\* = 0 after the scramble under every rule. With mutation the symmetric rule has a positive deterministic threshold, f\*_net ≈ 0.0037, because contract stripping is no longer offset by a fringe; the symmetric flow at ε = 10⁻³ declines from f₀ ≤ 10⁻³ and takes over from 0.003, the asymmetric flow from 10⁻⁴.
+
+**Finite ε = 10⁻³, N = 6,400, 20 paired seeds, established / 20:**
+
+| rule | f₀ = 0.003 | 0.01 | 0.03 | 0.1 |
+|---|---|---|---|---|
+| asymmetric | 4 | 7 | 17 | 20 |
+| q = 0.5 | 5 | 8 | 18 | 20 |
+| q = 0.25 | 1 | 4 | 16 | 20 |
+| symmetric | 1 | 7 | 16 | 20 |
+
+0 censored. Extinction is early (median 25–173 generations) and often at the same generation under every rule: the pairing couples the trajectories. Paired asymmetric − symmetric: +0.15 [−0.02, +0.35], 0.00 [−0.19, +0.19], +0.05 [−0.18, +0.27], 0. The 50% threshold is 0.014 under both rules. N = 25,600 at f₀ = 0.01: 5/10 under both.
+
+**Exploratory 100-seed extension** (asymmetric vs symmetric): finite ε 14 vs 7 / 38 vs 26 / 89 vs 77 at f₀ = 0.003 / 0.01 / 0.03, pooled +0.10 [+0.06, +0.15] (McNemar 40/9); ε = 0 twins 12 vs 12 / 55 vs 32 / 91 vs 77, pooled +0.12 [+0.08, +0.17]. Thresholds 0.013 vs 0.017 (finite ε) and 0.009 vs 0.016 (twins). The symmetric rates match a diffusion calculation with s(f) = w·f − ε (0.09 / 0.31 / 0.74 predicted).
+
+**Established runs.** All 393 (every rule and N, extension included): carrier-conditional P(C,C) 1.000, population P(C,C) 0.984–0.993, carriers ≈ 0.72 of the population with the rest the ALLC shadow. No run reached 50% carriers without establishing; no collapse.
+
+**ε = 0 twins (20 seeds), efficient runs:** asymmetric 3 / 14 / 19 / 20; q = 0.5 2 / 13 / 18 / 20; q = 0.25 3 / 12 / 18 / 20; symmetric 3 / 12 / 17 / 20. All froze; none censored.
+
+**Lottery (100, 64), mN = 1, efficient / 40:** k = 1: asymmetric 37 (reproduces the published cell), q = 0.5 37, q = 0.25 39, symmetric 39. k = 3: 40 under every rule.
+
+**Invasion challenge** (N = 100, 99 establisher carriers plus one invader, 100 runs per rule): D and non-carrier FairBot lineages extinct in 100/100 under every rule; ALLC never fixes, is neutral and still present at the freeze in 17/100 with mean share 0.009 ≈ 1/N; the resident is efficient in 100/100.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | symmetric growth in [0, 0.002]; intervention reproduces it | mostly held; range missed narrowly (+0.0026 post-scramble from the legibility shield, −0.0007 at the ε equilibrium); intervention within 10⁻⁴ |
+| RE 2 | threshold moves to 0.03–0.1 | **failed** (falsifier not fired): 0.35 at f₀ = 0.01, 0.80 at 0.03; threshold 0.013 → 0.017 (exploratory) |
+| RE 3 | monotone in q; q = 0.5 within 0.003 | held (linear in fringe mass, not q) |
+| RE 4 | established carriers hold | held |
+| RE 5 | symmetric k = 1 lottery in 0.3–0.7 | **failed, falsifier fired** (0.975) |
+| S1–S8 (subagent) | see `runs/symmetric-gate.md` | S8 held; S3 mostly; S1 failed narrowly (1,352 constant-carrier entries change); S2, S4–S7 partly |
+
+**Reading.** Carrying a proof is an advantage without the fringe, but after the scramble it is mostly the linear carrier–carrier term plus a transient shield against `not(BOXD…)` suckers, and with mutation a small deterministic threshold (≈ 0.004) appears. The fringe raised establishment by about 0.1–0.2: real, secondary. Under both rules the mechanism is the race through the scramble, set by seed count and drift; per-generation advantages after the scramble barely move establishment, which is why the published seed result survives the control. "Carrying is heritable legibility" holds in the strict sense: carriers are legible to each other and to nobody else, and that is enough to establish from 1–3% seeds and to win the k = 1 lottery. Method: rule contrasts on establishment need about 100 paired seeds; 20 hid a 0.1–0.2 effect (sol's warning, confirmed).
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

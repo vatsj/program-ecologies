@@ -541,3 +541,17 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **The extinction stop applied in the b = ∞ control (subagent's bug).** Invalid where sources are readable; fixed and rerun.
 
 **The asymmetric read rule as a test of "carrying is heritable legibility" (spec design).** Non-carriers read contracts while remaining unreadable; this one-sided rule powers the invasion. A symmetric gate is the needed control.
+
+## Added 2026-10-05: the symmetric gate (RESULTS.md, "The symmetric gate")
+
+**"Under a symmetric gate the carrier seed's establishment threshold moves to 0.03–0.1" (Fable, prediction 2).** It moved from about 0.013 to 0.017 at finite ε and from 0.009 to 0.016 in the ε = 0 twins (100-seed exploratory extension). Symmetric success at f₀ = 0.01 is 0.35 at 20 seeds and 0.26 at 100. The fringe was a secondary contributor to establishment, worth about 0.1–0.2, not the mechanism; the mechanism is the race through the scramble, and a per-generation advantage after it barely moves establishment.
+
+**"The k = 1 lottery at (100, 64) falls to 0.3–0.7 without the fringe" (Fable, prediction 5; falsifier fired).** 39/40 under the symmetric rule. One near-neutral carrier per island suffices on 64 islands because spread is one-way. The subagent's S7 range (0.5–0.85) fails for the same reason.
+
+**"After the scramble a symmetric carrier has only the linear carrier–carrier advantage" (Fable, prediction 1, range clause).** A transient legibility shield adds about +0.0023 per generation at ε = 0: illegible carriers are cooperated with by `not(BOXD…)` programs that defect on the legible D. It vanishes at the ε equilibrium.
+
+**"The b = ∞ baseline is exact under the symmetric rule" (spec design 5).** A contract read (the box over the representative's free trace) is not a source read (the box over the carrier's actual trace); they coincide only among carriers. 172,517 table entries differ, μ×μ mass 0.0006, outcome difference +0.011 in P(C,C).
+
+**Subagent S1** (changes confined to non-constant carriers): 1,352 entries against constant sources carrying a non-constant contract also change. **S2 confinement clause:** carrier → non-carrier entries change at b = ∞. **S4 paired clause at 20 seeds, S5 "below asymmetric" at N = 25,600, S6 twins 0.2–0.5 at f₀ = 0.01 (0.60).**
+
+**Design choice: 20 paired seeds for a rule contrast on establishment.** Cannot resolve a 0.1 effect (sol's warning, confirmed). Use about 100 paired seeds.

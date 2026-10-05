@@ -90,3 +90,9 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
 - **sucker fringe** (carrier seeds) — non-carrier programs that cooperate with a carrier through contract reads while
   being illegible to it; **cross-lineage share** — the fraction of final carriers whose contract came from another
   lineage by swapping; **f\*** — the carrier frequency at which carrier fitness first exceeds the population mean.
+- **Symmetric gate** (carrier seeds) — the access rule under which a non-carrier's box atoms about a carrier are
+  gated like its atoms about anyone else (rc(t) = 1 iff t carries); the **asymmetric** rule lets every program read
+  contracts (rc ≡ 1); **quenched q** — a fixed fraction q of canonical sources, nested in q, may read contracts.
+  **Legibility shield** — the transient advantage an illegible defector has over a legible one against programs that
+  cooperate unless defection is provable (`not(BOXD…)`); gone at the ε equilibrium. **f\*_net** — the deterministic
+  carrier threshold net of contract stripping at finite ε (≈ 0.004 under the symmetric rule).
