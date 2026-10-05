@@ -153,3 +153,15 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   the bridge, to the majority network, or to an untagged class; **migrant-load advantage** — the bridge's edge on
   islands receiving the rival's migrants; **separation-loss hazard** — losses per minority-island-generation;
   **coordination barrier** — ≈ N·w·(1/2 − k/N)² for k migrants into a rival island.
+- **K at n = 8:** **GL-erasure prune** — K ⊢ A implies GL+Def ⊢ erase(A), so the search skips contents whose
+  erasure is not a GL theorem; **b\*_K(x)** — the smallest global budget at which x self-cooperates in K (FairBot 3,
+  `BOX1(THEM(ME))` 4, PrudentBot 11; P\*, P2, PB2 and the level-2 ladder never at b ≤ 54); **PB2** =
+  `and(BOX(THEM(ME)),BOXD2(THEM(^D)))`, GL-provable but needing the 4-axiom under a box; **faker-removal control** —
+  the free table with the classes that strictly invade a supported self-cooperator in the free arm but not in K
+  deleted (37 classes, μ 0.0029; 21 Gödel sentences, 16 probe readers); **analytic cut** — cut restricted to
+  reachable boxed formulas and their contents; **DAG size, exact / subsumption** — distinct sequents of a derivation
+  under exact identity, or counting a weakening of an already-certified sequent as a free reference; **price
+  schedules** — per-match (c·b per match), **amortized** (c·b/N), **cache accounting** (c·b per distinct opponent class
+  per lifetime), **lazy** (c·b only against non-constant non-copy opponents, with copy rules (a) identical budgeted
+  program, (b) same source at any budget, (c) extensionally identical play); **N·Δ** and **fixation ratio N·ρ** on
+  the decisive edge (≈ 1 + w·c·b/2 for the amortized ALLC exit).

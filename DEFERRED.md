@@ -61,7 +61,12 @@ REJECTED.md the ones we dropped.
 - *Evidence (2026-10-05):* proof-carrying contracts need provability semantics; with it they equal the ungated free box among carriers; where a gate removes legibility (b = 0) they restore cooperation to 0.95–0.99 by production or inheritance, not swapping (RESULTS "Proof-carrying contracts v1"). The RS's contract pitch is confirmed for legibility and refuted as a selector.
 - *Evidence (2026-10-05b):* carried proofs make legibility heritable at b = 0: a 1–3% prover-carrier seed establishes, contracts cross lineages within a source class by swapping; but the invasion advantage rests on non-carriers reading contracts while staying unreadable (RESULTS "Prover-carrier seed at b = 0"). *Closed (2026-10-05c):* the symmetric gate was run (RESULTS "The symmetric gate"); the asymmetric rule inflated establishment by about 0.1–0.2 and did not create it. *Operating hypothesis:* the symmetric rule is the default for future contract experiments, since a program without a checker should not read contracts; the asymmetric rule is kept only as a comparison.
 - *Evidence (2026-10-05d):* an explicit proof system now exists for both readings (RESULTS "Proof length"): GLS+Def reproduces the free box with certified lengths, and K, a sound bounded calculus decided exactly by search, preserves the n = 6 arm from FairBot's distinct-budget threshold up, closes nothing and creates no strict invader, where a matched random perturbation does. *Operating hypothesis refined:* source reading through a prover sound for its own derivability semantics; a weaker sound prover can cooperate more than the free oracle.
-- *Would settle it next:* K at n = 8 (PrudentBot, P*); K with analytic cut on lemma formulas (does lemma sharing remove the re-proving cost?); a non-per-match budget price (amortized or lazy).
+- *Evidence (2026-10-05e):* K at n = 8 keeps and improves the free arm from b = 4; the gain is Gödel-sentence faker
+  removal; K loses exactly Con-dependent and 4-axiom cooperation and keeps PrudentBot from b = 11 (RESULTS "K at
+  n = 8"). *Operating hypothesis refined:* a prover sound for its own derivability semantics, whose incompleteness
+  removes Gödelian and Con-dependent cooperation; the realizable core is FairBot's family plus PrudentBot.
+- *Would settle it next:* a K with a sound 4-axiom rule (□A ⊢ □□A), to see whether PB2 and the ladder return and
+  whether fakers return with them; K beyond the modal fragment.
 
 ## 3. Roles: `ROLE` or fixed roles with separate populations?
 - *Operating hypothesis (RS, 2026-10-04):* fixed roles with separate slot populations for every social-choice question;
@@ -82,6 +87,11 @@ REJECTED.md the ones we dropped.
 - *Constraints established:* a price is harmless in the limit iff it vanishes faster than N^(−1/2) of the stakes or is
   exactly zero on the ladder's rungs; copy subsidies are moats; any price that beats 1/N is incumbency (Proposition 3).
 - *Proof budgets (2026-10-04):* at this level of idealization a budget neither prices nor closes; it is harmless, and proof length is not a moat because leaks run through cheaper neighbours (RESULTS "Bounded provers").
+
+- *Evidence (2026-10-05, K prices):* in K, amortized and cache-accounting prices keep P(C,C) at 0.56–0.60 for c ≤ 0.1
+  (0.42 at c = 1, N = 10⁴, rising with N) with exit slope −1 and a weakly selected ALLC exit (ratio 1 + w·c·b/2);
+  per-match pricing gives all-D; lazy pricing locks in PrudentBot@16 at n = 8 even at c = 0.01 (RESULTS "K at n = 8").
+  *Operating hypothesis kept:* amortized verification; the schedules are imposed, verification events uncounted.
 
 ## 5. Imposed fixed points
 - *Options:* Löb only (unique fixed points, no rule); greatest-fixed-point rules (C-seeded certificates, the club).

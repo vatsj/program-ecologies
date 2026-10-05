@@ -647,3 +647,16 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Subagent S1** (pair 1 resolves at every N; 0.65 both-present at (200, 16) because the bridge dies in the scramble on 50–70% of 16-island runs), **S2** (q ≤ 0.95; 0.97 at (400, 16)), **S4** (k/N-matched propagules never resolve; ignored stacking), **S6** (separations survive longer at N = 200; degenerate, 0 survivors at both N), **S7** (bridge share set by prior abundance; conflict adds 0.32).
 
 **Design choice dropped: the propagule-validation reference without the stopping rule.** It compared post-freeze neutral drift rather than the law of the process; replaced by the same-stop reference.
+
+
+## Added 2026-10-05: K at n = 8 (RESULTS.md, "K at n = 8, lemma sharing, and non-per-match budget prices")
+
+**"DAG sharing cuts PrudentBot from 24 to ≤ 16" (Fable, prediction 4, literal clause; falsifier fired).** Under exact sequent identity the DAG is 24: the re-proved Con lemma sits in different contexts (the Löb branch carries □P), so identity shares nothing, and it shortens no n = 6 root at all. Lemma reuse needs weakening-aware (subsumption) certificates, which reach 15.
+
+**"Lazy pricing at c = 0.1 locks in a copy-clique" (Fable, prediction 5, lazy clause at n = 6; falsifier fired).** Top budget share 0.34. With no ALLC punisher the ALLC exit (a constant is free to read) stays neutral; lazy pricing only blocks prover-to-prover drift (N·Δ −300 to −3,000), so π splits by entry rates. The clause holds at n = 8, where PrudentBot punishes ALLC and PrudentBot@16 is absorbing even at c = 0.01.
+
+**"π concentrated on budgets 3–4 as an effect of the price" (Fable, prediction 5 reading).** The share is 0.585 already at c = 0; it comes from the copy-threshold and prior structure, not the price.
+
+**Subagent S3** ("unchanged over b ∈ {32, 54}"; 151 plays of μ-weight 10⁻⁹ change: the count keeps moving on rare disjunctive readers).
+
+**Design choices dropped:** the all-orders Knuth graph with cut on every n = 6 pair (does not fit for a third of pairs; normal-form graph with cut on every pair plus an all-orders 1-in-10 sample instead); unpruned cross-budget closures for the price catalogue (pruned closures agree on four unpruned cells); cut search on all 6,422 n = 8 establisher pairs (a 200-pair sample capped at 10⁵ expansions; cut-free measures cover all); a frequency-dependent cache price (the spec's c·b·k/N with k = 2 on single-mutant transitions used instead). **Not reached:** certification of the cut minima for the P12b self-proof, PrudentBot's sibling and four other sibling and ladder roots (reported as brackets or upper bounds).

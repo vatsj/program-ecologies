@@ -3168,6 +3168,83 @@ Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/islan
 - **Propagules are not a scaling fix:** the barrier is N·w·(1/2 − k/N)², so resolution needs k ≈ N/2, which is colonization; stacking helps at N = 200 and fails at N = 400; clustering leaves q unchanged.
 - **The bridge is a conflict mediator**, gaining ≈ 0.3 of island share over a matched-abundance control through a migrant-load advantage on islands receiving the rival's migrants. The RE's bridge-alone control confounded conflict with prior abundance.
 - **Natural separation at the boundary is zero at the horizon in 1,000 runs**; rival nucleation is rare (1–3% ever separate) and every rival sampled had a bridge. P\*-type natural rivals at N ≥ 200 (≈ 1/4 of rival mass at n = 9) are the unmeasured risk.
+## K at n = 8, lemma sharing, and non-per-match budget prices (`runs/k-at-n8.md`, `runs/k-at-n8.json`; spec `specs/2026-10-05-k-at-n8.md`, predictions in `predictions/2026-10-05-k-at-n8.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/k_at_n8.py`, `src/k_at_n8_certify.py`, a prune hook in `src/bounded_k.py`, analytic cut and DAG measures in `src/gl_proofs.py`, `tests/test_k_at_n8.py`). ε→0 chains with support and transitions, an ε = 0 lottery, certified proof lengths, and imposed price schedules. RE check: tests pass on main; the fixation-ratio formula 1 + w·c·b/2 for the weakly selected ALLC exit agrees with the Moran calculation.
+
+**What ran.** Everything in the spec's priority order: K tables at n = 8 for b ∈ {3, 4, 6, 8, 12, 16, 24, 32, 54} with soundness checks; leak tests at fixed b and on the cross-budget catalogue; the chain at b = 4, 8, 16, 54 against the free arm and a faker-removal control (split, beyond the spec, into Gödel and non-Gödel parts); the lottery at b = 4, 16; lemma sharing in four columns with n = 6 certification and n = 8 scaling; prices in K (amortized, cache accounting, lazy under three copy rules, the per-match control) at n = 6, and (addendum S10/S11, declared before running) on the n = 8 catalogue over b ∈ {4, 16}. *Not finished:* the cut minima of the P12b self-proof and PrudentBot's sibling proof are brackets after 5·10⁶ expansions; cut on the n = 8 establisher pairs is a 200-pair random sample (the cut-free measures cover all 6,422).
+
+**Proved: the GL-erasure prune.** Every K rule stays GL-sound when budgets are erased (BoxEq's cases are GL+Def theorems under a box, Nec is necessitation, JLöb is Löb's rule for ∧S), so K ⊢ A implies GL+Def ⊢ erase(A), and the search may skip any content whose erasure is not a GL theorem; this removes only derivations that cannot exist. Checked: the n = 6 tables reproduced exactly at b = 4 and 16; the unpruned n = 6 closure derives nothing the prune rejects; four unpruned cross-budget cells agree. At n = 8 the search drops from 260,656 box contents to 59,982; b = 54 took 804 s.
+
+**K tables at n = 8** (0 soundness violations at every b; 93,019 formulas at b = 54):
+
+| b | plays ≠ free | changed vs previous b | self-cooperators | GL-true atoms K-true (count / μ) | drift-closed |
+|---|---|---|---|---|---|
+| 3 | 84,435 | — | 229 | 0.006 / 0.724 | 0 |
+| 4 | 82,243 | 2,754 | 261 | 0.042 / 0.970 | 0 |
+| 8 | 60,319 | 11,371 | 283 | 0.341 / 0.989 | 0 |
+| 16 | 37,860 | 6,822 | 286 | 0.584 / 0.992 | 0 |
+| 24 | 34,496 | 3,394 | 287 | 0.616 / 0.992 | 0 |
+| 32 / 54 | 34,193 / 34,042 | 309 / 151 | 287 | 0.621 / 0.992 | 0 |
+
+The table changes at every tested step (from 32 to 54, 151 plays of μ-weight 10⁻⁹), so it is unchanged over the tested budgets in μ-weight only. Self-cooperation thresholds in K: 3 (FairBot, `BOX(THEM(THEM))`), 4 (`BOX1(THEM(ME))`, `BOX1(THEM(THEM))`, `BOX(THEM(^C))`), 6 (`BOX1(THEM(^C))`), **11 (PrudentBot; its GLS+Def length is 24, because Nec reuses the closed Con lemma)**; never at b ≤ 54: P\*, P2, P12b, P\*1b and PB2 = `and(BOX(THEM(ME)),BOXD2(THEM(^D)))`, which is level-0 provable in GL (24 sequents) but needs the 4-axiom under a box (□□⊥ from □P[D, PB2]), which K lacks. PrudentBot plays as in the free arm from b = 32. The sibling theorem's leak survives at b = 54 (FairBot's, `BOX1(THEM(ME))`'s and PrudentBot's siblings mutually cooperate with their originals and are suckered by z). **Leak test:** 0 closed components at every b; on the cross-budget catalogue a proposition settles it (each fixed-b graph is an induced subgraph of the catalogue's, and suckering pairs survive), confirmed by computation at n = 6 (386 genotypes, one component) and at n = 8 over b ∈ {4, 16} (1,218 genotypes, 546 self-cooperators, one component, 0 closed).
+
+**Chain** (ε→0, PD, w = 0.3):
+
+| arm | P(C,C) at N = 10³ / 10⁴ / 3·10⁴ | π(all-D) at 3·10⁴ | top state | exit slope | odds slope |
+|---|---|---|---|---|---|
+| free | 0.371 / 0.617 / 0.725 | 0.275 | FairBot 0.226 | −1.00 | 0.44 |
+| K b = 4 | 0.414 / 0.679 / 0.774 | 0.226 | FairBot 0.301 | −1.00 | 0.47 |
+| K b = 8 | 0.397 / 0.662 / 0.762 | 0.238 | `BOX1(THEM(ME))` 0.218 | −1.00 | 0.47 |
+| K b = 16, 54 | 0.392 / 0.671 / 0.791 | 0.209 | FairBot 0.173 | −1.00 | 0.52 |
+| faker-removal control | 0.392 / 0.671 / 0.791 | 0.209 | FairBot 0.174 | −1.00 | 0.52 |
+| control, Gödel only / non-Gödel only | 0.392 / 0.669 / 0.788 · 0.371 / 0.620 / 0.730 | 0.212 / 0.270 | — | — | — |
+
+Every chain has one terminal class, 0 indeterminate transitions, cut flow ≤ 2·10⁻⁷; top exits are neutral drift into ALLC (0.96–0.99 of exit mass) at 1/N; FairBot's entry into all-D has N·ρ = 43.5 in every arm. Support at 3·10⁴: free D 0.275, FairBot 0.226, `BOX1(THEM(ME))` 0.225, `BOX(THEM(THEM))` 0.171, P\* 0.053, PrudentBot 0.008; K b = 16 D 0.209, FairBot 0.173, `BOX1(THEM(ME))` 0.171, **PrudentBot 0.148**, `BOX(THEM(THEM))` 0.147, `BOX1(THEM(THEM))` 0.138. K b = 4 splits FairBot's family into budget soft cliques (83 behavioural classes) and still has the highest P(C,C) at 10⁴. **The faker set:** the control deletes 37 classes (μ 0.0029), every class that strictly invades a supported self-cooperator in the free arm but not in K at b = 16: 21 Gödel sentences (`not(BOX(THEM(ME)))`-type and P\*-type conjunctions, P\* included) and 16 probe readers `BOX(THEM(^not(BOX…)))`. The control reproduces K b = 16 at every N and explains 1.00 of the K − free gap at 10⁴ (Gödel-only 0.96, non-Gödel-only 0.05); caveat: the set was identified from the K table. **Lottery** (100, 64), mN = 1, 20 paired seeds: 20/20 in free, K b = 4 and K b = 16.
+
+**Lemma sharing** (certified unless bracketed; Λ in parentheses; DAG = distinct sequents under exact identity / subsumption, upper bounds on the minimal DAG):
+
+| program | tree / no cut | tree / cut | DAG / no cut (exact / subsumption) | DAG / cut |
+|---|---|---|---|---|
+| FairBot | 4 (1) | 4 (1) | 4 / 4 | 4 / 4 |
+| `BOX1(THEM(ME))`, `BOX(THEM(^C))`, `BOX1(THEM(^C))`, Gödel | 5, 6, 8, 8 | same | same | same |
+| PrudentBot, PB2 | 24 (5) | **18 (3)** | 24 / **15** | 18 / 17 |
+| P\* / P2 (level 1) | 22 (3) / 24 (5) | same | 22 / 16 · 24 / 17 | same |
+| P\*1b | 52 (7) | **42 (5)** | 52 / 32 | 42 / 34 |
+| P12b | 54 (9) | [22, 54] | 54 / 33 | [22, 54] / [22, 33] |
+
+Sibling ratios for PrudentBot: L_read 2.32 (tree, exact DAG), 2.23 (subsumption); L_out 2.21–2.33; every prudent reader stays ≥ 1.96 under every certified measure, FairBot 1.75–2.00, readers that probe only themselves or a constant 1.12–1.33. n = 6 certification: iterative deepening with cut matched Knuth on the normal-form graph with cut (0 mismatches on 2,733 roots) and on an all-orders 1-in-10 sample (0 on 135); cut and both DAG measures shorten none of the 3,308 provable n = 6 roots. n = 8 establisher pairs (cut-free, 6,422): tree 6.16 + 0.49·(|x|+|y|), quadratic −0.175 (reproduces the published fit); exact DAG shorter in 204 pairs, subsumption DAG in 758 (mean saving 0.57, max 26). n = 8 cut sample (200 pairs, 10⁵ expansions): 26 uncertified; on the 126 certified pairs cut shortens 6 (max 7).
+
+**Prices in K** (n = 6, budgets {2, 3, 4, 6, 10, 16}, μ split equally, N = 10⁴; imposed schedules):
+
+| schedule | c | P(C,C) | π(all-D) | cooperative π on budgets 3–4 | top budget share | ALLC exit N·Δ, N·ρ |
+|---|---|---|---|---|---|---|
+| per-match | 0.01 | 0.0004 | 1.000 | — | — | 300–400, 90–119 |
+| amortized | 0 / 0.01 / 0.1 / 1 | 0.598 / 0.596 / 0.576 / 0.419 | 0.391 / 0.393 / 0.413 / 0.569 | 0.585 / 0.587 / 0.604 / 0.694 | 0.34–0.38 | 0 / 0.04 / 0.4 / 4; 1.000 / 1.005 / 1.06 / 1.5–1.7 |
+| cache | 0.01 / 0.1 | 0.594 / 0.555 | 0.395 / 0.433 | 0.589 / 0.621 | 0.34 / 0.35 | 0.06–0.08 / 0.6–0.8; 1.01 / 1.09–1.13 |
+| lazy (a), (b), (c) | 0.01 / 0.1 | 0.583 / 0.576–0.577 | 0.389–0.390 | 0.585–0.60 | 0.34 | 0, 1.000; prover → prover N·Δ −300 / −3,000 |
+
+Under the amortized price P(C,C) rises with N at every c (at c = 1: 0.17 / 0.42 / 0.56 at N = 10³ / 10⁴ / 3·10⁴), the exit slope is −1.000, and the decisive-edge fixation ratio is ≈ 1 + w·c·b/2, always below e^{2wcb}. **Addendum (n = 8 K catalogue over b ∈ {4, 16}, N = 10⁴):** c = 0 gives P(C,C) 0.682; amortized c = 0.1 gives 0.660; per-match c = 0.01 gives π(all-D) 0.9995; **lazy at c = 0.1 and c = 0.01 gives P(C,C) 1.000 with π = 1 on PrudentBot@16**, exit 0 (c = 0.1) or 5·10⁻⁵⁸ (c = 0.01): an absorbing copy-clique, because PrudentBot punishes ALLC and every non-copy prover pays c·b against it.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | within 0.1 of free at b ≥ 8, within 0.15 at b = 4 | **held** (+0.045 to +0.062 at N = 10⁴) |
+| RE 2 | not below free at b ≥ 16; closes nothing at fixed b and across budgets; control explains ≥ ½ of the gap | **held** (+0.054; 0 closed anywhere; share 1.00; control not independent of K) |
+| RE 3 | P\* self-defects in K at every b ≤ 54 | **held** (and P2, P12b, P\*1b, PB2) |
+| RE 4 | DAG cuts PrudentBot to ≤ 16; cut saves less than DAG; FairBot 4; sibling ratio ≥ 1.5 | **split:** failed on exact-identity DAG (24; falsifier fired), held on subsumption (15; cut 18; FairBot 4; ratio 2.21–2.33) |
+| RE 5 | amortized/cache keep π cooperative at c ≤ 0.1 with a weakly selected exit; lazy c = 0.1 locks a copy-clique; lazy c = 0.01 cooperates | **failed, falsifier fired on the lazy clause at n = 6** (top budget 0.34); amortized/cache and lazy c = 0.01 held; the lazy clause holds at n = 8 (S10) |
+| S1, S2, S4–S11 | subagent's own | held (S7 narrowly) |
+| S3 | table unchanged over {32, 54} | failed, falsifier fired (151 plays, μ 10⁻⁹) |
+
+**Reading.**
+- **A cheap sound bounded prover keeps all of the n = 8 free arm's cooperation and improves it** from b = 4: +0.05 at N = 10⁴, odds slope 0.47–0.52 against 0.44, neutral 1/N exits, nothing closed at any budget or across budgets, 20/20 lottery.
+- **The whole gain is faker removal, mostly Gödel sentences:** deleting the 37 classes K disarms reproduces K b = 16 to 10⁻⁴.
+- **K's incompleteness is selective.** It removes exactly the cooperation that depends on Con or on the 4-axiom (P\*, P2, PB2, the level-2 ladder) and keeps PrudentBot from b = 11, cheaper than its GL length; with P\* gone, PrudentBot rises from 0.008 to 0.148 of π. The realizable cooperative core at n = 8 is FairBot's family plus PrudentBot.
+- **Lemma sharing needs weakening-aware certificates.** Exact-identity DAG gives almost nothing; analytic cut helps only where a boxed lemma is reused across Löb branches (PrudentBot 24 → 18); subsumption saves 30–40% for prudent provers; siblings stay ≥ 1.96× for prudent readers under every certified measure, so proof length is still not a closure mechanism.
+- **Amortized and cache-accounting prices do not rebuild the ladder:** N·Δ = c·b is N-independent, the fixation ratio is 1 + w·c·b/2, the exit slope is −1 and cooperation rises with N (the α = 1 path, now as a schedule). The per-match price rebuilds the ladder at n = 6 and n = 8. **Lazy pricing becomes a closure exactly when an ALLC punisher exists** (PrudentBot@16 at n = 8, absorbing even at c = 0.01): the copy subsidy is the moat.
+- *Realizability caveat.* K is a sound bounded calculus for the modal fragment, not a bounded PA prover; the prune uses GL decidability, which Turing-complete readers lack; lengths are minima in a stated calculus; prices are imposed schedules with verification events and cache lifetimes uncounted.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
