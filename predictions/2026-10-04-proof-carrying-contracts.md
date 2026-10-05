@@ -97,3 +97,24 @@ program that defects on anyone whose cooperation it can prove, and he predicts i
 Scored as: (RS-a) at f₀ = 1 the contract arm is within 0.05 of the free arm (b = ∞, no contracts) at every b;
 (RS-b) the anti-provers, defined as sources with a `BOX(THEM(ME))` or `BOX1(THEM(ME))` atom whose truth table is D
 whenever that atom is true (e.g. `not(BOX(THEM(ME)))`), hold < 0.01 of the population in every cell, second half.
+
+## Addendum (subagent, 2026-10-04, after the static map and before any run result): a supplementary b = 0 arm
+
+Reason: the static map shows the gate is nearly inert at b = 2 under the settle proxy as implemented
+(v(FairBot, FairBot) = 1·(1 + 0) = 1, since FairBot's atom against itself never changes; the prover network FairBot,
+`BOX1(THEM(ME))`, `BOX(THEM(THEM))`, `BOX1(THEM(THEM))` stays mutually legible; masked μ×μ share 0.0005 at b = 4 and 0.018
+at b = 2). FairBot first fails to self-cooperate as a non-carrier at b = 0, where only constants are legible (masked share
+0.067; the self-cooperating non-carriers are C and `not(BOX…)` programs, whose masked boxes read false). So the question
+"do contracts restore cooperation a gate removed" is only posed at b = 0. Supplementary cells, μ seed, 3 seeds, same
+settings: s ∈ {0, 1} × f₀ ∈ {0, 0.01, 1} × σ ∈ {0, 1} (s = 0, f₀ = 0 once), and the lottery at b = 0 for the same
+(f₀, σ) configurations. These cells are not in the spec and are labelled supplementary.
+
+Subagent predictions for the supplement:
+- S1. b = 0, s = 0, f₀ = 0: P(C,C) < 0.3 (no prover can read a prover).
+- S2. b = 0, s = 1: within 0.1 of the b = ∞, s = 1 cell with the same f₀ and σ (search gives every mutant prover its
+  contract, and contract reads are ungated).
+- S3. b = 0, s = 0, f₀ = 1, σ = 0: P(C,C) ≥ 0.8. The carrier sea is kept by inheritance; non-carrier prover mutants are
+  illegible to carriers and play D against them, so they are deleterious.
+- S4. b = 0, s = 0, f₀ = 0.01 from the μ seed: < 0.3 at both σ = 0 and σ = 1. The seed holds about 64 carriers, of which
+  about 1.3 are expected to be provers, so there is almost nothing to copy.
+- Falsifier for the reading "contracts restore what the gate removed": S3 below 0.6 or S2 more than 0.2 below its b = ∞ twin.
