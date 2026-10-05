@@ -42,14 +42,46 @@ def tables(n):
     return _TABLES[n]
 
 
-def make_prune(K, L, hc, hd):
+def _make_prune(K, fact, nlev):
     """prune(A) for KTheory: False iff erase(A) is known not GL+Def-provable (None when the formula is not of a
-    recognized shape).  Shapes: P_xy (hc[0]), ~P_xy (hd[0]), ~[]^k F -> P_xy (hc[k]), ~[]^k F -> ~P_xy (hd[k]),
-    a definition phi(P_xy) (hc[0] of P_xy), F (never), T (always)."""
+    recognized shape).  Shapes: P_xy (C at level 0), ~P_xy (D at level 0), ~[]^k F -> P_xy (C at level k),
+    ~[]^k F -> ~P_xy (D at level k), a definition phi(P_xy) (C at level 0 for P_xy), F (never), T (always).
+    fact(gx, gy, kind, lev) -> bool or None (kind 0 = C, 1 = D)."""
+    F = K.forms
+
+    def boxbot_k(f):
+        k = 0
+        while F[f][0] == FBOX:
+            k += 1; f = F[f][1]
+        return k if F[f][0] == FBOT else None
+
+    def onP(f, kind, lev):
+        t = F[f]
+        if t[0] != FP: return None
+        return fact(t[1], t[2], kind, lev)
+
+    def prune(A):
+        t = F[A]; k = t[0]
+        if k == FBOT: return False
+        if k == FTOP: return True
+        if k == FP: return onP(A, 0, 0)
+        if k == FNOT and F[t[1]][0] == FP: return onP(t[1], 1, 0)
+        if k == FIMP and F[t[1]][0] == FNOT:
+            lev = boxbot_k(F[t[1]][1])
+            if lev is not None and 1 <= lev < nlev:
+                s_ = t[2]
+                if F[s_][0] == FP: return onP(s_, 0, lev)
+                if F[s_][0] == FNOT and F[F[s_][1]][0] == FP: return onP(F[s_][1], 1, lev)
+        Ps = K.inv.get(A)
+        if Ps: return onP(Ps[0], 0, 0)
+        return None
+    return prune
+
+
+def make_prune(K, L, hc, hd):
+    """GL facts from the free arm's box-fact tables (canonical classes of L_n)."""
     canon = {psrc(parse(s)): i for i, s in enumerate(L.rep)}
     tcanon = {}
-    F = K.forms
-    nlev = hc.shape[0]
 
     def cid(g):
         ti, b = K.genos[g]
@@ -58,45 +90,41 @@ def make_prune(K, L, hc, hd):
             c = tcanon[ti] = canon.get(psrc(K.trees[ti]), -1)
         return c
 
-    def pair(f):
-        t = F[f]
-        if t[0] != FP: return None
-        a, b = cid(t[1]), cid(t[2])
+    def fact(gx, gy, kind, lev):
+        a, b = cid(gx), cid(gy)
         if a < 0 or b < 0: return None
-        return a, b
+        return bool((hd if kind else hc)[lev, a, b])
+    return _make_prune(K, fact, hc.shape[0])
 
-    def boxbot_k(f):
-        k = 0
-        while F[f][0] == FBOX:
-            k += 1; f = F[f][1]
-        return k if F[f][0] == FBOT else None
 
-    def prune(A):
-        t = F[A]; k = t[0]
-        if k == FBOT: return False
-        if k == FTOP: return True
-        if k == FP:
-            p = pair(A)
-            return None if p is None else bool(hc[0, p[0], p[1]])
-        if k == FNOT and F[t[1]][0] == FP:
-            p = pair(t[1])
-            return None if p is None else bool(hd[0, p[0], p[1]])
-        if k == FIMP and F[t[1]][0] == FNOT:
-            lev = boxbot_k(F[t[1]][1])
-            if lev is not None and 1 <= lev < nlev:
-                s = t[2]
-                if F[s][0] == FP:
-                    p = pair(s)
-                    return None if p is None else bool(hc[lev, p[0], p[1]])
-                if F[s][0] == FNOT and F[F[s][1]][0] == FP:
-                    p = pair(F[s][1])
-                    return None if p is None else bool(hd[lev, p[0], p[1]])
-        Ps = K.inv.get(A)
-        if Ps:
-            p = pair(Ps[0])
-            if p is not None: return bool(hc[0, p[0], p[1]])
-        return None
-    return prune
+def make_prune_trace(K, W=60, nlev=3):
+    """GL facts from src/conj4.py's independent trace evaluator (any program, levels < nlev): C at level L iff the
+    trace is C at every world >= L (the audit's rule, RESULTS "Proof length")."""
+    import conj4 as C4
+
+    def fact(gx, gy, kind, lev):
+        tr = C4.trace(K.trees[K.genos[gx][0]], K.trees[K.genos[gy][0]], W)
+        want = 0 if kind else 1
+        return all(v == want for v in tr[lev:])
+    return _make_prune(K, fact, nlev)
+
+
+def family_table(progs, b, W=60):
+    """K plays among a named family (programs outside L_8 allowed) at global budget b, pruned by the trace evaluator;
+    with the soundness check."""
+    t = time.time()
+    K = BK.KTheory(cap=max(b, 1), filter_first=True)
+    K.prune = make_prune_trace(K, W)
+    g = [K.geno(s, b) for s in progs]
+    contents = set()
+    for x in g:
+        for y in g:
+            for a in K.atoms(x, y): contents.add(K.forms[a][1])
+    K.solve(sorted(contents))
+    play = K.play_fn()
+    val = np.array([[int(play(x, y)) for y in g] for x in g], np.int8)
+    nchk, bad = K.soundness_check()
+    return val, dict(b=b, sound_checked=nchk, sound_bad=len(bad), n_contents=len(contents), t=time.time() - t)
 
 
 # ------------------------------------------------------------------ K play table at a global budget
@@ -168,6 +196,433 @@ def cmd_ktables(a):
                 m['k_true_atoms'], m['gl_true_atoms'], m['k_true_w'], m['gl_true_w'], m['t'], m['t_solve']), flush=True)
 
 
+# ------------------------------------------------------------------ static analysis of a table
+def leak_test(val):
+    """proof_length_arm.leak_test, vectorized for n = 8: components of mutual cooperation among self-cooperators;
+    closed iff no member cooperates with some class that defects on it."""
+    K = val.shape[0]
+    S = [x for x in range(K) if val[x, x] == 1]
+    Sset = set(S)
+    mutual = (val == 1) & (val.T == 1)
+    comp = {}; comps = []
+    for s0 in S:
+        if s0 in comp: continue
+        stack = [s0]; mem = []; comp[s0] = len(comps)
+        while stack:
+            a = stack.pop(); mem.append(a)
+            for b in np.nonzero(mutual[a])[0]:
+                b = int(b)
+                if b in Sset and b not in comp:
+                    comp[b] = len(comps); stack.append(b)
+        comps.append(mem)
+    suck = ((val == 1) & (val.T == 0)).any(1)
+    closed = [c for c in comps if not suck[c].any()]
+    return dict(n_selfcoop=len(S), n_components=len(comps), closed_components=closed, n_closed=len(closed),
+                sizes=sorted((len(c) for c in comps), reverse=True)[:5])
+
+
+def load_val(n, b):
+    if b == 'free':
+        return tables(n)[1].astype(np.int8)
+    return np.load(os.path.join(KDIR, 'kval_n%d_b%d.npy' % (n, b)))
+
+
+NAMED = [FB, 'BOX1(THEM(ME))', 'BOX(THEM(THEM))', 'BOX1(THEM(THEM))', 'BOX(THEM(^C))', 'BOX1(THEM(^C))', PB, PSTAR,
+         'not(BOX(THEM(ME)))', 'not(BOX(THEM(THEM)))', 'BOX1(THEM(^not(BOX(THEM(ME)))))', 'C', 'D']
+
+
+def cmd_static(a):
+    """Per budget: soundness, GL comparison, named-class plays, leak test; table-change map."""
+    L, vf, hc, hd = tables(8)
+    idx = {s: i for i, s in enumerate(L.rep)}
+    named = [s for s in NAMED if s in idx]
+    out = dict(budgets=a.budgets, missing_named=[s for s in NAMED if s not in idx], meta={}, named={}, leak={}, changes={})
+    prev = None
+    for b in ['free'] + a.budgets:
+        v = load_val(8, b)
+        if b != 'free':
+            out['meta'][str(b)] = json.load(open(os.path.join(KDIR, 'kmeta_n8_b%d.json' % b)))
+        lt = leak_test(v)
+        out['leak'][str(b)] = dict(n_selfcoop=lt['n_selfcoop'], n_components=lt['n_components'], n_closed=lt['n_closed'], sizes=lt['sizes'],
+                                   closed=[[L.rep[i] for i in c][:10] for c in lt['closed_components']][:10])
+        out['named'][str(b)] = {x: {y: int(v[idx[x], idx[y]]) for y in named} for x in named}
+        if b != 'free' and prev is not None:
+            out['changes'][str(b)] = int((v != prev[1]).sum())
+        if b != 'free':
+            prev = (b, v)
+    json.dump(out, open(os.path.join(RUNS, 'k-at-n8-static.json'), 'w'), indent=1)
+    for b in ['free'] + a.budgets:
+        m = out['meta'].get(str(b), {})
+        print(b, 'leak', out['leak'][str(b)]['n_closed'], 'selfcoop', out['leak'][str(b)]['n_selfcoop'], 'diff vs free', m.get('diff_vs_free'),
+              'change vs prev', out['changes'].get(str(b)), 'K/GL', m.get('k_true_atoms'), m.get('gl_true_atoms'), 't', m.get('t') and round(m['t']))
+        print('   self:', {x: out['named'][str(b)][x][x] for x in named})
+
+
+# ------------------------------------------------------------------ the lim_N chain
+def build_prov(n, val, keep=None):
+    import modal as M
+    L = tables(n)[0]
+    U, PCC = M.pd_payoffs(val, M.PD)
+    K = len(L.rep)
+    idx = np.arange(K) if keep is None else np.array(sorted(keep))
+    prov = M.ModalProvider(U[np.ix_(idx, idx)].astype(float), PCC[np.ix_(idx, idx)], L.mu_canon[idx], [L.rep[i] for i in idx], L.bits_canon[idx])
+    prov.sizes = np.array([L.count_canon[idx[m]].sum() for m in prov.members])
+    prov.canon = [[int(idx[c]) for c in m] for m in prov.members]
+    return prov
+
+
+def chain_cell(j):
+    import modal as M
+    from chain import Chain
+    from cert_limN import top_exits
+    label, n, val, N, keep = j
+    t = time.time()
+    prov = build_prov(n, val, keep)
+    names = prov.names; P = prov.PCC; U = prov.Ufull
+    lang = M.ClassLang(prov)
+    ch = Chain(prov, N=N, w=0.3, verbose=False, eager_poly=False).explore()
+    pcc = 0.0; pis = {}; key_of = {}; poly = 0.0
+    for key, wgt in zip(ch.keys_list, ch.pi):
+        ids, x, kd = ch.states[key]; ids = list(ids); x = np.asarray(x)
+        pcc += wgt * float(x @ P[np.ix_(ids, ids)] @ x)
+        if kd == 'mono':
+            pis[ids[0]] = pis.get(ids[0], 0.0) + wgt; key_of[ids[0]] = key
+        else:
+            poly += wgt
+    iD = names.index('D'); iC = names.index('C')
+    out = dict(label=label, n=n, N=N, n_classes=len(names), pcc=pcc, pi_D=pis.get(iD, 0.0), pi_C=pis.get(iC, 0.0), poly=poly,
+               cut_flow=ch.cut_flow, indeterminate=len(ch.indeterminate), n_terminal=len(ch.terminal), n_states=len(ch.trans),
+               support=[(ch.describe_state(k, lang), float(p)) for k, p in ch.support(1e-3)][:10],
+               pi_mono={names[q]: float(v) for q, v in sorted(pis.items(), key=lambda kv: -kv[1]) if v >= 1e-4})
+    coop = [(v, q) for q, v in pis.items() if P[q, q] == 1 and q != iC]
+    out['pi_selfcoop'] = float(sum(v for v, q in coop))
+    if coop:
+        v, qtop = max(coop)
+        e = top_exits(ch, prov, key_of[qtop])
+        out.update(top_coop=names[qtop], pi_top=v, **e)
+        kT, kD = key_of[qtop], key_of.get(iD)
+        ent = [(q, r) for (a_, b_, q), r in ch.edge_rho.items() if a_ == kD and b_ == kT]
+        if ent:
+            q, r = max(ent, key=lambda t_: t_[1][0])
+            out['entry'] = dict(mutant=names[q], rho=float(r[0]), N_rho=float(N * r[0]))
+        ex = []
+        for b_, pr in ch.trans.get(kT, {}).items():
+            if b_ == kT: continue
+            for q, mw in ch.trans_mut[(kT, b_)].items():
+                r = ch.edge_rho.get((kT, b_, q))
+                ex.append(dict(mutant=names[q], to=ch.describe_state(b_, lang), w=float(mw), rho=r and float(r[0]), N_rho=r and float(N * r[0]),
+                               d_vs_res=float(U[q, qtop] - U[qtop, qtop]), d_res_vs=float(U[qtop, q] - U[qtop, qtop]), d_self=float(U[q, q] - U[qtop, qtop])))
+        out['exits'] = sorted(ex, key=lambda e_: -e_['w'])[:6]
+    inv = {}
+    for v, q in coop:
+        if v < 1e-3: continue
+        uaa = U[q, q]
+        inv[names[q]] = [names[z] for z in range(len(names)) if U[z, q] > uaa + 1e-12]
+    out['strict_invaders'] = inv
+    out['canon_members'] = {names[q]: prov.canon[q][:20] for q in pis if pis[q] >= 1e-3}
+    out['t'] = time.time() - t
+    return out
+
+
+def cmd_chain(a):
+    jobs = []
+    for b in a.budgets:
+        for N in a.Ns:
+            jobs.append(('K b=%d' % b, 8, load_val(8, b), N, None))
+    if 'free' in a.arms:
+        for N in a.Ns:
+            jobs.append(('free', 8, load_val(8, 'free'), N, None))
+    if 'control' in a.arms:
+        keep = json.load(open(os.path.join(RUNS, 'k-at-n8-fakers.json')))['keep']
+        for N in a.Ns:
+            jobs.append(('faker-removal control', 8, load_val(8, 'free'), N, keep))
+    jobs.sort(key=lambda j: -j[3])
+    path = os.path.join(RUNS, 'k-at-n8-chain.json')
+    rows = json.load(open(path)) if os.path.exists(path) else []
+    done = {(r['label'], r['N']) for r in rows}
+    jobs = [j for j in jobs if (j[0], j[3]) not in done]
+    with Pool(a.workers) as pool:
+        for r in pool.imap_unordered(chain_cell, jobs):
+            rows.append(r)
+            json.dump(rows, open(path, 'w'), indent=1, default=str)
+            print('%-24s N=%-6d P(C,C) %.4f pi(D) %.3f top %s %.3f exit %.2e (strict %.2e) n_terminal %d indet %d cut %.1e (%.0fs)' % (
+                r['label'], r['N'], r['pcc'], r['pi_D'], r.get('top_coop'), r.get('pi_top', 0), r.get('top_exit', 0), r.get('top_exit_strict', 0),
+                r['n_terminal'], r['indeterminate'], r['cut_flow'], r['t']), flush=True)
+
+
+def cmd_fakers(a):
+    """Faker identification (predictions, design choice 5) from the free and K b = ref chains at N = 10^4."""
+    L, vf, hc, hd = tables(8)
+    rows = json.load(open(os.path.join(RUNS, 'k-at-n8-chain.json')))
+    idx = {s: i for i, s in enumerate(L.rep)}
+    import modal as M
+    Uf, _ = M.pd_payoffs(vf, M.PD)
+    vk = load_val(8, a.ref)
+    Uk, _ = M.pd_payoffs(vk, M.PD)
+    sup = set()
+    for r in rows:
+        if r['N'] == 10000 and r['label'] in ('free', 'K b=%d' % a.ref):
+            for nm, p in r['pi_mono'].items():
+                if p >= 1e-3:
+                    for c in r['canon_members'].get(nm, [idx[nm]]): sup.add(L.rep[c])
+    selfc = [idx[s] for s in sup if vf[idx[s], idx[s]] == 1 and s != 'C']
+    fakers = {}
+    for x in selfc:
+        for z in range(len(L.rep)):
+            if Uf[z, x] > Uf[x, x] + 1e-12 and not (Uk[z, x] > Uk[x, x] + 1e-12):
+                fakers.setdefault(L.rep[z], []).append(L.rep[x])
+    godel = {z: bool(vf[idx[z], idx[z]] == 1 and not hc[0, idx[z], idx[z]]) for z in fakers}
+    keep = [i for i in range(len(L.rep)) if L.rep[i] not in fakers]
+    out = dict(ref=a.ref, supported_selfcoop=[L.rep[x] for x in selfc], fakers=fakers, godel=godel, keep=keep,
+               mu_removed=float(sum(L.mu_canon[idx[z]] for z in fakers) / L.mu_canon.sum()))
+    json.dump(out, open(os.path.join(RUNS, 'k-at-n8-fakers.json'), 'w'), indent=1)
+    print('supported self-cooperators', out['supported_selfcoop'])
+    for z, xs in fakers.items(): print('faker', z, 'Godel' if godel[z] else '', '->', xs)
+    print('mu removed', out['mu_removed'])
+
+
+# ------------------------------------------------------------------ lemma sharing: four cost columns
+def _measure_root(th, orc, S, cuts, cap):
+    import gl_proofs as G
+    out = {}
+    for tag, cs in (('nocut', None), ('cut', cuts)):
+        ms = G.MinSearch(th, orc, cap=cap, cuts=cs)
+        t = time.time()
+        r = ms.minimize(S)
+        if r is None:
+            return None
+        d = dict(size=r['c'][0] if r['c'] else None, loeb=r['c'][1] if r['c'] else None, certified=r['certified'], t=time.time() - t)
+        if r['certified']:
+            dm = ms.dag_sizes(S); d.update(exact=dm['exact'], subs=dm['subsumption'])
+        else:
+            d['lb'] = r['lb']
+        out[tag] = d
+    return out
+
+
+def measure_pair(xs, ys, cap=2_000_000, atoms=True):
+    """Four measures (tree/no cut, tree/cut, DAG exact, DAG subsumption on each) for the roots C0, C1 of (x, y) and,
+    with atoms, for each of x's box atoms against y (L_read sums the true ones)."""
+    import gl_proofs as G
+    th = G.Theory(); x = th.prog(xs); y = th.prog(ys); orc = G.Oracle(th)
+    R = dict(G.roots_for(th, x, y))
+    seqs = [R['C0'], R['C1']]
+    at = []
+    if atoms:
+        for f, kind, lev, _ in G.atom_formulas(th, x, y):
+            at.append((frozenset(), frozenset([f])))
+    cuts = G.cut_closure(th, seqs + at)
+    res = dict(x=xs, y=ys, n_cuts=len(cuts))
+    for nm in ('C0', 'C1'):
+        res[nm] = _measure_root(th, orc, (frozenset(R[nm][0]), frozenset(R[nm][1])), cuts, cap)
+    if atoms:
+        res['atoms'] = [_measure_root(th, orc, S, cuts, cap) for S in at]
+    return res
+
+
+def _lread(res, tag, key):
+    tot = 0; ok = True
+    for a in res['atoms']:
+        if a is None: continue
+        d = a[tag]
+        if not d['certified']: ok = False
+        tot += d[key] if d.get(key) is not None else d['size']
+    return tot, ok
+
+
+def cmd_sharing(a):
+    """Cost table in four columns (tree/no cut, tree/cut, DAG/no cut, DAG/cut; DAG exact and subsumption), siblings."""
+    import conj4 as C4
+    from proof_length_arm import LADDER
+    rows = []
+    progs = list(LADDER) + ['not(BOX(THEM(ME)))', 'BOX(THEM(^BOX(THEM(ME))))']
+    jobs = [(x, x) for x in progs]
+    sib = {}
+    for x in LADDER:
+        K, y, z = C4.sibling(C4.parse(x), 60)
+        sib[x] = C4.src(y)
+        jobs.append((x, sib[x]))
+    t = time.time()
+    with Pool(a.workers) as pool:
+        for r in pool.starmap(measure_pair, jobs):
+            rows.append(r)
+    json.dump(dict(rows=rows, siblings=sib, wall_s=time.time() - t), open(os.path.join(RUNS, 'k-at-n8-sharing.json'), 'w'), indent=1)
+    for r in rows:
+        for nm in ('C0', 'C1'):
+            m = r[nm]
+            if m:
+                print(r['x'][:50], 'vs', r['y'][:30] if r['y'] != r['x'] else 'self', nm,
+                      'tree %s(%s) cut %s(%s)%s DAGex %s/%s DAGsub %s/%s' % (m['nocut']['size'], m['nocut']['loeb'], m['cut']['size'], m['cut']['loeb'],
+                                                                        '' if m['cut']['certified'] else '*', m['nocut'].get('exact'), m['cut'].get('exact'),
+                                                                        m['nocut'].get('subs'), m['cut'].get('subs')), flush=True)
+
+
+def _mce_job(pairs):
+    out = []
+    for xs, ys in pairs:
+        r = measure_pair(xs, ys, cap=a_cap, atoms=False)
+        out.append(dict(x=xs, y=ys, C0=r['C0'], C1=r['C1']))
+    return out
+
+
+a_cap = 1_000_000
+
+
+def cmd_mce(a):
+    """Scaling on the n = 8 mutually cooperating establisher pairs under each measure."""
+    import modal as M
+    L8 = M.ModalLanguage(8); val8, _ = M.evaluate(L8)
+    iD = L8.rep.index('D')
+    est = [c for c in range(len(L8.rep)) if val8[c, c] == 1 and val8[c, iD] == 0]
+    mce = [(L8.rep[p], L8.rep[q]) for p in est for q in est if val8[p, q] == 1 and val8[q, p] == 1]
+    if a.limit: mce = mce[:a.limit]
+    chunks = [mce[i:i + 50] for i in range(0, len(mce), 50)]
+    rows = []; t = time.time()
+    with Pool(a.workers) as pool:
+        for out in pool.imap_unordered(_mce_job, chunks):
+            rows += out
+            if len(rows) % 1000 < 50: print(len(rows), '%.0fs' % (time.time() - t), flush=True)
+    json.dump(dict(rows=rows, wall_s=time.time() - t), open(os.path.join(RUNS, 'k-at-n8-mce.json'), 'w'))
+    print('done', len(rows), '%.0fs' % (time.time() - t))
+
+
+# ------------------------------------------------------------------ prices in K (n = 6, per-program budgets)
+PB_BUDGETS = [2, 3, 4, 6, 10, 16]
+
+
+def price_matrix(schedule, c, N, val, base, gb, copy='a'):
+    """Per-match cost on the reader i against opponent j (constants pay nothing).  Imposed schedules:
+    per-match c*b; amortized c*b/N; cache c*b*k/N with k = 2 classes present during a single-mutant invasion (so on
+    the chain's transitions cache(c) = amortized(2c); k = 1 in a monomorphic state, which no fixation probability
+    sees); lazy c*b against opponents that are neither constants nor copies, copy = (a) identical budgeted program,
+    (b) same source at any budget, (c) extensionally identical play (same row and column of the play table)."""
+    G_ = len(base)
+    b = gb.astype(float)
+    if schedule == 'per-match':
+        return np.repeat((c * b)[:, None], G_, 1)
+    if schedule == 'amortized':
+        return np.repeat((c * b / N)[:, None], G_, 1)
+    if schedule == 'cache':
+        return np.repeat((2 * c * b / N)[:, None], G_, 1)
+    if schedule == 'lazy':
+        const = gb == 0
+        if copy == 'a':
+            same = np.eye(G_, dtype=bool)
+        elif copy == 'b':
+            same = base[:, None] == base[None, :]
+        else:
+            sig = {}
+            key = [val[i].tobytes() + val[:, i].tobytes() for i in range(G_)]
+            ids = np.array([sig.setdefault(k, len(sig)) for k in key])
+            same = ids[:, None] == ids[None, :]
+        cost = c * b[:, None] * np.ones((1, G_))
+        cost[:, const] = 0.0
+        cost[same] = 0.0
+        return cost
+    raise ValueError(schedule)
+
+
+def priced_cell(j):
+    import modal as M
+    from chain import Chain
+    from proof_length_arm import priced_val
+    from cert_limN import top_exits
+    schedule, c, N, copy = j
+    B = PB_BUDGETS
+    val, base, gb, L = priced_val(B)
+    U0, PCC = M.pd_payoffs(val, M.PD)
+    cost = price_matrix(schedule, c, N, val, base, gb, copy)
+    U = U0.astype(float) - cost
+    nb = len(B)
+    mu = np.array([L.mu_canon[bc] / (1.0 if gb[g] == 0 else nb) for g, bc in enumerate(base)])
+    names = [L.rep[bc] if gb[g] == 0 else '%s@%d' % (L.rep[bc], gb[g]) for g, bc in enumerate(base)]
+    bits = np.array([L.bits_canon[bc] for bc in base])
+    prov = M.ModalProvider(U, PCC, mu, names, bits)
+    prov.sizes = np.ones(len(prov.names))
+    lang = M.ClassLang(prov)
+    t = time.time()
+    ch = Chain(prov, N=N, w=0.3, verbose=False, eager_poly=False).explore()
+    P = prov.PCC; nm = prov.names; Uf = prov.Ufull
+    pcc = 0.0; pis = {}; poly = 0.0; key_of = {}
+    for key, wgt in zip(ch.keys_list, ch.pi):
+        ids, x, kd = ch.states[key]; ids = list(ids); x = np.asarray(x)
+        pcc += wgt * float(x @ P[np.ix_(ids, ids)] @ x)
+        if kd == 'mono':
+            pis[ids[0]] = pis.get(ids[0], 0.0) + wgt; key_of[ids[0]] = key
+        else:
+            poly += wgt
+    byb = {}; byb_coop = {}; coop_pi = 0.0; by_src = {}
+    for q, p in pis.items():
+        mem = prov.members[q]
+        w_ = np.array([mu[g] for g in mem]); w_ = w_ / w_.sum()
+        for g, ww in zip(mem, w_):
+            kb = str(int(gb[g]))
+            byb[kb] = byb.get(kb, 0.0) + p * ww
+            if P[q, q] == 1 and nm[q] != 'C':
+                byb_coop[kb] = byb_coop.get(kb, 0.0) + p * ww
+        if P[q, q] == 1 and nm[q] != 'C': coop_pi += p
+        by_src[nm[q]] = by_src.get(nm[q], 0.0) + p
+    zc = sum(byb_coop.values()) or 1.0
+    # mutation mass by behavioural class: the classes' mu (prov.classes carries normalized mu)
+    mclass = sorted(((nm[i], float(cl[2])) for i, cl in enumerate(prov.classes)), key=lambda t_: -t_[1])[:8]
+    mu_coop = float(sum(cl[2] for i, cl in enumerate(prov.classes) if P[i, i] == 1 and nm[i] != 'C'))
+    out = dict(schedule=schedule, c=c, N=N, copy=copy, pcc=pcc, pi_by_budget=byb, budget_given_coop={k: v / zc for k, v in byb_coop.items()},
+               pi_selfcoop_mono=coop_pi, poly=poly, pi_D=pis.get(nm.index('D'), 0.0), pi_C=pis.get(nm.index('C'), 0.0),
+               support=[(ch.describe_state(k, lang), float(p)) for k, p in ch.support(1e-3)][:10], cut_flow=ch.cut_flow,
+               indeterminate=len(ch.indeterminate), n_terminal=len(ch.terminal), mu_classes_top=mclass, mu_selfcoop=mu_coop,
+               n_classes=len(nm))
+    top_states = sorted(((v, q) for q, v in pis.items() if P[q, q] == 1 and nm[q] != 'C'), reverse=True)
+    if top_states:
+        v, qtop = top_states[0]
+        e = top_exits(ch, prov, key_of[qtop])
+        out.update(top_coop=nm[qtop], pi_top=v, **e)
+        out['top_budget_share'] = max(out['budget_given_coop'].values()) if out['budget_given_coop'] else 0.0
+        iD = nm.index('D'); kD = key_of.get(iD)
+        edges = []
+        for v2, q2 in top_states[:3]:
+            kT = key_of[q2]; uaa = Uf[q2, q2]
+            for b_, pr in ch.trans.get(kT, {}).items():
+                if b_ == kT: continue
+                for q, mw in ch.trans_mut[(kT, b_)].items():
+                    r = ch.edge_rho.get((kT, b_, q))
+                    d = float(Uf[q, q2] - uaa)
+                    edges.append(dict(kind='exit', resident=nm[q2], pi_res=v2, mutant=nm[q], w=float(mw), delta=d, N_delta=N * d,
+                                      rho=r and float(r[0]), fix_ratio=r and float(N * r[0]),
+                                      c_b=float(c * max(gb[g] for g in prov.members[q2])) if schedule != 'none' else 0.0))
+            ent = [(q, r) for (a_, b_, q), r in ch.edge_rho.items() if a_ == kD and b_ == kT]
+            if ent:
+                q, r = max(ent, key=lambda t_: t_[1][0])
+                d = float(Uf[q, iD] - Uf[iD, iD])
+                edges.append(dict(kind='entry', resident='D', mutant=nm[q], target=nm[q2], delta=d, N_delta=N * d, rho=float(r[0]), fix_ratio=float(N * r[0])))
+        edges.sort(key=lambda e_: -(e_.get('w') or 0))
+        out['edges'] = edges[:12]
+    out['t'] = time.time() - t
+    return out
+
+
+def cmd_priced(a):
+    jobs = []
+    for c in (0.01, 0.1, 1.0):
+        for N in (1000, 10000, 30000):
+            jobs.append(('amortized', c, N, 'a'))
+    for c in (0.01, 0.1):
+        jobs.append(('cache', c, 10000, 'a'))
+        jobs.append(('lazy', c, 10000, 'a'))
+    jobs += [('lazy', 0.1, 10000, 'b'), ('lazy', 0.1, 10000, 'c'), ('per-match', 0.01, 10000, 'a'), ('amortized', 0.0, 10000, 'a')]
+    path = os.path.join(RUNS, 'k-at-n8-priced.json')
+    rows = json.load(open(path)) if os.path.exists(path) else []
+    done = {(r['schedule'], r['c'], r['N'], r['copy']) for r in rows}
+    jobs = [j for j in jobs if j not in done]
+    with Pool(a.workers) as pool:
+        for r in pool.imap_unordered(priced_cell, jobs):
+            rows.append(r)
+            json.dump(rows, open(path, 'w'), indent=1, default=str)
+            print('%-10s c=%-5g N=%-6d copy=%s P(C,C) %.4f pi(D) %.3f pi(C) %.3f coop-budget %s top %s %.3f exit %.2e strict %.2e (%.0fs)' % (
+                r['schedule'], r['c'], r['N'], r['copy'], r['pcc'], r['pi_D'], r['pi_C'],
+                {k: round(v, 3) for k, v in sorted(r['budget_given_coop'].items(), key=lambda kv: int(kv[0]))},
+                r.get('top_coop'), r.get('pi_top', 0), r.get('top_exit', 0), r.get('top_exit_strict', 0), r['t']), flush=True)
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('cmd')
@@ -175,5 +630,10 @@ if __name__ == '__main__':
     ap.add_argument('--n', type=int, default=8)
     ap.add_argument('--budgets', type=int, nargs='+', default=[3, 4, 6, 8, 12, 16, 24, 32, 54])
     ap.add_argument('--ustar_limit', type=int, default=40)
+    ap.add_argument('--Ns', type=int, nargs='+', default=[1000, 10000, 30000])
+    ap.add_argument('--arms', nargs='*', default=[])
+    ap.add_argument('--ref', type=int, default=16)
+    ap.add_argument('--limit', type=int, default=0)
     a = ap.parse_args()
-    {'ktables': cmd_ktables}[a.cmd](a)
+    {'ktables': cmd_ktables, 'static': cmd_static, 'chain': cmd_chain, 'fakers': cmd_fakers, 'sharing': cmd_sharing,
+     'mce': cmd_mce, 'priced': cmd_priced}[a.cmd](a)
