@@ -382,11 +382,13 @@ def cmd_fakers(a):
 
 
 # ------------------------------------------------------------------ lemma sharing: four cost columns
-def _measure_root(th, orc, S, cuts, cap):
+def _measure_root(th, orc, S, cuts, cap, cut_cap=None):
+    """nocut and cut minima with DAG measures.  An aborted cut search reports its certified lower bound and the upper
+    bound min(cut-free minimum, oracle derivation) (a cut-free derivation is a cut derivation), flagged uncertified."""
     import gl_proofs as G
     out = {}
     for tag, cs in (('nocut', None), ('cut', cuts)):
-        ms = G.MinSearch(th, orc, cap=cap, cuts=cs)
+        ms = G.MinSearch(th, orc, cap=cap if cs is None else (cut_cap or cap), cuts=cs)
         t = time.time()
         r = ms.minimize(S)
         if r is None:
@@ -396,11 +398,17 @@ def _measure_root(th, orc, S, cuts, cap):
             dm = ms.dag_sizes(S); d.update(exact=dm['exact'], subs=dm['subsumption'])
         else:
             d['lb'] = r['lb']
+            if tag == 'cut' and out.get('nocut', {}).get('certified'):
+                n0 = out['nocut']
+                if d['size'] is None or n0['size'] <= d['size']:
+                    d.update(size=n0['size'], loeb=n0['loeb'], exact=n0.get('exact'), subs=n0.get('subs'), ub_from='nocut')
+                if d['lb'] >= n0['size']:
+                    d['certified'] = True
         out[tag] = d
     return out
 
 
-def measure_pair(xs, ys, cap=2_000_000, atoms=True):
+def measure_pair(xs, ys, cap=2_000_000, atoms=True, cut_cap=300_000):
     """Four measures (tree/no cut, tree/cut, DAG exact, DAG subsumption on each) for the roots C0, C1 of (x, y) and,
     with atoms, for each of x's box atoms against y (L_read sums the true ones)."""
     import gl_proofs as G
@@ -414,9 +422,9 @@ def measure_pair(xs, ys, cap=2_000_000, atoms=True):
     cuts = G.cut_closure(th, seqs + at)
     res = dict(x=xs, y=ys, n_cuts=len(cuts))
     for nm in ('C0', 'C1'):
-        res[nm] = _measure_root(th, orc, (frozenset(R[nm][0]), frozenset(R[nm][1])), cuts, cap)
+        res[nm] = _measure_root(th, orc, (frozenset(R[nm][0]), frozenset(R[nm][1])), cuts, cap, cut_cap)
     if atoms:
-        res['atoms'] = [_measure_root(th, orc, S, cuts, cap) for S in at]
+        res["atoms"] = [_measure_root(th, orc, S, cuts, cap, cut_cap) for S in at]
     return res
 
 
@@ -428,6 +436,10 @@ def _lread(res, tag, key):
         if not d['certified']: ok = False
         tot += d[key] if d.get(key) is not None else d['size']
     return tot, ok
+
+
+def _sharing_job(j):
+    return measure_pair(j[0], j[1])
 
 
 def cmd_sharing(a):
@@ -443,10 +455,16 @@ def cmd_sharing(a):
         sib[x] = C4.src(y)
         jobs.append((x, sib[x]))
     t = time.time()
+    path = os.path.join(RUNS, 'k-at-n8-sharing.json')
+    # cheapest first (by the published cut-free size of x's self-proof), saved as they come
+    order = {x: i for i, x in enumerate(['BOX(THEM(ME))', 'BOX(THEM(THEM))', 'BOX1(THEM(ME))', 'BOX1(THEM(THEM))', 'BOX(THEM(^C))',
+                                         'BOX1(THEM(^C))', 'not(BOX(THEM(ME)))', 'BOX(THEM(^BOX(THEM(ME))))'])}
+    jobs.sort(key=lambda j: (order.get(j[0], 50), j[0] != j[1], len(j[0])))
     with Pool(a.workers) as pool:
-        for r in pool.starmap(measure_pair, jobs):
+        for r in pool.imap_unordered(_sharing_job, jobs):
             rows.append(r)
-    json.dump(dict(rows=rows, siblings=sib, wall_s=time.time() - t), open(os.path.join(RUNS, 'k-at-n8-sharing.json'), 'w'), indent=1)
+            json.dump(dict(rows=rows, siblings=sib, wall_s=time.time() - t), open(path, 'w'), indent=1)
+            print('done', r['x'][:50], r['y'][:40], '%.0fs' % (time.time() - t), flush=True)
     for r in rows:
         for nm in ('C0', 'C1'):
             m = r[nm]
@@ -488,6 +506,44 @@ def cmd_mce(a):
 
 # ------------------------------------------------------------------ prices in K (n = 6, per-program budgets)
 PB_BUDGETS = [2, 3, 4, 6, 10, 16]
+KPAIRS = os.path.join(RUNS, 'proof-length-kpairs.npz')
+
+
+def _kpair_pruned(j):
+    """proof_length_arm._kpair with the GL-erasure prune (cross-budget plays of L_6)."""
+    bx, by = j
+    L, vf, hc, hd = tables(6)
+    t = time.time()
+    K = BK.KTheory(cap=max(bx, by), filter_first=True)
+    K.prune = make_prune(K, L, hc, hd)
+    gx = [K.geno(s, bx) for s in L.rep]; gy = [K.geno(s, by) for s in L.rep]
+    contents = set()
+    for x in gx:
+        for y in gy:
+            for a in K.atoms(x, y) + K.atoms(y, x): contents.add(K.forms[a][1])
+    K.solve(sorted(contents))
+    play = K.play_fn()
+    vxy = np.array([[int(play(x, y)) for y in gy] for x in gx], np.int8)
+    vyx = np.array([[int(play(y, x)) for x in gx] for y in gy], np.int8)
+    nchk, bad = K.soundness_check()
+    return bx, by, vxy, vyx, nchk, len(bad), time.time() - t
+
+
+def cmd_kpairs(a):
+    B = PB_BUDGETS
+    old = dict(np.load(KPAIRS)) if os.path.exists(KPAIRS) else {}
+    jobs = [(bx, by) for i, bx in enumerate(B) for by in B[i:]]
+    out = {}; sb = 0; nchk_tot = 0; agree = []
+    with Pool(a.workers) as pool:
+        for bx, by, vxy, vyx, nchk, nbad, dt in pool.imap_unordered(_kpair_pruned, jobs):
+            k1, k2 = 'v%d_%d' % (bx, by), 'v%d_%d' % (by, bx)
+            if k1 in old:
+                agree.append(((bx, by), bool((old[k1] == vxy).all() and (old[k2] == vyx).all())))
+            out[k1] = vxy; out[k2] = vyx; sb += nbad; nchk_tot += nchk
+            print('(%d, %d) sound bad %d / %d, %.0fs' % (bx, by, nbad, nchk, dt), flush=True)
+    np.savez_compressed(KPAIRS, **out)
+    print('soundness violations', sb, 'of', nchk_tot, '; agreement with the unpruned cells already computed:', agree)
+    json.dump(dict(sound_bad=sb, sound_checked=nchk_tot, agree_unpruned=agree), open(os.path.join(KDIR, 'kpairs_meta.json'), 'w'))
 
 
 def price_matrix(schedule, c, N, val, base, gb, copy='a'):
@@ -623,6 +679,57 @@ def cmd_priced(a):
                 r.get('top_coop'), r.get('pi_top', 0), r.get('top_exit', 0), r.get('top_exit_strict', 0), r['t']), flush=True)
 
 
+def _cutcheck_job(pairs):
+    import gl_proofs as G
+    L = tables(6)[0]
+    out = []
+    for c, d in pairs:
+        th = G.Theory(); x = th.prog(L.rep[c]); y = th.prog(L.rep[d]); orc = G.Oracle(th)
+        R = G.roots_for(th, x, y)
+        cuts = G.cut_closure(th, [s for _, s in R])
+        ms1 = G.MinSearch(th, orc, cuts=cuts); ms0 = G.MinSearch(th, orc)
+        gn = G.Graph(th, [s for _, s in R], oracle=orc, nf=True, cuts=cuts, cap=400000, time_cap=60)
+        ga = G.Graph(th, [s for _, s in R], oracle=orc, nf=False, cuts=cuts, cap=200000, time_cap=20)
+        row = dict(c=int(c), d=int(d), nf_fit=gn.complete, all_fit=ga.complete, roots={})
+        for nm, S in R:
+            r1 = ms1.minimize(S); r0 = ms0.minimize(S)
+            if r1 is None:
+                row['roots'][nm] = None; continue
+            d1 = ms1.dag_sizes(S) if r1['certified'] else {}
+            d0 = ms0.dag_sizes(S)
+            row['roots'][nm] = dict(cut=list(r1['c']), cert=r1['certified'], nocut=list(r0['c']),
+                                    knuth_nf=list(gn.result(S)) if gn.complete else None,
+                                    knuth_all=list(ga.result(S)) if ga.complete else None,
+                                    exact0=d0['exact'], subs0=d0['subsumption'], exact1=d1.get('exact'), subs1=d1.get('subsumption'))
+        out.append(row)
+    return out
+
+
+def cmd_cutcheck(a):
+    L = tables(6)[0]
+    K = len(L.rep)
+    pairs = [(c, d) for c in range(K) for d in range(K)]
+    chunks = [pairs[i:i + 40] for i in range(0, len(pairs), 40)]
+    rows = []; t = time.time()
+    with Pool(a.workers) as pool:
+        for out in pool.imap_unordered(_cutcheck_job, chunks):
+            rows += out
+            if len(rows) % 400 < 40: print(len(rows), '%.0fs' % (time.time() - t), flush=True)
+    mism_nf = mism_all = n_nf = n_all = unc = 0
+    for r in rows:
+        for nm, v in r['roots'].items():
+            if v is None: continue
+            if not v['cert']: unc += 1
+            if v['knuth_nf'] is not None:
+                n_nf += 1; mism_nf += v['knuth_nf'] != v['cut']
+            if v['knuth_all'] is not None:
+                n_all += 1; mism_all += v['knuth_all'] != v['cut']
+    summ = dict(pairs=len(rows), roots_nf=n_nf, mismatch_nf=mism_nf, roots_all=n_all, mismatch_all=mism_all, uncertified=unc,
+                pairs_nf_fit=sum(r['nf_fit'] for r in rows), pairs_all_fit=sum(r['all_fit'] for r in rows), wall_s=time.time() - t)
+    json.dump(dict(summary=summ, rows=rows), open(os.path.join(RUNS, 'k-at-n8-cutcheck.json'), 'w'))
+    print(summ)
+
+
 # ------------------------------------------------------------------ the eps = 0 lottery at n = 8
 def lottery_job(j):
     """As proof_length_arm._lottery_job, for L_n (seeding: iid from mu, paired across arms by seed)."""
@@ -710,4 +817,5 @@ if __name__ == '__main__':
     ap.add_argument('--reps', type=int, default=20)
     a = ap.parse_args()
     {'ktables': cmd_ktables, 'static': cmd_static, 'chain': cmd_chain, 'fakers': cmd_fakers, 'sharing': cmd_sharing,
-     'mce': cmd_mce, 'priced': cmd_priced, 'lottery': cmd_lottery, 'family': cmd_family}[a.cmd](a)
+     'mce': cmd_mce, 'priced': cmd_priced, 'lottery': cmd_lottery, 'family': cmd_family,
+     'cutcheck': cmd_cutcheck, 'kpairs': cmd_kpairs}[a.cmd](a)
