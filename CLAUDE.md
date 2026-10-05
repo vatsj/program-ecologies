@@ -67,11 +67,18 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
     - beating 1/N with free constants requires incumbency;
     - a fringe closes families only onto the parochial P* at n ≥ 8.
 
-## Queue after that
-1. Conjecture 4 (THEORY §9.2): no drift-closed class in the unbounded modal language; a uniform leak/μ bound in n.
-2. A resident-dependent finite-ε fringe (drift-closure review, fable §5): does the shadow-as-food mechanism give a universal moat?
-3. Optional diagnostic: prior uniform over behaviours.
-4. Divide-the-dollar partitions across islands, weak arm, with and without `ROLE` (RS, 2026-10-02).
-5. Toward the long-term goal: an arm of realizable source-reading programs, such as bounded proof search over source (Critch 2019), in place of the free modal oracle.
+- Round of 2026-10-04/05 (spec → gpt-6.1-sol → Opus workflow; RESULTS sections "Three-player majority divide-the-dollar", "Almost all seeds?", "Conjecture 4: the sibling theorem", "The closed club", "Bounded provers", "Proof-carrying contracts v1", "Almost all seeds: cutoff sensitivity in n", "the tail in n", "Spoiler-conditioned establishment", "The scramble lemma and Claim A", "compatibility among co-seeded establishers", "The union game", "Prover-carrier seed at b = 0"):
+  - **Sibling theorem (Conjecture 4 proved):** no class in the unbounded modal language is drift-closed; the obstruction is extensionality, not GL. **Lemma 0:** soundness buys unfakeability, Löb buys self-cooperation.
+  - **Seed lottery (primary object, DEFERRED 1):** "almost all seeds" holds for the modal arm at n = 6–12 in every regime; establishment is rigorously positive uniformly in n (μ_est ≥ 0.0207); the lottery runs on D-entering self-cooperators, not unfakeability; co-seeded fakers die in the scramble by demography; compatibility resolves on islands (two self-cooperators cannot hold a stable mixture); the clean claim is on the fakerless pair (FairBot, `BOX1(THEM(ME))`); the open risks are between islands (rival networks) and the I ≫ N migration rule.
+  - **Closure:** the club is a clique by declaration; a stabilization-cost budget is harmless and closes nothing (leaks run through cheaper neighbours); proof-carrying contracts need Löb, equal the free box among carriers, restore legibility where a gate binds, and spread from prover seeds above ~1–3% (with an asymmetric-read caveat).
+  - **Distribution (k = 3, fixed roles):** stochastic stability selects rotating, mostly unfair pairs; source reading adds nothing (the exit is a partner's own strict defection); the union game puts π at zero wage, the quorum is FairBot's strike handshake, the prior decides the fair share, and a strike pact's wage check is fakeable (the polarity dilemma).
 
-No paper draft yet (RS, 2026-10-02).
+## Queue after that
+1. Symmetric gate control for carrier seeds (is carrying an advantage without the sucker fringe?).
+2. Rival networks across islands along I ≫ N: does migration merge, separate, or let one win? The mN scaling rule.
+3. The demographic lemma (survival ≤ k₀/(1 + b_min·τ)) and the P(A ∧ F) bound without the 1/P(A) loss.
+4. Incentive-compatible enforcement (sol's follow-up to the union game); the worker grammar/prior (DEFERRED 10).
+5. An explicit proof system with measured proof length, in place of the stabilization proxy.
+6. Divide-the-dollar partitions across islands with `ROLE` (RS, 2026-10-02; paused worktree agent-aefc4dd3cf297898f holds partial game files).
+
+No paper draft (RS, 2026-10-04).
