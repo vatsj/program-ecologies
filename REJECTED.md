@@ -433,3 +433,17 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **"Migration hurts at I = 4 by importing spoilers" / "an intermediate maximum in mN" (spec framing; sol's alternative).** 0 losses in 180 runs and a monotone decline: migration hurts only by merging islands during nucleation.
 
 **The seed-membership label for local nucleation (design choice).** Uninformative when every island seeds about 9 establishers; nucleation is identified by timing against the no-migration window.
+
+## Added 2026-10-05: spoiler-conditioned establishment (RESULTS.md, "Spoiler-conditioned establishment")
+
+**"The faker's share falls after ALLC extinction while the target's rises" (Fable, prediction 4, log clause).** The faker is already extinct at ALLC extinction in 90–99% of surviving islands. Replaced by "the faker dies during the scramble".
+
+**"Probe-fakers (neutral against D) are strongly harmful at single dose" (subagent S1; falsifier fired).** The relative reduction at k = 1 is −0.32 to 0.35 with intervals including 0; the 2×2 argument ignores that a probe-faker cooperates with ALLC and loses to D before ALLC is gone.
+
+**Cell-level target-survival ratio as the spoiler discount.** Confounded by target identity across cells (0.33–0.56 raw vs ≈ 1 matched). Use cooperative fixation or survival matched on target.
+
+**Single-copy forced design to resolve flatness in n at 0.15 (Fable, prediction 2).** Per-cell intervals are ±0.4–0.6 at k = 1; trends need k = 10 or more backgrounds.
+
+**Spec treatment (c), "k copies of the target's own class", as the replacement control.** Changes target dosage; replaced by replacement with D (cD).
+
+**Subagent S3 and S4 (neutral part).**

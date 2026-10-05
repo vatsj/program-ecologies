@@ -2421,6 +2421,47 @@ Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent. Nothing ce
 - The spoiler term must be resident-conditioned. The global faker union is meaningless here; the conditioned chance that an establishing seed also carries one of its own fakers is 0.27 at n = 12 and flattening. This is now the sole open ingredient for "almost all seeds" in this language family.
 - Migration between islands costs only through merging during nucleation, never through spoilers. The I ≫ N path keeps islands as independent trials only when migrants per island during nucleation are small relative to N (mN·T_nuc ≈ 6 / 60 / 600 against N = 400 gave independent / partly merged / merged).
 
+## Spoiler-conditioned establishment: does a co-seeded faker stop establishment? (`runs/spoiler-conditioned.md`; spec `specs/2026-10-05-spoiler-conditioned.md`, predictions in `predictions/2026-10-05-spoiler-conditioned.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent. Finite-cell evidence at n ∈ {6, 9, 12}, N ∈ {100, 400}: single islands, no migration, horizon 10⁵, modal arm, w = 0.3, iid seeds from μ. 24,000 natural islands and 42,000 forced backgrounds; 0 natural and 7 forced islands unresolved; nothing administratively censored. Declared deviations: a replacement-by-D control (cD) added beside the spec's (c), which changes target dosage; thresholds judged on relative reductions; one supplementary pair with an establisher-faker; §6 of the run file is post hoc.
+
+**Payoff tables.** A faker's play against D is one of three types: *disadvantaged* (it cooperates with D), *neutral* (it defects on D and on itself), *advantaged* (it is itself an establisher). Faker mass of the 8 heavy targets: disadvantaged 0.025–0.028, neutral 0.003–0.005, advantaged 0.023–0.025 at n = 6–12. The six heaviest (target, faker) pairs are the same at every n: `BOX1(THEM(THEM))` ← `not(BOX(THEM(ME)))` / `not(BOX(THEM(THEM)))` (disadvantaged) and the probe-readers `BOX(THEM(^C))` / `BOX1(THEM(^C))` ← `BOX(THEM(^D))` / `BOX1(THEM(^D))` (neutral). **No faker of any main prover ties D on both D and ALLC** to n = 12: every faker of FairBot's family or of the probe-readers either cooperates with D or cooperates with ALLC, so it is strictly worse than D while ALLC is present. For the probe-readers this is structural: passing the probe `THEM(^C)` means cooperating with ALLC. Fakers that tie D on {D, ALLC} exist only for the two near-universal suckers, at mass 0 / 3.5·10⁻⁴ / 5.2·10⁻⁴ at n = 6 / 9 / 12.
+
+**Natural seeds, four disjoint cells** (given an establisher present: (i) no faker of it, (ii) non-establisher fakers only, (iii) establisher-fakers only, (iv) both; cooperative fixation, which coincides with efficiency; bootstrap ratio intervals):
+
+| n, N | islands (i / ii / iii / iv) | coop (i) | coop (ii) | d = (ii)/(i) |
+|---|---|---|---|---|
+| 6, 100 | 2,933 / 590 / 16 / 83 | 0.093 | 0.115 | 1.24 [0.96, 1.57] |
+| 9, 100 | 2,755 / 704 / 27 / 183 | 0.099 | 0.108 | 1.09 [0.84, 1.37] |
+| 12, 100 | 2,604 / 831 / 26 / 220 | 0.095 | 0.108 | 1.14 [0.90, 1.41] |
+| 6, 400 | 840 / 2,685 / 0 / 475 | 0.173 | 0.190 | 1.10 [0.94, 1.31] |
+| 9, 400 | 574 / 2,559 / 1 / 866 | 0.166 | 0.196 | 1.18 [0.98, 1.47] |
+| 12, 400 | 421 / 2,573 / 1 / 1,005 | 0.164 | 0.183 | 1.12 [0.90, 1.42] |
+
+The raw target-survival ratio across cells (0.33–0.56) is confounded by target identity (cell (i) holds FairBot, cell (ii) the weaker faked provers); matched on target it is 0.7–1.6. In cell (ii) the faker is extinct by the island's ALLC extinction in 0.88–0.99 of islands, and cooperative islands there are mostly won by unfaked establishers.
+
+**Forced seeds** (1,000 paired backgrounds per pair, N and dose k; relative reduction of target survival from inserting the faker beside its target). k = 1: disadvantaged −0.13 to 0.21, neutral −0.32 to 0.35, every interval including 0 except one cell; k = 10 at N = 400: neutral 0.25–0.41, flat in n, disadvantaged −0.01 to 0.15. Replacement by D alone, (a) − (cD), is within ±0.004. A faker alone (d) at N = 400 is in the terminal support in 3.3–4.9% of islands (neutral, frozen with D) and 0% (disadvantaged); no disadvantaged faker won any (b) island. Supplement: FairBot inserted as the faker of a sucker *raises* cooperative fixation by 4–52%.
+
+**Frequency logs.** Given the target is alive at the island's ALLC extinction, it survives with probability 0.42–0.58 if the faker is already dead and 0.07–0.29 if it is still alive. The faker rarely gets that far: per co-seeded copy, its chance of surviving the scramble is 0.014–0.06 (disadvantaged), 0.05–0.09 (neutral), 0.06–0.12 (advantaged). The two-factor prediction (fraction alive at ALLC extinction × post-scramble harm) gives 0.28 against 0.34 measured at k = 10 (neutral) and 0.38 against 0.40 (advantaged).
+
+**Held-out decomposition** (fit on islands 0–1,999, test on 2,000–3,999): errors −11.6% / +2.1% / +2.7% at N = 100 and −0.5% / −0.5% / −2.4% at N = 400. Close to an identity in expectation, as sol said.
+
+**Verdicts.**
+| # | prediction | outcome |
+|---|---|---|
+| 1 | co-seeded non-establisher fakers rarely stop establishment; pooled d ≥ 0.7 | **Held** (d 1.09–1.24, lower bounds 0.84–0.98); "neutral fakers worse" seen only at k = 10 |
+| 2 | pair-level effect flat in n | **Inconclusive** at k = 1 (intervals ±0.4–0.6); flat within 0.1 at k = 10 |
+| 3 | establisher-fakers leave a cooperative island | **Inconclusive** (cell (iii) has ≤ 27 islands); every cooperative (iii) island was won by an establisher; cell (iv) and the supplement support it |
+| 4 | forced-seed mechanism | **Held except the log clause:** the faker's share does not "fall after ALLC extinction" because it is already dead then (90–99%); as "dead or falling while the target rises" it holds in 74–89% |
+| 5 | held-out decomposition within 15% | **Held** |
+| S1–S6 | subagent's own | S1 failed (single-dose neutral fakers are not strongly harmful); S4 neutral part failed; S2 narrowly; S3 partly; S5, S6 held |
+
+**Reading.**
+- **Co-seeded fakers of the main provers do not stop establishment.** They are strictly worse than D while ALLC is present, because they either feed D by cooperating with it or fail to eat ALLC. So they die in the scramble, before their post-scramble advantage over the target can act.
+- **The harm is a product of two factors:** the faker's chance of surviving the scramble (0.01–0.1 per copy) and its post-scramble harm (about half the target's survival). With exposure E[K_pf | A] ≈ 0.3–0.6, that is a bounded discount, and in natural seeds it is hidden by rescue from other establishers.
+- **The spoiler that would matter is a faker payoff-identical to D on {D, ALLC}.** None exists for any main prover to n = 12, and for the probe-readers none can by construction. The open part of "almost all seeds" narrows to bounding the mass of such fakers in n (≤ 5·10⁻⁴ here, for the suckers only).
+- **The lemma, in the form the logs support:** P(target survives | faker co-seeded) ≈ P(target survives)·[1 − q·h], with h ≤ 0.9 measured, and q bounded by the faker's integrated payoff deficit against D over the scramble, which ∫x_ALLC dt makes strictly positive for any faker that does not tie D on {D, ALLC}. That is a bound on integrated selection, not on instantaneous advantage, as sol framed it.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

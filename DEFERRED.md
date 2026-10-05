@@ -20,8 +20,10 @@ REJECTED.md the ones we dropped.
   1/s² tail and an extrapolated limit ≈ 0.027; the resident-conditioned spoiler exposure is 0.27 at n = 12 and
   flattening; at I = 4 the mN = 0.1 − mN = 10 contrast is 0.18 [0.005, 0.35], by merging during nucleation, not by
   spoilers (RESULTS "the tail in n").
-- *Would settle it:* (i) a proof that resident-conditioned spoiler exposure stays bounded, or vanishes after the
-  scramble, uniformly in n; (ii) a rule for scaling mN along the I ≫ N path: migrants per island during nucleation must
+- *Evidence (2026-10-05c):* a co-seeded faker is a bounded discount at n ≤ 12 (d ≈ 1.1; forced k = 1 null; k = 10 ≤ 0.41), because fakers of the main provers die in the scramble (RESULTS "Spoiler-conditioned establishment").
+- *Would settle it:* (i) a bound, uniform in n, on the prior mass of fakers that tie D on {D, ALLC} and exploit an
+  establisher (0 for the main provers to n = 12, ≤ 5·10⁻⁴ for the suckers' fakers), plus the scramble lemma: q bounded
+  by the faker's integrated payoff deficit against D; (ii) a rule for scaling mN along the I ≫ N path: migrants per island during nucleation must
   be small relative to N (mN·T_nuc ≈ 6 / 60 / 600 against N = 400 gave independent / partly merged / merged); and
   whether any question the program cares about needs π rather than the lottery.
 
