@@ -152,3 +152,36 @@ def run(arm, nat, atL, atJ, atA, tab, PARTNER, reps, cdfs, init, N, w, eps, gens
                 rec_out[ri] = W[dom[0], dom[1], dom[2]]
             ri += 1
     return rec_typ, rec_pay, rec_dom, rec_out
+
+
+# ---------------------------------------------------------------- driver
+def cell(job):
+    """job = (arm, start, seed, N, eps, gens, every, w)."""
+    import json
+    from dollar3_run import build_chain
+    arm, start, seed, N, eps, gens, every, w = job
+    ch, S = build_chain(arm, N, w, 1e-9, 10)
+    m = ch.mass.copy()
+    cdfs = np.cumsum(m, axis=1); cdfs /= cdfs[:, -1:]
+    rng = np.random.default_rng(seed)
+    if start == 'uniform':
+        init = rng.integers(0, ch.Kc, size=(3, N))
+    else:
+        init = np.array([[ch.const_class[s][D.local_of(s, D.ALL, 0)]] * N for s in range(3)])
+    t = time.time()
+    typ, pay, dom, out = run(ch.ia, *ch.A, ch.reps, cdfs, init.astype(np.int64), N, w, eps, gens, every, seed)
+    res = dict(arm=arm, start=start, seed=seed, N=N, eps=eps, gens=gens, every=every, w=w, time_s=time.time() - t)
+    # dominant coalition label per record
+    lab = []
+    for o in out:
+        if o < 0:
+            lab.append('mixed'); continue
+        t_ = o // 125; uu = o % 125; u = (uu // 25, (uu // 5) % 5, uu % 5)
+        if t_ == 4: lab.append('X')
+        elif t_ == 0: lab.append('G')
+        else:
+            sl = [i + 1 for i in range(3) if u[i] > 0]; lab.append('P%d%d' % tuple(sl))
+    res['labels'] = lab
+    res['typ'] = typ.tolist(); res['pay'] = pay.tolist()
+    res['dom_src'] = [[S.src(s, ch.reps[s, d[s]]) if d[s] >= 0 else None for s in range(3)] for d in dom[::max(1, len(dom) // 200)]]
+    return res
