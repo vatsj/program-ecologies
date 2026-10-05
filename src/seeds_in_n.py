@@ -104,9 +104,9 @@ def _run(U, PCC, init, N, w, m, gens, every, seed, iC, coopmask, coremask, T0):
     ext_C = -1
     strong = np.zeros(I, np.int64)
     lost_before = 0; lost_after = 0
-    loss_log = np.zeros((MAXLOSS, 5), np.int64); nloss = 0     # (gen, island, largest class after, ALLC globally extinct, classes present at snapshot)
+    loss_log = np.zeros((MAXLOSS, 6), np.int64); nloss = 0     # (gen, island, largest class after, ALLC globally extinct, classes present at snapshot)
     loss_snap = np.zeros((MAXLOSS, 6, 2), np.int64)            # top-6 (class, count) at the last strong check
-    snap = np.zeros((I, 6, 2), np.int64); snap_np = np.zeros(I, np.int64)
+    snap = np.zeros((I, 6, 2), np.int64); snap_np = np.zeros(I, np.int64); snap_g = np.zeros(I, np.int64)
     glob = np.zeros(K, np.int64)
     # exact ALLC extinction times
     tC_first = -np.ones(I); tC_last = -np.ones(I); C_reent = np.zeros(I, np.int64)
@@ -205,7 +205,7 @@ def _run(U, PCC, init, N, w, m, gens, every, seed, iC, coopmask, coremask, T0):
                         for t in range(npres[i]):
                             if counts[i, pres[i, t]] > counts[i, big]: big = pres[i, t]
                         loss_log[nloss, 0] = g + 1; loss_log[nloss, 1] = i; loss_log[nloss, 2] = big; loss_log[nloss, 3] = 1 if ext_C >= 0 else 0
-                        loss_log[nloss, 4] = snap_np[i]
+                        loss_log[nloss, 4] = snap_np[i]; loss_log[nloss, 5] = snap_g[i]
                         for r in range(6):
                             loss_snap[nloss, r, 0] = snap[i, r, 0]; loss_snap[nloss, r, 1] = snap[i, r, 1]
                         nloss += 1
@@ -221,7 +221,7 @@ def _run(U, PCC, init, N, w, m, gens, every, seed, iC, coopmask, coremask, T0):
                             while r > 0 and c > snap[i, r - 1, 1]:
                                 snap[i, r, 0] = snap[i, r - 1, 0]; snap[i, r, 1] = snap[i, r - 1, 1]; r -= 1
                             snap[i, r, 0] = k; snap[i, r, 1] = c
-                    snap_np[i] = npres[i]
+                    snap_np[i] = npres[i]; snap_g[i] = g + 1
                 elif 2 * co < N: strong[i] = 0
             if first_cert < 0 and ncert > 0: first_cert = g + 1
             if first_cert_core < 0 and ncore > 0: first_cert_core = g + 1
@@ -332,7 +332,7 @@ def job(j):
     losses = []
     for x, sn in zip(loss_log, loss_snap):
         r = mechanism(d, sn[:, 0], sn[:, 1], int(x[4]), int(x[2]))
-        r.update(gen=int(x[0]), island=int(x[1]), after_allc=int(x[3]))
+        r.update(gen=int(x[0]), island=int(x[1]), after_allc=int(x[3]), snapshot_gen=int(x[5]))
         losses.append(r)
     r = dict(n=n, N=N, I=I, mN=mN, T0=T0, rep=rep, gens=gens, status=AS.STATUS[st], stop_gen=int(sg), pcc=cc, pay=pay,
              outcome=AS.outcome(cc, pay) if st in (1, 2, 3) else ('unresolved' if st == 4 else None),
@@ -435,9 +435,35 @@ def time_main(a):
         print('n=9 (1600, 4) rep %d: %s %s gen %d, %.1fs' % (rep, r['status'], r['outcome'], r['stop_gen'], r['time_s']), flush=True)
 
 
+def replay_main(a):
+    """Birth-level replay of the one core-held island lost to D (n = 6, (100, 256), rep 17, island 189):
+    the kernel is re-compiled with a log of every birth on that island from generation 140 (same draws)."""
+    import inspect
+    src = inspect.getsource(_run.py_func).replace('@njit(cache=True)\n', '')
+    src = src.replace('def _run(U, PCC, init, N, w, m, gens, every, seed, iC, coopmask, coremask, T0):',
+                      'def _run(U, PCC, init, N, w, m, gens, every, seed, iC, coopmask, coremask, T0, target, blog):\n    nb = 0')
+    old = "            if victim == child:\n                continue\n"
+    assert src.count(old) == 1
+    src = src.replace(old, "            if i == target and g >= 140 and nb < blog.shape[0]:\n                blog[nb, 0] = g; blog[nb, 1] = src; blog[nb, 2] = child; blog[nb, 3] = victim; nb += 1\n" + old)
+    ns = dict(globals()); exec(compile(src, 'replay', 'exec'), ns); run = njit(cache=False)(ns['_run'])
+    d = data(6); nm = d['names']; iD = nm.index('D')
+    rs, ss = seed_of(100, 256, 1.0, 17, 0)
+    rng = np.random.default_rng(rs); init = np.array([rng.multinomial(100, d['mu']) for _ in range(256)], np.int64)
+    blog = -np.ones((5000, 4), np.int64)
+    out = run(d['U'], d['PCC'], init, 100, W, 0.01, 160, 10 ** 6, ss, d['iC'], d['coopmask'], d['coremask'], 0, 189, blog)
+    b = blog[blog[:, 0] >= 0]
+    for g in range(140, 160, 4):
+        bb = b[(b[:, 0] >= g) & (b[:, 0] < g + 4)]
+        print('gens %d-%d: births %d, local D-parent %d, D migrants %d, D victims %d' % (
+            g, g + 3, len(bb), ((bb[:, 2] == iD) & (bb[:, 1] == 189)).sum(), ((bb[:, 2] == iD) & (bb[:, 1] != 189)).sum(), (bb[:, 3] == iD).sum()))
+    mig = b[b[:, 1] != 189]
+    print('total: %d births, %d migrant births of which %d D; final island %s' % (len(b), len(mig), (mig[:, 2] == iD).sum(),
+          {nm[k]: int(out[2][189, k]) for k in np.nonzero(out[2][189])[0]}))
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
-    ap.add_argument('what', choices=['static', 'check', 'time', 'run', 'report'])
+    ap.add_argument('what', choices=['static', 'check', 'time', 'run', 'report', 'replay'])
     ap.add_argument('--procs', type=int, default=3)
     ap.add_argument('--gens', type=int, default=GENS)
     ap.add_argument('--reps', type=int, default=0)
@@ -447,6 +473,7 @@ if __name__ == '__main__':
     elif a.what == 'check': check_main(a)
     elif a.what == 'time': time_main(a)
     elif a.what == 'run': run_main(a)
+    elif a.what == 'replay': replay_main(a)
     elif a.what == 'report':
         import seeds_in_n_report as R
         R.main()
