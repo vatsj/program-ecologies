@@ -125,6 +125,34 @@ def main():
                 out['cells']['%s|%g|%s-%s' % (s, f0, A_, B_)] = pdf
                 L.append('| %g | %s − %s | %+.2f [%+.2f, %+.2f] | %d / %d | %.3f |' % (f0, A_, B_, pdf['diff'], pdf['lo'], pdf['hi'],
                                                                                     pdf['only_A'], pdf['only_B'], pdf['mcnemar_p']))
+    # ------------------------------------------------------------------ pooled paired differences over f0
+    L.append('\nPooled over f₀ ∈ {0.003, 0.01, 0.03} (paired by (f₀, rep)):\n')
+    L.append('| set | A − B | diff [95%] | A only / B only | McNemar p |')
+    L.append('|---|---|---|---|---|')
+    for s, okf in (('main', lambda r: r['established']), ('twins', lambda r: r['outcome'] == 'efficient')):
+        for A_, B_ in (('asym', 'sym'), ('asym', 'q0.5'), ('asym', 'q0.25')):
+            ra = {(r['f0'], r['rep']): r for r in by[s] if r['rule'] == A_ and r['f0'] < 0.05}
+            rb = {(r['f0'], r['rep']): r for r in by[s] if r['rule'] == B_ and r['f0'] < 0.05}
+            reps = sorted(set(ra) & set(rb))
+            if not reps: continue
+            pdf = paired([okf(ra[k]) for k in reps], [okf(rb[k]) for k in reps])
+            out['cells']['%s|pooled|%s-%s' % (s, A_, B_)] = pdf
+            L.append('| %s | %s − %s | %+.3f [%+.3f, %+.3f] | %d / %d | %.3f |' % (s, A_, B_, pdf['diff'], pdf['lo'], pdf['hi'],
+                                                                                 pdf['only_A'], pdf['only_B'], pdf['mcnemar_p']))
+    # early survival (all runs, unconditional), main set
+    L.append('\nCarrier survival and mean carrier count (unconditional) in the main set, by generation:\n')
+    L.append('| f₀ | rule | alive at 25 / 50 / 100 / 200 | mean count at 25 / 100 / 200 (initial) |')
+    L.append('|---|---|---|---|')
+    for f0 in sorted(set(r['f0'] for r in by['main'])):
+        for rule in RULES:
+            rr = [r for r in by['main'] if r['f0'] == f0 and r['rule'] == rule]
+            if not rr: continue
+            def at(r, g):
+                tr = r["carrier_traj_fine"]; i = g // 5
+                return tr[i] if i < len(tr) else 0
+            al = [sum(at(r, g) > 0 for r in rr) for g in (25, 50, 100, 200)]
+            mc = [np.mean([at(r, g) for r in rr]) for g in (25, 100, 200)]
+            L.append('| %g | %s | %s | %s (%d) |' % (f0, rule, ' / '.join(map(str, al)), ' / '.join('%.0f' % v for v in mc), rr[0]['k0']))
     # ------------------------------------------------------------------ twins
     if by['twins']:
         L.append('\n## ε = 0 twins (same populations, run to the freeze, horizon 10⁵)\n')

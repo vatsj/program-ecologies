@@ -60,7 +60,7 @@ def challenge_state(job):
         src[slot] = d['iC']; car[slot] = False
     elif inv == 'FB_nc':
         src[slot] = d['iFB']; car[slot] = False
-    job['_slot'] = slot
+    _LAST['slot'] = slot
     it = np.where(car, d['own_type'][src], d['type_of'][src, 0]).astype(np.int64)
     il = np.where(car, d['cls'][src], -1).astype(np.int64)
     seed = int(rng.integers(1 << 30))
@@ -99,8 +99,8 @@ def run_job(job):
         r['carrier_final'] = float(cg[-1] / NA) if G else None
     if job['set'] == 'challenge':
         anc = _LAST['anc']
-        r['invader_share'] = float((anc == job['_slot']).mean()) if job['invader'] != 'none' else None
-        r['slot'] = job['_slot']
+        r['invader_share'] = float((anc == _LAST['slot']).mean()) if job['invader'] != 'none' else None
+        r['slot'] = _LAST['slot']
     r.pop('trace', None)
     return r
 
@@ -138,6 +138,15 @@ def jobs_for(which, gens=GENS):
                 for rule in RULES:
                     J.append(dict(base, set='challenge', rule=rule, b='0', invader=inv, k=-1, f0=1.0, N=100, I=1, rep=rep, eps=0.0,
                                   gens=100000, lottery=True))
+    if which in ('ext', 'ext_twins'):
+        # post-hoc power extension (decided after the 20-seed cells; exploratory): asym vs sym, reps 20-99
+        for f0 in (0.003, 0.01, 0.03):
+            for rep in range(20, 100):
+                for rule in ('asym', 'sym'):
+                    if which == 'ext':
+                        J.append(dict(base, set='main_ext', rule=rule, b='0', f0=f0, N=6400, rep=rep, eps=1e-3, gens=gens, lottery=False))
+                    else:
+                        J.append(dict(base, set='twins_ext', rule=rule, b='0', f0=f0, N=6400, rep=rep, eps=0.0, gens=100000, lottery=True))
     if which == 'inf_pair':
         for rep in range(20):
             for rule in ('asym', 'sym'):

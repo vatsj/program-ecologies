@@ -146,3 +146,13 @@ paired against.
 - **Order:** main → twins → N = 25,600 → lottery → invasion challenge → inf_pair, 3 workers. Any cell projected beyond
   about 2 hours is stopped and recorded as censored.
 - No prediction or threshold changes.
+
+## Addendum 2 (2026-10-05): post-hoc power extension, exploratory
+
+Decided **after** seeing the 20-seed main and twin cells (asymmetric vs symmetric establishment differed by 0.00–0.15 per
+cell, pooled +0.07 with an interval spanning 0). Not part of the preregistered design and not used to score any
+prediction: asymmetric and symmetric rules only, f₀ ∈ {0.003, 0.01, 0.03}, reps 20–99 (80 more paired seeds per cell),
+finite ε (set `main_ext`) and ε = 0 twins (set `twins_ext`), same window and horizon. Purpose: bound the size of the
+fringe's effect on establishment, which 20 seeds cannot resolve (sol's review). Also disclosed: a bookkeeping bug
+(the invader's slot was stored on a copy of the job) crashed the invasion-challenge set before any of its rows were
+saved; it was fixed and the set rerun, with one lottery job left pending by the crash rerun afterwards.
