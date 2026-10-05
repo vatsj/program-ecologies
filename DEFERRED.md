@@ -36,10 +36,14 @@ REJECTED.md the ones we dropped.
   N; whether a path exists on which both hold, and whether the program wants universality across islands at all rather
   than island-level efficiency, is undecided. *Operating hypothesis (RE, 2026-10-05):* island-level efficiency is the
   claim; metapopulation universality is not claimed beyond N ≈ 100.
-- *Would settle it:* (i) a demographic lemma, survival ≤ k₀/(1 + b_min·τ) for supermartingale lineages, and (ii) a
-  per-founder bound on P(target alive ∧ faker alive) that avoids the 1/P(A) loss of the union step (both running,
-  `specs/2026-10-05-demographic-lemma.md`, together with a first-principles formula for the per-island chance);
-  (iii) whether any question the program cares about needs π rather than the lottery.
+- *Evidence (2026-10-05g):* (i) is done and stronger than conjectured: Lemma D′ is proved for any lineage and any
+  stopping time with no fitness hypothesis (Lemma D is the killed fixed-time case); (ii) is done: the per-founder
+  union bound replaces 1/P(A) by a measured r_q = 0.8–1.7 and the bound is positive in 27/27 cells; the per-island
+  establishment chance has a formula (near-critical founders, pooled two-type escape) and tends to 1 along N at fixed
+  n (0.087 → 0.980 over N = 100 → 25,600). The N ≫ I path now has a formula-backed route to P(efficient) → 1 on a
+  single island (RESULTS "The demographic lemma").
+- *Would settle it:* whether any question the program cares about needs π rather than the lottery; the between-island
+  tension of the open item above.
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,

@@ -568,3 +568,18 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Subagent S1** (minority hazard = mN·ρ_DD within ×3; off by 14–200× at mN ≥ 1), **S3** (losses dominated by nucleation; 415 of 485 came after generation 10³), **S4** (two clauses at N = 200).
 
 **Design choices dropped:** the literal "three heaviest pairs" (a four-way tie replicating one rival; one pair per rival instead); island local-frozenness as the horizon "unresolved" criterion (counts transient migrants; holder rule instead); run-level efficient fraction as the mN-rule response at I ≥ 64 (at its ceiling; island-level local nucleation q instead); the arrival count mN·T_nuc as the scaling control (fails to collapse N by 4.6×; the replacement fraction m·T_nuc does).
+
+
+## Added 2026-10-05: the demographic lemma (RESULTS.md, "The demographic lemma, the per-founder spoiler bound, and the establishment formula")
+
+**"r_q ∈ [0.8, 1.6] in every cell, larger for ALLC-cooperating fakers" (Fable, prediction 2; falsifier fired narrowly).** D-cooperating fakers have the larger r (1.15–1.66, one cell at 2.01 [1.22, 2.74]); 5 of 27 cells fall outside the interval. There is no universal interval, as sol expected. Kept: r ≤ 1/P(A) (proved) and the measured r.
+
+**"E[k_τ]/k₀ ≈ 0.75–0.95 from fitness curvature" (Fable, prediction 4; falsifier fired).** The mean-field curvature loss is only about 7% because x_A·x_D shrinks along the scramble, and the establisher family's own advantage w·x_D·x_E plus a survivor's own frequency push E[k_τ] to 1.26–1.55 at every N. Dropped: "provers are payoff-neutral during the scramble" as a basis for E[k_τ].
+
+**"Saturation follows the independent-founder form" (Fable, prediction 5; falsifier fired).** 0.686 at N = 6,400 and 0.980 at 25,600 against 0.58 and 0.82; survivors pool after the scramble, and sol's erf form fits. Also dropped: the spec's concavity example (0.49 vs 0.65), which used independent copies; the exact pooled u₁₅ ≈ 0.58.
+
+**The spec's Kendall expression 1/(e^{ρ(T)} + ∫ d e^{ρ}) (Fable).** Has d where Kendall has b; with b < d it over-claims. The correct equivalent is 1/(1 + ∫ d e^{ρ}).
+
+**The binned evaluation of a stopping-time bound, Σ_i min{P(bin_i), cap_i} (subagent, and the scramble lemma's B1 before it).** Valid but sums one cap per bin and is vacuous when the statistic is spread (12–50× the measured survival); replaced by the single-level infimum inf_φ [k₀/φ + P(Φ_τ < φ)]. Addendum to RESULTS "The scramble lemma": B1's binned numbers were loose for this reason too.
+
+**Subagent S2** (E[k_τ] decreasing in N toward 0.93; it stays ≈ 1.3, the family advantage is N-independent), **S4** (pooled r ∈ [0.9, 1.6] with the shared background explaining half of r − 1; r_env is 1.07 against r = 1.39), **S8** (Lemma D′ within 2× of founder survival; 2.1–7.9×), **S9** (h^rel for probe-reader pairs < 0.15 at N = 1,600; 0.40).

@@ -103,3 +103,14 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   **ever separated** — at any time; **x = m·T_nuc = mN·T_nuc/N** — the expected replacement fraction of an island
   during nucleation, the control of the mN rule; **q** — local nucleation rate relative to m = 0; **T_nuc** — median
   per-island establishment time (45 / 70 generations at N = 100 / 400).
+- **Demographic lemma:** **Φ_t** = 1 + ∫_0^t d·e^{−R}, with per-copy death rate d = 1 − ak/N, a = f_q/F̄, net
+  rate r = a − 1 and R = ∫r; **Lemma D′** — P(k_τ > 0, Φ_τ ≥ φ) ≤ 1 − (1 − 1/φ)^{k₀} for any lineage and stopping
+  time; **Lemma D** — the killed fixed-time case, survival ≤ k₀/(1 + d_min·T); **event clock / Poisson clock** — N
+  events per generation versus events at rate N (same embedded chain); **r_q** — per-founder dependence correction
+  E[N_q | A]/E[N_q] (≤ 1/P(A)); **r_env** — the part of r explained by the shared scramble duration; **h^rel** —
+  relative harm; **K_τ** — pooled count of the largest mutually-cooperating establisher block at ALLC extinction;
+  **u_N(k)** — exact escape of k pooled prover copies from a D sea; **c = w(R − P)** — the frequency-dependent
+  advantage slope (0.3); **ℓ = E[k_τ]/k₀** — per-copy mean size of an establisher lineage at ALLC extinction
+  (≈ 1.3); **κ_N** — concavity factor E[u(k_τ)]/(u₁·E[k_τ]); **p_corr / p_corr2** — the compound establishment
+  formula with the curvature-only / full-seed mean-field scramble; **semi-empirical predictor** — E[u_N(K_τ)] from
+  the measured state at τ; **pooled erf form** — p(N) ≈ erf(μ_est·ℓ·√(Nc/2)) / erf(√(Nc/2)).

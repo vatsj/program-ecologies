@@ -2499,6 +2499,8 @@ The ghost survives like a critical lineage, P(alive) ≈ E[1/(1 + τ)]; establis
 - **A co-seeded faker of a probe-reader is a neutral lineage, not a disadvantaged one.** The scramble kills it by demography, with per-copy survival ≈ 1/(1 + τ_A), and τ_A grows like log N (13 → 19 over N = 100–400); selection adds a factor of 2–7 only for D-cooperating fakers.
 - So for fakeable establishers the expected spoiler term N·μ_q·q̄_q·h_q grows like N/log N unless the post-scramble harm h falls (it fell from 0.44 to ≈ 0.2 between N = 100 and 400). **"Almost all seeds" is clean only for the fakerless establishers, FairBot and `BOX1(THEM(ME))`** (μ_core ≈ 0.0102), whose per-island chance needs no spoiler term at all; the fakeable provers are a bonus measured to n = 12 and N = 400.
 
+*Addendum (2026-10-05, after RESULTS "The demographic lemma"):* the B1 numbers above were evaluated in a binned form (one cap per bin), which is valid but vacuous when the statistic is spread; the single-level infimum, and Lemma D′ which dominates B1, replace it. The 1/P(A) loss of the union step is removed by the per-founder bound there.
+
 ## Proof-carrying contracts v1 (`runs/proof-carrying-contracts.md`; spec `specs/2026-10-04-proof-carrying-contracts.md`, predictions in `predictions/2026-10-04-proof-carrying-contracts.md`)
 
 Designed by the RE from the RS's pitch, reviewed by gpt-6.1-sol, run by an Opus subagent. Finite-size mechanism results; swapping is a second operator outside the ε→0 chain. The all-D-start cells (144 runs) were not run, by the RE's decision after the gate proved inert at b = 2; they are recorded as not run, not censored. A b = 0 supplement was preregistered in a predictions addendum before any b = 0 run.
@@ -2849,6 +2851,58 @@ q = 1/2 falls at x = 0.75 (N = 100) and 0.86 (N = 400); expected arrivals mN·T_
 - **Island efficiency is never at risk**; what fails on the observed timescale is universality across the metapopulation. Whether the program wants that at all is a new DEFERRED item.
 - **Majorities are set by colonization from early islands, not by prior mass**; bridges, classes that cooperate with both rivals, gain from the conflict and speed its resolution.
 - **The mN rule:** islands are independent nucleation trials while x = mN·T_nuc/N ≲ 0.3 (q ≥ 0.75 at x ≤ 0.5, halved at x ≈ 0.8 at both N); with T_nuc ∝ N^0.32 the admissible mN grows like N^0.7. This pulls against resolving rivals, which needs large m or small N.
+## The demographic lemma, the per-founder spoiler bound, and the establishment formula (`runs/demographic-lemma.md`, `runs/demographic-lemma.json`, `notes/demographic-lemma.md`; spec `specs/2026-10-05-demographic-lemma.md`, predictions in `predictions/2026-10-05-demographic-lemma.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/demographic_lemma.py`, extending `src/scramble_lemma.py`). Theory with measurement: 200,000 D-sea runs; 270,000 forced backgrounds at N = 100 / 400 / 1,600 and n = 6 / 9 / 12, each run twice with common random numbers (faker and ghost), 10,000 per cell (the spec's 3,000 are the first block; the extension was declared before running); 13,400 lottery islands at n = 9 (4,000 each at N = 100, 400, 1,600; 1,000 at 6,400; 400 at 25,600, declared beforehand and exploratory). Nothing hit the 2,000-generation τ cap; one lottery island reached the 10⁵ horizon as a stable anti-coordination mixture at P(C,C) 0.50 (a rest point, not a cycle). The instrumented kernel reproduces `seeds_in_n._run` draw for draw (12/12). *Declared deviations:* Lemma D′ was first evaluated in a binned form (one cap per bin), which is valid but vacuous on a spread statistic (12–50× the measured survival); every reported number uses the single-level form, which is the lemma itself. A kernel crash fix (ghost fixation) preceded any forced row. The full-seed mean-field predictor p_corr2 is post hoc.
+
+**Proved** (`notes/demographic-lemma.md` §1–3; RE check: the drift identity and the threshold equivalence verified by hand).
+- **Lemma D′ (one martingale for demography and selection).** Under the Poisson clock (events at rate N, the embedded chain being the kernel exactly, since null events count), for any class or tagged lineage with k copies, a = f_q/F̄, per-copy rates b = a(N − k)/N and d = 1 − ak/N (so b − d = a − 1 =: r exactly, no rarity assumption), R_t = ∫r and **Φ_t = 1 + ∫_0^t d·e^{−R}**: for every a.s. finite stopping time τ, every k₀ and every φ ≥ 1, **P(k_τ > 0, Φ_τ ≥ φ) ≤ 1 − (1 − 1/φ)^{k₀} ≤ k₀/φ**, hence P(k_τ > 0) ≤ k₀/φ + P(Φ_τ < φ). Proof: Y = 1 − (1 − θ)^k with θ = 1/u, u' = ru − b, u₀ = φ, is a bounded supermartingale (drift k x^{k−1}[θ' + θr − bθ²] = 0 before Φ reaches φ, ≤ 0 after); optional stopping. No sign condition on fitness, no branching approximation, no coupling: the rates may depend on the full endogenous state. With r ≡ 0, d ≡ 1 it is the exact critical survival 1 − (1 − 1/(1 + t))^{k₀}; for constant rates it is Kendall's formula (the spec's version had d where b belongs); Φ ≥ e^{−R} always, so it dominates the exponential martingale B1 of RESULTS "The scramble lemma".
+- **Lemma D (fixed time, killed).** For a lineage killed at K and at f_q > F̄: survival ≤ k₀/(1 + d_min·T) with d_min = 1 − (K − 1)/N; unkilled survival is at most this plus k₀/K. Poisson → event clock costs a factor ≤ 1.10 at N = 100 (≤ 1.03 at N = 1,600). Stopped form: P(alive at τ) ≤ Lemma D(t₁) + P(hit K) + P(τ < t₁).
+- **Per-founder union bound (exact).** P(Est | E) ≥ ρ̃·[1 − Σ_q E[K_q]·q̄_q·r_q·h_q^rel] with r_q = E[N_q | A]/E[N_q] the per-founder dependence correction; r_q ≤ 1/P(A) always, so the bound is never worse than the old one. Under conditional independence given an environment, r = 1 + Cov and r ≤ 1 + CV·CV; with monotonicity also r ≥ 1; neither hypothesis is proved for the kernel.
+- **Exact escape from a D sea.** For a prover with self-excluded payoffs, u_N(k) is the birth–death formula with Πγ = e^{−w·i(i−1)/(2(N−1))} (RE check: u_N(1) = 0.0421 / 0.0214 / 0.0108 / 0.0054 at N = 100 / 400 / 1,600 / 6,400; the diffusion value √(2c/(πN)) is within 4%).
+
+**Measured.**
+
+| object | N = 100 | 400 | 1,600 | 6,400 | 25,600 |
+|---|---|---|---|---|---|
+| unkilled ghost at t = 40, ratio to 1/(1 + t) | 1.173 | 1.033 | 1.032 | – | – |
+| killed ghost above the event-clock bound | 0 of 8 | 0 of 8 | 0 of 8 | – | – |
+| u₁ measured / exact (all 20 (N, k) cells inside the interval) | 0.040 / 0.042 | 0.022 / 0.021 | 0.010 / 0.011 | 0.005 / 0.005 | – |
+| r, D-cooperating fakers (pooled over n) | 1.15 [0.98, 1.33] | 1.39 [1.08, 1.71] | 1.66 [1.21, 2.07] | – | – |
+| r, probe-fakers | 1.09 [0.94, 1.24] | 0.93 [0.77, 1.09] | 0.94 [0.80, 1.08] | – | – |
+| r, establisher-faker | 0.80 [0.67, 0.94] | 0.85 [0.65, 1.05] | 1.13 [0.88, 1.41] | – | – |
+| r_env (part explained by the shared scramble duration) | 1.06–1.16 | 1.01–1.07 | 1.01–1.07 | – | – |
+| Lemma D′ bound / measured founder survival | 2.1–3.3 | 1.8–4.5 | 1.5–7.9 | – | – |
+| E[k_τ]/k₀, ALLC-cooperating establishers (lottery) | 1.41 | 1.55 | 1.36 | 1.26 | 1.32 |
+| full-seed mean-field e^{R(τ)} | 1.03 | 1.09 | 1.15 | 1.22 | 1.30 |
+| **p(N), cooperative fixation, n = 9, I = 1** | **0.087** | **0.195** | **0.383** | **0.686** | **0.980** |
+| semi-empirical (state at τ → pooled two-type escape) | 0.086 | 0.195 | 0.369 | 0.674 | 0.957 |
+| p_corr (curvature-only scramble), measured/predicted | 1.26 | 1.27 | 1.21 | 1.15 | 1.09 |
+| p_corr2 (full-seed mean field, post hoc), measured/predicted | 1.17 | 1.16 | 1.07 | 1.01 | 1.02 |
+| independent-founder form / pooled erf form | 0.10 / 0.11 | 0.19 / 0.21 | 0.35 / 0.41 | 0.58 / 0.72 | 0.82 / 0.97 |
+
+- **Combined bound** (confidence-qualified empirical, not a theorem): positive in 27 of 27 cells (point and conservative versions); under B1 it was positive in 2 of 18. The extrapolated spoiler sum for the probe-readers is 0.04 / 0.08 / 0.14 at N = 100 / 400 / 1,600 (≈ N^0.45), 0.34 at N = 10⁴; it is 0 for FairBot's pair.
+- The fitted exponent of p over N = 100–1,600 is 0.533 [0.495, 0.571]; the concavity factor E[u(k_τ)]/(u₁E[k_τ]) runs 0.59 → 0.97 across N; the semi-empirical predictor is calibrated in every bin at every N.
+- *Assumed or coupled:* the Kendall (deterministic-environment) form of the scramble; ρ̃ = the faker-free establishment chance; the diffusion limit (derived, not proved).
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | Lemma D with d_min ≥ 0.9; ghost within 1.3 of 1/(1 + t) | **held** |
+| RE 2 | r_q ∈ [0.8, 1.6], larger for ALLC-cooperating fakers; bound positive in all cells | **failed, falsifier fired narrowly** (r = 2.01 [1.22, 2.74] at (1,600, D-cooperating, n = 9), 11 joint events; 5 of 27 cells outside the interval; ordering reversed); positivity and extrapolation held |
+| RE 3 | corrected formula within 1.25; naive over by 10–40%; exponent 0.45–0.65; u₁ checks | **held** on the spec's state-at-τ predictor; the closed form p_corr misses the 1.25 band at N ≤ 400 |
+| RE 4 | E[k_τ]/k₀ in 0.75–0.95 for ALLC-cooperating establishers | **failed, falsifier fired** at every N (1.17–1.55) |
+| RE 5 | (6,400, 1) follows the independent-founder form | **failed, falsifier fired** (0.686 [0.657, 0.714]; 0.980 at 25,600; sol's pooled form) |
+| S1, S3, S5, S6, S7, S10 | subagent's own | held |
+| S2, S4, S8, S9 | subagent's own | failed |
+
+**Reading.**
+- **The scramble is a theorem.** Lemma D′ bounds survival for any lineage and any stopping time with no hypothesis on fitness, by one martingale that carries demography and selection together. On data it is 1.5–2× loose for near-neutral founders at N ≥ 400; what it loses is the spread of τ.
+- **The 1/P(A) loss was an artefact of the union step.** Charging each faker founder its survival given the target's survival costs r = 0.8–1.7, not 7–20; the shared scramble length explains little of it, the likely remainder being direct interaction (a D-cooperating faker earns T against a surviving target).
+- **Establishment has a formula.** Founders survive the scramble like near-critical lineages (≈ 1/(1 + τ), size ≈ 1 + τ given survival); the survivors pool and the family escapes by the exact two-type formula; the establisher family gains w·x_D·x_E during the scramble, which outweighs the curvature loss (hence E[k_τ] ≈ 1.3, not 0.93). The semi-empirical predictor is within 4% at every N, the full-seed mean field within 1–17%.
+- **At fixed cutoff p(N) → 1** (0.98 at N = 25,600), following the pooled erf form erf(μ_est·ℓ·√(Nc/2)): the N ≫ I path is "almost all seeds" on a single island. The probe-readers' spoiler term still grows (≈ N^0.45), so the clean claim stays on FairBot's pair, whose bound has no spoiler term.
+- Method: a binned evaluation of a stopping-time bound (one cap per bin) is vacuous when the statistic is spread; this also affected the scramble lemma's binned B1.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
