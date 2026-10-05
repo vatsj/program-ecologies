@@ -132,7 +132,7 @@ def main():
                 ci(s['efficient'], s['n']), ', '.join('%s %d' % kv for kv in sorted(s['outcomes'].items())), ', '.join('%s %d' % kv for kv in sorted(s['status'].items())),
                 s['stop_gen_median'], s['stop_gen_max'], s['carrier_extinct'], s['founders_median'], s['rate_accept_onto_none']))
         L.append('')
-    fin_table('Finite ε (10⁻³), b = 0 main grid and controls, N = 6,400 unless stated', ('main', 'ctl_off', 'ctl_inf', 'ctl_mu', 'nsweep'))
+    fin_table('Finite ε (10⁻³), b = 0 main grid and controls, N = 6,400 unless stated; 2·10⁴ generations except set long (10⁵)', ('main', 'ctl_off', 'ctl_inf', 'ctl_mu', 'nsweep', 'long'))
     lot_table('ε = 0 twins (well-mixed, I = 1, run to the freeze)', ('twins', 'twins_ctl', 'nsweep_twins'))
     lot_table('ε = 0 lottery on islands (mN = 1)', ('lottery',))
     # composition and lineage details for the main grid

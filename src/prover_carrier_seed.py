@@ -354,7 +354,7 @@ def run_job(job):
     out = _run(it, il, I, N, W, job.get('mN', 0.0) / N, job['eps'], float(job.get('s', 0)), float(job['sigma']), False,
                job['gens'], every, seed, d['tsrc'], d['tcon'], d['pc'], d['U'], d['PCC'], d['type_of'], d['valid'], d['own_type'],
                d['mu_cdf'], d['cls'], d['iC'], d['cC'], d['cFB'], d['anti'], d['NC'], d['K'], lottery, thin, anc0, canc0,
-               bool((not lottery) and job['eps'] > 0 and float(job.get('s', 0)) == 0.0 and bool(car0.any())))
+               bool((not lottery) and job['b'] == '0' and job['eps'] > 0 and float(job.get('s', 0)) == 0.0 and bool(car0.any())))
     (acc, con_share, src_share, trn, sw, sw_none, sw_cross, carr_g, tr, status, stop_gen, isl_cc, cnt_con, cnt_src, cnt_type,
      agent_t, anc, canc, last_pcc) = out
     r = dict(job)
@@ -456,7 +456,7 @@ def jobs_for(which, gens=100000):
     if which == 'nsweep':
         for N in (1600, 25600):
             for sg in (0.0, 1.0):
-                for r in range(5 if N == 1600 else 3):
+                for r in range(5):
                     J.append(dict(seed='mix', f0=0.01, sigma=sg, N=N, I=1, rep=r, s=0, mN=0.0, b='0', ctl='on', eps=1e-3, gens=gens,
                                   lottery=False, set='nsweep'))
     if which == 'nsweep_twins':

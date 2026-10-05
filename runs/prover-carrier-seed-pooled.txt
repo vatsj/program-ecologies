@@ -1,0 +1,59 @@
+pooled success by f0
+  main 0.001 3/80 [0.01, 0.10] {'mix,s0': '0/20', 'mix,s1': '0/20', 'fb,s0': '3/20', 'fb,s1': '0/20'}
+  main 0.003 18/80 [0.15, 0.33] {'mix,s0': '4/20', 'mix,s1': '4/20', 'fb,s0': '5/20', 'fb,s1': '5/20'}
+  main 0.01 10/20 [0.30, 0.70] {'mix,s0': '3/5', 'mix,s1': '2/5', 'fb,s0': '3/5', 'fb,s1': '2/5'}
+  main 0.03 17/20 [0.64, 0.95] {'mix,s0': '3/5', 'mix,s1': '5/5', 'fb,s0': '4/5', 'fb,s1': '5/5'}
+  main 0.1 20/20 [0.84, 1.00] {'mix,s0': '5/5', 'mix,s1': '5/5', 'fb,s0': '5/5', 'fb,s1': '5/5'}
+  twins 0.001 6/80 [0.03, 0.15] {'mix,s0': '1/20', 'mix,s1': '2/20', 'fb,s0': '3/20', 'fb,s1': '0/20'}
+  twins 0.003 12/80 [0.09, 0.24] {'mix,s0': '3/20', 'mix,s1': '0/20', 'fb,s0': '4/20', 'fb,s1': '5/20'}
+  twins 0.01 52/80 [0.54, 0.75] {'mix,s0': '14/20', 'mix,s1': '14/20', 'fb,s0': '11/20', 'fb,s1': '13/20'}
+  twins 0.03 72/80 [0.81, 0.95] {'mix,s0': '19/20', 'mix,s1': '18/20', 'fb,s0': '17/20', 'fb,s1': '18/20'}
+  twins 0.1 80/80 [0.95, 1.00] {'mix,s0': '20/20', 'mix,s1': '20/20', 'fb,s0': '20/20', 'fb,s1': '20/20'}
+  ctl_inf 0.001 36/40 [0.77, 0.96] {'mix,s0': '17/20', 'mix,s1': '0/0', 'fb,s0': '19/20', 'fb,s1': '0/0'}
+  ctl_inf 0.003 36/40 [0.77, 0.96] {'mix,s0': '18/20', 'mix,s1': '0/0', 'fb,s0': '18/20', 'fb,s1': '0/0'}
+  ctl_inf 0.01 10/10 [0.72, 1.00] {'mix,s0': '5/5', 'mix,s1': '0/0', 'fb,s0': '5/5', 'fb,s1': '0/0'}
+  ctl_inf 0.03 10/10 [0.72, 1.00] {'mix,s0': '5/5', 'mix,s1': '0/0', 'fb,s0': '5/5', 'fb,s1': '0/0'}
+  ctl_inf 0.1 10/10 [0.72, 1.00] {'mix,s0': '5/5', 'mix,s1': '0/0', 'fb,s0': '5/5', 'fb,s1': '0/0'}
+  twins_ctl 0.001 31/40 [0.62, 0.88] {'mix,s0': '18/20', 'mix,s1': '0/0', 'fb,s0': '13/20', 'fb,s1': '0/0'}
+  twins_ctl 0.003 31/40 [0.62, 0.88] {'mix,s0': '16/20', 'mix,s1': '0/0', 'fb,s0': '15/20', 'fb,s1': '0/0'}
+  twins_ctl 0.01 30/40 [0.60, 0.86] {'mix,s0': '16/20', 'mix,s1': '0/0', 'fb,s0': '14/20', 'fb,s1': '0/0'}
+  twins_ctl 0.03 39/40 [0.87, 1.00] {'mix,s0': '19/20', 'mix,s1': '0/0', 'fb,s0': '20/20', 'fb,s1': '0/0'}
+  twins_ctl 0.1 40/40 [0.91, 1.00] {'mix,s0': '20/20', 'mix,s1': '0/0', 'fb,s0': '20/20', 'fb,s1': '0/0'}
+  main sigma 0.0 35/110
+  main sigma 1.0 33/110
+  paired main sigma0 only 14 sigma1 only 12 both 21 pairs 110
+  twins sigma 0.0 112/200
+  twins sigma 1.0 110/200
+  paired twins sigma0 only 18 sigma1 only 16 both 94 pairs 200
+extinction and early growth (main)
+  f0 0.001 k0 6 extinct 77/80 ext gen median 8.0 max 256 survivors: growth200 median 0.0348, min count/k0 in first 500 gens median 0.67 unsuccessful survivors 0
+  f0 0.003 k0 19 extinct 62/80 ext gen median 29.0 max 174 survivors: growth200 median 0.0289, min count/k0 in first 500 gens median 0.82 unsuccessful survivors 0
+  f0 0.01 k0 64 extinct 10/20 ext gen median 77.0 max 191 survivors: growth200 median 0.0229, min count/k0 in first 500 gens median 0.65 unsuccessful survivors 0
+  f0 0.03 k0 192 extinct 3/20 ext gen median 98.0 max 134 survivors: growth200 median 0.0173, min count/k0 in first 500 gens median 0.79 unsuccessful survivors 0
+  f0 0.1 k0 640 extinct 0/20 ext gen median None max None survivors: growth200 median 0.0112, min count/k0 in first 500 gens median 0.99 unsuccessful survivors 0
+lineage (successful runs)
+  main sigma 0: n 35; cross-lineage contract share median 0.000 mean 0.000 (>0.05: 0, >0.5: 0, all: 0); from-seed-founder share min 1.000 mean 1.000; founders median 1 max 1
+  main sigma 1: n 33; cross-lineage contract share median 0.000 mean 0.091 (>0.05: 3, >0.5: 3, all: 3); from-seed-founder share min 0.000 mean 0.939; founders median 1 max 1
+  twins sigma 0: n 112; cross-lineage contract share median 0.000 mean 0.000 (>0.05: 0, >0.5: 0, all: 0); from-seed-founder share min 1.000 mean 1.000; founders median 4.5 max 38
+  twins sigma 1: n 110; cross-lineage contract share median 0.027 mean 0.139 (>0.05: 52, >0.5: 9, all: 3); from-seed-founder share min 0.000 mean 0.861; founders median 6 max 39
+  nsweep sigma 0: n 2; cross-lineage contract share median 0.000 mean 0.000 (>0.05: 0, >0.5: 0, all: 0); from-seed-founder share min 1.000 mean 1.000; founders median 1 max 1
+  nsweep sigma 1: n 6; cross-lineage contract share median 0.000 mean 0.156 (>0.05: 2, >0.5: 1, all: 0); from-seed-founder share min 0.199 mean 0.844; founders median 1 max 2
+  nsweep_twins sigma 0: n 22; cross-lineage contract share median 0.000 mean 0.000 (>0.05: 0, >0.5: 0, all: 0); from-seed-founder share min 1.000 mean 1.000; founders median 3 max 7
+  lottery sigma 0: n 137; cross-lineage contract share median 0.000 mean 0.000 (>0.05: 0, >0.5: 0, all: 0); from-seed-founder share min 1.000 mean 1.000; founders median 3 max 13
+  lottery sigma 1: n 138; cross-lineage contract share median 0.000 mean 0.062 (>0.05: 33, >0.5: 5, all: 2); from-seed-founder share min 0.000 mean 0.938; founders median 3 max 14
+  long sigma 0: n 6; cross-lineage contract share median 0.000 mean 0.000 (>0.05: 0, >0.5: 0, all: 0); from-seed-founder share min 1.000 mean 1.000; founders median 1 max 1
+  long sigma 1: n 3; cross-lineage contract share median 0.000 mean 0.333 (>0.05: 1, >0.5: 1, all: 1); from-seed-founder share min 1.000 mean 1.000; founders median 1 max 1
+swaps (sigma = 1)
+  main births 4.24e+09 accepted 7522 (1.8e-06/birth), onto none 7522 (1.8e-06/birth), cross-lineage 3056, rejected 856210698 (0.2), same 2170580483, donor none 1215223697; max per-run onto-none 0.00011 (f0 0.001 k None rep 8)
+  twins births 1.28e+08 accepted 6788 (5.3e-05/birth), onto none 6788 (5.3e-05/birth), cross-lineage 6788, rejected 12719978 (0.099), same 17923475, donor none 97637759; max per-run onto-none 0.0004 (f0 0.03 k None rep 15)
+  lottery births 4.15e+08 accepted 3059 (7.4e-06/birth), onto none 3059 (7.4e-06/birth), cross-lineage 3059, rejected 22081694 (0.053), same 328580204, donor none 64783043; max per-run onto-none 0.00048 (f0 0.16 k 16 rep 28)
+  nsweep births 2.59e+09 accepted 7238 (2.8e-06/birth), onto none 7238 (2.8e-06/birth), cross-lineage 5345, rejected 718920453 (0.28), same 1055602144, donor none 817538965; max per-run onto-none 3.9e-05 (f0 0.01 k None rep 1)
+  long births 1.92e+09 accepted 2378 (1.2e-06/birth), onto none 2378 (1.2e-06/birth), cross-lineage 1246, rejected 392204832 (0.2), same 990428840, donor none 538554350; max per-run onto-none 4.7e-05 (f0 0.01 k None rep 0)
+transitions (main, successful runs)
+   {'mutations': 8705863, 'mut_of_carriers': 6284439, 'kept_valid': 30591, 'lost_invalid': 6253848, 'created': 0, 'noncarrier_stays_none': 2421424} births 8.7e+09 kept fraction of carrier mutations 0.0049
+composition of successful main runs (mean second-half source shares)
+   [('BOX(THEM(ME))', 0.456), ('C', 0.274), ('BOX1(THEM(ME))', 0.084), ('BOX1(THEM(THEM))', 0.083), ('BOX(THEM(THEM))', 0.064), ('BOX(THEM(^C))', 0.032), ('D', 0.005), ('BOXD(THEM(THEM))', 0.0), ('BOXD1(THEM(ME))', 0.0), ('BOXD1(THEM(THEM))', 0.0)]
+  contracts [('<BOX(THEM(ME))>', 0.632), ('<BOX1(THEM(ME))>', 0.118), ('<BOX1(THEM(THEM))>', 0.117), ('<BOX(THEM(THEM))>', 0.088), ('<BOX(THEM(^C))>', 0.044), ('<BOX1(THEM(^C))>', 0.001)]
+  src ALLC load 0.276; carrier fraction 0.720
+lottery placement: k=16 on (100,4) efficient vs islands with a prover-family seed
+  (100,4) k=1,3 by outcome, stop gen median {'efficient': 120.0, 'defecting': 25.0}
