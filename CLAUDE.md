@@ -80,5 +80,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 4. ~~An explicit proof system with measured proof length~~ (done; RESULTS "Proof length": the free box is exactly GL provability with certified lengths; a sound bounded calculus K keeps cooperation from b = 4, closes nothing, and beats the free oracle by removing a Gödel-sentence faker; soundness not masking rate is what makes bounded provers harmless; per-match budget prices rebuild the ladder).
 5. ~~Incentive-compatible enforcement; the unfakeable-polarity pact~~ (done; RESULTS "Incentive-compatible enforcement": non-credible committed threats deter because the chain never tests them; with both sides rational the smallest positive wage is selected, 0.75 under the length prior; the pool drives the wage to zero; the polarity dilemma survives).
 6. Divide-the-dollar partitions across islands, three role structures (RS, 2026-10-02). (Running: `specs/2026-10-05-dollar-partitions.md`; the paused worktree's partial files were carried into main in 5c9b1f9.)
+7. K at n = 8, lemma sharing (analytic cut vs DAG), and non-per-match budget prices in K (follow-up to "Proof length"; running: `specs/2026-10-05-k-at-n8.md`).
+8. A path in (N, I, mN) on which islands nucleate independently and rival networks still resolve: calibrated boundary path, propagule migration, the bridge (follow-up to "Rival networks"; running: `specs/2026-10-05-island-path.md`).
 
 No paper draft (RS, 2026-10-04).
