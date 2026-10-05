@@ -2196,6 +2196,61 @@ Designed by the RE under the spec workflow, reviewed by gpt-6.1-sol, run by an O
 - The guaranteed leak from the theorem is tiny (μ(x)·5^(−12)); the real leak is far larger (leak/μ ≥ 92). The quantitative theorem linking witness size and escape rate is the next object.
 - Each order of prudence has a sibling one Con level up, so more prudence never escapes the regress.
 
+## Almost all seeds? Persistence without mutation along N ≫ I and I ≫ N (`runs/almost-all-seeds.md`; spec `specs/2026-10-04-almost-all-seeds.md`, predictions in `predictions/2026-10-04-almost-all-seeds.md`)
+
+Designed by the RE under the spec workflow, reviewed by gpt-6.1-sol, run by an Opus subagent. The RE reproduced three cells with fresh seeds after the merge: modal (100, 64) 6 of 6 efficient; modal (400, 4) 5 of 12; W0 (100, 256) 3 of 6. This re-opens the REJECTED entry "Seeding randomness as a substitute for mutation" (2026-09-30), whose evidence was the L6R arm, uniform-over-programs seeding, and I ≫ N at N = 100.
+
+**Setup.** PD, w = 0.3. Arms: the modal arm (all box kinds), W0 (the weak arm without X and `ROLE`, matching the modal grammar and prior), and L6R (L_6 with X and `ROLE`), all at n = 6 for the islands.
+- **Object 1:** the replicator from x₀ = prior on the full class matrix, under eight priors (length; per-program bases 2, 4, 8; tempered β = 0.5 and 2; uniform over programs; uniform over classes). Endpoints are *closed*: any class with positive growth rate at the pruned endpoint is re-injected at 10⁻⁶ and the run re-integrated until none grows; a fixed-step integration without pruning cross-checks.
+- **Object 2:** ε = 0 islands, each slot seeded iid from μ (a new seeding; the existing 'prior' seeding puts every program in once and is not iid), complete island graph, mN = 1, horizon 10⁵ generations, 20 runs per cell and 40 at the end cells, Wilson intervals. Certification: all 897 runs with migration were outcome-frozen (every surviving class pairwise payoff-identical) by generation 20–490; none were metastable or unresolved. W0 at n = 8 could not be built (memory).
+
+**Object 1: static.**
+- *Modal arm.* The closed endpoint has P(C,C) = 1.000 at n = 6–9 under all eight priors: a prover family (FairBot, `BOX1(THEM(ME))`, `BOX(THEM(THEM))`, `BOX1(THEM(THEM))`) at 0.2–0.28 each, with no class in the language growing. Every perturbation recovers (ALLC first, then all neutral classes, then random mixtures), and the result holds at tolerances ×10 and ÷10. ALLC goes extinct at t ≈ 15, D at t ≈ 56. The whole segment from μ to either uniform is efficient. Two caveats: at n = 8, 9 under three priors the *pruned* endpoint left `or(BOXD(THEM(ME)),BOX(THEM(^D)))` growing at 0.03–0.11 (it exploits probe-reading provers), and one closure round removed it; under tempered-2 at n = 8 the unpruned flow is still at all-D at t = 3,000 with the provers at 0.003 growing at 3.6·10⁻³.
+- *Weak arms.* The closed endpoints are P(C,C) = 0.000 in W0 (n = 6, 7) and L6R (n = 6) under every prior: D plus `THEM(^D)` plus traces, persistent. W0 at n = 7 passes through P(C,C) 0.85–0.91 at t = 100 under two priors before collapsing.
+
+**Object 2: modal arm.** Efficient fraction with 95% intervals:
+
+| path | cells |
+|---|---|
+| N ≫ I (I = 4) | N = 100: 0.25 [0.14, 0.40]; 400: 0.45 [0.26, 0.66]; 1,600: 0.80 [0.58, 0.92]; 6,400: **1.00 [0.91, 1.00]** |
+| I ≫ N (N = 100) | I = 4: 0.25; 16: 0.75 [0.53, 0.89]; 64: 1.00 [0.84, 1.00]; 256: **1.00 [0.91, 1.00]** |
+| diagonal (N = 25·I) | (200, 8): 0.70; (400, 16): 1.00; (800, 32): 1.00 |
+
+- Every non-efficient run froze in all-D. Median freeze time rises with I: 40 → 280 generations.
+- *No-migration control:* islands alone end efficient 0.14 of the time at N = 400 and 0.07 at N = 100. Migration lifts (100, 64) from 0.07 per island to 1.00 per run.
+- *The per-island chance scales like √N,* and the run-level outcome is 1 − (1 − p)^I: 0.07·√(N/100) gives 0.14 / 0.28 / 0.56 at N = 400 / 1,600 / 6,400, against measured per-island 0.14 / 0.33 / ≥ 0.6, and 1 − 0.93^4 = 0.25, 1 − 0.93^64 = 0.99 at I = 4, 64.
+- *Spread is one-way.* One FairBot migrant fixes on an all-D island with probability 0.042 / 0.021 / 0.011 at N = 100 / 400 / 1,600 (exact slope −0.49, Monte Carlo −0.52). One D migrant fixes on an all-FairBot island at 1.7·10⁻⁸ (N = 100) and 2.5·10⁻²⁸ (N = 400). So the bad event is losing every prover everywhere, with probability about (per-island loss)^I, not a bad seed somewhere: I·P(no unfakeable cooperator in the seed) is 57 at I = 256, yet every run there ended efficient.
+- *Mechanism.* ALLC is globally extinct by generation 40–60 (maximum 260) and never returns. 69 cooperative islands were lost after that, all to the probe-fakers `BOX(THEM(^D))` and `BOX1(THEM(^D))`, which exploit only the fakeable probe-reading provers; every such run still froze efficient.
+
+**Object 2: weak arms.**
+
+| arm | N ≫ I (N = 100 / 400 / 1,600 / 6,400) | I ≫ N (I = 4 / 16 / 64 / 256) | diagonal |
+|---|---|---|---|
+| W0 | 0.03 / 0.00 / 0.15 / 0.25 [0.14, 0.40] | 0.03 / 0.20 / 0.40 [0.22, 0.61] / 0.55 [0.40, 0.69] | 0.15 / 0.15 / 0.20 |
+| L6R | 0.00 / 0.00 / 0.05 / 0.10 | 0.00 / 0.05 / 0.10 / 0.15 | 0.00 / 0.05 / 0.05 |
+
+- Efficient frozen states are all-`THEM(^C)`; defecting ones are D, sometimes with `THEM(^D)`; L6R also freezes in `THEM(^ROLE)`/`THEM(^X)` mixtures (14 of 40 at I = 256). No-migration islands end efficient 0.00–0.01 of the time.
+- *The faker race.* `THEM(^D)` takes an all-`THEM(^C)` island at 0.26 per migrant at every N and is neutral on D islands. `THEM(^C)` enters D islands at exactly FairBot's rate (identical 2×2 payoffs against D). At ε = 0 the fakers are a *finite stock* drifting on D islands; if every faker lineage is lost before it reaches a `THEM(^C)` island, the run freezes efficient. In W0 the fakers have R's prior mass (0.002); in L6R they have 3× it over 13 classes.
+
+**Verdicts.**
+| # | prediction | outcome |
+|---|---|---|
+| 1 | modal static efficient and persistent at every n and prior; ALLC dies before D | **Holds** on closed endpoints; the falsifier fired on the pruned endpoint at n = 8, 9 under three priors and one closure round removed it; the thin-margin prior was tempered-2, not uniform |
+| 2 | weak static goes to defection everywhere | **Holds** |
+| 3 | modal basin efficient to t ≤ 0.75 | **Holds** (to t = 1) |
+| 4 | modal N ≫ I: ≥ 0.5 at 400, ≥ 0.9 at 6,400; assay slope −½ | **Partly:** 0.45 at 400 fails, 1.00 at 6,400 holds, slope −0.49 holds; the RE addendum's 0.5–0.8 at (6,400, 4) was also low |
+| 5 | modal I ≫ N rises, ≥ 0.6 at 256; freeze time grows | **Holds** (1.00; 40 → 280) |
+| 6 | weak ≤ 0.15 everywhere, falling along I ≫ N, ≤ 0.05 at 6,400 | **Failed, falsifier fired:** W0 rises to 0.55 at I = 256 and is 0.25 at N = 6,400; L6R rises to 0.15 |
+| 7 | modal rises on the diagonal; weak falls or stays ≤ 0.15 | modal and L6R **hold**; W0 **fails** (0.15 → 0.20) |
+| RS | cooperation appears as islands grow along N ≫ I; no claim for few islands | **Holds** |
+| S1–S3 | subagent's own | S1, S2 hold; S3 (no island lost after ALLC) fails: 69 lost, all fakeable classes |
+
+**Reading.**
+- In the faker-free modal language, iid seeding from μ at ε = 0 ends efficient with probability → 1 along both paths and the diagonal. The RS's N ≫ I condition is sufficient, not necessary: spread is one-way, so one surviving prover island suffices and more islands help.
+- Fakeable languages are not doomed at ε = 0 either: without mutation the faker is a finite stock, and the race is often won before a faker reaches a reciprocator island. Unfakeability matters for the version with mutation (lim_N), where the faker exit is constant, not for the seed lottery.
+- The static replicator from μ predicts the modal arm but not the weak arms (all-D statically against up to 0.55 efficient on islands). lim_t lim_N and lim_N lim_t differ, as sol warned; the proof object for the seed claim has to go through spread and extinction rates, not basin membership alone.
+- The 2026-09-30 conclusion that the ε = 0 lottery concentrates on defection depended on the seeding law (uniform over programs, heavy in fakers) in L6R.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

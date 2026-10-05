@@ -359,3 +359,21 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **A uniform leak/μ bound as an open question.** Trivial under the length prior (≤ 27π²). The question with content is the limit value, about 89–90.
 
 **Conjecture 4 as a statement about source-reading programs in general.** False with syntactic equality: CliqueBot is drift-closed. The theorem is about extensional readers.
+
+## Added 2026-10-04: almost all seeds (RESULTS.md, "Almost all seeds?")
+
+**Reversal note on "Seeding randomness as a substitute for mutation" (2026-09-30).** Partly reversed. Its evidence (L6R, uniform-over-programs seeding, I ≫ N at N = 100) stands but does not carry to iid seeding from μ. Under μ-seeding the ε = 0 lottery rises with I in every arm: modal to 1.00, W0 to 0.55, L6R to 0.15. For unfakeable languages, seeding randomness does substitute for mutation; for fakeable ones the lottery is a faker-extinction race and is not monotone toward defection. Do not cite the old entry as "ε = 0 is canonically inefficient".
+
+**"Modal efficient fraction ≥ 0.5 at N = 400, I = 4" (Fable, prediction 4).** 0.45 [0.26, 0.66]. The RE addendum's 0.5–0.8 at (6,400, 4) was also too low: it was 1.00 [0.91, 1.00]. The per-island chance does scale like √N as the addendum said; the survival-through-scramble factor was underestimated.
+
+**"The weak efficient fraction falls along I ≫ N and stays ≤ 0.15" (Fable, prediction 6; falsifier fired).** W0 rises 0.03 → 0.55 and L6R 0 → 0.15. Without mutation the faker is a finite stock, neutral on D islands, and `THEM(^C)` enters D islands at FairBot's rate.
+
+**"Weak ≤ 0.05 at N = 6,400" and "W0 falls on the diagonal" (Fable, predictions 6, 7).** 0.25 (W0), 0.10 (L6R); diagonal 0.15 → 0.20.
+
+**"The replicator from μ predicts the ε = 0 island outcome" (implicit in the N ≫ I reasoning).** Holds for the modal arm only. The replicator stays a diagnostic (sol).
+
+**"The thin-margin prior is uniform-over-programs at n ≥ 8" (Fable).** It is tempered-2: squaring the prior starves the provers.
+
+**"No cooperative island is lost after ALLC dies" (subagent, S3).** 69 were lost, all fakeable probe-reading classes, to `BOX(THEM(^D))`-type fakers.
+
+**Integrator endpoints as persistence certificates.** The replicator's pruning at 10⁻⁹ gave endpoints that failed the persistence check at modal n = 8, 9 and in every weak arm. Persistence must be checked on closed endpoints or without pruning.
