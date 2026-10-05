@@ -1,11 +1,12 @@
 # CLAUDE.md — working instructions for this repo
 
-Research project: evolutionary game theory over source-observing programs ("program ecologies"). Paper title: *Program ecologies: stochastic stability in open-source games.* Collaborator: Jacob. You (Claude Code) now own the whole loop: read results, reason about theory, write predictions, run, and edit docs.
+Research project: evolutionary game theory over source-observing programs ("program ecologies"). Working title only, no paper or draft planned (RS, 2026-10-04): *Program ecologies: stochastic stability in open-source games.* Collaborator: Jacob (RS). You (Claude Code) now own the whole loop: read results, reason about theory, write predictions, run, and edit docs.
 
 ## Long-term goal (RS, 2026-10-02)
 Get Turing-complete program classes with source access to cooperate. The DSL arms, including the modal arm's free sound oracle, are approximations. Judge each result by what it says about realizable source-reading programs.
 
 ## Files
+- `DEFERRED.md` — decisions punted to a later Fable, each with its current *operating hypothesis*. Operating hypotheses are acted on but not defended; they move without ceremony. Add an entry whenever a decision is deferred.
 - `THEORY.md` — the operating hypothesis. Change only with a stated reason tied to a result.
 - `IMPLEMENTATION.md` — DSL, evaluator, chain, runtime rules.
 - `RESULTS.md` — append-only record of runs. Never rewrite a past verdict; add addenda.
@@ -25,6 +26,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
    2. **Review by sol.** `python3 tools/review.py specs/<file> --context CLAUDE.md --model gpt-6.1-sol` (needs OPENAI_API_KEY in `.env`, gitignored; background mode with polling). Fold the material points into the spec, marked [after review], and commit the spec before launch.
    3. **Run by an Opus subagent** (Agent tool, model `opus`, own worktree). It computes the static numbers, writes `predictions/` from the spec (committed before the run), runs within 3 workers, writes `runs/`, and hands back drafts for RESULTS/REJECTED/THEORY. The RE merges, writes the shared docs, and surfaces to the RS only what matters for the program.
 
+   **Autonomy** (RS, 2026-10-04): be maximalist with experiments; they cost the RS only tokens. Run them autonomously under this workflow, in parallel within the 10-core budget, and report only the ones that matter, spending roughly as many tokens on a result as were spent discussing the experiment.
+
    Keep-awake must be on while subagents run (`mcp__ccd_host__request_keep_awake`, session_idle). A closed lid still stalls them; stalled agents stay paused until the RS says go.
 
 ## Current state (2026-09-23, after the island model)
@@ -43,6 +46,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
   - *Finite εN:* the modal arm is at 0.99 on one well-mixed island (a defector fringe prunes the shadow); the weak arm is at 0.06.
 - Island-level selection (2026-09-30, `src/multilevel.py`, `src/multilevel_scaling.py`): payoff-weighted emigration rescues the PD only at strong between-island selection (w_g ≈ 10 at N = 100 gives P(C,C) 0.75). The threshold rises with island size (w_g* 4.2 / 4.8 / 9.0 at N = 50 / 100 / 200), so this is a finite-size rescue. Suppressing fakers brings the shadow back as the main exit.
 - ε = 0 lottery concentrates on mutual defection as the island count grows (all 20 runs at 1,024 islands). Mutation stays in the object.
+- Operating hypothesis (RS, 2026-10-04; DEFERRED.md 1): two objects. The ε = 0 seeding lottery (P(efficient) → 1 along a path in (N, I)) is primary for the Turing-complete goal; lim_N under rare mutation is kept as the stress test for unfakeability. Corollary 1 is a theorem about re-injection and does not bind at ε = 0.
 - Decisions (RS, 2026-09-30): policy regret over response regret, defined per subpopulation with a horizon; spatial structure over the mutation prior, keeping μ = length prior fixed and taking limits of a fixed graph family (hypercubes proposed, fixed-degree tori as control); runtime price re-opened with its form left open.
 - Modal arm (2026-09-30, `src/modal.py`, `src/modal_limN.py`): cooperation rises with no peak, to P(C,C) 0.73 at N = 3·10⁴ (w = 0.3), with the cooperative/D ratio ∝ N^0.44. The support is a family of provers (FairBot, `BOX1(THEM(ME))`, …); exits are neutral drift into ALLC, ∝ 1/N. Caveats: efficiency is built in by a free sound oracle, so the content is the exponent; the weak-vs-modal comparison is confounded by X and `ROLE`.
 - Islands at ε = 0 (`src/islands.py`): non-ergodic absorption lottery. B′ falsified in PD (all-`THEM(^C)` in 17.5% of runs) and narrowly in Chicken with `ROLE`. **Without mutation the spoiler is the faker, not the shadow or the subsidized front.** A holds as a set, fails for placement. The migration game (ρ − ρᵀ) is not the ε-free object.
