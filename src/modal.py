@@ -157,6 +157,7 @@ class ModalLanguage:
             for c, m in cnt[s].items():
                 mu[c] += m * 2.0 ** (-b); bits_min[c] = min(bits_min[c], b)
         self.mu_canon = mu; self.bits_canon = bits_min
+        self.cnt_by_size = cnt          # size -> canon -> program count (for alternative priors)
         self.count_canon = np.zeros(K)
         for s in range(1, n + 1):
             for c, m in cnt[s].items():
