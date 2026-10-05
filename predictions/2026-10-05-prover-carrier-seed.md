@@ -115,3 +115,30 @@ barrier at small seeds is drift, with a diffusion fixation chance of about erf(f
   contract-less recipients are < 10⁻⁵ per birth. *Falsifier:* cross-lineage share ≥ 0.05 in any successful σ = 1 run.
 - **S6 (lottery).** k = 1 on (100, 64) and k = 16 on (100, 4) both ≥ 0.8, with their difference inside ±0.15 (the RE's
   ordering will not be resolved at 40 runs); k = 1 on (100, 4) ≈ 0.1–0.35. *Falsifier:* either fixed-total cell below 0.6.
+
+## Addendum before any seeded run (2026-10-05, 01:40): reduction of the window, predeclared
+
+Committed after the static diagnostics (`runs/prover_carrier_static.json`) and before any seeded run, except one 300-generation
+smoke test of the kernel (mix seed, f₀ = 0.03, σ = 1, rep 0), which I disclose: its carriers passed 50% at generation 70
+and P(C,C) over generations 160–300 was 0.99. The static diagnostics are reported with the results; they do not change
+any prediction above.
+
+**Why.** The machine's lid is closed (`AppleClamshellState = Yes`): the system sleeps between dark wakes, and a first
+pool of 3 workers accumulated about 3 CPU-minutes each in 98 wall-minutes without finishing one job. The full grid
+(470 finite-ε jobs at 10⁵ generations) is not feasible at that rate.
+
+**Reductions (all predeclared, none conditioned on outcomes):**
+1. Every finite-ε cell runs **2·10⁴ generations**, statistics over the second half (generations 10⁴–2·10⁴). The
+   deterministic flow and the smoke test put takeover at 10²–10³ generations, so the 50%-within-2·10⁴ clause of RE
+   prediction 1 stays testable; what is lost is the long-window metastability check (a shadow-driven collapse after
+   2·10⁴ generations would be missed). A **long-window check** at 10⁵ generations (mix seed, f₀ ∈ {0.01, 0.1}, σ ∈ {0, 1},
+   3 seeds) runs last if time allows; otherwise it is reported as not run.
+2. **N sweep:** N = 1,600 at 5 seeds per σ; **N = 25,600 at 3 seeds per σ**, both at 2·10⁴ generations, run after the
+   lottery. The ε = 0 N-sweep twins keep 20 runs.
+3. Control (iii), the μ-drawn f₀ = 0.01 cell, runs at 2·10⁴ generations with the published seeds; exact reproduction of
+   the published 10⁵-generation statistics is replaced by the kernel-equivalence check already recorded above
+   (bit-identical through both kernels).
+4. **Order:** main grid → ε = 0 twins → controls (i), (ii) and their twins → control (iii) → lottery → N sweep →
+   long-window check. Any cell projected beyond about 2 hours of wall time is stopped and recorded as administratively
+   censored with its completed generations.
+5. The thresholds in every prediction are unchanged; "second half" now means generations 10⁴–2·10⁴.

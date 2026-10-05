@@ -444,7 +444,7 @@ def jobs_for(which, gens=100000):
     if which == 'nsweep':
         for N in (1600, 25600):
             for sg in (0.0, 1.0):
-                for r in range(5):
+                for r in range(5 if N == 1600 else 3):
                     J.append(dict(seed='mix', f0=0.01, sigma=sg, N=N, I=1, rep=r, s=0, mN=0.0, b='0', ctl='on', eps=1e-3, gens=gens,
                                   lottery=False, set='nsweep'))
     if which == 'nsweep_twins':
@@ -453,6 +453,12 @@ def jobs_for(which, gens=100000):
                 for r in range(20):
                     J.append(dict(seed='mix', f0=0.01, sigma=sg, N=N, I=1, rep=r, s=0, mN=0.0, b='0', ctl='on', eps=0.0, gens=gens,
                                   lottery=True, set='nsweep_twins'))
+    if which == 'long':
+        for f0 in (0.01, 0.1):
+            for sg in (0.0, 1.0):
+                for r in range(3):
+                    J.append(dict(seed='mix', f0=f0, sigma=sg, N=6400, I=1, rep=r, s=0, mN=0.0, b='0', ctl='on', eps=1e-3, gens=100000,
+                                  lottery=False, set='long'))
     if which == 'lottery':
         cells = [(100, 4, 0), (100, 4, 1), (100, 4, 3), (100, 4, 16), (100, 64, 0), (100, 64, 1), (100, 64, 3)]
         for sg in (0.0, 1.0):
@@ -472,8 +478,7 @@ def key(j):
 def main_run(sets, procs, gens, limit=None):
     rows = json.load(open(OUT)) if os.path.exists(OUT) else []
     done = {key(r) for r in rows}
-    jobs = [j for s in sets for j in jobs_for(s, gens) if key(j) not in done]
-    jobs.sort(key=lambda j: -j['N'] * j['I'])
+    jobs = [j for s in sets for j in jobs_for(s, gens) if key(j) not in done]   # kept in the order of `sets`
     if limit: jobs = jobs[:limit]
     for b in ('0', 'inf'):
         A.data(b)
