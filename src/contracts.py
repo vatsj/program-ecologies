@@ -277,6 +277,67 @@ def truth_table_diagnostic(C):
     return None
 
 
+# ------------------------------------------------------------------ audit: certified implications vs actual play
+@njit(cache=True)
+def _audit(nat, ak, al, af, aa, tt, src, con, nc_type, cs_type, rep, BC, BD, mask, hc, hd, val, S):
+    """Re-derive every atom at the stable world.  Counts: [contract reads, contract reads whose box is true,
+    violations (box true but the opponent's actual play toward the target differs), source reads (legible),
+    source reads masked, source boxes true, source violations, carrier pairs, carrier pairs off-table,
+    recomputed action != val]."""
+    NT = src.shape[0]
+    out = np.zeros(10, np.int64)
+    for t in range(NT):
+        p = src[t]
+        for u in range(NT):
+            if con[t] >= 0 and con[u] >= 0:
+                out[7] += 1
+                if val[t, u] != S[con[t], con[u]]:
+                    out[8] += 1
+            idx = 0
+            for j in range(nat[p]):
+                f = af[p, j]
+                if f == 0:
+                    tg = t
+                elif f == 1:
+                    tg = u
+                else:
+                    a = aa[p, j]
+                    tg = cs_type[a] if con[u] >= 0 else nc_type[a]
+                L = al[p, j]
+                want = 1 if ak[p, j] == 0 else 0
+                if con[u] >= 0 and con[tg] >= 0:
+                    x = rep[con[u]]; y = rep[con[tg]]
+                    b = BC[L, x, y] if ak[p, j] == 0 else BD[L, x, y]
+                    out[0] += 1
+                    if b:
+                        out[1] += 1
+                        if val[u, tg] != want:
+                            out[2] += 1
+                elif mask[t, u] == 0:
+                    b = False
+                    out[4] += 1
+                else:
+                    b = hc[L, u, tg] if ak[p, j] == 0 else hd[L, u, tg]
+                    out[3] += 1
+                    if b:
+                        out[5] += 1
+                        if val[u, tg] != want:
+                            out[6] += 1
+                if b: idx |= 1 << j
+            if ((tt[p] >> idx) & 1) != val[t, u]:
+                out[9] += 1
+    return out
+
+
+def audit(C, val, aux):
+    last, hc, hd, mask = aux
+    nat, ak, al, af, aa, tt = C.arr
+    o = _audit(nat, ak, al, af, aa, tt, C.tsrc, C.tcon, C.nc_type, C._cs_eval, C.rep, C.BC, C.BD, mask, hc, hd, val, C.S)
+    keys = ['contract_reads', 'contract_box_true', 'contract_violations', 'source_reads_legible', 'source_reads_masked',
+            'source_box_true', 'source_violations', 'carrier_pairs', 'carrier_pairs_off_table', 'recompute_mismatch']
+    return {k: int(v) for k, v in zip(keys, o)}
+
+
 if __name__ == '__main__':
     import time
     t = time.time()
