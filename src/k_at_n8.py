@@ -985,6 +985,13 @@ def cmd_report(a):
            'budget (each fixed-b graph is an induced subgraph of the catalogue\'s; suckering pairs survive; predictions, design choice 4). Computed check at n = 6 on '
            'the priced catalogue (budgets {2, 3, 4, 6, 10, 16}, %s genotypes): %s self-cooperators in %s component(s), %s closed.' % (
                cat6 and cat6['n_genotypes'], cat6 and cat6['n_selfcoop'], cat6 and cat6['n_components'], cat6 and cat6['n_closed']), '']
+    cat8p = os.path.join(KDIR, 'catalogue8.json')
+    if os.path.exists(cat8p):
+        c8 = json.load(open(cat8p))
+        md[-2] += (' Computed at n = 8 on the catalogue over b ∈ {%s} (every class at both budgets, cross-budget plays by a pruned K closure with 0 soundness '
+                   'violations in 37,893 checked formulas): %d genotypes, %d self-cooperators in %d component(s), %d closed.' % (
+                       ', '.join(map(str, c8['budgets'])), c8['n_genotypes'], c8['n_selfcoop'], c8['n_components'], c8['n_closed']))
+        J['catalogue8'] = c8
     # ---- chain
     md += ['## 2. The lim_N chain at n = 8 (PD, w = 0.3)', '',
            '| arm | P(C,C) N = 10³ | 10⁴ | 3·10⁴ | π(all-D) 3·10⁴ | π on self-cooperating states 3·10⁴ | top state (π, 3·10⁴) | top exit 10³ / 10⁴ / 3·10⁴ | exit slope | strict share | ALLC share | odds slope | entry from all-D: N·ρ | terminal / indeterminate / cut flow |',
@@ -1066,6 +1073,15 @@ def cmd_report(a):
             J['siblings'].append(dict(x=x, cells=cells))
             md.append('| `%s` | %s |' % (x, ' | '.join(cells)))
         md.append('')
+    certp = os.path.join(KDIR, 'certify.json')
+    if os.path.exists(certp):
+        ce = json.load(open(certp))
+        J['certify'] = ce
+        md += ['**Bracketed cut minima re-run with 5·10⁶ expansions** (`src/k_at_n8_certify.py`): ' + '; '.join(
+            '`%s` vs %s, %s: %s' % (c['x'][:45], 'self' if c['x'] == c['y'] else 'its sibling', c['root'],
+                                   ('cut %d (Λ %d), DAG exact %s / subsumption %s, certified' % (c['cut'][0], c['cut'][1], c.get('exact', '—'), c.get('subs', '—'))
+                                    if c.get('certified') and c.get('cut') else 'still uncertified, lower bound %s (cut-free %d)' % (c.get('lb'), c['nocut'])))
+            for c in ce) + '. Rows not listed were not reached before the run was stopped.', '']
     if cc:
         s = cc['summary']
         md += ['**Cut search certification (n = 6, every pair).** Iterative deepening with analytic cut against Knuth\'s algorithm on the normal-form graph with cut: '
