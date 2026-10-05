@@ -2337,6 +2337,56 @@ Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent. Everything
 - What does close, the random gate, works as a tag: closure keeps coming from self-recognition.
 - The cost proxy does not charge the Löb step (a stable self-proof has settle world 0), so budgets 1–4 barely bind on occupied states. The next instrument needs an explicit proof system with measured length, to see whether `not(BOX(THEM(ME)))`-type neighbours are cheap to prove about there as well.
 
+## Almost all seeds: cutoff sensitivity in n (`runs/seeds-in-n.md`; spec `specs/2026-10-05-seeds-in-n.md`, predictions in `predictions/2026-10-05-seeds-in-n.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent. A local test at n = 6–9; it does not establish uniformity in n. 1,920 runs, no administrative censoring, one dynamically unresolved run. The RE spot-checked with fresh seeds after the merge: per-island 13/120 at n = 9 and 16/120 at n = 6 (no migration, N = 100), 8/8 efficient at (100, 64), n = 9.
+
+**Setup.** Modal arm, PD, w = 0.3, ε = 0, iid seeding from the length prior at cutoff n ∈ {6, 7, 8, 9}; complete island graph, mN = 1; budget 10⁵ generations; unpaired Wilson 95% intervals.
+
+**Static masses** (μ): ALLC 0.466–0.469; D the same; self-cooperators 0.0284 → 0.0313; unfakeable core 0.0149 → 0.0102 (flat from n = 7); FairBot 0.0051 at every n; fakeable self-cooperators 0.0135 → 0.0210; **D-entering self-cooperators 0.0229 → 0.0246**. The core's one-step drop at n = 7 is `BOX(THEM(THEM))` becoming fakeable by fakers of mass ~10⁻⁵, which an island almost never seeds. Every self-cooperator that defects on D enters an all-D island of 100 at the same ρ = 0.0421.
+
+**Per-island chance p(N, n)** (no migration, 400 islands per cell):
+
+| N | n = 6 | 7 | 8 | 9 |
+|---|---|---|---|---|
+| 100 | 0.083 [0.059, 0.114] | 0.090 | 0.092 | 0.090 [0.066, 0.122] |
+| 400 | 0.158 | 0.198 | 0.195 | 0.185 |
+| 1,600 | 0.383 | 0.427 | 0.427 | 0.412 [0.365, 0.461] |
+
+- p is flat in n; the slope of log p on log N is 0.55 at every n.
+- The predictor a·μ_core·√N (fitted at n = 6) misses by +57% to +89% at n = 7–9, in all 9 cells. The predictor a·μ_est·√N, with μ_est the mass of D-entering self-cooperators, fits within −9% to +12% at n = 7–9 when fitted on n = 6's three N. **p tracks the D-entering self-cooperators, fakeable or not, not the unfakeable core.**
+
+**Run-level efficient fraction** (mN = 1): (100, 4): 0.35 / 0.25 / 0.25 / 0.20 at n = 6–9; (400, 4): 0.35 / 0.40 / 0.55 / 0.40; (1,600, 4): 0.78 / 0.85 / 0.85 / 0.80; (400, 16): 0.90 / 0.90 / 1.00 / 0.95; (100, 64): 20/20 at every n; (100, 256): 40/40 at every n. Every non-efficient run froze in all-D; every run with migration was certified. 1 − (1 − p)^I fits at I ≥ 16 but overpredicts at (400, 4) (0.56 against 0.42 [0.32, 0.53]): at I = 4 with mN = 1, migration partly merges the islands during nucleation.
+
+**Seed conditioning.** At (100, 4) the efficient fraction rises with the number of islands seeded with a core program: 0/1, 3/13, 4/20, 14/46 for 0 / 1 / 2 / 3–4 islands. At N = 100, 54 of 59 defecting I = 4 runs had no self-cooperator left when the last ALLC died (loss in the scramble). At N = 1,600, none of the 29 defecting runs had lost them all: they still held a median of 26 core programs at ALLC extinction (efficient runs: 77). At large N the failure is a failure to nucleate from a minority after ALLC is gone.
+
+**Nucleation-then-spread control** ((100, 64), migration off until generation 2,000): at the switch 5.4 (n = 6) and 5.7 (n = 9) of 64 islands were certified cooperative, a per-island rate of 0.084 / 0.089 equal to the no-migration p, with at least 2 in every run; after the switch 80 of 80 runs froze efficient. Establishment is independent per island at rate p, and one established island suffices at I = 64.
+
+**Losses** (island ≥ 90% → < 50% self-cooperators; 160 runs per n). Before / after global ALLC extinction: 2/25, 5/173, 4/113, 4/75 at n = 6–9, all at I ≥ 16, heavy-tailed. After ALLC, 0.88 (n = 6) and 0.97–0.99 (n = 7–9) of losses are fakeable-held islands taken by probe-fakers (`BOX(THEM(^D))`, `BOX1(THEM(^D))`, and at larger n new ones such as `BOX1(THEM(^BOXD1(THEM(^C))))`, 20 islands at n = 9). Mechanisms reconstructed from the payoff table: 33 strict invasions of monomorphic islands across n, **all of fakeable-held islands**; 1 neutral replacement; the rest displacements from mixed islands. **Core-held losses: 13, none a strict invasion**, 11 by a probe-faker that grew on a fakeable co-resident, 1 by ALLC before its global extinction, 1 by D against selection (17 D migrants in 20 generations into a still mostly-D archipelago, verified by birth-level replay). Every run with losses froze efficient.
+
+**Frozen efficient states.** FairBot + `BOX1(THEM(ME))` hold 0.41–0.49 of islands; fakeable self-cooperators 0.33 / 0.54 / 0.59 / 0.51; `BOX(THEM(THEM))` + `BOX1(THEM(THEM))` 0.39–0.48. The four D-entering provers split the islands about evenly, each near its predicted μ·ρ share of ≈ 0.21; total-variation distance to normalized μ·ρ(D) is 0.03–0.08 at every n. **Composition is prior mass × establishment; fakeability plays no part.**
+
+**ALLC extinction** (island level): medians 13–14 at N = 100, 19–20 at 400, 24–25 at 1,600, with n = 9 / n = 6 ratios 1.00–1.03 in every cell; the global time grows with I as an extreme statistic (20 / 35–41 / 48–63 at I = 4 / 64 / 256).
+
+**Unresolved:** 1 of 1,920 (n = 9, (400, 4), no migration): an island at a stable anti-coordination rest point between `not(BOXD(THEM(THEM)))` and `BOX1(THEM(^BOX1(THEM(^D))))`, each defecting on its own class and cooperating with the other, P(C,C) ≈ 0.5. Not a cycle.
+
+**Verdicts.**
+| # | prediction | outcome |
+|---|---|---|
+| 1 | one step down at n = 7, then flat | **The step failed** (no step; μ_core misses everywhere at n ≥ 7); "no further fall" held; falsifier not fired |
+| 2 | fractions ≈ 1 − (1 − p)^I | **Inconclusive at I = 4**, held at I ≥ 64; fails as a law at (400, 4) |
+| 3 | post-ALLC losses are fakeable provers; no strict invasion of the core | **Held** (0 strict invasions of core in 13 core losses; ≥ 0.9 share at n ≥ 7) |
+| 4 | FairBot + `BOX1(THEM(ME))` hold ≥ 0.6; fakeable share falls with n | **Failed, falsifier fired** (0.41–0.49; fakeable share 0.51 at n = 9 and rising); μ × establishment holds (TV ≤ 0.08) |
+| 5 | island-level extinction n-independent, median 15–60 | n-independence **held**; the range failed at N = 100 (13–14) |
+| S1–S4 | subagent's own | S1, S2 held; S3 failed narrowly; S4 failed (losses vary 3× across n) |
+
+**Reading.**
+- Over n = 6–9 the per-island chance is flat in the cutoff (0.083–0.092 at N = 100, ∝ N^0.55), so the extra fakeable provers at larger n cost nothing.
+- The lottery runs on the mass of *D-entering self-cooperators*, not on unfakeability: a fakeable prover counts fully unless its faker is seeded nearby. Unfakeability belongs to the mutation object (where fakers are re-supplied), not to the seeding object.
+- Establishment and spread decompose cleanly: islands establish independently at p, one established island spreads to all, and the bad event is that no island establishes.
+- The sound core was never strictly invaded in 1,920 runs; its only loss route is displacement from a mixed island where a probe-faker feeds on a fakeable neighbour.
+- Uniformity beyond n = 9 needs a tail bound on μ_est(n), which should be monotone if D-entering self-cooperators only accumulate, plus a bound on probe-faker mass (0.0030 → 0.0036 here).
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

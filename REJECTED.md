@@ -407,3 +407,17 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Subagent S2 (no cycle) and S3's second clause (FairBot's sibling legible at b ≥ 8; it costs 15).**
 
 **The atom-count control as specified.** Trivial at n ≤ 8 because k ≤ 2.
+
+## Added 2026-10-05: seeds cutoff sensitivity (RESULTS.md, "Almost all seeds: cutoff sensitivity in n")
+
+**"The ε = 0 per-island chance tracks the unfakeable core's prior" (Fable, prediction 1 and the μ_core·√N predictor).** Dropped. p(100, n) is 0.083 / 0.090 / 0.092 / 0.090 at n = 6–9 with no step at n = 7; μ_core misses by +57% to +89%. The core's drop is `BOX(THEM(THEM))` becoming fakeable through fakers of mass ~10⁻⁵, and at ε = 0 an unseeded faker does not matter. Replacement: the mass of D-entering self-cooperators, with p ∝ N^0.55.
+
+**"Frozen efficient islands are held mostly by FairBot and `BOX1(THEM(ME))`, with the fakeable share falling in n" (Fable, prediction 4; falsifier fired).** Composition is μ × establishment; the four D-entering provers split the islands about evenly, and the fakeable share rises to 0.51 at n = 9.
+
+**"Island-level ALLC extinction median 15–60" (Fable, prediction 5, range clause).** 13–14 at N = 100.
+
+**"Run-level = 1 − (1 − p)^I at I = 4, mN = 1" as a quantitative law (Fable, prediction 2).** Fails at (400, 4) (0.42 vs 0.56); migration partly merges four islands during nucleation. Keep it for I ≥ 16.
+
+**Design choice dropped: "core = unfakeable" as the class set the seed lottery selects on.** Unfakeability predicts only the absence of strict invasions, not establishment, composition or persistence at ε = 0.
+
+**Subagent S3 and S4.**

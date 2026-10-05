@@ -14,8 +14,13 @@ REJECTED.md the ones we dropped.
   ε = 0 ALLC is eaten once and never returns, and the modal arm ends efficient in 40/40 runs at both end cells
   (RESULTS "Almost all seeds?"). Under mutation the universal network leaks at 1/N forever (RESULTS "Universality
   against drift-closure").
-- *Would settle it:* a bounded-prover core (entry 2) that survives the ε = 0 scramble uniformly in n; and whether any
-  question the program cares about needs π rather than the lottery.
+- *Evidence (2026-10-05):* the per-island chance is flat in the cutoff at n = 6–9 and tracks the mass of D-entering
+  self-cooperators, fakeable or not (RESULTS "cutoff sensitivity in n"). Unfakeability belongs to the mutation object.
+- *Would settle it:* a tail bound on μ_est(n), the prior mass of D-entering self-cooperators, which should be monotone
+  if they only accumulate, plus a bound on probe-faker mass (0.0030 → 0.0036 at n = 6–9); and whether any question the
+  program cares about needs π rather than the lottery. Open observation: at I = 4 with mN = 1 the islands partly merge
+  during nucleation, so the run-level chance sits near p(4N) rather than 1 − (1 − p)^4; a cheap check is I = 4 at
+  mN ∈ {0.1, 1, 10}.
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
