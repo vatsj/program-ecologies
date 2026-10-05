@@ -1,0 +1,4406 @@
+[
+ {
+  "arm": "free",
+  "n": 8,
+  "N": 100000,
+  "mode": "full",
+  "n_classes": 471,
+  "n_K": 0,
+  "mu_K": 0.0,
+  "pcc": 0.8135352259786399,
+  "pi_K": 0.0,
+  "poly": 0.0,
+  "pi_D": 0.1863953549935918,
+  "pi_C": 3.1661035126172086e-05,
+  "pi_FB": 0.27911610930439407,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 1.4731796424245113e-08,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.4424906541753444e-15,
+  "n_states": 471,
+  "residual_linear": 1.3443455403733303e-15,
+  "support": [
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.27911610930439407
+   ],
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.2772827467516602
+   ],
+   [
+    "mono {D:1}",
+    0.1863953549935918
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.13534399920806509
+   ],
+   [
+    "mono {and(BOX1(THEM(ME)),not(BOX(THEM(ME)))):1}",
+    0.06747454323939281
+   ],
+   [
+    "mono {and(BOX1(THEM(ME)),not(BOX(THEM(THEM)))):1}",
+    0.03352379800602288
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),BOXD1(THEM(^D))):1}",
+    0.010751309470342661
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.0018115335399002757
+   ],
+   [
+    "mono {BOX(THEM(^BOX(THEM(THEM)))):1}",
+    0.001698696929443904
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),BOX(THEM(THEM))):1}",
+    0.0012498909838941773
+   ]
+  ],
+  "K_states_expanded": 0,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -6.585616891201528
+   }
+  },
+  "gth_pcc": 0.8135366632582,
+  "gth_pi_K": 0.0,
+  "gth_log_1m_pi_K": 0.0,
+  "gth_pi_D": 0.18640220262298507,
+  "gth_pi_FB": 0.27911609089193595,
+  "gth_residual": 7.460698725481331e-14,
+  "gth_top": [
+   [
+    "BOX(THEM(ME))",
+    0.27911609089193595
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.2772830016689807
+   ],
+   [
+    "D",
+    0.18640220262298507
+   ],
+   [
+    "BOX(THEM(THEM))",
+    0.13534470936187815
+   ],
+   [
+    "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    0.0674748092796166
+   ],
+   [
+    "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))",
+    0.0335239314635256
+   ]
+  ],
+  "gth_time_s": 26.443509101867676,
+  "coop_mass": 0.8135035649435138,
+  "universality": 0.7729957672267235,
+  "blocks": [
+   {
+    "mass": 0.7072542861877004,
+    "share": 0.8750411222711757,
+    "clique": false,
+    "size": 7,
+    "top": "BOX(THEM(ME))",
+    "has_FB": true,
+    "coops_with_FB": true,
+    "members": [
+     [
+      "BOX(THEM(ME))",
+      0.27911610930439407
+     ],
+     [
+      "BOX1(THEM(ME))",
+      0.2772827467516602
+     ],
+     [
+      "BOX(THEM(THEM))",
+      0.13534399920806509
+     ],
+     [
+      "and(BOX(THEM(ME)),BOXD1(THEM(^D)))",
+      0.010751309470342661
+     ],
+     [
+      "BOX1(THEM(THEM))",
+      0.0018115335399002757
+     ],
+     [
+      "BOX(THEM(^BOX(THEM(THEM))))",
+      0.001698696929443904
+     ],
+     [
+      "and(BOX(THEM(ME)),BOX(THEM(THEM)))",
+      0.0012498909838941773
+     ]
+    ]
+   },
+   {
+    "mass": 0.10099834124541568,
+    "share": 0.12495887772882423,
+    "clique": true,
+    "size": 2,
+    "top": "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+      0.06747454323939281
+     ],
+     [
+      "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))",
+      0.03352379800602288
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 2,
+  "below_thr": 0.005250937510397735,
+  "rival_share": 0.1249588777288243,
+  "fb_block": 0.7123627848130066,
+  "pstar_block": 0.1010098404854783,
+  "pi_pstar": 0.06747454323939281,
+  "poly_coop": 0.0,
+  "time_s": 160.54265213012695
+ },
+ {
+  "arm": "club",
+  "n": 8,
+  "N": 100000,
+  "mode": "full",
+  "n_classes": 581,
+  "n_K": 7,
+  "mu_K": 0.004827291684040118,
+  "pcc": 1.0000000000000024,
+  "pi_K": 1.0000000000000024,
+  "poly": 0.0,
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.0,
+  "pi_CFB": 0.0005968193831482913,
+  "pi_CT": 2.1590583596781854e-05,
+  "cut_flow": 1.3040100945221253e-19,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.6645352591003757e-15,
+  "n_states": 581,
+  "residual_linear": 1.38019172146523e-16,
+  "support": [
+   [
+    "mono {and(CLUB(THEM),not(BOX1(THEM(THEM)))):1}",
+    0.999352096956301
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),CLUB(THEM)):1}",
+    0.0005968193831482913
+   ]
+  ],
+  "K_states_expanded": 7,
+  "top_K": "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+  "pi_top_K": 0.999352096956301,
+  "top_exits_linear": {
+   "deleterious_out": 0.0,
+   "deleterious_in": 0.0,
+   "neutral_in": 1.2971095651584837e-11
+  },
+  "top_dest_linear": [
+   [
+    "and(CLUB(THEM),not(BOX1(THEM(ME))))",
+    "neutral_in",
+    1.2971095651584837e-11
+   ],
+   [
+    "D",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "C",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -7510.566933047869,
+   "deleterious_in": -7517.310286792543,
+   "neutral_in": -25.068297645332706
+  },
+  "top_dest_out_log": [
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -7512.189482284459
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -7512.189751078644
+   ],
+   [
+    "BOX(THEM(THEM))",
+    "deleterious_out",
+    -7512.19592795948
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    "deleterious_out",
+    -7512.19592795948
+   ]
+  ],
+  "K_exit_log": -7510.567119922206,
+  "K_exit_log_per_state": {
+   "CLUB(THEM)": -7510.91486894737,
+   "and(BOX(THEM(ME)),CLUB(THEM))": -7510.91486894737,
+   "and(BOX1(THEM(THEM)),CLUB(THEM))": -7510.91486894737,
+   "and(CLUB(THEM),not(BOX(THEM(ME))))": -7510.724420808691,
+   "and(CLUB(THEM),not(BOX(THEM(THEM))))": -7510.724420808691,
+   "and(CLUB(THEM),not(BOX1(THEM(ME))))": -7510.566933047869,
+   "and(CLUB(THEM),not(BOX1(THEM(THEM))))": -7510.566933047869
+  },
+  "K_exit_best": [
+   "BOX1(THEM(ME))",
+   -7506.855809077547,
+   "deleterious"
+  ],
+  "hit_K": 225113.91782744514,
+  "entry": {
+   "and(BOX(THEM(ME)),CLUB(THEM))": {
+    "log_rho": -6.585616891201528,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   },
+   "BOX(THEM(ME))": {
+    "log_rho": -6.585616891201528,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   },
+   "CLUB(THEM)": {
+    "log_rho": -6.585616891201528,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -11.919086587727891,
+  "K_neutral_entrants_D": 7,
+  "gth_pcc": 0.9999999999995668,
+  "gth_pi_K": 0.9999999999995668,
+  "gth_log_1m_pi_K": -7498.176722590209,
+  "gth_pi_D": 0.0,
+  "gth_pi_FB": 0.0,
+  "gth_residual": 4.440892098501612e-13,
+  "gth_top": [
+   [
+    "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+    0.9993520960778782
+   ],
+   [
+    "and(BOX(THEM(ME)),CLUB(THEM))",
+    0.0005968201678636465
+   ],
+   [
+    "CLUB(THEM)",
+    2.159063181484786e-05
+   ],
+   [
+    "and(CLUB(THEM),not(BOX(THEM(THEM))))",
+    1.5323444304270152e-05
+   ],
+   [
+    "and(BOX1(THEM(THEM)),CLUB(THEM))",
+    9.056784636732916e-06
+   ],
+   [
+    "and(CLUB(THEM),not(BOX1(THEM(ME))))",
+    3.470748156704067e-06
+   ]
+  ],
+  "gth_time_s": 40.14897584915161,
+  "coop_mass": 1.0000000000000024,
+  "universality": 0.998711944697026,
+  "blocks": [
+   {
+    "mass": 0.999352096956301,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+      0.999352096956301
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 0.0006479030437014366,
+  "rival_share": 0.0,
+  "fb_block": 0.0,
+  "pstar_block": 0.0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 246.32954502105713
+ },
+ {
+  "arm": "club",
+  "n": 8,
+  "N": 10000,
+  "mode": "full",
+  "n_classes": 581,
+  "n_K": 7,
+  "mu_K": 0.004827291684040118,
+  "pcc": 1.0000000000000029,
+  "pi_K": 1.0000000000000029,
+  "poly": 0.0,
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.0,
+  "pi_CFB": 0.0005841015834375128,
+  "pi_CT": 0.0002278053885101121,
+  "cut_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.886579864025407e-15,
+  "n_states": 581,
+  "residual_linear": 1.5856287366011051e-16,
+  "support": [
+   [
+    "mono {and(CLUB(THEM),not(BOX1(THEM(THEM)))):1}",
+    0.9989393340884035
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),CLUB(THEM)):1}",
+    0.0005841015834375128
+   ],
+   [
+    "mono {CLUB(THEM):1}",
+    0.0002278053885101121
+   ],
+   [
+    "mono {and(CLUB(THEM),not(BOX(THEM(THEM)))):1}",
+    0.0001421976328079618
+   ]
+  ],
+  "K_states_expanded": 7,
+  "top_K": "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+  "pi_top_K": 0.9989393340884035,
+  "top_exits_linear": {
+   "deleterious_out": 0.0,
+   "deleterious_in": 0.0,
+   "neutral_in": 1.2971095651584833e-10
+  },
+  "top_dest_linear": [
+   [
+    "and(CLUB(THEM),not(BOX1(THEM(ME))))",
+    "neutral_in",
+    1.2971095651584833e-10
+   ],
+   [
+    "D",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "C",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -759.4155954988946,
+   "deleterious_in": -766.1589492435709,
+   "neutral_in": -22.76571255233866
+  },
+  "top_dest_out_log": [
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -761.0381447354869
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -761.0384135296728
+   ],
+   [
+    "BOX(THEM(THEM))",
+    "deleterious_out",
+    -761.0445904105084
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    "deleterious_out",
+    -761.0445904105084
+   ]
+  ],
+  "K_exit_log": -759.4158737060314,
+  "K_exit_log_per_state": {
+   "CLUB(THEM)": -759.7635313983985,
+   "and(BOX(THEM(ME)),CLUB(THEM))": -759.7635313983985,
+   "and(BOX1(THEM(THEM)),CLUB(THEM))": -759.7635313983985,
+   "and(CLUB(THEM),not(BOX(THEM(ME))))": -759.5730832597151,
+   "and(CLUB(THEM),not(BOX(THEM(THEM))))": -759.5730832597151,
+   "and(CLUB(THEM),not(BOX1(THEM(ME))))": -759.4155954988946,
+   "and(CLUB(THEM),not(BOX1(THEM(THEM))))": -759.4155954988946
+  },
+  "K_exit_best": [
+   "BOX1(THEM(ME))",
+   -755.7044715285753,
+   "deleterious"
+  ],
+  "hit_K": 36052.568935515046,
+  "entry": {
+   "and(BOX(THEM(ME)),CLUB(THEM))": {
+    "log_rho": -5.437262562082959,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   },
+   "BOX(THEM(ME))": {
+    "log_rho": -5.437262562082959,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   },
+   "CLUB(THEM)": {
+    "log_rho": -5.437262562082959,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -10.770732258609323,
+  "K_neutral_entrants_D": 7,
+  "gth_pcc": 0.9999999999999768,
+  "gth_pi_K": 0.9999999999999768,
+  "gth_log_1m_pi_K": -748.9855233713254,
+  "gth_pi_D": 0.0,
+  "gth_pi_FB": 0.0,
+  "gth_residual": 6.039613253961035e-14,
+  "gth_top": [
+   [
+    "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+    0.9989393337925896
+   ],
+   [
+    "and(BOX(THEM(ME)),CLUB(THEM))",
+    0.0005841017203600016
+   ],
+   [
+    "CLUB(THEM)",
+    0.00022780547611544878
+   ],
+   [
+    "and(CLUB(THEM),not(BOX(THEM(THEM))))",
+    0.0001421976818873408
+   ],
+   [
+    "and(BOX1(THEM(THEM)),CLUB(THEM))",
+    5.6638849987207127e-05
+   ],
+   [
+    "and(CLUB(THEM),not(BOX1(THEM(ME))))",
+    3.4679068199807636e-05
+   ]
+  ],
+  "gth_time_s": 5.833009958267212,
+  "coop_mass": 1.0000000000000029,
+  "universality": 0.9979498581089553,
+  "blocks": [
+   {
+    "mass": 0.9989393340884035,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+      0.9989393340884035
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 0.0010606659115993677,
+  "rival_share": 0.0,
+  "fb_block": 0.0,
+  "pstar_block": 0.0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 60.35772895812988
+ },
+ {
+  "arm": "clique",
+  "n": 8,
+  "N": 100000,
+  "mode": "full",
+  "n_classes": 485,
+  "n_K": 1,
+  "mu_K": 0.005019650909404927,
+  "pcc": 0.9999999999999976,
+  "pi_K": 0.9999999999999841,
+  "poly": 0.0,
+  "pi_D": 0.0,
+  "pi_C": 7.363969225881764e-17,
+  "pi_FB": 0.0,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 1.3716416494764364e-19,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-15,
+  "n_states": 485,
+  "residual_linear": 1.0582183970747137e-16,
+  "support": [
+   [
+    "mono {CLIQUE_1:1}",
+    0.9999999999999841
+   ]
+  ],
+  "K_states_expanded": 1,
+  "top_K": "CLIQUE_1",
+  "pi_top_K": 0.9999999999999841,
+  "top_exits_linear": {
+   "deleterious_out": 0.0
+  },
+  "top_dest_linear": [
+   [
+    "D",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "C",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -7510.953934211781
+  },
+  "top_dest_out_log": [
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -7512.142328313729
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -7512.142596551966
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    -7513.339671315283
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    -7513.342339171025
+   ]
+  ],
+  "K_exit_log": -7510.953934211781,
+  "K_exit_log_per_state": {
+   "CLIQUE_1": -7510.953934211781
+  },
+  "K_exit_best": [
+   "BOX1(THEM(ME))",
+   -7506.855809077547,
+   "deleterious"
+  ],
+  "hit_K": 229866.89480178288,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -6.585616891201528,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -11.88001177885722,
+  "K_neutral_entrants_D": 1,
+  "gth_pcc": 1.0,
+  "gth_pi_K": 1.0,
+  "gth_log_1m_pi_K": -7498.149054883093,
+  "gth_pi_D": 0.0,
+  "gth_pi_FB": 0.0,
+  "gth_residual": 9.094947017687923e-12,
+  "gth_top": [
+   [
+    "CLIQUE_1",
+    1.0
+   ],
+   [
+    "BOX(THEM(ME))",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.0
+   ],
+   [
+    "D",
+    0.0
+   ],
+   [
+    "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    0.0
+   ],
+   [
+    "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))",
+    0.0
+   ]
+  ],
+  "gth_time_s": 27.76774287223816,
+  "coop_mass": 0.9999999999999974,
+  "universality": 0.9999999999999734,
+  "blocks": [
+   {
+    "mass": 0.9999999999999841,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "CLIQUE_1",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLIQUE_1",
+      0.9999999999999841
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 1.3322676295501878e-14,
+  "rival_share": 0.0,
+  "fb_block": 1.2089583910858806e-14,
+  "pstar_block": 1.2551135902755895e-15,
+  "pi_pstar": 8.77237275340171e-16,
+  "poly_coop": 0.0,
+  "time_s": 174.56168413162231
+ },
+ {
+  "arm": "free",
+  "n": 8,
+  "N": 10000,
+  "mode": "full",
+  "n_classes": 471,
+  "n_K": 0,
+  "mu_K": 0.0,
+  "pcc": 0.617237036120772,
+  "pi_K": 0.0,
+  "poly": 0.0,
+  "pi_D": 0.38257753388300364,
+  "pi_C": 0.00023699160998431413,
+  "pi_FB": 0.1815740233388696,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 5.058067952453212e-08,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-15,
+  "n_states": 471,
+  "residual_linear": 2.6554422959893065e-15,
+  "support": [
+   [
+    "mono {D:1}",
+    0.38257753388300364
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.1815740233388696
+   ],
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.1803957882110965
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.1633309863412917
+   ],
+   [
+    "mono {and(BOX1(THEM(ME)),not(BOX(THEM(ME)))):1}",
+    0.04099168625318825
+   ],
+   [
+    "mono {and(BOX1(THEM(ME)),not(BOX(THEM(THEM)))):1}",
+    0.020372671806088632
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.011129034536007167
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),BOXD1(THEM(^D))):1}",
+    0.006426230954803299
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.002856778663426012
+   ],
+   [
+    "mono {BOX1(THEM(^C)):1}",
+    0.002854804965282864
+   ]
+  ],
+  "K_states_expanded": 0,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -5.437262562082959
+   }
+  },
+  "gth_pcc": 0.6172388185515216,
+  "gth_pi_K": 0.0,
+  "gth_log_1m_pi_K": 0.0,
+  "gth_pi_D": 0.38259031617487677,
+  "gth_pi_FB": 0.18157417786184038,
+  "gth_residual": 7.105427357601254e-14,
+  "gth_top": [
+   [
+    "D",
+    0.38259031617487677
+   ],
+   [
+    "BOX(THEM(ME))",
+    0.18157417786184038
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.18039604338222734
+   ],
+   [
+    "BOX(THEM(THEM))",
+    0.16333204555937184
+   ],
+   [
+    "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    0.040991804186057725
+   ],
+   [
+    "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))",
+    0.020372732548244787
+   ]
+  ],
+  "gth_time_s": 3.773653745651245,
+  "coop_mass": 0.6170000445107876,
+  "universality": 0.8132373433387734,
+  "blocks": [
+   {
+    "mass": 0.5526986313273723,
+    "share": 0.9000683006142903,
+    "clique": false,
+    "size": 11,
+    "top": "BOX(THEM(ME))",
+    "has_FB": true,
+    "coops_with_FB": true,
+    "members": [
+     [
+      "BOX(THEM(ME))",
+      0.1815740233388696
+     ],
+     [
+      "BOX1(THEM(ME))",
+      0.1803957882110965
+     ],
+     [
+      "BOX(THEM(THEM))",
+      0.1633309863412917
+     ],
+     [
+      "BOX1(THEM(THEM))",
+      0.011129034536007167
+     ],
+     [
+      "and(BOX(THEM(ME)),BOXD1(THEM(^D)))",
+      0.006426230954803299
+     ],
+     [
+      "BOX(THEM(^C))",
+      0.002856778663426012
+     ],
+     [
+      "BOX1(THEM(^C))",
+      0.002854804965282864
+     ],
+     [
+      "BOX(THEM(^BOX(THEM(THEM))))",
+      0.0011050540157651805
+     ]
+    ]
+   },
+   {
+    "mass": 0.06136435805927688,
+    "share": 0.09993169938570973,
+    "clique": true,
+    "size": 2,
+    "top": "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+      0.04099168625318825
+     ],
+     [
+      "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))",
+      0.020372671806088632
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 2,
+  "below_thr": 0.0029370551241383325,
+  "rival_share": 0.09993169938570967,
+  "fb_block": 0.5553371095744812,
+  "pstar_block": 0.061431970873532374,
+  "pi_pstar": 0.04099168625318825,
+  "poly_coop": 0.0,
+  "time_s": 39.91721701622009
+ },
+ {
+  "arm": "clique",
+  "n": 8,
+  "N": 10000,
+  "mode": "full",
+  "n_classes": 485,
+  "n_K": 1,
+  "mu_K": 0.005019650909404927,
+  "pcc": 0.9999999999999977,
+  "pi_K": 0.9999999999999863,
+  "poly": 0.0,
+  "pi_D": 0.0,
+  "pi_C": 6.965128980669888e-17,
+  "pi_FB": 3.7323975078284226e-16,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 6.385988558993797e-20,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-15,
+  "n_states": 485,
+  "residual_linear": 5.377559026496608e-17,
+  "support": [
+   [
+    "mono {CLIQUE_1:1}",
+    0.9999999999999863
+   ]
+  ],
+  "K_states_expanded": 1,
+  "top_K": "CLIQUE_1",
+  "pi_top_K": 0.9999999999999863,
+  "top_exits_linear": {
+   "deleterious_out": 0.0
+  },
+  "top_dest_linear": [
+   [
+    "D",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "C",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -759.802596662809
+  },
+  "top_dest_out_log": [
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -760.9909907647574
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -760.9912590029945
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    -762.1883337663116
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    -762.191001622053
+   ]
+  ],
+  "K_exit_log": -759.802596662809,
+  "K_exit_log_per_state": {
+   "CLIQUE_1": -759.802596662809
+  },
+  "K_exit_best": [
+   "BOX1(THEM(ME))",
+   -755.7044715285753,
+   "deleterious"
+  ],
+  "hit_K": 35779.765268849624,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -5.437262562082959,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -10.731657449738652,
+  "K_neutral_entrants_D": 1,
+  "gth_pcc": 1.0,
+  "gth_pi_K": 1.0,
+  "gth_log_1m_pi_K": -748.999731211923,
+  "gth_pi_D": 0.0,
+  "gth_pi_FB": 0.0,
+  "gth_residual": 4.547473508865675e-13,
+  "gth_top": [
+   [
+    "CLIQUE_1",
+    1.0
+   ],
+   [
+    "D",
+    0.0
+   ],
+   [
+    "BOX(THEM(ME))",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.0
+   ],
+   [
+    "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    0.0
+   ],
+   [
+    "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))",
+    0.0
+   ]
+  ],
+  "gth_time_s": 4.2050392627716064,
+  "coop_mass": 0.9999999999999976,
+  "universality": 0.9999999999999776,
+  "blocks": [
+   {
+    "mass": 0.9999999999999863,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "CLIQUE_1",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLIQUE_1",
+      0.9999999999999863
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 1.1213252548714081e-14,
+  "rival_share": 0.0,
+  "fb_block": 1.1130325774823594e-14,
+  "pstar_block": 1.1051379940434358e-16,
+  "pi_pstar": 7.629444059630328e-17,
+  "poly_coop": 0.0,
+  "time_s": 44.69157886505127
+ },
+ {
+  "arm": "club",
+  "n": 8,
+  "N": 1000,
+  "mode": "full",
+  "n_classes": 581,
+  "n_K": 7,
+  "mu_K": 0.004827291684040118,
+  "pcc": 1.0000000000000029,
+  "pi_K": 1.0000000000000029,
+  "poly": 0.0,
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.0,
+  "pi_CFB": 0.0005743668038249544,
+  "pi_CT": 0.0024183348557318507,
+  "cut_flow": 0.0,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.886579864025407e-15,
+  "n_states": 581,
+  "residual_linear": 3.3406979439709605e-17,
+  "support": [
+   [
+    "mono {and(CLUB(THEM),not(BOX1(THEM(THEM)))):1}",
+    0.9951377391721128
+   ],
+   [
+    "mono {CLUB(THEM):1}",
+    0.0024183348557318507
+   ],
+   [
+    "mono {and(CLUB(THEM),not(BOX(THEM(THEM)))):1}",
+    0.001267716257795104
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),CLUB(THEM)):1}",
+    0.0005743668038249544
+   ],
+   [
+    "mono {and(CLUB(THEM),not(BOX1(THEM(ME)))):1}",
+    0.00034408133652202253
+   ],
+   [
+    "mono {and(CLUB(THEM),not(BOX(THEM(ME)))):1}",
+    0.00013631665548443392
+   ],
+   [
+    "mono {and(BOX1(THEM(THEM)),CLUB(THEM)):1}",
+    0.00012144491853174272
+   ]
+  ],
+  "K_states_expanded": 7,
+  "top_K": "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+  "pi_top_K": 0.9951377391721128,
+  "top_exits_linear": {
+   "deleterious_out": 6.901893098321781e-37,
+   "deleterious_in": 8.135175145858485e-40,
+   "neutral_in": 1.297109565158483e-09
+  },
+  "top_dest_linear": [
+   [
+    "and(CLUB(THEM),not(BOX1(THEM(ME))))",
+    "neutral_in",
+    1.297109565158483e-09
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    1.3623981595211868e-37
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    1.3620320040294588e-37
+   ],
+   [
+    "BOX(THEM(THEM))",
+    "deleterious_out",
+    1.3536448246170454e-37
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    "deleterious_out",
+    1.3536448246170454e-37
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    4.2070242317511594e-38
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -83.26385270473126,
+   "deleterious_in": -90.00720644940759,
+   "neutral_in": -20.463127459344612
+  },
+  "top_dest_out_log": [
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -84.88640194132356
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -84.88667073550945
+   ],
+   [
+    "BOX(THEM(THEM))",
+    "deleterious_out",
+    -84.8928476163451
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    "deleterious_out",
+    -84.8928476163451
+   ]
+  ],
+  "K_exit_log": -83.2649730277527,
+  "K_exit_log_per_state": {
+   "CLUB(THEM)": -83.6117886042352,
+   "and(BOX(THEM(ME)),CLUB(THEM))": -83.6117886042352,
+   "and(BOX1(THEM(THEM)),CLUB(THEM))": -83.6117886042352,
+   "and(CLUB(THEM),not(BOX(THEM(ME))))": -83.42134046555131,
+   "and(CLUB(THEM),not(BOX(THEM(THEM))))": -83.42134046555131,
+   "and(CLUB(THEM),not(BOX1(THEM(ME))))": -83.26385270473126,
+   "and(CLUB(THEM),not(BOX1(THEM(THEM))))": -83.26385270473126
+  },
+  "K_exit_best": [
+   "BOX1(THEM(ME))",
+   -79.55272873441194,
+   "deleterious"
+  ],
+  "hit_K": 9250.797979853374,
+  "entry": {
+   "and(BOX(THEM(ME)),CLUB(THEM))": {
+    "log_rho": -4.294924134309757,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   },
+   "BOX(THEM(ME))": {
+    "log_rho": -4.294924134309757,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   },
+   "CLUB(THEM)": {
+    "log_rho": -4.294924134309757,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -9.628393830836123,
+  "K_neutral_entrants_D": 7,
+  "gth_pcc": 1.0000000000000002,
+  "gth_pi_K": 1.0000000000000002,
+  "gth_log_1m_pi_K": -74.26343123252026,
+  "gth_pi_D": 3.3430064696470835e-33,
+  "gth_pi_FB": 7.604645862045663e-34,
+  "gth_residual": 2.8421709430408046e-13,
+  "gth_top": [
+   [
+    "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+    0.9951377390556763
+   ],
+   [
+    "CLUB(THEM)",
+    0.0024183349199274444
+   ],
+   [
+    "and(CLUB(THEM),not(BOX(THEM(THEM))))",
+    0.0012677162905936287
+   ],
+   [
+    "and(BOX(THEM(ME)),CLUB(THEM))",
+    0.0005743668135767232
+   ],
+   [
+    "and(CLUB(THEM),not(BOX1(THEM(ME))))",
+    0.0003440813410271028
+   ],
+   [
+    "and(CLUB(THEM),not(BOX(THEM(ME))))",
+    0.00013631665902197397
+   ]
+  ],
+  "gth_time_s": 2.387366771697998,
+  "coop_mass": 1.0000000000000029,
+  "universality": 0.9909957241805114,
+  "blocks": [
+   {
+    "mass": 0.9951377391721128,
+    "share": 0.996309608211802,
+    "clique": true,
+    "size": 1,
+    "top": "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+      0.9951377391721128
+     ]
+    ]
+   },
+   {
+    "mass": 0.0024183348557318507,
+    "share": 0.0024211826743136193,
+    "clique": true,
+    "size": 1,
+    "top": "CLUB(THEM)",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLUB(THEM)",
+      0.0024183348557318507
+     ]
+    ]
+   },
+   {
+    "mass": 0.001267716257795104,
+    "share": 0.0012692091138844094,
+    "clique": true,
+    "size": 1,
+    "top": "and(CLUB(THEM),not(BOX(THEM(THEM))))",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "and(CLUB(THEM),not(BOX(THEM(THEM))))",
+      0.001267716257795104
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 3,
+  "below_thr": 0.0011762097143631634,
+  "rival_share": 0.0036903917881979664,
+  "fb_block": 0.0,
+  "pstar_block": 0.0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 45.24555802345276
+ },
+ {
+  "arm": "free",
+  "n": 8,
+  "N": 1000,
+  "mode": "full",
+  "n_classes": 471,
+  "n_K": 0,
+  "mu_K": 0.0,
+  "pcc": 0.37074781697543324,
+  "pi_K": 0.0,
+  "poly": 0.0,
+  "pi_D": 0.6287791920693377,
+  "pi_C": 0.001396726942740795,
+  "pi_FB": 0.09403345600255344,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 2.1328283138278365e-07,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.4424906541753444e-15,
+  "n_states": 471,
+  "residual_linear": 6.745617909403594e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.6287791920693377
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.09403345600255344
+   ],
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.09346173477113029
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.09249302298395537
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.03697916871235369
+   ],
+   [
+    "mono {and(BOX1(THEM(ME)),not(BOX(THEM(ME)))):1}",
+    0.01639749018056322
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.010053985730061032
+   ],
+   [
+    "mono {BOX1(THEM(^C)):1}",
+    0.01003879889388824
+   ],
+   [
+    "mono {and(BOX1(THEM(ME)),not(BOX(THEM(THEM)))):1}",
+    0.00814883582039839
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),BOXD1(THEM(^D))):1}",
+    0.002555475388643018
+   ]
+  ],
+  "K_states_expanded": 0,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -4.294924134309757
+   }
+  },
+  "gth_pcc": 0.3707473404657538,
+  "gth_pi_K": 0.0,
+  "gth_log_1m_pi_K": 0.0,
+  "gth_pi_D": 0.6287921728089535,
+  "gth_pi_FB": 0.09403332492871615,
+  "gth_residual": 8.526512829121566e-14,
+  "gth_top": [
+   [
+    "D",
+    0.6287921728089535
+   ],
+   [
+    "BOX(THEM(ME))",
+    0.09403332492871615
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.09346152260028695
+   ],
+   [
+    "BOX(THEM(THEM))",
+    0.09249331446502396
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    0.0369790867194188
+   ],
+   [
+    "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    0.016397365627463727
+   ]
+  ],
+  "gth_time_s": 1.263056993484497,
+  "coop_mass": 0.36935109003269245,
+  "universality": 0.8667078443669958,
+  "blocks": [
+   {
+    "mass": 0.339615642482585,
+    "share": 0.9325950315372632,
+    "clique": false,
+    "size": 7,
+    "top": "BOX(THEM(ME))",
+    "has_FB": true,
+    "coops_with_FB": true,
+    "members": [
+     [
+      "BOX(THEM(ME))",
+      0.09403345600255344
+     ],
+     [
+      "BOX1(THEM(ME))",
+      0.09346173477113029
+     ],
+     [
+      "BOX(THEM(THEM))",
+      0.09249302298395537
+     ],
+     [
+      "BOX1(THEM(THEM))",
+      0.03697916871235369
+     ],
+     [
+      "BOX(THEM(^C))",
+      0.010053985730061032
+     ],
+     [
+      "BOX1(THEM(^C))",
+      0.01003879889388824
+     ],
+     [
+      "and(BOX(THEM(ME)),BOXD1(THEM(^D)))",
+      0.002555475388643018
+     ]
+    ]
+   },
+   {
+    "mass": 0.024546326000961613,
+    "share": 0.0674049684627368,
+    "clique": true,
+    "size": 2,
+    "top": "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+      0.01639749018056322
+     ],
+     [
+      "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))",
+      0.00814883582039839
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 2,
+  "below_thr": 0.005189121549145692,
+  "rival_share": 0.0674049684627368,
+  "fb_block": 0.34406271649667836,
+  "pstar_block": 0.024774422807310348,
+  "pi_pstar": 0.01639749018056322,
+  "poly_coop": 0.0,
+  "time_s": 28.55353283882141
+ },
+ {
+  "arm": "clique",
+  "n": 8,
+  "N": 1000,
+  "mode": "full",
+  "n_classes": 485,
+  "n_K": 1,
+  "mu_K": 0.005019650909404927,
+  "pcc": 0.9999999999999974,
+  "pi_K": 0.9999999999999974,
+  "poly": 0.0,
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 1.8124213617497414e-20,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 7.645335220447276e-30,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.55351295663786e-15,
+  "n_states": 485,
+  "residual_linear": 8.596754837082176e-21,
+  "support": [
+   [
+    "mono {CLIQUE_1:1}",
+    0.9999999999999974
+   ]
+  ],
+  "K_states_expanded": 1,
+  "top_K": "CLIQUE_1",
+  "pi_top_K": 0.9999999999999974,
+  "top_exits_linear": {
+   "deleterious_out": 4.6870086859251845e-37
+  },
+  "top_dest_linear": [
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    1.4281793770163087e-37
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    1.4277963360733085e-37
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    4.313038144166798e-38
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    4.301546915876789e-38
+   ],
+   [
+    "not(BOX(THEM(THEM)))",
+    "deleterious_out",
+    3.640065435352742e-38
+   ],
+   [
+    "not(BOX1(THEM(THEM)))",
+    "deleterious_out",
+    3.640065435352742e-38
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -83.65085386864575
+  },
+  "top_dest_out_log": [
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -84.83924797059403
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -84.83951620883117
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    -86.03659097214836
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    -86.03925882788967
+   ]
+  ],
+  "K_exit_log": -83.65085386864575,
+  "K_exit_log_per_state": {
+   "CLIQUE_1": -83.65085386864575
+  },
+  "K_exit_best": [
+   "BOX1(THEM(ME))",
+   -79.55272873441194,
+   "deleterious"
+  ],
+  "hit_K": 8937.669242745636,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -4.294924134309757,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -9.58931902196545,
+  "K_neutral_entrants_D": 1,
+  "gth_pcc": 1.0,
+  "gth_pi_K": 1.0,
+  "gth_log_1m_pi_K": -74.409038490052,
+  "gth_pi_D": 2.856808033593215e-33,
+  "gth_pi_FB": 7.25794951161127e-34,
+  "gth_residual": 2.8421709430408046e-13,
+  "gth_top": [
+   [
+    "CLIQUE_1",
+    1.0
+   ],
+   [
+    "D",
+    2.856808033593215e-33
+   ],
+   [
+    "BOX(THEM(ME))",
+    7.25794951161127e-34
+   ],
+   [
+    "BOX1(THEM(ME))",
+    7.214265341580129e-34
+   ],
+   [
+    "BOX(THEM(THEM))",
+    1.1672504122557927e-34
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    8.269163014165409e-35
+   ]
+  ],
+  "gth_time_s": 1.4774000644683838,
+  "coop_mass": 0.9999999999999974,
+  "universality": 1.0,
+  "blocks": [
+   {
+    "mass": 0.9999999999999974,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "CLIQUE_1",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLIQUE_1",
+      0.9999999999999974
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 0.0,
+  "rival_share": 0.0,
+  "fb_block": 3.7842282585884565e-18,
+  "pstar_block": 0.0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 32.39301776885986
+ },
+ {
+  "arm": "club",
+  "n": 8,
+  "N": 100,
+  "mode": "full",
+  "n_classes": 581,
+  "n_K": 7,
+  "mu_K": 0.004827291684040118,
+  "pcc": 0.998755794876229,
+  "pi_K": 0.9984429744640488,
+  "poly": 0.0,
+  "pi_D": 0.0012421174033287034,
+  "pi_C": 1.1084649113081083e-05,
+  "pi_FB": 7.369262222215385e-05,
+  "pi_CFB": 0.00728715720715197,
+  "pi_CT": 0.4057735034142628,
+  "cut_flow": 1.8864308389517373e-09,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.886579864025407e-15,
+  "n_states": 581,
+  "residual_linear": 3.0210355489806756e-15,
+  "support": [
+   [
+    "mono {and(CLUB(THEM),not(BOX1(THEM(THEM)))):1}",
+    0.40991583814581284
+   ],
+   [
+    "mono {CLUB(THEM):1}",
+    0.4057735034142628
+   ],
+   [
+    "mono {and(CLUB(THEM),not(BOX(THEM(THEM)))):1}",
+    0.12888097243646154
+   ],
+   [
+    "mono {and(CLUB(THEM),not(BOX1(THEM(ME)))):1}",
+    0.024215964867829967
+   ],
+   [
+    "mono {and(CLUB(THEM),not(BOX(THEM(ME)))):1}",
+    0.020795154202161027
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),CLUB(THEM)):1}",
+    0.00728715720715197
+   ],
+   [
+    "mono {and(BOX1(THEM(THEM)),CLUB(THEM)):1}",
+    0.0015743841903685786
+   ],
+   [
+    "mono {D:1}",
+    0.0012421174033287034
+   ]
+  ],
+  "K_states_expanded": 7,
+  "top_K": "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+  "pi_top_K": 0.40991583814581284,
+  "top_exits_linear": {
+   "deleterious_out": 4.6109705374744937e-07,
+   "deleterious_in": 5.336450689344748e-10,
+   "neutral_in": 1.2971095651584803e-08
+  },
+  "top_dest_linear": [
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    8.936956447999284e-08
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    8.93455456888641e-08
+   ],
+   [
+    "BOX(THEM(THEM))",
+    "deleterious_out",
+    8.879536983457026e-08
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    "deleterious_out",
+    8.879536983457026e-08
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    2.7596919499694216e-08
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    2.7524863126308017e-08
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -14.58965728737149,
+   "deleterious_in": -21.351290162872715,
+   "neutral_in": -18.16054236635057
+  },
+  "top_dest_out_log": [
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -16.230485654788737
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -16.230754448974643
+   ],
+   [
+    "BOX(THEM(THEM))",
+    "deleterious_out",
+    -16.236931329810286
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    "deleterious_out",
+    -16.236931329810286
+   ]
+  ],
+  "K_exit_log": -14.741958445285022,
+  "K_exit_log_per_state": {
+   "CLUB(THEM)": -14.930082640391205,
+   "and(BOX(THEM(ME)),CLUB(THEM))": -14.930082640391205,
+   "and(BOX1(THEM(THEM)),CLUB(THEM))": -14.930082640391205,
+   "and(CLUB(THEM),not(BOX(THEM(ME))))": -14.744061131672849,
+   "and(CLUB(THEM),not(BOX(THEM(THEM))))": -14.744061131672849,
+   "and(CLUB(THEM),not(BOX1(THEM(ME))))": -14.58965728737149,
+   "and(CLUB(THEM),not(BOX1(THEM(THEM))))": -14.58965728737149
+  },
+  "K_exit_best": [
+   "BOX1(THEM(ME))",
+   -10.896812447877132,
+   "deleterious"
+  ],
+  "hit_K": 3975.76806395767,
+  "entry": {
+   "and(BOX(THEM(ME)),CLUB(THEM))": {
+    "log_rho": -3.1686853547013283,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   },
+   "BOX(THEM(ME))": {
+    "log_rho": -3.1686853547013283,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   },
+   "CLUB(THEM)": {
+    "log_rho": -3.1686853547013283,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -8.502155051227692,
+  "K_neutral_entrants_D": 7,
+  "gth_pcc": 0.9987557637724699,
+  "gth_pi_K": 0.9984429466716571,
+  "gth_log_1m_pi_K": -6.46496013601773,
+  "gth_pi_D": 0.0012421552691587537,
+  "gth_pi_FB": 7.369289411812157e-05,
+  "gth_residual": 8.171241461241487e-14,
+  "gth_top": [
+   [
+    "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+    0.4099158262978401
+   ],
+   [
+    "CLUB(THEM)",
+    0.4057734926926625
+   ],
+   [
+    "and(CLUB(THEM),not(BOX(THEM(THEM))))",
+    0.12888096876022045
+   ],
+   [
+    "and(CLUB(THEM),not(BOX1(THEM(ME))))",
+    0.02421596416461179
+   ],
+   [
+    "and(CLUB(THEM),not(BOX(THEM(ME))))",
+    0.020795153608370736
+   ],
+   [
+    "and(BOX(THEM(ME)),CLUB(THEM))",
+    0.007287157001681241
+   ]
+  ],
+  "gth_time_s": 1.7289481163024902,
+  "coop_mass": 0.998744710227116,
+  "universality": 0.3837585199514336,
+  "blocks": [
+   {
+    "mass": 0.4341318030136428,
+    "share": 0.4348088114363057,
+    "clique": true,
+    "size": 2,
+    "top": "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "and(CLUB(THEM),not(BOX1(THEM(THEM))))",
+      0.40991583814581284
+     ],
+     [
+      "and(CLUB(THEM),not(BOX1(THEM(ME))))",
+      0.024215964867829967
+     ]
+    ]
+   },
+   {
+    "mass": 0.41463504481178337,
+    "share": 0.41528164894380076,
+    "clique": true,
+    "size": 3,
+    "top": "CLUB(THEM)",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLUB(THEM)",
+      0.4057735034142628
+     ],
+     [
+      "and(BOX(THEM(ME)),CLUB(THEM))",
+      0.00728715720715197
+     ],
+     [
+      "and(BOX1(THEM(THEM)),CLUB(THEM))",
+      0.0015743841903685786
+     ]
+    ]
+   },
+   {
+    "mass": 0.14967612663862256,
+    "share": 0.14990953961989342,
+    "clique": true,
+    "size": 2,
+    "top": "and(CLUB(THEM),not(BOX(THEM(THEM))))",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "and(CLUB(THEM),not(BOX(THEM(THEM))))",
+      0.12888097243646154
+     ],
+     [
+      "and(CLUB(THEM),not(BOX(THEM(ME))))",
+      0.020795154202161027
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 3,
+  "below_thr": 0.0003017357630671347,
+  "rival_share": 0.5651911885636943,
+  "fb_block": 0.00028750649541956435,
+  "pstar_block": 1.1157119208164936e-05,
+  "pi_pstar": 3.649928779391092e-06,
+  "poly_coop": 0.0,
+  "time_s": 43.799811124801636
+ },
+ {
+  "arm": "free",
+  "n": 8,
+  "N": 100,
+  "mode": "full",
+  "n_classes": 471,
+  "n_K": 0,
+  "mu_K": 0.0,
+  "pcc": 0.18206652048768857,
+  "pi_K": 0.0,
+  "poly": 0.0,
+  "pi_D": 0.8166481467968584,
+  "pi_C": 0.006562053006251341,
+  "pi_FB": 0.03794847600364835,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 1.2895393265324577e-06,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.220446049250313e-15,
+  "n_states": 471,
+  "residual_linear": 1.2106006671576106e-15,
+  "support": [
+   [
+    "mono {D:1}",
+    0.8166481467968584
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.03794847600364835
+   ],
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.037781561141977824
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.03767915654973155
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.03257201328563814
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.00965138298452867
+   ],
+   [
+    "mono {BOX1(THEM(^C)):1}",
+    0.009633486387305743
+   ],
+   [
+    "mono {C:1}",
+    0.006562053006251341
+   ],
+   [
+    "mono {and(BOX1(THEM(ME)),not(BOX(THEM(ME)))):1}",
+    0.003924125404748779
+   ],
+   [
+    "mono {and(BOX1(THEM(ME)),not(BOX(THEM(THEM)))):1}",
+    0.001949584754378645
+   ]
+  ],
+  "K_states_expanded": 0,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -3.1686853547013283
+   }
+  },
+  "gth_pcc": 0.18206044039440275,
+  "gth_pi_K": 0.0,
+  "gth_log_1m_pi_K": 0.0,
+  "gth_pi_D": 0.8166591358113827,
+  "gth_pi_FB": 0.037947903267849636,
+  "gth_residual": 1.0302869668520923e-13,
+  "gth_top": [
+   [
+    "D",
+    0.8166591358113827
+   ],
+   [
+    "BOX(THEM(ME))",
+    0.037947903267849636
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.03778084772651288
+   ],
+   [
+    "BOX(THEM(THEM))",
+    0.0376786849675613
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    0.03257114535786573
+   ],
+   [
+    "BOX(THEM(^C))",
+    0.00965126488864961
+   ]
+  ],
+  "gth_time_s": 0.9204583168029785,
+  "coop_mass": 0.17550446748143722,
+  "universality": 0.9165509023427509,
+  "blocks": [
+   {
+    "mass": 0.16526607635283028,
+    "share": 0.9656788741014525,
+    "clique": true,
+    "size": 6,
+    "top": "BOX(THEM(ME))",
+    "has_FB": true,
+    "coops_with_FB": true,
+    "members": [
+     [
+      "BOX(THEM(ME))",
+      0.03794847600364835
+     ],
+     [
+      "BOX1(THEM(ME))",
+      0.037781561141977824
+     ],
+     [
+      "BOX(THEM(THEM))",
+      0.03767915654973155
+     ],
+     [
+      "BOX1(THEM(THEM))",
+      0.03257201328563814
+     ],
+     [
+      "BOX(THEM(^C))",
+      0.00965138298452867
+     ],
+     [
+      "BOX1(THEM(^C))",
+      0.009633486387305743
+     ]
+    ]
+   },
+   {
+    "mass": 0.005873710159127424,
+    "share": 0.03432112589854739,
+    "clique": true,
+    "size": 2,
+    "top": "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+      0.003924125404748779
+     ],
+     [
+      "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))",
+      0.001949584754378645
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 2,
+  "below_thr": 0.004364680969479534,
+  "rival_share": 0.03432112589854752,
+  "fb_block": 0.16813291127586005,
+  "pstar_block": 0.006124768359745263,
+  "pi_pstar": 0.003924125404748779,
+  "poly_coop": 0.0,
+  "time_s": 28.503355026245117
+ },
+ {
+  "arm": "club",
+  "n": 6,
+  "N": 100000,
+  "mode": "full",
+  "n_classes": 66,
+  "n_K": 1,
+  "mu_K": 0.004651855007841011,
+  "pcc": 1.000000000000001,
+  "pi_K": 1.000000000000001,
+  "poly": 0.0,
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.0,
+  "pi_CFB": null,
+  "pi_CT": 1.000000000000001,
+  "cut_flow": 2.8751170992691146e-22,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 1.1102230246251565e-15,
+  "n_states": 66,
+  "residual_linear": 2.041119345516056e-17,
+  "support": [
+   [
+    "mono {CLUB(THEM):1}",
+    1.000000000000001
+   ]
+  ],
+  "K_states_expanded": 1,
+  "top_K": "CLUB(THEM)",
+  "pi_top_K": 1.000000000000001,
+  "top_exits_linear": {
+   "deleterious_out": 0.0
+  },
+  "top_dest_linear": [
+   [
+    "C",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "D",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -7510.98841836166
+  },
+  "top_dest_out_log": [
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -7512.221197814874
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -7512.221197814874
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    -7513.471214233461
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    -7513.471214233461
+   ]
+  ],
+  "K_exit_log": -7510.98841836166,
+  "K_exit_log_per_state": {
+   "CLUB(THEM)": -7510.98841836166
+  },
+  "K_exit_best": [
+   "BOX(THEM(ME))",
+   -7506.855809077547,
+   "deleterious"
+  ],
+  "hit_K": 213340.7342795749,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -6.585616891201528,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   },
+   "CLUB(THEM)": {
+    "log_rho": -6.585616891201528,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -11.956106103716966,
+  "K_neutral_entrants_D": 1,
+  "gth_pcc": 1.0,
+  "gth_pi_K": 1.0,
+  "gth_log_1m_pi_K": -7498.276595386492,
+  "gth_pi_D": 0.0,
+  "gth_pi_FB": 0.0,
+  "gth_residual": 9.094947017733418e-13,
+  "gth_top": [
+   [
+    "CLUB(THEM)",
+    1.0
+   ],
+   [
+    "BOX(THEM(ME))",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.0
+   ],
+   [
+    "D",
+    0.0
+   ],
+   [
+    "BOX(THEM(^BOX1(THEM(ME))))",
+    0.0
+   ],
+   [
+    "BOX(THEM(THEM))",
+    0.0
+   ]
+  ],
+  "gth_time_s": 0.41190195083618164,
+  "coop_mass": 1.000000000000001,
+  "universality": 1.0,
+  "blocks": [
+   {
+    "mass": 1.000000000000001,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "CLUB(THEM)",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLUB(THEM)",
+      1.000000000000001
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 0.0,
+  "rival_share": 0.0,
+  "fb_block": 0.0,
+  "pstar_block": 0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 4.457952976226807
+ },
+ {
+  "arm": "free",
+  "n": 6,
+  "N": 100000,
+  "mode": "full",
+  "n_classes": 51,
+  "n_K": 0,
+  "mu_K": 0.0,
+  "pcc": 0.8137098658052777,
+  "pi_K": 0.0,
+  "poly": 0.0,
+  "pi_D": 0.18628258431137176,
+  "pi_C": 3.482207854479583e-05,
+  "pi_FB": 0.27060350119858595,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 2.51061759715718e-09,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 4.440892098500626e-16,
+  "n_states": 51,
+  "residual_linear": 1.5610991008543453e-16,
+  "support": [
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.2706311275237283
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.27060350119858595
+   ],
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.2694937086618474
+   ],
+   [
+    "mono {D:1}",
+    0.18628258431137176
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.0019324426384627997
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.000480524465471463
+   ],
+   [
+    "mono {BOX1(THEM(^C)):1}",
+    0.00047865716847740104
+   ]
+  ],
+  "K_states_expanded": 0,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -6.585616891201528
+   }
+  },
+  "gth_pcc": 0.8137108465556865,
+  "gth_pi_K": 0.0,
+  "gth_log_1m_pi_K": 0.0,
+  "gth_pi_D": 0.18628160127410287,
+  "gth_pi_FB": 0.27060386265759306,
+  "gth_residual": 1.0658141036401446e-14,
+  "gth_top": [
+   [
+    "BOX(THEM(THEM))",
+    0.27063181596735486
+   ],
+   [
+    "BOX(THEM(ME))",
+    0.27060386265759306
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.2694936356831426
+   ],
+   [
+    "D",
+    0.18628160127410287
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    0.0019324453295187353
+   ],
+   [
+    "BOX(THEM(^C))",
+    0.00048052569745152105
+   ]
+  ],
+  "gth_time_s": 0.2521672248840332,
+  "coop_mass": 0.8136750437267328,
+  "universality": 0.999957487402533,
+  "blocks": [
+   {
+    "mass": 0.8126607800226244,
+    "share": 1.0,
+    "clique": true,
+    "size": 4,
+    "top": "BOX(THEM(THEM))",
+    "has_FB": true,
+    "coops_with_FB": true,
+    "members": [
+     [
+      "BOX(THEM(THEM))",
+      0.2706311275237283
+     ],
+     [
+      "BOX(THEM(ME))",
+      0.27060350119858595
+     ],
+     [
+      "BOX1(THEM(ME))",
+      0.2694937086618474
+     ],
+     [
+      "BOX1(THEM(THEM))",
+      0.0019324426384627997
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 0.001014263704108398,
+  "rival_share": 0.0,
+  "fb_block": 0.8136564906488071,
+  "pstar_block": 0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 1.9776041507720947
+ },
+ {
+  "arm": "clique",
+  "n": 6,
+  "N": 100000,
+  "mode": "full",
+  "n_classes": 53,
+  "n_K": 1,
+  "mu_K": 0.004877763852163562,
+  "pcc": 0.9999999999999996,
+  "pi_K": 0.9999999999999996,
+  "poly": 0.0,
+  "pi_D": 0.0,
+  "pi_C": 0.0,
+  "pi_FB": 0.0,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 2.698538696950068e-22,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 4.440892098500626e-16,
+  "n_states": 53,
+  "residual_linear": 1.7997418446433815e-17,
+  "support": [
+   [
+    "mono {CLIQUE_1:1}",
+    0.9999999999999996
+   ]
+  ],
+  "K_states_expanded": 1,
+  "top_K": "CLIQUE_1",
+  "pi_top_K": 0.9999999999999996,
+  "top_exits_linear": {
+   "deleterious_out": 0.0
+  },
+  "top_dest_linear": [
+   [
+    "C",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "D",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -7511.026884065416
+  },
+  "top_dest_out_log": [
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -7512.168848843574
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -7512.168848843574
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    -7513.448119354714
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    -7513.448119354714
+   ]
+  ],
+  "K_exit_log": -7511.026884065416,
+  "K_exit_log_per_state": {
+   "CLIQUE_1": -7511.026884065416
+  },
+  "K_exit_best": [
+   "BOX(THEM(ME))",
+   -7506.855809077547,
+   "deleterious"
+  ],
+  "hit_K": 211786.82773768195,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -6.585616891201528,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -11.908685282352355,
+  "K_neutral_entrants_D": 1,
+  "gth_pcc": 1.0,
+  "gth_pi_K": 1.0,
+  "gth_log_1m_pi_K": -7498.28453364547,
+  "gth_pi_D": 0.0,
+  "gth_pi_FB": 0.0,
+  "gth_residual": 9.094947017733418e-13,
+  "gth_top": [
+   [
+    "CLIQUE_1",
+    1.0
+   ],
+   [
+    "BOX(THEM(ME))",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.0
+   ],
+   [
+    "D",
+    0.0
+   ],
+   [
+    "BOX(THEM(^BOX1(THEM(ME))))",
+    0.0
+   ],
+   [
+    "BOX(THEM(THEM))",
+    0.0
+   ]
+  ],
+  "gth_time_s": 0.34306788444519043,
+  "coop_mass": 0.9999999999999996,
+  "universality": 1.0,
+  "blocks": [
+   {
+    "mass": 0.9999999999999996,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "CLIQUE_1",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLIQUE_1",
+      0.9999999999999996
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 0.0,
+  "rival_share": 0.0,
+  "fb_block": 0.0,
+  "pstar_block": 0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 2.4984498023986816
+ },
+ {
+  "arm": "club",
+  "n": 6,
+  "N": 10000,
+  "mode": "full",
+  "n_classes": 66,
+  "n_K": 1,
+  "mu_K": 0.004651855007841011,
+  "pcc": 0.9999999999999999,
+  "pi_K": 0.9999999999999988,
+  "poly": 0.0,
+  "pi_D": 1.2082980498843728e-15,
+  "pi_C": 4.0190661153109704e-19,
+  "pi_FB": 4.3835232090394377e-16,
+  "pi_CFB": null,
+  "pi_CT": 0.9999999999999988,
+  "cut_flow": 3.6111512624317074e-23,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 1.1102230246251565e-15,
+  "n_states": 66,
+  "residual_linear": 1.2546605650473043e-19,
+  "support": [
+   [
+    "mono {CLUB(THEM):1}",
+    0.9999999999999988
+   ]
+  ],
+  "K_states_expanded": 1,
+  "top_K": "CLUB(THEM)",
+  "pi_top_K": 0.9999999999999988,
+  "top_exits_linear": {
+   "deleterious_out": 0.0
+  },
+  "top_dest_linear": [
+   [
+    "C",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "D",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -759.8370808126876
+  },
+  "top_dest_out_log": [
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -761.0698602659025
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -761.0698602659025
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    -762.3198766844891
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    -762.3198766844891
+   ]
+  ],
+  "K_exit_log": -759.8370808126876,
+  "K_exit_log_per_state": {
+   "CLUB(THEM)": -759.8370808126876
+  },
+  "K_exit_best": [
+   "BOX(THEM(ME))",
+   -755.7044715285753,
+   "deleterious"
+  ],
+  "hit_K": 35178.9469044629,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -5.437262562082959,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   },
+   "CLUB(THEM)": {
+    "log_rho": -5.437262562082959,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -10.807751774598398,
+  "K_neutral_entrants_D": 1,
+  "gth_pcc": 1.0,
+  "gth_pi_K": 1.0,
+  "gth_log_1m_pi_K": -749.0789019643792,
+  "gth_pi_D": 0.0,
+  "gth_pi_FB": 0.0,
+  "gth_residual": 0.0,
+  "gth_top": [
+   [
+    "CLUB(THEM)",
+    1.0
+   ],
+   [
+    "D",
+    0.0
+   ],
+   [
+    "BOX(THEM(ME))",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.0
+   ],
+   [
+    "BOX(THEM(THEM))",
+    0.0
+   ],
+   [
+    "BOX(THEM(^C))",
+    0.0
+   ]
+  ],
+  "gth_time_s": 0.07020688056945801,
+  "coop_mass": 0.9999999999999999,
+  "universality": 0.9999999999999978,
+  "blocks": [
+   {
+    "mass": 0.9999999999999988,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "CLUB(THEM)",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLUB(THEM)",
+      0.9999999999999988
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 1.1102230246251565e-15,
+  "rival_share": 0.0,
+  "fb_block": 1.1601563614903268e-15,
+  "pstar_block": 0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 1.1181130409240723
+ },
+ {
+  "arm": "free",
+  "n": 6,
+  "N": 10000,
+  "mode": "full",
+  "n_classes": 51,
+  "n_K": 0,
+  "mu_K": 0.0,
+  "pcc": 0.5869271113516352,
+  "pi_K": 0.0,
+  "poly": 0.0,
+  "pi_D": 0.4130205124413888,
+  "pi_C": 0.00024944743770404876,
+  "pi_FB": 0.18934524154480237,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 2.0253289000682717e-08,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 3.3306690738754696e-16,
+  "n_states": 51,
+  "residual_linear": 2.2848933285919323e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.4130205124413888
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.18936370069259972
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.18934524154480237
+   ],
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.18857659189908493
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.012693373404565986
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.003179013461599074
+   ],
+   [
+    "mono {BOX1(THEM(^C)):1}",
+    0.003166751538399836
+   ],
+   [
+    "mono {C:1}",
+    0.00024944743770404876
+   ],
+   [
+    "mono {BOX1(THEM(^BOX(THEM(ME)))):1}",
+    0.00022773289229065984
+   ]
+  ],
+  "K_states_expanded": 0,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -5.437262562082959
+   }
+  },
+  "gth_pcc": 0.5869281672448872,
+  "gth_pi_K": 0.0,
+  "gth_log_1m_pi_K": 0.0,
+  "gth_pi_D": 0.4130194420854578,
+  "gth_pi_FB": 0.1893456256134882,
+  "gth_residual": 1.065814103640156e-14,
+  "gth_top": [
+   [
+    "D",
+    0.4130194420854578
+   ],
+   [
+    "BOX(THEM(THEM))",
+    0.18936432223176916
+   ],
+   [
+    "BOX(THEM(ME))",
+    0.1893456256134882
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.18857662520284196
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    0.012693388593009482
+   ],
+   [
+    "BOX(THEM(^C))",
+    0.0031790240888067717
+   ]
+  ],
+  "gth_time_s": 0.03501486778259277,
+  "coop_mass": 0.5866776639139313,
+  "universality": 0.9996024743432572,
+  "blocks": [
+   {
+    "mass": 0.586324672541052,
+    "share": 1.0,
+    "clique": true,
+    "size": 6,
+    "top": "BOX(THEM(THEM))",
+    "has_FB": true,
+    "coops_with_FB": true,
+    "members": [
+     [
+      "BOX(THEM(THEM))",
+      0.18936370069259972
+     ],
+     [
+      "BOX(THEM(ME))",
+      0.18934524154480237
+     ],
+     [
+      "BOX1(THEM(ME))",
+      0.18857659189908493
+     ],
+     [
+      "BOX1(THEM(THEM))",
+      0.012693373404565986
+     ],
+     [
+      "BOX(THEM(^C))",
+      0.003179013461599074
+     ],
+     [
+      "BOX1(THEM(^C))",
+      0.003166751538399836
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 0.0003529913728792522,
+  "rival_share": 0.0,
+  "fb_block": 0.5865524054333426,
+  "pstar_block": 0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 0.43793821334838867
+ },
+ {
+  "arm": "clique",
+  "n": 6,
+  "N": 10000,
+  "mode": "full",
+  "n_classes": 53,
+  "n_K": 1,
+  "mu_K": 0.004877763852163562,
+  "pcc": 0.9999999999999981,
+  "pi_K": 0.9999999999999967,
+  "poly": 0.0,
+  "pi_D": 1.5268447754884644e-15,
+  "pi_C": 4.745416236277539e-19,
+  "pi_FB": 6.134806499392306e-16,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 4.9034499345524944e-23,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 3.3306690738754696e-16,
+  "n_states": 53,
+  "residual_linear": 1.6246315146511712e-19,
+  "support": [
+   [
+    "mono {CLIQUE_1:1}",
+    0.9999999999999967
+   ]
+  ],
+  "K_states_expanded": 1,
+  "top_K": "CLIQUE_1",
+  "pi_top_K": 0.9999999999999967,
+  "top_exits_linear": {
+   "deleterious_out": 0.0
+  },
+  "top_dest_linear": [
+   [
+    "C",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "D",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ],
+   [
+    "BOXD1(THEM(ME))",
+    "deleterious_out",
+    0.0
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -759.8755465164448
+  },
+  "top_dest_out_log": [
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -761.0175112946025
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -761.0175112946025
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    -762.2967818057425
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    -762.2967818057425
+   ]
+  ],
+  "K_exit_log": -759.8755465164448,
+  "K_exit_log_per_state": {
+   "CLIQUE_1": -759.8755465164448
+  },
+  "K_exit_best": [
+   "BOX(THEM(ME))",
+   -755.7044715285753,
+   "deleterious"
+  ],
+  "hit_K": 34284.39110674217,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -5.437262562082959,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -10.760330953233787,
+  "K_neutral_entrants_D": 1,
+  "gth_pcc": 1.0,
+  "gth_pi_K": 1.0,
+  "gth_log_1m_pi_K": -749.1124676570012,
+  "gth_pi_D": 0.0,
+  "gth_pi_FB": 0.0,
+  "gth_residual": 1.1368683772160957e-13,
+  "gth_top": [
+   [
+    "CLIQUE_1",
+    1.0
+   ],
+   [
+    "D",
+    0.0
+   ],
+   [
+    "BOX(THEM(ME))",
+    0.0
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.0
+   ],
+   [
+    "BOX(THEM(THEM))",
+    0.0
+   ],
+   [
+    "BOX(THEM(^C))",
+    0.0
+   ]
+  ],
+  "gth_time_s": 0.031010866165161133,
+  "coop_mass": 0.9999999999999981,
+  "universality": 0.9999999999999971,
+  "blocks": [
+   {
+    "mass": 0.9999999999999967,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "CLIQUE_1",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLIQUE_1",
+      0.9999999999999967
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 1.4432899320127035e-15,
+  "rival_share": 0.0,
+  "fb_block": 1.4386695775740551e-15,
+  "pstar_block": 0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 0.5039527416229248
+ },
+ {
+  "arm": "club",
+  "n": 6,
+  "N": 1000,
+  "mode": "full",
+  "n_classes": 66,
+  "n_K": 1,
+  "mu_K": 0.004651855007841011,
+  "pcc": 1.000000000000001,
+  "pi_K": 1.000000000000001,
+  "poly": 0.0,
+  "pi_D": 5.545294513284335e-19,
+  "pi_C": 2.5236305538012683e-19,
+  "pi_FB": 0.0,
+  "pi_CFB": null,
+  "pi_CT": 1.000000000000001,
+  "cut_flow": 4.468049878368872e-24,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 1.1102230246251565e-15,
+  "n_states": 66,
+  "residual_linear": 8.724193805064452e-20,
+  "support": [
+   [
+    "mono {CLUB(THEM):1}",
+    1.000000000000001
+   ]
+  ],
+  "K_states_expanded": 1,
+  "top_K": "CLUB(THEM)",
+  "pi_top_K": 1.000000000000001,
+  "top_exits_linear": {
+   "deleterious_out": 4.528136210422343e-37
+  },
+  "top_dest_linear": [
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    1.3198669935250853e-37
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    1.3198669935250853e-37
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    3.7814201625399215e-38
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    3.7814201625399215e-38
+   ],
+   [
+    "not(BOX(THEM(THEM)))",
+    "deleterious_out",
+    3.355452987505516e-38
+   ],
+   [
+    "not(BOX1(THEM(THEM)))",
+    "deleterious_out",
+    3.355452987505516e-38
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -83.68533801852422
+  },
+  "top_dest_out_log": [
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -84.91811747173928
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -84.91811747173928
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    -86.16813389032582
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    -86.16813389032582
+   ]
+  ],
+  "K_exit_log": -83.68533801852422,
+  "K_exit_log_per_state": {
+   "CLUB(THEM)": -83.68533801852422
+  },
+  "K_exit_best": [
+   "BOX(THEM(ME))",
+   -79.55272873441194,
+   "deleterious"
+  ],
+  "hit_K": 9363.89841160721,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -4.294924134309757,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   },
+   "CLUB(THEM)": {
+    "log_rho": -4.294924134309757,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -9.665413346825195,
+  "K_neutral_entrants_D": 1,
+  "gth_pcc": 1.0,
+  "gth_pi_K": 1.0,
+  "gth_log_1m_pi_K": -74.41701955885522,
+  "gth_pi_D": 3.0350512054080944e-33,
+  "gth_pi_FB": 6.874381253832196e-34,
+  "gth_residual": 8.526512829121566e-14,
+  "gth_top": [
+   [
+    "CLUB(THEM)",
+    1.0
+   ],
+   [
+    "D",
+    3.0350512054080944e-33
+   ],
+   [
+    "BOX(THEM(ME))",
+    6.874381253832196e-34
+   ],
+   [
+    "BOX1(THEM(ME))",
+    6.847822831543952e-34
+   ],
+   [
+    "BOX(THEM(THEM))",
+    1.1985218205049291e-34
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    8.630285536536767e-35
+   ]
+  ],
+  "gth_time_s": 0.012575864791870117,
+  "coop_mass": 1.000000000000001,
+  "universality": 1.0,
+  "blocks": [
+   {
+    "mass": 1.000000000000001,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "CLUB(THEM)",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLUB(THEM)",
+      1.000000000000001
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 0.0,
+  "rival_share": 0.0,
+  "fb_block": 8.244904009026757e-17,
+  "pstar_block": 0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 0.6062350273132324
+ },
+ {
+  "arm": "free",
+  "n": 6,
+  "N": 1000,
+  "mode": "full",
+  "n_classes": 51,
+  "n_K": 0,
+  "mu_K": 0.0,
+  "pcc": 0.3452506600414475,
+  "pi_K": 0.0,
+  "poly": 0.0,
+  "pi_D": 0.6545276312806083,
+  "pi_C": 0.0013906130222835432,
+  "pi_FB": 0.0944720398007602,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 1.3570256486350354e-07,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 1.1102230246251565e-16,
+  "n_states": 51,
+  "residual_linear": 2.6587194250054093e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.6545276312806083
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.09447932706876369
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.0944720398007602
+   ],
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.09411086467754251
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.039268325118763985
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.010268126601831884
+   ],
+   [
+    "mono {BOX1(THEM(^C)):1}",
+    0.010230070847572369
+   ],
+   [
+    "mono {C:1}",
+    0.0013906130222835432
+   ],
+   [
+    "mono {BOX1(THEM(^BOX(THEM(ME)))):1}",
+    0.0005436381122863164
+   ],
+   [
+    "mono {not(BOXD1(THEM(^C))):1}",
+    0.0001399009297546283
+   ]
+  ],
+  "K_states_expanded": 0,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -4.294924134309757
+   }
+  },
+  "gth_pcc": 0.3452498560246848,
+  "gth_pi_K": 0.0,
+  "gth_log_1m_pi_K": 0.0,
+  "gth_pi_D": 0.6545283887840148,
+  "gth_pi_FB": 0.09447193766127199,
+  "gth_residual": 1.065814103640156e-14,
+  "gth_top": [
+   [
+    "D",
+    0.6545283887840148
+   ],
+   [
+    "BOX(THEM(THEM))",
+    0.09447933617144431
+   ],
+   [
+    "BOX(THEM(ME))",
+    0.09447193766127199
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.09411055613625269
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    0.03926815203379854
+   ],
+   [
+    "BOX(THEM(^C))",
+    0.01026812896773695
+   ]
+  ],
+  "gth_time_s": 0.007354021072387695,
+  "coop_mass": 0.34386004701916395,
+  "universality": 0.9973896459517113,
+  "blocks": [
+   {
+    "mass": 0.34282875411523467,
+    "share": 1.0,
+    "clique": true,
+    "size": 6,
+    "top": "BOX(THEM(THEM))",
+    "has_FB": true,
+    "coops_with_FB": true,
+    "members": [
+     [
+      "BOX(THEM(THEM))",
+      0.09447932706876369
+     ],
+     [
+      "BOX(THEM(ME))",
+      0.0944720398007602
+     ],
+     [
+      "BOX1(THEM(ME))",
+      0.09411086467754251
+     ],
+     [
+      "BOX1(THEM(THEM))",
+      0.039268325118763985
+     ],
+     [
+      "BOX(THEM(^C))",
+      0.010268126601831884
+     ],
+     [
+      "BOX1(THEM(^C))",
+      0.010230070847572369
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 0.0010312929039292817,
+  "rival_share": 0.0,
+  "fb_block": 0.343372392227521,
+  "pstar_block": 0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 0.36919689178466797
+ },
+ {
+  "arm": "clique",
+  "n": 6,
+  "N": 1000,
+  "mode": "full",
+  "n_classes": 53,
+  "n_K": 1,
+  "mu_K": 0.004877763852163562,
+  "pcc": 0.9999999999999997,
+  "pi_K": 0.9999999999999996,
+  "poly": 0.0,
+  "pi_D": 0.0,
+  "pi_C": 2.3476620290849543e-19,
+  "pi_FB": 1.2279871958227494e-19,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 3.874733885142212e-24,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 3.3306690738754696e-16,
+  "n_states": 53,
+  "residual_linear": 7.36102347379448e-20,
+  "support": [
+   [
+    "mono {CLIQUE_1:1}",
+    0.9999999999999996
+   ]
+  ],
+  "K_states_expanded": 1,
+  "top_K": "CLIQUE_1",
+  "pi_top_K": 0.9999999999999996,
+  "top_exits_linear": {
+   "deleterious_out": 4.357265660326452e-37
+  },
+  "top_dest_linear": [
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    1.3908011393284725e-37
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    1.3908011393284725e-37
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    3.8697678656038424e-38
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    3.8697678656038424e-38
+   ],
+   [
+    "not(BOX(THEM(THEM)))",
+    "deleterious_out",
+    3.4273994282929373e-38
+   ],
+   [
+    "not(BOX1(THEM(THEM)))",
+    "deleterious_out",
+    3.4273994282929373e-38
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -83.72380372228159
+  },
+  "top_dest_out_log": [
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -84.86576850043916
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -84.86576850043916
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    -86.1450390115792
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    -86.1450390115792
+   ]
+  ],
+  "K_exit_log": -83.72380372228159,
+  "K_exit_log_per_state": {
+   "CLIQUE_1": -83.72380372228159
+  },
+  "K_exit_best": [
+   "BOX(THEM(ME))",
+   -79.55272873441194,
+   "deleterious"
+  ],
+  "hit_K": 8959.957242625169,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -4.294924134309757,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -9.617992525460583,
+  "K_neutral_entrants_D": 1,
+  "gth_pcc": 1.0,
+  "gth_pi_K": 1.0,
+  "gth_log_1m_pi_K": -74.48346525951789,
+  "gth_pi_D": 2.756883705017572e-33,
+  "gth_pi_FB": 6.867690749251023e-34,
+  "gth_residual": 7.105427357601254e-14,
+  "gth_top": [
+   [
+    "CLIQUE_1",
+    1.0
+   ],
+   [
+    "D",
+    2.756883705017572e-33
+   ],
+   [
+    "BOX(THEM(ME))",
+    6.867690749251023e-34
+   ],
+   [
+    "BOX1(THEM(ME))",
+    6.841132621196038e-34
+   ],
+   [
+    "BOX(THEM(THEM))",
+    1.108273072140633e-34
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    8.005001320281858e-35
+   ]
+  ],
+  "gth_time_s": 0.008599996566772461,
+  "coop_mass": 0.9999999999999997,
+  "universality": 0.9999999999999998,
+  "blocks": [
+   {
+    "mass": 0.9999999999999996,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "CLIQUE_1",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLIQUE_1",
+      0.9999999999999996
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 1.1102230246251565e-16,
+  "rival_share": 0.0,
+  "fb_block": 7.39234557772977e-17,
+  "pstar_block": 0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 0.3505110740661621
+ },
+ {
+  "arm": "club",
+  "n": 6,
+  "N": 100,
+  "mode": "full",
+  "n_classes": 66,
+  "n_K": 1,
+  "mu_K": 0.004651855007841011,
+  "pcc": 0.9989403470597432,
+  "pi_K": 0.9987024696078693,
+  "poly": 0.0,
+  "pi_D": 0.0010585031003630836,
+  "pi_C": 8.765116195113818e-06,
+  "pi_FB": 6.290525598866791e-05,
+  "pi_CFB": null,
+  "pi_CT": 0.9987024696078693,
+  "cut_flow": 1.2538339995284498e-09,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 1.1102230246251565e-15,
+  "n_states": 66,
+  "residual_linear": 5.381223942320768e-16,
+  "support": [
+   [
+    "mono {CLUB(THEM):1}",
+    0.9987024696078693
+   ],
+   [
+    "mono {D:1}",
+    0.0010585031003630836
+   ]
+  ],
+  "K_states_expanded": 1,
+  "top_K": "CLUB(THEM)",
+  "pi_top_K": 0.9987024696078693,
+  "top_exits_linear": {
+   "deleterious_out": 3.0540817202416915e-07
+  },
+  "top_dest_linear": [
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    8.657963720701905e-08
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    8.657963720701905e-08
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    2.4805074102627074e-08
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    2.4805074102627074e-08
+   ],
+   [
+    "not(BOX(THEM(THEM)))",
+    "deleterious_out",
+    2.2010846831432213e-08
+   ],
+   [
+    "not(BOX1(THEM(THEM)))",
+    "deleterious_out",
+    2.2010846831432213e-08
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -15.00161668609103
+  },
+  "top_dest_out_log": [
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -16.26220118520447
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -16.26220118520447
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    -17.512217603791
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    -17.512217603791
+   ]
+  ],
+  "K_exit_log": -15.00161668609103,
+  "K_exit_log_per_state": {
+   "CLUB(THEM)": -15.00161668609103
+  },
+  "K_exit_best": [
+   "BOX(THEM(ME))",
+   -10.896812447877132,
+   "deleterious"
+  ],
+  "hit_K": 4121.506503497664,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -3.1686853547013283,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   },
+   "CLUB(THEM)": {
+    "log_rho": -3.1686853547013283,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -8.539174567216767,
+  "K_neutral_entrants_D": 1,
+  "gth_pcc": 0.9989403220207733,
+  "gth_pi_K": 0.998702446857523,
+  "gth_log_1m_pi_K": -6.647274986166022,
+  "gth_pi_D": 0.0010585281702706543,
+  "gth_pi_FB": 6.290548446022688e-05,
+  "gth_residual": 1.7763568394002662e-14,
+  "gth_top": [
+   [
+    "CLUB(THEM)",
+    0.998702446857523
+   ],
+   [
+    "D",
+    0.0010585281702706543
+   ],
+   [
+    "BOX(THEM(ME))",
+    6.290548446022688e-05
+   ],
+   [
+    "BOX1(THEM(ME))",
+    6.273138137764918e-05
+   ],
+   [
+    "BOX(THEM(THEM))",
+    3.585824173408415e-05
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    3.228213298742781e-05
+   ]
+  ],
+  "gth_time_s": 0.009881973266601562,
+  "coop_mass": 0.9989315819435481,
+  "universality": 0.9995413895820189,
+  "blocks": [
+   {
+    "mass": 0.9987024696078693,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "CLUB(THEM)",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLUB(THEM)",
+      0.9987024696078693
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 0.00022911233567879385,
+  "rival_share": 0.0,
+  "fb_block": 0.000226935401479935,
+  "pstar_block": 0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 0.6842520236968994
+ },
+ {
+  "arm": "free",
+  "n": 6,
+  "N": 100,
+  "mode": "full",
+  "n_classes": 51,
+  "n_K": 0,
+  "mu_K": 0.0,
+  "pcc": 0.16928203940599262,
+  "pi_K": 0.0,
+  "poly": 0.0,
+  "pi_D": 0.829868246298467,
+  "pi_C": 0.006316696012093908,
+  "pi_FB": 0.03721543236514979,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 1.0238343334725721e-06,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 3.3306690738754696e-16,
+  "n_states": 51,
+  "residual_linear": 8.427140586051487e-16,
+  "support": [
+   [
+    "mono {D:1}",
+    0.829868246298467
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.03721788770448483
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.03721543236514979
+   ],
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.03711257650230576
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.03224679254807241
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.008936615276565602
+   ],
+   [
+    "mono {BOX1(THEM(^C)):1}",
+    0.008911711143338023
+   ],
+   [
+    "mono {C:1}",
+    0.006316696012093908
+   ],
+   [
+    "mono {not(BOXD1(THEM(^C))):1}",
+    0.0003785600773923002
+   ],
+   [
+    "mono {not(BOXD(THEM(^C))):1}",
+    0.00035128399450394787
+   ]
+  ],
+  "K_states_expanded": 0,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -3.1686853547013283
+   }
+  },
+  "gth_pcc": 0.16927675011679452,
+  "gth_pi_K": 0.0,
+  "gth_log_1m_pi_K": 0.0,
+  "gth_pi_D": 0.8298736365016794,
+  "gth_pi_FB": 0.03721489731298691,
+  "gth_residual": 1.065814103640156e-14,
+  "gth_top": [
+   [
+    "D",
+    0.8298736365016794
+   ],
+   [
+    "BOX(THEM(THEM))",
+    0.03721741284666297
+   ],
+   [
+    "BOX(THEM(ME))",
+    0.03721489731298691
+   ],
+   [
+    "BOX1(THEM(ME))",
+    0.03711193489523977
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    0.03224599363373698
+   ],
+   [
+    "BOX(THEM(^C))",
+    0.008936503129301799
+   ]
+  ],
+  "gth_time_s": 0.004032135009765625,
+  "coop_mass": 0.16296534339389873,
+  "universality": 0.9892704043535946,
+  "blocks": [
+   {
+    "mass": 0.16164101553991644,
+    "share": 1.0,
+    "clique": true,
+    "size": 6,
+    "top": "BOX(THEM(THEM))",
+    "has_FB": true,
+    "coops_with_FB": true,
+    "members": [
+     [
+      "BOX(THEM(THEM))",
+      0.03721788770448483
+     ],
+     [
+      "BOX(THEM(ME))",
+      0.03721543236514979
+     ],
+     [
+      "BOX1(THEM(ME))",
+      0.03711257650230576
+     ],
+     [
+      "BOX1(THEM(THEM))",
+      0.03224679254807241
+     ],
+     [
+      "BOX(THEM(^C))",
+      0.008936615276565602
+     ],
+     [
+      "BOX1(THEM(^C))",
+      0.008911711143338023
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 0.0013243278539823156,
+  "rival_share": 0.0,
+  "fb_block": 0.1619858649857852,
+  "pstar_block": 0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 0.29678797721862793
+ },
+ {
+  "arm": "clique",
+  "n": 6,
+  "N": 100,
+  "mode": "full",
+  "n_classes": 53,
+  "n_K": 1,
+  "mu_K": 0.004877763852163562,
+  "pcc": 0.9990391387124539,
+  "pi_K": 0.9988094062670958,
+  "poly": 0.0,
+  "pi_D": 0.0009597702120284023,
+  "pi_C": 8.423812697610987e-06,
+  "pi_FB": 6.210982237946505e-05,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 1.214928914950654e-09,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 3.3306690738754696e-16,
+  "n_states": 53,
+  "residual_linear": 2.387124849848048e-16,
+  "support": [
+   [
+    "mono {CLIQUE_1:1}",
+    0.9988094062670958
+   ],
+   [
+    "mono {D:1}",
+    0.0009597702120284023
+   ]
+  ],
+  "K_states_expanded": 1,
+  "top_K": "CLIQUE_1",
+  "pi_top_K": 0.9988094062670958,
+  "top_exits_linear": {
+   "deleterious_out": 2.941977637557458e-07
+  },
+  "top_dest_linear": [
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    9.123272167642029e-08
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    9.123272167642029e-08
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    2.538461068600037e-08
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    2.538461068600037e-08
+   ],
+   [
+    "not(BOX(THEM(THEM)))",
+    "deleterious_out",
+    2.248279565447794e-08
+   ],
+   [
+    "not(BOX1(THEM(THEM)))",
+    "deleterious_out",
+    2.248279565447794e-08
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -15.039013629910118
+  },
+  "top_dest_out_log": [
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -16.20985221390435
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -16.20985221390435
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    -17.489122725044393
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    -17.489122725044393
+   ]
+  ],
+  "K_exit_log": -15.039013629910118,
+  "K_exit_log_per_state": {
+   "CLIQUE_1": -15.039013629910118
+  },
+  "K_exit_best": [
+   "BOX(THEM(ME))",
+   -10.896812447877132,
+   "deleterious"
+  ],
+  "hit_K": 3910.3313746439385,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -3.1686853547013283,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -8.491753745852154,
+  "K_neutral_entrants_D": 1,
+  "gth_pcc": 0.9990391148374816,
+  "gth_pi_K": 0.9988093845400602,
+  "gth_log_1m_pi_K": -6.733284912330009,
+  "gth_pi_D": 0.0009597940991882947,
+  "gth_pi_FB": 6.211005190735778e-05,
+  "gth_residual": 1.065814103640156e-14,
+  "gth_top": [
+   [
+    "CLIQUE_1",
+    0.9988093845400602
+   ],
+   [
+    "D",
+    0.0009597940991882947
+   ],
+   [
+    "BOX(THEM(ME))",
+    6.211005190735778e-05
+   ],
+   [
+    "BOX1(THEM(ME))",
+    6.193603184635322e-05
+   ],
+   [
+    "BOX(THEM(THEM))",
+    3.3932640354771785e-05
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    3.050535760514217e-05
+   ]
+  ],
+  "gth_time_s": 0.004247188568115234,
+  "coop_mass": 0.9990307148997563,
+  "universality": 0.9995570507220882,
+  "blocks": [
+   {
+    "mass": 0.9988094062670958,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "CLIQUE_1",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLIQUE_1",
+      0.9988094062670958
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 0.0002213086326604552,
+  "rival_share": 0.0,
+  "fb_block": 0.0002194678022047603,
+  "pstar_block": 0,
+  "pi_pstar": 0.0,
+  "poly_coop": 0.0,
+  "time_s": 0.35372090339660645
+ },
+ {
+  "arm": "clique",
+  "n": 8,
+  "N": 100,
+  "mode": "full",
+  "n_classes": 485,
+  "n_K": 1,
+  "mu_K": 0.005019650909404927,
+  "pcc": 0.9990103822373503,
+  "pi_K": 0.998752193688772,
+  "poly": 0.0,
+  "pi_D": 0.0009879450271975474,
+  "pi_C": 9.112286229487076e-06,
+  "pi_FB": 6.561264595980964e-05,
+  "pi_CFB": null,
+  "pi_CT": null,
+  "cut_flow": 1.6046707612392726e-09,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "near_closed": 0,
+  "absorb_error": 2.6645352591003757e-15,
+  "n_states": 485,
+  "residual_linear": 2.4219926553315228e-15,
+  "support": [
+   [
+    "mono {CLIQUE_1:1}",
+    0.998752193688772
+   ],
+   [
+    "mono {D:1}",
+    0.0009879450271975474
+   ]
+  ],
+  "K_states_expanded": 1,
+  "top_K": "CLIQUE_1",
+  "pi_top_K": 0.998752193688772,
+  "top_exits_linear": {
+   "deleterious_out": 3.1580647849174424e-07
+  },
+  "top_dest_linear": [
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    9.368463105390037e-08
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    9.365950462370468e-08
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    2.8292341547587787e-08
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    2.8216962257000727e-08
+   ],
+   [
+    "not(BOX(THEM(THEM)))",
+    "deleterious_out",
+    2.387782604980037e-08
+   ],
+   [
+    "not(BOX1(THEM(THEM)))",
+    "deleterious_out",
+    2.387782604980037e-08
+   ]
+  ],
+  "top_exits_log": {
+   "deleterious_out": -14.968136220795266
+  },
+  "top_dest_out_log": [
+   [
+    "BOX1(THEM(ME))",
+    "deleterious_out",
+    -16.183331684059223
+   ],
+   [
+    "BOX(THEM(ME))",
+    "deleterious_out",
+    -16.183599922296363
+   ],
+   [
+    "BOX1(THEM(^C))",
+    "deleterious_out",
+    -17.38067468561355
+   ],
+   [
+    "BOX(THEM(^C))",
+    "deleterious_out",
+    -17.383342541354857
+   ]
+  ],
+  "K_exit_log": -14.968136220795266,
+  "K_exit_log_per_state": {
+   "CLIQUE_1": -14.968136220795266
+  },
+  "K_exit_best": [
+   "BOX1(THEM(ME))",
+   -10.896812447877132,
+   "deleterious"
+  ],
+  "hit_K": 3806.668210129326,
+  "entry": {
+   "BOX(THEM(ME))": {
+    "log_rho": -3.1686853547013283,
+    "matrix": [
+     0.0,
+     -1.0,
+     -1.0,
+     -1.0
+    ]
+   }
+  },
+  "K_entry_log_flux": -8.463080242357021,
+  "K_neutral_entrants_D": 1,
+  "gth_pcc": 0.9990103562971004,
+  "gth_pi_K": 0.9987521704845026,
+  "gth_log_1m_pi_K": -6.686349624537562,
+  "gth_pi_D": 0.0009879766339144745,
+  "gth_pi_FB": 6.561288506529774e-05,
+  "gth_residual": 8.526512829121566e-14,
+  "gth_top": [
+   [
+    "CLIQUE_1",
+    0.9987521704845026
+   ],
+   [
+    "D",
+    0.0009879766339144745
+   ],
+   [
+    "BOX(THEM(ME))",
+    6.561288506529774e-05
+   ],
+   [
+    "BOX1(THEM(ME))",
+    6.532385621688503e-05
+   ],
+   [
+    "BOX(THEM(THEM))",
+    3.610937003224518e-05
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    3.216197278122428e-05
+   ]
+  ],
+  "gth_time_s": 0.9216198921203613,
+  "coop_mass": 0.9990012699511208,
+  "universality": 0.9995014679093756,
+  "blocks": [
+   {
+    "mass": 0.998752193688772,
+    "share": 1.0,
+    "clique": true,
+    "size": 1,
+    "top": "CLIQUE_1",
+    "has_FB": false,
+    "coops_with_FB": false,
+    "members": [
+     [
+      "CLIQUE_1",
+      0.998752193688772
+     ]
+    ]
+   }
+  ],
+  "n_blocks": 1,
+  "below_thr": 0.0002490762623488241,
+  "rival_share": 0.0,
+  "fb_block": 0.00023702021322208875,
+  "pstar_block": 9.71898904897662e-06,
+  "pi_pstar": 6.192709400258066e-06,
+  "poly_coop": 0.0,
+  "time_s": 29.541231870651245
+ }
+]
