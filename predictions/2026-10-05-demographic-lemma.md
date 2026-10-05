@@ -128,3 +128,19 @@ results `runs/demographic-lemma.{md,json}`.
   This motivated S6. The naive form is 0.108 / 0.215 / 0.430 / 0.86; the independent-founder saturation form
   1 − exp(−naive) is 0.577 at 6,400 and the pooled-family form erf(μ_est√(Nc/2))/erf(√(Nc/2)) is 0.719 (μ_est = 0.0246
   at n = 9; the spec's 0.56 / 0.69 used 0.023).
+
+## Addendum 2: design extensions declared before any counted run (timing batch, separate salt, outcomes not used)
+
+Timing: 0.002–0.02 s per forced background (both runs) at N = 100–1,600; 0.01–0.2 s per lottery island at N = 1,600,
+0.1 s at 6,400, 1–3 s at 25,600. Because the runs are cheap, the design is enlarged now, before any counted run:
+- **Forced runs:** 10,000 backgrounds per (N, n, type) at every N (allocation per pair ALLOC × 10/3: disadvantaged
+  5,000 per pair, neutral 2,500 per pair, advantaged 10,000). The spec's 3,000 are the first block (rep < ALLOC);
+  verdicts use all 10,000; the 3,000 block is reported for RE 2 in addition.
+- **D sea:** 10⁴ runs per (N, k) at N = 100, 400, 1,600 and 4,000 at 6,400.
+- **Lottery (n = 9):** 4,000 islands at N = 100, 400 and 1,600 (the spec's new 1,600 cell asked for 2,000: the first
+  2,000 reps are that cell), 1,000 at 6,400 (the first 200 are the spec's cell; RE 5 and S7 are judged on all 1,000,
+  the 200 reported too), and an exploratory **400 islands at N = 25,600**, where the independent-founder and pooled
+  forms differ most (1 − e^{−μ√(2cN/π)} = 0.82 against erf(μ√(Nc/2))/erf(√(Nc/2)) = 0.97 at μ_est = 0.0246).
+  S10 (added now): the 25,600 cell is above 0.85 (pooled side). *Falsifier:* point estimate ≤ 0.85.
+- Raw forced rows are saved as `runs/demographic-lemma-forced.npz` (gitignored by the repo's `runs/*.npz` rule; 270,000
+  rows); aggregates and every reported number go to `runs/demographic-lemma.json`.
