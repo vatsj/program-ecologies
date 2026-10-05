@@ -583,3 +583,18 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **The binned evaluation of a stopping-time bound, Σ_i min{P(bin_i), cap_i} (subagent, and the scramble lemma's B1 before it).** Valid but sums one cap per bin and is vacuous when the statistic is spread (12–50× the measured survival); replaced by the single-level infimum inf_φ [k₀/φ + P(Φ_τ < φ)]. Addendum to RESULTS "The scramble lemma": B1's binned numbers were loose for this reason too.
 
 **Subagent S2** (E[k_τ] decreasing in N toward 0.93; it stays ≈ 1.3, the family advantage is N-independent), **S4** (pooled r ∈ [0.9, 1.6] with the shared background explaining half of r − 1; r_env is 1.07 against r = 1.39), **S8** (Lemma D′ within 2× of founder survival; 2.1–7.9×), **S9** (h^rel for probe-reader pairs < 0.15 at N = 1,600; 0.40).
+
+
+## Added 2026-10-05: incentive-compatible enforcement (RESULTS.md, "Incentive-compatible enforcement in the union game")
+
+**"The workers' commitment carries the fair share; the boss's does not" (Fable, prediction 2; falsifier fired).** Making the boss's whack ex-post rational raises the uniform-prior fair share from 0.306 to 0.553 (+0.247 against a 0.15 threshold). The committed strike-targeting threat is non-credible (worth −c if called), is never executed on path, and still holds 0.53 of π, because it makes the militant's zero-wage entry deleterious: the ε→0 chain scores committed policies without testing them. The RR clause ("zero wage ≥ 0.8") also failed: RR gives the intermediate wage 0.668.
+
+**"The prior decides the fair share" as a general statement (RESULTS "The union game", Reading; Fable).** Holds under committed play only. Under RR the full chain under the length prior gives the intermediate wage 0.75 with workers 40× better off; the constant striker is a free enforcer of the smallest positive wage once strikes are credible only where free.
+
+**The union⁻ pact (`not(BOX(s = 1/2))` wage check with a BOX or BOX1 handshake) as a remedy for the polarity dilemma (Fable, first draft of the spec; withdrawn after sol's review and confirmed by Part A).** union⁻₀ never activates (every box is vacuously true at world 0), union⁻₁ activates only on a world-0 low wage and is faked by 72 classes (fair only while provably struck), and the BOX1 wage twins never activate.
+
+**"Rational repression is free of the commitment cost" (Fable, first-draft rationale for prediction 3; withdrawn after review).** Rational repression still pays c when executed; its advantage is avoiding unprofitable executions, and with the pool it is worth 0.03 of fair share at most.
+
+**Subagent S4** (CC + pool keeps fair ≥ 0.05; it is 0.031: with the pool the committed (0, strike) is a strict invader against any striker).
+
+**Design choice dropped: the tie reading "boundary 1 − s = c → recommendation".** Needs a fourth whack policy for source targeting; the boundary is off-path in the reduced chain and was reported as whack/nowhack in Part C.

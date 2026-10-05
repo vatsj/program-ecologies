@@ -84,7 +84,7 @@ REJECTED.md the ones we dropped.
   deliberately violable; "threats hard to enforce" ≡ a symmetric threat point.
 - *Operating hypothesis:* efficiency first; for distribution, Θ(1/n) as a stable state with anonymity violable by slot
   asymmetry; universality over the club, accepting the 1/N leak as a mutation artifact (entry 1). The club is dropped as a target: it is a clique by declaration (RESULTS "The closed club").
-- *Evidence:* THEORY §3 "Distribution"; the club spec; RESULTS "Three-player majority divide-the-dollar" (2026-10-05): the pure chain with fixed roles selects rotating, mostly unfair pairs (a rotated dictatorship of the pivot); the grand coalition at thirds gets ≤ 0.017 and leaks through "accept a pair offer" bridges; source reading does not change it. Democracy as a stable state needs something beyond the pure chain. The union game (RESULTS "The union game", 2026-10-05) did not supply it: a quorum precondition is FairBot's handshake on strikes, the fair share is set by the prior (0.31 uniform vs 0.001 length prior), and the strike pact's wage check is fakeable (the polarity dilemma).
+- *Evidence:* THEORY §3 "Distribution"; the club spec; RESULTS "Three-player majority divide-the-dollar" (2026-10-05): the pure chain with fixed roles selects rotating, mostly unfair pairs (a rotated dictatorship of the pivot); the grand coalition at thirds gets ≤ 0.017 and leaks through "accept a pair offer" bridges; source reading does not change it. Democracy as a stable state needs something beyond the pure chain. The union game (RESULTS "The union game", 2026-10-05) did not supply it: a quorum precondition is FairBot's handshake on strikes, the fair share is set by the prior (0.31 uniform vs 0.001 length prior), and the strike pact's wage check is fakeable (the polarity dilemma). The enforcement run (RESULTS "Incentive-compatible enforcement", 2026-10-05) reads "threats hard to enforce" as ex-post rationality on both sides and gets the smallest positive wage (0.75 intermediate under the length prior, workers 0.19), not equal division; a non-credible committed threat deters because the chain never tests it; equal division is unsupported under every commitment structure except a uniform named-program prior with a rational boss (0.55).
 
 ## 7. Rates
 - *RS:* no normative opinion. *RE's opinion:* the relevant quantity is the cost of a given confidence; in the seeds run
@@ -101,7 +101,10 @@ REJECTED.md the ones we dropped.
 ## 10. The worker grammar and prior for wage reading
 - *Options:* set atoms over the wage (as run), PA + Con(PA) boxes, a uniform prior over behaviours, or a prior that does
   not give the constant striker and scab 0.48 each.
-- *Operating hypothesis:* none yet. The reduced chain shows the prior decides the fair share (0.31 uniform vs 0.001
-  length prior), so any distribution result must be stated relative to the prior.
-- *Would settle it:* sol's follow-up, incentive-compatible enforcement (repression that must pay for itself within
-  the encounter), and a wage check in the unfakeable polarity that can still carry a pact (needs PA + Con?).
+- *Operating hypothesis (RE, 2026-10-05):* distribution results are stated relative to both the prior and the
+  commitment structure; under committed play the prior decides (0.31 uniform vs 0.001 length prior), under ex-post
+  rational enforcement on both sides the length prior no longer pins the wage to zero (intermediate 0.75).
+- *Evidence:* RESULTS "Incentive-compatible enforcement": the unfakeable-polarity pact cannot activate without a
+  world-0 condition in the two-level language, and PA + Con^k only moves the faker up a world (the sibling theorem's
+  regress), so that route is closed.
+- *Would settle it:* a worker language whose strike handshake does not need a world-0 condition (none known).

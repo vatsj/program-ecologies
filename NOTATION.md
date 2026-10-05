@@ -114,3 +114,10 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   (≈ 1.3); **κ_N** — concavity factor E[u(k_τ)]/(u₁·E[k_τ]); **p_corr / p_corr2** — the compound establishment
   formula with the curvature-only / full-seed mean-field scramble; **semi-empirical predictor** — E[u_N(K_τ)] from
   the measured state at τ; **pooled erf form** — p(N) ≈ erf(μ_est·ℓ·√(Nc/2)) / erf(√(Nc/2)).
+- **Enforcement arms:** **CC / RC / CR / RR** — first letter the boss's whack, second the workers' strike; C =
+  committed (program output), R = ex-post rational (best response inside the per-world evaluation, boxes on
+  implemented actions); the wage is always committed. **Replacement pool** — a whacked striker is replaced by an
+  outside scab paid s, the boss netting 1 − s − c. **Tie rule** at 1 − s = c: whack (declared) or nowhack.
+  **militant⁻** = `if(not(BOX(s = 1/2)), strike, work)`; **union⁻_ℓ** = the same with `and(…, BOX_ℓ(OTHER = strike))`;
+  **polarity faker** = `if(BOX(W_j = strike), (1/2, ·), (s < 1/2, ·))`, fair only while provably struck. **Threat
+  advantage** — payoff of an executed (or if-called) committed enforcement move minus the feasible deviation.

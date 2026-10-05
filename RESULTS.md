@@ -2903,6 +2903,71 @@ Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/demog
 - **Establishment has a formula.** Founders survive the scramble like near-critical lineages (≈ 1/(1 + τ), size ≈ 1 + τ given survival); the survivors pool and the family escapes by the exact two-type formula; the establisher family gains w·x_D·x_E during the scramble, which outweighs the curvature loss (hence E[k_τ] ≈ 1.3, not 0.93). The semi-empirical predictor is within 4% at every N, the full-seed mean field within 1–17%.
 - **At fixed cutoff p(N) → 1** (0.98 at N = 25,600), following the pooled erf form erf(μ_est·ℓ·√(Nc/2)): the N ≫ I path is "almost all seeds" on a single island. The probe-readers' spoiler term still grows (≈ N^0.45), so the clean claim stays on FairBot's pair, whose bound has no spoiler term.
 - Method: a binned evaluation of a stopping-time bound (one cap per bin) is vacuous when the statistic is spread; this also affected the scramble lemma's binned B1.
+## Incentive-compatible enforcement in the union game, and the unfakeable-polarity pact (`runs/enforcement.md`, `runs/enforcement.json`, `runs/enforcement/`; spec `specs/2026-10-05-enforcement.md`, predictions in `predictions/2026-10-05-enforcement.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/union_enforcement.py`, `src/union_enforcement_run.py`, `tests/test_union_enforcement.py`). ε→0 chains (π with support and transitions) and a static part; RE spot-check: the four reduced-chain cells at the uniform prior, c = 0.5, N = 10³ reproduce to three digits on main.
+
+**What ran.** Part A: static, committed play; six militant⁻/union⁻ variants against 585 boss functions (n = 6, box levels {0, 1}) and the 297-function level-0 language, all 36 ordered pairs, world-by-world traces for nine named bosses; no chain cell, since nothing contradicted the spec's derivation. Part B: the reduced canonical chain, 192 cells (4 commitment arms × pool × c ∈ {0.1, 0.5} × N ∈ {10², 10³, 10⁴} × two tie rules × two priors; N = 10⁴ added after the predictions as a scaling check). Full-language tensors in every setting (6.1·10⁷ encounters each, all stable). Part C: the specified full-chain cell (RC + pool) plus six cheap extra full-chain cells (CC + pool, CC, RC, CR, RR at N = 10³; RR at N = 10² and 10⁴). Not run: the "boundary → recommendation" tie reading (needs a fourth whack policy).
+
+**Modified evaluator.** At each world the recommendation is computed first; a rational boss then whacks each striker iff (1 − s) − c > 0 with the pool and never without it (boundary 1 − s = c declared "whack", "nowhack" also reported); a rational worker best-responds to the implemented boss action from the full table; ties go to the recommendation; boxes read implemented actions. The CC arm reproduces the union run's tensor, static tables, reduced chains and full-chain cell exactly. Box audit by an independent history-based evaluator over 156,864 encounters: 0 violations (stable play, monotonicity, Lemma 0 at the stable world, best responses of rational slots).
+
+**Part A (the unfakeable polarity).**
+
+| self-pair | strikes vs world-0-low bosses | strikes vs world-0-fair bosses | low bosses worked for (fakers) | fair bosses struck |
+|---|---|---|---|---|
+| union⁻₀ (BOX handshake), either wage level | 0/390 | 0/195 | all | 0 |
+| union⁻₁ (BOX1 handshake, PA wage check) | 390/390 | 0/195 | 72 (μ 0.003) | 108 (μ 0.0045) |
+| union⁻₁ with BOX1 wage check | 0/390 | 0/195 | all | 0 |
+| militant⁻ `not(BOX(s = 1/2))` | 390/390 | 72/195 | 0 | 108 (μ 0.0045; 0.006 at level 0) |
+
+union⁻₁ strikes iff the boss pays low at world 0; its fakers pay fair only while the workers are provably striking (`if(BOX(W1 = strike), (1/2, ·), (0, ·))` and its BOX1 version), the mirror image of the union run's faker, which pays fair forever to every militant⁻ and union⁻ pair. 0 Lemma 0 counterexamples: militant⁻ is unfakeable and its only error is self-harm.
+
+**Part B (reduced chain, uniform prior, c = 0.5, N = 10³; N = 10² and 10⁴ within 0.03):**
+
+| arm | fair | intermediate | zero wage | boss | worker | efficiency |
+|---|---|---|---|---|---|---|
+| CC (the union run's game) | 0.306 | 0.001 | 0.598 | 1.60 | 0.153 | 1.90 |
+| RC (boss's whack ex-post rational) | 0.553 | 0.002 | 0.331 | 1.33 | 0.277 | 1.88 |
+| CR (workers' strike ex-post rational) | 7·10⁻⁵ | 0.001 | 0.998 | 2.00 | 4·10⁻⁴ | 2.00 |
+| RR (both) | 0.001 | 0.668 | 0.327 | 1.66 | 0.168 | 2.00 |
+| CC + pool | 0.031 | 3·10⁻⁴ | 0.963 | 1.96 | 0.015 | 1.99 |
+| RC + pool, RR + pool | ≈ 0 | ≈ 0 | 1.000 | 2.00 | 0 | 2.00 |
+| CR + pool | 6·10⁻⁵ | 0.001 | 0.998 | 2.00 | 4·10⁻⁴ | 2.00 |
+
+At c = 0.1, CC fair is 0.324 → 0.0005 with the pool; RC and RR unchanged. With the pool, repression given a strike rises from 6·10⁻⁷ to 0.12 (CC) and from 0 to 1 (RC) while strike incidence falls from 0.095 to 0.006 (CC) and from 0.114 to ≈ 0 (RC). Under the length prior every Part B cell has zero wage ≥ 0.994. The tie rule makes no difference in the reduced chain (the boundary is off-path). *Threat credibility:* in CC, 0.53 of π sits on committed strike-targeting bosses whose threat is never triggered and would cost −c if called; with the pool the same threat is worth +0.49; in CR the threat is worth −0.50 without the pool and +0.50 with it, yet π is 0.952 either way, because rational workers never test it.
+
+**Full chain (length prior, c = 0.5, N = 10³):**
+
+| cell | fair | intermediate | zero wage | strike + split | boss | worker | efficiency |
+|---|---|---|---|---|---|---|---|
+| CC (= union run) | 0.003 | 0.013 | 0.476 | 0.508 | 1.36 | 0.005 | 1.37 |
+| RC | 0.005 | 0.019 | 0.325 | 0.651 | 1.19 | 0.007 | 1.20 |
+| CR | 8·10⁻⁶ | 0.002 | 0.998 | 0.0005 | 2.00 | 4·10⁻⁴ | 2.00 |
+| RR (N = 10² / 10³ / 10⁴) | 0.004 / 10⁻⁴ / 5·10⁻⁶ | 0.754 / 0.753 / 0.752 | 0.21 / 0.24 / 0.25 | ≤ 0.035 | 1.62 | 0.19 | 1.995 |
+| CC + pool | 3·10⁻⁵ | 0.002 | 0.986 | 0.011 | 1.99 | 0 | 1.99 |
+| RC + pool (Part C) | 1.3·10⁻⁵ | 3·10⁻⁴ | 0.9997 | 0 | 2.00 | 9·10⁻⁵ | 2.00 |
+
+Part C: repression given a strike is 1.000 under the declared tie and 0.58 under "nowhack"; support `(0, strike) | work | work` at 0.923; exits neutral-keep only; π stable across θ = 10⁻⁹ and 10⁻¹¹. RR support: `(1/4, ·) | strike | strike` 0.233, `(1/4, ·) | work | strike` 0.230 per orientation, `(0, ·) | work | work` 0.223; exits are neutral drift ∝ 1/N; net circulation zero → scab split → intermediate → zero at 8·10⁻⁵ per event.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | no polarity carries a pact against every low-paying boss in the two-level language | **held** |
+| RE 2 | the workers' commitment carries the fair share, the boss's does not | **failed, falsifier fired**: RC − CC = +0.247 on fair; the CR clause held; RR zero wage 0.327, not ≥ 0.8 |
+| RE 3 | the pool lowers fair by ≥ 0.1 in CC and RC; RC + pool within 0.05 of CC + pool | **held** (gap 0.031 at c = 0.5) |
+| RE 4 | length prior: every Part B cell has zero wage ≥ 0.95 | **held** (min 0.994); the full-chain RR cell, outside Part B, has 0.24 |
+| RE 5 | Part C: repression given a strike ≥ 0.5, fair ≤ 0.01 | **held** |
+| S1, S2, S3, S5–S8 | subagent's own | held |
+| S4 | CC + pool keeps fair ≥ 0.05 | **failed, falsifier fired** (0.031) |
+
+**Reading.**
+- **The workers' commitment is necessary for any wage above zero, not sufficient.** Rational workers never strike into a committed strike-targeting boss, so that boss holds π at zero wage without ever whacking (CR, 0.95–0.998 in both chains).
+- **A non-credible committed threat deters in the ε→0 chain,** because entry is scored against the committed policy and the chain never tests it. Removing the boss's commitment raises the uniform-prior fair share from 0.31 to 0.55 (limit 5/9); in the full chain under the length prior it mostly lets the heavy constant striker waste output (efficiency 1.37 → 1.20).
+- **With both sides ex-post rational, stochastic stability reproduces the ultimatum game's subgame-perfect wage:** a rational strike is credible only where it is free (s = 0), so the boss pays the smallest positive wage. In the full language this makes the constant striker (mass 0.48) a free enforcer of the 1/4 wage: intermediate 0.75, N-independent, workers 0.19 against 0.005 and the boss 1.62 against 1.36. RR Pareto-dominates the union run's committed game. **"The prior decides" was partly an artefact of committed play.**
+- **A replacement pool makes repression credible and drives the wage to zero in every arm**, creating a closed neutral network at zero wage under rational repression. Efficiency and equal division separate completely: the efficient cells pay workers nothing.
+- **The polarity dilemma survives in the two-level language.** The unfakeable "¬□fair" pact's handshake activates only on a world-0 low wage, so it inherits a world-0 faker ("fair only while provably struck"), as the sibling theorem's regress predicts; moving the wage check up a level kills activation altogether. Lemma 0 holds: militant⁻'s errors are self-harm only.
+- Method: a per-world best-response override is cheap to state and changes what the chain tests; any compute price that makes commitment costly is also a selection on which threats get tested (THEORY §9.11).
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
