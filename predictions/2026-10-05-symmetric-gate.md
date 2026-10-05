@@ -122,3 +122,27 @@ lowers these somewhat.
 - **S8 (invasion challenge).** Under every rule: D fixes in 0/100; non-carrier FairBot fixes in 0/100 (exploited
   under the asymmetric rule, mutually defecting under the symmetric); ALLC is near-neutral and fixes in ≤ 5/100.
   *Falsifier:* D or non-carrier FairBot fixing in any run.
+
+## Addendum before the grid (2026-10-05): timing, tables, no window reduction
+
+Committed after the static diagnostics (`runs/symmetric_gate_static.json`, `runs/symmetric_gate_tables_info.json`) and
+before any grid run. Disclosed: two timing runs (mix, f₀ = 0.03, N = 6,400, rep 0, 2·10⁴ generations; symmetric and
+asymmetric; both established). The asymmetric one reproduces the published row of the previous experiment exactly
+(P(C,C) 0.98907, carriers 0.7303, t₅₀ 184), so the kernel and table installation are bit-identical to the run being
+paired against.
+
+- **Timing:** 11–14 s per 2·10⁴-generation run at N = 6,400 with load ≈ 5. **No reduction:** the spec's window
+  (2·10⁴ generations, second half), 20 seeds per cell, N = 25,600 at 10 seeds. ε = 0 twins, lottery and challenge
+  runs stop at the freeze with a 10⁵-generation horizon (unresolved runs are censored).
+- **Tables** (static, before runs): the asymmetric tables reproduce `contracts_types_b0.npz` and `val_inf` bit for bit;
+  the certified-implication audit has 0 violations under every rule at b ∈ {0, ∞}. At b = 0 every changed entry is a
+  non-carrier → carrier action (107,188 entries under the symmetric rule); 1,352 of them are against *constant-source*
+  carriers carrying a non-constant contract valid for that constant, so S1's sub-clause "non-constant carrier" is
+  already false (recorded, not re-scored later). At b = ∞ the tables are **not** equal (172,517 entries, 47,372 of them
+  carrier → non-carrier, μ×μ mass 0.0006 / 0.0004 against own-signature carriers); S2's inequality held, its
+  confinement clause failed.
+- **Added set, because the exact b = ∞ check failed:** `inf_pair`, b = ∞, f₀ = 0.01, asymmetric vs symmetric, 20
+  seeds, finite ε, same window, to show the outcome-level size of the inexactness. Run last.
+- **Order:** main → twins → N = 25,600 → lottery → invasion challenge → inf_pair, 3 workers. Any cell projected beyond
+  about 2 hours is stopped and recorded as censored.
+- No prediction or threshold changes.
