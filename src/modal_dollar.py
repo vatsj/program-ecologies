@@ -684,6 +684,331 @@ def _job_chain(job):
                 greedy=r['greedy']['mass'], effset=r['effset']['mass'], time_s=r['time_s'], cut=r['cut_flow'])
 
 
+# ---------------------------------------------------------------- log-domain chain (closure of every reachable state)
+@njit(cache=True)
+def log_fixation(uqq, uqa, uaq, uaa, N, w, kstar):
+    """log of chain.fixation (same formula), without underflow."""
+    if kstar <= 1:
+        return 0.0
+    acc = 0.0; lmax = -1e300
+    logs = np.empty(kstar - 1)
+    for k in range(1, kstar):
+        pq = (k - 1) / (N - 1) * uqq + (N - k) / (N - 1) * uqa
+        pa = k / (N - 1) * uaq + (N - k - 1) / (N - 1) * uaa
+        acc += w * (pa - pq)
+        logs[k - 1] = acc
+        if acc > lmax: lmax = acc
+    ssum = 0.0
+    for k in range(kstar - 1):
+        ssum += np.exp(logs[k] - lmax)
+    ls = lmax + np.log(ssum)
+    if ls > 0:
+        return -(ls + np.log1p(np.exp(-ls)))
+    return -np.log1p(np.exp(ls))
+
+
+@njit(cache=True)
+def _lae(a, b):
+    if a == -np.inf: return b
+    if b == -np.inf: return a
+    if a > b: return a + np.log1p(np.exp(b - a))
+    return b + np.log1p(np.exp(a - b))
+
+
+@njit(cache=True)
+def gth_log(LA):
+    """stationary distribution (log) of a chain with log off-diagonal weights LA (n x n, -inf = no edge), by GTH in
+    the log domain (GTH has no subtractions, so log-sum-exp is exact up to rounding).  Row k is eliminated from n-1
+    down; rows with an edge into k are updated."""
+    n = LA.shape[0]
+    A = LA.copy()
+    for i in range(n):
+        A[i, i] = -np.inf
+    s = np.full(n, -np.inf)
+    for k in range(n - 1, 0, -1):
+        sk = -np.inf
+        for j in range(k):
+            sk = _lae(sk, A[k, j])
+        if sk == -np.inf:
+            sk = -1e300
+        s[k] = sk
+        for i in range(k):
+            aik = A[i, k]
+            if aik == -np.inf:
+                continue
+            f = aik - sk
+            for j in range(k):
+                if A[k, j] != -np.inf:
+                    A[i, j] = _lae(A[i, j], f + A[k, j])
+    x = np.full(n, -np.inf)
+    x[0] = 0.0
+    for k in range(1, n):
+        v = -np.inf
+        for i in range(k):
+            if A[i, k] != -np.inf:
+                v = _lae(v, x[i] + A[i, k])
+        x[k] = v - s[k]
+    m = x.max()
+    return x - m
+
+
+def edge_logweights(d, ch, N, keys):
+    """log transition weights among the expanded states `keys` (recomputed from chain.Chain's fates and k*), plus the
+    log inflow weights into unexpanded targets."""
+    pos = {k: i for i, k in enumerate(keys)}
+    n = len(keys)
+    mu = d['mu']; U = d['U']
+    LA = np.full((n, n), -np.inf)
+    out_un = defaultdict(list)
+    cache = {}
+    for (k1, k2, q), (rho, kstar, tk) in ch.edge_rho.items():
+        i = pos.get(k1)
+        if i is None: continue
+        if k1 not in cache:
+            ids, x, kind = ch.states[k1]
+            ids = list(ids); x = np.array(x)
+            cache[k1] = (ids, x, float(x @ U[np.ix_(ids, ids)] @ x))
+        ids, x, uaa = cache[k1]
+        uqa = float(U[q, ids] @ x); uaq = float(U[ids, q] @ x); uqq = float(U[q, q])
+        lr = log_fixation(uqq, uqa, uaq, uaa, N, W, int(kstar))
+        tm = ch.trans_mut.get((k1, k2), {}).get(q, 0.0)
+        share = tm / (mu[q] * rho) if rho > 1e-250 and tm > 0 else 1.0
+        share = min(max(share, 0.0), 1.0)
+        if share <= 0: continue
+        lw = math.log(mu[q]) + math.log(share) + lr
+        j = pos.get(k2)
+        if j is None:
+            out_un[k2].append((i, lw))
+        else:
+            LA[i, j] = _lae(LA[i, j], lw)
+    return LA, out_un
+
+
+def solve_log(LA):
+    n = LA.shape[0]
+    lex = np.array([np.logaddexp.reduce(LA[i][np.isfinite(LA[i])]) if np.isfinite(LA[i]).any() else -1e300 for i in range(n)])
+    order = np.argsort(lex)
+    lx = gth_log(LA[np.ix_(order, order)])
+    lpi = np.empty(n); lpi[order] = lx
+    return lpi - np.logaddexp.reduce(lpi), lex
+
+
+def seeded_chain(d, N, extra_states=(), log_theta=math.log(1e-12), max_states=4000, max_rounds=80, verbose=False):
+    """Log-domain lazy chain: every monomorphic state and every state in extra_states ((ids, x) pairs, e.g. all deep
+    polymorphisms) is expanded; then, round by round, every unexpanded target whose stationary inflow (log domain,
+    relative to the total) exceeds log_theta is expanded; pi by log-domain GTH (reflecting boundary).  Returns the
+    chain, keys, log pi and the log of the cut flow.  The criterion is relative inflow, so a deep state reached with a
+    tiny flow is expanded whenever that flow beats theta; deep states are seeded explicitly so none can hide."""
+    ch, prov = make_chain(d, N, theta=1.0, max_states=10**9, eager_poly=True)
+    for c in range(d['K']):
+        ch.expand(ch.mono(c))
+    seeded = []
+    for ids, x in extra_states:
+        k = ch.add_state(ids, x); ch.expand(k); seeded.append(k)
+    # one layer more: every target of a seeded state's exits, so a seeded state's exits are never cut
+    for k in seeded:
+        for k2 in list(ch.trans[k]):
+            if k2 not in ch.trans:
+                ch.expand(k2)
+    for rnd in range(max_rounds):
+        keys = list(ch.trans)
+        LA, out_un = edge_logweights(d, ch, N, keys)
+        lpi, lex = solve_log(LA)
+        inflow = {k2: np.logaddexp.reduce([lpi[i] + lw for i, lw in lst]) for k2, lst in out_un.items()}
+        cand = [k for k, f in inflow.items() if f > log_theta]
+        small = [f for f in inflow.values() if f <= log_theta]
+        lcut = np.logaddexp.reduce(small) if small else -np.inf
+        if not np.isfinite(lcut): lcut = -1e300
+        if verbose:
+            print('  round %d: %d expanded, %d candidates, log10 cut %.1f' % (rnd, len(keys), len(cand), lcut / math.log(10)), flush=True)
+        if not cand or len(keys) >= max_states:
+            break
+        for k in sorted(cand, key=lambda k: -inflow[k])[:max(1, max_states - len(keys))]:
+            ch.expand(k)
+    return dict(ch=ch, keys=keys, lpi=lpi, pi=np.exp(lpi), LA=LA, lexit=lex, n=len(keys), log10_cut=float(lcut / math.log(10)),
+                rounds=rnd + 1, n_cand_left=len(cand))
+
+
+def deep_states(d, max_types=3):
+    """monomorphic and 2-/3-type interior rest points that are stable within their face and against which every
+    outside mutant is deleterious at first order or first-order neutral with a frequency penalty (the chain's lumped
+    resident): the states whose every exit has a barrier growing linearly in N."""
+    import itertools
+    from chain import replicator
+    U, K = d['U'], d['K']
+
+    def deep(ids, x):
+        ids = np.asarray(ids); x = np.asarray(x)
+        ub = x @ U[np.ix_(ids, ids)] @ x
+        uq = U[:, ids] @ x
+        uq[ids] = -9
+        if (uq > ub + 1e-12).any(): return False
+        for q in np.nonzero(np.abs(uq - ub) <= 1e-12)[0]:
+            if (U[q, q] - uq[q]) - (U[ids, q] @ x - ub) >= -1e-12: return False
+        return True
+    out = []
+    for i in range(K):
+        if deep([i], [1.0]): out.append(([i], [1.0]))
+    for i in range(K):
+        for j in range(i + 1, K):
+            a, b, c, e = U[i, i], U[i, j], U[j, i], U[j, j]
+            if a < c - 1e-12 and e < b - 1e-12:
+                x = (b - e) / ((b - e) + (c - a))
+                if deep([i, j], [x, 1 - x]): out.append(([i, j], [x, 1 - x]))
+    if max_types >= 3:
+        T = np.array(list(itertools.combinations(range(K), 3)))
+        for s in range(0, len(T), 200000):
+            t = T[s:s + 200000]; n = len(t)
+            A = np.zeros((n, 4, 4)); A[:, :3, :3] = U[t[:, :, None], t[:, None, :]]; A[:, :3, 3] = -1; A[:, 3, :3] = 1
+            b = np.zeros((n, 4)); b[:, 3] = 1
+            ok = np.abs(np.linalg.det(A)) > 1e-12
+            X = np.full((n, 4), np.nan); X[ok] = np.linalg.solve(A[ok], b[ok][:, :, None])[:, :, 0]
+            for r in np.nonzero(ok & (X[:, :3] > 1e-9).all(1))[0]:
+                ids = t[r]; x = X[r, :3]
+                if not deep(ids, x): continue
+                Us = U[np.ix_(ids, ids)]; stable = True
+                for pert in ([.02, -.01, -.01], [-.01, .02, -.01], [-.01, -.01, .02]):
+                    xp = np.clip(x + np.array(pert), 1e-6, 1); xp /= xp.sum()
+                    xr, st, _, _ = replicator(Us, xp, rest_tol=1e-10)
+                    if st != 'rest' or np.abs(xr - x).max() > 1e-3: stable = False; break
+                if stable: out.append((list(ids), list(x)))
+    return out
+
+
+def best_path(LA, src, dst_set):
+    """max-weight (min -log w) path from src to any state of dst_set in the log-weight graph LA (Dijkstra)."""
+    import heapq
+    n = LA.shape[0]
+    dist = np.full(n, np.inf); prev = -np.ones(n, int)
+    dist[src] = 0.0
+    h = [(0.0, src)]
+    dst_set = set(dst_set)
+    while h:
+        dd, u = heapq.heappop(h)
+        if dd > dist[u]: continue
+        if u in dst_set:
+            path = [u]
+            while prev[path[-1]] >= 0: path.append(prev[path[-1]])
+            return -dd, path[::-1]
+        for v in np.nonzero(np.isfinite(LA[u]))[0]:
+            nd = dd - LA[u, v]
+            if nd < dist[v]:
+                dist[v] = nd; prev[v] = u; heapq.heappush(h, (nd, v))
+    return -np.inf, []
+
+
+def limN_run(arm, N, log_theta, n=7, aug=None, aug_mass=0.0, deep=None, tag=''):
+    """seeded log-domain chain at one N, with the summary statistics, the efficient set's and the deep set's
+    entry/exit rates, and the best paths S3 -> deep set and deep set -> efficient set."""
+    from dollar_partitions import pop_outcome, label_of
+    t0 = time.time()
+    d = data(arm, n, aug=aug, aug_mass=aug_mass)
+    if deep is None:
+        deep = deep_states(d, 3)
+    F = seeded_chain(d, N, deep, log_theta=log_theta)
+    ch, keys, pi, LA = F['ch'], F['keys'], F['pi'], F['LA']
+    s5 = find(d, S['S5'])
+    deepkeys = set(ch.add_state(ids, x) for ids, x in deep)
+    info = []
+    for k in keys:
+        ids, x, kind = ch.states[k]
+        o = pop_outcome(d, ids, np.round(np.array(x) * N).astype(int))
+        xs5 = dict(zip(ids, x)).get(s5, 0.0)
+        info.append(dict(eff=o['eff'], effset=o['eff'] >= 0.99, greedy=len(ids) > 1 and xs5 >= 0.5, deep=k in deepkeys, label=label_of(o),
+                         mean=o['mean_pay'], E_max=o['E_max_pay']))
+    P_eff = float(sum(p * i['eff'] for p, i in zip(pi, info)))
+    res = dict(arm=arm, n=n, N=N, log10_theta=log_theta / math.log(10), aug_mass=aug_mass, aug=[fsrc(f) for f in (aug or [])], tag=tag,
+               n_states=F['n'], log10_cut=F['log10_cut'], n_deep=len(deep), P_efficient=P_eff,
+               E_max=float(sum(p * i['E_max'] for p, i in zip(pi, info))), mean_pay=float(sum(p * i['mean'] for p, i in zip(pi, info))))
+    for nm_ in ('effset', 'greedy', 'deep'):
+        mask = np.array([i[nm_] for i in info])
+        lpi = F['lpi']
+        m = float(pi[mask].sum())
+        # exit / entry rates per mutation event in log10 (flux out of the set over its mass)
+        if mask.any() and (~mask).any():
+            lf_out = np.logaddexp.reduce((lpi[mask][:, None] + LA[np.ix_(mask, ~mask)]).ravel())
+            lf_in = np.logaddexp.reduce((lpi[~mask][:, None] + LA[np.ix_(~mask, mask)]).ravel())
+            lm_in = np.logaddexp.reduce(lpi[mask]); lm_out = np.logaddexp.reduce(lpi[~mask])
+            res[nm_] = dict(mass=m, log10_mass=float(lm_in / math.log(10)), log10_exit_rate=float((lf_out - lm_in) / math.log(10)),
+                            log10_entry_rate=float((lf_in - lm_out) / math.log(10)))
+        else:
+            res[nm_] = dict(mass=m)
+    order = np.argsort(-pi)[:12]
+    res['top_states'] = [dict(state=state_desc(d, ch, keys[i]), pi=float(pi[i]), log10_pi=float(F['lpi'][i] / math.log(10)), **info[i]) for i in order]
+    # best paths
+    i3 = keys.index(ch.mono(find(d, S['S3'])))
+    dset = [i for i, x in enumerate(info) if x['deep']]
+    eset = [i for i, x in enumerate(info) if x['effset']]
+    lw, path = best_path(LA, i3, dset)
+    res['path_S3_to_deep'] = dict(log10_w=float(lw / math.log(10)), path=[state_desc(d, ch, keys[i]) for i in path])
+    top = int(order[0])
+    if info[top]['deep']:
+        lw, path = best_path(LA, top, eset)
+        res['path_top_to_eff'] = dict(log10_w=float(lw / math.log(10)), path=[state_desc(d, ch, keys[i]) for i in path])
+    res['time_s'] = time.time() - t0
+    return res
+
+
+def cmd_limN(a):
+    jobs = [dict(arm=arm, N=N, lt=th) for arm in a.arm for N in a.N for th in a.theta]
+    if a.aug:
+        AUG = dict(P=[PPROG, PPROG_1], Pp=[PPRIME, PPRIME_1], both=[PPROG, PPROG_1, PPRIME, PPRIME_1])[a.aug]
+        jobs = [dict(j, aug=AUG, aug_mass=m, tag='_aug%s%g' % (a.aug, m)) for j in jobs for m in a.aug_mass]
+    if a.shard is not None:
+        i, m = a.shard
+        jobs = jobs[i::m]
+    deep_cache = {}
+    for j in jobs:
+        key = (j['arm'], j.get('aug_mass', 0.0), a.aug)
+        if key not in deep_cache:
+            deep_cache[key] = deep_states(data(j['arm'], 7, aug=j.get('aug'), aug_mass=j.get('aug_mass', 0.0)), 3)
+        r = limN_run(j['arm'], j['N'], math.log(j['lt']), aug=j.get('aug'), aug_mass=j.get('aug_mass', 0.0), deep=deep_cache[key], tag=j.get('tag', ''))
+        fn = os.path.join(OUT, 'limN_%s_n7_N%d_th%g%s.json' % (j['arm'], j['N'], j['lt'], j.get('tag', '')))
+        json.dump(r, open(fn, 'w'), indent=1, default=str)
+        print('%s N=%d th=%g %s: P(eff) %.4f effset %.3g (log10 %.1f) deep %.4f greedy %.3g | states %d cut 1e%.1f | top %s (%.3f) | S3->deep 1e%.1f (%.0fs)' % (
+            j['arm'], j['N'], j['lt'], j.get('tag', ''), r['P_efficient'], r['effset']['mass'], r['effset'].get('log10_mass', 0), r['deep']['mass'],
+            r['greedy']['mass'], r['n_states'], r['log10_cut'], r['top_states'][0]['state'], r['top_states'][0]['pi'],
+            r['path_S3_to_deep']['log10_w'], r['time_s']), flush=True)
+
+
+def full_chain(d, N, max_states=6000, verbose=False):
+    """The chain over the closure of every state reachable from the monomorphic states (no flow pruning), with
+    every edge weight recomputed in the log domain, and the stationary distribution by log-domain GTH.  The edge
+    targets, fates and k* are chain.Chain's (eager_poly irrelevant: everything is expanded).  Exact up to the
+    chain's own approximations at any N, and immune to the underflow that makes a linear-domain chain at large N
+    treat a deep state as absorbing."""
+    ch, prov = make_chain(d, N, theta=-1.0, max_states=max_states, max_rounds=400, eager_poly=True)
+    ch.explore()
+    keys = list(ch.trans)
+    n = len(keys)
+    pos = {k: i for i, k in enumerate(keys)}
+    mu = d['mu']; U = d['U']
+    LA = np.full((n, n), -np.inf)
+    unexpanded = set()
+    for (k1, k2, q), (rho, kstar, tk) in ch.edge_rho.items():
+        if k1 not in pos: continue
+        if k2 not in pos:
+            unexpanded.add(k2); continue
+        ids, x, kind = ch.states[k1]
+        ids = list(ids); x = np.array(x)
+        uaa = float(x @ U[np.ix_(ids, ids)] @ x)
+        uqa = float(U[q, ids] @ x); uaq = float(U[ids, q] @ x); uqq = float(U[q, q])
+        lr = log_fixation(uqq, uqa, uaq, uaa, N, W, int(kstar))
+        tm = ch.trans_mut.get((k1, k2), {}).get(q, 0.0)
+        share = tm / (mu[q] * rho) if rho > 1e-250 and tm > 0 else 1.0
+        share = min(max(share, 0.0), 1.0)
+        if share <= 0: continue
+        LA[pos[k1], pos[k2]] = _lae(LA[pos[k1], pos[k2]], math.log(mu[q]) + math.log(share) + lr)
+    # order: put the states with the smallest total exit last-eliminated (index 0 side) for accuracy
+    lex = np.array([np.logaddexp.reduce(LA[i][np.isfinite(LA[i])]) if np.isfinite(LA[i]).any() else -1e300 for i in range(n)])
+    order = np.argsort(lex)
+    LAo = LA[np.ix_(order, order)]
+    lx = gth_log(LAo)
+    lpi = np.empty(n); lpi[order] = lx
+    lpi -= np.logaddexp.reduce(lpi)
+    return dict(ch=ch, keys=keys, lpi=lpi, pi=np.exp(lpi), LA=LA, lexit=lex, n=n, unexpanded=len(unexpanded))
+
+
 # ---------------------------------------------------------------- fixed roles: lazy version of dollar_partitions.fixed_chain
 def fixed_chain_lazy(d, N, w=W, theta=1e-12, rel_drop=1e-25, max_states=5000, verbose=False):
     """dollar_partitions.fixed_chain's chain (joint monomorphic slot configurations, constant-selection Moran
@@ -890,6 +1215,8 @@ if __name__ == '__main__':
                     arm, n, [int(x) for x in d['a_counts']], d['n_funcs'], d['K'], d['mixed_actions'], time.time() - t0), flush=True)
     elif a.cmd == 'chain':
         cmd_chain(a)
+    elif a.cmd == 'limN':
+        cmd_limN(a)
     elif a.cmd == 'lottery':
         cmd_lottery(a)
     elif a.cmd == 'fixed':
