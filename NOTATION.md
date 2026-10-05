@@ -132,3 +132,16 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   **soft clique** — a budget just above the copy threshold, cooperating only with copies. **Matched random control**
   — the free table with as many plays flipped at random per stratum (opponent class × free play × reader has boxes)
   as the K arm changes.
+- **Divide-the-dollar partitions:** **S1…S5** — `dollar5` demand levels 1/6 … 5/6 (**L/M/H** in `dollar3`); arms
+  **`role` / `norole` / `fixed`** — one population with `ROLE` / one population without / two slot populations
+  without `ROLE` (N per slot); **ordered split a|b** — slot 1 demands a, slot 2 demands b; **benchmark** — uniform
+  over ordered efficient splits (50–50 = 1/5, E[max share] = 0.70 in `dollar5`); **E[max share]** — expected
+  maximal realized payoff per encounter (ex post); **ex ante max** — the largest class-mean payoff in the state;
+  **normalized share** — d_i/(d_i + d_j) of a compatible match. **Accommodator** — plays 1 − d against a constant
+  demand d (`flip(THEM(ME))`, `flip(THEM(THEM))`, `flip(THEM(^S_k))`); **accommodating shadow** — an accommodator
+  on-path identical to a convention (`flip(THEM(^S3))`); **accommodator ratchet** — the fixed-role mechanism (a
+  neutral accommodator in one slot, the other slot's largest demand invades strictly, the accommodator drifts
+  back; endpoints swap with each other and absorb the walk); **greedy polymorphism** — the S5–accommodator
+  Hawk–Dove mixture (S5 ≈ 0.67–0.75, efficiency ≈ 0.41) that absorbs one-population π at large N.
+  **Partition-frozen** — the first check at which every island is locally closed; **escape** — an island locally
+  closed on one convention and later on another.

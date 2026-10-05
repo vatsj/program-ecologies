@@ -615,3 +615,20 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Subagent S3** (`BOX1(THEM(ME))` self-cooperation costs 6; it costs 5), **S4** (siblings additive ≤ 6; +19 to +50), **S5** (proxy Spearman in [0.2, 0.7); −0.22), **S6** (PrudentBot Λ ∈ {3, 4}; 5), **S9** (Spearman(L_C, size) ≥ 0.5; 0.08), **S7** (thresholds 5/5/9; 3/4 and 4/7), **S8** (K chain within 0.05 of free; +0.084 at b = 6).
 
 **Design choices dropped:** Knuth on the full sequent graph as the production method (4% of random n = 8 pairs exceed 2·10⁶ sequents; exact iterative deepening with oracle pruning and the normal form instead, cross-checked against Knuth where it fits); identity axioms on constants only (would charge a spurious GLR for every □A ⊢ □A and put FairBot at Λ = 2; boxed formulas are initial too); K with cut and a distribution rule (the spec's c₁; derivability within b then cannot be decided by a finite analytic search and a contextual bounded Löb rule is unsound; replaced by joint Löb with a self-witness, c₁ = 0, c₂ = 1, at the price of incompleteness against GL); the μ-weighted n = 8 sample alone (89% constant opponents; a uniform 5,000-pair sample was added).
+
+
+## Added 2026-10-05: divide-the-dollar partitions (RESULTS.md, "Divide-the-dollar partitions")
+
+**"One population without `ROLE`: 50–50 ≥ 0.7" (Fable, prediction 1, control (ii); falsifier fired at N = 10⁴).** All-S3 holds 0.999 at N = 10³ and 0.0004 at 10⁴: an accommodating shadow `flip(THEM(^S3))` enters at μ/N, S5 exploits it, and the S5–accommodator polymorphism (efficiency 0.41) absorbs π. The `role` clause collapses the same way at 3·10⁴. The stated mechanism, risk dominance, was also wrong at N ≥ 10³: direct S3 ↔ `ROLE` moves are negligible next to accommodator exits and re-entry from inefficient states.
+
+**"Seed lottery with `ROLE` is a patchwork: 50–50 0.4–0.7, `ROLE` 0.1–0.4 at (100, 64), mN = 0.1" (Fable, prediction 2, band clauses).** 1.000 / 0. Each island receives ≈ 10⁴ migrants over the horizon and one S3 migrant takes a `ROLE` island with probability 4.7·10⁻³; a patchwork survives only at (400, 16).
+
+**"Equal-share merges at N = 400 go to 50–50 with probability ≥ 0.9" (Fable, prediction 3, one clause; subagent S8 at ≥ 0.98).** 0.86 [0.78, 0.91], exact 0.87: the selection term is ≈ 5.6, so risk dominance sharpens only as √N.
+
+**"π(1/3|2/3) ≥ π(1/2|1/2) per ordered state at N ≥ 10³" (Fable, prediction 4, one clause).** Failed at 10⁴ (0.0010 vs 0.0013), both residues next to the endpoints' 0.99.
+
+**"Fixed-role lottery: 1/6–5/6 ≥ 50–50, 50–50 ≤ 0.2" (Fable, prediction 5; falsifier fired).** 50–50 holds 0.766 of islands at mN = 0.1 and 0.225 at m = 0. The lottery does not run on the ratchet: seeds are near-uniform over the constants, against which S3 is the best reply; endpoint islands occur only where an accommodator was seeded.
+
+**Subagent S3** (norole 50–50 ≥ 0.9 at 10⁴; 0.0004), **S4** (no `role` growth 10³ → 10⁴; 0.69 → 0.81), **S5** (the scramble is fair; 50–50 0.225 at m = 0, drift-dominated, deterministic basins 0.92–0.99 overstate it), **S6** (escape < 10⁻⁵; 2.4·10⁻⁵ and 8·10⁻⁵), **S8** (as above).
+
+**Design choices dropped:** n = 6 for `dollar5` (29 GB); island labels at 0.99 (migrant lineages trip them); counting every label flicker as an escape; the two-step adjacent-move table as a predictor of fixed-role π (implies ≈ 0.7 on the endpoints against the exact hitting's 0.99; kept as a static number); deterministic replicator basins as a proxy for the N = 100 scramble.

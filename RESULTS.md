@@ -3043,6 +3043,72 @@ Every chain has one terminal class, 0 indeterminate transitions, cut flow ≤ 2.
 - **A weaker sound prover cooperates more than the free oracle** (+0.06–0.08): K's incompleteness removes the Gödel-sentence faker of `BOX1(THEM(THEM))`. Realizable provers need not be worse than the idealization.
 - **Any per-match price on budget rebuilds the ALLC price ladder.** Whether compute can be charged without it depends on the price's form (amortized or lazy), not on proof length.
 - *Realizability caveat.* GL decides the modal fragment, so proof search here is a decision procedure with a measurable cost; for Turing-complete programs the relevant system is PA, where lengths are unbounded; GL proof length is the cost inside the fragment the arm can express, and the Solovay translation carries provability, not length. K is a sound bounded calculus for this fragment, not a bounded PA prover; its derivability semantics is decidable because the closure is finite.
+## Divide-the-dollar partitions: `ROLE`, no `ROLE`, fixed roles; chains, island lotteries and merges (`runs/dollar-partitions.md`, `runs/dollar-partitions.json`, `runs/dollar_partitions/`; spec `specs/2026-10-05-dollar-partitions.md`, predictions in `predictions/2026-10-05-dollar-partitions.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/dollar_partitions.py`, `src/dollar_partitions_scan.py`, on `src/dollar.py`). The RS's question (2026-10-02): which partitions do islands carry in the weakly extensional regime, and is 50–50 preferred? RE spot-check: the fixed-role chain at N = 100 and 1,000 reproduces on main to three digits.
+
+**What ran.** Weak arm, w = 0.3; `dollar5` (demands 1/6 … 5/6) and the `dollar3` control; **n = 5 in every arm** (the spec's fallback: at n = 6 `dollar5` with `ROLE` has 19,036 programs and a 29 GB value array). Three role structures: `role` (one population with `ROLE`; 3,842 programs, 140 classes), `norole` (one population; 2,550 programs, 78 classes), `fixed` (two slot populations of the `norole` grammar, N per slot). Static tables; ε→0 chains at N = 10², 10³, 10⁴ for all three (addenda at 3·10³, 3·10⁴ and an N scan); a joint-simulation check of the fixed-role reduction; lotteries at (100, 64) and (400, 16), mN ∈ {0, 0.1, 1}, 40 runs per cell, horizon 10⁵ generations, verified-closed stop; a merge sweep at N = 100 and 400; `dollar3` chains and (100, 64) lotteries at mN ∈ {0, 0.1}. Not run: `dollar3` at (400, 16) and at mN = 1. *Deviations:* the `dollar5` `role` static table (59 minutes) was computed after the predictions commit; island labels use ≥ 0.95 of encounters, not 0.99 (one migrant lineage moves an island of 100 by 2%); escapes count an island locally closed on one convention and later on another, not transient migrant flickers (seeds deterministic, all cells rerun on identical trajectories); an early pass ran multi-threaded BLAS, results unaffected; the escape-rate exposure denominator is approximate (flagged).
+
+**Static.** Induced prior over classes (cut unit): `role` constants 0.695, coins 0.154, `ROLE`-splits 0.147 (`ROLE` 0.104, `flip(ROLE)` 0.026), readers 0.003; `norole`/`fixed` constants 0.818, coins 0.178, readers 0.004. Efficient monomorphic conventions: `norole` has only 1/2–1/2 (S3 and two reader shadows); `role` has 1/2–1/2 (mass 0.137), the correlated 1/6–5/6 (`ROLE`, `flip(ROLE)`; 0.131) and a trace of 1/3–2/3 (6·10⁻⁵). The S3–`ROLE` contest is a coordination game with crossing at a `ROLE` share of 5/8; at N = 10³, ρ(S3 | `ROLE`) = 4.5·10⁻⁹ against ρ(`ROLE` | S3) = 6.3·10⁻²⁰. The deterministic replicator from 400 multinomial(100) seeds ends at 1/2–1/2 in 0.99 (`role`, `norole`) and 0.92 (`fixed`) of draws.
+
+**Fixed-role reduction check.** Joint two-slot simulation at N = 50, ε = 10⁻³ (10 seeds × 2·10⁷ generations) against the chain: total variation 0.030 over ordered categories; 1/2|1/2 0.343 ± 0.005 vs 0.342; slot-checks with the largest class below 0.9: 0.04. This validates the drift regime only; at N = 300, ε = 10⁻⁴ (approach rates) every seed left (S3 | S3), endpoints held 0.78 of checks against the chain's 0.97, with endpoint-to-endpoint swaps.
+
+**Mutation object, π by ordered split** (encounter-level; per slot for `fixed`; benchmark uniform over ordered splits: 50–50 = 0.20, E[max share] = 0.70):
+
+| arm | N | 1/6\|5/6 + 5/6\|1/6 | 1/3\|2/3 + 2/3\|1/3 | 1/2\|1/2 | P(efficient) | E[max share] |
+|---|---|---|---|---|---|---|
+| fixed | 10² | 0.085 | 0.530 | 0.375 | 0.989 | 0.616 |
+| fixed | 10³ | 0.992 | 0.006 | 0.003 | 1.000 | 0.831 |
+| fixed | 10⁴ | 0.997 | 0.002 | 0.001 | 1.000 | 0.833 |
+| norole | 10² / 10³ | 0 / 0 | 0.009 / 0 | 0.974 / 0.999 | 0.984 / 1.000 | 0.497 / 0.500 |
+| norole | 10⁴ | 0.375 (clash half) | 0.038 | 0.000 | 0.414 | 0.340 |
+| role | 10² / 10³ / 10⁴ | 0.051 / 0.302 / 0.097 | 0.009 / 0.004 / 0.065 | 0.921 / 0.693 / 0.806 | 0.981 / 1.000 / 0.968 | 0.513 / 0.601 / 0.528 |
+| role | 3·10⁴ (addendum) | 0.349 (clash half) | 0.039 | 0.074 | 0.462 | 0.356 |
+
+In the one-population rows at N = 10⁴ (`norole`) and 3·10⁴ (`role`) the "unequal" mass is the S5 half of encounters in a clashing polymorphism, not a convention. `dollar3`: fixed endpoints 0.627 / 0.994 / 0.998 at N = 10² / 10³ / 10⁴; norole 1/2–1/2 0.955 / 0.985 / 0.000 (the greedy polymorphism from N ≈ 5,000); role 1/2–1/2 0.734 / 0.157 / 0.788 (0.817 at 3·10⁴), `ROLE` 1/3–2/3 0.243 / 0.842 / 0.198.
+
+**Support and transitions, fixed roles.** At N ≥ 10³, 0.994 of π is on constant pairs and 0.986–0.991 on (S1 | S5) and (S5 | S1); the rest is their accommodator states (`flip(THEM(ME))` or `flip(THEM(THEM))` facing S5, ≈ 0.001 each). Every move between conventions runs through a conceder (share of label-changing flux leaving a state with a non-constant slot: 1.00). Exact convention-to-convention hitting from the generator at N = 10³: from 1/6|5/6 the next convention is 5/6|1/6 (0.98; 4.5·10⁶ mutation events); from 1/3|2/3, an endpoint (0.50 / 0.50); from 1/2|1/2, an endpoint (0.49 / 0.49); the same at N = 10⁴. **The accommodator ratchet:** an accommodator (`flip(THEM(ME))`, `flip(THEM(^S_k))`: plays 1 − d against a constant d) drifts into one slot at μ/N; the other slot's largest demand invades strictly, and the largest jump fixes most often (ρ(S5) ≈ 0.095–0.18 against ρ(S4) ≈ 0.05); the accommodator drifts back. From an endpoint, the high slot's accommodator lets the low slot jump to the opposite endpoint, so the endpoints swap with each other and absorb the walk. First-step exit rates differ only ≈ 2× between endpoints and middle (the two-step table would predict ≈ 0.7 on the endpoints); the exact hitting shows the absorption (0.99). At N = 10² the order reverses (50–50 0.37, 1/3-type 0.53, endpoints 0.085): deleterious direct moves ∝ e^{−Θ(N)} are still live and favour the middle; the crossover is at N ≈ 150–300 (endpoints 0.20 / 0.58 / 0.97 at N = 150 / 200 / 300).
+
+**Support and transitions, one population.** `norole`: all-S3 holds 0.91–1.00 for N ≤ 5,000; at N = 7,000 a polymorphism of S5 (0.75) with accommodators (`flip(THEM(THEM))`, `flip(THEM(^S4))`, `flip(THEM(^S2))`) takes 0.77 of π and at N ≥ 10⁴ holds 0.9996 (efficiency 0.41, clash 0.58). The route: `flip(THEM(^S3))` is an **accommodating shadow** of S3 (plays S3 against S3 and itself, 1 − d against a constant d), enters at μ/N; S5 invades it strictly; S5 clashes with itself, so the result is a Hawk–Dove polymorphism at payoff 0.21–0.28 whose exits are deleterious with a barrier growing in N (ρ(S3 | polymorphism) 7·10⁻⁵ at N = 10³, 2·10⁻¹³ at 10⁴). `role`: S3 holds 0.69 / 0.75 / 0.80 / 0.83 at N = 10³ / 3·10³ / 10⁴ / 2·10⁴ and `ROLE` + `flip(ROLE)` 0.30 / 0.10 / 0.07 / 0.05; the same polymorphism takes 0.91 at 3·10⁴ and 1.00 at 10⁵. The S3–`ROLE` exchange at N ≥ 10³ is not the direct contest (6·10⁻¹⁰ per event against `ROLE`'s two neutral accommodator exits at 1.6·10⁻⁸); what favours S3 is re-entry from inefficient states, which `ROLE` cannot manage (it earns 1/12 against S2).
+
+**Lotteries** (ε = 0; share of islands at the horizon; run-level means over 40 runs):
+
+| arm | (N, I) | mN | 1/2–1/2 | 1/6–5/6 | 1/3–2/3 | ineff / clash / mixed | efficient islands | censored | runs with ≥ 2 conventions |
+|---|---|---|---|---|---|---|---|---|---|
+| role | (100, 64) | 0 | 0.366 | 0.157 | 0 | 0.136 / 0.226 / 0.114 | 0.523 [0.50, 0.55] | – | 40/40 |
+| role | (100, 64) | 0.1, 1 | 1.000 | 0 | 0 | 0 | 1.000 | 0/40 | 0 |
+| norole | (100, 64) | 0 | 0.452 | – | – | 0.165 / 0.242 / 0.141 | 0.452 | – | 0 |
+| norole | (100, 64) | 0.1, 1 | 1.000 | – | – | 0 | 1.000 | 0/40 | 0 |
+| fixed | (100, 64) | 0 | 0.225 | 0.106 | 0.300 | 0.180 / 0.021 / 0.167 | 0.631 [0.61, 0.65] | – | 40/40 |
+| fixed | (100, 64) | 0.1 | 0.766 | 0.174 | 0.054 | 0.006 mixed | 0.977 | 7/40 | 7/40 |
+| fixed | (100, 64) | 1 | 0.775 | 0.150 | 0.075 | 0 | 1.000 | 0/40 | 0 |
+| role | (400, 16) | 0 / 0.1 / 1 | 0.634 / 0.939 / 0.994 | 0.097 / 0.056 / 0 | 0 | 0.27 / 0.005 / 0.006 | 0.731 / 0.989 / 1.000 | – / 24 / 0 | 33 / 23 / 0 |
+| norole | (400, 16) | 0 / 0.1, 1 | 0.702 / 1.000 | – | – | 0.30 / 0 | 0.702 / 1.000 | – / 0 | 0 |
+| fixed | (400, 16) | 0 / 0.1 / 1 | 0.539 / 0.470 / 0.523 | 0.017 / 0.136 / 0.050 | 0.427 / 0.383 / 0.242 | 0.017 / 0.011 / 0.184 (migrant load) | 0.983 / 0.917 / 0.47 (encounter efficiency 0.973) | – / 35 / 34 | 40 / 35 / 29 |
+
+`dollar3` at (100, 64), m = 0 / mN = 0.1: role 1/2–1/2 0.362 / 1.000 (`ROLE` 1/3–2/3 0.303 at m = 0); norole 0.519 / 1.000; fixed 0.302 / 0.749 (1/3–2/3 0.34 / 0.25). Fixed roles favour neither slot (mean slot-1 minus slot-2 payoff −0.003 [−0.018, 0.012] at m = 0). Unequal fixed-role islands are seeded accommodators exploited to the endpoint (e.g. `S5 | flip(THEM(THEM))`). Median establishment at m = 0 is 65–75 generations at N = 100 (x = mN·T_nuc/N ≈ 0.07 at mN = 0.1, 0.7 at mN = 1) and 115–130 at N = 400. Escapes after partition-freeze at (100, 64), mN = 0.1: 2.4·10⁻⁵ (role), 8·10⁻⁵ (norole), 4.9·10⁻⁶ (fixed) per island-generation, minority-convention and inefficient islands being colonized.
+
+**Merges** (`role`; fraction ending on 1/2–1/2 against the 50–50 share s): pure constants at N = 100: 0.29 / 0.26 / 0.49 / 0.54 / 0.54 / 0.53 / 0.76 at s = 0.25 / 0.3 / 0.35 / 0.375 / 0.4 / 0.45 / 0.5; at N = 400: 0.16 / 0.22 / 0.41 / 0.48 / 0.60 / 0.75 / 0.86; exact Moran values 0.25 → 0.70 and 0.13 → 0.87; sampled end states within 0.03. The crossing is at 3/8 (exact 0.500 at N = 400) and sharpens only as √N (selection term w·N·(x − 3/8)²/3 ≈ 5.6 at N = 400).
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | `role` chain: 50–50 ≥ 0.5 at N ≥ 10³, growing; correlated ≤ 0.35; P(eff) ≥ 0.95; control (ii) ≥ 0.7 | held at the specified N (0.69 → 0.81) for a different reason (re-entry, not risk dominance), not monotone; **finite-N**: 0.07 at 3·10⁴, 0 at 10⁵; **control (ii): falsifier fired at 10⁴** (0.0004) |
+| RE 2 | `role` lottery at mN = 0.1: 50–50 0.4–0.7, `ROLE` 0.1–0.4 | failed as stated (1.000 / 0; falsifier not fired); efficiency and mN = 1 clauses held |
+| RE 3 | merges: crossing in [0.35, 0.45], sharpening; ≥ 0.7 / ≥ 0.9 at equal shares; sampled shift < 0.05 | one clause failed (0.86 at N = 400); crossing, sharpening and shift held |
+| RE 4 | fixed chain: endpoint enrichment, 50–50 ≤ 0.15, E[max] ≥ 0.72, conceder paths, `dollar3` | **held** (endpoints 0.99, E[max] 0.83) except π(1/3\|2/3) ≥ π(1/2\|1/2) at 10⁴ (0.0010 vs 0.0013, both residues) |
+| RE 5 | fixed lottery: 1/6–5/6 ≥ 50–50, 50–50 ≤ 0.2 | **failed, falsifier fired** (50–50 0.766 at mN = 0.1, 0.225 at m = 0); no slot favoured held |
+| S1, S2, S7, S9 | subagent's own | held |
+| S3, S4, S5, S6, S8 | subagent's own | failed (norole 50–50 at 10⁴; `role` growth 0.11; scramble drift-dominated, 50–50 0.225 at m = 0; escapes above 10⁻⁵; merges 0.86) |
+
+**Reading.**
+- **Fixed roles, mutation object: a rotating dictatorship of the largest demand.** At N ≥ 300 essentially all of π is on (1/6 | 5/6) and (5/6 | 1/6), efficient, E[max share] 0.83 against the 0.70 benchmark; Young's 50–50 is refuted as the Nash pair was in the ultimatum game. A neutral accommodator in one slot invites the other slot's largest demand, because the biggest strict jump fixes most often: source reading makes greed cheap.
+- **One population: the accommodator is a shadow and S5 is the faker.** 50–50 survives only to N ≈ 5·10³ without `ROLE` and 2·10⁴ with it; beyond that an inefficient S5–accommodator polymorphism (efficiency 0.41) absorbs π. The weak arm's lim_N failure carries from dilemmas to bargaining, and it costs efficiency, not only fairness.
+- **Islands at ε = 0: 50–50 is the modal partition in every role structure.** With one population, migration makes it nearly universal (0.94–1.00 of islands) by risk dominance; with fixed roles the archipelago keeps a lasting patchwork (50–50 on 0.47–0.78 of islands), because iid seeds are near-uniform over the constants, against which S3 is the best reply. **The RS's "no reason for 50–50" holds for the fixed-role mutation object and fails for the seed lottery.** The two objects of DEFERRED 1 disagree on distribution.
+- **`ROLE` adds a correlated alternative, not a different answer** (it costs 50–50 between 0.05 and 0.3 of π and at most 0.06 of islands at mN ≥ 0.1); the no-`ROLE` control shows the 50–50 advantage comes from the population structure, not the signal.
+- **N = 10² is a different regime** (the fixed-role order reverses below N ≈ 200), so distribution results must state N.
+- Next: the modal arm on `dollar5`, where a sound accommodator (conceding only to provable constants) might close the one-population leak.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
