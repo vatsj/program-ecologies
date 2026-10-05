@@ -1216,7 +1216,8 @@ def wilson(k, n):
 def cell_summary(rs, fixed):
     labs = sorted({l for r in rs for l in r['labels']})
     out = dict(runs=len(rs))
-    out['label_share'] = {l: tci([np.mean([x == l for x in r['labels']]) for r in rs]) for l in labs}
+    clip = lambda t: (t[0], max(0.0, t[1]), min(1.0, t[2]))
+    out['label_share'] = {l: clip(tci([np.mean([x == l for x in r['labels']]) for r in rs])) for l in labs}
     if fixed:
         # unordered view of the ordered labels
         def un(l):
@@ -1224,7 +1225,7 @@ def cell_summary(rs, fixed):
             a_, b_ = l.split('|'); lo = min(eval(a_), eval(b_))
             return '%s-%s' % (D.frac(lo), D.frac(1 - lo))
         ul = sorted({un(l) for l in labs})
-        out['unordered_share'] = {l: tci([np.mean([un(x) == l for x in r['labels']]) for r in rs]) for l in ul}
+        out['unordered_share'] = {l: clip(tci([np.mean([un(x) == l for x in r['labels']]) for r in rs])) for l in ul}
         out['slot_diff'] = tci([np.mean(np.array(r['slot1']) - np.array(r['slot2'])) for r in rs])
         out['slot1_more'] = tci([np.mean(np.array(r['slot1']) > np.array(r['slot2']) + 1e-9) for r in rs])
         out['slot2_more'] = tci([np.mean(np.array(r['slot2']) > np.array(r['slot1']) + 1e-9) for r in rs])
@@ -1273,7 +1274,7 @@ def report_chains(game, lines, J):
     uns_all = None
     for arm in ARMS:
         rows = []
-        for N in (100, 1000, 3000, 10000):
+        for N in (100, 1000, 3000, 10000, 30000):
             fn = os.path.join(OUT, 'chain_%s_n%d_%s_N%d.json' % (game, NDEF, arm, N))
             if os.path.exists(fn):
                 rows.append(json.load(open(fn)))
@@ -1283,7 +1284,7 @@ def report_chains(game, lines, J):
         uns, ords = split_names(d['values'])
         lines += ['### %s, %s (%s)' % (game, arm, 'N per slot' if arm == 'fixed' else 'one population of N'), '',
                   'Encounter-level π-weighted outcome shares (per ordered split: slot 1 | slot 2 for fixed roles; the focal program first otherwise).', '',
-                  '| N | ' + ' | '.join(ords) + ' | ineff | clash | P(efficient) | E[max share] | ex ante max | E[max norm. share \\| compatible] | dwl | cut |',
+                  '| N | ' + ' | '.join(x.replace('|', '\\|') for x in ords) + ' | ineff | clash | P(efficient) | E[max share] | ex ante max | E[max norm. share \\| compatible] | dwl | cut |',
                   '|' + '---|' * (len(ords) + 9)]
         for r in rows:
             o = r['outcome']
@@ -1310,8 +1311,8 @@ def report_chains(game, lines, J):
                       '| N | from | next convention hit | time to next | exit time from label | first label after exit |', '|---|---|---|---|---|---|']
             for r in rows:
                 for nm, h in r.get('hitting', {}).items():
-                    lines.append('| %d | %s | %s | %.3g | %.3g | %s |' % (r['N'], nm, ', '.join('%s %.2f' % kv for kv in sorted(h['next_convention'].items(), key=lambda kv: -kv[1])),
-                                                                     h['time_to_next'], h['exit_time'], ', '.join('%s %.2f' % kv for kv in sorted(h['exit_to'].items(), key=lambda kv: -kv[1])[:4])))
+                    lines.append(('| %d | %s | %s | %.3g | %.3g | %s |' % (r['N'], nm, ', '.join('%s %.2f' % kv for kv in sorted(h['next_convention'].items(), key=lambda kv: -kv[1])),
+                                                                     h['time_to_next'], h['exit_time'], ', '.join('%s %.2f' % kv for kv in sorted(h['exit_to'].items(), key=lambda kv: -kv[1])[:4]))).replace('|', '\\|').replace('\\| ', '| ').replace(' \\|', ' |'))
         else:
             lines += ['', 'Top exits of the heaviest states (probability per mutation event; mutants):', '']
             for r in rows:
@@ -1399,10 +1400,28 @@ def cmd_report(a):
     lines = ['# Divide-the-dollar partitions across islands, with `ROLE`, without `ROLE`, and with fixed roles', '',
              'Spec `specs/2026-10-05-dollar-partitions.md`; predictions `predictions/2026-10-05-dollar-partitions.md`; code `src/dollar_partitions.py`. '
              'Weak arm, n = 5 in every arm, w = 0.3. Static tables: `runs/dollar_partitions/static_dollar5.md`, `static_dollar3.md`. '
-             'Per-cell JSON under `runs/dollar_partitions/`.', '']
+             'Per-cell JSON under `runs/dollar_partitions/`.', '',
+             '**Deviations from the spec and predictions file.** (i) n = 5 in every arm (fallback): at n = 6 `dollar5` has 19,036 programs with '
+             '`ROLE` and the value array would be 29 GB. (ii) Island labels use >= 0.95 of encounters (the predictions file says 0.99): one migrant '
+             'lineage alone moves an island of 100 by about 2%. (iii) An escape is an island locally closed on one convention at one check and locally '
+             'closed on a different one at a later check; label losses are counted at checks where every island is locally closed; both after the '
+             'partition-frozen check. (iv) At m = 0 a run stops when every island-slot is monomorphic (nothing can change); "closed" in the '
+             'tables refers to the global verified-closed rule, which m = 0 runs never need. (v) Not run: `dollar3` at (400, 16) and at mN = 1. '
+             'Addenda beyond the spec: N = 3·10³ and 3·10⁴ chains, an N scan, and a joint simulation at N = 300.', '']
     for game in ('dollar5', 'dollar3'):
         lines += ['## ε → 0 chains: %s' % game, '']
         report_chains(game, lines, J)
+    for which in ('fixed', 'onepop'):
+        sf = os.path.join(OUT, 'scan_%s.json' % which)
+        if not os.path.exists(sf): continue
+        S_ = json.load(open(sf)); J['scan_' + which] = S_
+        lines += ['## Addendum: N scan (%s), not a specified cell' % which, '']
+        for k, r in S_.items():
+            o = r['outcome']
+            lines.append('- %s: ' % k + ', '.join('%s %.4f' % (kk, o[kk]) for kk in sorted(o) if kk.startswith('o:') or (which == 'onepop' and ('-' in kk or kk in ('ineff', 'clash')))) +
+                         '; P(efficient) %.4f; E[max share] %.3f' % (o['eff'], o['E_max_pay']) +
+                         ('; top states ' + '; '.join('`%s` %.3f' % (s_['state'], s_['pi']) for s_ in r['support'][:3]) if 'support' in r else ''))
+        lines.append('')
     vfn = os.path.join(OUT, 'validate_dollar5_N50_eps0.001.json')
     if os.path.exists(vfn):
         V = json.load(open(vfn)); J['validate'] = V
@@ -1411,12 +1430,26 @@ def cmd_report(a):
         for c in V['chain']:
             lines.append('| %s | %.4f | %.4f ± %.4f |' % (c, V['chain'][c], V['sim_mean'][c], V['sim_se'][c]))
         lines += ['', 'Total variation %.4f; slot-checks with the largest class below 0.9: %.4f (mean over seeds).' % (V['tv'], float(np.mean(V['poly_frac']))), '']
+    v3 = os.path.join(OUT, 'validate_dollar5_N300_eps0.0001.json')
+    if os.path.exists(v3):
+        V = json.load(open(v3)); J['validate_N300'] = V
+        lines += ['## Addendum: joint simulation in the endpoint regime (N = 300 per slot, ε = 10⁻⁴, %d seeds × %d generations from (S3 | S3); approach rates, not π)' % (V['seeds'], V['gens']), '',
+                  'Chain at N = 300: ' + ', '.join('%s %.4f' % kv for kv in V['chain'].items()) + '. Simulation (mean ± s.e. over seeds): ' +
+                  ', '.join('%s %.4f ± %.4f' % (c, V['sim_mean'][c], V['sim_se'][c]) for c in V['chain']) + '.', '',
+                  'Per-seed share of checks by dominant ordered label (>= 0.99): ' + ' / '.join(', '.join('%s %.2f' % kv for kv in sorted(sv.items(), key=lambda kv: -kv[1])[:3]) for sv in V['state_view']) + '.', '']
     for game in ('dollar5', 'dollar3'):
         lines += ['## ε = 0 lotteries: %s' % game, '']
         report_lotteries(game, lines, J)
     lines += ['## Merges', '']
     report_merges(lines, J)
-    open(os.path.join(ROOT, 'runs', 'dollar-partitions.md'), 'w').write('\n'.join(lines) + '\n')
+    fixed_lines = []
+    for line in lines:
+        for ln in line.split('\n'):
+            if ln.startswith('| '):
+                ln = re.sub(r'(\d/\d)\|(\d/\d)', r'\1\\|\2', ln)
+                ln = re.sub(r'`([^`]*)`', lambda m: '`' + m.group(1).replace('\\|', '|').replace('|', '\\|') + '`', ln)
+            fixed_lines.append(ln)
+    open(os.path.join(ROOT, 'runs', 'dollar-partitions.md'), 'w').write('\n'.join(fixed_lines) + '\n')
     json.dump(J, open(os.path.join(ROOT, 'runs', 'dollar-partitions.json'), 'w'), indent=1, default=str)
     print('\n'.join(lines))
 

@@ -1,0 +1,19 @@
+dollar5 150 o:1/2|1/2 0.3114, o:1/3|2/3 0.2437, o:1/6|5/6 0.0998, o:2/3|1/3 0.2437, o:5/6|1/6 0.0998 Emax 0.648
+dollar5 200 o:1/2|1/2 0.1557, o:1/3|2/3 0.1303, o:1/6|5/6 0.2917, o:2/3|1/3 0.1303, o:5/6|1/6 0.2917 Emax 0.738
+dollar5 300 o:1/2|1/2 0.0103, o:1/3|2/3 0.0117, o:1/6|5/6 0.4831, o:2/3|1/3 0.0117, o:5/6|1/6 0.4831 Emax 0.826
+dollar5 500 o:1/2|1/2 0.0036, o:1/3|2/3 0.0049, o:1/6|5/6 0.4933, o:2/3|1/3 0.0049, o:5/6|1/6 0.4933 Emax 0.830
+dollar5 700 o:1/2|1/2 0.0031, o:1/3|2/3 0.0037, o:1/6|5/6 0.4947, o:2/3|1/3 0.0037, o:5/6|1/6 0.4947 Emax 0.831
+dollar3 150 o:1/2|1/2 0.2158, o:1/3|2/3 0.3915, o:2/3|1/3 0.3915 Emax 0.630
+dollar3 200 o:1/2|1/2 0.0578, o:1/3|2/3 0.4710, o:2/3|1/3 0.4710 Emax 0.657
+dollar3 300 o:1/2|1/2 0.0140, o:1/3|2/3 0.4930, o:2/3|1/3 0.4930 Emax 0.664
+dollar3 500 o:1/2|1/2 0.0090, o:1/3|2/3 0.4955, o:2/3|1/3 0.4955 Emax 0.665
+dollar3 700 o:1/2|1/2 0.0071, o:1/3|2/3 0.4965, o:2/3|1/3 0.4965 Emax 0.665
+dollar5 norole 5000 1/2-1/2 0.9161, 1/3-2/3 0.0035, 1/6-5/6 0.0340, clash 0.0418, ineff 0.0046 eff 0.9536 | top: S3:1.00 0.910; S5:0.67 + flip(THEM(^S3)):0.33 0.048; S5:0.75 + flip(THEM(THEM)):0.08 + flip(THEM(^S4)):0.12 + flip(THEM(^S2)):0.04 0.028
+dollar5 norole 7000 1/2-1/2 0.2219, 1/3-2/3 0.0299, 1/6-5/6 0.2922, clash 0.4483, ineff 0.0077 eff 0.5440 | top: S5:0.75 + flip(THEM(THEM)):0.08 + flip(THEM(^S4)):0.12 + flip(THEM(^S2)):0.04 0.614; S3:1.00 0.220; S5:0.75 + flip(THEM(ME)):0.08 + flip(THEM(^S4)):0.12 + flip(THEM(^S2)):0.04 0.153
+/Users/jstav/code/program-ecologies/.claude/worktrees/agent-a18ef0488dd2430e9/src/dollar_partitions.py:687: RuntimeWarning: invalid value encountered in scalar divide
+  trans = [dict(src=x, dst=y, flux=f, share_from_nonconstant_states=flux_nc[(x, y)] / f, rate_per_unit_mass=f / lab_mass[x])
+dollar5 role 20000 1/2-1/2 0.8310, 1/3-2/3 0.0575, 1/6-5/6 0.0849, clash 0.0216, ineff 0.0049 eff 0.9735 | top: S3:1.00 0.827; max(S2,min(S4,ROLE)):1.00 0.057; ROLE:1.00 0.050
+dollar5 role 100000 1/2-1/2 0.0000, 1/3-2/3 0.0382, 1/6-5/6 0.3750, clash 0.5781, ineff 0.0087 eff 0.4132 | top: S5:0.75 + flip(THEM(THEM)):0.08 + flip(THEM(^S2)):0.04 + flip(THEM(^S4)):0.12 0.926; S5:0.75 + flip(THEM(ME)):0.08 + flip(THEM(^S2)):0.04 + flip(THEM(^S4)):0.12 0.074; THEM(^flip(ROLE)):1.00 0.000
+dollar3 role 30000 1/2-1/2 0.8173, 1/3-2/3 0.1725, clash 0.0035, ineff 0.0067 eff 0.9898 | top: M:1.00 0.807; ROLE:1.00 0.122; flip(ROLE):1.00 0.029
+dollar3 norole 3000 1/2-1/2 0.9523, 1/3-2/3 0.0317, clash 0.0093, ineff 0.0067 eff 0.9840 | top: M:1.00 0.924; H:0.33 + flip(THEM(^M)):0.67 0.059; H:0.50 + flip(THEM(THEM)):0.25 + flip(THEM(^H)):0.25 0.008
+dollar3 norole 5000 1/2-1/2 0.2216, 1/3-2/3 0.4868, clash 0.2421, ineff 0.0496 eff 0.7083 | top: H:0.50 + flip(THEM(THEM)):0.25 + flip(THEM(^H)):0.25 0.771; M:1.00 0.216; H:0.33 + flip(THEM(^M)):0.67 0.011
