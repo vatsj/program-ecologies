@@ -6,6 +6,7 @@ Research project: evolutionary game theory over source-observing programs ("prog
 Get Turing-complete program classes with source access to cooperate. The DSL arms, including the modal arm's free sound oracle, are approximations. Judge each result by what it says about realizable source-reading programs.
 
 ## Files
+- `NOTATION.md` — running glossary of symbols, statistics and program names. Add an entry whenever a symbol is introduced.
 - `DEFERRED.md` — decisions punted to a later Fable, each with its current *operating hypothesis*. Operating hypotheses are acted on but not defended; they move without ceremony. Add an entry whenever a decision is deferred.
 - `THEORY.md` — the operating hypothesis. Change only with a stated reason tied to a result.
 - `IMPLEMENTATION.md` — DSL, evaluator, chain, runtime rules.
