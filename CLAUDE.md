@@ -84,5 +84,6 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 8. ~~The island path~~ (done; RESULTS "A path in (N, I, mN)": on the calibrated boundary nucleation stays independent and rivals resolve iff the prior bridges them, by neutral absorption that becomes certain in I; bridge-less rivals form permanent patchworks at N ≥ 200; propagules are not a scaling fix; the bridge is a conflict mediator).
 9. The modal arm on divide-the-dollar, one population: does sound reading rescue efficiency, or does certified commitment help the greedy? (follow-up to "Divide-the-dollar partitions"; running: `specs/2026-10-05-modal-dollar.md`).
 10. Bridge-less rivals: their prior mass in n, forced-rival lotteries with a bridge-removed control, mediation before loss at N ≥ 200 (follow-up to "A path in (N, I, mN)"; running: `specs/2026-10-05-bridgeless-rivals.md`).
+11. K with the 4-rule (soundness proved inductively; do PB2 and the ladder return, and do the Gödel-sentence fakers?) and a frozen classifier for what K loses, with matched table interventions (follow-up to "K at n = 8"; running: `specs/2026-10-05-k-four.md`).
 
 No paper draft (RS, 2026-10-04).
