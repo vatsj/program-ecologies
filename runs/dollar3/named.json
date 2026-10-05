@@ -1,0 +1,1922 @@
+{
+ "constants|100|grand (ALL,1/3)^3": {
+  "arm": "constants",
+  "N": 100,
+  "state": "(ALL,1/3) | (ALL,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.0,
+   "deleterious": 0.8888888888888884
+  },
+  "bridge_mass": 0.0,
+  "n_bridges": 0,
+  "drift_closed_depth2": true,
+  "bridge_examples": [],
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.0,
+   "deleterious": 4.244416957289921e-06
+  },
+  "invasion_table": [
+   {
+    "slot": 1,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962962963,
+      "prob": 1.4148056524299742e-06,
+      "n": 8
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 2,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962962963,
+      "prob": 1.4148056524299742e-06,
+      "n": 8
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 3,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962962963,
+      "prob": 1.4148056524299742e-06,
+      "n": 8
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   }
+  ]
+ },
+ "constants|100|fair pair 12, slot 3 (ALL,1/3)": {
+  "arm": "constants",
+  "N": 100,
+  "state": "(2,1/2) | (1,1/2) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.2962962962962963,
+   "deleterious": 0.5925925925925926
+  },
+  "bridge_mass": 0.14814814814814814,
+  "n_bridges": 4,
+  "drift_closed_depth2": false,
+  "bridge_examples": [
+   {
+    "entrant": "(2,1/3)",
+    "slot": 3,
+    "mass": 0.037037037037037035,
+    "then": "(3,2/3)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.049101418253055,
+    "then_pay": [
+     0.0,
+     0.667,
+     0.333
+    ]
+   },
+   {
+    "entrant": "(2,1/2)",
+    "slot": 3,
+    "mass": 0.037037037037037035,
+    "then": "(3,1/2)",
+    "then_slot": 2,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.0,
+     0.5,
+     0.5
+    ]
+   },
+   {
+    "entrant": "(1,1/3)",
+    "slot": 3,
+    "mass": 0.037037037037037035,
+    "then": "(3,2/3)",
+    "then_slot": 1,
+    "then_kind": "strict",
+    "then_rho": 0.049101418253055,
+    "then_pay": [
+     0.667,
+     0.0,
+     0.333
+    ]
+   },
+   {
+    "entrant": "(1,1/2)",
+    "slot": 3,
+    "mass": 0.037037037037037035,
+    "then": "(3,1/2)",
+    "then_slot": 1,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.5,
+     0.0,
+     0.5
+    ]
+   }
+  ],
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.002962962962962962,
+   "deleterious": 2.5789034287520722e-05
+  },
+  "invasion_table": [
+   {
+    "slot": 1,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962962963,
+      "prob": 1.2894517143760356e-05,
+      "n": 8
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 2,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962962963,
+      "prob": 1.2894517143760356e-05,
+      "n": 8
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 3,
+    "by_kind": {
+     "neutral-keep": {
+      "mass": 0.2962962962962963,
+      "prob": 0.002962962962962962,
+      "n": 8
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   }
+  ]
+ },
+ "constants|100|unfair pair 12 (2/3 to slot 1), slot 3 (ALL,1/3)": {
+  "arm": "constants",
+  "N": 100,
+  "state": "(2,2/3) | (1,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.2962962962962963,
+   "deleterious": 0.5925925925925926
+  },
+  "bridge_mass": 0.14814814814814814,
+  "n_bridges": 4,
+  "drift_closed_depth2": false,
+  "bridge_examples": [
+   {
+    "entrant": "(2,1/3)",
+    "slot": 3,
+    "mass": 0.037037037037037035,
+    "then": "(3,2/3)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.09516690253473116,
+    "then_pay": [
+     0.0,
+     0.667,
+     0.333
+    ]
+   },
+   {
+    "entrant": "(2,1/2)",
+    "slot": 3,
+    "mass": 0.037037037037037035,
+    "then": "(3,1/2)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.049101418253055,
+    "then_pay": [
+     0.0,
+     0.5,
+     0.5
+    ]
+   },
+   {
+    "entrant": "(2,2/3)",
+    "slot": 3,
+    "mass": 0.037037037037037035,
+    "then": "(3,1/3)",
+    "then_slot": 2,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.0,
+     0.333,
+     0.667
+    ]
+   },
+   {
+    "entrant": "(1,1/3)",
+    "slot": 3,
+    "mass": 0.037037037037037035,
+    "then": "(3,2/3)",
+    "then_slot": 1,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.667,
+     0.0,
+     0.333
+    ]
+   }
+  ],
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.002962962962962962,
+   "deleterious": 1.4473440157257796e-05
+  },
+  "invasion_table": [
+   {
+    "slot": 1,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962962963,
+      "prob": 1.3058634504827817e-05,
+      "n": 8
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 2,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962962963,
+      "prob": 1.4148056524299742e-06,
+      "n": 8
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 3,
+    "by_kind": {
+     "neutral-keep": {
+      "mass": 0.2962962962962963,
+      "prob": 0.002962962962962962,
+      "n": 8
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   }
+  ]
+ },
+ "constants|1000|grand (ALL,1/3)^3": {
+  "arm": "constants",
+  "N": 1000,
+  "state": "(ALL,1/3) | (ALL,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.0,
+   "deleterious": 0.8888888888888884
+  },
+  "bridge_mass": 0.0,
+  "n_bridges": 0,
+  "drift_closed_depth2": true,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.0,
+   "deleterious": 3.477722717415795e-45
+  }
+ },
+ "constants|1000|fair pair 12, slot 3 (ALL,1/3)": {
+  "arm": "constants",
+  "N": 1000,
+  "state": "(2,1/2) | (1,1/2) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.2962962962962963,
+   "deleterious": 0.5925925925925926
+  },
+  "bridge_mass": 0.14814814814814814,
+  "n_bridges": 4,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.0002962962962962963,
+   "deleterious": 7.32511995112594e-25
+  }
+ },
+ "constants|1000|unfair pair 12 (2/3 to slot 1), slot 3 (ALL,1/3)": {
+  "arm": "constants",
+  "N": 1000,
+  "state": "(2,2/3) | (1,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.2962962962962963,
+   "deleterious": 0.5925925925925926
+  },
+  "bridge_mass": 0.14814814814814814,
+  "n_bridges": 4,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.0002962962962962963,
+   "deleterious": 3.66255997556297e-25
+  }
+ },
+ "constants|10000|grand (ALL,1/3)^3": {
+  "arm": "constants",
+  "N": 10000,
+  "state": "(ALL,1/3) | (ALL,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.0,
+   "deleterious": 0.8888888888888884
+  },
+  "bridge_mass": 0.0,
+  "n_bridges": 0,
+  "drift_closed_depth2": true,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.0,
+   "deleterious": 0.0
+  }
+ },
+ "constants|10000|fair pair 12, slot 3 (ALL,1/3)": {
+  "arm": "constants",
+  "N": 10000,
+  "state": "(2,1/2) | (1,1/2) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.2962962962962963,
+   "deleterious": 0.5925925925925926
+  },
+  "bridge_mass": 0.14814814814814814,
+  "n_bridges": 4,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.9629629629629606e-05,
+   "deleterious": 2.7058136562103847e-220
+  }
+ },
+ "constants|10000|unfair pair 12 (2/3 to slot 1), slot 3 (ALL,1/3)": {
+  "arm": "constants",
+  "N": 10000,
+  "state": "(2,2/3) | (1,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.2962962962962963,
+   "deleterious": 0.5925925925925926
+  },
+  "bridge_mass": 0.14814814814814814,
+  "n_bridges": 4,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.9629629629629606e-05,
+   "deleterious": 1.3529068281051924e-220
+  }
+ },
+ "weak|100|grand (ALL,1/3)^3": {
+  "arm": "weak",
+  "N": 100,
+  "state": "(ALL,1/3) | (ALL,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.002669336002669338,
+   "deleterious": 0.8888888888889229
+  },
+  "bridge_mass": 0.00033366700033366745,
+  "n_bridges": 54,
+  "drift_closed_depth2": false,
+  "bridge_examples": [
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,1/3),(ALL,1/3))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(1,1/3)",
+    "then_slot": 2,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.333,
+     0.333,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,1/2),(ALL,1/3))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(1,1/3)",
+    "then_slot": 2,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.5,
+     0.333,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,2/3),(ALL,1/3))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(1,1/3)",
+    "then_slot": 2,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.667,
+     0.333,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/2)),(2,1/3),(ALL,1/3))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(1,1/2)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.049101418253055,
+    "then_pay": [
+     0.333,
+     0.5,
+     0.0
+    ]
+   }
+  ],
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.6693360026693415e-05,
+   "deleterious": 4.244416957290055e-06
+  },
+  "invasion_table": [
+   {
+    "slot": 1,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962962809,
+      "prob": 1.4148056524299168e-06,
+      "n": 794
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564464,
+      "prob": 8.897786675564461e-06,
+      "n": 108
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 2,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962962809,
+      "prob": 1.4148056524299168e-06,
+      "n": 794
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564464,
+      "prob": 8.897786675564461e-06,
+      "n": 108
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 3,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962962809,
+      "prob": 1.4148056524299168e-06,
+      "n": 794
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564464,
+      "prob": 8.897786675564461e-06,
+      "n": 108
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   }
+  ]
+ },
+ "weak|100|fair pair 12, slot 3 (ALL,1/3)": {
+  "arm": "weak",
+  "N": 100,
+  "state": "(2,1/2) | (1,1/2) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.298965632298948,
+   "deleterious": 0.592592592592602
+  },
+  "bridge_mass": 0.14911207503800342,
+  "n_bridges": 524,
+  "drift_closed_depth2": false,
+  "bridge_examples": [
+   {
+    "entrant": "if(BOX(3=(ALL,1/2)),(3,1/3),(2,1/2))",
+    "slot": 1,
+    "mass": 3.707411114818524e-05,
+    "then": "(ALL,1/2)",
+    "then_slot": 3,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(3=(ALL,2/3)),(3,1/3),(2,1/2))",
+    "slot": 1,
+    "mass": 3.707411114818524e-05,
+    "then": "(ALL,2/3)",
+    "then_slot": 3,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(3=(1,2/3)),(3,1/2),(2,1/2))",
+    "slot": 1,
+    "mass": 3.089509262348769e-05,
+    "then": "(1,2/3)",
+    "then_slot": 3,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(3=(1,1/2)),(3,2/3),(2,1/2))",
+    "slot": 1,
+    "mass": 2.4716074098790175e-05,
+    "then": "(1,1/2)",
+    "then_slot": 3,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.0029896563229897433,
+   "deleterious": 2.578903428752147e-05
+  },
+  "invasion_table": [
+   {
+    "slot": 1,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962962808,
+      "prob": 1.2894517143760117e-05,
+      "n": 796
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564462,
+      "prob": 8.89778667556446e-06,
+      "n": 106
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 2,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962962808,
+      "prob": 1.2894517143760117e-05,
+      "n": 796
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564462,
+      "prob": 8.89778667556446e-06,
+      "n": 106
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 3,
+    "by_kind": {
+     "neutral-keep": {
+      "mass": 0.29718607496383515,
+      "prob": 0.002971860749638614,
+      "n": 902
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   }
+  ]
+ },
+ "weak|100|unfair pair 12 (2/3 to slot 1), slot 3 (ALL,1/3)": {
+  "arm": "weak",
+  "N": 100,
+  "state": "(2,2/3) | (1,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.298965632298948,
+   "deleterious": 0.5925925925926019
+  },
+  "bridge_mass": 0.14917386522325046,
+  "n_bridges": 534,
+  "drift_closed_depth2": false,
+  "bridge_examples": [
+   {
+    "entrant": "if(BOX(3=(ALL,1/2)),(3,1/3),(2,2/3))",
+    "slot": 1,
+    "mass": 3.707411114818524e-05,
+    "then": "(ALL,1/2)",
+    "then_slot": 3,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(3=(ALL,2/3)),(3,1/3),(2,2/3))",
+    "slot": 1,
+    "mass": 3.707411114818524e-05,
+    "then": "(ALL,2/3)",
+    "then_slot": 3,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(3=(1,2/3)),(3,1/2),(2,2/3))",
+    "slot": 1,
+    "mass": 3.089509262348769e-05,
+    "then": "(1,2/3)",
+    "then_slot": 3,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(3=(1,1/2)),(3,2/3),(2,2/3))",
+    "slot": 1,
+    "mass": 2.4716074098790175e-05,
+    "then": "(1,1/2)",
+    "then_slot": 3,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.0029896563229897433,
+   "deleterious": 1.447344015725754e-05
+  },
+  "invasion_table": [
+   {
+    "slot": 1,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962962808,
+      "prob": 1.3058634504827444e-05,
+      "n": 797
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564462,
+      "prob": 8.89778667556446e-06,
+      "n": 105
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 2,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.29629629629628085,
+      "prob": 1.4148056524299166e-06,
+      "n": 795
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564462,
+      "prob": 8.897786675564461e-06,
+      "n": 107
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 3,
+    "by_kind": {
+     "neutral-keep": {
+      "mass": 0.29718607496383515,
+      "prob": 0.002971860749638614,
+      "n": 902
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   }
+  ]
+ },
+ "weak|1000|grand (ALL,1/3)^3": {
+  "arm": "weak",
+  "N": 1000,
+  "state": "(ALL,1/3) | (ALL,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.002669336002669338,
+   "deleterious": 0.8888888888889229
+  },
+  "bridge_mass": 0.00033366700033366745,
+  "n_bridges": 54,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.6693360026693254e-06,
+   "deleterious": 3.4777227174157205e-45
+  }
+ },
+ "weak|1000|fair pair 12, slot 3 (ALL,1/3)": {
+  "arm": "weak",
+  "N": 1000,
+  "state": "(2,1/2) | (1,1/2) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.298965632298948,
+   "deleterious": 0.592592592592602
+  },
+  "bridge_mass": 0.14911207503800342,
+  "n_bridges": 524,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.00029896563229897413,
+   "deleterious": 7.325119951125968e-25
+  }
+ },
+ "weak|1000|unfair pair 12 (2/3 to slot 1), slot 3 (ALL,1/3)": {
+  "arm": "weak",
+  "N": 1000,
+  "state": "(2,2/3) | (1,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.298965632298948,
+   "deleterious": 0.5925925925926019
+  },
+  "bridge_mass": 0.14917386522325046,
+  "n_bridges": 534,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.00029896563229897413,
+   "deleterious": 3.662559975562984e-25
+  }
+ },
+ "weak|10000|grand (ALL,1/3)^3": {
+  "arm": "weak",
+  "N": 10000,
+  "state": "(ALL,1/3) | (ALL,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.002669336002669338,
+   "deleterious": 0.8888888888889229
+  },
+  "bridge_mass": 0.00033366700033366745,
+  "n_bridges": 54,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.669336002669346e-07,
+   "deleterious": 0.0
+  }
+ },
+ "weak|10000|fair pair 12, slot 3 (ALL,1/3)": {
+  "arm": "weak",
+  "N": 10000,
+  "state": "(2,1/2) | (1,1/2) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.298965632298948,
+   "deleterious": 0.592592592592602
+  },
+  "bridge_mass": 0.14911207503800342,
+  "n_bridges": 524,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.989656322989682e-05,
+   "deleterious": 2.7058136562103886e-220
+  }
+ },
+ "weak|10000|unfair pair 12 (2/3 to slot 1), slot 3 (ALL,1/3)": {
+  "arm": "weak",
+  "N": 10000,
+  "state": "(2,2/3) | (1,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.298965632298948,
+   "deleterious": 0.5925925925926019
+  },
+  "bridge_mass": 0.14917386522325046,
+  "n_bridges": 534,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.989656322989682e-05,
+   "deleterious": 1.352906828105194e-220
+  }
+ },
+ "modalPA|100|grand (ALL,1/3)^3": {
+  "arm": "modalPA",
+  "N": 100,
+  "state": "(ALL,1/3) | (ALL,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.002669336002669335,
+   "deleterious": 0.8888888888889248
+  },
+  "bridge_mass": 0.00033366700033366745,
+  "n_bridges": 54,
+  "drift_closed_depth2": false,
+  "bridge_examples": [
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,1/3),(ALL,1/3))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(1,1/3)",
+    "then_slot": 2,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.333,
+     0.333,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,1/2),(ALL,1/3))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(1,1/3)",
+    "then_slot": 2,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.5,
+     0.333,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,2/3),(ALL,1/3))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(1,1/3)",
+    "then_slot": 2,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.667,
+     0.333,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/2)),(2,1/3),(ALL,1/3))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(1,1/2)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.049101418253055,
+    "then_pay": [
+     0.333,
+     0.5,
+     0.0
+    ]
+   }
+  ],
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.669336002669344e-05,
+   "deleterious": 4.244416957290116e-06
+  },
+  "invasion_table": [
+   {
+    "slot": 1,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.29629629629627924,
+      "prob": 1.4148056524299113e-06,
+      "n": 1036
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564465,
+      "prob": 8.897786675564466e-06,
+      "n": 142
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 2,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.29629629629627924,
+      "prob": 1.4148056524299113e-06,
+      "n": 1036
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564465,
+      "prob": 8.897786675564466e-06,
+      "n": 142
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 3,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.29629629629627924,
+      "prob": 1.4148056524299113e-06,
+      "n": 1036
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564465,
+      "prob": 8.897786675564466e-06,
+      "n": 142
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   }
+  ]
+ },
+ "modalPA|100|fair pair 12, slot 3 (ALL,1/3)": {
+  "arm": "modalPA",
+  "N": 100,
+  "state": "(2,1/2) | (1,1/2) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.2989656322989457,
+   "deleterious": 0.5925925925926019
+  },
+  "bridge_mass": 0.1491985812973506,
+  "n_bridges": 738,
+  "drift_closed_depth2": false,
+  "bridge_examples": [
+   {
+    "entrant": "if(BOX(3=(ALL,1/3)),(2,1/2),(ALL,1/2))",
+    "slot": 1,
+    "mass": 1.2358037049395086e-05,
+    "then": "(2,1/3)",
+    "then_slot": 3,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/2)),(2,1/2),(2,1/3))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(1,2/3)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.049101418253055,
+    "then_pay": [
+     0.333,
+     0.667,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,2/3)),(2,1/3),(2,1/2))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(1,2/3)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.049101418253055,
+    "then_pay": [
+     0.333,
+     0.667,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(3=(1,1/3)),(2,1/3),(2,1/2))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(1,1/3)",
+    "then_slot": 3,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.333,
+     0.5,
+     0.0
+    ]
+   }
+  ],
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.00298965632298979,
+   "deleterious": 2.5789034287521468e-05
+  },
+  "invasion_table": [
+   {
+    "slot": 1,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.29629629629627924,
+      "prob": 1.2894517143759975e-05,
+      "n": 1036
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564465,
+      "prob": 8.897786675564466e-06,
+      "n": 142
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 2,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.29629629629627924,
+      "prob": 1.2894517143759975e-05,
+      "n": 1036
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564465,
+      "prob": 8.897786675564466e-06,
+      "n": 142
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 3,
+    "by_kind": {
+     "neutral-keep": {
+      "mass": 0.2971860749638328,
+      "prob": 0.002971860749638661,
+      "n": 1178
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   }
+  ]
+ },
+ "modalPA|100|unfair pair 12 (2/3 to slot 1), slot 3 (ALL,1/3)": {
+  "arm": "modalPA",
+  "N": 100,
+  "state": "(2,2/3) | (1,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.2989656322989457,
+   "deleterious": 0.5925925925926019
+  },
+  "bridge_mass": 0.1492603714825976,
+  "n_bridges": 747,
+  "drift_closed_depth2": false,
+  "bridge_examples": [
+   {
+    "entrant": "if(BOX(3=(ALL,1/3)),(2,2/3),(ALL,1/2))",
+    "slot": 1,
+    "mass": 1.2358037049395086e-05,
+    "then": "(2,1/3)",
+    "then_slot": 3,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,2/3),(2,1/3))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(1,2/3)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.09516690253473116,
+    "then_pay": [
+     0.333,
+     0.667,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,2/3),(2,1/2))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(1,1/2)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.049101418253055,
+    "then_pay": [
+     0.5,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,2/3),(ALL,1/3))",
+    "slot": 1,
+    "mass": 6.179018524697543e-06,
+    "then": "(ALL,1/3)",
+    "then_slot": 2,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.333,
+     0.333,
+     0.333
+    ]
+   }
+  ],
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.00298965632298979,
+   "deleterious": 1.4473440157257566e-05
+  },
+  "invasion_table": [
+   {
+    "slot": 1,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.29629629629627924,
+      "prob": 1.3058634504827437e-05,
+      "n": 1036
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564465,
+      "prob": 8.897786675564466e-06,
+      "n": 142
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 2,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.29629629629627924,
+      "prob": 1.4148056524299113e-06,
+      "n": 1036
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564464,
+      "prob": 8.897786675564466e-06,
+      "n": 142
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 3,
+    "by_kind": {
+     "neutral-keep": {
+      "mass": 0.2971860749638328,
+      "prob": 0.002971860749638661,
+      "n": 1178
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   }
+  ]
+ },
+ "modalPA|1000|grand (ALL,1/3)^3": {
+  "arm": "modalPA",
+  "N": 1000,
+  "state": "(ALL,1/3) | (ALL,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.002669336002669335,
+   "deleterious": 0.8888888888889248
+  },
+  "bridge_mass": 0.00033366700033366745,
+  "n_bridges": 54,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.6693360026693224e-06,
+   "deleterious": 3.47772271741571e-45
+  }
+ },
+ "modalPA|1000|fair pair 12, slot 3 (ALL,1/3)": {
+  "arm": "modalPA",
+  "N": 1000,
+  "state": "(2,1/2) | (1,1/2) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.2989656322989457,
+   "deleterious": 0.5925925925926019
+  },
+  "bridge_mass": 0.1491985812973506,
+  "n_bridges": 738,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.00029896563229897923,
+   "deleterious": 7.325119951125981e-25
+  }
+ },
+ "modalPA|1000|unfair pair 12 (2/3 to slot 1), slot 3 (ALL,1/3)": {
+  "arm": "modalPA",
+  "N": 1000,
+  "state": "(2,2/3) | (1,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.2989656322989457,
+   "deleterious": 0.5925925925926019
+  },
+  "bridge_mass": 0.1492603714825976,
+  "n_bridges": 747,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.00029896563229897923,
+   "deleterious": 3.66255997556299e-25
+  }
+ },
+ "modalPA|10000|grand (ALL,1/3)^3": {
+  "arm": "modalPA",
+  "N": 10000,
+  "state": "(ALL,1/3) | (ALL,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.002669336002669335,
+   "deleterious": 0.8888888888889248
+  },
+  "bridge_mass": 0.00033366700033366745,
+  "n_bridges": 54,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.6693360026693487e-07,
+   "deleterious": 0.0
+  }
+ },
+ "modalPA|10000|fair pair 12, slot 3 (ALL,1/3)": {
+  "arm": "modalPA",
+  "N": 10000,
+  "state": "(2,1/2) | (1,1/2) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.2989656322989457,
+   "deleterious": 0.5925925925926019
+  },
+  "bridge_mass": 0.1491985812973506,
+  "n_bridges": 738,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.989656322989701e-05,
+   "deleterious": 2.70581365621039e-220
+  }
+ },
+ "modalPA|10000|unfair pair 12 (2/3 to slot 1), slot 3 (ALL,1/3)": {
+  "arm": "modalPA",
+  "N": 10000,
+  "state": "(2,2/3) | (1,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.2989656322989457,
+   "deleterious": 0.5925925925926019
+  },
+  "bridge_mass": 0.1492603714825976,
+  "n_bridges": 747,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.989656322989701e-05,
+   "deleterious": 1.352906828105195e-220
+  }
+ },
+ "modal|100|grand (ALL,1/3)^3": {
+  "arm": "modal",
+  "N": 100,
+  "state": "(ALL,1/3) | (ALL,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.002669336002669361,
+   "deleterious": 0.8888888888887743
+  },
+  "bridge_mass": 0.00033366700033366745,
+  "n_bridges": 108,
+  "drift_closed_depth2": false,
+  "bridge_examples": [
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,1/3),(ALL,1/3))",
+    "slot": 1,
+    "mass": 3.089509262348771e-06,
+    "then": "(1,1/3)",
+    "then_slot": 2,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.333,
+     0.333,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,1/2),(ALL,1/3))",
+    "slot": 1,
+    "mass": 3.089509262348771e-06,
+    "then": "(1,1/3)",
+    "then_slot": 2,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.5,
+     0.333,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,2/3),(ALL,1/3))",
+    "slot": 1,
+    "mass": 3.089509262348771e-06,
+    "then": "(1,1/3)",
+    "then_slot": 2,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.667,
+     0.333,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/2)),(2,1/3),(ALL,1/3))",
+    "slot": 1,
+    "mass": 3.089509262348771e-06,
+    "then": "(1,1/2)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.049101418253055,
+    "then_pay": [
+     0.333,
+     0.5,
+     0.0
+    ]
+   }
+  ],
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.6693360026692832e-05,
+   "deleterious": 4.24441695729036e-06
+  },
+  "invasion_table": [
+   {
+    "slot": 1,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962963294,
+      "prob": 1.4148056524301027e-06,
+      "n": 2188
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564397,
+      "prob": 8.897786675564476e-06,
+      "n": 286
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 2,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962963294,
+      "prob": 1.4148056524301027e-06,
+      "n": 2188
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564397,
+      "prob": 8.897786675564476e-06,
+      "n": 286
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 3,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962963294,
+      "prob": 1.4148056524301027e-06,
+      "n": 2188
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564397,
+      "prob": 8.897786675564476e-06,
+      "n": 286
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   }
+  ]
+ },
+ "modal|100|fair pair 12, slot 3 (ALL,1/3)": {
+  "arm": "modal",
+  "N": 100,
+  "state": "(2,1/2) | (1,1/2) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.29896563229900364,
+   "deleterious": 0.5925925925925517
+  },
+  "bridge_mass": 0.14919858129733457,
+  "n_bridges": 1484,
+  "drift_closed_depth2": false,
+  "bridge_examples": [
+   {
+    "entrant": "if(BOX(2=(1,1/2)),(2,1/2),(2,1/3))",
+    "slot": 1,
+    "mass": 3.089509262348771e-06,
+    "then": "(1,2/3)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.049101418253055,
+    "then_pay": [
+     0.333,
+     0.667,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,2/3)),(2,1/3),(2,1/2))",
+    "slot": 1,
+    "mass": 3.089509262348771e-06,
+    "then": "(1,2/3)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.049101418253055,
+    "then_pay": [
+     0.333,
+     0.667,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(3=(1,1/3)),(2,1/3),(2,1/2))",
+    "slot": 1,
+    "mass": 3.089509262348771e-06,
+    "then": "(1,1/3)",
+    "then_slot": 3,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.333,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(3=(1,1/3)),(2,2/3),(2,1/2))",
+    "slot": 1,
+    "mass": 3.089509262348771e-06,
+    "then": "(1,1/3)",
+    "then_slot": 3,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.0029896563229897897,
+   "deleterious": 2.578903428752062e-05
+  },
+  "invasion_table": [
+   {
+    "slot": 1,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962963294,
+      "prob": 1.2894517143761713e-05,
+      "n": 2188
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564397,
+      "prob": 8.897786675564476e-06,
+      "n": 286
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 2,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962963294,
+      "prob": 1.2894517143761713e-05,
+      "n": 2188
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564397,
+      "prob": 8.897786675564476e-06,
+      "n": 286
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 3,
+    "by_kind": {
+     "neutral-keep": {
+      "mass": 0.29718607496389077,
+      "prob": 0.002971860749638661,
+      "n": 2474
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   }
+  ]
+ },
+ "modal|100|unfair pair 12 (2/3 to slot 1), slot 3 (ALL,1/3)": {
+  "arm": "modal",
+  "N": 100,
+  "state": "(2,2/3) | (1,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.29896563229900364,
+   "deleterious": 0.5925925925925517
+  },
+  "bridge_mass": 0.14926037148258142,
+  "n_bridges": 1503,
+  "drift_closed_depth2": false,
+  "bridge_examples": [
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,2/3),(2,1/3))",
+    "slot": 1,
+    "mass": 3.089509262348771e-06,
+    "then": "(1,2/3)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.09516690253473116,
+    "then_pay": [
+     0.333,
+     0.667,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,2/3),(2,1/2))",
+    "slot": 1,
+    "mass": 3.089509262348771e-06,
+    "then": "(1,1/2)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.049101418253055,
+    "then_pay": [
+     0.5,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/3)),(2,2/3),(ALL,1/3))",
+    "slot": 1,
+    "mass": 3.089509262348771e-06,
+    "then": "(ALL,1/3)",
+    "then_slot": 2,
+    "then_kind": "neutral-change",
+    "then_rho": 0.009999999999999995,
+    "then_pay": [
+     0.333,
+     0.333,
+     0.333
+    ]
+   },
+   {
+    "entrant": "if(BOX(2=(1,1/2)),(2,1/3),(2,2/3))",
+    "slot": 1,
+    "mass": 3.089509262348771e-06,
+    "then": "(1,1/2)",
+    "then_slot": 2,
+    "then_kind": "strict",
+    "then_rho": 0.049101418253055,
+    "then_pay": [
+     0.333,
+     0.5,
+     0.0
+    ]
+   }
+  ],
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.0029896563229897897,
+   "deleterious": 1.447344015725886e-05
+  },
+  "invasion_table": [
+   {
+    "slot": 1,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962963294,
+      "prob": 1.3058634504828732e-05,
+      "n": 2188
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564396,
+      "prob": 8.897786675564476e-06,
+      "n": 286
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 2,
+    "by_kind": {
+     "deleterious": {
+      "mass": 0.2962962962963294,
+      "prob": 1.4148056524301027e-06,
+      "n": 2188
+     },
+     "neutral-keep": {
+      "mass": 0.0008897786675564397,
+      "prob": 8.897786675564476e-06,
+      "n": 286
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   },
+   {
+    "slot": 3,
+    "by_kind": {
+     "neutral-keep": {
+      "mass": 0.29718607496389077,
+      "prob": 0.002971860749638661,
+      "n": 2474
+     }
+    },
+    "top_strict": [],
+    "top_neutral_change": []
+   }
+  ]
+ },
+ "modal|1000|grand (ALL,1/3)^3": {
+  "arm": "modal",
+  "N": 1000,
+  "state": "(ALL,1/3) | (ALL,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.002669336002669361,
+   "deleterious": 0.8888888888887743
+  },
+  "bridge_mass": 0.00033366700033366745,
+  "n_bridges": 108,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.6693360026693673e-06,
+   "deleterious": 3.477722717416151e-45
+  }
+ },
+ "modal|1000|fair pair 12, slot 3 (ALL,1/3)": {
+  "arm": "modal",
+  "N": 1000,
+  "state": "(2,1/2) | (1,1/2) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.29896563229900364,
+   "deleterious": 0.5925925925925517
+  },
+  "bridge_mass": 0.14919858129733457,
+  "n_bridges": 1484,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.00029896563229897923,
+   "deleterious": 7.325119951125851e-25
+  }
+ },
+ "modal|1000|unfair pair 12 (2/3 to slot 1), slot 3 (ALL,1/3)": {
+  "arm": "modal",
+  "N": 1000,
+  "state": "(2,2/3) | (1,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.29896563229900364,
+   "deleterious": 0.5925925925925517
+  },
+  "bridge_mass": 0.14926037148258142,
+  "n_bridges": 1503,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 0.00029896563229897923,
+   "deleterious": 3.662559975562991e-25
+  }
+ },
+ "modal|10000|grand (ALL,1/3)^3": {
+  "arm": "modal",
+  "N": 10000,
+  "state": "(ALL,1/3) | (ALL,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.002669336002669361,
+   "deleterious": 0.8888888888887743
+  },
+  "bridge_mass": 0.00033366700033366745,
+  "n_bridges": 108,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.6693360026693286e-07,
+   "deleterious": 0.0
+  }
+ },
+ "modal|10000|fair pair 12, slot 3 (ALL,1/3)": {
+  "arm": "modal",
+  "N": 10000,
+  "state": "(2,1/2) | (1,1/2) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.29896563229900364,
+   "deleterious": 0.5925925925925517
+  },
+  "bridge_mass": 0.14919858129733457,
+  "n_bridges": 1484,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.9896563229893046e-05,
+   "deleterious": 2.70581365621039e-220
+  }
+ },
+ "modal|10000|unfair pair 12 (2/3 to slot 1), slot 3 (ALL,1/3)": {
+  "arm": "modal",
+  "N": 10000,
+  "state": "(2,2/3) | (1,1/3) | (ALL,1/3)",
+  "decomposition": {
+   "strict": 0.0,
+   "neutral-change": 0.0,
+   "neutral-keep": 0.29896563229900364,
+   "deleterious": 0.5925925925925517
+  },
+  "bridge_mass": 0.14926037148258142,
+  "n_bridges": 1503,
+  "drift_closed_depth2": false,
+  "exit_rates": {
+   "strict": 0.0,
+   "neutral_change": 0.0,
+   "neutral_keep": 2.9896563229893046e-05,
+   "deleterious": 1.352906828105195e-220
+  }
+ }
+}
