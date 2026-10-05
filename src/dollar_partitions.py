@@ -320,6 +320,38 @@ def static_fixed(d, Ns=(100, 1000, 10000)):
     return out
 
 
+def replicator2(U, x, y, steps=20000, h=0.5, tol=1e-10):
+    """two-population replicator (slot 1 x, slot 2 y), exponential steps."""
+    for t in range(steps):
+        fx = U @ y; fy = U @ x
+        xn = x * np.exp(h * (fx - x @ fx)); xn /= xn.sum()
+        yn = y * np.exp(h * (fy - y @ fy)); yn /= yn.sum()
+        if max(np.abs(xn - x).max(), np.abs(yn - y).max()) < tol:
+            return xn, yn
+        x, y = xn, yn
+        x[x < 1e-12] = 0; y[y < 1e-12] = 0
+        x /= x.sum(); y /= y.sum()
+    return x, y
+
+
+def static_basins(d, N=100, draws=400, seed=5):
+    """deterministic replicator from multinomial(N) draws of the prior (one island's seed, no drift): the share of
+    seeds whose rest point carries each outcome label (a static stand-in for the scramble; drift is ignored)."""
+    rng = np.random.default_rng(seed)
+    agg = Counter()
+    for t in range(draws):
+        if d['arm'] == 'fixed':
+            x = rng.multinomial(N, d['mu']) / N; y = rng.multinomial(N, d['mu']) / N
+            x, y = replicator2(d['U'], x.astype(float), y.astype(float))
+            J = np.einsum('a,b,abij->ij', x, y, d['JA'])
+            agg[olabel_of(outcome_of(J, d['values']), 0.95)] += 1
+        else:
+            x = rng.multinomial(N, d['mu']) / N
+            xs, st, _, _ = replicator(d['U'], x.astype(float), rest_tol=1e-10, ext_tol=1e-8)
+            agg[label_of(pop_outcome(d, np.arange(d['K']), xs * 1e6), 0.95)] += 1
+    return {k: v / draws for k, v in agg.most_common()}
+
+
 def cmd_static(a):
     res = {}
     lines = ['# Static tables: divide-the-dollar partitions (spec specs/2026-10-05-dollar-partitions.md)', '',
@@ -338,6 +370,11 @@ def cmd_static(a):
             lines.append('Induced prior by kind: ' + ', '.join('%s %.4f (%d classes)' % (k, m, ip['n_kind'][k]) for k, m in sorted(ip['by_kind'].items(), key=lambda kv: -kv[1])))
             lines.append('')
             lines.append('Induced prior by self-play outcome: ' + ', '.join('%s %.4f' % (k, m) for k, m in sorted(ip['by_selfplay'].items(), key=lambda kv: -kv[1])))
+            lines.append('')
+            bs = static_basins(d)
+            res[tag]['basins_N100'] = bs
+            lines.append('Deterministic replicator from 400 multinomial(100) seeds of the prior (%s; no drift; label at >= 0.95 of encounters): ' % (
+                'two-population' if arm == 'fixed' else 'one population') + ', '.join('%s %.3f' % kv for kv in bs.items()))
             lines.append('')
             if arm == 'fixed':
                 st = static_fixed(d)
@@ -1090,6 +1127,72 @@ def cmd_merge(a):
         tab[k][0] += r['label'] == '1/2-1/2'; tab[k][1] += 1
     for k in sorted(tab):
         print(k, '%d/%d fair wins' % tuple(tab[k]))
+
+
+# ------------------------------------------------------------------ summaries of lottery cells (run-level intervals)
+def tci(xs):
+    """mean and 95% t-interval of run-level values."""
+    xs = np.asarray([x for x in xs if x is not None], float)
+    if len(xs) == 0: return (float('nan'),) * 3
+    m = float(xs.mean())
+    if len(xs) < 2: return m, m, m
+    from scipy.stats import t as tdist
+    h = float(tdist.ppf(0.975, len(xs) - 1) * xs.std(ddof=1) / math.sqrt(len(xs)))
+    return m, m - h, m + h
+
+
+def wilson(k, n):
+    if n == 0: return (float('nan'),) * 3
+    z = 1.96; p = k / n
+    c = (p + z * z / (2 * n)) / (1 + z * z / n); h = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / (1 + z * z / n)
+    return p, max(0.0, c - h), min(1.0, c + h)
+
+
+def cell_summary(rs, fixed):
+    labs = sorted({l for r in rs for l in r['labels']})
+    out = dict(runs=len(rs))
+    out['label_share'] = {l: tci([np.mean([x == l for x in r['labels']]) for r in rs]) for l in labs}
+    if fixed:
+        # unordered view of the ordered labels
+        def un(l):
+            if '|' not in l: return l
+            a_, b_ = l.split('|'); lo = min(eval(a_), eval(b_))
+            return '%s-%s' % (D.frac(lo), D.frac(1 - lo))
+        ul = sorted({un(l) for l in labs})
+        out['unordered_share'] = {l: tci([np.mean([un(x) == l for x in r['labels']]) for r in rs]) for l in ul}
+        out['slot_diff'] = tci([np.mean(np.array(r['slot1']) - np.array(r['slot2'])) for r in rs])
+        out['slot1_more'] = tci([np.mean(np.array(r['slot1']) > np.array(r['slot2']) + 1e-9) for r in rs])
+        out['slot2_more'] = tci([np.mean(np.array(r['slot2']) > np.array(r['slot1']) + 1e-9) for r in rs])
+        out['mean_slot_payoff'] = tci([np.mean((np.array(r['slot1']) + np.array(r['slot2'])) / 2) for r in rs])
+    out['eff_islands'] = tci([np.mean(np.array(r['eff']) > 0.99) for r in rs])
+    out['eff_encounters'] = tci([np.mean(r['eff']) for r in rs])
+    out['dwl'] = tci([np.mean(r['dwl']) for r in rs])
+    out['E_max_pay'] = tci([np.mean(r['E_max_pay']) for r in rs])
+    out['exante_max'] = tci([np.mean(r['exante_max']) for r in rs])
+    eff_labels = lambda r: {l for l in r['labels'] if ('-' in l or '|' in l)}
+    out['n_conventions'] = tci([len(eff_labels(r)) for r in rs])
+    k = sum(len(eff_labels(r)) >= 2 for r in rs)
+    out['patchwork'] = wilson(k, len(rs))
+    out['censored'] = wilson(sum(r['censored'] for r in rs), len(rs))
+    out['closed'] = wilson(sum(r['closed_at'] >= 0 for r in rs), len(rs))
+    tpf = [r['t_pf'] for r in rs if r['t_pf'] is not None]
+    out['t_pf_median'] = float(np.median(tpf)) if tpf else None
+    out['partition_frozen_runs'] = len(tpf)
+    esc = sum(r['escapes'] for r in rs); expo = sum(r['exposure_gens'] for r in rs) * len(rs[0]['labels'])
+    out['escape_rate_per_island_gen'] = esc / expo if expo > 0 else None
+    out['escapes'] = esc
+    los = sum(r['losses'] for r in rs); ex2 = sum(r['exposure_gens'] for r in rs)
+    out['loss_hazard_per_gen'] = los / ex2 if ex2 > 0 else None
+    out['losses'] = los
+    te = [t for r in rs for t in r['t_est'] if t is not None]
+    out['T_est_median'] = float(np.median(te)) if te else None
+    out['not_established_islands'] = sum(t is None for r in rs for t in r['t_est'])
+    hk = Counter(tuple(h) for r in rs for h in r['holder_kinds'])
+    tot = sum(hk.values())
+    out['holder_kinds'] = {'|'.join(k_): v / tot for k_, v in hk.most_common(6)}
+    hh = Counter(' | '.join(h) for r in rs for h in r['holders'])
+    out['holders'] = {k_: v / tot for k_, v in hh.most_common(8)}
+    return out
 
 
 if __name__ == '__main__':
