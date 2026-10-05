@@ -336,6 +336,15 @@ def cmd_chain(a):
         keep = json.load(open(os.path.join(RUNS, 'k-at-n8-fakers.json')))['keep']
         for N in a.Ns:
             jobs.append(('faker-removal control', 8, load_val(8, 'free'), N, keep))
+    for arm in ('control-godel', 'control-probe'):
+        # ablation (not in the spec): remove only the Goedel-sentence fakers, or only the others
+        if arm in a.arms:
+            fk = json.load(open(os.path.join(RUNS, 'k-at-n8-fakers.json')))
+            L = tables(8)[0]
+            drop = {z for z, g in fk['godel'].items() if g == (arm == 'control-godel')}
+            keep = [i for i in range(len(L.rep)) if L.rep[i] not in drop]
+            for N in a.Ns:
+                jobs.append(('faker-removal control, %s only' % ('Goedel' if arm == 'control-godel' else 'non-Goedel'), 8, load_val(8, 'free'), N, keep))
     jobs.sort(key=lambda j: -j[3])
     path = os.path.join(RUNS, 'k-at-n8-chain.json')
     rows = json.load(open(path)) if os.path.exists(path) else []
@@ -388,6 +397,7 @@ def _measure_root(th, orc, S, cuts, cap, cut_cap=None):
     import gl_proofs as G
     out = {}
     for tag, cs in (('nocut', None), ('cut', cuts)):
+        if tag == 'cut' and cuts is None: continue
         ms = G.MinSearch(th, orc, cap=cap if cs is None else (cut_cap or cap), cuts=cs)
         t = time.time()
         r = ms.minimize(S)
@@ -408,9 +418,9 @@ def _measure_root(th, orc, S, cuts, cap, cut_cap=None):
     return out
 
 
-def measure_pair(xs, ys, cap=2_000_000, atoms=True, cut_cap=300_000):
+def measure_pair(xs, ys, cap=2_000_000, atoms=True, cut_cap=300_000, with_cut=True):
     """Four measures (tree/no cut, tree/cut, DAG exact, DAG subsumption on each) for the roots C0, C1 of (x, y) and,
-    with atoms, for each of x's box atoms against y (L_read sums the true ones)."""
+    with atoms, for each of x's box atoms against y (L_read sums the true ones).  with_cut=False: cut-free only."""
     import gl_proofs as G
     th = G.Theory(); x = th.prog(xs); y = th.prog(ys); orc = G.Oracle(th)
     R = dict(G.roots_for(th, x, y))
@@ -419,8 +429,8 @@ def measure_pair(xs, ys, cap=2_000_000, atoms=True, cut_cap=300_000):
     if atoms:
         for f, kind, lev, _ in G.atom_formulas(th, x, y):
             at.append((frozenset(), frozenset([f])))
-    cuts = G.cut_closure(th, seqs + at)
-    res = dict(x=xs, y=ys, n_cuts=len(cuts))
+    cuts = G.cut_closure(th, seqs + at) if with_cut else None
+    res = dict(x=xs, y=ys, n_cuts=len(cuts) if cuts else 0)
     for nm in ('C0', 'C1'):
         res[nm] = _measure_root(th, orc, (frozenset(R[nm][0]), frozenset(R[nm][1])), cuts, cap, cut_cap)
     if atoms:
@@ -475,10 +485,11 @@ def cmd_sharing(a):
                                                                         m['nocut'].get('subs'), m['cut'].get('subs')), flush=True)
 
 
-def _mce_job(pairs):
+def _mce_job(job):
+    pairs, with_cut = job
     out = []
     for xs, ys in pairs:
-        r = measure_pair(xs, ys, cap=a_cap, atoms=False)
+        r = measure_pair(xs, ys, cap=a_cap, atoms=False, cut_cap=100_000, with_cut=with_cut)
         out.append(dict(x=xs, y=ys, C0=r['C0'], C1=r['C1']))
     return out
 
@@ -493,14 +504,19 @@ def cmd_mce(a):
     iD = L8.rep.index('D')
     est = [c for c in range(len(L8.rep)) if val8[c, c] == 1 and val8[c, iD] == 0]
     mce = [(L8.rep[p], L8.rep[q]) for p in est for q in est if val8[p, q] == 1 and val8[q, p] == 1]
+    # random order, saved per chunk, so that a run stopped early is a uniform random subsample (stated as such)
+    rng = np.random.default_rng(20261005)
+    mce = [mce[i] for i in rng.permutation(len(mce))]
+    with_cut = 'cut' in a.arms          # cut-free measures on every pair; cut measures on a uniform random sample (--limit)
     if a.limit: mce = mce[:a.limit]
-    chunks = [mce[i:i + 50] for i in range(0, len(mce), 50)]
+    chunks = [(mce[i:i + 25], with_cut) for i in range(0, len(mce), 25)]
     rows = []; t = time.time()
+    path = os.path.join(RUNS, 'k-at-n8-mce-cut.json' if with_cut else 'k-at-n8-mce.json')
     with Pool(a.workers) as pool:
-        for out in pool.imap_unordered(_mce_job, chunks):
+        for out in pool.imap(_mce_job, chunks):
             rows += out
-            if len(rows) % 1000 < 50: print(len(rows), '%.0fs' % (time.time() - t), flush=True)
-    json.dump(dict(rows=rows, wall_s=time.time() - t), open(os.path.join(RUNS, 'k-at-n8-mce.json'), 'w'))
+            json.dump(dict(rows=rows, n_total=len(mce), wall_s=time.time() - t), open(path, 'w'))
+            if len(rows) % 500 < 25: print(len(rows), '%.0fs' % (time.time() - t), flush=True)
     print('done', len(rows), '%.0fs' % (time.time() - t))
 
 
@@ -883,7 +899,8 @@ def mce_summary(rows):
         for r in rows:
             m = r['C0'] or r['C1']
             if m is None: continue
-            v = m[tag]
+            v = m.get(tag)
+            if v is None: continue
             if not v['certified']:
                 unc += 1; continue
             val_ = v['size'] if key == 'size' else v.get(key)
@@ -892,6 +909,7 @@ def mce_summary(rows):
                 if s not in sz: sz[s] = C4.size(C4.parse(s))
             xs.append(sz[r['x']] + sz[r['y']]); ys.append(val_)
         xs = np.array(xs, float); ys = np.array(ys, float)
+        if len(ys) < 5: continue
         b1, se1, rsd = _ols(np.c_[np.ones_like(xs), xs], ys)
         b2, se2, _ = _ols(np.c_[np.ones_like(xs), xs, xs ** 2], ys)
         out[nm] = dict(n=len(ys), uncertified=unc, mean=float(ys.mean()), intercept=float(b1[0]), slope=float(b1[1]), slope_se=float(se1[1]),
@@ -1063,11 +1081,17 @@ def cmd_report(a):
         md += ['At n = 6 (%d provable roots): cut shortens %d, exact DAG %d, subsumption DAG %d; max saving %d (cut) and %d (subsumption).' % (
             tot['n'], tot['cut_lt'], tot['ex_lt'], tot['subs_lt'], max(tot['save_cut'] or [0]), max(tot['save_subs'] or [0])), '']
         J['cutcheck'] = s
+    mcec = _J('k-at-n8-mce-cut.json')
     if mce:
         S = mce_summary(mce['rows'])
+        if mcec:
+            Sc = mce_summary(mcec['rows'])
+            for nm, v in Sc.items(): S[nm + ' [random sample]'] = v
         J['mce'] = S
-        md += ['**Scaling on the n = 8 mutually cooperating establisher pairs** (%d ordered pairs; cost of cooperation = C0 if provable else C1; descriptive only: a '
-               'dependent sample, so a quadratic interval containing 0 is not evidence of linearity):' % len(mce['rows']), '',
+        md += ['**Scaling on the n = 8 mutually cooperating establisher pairs** (%d of %d ordered pairs cut-free; the cut measures on a uniform random sample of %d, '
+               'cut search capped at 10⁵ expansions, uncertified rows dropped; cost of cooperation = C0 if provable else C1; descriptive only: a '
+               'dependent sample, so a quadratic interval containing 0 is not evidence of linearity):' % (len(mce['rows']), mce.get('n_total', len(mce['rows'])),
+                                                                                                             len(mcec['rows']) if mcec else 0), '',
                '| measure | n (uncertified dropped) | mean | slope in |x|+|y| (se) | residual sd / mean | quadratic term [95%] |', '|---|---|---|---|---|---|']
         for nm, v in S.items():
             md.append('| %s | %d (%d) | %.2f | %.3f (%.3f) | %.2f | %.3f [%.3f, %.3f] |' % (nm, v['n'], v['uncertified'], v['mean'], v['slope'], v['slope_se'],
