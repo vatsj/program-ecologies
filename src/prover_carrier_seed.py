@@ -503,8 +503,9 @@ def main_run(sets, procs, gens, limit=None):
                     r['set'], r['seed'], r['b'], r['ctl'], r['f0'], r.get('k'), r['sigma'], r['N'], r['I'], r['rep'], r['status'], r['outcome'],
                     r['stop_gen'], r['pcc'], r['final_carrier'], r['time_s']), flush=True)
             else:
-                print('%s %s b=%s %s f0=%g sig=%g N=%d rep %d: P(C,C) %.3f carrier %.3f ext %s t50 %s (%.0fs)' % (
-                    r['set'], r['seed'], r['b'], r['ctl'], r['f0'], r['sigma'], r['N'], r['rep'], r['pcc'], r['carrier'],
+                print('%s %s b=%s %s f0=%g sig=%g N=%d rep %d: P(C,C) %s carrier %.3f ext %s t50 %s (%.0fs)' % (
+                    r['set'], r['seed'], r['b'], r['ctl'], r['f0'], r['sigma'], r['N'], r['rep'],
+                    ('%.3f' % r['pcc']) if r['pcc'] is not None else 'stopped-extinct', r['carrier'],
                     r['carrier_ext_gen'], r['t50'], r['time_s']), flush=True)
             tmp = OUT + '.tmp'
             json.dump(rows, open(tmp, 'w')); os.replace(tmp, OUT)
