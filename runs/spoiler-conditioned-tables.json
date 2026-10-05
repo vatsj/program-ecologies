@@ -1,0 +1,8165 @@
+{
+ "6": {
+  "n": 6,
+  "classes": 51,
+  "mu_est": 0.022874442400862702,
+  "n_targets": 8,
+  "targets": [
+   {
+    "name": "BOX(THEM(ME))",
+    "mu": 0.004951077412187659,
+    "n_fakers": 0,
+    "faker_mass": 0.0
+   },
+   {
+    "name": "BOX(THEM(THEM))",
+    "mu": 0.004951077412187659,
+    "n_fakers": 0,
+    "faker_mass": 0.0
+   },
+   {
+    "name": "BOX1(THEM(ME))",
+    "mu": 0.004951077412187659,
+    "n_fakers": 0,
+    "faker_mass": 0.0
+   },
+   {
+    "name": "BOX1(THEM(THEM))",
+    "mu": 0.004901673055810322,
+    "n_fakers": 3,
+    "faker_mass": 0.0025976999256134598
+   },
+   {
+    "name": "BOX(THEM(^C))",
+    "mu": 0.0013775887672231645,
+    "n_fakers": 6,
+    "faker_mass": 0.002952794959955676
+   },
+   {
+    "name": "BOX1(THEM(^C))",
+    "mu": 0.0013775887672231645,
+    "n_fakers": 6,
+    "faker_mass": 0.002952794959955676
+   },
+   {
+    "name": "not(BOXD1(THEM(^C)))",
+    "mu": 0.00015747760883286886,
+    "n_fakers": 22,
+    "faker_mass": 0.03715638530879418
+   },
+   {
+    "name": "not(BOXD(THEM(^C)))",
+    "mu": 0.00015747760883286886,
+    "n_fakers": 28,
+    "faker_mass": 0.04210746272098185
+   }
+  ],
+  "n_pairs": 65,
+  "faker_profile": {
+   "disadvantaged": {
+    "classes": 21,
+    "mass": 0.025354804534319757
+   },
+   "neutral": {
+    "classes": 8,
+    "mass": 0.0032677501776214135
+   },
+   "advantaged": {
+    "classes": 7,
+    "mass": 0.022559487183196968
+   }
+  },
+  "pairs": [
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(ME)))",
+    "t": 8,
+    "q": 18,
+    "mu_t": 0.004901673055810322,
+    "mu_q": 0.0012201111583902955,
+    "weight": 5.980585990175232e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(THEM)))",
+    "t": 8,
+    "q": 19,
+    "mu_t": 0.004901673055810322,
+    "mu_q": 0.0012201111583902955,
+    "weight": 5.980585990175232e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^D))",
+    "t": 10,
+    "q": 11,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 0.0013775887672231645,
+    "weight": 1.897750811579438e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 10,
+    "q": 15,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 0.0013775887672231645,
+    "weight": 1.897750811579438e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^D))",
+    "t": 14,
+    "q": 11,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 0.0013775887672231645,
+    "weight": 1.897750811579438e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 14,
+    "q": 15,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 0.0013775887672231645,
+    "weight": 1.897750811579438e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(ME))",
+    "t": 28,
+    "q": 2,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.004951077412187659,
+    "weight": 7.796838320177407e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(THEM))",
+    "t": 28,
+    "q": 3,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.004951077412187659,
+    "weight": 7.796838320177407e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(ME))",
+    "t": 32,
+    "q": 2,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.004951077412187659,
+    "weight": 7.796838320177407e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(THEM))",
+    "t": 32,
+    "q": 3,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.004951077412187659,
+    "weight": 7.796838320177407e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(ME))",
+    "t": 32,
+    "q": 4,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.004951077412187659,
+    "weight": 7.796838320177407e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(ME))",
+    "t": 28,
+    "q": 5,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.0049263752339989905,
+    "weight": 7.757937920636258e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD1(THEM(ME))",
+    "t": 28,
+    "q": 6,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.0049263752339989905,
+    "weight": 7.757937920636258e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOXD1(THEM(ME))",
+    "t": 32,
+    "q": 6,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.0049263752339989905,
+    "weight": 7.757937920636258e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(^C)))",
+    "t": 8,
+    "q": 26,
+    "mu_t": 0.004901673055810322,
+    "mu_q": 0.00015747760883286886,
+    "weight": 7.719037521095109e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(THEM))",
+    "t": 28,
+    "q": 7,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.004901673055810322,
+    "weight": 7.719037521095109e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX1(THEM(THEM))",
+    "t": 28,
+    "q": 8,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.004901673055810322,
+    "weight": 7.719037521095109e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD1(THEM(THEM))",
+    "t": 28,
+    "q": 9,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.004901673055810322,
+    "weight": 7.719037521095109e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(THEM))",
+    "t": 32,
+    "q": 8,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.004901673055810322,
+    "weight": 7.719037521095109e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOXD1(THEM(THEM))",
+    "t": 32,
+    "q": 9,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.004901673055810322,
+    "weight": 7.719037521095109e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(^C))",
+    "t": 28,
+    "q": 10,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.0013775887672231645,
+    "weight": 2.1693938501732352e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(^D))",
+    "t": 28,
+    "q": 11,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.0013775887672231645,
+    "weight": 2.1693938501732352e-07,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(^C))",
+    "t": 28,
+    "q": 12,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.0013775887672231645,
+    "weight": 2.1693938501732352e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 28,
+    "q": 15,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.0013775887672231645,
+    "weight": 2.1693938501732352e-07,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD1(THEM(^C))",
+    "t": 28,
+    "q": 16,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.0013775887672231645,
+    "weight": 2.1693938501732352e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(^C))",
+    "t": 32,
+    "q": 10,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.0013775887672231645,
+    "weight": 2.1693938501732352e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(^D))",
+    "t": 32,
+    "q": 11,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.0013775887672231645,
+    "weight": 2.1693938501732352e-07,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(^C))",
+    "t": 32,
+    "q": 14,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.0013775887672231645,
+    "weight": 2.1693938501732352e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 32,
+    "q": 15,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.0013775887672231645,
+    "weight": 2.1693938501732352e-07,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOXD1(THEM(^C))",
+    "t": 32,
+    "q": 16,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.0013775887672231645,
+    "weight": 2.1693938501732352e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD(THEM(ME))))",
+    "t": 10,
+    "q": 34,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 6.805888639730903e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD1(THEM(ME))))",
+    "t": 10,
+    "q": 35,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 6.805888639730903e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD(THEM(ME))))",
+    "t": 10,
+    "q": 38,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 6.805888639730903e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD1(THEM(ME))))",
+    "t": 10,
+    "q": 39,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 6.805888639730903e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD(THEM(ME))))",
+    "t": 14,
+    "q": 34,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 6.805888639730903e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD1(THEM(ME))))",
+    "t": 14,
+    "q": 35,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 6.805888639730903e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD(THEM(ME))))",
+    "t": 14,
+    "q": 38,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 6.805888639730903e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD1(THEM(ME))))",
+    "t": 14,
+    "q": 39,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 6.805888639730903e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "not(BOXD(THEM(^D)))",
+    "t": 28,
+    "q": 29,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.00015747760883286886,
+    "weight": 2.4799197283718056e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "not(BOXD1(THEM(^D)))",
+    "t": 28,
+    "q": 33,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.00015747760883286886,
+    "weight": 2.4799197283718056e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "not(BOXD(THEM(^D)))",
+    "t": 32,
+    "q": 29,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.00015747760883286886,
+    "weight": 2.4799197283718056e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "not(BOXD1(THEM(^D)))",
+    "t": 32,
+    "q": 33,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 0.00015747760883286886,
+    "weight": 2.4799197283718056e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(^BOXD(THEM(ME))))",
+    "t": 28,
+    "q": 34,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 7.780079908229866e-09,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(^BOXD1(THEM(ME))))",
+    "t": 28,
+    "q": 35,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 7.780079908229866e-09,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(^BOX(THEM(ME))))",
+    "t": 28,
+    "q": 36,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 7.780079908229866e-09,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD1(THEM(^BOX(THEM(ME))))",
+    "t": 28,
+    "q": 40,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 7.780079908229866e-09,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(^BOXD(THEM(ME))))",
+    "t": 32,
+    "q": 34,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 7.780079908229866e-09,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(^BOXD1(THEM(ME))))",
+    "t": 32,
+    "q": 35,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 7.780079908229866e-09,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(^BOX(THEM(ME))))",
+    "t": 32,
+    "q": 37,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 7.780079908229866e-09,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(^BOXD(THEM(ME))))",
+    "t": 32,
+    "q": 38,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 7.780079908229866e-09,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(^BOXD1(THEM(ME))))",
+    "t": 32,
+    "q": 39,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 7.780079908229866e-09,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOXD1(THEM(^BOX(THEM(ME))))",
+    "t": 32,
+    "q": 40,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 4.940435637733662e-05,
+    "weight": 7.780079908229866e-09,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(^BOXD(THEM(THEM))))",
+    "t": 28,
+    "q": 41,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 2.470217818866831e-05,
+    "weight": 3.890039954114933e-09,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(^BOX1(THEM(ME))))",
+    "t": 28,
+    "q": 42,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 2.470217818866831e-05,
+    "weight": 3.890039954114933e-09,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(^BOX1(THEM(THEM))))",
+    "t": 28,
+    "q": 43,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 2.470217818866831e-05,
+    "weight": 3.890039954114933e-09,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(^BOXD1(THEM(ME))))",
+    "t": 28,
+    "q": 44,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 2.470217818866831e-05,
+    "weight": 3.890039954114933e-09,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(^BOXD1(THEM(THEM))))",
+    "t": 28,
+    "q": 45,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 2.470217818866831e-05,
+    "weight": 3.890039954114933e-09,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD1(THEM(^BOXD(THEM(ME))))",
+    "t": 28,
+    "q": 46,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 2.470217818866831e-05,
+    "weight": 3.890039954114933e-09,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD1(THEM(^BOXD(THEM(THEM))))",
+    "t": 28,
+    "q": 47,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 2.470217818866831e-05,
+    "weight": 3.890039954114933e-09,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD1(THEM(^BOX1(THEM(ME))))",
+    "t": 28,
+    "q": 48,
+    "mu_t": 0.00015747760883286886,
+    "mu_q": 2.470217818866831e-05,
+    "weight": 3.890039954114933e-09,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   }
+  ],
+  "forced": [
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(ME)))",
+    "t": 8,
+    "q": 18,
+    "mu_t": 0.004901673055810322,
+    "mu_q": 0.0012201111583902955,
+    "weight": 5.980585990175232e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(THEM)))",
+    "t": 8,
+    "q": 19,
+    "mu_t": 0.004901673055810322,
+    "mu_q": 0.0012201111583902955,
+    "weight": 5.980585990175232e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^D))",
+    "t": 10,
+    "q": 11,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 0.0013775887672231645,
+    "weight": 1.897750811579438e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 10,
+    "q": 15,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 0.0013775887672231645,
+    "weight": 1.897750811579438e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^D))",
+    "t": 14,
+    "q": 11,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 0.0013775887672231645,
+    "weight": 1.897750811579438e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 14,
+    "q": 15,
+    "mu_t": 0.0013775887672231645,
+    "mu_q": 0.0013775887672231645,
+    "weight": 1.897750811579438e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   }
+  ],
+  "pair_mass_by_profile": {
+   "disadvantaged": 1.810089727915954e-05,
+   "neutral": 9.149109146149775e-06,
+   "advantaged": 6.100824899267924e-06,
+   "mixed": 0.0
+  }
+ },
+ "9": {
+  "n": 9,
+  "classes": 863,
+  "mu_est": 0.024610741129678138,
+  "n_targets": 8,
+  "targets": [
+   {
+    "name": "BOX1(THEM(ME))",
+    "mu": 0.0051330578117435586,
+    "n_fakers": 0,
+    "faker_mass": 0.0
+   },
+   {
+    "name": "BOX(THEM(ME))",
+    "mu": 0.005131476862904797,
+    "n_fakers": 0,
+    "faker_mass": 0.0
+   },
+   {
+    "name": "BOX(THEM(THEM))",
+    "mu": 0.005099760128023816,
+    "n_fakers": 24,
+    "faker_mass": 2.8142091462717133e-05
+   },
+   {
+    "name": "BOX1(THEM(THEM))",
+    "mu": 0.005099760128023816,
+    "n_fakers": 49,
+    "faker_mass": 0.002933163339664729
+   },
+   {
+    "name": "BOX1(THEM(^C))",
+    "mu": 0.0015793112107764825,
+    "n_fakers": 95,
+    "faker_mass": 0.003562549119322694
+   },
+   {
+    "name": "BOX(THEM(^C))",
+    "mu": 0.0015761493130989604,
+    "n_fakers": 101,
+    "faker_mass": 0.0035862385593296315
+   },
+   {
+    "name": "not(BOXD1(THEM(^C)))",
+    "mu": 0.0002518541969790486,
+    "n_fakers": 341,
+    "faker_mass": 0.04055279128922467
+   },
+   {
+    "name": "not(BOXD(THEM(^C)))",
+    "mu": 0.0002518541969790486,
+    "n_fakers": 351,
+    "faker_mass": 0.04583036794370811
+   }
+  ],
+  "n_pairs": 961,
+  "faker_profile": {
+   "disadvantaged": {
+    "classes": 208,
+    "mass": 0.02747856053577356
+   },
+   "neutral": {
+    "classes": 167,
+    "mass": 0.0043666273204855275
+   },
+   "advantaged": {
+    "classes": 87,
+    "mass": 0.02399971989203161
+   }
+  },
+  "pairs": [
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(ME)))",
+    "t": 8,
+    "q": 20,
+    "mu_t": 0.005099760128023816,
+    "mu_q": 0.001311379838515509,
+    "weight": 6.687722613155704e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(THEM)))",
+    "t": 8,
+    "q": 22,
+    "mu_t": 0.005099760128023816,
+    "mu_q": 0.0013107034197445398,
+    "weight": 6.6842730396776685e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^D))",
+    "t": 10,
+    "q": 13,
+    "mu_t": 0.0015793112107764825,
+    "mu_q": 0.0015761493130989604,
+    "weight": 2.4892302800348405e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 10,
+    "q": 16,
+    "mu_t": 0.0015793112107764825,
+    "mu_q": 0.0015761493130989604,
+    "weight": 2.4892302800348405e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^D))",
+    "t": 12,
+    "q": 13,
+    "mu_t": 0.0015761493130989604,
+    "mu_q": 0.0015761493130989604,
+    "weight": 2.4842466571823247e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 12,
+    "q": 16,
+    "mu_t": 0.0015761493130989604,
+    "mu_q": 0.0015761493130989604,
+    "weight": 2.4842466571823247e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD1(THEM(ME))",
+    "t": 30,
+    "q": 3,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0051330578117435586,
+    "weight": 1.2927821532237064e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(ME))",
+    "t": 33,
+    "q": 2,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0051330578117435586,
+    "weight": 1.2927821532237064e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOXD1(THEM(ME))",
+    "t": 33,
+    "q": 3,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0051330578117435586,
+    "weight": 1.2927821532237064e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(ME))",
+    "t": 30,
+    "q": 4,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.005131476862904797,
+    "weight": 1.2923839846234552e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(ME))",
+    "t": 30,
+    "q": 5,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.005131476862904797,
+    "weight": 1.2923839846234552e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(ME))",
+    "t": 33,
+    "q": 4,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.005131476862904797,
+    "weight": 1.2923839846234552e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(^C)))",
+    "t": 8,
+    "q": 28,
+    "mu_t": 0.005099760128023816,
+    "mu_q": 0.0002518541969790486,
+    "weight": 1.2843959918292085e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(THEM))",
+    "t": 30,
+    "q": 6,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.005099760128023816,
+    "weight": 1.2843959918292085e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(THEM))",
+    "t": 30,
+    "q": 7,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.005099760128023816,
+    "weight": 1.2843959918292085e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX1(THEM(THEM))",
+    "t": 30,
+    "q": 8,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.005099760128023816,
+    "weight": 1.2843959918292085e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD1(THEM(THEM))",
+    "t": 30,
+    "q": 9,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.005099760128023816,
+    "weight": 1.2843959918292085e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(THEM))",
+    "t": 33,
+    "q": 6,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.005099760128023816,
+    "weight": 1.2843959918292085e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(THEM))",
+    "t": 33,
+    "q": 8,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.005099760128023816,
+    "weight": 1.2843959918292085e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOXD1(THEM(THEM))",
+    "t": 33,
+    "q": 9,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.005099760128023816,
+    "weight": 1.2843959918292085e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD1(THEM(^C))",
+    "t": 30,
+    "q": 11,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0015793112107764825,
+    "weight": 3.9775615677012e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(^C))",
+    "t": 33,
+    "q": 10,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0015793112107764825,
+    "weight": 3.9775615677012e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOXD1(THEM(^C))",
+    "t": 33,
+    "q": 11,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0015793112107764825,
+    "weight": 3.9775615677012e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(^C))",
+    "t": 30,
+    "q": 12,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0015761493130989604,
+    "weight": 3.9695981956961775e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(^D))",
+    "t": 30,
+    "q": 13,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0015761493130989604,
+    "weight": 3.9695981956961775e-07,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(^C))",
+    "t": 30,
+    "q": 14,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0015761493130989604,
+    "weight": 3.9695981956961775e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 30,
+    "q": 16,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0015761493130989604,
+    "weight": 3.9695981956961775e-07,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(^C))",
+    "t": 33,
+    "q": 12,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0015761493130989604,
+    "weight": 3.9695981956961775e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(^D))",
+    "t": 33,
+    "q": 13,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0015761493130989604,
+    "weight": 3.9695981956961775e-07,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 33,
+    "q": 16,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0015761493130989604,
+    "weight": 3.9695981956961775e-07,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "not(BOXD1(THEM(^D)))",
+    "t": 30,
+    "q": 27,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0002523104195726936,
+    "weight": 6.354543811092757e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "not(BOXD1(THEM(^D)))",
+    "t": 33,
+    "q": 27,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0002523104195726936,
+    "weight": 6.354543811092757e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "not(BOXD(THEM(^D)))",
+    "t": 30,
+    "q": 31,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0002518541969790486,
+    "weight": 6.343053653596141e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "not(BOXD(THEM(^D)))",
+    "t": 33,
+    "q": 31,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 0.0002518541969790486,
+    "weight": 6.343053653596141e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD(THEM(ME))))",
+    "t": 10,
+    "q": 45,
+    "mu_t": 0.0015793112107764825,
+    "mu_q": 3.171673488098183e-05,
+    "weight": 5.009059496676011e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD1(THEM(ME))))",
+    "t": 10,
+    "q": 46,
+    "mu_t": 0.0015793112107764825,
+    "mu_q": 3.171673488098183e-05,
+    "weight": 5.009059496676011e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD(THEM(ME))))",
+    "t": 10,
+    "q": 49,
+    "mu_t": 0.0015793112107764825,
+    "mu_q": 3.171673488098183e-05,
+    "weight": 5.009059496676011e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD1(THEM(ME))))",
+    "t": 10,
+    "q": 50,
+    "mu_t": 0.0015793112107764825,
+    "mu_q": 3.171673488098183e-05,
+    "weight": 5.009059496676011e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD(THEM(ME))))",
+    "t": 12,
+    "q": 45,
+    "mu_t": 0.0015761493130989604,
+    "mu_q": 3.171673488098183e-05,
+    "weight": 4.999030989640135e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD1(THEM(ME))))",
+    "t": 12,
+    "q": 46,
+    "mu_t": 0.0015761493130989604,
+    "mu_q": 3.171673488098183e-05,
+    "weight": 4.999030989640135e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD(THEM(ME))))",
+    "t": 12,
+    "q": 49,
+    "mu_t": 0.0015761493130989604,
+    "mu_q": 3.171673488098183e-05,
+    "weight": 4.999030989640135e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD1(THEM(ME))))",
+    "t": 12,
+    "q": 50,
+    "mu_t": 0.0015761493130989604,
+    "mu_q": 3.171673488098183e-05,
+    "weight": 4.999030989640135e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD(THEM(THEM))))",
+    "t": 10,
+    "q": 53,
+    "mu_t": 0.0015793112107764825,
+    "mu_q": 3.160267923257057e-05,
+    "weight": 4.991046560257183e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD1(THEM(THEM))))",
+    "t": 10,
+    "q": 55,
+    "mu_t": 0.0015793112107764825,
+    "mu_q": 3.160267923257057e-05,
+    "weight": 4.991046560257183e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD(THEM(THEM))))",
+    "t": 10,
+    "q": 60,
+    "mu_t": 0.0015793112107764825,
+    "mu_q": 3.160267923257057e-05,
+    "weight": 4.991046560257183e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD1(THEM(THEM))))",
+    "t": 10,
+    "q": 62,
+    "mu_t": 0.0015793112107764825,
+    "mu_q": 3.160267923257057e-05,
+    "weight": 4.991046560257183e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD(THEM(THEM))))",
+    "t": 12,
+    "q": 53,
+    "mu_t": 0.0015761493130989604,
+    "mu_q": 3.160267923257057e-05,
+    "weight": 4.981054116450289e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD1(THEM(THEM))))",
+    "t": 12,
+    "q": 55,
+    "mu_t": 0.0015761493130989604,
+    "mu_q": 3.160267923257057e-05,
+    "weight": 4.981054116450289e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD(THEM(THEM))))",
+    "t": 12,
+    "q": 60,
+    "mu_t": 0.0015761493130989604,
+    "mu_q": 3.160267923257057e-05,
+    "weight": 4.981054116450289e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD1(THEM(THEM))))",
+    "t": 12,
+    "q": 62,
+    "mu_t": 0.0015761493130989604,
+    "mu_q": 3.160267923257057e-05,
+    "weight": 4.981054116450289e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(THEM))",
+    "faker": "BOX1(THEM(^not(BOX(THEM(ME)))))",
+    "t": 6,
+    "q": 182,
+    "mu_t": 0.005099760128023816,
+    "mu_q": 5.35999687917608e-06,
+    "weight": 2.733469837075426e-08,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(THEM))",
+    "faker": "BOX1(THEM(^not(BOX(THEM(THEM)))))",
+    "t": 6,
+    "q": 183,
+    "mu_t": 0.005099760128023816,
+    "mu_q": 5.35999687917608e-06,
+    "weight": 2.733469837075426e-08,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(^BOX(THEM(ME)))))",
+    "t": 8,
+    "q": 134,
+    "mu_t": 0.005099760128023816,
+    "mu_q": 5.35999687917608e-06,
+    "weight": 2.733469837075426e-08,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(^BOX(THEM(THEM)))))",
+    "t": 8,
+    "q": 135,
+    "mu_t": 0.005099760128023816,
+    "mu_q": 5.35999687917608e-06,
+    "weight": 2.733469837075426e-08,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(^BOX1(THEM(ME)))))",
+    "t": 8,
+    "q": 138,
+    "mu_t": 0.005099760128023816,
+    "mu_q": 5.35999687917608e-06,
+    "weight": 2.733469837075426e-08,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(^BOX1(THEM(THEM)))))",
+    "t": 8,
+    "q": 139,
+    "mu_t": 0.005099760128023816,
+    "mu_q": 5.35999687917608e-06,
+    "weight": 2.733469837075426e-08,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(and(BOX(THEM(ME)),BOX(THEM(THEM))))",
+    "t": 8,
+    "q": 198,
+    "mu_t": 0.005099760128023816,
+    "mu_q": 4.742846516283235e-06,
+    "weight": 2.41873795570779e-08,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    "t": 8,
+    "q": 233,
+    "mu_t": 0.005099760128023816,
+    "mu_q": 3.1618976775221565e-06,
+    "weight": 1.6124919704718602e-08,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      1.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "and(BOX(THEM(ME)),BOXD(THEM(ME)))",
+    "t": 30,
+    "q": 34,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 5.735245611807742e-05,
+    "weight": 1.4444456780394513e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "and(BOX(THEM(ME)),BOXD1(THEM(ME)))",
+    "t": 30,
+    "q": 35,
+    "mu_t": 0.0002518541969790486,
+    "mu_q": 5.0572438169388064e-05,
+    "weight": 1.2736880804423818e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   }
+  ],
+  "forced": [
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(ME)))",
+    "t": 8,
+    "q": 20,
+    "mu_t": 0.005099760128023816,
+    "mu_q": 0.001311379838515509,
+    "weight": 6.687722613155704e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(THEM)))",
+    "t": 8,
+    "q": 22,
+    "mu_t": 0.005099760128023816,
+    "mu_q": 0.0013107034197445398,
+    "weight": 6.6842730396776685e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^D))",
+    "t": 10,
+    "q": 13,
+    "mu_t": 0.0015793112107764825,
+    "mu_q": 0.0015761493130989604,
+    "weight": 2.4892302800348405e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 10,
+    "q": 16,
+    "mu_t": 0.0015793112107764825,
+    "mu_q": 0.0015761493130989604,
+    "weight": 2.4892302800348405e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^D))",
+    "t": 12,
+    "q": 13,
+    "mu_t": 0.0015761493130989604,
+    "mu_q": 0.0015761493130989604,
+    "weight": 2.4842466571823247e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 12,
+    "q": 16,
+    "mu_t": 0.0015761493130989604,
+    "mu_q": 0.0015761493130989604,
+    "weight": 2.4842466571823247e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   }
+  ],
+  "pair_mass_by_profile": {
+   "disadvantaged": 2.431353493994571e-05,
+   "neutral": 1.3314049816703624e-05,
+   "advantaged": 1.0509145014023038e-05,
+   "mixed": 0.0
+  }
+ },
+ "12": {
+  "n": 12,
+  "classes": 13514,
+  "mu_est": 0.025263952307238175,
+  "n_targets": 8,
+  "targets": [
+   {
+    "name": "BOX1(THEM(ME))",
+    "mu": 0.00518050931757335,
+    "n_fakers": 0,
+    "faker_mass": 0.0
+   },
+   {
+    "name": "BOX(THEM(ME))",
+    "mu": 0.005177365355893738,
+    "n_fakers": 0,
+    "faker_mass": 0.0
+   },
+   {
+    "name": "BOX(THEM(THEM))",
+    "mu": 0.005141288841433656,
+    "n_fakers": 488,
+    "faker_mass": 5.194575020407157e-05
+   },
+   {
+    "name": "BOX1(THEM(THEM))",
+    "mu": 0.005141259324852245,
+    "n_fakers": 735,
+    "faker_mass": 0.0031208718518719895
+   },
+   {
+    "name": "BOX1(THEM(^C))",
+    "mu": 0.0016856707000829922,
+    "n_fakers": 1820,
+    "faker_mass": 0.003892366777134521
+   },
+   {
+    "name": "BOX(THEM(^C))",
+    "mu": 0.001679374490119177,
+    "n_fakers": 1964,
+    "faker_mass": 0.003922931327425116
+   },
+   {
+    "name": "not(BOXD1(THEM(^C)))",
+    "mu": 0.00028894848437212956,
+    "n_fakers": 5785,
+    "faker_mass": 0.04192645707441415
+   },
+   {
+    "name": "not(BOXD(THEM(^C)))",
+    "mu": 0.00028894356494189416,
+    "n_fakers": 5800,
+    "faker_mass": 0.047318049656584316
+   }
+  ],
+  "n_pairs": 16592,
+  "faker_profile": {
+   "disadvantaged": {
+    "classes": 3660,
+    "mass": 0.028328909227167336
+   },
+   "neutral": {
+    "classes": 2620,
+    "mass": 0.004920134371313096
+   },
+   "advantaged": {
+    "classes": 1411,
+    "mass": 0.024514823852284668
+   }
+  },
+  "pairs": [
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(ME)))",
+    "t": 9,
+    "q": 21,
+    "mu_t": 0.005141259324852245,
+    "mu_q": 0.0013628463707921457,
+    "weight": 7.00674661217616e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(THEM)))",
+    "t": 9,
+    "q": 25,
+    "mu_t": 0.005141259324852245,
+    "mu_q": 0.0013615799744984153,
+    "weight": 7.0002357404220595e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 11,
+    "q": 16,
+    "mu_t": 0.0016856707000829922,
+    "mu_q": 0.0016793566273167102,
+    "weight": 2.8308422616579718e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^D))",
+    "t": 11,
+    "q": 17,
+    "mu_t": 0.0016856707000829922,
+    "mu_q": 0.0016793418690260041,
+    "weight": 2.830817384039745e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 13,
+    "q": 16,
+    "mu_t": 0.001679374490119177,
+    "mu_q": 0.0016793566273167102,
+    "weight": 2.820268679728261e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^D))",
+    "t": 13,
+    "q": 17,
+    "mu_t": 0.001679374490119177,
+    "mu_q": 0.0016793418690260041,
+    "weight": 2.8202438950313315e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOXD1(THEM(ME))",
+    "t": 29,
+    "q": 2,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 0.005180519156433819,
+    "weight": 1.4969031585123351e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(ME))",
+    "t": 29,
+    "q": 3,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 0.00518050931757335,
+    "weight": 1.4969003155885147e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD1(THEM(ME))",
+    "t": 31,
+    "q": 2,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.005180519156433819,
+    "weight": 1.4968776733097619e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(ME))",
+    "t": 29,
+    "q": 4,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 0.005177365355893738,
+    "weight": 1.4959918726262666e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(ME))",
+    "t": 31,
+    "q": 4,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.005177365355893738,
+    "weight": 1.4959664029385951e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(ME))",
+    "t": 31,
+    "q": 5,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.0051773441259169144,
+    "weight": 1.4959602686734082e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(THEM))",
+    "t": 29,
+    "q": 6,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 0.005141288841433656,
+    "weight": 1.485567618451597e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOXD1(THEM(THEM))",
+    "t": 29,
+    "q": 7,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 0.005141266703997596,
+    "weight": 1.4855612218729994e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(THEM))",
+    "t": 29,
+    "q": 9,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 0.005141259324852245,
+    "weight": 1.4855590896801344e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(THEM))",
+    "t": 31,
+    "q": 6,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.005141288841433656,
+    "weight": 1.4855423262398213e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD1(THEM(THEM))",
+    "t": 31,
+    "q": 7,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.005141266703997596,
+    "weight": 1.4855359297701274e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(THEM))",
+    "t": 31,
+    "q": 8,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.005141260232311481,
+    "weight": 1.4855340598180701e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(^C)))",
+    "t": 9,
+    "q": 30,
+    "mu_t": 0.005141259324852245,
+    "mu_q": 0.00028894356494189416,
+    "weight": 1.4855337976135637e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX1(THEM(THEM))",
+    "t": 31,
+    "q": 9,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.005141259324852245,
+    "weight": 1.4855337976135637e-06,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOXD1(THEM(^C))",
+    "t": 29,
+    "q": 10,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 0.00168567315979811,
+    "weight": 4.870727046704424e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(^C))",
+    "t": 29,
+    "q": 11,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 0.0016856707000829922,
+    "weight": 4.870719939394871e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD1(THEM(^C))",
+    "t": 31,
+    "q": 10,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.00168567315979811,
+    "weight": 4.870644121189331e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(^C))",
+    "t": 29,
+    "q": 13,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 0.001679374490119177,
+    "weight": 4.85252713613154e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 29,
+    "q": 16,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 0.0016793566273167102,
+    "weight": 4.852475521834547e-07,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(^C))",
+    "t": 31,
+    "q": 13,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.001679374490119177,
+    "weight": 4.852444520475108e-07,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOXD(THEM(^C))",
+    "t": 31,
+    "q": 14,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.0016793720304040592,
+    "weight": 4.85243741328656e-07,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "BOX(THEM(^D))",
+    "t": 29,
+    "q": 17,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 0.0016793418690260041,
+    "weight": 4.852432877977232e-07,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 31,
+    "q": 16,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.0016793566273167102,
+    "weight": 4.852392907056862e-07,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "BOX(THEM(^D))",
+    "t": 31,
+    "q": 17,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.0016793418690260041,
+    "weight": 4.852350263925571e-07,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "not(BOXD1(THEM(^D)))",
+    "t": 29,
+    "q": 26,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 0.0002900825354747903,
+    "weight": 8.381890896826517e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "not(BOXD1(THEM(^D)))",
+    "t": 31,
+    "q": 26,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.0002900825354747903,
+    "weight": 8.381748192746939e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "not(BOXD(THEM(^D)))",
+    "t": 29,
+    "q": 32,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 0.0002889411052267765,
+    "weight": 8.348909442808506e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "not(BOXD(THEM(^D)))",
+    "t": 31,
+    "q": 32,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 0.0002889411052267765,
+    "weight": 8.348767300247576e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD1(THEM(ME))))",
+    "t": 11,
+    "q": 41,
+    "mu_t": 0.0016856707000829922,
+    "mu_q": 3.586369809505744e-05,
+    "weight": 6.045438507546055e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD1(THEM(ME))))",
+    "t": 11,
+    "q": 44,
+    "mu_t": 0.0016856707000829922,
+    "mu_q": 3.584738754847095e-05,
+    "weight": 6.042689086497737e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD(THEM(ME))))",
+    "t": 11,
+    "q": 46,
+    "mu_t": 0.0016856707000829922,
+    "mu_q": 3.583107700188446e-05,
+    "weight": 6.039939665449418e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD(THEM(ME))))",
+    "t": 11,
+    "q": 49,
+    "mu_t": 0.0016856707000829922,
+    "mu_q": 3.583107700188446e-05,
+    "weight": 6.039939665449418e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD1(THEM(ME))))",
+    "t": 13,
+    "q": 41,
+    "mu_t": 0.001679374490119177,
+    "mu_q": 3.586369809505744e-05,
+    "weight": 6.022857970217518e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD1(THEM(ME))))",
+    "t": 13,
+    "q": 44,
+    "mu_t": 0.001679374490119177,
+    "mu_q": 3.584738754847095e-05,
+    "weight": 6.020118818631794e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD(THEM(ME))))",
+    "t": 13,
+    "q": 46,
+    "mu_t": 0.001679374490119177,
+    "mu_q": 3.583107700188446e-05,
+    "weight": 6.017379667046068e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD(THEM(ME))))",
+    "t": 13,
+    "q": 49,
+    "mu_t": 0.001679374490119177,
+    "mu_q": 3.583107700188446e-05,
+    "weight": 6.017379667046068e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD1(THEM(THEM))))",
+    "t": 11,
+    "q": 53,
+    "mu_t": 0.0016856707000829922,
+    "mu_q": 3.568338970880553e-05,
+    "weight": 6.015044451177646e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD1(THEM(THEM))))",
+    "t": 11,
+    "q": 59,
+    "mu_t": 0.0016856707000829922,
+    "mu_q": 3.5667079162219046e-05,
+    "weight": 6.012295030129328e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD(THEM(THEM))))",
+    "t": 11,
+    "q": 63,
+    "mu_t": 0.0016856707000829922,
+    "mu_q": 3.5658923888925795e-05,
+    "weight": 6.010920319605169e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD(THEM(THEM))))",
+    "t": 11,
+    "q": 66,
+    "mu_t": 0.0016856707000829922,
+    "mu_q": 3.5658923888925795e-05,
+    "weight": 6.010920319605169e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD1(THEM(THEM))))",
+    "t": 13,
+    "q": 53,
+    "mu_t": 0.001679374490119177,
+    "mu_q": 3.568338970880553e-05,
+    "weight": 5.992577439794919e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD1(THEM(THEM))))",
+    "t": 13,
+    "q": 59,
+    "mu_t": 0.001679374490119177,
+    "mu_q": 3.5667079162219046e-05,
+    "weight": 5.989838288209193e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^BOXD(THEM(THEM))))",
+    "t": 13,
+    "q": 63,
+    "mu_t": 0.001679374490119177,
+    "mu_q": 3.5658923888925795e-05,
+    "weight": 5.98846871241633e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^BOXD(THEM(THEM))))",
+    "t": 13,
+    "q": 66,
+    "mu_t": 0.001679374490119177,
+    "mu_q": 3.5658923888925795e-05,
+    "weight": 5.98846871241633e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(and(BOX(THEM(ME)),BOX(THEM(THEM))))",
+    "t": 9,
+    "q": 109,
+    "mu_t": 0.005141259324852245,
+    "mu_q": 9.08796719024667e-06,
+    "weight": 4.6723596060806946e-08,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(^BOX1(THEM(ME)))))",
+    "t": 9,
+    "q": 161,
+    "mu_t": 0.005141259324852245,
+    "mu_q": 6.4907218595034045e-06,
+    "weight": 3.337048428519418e-08,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(^BOX(THEM(ME)))))",
+    "t": 9,
+    "q": 169,
+    "mu_t": 0.005141259324852245,
+    "mu_q": 6.485802429268001e-06,
+    "weight": 3.334519221862346e-08,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(THEM))",
+    "faker": "BOX1(THEM(^not(BOX(THEM(ME)))))",
+    "t": 6,
+    "q": 193,
+    "mu_t": 0.005141288841433656,
+    "mu_q": 6.4601227768093085e-06,
+    "weight": 3.32133571467011e-08,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(^BOX1(THEM(THEM)))))",
+    "t": 9,
+    "q": 197,
+    "mu_t": 0.005141259324852245,
+    "mu_q": 6.457889926500962e-06,
+    "weight": 3.320168680349245e-08,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(THEM))",
+    "faker": "BOX1(THEM(^not(BOX(THEM(THEM)))))",
+    "t": 6,
+    "q": 211,
+    "mu_t": 0.005141288841433656,
+    "mu_q": 6.4566600689421115e-06,
+    "weight": 3.319555436538234e-08,
+    "faker_vs_D": "advantaged",
+    "faker_is_est": true,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(^BOX(THEM(THEM)))))",
+    "t": 9,
+    "q": 219,
+    "mu_t": 0.005141259324852245,
+    "mu_q": 6.454200353824409e-06,
+    "weight": 3.318271775356441e-08,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "and(BOX(THEM(ME)),BOXD(THEM(ME)))",
+    "t": 31,
+    "q": 34,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 8.529240014374463e-05,
+    "weight": 2.46446901599841e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD1(THEM(^C)))",
+    "faker": "and(BOX(THEM(ME)),BOXD1(THEM(ME)))",
+    "t": 29,
+    "q": 35,
+    "mu_t": 0.00028894848437212956,
+    "mu_q": 7.08123962675736e-05,
+    "weight": 2.0461134576274038e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "not(BOXD(THEM(^C)))",
+    "faker": "and(BOX(THEM(ME)),BOXD1(THEM(ME)))",
+    "t": 31,
+    "q": 35,
+    "mu_t": 0.00028894356494189416,
+    "mu_q": 7.08123962675736e-05,
+    "weight": 2.0460786219630798e-08,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   }
+  ],
+  "forced": [
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(ME)))",
+    "t": 9,
+    "q": 21,
+    "mu_t": 0.005141259324852245,
+    "mu_q": 0.0013628463707921457,
+    "weight": 7.00674661217616e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(THEM))",
+    "faker": "not(BOX(THEM(THEM)))",
+    "t": 9,
+    "q": 25,
+    "mu_t": 0.005141259324852245,
+    "mu_q": 0.0013615799744984153,
+    "weight": 7.0002357404220595e-06,
+    "faker_vs_D": "disadvantaged",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "D",
+    "faker_selfC": true,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      0.0,
+      -2.0,
+      1.0
+     ],
+     [
+      -1.0,
+      1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      -2.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 11,
+    "q": 16,
+    "mu_t": 0.0016856707000829922,
+    "mu_q": 0.0016793566273167102,
+    "weight": 2.8308422616579718e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX1(THEM(^C))",
+    "faker": "BOX(THEM(^D))",
+    "t": 11,
+    "q": 17,
+    "mu_t": 0.0016856707000829922,
+    "mu_q": 0.0016793418690260041,
+    "weight": 2.830817384039745e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX1(THEM(^D))",
+    "t": 13,
+    "q": 16,
+    "mu_t": 0.001679374490119177,
+    "mu_q": 0.0016793566273167102,
+    "weight": 2.820268679728261e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   },
+   {
+    "target": "BOX(THEM(^C))",
+    "faker": "BOX(THEM(^D))",
+    "t": 13,
+    "q": 17,
+    "mu_t": 0.001679374490119177,
+    "mu_q": 0.0016793418690260041,
+    "weight": 2.8202438950313315e-06,
+    "faker_vs_D": "neutral",
+    "faker_is_est": false,
+    "faker_vs_ALLC": "C",
+    "faker_selfC": false,
+    "target_vs_faker_of_others": null,
+    "table": [
+     [
+      0.0,
+      -2.0,
+      -1.0,
+      0.0
+     ],
+     [
+      1.0,
+      -1.0,
+      -1.0,
+      0.0
+     ],
+     [
+      -1.0,
+      -1.0,
+      -1.0,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      -2.0,
+      0.0
+     ]
+    ]
+   }
+  ],
+  "pair_mass_by_profile": {
+   "disadvantaged": 2.7190336386478116e-05,
+   "neutral": 1.5694102918651428e-05,
+   "advantaged": 1.2363991919437831e-05,
+   "mixed": 0.0
+  }
+ }
+}
