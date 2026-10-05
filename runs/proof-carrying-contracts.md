@@ -221,6 +221,47 @@ Broadest self-cooperating contracts (breadth, μ): `<not(and(BOX1(THEM(ME)),BOXD
 | (100, 256) | 2 | 1 | 0 | 40 | 1.00 | [0.91, 1.00] | 0 | 0 | 0 | 277 |
 | (100, 256) | 2 | 1 | 1 | 40 | 1.00 | [0.91, 1.00] | 0 | 0 | 0 | 270 |
 
+## Supplementary b = 0 arm (only constants legible from source; μ seed, N = 6,400; not in the spec)
+
+| s | f₀ | σ | P(C,C) per seed | mean | carrier | FB-con share | max con share | top contract | top sources |
+|---|---|---|---|---|---|---|---|---|---|
+| 0 | 0 | 0 | 0.00, 0.00, 0.00 | 0.001 | 0.000 | 0.000 | 0.000 | - | `D` 0.95; `BOX1(THEM(ME))` 0.01; `BOX(THEM(ME))` 0.01 |
+| 0 | 0.01 | 0 | 0.00, 0.00, 0.00 | 0.002 | 0.000 | 0.000 | 0.000 | - | `D` 0.94; `BOX1(THEM(THEM))` 0.02; `BOX(THEM(ME))` 0.01 |
+| 0 | 0.01 | 1 | 0.00, 0.00, 0.00 | 0.003 | 0.166 | 0.000 | 0.175 | `<D>` 0.18 | `D` 0.96; `BOX1(THEM(THEM))` 0.01; `BOX1(THEM(ME))` 0.01 |
+| 0 | 1 | 0 | 0.99, 0.99, 0.99 | 0.989 | 0.720 | 0.333 | 1.000 | `<BOX(THEM(THEM))>` 0.33 | `C` 0.27; `BOX(THEM(^C))` 0.24; `BOX(THEM(ME))` 0.24 |
+| 0 | 1 | 1 | 0.99, 0.99, 0.00 | 0.659 | 0.796 | 0.333 | 1.000 | `<BOX(THEM(ME))>` 0.33 | `D` 0.32; `BOX(THEM(ME))` 0.25; `BOX(THEM(THEM))` 0.24 |
+| 1 | 0 | 0 | 0.99, 0.99, 0.99 | 0.991 | 1.000 | 0.372 | 0.708 | `<BOX(THEM(ME))>` 0.37 | `BOX(THEM(ME))` 0.37; `BOX1(THEM(ME))` 0.35; `C` 0.24 |
+| 1 | 0 | 1 | 0.99, 0.86, 0.99 | 0.949 | 1.000 | 0.145 | 0.711 | `<BOX1(THEM(ME))>` 0.41 | `BOX1(THEM(ME))` 0.41; `C` 0.24; `BOX(THEM(ME))` 0.14 |
+| 1 | 0.01 | 0 | 0.99, 0.93, 0.99 | 0.970 | 1.000 | 0.530 | 0.724 | `<BOX(THEM(ME))>` 0.53 | `BOX(THEM(ME))` 0.53; `C` 0.21; `BOX1(THEM(ME))` 0.15 |
+| 1 | 0.01 | 1 | 0.99, 0.99, 0.99 | 0.988 | 1.000 | 0.309 | 0.694 | `<BOX(THEM(THEM))>` 0.32 | `BOX(THEM(THEM))` 0.32; `BOX(THEM(ME))` 0.31; `C` 0.25 |
+| 1 | 1 | 0 | 0.92, 0.99, 0.99 | 0.967 | 1.000 | 0.342 | 0.724 | `<BOX(THEM(ME))>` 0.34 | `BOX(THEM(ME))` 0.34; `BOX1(THEM(ME))` 0.29; `C` 0.23 |
+| 1 | 1 | 1 | 0.99, 0.99, 0.99 | 0.990 | 1.000 | 0.674 | 0.728 | `<BOX(THEM(ME))>` 0.67 | `BOX(THEM(ME))` 0.67; `C` 0.21; `BOX(THEM(THEM))` 0.08 |
+
+### Supplementary lottery at b = 0
+
+| (N, I) | f₀ | σ | runs | efficient | 95% Wilson | unresolved |
+|---|---|---|---|---|---|---|
+| (100, 4) | 0 | 0 | 40 | 0.03 | [0.00, 0.13] | 0 |
+| (100, 4) | 0.01 | 0 | 40 | 0.00 | [0.00, 0.09] | 0 |
+| (100, 4) | 0.01 | 1 | 40 | 0.07 | [0.03, 0.20] | 0 |
+| (100, 4) | 1 | 0 | 40 | 0.25 | [0.14, 0.40] | 0 |
+| (100, 4) | 1 | 1 | 40 | 0.35 | [0.22, 0.50] | 0 |
+| (400, 4) | 0 | 0 | 40 | 0.05 | [0.01, 0.17] | 0 |
+| (400, 4) | 0.01 | 0 | 40 | 0.10 | [0.04, 0.23] | 0 |
+| (400, 4) | 0.01 | 1 | 40 | 0.10 | [0.04, 0.23] | 0 |
+| (400, 4) | 1 | 0 | 40 | 0.42 | [0.29, 0.58] | 0 |
+| (400, 4) | 1 | 1 | 40 | 0.57 | [0.42, 0.71] | 0 |
+| (100, 64) | 0 | 0 | 40 | 0.05 | [0.01, 0.17] | 0 |
+| (100, 64) | 0.01 | 0 | 40 | 0.15 | [0.07, 0.29] | 0 |
+| (100, 64) | 0.01 | 1 | 40 | 0.10 | [0.04, 0.23] | 0 |
+| (100, 64) | 1 | 0 | 40 | 0.97 | [0.87, 1.00] | 0 |
+| (100, 64) | 1 | 1 | 40 | 0.97 | [0.87, 1.00] | 0 |
+| (100, 256) | 0 | 0 | 40 | 0.00 | [0.00, 0.09] | 0 |
+| (100, 256) | 0.01 | 0 | 40 | 0.12 | [0.05, 0.26] | 0 |
+| (100, 256) | 0.01 | 1 | 40 | 0.17 | [0.09, 0.32] | 0 |
+| (100, 256) | 1 | 0 | 40 | 1.00 | [0.91, 1.00] | 0 |
+| (100, 256) | 1 | 1 | 40 | 1.00 | [0.91, 1.00] | 0 |
+
 ## Numbers for the verdicts (μ seed unless stated)
 
 - **P1** b = 2, s = 0, f₀ = 0: 0.991 (pred < 0.3). b = 2, f₀ = 1: s = 0/σ = 0 0.970, s = 1/σ = 0 0.975, s = 0/σ = 1 0.956. Contract baseline b = ∞, f₀ = 1, s = 1, σ = 0: 0.980; s = 0, σ = 0: 0.978. Source oracle b = ∞, s = 0, f₀ = 0: 0.991.
@@ -230,3 +271,4 @@ Broadest self-cooperating contracts (breadth, μ): `<not(and(BOX1(THEM(ME)),BOXD
 - **P5** (100, 4): free 0.33; b=2 f₀=0 0.30; b=2 f₀=1 σ=0 0.28 / σ=1 0.40; b=2 f₀=0.01 σ=0 0.28 / σ=1 0.20; b=∞ f₀=1 σ=0 0.42 | (400, 4): free 0.55; b=2 f₀=0 0.55; b=2 f₀=1 σ=0 0.57 / σ=1 0.40; b=2 f₀=0.01 σ=0 0.62 / σ=1 0.65; b=∞ f₀=1 σ=0 0.57 | (100, 64): free 0.97; b=2 f₀=0 1.00; b=2 f₀=1 σ=0 1.00 / σ=1 1.00; b=2 f₀=0.01 σ=0 1.00 / σ=1 1.00; b=∞ f₀=1 σ=0 0.97 | (100, 256): free 1.00; b=2 f₀=0 1.00; b=2 f₀=1 σ=0 1.00 / σ=1 1.00; b=2 f₀=0.01 σ=0 1.00 / σ=1 1.00; b=∞ f₀=1 σ=0 1.00
 - **P6** pay b=2 s=0 f₀=0.01: max label 1.00, FB-label 0.00, FB-con 0.00, max con 0.00 | pay b=2 s=0 f₀=1: max label 1.00, FB-label 0.00, FB-con 0.00, max con 0.00 | pay b=2 s=1 f₀=0: max label 1.00, FB-label 0.00, FB-con 0.50, max con 0.72 | pay b=2 s=1 f₀=0.01: max label 1.00, FB-label 0.00, FB-con 0.31, max con 0.70 | pay b=2 s=1 f₀=1: max label 1.00, FB-label 0.00, FB-con 0.28, max con 0.72 | pay b=4 s=0 f₀=0.01: max label 1.00, FB-label 0.00, FB-con 0.00, max con 0.00 | pay b=4 s=0 f₀=1: max label 1.00, FB-label 0.00, FB-con 0.00, max con 0.00 | pay b=4 s=1 f₀=0: max label 1.00, FB-label 0.00, FB-con 0.43, max con 0.74 | pay b=4 s=1 f₀=0.01: max label 1.00, FB-label 0.00, FB-con 0.31, max con 0.71 | pay b=4 s=1 f₀=1: max label 1.00, FB-label 0.33, FB-con 0.47, max con 0.73 | pay b=inf s=0 f₀=0.01: max label 1.00, FB-label 0.00, FB-con 0.00, max con 0.00 | pay b=inf s=0 f₀=1: max label 1.00, FB-label 0.00, FB-con 0.00, max con 0.00 | pay b=inf s=1 f₀=0: max label 1.00, FB-label 0.00, FB-con 0.45, max con 0.72 | pay b=inf s=1 f₀=0.01: max label 1.00, FB-label 0.00, FB-con 0.23, max con 0.69 | pay b=inf s=1 f₀=1: max label 1.00, FB-label 0.00, FB-con 0.01, max con 0.70 | uni b=2 s=0 f₀=0.01: max label 1.00, FB-label 0.00, FB-con 0.00, max con 0.00 | uni b=2 s=0 f₀=1: max label 1.00, FB-label 0.00, FB-con 0.17, max con 0.17 | uni b=2 s=1 f₀=0.01: max label 1.00, FB-label 0.00, FB-con 0.57, max con 0.73 | uni b=2 s=1 f₀=1: max label 1.00, FB-label 0.00, FB-con 0.25, max con 0.69 | uni b=4 s=0 f₀=0.01: max label 1.00, FB-label 0.00, FB-con 0.00, max con 0.00 | uni b=4 s=0 f₀=1: max label 1.00, FB-label 0.00, FB-con 0.12, max con 0.12 | uni b=4 s=1 f₀=0.01: max label 1.00, FB-label 0.00, FB-con 0.44, max con 0.73 | uni b=4 s=1 f₀=1: max label 1.00, FB-label 0.00, FB-con 0.26, max con 0.73 | uni b=inf s=0 f₀=0.01: max label 1.00, FB-label 0.00, FB-con 0.00, max con 0.00 | uni b=inf s=0 f₀=1: max label 1.00, FB-label 0.00, FB-con 0.00, max con 0.10 | uni b=inf s=1 f₀=0.01: max label 1.00, FB-label 0.00, FB-con 0.26, max con 0.72 | uni b=inf s=1 f₀=1: max label 1.00, FB-label 0.00, FB-con 0.14, max con 0.70
 - **RS-a** f₀ = 1 vs free (b = ∞, s = 0, f₀ = 0 = 0.991): b=2 s=0 σ=0 0.970; b=2 s=0 σ=0.1 0.952; b=2 s=0 σ=1 0.956; b=2 s=1 σ=0 0.975; b=2 s=1 σ=0.1 0.980; b=2 s=1 σ=1 0.952; b=4 s=0 σ=0 0.987; b=4 s=0 σ=0.1 0.979; b=4 s=0 σ=1 0.933; b=4 s=1 σ=0 0.981; b=4 s=1 σ=0.1 0.985; b=4 s=1 σ=1 0.958; b=inf s=0 σ=0 0.978; b=inf s=0 σ=0.1 0.977; b=inf s=0 σ=1 0.934; b=inf s=1 σ=0 0.980; b=inf s=1 σ=0.1 0.988; b=inf s=1 σ=1 0.974. **RS-b** anti-prover share max over cells 0.0004.
+- **S1–S4** (b = 0): s=0 f₀=0 σ=0 0.001; s=0 f₀=0.01 σ=0 0.002; s=0 f₀=0.01 σ=1 0.003; s=0 f₀=1 σ=0 0.989; s=0 f₀=1 σ=1 0.659; s=1 f₀=0 σ=0 0.991; s=1 f₀=0 σ=1 0.949; s=1 f₀=0.01 σ=0 0.970; s=1 f₀=0.01 σ=1 0.988; s=1 f₀=1 σ=0 0.967; s=1 f₀=1 σ=1 0.990
