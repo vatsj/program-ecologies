@@ -2772,6 +2772,83 @@ Rare-carrier growth per generation at f = 10⁻³:
 | S1–S8 (subagent) | see `runs/symmetric-gate.md` | S8 held; S3 mostly; S1 failed narrowly (1,352 constant-carrier entries change); S2, S4–S7 partly |
 
 **Reading.** Carrying a proof is an advantage without the fringe, but after the scramble it is mostly the linear carrier–carrier term plus a transient shield against `not(BOXD…)` suckers, and with mutation a small deterministic threshold (≈ 0.004) appears. The fringe raised establishment by about 0.1–0.2: real, secondary. Under both rules the mechanism is the race through the scramble, set by seed count and drift; per-generation advantages after the scramble barely move establishment, which is why the published seed result survives the control. "Carrying is heritable legibility" holds in the strict sense: carriers are legible to each other and to nobody else, and that is enough to establish from 1–3% seeds and to win the k = 1 lottery. Method: rule contrasts on establishment need about 100 paired seeds; 20 hid a 0.1–0.2 effect (sol's warning, confirmed).
+## Rival networks across islands, and the mN rule (`runs/rival-islands.md`, `runs/rival-islands.json`, `runs/rival-islands-static.json`; spec `specs/2026-10-05-rival-islands.md`, predictions in `predictions/2026-10-05-rival-islands.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/rival_islands.py`, `src/rival_islands_report.py`). 7,360 runs plus 574 merges, ε = 0, finite horizon 10⁵ generations (a generation is I·N births); these are lottery and hazard results, not π. No administrative censoring.
+
+**Setup.** Modal arm, PD, w = 0.3, iid seeds from the length prior, complete island graph, uniform replacement; migration continues after certification and a run stops only when globally outcome-frozen. The kernel is `seeds_in_n`'s dynamics with three law-preserving changes (exact skipping of births that cannot change anything, exact lumping of payoff-identical classes on the present support, local/immigrant ancestry labels); validated against `seeds_in_n._run` on identical seeds (0.297 / 0.327 / 0.305 ± 0.019 at (100, 4), mN = 1; per-island p 0.090 vs 0.085).
+
+**Static.** Mutual defection between two self-cooperators is a symmetric coordination game, so the fixation probability of one migrant into an all-rival island is ρ_DD = 1.85·10⁻⁵ / 7.2·10⁻⁹ / 1.6·10⁻¹⁵ at N = 100 / 200 / 400 (RE spot-check: exact recomputation agrees to three digits), against ρ(D | all-FairBot) = 1.7·10⁻⁸ / 3.8·10⁻¹⁵ / 2.5·10⁻²⁸: the barrier between rival cooperators is only about N·w/4. At N = 100, k migrants arriving together fix with probability 1.8·10⁻⁴ / 8.7·10⁻⁴ / 0.0097 / 0.22 for k = 5 / 10 / 20 / 40. Rivals of the FairBot pair have establisher mass 2.4·10⁻⁵ at n = 9 (20 classes) and 4.1·10⁻⁵ at n = 12 (443 classes): 0.16 / 0.62 / 2.5 rival seeds per run at I = 64 / 256 / 1,024. *Pair choice (deviation):* the literal three heaviest pairs are a four-way tie, so one pair per rival of A = `BOX1(THEM(ME))` was taken: B₁ = `BOX1(THEM(^not(BOX(THEM(ME)))))`, B₂ = `BOX1(THEM(^not(BOX(THEM(THEM)))))`, B₃ = P\*. Pairs 1 and 2 have a **bridge**, `BOX1(THEM(THEM))` (μ 0.0051), which mutually cooperates with both; P\* has no bridge and no fakers.
+
+**Separated seed** (n = 9, N = 100, islands 0 and 1 all-A and all-B, the rest iid, 40 runs per cell; "both" = both networks hold an island at the horizon):
+
+| mN | both at horizon (pairs 1 / 2 / 3 at I = 16 / 64 / 256) | first-loss hazard per generation | median loss generation |
+|---|---|---|---|
+| 0.1 | 32/21/4 · 36/22/2 · 38/40/40 | 5·10⁻⁷ – 2·10⁻⁵ (pair 3 at I ≥ 64: 0 [0, 9·10⁻⁷]) | 8·10³ – 5·10⁴ |
+| 1 | 0 in every cell | 5·10⁻⁵ – 7.5·10⁻⁴ | 1.1·10³ – 2.2·10⁴ |
+| 10 | 0 in every cell | 4.9·10⁻³ – 1.4·10⁻² | 67 – 168 |
+
+- Losses come after nucleation: at mN ≤ 1, 415 of 485 losses are after generation 10³. KM survival at mN = 1: S(10³) = 0.57–1.0, S(10⁴) = 0.00–0.85.
+- **Every island stays efficient throughout.** The counterfactual cross-island P(C,C) under uniform mixing is 0.65–0.98 where both survive (a counterfactual, not realized efficiency).
+- The bridge profits from the conflict: in pairs 1 and 2 it ends holding 0.33 of islands against a local-establishment share of about 0.2, and those pairs lose a network even at mN = 0.1, while pair 3 keeps both at I ≥ 64.
+- Nucleation and ancestry: about 7% of background islands establish locally (A 0.07, B ≤ 4·10⁻⁴, bridge 0.02 per island at m = 0); the rest are colonized. The network with more local establishments before the first immigrant-founded island held the majority in 358 of 511 decided runs (0.70). Pooled majorities: A 0.67, B 0.32, ties 18/1,080; Spearman between the measured-rate predictor (1 + E_A)/(2 + E_A + E_B) and the A-majority fraction 0.70. A rival pre-seeded on one island wins about a third of the time because colonization from the two pre-seeded islands decides majorities, not local nucleation.
+
+**Controls.** *m = 0:* local establishment per island A 0.064–0.099, B 0–4·10⁻⁴, bridge 0.017–0.025. *A only pre-seeded:* no rival separation except 1 run of 40 at (256, 0.1); A holds 0.77–0.97 of islands, the bridge the rest. *Two homogeneous networks, no background:*
+
+| preset | N | mN | network lost | hazard per generation | median loss |
+|---|---|---|---|---|---|
+| half/half | 100 | 0.1 | 0 at any I | < 9·10⁻⁷ | – |
+| half/half | 100 | 1 | all 40 at each I | 2–4·10⁻⁵ | 2.3·10⁴ – 4.4·10⁴ |
+| half/half | 100 | 10 | all | – | 74–115 |
+| half/half | 200 (I = 64) | 1 / 10 | 0 / 40 | – | – / 506 |
+| one B island among I − 1 A | 100 | 0.1 | 2–7 of 40 | 0.27–1.03 × mN·ρ_DD | – |
+| one B island among I − 1 A | 100 | 1 | 40 | 14–18 × mN·ρ_DD | ≈ 2,000 |
+| one B island among I − 1 A | 100 | 10 | 40 | – | 27 |
+| one B island among I − 1 A | 200 (I = 64) | 1 / 10 | 1 / 40 | 2.6·10⁻⁷ / – | – / 50 |
+
+From N = 100 to N = 200 at mN = 1 the minority hazard falls about 1,000×. The N = 200 cells were a predeclared addendum (S4).
+
+**Natural separation** (iid only, N = 100; separated = two certified islands at the horizon whose cooperative holders mutually defect):
+
+| n | mN | I = 64 | I = 256 | I = 1,024 |
+|---|---|---|---|---|
+| 9 | 0.1 | 1/300 | 1/300 | 10/300 = 0.033 [0.018, 0.060] |
+| 9 | 1 | 0/300 | 0/300 | 0/300 |
+| 12 | 0.1 | 3/300 | 7/300 = 0.023 [0.011, 0.047] | 9/100 = 0.09 [0.048, 0.16] |
+| 12 | 1 | 0/300 | 0/300 | 0/300 |
+
+"Ever separated" grows with I (n = 9, mN = 0.1: 2 / 8 / 35 of 300; n = 12, mN = 1: 6 / 15 / 50 of 300) and is what 1 − (1 − p_B)^I fits, with p_B ≈ 0.5–2.7·10⁻⁴ per island measured in these runs (0.098 vs 0.117 at n = 9, I = 1,024; 0.181 vs 0.20 at n = 12); the gap to horizon separation is the loss hazard. Survivors at the horizon are mostly P\*-type rivals (no bridge) on 3–25% of islands. Every natural run ends with every island held by a cooperator.
+
+**The mN rule** (n = 9, 40 runs per cell; references p = 0.103 / 0.181 and T_nuc = 45 / 70 generations at N = 100 / 400). Run-level efficiency stays within 0.06 of the independent-trials reference 1 − (1 − p)^I for all x = mN·T_nuc/N < 0.5, falls only at (100, 16) (0.72 at x = 1.35, 0.65 [0.50, 0.78] at x = 4.5, against 0.825), and island outcomes are uncorrelated everywhere (|ICC| < 0.03). Local nucleation q (rate of local-ancestry establishment relative to m = 0):
+
+| N | mN = 1 | mN = 3 | mN = 10 |
+|---|---|---|---|
+| 100 | 0.73–0.74 (x 0.45) | 0.19–0.25 (x 1.35) | 0 (x 4.5) |
+| 400 | 0.92–0.95 (x 0.18) | 0.75–0.77 (x 0.53) | 0.13 (x 1.75) |
+
+q = 1/2 falls at x = 0.75 (N = 100) and 0.86 (N = 400); expected arrivals mN·T_nuc at that point differ 4.6× (75 vs 345) and measured arrivals before local establishment 4.7× (127 vs 597). **The control is x = m·T_nuc, the expected replacement fraction during nucleation, not the arrival count.** Run-level efficiency barely suffers because colonization substitutes for local nucleation and moves the run toward p(I·N).
+
+**Merge test** (574 separated end states merged into one population of I·N): 572 clean two-type merges; the larger network wins 535 (0.935), all 372 with larger share ≥ 0.6; minority wins only at shares ≤ 0.56; every merge resolves within 115 generations (median 32).
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | hazard < 10⁻⁵ at mN ≤ 1; both present ≥ 0.8 (mN ≤ 1), ≥ 0.5 (mN = 10) | **failed, falsifier fired** (0/40 at mN = 1 and 10 in every cell); "shortens with flux" held, superlinearly |
+| RE 2 | A majority ≥ 0.8 | **failed, falsifier fired narrowly** (B 0.32; A 0.67); Spearman 0.70 held |
+| RE 3 | natural separation 0.01–0.05 at (100, 256), n = 9; grows in n, I; ≈ 1 − (1 − p_B)^I; flat in mN | falsifier not fired; growth held at mN = 0.1; band failed (0.003); the formula fits *ever* separated; flatness failed (0 at mN = 1) |
+| RE 4 | flat for x < 0.1, falls for x > 1, ICC < 0.1 | **held** on the falsifier; the fall is visible only where the reference leaves room; q has the predicted shape and collapses N in x |
+| RE 5 | larger wins ≥ 0.9 of clean merges | **held** (0.935; 1.00 away from near-ties) |
+| S1 | minority hazard = mN·ρ_DD within ×3 | failed at mN ≥ 1 (×14–200); held at mN = 0.1 |
+| S2 | mN = 10 loses a network within 10³ | held |
+| S3 | losses dominated by nucleation; both present ≥ 0.8 at mN = 0.1 | failed |
+| S4 | N = 200: no loss at mN = 1; at mN = 10 half/half ≥ 0.5 lost, minority ≤ 0.2 | failed on two clauses; the ~1,000× hazard drop held |
+
+**Reading.**
+- **Two regimes.** When the per-birth migration rate m = mN/N is not small against selection (mN = 10 at N = 100 or 200) the archipelago is one coordination population and the larger network wins within 10² generations. When m is small, a separated patchwork is metastable: its hazard is the rate at which a minority island flips, about mN·ρ_DD(N) at mN = 0.1 and 10–20× that at mN = 1 from migrant load, and it falls exponentially in N (barrier about N·w/4).
+- **Island efficiency is never at risk**; what fails on the observed timescale is universality across the metapopulation. Whether the program wants that at all is a new DEFERRED item.
+- **Majorities are set by colonization from early islands, not by prior mass**; bridges, classes that cooperate with both rivals, gain from the conflict and speed its resolution.
+- **The mN rule:** islands are independent nucleation trials while x = mN·T_nuc/N ≲ 0.3 (q ≥ 0.75 at x ≤ 0.5, halved at x ≈ 0.8 at both N); with T_nuc ∝ N^0.32 the admissible mN grows like N^0.7. This pulls against resolving rivals, which needs large m or small N.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

@@ -96,3 +96,10 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   **Legibility shield** — the transient advantage an illegible defector has over a legible one against programs that
   cooperate unless defection is provable (`not(BOXD…)`); gone at the ε equilibrium. **f\*_net** — the deterministic
   carrier threshold net of contract stripping at finite ε (≈ 0.004 under the symmetric rule).
+- **Rival islands:** **ρ_DD(N)** — fixation probability of one migrant of a self-cooperating class into an island
+  held by a mutually-defecting self-cooperator (a symmetric coordination game; 1.85·10⁻⁵ at N = 100, barrier ≈ N·w/4);
+  **bridge** — a class that mutually cooperates with both rival networks (`BOX1(THEM(THEM))` for the FairBot pair's
+  heaviest rivals); **separated** — two certified islands at the horizon whose cooperative holders mutually defect,
+  **ever separated** — at any time; **x = m·T_nuc = mN·T_nuc/N** — the expected replacement fraction of an island
+  during nucleation, the control of the mN rule; **q** — local nucleation rate relative to m = 0; **T_nuc** — median
+  per-island establishment time (45 / 70 generations at N = 100 / 400).

@@ -27,12 +27,19 @@ REJECTED.md the ones we dropped.
 - *Operating hypothesis (RE, 2026-10-05):* carry "almost all seeds" on the fakerless establishers, FairBot's pair
   (μ_core ≈ 0.0102, rigorous and uniform in n), and treat the fakeable provers as a measured bonus.
 - *Evidence (2026-10-05e):* compatibility resolves on one island (0 of 3,814 co-seeded incompatible pairs failed; two self-cooperators cannot hold a stable mixture), but mutually-defecting establishers can be held on separate islands, each efficient (RESULTS "compatibility").
-- *Would settle it:* (i) a demographic lemma, survival ≤ k₀/(1 + b_min·τ) for supermartingale lineages (conjectured;
-  matches the ghost within 12%); (ii) a bound on P(target alive ∧ faker alive) that avoids the 1/P(A) loss of the
-  union step, by conditioning on the target's path; (ii) a rule for scaling mN along the I ≫ N path: migrants per island during nucleation must
-  be small relative to N (mN·T_nuc ≈ 6 / 60 / 600 against N = 400 gave independent / partly merged / merged); and
-  whether migration along the I ≫ N path merges or separates rival networks held on different islands; and whether
-  any question the program cares about needs π rather than the lottery.
+- *Evidence (2026-10-05f):* rival networks between islands are a metastable patchwork, not a frozen one: the hazard
+  is ≈ mN·ρ_DD(N) with ρ_DD falling exponentially in N (1.85·10⁻⁵ at N = 100), and at mN ≥ 1, N = 100 migration
+  resolves them by majority within 10³–10⁴ generations while every island stays efficient (RESULTS "Rival networks
+  across islands"). *The mN rule the data support:* keep x = mN·T_nuc/N ≲ 0.3 (replacement fraction during
+  nucleation; the control collapses N = 100 and 400), i.e. mN ≲ 0.3·N/T_nuc(N) ∝ N^0.7.
+- *New open item:* independent nucleation needs small m·T_nuc while resolving rival networks needs large m or small
+  N; whether a path exists on which both hold, and whether the program wants universality across islands at all rather
+  than island-level efficiency, is undecided. *Operating hypothesis (RE, 2026-10-05):* island-level efficiency is the
+  claim; metapopulation universality is not claimed beyond N ≈ 100.
+- *Would settle it:* (i) a demographic lemma, survival ≤ k₀/(1 + b_min·τ) for supermartingale lineages, and (ii) a
+  per-founder bound on P(target alive ∧ faker alive) that avoids the 1/P(A) loss of the union step (both running,
+  `specs/2026-10-05-demographic-lemma.md`, together with a first-principles formula for the per-island chance);
+  (iii) whether any question the program cares about needs π rather than the lottery.
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,

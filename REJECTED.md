@@ -555,3 +555,16 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Subagent S1** (changes confined to non-constant carriers): 1,352 entries against constant sources carrying a non-constant contract also change. **S2 confinement clause:** carrier → non-carrier entries change at b = ∞. **S4 paired clause at 20 seeds, S5 "below asymmetric" at N = 25,600, S6 twins 0.2–0.5 at f₀ = 0.01 (0.60).**
 
 **Design choice: 20 paired seeds for a rule contrast on establishment.** Cannot resolve a 0.1 effect (sol's warning, confirmed). Use about 100 paired seeds.
+
+
+## Added 2026-10-05: rival networks across islands (RESULTS.md, "Rival networks across islands, and the mN rule")
+
+**"Separation between rival networks is long-lived under migration: hazard < 10⁻⁵ at mN ≤ 1, both present at the horizon in ≥ 0.8 of runs" (Fable, prediction 1; falsifier fired).** Mutual defection between two self-cooperators is a symmetric coordination game with a barrier of only about N·w/4, so one migrant fixes with probability 1.85·10⁻⁵ at N = 100 (not the 10⁻⁸ of D into FairBot that the intuition borrowed), and migrant load at mN = 1 multiplies the hazard by 10–20. Both networks survived the horizon in 0 of 40 runs in every mN ≥ 1 cell. The single-migrant intuition holds only at mN = 0.1. Lifetimes grow exponentially in N (≈ 1,000× from N = 100 to 200).
+
+**"Majorities are decided by prior mass: FairBot's family holds ≥ 0.8 of islands" (Fable, prediction 2; falsifier fired narrowly).** A rival pre-seeded on one island wins the majority in 0.32 of runs. Colonization from the pre-seeded islands decides majorities; local nucleation rates correlate (Spearman 0.70) but do not determine the outcome.
+
+**"Natural separation at the horizon ≈ 1 − (1 − p_B)^I and flat in mN" (Fable, prediction 3, those clauses).** The formula fits *ever* separated; separation at the horizon is that times survival, which is zero at mN = 1 within 10⁵ generations. The (100, 256) band 0.01–0.05 missed at n = 9 (0.003).
+
+**Subagent S1** (minority hazard = mN·ρ_DD within ×3; off by 14–200× at mN ≥ 1), **S3** (losses dominated by nucleation; 415 of 485 came after generation 10³), **S4** (two clauses at N = 200).
+
+**Design choices dropped:** the literal "three heaviest pairs" (a four-way tie replicating one rival; one pair per rival instead); island local-frozenness as the horizon "unresolved" criterion (counts transient migrants; holder rule instead); run-level efficient fraction as the mN-rule response at I ≥ 64 (at its ceiling; island-level local nucleation q instead); the arrival count mN·T_nuc as the scaling control (fails to collapse N by 4.6×; the replacement fraction m·T_nuc does).
