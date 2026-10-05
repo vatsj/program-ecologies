@@ -256,3 +256,23 @@ the free arm. Of the 994 GL-true box atoms at n = 6, 690 (0.69) are K-true at b 
 with B ≠ A up to one unfolding). Examples: `BOX1(THEM(ME))` against `not(BOXD(THEM(ME)))`, and
 `BOXD1(THEM(ME))` against `BOXD(THEM(ME))`. K has no rule for this without cut, and its soundness argument does not
 allow a contextual Löb rule. So the bounded arm is a different game, not the free arm with some boxes masked.
+
+**Chain and lottery** (`runs/proof-length.md`, Part B run 2). P(C,C) at N = 10⁴:
+
+| arm | P(C,C) |
+|---|---|
+| free | 0.587 |
+| K, b = 2 | 0.000 |
+| K, b = 3 | 0.490 |
+| K, b = 4 | 0.682 |
+| K, b = 6 | 0.671 |
+| K, b = 10 or 16 | 0.650 |
+
+- Every top exit is neutral into ALLC, at 1/N.
+- No drift-closed component at any b ≤ 40.
+- The bounded arm beats the free arm because K's incompleteness removes a Gödelian faker. In the free arm, `not(BOX(THEM(ME)))` (a Gödel sentence: it cooperates with itself, unprovably) and `not(BOX(THEM(THEM)))` strictly invade `BOX1(THEM(THEM))` at 3.2·10⁻⁴ each. In K, `BOX1(THEM(THEM))` cannot prove ¬□⊥ → P[y,y] for them, since that needs reasoning under a box from a boxed hypothesis. It merges with `BOX1(THEM(ME))` and has no faker.
+- The matched random control flips as many plays per stratum and collapses cooperation (0.004–0.13 at b ≤ 6) through strict exits. What keeps a bounded arm harmless is soundness, not the masking rate.
+
+**Priced** (run 3; budgets {2, 3, 4, 6, 10, 16} per program, μ split equally, N = 10⁴):
+- **c = 0:** P(C,C) = 0.598. π is spread over the cooperative budgets (3: 0.151, 4: 0.201, 6: 0.117, 10: 0.066, 16: 0.065). The top state is FairBot@3, the copy-threshold soft clique.
+- **c = 0.01 and 0.1:** π(all-D) = 1.000. ALLC strictly invades every priced prover world (exit 4.2·10⁻³ and 5.3·10⁻² per event, all strict). This is the price ladder of RESULTS "Priced arm", rebuilt by a per-match budget price.
