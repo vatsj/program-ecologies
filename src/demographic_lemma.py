@@ -233,7 +233,12 @@ def _dl_run(U, init, N, w, seed, iC, ghost, track, snaps, K1, K2, tmax_tau, mode
                 f = (paysum[k] - U[k, k]) / (N - 1)
                 wt[k] = np.exp(w * (f - m))
                 S += counts[k] * wt[k]
-            fg = S / (N - kg) if kg > 0 else 0.0
+            if kg >= N:
+                fg = 1.0                     # the ghost has fixed: every weight is the ghost's (degenerate, neutral)
+            elif kg > 0:
+                fg = S / (N - kg)
+            else:
+                fg = 0.0
             if ghost >= 0:
                 wt[ghost] = fg
             Fbar = (S + kg * fg) / N
@@ -242,7 +247,7 @@ def _dl_run(U, init, N, w, seed, iC, ghost, track, snaps, K1, K2, tmax_tau, mode
                 dtp = _xs_exp(xs) / N
                 for i in range(nt):
                     c = track[i]; kc = counts[c]
-                    if c == ghost:
+                    if c == ghost or kg >= N:
                         a = 1.0
                     else:
                         if kc > 0:
@@ -301,13 +306,15 @@ def _dl_run(U, init, N, w, seed, iC, ghost, track, snaps, K1, K2, tmax_tau, mode
                     k = pres[t]
                     v += counts[k] * U[child, k]
                 paysum[child] = v
-            if st_tau == 0:
+            if st_tau == 0 or mode == 0:
+                # running max and first hitting times: up to tau in mode 1, over the whole run in mode 0
                 if counts[child] > kmax[child]: kmax[child] = counts[child]
                 for i in range(nt):
                     c = track[i]
                     if c == child:
                         if hit1[i] < 0 and counts[c] >= K1: hit1[i] = g + (e + 1.0) / N
                         if hit2[i] < 0 and counts[c] >= K2: hit2[i] = g + (e + 1.0) / N
+            if st_tau == 0:
                 if victim == iC and counts[iC] == 0:
                     tau = g + (e + 1.0) / N; st_tau = 1
                     for k in range(K): counts_tau[k] = counts[k]
@@ -644,9 +651,527 @@ def lottery_main(a):
     print('done %d in %.0fs' % (len(jobs), time.time() - t0), flush=True)
 
 
+# ------------------------------------------------------------------ analysis helpers
+def wilson(k, n, z=1.96):
+    return SL._wilson(int(k), int(n), z)
+
+
+def boot_ci(fn, arrays, B=2000, seed=0, alpha=0.05):
+    """Percentile bootstrap over rows (each array indexed by row)."""
+    rng = np.random.default_rng(seed)
+    n = len(arrays[0])
+    if n == 0:
+        return (float('nan'), float('nan'))
+    vals = []
+    for _ in range(B):
+        ix = rng.integers(0, n, n)
+        v = fn(*[x[ix] for x in arrays])
+        if np.isfinite(v):
+            vals.append(v)
+    if not vals:
+        return (float('nan'), float('nan'))
+    return (float(np.quantile(vals, alpha / 2)), float(np.quantile(vals, 1 - alpha / 2)))
+
+
+PHI_GRID = np.concatenate([np.arange(1.0, 10.0, 0.25), np.arange(10.0, 100.0, 1.0), np.geomspace(100.0, 1e8, 120)])
+
+
+def lemmaDp_bound(phi, k0=1, upper=False):
+    """Binned Lemma D' bound: P(alive at tau) <= sum_i min(P(Phi in [phi_i, phi_{i+1})), 1 - (1 - 1/phi_i)^k0).
+    upper=True replaces each bin probability by its Wilson upper bound (conservative)."""
+    phi = np.asarray(phi); n = len(phi)
+    edges = np.concatenate([PHI_GRID, [np.inf]])
+    cnt, _ = np.histogram(phi, bins=edges)
+    tot = 0.0
+    for i in range(len(PHI_GRID)):
+        p = cnt[i] / n
+        if upper and cnt[i] > 0:
+            p = wilson(cnt[i], n)[2]
+        tot += min(p, 1 - (1 - 1 / PHI_GRID[i]) ** k0)
+    return min(1.0, tot)
+
+
+def b1_bound(lam, k0=1):
+    """B1 (notes/scramble-lemma.md): inf_L [P(Lam < L) + k0 e^{-L}] (event-clock exponential martingale)."""
+    lam = np.asarray(lam)
+    return float(min(1.0, min(np.mean(lam < L) + k0 * math.exp(-L) for L in np.arange(0.0, 8.0, 0.02))))
+
+
+def r_env(tau, a, f, nb=10):
+    """Shared-background part of the association: E[s_A(tau) s_F(tau)]/(E[s_A] E[s_F]) with tau in quantile bins."""
+    qs = np.quantile(tau, np.linspace(0, 1, nb + 1)); qs[-1] += 1e-9
+    b = np.clip(np.searchsorted(qs, tau, side='right') - 1, 0, nb - 1)
+    sa = np.array([a[b == i].mean() if (b == i).any() else 0 for i in range(nb)])
+    sf = np.array([f[b == i].mean() if (b == i).any() else 0 for i in range(nb)])
+    w = np.array([(b == i).mean() for i in range(nb)])
+    den = (w * sa).sum() * (w * sf).sum()
+    return float((w * sa * sf).sum() / den) if den > 0 else float('nan')
+
+
+def _ratio_r(a, f):
+    pa = a.mean(); pf = f.mean()
+    return (a & f).mean() / pa / pf if pa > 0 and pf > 0 else float('nan')
+
+
+def load_forced():
+    z = np.load(FROWS)
+    X = z['X']; cols = [str(c) for c in z['cols']]
+    return {c: X[:, i] for i, c in enumerate(cols)}
+
+
+def _mf_path(xA0=0.466, xD0=0.466, w=W, dt=1e-3, T=200.0):
+    """Mean-field R(t), Phi(t) = 1 + int e^{-R} for a payoff-neutral ALLC-cooperating establisher (curvature only)."""
+    xA = xA0 / (xA0 + xD0); xD = 1 - xA
+    ts = [0.0]; Rs = [0.0]; Ph = [1.0]
+    R = 0.0; P = 1.0; t = 0.0
+    while t < T:
+        pA = -2 * xD; pD = xA - xD; pe = -xD
+        fA, fD, fe = math.exp(w * pA), math.exp(w * pD), math.exp(w * pe)
+        Fb = xA * fA + xD * fD
+        P += math.exp(-R) * dt
+        R += (fe / Fb - 1) * dt
+        xA += xA * (fA / Fb - 1) * dt; xD = 1 - xA
+        t += dt
+        if abs(t - round(t, 1)) < dt / 2:
+            ts.append(t); Rs.append(R); Ph.append(P)
+    return np.array(ts), np.array(Rs), np.array(Ph)
+
+
+def _fmt(p):
+    return '%.4f [%.4f, %.4f]' % tuple(p)
+
+
+def report_dsea(md, J):
+    rows = json.load(open(DROWS))
+    agg = {}
+    for r in rows:
+        a = agg.setdefault((r['N'], r['k']), [0, 0, 0, []])
+        a[0] += r['fix']; a[1] += r['reps']; a[2] += r['other']; a[3] += r['fix_gens']
+    out = {}
+    md += ['## Task 3(a)-(b): escape from a D sea (u_k)', '',
+           'Seeds_in_n kernel on {prover k, D N − k}, run to local freeze (no unresolved run). Exact = birth–death formula;',
+           'diffusion = erf form; independent copies = 1 − (1 − u₁)^k.', '',
+           '| N | k | runs | measured u_k [95%] | exact | diffusion | 1 − (1 − u₁)^k | k·u₁ | exact in interval | median fixation gen |',
+           '|---|---|---|---|---|---|---|---|---|---|']
+    nin = 0; ncell = 0
+    for (N, k), (f, n, o, g) in sorted(agg.items()):
+        ue = float(u_exact(N, [k])[0]); u1 = float(u_exact(N, [1])[0])
+        p = wilson(f, n)
+        ud = float(u_diffusion(k / N, N))
+        inside = p[1] <= ue <= p[2]
+        nin += inside; ncell += 1
+        out['%d/%d' % (N, k)] = dict(runs=n, fix=f, other=o, u=p, exact=ue, diffusion=ud, indep=1 - (1 - u1) ** k,
+                                     linear=k * u1, exact_inside=bool(inside), median_fix_gen=float(np.median(g)) if g else None)
+        md.append('| %d | %d | %d | %s | %.4f | %.4f | %.4f | %.4f | %s | %s |' % (
+            N, k, n, _fmt(p), ue, ud, 1 - (1 - u1) ** k, k * u1, 'yes' if inside else 'NO',
+            '%.0f' % np.median(g) if g else '–'))
+    md += ['', 'Exact value inside the 95%% interval in %d of %d cells. u₁ measured/diffusion: %s.' % (
+        nin, ncell, ', '.join('%.3f (N = %d)' % (out['%d/1' % N]['u'][0] / out['%d/1' % N]['diffusion'], N)
+                              for N in (100, 400, 1600, 6400))), '']
+    J['dsea'] = out
+
+
+def report_ghost(md, J, F):
+    E = F['inE'] > 0
+    out = {}
+    md += ['## Task 1: Lemma D against the ghost (fitness pinned to the mean), fixed time and stopped', '',
+           'Ghost runs: the faker founder of every forced background replaced by a ghost (plays as the faker, fitness =',
+           'population mean, so r ≡ 0 and d = 1 − k/N exactly), common random numbers with the faker run, all 7 pairs and',
+           '3 cutoffs pooled (the ghost\'s survival does not depend on its payoffs except through others), in E.',
+           'Bound = event-clock Lemma D (notes §1.4) for the process killed at K; "killed alive" = alive at t and K not hit by t.', '',
+           '| N | t | backgrounds | alive (unkilled) | ratio to 1/(1+t) | killed at N/20: alive | bound | killed at N/4: alive | bound | P(hit N/4 by t) | k₀/K (N/4) |',
+           '|---|---|---|---|---|---|---|---|---|---|---|']
+    for N in NS_N:
+        m = E & (F['N'] == N)
+        n = int(m.sum())
+        for i, t in enumerate(SNAPS):
+            k = F['g_k%d' % t][m]
+            h1 = F['g_hit1'][m]; h2 = F['g_hit2'][m]
+            al = k > 0
+            kill1 = al & ((h1 < 0) | (h1 > t)); kill2 = al & ((h2 < 0) | (h2 > t))
+            hit2 = (h2 >= 0) & (h2 <= t)
+            p = wilson(al.sum(), n); p1 = wilson(kill1.sum(), n); p2 = wilson(kill2.sum(), n); ph = wilson(hit2.sum(), n)
+            b1 = lemmaD_event_bound(N, int(t), 1, N // 20)['bound']; b2 = lemmaD_event_bound(N, int(t), 1, N // 4)['bound']
+            rec = dict(n=n, alive=p, ratio_1_over_1pt=p[0] * (1 + t), ratio_ci=(p[1] * (1 + t), p[2] * (1 + t)),
+                       killed_N20=p1, bound_N20=b1, killed_N4=p2, bound_N4=b2, hit_N4=ph, k0_over_K=4.0 / N,
+                       exceeds_N20=bool(p1[1] > b1), exceeds_N4=bool(p2[1] > b2))
+            out['%d/%d' % (N, t)] = rec
+            md.append('| %d | %d | %d | %s | %.3f [%.3f, %.3f] | %.4f | %.4f | %.4f | %.4f | %.4f | %.4f |' % (
+                N, t, n, _fmt(p), rec['ratio_1_over_1pt'], *rec['ratio_ci'], p1[0], b1, p2[0], b2, ph[0], 4.0 / N))
+    md += ['', '**Stopped version** (ghost alive at its own run\'s τ = ALLC extinction ∧ freeze ∧ 2,000 generations), by stopping',
+           'reason; Lemma D′ bound from the measured Φ_τ (Poisson clock, binned); lower-tail decomposition',
+           'inf_t₁ [Lemma D(t₁, K = N/4) + P(hit N/4 by t₁) + P(τ < t₁)] with the measured lower tail of τ.', '',
+           '| N | reason | islands | ghost alive at τ | median τ | E[1/(1+τ)] | Lemma D′ bound | lower-tail bound |',
+           '|---|---|---|---|---|---|---|---|']
+    for N in NS_N:
+        m = E & (F['N'] == N)
+        tau = F['g_tau'][m]; al = F['g_kG_tau'][m] > 0; st = F['g_st_tau'][m]; phi = F['g_phiP'][m]
+        for lab, sel in (('all', np.ones(len(st), bool)), ('ALLC extinct', st == 1), ('frozen', st == 2), ('cap', st == 3)):
+            if sel.sum() == 0:
+                md.append('| %d | %s | 0 | – | – | – | – | – |' % (N, lab)); continue
+            p = wilson(al[sel].sum(), sel.sum())
+            bD = lemmaDp_bound(phi[sel])
+            best = 1.0
+            for t1 in np.arange(1.0, 40.0, 0.5):
+                b = 1 / (1 + (1 - (N // 4 - 1) / N) * t1) + 4.0 / N + np.mean(tau[sel] < t1)
+                best = min(best, b)
+            out['stopped/%d/%s' % (N, lab)] = dict(n=int(sel.sum()), alive=p, tau_median=float(np.median(tau[sel])),
+                                                   E_inv=float(np.mean(1 / (1 + tau[sel]))), lemmaDp=bD, lowertail=best)
+            md.append('| %d | %s | %d | %s | %.1f | %.4f | %.4f | %.4f |' % (N, lab, sel.sum(), _fmt(p), np.median(tau[sel]),
+                      np.mean(1 / (1 + tau[sel])), bD, best))
+    md.append('')
+    J['ghost'] = out
+
+
+TYPE_OF = {0: 'disadvantaged', 1: 'disadvantaged', 2: 'neutral', 3: 'neutral', 4: 'neutral', 5: 'neutral', 6: 'advantaged'}
+TYPE_LIST = ('disadvantaged', 'neutral', 'advantaged')
+
+
+def _typemask(F, typ):
+    return np.isin(F['pair'], [p for p, t in TYPE_OF.items() if t == typ])
+
+
+def report_forced(md, J, F):
+    """Task 2 (r_q, Lemma D' on fakers, combined bound) and the target founder's E[k_tau] (Task 3c, RE 4)."""
+    E = F['inE'] > 0
+    out = {}
+    md += ['## Task 2: per-founder dependence r_q, Lemma D′ on faker founders, and the combined bound', '',
+           'Forced backgrounds (one tagged target founder, one tagged faker founder; scramble-lemma pairs), in E.',
+           'A = target class alive at τ; F_j = the tagged faker founder alive at τ; r = P(F_j | A)/P(F_j) (bootstrap 95%);',
+           'r_env = the τ-binned shared-background value; Lemma D′ = binned bound on P(F_j) from the measured Φ_τ (Poisson',
+           'clock); B1 = the exponential-martingale bound of the scramble lemma, for comparison; ghost = P(ghost alive at τ).', '']
+    hdr = ('| N | type | n | bgs | stop 1/2/3 | P(A) | P(F_j) | joint events | r [95%] | r_env | Lemma D′ (×) | B1 | ghost |',
+           '|---|---|---|---|---|---|---|---|---|---|---|---|---|')
+    md += list(hdr)
+    for N in NS_N:
+        for typ in TYPE_LIST:
+            for nsel in SC.NS + ('pooled',):
+                m = E & (F['N'] == N) & _typemask(F, typ)
+                if nsel != 'pooled':
+                    m &= F['n'] == nsel
+                A = F['A'][m] > 0; Fj = F['kF'][m] > 0; tau = F['tau'][m]
+                st = F['st_tau'][m]
+                n = int(m.sum())
+                r = _ratio_r(A, Fj)
+                ci = boot_ci(_ratio_r, [A, Fj], B=1000, seed=N + len(typ) + (0 if nsel == 'pooled' else nsel))
+                re = r_env(tau, A.astype(float), Fj.astype(float))
+                bD = lemmaDp_bound(F['phiP_F'][m]); bDc = lemmaDp_bound(F['phiP_F'][m], upper=True)
+                bB1 = b1_bound(F['Lam_F'][m])
+                gh = (F['g_kG_tau'][m] > 0).mean()
+                blk = m & (F['rep'] < np.vectorize(lambda p: ALLOC[int(p)])(F['pair']))
+                A3 = F['A'][blk] > 0; F3 = F['kF'][blk] > 0
+                rec = dict(n=n, stop={str(s): int((st == s).sum()) for s in (1, 2, 3)}, PA=wilson(A.sum(), n),
+                           PF=wilson(Fj.sum(), n), joint=int((A & Fj).sum()), r=r, r_ci=ci, r_env=re,
+                           r_3000=_ratio_r(A3, F3), n_3000=int(blk.sum()), joint_3000=int((A3 & F3).sum()),
+                           lemmaDp=bD, lemmaDp_cons=bDc, B1=bB1, ghost=float(gh),
+                           tau_median=float(np.median(tau)), tau_cv=float(np.std(tau) / np.mean(tau)),
+                           martingale_F=float(np.mean(F['kF'][m] * np.exp(F['Lam_F'][m]))),
+                           martingale_T=float(np.mean(F['kT'][m] * np.exp(F['Lam_T'][m]))))
+                out['%d/%s/%s' % (N, typ, nsel)] = rec
+                md.append('| %d | %s | %s | %d | %s | %.3f | %.4f | %d | %.2f [%.2f, %.2f] | %.3f | %.4f (%.2f×) | %s | %.4f |' % (
+                    N, typ, nsel, n, '/'.join(str(rec['stop'][s]) for s in '123'), rec['PA'][0], rec['PF'][0], rec['joint'],
+                    r, ci[0], ci[1], re, bD, bD / rec['PF'][0] if rec['PF'][0] > 0 else float('nan'),
+                    '%.3f' % bB1, gh))
+    md.append('')
+    J['r'] = out
+    # ---- the combined bound
+    md += ['### The combined per-island bound (confidence-qualified empirical bound, not a theorem)', '',
+           'P(Est | E) ≥ ρ̃·[1 − E[K_q]·q̄·r·h^rel] (notes §3.1). Est = target class in the final support (faker runs, to',
+           'local freeze); F = faker class alive at τ (for h); E[K_q] = 1 + mean bg_q; q̄ = Lemma D′ bound on the founder;',
+           'point = all at estimates; cons = ρ̃ lower 95%, q̄ with Wilson-upper bins, r and h^rel upper 95%. "old" = the',
+           'scramble lemma\'s form ρ̃ − P(F)·h⁺ with P(F) measured (its best case). P(Est) measured for comparison.', '',
+           '| N | type | n | P(Est) | ρ̃ | h^rel | E[K_q] | q̄ (D′) | r | bound (point) | bound (cons) | old (measured P(F)) |',
+           '|---|---|---|---|---|---|---|---|---|---|---|---|']
+    CB = {}
+    for N in NS_N:
+        for typ in TYPE_LIST:
+            for nsel in SC.NS + ('pooled',):
+                m = E & (F['N'] == N) & _typemask(F, typ)
+                if nsel != 'pooled':
+                    m &= F['n'] == nsel
+                A = F['A'][m] > 0; Fc = F['Fc'][m] > 0; S = F['S'][m] > 0
+                n = int(m.sum())
+                pA = A.mean()
+                pS_AFc = S[A & ~Fc].mean() if (A & ~Fc).any() else float('nan')
+                pS_AF = S[A & Fc].mean() if (A & Fc).any() else float('nan')
+                h = (pS_AFc - pS_AF) if (A & Fc).any() else 0.0
+                hrel = max(h, 0) / pS_AFc if pS_AFc > 0 else float('nan')
+                rho = pA * pS_AFc
+                EK = 1 + F['bg_q'][m].mean()
+                rr = out['%d/%s/%s' % (N, typ, nsel)]
+                qb = rr['lemmaDp']; qbc = rr['lemmaDp_cons']
+                r = rr['r']; rhi = rr['r_ci'][1]
+                bp = rho * (1 - EK * qb * r * hrel)
+
+                def _rho(a, s, fc):
+                    sel = a & ~fc
+                    return a.mean() * (s[sel].mean() if sel.any() else 0.0)
+
+                def _hrel(a, s, fc):
+                    s1 = s[a & ~fc]; s2 = s[a & fc]
+                    if len(s1) == 0 or s1.mean() == 0: return float('nan')
+                    return max((s1.mean() - (s2.mean() if len(s2) else s1.mean())), 0) / s1.mean()
+                rlo = boot_ci(_rho, [A, S, Fc], B=500, seed=7 + N)[0]
+                hhi = boot_ci(_hrel, [A, S, Fc], B=500, seed=9 + N)[1]
+                bc = rlo * (1 - EK * qbc * rhi * hhi) if np.isfinite(hhi) else float('nan')
+                old = rho - Fc.mean() * max(h, 0)
+                rec = dict(n=n, P_Est=wilson(S.sum(), n), rho=rho, rho_lo=rlo, h=h, hrel=hrel, hrel_hi=hhi, EK=EK, qbar=qb,
+                           qbar_cons=qbc, r=r, r_hi=rhi, bound_point=bp, bound_cons=bc, old_measuredF=old,
+                           n_AF=int((A & Fc).sum()), P_Fc=float(Fc.mean()))
+                CB['%d/%s/%s' % (N, typ, nsel)] = rec
+                md.append('| %d | %s | %s | %.4f | %.4f | %.2f | %.2f | %.4f | %.2f | %.4f | %.4f | %.4f |' % (
+                    N, typ, nsel, rec['P_Est'][0], rho, hrel, EK, qb, r, bp, bc, old))
+    J['combined'] = CB
+    md.append('')
+    # ---- target founder: E[k_tau] per seeded copy (every target cooperates with ALLC)
+    md += ['### Target founder: E[k_τ | E] per seeded copy (all forced targets cooperate with ALLC)', '',
+           '| N | n | founders | P(alive at τ) | E[k_τ] [95%] | E[k_τ | alive] | e^{R_τ} mean | E[k e^{Λ}] (martingale) |',
+           '|---|---|---|---|---|---|---|---|']
+    KT = {}
+    for N in NS_N:
+        for nsel in SC.NS + ('pooled',):
+            m = E & (F['N'] == N)
+            if nsel != 'pooled':
+                m &= F['n'] == nsel
+            k = F['kT'][m]
+            ci = boot_ci(lambda x: x.mean(), [k], B=1000, seed=N)
+            rec = dict(n=int(m.sum()), alive=wilson((k > 0).sum(), m.sum()), Ek=float(k.mean()), Ek_ci=ci,
+                       Ek_alive=float(k[k > 0].mean()) if (k > 0).any() else float('nan'),
+                       eR=float(np.mean(np.exp(F['R_T'][m]))), mart=float(np.mean(k * np.exp(F['Lam_T'][m]))))
+            KT['%d/%s' % (N, nsel)] = rec
+            md.append('| %d | %s | %d | %.4f | %.3f [%.3f, %.3f] | %.1f | %.3f | %.3f |' % (
+                N, nsel, rec['n'], rec['alive'][0], rec['Ek'], *ci, rec['Ek_alive'], rec['eR'], rec['mart']))
+    J['target_ktau'] = KT
+    md.append('')
+
+
+def _block(d, classes_counts):
+    """Largest mutually-cooperating block among establisher classes (greedy by count): returns the class set."""
+    V = d['V']
+    blk = []
+    for c, _ in sorted(classes_counts.items(), key=lambda t: -t[1]):
+        if all(V[c, b] == 1 and V[b, c] == 1 for b in blk):
+            blk.append(c)
+    return blk
+
+
+def report_lottery(md, J, F):
+    rows = json.load(gzip.open(LROWS, 'rt'))
+    d = SC.cdata(LOT_N); V = d['V']; mu = d['mu']; iC = d['iC']; nm = d['names']
+    mu_est = float(mu[d['est']].sum())
+    ts, Rs, Ph = _mf_path()
+    out = {}
+    md += ['## Task 3(c)-(e): the iid lottery with per-founder tags (n = 9, I = 1, no migration)', '',
+           'Every establisher founder is its own payoff-identical tagged class. Outcome = cooperative fixation (every final',
+           'pair mutually cooperates); efficient = final P(C,C) ≥ 0.95. τ = ALLC extinction ∧ local freeze ∧ 2,000; final',
+           'stop = local freeze (5) or the 10⁵ horizon (6). μ_est = %.4f (n = 9).' % mu_est, '',
+           '| N | islands | coop. fixation [95%] | efficient | τ stop 1/2/3 | final 5/6 | median τ [10–90%] | founders/island |',
+           '|---|---|---|---|---|---|---|---|']
+    byN = {}
+    for r in rows:
+        byN.setdefault(r['N'], []).append(r)
+    for N in sorted(byN):
+        R = byN[N]
+        n = len(R)
+        cf = np.array([r['coop_fix'] for r in R]); ef = np.array([r['pcc'] >= 0.95 for r in R])
+        st = np.array([r['st_tau'] for r in R]); sf = np.array([r['st_fin'] for r in R]); tau = np.array([r['tau'] for r in R])
+        nf = np.array([r['n_founders'] for r in R])
+        rec = dict(n=n, coop=wilson(cf.sum(), n), eff=wilson(ef.sum(), n), st_tau={str(s): int((st == s).sum()) for s in (1, 2, 3)},
+                   st_fin={str(s): int((sf == s).sum()) for s in (5, 6)}, tau_q=[float(np.quantile(tau, p)) for p in (0.1, 0.5, 0.9)],
+                   founders_mean=float(nf.mean()), coop_eq_eff=int((cf == ef).sum()))
+        if N == 6400:
+            cf200 = np.array([r['coop_fix'] for r in R if r['rep'] < 200])
+            rec['coop_first200'] = wilson(cf200.sum(), len(cf200))
+        if N == 1600:
+            cf2k = np.array([r['coop_fix'] for r in R if r['rep'] < 2000])
+            rec['coop_first2000'] = wilson(cf2k.sum(), len(cf2k))
+        out[str(N)] = rec
+        md.append('| %d | %d | %s | %.4f | %s | %s | %.1f [%.1f, %.1f] | %.1f |' % (
+            N, n, _fmt(rec['coop']), rec['eff'][0], '/'.join(str(rec['st_tau'][s]) for s in '123'),
+            '/'.join(str(rec['st_fin'][s]) for s in ('5', '6')), rec['tau_q'][1], rec['tau_q'][0], rec['tau_q'][2], rec['founders_mean']))
+    md.append('')
+    if '6400' in out:
+        md.append('(6,400, 1): first 200 islands (the spec\'s cell) %s.' % _fmt(out['6400']['coop_first200']))
+    if '1600' in out:
+        md.append('(1,600, 1): first 2,000 islands (the spec\'s cell) %s.' % _fmt(out['1600']['coop_first2000']))
+    md.append('')
+    # ---- founders: E[k_tau] per seeded copy, split by ALLC cooperation
+    md += ['### Establisher founders through the scramble (per seeded copy; islands in E, ALLC-extinction stops)', '',
+           '| N | group | founders | P(alive at τ) | E[k_τ] [95%, islands resampled] | E[k_τ | alive] | P(max ≥ N/4 before τ) | E[u(k_τ)] / (u₁·E[k_τ]) |',
+           '|---|---|---|---|---|---|---|---|']
+    FK = {}
+    for N in sorted(byN):
+        R = [r for r in byN[N] if r['xA0'] >= 0.3 and r['xD0'] >= 0.3 and r['st_tau'] == 1]
+        u = u_all(N)
+        for grp in ('all', 'coopALLC', 'exploitALLC', 'BOX(THEM(ME))', 'BOX1(THEM(ME))', 'BOX(THEM(THEM))', 'BOX(THEM(^C))'):
+            ks = []; isl = []; km = []
+            for i, r in enumerate(R):
+                for (c, k, kx) in r['founders']:
+                    if grp == 'all' or (grp == 'coopALLC' and V[c, iC] == 1) or (grp == 'exploitALLC' and V[c, iC] == 0) or nm[c] == grp:
+                        ks.append(k); isl.append(i); km.append(kx)
+            if not ks:
+                md.append('| %d | %s | 0 | – | – | – | – | – |' % (N, grp)); FK['%d/%s' % (N, grp)] = dict(n=0); continue
+            ks = np.array(ks); isl = np.array(isl); km = np.array(km)
+            # bootstrap over islands
+            rng = np.random.default_rng(N)
+            nI = len(R); sums = np.bincount(isl, weights=ks, minlength=nI); cnts = np.bincount(isl, minlength=nI)
+            bs = []
+            for _ in range(1000):
+                ix = rng.integers(0, nI, nI)
+                bs.append(sums[ix].sum() / max(cnts[ix].sum(), 1))
+            ci = (float(np.quantile(bs, 0.025)), float(np.quantile(bs, 0.975)))
+            Ek = float(ks.mean())
+            conc = float(u[np.minimum(ks, N)].mean() / (u[1] * Ek)) if Ek > 0 else float('nan')
+            rec = dict(n=int(len(ks)), alive=wilson((ks > 0).sum(), len(ks)), Ek=Ek, Ek_ci=ci,
+                       Ek_alive=float(ks[ks > 0].mean()) if (ks > 0).any() else float('nan'),
+                       cap=float(np.mean(km >= N // 4)), concavity=conc)
+            FK['%d/%s' % (N, grp)] = rec
+            md.append('| %d | %s | %d | %.4f | %.3f [%.3f, %.3f] | %.1f | %.4f | %.3f |' % (
+                N, grp, rec['n'], rec['alive'][0], Ek, *ci, rec['Ek_alive'], rec['cap'], conc))
+    md.append('')
+    J['founders'] = FK
+    # ---- predictors
+    md += ['### Predicting p(N)', '',
+           '- **semi-empirical** (RE 3, spec (d)): each island\'s state at τ mapped through the exact two-type escape u_K of',
+           '  the pooled count K of the largest mutually-cooperating establisher block (remainder treated as D); islands',
+           '  frozen before ALLC extinction count at their (determined) outcome;',
+           '- **independent founders after the scramble**: 1 − Π_j (1 − u_{k_j}) over the block\'s surviving founder lineages;',
+           '- **p_corr** (closed-form compound model, S6): each island\'s founder count and τ, each founder alive with',
+           '  probability 1/Φ(τ) and geometric with mean e^{R(τ)}Φ(τ) given alive (mean-field curvature path), pooled escape',
+           '  u_K (40 Monte Carlo draws per island);',
+           '- **naive** μ_est√(2cN/π); **independent-founder form** 1 − exp(−naive); **pooled-family form**',
+           '  erf(μ_est√(Nc/2))/erf(√(Nc/2)).', '',
+           '| N | measured | semi-empirical | ratio [95%] | indep. founders | p_corr | ratio | naive | 1 − e^{−naive} | pooled erf |',
+           '|---|---|---|---|---|---|---|---|---|---|']
+    PR = {}
+    rng = np.random.default_rng(5)
+    for N in sorted(byN):
+        R = byN[N]; u = u_all(N)
+        y = np.array([r['coop_fix'] for r in R], float)
+        semi = np.zeros(len(R)); ind = np.zeros(len(R)); corr = np.zeros(len(R))
+        for i, r in enumerate(R):
+            if r['st_tau'] != 1:
+                semi[i] = ind[i] = float(r['coop_fix'])
+            else:
+                cc = {}
+                for (c, k, kx) in r['founders']:
+                    if k > 0: cc[c] = cc.get(c, 0) + k
+                blk = _block(d, cc) if cc else []
+                Kb = sum(cc[c] for c in blk)
+                semi[i] = u[min(Kb, N)]
+                ind[i] = 1 - np.prod([1 - u[min(k, N)] for (c, k, kx) in r['founders'] if c in blk and k > 0])
+            tau = r['tau']; M = r['n_founders']
+            j = min(int(round(tau * 10)), len(ts) - 1)
+            phi = Ph[j]; eR = math.exp(Rs[j])
+            if M > 0:
+                al = rng.binomial(M, 1 / phi, 40)
+                Ks = np.array([rng.geometric(1 / max(eR * phi, 1.0), a).sum() if a > 0 else 0 for a in al])
+                corr[i] = u[np.minimum(Ks, N)].mean()
+        ps, pc, pi_ = semi.mean(), corr.mean(), ind.mean()
+        rci = boot_ci(lambda a, b: a.mean() / b.mean(), [y, semi], B=1000, seed=N)
+        naive = mu_est * math.sqrt(2 * C_SLOPE * N / math.pi)
+        pooled = u_diffusion(mu_est, N)
+        rec = dict(measured=float(y.mean()), semi=float(ps), ratio_semi=float(y.mean() / ps), ratio_semi_ci=rci,
+                   indep_after=float(pi_), p_corr=float(pc), ratio_corr=float(y.mean() / pc), naive=naive,
+                   indep_form=1 - math.exp(-naive), pooled_form=pooled,
+                   calibration=[(float(lo), float(hi), int(((semi >= lo) & (semi < hi)).sum()),
+                                 float(y[(semi >= lo) & (semi < hi)].mean()) if ((semi >= lo) & (semi < hi)).any() else None,
+                                 float(semi[(semi >= lo) & (semi < hi)].mean()) if ((semi >= lo) & (semi < hi)).any() else None)
+                                for lo, hi in ((0, 1e-9), (1e-9, 0.1), (0.1, 0.3), (0.3, 0.6), (0.6, 0.9), (0.9, 1.01))])
+        PR[str(N)] = rec
+        md.append('| %d | %.4f | %.4f | %.3f [%.3f, %.3f] | %.4f | %.4f | %.3f | %.4f | %.4f | %.4f |' % (
+            N, rec['measured'], ps, rec['ratio_semi'], *rci, pi_, pc, rec['ratio_corr'], naive, 1 - math.exp(-naive), pooled))
+    md.append('')
+    md += ['Calibration of the semi-empirical predictor (islands binned by predicted u; measured rate | mean prediction):', '']
+    for N in sorted(byN):
+        md.append('- N = %d: ' % N + '; '.join('[%.2g, %.2g): %d islands, %s | %s' % (lo, hi, k, '%.3f' % m if m is not None else '–',
+                                                                                     '%.3f' % p if p is not None else '–')
+                                               for lo, hi, k, m, p in PR[str(N)]['calibration']))
+    md.append('')
+    # exponents over 100-1600
+    Ns = [N for N in (100, 400, 1600) if str(N) in PR]
+    if len(Ns) == 3:
+        x = np.log(Ns)
+        ex = {k: float(np.polyfit(x, np.log([PR[str(N)][k] for N in Ns]), 1)[0]) for k in ('measured', 'semi', 'p_corr', 'naive')}
+        bs = []
+        rngb = np.random.default_rng(11)
+        Ys = {N: np.array([r['coop_fix'] for r in byN[N]], float) for N in Ns}
+        for _ in range(1000):
+            ps_ = [Ys[N][rngb.integers(0, len(Ys[N]), len(Ys[N]))].mean() for N in Ns]
+            bs.append(np.polyfit(x, np.log(ps_), 1)[0])
+        ex['measured_ci'] = (float(np.quantile(bs, 0.025)), float(np.quantile(bs, 0.975)))
+        PR['exponents'] = ex
+        md.append('Fitted exponent of p over N = 100–1,600: measured %.3f [%.3f, %.3f]; semi-empirical %.3f; p_corr %.3f; naive %.3f.' % (
+            ex['measured'], *ex['measured_ci'], ex['semi'], ex['p_corr'], ex['naive']))
+        md.append('')
+    J['lottery'] = out; J['predictors'] = PR
+
+
+def report_extrap(md, J):
+    """Extrapolated spoiler sum S_x(N) = N sum_type mu_type(x) qbar_type(N) r_type(N) h_type(N) for x in P (n = 12)."""
+    d = SC.cdata(12); mu = d['mu']; nm = d['names']
+    rr = J['r']; cb = J['combined']
+    md += ['### Extrapolated spoiler sum for the members of P (natural seeding, n = 12)', '',
+           'S_x(N) = N·Σ_type μ_type(x)·q̄_type(N)·r_type(N)·h^rel_type(N), with q̄ = Lemma D′ bound, r and h^rel measured',
+           '(pooled over n) at N = 100, 400, 1,600 and extrapolated as power laws in N (r held at its N = 1,600 value if its',
+           'fit is unstable). Non-positive h^rel counts as 0. FairBot\'s pair has no fakers, so S ≡ 0 (the sanity check).', '']
+    fits = {}
+    for typ in TYPE_LIST:
+        Ns = np.array(NS_N, float)
+        q = np.array([rr['%d/%s/pooled' % (N, typ)]['lemmaDp'] for N in NS_N])
+        r = np.array([rr['%d/%s/pooled' % (N, typ)]['r'] for N in NS_N])
+        h = np.array([max(cb['%d/%s/pooled' % (N, typ)]['hrel'], 1e-6) for N in NS_N])
+        fq = np.polyfit(np.log(Ns), np.log(q), 1); fh = np.polyfit(np.log(Ns), np.log(h), 1)
+        fits[typ] = dict(q=q.tolist(), r=r.tolist(), h=h.tolist(), q_slope=float(fq[0]), h_slope=float(fh[0]))
+        fits[typ]['at'] = {}
+        for N in (100, 400, 1600, 10000):
+            qN = math.exp(np.polyval(fq, math.log(N))); hN = min(1.0, math.exp(np.polyval(fh, math.log(N))))
+            fits[typ]['at'][str(N)] = dict(q=qN, h=hN, r=float(r[-1]))
+    md.append('Fits: ' + '; '.join('%s q̄ ∝ N^%.2f, h^rel ∝ N^%.2f (h^rel = %s)' % (t, fits[t]['q_slope'], fits[t]['h_slope'],
+                                                                                  '/'.join('%.2f' % v for v in fits[t]['h'])) for t in TYPE_LIST))
+    md += ['', '| target x | μ fakers (disadv. / neutral / advant.) | S(100) | S(400) | S(1,600) | S(10⁴) extrapolated |', '|---|---|---|---|---|---|']
+    out = {}
+    for xs in SL.PFAM:
+        x = nm.index(xs)
+        fk = SC.fakers_of(d, x)
+        mt = {t: 0.0 for t in TYPE_LIST}
+        for q in fk:
+            p = SC.d_profile(d, int(q))
+            t = {'disadvantaged': 'disadvantaged', 'neutral': 'neutral', 'advantaged': 'advantaged'}.get(p, 'neutral')
+            mt[t] += float(mu[q])
+        S = {}
+        for N in (100, 400, 1600, 10000):
+            S[str(N)] = float(sum(N * mt[t] * fits[t]['at'][str(N)]['q'] * fits[t]['at'][str(N)]['r'] * fits[t]['at'][str(N)]['h']
+                                  for t in TYPE_LIST))
+        out[xs] = dict(mass=mt, S=S)
+        md.append('| `%s` | %.4f / %.4f / %.4f | %.3f | %.3f | %.3f | %.3f |' % (
+            xs, mt['disadvantaged'], mt['neutral'], mt['advantaged'], S['100'], S['400'], S['1600'], S['10000']))
+    md.append('')
+    J['extrapolation'] = dict(fits=fits, targets=out)
+
+
+def report_main(a):
+    J = _load()
+    md = []
+    if os.path.exists(DROWS):
+        report_dsea(md, J)
+    if os.path.exists(FROWS):
+        F = load_forced()
+        report_ghost(md, J, F)
+        report_forced(md, J, F)
+        report_extrap(md, J)
+    else:
+        F = None
+    if os.path.exists(LROWS):
+        report_lottery(md, J, F)
+    json.dump(J, open(OUT_JSON, 'w'), indent=1, default=float)
+    open(os.path.join(RUNS, 'demographic-lemma-tables.md'), 'w').write('\n'.join(md) + '\n')
+    print('\n'.join(md))
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(); ap.add_argument('cmd'); ap.add_argument('--procs', type=int, default=3)
     ap.add_argument('--reps', type=int, default=0); ap.add_argument('--only', default=None)
     a = ap.parse_args()
     dict(static=static_main, test=test_main, timing=timing_main, forced=forced_main, dsea=dsea_main,
-         lottery=lottery_main)[a.cmd](a)
+         lottery=lottery_main, report=report_main)[a.cmd](a)
