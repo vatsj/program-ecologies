@@ -151,7 +151,7 @@ def analyse(ch, d, C, nmw, nmb, args):
         if v is None: continue
         nmass[k] = float(pi[np.array([x == v or y == v for b, x, y in dec])].sum())
     out['named_worker_presence'] = nmass
-    tagged = np.array([C['tagc'][x] or C['tagc'][y] for b, x, y in dec])
+    tagged = np.array([bool(C["tagc"][x] or C["tagc"][y]) for b, x, y in dec], bool)
     out['mass_tagged_worker_present'] = float(pi[tagged].sum())
     # transitions out of top states
     trans = []
@@ -229,6 +229,8 @@ def run_chain(args):
     out = analyse(ch, d, C, nmw, nmb, args)
     out['time_s'] = time.time() - t; out['explore_s'] = tex
     tag = '%s_c%g_N%d' % (args.arm, args.c, args.N)
+    np.savez_compressed(os.path.join(OUT, tag + '_chain.npz'), codes=ch.codes, lpi=ch.lpi, is_core=ch.is_core, pay=ch.pay, typ=ch.typ,
+                        out_tot=ch.out_tot, src=ch.src, dst_idx=ch.dst_idx, pr=ch.pr)
     json.dump(out, open(os.path.join(OUT, tag + '.json'), 'w'), indent=1, default=float)
     print(json.dumps({k: out[k] for k in ('arm', 'c', 'N', 'states', 'rel_cut_change', 'summary', 'efficiency', 'mean_payoff', 'dwell_events', 'time_s')}, indent=1, default=float))
 

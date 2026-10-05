@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 import union as U
 from abm import njit
 
-TMAX = 64
+TMAX = 16
 
 
 @njit(cache=True)
