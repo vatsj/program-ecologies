@@ -2968,6 +2968,81 @@ Part C: repression given a strike is 1.000 under the declared tie and 0.58 under
 - **A replacement pool makes repression credible and drives the wage to zero in every arm**, creating a closed neutral network at zero wage under rational repression. Efficiency and equal division separate completely: the efficient cells pay workers nothing.
 - **The polarity dilemma survives in the two-level language.** The unfakeable "¬□fair" pact's handshake activates only on a world-0 low wage, so it inherits a world-0 faker ("fair only while provably struck"), as the sibling theorem's regress predicts; moving the wage check up a level kills activation altogether. Lemma 0 holds: militant⁻'s errors are self-harm only.
 - Method: a per-world best-response override is cheap to state and changes what the chain tests; any compute price that makes commitment costly is also a selection on which threats get tested (THEORY §9.11).
+## Proof length: an explicit GL calculus on the free arm, and a sound bounded calculus K (`runs/proof-length.md`, `runs/proof-length.json`, `notes/proof-length.md`; spec `specs/2026-10-05-proof-length.md`, predictions in `predictions/2026-10-05-proof-length.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/gl_proofs.py`, `src/bounded_k.py`, `src/proof_length_arm.py`, `tests/test_gl_proofs.py`). Part A is static and exact (every length a certified minimum in a stated calculus; nothing capped); Part B defines a bounded prover K, proves it sound, and runs the budget grid, the n = 6 arm (ε→0 chain and ε = 0 lottery) and the priced arm. RE check: tests pass on main, the FairBot–FairBot derivation and the K soundness proof verified by hand.
+
+**Proved** (`notes/proof-length.md`). *GLS+Def:* a cut-free G3-style sequent calculus for GL with definitional constants P_xy ("x plays C against y"), each unfolding to the DSL source as written; BOXk(s) ↦ □(¬□^k⊥ → s); initial sequents on constants and boxed formulas; size = number of sequents, Λ = number of Löb-rule (GLR) applications. *A normal form:* for single-premise formulas "decompose now or delete" is exact for minimal (size, Λ), which makes n = 8 tractable. *K is sound by construction* (induction on derivation size): its joint bounded Löb rule JLöb(S, b), |S| ≤ 3, side condition b ≥ 1 + Σ premise sizes, is witnessed by its own instance re-concluded at each member, so there is no fixed point to select and no cut; □_b A is true iff K derives ⊢ A within b sequents, and a budgeted program's play is a function of the budgets and the sources.
+
+**Search.** Provability by the standard terminating GL decision procedure; minima by iterative deepening on size with exact-value and lower-bound tables, cross-checked against Knuth's generalized Dijkstra on the full AND-OR graph (all 17,424 n = 6 roots and every n = 8 root whose graph fits, including the longest proofs, sizes 63–70): 0 mismatches. Certified 30,745 of 30,745 provable roots. Mean ≤ 8 ms per pair, at most 15 s.
+
+**Audit (RE 1).** The four box-fact tables against GLS+Def provability (hc[0] ⇔ ⊢ P, hd[0] ⇔ P ⊢, hc[1] ⇔ ⊢ ¬□⊥ → P, hd[1] ⇔ ⊢ ¬□⊥ → ¬P); the ladder, siblings and fakers at levels ≤ 2 against `src/conj4.py`'s trace:
+
+| set | pairs | disagreements | neither proof at level 0 / 1 |
+|---|---|---|---|
+| n = 6, all | 4,356 | 0 | 3,230 / 2,174 |
+| n = 8 prover family | 289 | 0 | 143 / 87 |
+| n = 8 μ-sample / uniform sample | 5,000 / 5,000 | 0 / 0 | 175 / 93 and 3,432 / 2,344 |
+| n = 8 mutually cooperating establishers | 8,256 | 0 | 2,585 / 1,834 |
+| ladder + siblings + fakers | 784 | 0 | 321 / 207 |
+
+**Cost table** (certified; L_C = minimal size of ⊢ P_xx; L_read = sum of the minimal sizes of x's true atoms against itself):
+
+| program | L_C (Λ) | L_C¹ (Λ) | L_read |
+|---|---|---|---|
+| FairBot, `BOX(THEM(THEM))` | 4 (1) | 5 (1) | 3 |
+| `BOX1(THEM(ME))`, `BOX1(THEM(THEM))` | 5 (1) | 6 (1) | 4 |
+| `BOX(THEM(^C))` / `BOX1(THEM(^C))` | 6 (2) / 8 (2) | 7 / 9 | 5 / 7 |
+| PrudentBot, PB2 | 24 (5) | 25 (5) | 22 |
+| P\* / P2 | ∞ | 22 (3) / 24 (5) | 12 / 13 |
+| P\*1b / P12b | ∞ | 52 (7) / 54 (9) | 40 / 41 |
+
+PrudentBot's Con conjunct is proved twice (at the root and inside the Löb branch), two GLRs each, so Λ = 5. **Siblings** y = or(x, ψ_K): L_read(x → y)/L_read(x → x) = 2.00 (FairBot, `BOX1(THEM(ME))`), 2.32 (PrudentBot), 2.58 (P\*), 2.20–2.38 (level-2 ladder), 1.14–1.33 (the four probe-readers that probe only themselves or a constant). No sibling is cheaper than self; a reader that probes the opponent against D has to refute ψ on that probe.
+
+**Proxy comparison (RE 2).** Spearman between v = k(y)(1 + settle) and L_read / L_out over pairs with v > 0: −0.22 / +0.05 (n = 6), −0.14 / +0.10 (n = 8 uniform), −0.34 / −0.07 (n = 8 union, 13,359 pairs). The largest disagreements are disjunctive programs: one cheap disjunct proves cooperation in 4–5 sequents while the other disjunct's atom settles late.
+
+**Scaling (RE 3),** n = 8, 6,422 mutually cooperating establisher pairs: L_C = 6.2 + 0.49·(|x| + |y|), residual sd 0.58 of the mean, a negative quadratic term preferred by AIC (−0.175, CI [−0.217, −0.133]), Spearman(L_C, size) 0.08, 1,478 pairs with Λ ≥ depth + 3 (max Λ − depth = 18), DAG/tree size 0.995. The cost is driven by how many boxed obligations there are and how many Löb branches re-prove each one, not by node count; cut-free GL shares no lemmas.
+
+**Part B, run 1: the budget grid in K**, b ∈ {2..40}², 0 soundness violations in 26,050 checked formulas. FairBot vs FairBot: no (C, D) cell; copies cooperate iff b ≥ 3, distinct budgets iff min(b_x, b_y) ≥ 4, exactly. `BOX1(THEM(ME))`: copies from 4, distinct iff min ≥ 7. FairBot vs `BOX1(THEM(ME))`: b_x ≥ 6 and b_y ≥ 5 (a rectangle, still symmetric in every cell). The minimal route is a joint Löb over the unfolded definitions closed by BoxEq (c₁ = 0, c₂ = 1); the nested route is never used. **Copies are cheaper than distinct budgets, so a budget just above the copy threshold is a soft clique** (FairBot_3 cooperates only with FairBot_3).
+
+**Run 2: the n = 6 arm at global budget b** (K tables for b = 1..40, 0 soundness violations in 34,679 formulas; the table changes at every b from 2 to 16, then is constant). K is incomplete against GL: 304 plays differ at every b ≥ 16; 690 of 994 GL-true atoms are K-provable (0.69 by count, 0.992 μ-weighted); the missing ones need reasoning under a box from boxed hypotheses. Self-cooperation thresholds 3 (FairBot, `BOX(THEM(THEM))`), 4 (`BOX1(THEM(ME))`, `BOX1(THEM(THEM))`, `BOX(THEM(^C))`), 6 (`BOX1(THEM(^C))`).
+
+| arm | P(C,C) at N = 10³ / 10⁴ / 3·10⁴ | π(all-D) at 3·10⁴ | top state (π) | its exit |
+|---|---|---|---|---|
+| free | 0.345 / 0.587 / 0.707 | 0.293 | `BOX(THEM(THEM))` (0.233) | 1/N, neutral to ALLC |
+| K b = 2 | 0 / 0 / 0 | 1.000 | — | — |
+| K b = 3 | 0.234 / 0.490 / 0.625 | 0.350 | `BOX(THEM(THEM))` (0.314) | 1/N |
+| K b = 4 | 0.404 / 0.682 / 0.788 | 0.212 | FairBot (0.270) | 1/N |
+| K b = 6 | 0.392 / 0.671 / 0.780 | 0.221 | `BOX1(THEM(ME))` (0.587) | 1/N |
+| K b = 10, 16 | 0.380 / 0.650 / 0.762 | 0.238 | `BOX1(THEM(ME))` | 1/N |
+| matched random control, b = 2–6 | 0.002–0.14 at every N | 0.90–1.00 | — | 0.87–1.00 strict |
+| matched random control, b = 10 / 16 | 0.22–0.46 / 0.29–0.58 | 0.54 / 0.42 | — | 0 |
+
+Every chain has one terminal class, 0 indeterminate transitions, cut flow ≤ 2.5·10⁻⁶. The matched control flips as many plays per stratum (opponent class × free play × reader has boxes) at random as the K arm changes. **Why K at b ≥ 4 beats the free arm:** in the free arm the Gödel-sentence programs `not(BOX(THEM(ME)))` and `not(BOX(THEM(THEM)))` strictly invade `BOX1(THEM(THEM))` (3.2·10⁻⁴ each); K cannot prove ¬□⊥ → P[y, y] for them, so `BOX1(THEM(THEM))` merges with `BOX1(THEM(ME))` and has no faker. Leak test: 0 drift-closed components at every b ≤ 40 and in the free arm. ε = 0 lottery (n = 6, mN = 1, 20 paired seeds): free 0.30 / 1.00 at (100, 4) / (100, 64); K b = 2 0 / 0; b = 3 0.10 / 0.80; b = 4, 6, 10, 16 0.20–0.30 / 1.00.
+
+**Run 3: priced budgets** (budgets {2, 3, 4, 6, 10, 16} per program, μ split equally, price c·b per match, N = 10⁴, cross-budget plays from K): at c = 0, P(C,C) 0.598 with π spread over budgets 3–16 and FairBot@3 on top (0.138, neutral exit into ALLC); at c = 0.01 and 0.1, π(all-D) = 1.000, ALLC strictly invading every priced prover world (4.2·10⁻³ and 5.3·10⁻² per event): the price ladder of RESULTS "Priced arm" again.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | 0 audit disagreements; trichotomy non-empty | **held** (0 of 23,485 pairs) |
+| RE 2 | proxy Spearman ≥ 0.7; sibling ≥ 1.5× self for every member of P | **failed, falsifier fired** (Spearman −0.34 to +0.10; four probe-readers at 1.14–1.33; no sibling cheaper than self) |
+| RE 3 | cost linear in syntax, slope in [1, 4], residual sd < 0.3; Λ ≤ depth + 1 | **failed, falsifier fired** (negative quadratic by AIC; Λ ≥ depth + 3 in 1,478 pairs; slope 0.49; FairBot Λ = 1 held) |
+| RE 4 | thresholds plural; P silent below FairBot's; free numbers within 0.05 above max L; closes nothing | partly: thresholds 3/4/6, P silent at b = 2, nothing closes; K is +0.06 to +0.08 *above* the free arm (falsifier > 0.1 not fired) |
+| RE 5 | grid symmetric with a min threshold; under a price ≥ 0.5 of π near the minimal cooperating budget | **failed, falsifier fired** on pricing (π on non-cooperating states 1.0 at c = 0.01; sol's alternative held); grid held |
+| S1, S2, S10 | subagent's own | held |
+| S3, S4, S5, S6, S9 | subagent's own | failed (`BOX1(THEM(ME))` costs 5 not 6; siblings +19 to +50, not additive; proxy Spearman −0.22; PrudentBot Λ = 5; Spearman with size 0.08) |
+| S7, S8 | subagent's own | partly (thresholds 3/4 and 4/7; K chain +0.084 at b = 6) |
+
+**Reading.**
+- **The free arm's box tables are exactly GL provability**, now with certified lengths: FairBot cooperates in 4 sequents and 1 Löb step; prudent provers cost 22–54 sequents and 3–9 Löb steps. The stabilization proxy is uncorrelated with proof length; its "harmless" verdict stands for a different reason.
+- **The cost of cooperation is a property of the obligation structure**, boxed conjuncts re-proved in every Löb branch, not of program size.
+- **Siblings cost about 2× to read for readers that probe the opponent against D, +1 for the rest.** Proof length fingerprints copies (soft cliques at the copy threshold) and roughly doubles sibling reading for prudent readers; these are the only proof-length moats seen, and they are small.
+- **A sound bounded prover exists in which play is a function of budgets with no fixed-point selection.** In it, FairBot budgets are symmetric with a threshold on the minimum, cooperation survives at every budget above a small threshold, and nothing closes. **Soundness, not masking rate, is what makes a bounded arm harmless:** the same number of random play changes creates strict fakers and collapses cooperation.
+- **A weaker sound prover cooperates more than the free oracle** (+0.06–0.08): K's incompleteness removes the Gödel-sentence faker of `BOX1(THEM(THEM))`. Realizable provers need not be worse than the idealization.
+- **Any per-match price on budget rebuilds the ALLC price ladder.** Whether compute can be charged without it depends on the price's form (amortized or lazy), not on proof length.
+- *Realizability caveat.* GL decides the modal fragment, so proof search here is a decision procedure with a measurable cost; for Turing-complete programs the relevant system is PA, where lengths are unbounded; GL proof length is the cost inside the fragment the arm can express, and the Solovay translation carries provability, not length. K is a sound bounded calculus for this fragment, not a bounded PA prover; its derivability semantics is decidable because the closure is finite.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

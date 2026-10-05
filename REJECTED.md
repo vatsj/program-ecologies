@@ -598,3 +598,20 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Subagent S4** (CC + pool keeps fair ≥ 0.05; it is 0.031: with the pool the committed (0, strike) is a strict invader against any striker).
 
 **Design choice dropped: the tie reading "boundary 1 − s = c → recommendation".** Needs a fourth whack policy for source targeting; the boundary is off-path in the reduced chain and was reported as whack/nowhack in Part C.
+
+
+## Added 2026-10-05: proof length (RESULTS.md, "Proof length: an explicit GL calculus on the free arm, and a sound bounded calculus K")
+
+**"The proxy's ordering survives: Spearman ≥ 0.7" (Fable, prediction 2).** Spearman is −0.22 / +0.05 at n = 6 and −0.34 / −0.07 over every n = 8 pair measured. The proxy charges settling worlds, which are large exactly where an atom is undecided or Con-dependent; proof length charges what is provable. Different quantities.
+
+**"L(x → sibling) ≥ 1.5·L(x → x) for every member of P" (Fable, prediction 2).** Held for FairBot, `BOX1(THEM(ME))`, PrudentBot, P\*, P2 and the level-2 ladder (2.0–2.6); failed for the four probe-readers (1.14–1.33). No sibling was cheaper than self.
+
+**"The cost of cooperation is linear in frozen syntax and Löb-light" (Fable, prediction 3).** Slope 0.49 per node, residual sd 0.58 of the mean, a negative quadratic term preferred by AIC, Spearman with size 0.08, Λ ≥ depth + 3 in 1,478 pairs. The cost comes from boxed obligations re-proved in every Löb branch (cut-free GLS shares no lemmas), not from node count.
+
+**"Above max L over P the free numbers return within 0.05" (Fable, prediction 4, one clause).** K is +0.06 to +0.08 above the free arm at N = 10⁴: its incompleteness removes the Gödel-sentence fakers of `BOX1(THEM(THEM))`. Falsifier (> 0.1) not fired.
+
+**"Under a price, ≥ 0.5 of π within 2 of the minimal cooperating budget" (Fable, prediction 5, pricing clause).** π(all-D) = 1.000 at c = 0.01 and 0.1: ALLC strictly invades every priced prover world, the price ladder. Sol's alternative, that pricing favours zero-budget players, held. The grid clauses held.
+
+**Subagent S3** (`BOX1(THEM(ME))` self-cooperation costs 6; it costs 5), **S4** (siblings additive ≤ 6; +19 to +50), **S5** (proxy Spearman in [0.2, 0.7); −0.22), **S6** (PrudentBot Λ ∈ {3, 4}; 5), **S9** (Spearman(L_C, size) ≥ 0.5; 0.08), **S7** (thresholds 5/5/9; 3/4 and 4/7), **S8** (K chain within 0.05 of free; +0.084 at b = 6).
+
+**Design choices dropped:** Knuth on the full sequent graph as the production method (4% of random n = 8 pairs exceed 2·10⁶ sequents; exact iterative deepening with oracle pruning and the normal form instead, cross-checked against Knuth where it fits); identity axioms on constants only (would charge a spurious GLR for every □A ⊢ □A and put FairBot at Λ = 2; boxed formulas are initial too); K with cut and a distribution rule (the spec's c₁; derivability within b then cannot be decided by a finite analytic search and a contextual bounded Löb rule is unsound; replaced by joint Löb with a self-witness, c₁ = 0, c₂ = 1, at the price of incompleteness against GL); the μ-weighted n = 8 sample alone (89% constant opponents; a uniform 5,000-pair sample was added).

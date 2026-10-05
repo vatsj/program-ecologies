@@ -121,3 +121,14 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   **militant⁻** = `if(not(BOX(s = 1/2)), strike, work)`; **union⁻_ℓ** = the same with `and(…, BOX_ℓ(OTHER = strike))`;
   **polarity faker** = `if(BOX(W_j = strike), (1/2, ·), (s < 1/2, ·))`, fair only while provably struck. **Threat
   advantage** — payoff of an executed (or if-called) committed enforcement move minus the feasible deviation.
+- **Proof length:** **GLS+Def** — cut-free G3 GL calculus with definitional constants P_xy unfolded from the DSL
+  source as written; BOXk(s) ↦ □(¬□^k⊥ → s). **L_C, L_D** — minimal sizes (in sequents) of ⊢ P_xy and of P_xy ⊢;
+  **L_C¹, L_D¹** — the same with the Con antecedent ¬□⊥. **Λ** — number of GLR (Löb-rule) applications in a minimal
+  derivation. **L_read(x, y)** — sum of the minimal sizes of x's true atoms against y; **L_out(x, y)** — minimal size
+  of x's actual outcome against y. **Trichotomy** — C-provable / D-provable / neither. **K** — the bounded calculus:
+  boxes carry budgets □_b, true iff K derives ⊢ A within b sequents; rules G3 + unfolding, BoxEq, Nec and
+  **JLöb(S, b)** (|S| ≤ 3, side condition b ≥ 1 + Σ premise sizes); **T(A)** — minimal K size of ⊢ A; **x_b** —
+  program x at budget b. **Copy threshold / distinct-budget threshold** — FairBot 3 / 4, `BOX1(THEM(ME))` 4 / 7;
+  **soft clique** — a budget just above the copy threshold, cooperating only with copies. **Matched random control**
+  — the free table with as many plays flipped at random per stratum (opponent class × free play × reader has boxes)
+  as the K arm changes.
