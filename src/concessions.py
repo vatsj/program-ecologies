@@ -1095,6 +1095,12 @@ def run_cell(arm, enf='CC', pool=0, c=0.5, N=1000, theta=1e-9, tag='', save=True
         fk = faker_mask(C, enf, pool, c)
         C['massB'] = np.where(fk, 0.0, C['massB'])
         print('nofaker: %d classes, mass %.4f set to null' % (fk.sum(), float(build_language(arm, enf, pool, c)['massB'][fk].sum())), flush=True)
+    if 'uniB' in tag:          # not preregistered: uniform prior over the boss classes of the chain language
+        C = dict(C)
+        C['massB'] = np.full(C['KcB'], 1.0 / C['KcB'])
+    if 'uniW' in tag:          # and over the worker classes
+        C = dict(C)
+        C['massW'] = np.full(C['KcW'], 1.0 / C['KcW'])
     ch = make_chain(C, enf, pool, c, N, theta=theta, verbose=True)
     seeds, ne = seeds_for(ch, C)
     print('[%s %s pool%d c%g N%g] %d seeds (%d strict NE)' % (arm, enf, pool, c, N, len(seeds), len(ne)), flush=True)

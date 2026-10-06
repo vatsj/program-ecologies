@@ -131,21 +131,21 @@ def load_cells():
 
 
 def cell_label(k):
-    return k.replace('_pool0_c0.5', '').replace('_c0.5', ' c=0.5').replace('_c0.1', ' c=0.1').replace('_N', ' N=')
+    return k.replace('_pool0_c0.5_c0.5', '_c0.5').replace('_pool1_c0.1_c0.1', '+pool_c0.1').replace('_pool1_c0.5_c0.5', '+pool_c0.5').replace('_pool0_c0.5', '').replace('_c0.5', ' c=0.5').replace('_c0.1', ' c=0.1').replace('_N', ' N=')
 
 
 def chain_table(cells, keys):
-    L = ['| cell | states (core) | fair | 1/4 | zero wage | strike | scab split | repression | efficiency | payoffs (B, W1, W2) | three-role | support 99% | θ-check |',
-         '|---|---|---|---|---|---|---|---|---|---|---|---|---|']
+    L = ['| cell | states (core) | fair | 1/4 | zero wage | strike | scab split | repression | efficiency | payoffs (B, W1, W2) | three-role | support 99% | outcome-changing cut | dense log-GTH check |',
+         '|---|---|---|---|---|---|---|---|---|---|---|---|---|---|']
     for k in keys:
         if k not in cells:
             continue
         d = cells[k]; s = d['summary']
         rep = s['repression:strike'] + s['repression:source']
         mp = d['mean_payoff']
-        L.append('| %s | %d (%d) | %s | %s | %s | %s | %s | %s | %.3f | %.3f, %.3f, %.3f | %s | %d | %s |' % (
+        L.append('| %s | %d (%d) | %s | %s | %s | %s | %s | %s | %.3f | %.3f, %.3f, %.3f | %s | %d | %s | %s |' % (
             cell_label(k), d['states'], d['core'], f(s['fair'], 4), f(s['intermediate'], 4), f(s['zero wage']), f(s['strike']), f(s['scab split']),
-            f(rep, 4), d['efficiency'], mp['boss'], mp['W1'], mp['W2'], f(d['three_role']['threshold'], 4), d['support_size_99'],
+            f(rep, 4), d['efficiency'], mp['boss'], mp['W1'], mp['W2'], f(d['three_role']['threshold'], 4), d['support_size_99'], f(d['rel_cut_change'], 3),
             ('TV %.1e' % d['solver_check']['tv']) if 'solver_check' in d else '–'))
     return '\n'.join(L)
 
