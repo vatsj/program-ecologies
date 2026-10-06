@@ -208,3 +208,11 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   cooperative with the lineage as holder / the lineage present at the horizon; **inert-defector control** — one D
   founder per island under the same replacement rule; **budget soft-clique rival** — a rival created by a budget
   below a pair's distinct-budget threshold (FairBot vs `BOX1(THEM(ME))` at b = 4).
+- **K with cut:** **K_c / K_c4** — K + Cut + UnfId + Dist (bounded K-rule: from A₁…A_k ⊢ B infer □_{a_i}A_i ⊢ □_d B
+  when d ≥ s + Σa_i + k) / + Dist⁺ (bounded K4-rule); **UnfId** — Γ, P ⊢ φ(P), Δ; **lemma cut / MP** — the Lemma C
+  witness composition; **extension model / structural certificate** — a model refuting a sequent in every extension
+  of the calculus by witness-composing rules (Theorem E; Lemmas E1, E2: every such rule puts its conclusion at least
+  two budgets above a budget-b hypothesis); **targeted table** — K's closure plus certificates, then the K_c search
+  on uncertified misses only; **long guard** — the level-k guard read at 2b + 8 (a reflection margin of about 2b),
+  the one switch that returns P\* and its fakers together; **long-guard graft** — family plays grafted into K's
+  table for a descriptive chain.

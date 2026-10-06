@@ -708,3 +708,18 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **"The direct-bridge-less share under K is below 0.05 at b = 4, 16 and 54" (Fable, prediction 4; falsifier fired at b = 4).** At b = 4 the share is 1.000: FairBot (copy/distinct thresholds 3/4) and `BOX1(THEM(ME))` (4/7) mutually defect, so A is not a network and nothing can bridge it; rival mass is 0.017 (budget soft cliques, not the P\* family) and 0.80 of natural runs at (200, 64) end separated. Held at b = 16 and 54 (0.000). The budget-independent form of "K removes the bridge-less obstruction" is rejected; it holds from b = 12 at n = 8 (bridge-less mass 2.9·10⁻⁴ at b = 6, 7.6·10⁻⁶ at b = 8, 0 from 12). Reopen only with a budget rule that guarantees each establisher pair's distinct-budget threshold.
 
 **Design choices dropped:** "zero transition" as an operational category (the kernel's fixation is positive for any finite payoff; use the < 10⁻¹² category and the hazard bound); a 1,000-source lumping sample (the language has 610); forced cell (d) (no direct-bridge-less rival under K at b = 16); the K b = 4 natural cell at 1,000 runs (stopped at the complete 50-run prefix under machine load). No subagent prediction failed.
+
+
+## Added 2026-10-06: K with cut (RESULTS.md, "K with cut and distribution under a box")
+
+**"K_c restores P\* and P2" (Fable, prediction 1; falsifier fired).** Contextual cut does not even yield distribution under a box (Theorem D0), and primitive distribution cannot cross the guard's budget gap: every sound witness-composing rule lands two budgets above its hypotheses (Lemma E1). P\* and P2 are certified underivable at every b ≤ 200, at own and one-up guards, with or without 4m. Reopen only with a guard margin of at least 2b + 7 *and* a 4-rule (the long-guard arm restores P\* at b = 12). The spec's cost recurrence a + c + 1 for distribution was also wrong (a + c + 5).
+
+**"Completeness buys fakers in K_c at b = 54" (Fable, prediction 2; falsifier fired).** In K_c nothing is completed (0/21 Gödel, 0/16 Con set). The claim holds in the long-guard arm (15/21, 12/16 at b = 16, against free-arm victims), where it was exploratory.
+
+**"Guard convention × calculus interacts" (Fable, prediction 5; falsifier fired).** Interaction 0: the guard offset changes no play of L₈ in either calculus.
+
+**"The RE's fixed victim panel as the faker detector" (Fable, design).** It contains none of the Gödel sentences' victims (`BOX1(THEM(THEM))`, `or(BOX(THEM(THEM)),BOX1(THEM(THEM)))`); free-arm victims are the right reference.
+
+**Subagent S1** ("K_c = K at b = 54"; falsified by 2 plays: weakening under a box restores one structural pair).
+
+**Design choices dropped:** distribution as a rule derived from cut (impossible, Theorem D0); the full n = 8 K_c closure (memory; targeted tables, exact by Corollary T); searching general contextual cut (upper-bound sizes; certificates cover it); the capped search to b = 200 (replaced by certificates valid at every size); 3-type deep-state seeding at 476 classes; the cross-budget K_c catalogue and a full long-guard table (not run). RE 3 is untestable in K_c (degenerate design), not rejected.

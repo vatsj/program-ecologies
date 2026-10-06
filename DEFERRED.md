@@ -95,7 +95,14 @@ REJECTED.md the ones we dropped.
   rivals) (RESULTS "Rivals under the bounded prover K"). *Operating hypothesis refined:* source reading through a
   sound bounded prover whose budget clears its partners' distinct-budget thresholds; incompleteness that removes
   Con-dependent cooperation is a feature across islands too.
-- *Would settle it next:* K with a sound distribution rule under a box (running, `specs/2026-10-05-k-cut.md`; does P* return, and do Con-sentence fakers
+- *Evidence (2026-10-06):* K with cut and distribution equals K up to 2 plays (μ 10⁻¹¹) and acceleration; P*, P2,
+  the ladder and every faker are certified underivable at guard offsets 0 and 1 under any witness-composing rule;
+  a long guard (2b + 8) with a K4 rule returns P* and the fakers together, and the net is below K (RESULTS "K with
+  cut"). *Operating hypothesis refined:* read Con at one's own budget; distribution adds nothing Con-dependent, and
+  the long guard trades P* for Gödel fakers.
+- *Would settle it next:* the guard margin as an evolving trait of the reader; bounded PA provers whose consistency
+  strength is explicit; K beyond the modal fragment. (Earlier line, now settled: K with a sound distribution rule
+  under a box; does P* return, and do Con-sentence fakers
   return with it?); K beyond the modal fragment; a bounded prover in bargaining (hawks need Löb above the copy
   threshold).
 
