@@ -237,4 +237,7 @@ REJECTED.md the ones we dropped.
   milestone 2:* a grammar of carriers by call skeleton over one shared checker, with the prior's mass on
   certificate-carrying sources, judged by cooperation among distinct skeletons. *Open (RE decisions):* whether
   production is part of the program (charged) or a public service; the cap V as a trait or a fixed fraction of K.
-- *Would settle it:* milestone 2 under that grammar (the seed lottery and the ε→0 chain over carriers).
+- *Operating hypotheses (RE, 2026-10-06, pending the RS's answer on the prior under the 15-minute rule):* production
+  is a public service (the frozen tactic, free, like the library), with optional charged production as an arm; the
+  cap V is a fixed fraction of K; the length prior over spellings is the main arm, uniform over classes the control.
+- *Would settle it:* milestone 2 under that grammar (running: `specs/2026-10-06-carrier-populations.md`).
