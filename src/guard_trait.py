@@ -1173,6 +1173,32 @@ def cmd_lottery(a):
     json.dump(dict(rows=rows, summary=summ, paired=pairs), open(path, 'w'), default=str, indent=1)
 
 
+def cmd_collect(a):
+    """runs/guard-trait.json: block metas, relevance, patch summary, static screening, chain rows (without the
+    per-genotype vectors), lottery summary."""
+    n, b = 8, 16
+    out = dict(blocks={}, relevant={})
+    for blk in BLOCKS:
+        p = os.path.join(GDIR, 'kclosure_n%d_b%d_%s.json' % (n, b, blk))
+        if os.path.exists(p): out['blocks'][blk] = json.load(open(p))['meta']
+        p = os.path.join(GDIR, 'relevant_n%d_b%d_%s.json' % (n, b, blk))
+        if os.path.exists(p): out['relevant'][blk] = {k: v for k, v in json.load(open(p)).items() if k != 'goals'}
+    for nm, key in (('patch_n8_b16.json', 'patch'), ('static.json', 'static'), ('lottery.json', 'lottery')):
+        p = os.path.join(GDIR, nm)
+        if os.path.exists(p):
+            d = json.load(open(p))
+            if key == 'lottery': d = {k: v for k, v in d.items() if k != 'rows'}
+            out[key] = d
+    p = os.path.join(GDIR, 'chains.json')
+    if os.path.exists(p):
+        out['chains'] = [{k: v for k, v in r.items() if k not in ('gpi', 'names')} for r in json.load(open(p))]
+    for nm in ('scaling.json', 'n6_validation.json'):
+        p = os.path.join(GDIR, nm)
+        if os.path.exists(p): out[nm.replace('.json', '')] = json.load(open(p))
+    json.dump(out, open(os.path.join(RUNS, 'guard-trait.json'), 'w'), indent=1, default=str)
+    print('wrote runs/guard-trait.json', list(out))
+
+
 def main():
     p = argparse.ArgumentParser()
     sp = p.add_subparsers(dest='cmd')
@@ -1184,13 +1210,13 @@ def main():
     for nm in ('patch', 'full'):
         q = sp.add_parser(nm); q.add_argument('--n', type=int, default=8); q.add_argument('--b', type=int, default=16)
     q = sp.add_parser('chain'); q.add_argument('--cells', nargs='+'); q.add_argument('--workers', type=int, default=3)
-    sp.add_parser('static')
+    sp.add_parser('static'); sp.add_parser('collect')
     q = sp.add_parser('relevant'); q.add_argument('--n', type=int, default=8); q.add_argument('--b', type=int, default=16)
     q.add_argument('--workers', type=int, default=2)
     q = sp.add_parser('lottery'); q.add_argument('--reps', type=int, default=20); q.add_argument('--workers', type=int, default=3)
     a = p.parse_args()
     {'kclosure': cmd_kclosure, 'kc4': cmd_kc4, 'patch': cmd_patch, 'full': cmd_full, 'chain': cmd_chain,
-     'static': cmd_static, 'lottery': cmd_lottery, 'relevant': cmd_relevant}[a.cmd](a)
+     'static': cmd_static, 'lottery': cmd_lottery, 'relevant': cmd_relevant, 'collect': cmd_collect}[a.cmd](a)
 
 
 if __name__ == '__main__':
