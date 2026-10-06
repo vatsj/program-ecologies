@@ -52,8 +52,26 @@ class KTheoryC(K4.KTheoryG):
         key = (Pi, B)
         r = self._sp.get(key)
         if r is None:
+            if len(self.orc.memo) > 400_000:          # memory: the oracle memo is a cache, not state
+                self.orc.memo.clear()
             r = self._sp[key] = self.orc.prov((frozenset(self.erase(a) for a in Pi), frozenset([self.erase(B)])))
         return r
+
+    def mp_value(self, B, memo):
+        """As KTheory.mp_value, but skips registered premises whose hypotheses have no closed derivation yet (their
+        lemma cuts cannot be formed) before searching the premise."""
+        best = INF; wit = None
+        for Pi, H, choice in self.mp.get(B, ()):
+            if any(self.T.get(A, INF) >= INF for a, A, x in H): continue
+            sv = self.m(Pi, frozenset([B]), memo)
+            if sv >= INF: continue
+            tot = sv
+            for (a, A, x), ch in zip(H, choice):
+                t = self.T.get(A, INF)
+                if A in ch: tot += t + 1
+                if x in ch: tot += t + 2
+            if tot < best: best, wit = tot, (Pi, H, choice)
+        return (best if best <= self.cap else INF), wit
 
 
 # ====================================================================== the extension-model certificate (§1.7)
@@ -490,6 +508,96 @@ def ktable_c(n, b, cut, four=None, goff=0, ustar_limit=40, certify=True, check=F
     return val, meta, K, g
 
 
+def ktable_targeted(n, b, cut, four=None, goff=0, ustar_limit=40, check_sample=2000):
+    """The K_c (search) table computed exactly without a full K_c closure (notes §1.7, Corollary T): K ⊆ K_c, so every
+    content K derives within b stays derived; every K miss certified structural stays underived in *every* sound
+    calculus of the class; only the uncertified misses are searched in K_c (a closure over their dependencies only;
+    a goal's searched minimum does not depend on which other goals are solved).  Plays are recomputed with the
+    patched box truths.  Valid for goff <= 1 (the certificate's range)."""
+    import k_at_n8 as KN
+    assert goff <= 1
+    L, val_free, hc, hd = KN.tables(n)
+    t = time.time()
+    K = KTheoryC(cap=max(b + goff, 1), ustar_limit=ustar_limit, filter_first=True, four=four, goff=goff, cut=None)
+    K.prune = KN.make_prune(K, L, hc, hd)
+    g = [K.geno(s, b) for s in L.rep]
+    contents = set(); atoms = {}
+    for i, x in enumerate(g):
+        for j, y in enumerate(g):
+            for a in K.atoms(x, y):
+                c = K.forms[a][1]; contents.add(c); atoms.setdefault(c, []).append((i, j))
+    K.solve(sorted(contents))
+    t_K = time.time() - t
+    vK = np.array([[int(K.play_fn()(x, y)) for y in g] for x in g], np.int8)
+    mu = L.mu_canon / L.mu_canon.sum()
+    gl_true = [c for c in contents if K.prune(c)]
+    miss = [c for c in gl_true if K.T.get(c, INF) > b]
+    cert = Certifier(K, b, four=(four is not None))
+    res = cert.run(miss)
+    unc = [c for c in miss if res[c] is None]
+    t_cert = time.time() - t - t_K
+    # K_c on the uncertified contents only (same genotype order, contents matched by their printed form)
+    Kc = KTheoryC(cap=max(b + goff, 1), ustar_limit=ustar_limit, filter_first=True, four=four, goff=goff, cut=cut)
+    Kc.prune = KN.make_prune(Kc, L, hc, hd)
+    gc = [Kc.geno(s, b) for s in L.rep]
+    want = {K.show(c) for c in unc}
+    cmap = {}
+    for x in gc:
+        for y in gc:
+            for a in Kc.atoms(x, y):
+                c = Kc.forms[a][1]; s = Kc.show(c)
+                if s in want: cmap[s] = c
+    Kc.solve(sorted(cmap.values()))
+    newly = {s for s, c in cmap.items() if Kc.T.get(c, INF) <= b}
+    t_Kc = time.time() - t - t_K - t_cert
+    # patched table: recompute plays touching a newly derived content
+    Tpatch = dict(K.T)
+    for c in unc:
+        s = K.show(c)
+        if s in newly: Tpatch[c] = Kc.T[cmap[s]]
+    val = vK.copy()
+    touched = {(i, j) for c in unc if K.show(c) in newly for i, j in atoms[c]}
+    if touched:
+        saveT = K.T; K.T = Tpatch
+        play = K.play_fn()
+        for i, j in touched: val[i, j] = int(play(g[i], g[j]))
+        # plays are functions of box truths only; others are unchanged, but recheck every play once for safety
+        full = np.array([[int(play(x, y)) for y in g] for x in g], np.int8)
+        assert (full == val).all()
+        K.T = saveT
+    nchk, bad = Kc.soundness_check()
+    if bad: nchk, bad = K4.closure_check(Kc)
+    der_unc = [c for c in unc if K.show(c) in newly]
+    w = lambda cs: float(sum(mu[i] * mu[j] for c in cs for i, j in atoms[c]))
+    meta = dict(n=n, b=b, cut=cut, four=four, goff=goff, method='targeted', n_contents=len(contents),
+                gl_true_contents=len(gl_true), K_derived_contents=len(gl_true) - len(miss),
+                missing_contents=len(miss), certified_contents=len(miss) - len(unc), uncertified_contents=len(unc),
+                uncertified_w=w(unc), uncertified_examples=[K.show(c) for c in unc[:30]],
+                newly_derived_contents=len(der_unc), newly_derived_w=w(der_unc),
+                newly_derived_examples=sorted(newly)[:30],
+                derived_contents=len(gl_true) - len(miss) + len(der_unc),
+                gl_true_atoms=sum(len(atoms[c]) for c in gl_true),
+                derived_atoms=sum(len(atoms[c]) for c in gl_true if K.T.get(c, INF) <= b) + sum(len(atoms[c]) for c in der_unc),
+                gl_true_w=w(gl_true), derived_w=w([c for c in gl_true if K.T.get(c, INF) <= b]) + w(der_unc),
+                Kc_goals=len(cmap), Kc_sound_checked=nchk, sound_bad=len(bad), diff_vs_K=int((val != vK).sum()),
+                diff_vs_free=int((val != val_free).sum()), t_K=t_K, t_cert=t_cert, t_Kc=t_Kc)
+    # independent checker on a sample of the K_c-searched contents (and every newly derived one)
+    rng = np.random.default_rng(b)
+    pool_ = [c for c in cmap.values() if Kc.T.get(c, INF) <= Kc.cap]
+    samp = list(rng.choice(pool_, min(check_sample, len(pool_)), replace=False)) if pool_ else []
+    samp += [cmap[s] for s in newly]
+    ck = dict(goals=0, size_mismatch=0, dist=0, replayed=0, fail=0)
+    for c in dict.fromkeys(samp):
+        try:
+            s, st = check_goal(Kc, int(c)); ck['goals'] += 1; ck['size_mismatch'] += int(s != Kc.T[int(c)])
+            ck['dist'] += st['dist']; ck['replayed'] += st['replayed']
+        except (AssertionError, ValueError) as e:
+            ck['fail'] += 1
+    meta['checker'] = ck
+    meta['t'] = time.time() - t
+    return val, meta
+
+
 def tag(cut, four, goff):
     return '%s%s_g%d' % ({None: 'K', 'c': 'Kc', 'c4': 'Kc4'}[cut], '4m' if four == 'mono' else '', goff)
 
@@ -499,8 +607,11 @@ def kpath(n, b, cut, four=None, goff=0):
 
 
 def _ktable_job(j):
-    n, b, cut, four, goff, check = j
-    val, meta, K, g = ktable_c(n, b, cut, four, goff, check=check)
+    n, b, cut, four, goff, check = j[:6]
+    if len(j) > 6 and j[6]:
+        val, meta = ktable_targeted(n, b, cut, four, goff)
+    else:
+        val, meta, K, g = ktable_c(n, b, cut, four, goff, check=check)
     np.save(kpath(n, b, cut, four, goff), val)
     json.dump(meta, open(kpath(n, b, cut, four, goff).replace('.npy', '.json'), 'w'), indent=1)
     return meta
@@ -542,7 +653,7 @@ def goff_of(spec, b):
 def cmd_ktables(a):
     cut = None if a.cut == 'K' else a.cut
     four = None if a.four == 'none' else a.four
-    jobs = [(a.n, b, cut, four, goff_of(a.goff, b), a.check) for b in a.budgets]
+    jobs = [(a.n, b, cut, four, goff_of(a.goff, b), a.check, a.targeted) for b in a.budgets]
     jobs.sort(key=lambda j: -j[1])
     with Pool(a.workers) as pool:
         for m in pool.imap_unordered(_ktable_job, jobs):
@@ -968,6 +1079,25 @@ def cmd_lottery(a):
     json.dump(dict(rows=rows, summary=summ), open(os.path.join(KCDIR, 'lottery.json'), 'w'), default=str, indent=1)
 
 
+def cmd_collect(a):
+    """runs/k-cut.json: every table meta, static row, sweep summary, structural table, chain row, graft, lottery."""
+    out = dict(tables={}, repro=None)
+    for f in sorted(os.listdir(KCDIR)):
+        p = os.path.join(KCDIR, f)
+        if f.endswith('.json') and ('_n6_' in f or '_n8_' in f):
+            out['tables'][f[:-5]] = json.load(open(p))
+    for k in ('repro', 'static', 'structural', 'chain', 'graft', 'lottery', 'catalogue_Kc', 'catalogue_Kc4_L'):
+        p = os.path.join(KCDIR, k + '.json')
+        if os.path.exists(p): out[k] = json.load(open(p))
+    p = os.path.join(KCDIR, 'sweep.json')
+    if os.path.exists(p):
+        sw = json.load(open(p))
+        out['sweep'] = dict(progs=sw['progs'], godel=sw['godel'], con=sw['con'],
+                            cells={k: {kk: vv for kk, vv in v.items() if kk != 'val'} for k, v in sw['cells'].items()})
+    json.dump(out, open(os.path.join(RUNS, 'k-cut.json'), 'w'), indent=1, default=str)
+    print('wrote runs/k-cut.json', list(out))
+
+
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest='cmd')
@@ -975,7 +1105,8 @@ def main():
     p.add_argument('--budgets6', type=int, nargs='+', default=[4, 16, 40]); p.add_argument('--workers', type=int, default=3)
     p = sub.add_parser('ktables'); p.add_argument('--n', type=int, default=8); p.add_argument('--budgets', type=int, nargs='+')
     p.add_argument('--cut', default='c'); p.add_argument('--four', default='none'); p.add_argument('--goff', default='0')
-    p.add_argument('--check', action='store_true'); p.add_argument('--workers', type=int, default=3)
+    p.add_argument('--check', action='store_true'); p.add_argument('--targeted', action='store_true')
+    p.add_argument('--workers', type=int, default=3)
     p = sub.add_parser('sweep'); p.add_argument('--arms', nargs='+', default=['K', 'Kc']); p.add_argument('--bmin', type=int, default=4)
     p.add_argument('--bmax', type=int, default=54); p.add_argument('--step', type=int, default=1); p.add_argument('--workers', type=int, default=3)
     p = sub.add_parser('structural'); p.add_argument('--arms', nargs='+', default=['Kc', 'Kc4m', 'Kc_g1', 'Kc4m_g1'])
@@ -983,6 +1114,7 @@ def main():
     p = sub.add_parser('chain'); p.add_argument('--cells', nargs='+'); p.add_argument('--Ns', type=int, nargs='+', default=[1000, 10000, 30000])
     p.add_argument('--twins', action='store_true'); p.add_argument('--workers', type=int, default=3)
     p = sub.add_parser('static'); p.add_argument('--cells', nargs='+')
+    p = sub.add_parser('collect')
     p = sub.add_parser('catalogue'); p.add_argument('--arm', default='Kc'); p.add_argument('--budgets', type=int, nargs='+', default=[4, 16])
     p = sub.add_parser('graft'); p.add_argument('--b', type=int, default=16); p.add_argument('--N', type=int, default=10000)
     p.add_argument('--workers', type=int, default=3)
