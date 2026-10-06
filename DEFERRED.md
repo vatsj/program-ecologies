@@ -148,6 +148,11 @@ REJECTED.md the ones we dropped.
   asymmetry; universality over the club, accepting the 1/N leak as a mutation artifact (entry 1). The club is dropped as a target: it is a clique by declaration (RESULTS "The closed club").
 - *Evidence:* THEORY §3 "Distribution"; the club spec; RESULTS "Three-player majority divide-the-dollar" (2026-10-05): the pure chain with fixed roles selects rotating, mostly unfair pairs (a rotated dictatorship of the pivot); the grand coalition at thirds gets ≤ 0.017 and leaks through "accept a pair offer" bridges; source reading does not change it. Democracy as a stable state needs something beyond the pure chain. The union game (RESULTS "The union game", 2026-10-05) did not supply it: a quorum precondition is FairBot's handshake on strikes, the fair share is set by the prior (0.31 uniform vs 0.001 length prior), and the strike pact's wage check is fakeable (the polarity dilemma). The enforcement run (RESULTS "Incentive-compatible enforcement", 2026-10-05) reads "threats hard to enforce" as ex-post rationality on both sides and gets the smallest positive wage (0.75 intermediate under the length prior, workers 0.19), not equal division; a non-credible committed threat deters because the chain never tests it; equal division is unsupported under every commitment structure except a uniform named-program prior with a rational boss (0.55). Divide-the-dollar (RESULTS "Divide-the-dollar partitions", 2026-10-05): a Θ(1/n) fair split is not stochastically stable under fixed roles (≤ 0.003 of π at N ≥ 10³, the accommodator ratchet) but is the modal island outcome of the seed lottery (0.23–0.78; 0.94–1.00 with one population and migration). If the target is a fair *state*, the seed lottery delivers it and the mutation object does not: entry 1's choice of object decides this entry. Under sound reading the fair state also fails in lim_N for one population (Löbian hawk traps at 0.65 efficiency) while the lottery still makes 50–50 universal in both arms (RESULTS "The modal arm on two-player divide-the-dollar").
 
+- *Evidence (2026-10-06, seed lottery):* zero wage 0.825 committed, intermediate 0.90 rational; the three-role threshold
+  met on 0 islands (fair wage only, by arithmetic); time-averaged worker shares 0.003 (CC) and 0.113 (RR). Neither
+  target is approached under fixed roles without a wage-conditional worker mass; the RS's "arrive in numbers" lever
+  kills the threat, not the zero wage (RESULTS "The social organization game under the seed lottery"). Next: the
+  concessions run (`specs/2026-10-06-concessions.md`).
 - *Naming (RS, 2026-10-06):* the boss/worker family is "the social organization game". *Open:* whether the target is
   Θ(1/n) as a stochastically stable state or time-averaged (the three-player rotating dictatorship already gives the
   latter by symmetry); decided (RS, 2026-10-06): the state; the time-average is free by symmetry in the symmetric games and is
@@ -174,7 +179,12 @@ REJECTED.md the ones we dropped.
 - *Evidence:* RESULTS "Incentive-compatible enforcement": the unfakeable-polarity pact cannot activate without a
   world-0 condition in the two-level language, and PA + Con^k only moves the faker up a world (the sibling theorem's
   regress), so that route is closed.
-- *Would settle it:* a worker language whose strike handshake does not need a world-0 condition (none known).
+- *Evidence (2026-10-06):* the seed lottery isolates the prior's role: the length prior gives wage-blind strikers 0.48
+  and wage-conditional refusers 0.0065; reassigning the striker mass to refusers or militants raises intermediate to
+  0.23 or fair to 0.05 under a diverse boss seed and to 0 under a hostile one (RESULTS "The social organization game
+  under the seed lottery"). A prior that weights wage-conditional behaviour is necessary, not sufficient.
+- *Would settle it:* a worker language whose strike handshake does not need a world-0 condition (none known); the
+  concessions run (probes for the boss), which may make wage-conditional workers strictly favoured rather than rare.
 
 ## 11. The realizable language: how to leave the modal fragment
 - *Options:* extend the weak-arm DSL (self-application, divergence) with K boxes; a new small Turing-complete

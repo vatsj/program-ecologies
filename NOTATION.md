@@ -230,3 +230,13 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
 - **The social organization game** (RS, 2026-10-06) — the name for the boss/worker family of fixed-role games with a
   monopoly on force (wage, strike, repression, replacement pool); "the union game" names only the 2026-10-05 run of
   it with the QUORUM atom, and "the enforcement run" its commitment ablation.
+- **Social organization lottery:** **strike-whacker / any-whacker** — a boss class realizing a whack on a constant
+  striker within {scab, striker}² / additionally on {militant, union}; **early decline** — the strike-whacker share
+  at generation 0 minus its minimum over generations 0–100; **closure-verified (global play-key closure)** — every
+  slot's globally present classes give the same (a₁, a₂, whacks, paid wage) against all present combinations,
+  which implies one play everywhere; **island wage / wage patchwork** — the offered wage with the most
+  working-encounter mass / ≥ 2 island wages in a run (possible only at mN = 0 under global closure); **three-role
+  distribution threshold** — the fraction of positive-surplus islands with minimum role share ≥ 1/6, reachable
+  only at the fair wage since a both-working island pays (2(1 − s), s, s); **refuser** —
+  `if(BOX(s ∈ {0}), strike, work)`; **xref / xmil seeds** — the constant striker's prior mass moved onto the refuser
+  or the militant; **phantom slot** — the single-worker variant's frozen W₂.

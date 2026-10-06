@@ -740,3 +740,16 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Amended entry (reason: this audit).** The 2026-10-05 entry dropping "the linear-domain lazy chain where deep polymorphisms exist" stays dropped, with its reason corrected: underflow hides nothing that carries weight; what fails is θ-pruned exploration, which misses large-support traps, and lumping, which ignores twin drift.
 
 **Published number corrected (append-only addendum in RESULTS "Divide-the-dollar partitions"):** `dollar5 role` at N = 10⁴, P(efficient) 0.968 → 0.585 and 1/2–1/2 0.806 → 0.000; at 3·10⁴, 1/2–1/2 0.074 → 0.0003. The claim "50–50 survives to N ≈ 2·10⁴ with `ROLE`" (RESULTS "Divide-the-dollar partitions", Reading; THEORY §3) is withdrawn.
+
+
+## Added 2026-10-06: the social organization game under the seed lottery (RESULTS.md, "The social organization game under the seed lottery")
+
+**"The lever is boss diversity" (Fable, prediction 3; falsifier fired narrowly).** Under a mostly hostile boss seed non-whackers establish on 0.183 (high striker mass) against 0.086 (low), a difference of 0.097; they gain only during the ~30-generation window while constant strikers live, and the diverse seed establishes non-whackers trivially because the initial strike-whacker share is 0.34. The comparison measured seed composition, not a lever.
+
+**"A wage patchwork in ≥ 0.3 of runs at mN = 0.1" (Fable, prediction 5, one clause; falsifier fired).** 0 of 40, and impossible by construction for a closure-verified run at mN > 0 (global closure implies one play everywhere); patchworks appear only at mN = 0 (0.5 of runs), where zero-wage migrants would invade.
+
+**"Arriving in numbers" as a route to Θ(1/n) (the RS's lever, 2026-10-06; the RE's spec).** It removes the cheap credible threat (strike-whackers cut from 0.34 to 0.14 of the boss slot within 25 generations, realized repression 0 everywhere) and leaves the wage at zero on 0.825 of islands, because the abundant striker is wage-blind; the fair wage appeared in 0 of 440 main-cell runs. Dropped as a route on its own; wage-conditional refusal in the prior is necessary (DEFERRED 10).
+
+**Subagent S2** (decline on 0.15–0.55 of islands, policies on ≥ 0.25; 0.69 and 0.10), **S3 mechanism** (RR's intermediate wage from neutral worker drift; the boss race decides while workers stay polymorphic), **S9 N = 400 clause** (≥ 0.3 censored; 0), **S10 Pareto clause** ("RR Pareto-dominates CC in the lottery"; boss 1.55 vs 1.84).
+
+**Design choices dropped:** single-draw matching noise (fitness is the expectation, as in `union_abm` and `rival_islands`); "patchwork at mN > 0 as a finite-horizon object" (not testable under global closure); the continuation of CC main (vacuous, no censoring); matched per-spelling weights for the single-worker variant (a phantom W₂ slot frozen at the scab with native length priors instead).
