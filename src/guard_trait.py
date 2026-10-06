@@ -166,12 +166,15 @@ def catalogue_genos(K, L, b):
 
 
 def build_K(n, b, glong, cut=None, ustar_limit=40, cap=None):
-    """KTheoryM on L_n's catalogue.  cap: K needs only b (atoms are boxed at b; the only boxes above b are guard boxes
-    with contents F / []F, never derivable, so every K value <= b is exact at cap b); K_c4 needs b + glong (a Dist+
-    witness into []_{2b+8} has Lemma C size up to 2b + 8)."""
+    """KTheoryM on L_n's catalogue.  cap = b by default, in K and in K_c4: plays read only whether an atom content
+    has a derivation of size <= b; sizes are additive and monotone (every sub-derivation, Nec premise, JLoeb premise,
+    Dist+ premise and lemma-cut leaf of a size-<= b derivation has size <= b), and the Dist+ side condition
+    d >= s + charges compares premise sizes with the right box's *budget* d (e.g. 2b + 8), not with the cap.  So every
+    value <= b is exact at cap b.  (src/k_cut.py's long-guard family sweep used cap 2b + 8; the n = 6 validation
+    compares the two.)"""
     import k_at_n8 as KN
     L, val_free, hc, hd = KN.tables(n)
-    if cap is None: cap = b if cut is None else b + glong
+    if cap is None: cap = b
     K = KTheoryM(cap=max(cap, 1), ustar_limit=ustar_limit, filter_first=True, cut=cut, glong=glong)
     K.prune = KN.make_prune(K, L, hc, hd)
     cat, kg = catalogue_genos(K, L, b)
