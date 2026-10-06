@@ -360,6 +360,338 @@ def cmd_full(a):
     print(out)
 
 
+# ====================================================================== catalogue objects for the chain
+W = 0.3
+
+
+class Cat:
+    """A catalogue: genotype table val (G x G), labels, sources, prior, kernel.  cat = [(source canon id, label)].
+    prior_g = (p0, p1).  cost: G x G per-match cost on the row genotype (or None)."""
+
+    def __init__(self, val, cat, L, prior_g, cost=None, names=None, gdeps=None, mu_src=None):
+        import modal as M
+        self.val = val; self.cat = cat; self.L = L; self.prior_g = prior_g
+        U0, PCC = M.pd_payoffs(val, M.PD)
+        self.U = U0.astype(float) - (cost if cost is not None else 0.0)
+        self.PCC = PCC
+        mc = L.mu_canon / L.mu_canon.sum() if mu_src is None else mu_src
+        self.mu_src = mc
+        self.src = np.array([c for c, g in cat]); self.lab = np.array([g for c, g in cat])
+        self.mu = np.array([mc[c] * prior_g[g] for c, g in cat])
+        self.names = names or ['%s%s' % (L.rep[c], '/L' if g else '') for c, g in cat]
+        self.gdep = gdeps
+        # index of the partner genotype (same source, other label)
+        pos = {(c, g): i for i, (c, g) in enumerate(cat)}
+        self.partner = np.array([pos.get((c, 1 - g), -1) for c, g in cat])
+        R = np.round(self.U, 9)
+        self.rowsig = [R[i].tobytes() + R[:, i].tobytes() for i in range(len(cat))]
+
+    def twins(self):
+        """(s, 1) genotypes whose rows and columns equal (s, 0)'s (payoff, costs included) -- under a permutation-
+        free comparison: entries against every genotype identical."""
+        R = np.round(self.U, 9); G_ = len(self.cat)
+        tw = np.zeros(G_, bool)
+        for i in range(G_):
+            j = self.partner[i]
+            if j < 0 or self.lab[i] != 1: continue
+            if (R[i] == R[j]).all() and (R[:, i] == R[:, j]).all() and R[i, i] == R[j, j]:
+                tw[i] = True
+        return tw
+
+
+def lump(cat, kernel):
+    """Blocks of genotypes for the chain.  joint: behavioural classes (identical payoff rows and columns), exactly
+    lumpable for a resident-independent kernel.  separate: label-pure behavioural classes refined until every member
+    of a block has the same kernel row over blocks (strong lumpability).  Returns (blocks, block of genotype)."""
+    G_ = len(cat.cat)
+    if kernel == 'joint':
+        init = [cat.rowsig[i] for i in range(G_)]
+    else:
+        init = [cat.rowsig[i] + bytes([int(cat.lab[i])]) for i in range(G_)]
+    ids = {}; blk = np.array([ids.setdefault(k, len(ids)) for k in init])
+    if kernel == 'separate':
+        Km = kernel_matrix(cat)
+        while True:
+            nb = blk.max() + 1
+            S = np.zeros((G_, nb))
+            for j in range(nb):
+                S[:, j] = Km[:, blk == j].sum(1)
+            Sr = np.round(S, 12)
+            keys = [(int(blk[i]), Sr[i].tobytes()) for i in range(G_)]
+            ids = {}; nblk = np.array([ids.setdefault(k, len(ids)) for k in keys])
+            if nblk.max() == blk.max():
+                blk = nblk; break
+            blk = nblk
+    nb = blk.max() + 1
+    blocks = [list(np.nonzero(blk == j)[0]) for j in range(nb)]
+    return blocks, blk
+
+
+def kernel_matrix(cat):
+    """Separate kernel at genotype level: (s, g) -> (s', g) w.p. mu_src(s')/2, -> (s, g') w.p. prior(g')/2."""
+    G_ = len(cat.cat)
+    pos = {(c, g): i for i, (c, g) in enumerate(cat.cat)}
+    Km = np.zeros((G_, G_))
+    srcs = sorted(set(cat.src.tolist()))
+    ms = np.array([cat.mu_src[c] for c in srcs]); ms = ms / ms.sum()
+    for i, (c, g) in enumerate(cat.cat):
+        for c2, m in zip(srcs, ms):
+            Km[i, pos[(c2, g)]] += 0.5 * m
+        for g2 in (0, 1):
+            Km[i, pos[(c, g2)]] += 0.5 * cat.prior_g[g2]
+    return Km
+
+
+class KernelProvider:
+    """chain.Chain provider over blocks with a (possibly resident-dependent) mutation kernel over blocks."""
+
+    def __init__(self, U, PCC, kmat=None, mu=None):
+        self.Ufull = np.round(np.asarray(U, float), 9); self.PCC = PCC
+        self.K = self.Ufull.shape[0]
+        self.kmat = kmat; self.mu = mu
+        self.cur = mu if kmat is None else None
+        self.R = np.arange(self.K)
+
+    def set_state(self, ids, x):
+        if self.kmat is not None:
+            self.cur = np.asarray(x) @ self.kmat[list(ids)]
+
+    def prepare(self, support): pass
+
+    def U(self, ids, sup=None):
+        ids = [int(p) for p in ids]; return self.Ufull[np.ix_(ids, ids)]
+
+    def mutant_classes(self, support):
+        cur = self.cur if self.cur is not None else (self.kmat.mean(0) if self.kmat is not None else self.mu)
+        return [(c, [c], float(cur[c])) for c in range(self.K)]
+
+    def blocks_for(self, support):
+        si = np.array(list(support), int); R = self.R
+        return self.Ufull[np.ix_(R, si)], self.Ufull[np.ix_(si, R)], self.Ufull[R, R], self.Ufull[np.ix_(si, si)]
+
+
+def _make_kchain():
+    from chain import Chain, fixation
+
+    class KChain(Chain):
+        """chain.Chain with a resident-dependent kernel (the provider's set_state) and zero-weight mutants skipped;
+        every edge's kernel weight, fate share and k* are recorded for the log-domain solve."""
+
+        def expand(self, key):
+            if key in self.trans:
+                return
+            ids, x, kind = self.states[key]
+            self.P.set_state(ids, x)
+            ids = np.array(ids); x = np.array(x)
+            N = self.N; m = len(ids); w = self.w
+            classes = self.P.mutant_classes(ids)
+            reps = np.array([c[0] for c in classes]); mu = np.array([c[2] for c in classes])
+            rows, cols, diag, inner = self.P.blocks_for(ids)
+            K = len(reps)
+            in_sup = np.isin(reps, ids)
+            if kind == 'poly':
+                neutral_ext = np.zeros(K, bool)
+            else:
+                neutral_ext = (np.abs(rows - inner[0:1, :]) < 1e-7).all(axis=1) & (np.abs(cols - diag[None, :]) < 1e-7).all(axis=0)
+            uaa = float(x @ inner @ x); uqa = rows @ x; uaq = cols.T @ x
+            out = defaultdict(float); muts = defaultdict(lambda: defaultdict(float))
+            if not hasattr(self, 'edges'): self.edges = {}; self.wstate = {}
+            self.wstate[key] = float(mu.sum())
+            for qi in range(K):
+                q = int(reps[qi]); m_q = mu[qi]
+                if m_q <= 0: continue
+                if in_sup[qi]:
+                    out[key] += m_q; muts[key][q] += m_q; continue
+                if neutral_ext[qi]:
+                    fl = [(1.0, self.mono(q), N)]
+                else:
+                    Uq = np.empty((m + 1, m + 1)); Uq[:m, :m] = inner; Uq[m, :m] = rows[qi]; Uq[:m, m] = cols[:, qi]; Uq[m, m] = diag[qi]
+                    fl = self.fates(key, ids, x, q, Uq)
+                if not fl:
+                    continue
+                stay = m_q
+                for share, k2, kstar in fl:
+                    rho = fixation(float(diag[qi]), float(uqa[qi]), float(uaq[qi]), uaa, N, w, int(kstar))
+                    if k2 == key: continue
+                    wgt = m_q * share * rho
+                    out[k2] += wgt; muts[k2][q] += wgt; stay -= wgt
+                    self.edge_rho[(key, k2, q)] = (rho, int(kstar), self.states[k2][2])
+                    e = self.edges.get((key, k2, q))
+                    sh = share + (e[1] if e else 0.0)
+                    self.edges[(key, k2, q)] = (m_q, sh, int(kstar), float(diag[qi]), float(uqa[qi]), float(uaq[qi]), uaa)
+                out[key] += max(stay, 0.0); muts[key][q] += max(stay, 0.0)
+            z = sum(out.values())
+            self.trans[key] = {k2: v / z for k2, v in out.items()}
+            for k2, d in muts.items():
+                for q, v in d.items():
+                    self.trans_mut[(key, k2)][q] += v / z
+    return KChain
+
+
+def edge_logweights_k(ch, N, keys):
+    import modal_dollar as MD
+    pos = {k: i for i, k in enumerate(keys)}
+    n = len(keys)
+    LA = np.full((n, n), -np.inf); out_un = defaultdict(list)
+    for (k1, k2, q), (m_q, share, kstar, uqq, uqa, uaq, uaa) in ch.edges.items():
+        i = pos.get(k1)
+        if i is None or share <= 0: continue
+        lr = MD.log_fixation(uqq, uqa, uaq, uaa, N, W, int(kstar))
+        lw = math.log(m_q) - math.log(ch.wstate[k1]) + math.log(min(share, 1.0)) + lr
+        j = pos.get(k2)
+        if j is None: out_un[k2].append((i, lw))
+        else: LA[i, j] = MD._lae(LA[i, j], lw)
+    return LA, out_un
+
+
+def seeded_chain_k(prov, N, extra_states=(), log_theta=math.log(1e-12), max_states=6000, max_rounds=80):
+    """modal_dollar.seeded_chain on KChain: every monomorphic state and every extra (deep) state expanded, one layer
+    more after the seeded states, then expansion by relative inflow; log-domain GTH (reflecting boundary)."""
+    import modal_dollar as MD
+    KChain = _make_kchain()
+    ch = KChain(prov, N=N, w=W, theta=1.0, max_states=10**9, eager_poly=True)
+    for c in range(prov.K):
+        ch.expand(ch.mono(c))
+    seeded = []
+    for ids, x in extra_states:
+        k = ch.add_state(ids, x); ch.expand(k); seeded.append(k)
+    for k in seeded:
+        for k2 in list(ch.trans[k]):
+            if k2 not in ch.trans: ch.expand(k2)
+    for rnd in range(max_rounds):
+        keys = list(ch.trans)
+        LA, out_un = edge_logweights_k(ch, N, keys)
+        lpi, lex = MD.solve_log(LA)
+        inflow = {k2: np.logaddexp.reduce([lpi[i] + lw for i, lw in lst]) for k2, lst in out_un.items()}
+        cand = [k for k, f in inflow.items() if f > log_theta]
+        small = [f for f in inflow.values() if f <= log_theta]
+        lcut = np.logaddexp.reduce(small) if small else -1e300
+        if not cand or len(keys) >= max_states: break
+        for k in sorted(cand, key=lambda k: -inflow[k])[:max(1, max_states - len(keys))]:
+            ch.expand(k)
+    return dict(ch=ch, keys=keys, lpi=lpi, LA=LA, log10_cut=float(lcut / math.log(10)), rounds=rnd + 1)
+
+
+def run_chain(cat, kernel, N, label='', lazy=True, deep=True, rates=True):
+    """The ε -> 0 chain on a catalogue under a kernel.  Returns a row with P(C,C), pi by genotype label (neutral /
+    active), support, transitions, rates and audit outputs."""
+    import modal_dollar as MD
+    t = time.time()
+    blocks, blk = lump(cat, kernel)
+    nb = len(blocks)
+    rep = [b[0] for b in blocks]
+    Ub = cat.U[np.ix_(rep, rep)]; Pb = cat.PCC[np.ix_(rep, rep)]
+    mub = np.array([cat.mu[b].sum() for b in blocks])
+    if kernel == 'joint':
+        prov = KernelProvider(Ub, Pb, mu=mub / mub.sum())
+    else:
+        Km = kernel_matrix(cat)
+        kb = np.zeros((nb, nb))
+        for j in range(nb):
+            kb[:, j] = Km[rep][:, blocks[j]].sum(1)
+        prov = KernelProvider(Ub, Pb, kmat=kb)
+    d = dict(U=prov.Ufull, mu=(mub / mub.sum()), K=nb)
+    deeps = MD.deep_states(d, max_types=2) if deep else []
+    extra = [s for s in deeps if len(s[0]) > 1]
+    res = seeded_chain_k(prov, N, extra_states=extra)
+    ch, keys, lpi = res['ch'], res['keys'], res['lpi']
+    pi = np.exp(lpi)
+    # genotype-level split: joint -> within block prop. to mu (exact); separate -> blocks are label-pure, split by mu
+    tw = cat.twins()
+    gpi = np.zeros(len(cat.cat))
+    pcc = 0.0; mono = defaultdict(float); poly = 0.0; supp = []
+    for k, p in zip(keys, pi):
+        ids, x, kind = ch.states[k]; ids = list(ids); x = np.asarray(x)
+        pcc += p * float(x @ Pb[np.ix_(ids, ids)] @ x)
+        for i, xi in zip(ids, x):
+            mem = blocks[i]; w_ = cat.mu[mem] / cat.mu[mem].sum()
+            gpi[mem] += p * xi * w_
+        if len(ids) == 1: mono[ids[0]] += p
+        else: poly += p
+        if p >= 1e-3:
+            supp.append((' + '.join('%s %.2f' % (cat.names[rep[i]], xi) for i, xi in zip(ids, x)), float(p)))
+    lab1 = cat.lab == 1
+    neutral = float(gpi[lab1 & tw].sum()); active = float(gpi[lab1 & ~tw].sum())
+    tw1 = tw & (cat.lab == 1)
+    pair_mass = float(gpi[tw1].sum() + gpi[cat.partner[tw1]].sum())
+    selfc = np.array([cat.val[i, i] == 1 for i in range(len(cat.cat))])
+    iC = [i for i, (c, g) in enumerate(cat.cat) if cat.L.rep[c] == 'C']
+    coopmask = selfc.copy(); coopmask[iC] = False
+    row = dict(label=label, kernel=kernel, N=N, prior=list(cat.prior_g), n_blocks=nb, pcc=float(pcc), poly=float(poly),
+               pi_active_long=active, pi_neutral_long=neutral, pi_long=float(gpi[lab1].sum()),
+               twin_pair_mass=pair_mass, allocation_twins=(neutral / pair_mass if pair_mass > 0 else float('nan')),
+               coop_pi=float(gpi[coopmask].sum()), coop_long_active=float(gpi[coopmask & lab1 & ~tw].sum()),
+               coop_long_neutral=float(gpi[coopmask & lab1 & tw].sum()), coop_g0=float(gpi[coopmask & ~lab1].sum()),
+               pi_D=float(sum(gpi[i] for i, (c, g) in enumerate(cat.cat) if cat.L.rep[c] == 'D')),
+               n_states=len(keys), n_deep_poly=len(extra), log10_cut=res['log10_cut'],
+               support=sorted(supp, key=lambda s: -s[1])[:14],
+               top_genotypes=[(cat.names[i], float(gpi[i]), bool(tw[i]) if lab1[i] else None) for i in np.argsort(-gpi)[:20]])
+    # residual of pi on the explored generator
+    LA = res['LA']
+    A = np.exp(LA - LA[np.isfinite(LA)].max()); A[~np.isfinite(LA)] = 0.0
+    row['residual'] = float(np.abs(pi @ A - pi * A.sum(1)).sum() / max((pi * A.sum(1)).sum(), 1e-300))
+    row['gpi'] = gpi.tolist()
+    if rates:
+        row['rates'] = state_rates(ch, cat, blocks, rep, keys, pi, N)
+    if lazy:
+        KChain = _make_kchain()
+        lch = KChain(prov, N=N, w=W, verbose=False, eager_poly=False).explore()
+        lp = 0.0
+        for key, wgt in zip(lch.keys_list, lch.pi):
+            ids, x, kd = lch.states[key]; ids = list(ids); x = np.asarray(x)
+            lp += wgt * float(x @ Pb[np.ix_(ids, ids)] @ x)
+        sk = set(keys); lk = set(lch.keys_list); spi = dict(zip(keys, pi)); lpi_ = dict(zip(lch.keys_list, lch.pi))
+        row['lazy'] = dict(pcc=float(lp), n_states=len(lk), only_seeded=len(sk - lk), only_lazy=len(lk - sk),
+                           pi_only_seeded=float(sum(spi[k] for k in sk - lk)), pi_only_lazy=float(sum(lpi_[k] for k in lk - sk)),
+                           cut_flow=float(lch.cut_flow))
+    row['t'] = time.time() - t
+    return row
+
+
+def state_rates(ch, cat, blocks, rep, keys, pi, N, thresh=1e-3):
+    """For every monomorphic state with pi >= thresh: total exit weight per mutation event (x N), its split strict /
+    neutral / other, the top exits (mutant, destination, N rho, kind) with the mpmath Moran check of the largest; and
+    the entry from D (N rho of the strongest D -> state mutant)."""
+    U = ch.P.Ufull
+    iD = [b for b, r in enumerate(rep) if cat.L.rep[cat.cat[r][0]] == 'D']
+    kD = [ch.mono(b) for b in iD]
+    out = []
+    for k, p in zip(keys, pi):
+        ids, x, kind = ch.states[k]
+        if kind != 'mono' or p < thresh: continue
+        a = ids[0]; uaa = U[a, a]
+        ex = dict(strict=0.0, neutral=0.0, other=0.0); lst = []
+        tot_w = ch.wstate[k]
+        for (k1, k2, q), (m_q, share, kstar, uqq, uqa, uaq, _) in ch.edges.items():
+            if k1 != k: continue
+            rho = ch.edge_rho[(k1, k2, q)][0]
+            wgt = m_q / tot_w * min(share, 1.0) * rho
+            if U[q, a] > uaa + 1e-12: t_ = 'strict'
+            elif max(abs(U[q, a] - uaa), abs(U[a, q] - uaa), abs(U[q, q] - uaa)) < 1e-12: t_ = 'neutral'
+            else: t_ = 'other'
+            ex[t_] += wgt
+            lst.append((wgt, cat.names[rep[q]], describe(ch, cat, rep, k2), N * rho, t_, q, int(kstar)))
+        lst.sort(key=lambda e: -e[0])
+        tot = sum(ex.values())
+        r = dict(state=cat.names[rep[a]], pi=float(p), N_exit=float(N * tot), exit_split={kk: float(v / tot) if tot else 0 for kk, v in ex.items()},
+                 top_exits=[dict(w=float(e[0]), mutant=e[1], to=e[2], N_rho=float(e[3]), kind=e[4]) for e in lst[:5]])
+        if lst:
+            e = lst[0]; q = e[5]
+            lr = KC.moran_log_rho(U[q, q], U[q, a], U[a, q], uaa, N, W, e[6])
+            r['top_exit_mp_abs_err'] = float(abs(math.exp(lr) - e[3] / N))
+        ent = [(ch.edge_rho[(k1, k2, q)][0], q) for (k1, k2, q) in ch.edges if k1 in kD and k2 == k and k not in kD]
+        if ent:
+            rho, q = max(ent)
+            r['entry_from_D'] = dict(mutant=cat.names[rep[q]], N_rho=float(N * rho))
+        out.append(r)
+    return out
+
+
+def describe(ch, cat, rep, key):
+    ids, x, kind = ch.states[key]
+    return ' + '.join('%s %.2f' % (cat.names[rep[i]], xi) for i, xi in zip(ids, x)) if kind == 'poly' else cat.names[rep[ids[0]]]
+
+
 def main():
     p = argparse.ArgumentParser()
     sp = p.add_subparsers(dest='cmd')
