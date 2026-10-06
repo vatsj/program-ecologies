@@ -932,6 +932,37 @@ def best_path(LA, src, dst_set):
     return -np.inf, []
 
 
+def lazy_best_path(d, N, src_state, target_pred, twins=True, max_expand=3000):
+    """max-weight path (in log weight per mutation event) from src_state ((ids, x)) to any state satisfying
+    target_pred(info) with info = pop_outcome dict, by Dijkstra with on-demand expansion (twin moves included if
+    twins).  Returns (log10 weight, path descriptions, expansions)."""
+    import heapq
+    from dollar_partitions import pop_outcome
+    ch, prov = make_chain(d, N, theta=1.0, max_states=10**9, eager_poly=True)
+    k0 = ch.add_state(*src_state)
+    dist = {k0: 0.0}; prev = {k0: None}
+    h = [(0.0, 0, k0)]; cnt = 0; tie = 1
+    done = set()
+    while h and cnt < max_expand:
+        dd, _, k = heapq.heappop(h)
+        if k in done: continue
+        done.add(k)
+        ids, x, kind = ch.states[k]
+        o = pop_outcome(d, ids, np.round(np.array(x) * N).astype(int))
+        if target_pred(o):
+            path = [k]
+            while prev[path[-1]] is not None: path.append(prev[path[-1]])
+            return -dd / math.log(10), [state_desc(d, ch, p) for p in path[::-1]], cnt
+        ch.expand(k); cnt += 1
+        LA, out_un = edge_logweights(d, ch, N, [k], twins=twins)
+        for k2, lst in out_un.items():
+            lw = np.logaddexp.reduce([w_ for _, w_ in lst])
+            nd = dd - lw
+            if nd < dist.get(k2, np.inf):
+                dist[k2] = nd; prev[k2] = k; heapq.heappush(h, (nd, tie, k2)); tie += 1
+    return None, [], cnt
+
+
 def limN_run(arm, N, log_theta, n=7, aug=None, aug_mass=0.0, deep=None, tag='', twins=False):
     """seeded log-domain chain at one N, with the summary statistics, the efficient set's and the deep set's
     entry/exit rates, and the best paths S3 -> deep set and deep set -> efficient set."""
@@ -1097,6 +1128,7 @@ def fixed_chain_lazy(d, N, w=W, theta=1e-12, rel_drop=1e-25, max_states=5000, ve
         if verbose:
             print('  round %d: %d states, %d candidates, cut %.2e' % (rnd, n, len(cand), cut), flush=True)
         if not cand or n >= max_states:
+            cut = float(sum(inflow.values()))      # every unexpanded target's inflow, truncated candidates included
             break
         cand.sort(key=lambda t: -inflow[t])
         E = E + cand[:max(1, max_states - n)]
@@ -1223,7 +1255,7 @@ def cmd_fixed(a):
         d = data(arm, 7)
         for N in a.N:
             t0 = time.time()
-            ch = fixed_chain_full(d, N, method='sparse')
+            ch = fixed_chain_full(d, N, method='gth') if d['K'] <= 80 else fixed_chain_lazy(d, N, theta=a.theta[0], max_states=a.max_states, verbose=True)
             r = fixed_summary(d, ch)
             r.update(arm=arm, n=7, N=N, theta=a.theta[0], n_states=ch['n_states'], time_s=time.time() - t0, K=d['K'])
             fn = os.path.join(OUT, 'fixed_%s_n7_N%d_th%g.json' % (arm, N, a.theta[0]))
@@ -1349,6 +1381,7 @@ if __name__ == '__main__':
     ap.add_argument('--aug', default=None)
     ap.add_argument('--shard', type=int, nargs=2, default=None)
     ap.add_argument('--twins', action='store_true')
+    ap.add_argument('--max_states', type=int, default=8000)
     ap.add_argument('--cells', type=lambda s: tuple(int(x) for x in s.split(',')), nargs='+', default=[(100, 64), (400, 16)])
     ap.add_argument('--mN', type=float, nargs='+', default=[0.0, 0.1])
     ap.add_argument('--runs', type=int, default=40)
