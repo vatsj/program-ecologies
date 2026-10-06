@@ -182,3 +182,18 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   finite-budget failure** — not K-derivable up to 2L + 10 / derivable at some larger budget; **restored
   cooperators / restored exploiters** — self-cooperating in K+4m but not K / strictly invading a supported
   self-cooperator in K+4m but not K.
+- **Bridge-less rivals:** **pairwise bridge** of (A, R) — a cooperative class (self-cooperates, not ALLC) mutually
+  cooperating with FairBot, `BOX1(THEM(ME))` and R; **safe bridge** — a pairwise bridge that is an establisher;
+  **bridge mass** — the total cut μ of R's pairwise bridges; **τ** — a sensitivity threshold on the heaviest
+  bridge (τ = 0 is the literal case, the right object); **prey** of R — a class that cooperates with R while R
+  defects on it; **mediator** — a cooperative non-bridge class against which FairBot, `BOX1(THEM(ME))` and R all
+  cooperate; **A-faked rival** — a rival some member of A strictly invades; **hard bridge-less mass** — rival mass
+  with no bridge, no mediator, not A-faked (0.21 / 0.26 / 0.26 of rival mass at n = 9 / 12 / 13); **half-rival /
+  full rival** — mutually defects with one / both members of A; **P\* family** — `and(BOX1(THEM(x)),not(BOX(THEM(y))))`
+  rivals, cooperating iff cooperation is provable from PA + Con but not from PA, 0.98–0.99 of the bridge-less mass;
+  **μ_bl** — the bridge-less rival mass; **p₁** — per-copy establishment probability of a rival (0.048 for P\* at
+  N = 200); **mediation event** — a rival-network island strongly taken by a bridge class; **mediation-before-loss
+  probability** — among runs in which the rival established, the fraction with a mediation event before a network
+  is lost or the horizon reached (equal to the bridge's scramble survival); **q_est** — local establishments
+  relative to the m = 0 reference, the nucleation statistic (holder-form q also counts later neutral replacement
+  and is retired). Forced-rival labels **P\***, **P\*′**, **S\***, **B₁**, **H**, **B₄** as in RESULTS.

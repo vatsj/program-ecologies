@@ -686,3 +686,18 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **"Deleting the flagged classes recovers most of the gap" (Fable, prediction 5, ≥ 0.5 clause, inconclusive at 0.39; subagent S9, falsified).** The flags miss more than half of the disarmed pairs.
 
 **Design choices dropped:** the literal 4-rule as the counted arm (provably identical to K; K+4m used instead); the "used hypothesis" restricted search that forbade a triggering diagonal (fixed twice; not a change to the frozen classifier).
+
+
+## Added 2026-10-05: bridge-less rivals (RESULTS.md, "Bridge-less rivals")
+
+**"More rivals gain bridges at larger cutoffs, so the literally bridge-less share of rival mass falls from n = 9 to 15" (Fable, prediction 1, adopted from sol's review; falsifier fired on n = 9 → 13).** The τ = 0 share rose 0.214 → 0.252 → 0.253 and no bridge-less rival of n = 9 gained a bridge by n = 13 (from 12 to 13, 6 of 76 gained bridges of mass 2–4·10⁻¹⁰). By mass, 0.98–0.99 of the bridge-less rivals are the P\* family, whose cooperation condition, "provable in PA + Con, not in PA", no FairBot-compatible class satisfies at these cutoffs. n = 15 did not fit (140 GB).
+
+**"Every bridge-less rival at τ = 10⁻⁴ separates the archipelago when forced densely" (Fable, prediction 2, bridge-less clause; falsifier fired for S\*).** S\* separated in 1 of 100 runs: it is bridge-less only at τ ≥ 10⁻⁵ and is a sucker of `BOX1(THEM(ME))`. The bridged clause (≤ 0.1) failed narrowly for B₁ (0.12 [0.07, 0.20]). **Design choice dropped:** the threshold τ on the heaviest bridge as the rival classifier; everything τ adds over τ = 0 is A-faked. Use literal bridge-lessness plus an A-faked / mediated flag.
+
+**"|Δq| ≤ 0.1 against the iid control" (Fable, prediction 4, one clause; falsifier fired).** Holder-form q fell by 0.41–0.52 in every cell with an active bridge (neutral absorption replaces locally nucleated holders after nucleation) and by 0.21 with B₁'s bridges removed (faker captures); q_est stayed within ±0.10 everywhere. **Design choice dropped:** holder-form q as the nucleation statistic where bridges or fakers act after nucleation; report q_est.
+
+**Subagent S1** (P\* family establishes in [0.55, 0.95] of dense runs; 0.98, since one copy per island at p₁ ≈ 0.048 gives 1 − 0.952⁶⁴ ≈ 0.96) and **S5** (B₁ without bridges within 0.15 of P\*; 0.67 against 0.97, because B₁'s faker captures it).
+
+**Design choices dropped:** n = 15 and n = 14 for the static screening (140 GB / 16 GB); B₂ as the second forced bridged rival (B₁'s twin; B₄ instead); 40 runs per P\* scaling cell (capped at 12–13 under machine load).
+
+**Operating hypothesis revised (DEFERRED 1):** "metapopulation universality is conceded beyond N ≈ 100 only for bridge-less pairs" is replaced by "metapopulation universality is not claimed along I ≫ N at N ≥ 200", since about a quarter of rival mass is bridge-less and permanent and independent P\* establishments accumulate linearly in I.

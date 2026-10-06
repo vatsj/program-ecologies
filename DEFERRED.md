@@ -37,10 +37,20 @@ REJECTED.md the ones we dropped.
   (a class neutral to both absorbs the minority polynomially, and its scramble survival → 1 in I), and fail for
   bridge-less rivals (P*-type, ≈ 1/4 of rival mass at n = 9), which form permanent patchworks at N ≥ 200. No natural
   run in 1,000 ended separated. Propagules are not a scaling fix (barrier ≈ N·w·(1/2 − k/N)²).
-  *Operating hypothesis (RE, 2026-10-05, refined):* island-level efficiency is the claim; metapopulation
-  universality is claimed for rival pairs the prior bridges and conceded beyond N ≈ 100 for bridge-less pairs.
-  *Would settle it:* the prior mass of bridge-less rival establishers as n grows, and natural runs at N ≥ 200 large
-  enough to sample one.
+- *Evidence (2026-10-05i):* the bridge-less share of rival mass is stable (0.21 / 0.26 / 0.26 at n = 9 / 12 / 13;
+  n = 15 does not fit), 0.98–0.99 of it P*-family, and none of it gains a bridge; forced P*-family rivals at
+  (200, 64) separate in 0.97 of runs with no loss in 2·10⁸ minority-island-generations, unchanged at (400, 64),
+  (200, 256) and horizon 3·10⁵; a surviving bridge resolves every bridged rivalry (0 of 525), so
+  mediation-before-loss is the bridge's scramble survival; natural horizon separations are 9 of 3,000 (8 P*-family)
+  at μ_bl·N·I·p₁ (RESULTS "Bridge-less rivals").
+  *Operating hypothesis (RE, 2026-10-05, refined again):* island-level efficiency is the claim. Metapopulation
+  universality is **not** claimed along I ≫ N at N ≥ 200: it fails with probability → 1 once I ≫ 1/(μ_bl·N·p₁)
+  ≈ 10⁴ at N = 200, because about a quarter of rival mass is bridge-less and permanent; for bridged rivals it holds
+  with probability → 1 in I.
+  *Would settle it:* whether any I ≫ N path with growing N keeps μ_bl·N·I·p₁(N) bounded (it grows in every measured
+  direction), or whether the program wants universality at all (a separated patchwork has cf cross-island P(C,C)
+  ≈ 0.6 while every island is efficient); whether a language without the P*-family rivals (e.g. the bounded prover
+  K, in which P* self-defects) removes the obstruction.
 - *Evidence (2026-10-05g):* (i) is done and stronger than conjectured: Lemma D′ is proved for any lineage and any
   stopping time with no fitness hypothesis (Lemma D is the killed fixed-time case); (ii) is done: the per-founder
   union bound replaces 1/P(A) by a measured r_q = 0.8–1.7 and the bound is positive in 27/27 cells; the per-island

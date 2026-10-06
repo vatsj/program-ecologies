@@ -3338,6 +3338,68 @@ Gödel part alone recall 0.32, Con part alone 0.20, both precision 1.00. The 43 
 - **K's faker removal is structural**, so its improvement over the free arm is not a finite-budget artifact.
 - **The trace classifier is a sufficient sign, not a characterization:** precision 1.00 rests on a level cap, recall 0.42, Con sentences invisible, 0.39 of the gap recovered. Gödelian fakers are visible only to the calculus; a realizable reader must actually be the bounded prover, and the faker set still has to come from K.
 - *Realizability caveat.* K and K+4m are sound bounded calculi for the modal fragment, not bounded PA provers; the prune and the classifier use GL decidability; the X-arm changes the programs' semantics.
+## Bridge-less rivals: their prior mass in n, and mediation before loss at N ≥ 200 (`runs/bridgeless-rivals.md`, `runs/bridgeless-rivals.json`, `runs/bridgeless-rivals-static.json`; spec `specs/2026-10-05-bridgeless-rivals.md`, predictions in `predictions/2026-10-05-bridgeless-rivals.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/bridgeless_rivals.py`, `src/bridgeless_rivals_report.py`; the kernel unchanged). Modal arm, PD, w = 0.3, ε = 0, seeds at n = 9, complete island graph, boundary mN = 0.3·N/T_nuc. Finite-cutoff screening and finite-horizon lottery and hazard results, not π. RE check: the static rate μ_bl·N·I·p₁ = 0.0032 per run reproduces the measured natural separation 9/3,000 = 0.0030, and 1 − (1 − p₁)^16 = 0.545 reproduces the sparse cell's 0.54.
+
+**What ran.** Static screening at n = 9, 12, 13 (n = 15 does not fit: 374,074 canonical functions, 140 GB at one byte per pair; n = 14 needs 16 GB; n = 13 has 51,234 canonical functions and 27,189 classes, and the n = 9 and 12 blocks reproduce the existing caches exactly); the lottery cells (a) dense forced rival 600 runs, (d) iid 100, (c) bridges removed 100, (b) sparse 600, each with paired m = 0 references; (f) 3,000 natural runs; (e) the scaling panel (B₁ at 40 per cell; P\* capped at 12–13 per cell under machine load 28 on 10 cores). *Deviations:* B₂ is B₁'s twin and was replaced by the mass-matched B₄; S\*'s tags are taken against FairBot since it mutually defects only with FairBot.
+
+**Static screening.** A rival of A = {FairBot, `BOX1(THEM(ME))`} is an establisher that mutually defects with either member; a pairwise bridge mutually cooperates with both members and with R.
+
+| n | classes | rivals (full) | rival μ (raw) | τ = 0 bridge-less: count, share of rival μ | τ = 10⁻⁵ / 10⁻⁴ | A-faked share | hard (no bridge, not A-faked, no mediator) |
+|---|---|---|---|---|---|---|---|
+| 9 | 863 | 20 (8) | 2.4·10⁻⁵ | 3, 0.214 | 0.354 / 0.354 | 0.140 | 0.214 |
+| 12 | 13,514 | 443 (241) | 4.1·10⁻⁵ | 76, 0.252 | 0.417 / 0.420 | 0.164 | 0.256 |
+| 13 | 27,189 | 839 (450) | 4.5·10⁻⁵ | 152, 0.253 | 0.419 / 0.425 | 0.165 | 0.259 |
+
+- **The τ-sensitive mass is not a rival in the dynamic sense:** every rival bridge-less at τ ≥ 10⁻⁵ but not at τ = 0 is in the `not(BOXD1(THEM(^not(…))))` family, a sucker of `BOX1(THEM(ME))`, which strictly invades it (as do mediators of mass ≈ 0.007). Literal bridge-lessness is the right object.
+- **The hard bridge-less share is stable** (0.21 / 0.26 / 0.26) and 0.98–0.99 of it by mass is the **P\* family** `and(BOX1(THEM(·)),not(BOX(THEM(·))))`, which cooperates iff cooperation is provable from PA + Con but not from PA. Its raw mass grows 4.0 → 8.2 → 9.0·10⁻⁶ (rival status is per canon and only accumulates; omitted tail ω(13) = 0.037). **No bridge-less rival of n = 9 gains a bridge by n = 13**; from 12 to 13, 6 of 76 gain bridges of mass 2–4·10⁻¹⁰. Every literally bridge-less rival preys on some bridge (typically `BOX1(THEM(THEM))`); every rival is connected to A in the establisher mutual-cooperation graph at path length 2–3 through half-bridges. The probe-readers' rivals have a larger τ = 0 share (0.43 / 0.30 / 0.29) and an A-faked share of 0.41.
+
+**Forced rivals** (n = 9): bridge-less P\* (μ 3.2·10⁻⁶), P\*′ = `and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))` (1.8·10⁻⁶), S\* = `not(BOXD1(THEM(^not(BOX1(THEM(THEM))))))` (6.8·10⁻⁷; bridge-less only at τ ≥ 10⁻⁵ and A-faked); bridged B₁ = `BOX1(THEM(^not(BOX(THEM(ME)))))` (5.4·10⁻⁶; bridge `BOX1(THEM(THEM))`, mass 0.0053), H = `and(BOX(THEM(ME)),BOXD1(THEM(^D)))` (1.6·10⁻⁶; a half-rival FairBot bridges), B₄ = `BOX1(THEM(^not(BOX(THEM(^C)))))` (7.9·10⁻⁷).
+
+**Lottery** (N = 200, I = 64, mN = 1.091, horizon 10⁵, 100 runs per cell; one forced copy on every island (dense) or a quarter (sparse); hazard per minority-island-generation after the first separation):
+
+| cell | rival | established | horizon separated [95%] | losses / exposure, hazard | rival-island losses 2>1 / 2>3 / 2>0 | mediation-before-loss | island P(C,C) | cf cross P(C,C) | Δq_est vs (d) |
+|---|---|---|---|---|---|---|---|---|---|
+| (a) dense | P\* | 0.98 | **0.97 [0.92, 0.99]** | 0 / 2.0·10⁸, < 1.9·10⁻⁸ | 11 / 0 / 0 | 0 / 98 | 0.982 | 0.60 | −0.01 |
+| (a) dense | P\*′ | 0.98 | 0.97 | 1 / 2.1·10⁸, 4.8·10⁻⁹ | 10 / 0 / 0 | 0 / 98 | 0.982 | 0.58 | −0.00 |
+| (a) dense | S\* | 0.37 | 0.01 | 33 / 3.1·10⁵, 1.1·10⁻⁴ | 151 / 0 / 1 | 0 / 37 | 1.000 | – | −0.06 |
+| (a) dense | B₁ | 0.87 | 0.12 [0.07, 0.20] | 73 / 2.2·10⁷, 3.3·10⁻⁶ | 33 / 2,162 / 177 | 0.80 | 0.988 | 0.63 | +0.04 |
+| (a) dense | H | 0.98 | 0.01 | 96 / 1.9·10⁶, 5.0·10⁻⁵ | 6 / 2,907 / 0 | 0.92 | 1.000 | – | +0.04 |
+| (a) dense | B₄ | 0.84 | 0.09 | 73 / 1.6·10⁷, 4.5·10⁻⁶ | 34 / 2,173 / 160 | 0.76 | 0.998 | 0.62 | −0.05 |
+| (c) bridges removed | B₁ | 0.78 | **0.67 [0.57, 0.75]** | 11 / 1.3·10⁸, 8.3·10⁻⁸ | 22 / 0 / 240 | 0 / 78 | 0.978 | 0.61 | −0.06 |
+| (b) sparse | P\* / P\*′ | 0.54 / 0.60 | 0.54 / 0.60 | 0, < 3.5·10⁻⁸ | 8 / 0 / 0 | 0 | 0.990 | 0.62–0.64 | +0.03 / −0.04 |
+| (b) sparse | S\* / B₁ / H / B₄ | 0.09 / 0.27 / 0.71 / 0.33 | 0.00 / 0.03 / 0.00 / 0.06 | – / 3.7·10⁻⁶ / 1.9·10⁻⁴ / 2.0·10⁻⁶ | – | – / 0.78 / 0.96 / 0.73 | ≥ 0.999 | 0.49–0.59 | ≤ 0.10 |
+
+(d) iid control: 0 of 100 runs ever separated; island P(C,C) 1.000; q_est 0.81 [0.74, 0.89].
+
+- **A bridge that survives the scramble resolves the rivalry with certainty on this scale, and every bridged separation is a dead bridge:** with the bridge alive at the end, 0 separated in 525 bridged-rival runs; with the bridge extinct, 12/19 (B₁ dense), 9/21 (B₄ dense), 3/18 and 6/15 (sparse). Bridges were seeded on ≈ 42 islands per run and still died in 15–21% of runs, during the scramble (median extinction generation 30–37). Removing B₁'s bridges (μ 0.0053) raises its horizon separation from 0.12 to 0.67.
+- **Bridge-less P\*-family rivals are permanent once established:** per-island establishment 0.048, so 98% of dense runs; an established rival colonizes ≈ 22 further islands and holds ≈ 26 of 64; 0 losses in 2.0·10⁸ minority-island-generations. Sparse seeding matches independent founders.
+- **Without its bridges B₁ is not P\* (0.67 against 0.97):** it reads a probe, so it has a faker, `BOX1(THEM(^D))`, which captures its islands (240 captures). In one dense and one bridge-removed B₁ run the faker took every B₁ island and then D took everything (run-level P(C,C) 0), the only collapses seen apart from natural runs in which nothing nucleated.
+- **q:** nucleation is unaffected by any forced rival (Δq_est within ±0.10, every interval covering 0); holder-form q falls by 0.41–0.52 wherever a bridge is active, because neutral absorption replaces locally nucleated holders after nucleation, so holder-form q mixes nucleation with later replacement.
+
+**Natural runs** (3,000 at (200, 64)): ever separated 29 (0.010); **separated at the horizon 9 (0.0030 [0.0016, 0.0057])**, 8 of them P\*-family rivals in runs with no bridge class in the support and 1 a B₁ whose 3 bridge classes (58 copies on 37 islands) all died; of the 21 bridged ever-separations 20 resolved, 17 with a mediation transition. Bridge-less rivals are 0.89 of horizon separations against 0.21 of rival mass. The rate matches the static prediction μ_bl·N·I·p₁ = 0.0032. Island P(C,C) 0.9996; cf cross-island P(C,C) of separated runs 0.68.
+
+**Scaling panel** (dense forced rival, boundary mN): P\* at (200, 64) horizon 3·10⁵, (400, 64) and (200, 256): 13/13, 12/12 and 12/12 separated, 0 losses in 2.3·10⁸ further minority-island-generations; B₁: 0.10 [0.04, 0.23] at horizon 3·10⁵ (all dead-bridge runs, not resolving with time), **0.00 [0.00, 0.09] at (400, 64) and at (200, 256)** (mediation before loss 0.90 and 0.97).
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | more rivals gain bridges; τ = 0 share falls from n = 9 to 15; τ = 10⁻⁴ ratio in [0.1, 0.5] | **failed, falsifier fired** on 9 → 13 (τ = 0 share 0.214 → 0.253; no n = 9 bridge-less rival gains a bridge); τ = 10⁻⁴ clause held (0.425) |
+| RE 2 | dense bridge-less ≥ 0.5, bridged ≤ 0.1; (c) ≥ 0.4; (b) between | **failed, falsifier fired** for S\* (0.01: bridge-less only at τ ≥ 10⁻⁵ and A-faked); held for P\*, P\*′ (0.97), (c) (0.67) and (b); bridged ≤ 0.1 failed narrowly for B₁ (0.12) |
+| RE 3 | 1–15 of 3,000 at the horizon; bridge-less share ≥ 0.5 | **held** (9; 0.89; the one bridged separation a dead bridge, as sol said) |
+| RE 4 | island P(C,C) ≥ 0.95 per cell; cf ≤ 0.8 in separated runs; \|Δq\| ≤ 0.1 | **failed, falsifier fired** on holder-form \|Δq\| (−0.41 to −0.52 in bridged cells, from absorption after nucleation); the P(C,C) clauses held; q_est within ±0.10 |
+| RE 5 | bridge-less ≥ 0.5 at (400, 64) and 3·10⁵; bridged faster at (200, 256) | **held** (P\* 12/12 and 13/13; B₁ 0.00 at (200, 256)); P\* cells had 12–13 runs |
+| S2, S3, S4, S6, S7, S8 | subagent's own | held |
+| S1 (P\* establishment in [0.55, 0.95]; 0.98), S5 ((c) within 0.15 of dense P\*; 0.30 apart, B₁'s own faker) | subagent's own | failed, falsifiers not fired |
+
+**Reading.**
+- **The bridge-less obstruction is a fixed fraction of rival mass, not a vanishing one:** 0.21 → 0.26 → 0.26 of rival mass on n = 9 → 13, 0.98–0.99 of it the P\* family (cooperate iff provable from PA + Con but not from PA), and no member present at n = 9 gains a bridge. A threshold on bridge mass only adds rivals that `BOX1(THEM(ME))` eats.
+- **The mediation-before-loss probability is the bridge's scramble survival:** a living bridge resolved 525 of 525 bridged rivalries; separations come only from runs in which the bridge died early, a per-run lottery (≈ 0.19 at I = 64) whose failure rate shrinks geometrically in I.
+- **Bridge-less rivals make metapopulation universality fail with probability → 1 along I ≫ N:** each P\*-family copy establishes with probability ≈ 0.048 at N = 200 and then holds ≈ 40% of the islands with no measured loss; natural separations arrive at μ_bl·N·I·p₁ per run, linear in I, so at fixed N ≥ 200 a patchwork is certain once I ≫ 1/(μ_bl·N·p₁) ≈ 10⁴. **Island-level efficiency is untouched** (island P(C,C) ≥ 0.978 in every cell); what fails is the counterfactual cross-island P(C,C), ≈ 0.6 in separated runs.
+- **Probe-readers carry their own spoilers between islands:** B₁ without its bridges is less permanent than P\* only because its faker captures it, and in 2 of 200 B₁ runs that faker and then D took the whole archipelago, the one way this run found to lose efficiency at run level.
+- Holder-form q is retired as the nucleation statistic in favour of q_est.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
