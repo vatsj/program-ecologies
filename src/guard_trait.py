@@ -77,6 +77,51 @@ class KTheoryM(KC.KTheoryC):
             gid = len(self.genos); self.geno_id[key] = gid; self.genos.append((ti, b)); self.gg.append(g)
         return gid
 
+    def _dist(self, L, B, c, memo):
+        """bounded_k.KTheory._dist with two value-preserving accelerations (the search is otherwise unchanged):
+        (i) a cache per phase memo (within one memo the T/J/M values are fixed, and the side effects -- premise
+        registration -- are idempotent); (ii) GL pruning by weakening: if erase(Pi_max |- B) is not GL-valid for the
+        union Pi_max of every content and box a choice could use, no subset is GL-valid, so every choice of the
+        instance (and, for the full left set, every instance) is skipped exactly as seq_prune would skip it."""
+        if self.cut is None or self.seq_prune is None:
+            return super()._dist(L, B, c, memo)
+        from itertools import combinations, product
+        F = self.forms
+        lb = tuple(sorted((F[x][2], F[x][1], x) for x in L if F[x][0] == FBOX))
+        key = ('dist', lb, B, c)
+        r = memo.get(key)
+        if r is not None:
+            return r
+        best = INF
+        feas = [h for h in lb if h[0] + 2 <= c]           # a hypothesis alone already costs a + 1 (+1 for the rule)
+        if feas:
+            allPi = frozenset(f for a, A, x in feas for f in ((A,) if self.cut == 'c' else (A, x)))
+            if self.seq_prune(allPi, B) is False:
+                feas = []
+        for k in range(1, min(self.dist_arity, len(feas)) + 1):
+            for H in combinations(feas, k):
+                if sum(a for a, _, _ in H) + k + 1 > c: continue
+                PiH = frozenset(f for a, A, x in H for f in ((A,) if self.cut == 'c' else (A, x)))
+                if self.seq_prune(PiH, B) is False: continue
+                opts = [((A,),) if self.cut == 'c' else ((A,), (x,), (A, x)) for a, A, x in H]
+                for choice in product(*opts):
+                    Pi = frozenset(f for ch in choice for f in ch)
+                    charge = 0
+                    for (a, A, x), ch in zip(H, choice):
+                        if A in ch: charge += a + 1
+                        if x in ch: charge += a + 2
+                    if self.cut == 'c': charge = sum(a for a, _, _ in H) + k
+                    if charge + 1 > c: continue
+                    if self.seq_prune(Pi, B) is False: continue
+                    sv = self.m(Pi, frozenset([B]), memo)
+                    if sv >= INF: continue
+                    self.mp.setdefault(B, set()).add((Pi, tuple(sorted(H)), choice))
+                    self.goalsT.add(B)
+                    for a, A, x in H: self.goalsT.add(A)
+                    if sv + charge <= c: best = min(best, 1 + sv)
+        memo[key] = best
+        return best
+
     def name(self, gid):
         ti, b = self.genos[gid]
         s = psrc(self.trees[ti])
@@ -295,12 +340,18 @@ def _kc4_job(j):
     K, L, cat, kg = build_K(n, b, glong, cut='c4')
     gx, gy = block_genos(L, kg, blk)
     want = set(goals); cmap = {}
-    for x in sorted(set(gx)):
-        for y in sorted(set(gy)):
-            for a_ in K.atoms(x, y):
-                c = K.forms[a_][1]
-                s = K.show(c)
-                if s in want: cmap[s] = c
+    rp = os.path.join(GDIR, 'relevant_n%d_b%d_%s.json' % (n, b, blk))
+    where = json.load(open(rp)).get('where', {}) if os.path.exists(rp) else {}
+    if all(g in where for g in goals):
+        pairs = sorted({tuple(where[g]) for g in goals})        # one witnessing pair per goal: build only those atoms
+        it = ((gx[cx], gy[cy]) for cx, cy in pairs)
+    else:
+        it = ((x, y) for x in sorted(set(gx)) for y in sorted(set(gy)))
+    for x, y in it:
+        for a_ in K.atoms(x, y):
+            c = K.forms[a_][1]
+            s = K.show(c)
+            if s in want: cmap[s] = c
     K.solve(sorted(set(cmap.values())))
     T = {s: int(K.T.get(c, INF)) for s, c in cmap.items() if K.T.get(c, INF) <= K.cap}
     nchk, bad = K.soundness_check()
@@ -315,7 +366,7 @@ def _kc4_job(j):
             ck['dist'] += st['dist']; ck['replayed'] += st['replayed']; ck['nodes'] += st['nodes']
         except (AssertionError, ValueError, KeyError) as e:
             ck['fail'] += 1
-    return dict(seed=seed, block=blk, n_goals=len(goals), matched=len(cmap), T=T, sound_checked=nchk, sound_bad=len(bad),
+    return dict(seed=seed, block=blk, n_goals=len(goals), goals=list(goals), matched=len(cmap), T=T, sound_checked=nchk, sound_bad=len(bad),
                 bad_examples=[K.show(x) for x in bad[:10]], checker=ck, t=time.time() - t, n_forms=len(K.forms))
 
 
@@ -355,16 +406,26 @@ def _relevant_job(j):
             if c in unc: return None
             return K.T.get(c, INF) <= t[2]
         raise ValueError(k)
+    mc = L.mu_canon / L.mu_canon.sum()
+    srcx = {}; srcy = {}
+    for c_, g_ in enumerate(gx): srcx.setdefault(g_, c_)
+    for c_, g_ in enumerate(gy): srcy.setdefault(g_, c_)
     goals = set(); undecided = 0; pairs = 0
+    w2 = defaultdict(float); w1 = defaultdict(float); where = {}
     for x in sorted(set(gx)):
         for y in sorted(set(gy)):
             pairs += 1
             if tv(K.phi(x, y), x, y) is None:
                 undecided += 1
+                mx, my = mc[srcx[x]], mc[srcy[y]]
                 for a_ in K.atoms(x, y):
                     c = F[a_][1]
-                    if c in unc: goals.add(K.show(c))
-    return blk, sorted(goals), dict(pairs=pairs, undecided_pairs=undecided, uncertified=len(unc), relevant=len(goals))
+                    if c in unc:
+                        s_ = K.show(c); goals.add(s_)
+                        w2[s_] += mx * my; w1[s_] = max(w1[s_], max(mx, my))
+                        if s_ not in where: where[s_] = (srcx[x], srcy[y])
+    return blk, sorted(goals), dict(pairs=pairs, undecided_pairs=undecided, uncertified=len(unc), relevant=len(goals),
+                                    w2=dict(w2), w1=dict(w1), where=where)
 
 
 def cmd_relevant(a):
@@ -372,7 +433,7 @@ def cmd_relevant(a):
     with Pool(min(a.workers, 4)) as pool:
         for blk, goals, st in pool.imap_unordered(_relevant_job, jobs):
             json.dump(dict(goals=goals, **st), open(os.path.join(GDIR, 'relevant_n%d_b%d_%s.json' % (a.n, a.b, blk)), 'w'))
-            print(blk, st, flush=True)
+            print(blk, {k: v for k, v in st.items() if k not in ('w1', 'w2', 'where')}, flush=True)
 
 
 def goals_of(n, b, blk):
@@ -382,20 +443,26 @@ def goals_of(n, b, blk):
 
 
 def cmd_kc4(a):
+    """K_c4 search on the relevant goals, in tiers of decreasing weight w1 (the largest source mu among the undecided
+    pairs a goal enters), chunked per block; every run appends to kc4_n*_b*.json and skips goals already searched.
+    Unsearched relevant goals keep K's value; their weight is reported as the residual."""
     n, b = a.n, a.b
     path = os.path.join(GDIR, 'kc4_n%d_b%d.json' % (n, b))
     out = json.load(open(path)) if os.path.exists(path) and not a.fresh else []
-    done = {(r['block'], r['seed']) for r in out}
-    jobs = []
+    searched = {(r['block'], g) for r in out for g in r.get('goals', [])}
+    seed0 = max([r['seed'] for r in out], default=-1) + 1
+    jobs = []; wtop = {}
     for blk in BLOCKS:
-        goals = goals_of(n, b, blk)
-        if not goals: continue
-        nch = max(1, min(a.chunks, (len(goals) + a.chunk_size - 1) // a.chunk_size))
-        rng = np.random.default_rng(0); perm = rng.permutation(len(goals))
-        for k in range(nch):
-            if (blk, k) not in done:
-                jobs.append((n, b, blk, [goals[i] for i in perm[k::nch]], k))
-    print('%d chunks to run' % len(jobs), [(j[2], len(j[3])) for j in jobs], flush=True)
+        d = json.load(open(os.path.join(GDIR, 'relevant_n%d_b%d_%s.json' % (n, b, blk))))
+        w1 = d.get('w1', {}); w2 = d.get('w2', {})
+        goals = [g for g in d['goals'] if (blk, g) not in searched and w1.get(g, 1.0) >= a.wmin]
+        goals.sort(key=lambda g: (-w1.get(g, 1.0), -w2.get(g, 0.0), g))
+        for k in range(0, len(goals), a.chunk_size):
+            j = (n, b, blk, goals[k:k + a.chunk_size], seed0 + len(jobs))
+            wtop[j[4]] = w1.get(j[3][0], 1.0)
+            jobs.append(j)
+    jobs.sort(key=lambda j: -wtop[j[4]])
+    print('%d chunks to run (wmin %g)' % (len(jobs), a.wmin), [(j[2], len(j[3])) for j in jobs], flush=True)
     with Pool(min(a.workers, len(jobs) or 1), maxtasksperchild=1) as pool:
         for r in pool.imap_unordered(_kc4_job, jobs):
             out.append(r); json.dump(out, open(path, 'w'))
@@ -426,7 +493,12 @@ def patched_tables(n, b):
         d = json.load(open(os.path.join(GDIR, 'kclosure_n%d_b%d_%s.json' % (n, b, blk))))
         R = [r for r in rows if r['block'] == blk]
         unc = set(goals_of(n, b, blk)); unc_all = set(d['uncertified'])
-        assert sum(r['n_goals'] for r in R) == len(unc), (blk, len(unc))
+        done_g = {g for r in R for g in r.get('goals', [])}
+        assert done_g <= unc
+        rel = json.load(open(os.path.join(GDIR, 'relevant_n%d_b%d_%s.json' % (n, b, blk))))
+        resid = sorted(unc - done_g)
+        resid_w1 = max([rel.get('w1', {}).get(g, 0.0) for g in resid], default=0.0)
+        resid_w2 = float(sum(rel.get('w2', {}).get(g, 0.0) for g in resid))
         Tn = {}
         for r in R: Tn.update(r['T'])
         byshow = {K.show(c): c for c in contents if K.T.get(c, INF) > b}
@@ -445,7 +517,8 @@ def patched_tables(n, b):
                                    diff_vs_K=int((v4b != vb).sum()),
                                    sound_bad=sum(r['sound_bad'] for r in R), sound_checked=sum(r['sound_checked'] for r in R),
                                    checker={k: sum(r['checker'][k] for r in R) for k in R[0]['checker']} if R else {},
-                                   t_kc4=sum(r['t'] for r in R))
+                                   t_kc4=sum(r['t'] for r in R), searched=len(done_g), relevant=len(unc),
+                                   unsearched=len(resid), unsearched_max_w1=resid_w1, unsearched_w2=resid_w2)
     return vK, v4, info
 
 
@@ -1205,7 +1278,7 @@ def main():
     q = sp.add_parser('kclosure'); q.add_argument('--n', type=int, default=8); q.add_argument('--b', type=int, default=16)
     q.add_argument('--blocks', nargs='*'); q.add_argument('--workers', type=int, default=2)
     q = sp.add_parser('kc4'); q.add_argument('--n', type=int, default=8); q.add_argument('--b', type=int, default=16)
-    q.add_argument('--chunks', type=int, default=6); q.add_argument('--chunk-size', type=int, default=1500)
+    q.add_argument('--wmin', type=float, default=0.0); q.add_argument('--chunk-size', type=int, default=400)
     q.add_argument('--workers', type=int, default=3); q.add_argument('--fresh', action='store_true')
     for nm in ('patch', 'full'):
         q = sp.add_parser(nm); q.add_argument('--n', type=int, default=8); q.add_argument('--b', type=int, default=16)
