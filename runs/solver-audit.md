@@ -83,7 +83,7 @@ wrong (π(S3) 1.9·10⁻¹¹ against 1.2·10⁻¹⁴; π(S5) 6·10⁻¹⁶ again
 
 In every one-population cell the LogChain re-run of the published configuration expands exactly the published set
 ("same explored set: True" everywhere), and:
-- **rates:** on non-underflowed edges the log weights equal the published linear weights to |Δ log w| ≤ 6·10⁻¹⁴, except
+- **rates:** on non-underflowed edges the log weights equal the published linear weights to |Δ log w| ≤ 1.2·10⁻¹³ (checked separately on normal-range weights), except
   denormal edges (|Δ log w| up to 0.40, 1–441 edges per dollar cell); underflowed edges: 0 at N = 10³, 33–8,295 in the
   dollar cells at N ≥ 10⁴, 1,020–288,799 in the PD cells (38% of the modal PD's 757 k edges);
 - **solver:** log-domain GTH on the published generator reproduces the published statistic in every cell to ≤ 5·10⁻⁴
@@ -152,7 +152,7 @@ transition, in place of the lumped-resident fate. Twin-expanded stationary distr
 | dollar5 role | 10⁴ / 10⁵ | 0.5849 / 0 (R5) · 0.4132 / 0 (G4) | 0.5849 / 0 (R5) · 0.4132 / 0 (G4) |
 | **dollar3 norole** | **10⁴ / 10⁵** | **0.6251 / 0 (greedy H state) · 0.625 / 0** | **0.9906 / 0.975 (all-M 0.958) · 0.9949 / 0.990 (all-M 0.983)** |
 | dollar3 role | 10⁴ / 10⁵ | 0.9858 / 0.7929 (M) · 0.9925 / 0.8428 (M) | 0.9859 / 0.7905 (M) · 0.9925 / 0.8427 (M) |
-| **modal dollar n = 7** | **10⁴** / 10⁵ | **0.6531 (X+Z+V 1.000)** · 0.6531 (X+Z+V) | **0.5448 (H5 0.91; θ_log 10⁻¹², 2,450 states; 0.5454 at 10⁻¹⁰)** · not run (cost) |
+| **modal dollar n = 7** | **10⁴** / 10⁵ | **0.6531 (X+Z+V 1.000)** · 0.6531 (X+Z+V) | **0.5448 (H5 0.91; θ_log 10⁻¹², 2,450 states; 0.5454 at 10⁻¹⁰)** · 0.4453 (θ_log 10⁻¹⁰; a twin-connected family of two-class hawk states X + `if(BOX1(S2),·,S2)`, 0.95) |
 
 **dollar3 `norole`: the greedy polymorphism is a lumping artefact.** Its exit without twins is 10⁻¹⁷·¹ per event
 (to M). Its member flip(THEM(THEM)) has two payoff twins on the support, flip(THEM(ME)) and min(THEM(ME),L); twin
@@ -168,8 +168,10 @@ state exits at 10⁻⁵·³ to X + `if(BOX1(S2),S4,S2)` and on to a five-class S
 (exit 10⁻⁹·³), which holds 0.91–0.98 of π. P(efficient) 0.653 → 0.545 (2/3–1/3 0.539, clash 0.215, inefficient
 0.240). The published twin caveat (best paths ∝ N⁻⁵ out of the trap; a stationary solve that hit 4,000 states) is
 thereby settled at N = 10⁴: with twin moves the Löbian-hawk trap is not where π sits; another hawk polymorphism is.
-Convergence is weaker than in the untwinned cells (log10 cut −9.8 at θ_log 10⁻¹², 74,578 twin moves), and N = 10⁵
-was not run.
+Convergence is weaker than in the untwinned cells (log10 cut −9.8 at θ_log 10⁻¹², 74,578 twin moves). At N = 10⁵
+(θ_log 10⁻¹⁰, published states not seeded, log10 cut −9.2) π sits on a family of two-class hawk states
+`if(BOX(S1),S1,S4)` or its PA + Con twin at 2/3 with a one-atom reader `if(BOX1(S2),·,S2)` at 1/3 (deep with
+penalty only), linked to each other by twin moves at 10⁻⁸·³ per event; P(efficient) 0.445.
 
 ## 5. PD cells
 
