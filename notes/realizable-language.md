@@ -292,3 +292,46 @@ cheaper (8) because S is a singleton.
 
 The search's own visit of this space at b = 2…7 (every sequent it expands, with its value) is listed in §2 and was
 checked against this enumeration line by line.
+
+## 2. The search's own visit of the FairBot space, checked by hand
+
+Names: A0 = plays(FB_b, FB_b, C), A1, A2 its deterministic successors, A3 the prove state, AT/AF the after-states
+⟨if(T, C, D)⟩⇓C / ⟨if(F, C, D)⟩⇓C, T/F the readings ⊤/⊥. The root closure has these 9 formulas plus □_b A0, with 0
+merges; Mem(A0) = {A0, A1, A2, A3, AT, AF}.
+
+**b = 4** (refuted, W = 55 expansions, 34 sequents, 3 JLöb entries). The complete memo at the end of the search, every
+entry a lower bound (no sequent is derivable within its cap):
+
+```
+>= 5   |- A0            >= 4   |- A1            >= 3   |- A2            >= 2   |- A3
+>= 4   [2]A0 |- A0      >= 3   [2]A0 |- A1      >= 2   [2]A0 |- A2
+>= 3   [2]A1 |- A1      >= 2   [2]A1 |- A2      >= 2   [2]A2 |- A2
+>= 3   [3]A0, [3]Y |- A0   and   >= 2  [3]A0, [3]Y |- A1      for Y in {A1, A2, A3, AF, AT}
+>= 2   [3]A1, [3]Y |- A1     for Y in {A2, A3, AF, AT}
+>= 2   [4]A0, [4]Y, [4]Z |- A0   for the ten pairs {Y, Z} of {A1, A2, A3, AF, AT}
+J(A0) >= 5    J(A1) >= 4    J(A2) >= 3
+```
+
+*Hand check.* By §1.8 the true minima are ⊢ A0 = 8, ⊢ A_k = 8 − k (k ≤ 3), and a JLöb premise □_m S ⊢ A_i has size
+≥ 7 − i (and needs m + 3 − (position of the hypothesis on the chain) ≤ b to close P₂ by BoxEq, otherwise more). Every
+stored bound is at most the corresponding true minimum (e.g. [2]A0 ⊢ A0: true minimum 7 at b = 4, since □_2 A0 ⊢ □_4 A0
+closes P₂; stored ≥ 4), so the memo contradicts nothing, and the root's bound 5 > 4 is the certified refutation. The
+pattern of the visit is the hand enumeration: EvR down the chain from A0, JLöb candidates at each of A0, A1, A2
+(A3's J is never reached at cap ≤ 4, because a JLöb concluding A3 below A0 costs ≥ 3 + 2), singletons, pairs and
+triples drawn from Mem, with hypothesis budget m = 1 + |S| (the smallest admissible), each failing inside its cap.
+The sequents [m]S ⊢ A_i with S ∌ A3 never reach the prove state within the cap; none with AT or AF as an extra member
+can use it (no right box has content AT or AF, and they are downstream of the prove state only through a branch, not
+a deterministic step).
+
+**b = 5, 6, 7** (refuted): W = 125, 229, 359 expansions; 66, 100, 126 sequents; again only lower bounds, root bound
+b + 1. **b = 8** (found, size 8, W = 378): the exact entries are
+
+```
+= 8   |- A0        = 7   |- A1        = 6   |- A2        = 5   |- A3        J(A3) = 5
+= 4   [5]A3 |- A3          = 1   [5]A3 |- AF, [8]A0     (BoxEq (iii): A0 >_3 A3, 5 + 3 <= 8)
+= 2   [5]A3, [8]A0 |- AT   = 1   [5]A3, [8]A0 |- T
+= 4   [2]A3 |- A3          (the m = 2 attempt: premise 4 > 2, so the instance jumps to m = 5)
+```
+
+which is the second derivation of §1.8 (S = {A3}, m = 5, ⊢ A0 = EvR³ + JLöb), line for line. The brute-force prover of
+`src/lt_check.py` (no lower bounds, members = the whole closure) returns the same minimum 8 and refutes at every b ≤ 7.
