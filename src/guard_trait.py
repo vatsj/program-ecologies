@@ -40,6 +40,12 @@ GDIR = os.path.join(RUNS, 'guard-trait')
 os.makedirs(GDIR, exist_ok=True)
 
 
+def opath(name):
+    """Output path; test runs at another n ($GT_N) get a prefix."""
+    nn = int(os.environ.get('GT_N', 8))
+    return os.path.join(GDIR, name if nn == 8 else 'n%d_%s' % (nn, name))
+
+
 def gdep(t):
     """Does the source's definition depend on the guard (a level >= 1 atom anywhere, quotes included)?"""
     k = t[0]
@@ -692,6 +698,371 @@ def describe(ch, cat, rep, key):
     return ' + '.join('%s %.2f' % (cat.names[rep[i]], xi) for i, xi in zip(ids, x)) if kind == 'poly' else cat.names[rep[ids[0]]]
 
 
+# ====================================================================== arms
+PRIORS = {'u': (0.5, 0.5), '91': (0.9, 0.1)}
+_BASE = {}
+
+
+def base(n=None, b=16):
+    """(val of the mixed K_c4 table, catalogue list, L, gdep per source).  n defaults to $GT_N or 8 (6 for tests)."""
+    n = n or int(os.environ.get('GT_N', 8))
+    if (n, b) not in _BASE:
+        import k_at_n8 as KN
+        L = KN.tables(n)[0]
+        d = json.load(open(os.path.join(GDIR, 'kclosure_n%d_b%d.json' % (n, b))))
+        v = np.load(os.path.join(GDIR, 'vKc4_n%d_b%d.npy' % (n, b)))
+        cat = [tuple(x) for x in d['cat']]
+        gd = np.array([gdep(parse(s)) for s in L.rep])
+        _BASE[(n, b)] = (v, cat, L, gd)
+    return _BASE[(n, b)]
+
+
+def erased_index(cat):
+    pos = {(c, g): i for i, (c, g) in enumerate(cat)}
+    return np.array([pos[(c, 0)] for c, g in cat])
+
+
+def faker_partner_sets(v, cat):
+    """Newly enabled fakers and cooperative partners (design choice 8)."""
+    import modal as M
+    U, _ = M.pd_payoffs(v, M.PD)
+    e = erased_index(cat); lab = np.array([g for c, g in cat])
+    Ue = U[np.ix_(e, e)]
+    inv = U > np.diag(U)[None, :] + 1e-12           # inv[z, x]: z strictly invades x
+    inv_e = Ue > np.diag(Ue)[None, :] + 1e-12
+    new_inv = inv & ~inv_e
+    fakers = sorted(set(np.nonzero(new_inv.any(1))[0].tolist()))
+    mut = (v == 1) & (v.T == 1); mut_e = mut[np.ix_(e, e)]
+    new_mut = mut & ~mut_e
+    fs = set(fakers)
+    partners = [z for z in np.nonzero(new_mut.any(1))[0].tolist() if lab[z] == 1 and z not in fs]
+    return fakers, partners, new_inv, new_mut
+
+
+def price_cost(cat, gd, c, N, b=16):
+    """Amortized c (2b + 8) / N per match for every g = L genotype whose source reads a guard."""
+    G_ = len(cat)
+    cost = np.zeros((G_, G_))
+    for i, (s, g) in enumerate(cat):
+        if g == 1 and gd[s]:
+            cost[i, :] = c * (2 * b + 8) / N
+    return cost
+
+
+def make_cat(arm, prior, N=10000):
+    """Catalogues: 'mixed' (the (source, g) table), 'g0' / 'L' (one guard population, guard-free sources included),
+    'sham' (the g = 0 block with a label that changes nothing), 'delF' / 'delP' / 'delFP' (attribution: newly
+    enabled fakers / partners / both deleted, prior weight 0), 'price:c'."""
+    v, cat, L, gd = base()
+    pg = PRIORS[prior]
+    nr = len(L.rep)
+    if arm in ('g0', 'L'):
+        lab = 0 if arm == 'g0' else 1
+        ii = [i for i, (c, g) in enumerate(cat) if g == lab]
+        return Cat(v[np.ix_(ii, ii)], [cat[i] for i in ii], L, (1.0, 0.0) if lab == 0 else (0.0, 1.0))
+    if arm == 'sham':
+        ii = [i for i, (c, g) in enumerate(cat) if g == 0]
+        v0 = v[np.ix_(ii, ii)]
+        pos = {c: k for k, (c, g) in enumerate(cat[i] for i in ii)}
+        vs = np.zeros_like(v)
+        idx = np.array([pos[c] for c, g in cat])
+        vs = v0[np.ix_(idx, idx)]
+        C = Cat(vs, cat, L, pg)
+        C.names = ['%s%s' % (L.rep[c], '/h' if g else '') for c, g in cat]
+        return C
+    if arm.startswith('price:'):
+        c = float(arm.split(':')[1])
+        return Cat(v, cat, L, pg, cost=price_cost(cat, gd, c, N))
+    C = Cat(v, cat, L, pg)
+    if arm in ('delF', 'delP', 'delFP'):
+        fk, pt, _, _ = faker_partner_sets(v, cat)
+        dele = (fk if arm in ('delF', 'delFP') else []) + (pt if arm in ('delP', 'delFP') else [])
+        keep = [i for i in range(len(cat)) if i not in set(dele)]
+        C2 = Cat(v[np.ix_(keep, keep)], [cat[i] for i in keep], L, pg)
+        # a deleted genotype's partner loses its partner index; Cat recomputes partners on the kept list
+        C2.deleted = [C.names[i] for i in dele]
+        return C2
+    return C
+
+
+def _chain_job(j):
+    arm, kernel, prior, N = j
+    C = make_cat(arm, prior, N)
+    kern = kernel if arm not in ('g0', 'L') else 'joint'
+    r = run_chain(C, kern, N, label='%s %s %s' % (arm, kernel, prior))
+    r.update(arm=arm, kernel_req=kernel, prior_key=prior)
+    if hasattr(C, 'deleted'): r['deleted'] = C.deleted
+    r['names'] = C.names
+    return r
+
+
+def cmd_chain(a):
+    path = opath('chains.json')
+    rows = json.load(open(path)) if os.path.exists(path) else []
+    done = {(r['arm'], r['kernel_req'], r['prior_key'], r['N']) for r in rows}
+    jobs = []
+    for spec in a.cells:
+        arm, kernel, prior, N = spec.split(',')
+        if (arm, kernel, prior, int(N)) not in done:
+            jobs.append((arm, kernel, prior, int(N)))
+    print('%d jobs' % len(jobs), flush=True)
+    with Pool(min(a.workers, max(len(jobs), 1))) as pool:
+        for r in pool.imap_unordered(_chain_job, jobs):
+            rows.append(r); json.dump(rows, open(path, 'w'), default=str)
+            print('%-28s N=%-6d P(C,C) %.6f pi(D) %.3f active-L %.4f neutral-L %.4f alloc %.4f coop(g0/Lneu/Lact) %.3f/%.3f/%.3f blocks %d states %d deep %d resid %.1e lazy %s (%.0fs)' % (
+                r['label'], r['N'], r['pcc'], r['pi_D'], r['pi_active_long'], r['pi_neutral_long'], r['allocation_twins'],
+                r['coop_g0'], r['coop_long_neutral'], r['coop_long_active'], r['n_blocks'], r['n_states'], r['n_deep_poly'],
+                r['residual'], r.get('lazy', {}).get('pcc'), r['t']), flush=True)
+            print('    support:', r['support'][:6], flush=True)
+
+
+# ====================================================================== static screening
+CORE0_DEFAULT = ['BOX(THEM(ME))', 'BOX1(THEM(ME))', 'and(BOX(THEM(ME)),BOXD1(THEM(^D)))', 'BOX(THEM(THEM))', 'BOX1(THEM(THEM))']
+
+
+def chain_core(arm, N=10000, prior='u', kernel='joint', thresh=1e-3):
+    """Supported self-cooperators (pi >= thresh) of a chain row in chains.json, as genotype names."""
+    path = opath('chains.json')
+    if not os.path.exists(path): return None
+    for r in json.load(open(path)):
+        if r['arm'] == arm and r['N'] == N and r['prior_key'] == prior and r['kernel_req'] == kernel:
+            names = r['names']; gpi = np.array(r['gpi'])
+            return [(names[i], float(gpi[i])) for i in np.argsort(-gpi) if gpi[i] >= thresh]
+    return None
+
+
+def cmd_static(a):
+    import modal as M
+    from chain import fixation
+    v, cat, L, gd = base()
+    C = Cat(v, cat, L, PRIORS['u'])
+    U = C.U; names = C.names; G_ = len(cat); lab = C.lab; mu = C.mu
+    e = erased_index(cat)
+    pos = {nm: i for i, nm in enumerate(names)}
+    tw = C.twins()
+    out = {}
+    # -- table summary
+    nr = len(L.rep)
+    i0 = np.nonzero(lab == 0)[0]; i1 = np.nonzero(lab == 1)[0]
+    v0 = v[np.ix_(i0, i0)]
+    nn = int(os.environ.get('GT_N', 8))
+    pKc = os.path.join(RUNS, 'k-cut', 'Kc_g0_n%d_b16.npy' % nn)
+    vKc = np.load(pKc) if os.path.exists(pKc) else None
+    import k_at_n8 as KN
+    vK = KN.load_val(8, 16) if nn == 8 else np.load(os.path.join(RUNS, 'k-cut', 'K_g0_n%d_b16.npy' % nn))
+    mc = L.mu_canon / L.mu_canon.sum()
+    def mu2(mask_pairs):
+        return float(sum(mc[i] * mc[j] for i, j in mask_pairs))
+    out['g0_block'] = dict(diff_vs_K=int((v0 != vK).sum()), diff_vs_Kc=(int((v0 != vKc).sum()) if vKc is not None else None),
+                           mu2_vs_Kc=(mu2(np.argwhere(v0 != vKc)) if vKc is not None else None),
+                           changed_vs_Kc=[(L.rep[i], L.rep[j], int(vKc[i, j]), int(v0[i, j])) for i, j in np.argwhere(v0 != vKc)[:20]] if vKc is not None else None)
+    vLL = v[np.ix_(i1, i1)]
+    out['LL_block'] = dict(diff_vs_g0=int((vLL != v0).sum()), mu2=mu2(np.argwhere(vLL != v0)))
+    out['cross'] = dict(g0_reader_vs_L=int((v[np.ix_(i0, i1)] != v0).sum()), L_reader_vs_g0=int((v[np.ix_(i1, i0)] != v0).sum()))
+    # -- twins
+    act = [i for i in i1 if not tw[i]]
+    out['twins'] = dict(n_long=len(i1), n_twins=int(tw.sum()), n_active=len(act), n_guard_free=int((~gd).sum()),
+                        mu_active=float(mc[[cat[i][0] for i in act]].sum()), mu_twin=float(mc[[cat[i][0] for i in i1 if tw[i]]].sum()),
+                        active_examples=[names[i] for i in sorted(act, key=lambda i: -mu[i])[:40]])
+    # -- action-change table
+    tab = defaultdict(float); cnt = defaultdict(int); bydir = defaultdict(float)
+    ex = defaultdict(list)
+    for x in range(G_):
+        for y in range(G_):
+            if lab[x] == 0 and lab[y] == 0: continue
+            xb, yb = e[x], e[y]
+            if v[x, y] == v[xb, yb]: continue
+            new_x, new_y = v[x, y], v[y, x]
+            if new_x == 1 and new_y == 1: k = 'enabled cooperation (new mutual C)'
+            elif new_x == 1 and new_y == 0: k = 'x newly suckered (enabled exploitation by y)'
+            elif new_x == 0 and new_y == 1: k = 'x newly exploits y (enabled exploitation by x)'
+            else: k = 'protection (new mutual D)'
+            w_ = mu[x] * mu[y]
+            tab[k] += w_; cnt[k] += 1
+            bydir['%s reader, %s opponent' % ('L' if lab[x] else '0', 'L' if lab[y] else '0')] += w_
+            if len(ex[k]) < 12: ex[k].append((names[x], names[y], int(v[xb, yb]), int(v[x, y]), int(v[y, x])))
+    expl = tab['x newly suckered (enabled exploitation by y)'] + tab['x newly exploits y (enabled exploitation by x)']
+    out['action_changes'] = dict(weight=dict(tab), count=dict(cnt), by_direction=dict(bydir), examples=dict(ex),
+                                 enabled_cooperation=tab['enabled cooperation (new mutual C)'], enabled_exploitation=expl,
+                                 ratio_coop_to_expl=(tab['enabled cooperation (new mutual C)'] / expl if expl > 0 else float('inf')))
+    # -- P*-type sources (cooperate with themselves only at g = L) and fakers acting only against g = L readers
+    pstar = [L.rep[c] for c in range(nr) if v[pos.get(L.rep[c] + '/L', 0), pos.get(L.rep[c] + '/L', 0)] == 1 and v[c, c] == 0 and gd[c]]
+    fk, pt, new_inv, new_mut = faker_partner_sets(v, cat)
+    vict = defaultdict(list)
+    for z, x in np.argwhere(new_inv):
+        vict[names[z]].append(names[x])
+    only_vs_L = {nm: vs[:8] for nm, vs in vict.items() if all(vv.endswith('/L') for vv in vs)}
+    godel, con, _ = KC.faker_sets()
+    gset = set(godel) | set(con)
+    gc_new = sorted({names[z].replace('/L', '') for z in fk if names[z].replace('/L', '') in gset})
+    out['pstar_type'] = dict(n=len(pstar), mu=float(sum(mc[L.rep.index(s)] for s in pstar)), sources=pstar[:60])
+    out['fakers'] = dict(n=len(fk), mu=float(mu[fk].sum()), names=[names[z] for z in sorted(fk, key=lambda z: -mu[z])][:60],
+                         victims={names[z]: vict[names[z]][:8] for z in sorted(fk, key=lambda z: -mu[z])[:30]},
+                         only_vs_L_readers=len(only_vs_L), godel_con_classes_newly_invading=gc_new, n_godel_con=len(gc_new))
+    out['partners'] = dict(n=len(pt), mu=float(mu[pt].sum()), names=[names[z] for z in sorted(pt, key=lambda z: -mu[z])][:60])
+    named = ['and(BOX1(THEM(ME)),not(BOX(THEM(ME))))', 'and(BOX1(THEM(ME)),not(BOX(THEM(^C))))', 'BOX(THEM(ME))', 'BOX1(THEM(ME))',
+             'and(BOX(THEM(ME)),BOXD1(THEM(^D)))', 'BOX(THEM(THEM))', 'BOX1(THEM(THEM))', 'not(BOX(THEM(ME)))', 'C', 'D']
+    out['named_self'] = {s: dict(g0=int(v[pos[s], pos[s]]) if s in pos else None,
+                                 gL=int(v[pos[s + '/L'], pos[s + '/L']]) if s + '/L' in pos else None) for s in named}
+    out['named_cross'] = {x: {y: int(v[pos[x], pos[y]]) for y in [n_ for s in named[:7] for n_ in (s, s + '/L') if n_ in pos]}
+                          for x in [n_ for s in named[:7] for n_ in (s, s + '/L') if n_ in pos]}
+    # -- cores (from the reference chains if present)
+    core0 = chain_core('g0') or [(s, None) for s in CORE0_DEFAULT]
+    coreL = chain_core('L') or []
+    out['core0'] = core0; out['coreL'] = coreL
+    sc = [i for i in range(G_) if v[i, i] == 1 and L.rep[cat[i][0]] != 'C']
+    iD = pos['D']
+    est = [i for i in sc if v[i, iD] == 0]
+    out['establishers'] = dict(n=len(est), mu=float(mu[est].sum()), n_g0=sum(1 for i in est if lab[i] == 0),
+                               n_L=sum(1 for i in est if lab[i] == 1), n_L_active=sum(1 for i in est if lab[i] == 1 and not tw[i]))
+    def core_ids(core, labv):
+        ids = []
+        for nm, p in core:
+            if nm in pos and nm != 'D' and nm != 'C' and v[pos[nm], pos[nm]] == 1: ids.append(pos[nm])
+        return ids
+    c0 = core_ids(core0, 0); cL = core_ids(coreL, 1)
+    def incompatible(a_, b_):
+        mutD = v[a_, b_] == 0 and v[b_, a_] == 0
+        return bool(mutD or U[a_, b_] > U[b_, b_] + 1e-12 or U[b_, a_] > U[a_, a_] + 1e-12)
+    out['incompatible_core_pairs'] = [(names[a_], names[b_]) for a_ in c0 for b_ in cL if a_ != b_ and incompatible(a_, b_)]
+    for tagc, core in (('core0', c0), ('coreL', cL)):
+        if not core: continue
+        riv = [r_ for r_ in est if r_ not in core and any(v[r_, k] == 0 and v[k, r_] == 0 for k in core)]
+        coopc = [i for i in sc if not (U[i] == U[pos['C']]).all()]
+        def bridges(r_):
+            return [bb for bb in coopc if all(v[bb, k] == 1 and v[k, bb] == 1 for k in core) and v[bb, r_] == 1 and v[r_, bb] == 1]
+        rv = sorted(riv, key=lambda i: -mu[i])
+        out['rivals_' + tagc] = dict(core=[names[i] for i in core], n=len(riv), mu=float(mu[riv].sum()),
+                                     n_active_long=sum(1 for i in riv if lab[i] == 1 and not tw[i]),
+                                     top=[(names[i], float(mu[i]), len(bridges(i))) for i in rv[:20]],
+                                     bridgeless=[names[i] for i in rv if not bridges(i)][:20],
+                                     bridgeless_mu=float(sum(mu[i] for i in rv if not bridges(i))),
+                                     strict_invaders=[(names[z], names[k]) for k in core for z in range(G_) if U[z, k] > U[k, k] + 1e-12][:30])
+    # -- four encounter payoffs and exact N rho for core guard mutants (g = L mutant in a g = 0 resident, same source)
+    enc = []
+    for s in ['BOX(THEM(ME))', 'BOX1(THEM(ME))', 'and(BOX(THEM(ME)),BOXD1(THEM(^D)))', 'BOX(THEM(THEM))', 'BOX1(THEM(THEM))',
+              'and(BOX1(THEM(ME)),not(BOX(THEM(ME))))'] + [nm for nm, p in core0 if nm not in CORE0_DEFAULT and '/L' not in nm]:
+        if s not in pos or s + '/L' not in pos: continue
+        r0, m1 = pos[s], pos[s + '/L']
+        four = dict(rr=float(U[r0, r0]), rm=float(U[r0, m1]), mr=float(U[m1, r0]), mm=float(U[m1, m1]))
+        row = dict(source=s, guard_free=not gd[cat[r0][0]], twin=bool(tw[m1]), **four)
+        for N in (1000, 10000):
+            row['N_rho_%d' % N] = float(N * fixation(four['mm'], four['mr'], four['rm'], four['rr'], N, W, N))
+        enc.append(row)
+    out['four_encounters'] = enc
+    # P*_L against the g = 0 core
+    ps = 'and(BOX1(THEM(ME)),not(BOX(THEM(ME))))/L'
+    out['pstarL_invades_core0'] = [names[k] for k in c0 if U[pos[ps], k] > U[k, k] + 1e-12] if ps in pos else None
+    out['pstarL_vs_core0'] = {names[k]: (int(v[pos[ps], k]), int(v[k, pos[ps]])) for k in c0} if ps in pos else None
+    json.dump(out, open(opath('static.json'), 'w'), indent=1, default=str)
+    for k_ in ('g0_block', 'LL_block', 'cross', 'twins', 'pstar_type', 'partners', 'establishers'):
+        print(k_, {kk: vv for kk, vv in out[k_].items() if not isinstance(vv, list) or len(vv) < 8} if isinstance(out[k_], dict) else out[k_])
+    print('action changes', {k_: (round(vv, 12), out['action_changes']['count'][k_]) for k_, vv in out['action_changes']['weight'].items()},
+          'ratio coop/expl %.3f' % out['action_changes']['ratio_coop_to_expl'])
+    print('fakers', out['fakers']['n'], out['fakers']['mu'], 'godel/con newly invading', out['fakers']['n_godel_con'])
+    print('four encounters', enc)
+    print('P*_L invades core0:', out['pstarL_invades_core0'])
+
+
+# ====================================================================== lottery (eps = 0)
+def lottery_job(j):
+    """eps = 0 islands at (N, I) = (100, 64), mN = 1, genotype level (no lumping, so holders keep their guard).
+    Pairing: island founders' sources are drawn iid from mu_canon with the same seed in every arm; in the mixed arm
+    each founder's guard label is then drawn from the prior with an independent stream."""
+    import almost_all_seeds as AS
+    arm, prior, N, I, rep = j
+    v, cat, L, gd = base()
+    if arm == 'g0':
+        C = make_cat('g0', 'u')
+    else:
+        C = make_cat('mixed', prior)
+    U = np.ascontiguousarray(C.U, dtype=float); PCC = np.ascontiguousarray(C.PCC, dtype=float)
+    G_ = len(C.cat)
+    pos = {(c, g): i for i, (c, g) in enumerate(C.cat)}
+    nr = len(L.rep)
+    mc = L.mu_canon / L.mu_canon.sum()
+    rng = np.random.default_rng([N, I, 8, rep, 2026106])
+    rngg = np.random.default_rng([N, I, 8, rep, 61])
+    pg = PRIORS[prior]
+    init = np.zeros((I, G_), np.int64)
+    for i in range(I):
+        cnt = rng.multinomial(N, mc)
+        for c in np.nonzero(cnt)[0]:
+            if arm == 'g0':
+                init[i, pos[(c, 0)]] += cnt[c]
+            else:
+                k1 = rngg.binomial(cnt[c], pg[1])
+                init[i, pos[(c, 0)]] += cnt[c] - k1; init[i, pos[(c, 1)]] += k1
+    iC = pos[(L.rep.index('C'), 0)]
+    coop = np.array([PCC[k, k] >= 0.95 and L.rep[C.cat[k][0]] != 'C' for k in range(G_)])
+    t = time.time()
+    res = AS._run(U, PCC, init, N, AS.W, 1.0 / N, 100000, 20, 100003 * rep + 7 * N + I + 1000 + 99991, iC, coop)
+    st, sg, counts, isl_cc, isl_pay, first_noC, ext_C, lost_b, lost_a, tr_cc, tr_np, loss_log = res
+    cc = float(isl_cc.mean()); pay = float(isl_pay.mean())
+    tw = C.twins()
+    holders = []
+    for i in range(I):
+        cw = counts[i] * coop
+        if cw.sum() * 2 < N:
+            holders.append(None); continue
+        k = int(np.argmax(cw)); c, g = C.cat[k]
+        holders.append(dict(name=C.names[k], g=int(g), twin=bool(tw[k]) if g == 1 else None, guard_free=not bool(gd[c])))
+    est = int(np.argmax(tr_cc >= 0.9)) * 20 if (tr_cc >= 0.9).any() else None
+    glob = counts.sum(0)
+    return dict(arm=arm, prior=prior, N=N, I=I, rep=rep, status=AS.STATUS[st], stop_gen=int(sg), pcc=cc, pay=pay,
+                outcome=AS.outcome(cc, pay) if st in (1, 2, 3) else ('unresolved' if st == 4 else None),
+                n_eff_islands=int((isl_cc >= 0.95).sum()), holders=holders,
+                establish_gen=est, allc_extinct_gen=int(ext_C), first_noC_median=float(np.median(first_noC[first_noC > 0])) if (first_noC > 0).any() else None,
+                lost_before=int(lost_b), lost_after=int(lost_a), coexist_until=int(sg),
+                final={C.names[k]: int(x) for k, x in enumerate(glob) if x > 0}, t=time.time() - t)
+
+
+def cmd_lottery(a):
+    import almost_all_seeds as AS
+    path = opath('lottery.json')
+    rows = json.load(open(path))['rows'] if os.path.exists(path) else []
+    done = {(r['arm'], r['prior'], r['rep']) for r in rows}
+    cells = [('g0', 'u'), ('mixed', 'u'), ('mixed', '91')]
+    jobs = [(arm, pr, 100, 64, rep) for arm, pr in cells for rep in range(a.reps) if (arm, pr, rep) not in done]
+    with Pool(a.workers) as pool:
+        for r in pool.imap_unordered(lottery_job, jobs, chunksize=1):
+            rows.append(r); json.dump(dict(rows=rows), open(path, 'w'), default=str)
+            print(r['arm'], r['prior'], r['rep'], r['outcome'], r['status'], r['n_eff_islands'], '%.0fs' % r['t'], flush=True)
+    summ = []
+    for arm, pr in cells:
+        R = sorted([r for r in rows if r['arm'] == arm and r['prior'] == pr], key=lambda r: r['rep'])
+        res = [r for r in R if r['outcome'] not in ('unresolved', None)]
+        k = sum(1 for r in res if r['outcome'] == 'efficient')
+        lo, hi = AS.wilson(k, len(res))
+        H = [h for r in R for h in r['holders'] if h]
+        nL_act = sum(1 for h in H if h['g'] == 1 and not h['twin']); nL_tw = sum(1 for h in H if h['g'] == 1 and h['twin'])
+        n0 = sum(1 for h in H if h['g'] == 0)
+        summ.append(dict(arm=arm, prior=pr, n=len(res), efficient=k, frac=k / max(len(res), 1), wilson=[lo, hi], censored=len(R) - len(res),
+                         holders=len(H), holders_g0=n0, holders_L_active=nL_act, holders_L_twin=nL_tw,
+                         share_g0=n0 / max(len(H), 1), share_L_active=nL_act / max(len(H), 1), share_L_by_bit=(nL_act + nL_tw) / max(len(H), 1),
+                         mean_eff_islands=float(np.mean([r['n_eff_islands'] for r in R])) if R else None,
+                         mean_stop=float(np.mean([r['stop_gen'] for r in R])) if R else None,
+                         losses=sum(r['lost_before'] + r['lost_after'] for r in R)))
+        print(summ[-1], flush=True)
+    # paired differences against g0 (per seed: efficient indicator; and efficient-island fraction)
+    pairs = {}
+    by = {(r['arm'], r['prior'], r['rep']): r for r in rows}
+    for pr in ('u', '91'):
+        d1 = []; d2 = []
+        for rep in range(a.reps):
+            r0 = by.get(('g0', 'u', rep)); r1 = by.get(('mixed', pr, rep))
+            if r0 is None or r1 is None: continue
+            d1.append(int(r1['outcome'] == 'efficient') - int(r0['outcome'] == 'efficient'))
+            d2.append((r1['n_eff_islands'] - r0['n_eff_islands']) / 64)
+        if d1:
+            m1 = float(np.mean(d1)); s1 = float(np.std(d1, ddof=1) / np.sqrt(len(d1))) if len(d1) > 1 else 0.0
+            m2 = float(np.mean(d2)); s2 = float(np.std(d2, ddof=1) / np.sqrt(len(d2))) if len(d2) > 1 else 0.0
+            pairs[pr] = dict(n=len(d1), diff_efficient=m1, ci95=[m1 - 1.96 * s1, m1 + 1.96 * s1],
+                             diff_island_frac=m2, ci95_island=[m2 - 1.96 * s2, m2 + 1.96 * s2], discordant=sum(1 for x in d1 if x != 0))
+    print(pairs)
+    json.dump(dict(rows=rows, summary=summ, paired=pairs), open(path, 'w'), default=str, indent=1)
+
+
 def main():
     p = argparse.ArgumentParser()
     sp = p.add_subparsers(dest='cmd')
@@ -700,8 +1071,12 @@ def main():
     q.add_argument('--chunks', type=int, default=3); q.add_argument('--workers', type=int, default=3); q.add_argument('--fresh', action='store_true')
     for nm in ('patch', 'full'):
         q = sp.add_parser(nm); q.add_argument('--n', type=int, default=8); q.add_argument('--b', type=int, default=16)
+    q = sp.add_parser('chain'); q.add_argument('--cells', nargs='+'); q.add_argument('--workers', type=int, default=3)
+    sp.add_parser('static')
+    q = sp.add_parser('lottery'); q.add_argument('--reps', type=int, default=20); q.add_argument('--workers', type=int, default=3)
     a = p.parse_args()
-    {'kclosure': cmd_kclosure, 'kc4': cmd_kc4, 'patch': cmd_patch, 'full': cmd_full}[a.cmd](a)
+    {'kclosure': cmd_kclosure, 'kc4': cmd_kc4, 'patch': cmd_patch, 'full': cmd_full, 'chain': cmd_chain,
+     'static': cmd_static, 'lottery': cmd_lottery}[a.cmd](a)
 
 
 if __name__ == '__main__':
