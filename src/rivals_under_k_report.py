@@ -213,6 +213,97 @@ def pos_stats(rs):
     return st
 
 
+WHAT_RAN = ('Everything in the spec\'s priority order that the screening left runnable: the static screening (free, K b = 16, 4, 54) '
+            'with the lumping validity check and the free reproduction; the m = 0 calibration (free, K b = 16, K b = 4; 120 runs each); '
+            '(a) the matched natural arms, 3,000 runs each: free at its calibrated boundary mN = 1.091 (= the common mN), K b = 16 at its '
+            'calibrated 1.200 and at the common 1.091; (b) the positive control (PrudentBot under K b = 16, dense, 100 runs); (c) forced '
+            'P\\* under K b = 16 with the inert-D and iid controls, and forced P\\* under the free box as a reference beyond the spec, '
+            '100 runs each with paired m = 0 references; (e) the continuation of all 8 separated natural runs to 3·10⁵. **(d) did not '
+            'run:** the screening found no direct-bridge-less rival of A under K at b = 16. Beyond the spec (declared in the predictions): '
+            'a K b = 4 natural cell at its calibrated mN = 1.091, **stopped at 50 runs** (declared 1,000; the complete prefix of reps 0–49, so no '
+            'selection by run length; stopped when the machine load reached 35–45 on 10 cores and separated K b = 4 runs took several minutes each; §7).')
+
+
+def verdicts(out, stat, calib):
+    B = calib['mN_boundary']
+    nat = out['nat']
+    fc = nat.get('free|%g' % B['free']); kc = nat.get('K16|%g' % B['free']); kk = nat.get('K16|%g' % B['K16'])
+    k4 = nat.get('K4|%g' % B['K4'])
+    sh16 = stat['screen']['K16']['agg']['direct_bridgeless']['share']
+    sh4 = stat['screen']['K4']['agg']['direct_bridgeless']['share']
+    sh54 = stat['screen']['K54']['agg']['direct_bridgeless']['share']
+    p = out.get('pos', {})
+    fp = out['forced'].get('pstar|K16', {}); fd = out['forced'].get('dctl|K16', {}); ff = out['forced'].get('pstar|free', {})
+    cont = out.get('cont', [])
+    rows = []
+    rows.append(('RE 1', 'K b = 16 direct-bridge-less hard share < 0.02; no new rival ≥ 10⁻⁶ by source',
+                 '**held** (share %.3f: the only rivals of A are the bridged PrudentBot pair; 0 new rivals by source identity, 11 free-arm '
+                 'rival sources lost)' % sh16))
+    if fc and kc:
+        rows.append(('RE 2', 'K natural horizon separation below free at the same mN, none with a direct-bridge-less rival (0–2 vs 4–20)',
+                     '**held** (common mN %.3f: K %d/3,000 vs free %d/3,000, one-sided 95%% upper rate for K %s; paired: free-only %d, K-only %d; '
+                     'K at its calibrated mN %.3f: %d; free\'s %d: %d P\\*-family, 1 B₁ with a dead bridge)' % (
+                         B['free'], kc['end'], fc['end'], e(kc['end_upper95']), out['paired_common']['end']['b_only'],
+                         out['paired_common']['end']['a_only'], B['K16'], kk['end'] if kk else -1, fc['end'], fc['pstar_end'])))
+    if fp and fd:
+        dqi = fp.get('dq_vs_iid', [float('nan'), [0, 0]]); dqd = fp.get('dq_vs_dctl', [float('nan'), [0, 0]])
+        rows.append(('RE 3', 'forced P\\* under K: 0 cooperative establishments; lineage survival ≤ 0.1 and ≤ D control; |Δq_est| ≤ 0.1 vs iid, ≤ 0.05 vs D',
+                     '**held** (0 cooperative establishments in 100 runs; lineage alive at the horizon %d/100 vs D control %d/100; median '
+                     'extinction generation %.0f vs %.0f; Δq_est vs iid %+.3f [%+.3f, %+.3f], vs D %+.3f [%+.3f, %+.3f]; the vs-D clause holds on '
+                     'the point estimate, its interval is ±0.11)' % (
+                         fp['alive_end'], fd['alive_end'], fp['ext_q'][1], fd['ext_q'][1], dqi[0], dqi[1][0], dqi[1][1], dqd[0], dqd[1][0], dqd[1][1])))
+    rows.append(('RE 4', 'direct-bridge-less share under K < 0.05 at b = 4, 16, 54',
+                 '**failed, falsifier fired** at b = 4 (share %.3f: FairBot and `BOX1(THEM(ME))` mutually defect at b = 4, so A is not a '
+                 'network and every rival is literally bridge-less; budget soft-clique rivals, μ 0.017, not the P\\* family); held at b = 16 '
+                 '(%.3f) and 54 (%.3f)' % (sh4, sh16, sh54)))
+    if p and fc and kc:
+        rows.append(('RE 5', 'positive control mediation-before-loss ≥ 0.7; island P(C,C) ≥ 0.97 in every K cell; K run-level efficiency not below free by ≥ 0.05',
+                     '**held** (mediation-before-loss %d/%d = %.2f; horizon separation %d/100, both with the bridge dead; island P(C,C) per K cell '
+                     '(mean over runs) ≥ %.4f, the lowest single run %.3f; run-level efficient fraction 1.000 in K and free)' % (
+                         p['med'], p['med_den'], p['med'] / max(p['med_den'], 1), p['sep_end'],
+                         min(kc['pcc'], kk['pcc'], p['pcc'], fp.get('pcc', 1), fd.get('pcc', 1)),
+                         min(kc['pcc_min'], kk['pcc_min'], p['pcc_min'], fp.get('pcc_min', 1), fd.get('pcc_min', 1)))))
+    if fc:
+        rows.append(('S1', 'free natural horizon separations 3–15, ≥ 0.6 P\\*-family', '**held** (%d; %d of %d P\\*-family = %.2f)' % (
+            fc['end'], fc['pstar_end'], fc['end'], fc['pstar_end'] / max(fc['end'], 1))))
+    if kc and kk:
+        rows.append(('S2', 'K ≤ 1 horizon separation per cell; every K A-separation with the PrudentBot pair',
+                     '**held** (0 and 0; ever separated %d and %d, all resolved; A-rivals among them only the PrudentBot pair; %d and %d '
+                     'separations between non-A establishers, all resolved)' % (
+                         kc['ever'], kk['ever'], kc['kinds_ever'].get('non-A', 0), kk['kinds_ever'].get('non-A', 0))))
+    rows.append(('S3', 'T_nuc(K16) within ±20% of free', '**held** (%.0f vs %.0f generations, %+.0f%%; mN 1.200 vs 1.091)' % (
+        calib['T_nuc']['K16'], calib['T_nuc']['free'], 100 * (calib['T_nuc']['K16'] / calib['T_nuc']['free'] - 1))))
+    if k4:
+        ok = k4['end'] / k4['n'] >= 0.5
+        rows.append(('S4', 'K b = 4 natural: horizon separation ≥ 0.5, island P(C,C) ≥ 0.97',
+                     '%s (%s, %d runs of the declared 1,000; island P(C,C) %.4f, min %.3f)' % (
+                         '**held**' if ok and k4['pcc_min'] >= 0.97 else ('**failed**' if not ok else 'failed, falsifier not fired'),
+                         cis(k4['end'], k4['n']), k4['n'], k4['pcc'], k4['pcc_min'])))
+    if p:
+        ok = p['rival_est'] >= 80 and p['sep_end'] <= 5 and p['med'] / max(p['med_den'], 1) >= 0.85
+        rows.append(('S5', 'PrudentBot positive control: established ≥ 0.8, separated ≤ 0.05, mediation-before-loss ≥ 0.85',
+                     '%s (%d/100, %d/100, %.2f)' % ('**held**' if ok else 'failed', p['rival_est'], p['sep_end'], p['med'] / max(p['med_den'], 1))))
+    if fp and fd:
+        rows.append(('S6', 'P\\* lineage under K alive ≤ 0.05, within 0.05 of D; median extinction within ×2',
+                     '**held** (0/100 and 0/100; %.0f vs %.0f generations)' % (fp['ext_q'][1], fd['ext_q'][1])))
+    if ff:
+        rows.append(('S7', 'forced P\\* under free n = 8: cooperative establishment ≥ 0.9, horizon separated ≥ 0.8',
+                     '**held** (%d/100 runs with a cooperative P\\* establishment, %d islands in all; separated %d/100; island P(C,C) %.3f; '
+                     'cf cross P(C,C) %.2f)' % (ff['coop_est_runs'], ff['coop_est_islands'], ff['sep_end'], ff['pcc'], ff['cf_sep'])))
+    if fc and kc and kk:
+        rows.append(('S8', 'natural island P(C,C) ≥ 0.99, run-level efficient ≥ 0.98, |K − free| ≤ 0.01',
+                     '**held** (island P(C,C) per cell ≥ %.4f, the lowest single run %.3f; efficient 3,000/3,000 in all three cells)' % (
+                         min(fc['pcc'], kc['pcc'], kk['pcc']), min(fc['pcc_min'], kc['pcc_min'], kk['pcc_min']))))
+    if cont:
+        still = sum(c['sep_end'] > 0 for c in cont)
+        rows.append(('S9', '≥ 0.9 of free\'s separated P\\*-family runs still separated at 3·10⁵',
+                     '**held** (%d of %d continued runs separated at 3·10⁵, every trajectory matching its 10⁵ state)' % (still, len(cont))))
+    s = '## Verdicts\n\n| # | prediction | outcome |\n|---|---|---|\n'
+    for a, b, c in rows:
+        s += '| %s | %s | %s |\n' % (a, b, c)
+    return s
+
+
 def main():
     stat = json.load(open(RK.STATIC))
     calib = json.load(open(RK.CALIB))
@@ -254,6 +345,8 @@ def main():
     if cont:
         out['cont'] = [dict(arm=r['arm'], mN=r['mN'], rep=r['rep'], status=r['status'], stop=r['stop_gen'], sep_end=r['n_sep_end'],
                             matches=r['matches_1e5'], pairs=r['sep_end_pairs'], sep=r['sep'], hours=r['time_s'] / 3600) for r in cont]
+    out['what_ran'] = WHAT_RAN
+    out['verdicts_md'] = verdicts(out, stat, calib)
     json.dump(out, open(OUT_JS, 'w'), indent=1, default=str)
     write_md(out, stat, calib)
     print('wrote', OUT_MD, OUT_JS)
@@ -389,7 +482,7 @@ def write_md(out, stat, calib):
         arm, mN = k.split('|'); mN = float(mN)
         T = calib['T_nuc'][arm]
         w('| %s | %.3f | %.3f | %d | %s | **%s** (%s) | %d / %d | %d | %.4f (%.3f) | %s | %s | %.2f |' % (
-            ARMLAB[arm], mN, mN * T / 200, st['n'], cis(st['ever'], st['n']), ci(st['end'], st['n']), e(st['end_upper95']),
+            ARMLAB[arm], mN, mN * T / 200, st['n'], ci(st['ever'], st['n']), ci(st['end'], st['n']), e(st['end_upper95']),
             st['kinds_end'].get('A-rival', 0), st['end'] - st['kinds_end'].get('A-rival', 0), st['bridgeless_end'],
             st['pcc'], st['pcc_min'], cis(st['eff'], st['n']), e(st['cf_sep']), st['hours']))
     w('')
@@ -412,6 +505,11 @@ def write_md(out, stat, calib):
             ' / '.join('%.2f' % st['km'].get(m, float('nan')) for m in MARKS[:4]) if st['km'] else '–',
             e(st['dur_resolved_median']), st['episodes'] or '–'))
     w('')
+    w('"Separated at the horizon" is read from the final state (certified-cooperative holders, island P(C,C) ≥ 0.95, mutually '
+      'defecting); the KM, resolution and episode columns use the kernel\'s per-check flag (two locally frozen, all-cooperative '
+      'islands with mutually-defecting holders), which flickers under migrant load in the K b = 4 runs. In K b = 4 FairBot and '
+      '`BOX1(THEM(ME))` mutually defect, so neither is "in A\'s network" and their separations are classed rival-vs-nonA (§7).')
+    w('')
     w('Per-separation tracking (every run ever separated; "first" = first separation, "end" = at the horizon; bridges = cooperative '
       'classes in the support mutually cooperating with both holders; A-bridges = the spec\'s pairwise bridges of (A, R)):')
     w('')
@@ -419,6 +517,8 @@ def write_md(out, stat, calib):
     w('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|')
     for k, st in out['nat'].items():
         arm, mN = k.split('|')
+        if arm == 'K4':
+            continue
         for sr in st['sep_rows']:
             for s in sr['seps']:
                 w('| %s | %s | %d | %d | %d | %s | `%s` / `%s` | %s | %s | %d | %d / %d | %s | %s | %d (%d) | %d / %d |' % (
@@ -481,11 +581,37 @@ def write_md(out, stat, calib):
         w('Same initial state and kernel stream with a longer check schedule (identical up to 10⁵); "matches" = the 10⁵ check row '
           'equals the original run\'s final row.')
         w('')
+        expo = sum(300000 - c['sep']['first'] for c in out['cont'] if c['sep_end'] > 0)
+        lost = sum(c['sep_end'] == 0 for c in out['cont'])
+        w('%d of %d still separated at 3·10⁵; %d resolutions in %s separated-run-generations (from first separation; one-sided 95%% '
+          'hazard bound %s per separated run-generation).' % (len(out['cont']) - lost, len(out['cont']), lost, e(expo), e(3 / expo)))
+        w('')
         w('| table | mN | rep | matches | status at 3·10⁵ | separated at 3·10⁵ | pairs | worker-hours |')
         w('|---|---|---|---|---|---|---|---|')
         for c in out['cont']:
             w('| %s | %.3f | %d | %s | %s | %d | %s | %.2f |' % (ARMLAB[c['arm']], c['mN'], c['rep'], c['matches'], c['status'],
                                                          c['sep_end'], '; '.join('`%s` / `%s`' % tuple(p) for p in c['pairs'][:2]), c['hours']))
+        w('')
+    k4 = [st for k, st in out['nat'].items() if k.startswith('K4|')]
+    if k4:
+        st = k4[0]
+        w('## 7. Beyond the spec: K at b = 4, natural runs (budget soft cliques)')
+        w('')
+        pairs = Counter(); hold = Counter()
+        for sr in st['sep_rows']:
+            for s in sr['seps']:
+                if s['when'] == 'end':
+                    pairs[tuple(sorted((s['a'], s['b'])))] += 1
+        w('%d runs at mN = %.3f (reps 0–49, a complete prefix; declared 1,000): separated at the horizon %s, ever %s; island P(C,C) %.4f (min %.3f); run-level '
+          'efficient %s; cf cross-island P(C,C) in separated runs %.2f; %d of %d ever-separated runs resolved. Separated holder pairs at '
+          'the horizon (first listed pair per run):' % (
+              st['n'], st['mN'], cis(st['end'], st['n']), cis(st['ever'], st['n']), st['pcc'], st['pcc_min'], cis(st['eff'], st['n']),
+              st['cf_sep'], st['resolved'], st['resolved'] + st['censored']))
+        w('')
+        w('| pair | runs |')
+        w('|---|---|')
+        for (a, b), v in pairs.most_common(12):
+            w('| `%s` / `%s` | %d |' % (a, b, v))
         w('')
     V = out.get('verdicts_md')
     if V:
