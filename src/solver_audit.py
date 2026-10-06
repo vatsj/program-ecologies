@@ -1192,6 +1192,69 @@ def cmd_report(a):
     print('\n'.join(L[:60]))
 
 
+def lazy_dijkstra(ch, src_key, dst_keys, max_expand=4000):
+    """max-weight path (log weights per mutation event) from src_key to any of dst_keys in a LogChain, expanding
+    states on demand (exact Dijkstra on -log w).  Returns (log10 weight, path keys, expansions)."""
+    import heapq
+    dst = set(dst_keys)
+    dist = {src_key: 0.0}; prev = {src_key: None}
+    h = [(0.0, 0, src_key)]; tie = 1; done = set(); n = 0
+    while h and n < max_expand:
+        dd, _, k = heapq.heappop(h)
+        if k in done:
+            continue
+        done.add(k)
+        if k in dst:
+            path = [k]
+            while prev[path[-1]] is not None:
+                path.append(prev[path[-1]])
+            return -dd / L10, path[::-1], n
+        ch.expand(k); n += 1
+        for k2, lw in ch.ledge[k].items():
+            if k2 == k:
+                continue
+            nd = dd - lw
+            if nd < dist.get(k2, np.inf):
+                dist[k2] = nd; prev[k2] = k; heapq.heappush(h, (nd, tie, k2)); tie += 1
+    return None, [], n
+
+
+def _state_from_desc(c, ch, s):
+    parts = [p.rsplit(':', 1) for p in s.split(' + ')]
+    ids = [int(c.cid[c.names.index(p[0])]) for p in parts]
+    x = np.array([float(p[1]) for p in parts]); x /= x.sum()
+    Us = c.U[np.ix_([c.names.index(p[0]) for p in parts], [c.names.index(p[0]) for p in parts])]
+    xr, st, _, _ = replicator(Us, x, rest_tol=1e-13)
+    return ch.add_state(ids, xr)
+
+
+def cmd_paths(a):
+    """two-trap reduction: best-path weights between named states in both directions, and their total exit rates."""
+    c = make_cell(a.cell, a.N)
+    ch = LogChain(c.provider(), N=a.N, w=0.3, theta=1.0, max_states=10 ** 9)
+    A = [_state_from_desc(c, ch, s) for s in a.A]
+    B = [_state_from_desc(c, ch, s) for s in a.B]
+    out = dict(cell=a.cell, N=a.N, A=a.A, B=a.B)
+    for lab, S, T in (('A_to_B', A, B), ('B_to_A', B, A)):
+        best = None
+        for s in S:
+            lw, path, n = lazy_dijkstra(ch, s, T, max_expand=a.max_expand)
+            if lw is not None and (best is None or lw > best[0]):
+                best = (lw, [desc(c, ch, k) for k in path], n)
+        out[lab] = dict(log10_w=best[0] if best else None, path=best[1] if best else None, expansions=best[2] if best else None)
+        print(lab, out[lab], flush=True)
+    for lab, S in (('A', A), ('B', B)):
+        ex = []
+        for s in S:
+            ch.expand(s)
+            row = [w for k2, w in ch.ledge[s].items() if k2 != s]
+            ex.append(float(np.logaddexp.reduce(row) / L10) if row else None)
+        out['log10_exit_' + lab] = ex
+    out['log10_ratio_piA_over_piB_two_trap'] = (out['B_to_A']['log10_w'] - out['A_to_B']['log10_w']) if out['A_to_B']['log10_w'] is not None and out['B_to_A']['log10_w'] is not None else None
+    print(json.dumps(_jsonable({k: v for k, v in out.items() if k not in ('A_to_B', 'B_to_A')})), flush=True)
+    json.dump(_jsonable(out), open(os.path.join(OUT, 'paths_%s_N%d%s.json' % (a.cell, a.N, a.tag)), 'w'), indent=1)
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest='cmd')
@@ -1221,6 +1284,13 @@ if __name__ == '__main__':
     p.add_argument('--theta', type=float, default=1e-11)
     p.add_argument('--core_max', type=int, default=4000)
     p.add_argument('--Kc', type=int, default=30)
+    p = sub.add_parser('paths')
+    p.add_argument('--cell', required=True)
+    p.add_argument('--N', type=int, required=True)
+    p.add_argument('--A', nargs='+', required=True)
+    p.add_argument('--B', nargs='+', required=True)
+    p.add_argument('--max_expand', type=int, default=4000)
+    p.add_argument('--tag', default='')
     p = sub.add_parser('report')
     p = sub.add_parser('controls')
     p.add_argument('--N_neg', type=int, default=10000)
@@ -1233,5 +1303,7 @@ if __name__ == '__main__':
         cmd_union(a)
     elif a.cmd == 'report':
         cmd_report(a)
+    elif a.cmd == 'paths':
+        cmd_paths(a)
     elif a.cmd == 'dollar3':
         cmd_dollar3(a)

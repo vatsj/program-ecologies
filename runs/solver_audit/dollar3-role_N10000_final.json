@@ -1,0 +1,1184 @@
+{
+ "cell": "dollar3-role",
+ "N": 10000,
+ "K": 80,
+ "chain_kw": {
+  "w": 0.3,
+  "theta": 1e-07,
+  "max_states": 30000
+ },
+ "published": {
+  "eff": 0.9858,
+  "half": 0.7882
+ },
+ "discovery_keep_all": true,
+ "discovery": {
+  "counts": {
+   "stable_size1": 80,
+   "stable_size1_noadv": 8,
+   "singletons": 80,
+   "pairs_tested": 3160,
+   "pairs_neutral_line": 295,
+   "pairs_unstable_interior": 540,
+   "pairs_stable": 635,
+   "stable_size2": 635,
+   "stable_size2_noadv": 2,
+   "triples_tested": 82160,
+   "triples_singular": 8393,
+   "triples_interior": 11014,
+   "triples_stable": 1377,
+   "triples_center": 6,
+   "triples_unstable_or_neutral": 9631,
+   "stable_size3": 1377,
+   "stable_size3_noadv": 2,
+   "closure": {
+    "nodes_full": 6000,
+    "complete_full": false,
+    "nodes_branch2": 2462,
+    "complete_branch2": true,
+    "saturated": 27,
+    "added": 9,
+    "added_by_size": {
+     "2": 6,
+     "3": 2,
+     "4": 1,
+     "5": 0,
+     "6": 0,
+     "7": 0,
+     "8": 0
+    },
+    "time_s": 561.5872430801392
+   }
+  },
+  "pool_K": 80,
+  "triples": true,
+  "n_candidates": 2107,
+  "n_stable": 2092,
+  "n_center": 6,
+  "n_deep": 0,
+  "n_deep_mod_twins": 0,
+  "n_deep_penalty_only": 0,
+  "n_deep_pen_total": 0,
+  "deep_by_size": {
+   "deep": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0
+   },
+   "deep_mod_twins": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0
+   },
+   "deep_penalty_only": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0
+   }
+  },
+  "deep_mass_sum_max": 0.0,
+  "deep_any_mass_sum_max": 0.0,
+  "time_s": 561.7101759910583,
+  "deep_in_published_explored": 0,
+  "deep_missed": 0,
+  "deep_missed_mass_sum": 0.0,
+  "published_recurrent_not_candidates": [],
+  "missed_detail": []
+ },
+ "published_rerun": {
+  "stat": {
+   "eff": 0.9858491476748846,
+   "half": 0.7881806846016639,
+   "third": 0.19766846307322042,
+   "sixth": 0.0,
+   "clash": 0.005919081087767881,
+   "ineff": 0.008231771237347226
+  },
+  "n_expanded": 121,
+  "n_states": 822,
+  "cut_flow": 1.546695786222128e-10,
+  "near_closed": 0,
+  "n_terminal": 1,
+  "indeterminate": 0,
+  "absorb_error": 2.220446049250313e-16,
+  "time_s": 33.040549755096436,
+  "top": [
+   [
+    "M:1.000",
+    0.7724220159202224
+   ],
+   [
+    "ROLE:1.000",
+    0.13165760316753944
+   ],
+   [
+    "H:0.333 + flip(THEM(^M)):0.667",
+    0.03194459409671225
+   ],
+   [
+    "flip(ROLE):1.000",
+    0.03140812607037299
+   ],
+   [
+    "H:0.333 + flip(THEM(^ROLE)):0.667",
+    0.021301053492192433
+   ],
+   [
+    "max(THEM(THEM),H):1.000",
+    0.00454320040219874
+   ],
+   [
+    "max(THEM(ME),H):1.000",
+    0.002998756904478424
+   ],
+   [
+    "THEM(^M):1.000",
+    0.0011659938960865712
+   ]
+  ]
+ },
+ "rates": {
+  "same_explored_set": true,
+  "n_edges": 9516,
+  "max_abs_log_err": 9.107612868319848e-07,
+  "n_underflow": 89,
+  "n_denormal": 6,
+  "worst": [
+   9.107612868319848e-07,
+   "min(M,max(X,X)):1.000",
+   "THEM(^H):1.000"
+  ],
+  "time_s": 34.5107319355011
+ },
+ "solver": {
+  "log_gth_stat": {
+   "eff": 0.9858491475810112,
+   "half": 0.7881806914733722,
+   "third": 0.1976684561076392,
+   "sixth": 0.0,
+   "clash": 0.005919081087801905,
+   "ineff": 0.008231771331186561
+  },
+  "linear_stat": {
+   "eff": 0.9858491476748846,
+   "half": 0.7881806846016639,
+   "third": 0.19766846307322042,
+   "sixth": 0.0,
+   "clash": 0.005919081087767881,
+   "ineff": 0.008231771237347226
+  },
+  "linear_near_closed": 0,
+  "linear_terminal": 1,
+  "log_closed": {
+   "n_components": 1,
+   "n_closed": 1
+  },
+  "tv": 7.0123367343151675e-09,
+  "resid_linear": 0.01026097243586932,
+  "resid_log": 2.1316282072803006e-14,
+  "top_log": [
+   [
+    "M:1.000",
+    0.772422022757087
+   ],
+   [
+    "ROLE:1.000",
+    0.13165759827352955
+   ],
+   [
+    "H:0.333 + flip(THEM(^M)):0.667",
+    0.03194459409410562
+   ],
+   [
+    "flip(ROLE):1.000",
+    0.03140812395708435
+   ],
+   [
+    "H:0.333 + flip(THEM(^ROLE)):0.667",
+    0.021301053490437594
+   ],
+   [
+    "max(THEM(THEM),H):1.000",
+    0.004543200402087862
+   ]
+  ]
+ },
+ "published_recurrent": [
+  {
+   "state": "THEM(^flip(ROLE)):1.000",
+   "size": 1,
+   "pi": 8.275575742877625e-05,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 2,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "M",
+    "flip(THEM(ME))"
+   ]
+  },
+  {
+   "state": "M:1.000",
+   "size": 1,
+   "pi": 0.7724220159202224,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 19,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "THEM(ME)",
+    "THEM(THEM)",
+    "THEM(^L)",
+    "THEM(^M)",
+    "THEM(^H)",
+    "THEM(^X)",
+    "THEM(^ROLE)",
+    "flip(THEM(ME))"
+   ]
+  },
+  {
+   "state": "THEM(^ROLE):1.000",
+   "size": 1,
+   "pi": 0.0010830205033030107,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 3,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "M",
+    "flip(THEM(ME))",
+    "flip(THEM(^ROLE))"
+   ]
+  },
+  {
+   "state": "THEM(^M):1.000",
+   "size": 1,
+   "pi": 0.0011659938960865712,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 10,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "M",
+    "THEM(ME)",
+    "THEM(THEM)",
+    "flip(THEM(ME))",
+    "flip(THEM(THEM))",
+    "max(M,THEM(ME))",
+    "min(M,THEM(ME))",
+    "max(M,THEM(THEM))"
+   ]
+  },
+  {
+   "state": "ROLE:1.000",
+   "size": 1,
+   "pi": 0.13165760316753944,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 7,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "flip(THEM(ME))",
+    "flip(THEM(THEM))",
+    "flip(THEM(^H))",
+    "flip(THEM(^M))",
+    "flip(THEM(^L))",
+    "flip(THEM(^ROLE))",
+    "flip(THEM(^X))"
+   ]
+  },
+  {
+   "state": "H:0.333 + flip(THEM(^ROLE)):0.667",
+   "size": 2,
+   "pi": 0.021301053492192433,
+   "tier": "non-deep",
+   "max_inv": 1.1111888900017242e-05,
+   "n_neutral": 0,
+   "n_adv": 4,
+   "neutral_mutants": []
+  },
+  {
+   "state": "max(THEM(THEM),ROLE):1.000",
+   "size": 1,
+   "pi": 6.292712350616548e-06,
+   "tier": "non-deep",
+   "max_inv": 0.166666667,
+   "n_neutral": 24,
+   "n_adv": 5,
+   "neutral_mutants": [
+    "L",
+    "THEM(ME)",
+    "THEM(THEM)",
+    "flip(THEM(ME))",
+    "flip(THEM(THEM))",
+    "max(M,THEM(ME))",
+    "min(M,THEM(ME))",
+    "min(THEM(ME),L)"
+   ]
+  },
+  {
+   "state": "min(M,ROLE):0.333 + max(THEM(THEM),ROLE):0.667",
+   "size": 2,
+   "pi": 0.0006472813716164275,
+   "tier": "non-deep",
+   "max_inv": 0.11111388916670001,
+   "n_neutral": 0,
+   "n_adv": 2,
+   "neutral_mutants": []
+  },
+  {
+   "state": "max(THEM(THEM),ROLE):0.500 + flip(THEM(^L)):0.500",
+   "size": 2,
+   "pi": 3.031024731885272e-05,
+   "tier": "non-deep",
+   "max_inv": 0.0833333335,
+   "n_neutral": 5,
+   "n_adv": 6,
+   "neutral_mutants": [
+    "min(M,ROLE)",
+    "flip(min(M,ROLE))",
+    "max(M,THEM(ME))",
+    "max(M,THEM(THEM))",
+    "flip(THEM(^ROLE))"
+   ]
+  },
+  {
+   "state": "flip(THEM(^M)):0.500 + max(THEM(THEM),ROLE):0.500",
+   "size": 2,
+   "pi": 0.0004516944781349792,
+   "tier": "non-deep",
+   "max_inv": 0.04166666674999997,
+   "n_neutral": 1,
+   "n_adv": 2,
+   "neutral_mutants": [
+    "max(THEM(ME),ROLE)"
+   ]
+  },
+  {
+   "state": "max(THEM(ME),H):1.000",
+   "size": 1,
+   "pi": 0.002998756904478424,
+   "tier": "non-deep",
+   "max_inv": 0.037037036999999995,
+   "n_neutral": 27,
+   "n_adv": 1,
+   "neutral_mutants": [
+    "L",
+    "THEM(ME)",
+    "THEM(THEM)",
+    "flip(THEM(ME))",
+    "flip(THEM(THEM))",
+    "max(M,THEM(ME))",
+    "min(M,THEM(ME))",
+    "min(THEM(ME),L)"
+   ]
+  },
+  {
+   "state": "max(THEM(ME),H):0.909 + max(X,THEM(THEM)):0.091",
+   "size": 2,
+   "pi": 0.00018125366169830675,
+   "tier": "non-deep",
+   "max_inv": 0.006732996659933654,
+   "n_neutral": 0,
+   "n_adv": 6,
+   "neutral_mutants": []
+  },
+  {
+   "state": "max(THEM(THEM),H):1.000",
+   "size": 1,
+   "pi": 0.00454320040219874,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 26,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "L",
+    "THEM(ME)",
+    "THEM(THEM)",
+    "flip(THEM(ME))",
+    "flip(THEM(THEM))",
+    "max(M,THEM(ME))",
+    "min(M,THEM(ME))",
+    "min(THEM(ME),L)"
+   ]
+  },
+  {
+   "state": "H:0.333 + flip(THEM(^M)):0.667",
+   "size": 2,
+   "pi": 0.03194459409671225,
+   "tier": "non-deep",
+   "max_inv": 1.1111888900017242e-05,
+   "n_neutral": 0,
+   "n_adv": 2,
+   "neutral_mutants": []
+  },
+  {
+   "state": "min(M,ROLE):0.333 + max(THEM(ME),ROLE):0.667",
+   "size": 2,
+   "pi": 4.383240703053411e-05,
+   "tier": "non-deep",
+   "max_inv": 0.05555555605560003,
+   "n_neutral": 0,
+   "n_adv": 1,
+   "neutral_mutants": []
+  },
+  {
+   "state": "max(THEM(ME),ROLE):0.500 + flip(THEM(^M)):0.500",
+   "size": 2,
+   "pi": 2.9458068278761824e-05,
+   "tier": "non-deep",
+   "max_inv": 0.04166666674999997,
+   "n_neutral": 1,
+   "n_adv": 2,
+   "neutral_mutants": [
+    "max(THEM(THEM),ROLE)"
+   ]
+  },
+  {
+   "state": "flip(ROLE):1.000",
+   "size": 1,
+   "pi": 0.03140812607037299,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 7,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "flip(THEM(ME))",
+    "flip(THEM(THEM))",
+    "flip(THEM(^H))",
+    "flip(THEM(^M))",
+    "flip(THEM(^L))",
+    "flip(THEM(^ROLE))",
+    "flip(THEM(^X))"
+   ]
+  }
+ ],
+ "resolve": {
+  "stat": {
+   "eff": 0.985808952599465,
+   "half": 0.7929376999374055,
+   "third": 0.1928712526620596,
+   "sixth": 0.0,
+   "clash": 0.0059185424278366755,
+   "ineff": 0.0082725049726972
+  },
+  "n_states": 289,
+  "n_seeded": 45,
+  "n_seeded_traps": 4,
+  "seeds_all_stable": false,
+  "log10_cut": -12.245373158287233,
+  "n_cand_left": 0,
+  "closed": {
+   "n_components": 1,
+   "n_closed": 1,
+   "closed_sizes": [
+    289
+   ],
+   "n_expanded": 289,
+   "n_recurrent": 289
+  },
+  "mass_deep": 0.0,
+  "mass_deep_any": {
+   "deep": 0.0,
+   "deep_mod_twins": 0.0,
+   "deep_penalty_only": 0.0
+  },
+  "mass_poly": 0.0546500929161604,
+  "indeterminate": 3,
+  "twin_moves": 0,
+  "twins": false,
+  "est_floor": false,
+  "n_floored": 0,
+  "support": [
+   {
+    "state": "M:1.000",
+    "pi": 0.7771729694034146,
+    "log10_pi": -0.10948231286263914,
+    "log10_exit": -7.216273844297429,
+    "exits": [
+     {
+      "to": "THEM(^M):1.000",
+      "log10_rate": -7.547085459827416,
+      "mutants": [
+       [
+        "THEM(^M)",
+        -7.547085459827416
+       ]
+      ]
+     },
+     {
+      "to": "THEM(^ROLE):1.000",
+      "log10_rate": -7.579060695004056,
+      "mutants": [
+       [
+        "THEM(^ROLE)",
+        -7.579060695004056
+       ]
+      ]
+     },
+     {
+      "to": "THEM(^flip(ROLE)):1.000",
+      "log10_rate": -8.695945554137275,
+      "mutants": [
+       [
+        "THEM(^flip(ROLE))",
+        -8.695945554137275
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(^M)):1.000",
+      "log10_rate": -8.695945554137275,
+      "mutants": [
+       [
+        "flip(THEM(^M))",
+        -8.695945554137275
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(^ROLE)):1.000",
+      "log10_rate": -8.695945554137275,
+      "mutants": [
+       [
+        "flip(THEM(^ROLE))",
+        -8.695945554137275
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 1.0,
+     "half": 1.0,
+     "third": 0.0,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "ROLE:1.000",
+    "pi": 0.12777694139499599,
+    "log10_pi": -0.8935475118148795,
+    "log10_exit": -8.394915558473294,
+    "exits": [
+     {
+      "to": "flip(THEM(^M)):1.000",
+      "log10_rate": -8.695945554137275,
+      "mutants": [
+       [
+        "flip(THEM(^M))",
+        -8.695945554137275
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(^ROLE)):1.000",
+      "log10_rate": -8.695945554137275,
+      "mutants": [
+       [
+        "flip(THEM(^ROLE))",
+        -8.695945554137275
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(ME),ROLE):1.000",
+      "log10_rate": -61.86553878186626,
+      "mutants": [
+       [
+        "max(THEM(ME),ROLE)",
+        -61.86553878186626
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(THEM),H):1.000",
+      "log10_rate": -61.86553878186626,
+      "mutants": [
+       [
+        "max(THEM(THEM),H)",
+        -61.86553878186626
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(ME),H):1.000",
+      "log10_rate": -61.86553878186626,
+      "mutants": [
+       [
+        "max(THEM(ME),H)",
+        -61.86553878186626
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 1.0,
+     "half": 0.0,
+     "third": 1.0,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "H:0.333 + flip(THEM(^M)):0.667",
+    "pi": 0.0319419380537857,
+    "log10_pi": -1.4956387368972883,
+    "log10_exit": -7.23029492648973,
+    "exits": [
+     {
+      "to": "max(THEM(ME),H):1.000",
+      "log10_rate": -7.531324922153712,
+      "mutants": [
+       [
+        "max(THEM(ME),H)",
+        -7.531324922153712
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(THEM),H):1.000",
+      "log10_rate": -7.531324922153712,
+      "mutants": [
+       [
+        "max(THEM(THEM),H)",
+        -7.531324922153712
+       ]
+      ]
+     },
+     {
+      "to": "ROLE:1.000",
+      "log10_rate": -22.061073368654437,
+      "mutants": [
+       [
+        "ROLE",
+        -22.061073368654437
+       ]
+      ]
+     },
+     {
+      "to": "flip(ROLE):1.000",
+      "log10_rate": -22.66467863947068,
+      "mutants": [
+       [
+        "flip(ROLE)",
+        -22.66467863947068
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(ME),ROLE):0.500 + flip(THEM(^M)):0.500",
+      "log10_rate": -25.61780822008422,
+      "mutants": [
+       [
+        "max(THEM(ME),ROLE)",
+        -25.61780822008422
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.888933,
+     "half": 0.444467,
+     "third": 0.444467,
+     "sixth": 0.0,
+     "clash": 0.111067,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "flip(ROLE):1.000",
+    "pi": 0.030476716089193057,
+    "log10_pi": -1.5160318306781222,
+    "log10_exit": -8.394915558473294,
+    "exits": [
+     {
+      "to": "flip(THEM(^M)):1.000",
+      "log10_rate": -8.695945554137275,
+      "mutants": [
+       [
+        "flip(THEM(^M))",
+        -8.695945554137275
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(^ROLE)):1.000",
+      "log10_rate": -8.695945554137275,
+      "mutants": [
+       [
+        "flip(THEM(^ROLE))",
+        -8.695945554137275
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(THEM),H):1.000",
+      "log10_rate": -61.86553878186626,
+      "mutants": [
+       [
+        "max(THEM(THEM),H)",
+        -61.86553878186626
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(ME),H):1.000",
+      "log10_rate": -61.86553878186626,
+      "mutants": [
+       [
+        "max(THEM(ME),H)",
+        -61.86553878186626
+       ]
+      ]
+     },
+     {
+      "to": "M:1.000",
+      "log10_rate": -73.2914554610941,
+      "mutants": [
+       [
+        "M",
+        -73.2914554610941
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 1.0,
+     "half": 0.0,
+     "third": 1.0,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "H:0.333 + flip(THEM(^ROLE)):0.667",
+    "pi": 0.021294895277422777,
+    "log10_pi": -1.671724491328633,
+    "log10_exit": -7.05420366743405,
+    "exits": [
+     {
+      "to": "max(THEM(THEM),ROLE):1.000",
+      "log10_rate": -7.531324922153712,
+      "mutants": [
+       [
+        "max(THEM(THEM),ROLE)",
+        -7.531324922153712
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(ME),H):1.000",
+      "log10_rate": -7.531324922153712,
+      "mutants": [
+       [
+        "max(THEM(ME),H)",
+        -7.531324922153712
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(THEM),H):1.000",
+      "log10_rate": -7.531324922153712,
+      "mutants": [
+       [
+        "max(THEM(THEM),H)",
+        -7.531324922153712
+       ]
+      ]
+     },
+     {
+      "to": "ROLE:1.000",
+      "log10_rate": -22.061073368654437,
+      "mutants": [
+       [
+        "ROLE",
+        -22.061073368654437
+       ]
+      ]
+     },
+     {
+      "to": "flip(ROLE):1.000",
+      "log10_rate": -22.66467863947068,
+      "mutants": [
+       [
+        "flip(ROLE)",
+        -22.66467863947068
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.888933,
+     "half": 0.0,
+     "third": 0.888933,
+     "sixth": 0.0,
+     "clash": 0.111067,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "max(THEM(THEM),H):1.000",
+    "pi": 0.004560221900764968,
+    "log10_pi": -2.341014024016919,
+    "log10_exit": -6.423088130078887,
+    "exits": [
+     {
+      "to": "THEM(ME):1.000",
+      "log10_rate": -6.843889055884444,
+      "mutants": [
+       [
+        "THEM(ME)",
+        -6.843889055884444
+       ]
+      ]
+     },
+     {
+      "to": "THEM(THEM):1.000",
+      "log10_rate": -6.843889055884444,
+      "mutants": [
+       [
+        "THEM(THEM)",
+        -6.843889055884444
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(THEM)):1.000",
+      "log10_rate": -7.579060695004056,
+      "mutants": [
+       [
+        "flip(THEM(THEM))",
+        -7.579060695004056
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(ME)):1.000",
+      "log10_rate": -7.579060695004056,
+      "mutants": [
+       [
+        "flip(THEM(ME))",
+        -7.579060695004056
+       ]
+      ]
+     },
+     {
+      "to": "min(M,THEM(THEM)):1.000",
+      "log10_rate": -8.394915558473294,
+      "mutants": [
+       [
+        "min(M,THEM(THEM))",
+        -8.394915558473294
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.0,
+     "half": 0.0,
+     "third": 0.0,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 1.0
+    }
+   },
+   {
+    "state": "max(THEM(ME),H):1.000",
+    "pi": 0.003009931307959052,
+    "log10_pi": -2.521443415673515,
+    "log10_exit": -6.243790976456159,
+    "exits": [
+     {
+      "to": "max(THEM(ME),H):0.909 + max(X,THEM(THEM)):0.091",
+      "log10_rate": -6.714570576577613,
+      "mutants": [
+       [
+        "max(X,THEM(THEM))",
+        -6.714570576577613
+       ]
+      ]
+     },
+     {
+      "to": "THEM(THEM):1.000",
+      "log10_rate": -6.843889055884444,
+      "mutants": [
+       [
+        "THEM(THEM)",
+        -6.843889055884444
+       ]
+      ]
+     },
+     {
+      "to": "THEM(ME):1.000",
+      "log10_rate": -6.843889055884444,
+      "mutants": [
+       [
+        "THEM(ME)",
+        -6.843889055884444
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(THEM)):1.000",
+      "log10_rate": -7.579060695004056,
+      "mutants": [
+       [
+        "flip(THEM(THEM))",
+        -7.579060695004056
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(ME)):1.000",
+      "log10_rate": -7.579060695004056,
+      "mutants": [
+       [
+        "flip(THEM(ME))",
+        -7.579060695004056
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.0,
+     "half": 0.0,
+     "third": 0.0,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 1.0
+    }
+   },
+   {
+    "state": "THEM(^M):1.000",
+    "pi": 0.0011731645313751097,
+    "log10_pi": -2.9306410756445387,
+    "log10_exit": -4.725838542736175,
+    "exits": [
+     {
+      "to": "M:1.000",
+      "log10_rate": -4.725885069255395,
+      "mutants": [
+       [
+        "M",
+        -4.725885069255395
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(^M)):1.000",
+      "log10_rate": -8.695945554137275,
+      "mutants": [
+       [
+        "flip(THEM(^M))",
+        -8.695945554137275
+       ]
+      ]
+     },
+     {
+      "to": "min(M,max(X,X)):1.000",
+      "log10_rate": -19.682171447685487,
+      "mutants": [
+       [
+        "min(M,max(X,X))",
+        -19.682171447685487
+       ]
+      ]
+     },
+     {
+      "to": "min(M,max(X,ROLE)):1.000",
+      "log10_rate": -25.323815114533208,
+      "mutants": [
+       [
+        "min(M,max(X,ROLE))",
+        -25.323815114533208
+       ]
+      ]
+     },
+     {
+      "to": "min(M,X):1.000",
+      "log10_rate": -41.46129091085215,
+      "mutants": [
+       [
+        "min(M,X)",
+        -41.46129091085215
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 1.0,
+     "half": 1.0,
+     "third": 0.0,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "THEM(^ROLE):1.000",
+    "pi": 0.0010896817190386597,
+    "log10_pi": -2.962700334949683,
+    "log10_exit": -4.725838542736175,
+    "exits": [
+     {
+      "to": "M:1.000",
+      "log10_rate": -4.725885069255395,
+      "mutants": [
+       [
+        "M",
+        -4.725885069255395
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(^ROLE)):1.000",
+      "log10_rate": -8.695945554137275,
+      "mutants": [
+       [
+        "flip(THEM(^ROLE))",
+        -8.695945554137275
+       ]
+      ]
+     },
+     {
+      "to": "min(M,max(X,X)):1.000",
+      "log10_rate": -19.682171447685487,
+      "mutants": [
+       [
+        "min(M,max(X,X))",
+        -19.682171447685487
+       ]
+      ]
+     },
+     {
+      "to": "min(M,max(X,ROLE)):1.000",
+      "log10_rate": -25.323815114533208,
+      "mutants": [
+       [
+        "min(M,max(X,ROLE))",
+        -25.323815114533208
+       ]
+      ]
+     },
+     {
+      "to": "min(M,X):1.000",
+      "log10_rate": -41.46129091085215,
+      "mutants": [
+       [
+        "min(M,X)",
+        -41.46129091085215
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 1.0,
+     "half": 0.0,
+     "third": 1.0,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "min(M,ROLE):0.333 + max(THEM(THEM),ROLE):0.667",
+    "pi": 0.0006469028023557959,
+    "log10_pi": -3.1891609675099635,
+    "log10_exit": -6.006262644632013,
+    "exits": [
+     {
+      "to": "max(THEM(THEM),ROLE):0.500 + flip(THEM(^L)):0.500",
+      "log10_rate": -6.183181102320875,
+      "mutants": [
+       [
+        "flip(THEM(^L))",
+        -6.183181102320875
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(^M)):0.500 + max(THEM(THEM),ROLE):0.500",
+      "log10_rate": -6.481734213817088,
+      "mutants": [
+       [
+        "flip(THEM(^M))",
+        -6.481734213817088
+       ]
+      ]
+     },
+     {
+      "to": "M:1.000",
+      "log10_rate": -19.950634757272006,
+      "mutants": [
+       [
+        "M",
+        -19.950634757272006
+       ]
+      ]
+     },
+     {
+      "to": "min(M,max(X,ROLE)):1.000",
+      "log10_rate": -20.74102769461447,
+      "mutants": [
+       [
+        "min(M,max(X,ROLE))",
+        -20.74102769461447
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(THEM)):1.000",
+      "log10_rate": -23.750307676372973,
+      "mutants": [
+       [
+        "flip(THEM(THEM))",
+        -23.750307676372973
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.444467,
+     "half": 0.222233,
+     "third": 0.222233,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 0.555533
+    }
+   }
+  ],
+  "time_s": 130.49460196495056,
+  "resid": 3.552713678800501e-14
+ },
+ "deep_states": [],
+ "deep_mutant_lists": [],
+ "discrepancy": {
+  "eff": 8.952599464984168e-06,
+  "half": 0.004737699937405471
+ },
+ "discrepancy_vs_rerun": {
+  "eff": -4.019507541963563e-05,
+  "half": 0.004757015335741577
+ },
+ "time_s": 759.9764637947083,
+ "theta_log": 1e-14
+}
