@@ -245,7 +245,7 @@ class KTheory:
             for (a, A, x), ch in zip(H, choice):
                 t = self.T.get(A, INF)
                 if A in ch: tot += t + 1
-                if x in ch: tot += t + 2
+                if x in ch: tot += (t + 2) if t <= a else INF          # Nec on |- A needs T(A) <= a
             if tot < best: best, wit = tot, (Pi, H, choice)
         return (best if best <= self.cap else INF), wit
 
