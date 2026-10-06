@@ -902,6 +902,217 @@ def cmd_lottery(a):
             print(r['label'], r['rep'], r['outcome'], r['status'], r['stop_gen'], flush=True)
 
 
+# ====================================================================== report
+def _jl(p):
+    p = os.path.join(K4DIR, p) if not os.path.isabs(p) else p
+    return json.load(open(p)) if os.path.exists(p) else None
+
+
+def _fmt(x, f='%.4f'):
+    return '—' if x is None else (f % x)
+
+
+def cmd_report(a):
+    import k_at_n8 as KN
+    L8 = KN.tables(8)[0]
+    md = []; J = {}
+    w = md.append
+    w('# K with the 4-rule, and a frozen classifier for what a sound bounded prover loses\n')
+    w('Spec `specs/2026-10-05-k-four.md`; predictions `predictions/2026-10-05-k-four.md`; notes `notes/k-four.md` (§1: encoding, '
+      'cost recurrence, soundness proof; Lemmas V, V′, G). Code: the `four` option of `src/bounded_k.py`, everything else '
+      '`src/k_four.py`. Raw rows in `runs/k-four/`. ε → 0 chain numbers are at the stated N; the lottery is ε = 0 at '
+      '(N, I) = (100, 64). K+4 = the spec\'s literal rule; K+4m = its monotone closure (cases i–iv); X-arm = guard read one '
+      'budget up (exploratory, not in the spec).\n')
+    rep = _jl('repro.json')
+    if rep:
+        J['repro'] = rep
+        w('## 0. Reproduction with the option off\n')
+        w('| n | b | identical to the published K table | soundness violations |\n|---|---|---|---|')
+        for r in rep:
+            w('| %d | %d | %s | %s |' % (r['n'], r['b'], r.get('identical_to_published', r.get('identical')), r['sound_bad']))
+        w('')
+    # tables
+    for n in (6, 8):
+        st = _jl('static_n%d_g0.json' % n)
+        if not st: continue
+        J['static_n%d' % n] = st
+        w('## 1.%s K+4 tables at n = %d\n' % ('a' if n == 6 else 'b', n))
+        w('| b | rule | time (s) | soundness: violations / checked | plays ≠ free | plays ≠ K | μ²-weight of changed plays | self-cooperators | restored cooperators | restored exploiters | drift-closed components |')
+        w('|---|---|---|---|---|---|---|---|---|---|---|')
+        for b in sorted(st, key=int):
+            for four, r in st[b].items():
+                m = r['meta']
+                w('| %s | %s | %.0f | %d / %d | %d | %s | %s | %d | %d | %d | %d |' % (
+                    b, 'K+4' if four == 'lit' else 'K+4m', m['t'], m['sound_bad'], m['sound_checked'], r['diff_vs_free'],
+                    r['diff_vs_K'], _fmt(r.get('changed_mu'), '%.2e'), r['selfcoop'], len(r.get('restored_coop', [])),
+                    len(r.get('restored_exploiters', {})), r['leak']))
+        w('')
+        for b in sorted(st, key=int):
+            for four, r in st[b].items():
+                if r.get('changed_pairs'):
+                    w('- b = %s, %s: changed plays vs K (reader, opponent, K, new): %s' % (b, four, '; '.join('`%s` vs `%s` %d→%d' % t for t in r['changed_pairs'][:12])))
+                sm = r.get('split_merge_vs_K')
+                if sm and (sm['splits'] or sm['merges']):
+                    w('  - classes K %d → %d; splits: %s; merges: %s' % (sm['n_classes_a'], sm['n_classes_b'],
+                      '; '.join('%s (n %d, μ %.2e, into %d)' % (s['members'][0], s['n'], s['mu'], s['into']) for s in sm['splits'][:6]) or 'none',
+                      '; '.join('%s (n %d, μ %.2e, from %d)' % (s['members'][0], s['n'], s['mu'], s['from_']) for s in sm['merges'][:6]) or 'none'))
+                if r.get('restored_exploiters'):
+                    w('  - restored exploiters: %s' % '; '.join('`%s` → %s' % (z, ', '.join('`%s`' % x for x in xs[:3])) for z, xs in list(r['restored_exploiters'].items())[:10]))
+                if r.get('restored_coop'):
+                    w('  - restored cooperators: %s' % ', '.join('`%s`' % s for s in r['restored_coop'][:12]))
+        w('')
+        if n == 8:
+            named = None
+            rows = []
+            for b in sorted(st, key=int):
+                r = st[b].get('mono')
+                if r and r.get('named_self'):
+                    named = list(r['named_self']); rows.append((b, r['named_self']))
+            if named:
+                w('Named self-play in K+4m at n = 8 (1 = C): ' + '; '.join('b = %s: %s' % (b, ''.join(str(d[s]) for s in named)) for b, d in rows))
+                w('(order: %s)\n' % ', '.join('`%s`' % s for s in named))
+    for g in (1,):
+        st = _jl('static_n8_g%d.json' % g)
+        if st:
+            J['static_n8_g%d' % g] = st
+    sw = _jl('sweep.json')
+    if sw:
+        J['sweep'] = {k: dict(meta=v['meta'], self=v['self'], rearmed=v['rearmed'], witness=v['witness']) for k, v in sw['cells'].items()}
+        w('## 2. Dense sweeps on the named family (b = 4…40)\n')
+        w('Family: %d programs (the five Con/4-axiom cooperators, PrudentBot, FairBot, `BOX1(THEM(ME))`, `BOX(THEM(THEM))`, '
+          '`BOX1(THEM(THEM))`, C, D, the 21 Gödel-sentence fakers and their free-arm victims). b\\* = first b at which the program '
+          'self-cooperates; witness = the exact minimal sizes T of its self-play atom contents at b\\* (each witnessed by a derivation; '
+          'at b\\* − 1 at least one exceeds the budget).\n' % len(sw['progs']))
+        cfgs = sorted({k.rsplit('/', 1)[0] for k in sw['cells']})
+        w('| program | ' + ' | '.join('b\\* %s' % c.replace('None', 'K').replace('mono', 'K+4m').replace('/0', '').replace('/1', ', guard +1') for c in cfgs) + ' |')
+        w('|---|' + '---|' * len(cfgs))
+        bstar = {}
+        for s in NAMED:
+            cells = []
+            for c in cfgs:
+                bs = sorted(int(k.rsplit('/', 1)[1]) for k in sw['cells'] if k.startswith(c + '/'))
+                hit = next((b for b in bs if sw['cells']['%s/%d' % (c, b)]['self'][s]), None)
+                bstar[(s, c)] = hit
+                if hit is None:
+                    cells.append('never (≤ %d)' % max(bs))
+                else:
+                    wit = sw['cells']['%s/%d' % (c, hit)]['witness'][s]
+                    cells.append('%d [T = %s]' % (hit, ', '.join(str(t[1]) if t[1] < 10 ** 6 else '∞' for t in wit)))
+            w('| `%s` | %s |' % (s, ' | '.join(cells)))
+        w('')
+        w('Gödel sentences re-armed (strictly invading a free-arm victim in the family table), max over b: ' + '; '.join(
+            '%s: %d' % (c.replace('None', 'K').replace('mono', 'K+4m'), max(len(sw['cells'][k]['rearmed']) for k in sw['cells'] if k.startswith(c + '/'))) for c in cfgs))
+        viol = sum(v['meta']['sound_bad'] for v in sw['cells'].values()); chk = sum(v['meta']['sound_checked'] for v in sw['cells'].values())
+        w('\nSoundness over all sweep cells: %d violations / %d checked formulas.\n' % (viol, chk))
+        J['bstar'] = {'%s|%s' % k: v for k, v in bstar.items()}
+    cat = _jl('catalogue8.json')
+    if cat:
+        J['catalogue8'] = cat
+        w('## 3. Cross-budget catalogue at n = 8 under K+4m (b ∈ %s)\n' % cat['budgets'])
+        w('%d genotypes, %d self-cooperators in %d component(s), %d closed. Plays changed against K\'s published cross-budget blocks: %s.\n' % (
+            cat['n_genotypes'], cat['n_selfcoop'], cat['n_components'], cat['n_closed'],
+            '; '.join('%s: %d (%s)' % (k, v['n'], '; '.join('`%s` vs `%s` %d→%d' % tuple(e) for e in v['examples'][:6])) for k, v in cat['diff_vs_K_cross'].items())))
+    ch = _jl('chain.json')
+    pub = json.load(open(os.path.join(RUNS, 'k-at-n8-chain.json')))
+    if ch:
+        rows = [r for r in pub if r['label'] in ('free', 'K b=16', 'K b=54')] + ch
+        J['chain'] = ch
+        w('## 4. The lim_N chain at n = 8 (PD, w = 0.3)\n')
+        w('| arm | P(C,C) N = 10³ | 10⁴ | 3·10⁴ | π(all-D) 3·10⁴ | top state (π) 3·10⁴ | top exit 10³ / 10⁴ / 3·10⁴ | exit slope | strict share | ALLC share | entry N·ρ (10⁴) | classes | terminal / indeterminate / cut |')
+        w('|---|---|---|---|---|---|---|---|---|---|---|---|---|')
+        labs = list(dict.fromkeys(r['label'] for r in rows))
+        for lab in labs:
+            rr = {r['N']: r for r in rows if r['label'] == lab}
+            Ns = sorted(rr)
+            ex = [rr[N].get('top_exit') for N in Ns]
+            slope = np.polyfit(np.log(Ns), np.log(ex), 1)[0] if len(Ns) >= 2 and all(ex) else None
+            top = rr[Ns[-1]]
+            w('| %s | %s | %s | %s | %.3f | `%s` (%.3f) | %s | %s | %.3f | %.2f | %s | %d | %d / %d / %.0e |' % (
+                lab, _fmt(rr.get(1000, {}).get('pcc')), _fmt(rr.get(10000, {}).get('pcc')), _fmt(rr.get(30000, {}).get('pcc')),
+                top['pi_D'], top.get('top_coop'), top.get('pi_top', 0), ' / '.join(_fmt(e, '%.2e') for e in ex), _fmt(slope, '%.2f'),
+                top.get('top_exit_strict', 0) / top['top_exit'] if top.get('top_exit') else 0, top.get('allc_share', float('nan')),
+                _fmt((rr.get(10000, {}).get('entry') or {}).get('N_rho'), '%.1f'), top['n_classes'], top['n_terminal'], top['indeterminate'], top['cut_flow']))
+        w('')
+        for lab in labs:
+            rr = [r for r in rows if r['label'] == lab and r['N'] == 30000]
+            if rr:
+                w('- %s, support at 3·10⁴: %s' % (lab, ', '.join('%s %.3f' % (s, p) for s, p in rr[0]['support'][:8])))
+        w('')
+        for lab in labs:
+            rr = [r for r in rows if r['label'] == lab and r['N'] == 10000]
+            if rr and rr[0].get('exits'):
+                w('- %s, top `%s` exits at 10⁴: %s' % (lab, rr[0]['top_coop'], '; '.join('`%s` %.1e N·ρ %.2f Δ %g/%g/%g' % (
+                    e['mutant'], e['w'], e['N_rho'] or 0, e['d_vs_res'], e['d_res_vs'], e['d_self']) for e in rr[0]['exits'][:3])))
+        w('')
+    clf = {}
+    for n in (8, 6):
+        c = _jl('classify_n%d.json' % n)
+        if c:
+            clf[n] = c
+    if clf:
+        w('## 5. The frozen classifier\n')
+        w('C_spec (primary) and C_pair (secondary) as frozen in commit 6001721; positive = disarmed (invasion gone). Pair level is primary.\n')
+        w('| n | label | classifier | level | TP | FP | FN | TN | precision | recall |\n|---|---|---|---|---|---|---|---|---|---|')
+        for n, c in clf.items():
+            for k, v in c['confusion'].items():
+                lab, which, lev = k.split('|')
+                w('| %d | %s | %s | %s | %d | %d | %d | %d | %s | %s |' % (n, lab, which, lev, v['tp'], v['fp'], v['fn'], v['tn'], _fmt(v['precision'], '%.2f'), _fmt(v['recall'], '%.2f')))
+            w('')
+            w('n = %d: %d eligible pairs; %d without a proof of the invader\'s play at level ≤ 2; %d uncertified.\n' % (n, c['n_pairs'], c['no_root'], c['uncertified']))
+        J['classify'] = {n: dict(confusion=c['confusion'], n_pairs=c['n_pairs'], no_root=c['no_root']) for n, c in clf.items()}
+    ph = _jl('posthoc_n8.json')
+    if ph:
+        J['posthoc'] = ph
+        w('Post-hoc variants (declared after seeing the frozen result; descriptive only): %s\n' % '; '.join('%s: %s' % (k, v) for k, v in ph.items()))
+    for lab in ('K16', 'K4m16'):
+        mc = _jl('misclass_n8_%s.json' % lab)
+        if not mc: continue
+        J['misclass_' + lab] = mc
+        w('**Misclassified and true-positive pairs, label %s** (FN: disarmed, not flagged; FP: flagged, not disarmed; TP: both). Lost atoms: GL-true atoms of z vs x, x vs z, x vs x that are K-false at b = 16, with GL length L and the first budget ≤ 2L + 10 at which K proves them (structural if none). Alternative: minimal size of a GL derivation of z\'s play with no used trigger, searched to twice the minimum.\n' % lab)
+        kinds = {}
+        for r in mc:
+            kinds.setdefault(r['kind'], []).append(r)
+        for kd, rs in kinds.items():
+            nfin = sum(1 for r in rs if any(o['finite_budget_at'] for o in r['lost']))
+            nstr = sum(1 for r in rs if r['lost'] and not any(o['finite_budget_at'] for o in r['lost']))
+            nnone = sum(1 for r in rs if not r['lost'])
+            nalt = sum(1 for r in rs if r['alt'] and r['alt']['untriggered'] and r['alt']['untriggered'].get('c'))
+            w('- %s: %d pairs; lost atoms structural in %d, some finite-budget in %d, no lost GL-true atom in %d; untriggered alternative within 2× in %d.' % (kd, len(rs), nstr, nfin, nnone, nalt))
+        w('')
+        for r in mc:
+            alt = r['alt'] and r['alt']['untriggered']
+            w('  - %s `%s` vs `%s`: min %s, untriggered %s; lost %s' % (r['kind'], r['z'], r['x'], r['alt'] and r['alt']['min'], alt and alt.get('c'),
+              ', '.join('%s L=%d %s' % (o['play'], o['L'], ('finite at %d' % o['finite_budget_at']) if o['finite_budget_at'] else 'structural (≤ %d)' % o['searched_to']) for o in r['lost']) or 'none'))
+        w('')
+    pc = _jl('partc.json'); pm = _jl('partc_meta.json')
+    if pc:
+        J['partc'] = dict(rows=pc, meta=pm)
+        ref = {r['label']: r['pcc'] for r in pub if r['N'] == 10000}
+        r4 = [r for r in (ch or []) if r['label'] == 'K4m b=16 g=0' and r['N'] == 10000]
+        if r4: ref['K4m b=16'] = r4[0]['pcc']
+        w('## 6. Part C: matched table interventions (n = 8, N = 10⁴, b = 16)\n')
+        w('| arm | P(C,C) | − free | − K | − K+4m | top state |\n|---|---|---|---|---|---|')
+        for lab in ('free', 'K b=16', 'K4m b=16'):
+            if lab in ref:
+                w('| %s | %.4f | %+.4f | %+.4f | %s |  |' % (lab, ref[lab], ref[lab] - ref['free'], ref[lab] - ref['K b=16'], _fmt(ref[lab] - ref['K4m b=16'], '%+.4f') if 'K4m b=16' in ref else '—'))
+        for r in pc:
+            w('| %s | %.4f | %+.4f | %+.4f | %s | `%s` |' % (r['label'], r['pcc'], r['pcc'] - ref['free'], r['pcc'] - ref['K b=16'],
+              _fmt(r['pcc'] - ref['K4m b=16'], '%+.4f') if 'K4m b=16' in ref else '—', r.get('top_coop')))
+        gap = ref['K b=16'] - ref['free']
+        ci = [r for r in pc if r['label'].startswith('C(i)')]
+        if ci:
+            w('\nRecovered share of the K − free gap by (i): %.3f (gap %.4f). Flagged classes deleted: %d (μ %.4f).\n' % ((ci[0]['pcc'] - ref['free']) / gap, gap, len(pm['flagged']), pm['mu_flagged']))
+    lot = _jl('lottery.json')
+    if lot:
+        J['lottery'] = lot
+        res = [r for r in lot if r['outcome'] not in (None, 'unresolved')]
+        k = sum(1 for r in res if r['outcome'] == 'efficient')
+        w('## 7. Lottery\n\nK+4m b = 16, (100, 64), mN = 1, 20 paired seeds: efficient %d/%d (unresolved %d).\n' % (k, len(res), len(lot) - len(res)))
+    open(os.path.join(RUNS, 'k-four.md'), 'w').write('\n'.join(md) + '\n')
+    json.dump(J, open(os.path.join(RUNS, 'k-four.json'), 'w'), indent=1, default=str)
+    print('\n'.join(md))
+
+
 def main():
     ap = argparse.ArgumentParser()
     sp = ap.add_subparsers(dest='cmd')
@@ -916,6 +1127,7 @@ def main():
     p = sp.add_parser('chain'); p.add_argument('--budgets', type=int, nargs='+', default=[16, 54]); p.add_argument('--Ns', type=int, nargs='+', default=[1000, 10000, 30000])
     p.add_argument('--goff', type=int, default=0); p.add_argument('--workers', type=int, default=3)
     p = sp.add_parser('n6res')
+    p = sp.add_parser('report')
     p = sp.add_parser('misclass'); p.add_argument('--n', type=int, default=8); p.add_argument('--label', default='K@16')
     p.add_argument('--also_tp', action='store_true'); p.add_argument('--workers', type=int, default=3)
     p = sp.add_parser('partc'); p.add_argument('--b', type=int, default=16); p.add_argument('--N', type=int, default=10000); p.add_argument('--workers', type=int, default=3)

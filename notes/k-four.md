@@ -135,3 +135,24 @@ re-armed by K+4m at any fixed b (the sweep decides), and that it is re-armed whe
 ¬□_{b+1}^k⊥ (4m (ii) with a = b, d = c = b + 1), an exploratory variant declared in the predictions. P\*, P2 and
 the Gödel sentences need more than 4: refuting □_b P from Con needs distribution of the box over a conjunction
 (□A, □(A → B) ⊢ □B under a box), which K has in no form.
+
+## 2. The frozen classifier on K's label (n = 8)
+
+Frozen in commit 6001721 with the predictions; evaluated afterwards (`runs/k-four/classify_n8.json`). 408 eligible
+pairs (25 residents, 89 invader classes), 74 K-disarmed at b = 16 (37 classes).
+
+- **C_spec: precision 1.00 (31/31), recall 0.42 (31/74)**; class level 16/16 and 16/37. Gödel part alone: 24 TP,
+  0 FP; Con part alone: 15 TP, 0 FP. C_pair (either play of the invasion): precision 1.00, recall 0.65 (48/74).
+- So the instrument is a sufficient sign of K-disarming on this catalogue (no false positive among 334 surviving
+  invasions) but far from necessary. The 43 misses fall in three groups:
+  1. *Level cap* (8 pairs): readers of Gödel/Con sentences against `BOX1(THEM(^BOX1(THEM(THEM))))`, whose defection
+     is first provable at level 3 (□□□⊥-type plays); the frozen classifier stops at level 2. 264 surviving invasions
+     share the cap, so the cap does not bias precision.
+  2. *The failure is on the resident's side* (C_pair recovers 17): the invader's defection is proved cleanly, but the
+     resident's cooperation with the invader needs a Gödel hypothesis (e.g. `not(BOX(THEM(THEM)))` vs
+     `BOX1(THEM(THEM))`).
+  3. *Con sentences without a self-play hypothesis*: `not(BOX(THEM(^C)))` (self-play ≡ ¬□⊥), `not(BOX(THEM(^BOX(…))))`,
+     the probe readers `BOX(THEM(^not(BOX(THEM(^C)))))`. K loses them because the resident must prove
+     □P[z, C] → □⊥ where P[z, C] unfolds to ¬□⊤: box congruence under a provable equivalence, i.e. distribution
+     (□(A → B), □A ⊢ □B), which K has in no form. Neither trigger sees it: the hypothesis is □P[z, C], a cross-play,
+     and no guard sits under a box.
