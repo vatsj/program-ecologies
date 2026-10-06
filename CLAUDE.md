@@ -88,5 +88,6 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 12. Solver audit: unconditional re-solves of every published chain with independent deep-state discovery, separated rate/solver checks, controls, regression tests and twin drift (corrective; running: `specs/2026-10-05-solver-audit.md`).
 13. K with analytic cut (distribution under a box): does P* return and do its fakers return with it, measured as logical restoration with a 2×2 graft design and the guard × calculus factorial (follow-up to "K with the 4-rule"; running: `specs/2026-10-05-k-cut.md`).
 14. ~~Rivals under K~~ (done; RESULTS "Rivals under the bounded prover K": at b ≥ 12 K removes the bridge-less obstruction at n = 8 (0 bridge-less rival mass, 0/3,000 natural separations against free's 8/3,000, forced P* dies like a defector); below the distinct-budget thresholds K's soft cliques are bridge-less rivals (0.80 separated at b = 4), so the budget has a compatibility floor).
+15. Mixed-budget populations under K: incompatible pairs of budgeted establishers, bridges, natural runs under cheap-heavy / uniform / above-threshold budget priors, forced pairs, composition checkpoints (follow-up to item 14; running: `specs/2026-10-05-mixed-budgets.md`).
 
 No paper draft (RS, 2026-10-04).
