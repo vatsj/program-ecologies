@@ -340,7 +340,7 @@ def all_tables():
     if os.path.exists(os.path.join(OUT, 'reduced.json')):
         T['reduced'] = reduced_md(json.load(open(os.path.join(OUT, 'reduced.json'))))
     lots = []
-    for fn in sorted(glob.glob(os.path.join(OUT, 'lottery_*.json*'))):
+    for fn in sorted(glob.glob(os.path.join(OUT, 'lottery_*.json.gz'))):
         import gzip
         d = json.load(gzip.open(fn) if fn.endswith('.gz') else open(fn))
         lots.append(lottery_summary(d))
