@@ -1134,7 +1134,7 @@ def timing_main(a):
 # ------------------------------------------------------------------ report
 OUT_MD = os.path.join(RUNS, 'mixed-budgets.md')
 OUT_JS = os.path.join(RUNS, 'mixed-budgets.json')
-MARKS = (100, 1000, 10000, 100000, 300000)
+MARKS = (100, 1000, 10000, 50000, 100000, 300000)
 
 
 def cp(k, n, a=0.05):
@@ -1242,9 +1242,14 @@ def nat_stats(rs):
             kinds['bridged: bridge seeded' if s['bridge_seed'] > 0 else 'bridged: bridge not seeded'] += 1
             kinds['bridged: bridge alive at end' if s['bridge_alive_end'] else 'bridged: bridge dead/absent at end'] += 1
     st['pairs_end'] = dict(pairs_end.most_common(12)); st['kinds_end'] = dict(kinds)
-    ev = [r for r in rs if r['sep']['ever']]
-    dur = [(r['sep']['resolved_at'] - r['sep']['first']) if not r['sep']['sep_at_end'] else (r['stop_gen'] - r['sep']['first']) for r in ev]
-    evt = [not r['sep']['sep_at_end'] for r in ev]
+    # resolution: an ever-separated run is resolved iff it is not separated at the horizon (holder test with island
+    # P(C,C) >= 0.95); its time is the check after the last separated check.  The per-check flag uses local
+    # frozenness and can flicker off at the final check while a migrant is present, so it is not used for the event.
+    ev = [r for r in rs if r['sep']['ever'] or r['n_sep_end'] > 0]
+    def _first(r):
+        return r['sep']['first'] if r['sep']['ever'] else r['stop_gen']
+    dur = [(max(r['sep']['resolved_at'], r['sep']['last_sep']) - _first(r)) if r['n_sep_end'] == 0 else (r['stop_gen'] - _first(r)) for r in ev]
+    evt = [r['n_sep_end'] == 0 for r in ev]
     st['resolved'] = int(sum(evt)); st['censored'] = int(len(evt) - sum(evt))
     st['expo'] = float(sum(dur)); st['hazard'] = st['resolved'] / st['expo'] if st['expo'] else float('nan')
     st['hazard_upper'] = poisson_upper(st['resolved'], st['expo'])
@@ -1255,7 +1260,7 @@ def nat_stats(rs):
         if not f: continue
         s = f[0]
         key = ('bridge-less' if s['n_bridges_prior'] == 0 else ('bridged, ' + ('seeded' if s['bridge_seed'] else 'not seeded')
-               + (', alive' if s['bridge_alive_end'] else ', dead'))) + (', separated at end' if r['sep']['sep_at_end'] else ', resolved')
+               + (', alive' if s['bridge_alive_end'] else ', dead'))) + (', separated at end' if r['n_sep_end'] > 0 else ', resolved')
         fate[key] += 1
     st['fate_first'] = dict(fate)
     pc = [r['pcc_cert'] for r in rs if not math.isnan(r['pcc_cert'])]
@@ -1339,6 +1344,9 @@ def report_main(a):
         md += ['', 'Checks are every 5 generations, so T_nuc is resolved to 5.', '']
         out['calib'] = cal
     md += lottery_md(cal, out)
+    vp = os.path.join(RUNS, 'mixed-budgets', 'verdicts.md')
+    if os.path.exists(vp):
+        md += open(vp).read().rstrip('\n').split('\n') + ['']
     open(OUT_MD, 'w').write('\n'.join(md) + '\n')
     json.dump(out, open(OUT_JS, 'w'), indent=1, default=str)
     print('wrote', OUT_MD, OUT_JS)
@@ -1500,7 +1508,7 @@ def lottery_md(cal, out):
         if pc:
             md += ['**Paired horizon separation** (same source seeds and budget uniforms): ' + '; '.join(pc) + '.', '']
         md += ['**Separated pairs at the horizon** (first listed pair of each separated run) and per-separation tracking:', '',
-               '| cell | prior | heaviest separated pairs (runs) | first-separation fate | resolved / censored | resolution hazard per separated-run-generation [upper] | KM P(still separated) at 10² / 10³ / 10⁴ / 10⁵ after first separation |',
+               '| cell | prior | heaviest separated pairs (runs) | first-separation fate | resolved / censored | resolution hazard per separated-run-generation [upper] | KM P(still separated) at 10² / 10³ / 10⁴ / 5·10⁴ after first separation (follow-up ends at 10⁵ − first separation) |',
                '|---|---|---|---|---|---|---|']
         for k in nat_keys:
             st = out['cells']['natural']['%s|%s|%g' % (k[0], k[1], k[3])]
@@ -1510,7 +1518,7 @@ def lottery_md(cal, out):
                 k[0], PRLAB[k[1]], '; '.join('`%s` %d' % (p_, c) for p_, c in list(st['pairs_end'].items())[:4]) or '–',
                 ', '.join('%s %d' % (a_, b_) for a_, b_ in st['fate_first'].items()), st['resolved'], st['censored'],
                 fe(st['hazard']), fe(st['hazard_upper']),
-                ' / '.join('%.2f' % st['km'].get(str(m), float('nan')) for m in (100, 1000, 10000, 100000))))
+                ' / '.join('%.2f' % st['km'].get(str(m), float('nan')) for m in (100, 1000, 10000, 50000))))
         md.append('')
         md += ['**Budget composition of cooperative holders** (island-weighted, one vote per holding island, each vote the '
                'holder\'s expected budget composition on that island; first checkpoint = first check after every island '
