@@ -60,8 +60,9 @@ calculus cannot charge searches inside sims (the charge would be self-referentia
 their formula builders and run calls mention). Reach(Cat) is the set of states on the idealized evaluation trees
 (both branches at every prove state) of app(app(p, ⌜p⌝), ⌜q⌝), p, q ∈ Cat. Atoms range over Reach(Cat). For the
 milestone catalogues every tree is finite (no `fix`; sim fuels decrease), so Reach(Cat) is finite; the code computes
-it and records the number of **merges** (states with two deterministic predecessors), which the completeness
-argument of §1.7 uses.
+it and records the number of **merges** (states with two deterministic predecessors). [Amended after the run:
+merges occur (at most 1 per root closure, in SF's simulations of PB and P\*, where two inner branches reach the same
+state); the completeness argument of §1.7 as amended does not use the merge count.]
 
 **Truth in T.** □_c A is true iff K_T has a derivation of ⊢ A (empty context) with at most c sequents.
 ⟨σ⟩⇓a is true iff the idealized evaluation of σ reaches the constructor a. Connectives classically. A sequent is
@@ -230,10 +231,21 @@ hypothesis is used in a premise of S_used. A used hypothesis □_m Y is principa
 box □_c B of that derivation, so Y = B (Ax, BoxEq (i)) or Y and B are atoms on one deterministic chain (BoxEq (ii),
 (iii)). Right boxes of a premise derivation are boxes of the closure of its right formula (prove obligations and
 subformulas) or Nec conclusions over them, so by induction on size every used member is a box content of the closure
-or on a deterministic chain through one, i.e. in Mem(ψ); and A_i, whose downstream reduct X is a formula of the
-derivation, is in Mem(ψ) when X is an atom of the closure and A_i is upstream of X in Reach(Cat) (A_i is a state of
-Reach(Cat) because atoms range over it). So: **if ⊢ ψ has a K_T derivation of size ≤ b, it has one of size ≤ b all
-of whose formulas lie in U_b(ψ).**
+or on a deterministic chain through one, i.e. in Mem(ψ) or upstream of a member of Mem(ψ).
+**Lemma U (upstream members outside the closure)** [amended after the run; replaces an argument that assumed 0
+merges]. The root closure is closed downstream (under deterministic and prove-branch successors), and every right
+box of a derivation of ⊢ ψ has its content in it: right boxes come from the root's subformulas, from prove
+obligations of closure states, from Nec over closure contents, and from the premise derivations of JLöb members,
+whose prove obligations lie downstream of the member and hence, once the member's chain enters the closure, inside
+it (a deterministic segment carries no box). Let Y be a member (or the concluded member) outside the closure, Y
+upstream of a closure state, and let X′ be the first closure state on Y's chain. A right box □_c B that □_m Y closes
+has B in the closure, so B is downstream of Y and the BoxEq used is (ii), with side condition m ≤ c and no distance
+charge. Replace Y by X′ in S: the premise for X′ is at most the premise for Y (that premise must travel from Y to X′
+by EvR steps, or end in a nested JLöb leaf on the segment, which may conclude X′ instead, by induction on size), so the
+instance and m do not grow; every use of □_m Y becomes a use of □_m′ X′ by BoxEq (ii) with m′ ≤ m ≤ c; and the
+conclusion, downstream of Y, is downstream of X′ or of a state between, still derivable at the same size. So
+**if ⊢ ψ has a K_T derivation of size ≤ b, it has one of size ≤ b all of whose formulas lie in U_b(ψ)**, with
+concluded members drawn from the closure's own upstream map, merges or not.
 
 **Completeness of the search.** `minsize` enumerates every rule instance over U_b(ψ) with every premise-size split
 and every JLöb (S, m) with S ⊆ Mem(ψ), |S| ≤ 3, containing a member whose downstream reduct (or itself) is the right
@@ -243,11 +255,11 @@ most the premise's size). Conversely every value returned is witnessed by a deri
 iterative deepening returns found at the minimal n, and **"refuted" at b is a certified negative**: no K_T
 derivation of ⊢ ψ of size ≤ b exists. Minimality is reported only from completed passes.
 
-*Implementation note.* Mem(ψ) is computed from the root closure plus the upstream map of Reach(Cat); with 0 merges
-in Reach(Cat) (checked per catalogue) the upstream states of an atom are exactly its predecessors on its own
-evaluation tree. The JLöb candidate sets are {A_i} ∪ E with A_i ∈ {X} ∪ upstream(X) ∩ Mem(ψ) and E ⊆ Mem(ψ),
-|E| ≤ 2. A run on the FairBot pair with Mem enlarged to all of Reach(Cat)'s atoms is the empirical check that the
-restriction is not binding (§3).
+*Implementation note.* For a JLöb leaf on X the concluded member A_i ranges over X and its upstream states in the
+root closure (all deterministic predecessors, so merges are covered), and the extras over Mem(A_i) = the atoms and box
+contents of closure(A_i) plus A_i's upstream states, |E| ≤ 2 (`Search.members`). Two empirical checks that the
+restriction is not binding: the brute-force prover of `src/lt_check.py` (members = every atom and box content of the
+root closure, no lower bounds) at b ≤ 8, and the main prover with Mem = the whole root closure at b ∈ {16, 25, 32}.
 
 ### 1.8 The hand-checked exhaustive space at small b: FairBot against FairBot
 
