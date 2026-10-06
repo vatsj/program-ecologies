@@ -723,3 +723,20 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Subagent S1** ("K_c = K at b = 54"; falsified by 2 plays: weakening under a box restores one structural pair).
 
 **Design choices dropped:** distribution as a rule derived from cut (impossible, Theorem D0); the full n = 8 K_c closure (memory; targeted tables, exact by Corollary T); searching general contextual cut (upper-bound sizes; certificates cover it); the capped search to b = 200 (replaced by certificates valid at every size); 3-type deep-state seeding at 476 classes; the cross-budget K_c catalogue and a full long-guard table (not run). RE 3 is untestable in K_c (degenerate design), not rejected.
+
+
+## Added 2026-10-06: solver audit (RESULTS.md, "Solver audit of the published ε→0 chains")
+
+**"The PD cells have no deep state within coverage" (Fable, prediction 1, first clause; falsifier fired).** All-D is strictly deep under atom pricing at c = 0.01 (μ 0.47, π 0.98): every prover pays the price against D and every constant loses. The numbers clause held (≤ 4·10⁻⁴).
+
+**"The greedy polymorphism stays absorbing; dollar P(efficient) moves < 0.1" (Fable, prediction 2; falsifier fired).** `dollar5 role` at 10⁴ moves by −0.38: a missed five-class role-conditioned hawk polymorphism (R5) absorbs π. "Deep states" holds only modulo twins.
+
+**"Twin drift changes no absorbing state at 10⁴; effect < 0.05" (Fable, prediction 4; falsifier fired twice).** `dollar3 norole` moves from the greedy polymorphism to all-M (+0.37); the modal dollar moves from X+Z+V to an S4-hawk polymorphism (−0.11). In both, a twin that differs off the support exposes an exit 12–20 orders faster.
+
+**Subagent S1** (near-closed classes in the linear solve; none), **S5** (the twin-expanded top state the same at 10⁵ as at 10⁴; R5 → G4 and H5 → a two-class family), **S8** (missed deep states carry < 10⁻³; R5 holds 1.000).
+
+**Design choices dropped:** the ≤ 3-class enumeration as trap discovery in bargaining (traps have 4–6 classes; invasion closure added); the strict operational "deep" alone (empty wherever payoff twins exist); a 10⁻¹² neutrality tolerance on 9-decimal payoffs (flips on rounding; 10⁻⁹); random-start replicator search (200 starts found none of the deep states); expanding every stable candidate (≈ 1 s per seed, 16,000+ per table); θ_log = 10⁻³⁰ for dollar cells (explodes at N = 10³); θ_log = 10⁻¹² as converged (missed R5, put the W artefact on top); two-trap on-demand Dijkstra as the arbiter at 3·10⁴; independent dense solves of the union and three-player generators (did not finish); three-player re-solves at lower θ (stopped after 1.5–2 h at 43% of memory).
+
+**Amended entry (reason: this audit).** The 2026-10-05 entry dropping "the linear-domain lazy chain where deep polymorphisms exist" stays dropped, with its reason corrected: underflow hides nothing that carries weight; what fails is θ-pruned exploration, which misses large-support traps, and lumping, which ignores twin drift.
+
+**Published number corrected (append-only addendum in RESULTS "Divide-the-dollar partitions"):** `dollar5 role` at N = 10⁴, P(efficient) 0.968 → 0.585 and 1/2–1/2 0.806 → 0.000; at 3·10⁴, 1/2–1/2 0.074 → 0.0003. The claim "50–50 survives to N ≈ 2·10⁴ with `ROLE`" (RESULTS "Divide-the-dollar partitions", Reading; THEORY §3) is withdrawn.

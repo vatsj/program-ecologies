@@ -216,3 +216,14 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   on uncertified misses only; **long guard** — the level-k guard read at 2b + 8 (a reflection margin of about 2b),
   the one switch that returns P\* and its fakers together; **long-guard graft** — family plays grafted into K's
   table for a descriptive chain.
+- **Solver audit:** **deep: strict / modulo twins / with penalty only** (tolerance 10⁻⁹) — every outside class has
+  invasion fitness below the resident mean by more than 10⁻⁹ / every outside class is strictly deleterious or a
+  payoff twin of a member / no outside class is advantageous and every first-order-neutral non-twin class loses at
+  second order; **invasion closure** — the saturated rest points reached from the monomorphic states, and from
+  enumerated candidates with two branches, by repeatedly adding a strict invader at 10⁻³ and running the replicator
+  to rest (N-independent, no chain probabilities); **θ_log** — the log-domain threshold on π-weighted relative
+  inflow into an unexpanded state; **G4** — the `dollar5` greedy polymorphism (S5 3/4 with three accommodators);
+  **R5** — the `dollar5 role` five-class hawk polymorphism (`max(S4,ROLE)` with four accommodators); **H5** — the
+  modal-dollar twin-expanded five-class S4-hawk polymorphism; **W** — a strictly invadable state made sticky by the
+  lumped polymorphic-target fixation; **establishment floor** (diagnostic) — the fixation probability of a
+  first-order-advantageous invader floored at 1 − e^{−wd}; **`chain_log.LogChain`** — the audited solver.
