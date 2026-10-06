@@ -29,7 +29,8 @@ def has_box(t):
 
 
 class KTheory:
-    def __init__(self, cap=60, arity=3, prune=None, ustar_limit=40, filter_first=False, four=None):
+    def __init__(self, cap=60, arity=3, prune=None, ustar_limit=40, filter_first=False, four=None, cut=None,
+                 dist_arity=3):
         """prune(A) -> False when A's budget erasure is known not to be a GL theorem (then K cannot derive |- A:
         every K rule is GL-sound after erasing budgets, notes/proof-length.md §3; specs/2026-10-05-k-at-n8.md), None
         when unknown.  A pruning only: it removes derivations that cannot exist.  ustar_limit / filter_first: the JLoeb
@@ -38,9 +39,20 @@ class KTheory:
         four: the 4-rule as an initial sequent (specs/2026-10-05-k-four.md; soundness proof in notes/k-four.md §1),
         default None (off: K exactly).  'lit': Gamma, [](A, a) |- [](([](A, a)), c), Delta with c >= a + 1 (the spec's
         literal rule).  'mono': the literal rule closed under BoxEq's monotonicity and one unfolding (cases i-iv of
-        `four_ax`)."""
+        `four_ax`).
+        cut: cut and distribution under a box (specs/2026-10-05-k-cut.md; soundness proof in notes/k-cut.md §1), default
+        None (off: K exactly).  'c': K_c = K + Cut + UnfId + Dist_k (k <= dist_arity): from A_1..A_k |- B (nothing else
+        on the left; size s) infer G, [](A_1, a_1)..[](A_k, a_k) |- [](B, d), D when d >= s + sum a_i + k (size 1 + s);
+        UnfId: G, P |- phi(P), D.  'c4': K_c4, the same with Dist+ (the premise may also use the boxes [](A_i, a_i)
+        themselves; charge a_i + 1 per content used and a_i + 2 per box used).  Cut is searched in the form the
+        soundness proof uses it (Lemma C: lemma cuts on the contents of a Dist instance's hypotheses, the `MP` values),
+        so the computed sizes are upper bounds on K_c's minimal sizes; seq_prune(L, R) -> False when the sequent's
+        budget erasure is not GL-valid (every K_c sequent erases to a GL-valid one, notes/k-cut.md §1.6)."""
         assert four in (None, 'lit', 'mono')
+        assert cut in (None, 'c', 'c4')
         self.four = four
+        self.cut = cut; self.dist_arity = dist_arity; self.seq_prune = None
+        self.M = {}; self.Mw = {}; self.mp = {}       # MP (lemma-cut) values, witnesses, registered premises
         self.cap = cap; self.arity = arity
         self.prune = prune; self._dead = {}; self.ustar_limit = ustar_limit; self.filter_first = filter_first
         self.trees = []; self.tree_id = {}
@@ -147,6 +159,9 @@ class KTheory:
         for a in L:
             if a in R and F[a][0] in (FP, FBOX): return True
         if self.boxeq(L, R): return True
+        if self.cut is not None:
+            for a in L:
+                if F[a][0] == FP and self.unfold(a) in R: return True     # UnfId
         return self.four is not None and self.four_ax(L, R)
 
     def four_ax(self, L, R):
@@ -184,11 +199,55 @@ class KTheory:
         return False
 
     def _leafJ(self, A):
-        """JLoeb leaf for a right formula A (also via phi^-1)."""
+        """JLoeb leaf for a right formula A (also via phi^-1); with cut also the MP (lemma-cut) value of A."""
         best = self.J.get(A, INF); self.goalsJ.add(A)
         for P in self.inv.get(A, ()):
             self.goalsJ.add(P); best = min(best, self.J.get(P, INF))
+        if self.cut is not None:
+            best = min(best, self.M.get(A, INF))
         return best
+
+    def _dist(self, L, B, c, memo):
+        """Best Dist(+) instance concluding [](B, c) from the left boxes of L (notes/k-cut.md §1.4); registers each
+        premise as an MP candidate for B (Lemma C)."""
+        from itertools import combinations, product
+        F = self.forms
+        lb = sorted((F[x][2], F[x][1], x) for x in L if F[x][0] == FBOX)
+        best = INF
+        for k in range(1, min(self.dist_arity, len(lb)) + 1):
+            for H in combinations(lb, k):
+                if sum(a for a, _, _ in H) + k + 1 > c: continue
+                opts = [((A,),) if self.cut == 'c' else ((A,), (x,), (A, x)) for a, A, x in H]
+                for choice in product(*opts):
+                    Pi = frozenset(f for ch in choice for f in ch)
+                    charge = 0
+                    for (a, A, x), ch in zip(H, choice):
+                        if A in ch: charge += a + 1
+                        if x in ch: charge += a + 2
+                    if self.cut == 'c': charge = sum(a for a, _, _ in H) + k
+                    if charge + 1 > c: continue
+                    if self.seq_prune is not None and self.seq_prune(Pi, B) is False: continue
+                    sv = self.m(Pi, frozenset([B]), memo)
+                    if sv >= INF: continue
+                    self.mp.setdefault(B, set()).add((Pi, tuple(sorted(H)), choice))
+                    self.goalsT.add(B)
+                    for a, A, x in H: self.goalsT.add(A)
+                    if sv + charge <= c: best = min(best, 1 + sv)
+        return best
+
+    def mp_value(self, B, memo):
+        """Lemma C: |- B from the closed derivations of the registered premises' contents (k lemma cuts)."""
+        best = INF; wit = None
+        for Pi, H, choice in self.mp.get(B, ()):
+            sv = self.m(Pi, frozenset([B]), memo)
+            if sv >= INF: continue
+            tot = sv
+            for (a, A, x), ch in zip(H, choice):
+                t = self.T.get(A, INF)
+                if A in ch: tot += t + 1
+                if x in ch: tot += t + 2
+            if tot < best: best, wit = tot, (Pi, H, choice)
+        return (best if best <= self.cap else INF), wit
 
     def m(self, L, R, memo):
         """Minimal size of L |- R given the current T and J values (one phase: no rule reopens a context)."""
@@ -238,6 +297,8 @@ class KTheory:
                 self.goalsT.add(A)
                 s = self.T.get(A, INF)
                 if s <= c: best = min(best, s + 1)
+                if self.cut is not None and best > 2:
+                    best = min(best, self._dist(L, A, c, memo))
         memo[key] = best if best <= self.cap else INF
         return memo[key]
 
@@ -316,12 +377,17 @@ class KTheory:
                 v, w = self.j_value(A, memo)
                 if v < self.J.get(A, INF):
                     self.J[A] = v; self.Jw[A] = w; changed = True; memo = {}
+            if self.cut is not None:
+                for A in sorted(self.mp):
+                    v, w = self.mp_value(A, memo)
+                    if v < self.M.get(A, INF):
+                        self.M[A] = v; self.Mw[A] = w; changed = True; memo = {}
             for A in sorted(self.goalsT):
                 if self.dead(A): continue
                 v = self.m(frozenset(), frozenset([A]), memo)
                 if v < self.T.get(A, INF):
                     self.T[A] = v; changed = True; memo = {}
-            ng = len(self.goalsT) + len(self.goalsJ)
+            ng = len(self.goalsT) + len(self.goalsJ) + sum(len(v) for v in self.mp.values())
             if not changed and ng == getattr(self, '_ng', -1):
                 return it + 1
             self._ng = ng
