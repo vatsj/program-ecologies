@@ -350,3 +350,28 @@ and the search for EvR). The compiled evaluator uses two exact accelerations, bo
   distinct-source provers (notes §1.7) cost O(1) host time with the exact step count.
 
 Tests check both against the reference stepper (`test_evaluator_matches_reference_*`, `test_regress_jump_matches_reference`).
+
+### 2.2 Benchmarks (the scale guard's numbers; `runs/prover_as_code/bench_.json`, K = 10⁷, U = 2.5·10⁶)
+
+Each program's first query in self-play, searched by the term core in a clean frame; checking = the checker term
+CHECK_0 on the witness the term search returned.
+
+| query | b\* | search steps at b\* | expansions | rule instances | closure | witness | checking steps | per node |
+|---|---|---|---|---|---|---|---|---|
+| FB: plays(FB, FB, C) | 7 | 111,930 | 40 | 70 | 8 | 7 | 12,174 | 1,739 |
+| FB1: Con → plays(FB1, FB1, C) | 8 | 307,156 | 86 | 135 | 11 | 8 | 9,489 | 1,186 |
+| Vlet | 8 | 153,643 | 55 | 100 | 9 | 8 | 16,051 | 2,006 |
+| PB: plays(PB, PB, C) | 10 | 564,574 | 68 | 115 | 12 | 10 | 385,929 | 38,593 |
+| Vwrap | 10 | 241,674 | 85 | 158 | 12 | 10 | 25,578 | 2,558 |
+| FB2 | 10 | 196,202 | 68 | 115 | 11 | 10 | 20,620 | 2,062 |
+| SC_code (sloppy) | 2 | 22,181 | 4 | 6 | 8 | 2 (JLöb + unchecked RunNeg) | 306 | 153 |
+| G | — (refuted b ≤ 64) | 1.36·10⁶ at b = 64 | 494 | 810 | 8 | | | |
+| P\* | — (refuted b ≤ 8, interrupted from b = 10) | 2.5·10⁶ (cap) | | | 15 | | | |
+
+**Scale guard.** FB's self-search costs 1.12·10⁵ steps, 40 node expansions and 70 rule instances, far below 10⁷;
+no catalogue reduction. Costs are flat in b once found (iterative deepening stops at b\*), and grow linearly in b for
+refutations. A node expansion costs about 2,800 evaluator steps (trie lookups and sequent hashing in L_T). Checking a
+supplied witness costs about 11% of the search for FairBot (12,174 vs 111,930), but about 70% for PrudentBot,
+because PrudentBot's witness has a Run node: checking it means running the second query's core (a nested
+search), which the search also had to do. Feasibility is set by the search's expansions × the per-expansion
+constant, and, where Run appears, by the nested searches it must pay for.

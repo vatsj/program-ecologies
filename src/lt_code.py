@@ -1469,9 +1469,11 @@ def witness_arg(c, psi_rt, U): return core_arg(c, psi_rt, U)
 
 
 def core_witness(i, c, psi_rt, U):
-    """Run COREW_i in a clean frame of fuel U (the audit entry): (result, witness data or None, (work, inst), steps)."""
+    """Run COREW_i (the audit entry: the same search, then witness reconstruction) in a clean frame of fuel
+    4U + 10^6, so that reconstruction never cuts a search that finished within U; the search's own nested runs keep
+    their caps.  Returns (result, witness data or None, (work, inst), steps)."""
     arg = core_arg(c, psi_rt, U)
-    v, steps = evaluate(('capk', N(U), lib('COREW%d' % i), rt_to_tval(arg)))
+    v, steps = evaluate(('capk', N(4 * U + 10 ** 6), lib('COREW%d' % i), rt_to_tval(arg)))
     if v == 'TO': return 'TO', None, None, steps
     return v[0], (v[1][0] if v[0] == 'T' else None), v[1][1], steps
 

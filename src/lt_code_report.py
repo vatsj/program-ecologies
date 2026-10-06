@@ -155,7 +155,7 @@ def main():
     for mode, title in ((0, 'Main catalogue'), (2, 'JLöb-disabled control (CORE_2)')):
         lines, summ = main_tables(mode)
         if not lines: continue
-        md.append('\n## %s %s: every (K, b)\n' % ('3.' if mode == 0 else '6.', title))
+        md.append('\n## %s %s: every (K, b)\n' % ('3.' if mode == 0 else '3b.', title))
         md += lines
         if (10 ** 7, 16) in summ:
             md.append('\nPlay matrix at K = 10⁷, b = 16 (row\'s play against column; subscript: the row\'s program-level '
@@ -204,6 +204,16 @@ def main():
                     row.append('%s/%s %s' % (ab(c1['play']), ab(c2['play']), outs(c1['searches'])))
                 md.append('| %d | %s |' % (x, ' | '.join(row)))
         js['grid'] = {K: {c: v['play'] for c, v in g['cells'].items()} for K, g in grid.items() if g}
+        asym = []
+        for K, g in grid.items():
+            if not g: continue
+            for x in (8, 12, 16, 32):
+                for y in (8, 12, 16, 32):
+                    c1 = g['cells']['%d|%d' % (x, y)]; c2 = g['cells']['%d|%d' % (y, x)]
+                    fin = all(s['outcome'] in ('found', 'refuted') for s in c1['searches'] + c2['searches'])
+                    if c1['play'] != c2['play'] and fin: asym.append((K, x, y))
+        md.append('\nAsymmetric grid cells with both searches finished: %d %s' % (len(asym), asym))
+        js['grid_asymmetric_finished'] = asym
     leak = {(K, b): load('leak_%d_%d.json' % (K, b)) for K in KS for b in BS}
     if any(leak.values()):
         md.append('\n## 5. Leak cells: SF_k against every reader\n')
@@ -218,7 +228,13 @@ def main():
             for name, c in r['cells'].items():
                 byk[c['k']].append(c)
                 tot['matched' if c['matched'] else 'mismatched'] += 1
-                if c['exploited']: tot['exploit_' + ('matched' if c['matched'] else 'mismatched')] += 1
+                certified = c['reader'] in READERS and c['reader_play'] == 'C' and \
+                    any(s['outcome'] == 'found' for s in c['reader_searches'])
+                if certified: tot['certified_C_' + ('matched' if c['matched'] else 'mismatched')] += 1
+                if c['exploited']:
+                    kind = 'certified' if certified else ('G_suckered' if c['reader'] == 'G' else
+                                                          ('SC_sloppy' if c['reader'] == 'SC' else 'other'))
+                    tot['exploit_%s_%s' % (kind, 'matched' if c['matched'] else 'mismatched')] += 1
                 if c['reader_play'] == 'C' and c['matched']: tot['matched_reader_C'] += 1
                 if c['reader_play'] == 'C' and not c['matched']: tot['mismatched_reader_C'] += 1
             for k in sorted(byk):

@@ -54,6 +54,7 @@ def harness(names, max_queries=None):
         if res in ('T', 'F'):
             h = L.host_query(mode, c, psi, U)
             r, w, wi, wsteps = L.core_witness(mode, c, psi, U)
+            if wi is None: wi = (-1, -1)
             rec.update({'host_found': h['found'], 'host_size': h['size'], 'host_work': h['work'],
                         'host_inst': h['inst'], 'closure': h['closure'], 'term_work': wi[0], 'term_inst': wi[1],
                         'outcome_agree': h['found'] == (res == 'T') and r == res,
@@ -134,7 +135,7 @@ def task_leak(K, b):
     U = K // 4
     cat = L.catalogue(K, b)
     readers = ['FB', 'FB1', 'PB', 'Vlet', 'Vwrap', 'FB2', 'FBx', 'G', 'P*', 'SC']
-    ks = LEAK_KS + [U + 8, U + 9]
+    ks = LEAK_KS + [U + 8, U + 9, U + 10, U + 11]
     cells = {}
     for k in ks:
         sf = L.SF(k)
@@ -184,10 +185,11 @@ def task_boundary():
             row['K=need%+d' % d] = L.play(fb, fb, need + d)[0]
         out['FB%d self, named K0=1e6' % b] = row
     b = 16
+    K0 = 10 ** 7; U = K0 // 4                 # the SF boundary needs FB's search on plays(SF, FB, C) to finish
     fb = L.FB(b, U, K0)
-    for k in (U + 7, U + 8, U + 9, U + 10):
+    for k in (U + 7, U + 8, U + 9, U + 10, U + 11, U + 12):
         sf = L.SF(k)
-        out['FB16 vs SF k=U%+d' % (k - U)] = {'reader': L.play(fb, sf, K0)[0], 'sf': L.play(sf, fb, K0)[0]}
+        out['K=1e7 FB16 vs SF k=U%+d' % (k - U)] = {'reader': L.play(fb, sf, K0)[0], 'sf': L.play(sf, fb, K0)[0]}
     # SF's real completion point: smallest k at which SF's own simulation of FB returns a value (not TO), by bisection
     def sim_value(k):
         sf = L.SF(k)
@@ -200,7 +202,7 @@ def task_boundary():
         if sim_value(mid) == 'TO': lo = mid + 1
         else: hi = mid
     out['SF inner completion k*'] = {'k_star': lo, 'value_at_k_star': str(sim_value(lo)), 'U': U,
-                                     'static_boundary': U + 9}
+                                     'static_boundary_hand': U + 10}
     for b in (10, 16):
         fb2 = L.FB2(b, U, K0); fb_ = L.FB(b, U, K0)
         r2, n2 = L.play(fb2, fb2, K0); r1, n1 = L.play(fb_, fb_, K0)
