@@ -1,0 +1,9434 @@
+{
+ "cells": {
+  "CC-main": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 4512.5,
+    "max": 30700,
+    "min": 444
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "zero wage": {
+     "mean": 0.825,
+     "ci": 0.1193
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.15,
+     "ci": 0.1121
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "zero wage": {
+     "mean": 0.825,
+     "ci": 0.1193
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.15,
+     "ci": 0.1121
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.025,
+    "zero wage": 0.825,
+    "strike": 0.0,
+    "scab split": 0.15,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.975,
+     "ci": 0.049
+    },
+    "1/4": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.082,
+    "present": {
+     "mean": 0.1016,
+     "ci": 0.0538
+    },
+    "majority": {
+     "mean": 0.0828,
+     "ci": 0.0439
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.4893,
+    "present": {
+     "mean": 0.5453,
+     "ci": 0.12
+    },
+    "majority": {
+     "mean": 0.4969,
+     "ci": 0.1177
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.125,
+    "ci": 0.1038
+   },
+   "scab_convergence": {
+    "mean": 0.825,
+    "ci": 0.1193
+   },
+   "nonwhackers_establish": {
+    "mean": 0.9172,
+    "ci": 0.0439
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.6906,
+     "ci": 0.0353
+    },
+    "lt01_min": {
+     "mean": 0.0531,
+     "ci": 0.0155
+    },
+    "ge03_end": {
+     "mean": 0.6422,
+     "ci": 0.0377
+    },
+    "lt01_end": {
+     "mean": 0.1594,
+     "ci": 0.0287
+    },
+    "mean_min": 0.3085,
+    "mean_end": 0.2014
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4804,
+     "strike_whacker": 0.3385,
+     "any_whacker": 0.672
+    },
+    "5": {
+     "striker": 0.3196,
+     "strike_whacker": 0.2315,
+     "any_whacker": 0.6067
+    },
+    "10": {
+     "striker": 0.2287,
+     "strike_whacker": 0.1781,
+     "any_whacker": 0.5716
+    },
+    "25": {
+     "striker": 0.1587,
+     "strike_whacker": 0.1405,
+     "any_whacker": 0.5559
+    },
+    "50": {
+     "striker": 0.1506,
+     "strike_whacker": 0.1491,
+     "any_whacker": 0.5692
+    },
+    "100": {
+     "striker": 0.1462,
+     "strike_whacker": 0.1371,
+     "any_whacker": 0.5599
+    },
+    "200": {
+     "striker": 0.1423,
+     "strike_whacker": 0.1341,
+     "any_whacker": 0.5719
+    },
+    "500": {
+     "striker": 0.1283,
+     "strike_whacker": 0.1326,
+     "any_whacker": 0.5812
+    }
+   },
+   "payoff_vector": [
+    1.8375,
+    0.0063,
+    0.0063
+   ],
+   "production": 1.85,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.85,
+   "cum_whack_cost_per_island": 1.397,
+   "cum_worker_loss_per_island": 2.795,
+   "cum_production_lost_per_island": 14955.063,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.375,
+     "median_ext": 1192.0,
+     "max_ext": 4775
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.75,
+     "median_ext": 5100.0,
+     "max_ext": 16100
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 33.5,
+     "max_ext": 65
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.075,
+     "median_ext": 32.0,
+     "max_ext": 4050
+    },
+    "w:striker": {
+     "alive_frac": 0.125,
+     "median_ext": 3325.0,
+     "max_ext": 30700
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 4.5,
+     "max_ext": 98
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 3
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.225,
+     "median_ext": 568.0,
+     "max_ext": 7075
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.25,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0031,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    0.9938,
+    0.0031,
+    0.0031
+   ],
+   "time_avg_payoffs": [
+    1.8375,
+    0.0063,
+    0.0063
+   ],
+   "wall_s": 16.1
+  },
+  "RR-main": {
+   "params": {
+    "enf": "RR",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 3237.5,
+    "max": 65000,
+    "min": 46
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.9,
+     "ci": 0.0942
+    },
+    "zero wage": {
+     "mean": 0.1,
+     "ci": 0.0942
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.9,
+     "ci": 0.0942
+    },
+    "zero wage": {
+     "mean": 0.1,
+     "ci": 0.0942
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.9,
+    "zero wage": 0.1,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.1,
+     "ci": 0.0942
+    },
+    "1/4": {
+     "mean": 0.9,
+     "ci": 0.0942
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.0,
+    "present": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.0,
+    "present": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.8578,
+    "ci": 0.092
+   },
+   "scab_convergence": {
+    "mean": 0.1,
+    "ci": 0.0942
+   },
+   "nonwhackers_establish": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_min": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "ge03_end": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_end": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "mean_min": 0.0,
+    "mean_end": 0.0
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4847,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "5": {
+     "striker": 0.4859,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "10": {
+     "striker": 0.4795,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "25": {
+     "striker": 0.4809,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "50": {
+     "striker": 0.4775,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "100": {
+     "striker": 0.4782,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "200": {
+     "striker": 0.4835,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "500": {
+     "striker": 0.4766,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    }
+   },
+   "payoff_vector": [
+    1.55,
+    0.225,
+    0.225
+   ],
+   "production": 2.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 2.0,
+   "cum_whack_cost_per_island": 0.0,
+   "cum_worker_loss_per_island": 0.0,
+   "cum_production_lost_per_island": 678.908,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 45.0,
+     "max_ext": 171
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.05,
+     "median_ext": 17.0,
+     "max_ext": 403
+    },
+    "w:striker": {
+     "alive_frac": 0.9,
+     "median_ext": 12587.5,
+     "max_ext": 65000
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 6.0,
+     "max_ext": 202
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 4
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.4,
+     "median_ext": 164.0,
+     "max_ext": 7825
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 3.3,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.1125,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    0.775,
+    0.1125,
+    0.1125
+   ],
+   "time_avg_payoffs": [
+    1.5471,
+    0.225,
+    0.225
+   ],
+   "wall_s": 8.2
+  },
+  "fact-hi-hostile": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "hostile",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 28.5,
+    "max": 505,
+    "min": 20
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 1.0,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 1.0,
+    "present": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 1.0,
+     "ci": 0.0
+    }
+   },
+   "any_whacker": {
+    "mean_share": 1.0,
+    "present": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 1.0,
+     "ci": 0.0
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "scab_convergence": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "nonwhackers_establish": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_min": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "ge03_end": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_end": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "mean_min": 0.0,
+    "mean_end": 0.0
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4822,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "5": {
+     "striker": 0.1975,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "10": {
+     "striker": 0.0681,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "25": {
+     "striker": 0.0013,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "50": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "100": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "200": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "500": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    }
+   },
+   "payoff_vector": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "production": 2.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 2.0,
+   "cum_whack_cost_per_island": 2.399,
+   "cum_worker_loss_per_island": 4.799,
+   "cum_production_lost_per_island": 4.799,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:any-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:striker": {
+     "alive_frac": 0.0,
+     "median_ext": 28.0,
+     "max_ext": 46
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 4.0,
+     "max_ext": 22
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 1
+    },
+    "w:conditional worker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 1.75,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "wall_s": 1.0
+  },
+  "fact-hi-mostly": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "mostly",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 146.0,
+    "max": 6825,
+    "min": 31
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 1.0,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.8075,
+    "present": {
+     "mean": 0.9234,
+     "ci": 0.0309
+    },
+    "majority": {
+     "mean": 0.8172,
+     "ci": 0.0388
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.8075,
+    "present": {
+     "mean": 0.9234,
+     "ci": 0.0309
+    },
+    "majority": {
+     "mean": 0.8172,
+     "ci": 0.0388
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "scab_convergence": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "nonwhackers_establish": {
+    "mean": 0.1828,
+    "ci": 0.0388
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.4266,
+     "ci": 0.0374
+    },
+    "lt01_min": {
+     "mean": 0.3469,
+     "ci": 0.0392
+    },
+    "ge03_end": {
+     "mean": 0.2281,
+     "ci": 0.0341
+    },
+    "lt01_end": {
+     "mean": 0.7172,
+     "ci": 0.0392
+    },
+    "mean_min": 0.3211,
+    "mean_end": 0.1164
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4805,
+     "strike_whacker": 0.9003,
+     "any_whacker": 0.9003
+    },
+    "5": {
+     "striker": 0.2224,
+     "strike_whacker": 0.8467,
+     "any_whacker": 0.8467
+    },
+    "10": {
+     "striker": 0.0919,
+     "strike_whacker": 0.8207,
+     "any_whacker": 0.8207
+    },
+    "25": {
+     "striker": 0.0106,
+     "strike_whacker": 0.7925,
+     "any_whacker": 0.7925
+    },
+    "50": {
+     "striker": 0.004,
+     "strike_whacker": 0.7873,
+     "any_whacker": 0.7873
+    },
+    "100": {
+     "striker": 0.003,
+     "strike_whacker": 0.7839,
+     "any_whacker": 0.7839
+    },
+    "200": {
+     "striker": 0.0014,
+     "strike_whacker": 0.7883,
+     "any_whacker": 0.7883
+    },
+    "500": {
+     "striker": 0.0016,
+     "strike_whacker": 0.7913,
+     "any_whacker": 0.7913
+    }
+   },
+   "payoff_vector": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "production": 2.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 2.0,
+   "cum_whack_cost_per_island": 2.363,
+   "cum_worker_loss_per_island": 4.726,
+   "cum_production_lost_per_island": 8.401,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:any-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:striker": {
+     "alive_frac": 0.0,
+     "median_ext": 42.5,
+     "max_ext": 645
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 5.0,
+     "max_ext": 18
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 2
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.7,
+     "median_ext": 131.0,
+     "max_ext": 765
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.575,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "wall_s": 1.4
+  },
+  "fact-lo-hostile": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": 0.12,
+    "boss": "hostile",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 21.5,
+    "max": 125,
+    "min": 13
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 1.0,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 1.0,
+    "present": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 1.0,
+     "ci": 0.0
+    }
+   },
+   "any_whacker": {
+    "mean_share": 1.0,
+    "present": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 1.0,
+     "ci": 0.0
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "scab_convergence": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "nonwhackers_establish": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_min": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "ge03_end": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_end": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "mean_min": 0.0,
+    "mean_end": 0.0
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.1182,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "5": {
+     "striker": 0.0367,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "10": {
+     "striker": 0.0117,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "25": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "50": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "100": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "200": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "500": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    }
+   },
+   "payoff_vector": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "production": 2.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 2.0,
+   "cum_whack_cost_per_island": 0.523,
+   "cum_worker_loss_per_island": 1.046,
+   "cum_production_lost_per_island": 1.046,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:any-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:striker": {
+     "alive_frac": 0.0,
+     "median_ext": 19.0,
+     "max_ext": 27
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 3.5,
+     "max_ext": 11
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.975,
+     "median_ext": 16.0,
+     "max_ext": 16
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 1.25,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "wall_s": 0.9
+  },
+  "fact-lo-mostly": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": 0.12,
+    "boss": "mostly",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 46.0,
+    "max": 1072,
+    "min": 19
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 1.0,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.8967,
+    "present": {
+     "mean": 0.9812,
+     "ci": 0.0109
+    },
+    "majority": {
+     "mean": 0.9141,
+     "ci": 0.0227
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.8967,
+    "present": {
+     "mean": 0.9812,
+     "ci": 0.0109
+    },
+    "majority": {
+     "mean": 0.9141,
+     "ci": 0.0227
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "scab_convergence": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "nonwhackers_establish": {
+    "mean": 0.0859,
+    "ci": 0.0227
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.2125,
+     "ci": 0.0331
+    },
+    "lt01_min": {
+     "mean": 0.5422,
+     "ci": 0.0388
+    },
+    "ge03_end": {
+     "mean": 0.1172,
+     "ci": 0.0264
+    },
+    "lt01_end": {
+     "mean": 0.8297,
+     "ci": 0.0331
+    },
+    "mean_min": 0.1787,
+    "mean_end": 0.0109
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.1194,
+     "strike_whacker": 0.9014,
+     "any_whacker": 0.9014
+    },
+    "5": {
+     "striker": 0.0427,
+     "strike_whacker": 0.8899,
+     "any_whacker": 0.8899
+    },
+    "10": {
+     "striker": 0.0148,
+     "strike_whacker": 0.8932,
+     "any_whacker": 0.8932
+    },
+    "25": {
+     "striker": 0.0009,
+     "strike_whacker": 0.8871,
+     "any_whacker": 0.8871
+    },
+    "50": {
+     "striker": 0.0,
+     "strike_whacker": 0.8935,
+     "any_whacker": 0.8935
+    },
+    "100": {
+     "striker": 0.0,
+     "strike_whacker": 0.8904,
+     "any_whacker": 0.8904
+    },
+    "200": {
+     "striker": 0.0,
+     "strike_whacker": 0.8921,
+     "any_whacker": 0.8921
+    },
+    "500": {
+     "striker": 0.0,
+     "strike_whacker": 0.8945,
+     "any_whacker": 0.8945
+    }
+   },
+   "payoff_vector": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "production": 2.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 2.0,
+   "cum_whack_cost_per_island": 0.521,
+   "cum_worker_loss_per_island": 1.041,
+   "cum_production_lost_per_island": 1.268,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:any-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:striker": {
+     "alive_frac": 0.0,
+     "median_ext": 23.5,
+     "max_ext": 49
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 5.0,
+     "max_ext": 25
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.775,
+     "median_ext": 69.0,
+     "max_ext": 1072
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.15,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "wall_s": 1.3
+  },
+  "fact-lo-diverse": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": 0.12,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 527.5,
+    "max": 8225,
+    "min": 32
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.975,
+     "ci": 0.049
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.975,
+     "ci": 0.049
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 0.975,
+    "strike": 0.0,
+    "scab split": 0.025,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.2822,
+    "present": {
+     "mean": 0.4,
+     "ci": 0.0706
+    },
+    "majority": {
+     "mean": 0.2812,
+     "ci": 0.0506
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.6152,
+    "present": {
+     "mean": 0.7297,
+     "ci": 0.067
+    },
+    "majority": {
+     "mean": 0.6203,
+     "ci": 0.0635
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "scab_convergence": {
+    "mean": 0.975,
+    "ci": 0.049
+   },
+   "nonwhackers_establish": {
+    "mean": 0.7188,
+    "ci": 0.0506
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.5359,
+     "ci": 0.0392
+    },
+    "lt01_min": {
+     "mean": 0.1906,
+     "ci": 0.0316
+    },
+    "ge03_end": {
+     "mean": 0.4688,
+     "ci": 0.0395
+    },
+    "lt01_end": {
+     "mean": 0.3547,
+     "ci": 0.0338
+    },
+    "mean_min": 0.2559,
+    "mean_end": 0.0328
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.1194,
+     "strike_whacker": 0.3383,
+     "any_whacker": 0.6738
+    },
+    "5": {
+     "striker": 0.0604,
+     "strike_whacker": 0.3111,
+     "any_whacker": 0.648
+    },
+    "10": {
+     "striker": 0.0368,
+     "strike_whacker": 0.3077,
+     "any_whacker": 0.6464
+    },
+    "25": {
+     "striker": 0.0198,
+     "strike_whacker": 0.2913,
+     "any_whacker": 0.6283
+    },
+    "50": {
+     "striker": 0.0163,
+     "strike_whacker": 0.2964,
+     "any_whacker": 0.636
+    },
+    "100": {
+     "striker": 0.0173,
+     "strike_whacker": 0.3055,
+     "any_whacker": 0.6422
+    },
+    "200": {
+     "striker": 0.0184,
+     "strike_whacker": 0.3064,
+     "any_whacker": 0.6326
+    },
+    "500": {
+     "striker": 0.0145,
+     "strike_whacker": 0.3005,
+     "any_whacker": 0.6232
+    }
+   },
+   "payoff_vector": [
+    1.975,
+    0.0,
+    0.0
+   ],
+   "production": 1.975,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.975,
+   "cum_whack_cost_per_island": 0.408,
+   "cum_worker_loss_per_island": 0.816,
+   "cum_production_lost_per_island": 2470.945,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.9,
+     "median_ext": 2634.0,
+     "max_ext": 3850
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.975,
+     "median_ext": 6500.0,
+     "max_ext": 6500
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 25.0,
+     "max_ext": 59
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.2,
+     "median_ext": 26.0,
+     "max_ext": 1033
+    },
+    "w:striker": {
+     "alive_frac": 0.0,
+     "median_ext": 99.5,
+     "max_ext": 4775
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 5.5,
+     "max_ext": 43
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 1
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.425,
+     "median_ext": 62.0,
+     "max_ext": 2450
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 3.525,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    1.975,
+    0.0,
+    0.0
+   ],
+   "wall_s": 3.0
+  },
+  "sweep-0.06": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": 0.06,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 344.5,
+    "max": 43000,
+    "min": 39
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.975,
+     "ci": 0.049
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.975,
+     "ci": 0.049
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 0.975,
+    "strike": 0.0,
+    "scab split": 0.025,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.3518,
+    "present": {
+     "mean": 0.4688,
+     "ci": 0.0738
+    },
+    "majority": {
+     "mean": 0.35,
+     "ci": 0.0596
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.6715,
+    "present": {
+     "mean": 0.7703,
+     "ci": 0.0661
+    },
+    "majority": {
+     "mean": 0.6734,
+     "ci": 0.0641
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.025,
+    "ci": 0.049
+   },
+   "scab_convergence": {
+    "mean": 0.975,
+    "ci": 0.049
+   },
+   "nonwhackers_establish": {
+    "mean": 0.65,
+    "ci": 0.0596
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.5047,
+     "ci": 0.0435
+    },
+    "lt01_min": {
+     "mean": 0.1875,
+     "ci": 0.0284
+    },
+    "ge03_end": {
+     "mean": 0.4453,
+     "ci": 0.0452
+    },
+    "lt01_end": {
+     "mean": 0.3828,
+     "ci": 0.0346
+    },
+    "mean_min": 0.2516,
+    "mean_end": 0.0135
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.061,
+     "strike_whacker": 0.3385,
+     "any_whacker": 0.6739
+    },
+    "5": {
+     "striker": 0.0329,
+     "strike_whacker": 0.3226,
+     "any_whacker": 0.6688
+    },
+    "10": {
+     "striker": 0.0189,
+     "strike_whacker": 0.3127,
+     "any_whacker": 0.6676
+    },
+    "25": {
+     "striker": 0.0115,
+     "strike_whacker": 0.3091,
+     "any_whacker": 0.6803
+    },
+    "50": {
+     "striker": 0.0092,
+     "strike_whacker": 0.3205,
+     "any_whacker": 0.691
+    },
+    "100": {
+     "striker": 0.0084,
+     "strike_whacker": 0.3251,
+     "any_whacker": 0.6743
+    },
+    "200": {
+     "striker": 0.0091,
+     "strike_whacker": 0.3331,
+     "any_whacker": 0.6832
+    },
+    "500": {
+     "striker": 0.0077,
+     "strike_whacker": 0.3274,
+     "any_whacker": 0.6866
+    }
+   },
+   "payoff_vector": [
+    1.975,
+    0.0,
+    0.0
+   ],
+   "production": 1.975,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.975,
+   "cum_whack_cost_per_island": 0.266,
+   "cum_worker_loss_per_island": 0.533,
+   "cum_production_lost_per_island": 2072.461,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.9,
+     "median_ext": 2158.0,
+     "max_ext": 3450
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.975,
+     "median_ext": 6525.0,
+     "max_ext": 6525
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 25.0,
+     "max_ext": 63
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.325,
+     "median_ext": 29.0,
+     "max_ext": 336
+    },
+    "w:striker": {
+     "alive_frac": 0.025,
+     "median_ext": 45.0,
+     "max_ext": 4200
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 3.5,
+     "max_ext": 21
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 2
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.325,
+     "median_ext": 163.0,
+     "max_ext": 4325
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 3.35,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    1.975,
+    0.0,
+    0.0
+   ],
+   "wall_s": 3.3
+  },
+  "sweep-0.24": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": 0.24,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 1700.0,
+    "max": 19500,
+    "min": 51
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.95,
+     "ci": 0.0684
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.05,
+     "ci": 0.0684
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.95,
+     "ci": 0.0684
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.05,
+     "ci": 0.0684
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 0.95,
+    "strike": 0.0,
+    "scab split": 0.05,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.2443,
+    "present": {
+     "mean": 0.3156,
+     "ci": 0.0793
+    },
+    "majority": {
+     "mean": 0.2422,
+     "ci": 0.0628
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.6921,
+    "present": {
+     "mean": 0.7562,
+     "ci": 0.065
+    },
+    "majority": {
+     "mean": 0.6875,
+     "ci": 0.0717
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.05,
+    "ci": 0.0684
+   },
+   "scab_convergence": {
+    "mean": 0.95,
+    "ci": 0.0684
+   },
+   "nonwhackers_establish": {
+    "mean": 0.7578,
+    "ci": 0.0628
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.5844,
+     "ci": 0.0442
+    },
+    "lt01_min": {
+     "mean": 0.1047,
+     "ci": 0.0257
+    },
+    "ge03_end": {
+     "mean": 0.5516,
+     "ci": 0.0436
+    },
+    "lt01_end": {
+     "mean": 0.2687,
+     "ci": 0.0414
+    },
+    "mean_min": 0.2807,
+    "mean_end": 0.1041
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.2394,
+     "strike_whacker": 0.3398,
+     "any_whacker": 0.6721
+    },
+    "5": {
+     "striker": 0.1361,
+     "strike_whacker": 0.2862,
+     "any_whacker": 0.6421
+    },
+    "10": {
+     "striker": 0.0886,
+     "strike_whacker": 0.2659,
+     "any_whacker": 0.6314
+    },
+    "25": {
+     "striker": 0.0501,
+     "strike_whacker": 0.2556,
+     "any_whacker": 0.621
+    },
+    "50": {
+     "striker": 0.0453,
+     "strike_whacker": 0.2352,
+     "any_whacker": 0.6039
+    },
+    "100": {
+     "striker": 0.0455,
+     "strike_whacker": 0.2356,
+     "any_whacker": 0.5983
+    },
+    "200": {
+     "striker": 0.0379,
+     "strike_whacker": 0.2405,
+     "any_whacker": 0.601
+    },
+    "500": {
+     "striker": 0.0329,
+     "strike_whacker": 0.2312,
+     "any_whacker": 0.6246
+    }
+   },
+   "payoff_vector": [
+    1.95,
+    0.0,
+    0.0
+   ],
+   "production": 1.95,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.95,
+   "cum_whack_cost_per_island": 0.883,
+   "cum_worker_loss_per_island": 1.766,
+   "cum_production_lost_per_island": 4799.977,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.825,
+     "median_ext": 2550.0,
+     "max_ext": 5775
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.975,
+     "median_ext": 8675.0,
+     "max_ext": 8675
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 27.0,
+     "max_ext": 52
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.15,
+     "median_ext": 25.5,
+     "max_ext": 818
+    },
+    "w:striker": {
+     "alive_frac": 0.05,
+     "median_ext": 938.5,
+     "max_ext": 17200
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 3.0,
+     "max_ext": 36
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 1
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.275,
+     "median_ext": 163.0,
+     "max_ext": 7800
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 3.15,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    1.95,
+    0.0,
+    0.0
+   ],
+   "wall_s": 5.1
+  },
+  "noQ-CC": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "noquorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 4475.0,
+    "max": 39500,
+    "min": 306
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.8,
+     "ci": 0.1255
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.2,
+     "ci": 0.1255
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.8,
+     "ci": 0.1255
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.2,
+     "ci": 0.1255
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 0.8,
+    "strike": 0.0,
+    "scab split": 0.2,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.1019,
+    "present": {
+     "mean": 0.1313,
+     "ci": 0.0612
+    },
+    "majority": {
+     "mean": 0.1016,
+     "ci": 0.0556
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.1019,
+    "present": {
+     "mean": 0.1313,
+     "ci": 0.0612
+    },
+    "majority": {
+     "mean": 0.1016,
+     "ci": 0.0556
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.2,
+    "ci": 0.1255
+   },
+   "scab_convergence": {
+    "mean": 0.8,
+    "ci": 0.1255
+   },
+   "nonwhackers_establish": {
+    "mean": 0.8984,
+    "ci": 0.0556
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.6984,
+     "ci": 0.0382
+    },
+    "lt01_min": {
+     "mean": 0.05,
+     "ci": 0.0153
+    },
+    "ge03_end": {
+     "mean": 0.6594,
+     "ci": 0.0462
+    },
+    "lt01_end": {
+     "mean": 0.1656,
+     "ci": 0.0318
+    },
+    "mean_min": 0.3066,
+    "mean_end": 0.1954
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4808,
+     "strike_whacker": 0.3375,
+     "any_whacker": 0.3375
+    },
+    "5": {
+     "striker": 0.3318,
+     "strike_whacker": 0.2277,
+     "any_whacker": 0.2277
+    },
+    "10": {
+     "striker": 0.2523,
+     "strike_whacker": 0.1765,
+     "any_whacker": 0.1765
+    },
+    "25": {
+     "striker": 0.1769,
+     "strike_whacker": 0.1464,
+     "any_whacker": 0.1464
+    },
+    "50": {
+     "striker": 0.1636,
+     "strike_whacker": 0.146,
+     "any_whacker": 0.146
+    },
+    "100": {
+     "striker": 0.1455,
+     "strike_whacker": 0.1421,
+     "any_whacker": 0.1421
+    },
+    "200": {
+     "striker": 0.1464,
+     "strike_whacker": 0.1391,
+     "any_whacker": 0.1391
+    },
+    "500": {
+     "striker": 0.1493,
+     "strike_whacker": 0.1385,
+     "any_whacker": 0.1385
+    }
+   },
+   "payoff_vector": [
+    1.8,
+    0.0,
+    0.0
+   ],
+   "production": 1.8,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.8,
+   "cum_whack_cost_per_island": 1.483,
+   "cum_worker_loss_per_island": 2.966,
+   "cum_production_lost_per_island": 20488.558,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.45,
+     "median_ext": 946.0,
+     "max_ext": 3850
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.45,
+     "median_ext": 946.0,
+     "max_ext": 3850
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 33.5,
+     "max_ext": 76
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.15,
+     "median_ext": 31.5,
+     "max_ext": 1524
+    },
+    "w:striker": {
+     "alive_frac": 0.2,
+     "median_ext": 2825.0,
+     "max_ext": 39500
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 4.0,
+     "max_ext": 83
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.05,
+     "median_ext": 572.5,
+     "max_ext": 6450
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.2,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    1.8,
+    0.0,
+    0.0
+   ],
+   "wall_s": 13.0
+  },
+  "CC-N400": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 400,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 15750.0,
+    "max": 82300,
+    "min": 314
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "zero wage": {
+     "mean": 0.775,
+     "ci": 0.1311
+    },
+    "strike": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "scab split": {
+     "mean": 0.175,
+     "ci": 0.1193
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "zero wage": {
+     "mean": 0.775,
+     "ci": 0.1311
+    },
+    "strike": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "scab split": {
+     "mean": 0.175,
+     "ci": 0.1193
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.025,
+    "zero wage": 0.775,
+    "strike": 0.025,
+    "scab split": 0.175,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.95,
+     "ci": 0.0684
+    },
+    "1/4": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.025,
+     "ci": 0.049
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.1092,
+    "present": {
+     "mean": 0.1344,
+     "ci": 0.0755
+    },
+    "majority": {
+     "mean": 0.1141,
+     "ci": 0.0672
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.6069,
+    "present": {
+     "mean": 0.6672,
+     "ci": 0.1077
+    },
+    "majority": {
+     "mean": 0.6156,
+     "ci": 0.106
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.2,
+    "ci": 0.1255
+   },
+   "scab_convergence": {
+    "mean": 0.775,
+    "ci": 0.1311
+   },
+   "nonwhackers_establish": {
+    "mean": 0.8859,
+    "ci": 0.0672
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.8234,
+     "ci": 0.0304
+    },
+    "lt01_min": {
+     "mean": 0.0125,
+     "ci": 0.0078
+    },
+    "ge03_end": {
+     "mean": 0.7719,
+     "ci": 0.0341
+    },
+    "lt01_end": {
+     "mean": 0.1125,
+     "ci": 0.0285
+    },
+    "mean_min": 0.3193,
+    "mean_end": 0.2677
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4802,
+     "strike_whacker": 0.3394,
+     "any_whacker": 0.6729
+    },
+    "5": {
+     "striker": 0.321,
+     "strike_whacker": 0.2249,
+     "any_whacker": 0.6122
+    },
+    "10": {
+     "striker": 0.2351,
+     "strike_whacker": 0.1634,
+     "any_whacker": 0.5846
+    },
+    "25": {
+     "striker": 0.14,
+     "strike_whacker": 0.0981,
+     "any_whacker": 0.5502
+    },
+    "50": {
+     "striker": 0.1116,
+     "strike_whacker": 0.0735,
+     "any_whacker": 0.5448
+    },
+    "100": {
+     "striker": 0.1042,
+     "strike_whacker": 0.0716,
+     "any_whacker": 0.5367
+    },
+    "200": {
+     "striker": 0.1012,
+     "strike_whacker": 0.0663,
+     "any_whacker": 0.539
+    },
+    "500": {
+     "striker": 0.1032,
+     "strike_whacker": 0.0677,
+     "any_whacker": 0.5346
+    }
+   },
+   "payoff_vector": [
+    1.7625,
+    0.0063,
+    0.0063
+   ],
+   "production": 1.775,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.775,
+   "cum_whack_cost_per_island": 1.307,
+   "cum_worker_loss_per_island": 2.615,
+   "cum_production_lost_per_island": 21378.106,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.35,
+     "median_ext": 599.5,
+     "max_ext": 16200
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.875,
+     "median_ext": 15500.0,
+     "max_ext": 40500
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 38.0,
+     "max_ext": 60
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.125,
+     "median_ext": 101.0,
+     "max_ext": 3800
+    },
+    "w:striker": {
+     "alive_frac": 0.2,
+     "median_ext": 9150.0,
+     "max_ext": 53500
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 25.5,
+     "max_ext": 2200
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 10
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.15,
+     "median_ext": 2912.5,
+     "max_ext": 19100
+    },
+    "w:scab": {
+     "alive_frac": 0.975,
+     "median_ext": 60900.0,
+     "max_ext": 60900
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.3,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 0.975,
+    "min_share_mean": 0.0032,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    0.9938,
+    0.0031,
+    0.0031
+   ],
+   "time_avg_payoffs": [
+    1.7618,
+    0.0063,
+    0.0063
+   ],
+   "wall_s": 126.8
+  },
+  "CC-I64": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 64,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 39,
+    "censored": 1
+   },
+   "stop_gen": {
+    "median": 21250.0,
+    "max": 100000,
+    "min": 4600
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.8078,
+     "ci": 0.1215
+    },
+    "strike": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "scab split": {
+     "mean": 0.1672,
+     "ci": 0.1148
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.8205,
+     "ci": 0.122
+    },
+    "strike": {
+     "mean": 0.0256,
+     "ci": 0.0503
+    },
+    "scab split": {
+     "mean": 0.1538,
+     "ci": 0.1147
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.3125,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.6875,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 0.8075,
+    "strike": 0.025,
+    "scab split": 0.1675,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.975,
+     "ci": 0.049
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.025,
+     "ci": 0.049
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.0671,
+    "present": {
+     "mean": 0.0809,
+     "ci": 0.061
+    },
+    "majority": {
+     "mean": 0.068,
+     "ci": 0.057
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.4859,
+    "present": {
+     "mean": 0.5336,
+     "ci": 0.1221
+    },
+    "majority": {
+     "mean": 0.4875,
+     "ci": 0.1218
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.1699,
+    "ci": 0.1162
+   },
+   "scab_convergence": {
+    "mean": 0.8051,
+    "ci": 0.1227
+   },
+   "nonwhackers_establish": {
+    "mean": 0.932,
+    "ci": 0.057
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.7102,
+     "ci": 0.0189
+    },
+    "lt01_min": {
+     "mean": 0.0504,
+     "ci": 0.0094
+    },
+    "ge03_end": {
+     "mean": 0.6652,
+     "ci": 0.0189
+    },
+    "lt01_end": {
+     "mean": 0.1598,
+     "ci": 0.0146
+    },
+    "mean_min": 0.3102,
+    "mean_end": 0.1999
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.48,
+     "strike_whacker": 0.3407,
+     "any_whacker": 0.6737
+    },
+    "5": {
+     "striker": 0.3265,
+     "strike_whacker": 0.228,
+     "any_whacker": 0.616
+    },
+    "10": {
+     "striker": 0.2407,
+     "strike_whacker": 0.1837,
+     "any_whacker": 0.5933
+    },
+    "25": {
+     "striker": 0.1618,
+     "strike_whacker": 0.1435,
+     "any_whacker": 0.5688
+    },
+    "50": {
+     "striker": 0.148,
+     "strike_whacker": 0.1379,
+     "any_whacker": 0.5678
+    },
+    "100": {
+     "striker": 0.1474,
+     "strike_whacker": 0.1408,
+     "any_whacker": 0.5758
+    },
+    "200": {
+     "striker": 0.1409,
+     "strike_whacker": 0.1377,
+     "any_whacker": 0.5786
+    },
+    "500": {
+     "striker": 0.1316,
+     "strike_whacker": 0.124,
+     "any_whacker": 0.5627
+    }
+   },
+   "payoff_vector": [
+    1.7825,
+    0.0,
+    0.0
+   ],
+   "production": 1.7825,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.7825,
+   "cum_whack_cost_per_island": 1.644,
+   "cum_worker_loss_per_island": 3.289,
+   "cum_production_lost_per_island": 21020.365,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.275,
+     "median_ext": 4550.0,
+     "max_ext": 19800
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.75,
+     "median_ext": 13400.0,
+     "max_ext": 43700
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 43.0,
+     "max_ext": 61
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.0,
+     "median_ext": 428.0,
+     "max_ext": 8700
+    },
+    "w:striker": {
+     "alive_frac": 0.175,
+     "median_ext": 10500.0,
+     "max_ext": 66500
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 17.0,
+     "max_ext": 822
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 1
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.175,
+     "median_ext": 4475.0,
+     "max_ext": 64900
+    },
+    "w:scab": {
+     "alive_frac": 0.975,
+     "median_ext": 62900.0,
+     "max_ext": 62900
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.025,
+   "invasion_pairs": {
+    "n": 2,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 2
+   },
+   "distribution": {
+    "eligible": 0.975,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    1.7773,
+    0.0,
+    0.0
+   ],
+   "wall_s": 104.1
+  },
+  "CC-mN0": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.0,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "local-closed (mN = 0)": 40
+   },
+   "stop_gen": {
+    "median": 188.0,
+    "max": 355,
+    "min": 91
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0016,
+     "ci": 0.0031
+    },
+    "intermediate": {
+     "mean": 0.0406,
+     "ci": 0.0149
+    },
+    "zero wage": {
+     "mean": 0.6844,
+     "ci": 0.034
+    },
+    "strike": {
+     "mean": 0.0266,
+     "ci": 0.0123
+    },
+    "scab split": {
+     "mean": 0.2469,
+     "ci": 0.0304
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0016,
+     "ci": 0.0031
+    },
+    "intermediate": {
+     "mean": 0.0406,
+     "ci": 0.0149
+    },
+    "zero wage": {
+     "mean": 0.6844,
+     "ci": 0.034
+    },
+    "strike": {
+     "mean": 0.0266,
+     "ci": 0.0123
+    },
+    "scab split": {
+     "mean": 0.2469,
+     "ci": 0.0304
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0016,
+    "intermediate": 0.0406,
+    "zero wage": 0.6844,
+    "strike": 0.0266,
+    "scab split": 0.2469,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.9297,
+     "ci": 0.0216
+    },
+    "1/4": {
+     "mean": 0.0406,
+     "ci": 0.0149
+    },
+    "1/2": {
+     "mean": 0.0031,
+     "ci": 0.0043
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0266,
+     "ci": 0.0123
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.1376,
+    "present": {
+     "mean": 0.1469,
+     "ci": 0.0312
+    },
+    "majority": {
+     "mean": 0.1359,
+     "ci": 0.027
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.5786,
+    "present": {
+     "mean": 0.5906,
+     "ci": 0.038
+    },
+    "majority": {
+     "mean": 0.5766,
+     "ci": 0.0386
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0016,
+    "ci": 0.0031
+   },
+   "strikers_surviving": {
+    "mean": 0.2641,
+    "ci": 0.0315
+   },
+   "scab_convergence": {
+    "mean": 0.6844,
+    "ci": 0.034
+   },
+   "nonwhackers_establish": {
+    "mean": 0.8641,
+    "ci": 0.027
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.6984,
+     "ci": 0.0402
+    },
+    "lt01_min": {
+     "mean": 0.0609,
+     "ci": 0.0213
+    },
+    "ge03_end": {
+     "mean": 0.6797,
+     "ci": 0.0437
+    },
+    "lt01_end": {
+     "mean": 0.1562,
+     "ci": 0.0291
+    },
+    "mean_min": 0.306,
+    "mean_end": 0.1963
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4793,
+     "strike_whacker": 0.3388,
+     "any_whacker": 0.6734
+    },
+    "5": {
+     "striker": 0.3258,
+     "strike_whacker": 0.224,
+     "any_whacker": 0.6128
+    },
+    "10": {
+     "striker": 0.2465,
+     "strike_whacker": 0.1763,
+     "any_whacker": 0.5887
+    },
+    "25": {
+     "striker": 0.1616,
+     "strike_whacker": 0.1391,
+     "any_whacker": 0.5768
+    },
+    "50": {
+     "striker": 0.1407,
+     "strike_whacker": 0.1454,
+     "any_whacker": 0.5809
+    },
+    "100": {
+     "striker": 0.1385,
+     "strike_whacker": 0.1425,
+     "any_whacker": 0.5814
+    },
+    "200": {
+     "striker": 0.1438,
+     "strike_whacker": 0.1375,
+     "any_whacker": 0.5786
+    },
+    "500": {
+     "striker": 0.1445,
+     "strike_whacker": 0.1376,
+     "any_whacker": 0.5786
+    }
+   },
+   "payoff_vector": [
+    1.6773,
+    0.0117,
+    0.0109
+   ],
+   "production": 1.7,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.7,
+   "cum_whack_cost_per_island": 1.001,
+   "cum_worker_loss_per_island": 2.002,
+   "cum_production_lost_per_island": 30004.397,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.925,
+     "median_ext": 99.0,
+     "max_ext": 127
+    },
+    "b:any-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:fair boss": {
+     "alive_frac": 0.025,
+     "median_ext": 34.0,
+     "max_ext": 48
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.275,
+     "median_ext": 38.0,
+     "max_ext": 135
+    },
+    "w:striker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 4.5,
+     "max_ext": 64
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.675,
+     "median_ext": 65.0,
+     "max_ext": 146
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.5,
+   "patchwork_label": 0.475,
+   "distinct_play_states_mean": 7.575,
+   "invasion_pairs": {
+    "n": 432,
+    "invadable": 48,
+    "resistant": 2,
+    "neutral": 382
+   },
+   "distribution": {
+    "eligible": 0.9734,
+    "min_share_mean": 0.0056,
+    "three_role_threshold": 0.0016
+   },
+   "time_avg_shares": [
+    0.988,
+    0.0064,
+    0.0056
+   ],
+   "time_avg_payoffs": [
+    1.6773,
+    0.0117,
+    0.0109
+   ],
+   "wall_s": 6.2
+  },
+  "CC-mN1": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 1.0,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 561.5,
+    "max": 8350,
+    "min": 146
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.85,
+     "ci": 0.1121
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.15,
+     "ci": 0.1121
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.85,
+     "ci": 0.1121
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.15,
+     "ci": 0.1121
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 0.85,
+    "strike": 0.0,
+    "scab split": 0.15,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.1608,
+    "present": {
+     "mean": 0.35,
+     "ci": 0.12
+    },
+    "majority": {
+     "mean": 0.1531,
+     "ci": 0.0834
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.6237,
+    "present": {
+     "mean": 0.8578,
+     "ci": 0.0884
+    },
+    "majority": {
+     "mean": 0.6422,
+     "ci": 0.1049
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.125,
+    "ci": 0.1038
+   },
+   "scab_convergence": {
+    "mean": 0.85,
+    "ci": 0.1121
+   },
+   "nonwhackers_establish": {
+    "mean": 0.8469,
+    "ci": 0.0834
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.725,
+     "ci": 0.0445
+    },
+    "lt01_min": {
+     "mean": 0.0266,
+     "ci": 0.0131
+    },
+    "ge03_end": {
+     "mean": 0.5687,
+     "ci": 0.0609
+    },
+    "lt01_end": {
+     "mean": 0.1875,
+     "ci": 0.0441
+    },
+    "mean_min": 0.3195,
+    "mean_end": 0.2122
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4823,
+     "strike_whacker": 0.3414,
+     "any_whacker": 0.6732
+    },
+    "5": {
+     "striker": 0.3253,
+     "strike_whacker": 0.2323,
+     "any_whacker": 0.612
+    },
+    "10": {
+     "striker": 0.2354,
+     "strike_whacker": 0.1896,
+     "any_whacker": 0.5837
+    },
+    "25": {
+     "striker": 0.1508,
+     "strike_whacker": 0.1406,
+     "any_whacker": 0.5614
+    },
+    "50": {
+     "striker": 0.1207,
+     "strike_whacker": 0.1368,
+     "any_whacker": 0.5573
+    },
+    "100": {
+     "striker": 0.103,
+     "strike_whacker": 0.1292,
+     "any_whacker": 0.5833
+    },
+    "200": {
+     "striker": 0.0909,
+     "strike_whacker": 0.1319,
+     "any_whacker": 0.5837
+    },
+    "500": {
+     "striker": 0.0685,
+     "strike_whacker": 0.1613,
+     "any_whacker": 0.6182
+    }
+   },
+   "payoff_vector": [
+    1.85,
+    0.0,
+    0.0
+   ],
+   "production": 1.85,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.85,
+   "cum_whack_cost_per_island": 1.501,
+   "cum_worker_loss_per_island": 3.003,
+   "cum_production_lost_per_island": 14865.783,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.525,
+     "median_ext": 223.0,
+     "max_ext": 644
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.925,
+     "median_ext": 1089.0,
+     "max_ext": 3025
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 33.0,
+     "max_ext": 137
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.025,
+     "median_ext": 36.0,
+     "max_ext": 185
+    },
+    "w:striker": {
+     "alive_frac": 0.125,
+     "median_ext": 406.0,
+     "max_ext": 4775
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 3.0,
+     "max_ext": 25
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.4,
+     "median_ext": 98.5,
+     "max_ext": 553
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.425,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    1.85,
+    0.0,
+    0.0
+   ],
+   "wall_s": 6.5
+  },
+  "CC-pool": {
+   "params": {
+    "enf": "CC",
+    "pool": 1,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 297.5,
+    "max": 3575,
+    "min": 48
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 1.0,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.6133,
+    "present": {
+     "mean": 0.7375,
+     "ci": 0.0485
+    },
+    "majority": {
+     "mean": 0.6172,
+     "ci": 0.0481
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.806,
+    "present": {
+     "mean": 0.8891,
+     "ci": 0.0424
+    },
+    "majority": {
+     "mean": 0.8094,
+     "ci": 0.0462
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "scab_convergence": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "nonwhackers_establish": {
+    "mean": 0.3828,
+    "ci": 0.0481
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.2984,
+     "ci": 0.0433
+    },
+    "lt01_min": {
+     "mean": 0.4281,
+     "ci": 0.0394
+    },
+    "ge03_end": {
+     "mean": 0.2375,
+     "ci": 0.0398
+    },
+    "lt01_end": {
+     "mean": 0.6438,
+     "ci": 0.04
+    },
+    "mean_min": 0.1688,
+    "mean_end": -0.2506
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4791,
+     "strike_whacker": 0.336,
+     "any_whacker": 0.6729
+    },
+    "5": {
+     "striker": 0.2932,
+     "strike_whacker": 0.4311,
+     "any_whacker": 0.7145
+    },
+    "10": {
+     "striker": 0.1715,
+     "strike_whacker": 0.5014,
+     "any_whacker": 0.7448
+    },
+    "25": {
+     "striker": 0.0425,
+     "strike_whacker": 0.582,
+     "any_whacker": 0.7772
+    },
+    "50": {
+     "striker": 0.0231,
+     "strike_whacker": 0.5955,
+     "any_whacker": 0.7871
+    },
+    "100": {
+     "striker": 0.0188,
+     "strike_whacker": 0.5866,
+     "any_whacker": 0.7879
+    },
+    "200": {
+     "striker": 0.0112,
+     "strike_whacker": 0.5922,
+     "any_whacker": 0.7946
+    },
+    "500": {
+     "striker": 0.0015,
+     "strike_whacker": 0.6013,
+     "any_whacker": 0.7994
+    }
+   },
+   "payoff_vector": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "production": 2.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 2.0,
+   "cum_whack_cost_per_island": 3.085,
+   "cum_worker_loss_per_island": 6.171,
+   "cum_production_lost_per_island": 20.574,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:any-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 31.0,
+     "max_ext": 50
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.125,
+     "median_ext": 29.0,
+     "max_ext": 343
+    },
+    "w:striker": {
+     "alive_frac": 0.0,
+     "median_ext": 140.0,
+     "max_ext": 581
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 3.0,
+     "max_ext": 21
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.325,
+     "median_ext": 95.0,
+     "max_ext": 2600
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 3.4,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "wall_s": 1.8
+  },
+  "CC-cont": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 300000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 4512.5,
+    "max": 30700,
+    "min": 444
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "zero wage": {
+     "mean": 0.825,
+     "ci": 0.1193
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.15,
+     "ci": 0.1121
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "zero wage": {
+     "mean": 0.825,
+     "ci": 0.1193
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.15,
+     "ci": 0.1121
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.025,
+    "zero wage": 0.825,
+    "strike": 0.0,
+    "scab split": 0.15,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.975,
+     "ci": 0.049
+    },
+    "1/4": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.082,
+    "present": {
+     "mean": 0.1016,
+     "ci": 0.0538
+    },
+    "majority": {
+     "mean": 0.0828,
+     "ci": 0.0439
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.4893,
+    "present": {
+     "mean": 0.5453,
+     "ci": 0.12
+    },
+    "majority": {
+     "mean": 0.4969,
+     "ci": 0.1177
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.125,
+    "ci": 0.1038
+   },
+   "scab_convergence": {
+    "mean": 0.825,
+    "ci": 0.1193
+   },
+   "nonwhackers_establish": {
+    "mean": 0.9172,
+    "ci": 0.0439
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.6906,
+     "ci": 0.0353
+    },
+    "lt01_min": {
+     "mean": 0.0531,
+     "ci": 0.0155
+    },
+    "ge03_end": {
+     "mean": 0.6422,
+     "ci": 0.0377
+    },
+    "lt01_end": {
+     "mean": 0.1594,
+     "ci": 0.0287
+    },
+    "mean_min": 0.3085,
+    "mean_end": 0.2014
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4804,
+     "strike_whacker": 0.3385,
+     "any_whacker": 0.672
+    },
+    "5": {
+     "striker": 0.3196,
+     "strike_whacker": 0.2315,
+     "any_whacker": 0.6067
+    },
+    "10": {
+     "striker": 0.2287,
+     "strike_whacker": 0.1781,
+     "any_whacker": 0.5716
+    },
+    "25": {
+     "striker": 0.1587,
+     "strike_whacker": 0.1405,
+     "any_whacker": 0.5559
+    },
+    "50": {
+     "striker": 0.1506,
+     "strike_whacker": 0.1491,
+     "any_whacker": 0.5692
+    },
+    "100": {
+     "striker": 0.1462,
+     "strike_whacker": 0.1371,
+     "any_whacker": 0.5599
+    },
+    "200": {
+     "striker": 0.1423,
+     "strike_whacker": 0.1341,
+     "any_whacker": 0.5719
+    },
+    "500": {
+     "striker": 0.1283,
+     "strike_whacker": 0.1326,
+     "any_whacker": 0.5812
+    }
+   },
+   "payoff_vector": [
+    1.8375,
+    0.0063,
+    0.0063
+   ],
+   "production": 1.85,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.85,
+   "cum_whack_cost_per_island": 1.397,
+   "cum_worker_loss_per_island": 2.795,
+   "cum_production_lost_per_island": 44955.063,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.375,
+     "median_ext": 1192.0,
+     "max_ext": 4775
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.75,
+     "median_ext": 5100.0,
+     "max_ext": 16100
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 33.5,
+     "max_ext": 65
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.075,
+     "median_ext": 32.0,
+     "max_ext": 4050
+    },
+    "w:striker": {
+     "alive_frac": 0.125,
+     "median_ext": 3325.0,
+     "max_ext": 30700
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 4.5,
+     "max_ext": 98
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 3
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.225,
+     "median_ext": 568.0,
+     "max_ext": 7075
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.25,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0031,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    0.9938,
+    0.0031,
+    0.0031
+   ],
+   "time_avg_payoffs": [
+    1.8375,
+    0.0063,
+    0.0063
+   ],
+   "wall_s": 8.8
+  },
+  "CC-c0.1": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.1,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 1828.5,
+    "max": 23200,
+    "min": 124
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.975,
+     "ci": 0.049
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.975,
+     "ci": 0.049
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 0.975,
+    "strike": 0.0,
+    "scab split": 0.025,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.3412,
+    "present": {
+     "mean": 0.4344,
+     "ci": 0.0942
+    },
+    "majority": {
+     "mean": 0.3391,
+     "ci": 0.0848
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.6329,
+    "present": {
+     "mean": 0.7094,
+     "ci": 0.0783
+    },
+    "majority": {
+     "mean": 0.6344,
+     "ci": 0.0836
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.025,
+    "ci": 0.049
+   },
+   "scab_convergence": {
+    "mean": 0.975,
+    "ci": 0.049
+   },
+   "nonwhackers_establish": {
+    "mean": 0.6609,
+    "ci": 0.0848
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.5453,
+     "ci": 0.039
+    },
+    "lt01_min": {
+     "mean": 0.1688,
+     "ci": 0.0245
+    },
+    "ge03_end": {
+     "mean": 0.4844,
+     "ci": 0.0427
+    },
+    "lt01_end": {
+     "mean": 0.3422,
+     "ci": 0.0434
+    },
+    "mean_min": 0.2603,
+    "mean_end": 0.0333
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4807,
+     "strike_whacker": 0.3384,
+     "any_whacker": 0.6704
+    },
+    "5": {
+     "striker": 0.3095,
+     "strike_whacker": 0.3128,
+     "any_whacker": 0.6561
+    },
+    "10": {
+     "striker": 0.2091,
+     "strike_whacker": 0.3059,
+     "any_whacker": 0.6627
+    },
+    "25": {
+     "striker": 0.1019,
+     "strike_whacker": 0.3014,
+     "any_whacker": 0.6649
+    },
+    "50": {
+     "striker": 0.0714,
+     "strike_whacker": 0.2984,
+     "any_whacker": 0.6552
+    },
+    "100": {
+     "striker": 0.0637,
+     "strike_whacker": 0.3051,
+     "any_whacker": 0.6559
+    },
+    "200": {
+     "striker": 0.0609,
+     "strike_whacker": 0.3053,
+     "any_whacker": 0.6618
+    },
+    "500": {
+     "striker": 0.0483,
+     "strike_whacker": 0.3006,
+     "any_whacker": 0.6451
+    }
+   },
+   "payoff_vector": [
+    1.975,
+    0.0,
+    0.0
+   ],
+   "production": 1.975,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.975,
+   "cum_whack_cost_per_island": 0.459,
+   "cum_worker_loss_per_island": 4.587,
+   "cum_production_lost_per_island": 2483.149,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.825,
+     "median_ext": 1668.0,
+     "max_ext": 4375
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.95,
+     "median_ext": 5925.0,
+     "max_ext": 6150
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 32.0,
+     "max_ext": 58
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.075,
+     "median_ext": 47.0,
+     "max_ext": 3725
+    },
+    "w:striker": {
+     "alive_frac": 0.025,
+     "median_ext": 998.0,
+     "max_ext": 13700
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 3.5,
+     "max_ext": 99
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 1
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.175,
+     "median_ext": 664.0,
+     "max_ext": 8275
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.7,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    1.975,
+    0.0,
+    0.0
+   ],
+   "wall_s": 5.0
+  },
+  "RR-c0.1": {
+   "params": {
+    "enf": "RR",
+    "pool": 0,
+    "c": 0.1,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 1299.5,
+    "max": 39200,
+    "min": 52
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.85,
+     "ci": 0.1121
+    },
+    "zero wage": {
+     "mean": 0.125,
+     "ci": 0.1038
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.85,
+     "ci": 0.1121
+    },
+    "zero wage": {
+     "mean": 0.125,
+     "ci": 0.1038
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.85,
+    "zero wage": 0.125,
+    "strike": 0.0,
+    "scab split": 0.025,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.15,
+     "ci": 0.1121
+    },
+    "1/4": {
+     "mean": 0.85,
+     "ci": 0.1121
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.0,
+    "present": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.0,
+    "present": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.8422,
+    "ci": 0.1009
+   },
+   "scab_convergence": {
+    "mean": 0.125,
+    "ci": 0.1038
+   },
+   "nonwhackers_establish": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_min": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "ge03_end": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_end": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "mean_min": 0.0,
+    "mean_end": 0.0
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4848,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "5": {
+     "striker": 0.4781,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "10": {
+     "striker": 0.4816,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "25": {
+     "striker": 0.4833,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "50": {
+     "striker": 0.4788,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "100": {
+     "striker": 0.4852,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "200": {
+     "striker": 0.4741,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "500": {
+     "striker": 0.4905,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    }
+   },
+   "payoff_vector": [
+    1.55,
+    0.2125,
+    0.2125
+   ],
+   "production": 1.975,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.975,
+   "cum_whack_cost_per_island": 0.0,
+   "cum_worker_loss_per_island": 0.0,
+   "cum_production_lost_per_island": 1836.859,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 53.0,
+     "max_ext": 244
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.125,
+     "median_ext": 17.0,
+     "max_ext": 449
+    },
+    "w:striker": {
+     "alive_frac": 0.875,
+     "median_ext": 14700.0,
+     "max_ext": 20700
+    },
+    "w:militant": {
+     "alive_frac": 0.05,
+     "median_ext": 5.0,
+     "max_ext": 94
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 2
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.55,
+     "median_ext": 478.5,
+     "max_ext": 3400
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 3.8,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.1062,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    0.7875,
+    0.1062,
+    0.1062
+   ],
+   "time_avg_payoffs": [
+    1.55,
+    0.2125,
+    0.2125
+   ],
+   "wall_s": 9.1
+  },
+  "RR-N400": {
+   "params": {
+    "enf": "RR",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 400,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 447.5,
+    "max": 39900,
+    "min": 47
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.95,
+     "ci": 0.0684
+    },
+    "zero wage": {
+     "mean": 0.05,
+     "ci": 0.0684
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.95,
+     "ci": 0.0684
+    },
+    "zero wage": {
+     "mean": 0.05,
+     "ci": 0.0684
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.95,
+    "zero wage": 0.05,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.05,
+     "ci": 0.0684
+    },
+    "1/4": {
+     "mean": 0.95,
+     "ci": 0.0684
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.0,
+    "present": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.0,
+    "present": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.9328,
+    "ci": 0.0687
+   },
+   "scab_convergence": {
+    "mean": 0.05,
+    "ci": 0.0684
+   },
+   "nonwhackers_establish": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_min": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "ge03_end": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_end": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "mean_min": 0.0,
+    "mean_end": 0.0
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.483,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "5": {
+     "striker": 0.4871,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "10": {
+     "striker": 0.4866,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "25": {
+     "striker": 0.4851,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "50": {
+     "striker": 0.4819,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "100": {
+     "striker": 0.4888,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "200": {
+     "striker": 0.4901,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "500": {
+     "striker": 0.5044,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    }
+   },
+   "payoff_vector": [
+    1.525,
+    0.2375,
+    0.2375
+   ],
+   "production": 2.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 2.0,
+   "cum_whack_cost_per_island": 0.0,
+   "cum_worker_loss_per_island": 0.0,
+   "cum_production_lost_per_island": 103.744,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 51.5,
+     "max_ext": 70
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.1,
+     "median_ext": 36.0,
+     "max_ext": 14400
+    },
+    "w:striker": {
+     "alive_frac": 0.95,
+     "median_ext": 26300.0,
+     "max_ext": 29500
+    },
+    "w:militant": {
+     "alive_frac": 0.15,
+     "median_ext": 27.5,
+     "max_ext": 4300
+    },
+    "w:union": {
+     "alive_frac": 0.025,
+     "median_ext": 0.0,
+     "max_ext": 9
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.7,
+     "median_ext": 429.5,
+     "max_ext": 25100
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 3.975,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.1187,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    0.7625,
+    0.1187,
+    0.1187
+   ],
+   "time_avg_payoffs": [
+    1.525,
+    0.2375,
+    0.2375
+   ],
+   "wall_s": 54.7
+  },
+  "noQ-RR": {
+   "params": {
+    "enf": "RR",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "noquorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 2084.5,
+    "max": 28900,
+    "min": 48
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.825,
+     "ci": 0.1193
+    },
+    "zero wage": {
+     "mean": 0.175,
+     "ci": 0.1193
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.825,
+     "ci": 0.1193
+    },
+    "zero wage": {
+     "mean": 0.175,
+     "ci": 0.1193
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.825,
+    "zero wage": 0.175,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.175,
+     "ci": 0.1193
+    },
+    "1/4": {
+     "mean": 0.825,
+     "ci": 0.1193
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.0,
+    "present": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.0,
+    "present": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.775,
+    "ci": 0.1154
+   },
+   "scab_convergence": {
+    "mean": 0.175,
+    "ci": 0.1193
+   },
+   "nonwhackers_establish": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_min": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "ge03_end": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_end": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "mean_min": 0.0,
+    "mean_end": 0.0
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4865,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "5": {
+     "striker": 0.4811,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "10": {
+     "striker": 0.4818,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "25": {
+     "striker": 0.478,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "50": {
+     "striker": 0.4669,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "100": {
+     "striker": 0.467,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "200": {
+     "striker": 0.4638,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "500": {
+     "striker": 0.4649,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    }
+   },
+   "payoff_vector": [
+    1.5875,
+    0.2062,
+    0.2062
+   ],
+   "production": 2.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 2.0,
+   "cum_whack_cost_per_island": 0.0,
+   "cum_worker_loss_per_island": 0.0,
+   "cum_production_lost_per_island": 328.06,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 45.0,
+     "max_ext": 80
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.1,
+     "median_ext": 16.0,
+     "max_ext": 3600
+    },
+    "w:striker": {
+     "alive_frac": 0.825,
+     "median_ext": 10800.0,
+     "max_ext": 28900
+    },
+    "w:militant": {
+     "alive_frac": 0.075,
+     "median_ext": 6.0,
+     "max_ext": 140
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.45,
+     "median_ext": 139.5,
+     "max_ext": 3125
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 3.45,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.1031,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    0.7937,
+    0.1031,
+    0.1031
+   ],
+   "time_avg_payoffs": [
+    1.5875,
+    0.2062,
+    0.2062
+   ],
+   "wall_s": 9.7
+  },
+  "xref-CC": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40,
+    "swap": "refuser"
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 1759.5,
+    "max": 15000,
+    "min": 263
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.225,
+     "ci": 0.1311
+    },
+    "zero wage": {
+     "mean": 0.775,
+     "ci": 0.1311
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.225,
+     "ci": 0.1311
+    },
+    "zero wage": {
+     "mean": 0.775,
+     "ci": 0.1311
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.225,
+    "zero wage": 0.775,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.775,
+     "ci": 0.1311
+    },
+    "1/4": {
+     "mean": 0.225,
+     "ci": 0.1311
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.6048,
+    "present": {
+     "mean": 0.6234,
+     "ci": 0.1444
+    },
+    "majority": {
+     "mean": 0.6078,
+     "ci": 0.143
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.8132,
+    "present": {
+     "mean": 0.8219,
+     "ci": 0.1115
+    },
+    "majority": {
+     "mean": 0.8141,
+     "ci": 0.1119
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "scab_convergence": {
+    "mean": 0.775,
+    "ci": 0.1311
+   },
+   "nonwhackers_establish": {
+    "mean": 0.3922,
+    "ci": 0.143
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.5312,
+     "ci": 0.038
+    },
+    "lt01_min": {
+     "mean": 0.1672,
+     "ci": 0.036
+    },
+    "ge03_end": {
+     "mean": 0.4453,
+     "ci": 0.0452
+    },
+    "lt01_end": {
+     "mean": 0.3891,
+     "ci": 0.0534
+    },
+    "mean_min": 0.2583,
+    "mean_end": 0.0008
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.0,
+     "strike_whacker": 0.3383,
+     "any_whacker": 0.6725
+    },
+    "5": {
+     "striker": 0.0,
+     "strike_whacker": 0.3032,
+     "any_whacker": 0.65
+    },
+    "10": {
+     "striker": 0.0,
+     "strike_whacker": 0.305,
+     "any_whacker": 0.6467
+    },
+    "25": {
+     "striker": 0.0,
+     "strike_whacker": 0.321,
+     "any_whacker": 0.6632
+    },
+    "50": {
+     "striker": 0.0,
+     "strike_whacker": 0.3346,
+     "any_whacker": 0.6674
+    },
+    "100": {
+     "striker": 0.0,
+     "strike_whacker": 0.3374,
+     "any_whacker": 0.6698
+    },
+    "200": {
+     "striker": 0.0,
+     "strike_whacker": 0.3758,
+     "any_whacker": 0.6794
+    },
+    "500": {
+     "striker": 0.0,
+     "strike_whacker": 0.4639,
+     "any_whacker": 0.7294
+    }
+   },
+   "payoff_vector": [
+    1.8875,
+    0.0563,
+    0.0563
+   ],
+   "production": 2.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 2.0,
+   "cum_whack_cost_per_island": 1.143,
+   "cum_worker_loss_per_island": 2.285,
+   "cum_production_lost_per_island": 107.356,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.7,
+     "median_ext": 2875.0,
+     "max_ext": 7850
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.85,
+     "median_ext": 7800.0,
+     "max_ext": 12600
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 47.5,
+     "max_ext": 355
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.575,
+     "median_ext": 50.0,
+     "max_ext": 7850
+    },
+    "w:striker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 5.0,
+     "max_ext": 100
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.775,
+     "median_ext": 8750.0,
+     "max_ext": 14900
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 3.75,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0281,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    0.9437,
+    0.0281,
+    0.0281
+   ],
+   "time_avg_payoffs": [
+    1.8875,
+    0.0563,
+    0.0563
+   ],
+   "wall_s": 6.9
+  },
+  "xmil-CC": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40,
+    "swap": "militant"
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 3337.5,
+    "max": 42900,
+    "min": 821
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.05,
+     "ci": 0.0684
+    },
+    "intermediate": {
+     "mean": 0.075,
+     "ci": 0.0827
+    },
+    "zero wage": {
+     "mean": 0.85,
+     "ci": 0.1121
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.05,
+     "ci": 0.0684
+    },
+    "intermediate": {
+     "mean": 0.075,
+     "ci": 0.0827
+    },
+    "zero wage": {
+     "mean": 0.85,
+     "ci": 0.1121
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.05,
+    "intermediate": 0.075,
+    "zero wage": 0.85,
+    "strike": 0.0,
+    "scab split": 0.025,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.875,
+     "ci": 0.1038
+    },
+    "1/4": {
+     "mean": 0.075,
+     "ci": 0.0827
+    },
+    "1/2": {
+     "mean": 0.05,
+     "ci": 0.0684
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.4619,
+    "present": {
+     "mean": 0.4656,
+     "ci": 0.1524
+    },
+    "majority": {
+     "mean": 0.4625,
+     "ci": 0.1522
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.796,
+    "present": {
+     "mean": 0.8156,
+     "ci": 0.1057
+    },
+    "majority": {
+     "mean": 0.7922,
+     "ci": 0.1098
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0281,
+    "ci": 0.0492
+   },
+   "strikers_surviving": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "scab_convergence": {
+    "mean": 0.85,
+    "ci": 0.1121
+   },
+   "nonwhackers_establish": {
+    "mean": 0.5375,
+    "ci": 0.1522
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.6578,
+     "ci": 0.038
+    },
+    "lt01_min": {
+     "mean": 0.0813,
+     "ci": 0.0216
+    },
+    "ge03_end": {
+     "mean": 0.6047,
+     "ci": 0.0415
+    },
+    "lt01_end": {
+     "mean": 0.2328,
+     "ci": 0.0409
+    },
+    "mean_min": 0.2955,
+    "mean_end": 0.1318
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.0,
+     "strike_whacker": 0.3396,
+     "any_whacker": 0.6749
+    },
+    "5": {
+     "striker": 0.0,
+     "strike_whacker": 0.2683,
+     "any_whacker": 0.6388
+    },
+    "10": {
+     "striker": 0.0,
+     "strike_whacker": 0.2399,
+     "any_whacker": 0.6411
+    },
+    "25": {
+     "striker": 0.0,
+     "strike_whacker": 0.2087,
+     "any_whacker": 0.6255
+    },
+    "50": {
+     "striker": 0.0,
+     "strike_whacker": 0.2026,
+     "any_whacker": 0.6371
+    },
+    "100": {
+     "striker": 0.0,
+     "strike_whacker": 0.2078,
+     "any_whacker": 0.6517
+    },
+    "200": {
+     "striker": 0.0,
+     "strike_whacker": 0.2758,
+     "any_whacker": 0.6852
+    },
+    "500": {
+     "striker": 0.0,
+     "strike_whacker": 0.3399,
+     "any_whacker": 0.7274
+    }
+   },
+   "payoff_vector": [
+    1.8875,
+    0.0437,
+    0.0437
+   ],
+   "production": 1.975,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.975,
+   "cum_whack_cost_per_island": 1.074,
+   "cum_worker_loss_per_island": 2.148,
+   "cum_production_lost_per_island": 4243.277,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.525,
+     "median_ext": 1625.0,
+     "max_ext": 18900
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.875,
+     "median_ext": 10200.0,
+     "max_ext": 17700
+    },
+    "b:fair boss": {
+     "alive_frac": 0.05,
+     "median_ext": 350.0,
+     "max_ext": 2625
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.575,
+     "median_ext": 556.0,
+     "max_ext": 17400
+    },
+    "w:striker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:militant": {
+     "alive_frac": 0.6,
+     "median_ext": 10025.0,
+     "max_ext": 38200
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.65,
+     "median_ext": 8412.5,
+     "max_ext": 38200
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.85,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0219,
+    "three_role_threshold": 0.05
+   },
+   "time_avg_shares": [
+    0.9563,
+    0.0219,
+    0.0219
+   ],
+   "time_avg_payoffs": [
+    1.8875,
+    0.0437,
+    0.0437
+   ],
+   "wall_s": 10.7
+  },
+  "xref-mostly": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "mostly",
+    "gens": 100000,
+    "runs": 40,
+    "swap": "refuser"
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 116.5,
+    "max": 9925,
+    "min": 27
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 1.0,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.7898,
+    "present": {
+     "mean": 0.8953,
+     "ci": 0.0373
+    },
+    "majority": {
+     "mean": 0.8031,
+     "ci": 0.0474
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.7898,
+    "present": {
+     "mean": 0.8953,
+     "ci": 0.0373
+    },
+    "majority": {
+     "mean": 0.8031,
+     "ci": 0.0474
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "scab_convergence": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "nonwhackers_establish": {
+    "mean": 0.1969,
+    "ci": 0.0474
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.4281,
+     "ci": 0.0358
+    },
+    "lt01_min": {
+     "mean": 0.3563,
+     "ci": 0.034
+    },
+    "ge03_end": {
+     "mean": 0.2094,
+     "ci": 0.0333
+    },
+    "lt01_end": {
+     "mean": 0.7344,
+     "ci": 0.0404
+    },
+    "mean_min": 0.3138,
+    "mean_end": 0.096
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.0,
+     "strike_whacker": 0.9009,
+     "any_whacker": 0.9009
+    },
+    "5": {
+     "striker": 0.0,
+     "strike_whacker": 0.8446,
+     "any_whacker": 0.8446
+    },
+    "10": {
+     "striker": 0.0,
+     "strike_whacker": 0.8097,
+     "any_whacker": 0.8097
+    },
+    "25": {
+     "striker": 0.0,
+     "strike_whacker": 0.793,
+     "any_whacker": 0.793
+    },
+    "50": {
+     "striker": 0.0,
+     "strike_whacker": 0.8048,
+     "any_whacker": 0.8048
+    },
+    "100": {
+     "striker": 0.0,
+     "strike_whacker": 0.8049,
+     "any_whacker": 0.8049
+    },
+    "200": {
+     "striker": 0.0,
+     "strike_whacker": 0.8105,
+     "any_whacker": 0.8105
+    },
+    "500": {
+     "striker": 0.0,
+     "strike_whacker": 0.802,
+     "any_whacker": 0.802
+    }
+   },
+   "payoff_vector": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "production": 2.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 2.0,
+   "cum_whack_cost_per_island": 2.5,
+   "cum_worker_loss_per_island": 5.0,
+   "cum_production_lost_per_island": 46.311,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:any-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:striker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 4.0,
+     "max_ext": 25
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 1
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.675,
+     "median_ext": 962.0,
+     "max_ext": 9925
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.6,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "wall_s": 1.6
+  },
+  "xmil-mostly": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "mostly",
+    "gens": 100000,
+    "runs": 40,
+    "swap": "militant"
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 136.0,
+    "max": 4225,
+    "min": 33
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 1.0,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.7905,
+    "present": {
+     "mean": 0.8922,
+     "ci": 0.0447
+    },
+    "majority": {
+     "mean": 0.7937,
+     "ci": 0.0564
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.7905,
+    "present": {
+     "mean": 0.8922,
+     "ci": 0.0447
+    },
+    "majority": {
+     "mean": 0.7937,
+     "ci": 0.0564
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "scab_convergence": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "nonwhackers_establish": {
+    "mean": 0.2062,
+    "ci": 0.0564
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.4219,
+     "ci": 0.0427
+    },
+    "lt01_min": {
+     "mean": 0.3422,
+     "ci": 0.0359
+    },
+    "ge03_end": {
+     "mean": 0.2375,
+     "ci": 0.0346
+    },
+    "lt01_end": {
+     "mean": 0.7188,
+     "ci": 0.0337
+    },
+    "mean_min": 0.3294,
+    "mean_end": 0.1167
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.0,
+     "strike_whacker": 0.9009,
+     "any_whacker": 0.9009
+    },
+    "5": {
+     "striker": 0.0,
+     "strike_whacker": 0.8362,
+     "any_whacker": 0.8362
+    },
+    "10": {
+     "striker": 0.0,
+     "strike_whacker": 0.8081,
+     "any_whacker": 0.8081
+    },
+    "25": {
+     "striker": 0.0,
+     "strike_whacker": 0.7787,
+     "any_whacker": 0.7787
+    },
+    "50": {
+     "striker": 0.0,
+     "strike_whacker": 0.7852,
+     "any_whacker": 0.7852
+    },
+    "100": {
+     "striker": 0.0,
+     "strike_whacker": 0.7842,
+     "any_whacker": 0.7842
+    },
+    "200": {
+     "striker": 0.0,
+     "strike_whacker": 0.783,
+     "any_whacker": 0.783
+    },
+    "500": {
+     "striker": 0.0,
+     "strike_whacker": 0.7815,
+     "any_whacker": 0.7815
+    }
+   },
+   "payoff_vector": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "production": 2.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 2.0,
+   "cum_whack_cost_per_island": 2.455,
+   "cum_worker_loss_per_island": 4.909,
+   "cum_production_lost_per_island": 22.028,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:any-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:striker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 46.0,
+     "max_ext": 3375
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 28
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.75,
+     "median_ext": 758.0,
+     "max_ext": 3375
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.975,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "wall_s": 1.6
+  },
+  "xref-hostile": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "hostile",
+    "gens": 100000,
+    "runs": 40,
+    "swap": "refuser"
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 28.0,
+    "max": 57,
+    "min": 22
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 1.0,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 1.0,
+    "present": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 1.0,
+     "ci": 0.0
+    }
+   },
+   "any_whacker": {
+    "mean_share": 1.0,
+    "present": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 1.0,
+     "ci": 0.0
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "scab_convergence": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "nonwhackers_establish": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_min": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "ge03_end": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_end": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "mean_min": 0.0,
+    "mean_end": 0.0
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "5": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "10": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "25": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "50": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "100": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "200": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    },
+    "500": {
+     "striker": 0.0,
+     "strike_whacker": 1.0,
+     "any_whacker": 1.0
+    }
+   },
+   "payoff_vector": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "production": 2.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 2.0,
+   "cum_whack_cost_per_island": 2.39,
+   "cum_worker_loss_per_island": 4.779,
+   "cum_production_lost_per_island": 4.779,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:any-whacker": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:striker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 4.0,
+     "max_ext": 18
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 2
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.95,
+     "median_ext": 26.5,
+     "max_ext": 28
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 1.775,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    2.0,
+    0.0,
+    0.0
+   ],
+   "wall_s": 0.7
+  },
+  "CC-I64-cont": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 64,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 300000,
+    "runs": 40
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 21250.0,
+    "max": 146200,
+    "min": 4600
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.8,
+     "ci": 0.1255
+    },
+    "strike": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "scab split": {
+     "mean": 0.175,
+     "ci": 0.1193
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.8,
+     "ci": 0.1255
+    },
+    "strike": {
+     "mean": 0.025,
+     "ci": 0.049
+    },
+    "scab split": {
+     "mean": 0.175,
+     "ci": 0.1193
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 0.8,
+    "strike": 0.025,
+    "scab split": 0.175,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.975,
+     "ci": 0.049
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.025,
+     "ci": 0.049
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.0671,
+    "present": {
+     "mean": 0.0809,
+     "ci": 0.061
+    },
+    "majority": {
+     "mean": 0.068,
+     "ci": 0.057
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.4859,
+    "present": {
+     "mean": 0.5336,
+     "ci": 0.1221
+    },
+    "majority": {
+     "mean": 0.4875,
+     "ci": 0.1218
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.175,
+    "ci": 0.1193
+   },
+   "scab_convergence": {
+    "mean": 0.8,
+    "ci": 0.1255
+   },
+   "nonwhackers_establish": {
+    "mean": 0.932,
+    "ci": 0.057
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.7102,
+     "ci": 0.0189
+    },
+    "lt01_min": {
+     "mean": 0.0504,
+     "ci": 0.0094
+    },
+    "ge03_end": {
+     "mean": 0.6652,
+     "ci": 0.0189
+    },
+    "lt01_end": {
+     "mean": 0.1598,
+     "ci": 0.0146
+    },
+    "mean_min": 0.3102,
+    "mean_end": 0.1999
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.48,
+     "strike_whacker": 0.3407,
+     "any_whacker": 0.6737
+    },
+    "5": {
+     "striker": 0.3265,
+     "strike_whacker": 0.228,
+     "any_whacker": 0.616
+    },
+    "10": {
+     "striker": 0.2407,
+     "strike_whacker": 0.1837,
+     "any_whacker": 0.5933
+    },
+    "25": {
+     "striker": 0.1618,
+     "strike_whacker": 0.1435,
+     "any_whacker": 0.5688
+    },
+    "50": {
+     "striker": 0.148,
+     "strike_whacker": 0.1379,
+     "any_whacker": 0.5678
+    },
+    "100": {
+     "striker": 0.1474,
+     "strike_whacker": 0.1408,
+     "any_whacker": 0.5758
+    },
+    "200": {
+     "striker": 0.1409,
+     "strike_whacker": 0.1377,
+     "any_whacker": 0.5786
+    },
+    "500": {
+     "striker": 0.1316,
+     "strike_whacker": 0.124,
+     "any_whacker": 0.5627
+    }
+   },
+   "payoff_vector": [
+    1.775,
+    0.0,
+    0.0
+   ],
+   "production": 1.775,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.775,
+   "cum_whack_cost_per_island": 1.644,
+   "cum_worker_loss_per_island": 3.289,
+   "cum_production_lost_per_island": 65779.034,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.275,
+     "median_ext": 4550.0,
+     "max_ext": 19800
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.75,
+     "median_ext": 13400.0,
+     "max_ext": 43700
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 43.0,
+     "max_ext": 61
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.0,
+     "median_ext": 428.0,
+     "max_ext": 8700
+    },
+    "w:striker": {
+     "alive_frac": 0.175,
+     "median_ext": 10500.0,
+     "max_ext": 66500
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 17.0,
+     "max_ext": 822
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 1
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.175,
+     "median_ext": 4475.0,
+     "max_ext": 64900
+    },
+    "w:scab": {
+     "alive_frac": 0.975,
+     "median_ext": 62900.0,
+     "max_ext": 62900
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.0,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 0.975,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    1.775,
+    0.0,
+    0.0
+   ],
+   "wall_s": 110.3
+  },
+  "single-CC": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 40,
+    "single": true
+   },
+   "runs": 40,
+   "status": {
+    "closed": 40
+   },
+   "stop_gen": {
+    "median": 731.0,
+    "max": 8475,
+    "min": 107
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0,
+    "zero wage": 1.0,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.2605,
+    "present": {
+     "mean": 0.3219,
+     "ci": 0.0844
+    },
+    "majority": {
+     "mean": 0.2594,
+     "ci": 0.0774
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.2605,
+    "present": {
+     "mean": 0.3219,
+     "ci": 0.0844
+    },
+    "majority": {
+     "mean": 0.2594,
+     "ci": 0.0774
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "scab_convergence": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "nonwhackers_establish": {
+    "mean": 0.7406,
+    "ci": 0.0774
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.6234,
+     "ci": 0.0386
+    },
+    "lt01_min": {
+     "mean": 0.0813,
+     "ci": 0.0177
+    },
+    "ge03_end": {
+     "mean": 0.575,
+     "ci": 0.0432
+    },
+    "lt01_end": {
+     "mean": 0.2578,
+     "ci": 0.0301
+    },
+    "mean_min": 0.2895,
+    "mean_end": 0.1109
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.2407,
+     "strike_whacker": 0.336,
+     "any_whacker": 0.336
+    },
+    "5": {
+     "striker": 0.1542,
+     "strike_whacker": 0.2673,
+     "any_whacker": 0.2673
+    },
+    "10": {
+     "striker": 0.1044,
+     "strike_whacker": 0.2375,
+     "any_whacker": 0.2375
+    },
+    "25": {
+     "striker": 0.0486,
+     "strike_whacker": 0.2152,
+     "any_whacker": 0.2152
+    },
+    "50": {
+     "striker": 0.036,
+     "strike_whacker": 0.2023,
+     "any_whacker": 0.2023
+    },
+    "100": {
+     "striker": 0.0343,
+     "strike_whacker": 0.2251,
+     "any_whacker": 0.2251
+    },
+    "200": {
+     "striker": 0.0289,
+     "strike_whacker": 0.2439,
+     "any_whacker": 0.2439
+    },
+    "500": {
+     "striker": 0.0265,
+     "strike_whacker": 0.2235,
+     "any_whacker": 0.2235
+    }
+   },
+   "payoff_vector": [
+    1.0,
+    0.0
+   ],
+   "production": 1.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.0,
+   "cum_whack_cost_per_island": 0.736,
+   "cum_worker_loss_per_island": 1.471,
+   "cum_production_lost_per_island": 209.373,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.825,
+     "median_ext": 817.0,
+     "max_ext": 2575
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.825,
+     "median_ext": 817.0,
+     "max_ext": 2575
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 56.5,
+     "max_ext": 195
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.175,
+     "median_ext": 64.0,
+     "max_ext": 1716
+    },
+    "w:striker": {
+     "alive_frac": 0.0,
+     "median_ext": 532.5,
+     "max_ext": 8475
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 4.0,
+     "max_ext": 24
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.1,
+     "median_ext": 73.0,
+     "max_ext": 1986
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.9,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.0,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    1.0,
+    0.0
+   ],
+   "time_avg_payoffs": [
+    1.0,
+    0.0
+   ],
+   "wall_s": 3.7
+  },
+  "single-CC-x400": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 400,
+    "single": true
+   },
+   "runs": 400,
+   "status": {
+    "closed": 400
+   },
+   "stop_gen": {
+    "median": 896.5,
+    "max": 29500,
+    "min": 76
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0025,
+     "ci": 0.0049
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.9775,
+     "ci": 0.0146
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.02,
+     "ci": 0.0137
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0025,
+     "ci": 0.0049
+    },
+    "intermediate": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "zero wage": {
+     "mean": 0.9775,
+     "ci": 0.0146
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.02,
+     "ci": 0.0137
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0025,
+    "intermediate": 0.0,
+    "zero wage": 0.9775,
+    "strike": 0.0,
+    "scab split": 0.02,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.9775,
+     "ci": 0.0146
+    },
+    "1/4": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "1/2": {
+     "mean": 0.0025,
+     "ci": 0.0049
+    },
+    "none (production < 0.05)": {
+     "mean": 0.02,
+     "ci": 0.0137
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.2285,
+    "present": {
+     "mean": 0.2975,
+     "ci": 0.0243
+    },
+    "majority": {
+     "mean": 0.227,
+     "ci": 0.0211
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.2285,
+    "present": {
+     "mean": 0.2975,
+     "ci": 0.0243
+    },
+    "majority": {
+     "mean": 0.227,
+     "ci": 0.0211
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.0175,
+    "ci": 0.0129
+   },
+   "scab_convergence": {
+    "mean": 0.9775,
+    "ci": 0.0146
+   },
+   "nonwhackers_establish": {
+    "mean": 0.773,
+    "ci": 0.0211
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.5953,
+     "ci": 0.0122
+    },
+    "lt01_min": {
+     "mean": 0.0939,
+     "ci": 0.0073
+    },
+    "ge03_end": {
+     "mean": 0.5367,
+     "ci": 0.0131
+    },
+    "lt01_end": {
+     "mean": 0.258,
+     "ci": 0.0116
+    },
+    "mean_min": 0.2826,
+    "mean_end": 0.1064
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.2403,
+     "strike_whacker": 0.3327,
+     "any_whacker": 0.3327
+    },
+    "5": {
+     "striker": 0.1535,
+     "strike_whacker": 0.273,
+     "any_whacker": 0.273
+    },
+    "10": {
+     "striker": 0.1015,
+     "strike_whacker": 0.2418,
+     "any_whacker": 0.2418
+    },
+    "25": {
+     "striker": 0.0481,
+     "strike_whacker": 0.2181,
+     "any_whacker": 0.2181
+    },
+    "50": {
+     "striker": 0.033,
+     "strike_whacker": 0.2227,
+     "any_whacker": 0.2227
+    },
+    "100": {
+     "striker": 0.0285,
+     "strike_whacker": 0.2264,
+     "any_whacker": 0.2264
+    },
+    "200": {
+     "striker": 0.0274,
+     "strike_whacker": 0.2303,
+     "any_whacker": 0.2303
+    },
+    "500": {
+     "striker": 0.0234,
+     "strike_whacker": 0.2294,
+     "any_whacker": 0.2294
+    }
+   },
+   "payoff_vector": [
+    0.9788,
+    0.0013
+   ],
+   "production": 0.98,
+   "whacks_per_encounter": 0.0,
+   "surplus": 0.98,
+   "cum_whack_cost_per_island": 0.743,
+   "cum_worker_loss_per_island": 1.487,
+   "cum_production_lost_per_island": 2081.895,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.792,
+     "median_ext": 1308.0,
+     "max_ext": 7900
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.792,
+     "median_ext": 1308.0,
+     "max_ext": 7900
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 59.0,
+     "max_ext": 5100
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.155,
+     "median_ext": 39.0,
+     "max_ext": 8225
+    },
+    "w:striker": {
+     "alive_frac": 0.018,
+     "median_ext": 379.0,
+     "max_ext": 26100
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 3.0,
+     "max_ext": 1161
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.09,
+     "median_ext": 85.0,
+     "max_ext": 25100
+    },
+    "w:scab": {
+     "alive_frac": 1.0,
+     "median_ext": null,
+     "max_ext": null
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.837,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 0.98,
+    "min_share_mean": 0.0013,
+    "three_role_threshold": 0.0026
+   },
+   "time_avg_shares": [
+    0.9987,
+    0.0013
+   ],
+   "time_avg_payoffs": [
+    0.9788,
+    0.0013
+   ],
+   "wall_s": 33.3
+  },
+  "CC-main-x400": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 400
+   },
+   "runs": 400,
+   "status": {
+    "closed": 400
+   },
+   "stop_gen": {
+    "median": 4900.0,
+    "max": 40700,
+    "min": 138
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.005,
+     "ci": 0.0069
+    },
+    "zero wage": {
+     "mean": 0.815,
+     "ci": 0.0381
+    },
+    "strike": {
+     "mean": 0.0125,
+     "ci": 0.0109
+    },
+    "scab split": {
+     "mean": 0.1675,
+     "ci": 0.0366
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.005,
+     "ci": 0.0069
+    },
+    "zero wage": {
+     "mean": 0.815,
+     "ci": 0.0381
+    },
+    "strike": {
+     "mean": 0.0125,
+     "ci": 0.0109
+    },
+    "scab split": {
+     "mean": 0.1675,
+     "ci": 0.0366
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.005,
+    "zero wage": 0.815,
+    "strike": 0.0125,
+    "scab split": 0.1675,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.9825,
+     "ci": 0.0129
+    },
+    "1/4": {
+     "mean": 0.005,
+     "ci": 0.0069
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0125,
+     "ci": 0.0109
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.1067,
+    "present": {
+     "mean": 0.1333,
+     "ci": 0.0243
+    },
+    "majority": {
+     "mean": 0.1058,
+     "ci": 0.0212
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.5558,
+    "present": {
+     "mean": 0.6066,
+     "ci": 0.0365
+    },
+    "majority": {
+     "mean": 0.555,
+     "ci": 0.0366
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.17,
+    "ci": 0.0369
+   },
+   "scab_convergence": {
+    "mean": 0.815,
+    "ci": 0.0381
+   },
+   "nonwhackers_establish": {
+    "mean": 0.8942,
+    "ci": 0.0212
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.7084,
+     "ci": 0.0109
+    },
+    "lt01_min": {
+     "mean": 0.0506,
+     "ci": 0.0055
+    },
+    "ge03_end": {
+     "mean": 0.6687,
+     "ci": 0.0127
+    },
+    "lt01_end": {
+     "mean": 0.1622,
+     "ci": 0.0098
+    },
+    "mean_min": 0.3083,
+    "mean_end": 0.1976
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4809,
+     "strike_whacker": 0.3391,
+     "any_whacker": 0.6715
+    },
+    "5": {
+     "striker": 0.3247,
+     "strike_whacker": 0.229,
+     "any_whacker": 0.6168
+    },
+    "10": {
+     "striker": 0.2426,
+     "strike_whacker": 0.178,
+     "any_whacker": 0.5882
+    },
+    "25": {
+     "striker": 0.162,
+     "strike_whacker": 0.1438,
+     "any_whacker": 0.5731
+    },
+    "50": {
+     "striker": 0.1425,
+     "strike_whacker": 0.144,
+     "any_whacker": 0.5735
+    },
+    "100": {
+     "striker": 0.138,
+     "strike_whacker": 0.1415,
+     "any_whacker": 0.5702
+    },
+    "200": {
+     "striker": 0.1351,
+     "strike_whacker": 0.1389,
+     "any_whacker": 0.5685
+    },
+    "500": {
+     "striker": 0.1285,
+     "strike_whacker": 0.1311,
+     "any_whacker": 0.5705
+    }
+   },
+   "payoff_vector": [
+    1.805,
+    0.0013,
+    0.0013
+   ],
+   "production": 1.8075,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.8075,
+   "cum_whack_cost_per_island": 1.462,
+   "cum_worker_loss_per_island": 2.925,
+   "cum_production_lost_per_island": 19774.559,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.34,
+     "median_ext": 1208.0,
+     "max_ext": 10900
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.823,
+     "median_ext": 4675.0,
+     "max_ext": 18600
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 34.0,
+     "max_ext": 968
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.065,
+     "median_ext": 39.0,
+     "max_ext": 9400
+    },
+    "w:striker": {
+     "alive_frac": 0.17,
+     "median_ext": 3087.5,
+     "max_ext": 40700
+    },
+    "w:militant": {
+     "alive_frac": 0.0,
+     "median_ext": 5.0,
+     "max_ext": 7425
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 3
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.172,
+     "median_ext": 390.0,
+     "max_ext": 20500
+    },
+    "w:scab": {
+     "alive_frac": 0.988,
+     "median_ext": 16300.0,
+     "max_ext": 17900
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.098,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 0.9875,
+    "min_share_mean": 0.0006,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    0.9987,
+    0.0006,
+    0.0006
+   ],
+   "time_avg_payoffs": [
+    1.805,
+    0.0013,
+    0.0013
+   ],
+   "wall_s": 78.9
+  },
+  "RR-main-x400": {
+   "params": {
+    "enf": "RR",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "quorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 400
+   },
+   "runs": 400,
+   "status": {
+    "closed": 400
+   },
+   "stop_gen": {
+    "median": 1644.0,
+    "max": 51800,
+    "min": 36
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.9075,
+     "ci": 0.0284
+    },
+    "zero wage": {
+     "mean": 0.0925,
+     "ci": 0.0284
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.9075,
+     "ci": 0.0284
+    },
+    "zero wage": {
+     "mean": 0.0925,
+     "ci": 0.0284
+    },
+    "strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "scab split": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.9075,
+    "zero wage": 0.0925,
+    "strike": 0.0,
+    "scab split": 0.0,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.0925,
+     "ci": 0.0284
+    },
+    "1/4": {
+     "mean": 0.9075,
+     "ci": 0.0284
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.0,
+    "present": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.0,
+    "present": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "majority": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.8603,
+    "ci": 0.0281
+   },
+   "scab_convergence": {
+    "mean": 0.0925,
+    "ci": 0.0284
+   },
+   "nonwhackers_establish": {
+    "mean": 1.0,
+    "ci": 0.0
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_min": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "ge03_end": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "lt01_end": {
+     "mean": 1.0,
+     "ci": 0.0
+    },
+    "mean_min": 0.0,
+    "mean_end": 0.0
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4849,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "5": {
+     "striker": 0.4838,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "10": {
+     "striker": 0.4841,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "25": {
+     "striker": 0.486,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "50": {
+     "striker": 0.4854,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "100": {
+     "striker": 0.4833,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "200": {
+     "striker": 0.4839,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    },
+    "500": {
+     "striker": 0.487,
+     "strike_whacker": 0.0,
+     "any_whacker": 0.0
+    }
+   },
+   "payoff_vector": [
+    1.5462,
+    0.2269,
+    0.2269
+   ],
+   "production": 2.0,
+   "whacks_per_encounter": 0.0,
+   "surplus": 2.0,
+   "cum_whack_cost_per_island": 0.0,
+   "cum_worker_loss_per_island": 0.0,
+   "cum_production_lost_per_island": 203.216,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 46.0,
+     "max_ext": 289
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.048,
+     "median_ext": 16.0,
+     "max_ext": 5050
+    },
+    "w:striker": {
+     "alive_frac": 0.905,
+     "median_ext": 9775.0,
+     "max_ext": 51800
+    },
+    "w:militant": {
+     "alive_frac": 0.028,
+     "median_ext": 5.0,
+     "max_ext": 3750
+    },
+    "w:union": {
+     "alive_frac": 0.003,
+     "median_ext": 0.0,
+     "max_ext": 24
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.412,
+     "median_ext": 135.0,
+     "max_ext": 13600
+    },
+    "w:scab": {
+     "alive_frac": 0.995,
+     "median_ext": 6250.0,
+     "max_ext": 7225
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 3.67,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 1.0,
+    "min_share_mean": 0.1134,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    0.7731,
+    0.1134,
+    0.1134
+   ],
+   "time_avg_payoffs": [
+    1.5462,
+    0.2269,
+    0.2269
+   ],
+   "wall_s": 54.3
+  },
+  "noQ-CC-x400": {
+   "params": {
+    "enf": "CC",
+    "pool": 0,
+    "c": 0.5,
+    "arm": "noquorum",
+    "N": 100,
+    "I": 16,
+    "mN": 0.1,
+    "striker": null,
+    "boss": "diverse",
+    "gens": 100000,
+    "runs": 400
+   },
+   "runs": 400,
+   "status": {
+    "closed": 400
+   },
+   "stop_gen": {
+    "median": 4925.0,
+    "max": 63800,
+    "min": 108
+   },
+   "labels": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0025,
+     "ci": 0.0049
+    },
+    "zero wage": {
+     "mean": 0.83,
+     "ci": 0.0369
+    },
+    "strike": {
+     "mean": 0.0125,
+     "ci": 0.0109
+    },
+    "scab split": {
+     "mean": 0.155,
+     "ci": 0.0355
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_closed_runs": {
+    "fair": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "intermediate": {
+     "mean": 0.0025,
+     "ci": 0.0049
+    },
+    "zero wage": {
+     "mean": 0.83,
+     "ci": 0.0369
+    },
+    "strike": {
+     "mean": 0.0125,
+     "ci": 0.0109
+    },
+    "scab split": {
+     "mean": 0.155,
+     "ci": 0.0355
+    },
+    "repression:strike": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "repression:source": {
+     "mean": 0.0,
+     "ci": 0.0
+    }
+   },
+   "labels_censored_runs": null,
+   "label_mass": {
+    "fair": 0.0,
+    "intermediate": 0.0025,
+    "zero wage": 0.83,
+    "strike": 0.0125,
+    "scab split": 0.155,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "island_wage": {
+    "0": {
+     "mean": 0.985,
+     "ci": 0.0119
+    },
+    "1/4": {
+     "mean": 0.0025,
+     "ci": 0.0049
+    },
+    "1/2": {
+     "mean": 0.0,
+     "ci": 0.0
+    },
+    "none (production < 0.05)": {
+     "mean": 0.0125,
+     "ci": 0.0109
+    }
+   },
+   "strike_whacker": {
+    "mean_share": 0.0923,
+    "present": {
+     "mean": 0.1141,
+     "ci": 0.0212
+    },
+    "majority": {
+     "mean": 0.092,
+     "ci": 0.0188
+    }
+   },
+   "any_whacker": {
+    "mean_share": 0.0923,
+    "present": {
+     "mean": 0.1141,
+     "ci": 0.0212
+    },
+    "majority": {
+     "mean": 0.092,
+     "ci": 0.0188
+    }
+   },
+   "realized_repression": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "realized_repression_label": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "fair_boss_present": {
+    "mean": 0.0,
+    "ci": 0.0
+   },
+   "strikers_surviving": {
+    "mean": 0.1575,
+    "ci": 0.0357
+   },
+   "scab_convergence": {
+    "mean": 0.83,
+    "ci": 0.0369
+   },
+   "nonwhackers_establish": {
+    "mean": 0.908,
+    "ci": 0.0188
+   },
+   "early_decline": {
+    "ge03_min": {
+     "mean": 0.703,
+     "ci": 0.0112
+    },
+    "lt01_min": {
+     "mean": 0.0452,
+     "ci": 0.0051
+    },
+    "ge03_end": {
+     "mean": 0.6666,
+     "ci": 0.0119
+    },
+    "lt01_end": {
+     "mean": 0.1567,
+     "ci": 0.0093
+    },
+    "mean_min": 0.3103,
+    "mean_end": 0.203
+   },
+   "ts_mean": {
+    "0": {
+     "striker": 0.4816,
+     "strike_whacker": 0.3391,
+     "any_whacker": 0.3391
+    },
+    "5": {
+     "striker": 0.3234,
+     "strike_whacker": 0.2285,
+     "any_whacker": 0.2285
+    },
+    "10": {
+     "striker": 0.2402,
+     "strike_whacker": 0.1781,
+     "any_whacker": 0.1781
+    },
+    "25": {
+     "striker": 0.1613,
+     "strike_whacker": 0.1391,
+     "any_whacker": 0.1391
+    },
+    "50": {
+     "striker": 0.1418,
+     "strike_whacker": 0.1359,
+     "any_whacker": 0.1359
+    },
+    "100": {
+     "striker": 0.1378,
+     "strike_whacker": 0.1361,
+     "any_whacker": 0.1361
+    },
+    "200": {
+     "striker": 0.1334,
+     "strike_whacker": 0.1322,
+     "any_whacker": 0.1322
+    },
+    "500": {
+     "striker": 0.1272,
+     "strike_whacker": 0.1198,
+     "any_whacker": 0.1198
+    }
+   },
+   "payoff_vector": [
+    1.8188,
+    0.0006,
+    0.0006
+   ],
+   "production": 1.82,
+   "whacks_per_encounter": 0.0,
+   "surplus": 1.82,
+   "cum_whack_cost_per_island": 1.519,
+   "cum_worker_loss_per_island": 3.038,
+   "cum_production_lost_per_island": 18239.204,
+   "lineages": {
+    "b:strike-whacker": {
+     "alive_frac": 0.35,
+     "median_ext": 1080.0,
+     "max_ext": 10200
+    },
+    "b:any-whacker": {
+     "alive_frac": 0.35,
+     "median_ext": 1080.0,
+     "max_ext": 10200
+    },
+    "b:fair boss": {
+     "alive_frac": 0.0,
+     "median_ext": 33.0,
+     "max_ext": 202
+    },
+    "b:conditional boss": {
+     "alive_frac": 0.055,
+     "median_ext": 36.0,
+     "max_ext": 15900
+    },
+    "w:striker": {
+     "alive_frac": 0.158,
+     "median_ext": 3725.0,
+     "max_ext": 47200
+    },
+    "w:militant": {
+     "alive_frac": 0.003,
+     "median_ext": 5.0,
+     "max_ext": 3100
+    },
+    "w:union": {
+     "alive_frac": 0.0,
+     "median_ext": 0.0,
+     "max_ext": 0
+    },
+    "w:conditional worker": {
+     "alive_frac": 0.177,
+     "median_ext": 448.0,
+     "max_ext": 63800
+    },
+    "w:scab": {
+     "alive_frac": 0.985,
+     "median_ext": 29100.0,
+     "max_ext": 39100
+    }
+   },
+   "patchwork_wage": 0.0,
+   "patchwork_label": 0.0,
+   "distinct_play_states_mean": 2.1,
+   "invasion_pairs": {
+    "n": 0,
+    "invadable": 0,
+    "resistant": 0,
+    "neutral": 0
+   },
+   "distribution": {
+    "eligible": 0.9875,
+    "min_share_mean": 0.0003,
+    "three_role_threshold": 0.0
+   },
+   "time_avg_shares": [
+    0.9994,
+    0.0003,
+    0.0003
+   ],
+   "time_avg_payoffs": [
+    1.8192,
+    0.0006,
+    0.0006
+   ],
+   "wall_s": 81.1
+  }
+ },
+ "chain_controls": {
+  "CC c=0.5": "chain (union run, N = 10\u00b2): fair 0.005, intermediate 0.022, zero wage 0.46, strike 0.13, scab split 0.38",
+  "CC c=0.1": "chain (union run, N = 10\u00b2): fair 0.005, intermediate 0.021, zero wage 0.49, strike 0.12, scab split 0.36-0.38",
+  "RR c=0.5": "chain (enforcement run, N = 10\u00b2): fair 0.004, intermediate 0.754, zero wage 0.21",
+  "CC pool c=0.5": "chain (enforcement run, N = 10\u00b3): fair 3e-5, intermediate 0.002, zero wage 0.986"
+ }
+}

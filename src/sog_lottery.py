@@ -491,6 +491,82 @@ def kern(Jc, tagc, PAY, T, KEYT, LB, LW, init, N, w, m, seed, checks, tsmax, hal
     return status, stop_gen, counts, stats[:ci], ts, cum, integ, ext, nmig, ci
 
 
+# ------------------------------------------------------------------ the single-worker variant (secondary cell)
+def single_data(c=0.5):
+    """Boss + one worker.  Boss grammar: the union boss grammar with only the W1 atoms (BOX(W1 = work/strike));
+    worker grammar: the union worker grammar without OTHER and QUORUM atoms (it reads only the boss), each with its
+    own length prior at the union cutoffs (boss n = 6, worker n = 10).  Implemented on the three-slot kernel with a
+    phantom W2 slot frozen at the scab on every island: no boss or worker atom reads W2, so the boss-W1 play does not
+    depend on it, and the payoff table counts only W1 (u_B = (1 - s)[W1 works] - c [W1 whacked]; u_W2 = 0)."""
+    f = os.path.join(OUT, 'classes_single.npz')
+    LB = U.RoleLang(6, [(0, k) for k in (0, 1)], U.NB)
+    fb, mb, cb, sb = LB.canon()
+    LW = U.RoleLang(10, [(0, k) for k in range(12)], U.NW)
+    fw, mw, cw, sw = LW.canon()
+    P = U.Programs(fb, fw)
+    ph = P.index_w[((), (0,))]
+    if os.path.exists(f):
+        z = np.load(f); J1 = z['J1']
+    else:
+        Bs = np.arange(P.KB, dtype=np.int64); Ws = np.arange(P.KW, dtype=np.int64)
+        J1 = np.empty((P.KB, P.KW), np.int8)
+        flag = np.ones((2, U.TT.shape[0]), np.bool_)
+        for b in range(P.KB):
+            for x in range(P.KW):
+                J1[b, x] = U.encounter(*P.arrays(), U.TT, b, x, ph, flag)
+        np.savez(f, J1=J1)
+    assert (J1 >= 0).all()
+    # lumping
+    kw = {}; cwi = np.empty(P.KW, np.int64)
+    for x in range(P.KW):
+        cwi[x] = kw.setdefault(J1[:, x].tobytes(), len(kw))
+    kb = {}; cbi = np.empty(P.KB, np.int64)
+    for b in range(P.KB):
+        cbi[b] = kb.setdefault(J1[b].tobytes(), len(kb))
+    mw_ = mw / mw.sum(); mb_ = mb / mb.sum()
+    KcW, KcB = len(kw), len(kb)
+    massW = np.bincount(cwi, weights=mw_, minlength=KcW); massB = np.bincount(cbi, weights=mb_, minlength=KcB)
+    repW = np.full(KcW, -1, np.int64); repB = np.full(KcB, -1, np.int64)
+    for x in np.argsort(-mw_, kind='stable'):
+        if repW[cwi[x]] < 0: repW[cwi[x]] = x
+    for b in np.argsort(-mb_, kind='stable'):
+        if repB[cbi[b]] < 0: repB[cbi[b]] = b
+    J1c = J1[repB][:, repW]
+    Jc = np.ascontiguousarray(np.repeat(J1c[:, :, None], KcW, axis=2))
+    C = dict(Jc=Jc, tagc=np.zeros(KcW, np.int64), KcB=KcB, KcW=KcW, massB=massB, massW=massW, repB=repB, repW=repW, key='single')
+    C['srcW'] = [P.src_w(int(repW[x])) for x in range(KcW)]
+    C['srcB'] = [P.src_b(int(repB[b])) for b in range(KcB)]
+    C['constW'] = np.array([len(fw[int(repW[x])][0]) == 0 for x in range(KcW)])
+    C['constB'] = np.array([len(fb[int(repB[b])][0]) == 0 for b in range(KcB)])
+    C['nmw'] = {'scab': int(cwi[ph]), 'always strike': int(cwi[P.index_w[((), (1,))]]),
+                'militant': int(cwi[P.index_w[(((0, 2),), (0, 1))]]), 'union': None}
+    C['nmb'] = {U.bname(b): int(cbi[P.index_b[((), (b,))]]) for b in range(U.NB)}
+    C['phantom'] = int(cwi[ph])
+    traits(C)
+    # payoff and statistic tables counting W1 only
+    PAY = np.zeros((36, 2, 2, 3)); T = np.zeros((36, 2, 2, 27))
+    for j in range(36):
+        b, a1 = j // 4, (j // 2) % 2
+        si, h = b // 3, b % 3
+        s = WAGES_[si]
+        wk = int(h == 0 and a1 == 1)
+        uB = (1 - s) * (1 - a1) - c * wk
+        u1 = s * (1 - a1) - 1.0 * wk
+        for t1 in range(2):
+            for t2 in range(2):
+                PAY[j, t1, t2] = (uB, u1, 0.0)
+                r = T[j, t1, t2]
+                r[U.summary(4 * b + 2 * a1, 0, 0)] = 1
+                r[7 + 3 * si + a1] = 1
+                r[16 + h] = 1
+                r[19:22] = PAY[j, t1, t2]
+                r[22] = 1 - a1; r[23] = wk; r[24] = a1; r[25] = uB + u1; r[26] = 0
+    return C, PAY, T
+
+
+WAGES_ = U.WAGES
+
+
 # ------------------------------------------------------------------ seeds and cells
 def checks_schedule(gens):
     c = list(range(1, min(gens, 2000) + 1)) + list(range(2025, min(gens, 10000) + 1, 25)) + \
@@ -500,7 +576,7 @@ def checks_schedule(gens):
     return np.array(c, np.int64)
 
 
-def seed_dists(C, striker=None, boss='diverse'):
+def seed_dists(C, striker=None, boss='diverse', swap=None):
     """Seed distributions (pB, pW) over classes.  striker: constant-striker mass with the conditional-worker mass
     held at the prior's and the scab taking the rest (None = the prior).  boss: 'diverse' (the prior), 'hostile'
     (the committed strike-targeting boss at s = 0 only), 'mostly' (0.9 of it and 0.1 of the non-whacking boss at
@@ -513,6 +589,17 @@ def seed_dists(C, striker=None, boss='diverse'):
         assert not others_const
         pW[nm['always strike']] = striker
         pW[nm['scab']] = 1.0 - striker - cond
+    if swap is not None:
+        # extra (not preregistered): move the constant striker's prior mass onto a wage-conditional striker
+        if swap == 'militant':
+            k = nm['militant']
+        else:                      # 'refuser': strike iff provably s = 0, the heaviest such class
+            Jc = C['Jc']; sc = nm['scab']
+            def resp(x):
+                return tuple((int(Jc[C['nmb']['(%s,none)' % s_], x, sc]) // 2) % 2 for s_ in ('0', '1/4', '1/2'))
+            cands = [x for x in range(C['KcW']) if resp(x) == (1, 0, 0)]
+            k = max(cands, key=lambda x: C['massW'][x])
+        pW[k] += pW[nm['always strike']]; pW[nm['always strike']] = 0.0
     pB = C['massB'].copy()
     if boss == 'hostile':
         pB[:] = 0; pB[C['nmb']['(0,strike)']] = 1.0
@@ -560,6 +647,19 @@ CELLS = {
     'RR-c0.1': _cell(enf='RR', c=0.1),
     'RR-N400': _cell(enf='RR', N=400),
     'noQ-RR': _cell(enf='RR', arm='noquorum'),
+    # extras added after the first results (not preregistered; no verdict rests on them): the rare non-zero-wage
+    # outcomes of the main cells at 400 runs, and the single-worker cell is separate (sog_single)
+    'xref-CC': _cell(swap='refuser'),
+    'xmil-CC': _cell(swap='militant'),
+    'xref-mostly': _cell(swap='refuser', boss='mostly'),
+    'xmil-mostly': _cell(swap='militant', boss='mostly'),
+    'xref-hostile': _cell(swap='refuser', boss='hostile'),
+    'CC-I64-cont': _cell(I=64, gens=300000),
+    'single-CC': _cell(single=True),
+    'single-CC-x400': _cell(single=True, runs=400),
+    'CC-main-x400': _cell(runs=400),
+    'RR-main-x400': _cell(enf='RR', runs=400),
+    'noQ-CC-x400': _cell(arm='noquorum', runs=400),
 }
 SALT = 20261006
 
@@ -791,7 +891,7 @@ def run_seed(name, r):
     """Seed per (cell, run); the continuation reuses the main cell's seeds (its first 10^5 generations are the main
     cell's runs, since checks consume no random numbers)."""
     import zlib
-    base_name = 'CC-main' if name == 'CC-cont' else name
+    base_name = {'CC-cont': 'CC-main', 'CC-I64-cont': 'CC-I64'}.get(name, name)
     return (SALT + 1009 * (zlib.crc32(base_name.encode()) % 1000003) + r) % (2 ** 31)
 
 
@@ -815,20 +915,27 @@ def _comp_payoff(C, PAY, comp, s, k):
 def run_job(args):
     name, r = args
     p = CELLS[name]
-    C = _cdata(p)
-    PAY, T = code_tables(p['c'], p['pool'])
+    if p.get('single'):
+        C, PAY, T = single_data(p['c'])
+    else:
+        C = _cdata(p)
+        PAY, T = code_tables(p['c'], p['pool'])
     LB, LW = lineage_masks(C)
-    pB, pW = seed_dists(C, p['striker'], p['boss'])
+    pB, pW = seed_dists(C, p['striker'], p['boss'], p.get('swap'))
     seed = run_seed(name, r)
     rng = np.random.default_rng(seed)
     I, N, gens = p['I'], p['N'], p['gens']
     init = init_counts(rng, I, N, pB, pW)
+    if p.get('single'):
+        init[:, 2, :] = 0; init[:, 2, C['phantom']] = N
     chk = checks_schedule(gens)
     t0 = time.time()
     status, stop, counts, stats, ts, cum, integ, ext, nmig, ci = kern(
         np.ascontiguousarray(C['Jc']), C['tagc'].astype(np.int64), PAY, T, KEYT, LB, LW, init, N, W, p['mN'] / N,
         seed % (2 ** 31), chk, 500, gens // 2)
     wall = time.time() - t0
+    if stop < ts.shape[0] - 1:
+        ts[stop + 1:] = ts[stop]          # closed: the composition is recorded as frozen at the stop
     fin = stats[-1]
     H = gens; half = gens // 2
     rem = H - stop
@@ -874,7 +981,7 @@ def run_job(args):
 def run_cell(name, procs=3):
     from multiprocessing import Pool
     p = CELLS[name]
-    _cdata(p)                        # build the class cache before forking
+    single_data(p["c"]) if p.get("single") else _cdata(p)       # build the class cache before forking
     t = time.time()
     jobs = [(name, r) for r in range(p['runs'])]
     with Pool(procs) as pool_:
@@ -886,6 +993,207 @@ def run_cell(name, procs=3):
     st = Counter(r_['status'] for r_ in recs)
     labs = Counter(U.SUMM[l] for r_ in recs for l in r_['label'])
     print(name, 'status', dict(st), 'labels', dict(labs), 'wall %.0fs' % (time.time() - t), flush=True)
+
+
+# ------------------------------------------------------------------ report
+IDX = {n_: z for z, n_ in enumerate(ST_NAMES)}
+
+
+def _ci(v):
+    v = np.asarray(v, float)
+    m = float(v.mean())
+    se = float(v.std(ddof=1) / np.sqrt(len(v))) if len(v) > 1 else 0.0
+    return m, 1.96 * se
+
+
+def cell_summary(d):
+    p = d['params']; runs = d['runs']
+    R = len(runs); I = p['I']
+    out = dict(params=p, runs=R)
+    fin = np.array([r['final'] for r in runs])                  # (R, I, NST)
+    lab = np.array([r['label'] for r in runs])                  # (R, I)
+    out['status'] = dict(Counter(STATUS.get(r['status'], str(r['status'])) for r in runs))
+    out['stop_gen'] = dict(median=float(np.median([r['stop_gen'] for r in runs])), max=int(max(r['stop_gen'] for r in runs)),
+                           min=int(min(r['stop_gen'] for r in runs)))
+    closed = np.array([r['status'] in (1, 5) for r in runs])
+    def frac(mask_ri, sub=None):
+        f = mask_ri.mean(1)
+        if sub is not None:
+            f = f[sub]
+        if len(f) == 0:
+            return None
+        m, h = _ci(f)
+        return dict(mean=round(m, 4), ci=round(h, 4))
+    out['labels'] = {U.SUMM[k]: frac(lab == k) for k in range(7)}
+    out['labels_closed_runs'] = {U.SUMM[k]: frac(lab == k, closed) for k in range(7)} if closed.any() else None
+    out['labels_censored_runs'] = {U.SUMM[k]: frac(lab == k, ~closed) for k in range(7)} if (~closed).any() else None
+    out['label_mass'] = {U.SUMM[k]: round(float(fin[:, :, k].mean()), 4) for k in range(7)}
+    prod = fin[:, :, IDX['production']]
+    wages = np.array([r['wage'] for r in runs])
+    haswage = prod >= 0.05
+    out['island_wage'] = {U.WNAME[w]: frac((wages == w) & haswage) for w in range(3)}
+    out['island_wage']['none (production < 0.05)'] = frac(~haswage)
+    sw = fin[:, :, IDX['b:strike-whacker']]; aw = fin[:, :, IDX['b:any-whacker']]
+    fb = fin[:, :, IDX['b:fair boss']]; st = fin[:, :, IDX['w:striker']]
+    wh = fin[:, :, IDX['whacks']]
+    out['strike_whacker'] = dict(mean_share=round(float(sw.mean()), 4), present=frac(sw > 0), majority=frac(sw >= 0.5))
+    out['any_whacker'] = dict(mean_share=round(float(aw.mean()), 4), present=frac(aw > 0), majority=frac(aw >= 0.5))
+    out['realized_repression'] = frac(wh > 1e-3)
+    out['realized_repression_label'] = frac((lab == 5) | (lab == 6))
+    out['fair_boss_present'] = frac(fb > 0)
+    out['strikers_surviving'] = frac(st > 0)
+    out['scab_convergence'] = frac((lab == 2) & (st == 0))
+    out['nonwhackers_establish'] = frac(sw < 0.5)
+    dmin = np.array([r['sw_decline100_min'] for r in runs]); dend = np.array([r['sw_decline100_end'] for r in runs])
+    out['early_decline'] = dict(ge03_min=frac(dmin >= 0.3), lt01_min=frac(dmin < 0.1), ge03_end=frac(dend >= 0.3),
+                                lt01_end=frac(dend < 0.1), mean_min=round(float(dmin.mean()), 4), mean_end=round(float(dend.mean()), 4))
+    ts = {g: np.array([r['ts'][g] for r in runs if g in r['ts']]) for g in runs[0]['ts']}
+    out['ts_mean'] = {g: dict(striker=round(float(v[:, :, 0].mean()), 4), strike_whacker=round(float(v[:, :, 1].mean()), 4),
+                              any_whacker=round(float(v[:, :, 2].mean()), 4)) for g, v in ts.items()}
+    pay = fin[:, :, 19:21] if p.get("single") else fin[:, :, 19:22]
+    out['payoff_vector'] = [round(float(x), 4) for x in pay.mean((0, 1))]
+    out['production'] = round(float(prod.mean()), 4)
+    out['whacks_per_encounter'] = round(float(wh.mean()), 5)
+    out['surplus'] = round(float(fin[:, :, IDX['surplus']].mean()), 4)
+    cw = np.array([r['cum_whacks'] for r in runs]); cs = np.array([r['cum_strikers'] for r in runs])
+    out['cum_whack_cost_per_island'] = round(float(p['c'] * cw.mean()), 3)
+    out['cum_worker_loss_per_island'] = round(float(cw.mean()), 3)
+    out['cum_production_lost_per_island'] = round(float(cs.mean()), 3)
+    # lineages
+    lin = {}
+    for k in runs[0]['ext']:
+        e = np.array([r['ext'][k] for r in runs])
+        alive = e < 0
+        lin[k] = dict(alive_frac=round(float(alive.mean()), 3),
+                      median_ext=(float(np.median(e[~alive])) if (~alive).any() else None),
+                      max_ext=(int(e[~alive].max()) if (~alive).any() else None))
+    out['lineages'] = lin
+    # patchworks
+    pw = []; pwl = []
+    for r_, rr in enumerate(runs):
+        ws = set(int(wages[r_, i]) for i in range(I) if haswage[r_, i])
+        pw.append(len(ws) >= 2)
+        ls = set(int(lab[r_, i]) for i in range(I) if lab[r_, i] in (0, 1, 2))
+        pwl.append(len(ls) >= 2)
+    out['patchwork_wage'] = round(float(np.mean(pw)), 4)
+    out['patchwork_label'] = round(float(np.mean(pwl)), 4)
+    out['distinct_play_states_mean'] = round(float(np.mean([len(set(map(tuple, r['majority']))) for r in runs])), 3)
+    inv_n = 0; inv_pos = 0; inv_res = 0; inv_neu = 0
+    for rr in runs:
+        for e in rr['invasion']:
+            inv_n += 1
+            mx = max(e['d'])
+            if mx > 1e-9: inv_pos += 1
+            elif mx < -1e-9: inv_res += 1
+            else: inv_neu += 1
+    out['invasion_pairs'] = dict(n=inv_n, invadable=inv_pos, resistant=inv_res, neutral=inv_neu)
+    # distribution
+    tot = pay.sum(2)
+    elig = tot > 1e-9
+    with np.errstate(invalid='ignore', divide='ignore'):
+        mins = np.where(elig, pay.min(2) / np.where(elig, tot, 1), np.nan)
+    out['distribution'] = dict(eligible=round(float(elig.mean()), 4),
+                               min_share_mean=(round(float(np.nanmean(mins)), 4) if elig.any() else None),
+                               three_role_threshold=(round(float((mins[elig] >= 1 / 6 - 1e-12).mean()), 4) if elig.any() else None))
+    tav = np.array([r['tavg'] for r in runs])[:, :, 19:(21 if p.get('single') else 22)]
+    ttot = tav.sum(2, keepdims=True)
+    with np.errstate(invalid='ignore', divide='ignore'):
+        sh = np.where(ttot > 1e-9, tav / ttot, np.nan)
+    out['time_avg_shares'] = [round(float(np.nanmean(sh[:, :, s])), 4) for s in range(tav.shape[2])]
+    out['time_avg_payoffs'] = [round(float(tav[:, :, s].mean()), 4) for s in range(tav.shape[2])]
+    out['wall_s'] = round(float(d.get('wall', 0)), 1)
+    return out
+
+
+STATUS = {1: 'closed', 5: 'local-closed (mN = 0)', 4: 'censored'}
+
+CHAIN = {  # control (i): the union / enforcement runs' eps->0 chain (pi), nearest cell
+    'CC c=0.5': 'chain (union run, N = 10²): fair 0.005, intermediate 0.022, zero wage 0.46, strike 0.13, scab split 0.38',
+    'CC c=0.1': 'chain (union run, N = 10²): fair 0.005, intermediate 0.021, zero wage 0.49, strike 0.12, scab split 0.36-0.38',
+    'RR c=0.5': 'chain (enforcement run, N = 10²): fair 0.004, intermediate 0.754, zero wage 0.21',
+    'CC pool c=0.5': 'chain (enforcement run, N = 10³): fair 3e-5, intermediate 0.002, zero wage 0.986',
+}
+
+
+def report():
+    cells = [c for c in CELLS if os.path.exists(os.path.join(OUT, '%s.json' % c))]
+    S_ = {}
+    for c in cells:
+        S_[c] = cell_summary(json.load(open(os.path.join(OUT, '%s.json' % c))))
+    json.dump(dict(cells=S_, chain_controls=CHAIN), open(os.path.join(RUNS, 'social-organization-lottery.json'), 'w'), indent=1)
+    L = ['# The social organization game under the seed lottery: runs\n',
+         'Spec `specs/2026-10-06-social-organization-lottery.md`; predictions `predictions/2026-10-06-social-organization-lottery.md`; '
+         'code `src/sog_lottery.py`; static tables `runs/sog-lottery-static.md`; per-run records `runs/sog_lottery/<cell>.json`; '
+         'summaries `runs/social-organization-lottery.json`. eps = 0, w = 0.3, 40 runs per cell; intervals are run-level 95% '
+         '(mean ± 1.96 SE). Island fractions read at the closure stop or at the horizon (censored).\n']
+    def f(x):
+        if x is None: return '—'
+        if isinstance(x, dict): return '%.3f ± %.3f' % (x['mean'], x['ci'])
+        return '%.3f' % x
+    def vec(v):
+        return '(' + ', '.join('%.3f' % x for x in v) + ')'
+
+    def pcell(c):
+        p = S_[c]['params']
+        return '%s c=%g%s N=%d I=%d mN=%g p_s=%s boss=%s %s gens=%d' % (p['enf'], p['c'], ' pool' if p['pool'] else '', p['N'], p['I'], p['mN'],
+                                                                      'prior' if p['striker'] is None else p['striker'], p['boss'], p['arm'], p['gens'])
+    L.append('## Cells\n')
+    L.append('| cell | parameters | status | stop gen (median / max) | wall s |')
+    L.append('|---|---|---|---|---|')
+    for c in cells:
+        s = S_[c]
+        L.append('| %s | %s | %s | %.0f / %d | %.0f |' % (c, pcell(c), ', '.join('%s %d' % kv for kv in s['status'].items()),
+                                                         s['stop_gen']['median'], s['stop_gen']['max'], s['wall_s']))
+    L.append('\n## Island labels at stop/horizon (fraction of islands)\n')
+    L.append('| cell | fair | intermediate | zero wage | strike | scab split | repression:strike | repression:source |')
+    L.append('|---|---|---|---|---|---|---|---|')
+    for c in cells:
+        L.append('| %s | ' % c + ' | '.join(f(S_[c]['labels'][k]) for k in U.SUMM) + ' |')
+    L.append('\n## Raw payoff vectors, production, enforcement (island means at stop/horizon), and distribution\n')
+    L.append('| cell | payoffs (boss, W1, W2) | production | whacks / encounter | surplus | cum. whack cost / island | cum. worker loss / island | cum. production lost to strikes / island | eligible | min share | three-role threshold | time-avg shares (B, W1, W2) |')
+    L.append('|---|---|---|---|---|---|---|---|---|---|---|---|')
+    for c in cells:
+        s = S_[c]; dd = s['distribution']
+        L.append('| %s | %s | %.3f | %.4f | %.3f | %.2f | %.2f | %.1f | %.3f | %s | %s | %s |' % (
+            c, vec(s['payoff_vector']), s['production'], s['whacks_per_encounter'], s['surplus'], s['cum_whack_cost_per_island'],
+            s['cum_worker_loss_per_island'], s['cum_production_lost_per_island'], dd['eligible'],
+            f(dd['min_share_mean']), f(dd['three_role_threshold']), vec(s['time_avg_shares'])))
+    L.append('\n## Whackers, strikers, establishment\n')
+    L.append('| cell | strike-whacker share | s-w present | s-w majority | any-whacker present | realized repression (whacks > 1e-3) | strikers surviving | scab convergence | non-whackers establish (s-w < 0.5) | early decline ≥ 0.3 (min / end) | early decline < 0.1 (min / end) |')
+    L.append('|---|---|---|---|---|---|---|---|---|---|---|')
+    for c in cells:
+        s = S_[c]; e = s['early_decline']
+        L.append('| %s | %.3f | %s | %s | %s | %s | %s | %s | %s | %s / %s | %s / %s |' % (
+            c, s['strike_whacker']['mean_share'], f(s['strike_whacker']['present']), f(s['strike_whacker']['majority']),
+            f(s['any_whacker']['present']), f(s['realized_repression']), f(s['strikers_surviving']), f(s['scab_convergence']),
+            f(s['nonwhackers_establish']), f(e['ge03_min']), f(e['ge03_end']), f(e['lt01_min']), f(e['lt01_end'])))
+    L.append('\n## Time series (first 500 generations; island means of the striker, strike-whacker and any-whacker shares)\n')
+    gl = list(S_[cells[0]]['ts_mean'].keys())
+    L.append('| cell | ' + ' | '.join('g=%s' % g for g in gl) + ' |')
+    L.append('|---|' + '---|' * len(gl))
+    for c in cells:
+        L.append('| %s | ' % c + ' | '.join('%.2f / %.2f / %.2f' % (v['striker'], v['strike_whacker'], v['any_whacker'])
+                                            for v in S_[c]['ts_mean'].values()) + ' |')
+    L.append('\n## Lineage extinction (global; fraction of runs alive at stop/horizon, median extinction generation)\n')
+    ln = list(S_[cells[0]]['lineages'].keys())
+    L.append('| cell | ' + ' | '.join(ln) + ' |')
+    L.append('|---|' + '---|' * len(ln))
+    for c in cells:
+        L.append('| %s | ' % c + ' | '.join('%.2f / %s' % (v['alive_frac'], ('%.0f' % v['median_ext']) if v['median_ext'] is not None else '—')
+                                            for v in S_[c]['lineages'].values()) + ' |')
+    L.append('\n## Patchworks and reciprocal invasion between terminal island states\n')
+    L.append('| cell | runs with ≥ 2 island wages | runs with ≥ 2 wage labels | distinct majority triples / run | invasion pairs (n / invadable / resistant / neutral) | island wage 0 / 1/4 / 1/2 / none |')
+    L.append('|---|---|---|---|---|---|')
+    for c in cells:
+        s = S_[c]; iv = s['invasion_pairs']; iw = s['island_wage']
+        L.append('| %s | %.3f | %.3f | %.2f | %d / %d / %d / %d | %s / %s / %s / %s |' % (
+            c, s['patchwork_wage'], s['patchwork_label'], s['distinct_play_states_mean'], iv['n'], iv['invadable'], iv['resistant'], iv['neutral'],
+            f(iw['0']), f(iw['1/4']), f(iw['1/2']), f(iw['none (production < 0.05)'])))
+    L.append('\n## Chain controls (ε→0 π of the union and enforcement runs)\n')
+    for k, v in CHAIN.items():
+        L.append('- %s: %s' % (k, v))
+    open(os.path.join(RUNS, 'social-organization-lottery.md'), 'w').write('\n'.join(L) + '\n')
+    return S_
 
 
 # ------------------------------------------------------------------ CLI
