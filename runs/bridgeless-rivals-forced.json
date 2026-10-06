@@ -1,0 +1,132 @@
+{
+ "bridgeless": [
+  "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+  "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))",
+  "not(BOXD1(THEM(^not(BOX1(THEM(THEM))))))"
+ ],
+ "bridged": [
+  "BOX1(THEM(^not(BOX(THEM(ME)))))",
+  "and(BOX(THEM(ME)),BOXD1(THEM(^D)))",
+  "BOX1(THEM(^not(BOX(THEM(^C)))))"
+ ],
+ "six": [
+  "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+  "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))",
+  "not(BOXD1(THEM(^not(BOX1(THEM(THEM))))))",
+  "BOX1(THEM(^not(BOX(THEM(ME)))))",
+  "and(BOX(THEM(ME)),BOXD1(THEM(^D)))",
+  "BOX1(THEM(^not(BOX(THEM(^C)))))"
+ ],
+ "info": {
+  "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))": {
+   "mu": 3.1618976775221553e-06,
+   "a_ref": "BOX1(THEM(ME))",
+   "tag3_mass": 8.148685729624461e-06,
+   "n_tag3": 1,
+   "removed_mass": 8.148685729624461e-06,
+   "n_removed": 1,
+   "static_bridge_mass": 0.0,
+   "heaviest": null,
+   "hb_mu": 0.0,
+   "mediator_mass": 0.0,
+   "tag1_mass": 0.02455157578715219,
+   "tag2_mass": 0.003206913746754125,
+   "tag3_top": [
+    "not(and(BOX(THEM(ME)),BOXD(THEM(ME))))"
+   ]
+  },
+  "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))": {
+   "mu": 1.8090601355835965e-06,
+   "a_ref": "BOX1(THEM(ME))",
+   "tag3_mass": 8.148685729624461e-06,
+   "n_tag3": 1,
+   "removed_mass": 8.148685729624461e-06,
+   "n_removed": 1,
+   "static_bridge_mass": 0.0,
+   "heaviest": null,
+   "hb_mu": 0.0,
+   "mediator_mass": 0.0,
+   "tag1_mass": 0.02455157578715219,
+   "tag2_mass": 0.003231359803943,
+   "tag3_top": [
+    "not(and(BOX(THEM(ME)),BOXD(THEM(ME))))"
+   ]
+  },
+  "not(BOXD1(THEM(^not(BOX1(THEM(THEM))))))": {
+   "mu": 6.764187709692794e-07,
+   "a_ref": "BOX(THEM(ME))",
+   "tag3_mass": 6.968839081745984e-05,
+   "n_tag3": 67,
+   "removed_mass": 6.968839081745984e-05,
+   "n_removed": 67,
+   "static_bridge_mass": 6.831972303652476e-05,
+   "heaviest": "or(BOX(THEM(ME)),not(BOX(THEM(THEM))))",
+   "hb_mu": 3.6181202711671946e-06,
+   "mediator_mass": 0.0070529605430236725,
+   "tag1_mass": 0.02417245263194078,
+   "tag2_mass": 0.006489436578515309,
+   "tag3_top": [
+    "or(BOX(THEM(ME)),not(BOXD(THEM(THEM))))",
+    "or(BOXD(THEM(THEM)),not(BOXD(THEM(ME))))",
+    "or(BOXD(THEM(ME)),not(BOXD(THEM(THEM))))"
+   ]
+  },
+  "BOX1(THEM(^not(BOX(THEM(ME)))))": {
+   "mu": 5.3599968791760775e-06,
+   "a_ref": "BOX1(THEM(ME))",
+   "tag3_mass": 0.005303743735645072,
+   "n_tag3": 73,
+   "removed_mass": 0.005303743735645072,
+   "n_removed": 73,
+   "static_bridge_mass": 0.0052951388273218035,
+   "heaviest": "BOX1(THEM(THEM))",
+   "hb_mu": 0.005099760128023816,
+   "mediator_mass": 0.0,
+   "tag1_mass": 0.019255980737236736,
+   "tag2_mass": 0.0003103082525799002,
+   "tag3_top": [
+    "BOX1(THEM(THEM))",
+    "or(BOX1(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "or(BOX1(THEM(THEM)),BOXD1(THEM(ME)))"
+   ]
+  },
+  "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": {
+   "mu": 1.5809488387610776e-06,
+   "a_ref": "BOX1(THEM(ME))",
+   "tag3_mass": 0.01032936731284458,
+   "n_tag3": 21,
+   "removed_mass": 0.005197890449939786,
+   "n_removed": 20,
+   "static_bridge_mass": 0.005197890449939789,
+   "heaviest": "BOX(THEM(THEM))",
+   "hb_mu": 0.005099760128023816,
+   "mediator_mass": 0.0,
+   "tag1_mass": 0.01423035716003723,
+   "tag2_mass": 3.1618976775221553e-06,
+   "tag3_top": [
+    "BOX(THEM(ME))",
+    "BOX(THEM(THEM))",
+    "and(BOX(THEM(ME)),BOX(THEM(THEM)))"
+   ]
+  },
+  "BOX1(THEM(^not(BOX(THEM(^C)))))": {
+   "mu": 7.904744193805388e-07,
+   "a_ref": "BOX1(THEM(ME))",
+   "tag3_mass": 0.005303743735645072,
+   "n_tag3": 73,
+   "removed_mass": 0.005303743735645072,
+   "n_removed": 73,
+   "static_bridge_mass": 0.0052951388273218035,
+   "heaviest": "BOX1(THEM(THEM))",
+   "hb_mu": 0.005099760128023816,
+   "mediator_mass": 0.0,
+   "tag1_mass": 0.019255980737236736,
+   "tag2_mass": 0.00032080013504142985,
+   "tag3_top": [
+    "BOX1(THEM(THEM))",
+    "or(BOX1(THEM(THEM)),BOXD1(THEM(THEM)))",
+    "or(BOX1(THEM(THEM)),BOXD1(THEM(ME)))"
+   ]
+  }
+ }
+}
