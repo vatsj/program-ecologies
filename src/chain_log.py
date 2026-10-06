@@ -385,6 +385,63 @@ class LogChain(Chain):
                     LA[i, j] = lae(LA[i, j], lw)
         return LA, out_un
 
+    def log_edges(self, keys):
+        pos = {k: i for i, k in enumerate(keys)}
+        src, dst, lw = [], [], []
+        out_un = defaultdict(list)
+        for k in keys:
+            i = pos[k]
+            for k2, w in self.ledge.get(k, {}).items():
+                j = pos.get(k2)
+                if j is None:
+                    out_un[k2].append((i, w))
+                elif j != i:
+                    src.append(i); dst.append(j); lw.append(w)
+        return np.array(src, np.int64), np.array(dst, np.int64), np.array(lw), out_un
+
+    def solve_sparse(self, keys=None, dense_max=3000):
+        """log pi over `keys` (default: every expanded state) from sparse edges: closed classes first (scipy
+        csgraph); one closed class -> dense log GTH on it (or sparse log-domain elimination beyond dense_max);
+        transient and unreachable states get -inf.  Returns (keys, lpi, info, out_un, rec) with rec the indices of
+        the closed class(es)."""
+        keys = list(self.trans) if keys is None else keys
+        n = len(keys)
+        src, dst, lw, out_un = self.log_edges(keys)
+        G = sp.csr_matrix((np.ones(len(src), np.int8), (src, dst)), shape=(n, n))
+        nc, lab = csg.connected_components(G, directed=True, connection='strong')
+        leaving = np.zeros(nc, bool)
+        cross = lab[src] != lab[dst]
+        leaving[lab[src[cross]]] = True
+        closed = [k for k in range(nc) if not leaving[k]]
+        info = dict(n_components=int(nc), n_closed=len(closed), closed_sizes=sorted([int((lab == k).sum()) for k in closed], reverse=True)[:5])
+        lpi = np.full(n, NEG)
+        if len(closed) != 1:
+            # fall back to the dense routine (absorption from the monomorphic seeds), small chains only
+            if n > dense_max:
+                info['error'] = 'several closed classes in a large chain'
+                return keys, lpi, info, out_un, np.zeros(0, int)
+            LA, _ = self.log_matrix(keys)
+            seedw = np.array([math.log(self.seed_weight[k]) if self.seed_weight.get(k, 0) > 0 else NEG for k in keys])
+            lpi, inf2 = stationary_log(LA, seedw)
+            info.update(inf2)
+            return keys, lpi, info, out_un, np.nonzero(np.isin(lab, closed))[0]
+        rec = np.nonzero(lab == closed[0])[0]
+        loc = -np.ones(n, np.int64); loc[rec] = np.arange(len(rec))
+        m = (loc[src] >= 0) & (loc[dst] >= 0)
+        if len(rec) <= dense_max:
+            LA = np.full((len(rec), len(rec)), NEG)
+            for a_, b_, w_ in zip(loc[src[m]], loc[dst[m]], lw[m]):
+                LA[a_, b_] = lae(LA[a_, b_], w_)
+            order, _ = order_by_exit(LA)
+            lx = gth_log(LA[np.ix_(order, order)])
+            out = np.empty(len(rec)); out[order] = lx
+        else:
+            from dollar3_solve import log_stationary
+            out = log_stationary(len(rec), loc[src[m]], loc[dst[m]], lw[m], core=dense_max)
+            info['solver'] = 'dollar3_solve.log_stationary (sparse log elimination + dense log GTH core)'
+        lpi[rec] = out
+        return keys, lpi, info, out_un, rec
+
     def solve(self, keys=None, seed_logw=None):
         keys = list(self.trans) if keys is None else keys
         LA, out_un = self.log_matrix(keys)
@@ -393,28 +450,33 @@ class LogChain(Chain):
 
     # -- exploration
     def explore_log(self, extra_states=(), log_theta=math.log(1e-30), max_states=20000, max_rounds=200, mono=True,
-                    one_layer=True, verbose=False):
+                    one_layer=True, verbose=False, layer_mask=None):
+        """layer_mask: per extra state, whether its targets are expanded too (default all, if one_layer)."""
         if mono:
             for rep, members, wt in self.P.mutant_classes(()):
                 k = self.mono(rep)
                 self.seed_weight[k] = self.seed_weight.get(k, 0.0) + wt
                 self.expand(k)
         seeded = []
-        for ids, x in extra_states:
+        import time as _t
+        t0 = _t.time()
+        for n_, (ids, x) in enumerate(extra_states):
             k = self.add_state(ids, x)
             self.expand(k)
             seeded.append(k)
+            if verbose and n_ % 2000 == 1999:
+                print('    seeded %d / %d (%.0fs)' % (n_ + 1, len(extra_states), _t.time() - t0), flush=True)
         if one_layer:
-            for k in seeded:
+            for n_, k in enumerate(seeded):
+                if layer_mask is not None and not layer_mask[n_]:
+                    continue
                 for k2 in list(self.trans[k]):
                     if k2 not in self.trans:
                         self.expand(k2)
         lcut = NEG
         cand = []
         for rnd in range(max_rounds):
-            keys = list(self.trans)
-            LA, out_un = self.log_matrix(keys)
-            lpi, info = stationary_log(LA)
+            keys, lpi, info, out_un, rec = self.solve_sparse()
             inflow = {k2: np.logaddexp.reduce([lpi[i] + lw for i, lw in lst]) for k2, lst in out_un.items()}
             cand = [k for k, f in inflow.items() if f > log_theta]
             small = [f for f in inflow.values() if f <= log_theta and np.isfinite(f)]
