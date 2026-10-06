@@ -3290,6 +3290,54 @@ The trap is X+Z+V = `if(BOX(S1),S1,S4)` 4/7 + `if(BOX1(S3),S3,S2)` 2/7 + `if(BOX
 - **THEORY §9.2's characterization survives once it quantifies over traps:** each inefficient recurrent state needs a neutral, unfakeable efficient entrant; P′ is one for G; nothing is one for S5/P or the hawk mixtures.
 - **Methods:** the repo's linear-domain lazy chain is not trustworthy once deep polymorphisms exist (0.44 vs 0.75 at different θ); use the seeded log-domain chain, and account for twin drift, under which the lim_N failure stands but is polynomial (N^−4 to N^−5 on best paths) and which trap holds π is open.
 - Distribution: with fixed roles in this grammar π spreads over all splits (the n = 5 rotating dictatorship ran on universal conceders); the lottery makes 50–50 universal under migration in both arms, so bargaining under the primary object is unaffected. *Free-box caveat:* the hawk's meekness with copies and P′'s exploitation both need Löb, which a realizable bounded prover has only above its copy threshold.
+## K with the 4-rule, and a frozen classifier for what a sound bounded prover loses (`runs/k-four.md`, `runs/k-four.json`, `runs/k-four/`, `notes/k-four.md`; spec `specs/2026-10-05-k-four.md`, predictions in `predictions/2026-10-05-k-four.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (the `four` option in `src/bounded_k.py`, `src/k_four.py`, `tests/test_k_four.py`). Theory first, then tables, chain and lottery. RE check: tests pass on main; Lemma V's argument verified by reading.
+
+**What ran.** Everything in the spec's priority order: `notes/k-four.md` §1 (proof encoding, cost recurrence of every rule including indexed Nec, BoxEq, JLöb and the 4-rule, and the inductive soundness proof); the option in its own commit, with the K tables reproduced exactly when off; the classifier frozen and committed with the predictions before any K+4 table; tables at n = 6 (b = 4, 16, 40) and n = 8 (b = 4, 8, 12, 16, 24, 32, 54); dense sweeps over every b from 4 to 40 and 54 on a 33-program named family; tests on nested boxes, cross-budget boundaries and generated formulas; the cross-budget catalogue over {4, 16}; the chain at b = 16 and 54; the n = 6 held-out set; Part C; the lottery. Two forms of the rule: **K+4** (the spec's literal rule) and **K+4m** (its closure under BoxEq's monotonicity plus one unfolding). One exploratory arm beyond the spec, declared in the predictions: the **X-arm**, which reads the level-k guard one budget up (¬□_{b+1}^k⊥); it stays out of every RE verdict.
+
+**Proved** (`notes/k-four.md` §1). Soundness of K+4 and K+4m in their standard models by strong induction on derivation size (the 4-rule's case uses the Nec witness: if □_a A is true, Nec on the derivation that makes it true gives ⊢ □_a A within a + 1 ≤ c; no induction hypothesis, no circularity); Lemma W and the GL-erasure prune carry over. **Lemma V:** on DSL formulas the literal rule can never fire at any assignment of budgets, because a right-hand box whose content is a box occurs only inside a level-k guard, where both boxes carry the reader's own budget, so c = a; hence K+4 = K on every table and catalogue. **Lemma G:** PB2 = `and(BOX(THEM(ME)),BOXD2(THEM(^D)))` needs □_b P[D, PB2] ⊢ □_b□_b⊥ with its left box and its guard at the same budget b, so 4m would need b ≥ b + 1; and a bounded-consistency leaf at bound a is sound only if charged more than a sequents, so it cannot fit inside a budget-a box. **A budget-b box cannot certify the consistency of budget b: the second incompleteness theorem in bounded form.** P\*, P2 and the Gödel sentences need distribution of the box over a conjunction under a box, which K has in no form. The checker's 0 violations (every table, sweep and test; 93,019 formulas at b = 54) is a regression test, not the proof.
+
+**Measured.** K+4m at n = 8 changes 864 plays at b = 8 (μ²-weight 3·10⁻⁶; 1 restored cooperator, 28 restored exploiters), 482 at b = 12, 150 at b = 16, 57 at b = 24, 14 at b = 32 and 0 at b = 54, all toward the free table; K+4 changes 0 at every b; 0 closed components everywhere; at n = 6 both forms equal K. Dense sweeps (0 violations in 38,235 formulas; b\* = first self-cooperating budget, witness costs in brackets):
+
+| program | K | K+4m | K, guard +1 | K+4m, guard +1 |
+|---|---|---|---|---|
+| PB2 | never | never | never | **11 [11, 6]** |
+| P\*, P2, P12b, P\*1b | never | never | never | never |
+| PrudentBot | 11 [11, 6] | 11 | 11 | 11 |
+| Gödel sentences re-armed (of 21) | 0 | 0 | 0 | 0 |
+
+Cross-budget catalogue {4, 16} under K+4m: 126 + 248 plays change against K's blocks (budget-16 readers now prove facts about budget-4 programs, Lemma V′); 1,218 genotypes, 546 self-cooperators, one component, 0 closed. **Chain** (n = 8, PD): K+4m at b = 16 and 54 equals K at every N (P(C,C) 0.392 / 0.671 / 0.791 at N = 10³ / 10⁴ / 3·10⁴; π(all-D) 0.209; FairBot 0.173 on top; exit slope −1.00; entry N·ρ 13.6 / 43.5 / 75.5 ≈ N^0.5); the X-arm at b = 16 gives 0.671 at 10⁴; one terminal class, 0 indeterminate transitions, cut flow ≤ 3·10⁻⁸; canonical classes carry their source mass in every arm (476 → 474 behavioural classes at b = 16, splits and merges each of μ ≤ 6·10⁻⁵). **Lottery:** K+4m at b = 16, (100, 64), mN = 1: 20/20.
+
+**Frozen classifier** (C_spec on the invader's play; C_pair on either play; positive = invasion disarmed):
+
+| catalogue / label | C_spec precision / recall | C_pair precision / recall |
+|---|---|---|
+| n = 8, K at b = 16 (408 pairs, 74 disarmed) | 1.00 / 0.42 (31 TP, 0 FP, 43 FN) | 1.00 / 0.65 |
+| n = 8, K+4m label | identical | identical |
+| n = 6 held-out (23 pairs, 3 disarmed) | 1.00 / 0.33 | 1.00 / 0.67 |
+
+Gödel part alone recall 0.32, Con part alone 0.20, both precision 1.00. The 43 false negatives: 8 hit the frozen level cap of 2; 13 more are failures in the resident's reading (caught by C_pair); 22 are Con sentences without a self-play hypothesis (`not(BOX(THEM(^C)))` and readers that quote it), where K fails for lack of distribution under a box, invisible to both triggers. **No finite-budget misses:** the lost atoms of all 74 disarmed pairs are structural (not K-derivable up to 2L + 10). 6 of 31 true positives have an untriggered GL derivation within twice the minimal size. A post-hoc cap-6 variant gains no true positive and adds 21 false positives (precision 0.60). **Part C** (N = 10⁴, b = 16): the free table with the 16 flagged classes deleted (μ 0.0013) gives 0.638, recovering 0.39 of the K − free gap of 0.054; K with the restored cooperators' plays grafted from K+4m is 0.6710 (= K), and with the restored exploiters' plays also 0.6710.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | K+4 sound; re-arms PB2 and the ladder at some b ≤ 54 | **failed, falsifier fired** (soundness held; PB2 self-defects at every b ≤ 54 under both forms; P\*, P2 do not return) |
+| RE 2 | K+4 between free and K at 10⁴; ≤ 5 Gödel sentences re-armed | held on the numbers (K+4m − K = 0.0000; 0 of 21); the mechanism clause untested, nothing re-armed |
+| RE 3 | classifier precision and recall ≥ 0.7; counterexamples both ways | **failed, falsifier fired** (recall 0.42; precision 1.00); untriggered alternatives exist; the finite-budget counterexample does not (every miss is structural) |
+| RE 4 | closes nothing; lottery ≥ 18/20 | **held** |
+| RE 5 | flagged deletion recovers ≥ 0.5 of the gap; exploitation outweighs cooperation | **inconclusive** (0.39, in the predeclared grey zone); second clause untested (both grafts equal K) |
+| S1–S5, S8, S10–S12 | subagent's own | held |
+| S6, S7, S9 | subagent's own | failed, falsifiers fired (recall; n = 6 recall; Part C share 0.39) |
+
+**Reading.**
+- **A 4-rule adds nothing new on the DSL.** The literal rule cannot fire (a theorem); its sound closure only proves some plays earlier, peaking at b = 8 and vanishing by b = 54, and the chain does not move. What K lacks for PB2 is not the 4-axiom but **its own consistency at its own budget, which cannot be bought** (bounded Gödel II).
+- **The obstruction sits in the guard convention, not the calculus.** Reading the guard one budget up re-arms PB2 at b\* = 11 with exactly PrudentBot's witness costs and returns no faker; P\*, P2 and the ladder need distribution under a box and do not return. The guard convention for budgeted readers is a modelling choice (DEFERRED 2).
+- **The realizable core is unchanged:** FairBot's family plus PrudentBot, plus PB2 if guards are read above one's own budget.
+- **K's faker removal is structural**, so its improvement over the free arm is not a finite-budget artifact.
+- **The trace classifier is a sufficient sign, not a characterization:** precision 1.00 rests on a level cap, recall 0.42, Con sentences invisible, 0.39 of the gap recovered. Gödelian fakers are visible only to the calculus; a realizable reader must actually be the bounded prover, and the faker set still has to come from K.
+- *Realizability caveat.* K and K+4m are sound bounded calculi for the modal fragment, not bounded PA provers; the prune and the classifier use GL decidability; the X-arm changes the programs' semantics.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

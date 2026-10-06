@@ -69,8 +69,13 @@ REJECTED.md the ones we dropped.
   divide-the-dollar the free box at n = 7 does worse than the matched simulation grammar (Löbian shadows and hawks),
   and "sound reading preferred" holds there only with a refusal rule for certified greed (RESULTS "The modal arm on
   two-player divide-the-dollar").
-- *Would settle it next:* a K with a sound 4-axiom rule (running, `specs/2026-10-05-k-four.md`); K beyond the modal
-  fragment; a bounded prover in bargaining (hawks need Löb above the copy threshold).
+- *Evidence (2026-10-05g):* the 4-rule adds no cooperator (vacuous on the DSL; its closure vanishes by b = 54); PB2 is
+  decided by the guard convention (own budget: bounded Gödel II blocks it; one up: b* = 11, no faker returns); a
+  trace classifier is a sufficient but not necessary sign of what K removes (RESULTS "K with the 4-rule").
+  *Operating hypothesis (guard convention):* readers read Con one budget up; it costs nothing and returns no faker.
+- *Would settle it next:* K with a sound distribution rule under a box (does P* return, and do Con-sentence fakers
+  return with it?); K beyond the modal fragment; a bounded prover in bargaining (hawks need Löb above the copy
+  threshold).
 
 ## 3. Roles: `ROLE` or fixed roles with separate populations?
 - *Operating hypothesis (RS, 2026-10-04):* fixed roles with separate slot populations for every social-choice question;

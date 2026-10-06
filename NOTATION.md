@@ -173,3 +173,12 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   1/(x_r N), which the lumped chain under-weights; **seeded log-domain chain** — the chain solved in the log domain
   with every deep polymorphism expanded, the instrument to use where deep states exist; **resistance to profitable
   certified demands** — the property P′ has and P lacks, distinct from unfakeability.
+- **K with the 4-rule:** **K+4 / K+4m** — K with the literal 4-rule Γ, □_a A ⊢ □_{a+1}□_a A, Δ / with its monotone
+  closure (cases i–iv); **Lemma V** — the literal rule never fires on DSL formulas; **Lemma G** — PB2 needs bounded
+  self-consistency at equal budgets (□_b⊥ ⊢ □_b□_b⊥), the second incompleteness theorem in bounded form; **guard
+  convention / X-arm (`goff` = 1)** — whether BOXk at budget b reads ¬□_b^k⊥ (own budget) or ¬□_{b+1}^k⊥ (one up);
+  **C_spec / C_pair** — the frozen trace classifier on the invader's play / on either play of the invasion;
+  **G-trigger / C-trigger** — a used self-play Gödel hypothesis / a used Con statement under a box; **structural /
+  finite-budget failure** — not K-derivable up to 2L + 10 / derivable at some larger budget; **restored
+  cooperators / restored exploiters** — self-cooperating in K+4m but not K / strictly invading a supported
+  self-cooperator in K+4m but not K.

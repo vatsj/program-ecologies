@@ -675,3 +675,14 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Subagent S1** (modal ≥ 0.75 at 3·10⁴ with √N odds; 0.653 with exponentially falling odds), **S2 re-entry clause** (P′ carries re-entry; re-entry from the binding trap is a deleterious fixation), **S6** (the reduced subsystem has the full chain's top cycle; P breaks it and the trap lies outside), **S9** (θ-convergence of the lazy chain; 0.44 vs 0.75).
 
 **Design choices dropped:** the n = 11 chain (8,118 classes); `eager_poly=True` in the lazy chain (did not finish); **the linear-domain lazy chain as the large-N instrument where deep polymorphisms exist** (underflow hides deep states behind tiny flows; the seeded log-domain chain replaces it); a full closure chain at N = 10⁴; a dense or sparse solve of the 42,025-state modal fixed-role chain at N ≥ 10⁴; the twin-corrected full stationary solve (4,000-state cap; replaced by exact best paths).
+
+
+## Added 2026-10-05: K with the 4-rule (RESULTS.md, "K with the 4-rule, and a frozen classifier for what a sound bounded prover loses")
+
+**"The 4-rule re-arms PB2 and the level-2 ladder" (Fable, prediction 1; falsifier fired).** The literal rule □_a A ⊢ □_{a+1}□_a A is vacuous on DSL formulas (Lemma V), and its sound monotone closure re-arms nothing at any b ≤ 54. PB2's missing step is □_b⊥ ⊢ □_b□_b⊥ at equal budgets, bounded self-consistency, which no sound rule supplies within budget b (Lemma G). Reopen only with a different guard convention (the X-arm re-arms PB2) or a calculus with distribution under a box.
+
+**"A frozen proof-trace classifier (Gödel premise or Con under a box) characterizes what K loses" (Fable, prediction 3; subagent S6, S7; falsifiers fired).** Recall 0.42 at n = 8 and 0.33 at n = 6; precision 1.00 rests on the level cap (0.60 at cap 6). It misses Con sentences (K's failure there is missing distribution, invisible to both triggers), resident-side failures and level-≥ 3 plays; 6 of 31 flagged pairs have untriggered alternatives. Not usable as an independent faker control; the faker set has to come from K.
+
+**"Deleting the flagged classes recovers most of the gap" (Fable, prediction 5, ≥ 0.5 clause, inconclusive at 0.39; subagent S9, falsified).** The flags miss more than half of the disarmed pairs.
+
+**Design choices dropped:** the literal 4-rule as the counted arm (provably identical to K; K+4m used instead); the "used hypothesis" restricted search that forbade a triggering diagonal (fixed twice; not a change to the frozen classifier).
