@@ -2,6 +2,8 @@
 
 Spec `specs/2026-10-05-bridgeless-rivals.md`; predictions `predictions/2026-10-05-bridgeless-rivals.md`. Modal arm, PD, w = 0.3, ε = 0, iid length-prior seeds at n = 9, complete island graph, generation = I·N births, boundary mN = 0.3·N/T_nuc (1.091 at N = 200, 1.714 at N = 400). Finite-cutoff screening and finite-horizon lottery and hazard results, not π. Intervals: Wilson 95% over runs (runs are the independent units), exact Poisson for hazards, bootstrap for q.
 
+**What ran.** Everything in the spec's priority order: static (n = 9, 12, 13; n = 15 and 14 do not fit), (a) dense 6 × 100, (d) iid 100, (c) bridge removed 100, (b) sparse 6 × 100 (each with paired m = 0 references), (f) 3,000 natural runs, (e) the scaling panel with B₁ at the spec's 40 runs per cell and P\* capped at 12–13 runs per cell (declared deviation: the machine load reached 28 on 10 cores and a P\* run took 10–15 minutes; every P\* run sampled was separated with no loss, so the cap bounds the separation probability below by 0.76 at 95%). *Deviations:* B₂ (B₁'s twin) replaced by the mass-matched B₄; kernel tags for S\* taken against FairBot (S\* mutually defects only with FairBot).
+
 ## 1. Static screening (n = 9, 12, 13; n = 15 does not fit)
 
 n = 15: 374,074 canonical functions (140 GB at one byte per pair); n = 14: 126,370 (16 GB); neither fits. Largest cutoff n = 13 (51,234 canonical functions). Classes merged within L_n by identical row and column; the n = 9 and 12 blocks reproduce the existing caches exactly. Masses in cut units (normalized within the cutoff) unless marked raw (units of the infinite length prior; inf = raw/(π²/12)). Omitted tail ω(n) = π²/12 − Σ_{s≤n} 1/(2s²) < 1/(2n).
@@ -248,4 +250,15 @@ Every separation (first separated pair of each ever-separated run, and every pai
 | 2883 | end | `BOX1(THEM(ME))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 54 / 10 | y |
 | 2799 | first | `BOX1(THEM(ME))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 43 / 21 | y |
 | 2799 | end | `BOX1(THEM(ME))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 43 / 21 | y |
+
+## 4. Scaling panel (e): dense forced P\* and B₁
+
+| rival | N | I | horizon | runs | rival established | ever separated | horizon separated | losses / exposure | hazard [95%] | rival-island losses 2>1 / 2>3 / 2>0 | mediation-before-loss | island P(C,C) | cf cross (separated) | worker-h |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| B1 | 200 | 64 | 3.0e+05 | 40 | 0.85 [0.71, 0.93] | 0.85 [0.71, 0.93] | 0.10 [0.04, 0.23] | 29 / 1.9e+07 | 1.5e-06 [1.0e-06, 2.2e-06] | 16 / 943 / 67 | 0.74 [0.57, 0.85] | 0.998 | 0.653 | 0.40 |
+| B1 | 200 | 256 | 1.0e+05 | 40 | 1.00 [0.91, 1.00] | 1.00 [0.91, 1.00] | 0.00 [0.00, 0.09] | 40 / 2.5e+06 | 1.6e-05 [1.1e-05, 2.1e-05] | 103 / 4947 / 647 | 0.97 [0.87, 1.00] | 0.999 | – | 0.43 |
+| B1 | 400 | 64 | 1.0e+05 | 40 | 0.72 [0.57, 0.84] | 0.72 [0.57, 0.84] | 0.00 [0.00, 0.09] | 29 / 2.1e+05 | 1.4e-04 [9.4e-05, 2.0e-04] | 9 / 557 / 95 | 0.90 [0.74, 0.96] | 1.000 | – | 0.06 |
+| P* | 200 | 64 | 3.0e+05 | 13 | 1.00 [0.77, 1.00] | 1.00 [0.77, 1.00] | 1.00 [0.77, 1.00] | 0 / 7.2e+07 | 0 [0, 5.1e-08] | 4 / 0 / 0 | 0.00 [0.00, 0.23] | 0.984 | 0.620 | 1.15 |
+| P* | 200 | 256 | 1.0e+05 | 12 | 1.00 [0.76, 1.00] | 1.00 [0.76, 1.00] | 1.00 [0.76, 1.00] | 0 / 1.3e+08 | 0 [0, 2.9e-08] | 5 / 0 / 0 | 0.00 [0.00, 0.24] | 0.979 | 0.523 | 1.69 |
+| P* | 400 | 64 | 1.0e+05 | 12 | 1.00 [0.76, 1.00] | 1.00 [0.76, 1.00] | 1.00 [0.76, 1.00] | 0 / 2.7e+07 | 0 [0, 1.4e-07] | 0 / 0 / 0 | 0.00 [0.00, 0.24] | 0.985 | 0.566 | 0.91 |
 

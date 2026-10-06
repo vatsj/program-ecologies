@@ -148,6 +148,13 @@ def main():
       '(1.091 at N = 200, 1.714 at N = 400). Finite-cutoff screening and finite-horizon lottery and hazard results, not π. '
       'Intervals: Wilson 95% over runs (runs are the independent units), exact Poisson for hazards, bootstrap for q.')
     P('')
+    P('**What ran.** Everything in the spec\'s priority order: static (n = 9, 12, 13; n = 15 and 14 do not fit), (a) dense 6 × 100, '
+      '(d) iid 100, (c) bridge removed 100, (b) sparse 6 × 100 (each with paired m = 0 references), (f) 3,000 natural runs, (e) the '
+      'scaling panel with B₁ at the spec\'s 40 runs per cell and P\\* capped at 12–13 runs per cell (declared deviation: the machine '
+      'load reached 28 on 10 cores and a P\\* run took 10–15 minutes; every P\\* run sampled was separated with no loss, so the cap '
+      'bounds the separation probability below by 0.76 at 95%). *Deviations:* B₂ (B₁\'s twin) replaced by the mass-matched B₄; '
+      'kernel tags for S\\* taken against FairBot (S\\* mutually defects only with FairBot).')
+    P('')
     # ---------------------------------------------------------------- static
     P('## 1. Static screening (n = 9, 12, 13; n = 15 does not fit)')
     P('')
