@@ -1,0 +1,8859 @@
+{
+ "cell": "modal-dollar7",
+ "N": 100000,
+ "K": 205,
+ "chain_kw": {
+  "w": 0.3,
+  "theta": 1e-07,
+  "max_states": 30000,
+  "eager_poly": false
+ },
+ "published": null,
+ "discovery_keep_all": true,
+ "discovery": {
+  "counts": {
+   "stable_size1": 205,
+   "stable_size1_noadv": 37,
+   "singletons": 205,
+   "pairs_tested": 20910,
+   "pairs_neutral_line": 4344,
+   "pairs_unstable_interior": 1001,
+   "pairs_stable": 4951,
+   "stable_size2": 4951,
+   "stable_size2_noadv": 205,
+   "triples_tested": 1414910,
+   "triples_singular": 734359,
+   "triples_interior": 231049,
+   "triples_stable": 10885,
+   "triples_center": 34,
+   "triples_unstable_or_neutral": 220130,
+   "stable_size3": 10885,
+   "stable_size3_noadv": 58,
+   "closure": {
+    "nodes_full": 6000,
+    "complete_full": false,
+    "nodes_branch2": 18000,
+    "complete_branch2": false,
+    "saturated": 576,
+    "added": 226,
+    "added_by_size": {
+     "2": 36,
+     "3": 52,
+     "4": 79,
+     "5": 46,
+     "6": 13,
+     "7": 0,
+     "8": 0
+    },
+    "time_s": 0.00980520248413086
+   }
+  },
+  "pool_K": 205,
+  "triples": true,
+  "n_candidates": 16301,
+  "n_stable": 16078,
+  "n_center": 34,
+  "n_deep": 0,
+  "n_deep_mod_twins": 27,
+  "n_deep_penalty_only": 53,
+  "n_deep_pen_total": 77,
+  "deep_by_size": {
+   "deep": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0
+   },
+   "deep_mod_twins": {
+    "1": 3,
+    "2": 1,
+    "3": 9,
+    "4": 4,
+    "5": 10,
+    "6": 0,
+    "7": 0,
+    "8": 0
+   },
+   "deep_penalty_only": {
+    "1": 0,
+    "2": 13,
+    "3": 24,
+    "4": 10,
+    "5": 6,
+    "6": 0,
+    "7": 0,
+    "8": 0
+   }
+  },
+  "deep_mass_sum_max": 0.0,
+  "deep_any_mass_sum_max": 0.19338020551649543,
+  "time_s": 1.499680995941162,
+  "deep_in_published_explored": 4,
+  "deep_missed": 76,
+  "deep_missed_mass_sum": 1.010297458085452,
+  "published_recurrent_not_candidates": [],
+  "missed_detail": [
+   {
+    "tier": "deep_penalty_only",
+    "state": "if(BOX(S1),S1,S4):0.571 + if(BOX1(S3),S3,S2):0.286 + if(BOX1(S4),S2,S4):0.143",
+    "mass_sum": 0.0005516495402920497,
+    "resolve_pi": 1.0,
+    "log10_best_path_from_published_top": -101.64595272392593
+   },
+   {
+    "tier": "deep_mod_twins",
+    "state": "if(BOX1(S1),S1,S4):0.500 + if(BOX1(S3),S3,S2):0.500",
+    "mass_sum": 0.0003677663601946998,
+    "resolve_pi": 1.9736021047890614e-84,
+    "log10_best_path_from_published_top": -181.68092434934286
+   },
+   {
+    "tier": "deep_mod_twins",
+    "state": "if(BOX(S3),S2,S4):0.222 + if(BOX1(S2),S3,S4):0.333 + if(BOX1(S3),S3,S2):0.444",
+    "mass_sum": 0.0005516495402920497,
+    "resolve_pi": 2.752117756732162e-140,
+    "log10_best_path_from_published_top": -186.7285540584074
+   },
+   {
+    "tier": "deep_mod_twins",
+    "state": "if(BOX(S2),S3,S4):0.333 + if(BOX(S3),S2,S4):0.222 + if(BOX1(S3),S3,S2):0.444",
+    "mass_sum": 0.0005516495402920497,
+    "resolve_pi": 8.112526707106502e-143,
+    "log10_best_path_from_published_top": -186.7285540584074
+   },
+   {
+    "tier": "deep_mod_twins",
+    "state": "if(BOX(S5),S1,S4):0.077 + if(BOX1(S1),S5,S4):0.385 + if(BOX1(S3),S3,S2):0.538",
+    "mass_sum": 0.0005516495402920497,
+    "resolve_pi": 1.1588112876009316e-143,
+    "log10_best_path_from_published_top": -187.20083291955117
+   },
+   {
+    "tier": "deep_mod_twins",
+    "state": "if(BOX1(S1),S5,S4):0.385 + if(BOX1(S3),S3,S2):0.538 + if(BOX1(S5),S1,S4):0.077",
+    "mass_sum": 0.0005516495402920497,
+    "resolve_pi": 1.158811287600734e-143,
+    "log10_best_path_from_published_top": -187.20083291955117
+   },
+   {
+    "tier": "deep_mod_twins",
+    "state": "if(BOX(S3),S1,S4):0.111 + if(BOX1(S1),S3,S4):0.333 + if(BOX1(S3),S3,S2):0.556",
+    "mass_sum": 0.0005516495402920497,
+    "resolve_pi": 8.875096748275505e-168,
+    "log10_best_path_from_published_top": -187.20029722111204
+   },
+   {
+    "tier": "deep_penalty_only",
+    "state": "if(BOX1(S1),S1,S4):0.667 + if(BOX1(S2),S4,S2):0.333",
+    "mass_sum": 0.0003677663601946998,
+    "resolve_pi": 6.432400008309201e-176,
+    "log10_best_path_from_published_top": -186.43789231460036
+   },
+   {
+    "tier": "deep_penalty_only",
+    "state": "if(BOX1(S1),S1,S4):0.667 + if(BOX1(S2),S3,S2):0.333",
+    "mass_sum": 0.0003677663601946998,
+    "resolve_pi": 1.0722163473048499e-176,
+    "log10_best_path_from_published_top": -186.72839841483693
+   },
+   {
+    "tier": "deep_penalty_only",
+    "state": "if(BOX1(S1),S5,S2):0.333 + if(BOX1(S1),S1,S4):0.667",
+    "mass_sum": 0.0003677663601946998,
+    "resolve_pi": 5.457687312656244e-178,
+    "log10_best_path_from_published_top": -186.1475210730143
+   },
+   {
+    "tier": "deep_penalty_only",
+    "state": "if(BOX1(S1),S1,S4):0.667 + if(BOX1(S3),S5,S2):0.333",
+    "mass_sum": 0.0003677663601946998,
+    "resolve_pi": 6.786808666884591e-179,
+    "log10_best_path_from_published_top": -186.72839841483693
+   },
+   {
+    "tier": "deep_penalty_only",
+    "state": "if(BOX1(S1),S1,S4):0.667 + if(BOX1(S3),S4,S2):0.333",
+    "mass_sum": 0.0003677663601946998,
+    "resolve_pi": 6.786807707171701e-179,
+    "log10_best_path_from_published_top": -186.72839841483693
+   },
+   {
+    "tier": "deep_penalty_only",
+    "state": "if(BOX1(S1),S4,S2):0.333 + if(BOX1(S1),S1,S4):0.667",
+    "mass_sum": 0.0003677663601946998,
+    "resolve_pi": 3.820679966742148e-179,
+    "log10_best_path_from_published_top": -186.43780543293053
+   },
+   {
+    "tier": "deep_penalty_only",
+    "state": "if(BOX1(S1),S1,S4):0.667 + if(BOX1(S2),S5,S2):0.333",
+    "mass_sum": 0.0003677663601946998,
+    "resolve_pi": 1.5381505559417217e-179,
+    "log10_best_path_from_published_top": -186.72839841483693
+   },
+   {
+    "tier": "deep_penalty_only",
+    "state": "if(BOX1(S1),S3,S2):0.333 + if(BOX1(S1),S1,S4):0.667",
+    "mass_sum": 0.0003677663601946998,
+    "resolve_pi": 1.4845483782990531e-179,
+    "log10_best_path_from_published_top": -186.72839841483693
+   }
+  ]
+ },
+ "published_rerun": {
+  "stat": {
+   "eff": 0.4444466666666676,
+   "half": 7.675229911415675e-17,
+   "third": 0.44444666666666754,
+   "sixth": 2.373133695994085e-19,
+   "clash": 4.044789145056707e-17,
+   "ineff": 0.5555533333333345
+  },
+  "n_expanded": 225,
+  "n_states": 5196,
+  "cut_flow": 3.910707892939511e-19,
+  "near_closed": 0,
+  "n_terminal": 1,
+  "indeterminate": 0,
+  "absorb_error": 2.220446049250313e-15,
+  "time_s": 59.35796523094177,
+  "top": [
+   [
+    "if(BOX(S1),S1,S4):0.667 + if(BOX1(S2),S4,S2):0.333",
+    1.000000000000002
+   ],
+   [
+    "S3:1.000",
+    7.053460734875724e-17
+   ],
+   [
+    "if(BOX1(S5),S4,S5):1.000",
+    4.020258396731469e-17
+   ],
+   [
+    "if(BOX1(S3),S4,S3):1.000",
+    3.477583473229131e-18
+   ],
+   [
+    "if(BOX1(S4),S5,S3):1.000",
+    1.0900304395442566e-18
+   ],
+   [
+    "if(BOX1(S3),S3,S5):1.000",
+    9.979166867234814e-19
+   ],
+   [
+    "S5:0.667 + if(BOX1(S5),S1,S3):0.333",
+    4.915514076823956e-19
+   ],
+   [
+    "if(BOX1(S5),S4,S3):1.000",
+    1.9079555667992792e-19
+   ]
+  ]
+ },
+ "rates": {
+  "same_explored_set": true,
+  "n_edges": 45879,
+  "max_abs_log_err": 2.1023765839345288e-08,
+  "n_underflow": 15719,
+  "n_denormal": 1,
+  "worst": [
+   2.1023765839345288e-08,
+   "S4:0.500 + if(BOX(S3),S3,S1):0.500",
+   "if(BOX1(S1),S2,S3):1.000"
+  ],
+  "time_s": 79.56659412384033
+ },
+ "solver": {
+  "log_gth_stat": {
+   "eff": 0.44444666666666666,
+   "half": 1.5268123762949732e-157,
+   "third": 0.44444666666666666,
+   "sixth": 7.896954787949493e-160,
+   "clash": 1.4668741722103513e-159,
+   "ineff": 0.5555533333333333
+  },
+  "linear_stat": {
+   "eff": 0.4444466666666676,
+   "half": 7.675229911415675e-17,
+   "third": 0.44444666666666754,
+   "sixth": 2.373133695994085e-19,
+   "clash": 4.044789145056707e-17,
+   "ineff": 0.5555533333333345
+  },
+  "linear_near_closed": 0,
+  "linear_terminal": 1,
+  "log_closed": {
+   "n_components": 1,
+   "n_closed": 1
+  },
+  "tv": 0.28530166679595376,
+  "resid_linear": 320.43508527659606,
+  "resid_log": 1.1368683772161603e-13,
+  "top_log": [
+   [
+    "if(BOX(S1),S1,S4):0.667 + if(BOX1(S2),S4,S2):0.333",
+    0.7146983332040473
+   ],
+   [
+    "S2:0.333 + if(BOX1(S1),S1,S4):0.667",
+    0.2853016667959527
+   ],
+   [
+    "S3:1.000",
+    1.4533680928161796e-157
+   ],
+   [
+    "S4:0.333 + if(BOX(S4),S2,S3):0.667",
+    2.0130008034677506e-159
+   ],
+   [
+    "S4:0.333 + if(BOX1(S4),S2,S3):0.667",
+    1.573779453584045e-159
+   ],
+   [
+    "S4:0.333 + if(BOX1(S3),S3,S2):0.667",
+    1.568836572978878e-159
+   ]
+  ]
+ },
+ "published_recurrent": [
+  {
+   "state": "if(BOX(S1),S1,S4):0.667 + if(BOX1(S2),S4,S2):0.333",
+   "size": 2,
+   "pi": 1.000000000000002,
+   "tier": "non-deep",
+   "max_inv": 1.1106722200282526e-06,
+   "n_neutral": 0,
+   "n_adv": 39,
+   "neutral_mutants": []
+  }
+ ],
+ "resolve": {
+  "stat": {
+   "eff": 0.6530624490244902,
+   "half": 0.08162816328163282,
+   "third": 0.5714342857428574,
+   "sixth": 1.3713496192104532e-144,
+   "clash": 0.020407755077550774,
+   "ineff": 0.326529795897959
+  },
+  "n_states": 752,
+  "n_seeded": 320,
+  "n_seeded_traps": 300,
+  "seeds_all_stable": false,
+  "log10_cut": -147.4608145005107,
+  "n_cand_left": 0,
+  "closed": {
+   "n_components": 89,
+   "n_closed": 1,
+   "closed_sizes": [
+    752
+   ],
+   "n_expanded": 854,
+   "n_recurrent": 752
+  },
+  "mass_deep": 0.0,
+  "mass_deep_any": {
+   "deep": 0.0,
+   "deep_mod_twins": 1.9736021047890614e-84,
+   "deep_penalty_only": 1.0
+  },
+  "mass_poly": 1.0,
+  "indeterminate": 42,
+  "twin_moves": 0,
+  "twins": false,
+  "est_floor": false,
+  "n_floored": 0,
+  "support": [
+   {
+    "state": "if(BOX(S1),S1,S4):0.571 + if(BOX1(S3),S3,S2):0.286 + if(BOX1(S4),S2,S4):0.143",
+    "pi": 1.0,
+    "log10_pi": 0.0,
+    "log10_exit": -200.06632573888015,
+    "exits": [
+     {
+      "to": "if(BOX(S1),S1,S4):0.500 + if(BOX1(S4),S2,S3):0.500",
+      "log10_rate": -200.06632573888015,
+      "mutants": [
+       [
+        "if(BOX1(S4),S2,S3)",
+        -200.06632573888015
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S2),S4,S3):1.000",
+      "log10_rate": -272.93633301660003,
+      "mutants": [
+       [
+        "if(BOX1(S2),S4,S3)",
+        -272.93633301660003
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S3),S3,S4):1.000",
+      "log10_rate": -300.94699933781084,
+      "mutants": [
+       [
+        "if(BOX(S3),S3,S4)",
+        -300.94699933781084
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S2),S4,S3):1.000",
+      "log10_rate": -300.94699933781084,
+      "mutants": [
+       [
+        "if(BOX(S2),S4,S3)",
+        -300.94699933781084
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S2),S2,S4):1.000",
+      "log10_rate": -558.5621179518233,
+      "mutants": [
+       [
+        "if(BOX1(S2),S2,S4)",
+        -558.5621179518233
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.653062,
+     "half": 0.081628,
+     "third": 0.571434,
+     "sixth": 0.0,
+     "clash": 0.020408,
+     "ineff": 0.32653
+    }
+   },
+   {
+    "state": "if(BOX1(S1),S1,S4):0.500 + if(BOX1(S3),S3,S2):0.500",
+    "pi": 1.9736021047890614e-84,
+    "log10_pi": -83.70474040035567,
+    "log10_exit": -187.67108897132005,
+    "exits": [
+     {
+      "to": "if(BOX(S2),S2,S4):1.000",
+      "log10_rate": -188.14581087006877,
+      "mutants": [
+       [
+        "if(BOX(S2),S2,S4)",
+        -188.14581087006877
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S2),S2,S4):1.000",
+      "log10_rate": -188.14581087006877,
+      "mutants": [
+       [
+        "if(BOX1(S2),S2,S4)",
+        -188.14581087006877
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S3),S3,S1):1.000",
+      "log10_rate": -188.15304907525672,
+      "mutants": [
+       [
+        "if(BOX(S3),S3,S1)",
+        -188.15304907525672
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S2),S1,S3):1.000",
+      "log10_rate": -368.95494944015235,
+      "mutants": [
+       [
+        "if(BOX1(S2),S1,S3)",
+        -368.95494944015235
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S4),S1,S3):1.000",
+      "log10_rate": -368.95494944015235,
+      "mutants": [
+       [
+        "if(BOX1(S4),S1,S3)",
+        -368.95494944015235
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.750003,
+     "half": 0.249997,
+     "third": 0.500005,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 0.249997
+    }
+   },
+   {
+    "state": "if(BOX(S1),S1,S4):0.667 + if(BOX1(S2),S4,S2):0.333",
+    "pi": 1.721247528001543e-104,
+    "log10_pi": -103.76415667045386,
+    "log10_exit": -96.30181864159688,
+    "exits": [
+     {
+      "to": "if(BOX(S1),S1,S4):0.500 + if(BOX1(S3),S3,S2):0.500",
+      "log10_rate": -96.30181864159688,
+      "mutants": [
+       [
+        "if(BOX1(S3),S3,S2)",
+        -96.30181864159688
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S3),S3,S4):1.000",
+      "log10_rate": -167.8980051010922,
+      "mutants": [
+       [
+        "if(BOX(S3),S3,S4)",
+        -167.8980051010922
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S3),S3,S4):1.000",
+      "log10_rate": -167.8980051010922,
+      "mutants": [
+       [
+        "if(BOX1(S3),S3,S4)",
+        -167.8980051010922
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S2),S2,S4):1.000",
+      "log10_rate": -248.4076481372048,
+      "mutants": [
+       [
+        "if(BOX1(S2),S2,S4)",
+        -248.4076481372048
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S2),S2,S4):1.000",
+      "log10_rate": -248.4076481372048,
+      "mutants": [
+       [
+        "if(BOX(S2),S2,S4)",
+        -248.4076481372048
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.444447,
+     "half": 0.0,
+     "third": 0.444447,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 0.555553
+    }
+   },
+   {
+    "state": "if(BOX(S3),S2,S4):0.222 + if(BOX1(S2),S3,S4):0.333 + if(BOX1(S3),S3,S2):0.444",
+    "pi": 2.752117756732162e-140,
+    "log10_pi": -139.5603329875859,
+    "log10_exit": -132.83494872866183,
+    "exits": [
+     {
+      "to": "S3:1.000",
+      "log10_rate": -132.8349487286623,
+      "mutants": [
+       [
+        "S3",
+        -132.8349487286623
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S3),S2,S3):1.000",
+      "log10_rate": -145.06107155015744,
+      "mutants": [
+       [
+        "if(BOX(S3),S2,S3)",
+        -145.06107155015744
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S3),S2,S3):1.000",
+      "log10_rate": -145.06107155015744,
+      "mutants": [
+       [
+        "if(BOX1(S3),S2,S3)",
+        -145.06107155015744
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S3),S2,S4):0.333 + if(BOX1(S4),S2,S3):0.667",
+      "log10_rate": -262.6134737354255,
+      "mutants": [
+       [
+        "if(BOX1(S4),S2,S3)",
+        -262.6134737354255
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S2),S2,S4):1.000",
+      "log10_rate": -278.5803774918933,
+      "mutants": [
+       [
+        "if(BOX(S2),S2,S4)",
+        -278.5803774918933
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.691367,
+     "half": 0.197533,
+     "third": 0.493833,
+     "sixth": 0.0,
+     "clash": 0.160487,
+     "ineff": 0.148147
+    }
+   },
+   {
+    "state": "if(BOX(S2),S3,S4):0.333 + if(BOX(S3),S3,S2):0.444 + if(BOX(S3),S2,S4):0.222",
+    "pi": 8.577300988667097e-143,
+    "log10_pi": -142.06664934969572,
+    "log10_exit": -132.83494872866152,
+    "exits": [
+     {
+      "to": "S3:1.000",
+      "log10_rate": -132.834948728662,
+      "mutants": [
+       [
+        "S3",
+        -132.834948728662
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S3),S2,S3):1.000",
+      "log10_rate": -145.06107155015712,
+      "mutants": [
+       [
+        "if(BOX1(S3),S2,S3)",
+        -145.06107155015712
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S3),S2,S3):1.000",
+      "log10_rate": -145.06107155015712,
+      "mutants": [
+       [
+        "if(BOX(S3),S2,S3)",
+        -145.06107155015712
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S2),S4,S3):1.000",
+      "log10_rate": -180.77399933698732,
+      "mutants": [
+       [
+        "if(BOX1(S2),S4,S3)",
+        -180.77399933698732
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S3),S2,S4):0.333 + if(BOX1(S4),S2,S3):0.667",
+      "log10_rate": -262.6134737354251,
+      "mutants": [
+       [
+        "if(BOX1(S4),S2,S3)",
+        -262.6134737354251
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.691367,
+     "half": 0.197533,
+     "third": 0.493833,
+     "sixth": 0.0,
+     "clash": 0.160487,
+     "ineff": 0.148147
+    }
+   },
+   {
+    "state": "if(BOX(S2),S3,S4):0.333 + if(BOX(S3),S2,S4):0.222 + if(BOX1(S3),S3,S2):0.444",
+    "pi": 8.112526707106502e-143,
+    "log10_pi": -142.09084386045598,
+    "log10_exit": -132.83494872866183,
+    "exits": [
+     {
+      "to": "S3:1.000",
+      "log10_rate": -132.8349487286623,
+      "mutants": [
+       [
+        "S3",
+        -132.8349487286623
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S3),S2,S3):1.000",
+      "log10_rate": -145.06107155015744,
+      "mutants": [
+       [
+        "if(BOX1(S3),S2,S3)",
+        -145.06107155015744
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S3),S2,S3):1.000",
+      "log10_rate": -145.06107155015744,
+      "mutants": [
+       [
+        "if(BOX(S3),S2,S3)",
+        -145.06107155015744
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S3),S2,S4):0.333 + if(BOX1(S4),S2,S3):0.667",
+      "log10_rate": -262.6134737354255,
+      "mutants": [
+       [
+        "if(BOX1(S4),S2,S3)",
+        -262.6134737354255
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S2),S2,S4):1.000",
+      "log10_rate": -278.5803774918933,
+      "mutants": [
+       [
+        "if(BOX(S2),S2,S4)",
+        -278.5803774918933
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.691367,
+     "half": 0.197533,
+     "third": 0.493833,
+     "sixth": 0.0,
+     "clash": 0.160487,
+     "ineff": 0.148147
+    }
+   },
+   {
+    "state": "if(BOX(S5),S1,S4):0.077 + if(BOX1(S1),S5,S4):0.385 + if(BOX1(S3),S3,S2):0.538",
+    "pi": 1.1588112876009316e-143,
+    "log10_pi": -142.93598728312745,
+    "log10_exit": -129.7382634119843,
+    "exits": [
+     {
+      "to": "if(BOX(S2),S2,S4):1.000",
+      "log10_rate": -130.03929340783236,
+      "mutants": [
+       [
+        "if(BOX(S2),S2,S4)",
+        -130.03929340783236
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S2),S2,S4):1.000",
+      "log10_rate": -130.03929340783236,
+      "mutants": [
+       [
+        "if(BOX1(S2),S2,S4)",
+        -130.03929340783236
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S1),S5,S3):1.000",
+      "log10_rate": -139.1110212631201,
+      "mutants": [
+       [
+        "if(BOX1(S1),S5,S3)",
+        -139.1110212631201
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.000",
+      "log10_rate": -177.6720851666526,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        -177.6720851666526
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S4):0.333 + if(BOX1(S4),S2,S3):0.667",
+      "log10_rate": -276.50654128332997,
+      "mutants": [
+       [
+        "if(BOX1(S4),S2,S3)",
+        -276.50654128332997
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.846154,
+     "half": 0.289937,
+     "third": 0.497047,
+     "sixth": 0.059171,
+     "clash": 0.153846,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "if(BOX1(S1),S5,S4):0.385 + if(BOX1(S3),S3,S2):0.538 + if(BOX1(S5),S1,S4):0.077",
+    "pi": 1.158811287600734e-143,
+    "log10_pi": -142.93598728312753,
+    "log10_exit": -129.73826341198418,
+    "exits": [
+     {
+      "to": "if(BOX(S2),S2,S4):1.000",
+      "log10_rate": -130.03929340783225,
+      "mutants": [
+       [
+        "if(BOX(S2),S2,S4)",
+        -130.03929340783225
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S2),S2,S4):1.000",
+      "log10_rate": -130.03929340783225,
+      "mutants": [
+       [
+        "if(BOX1(S2),S2,S4)",
+        -130.03929340783225
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S1),S5,S3):1.000",
+      "log10_rate": -139.1110212631199,
+      "mutants": [
+       [
+        "if(BOX1(S1),S5,S3)",
+        -139.1110212631199
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S3),S3,S5):1.000",
+      "log10_rate": -177.6720851666524,
+      "mutants": [
+       [
+        "if(BOX(S3),S3,S5)",
+        -177.6720851666524
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.000",
+      "log10_rate": -177.6720851666524,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        -177.6720851666524
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.846154,
+     "half": 0.289937,
+     "third": 0.497047,
+     "sixth": 0.059171,
+     "clash": 0.153846,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "if(BOX(S3),S1,S4):0.111 + if(BOX1(S1),S3,S4):0.333 + if(BOX1(S3),S3,S2):0.556",
+    "pi": 8.875096748275505e-168,
+    "log10_pi": -167.0518269039615,
+    "log10_exit": -105.63399912317128,
+    "exits": [
+     {
+      "to": "if(BOX(S2),S2,S4):1.000",
+      "log10_rate": -105.93502911883526,
+      "mutants": [
+       [
+        "if(BOX(S2),S2,S4)",
+        -105.93502911883526
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S2),S2,S4):1.000",
+      "log10_rate": -105.93502911883526,
+      "mutants": [
+       [
+        "if(BOX1(S2),S2,S4)",
+        -105.93502911883526
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.000",
+      "log10_rate": -192.6353063124452,
+      "mutants": [
+       [
+        "S3",
+        -192.6353063124452
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S3),S1,S4):0.333 + if(BOX1(S4),S2,S3):0.667",
+      "log10_rate": -235.6961421838806,
+      "mutants": [
+       [
+        "if(BOX1(S4),S2,S3)",
+        -235.6961421838806
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S3),S1,S3):1.000",
+      "log10_rate": -239.19919721975108,
+      "mutants": [
+       [
+        "if(BOX(S3),S1,S3)",
+        -239.19919721975108
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.802476,
+     "half": 0.308644,
+     "third": 0.493831,
+     "sixth": 0.0,
+     "clash": 0.123451,
+     "ineff": 0.074073
+    }
+   },
+   {
+    "state": "if(BOX1(S1),S1,S4):0.667 + if(BOX1(S2),S4,S2):0.333",
+    "pi": 6.432400008309201e-176,
+    "log10_pi": -175.19162695617504,
+    "log10_exit": -96.30181864159688,
+    "exits": [
+     {
+      "to": "if(BOX1(S1),S1,S4):0.500 + if(BOX1(S3),S3,S2):0.500",
+      "log10_rate": -96.30181864159688,
+      "mutants": [
+       [
+        "if(BOX1(S3),S3,S2)",
+        -96.30181864159688
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S3),S3,S4):1.000",
+      "log10_rate": -167.8980051010922,
+      "mutants": [
+       [
+        "if(BOX1(S3),S3,S4)",
+        -167.8980051010922
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S3),S3,S4):1.000",
+      "log10_rate": -167.8980051010922,
+      "mutants": [
+       [
+        "if(BOX(S3),S3,S4)",
+        -167.8980051010922
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX1(S2),S2,S4):1.000",
+      "log10_rate": -248.4076481372048,
+      "mutants": [
+       [
+        "if(BOX1(S2),S2,S4)",
+        -248.4076481372048
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S2),S2,S4):1.000",
+      "log10_rate": -248.4076481372048,
+      "mutants": [
+       [
+        "if(BOX(S2),S2,S4)",
+        -248.4076481372048
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.444447,
+     "half": 0.0,
+     "third": 0.444447,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 0.555553
+    }
+   }
+  ],
+  "time_s": 769.2901570796967,
+  "resid": 0.0
+ },
+ "deep_states": [
+  {
+   "state": "if(BOX(S1),S1,S4):0.5714 + if(BOX1(S3),S3,S2):0.2857 + if(BOX1(S4),S2,S4):0.1429",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 1.4285717053752478e-10,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 1.0,
+   "resolve_log10_pi": 0.0,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.6530624490244902,
+    "half": 0.08162816328163282,
+    "third": 0.5714342857428574,
+    "sixth": 0.0,
+    "clash": 0.020407755077550774,
+    "ineff": 0.326529795897959
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S1,S4):0.5000 + if(BOX1(S3),S3,S2):0.5000",
+   "size": 2,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 1.9736021047890614e-84,
+   "resolve_log10_pi": -83.70474040035567,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.7500025000250002,
+    "half": 0.24999749997499976,
+    "third": 0.5000050000500005,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.24999749997499976
+   }
+  },
+  {
+   "state": "if(BOX(S1),S1,S4):0.6667 + if(BOX1(S2),S4,S2):0.3333",
+   "size": 2,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": true,
+   "in_published_recurrent": true,
+   "resolve_pi": 1.721247528001543e-104,
+   "resolve_log10_pi": -103.76415667045386,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.44444666666666666,
+    "half": 0.0,
+    "third": 0.44444666666666666,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.5555533333333333
+   }
+  },
+  {
+   "state": "if(BOX(S3),S2,S4):0.2222 + if(BOX1(S2),S3,S4):0.3333 + if(BOX1(S3),S3,S2):0.4444",
+   "size": 3,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 2.752117756732162e-140,
+   "resolve_log10_pi": -139.5603329875859,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.6913604938765442,
+    "half": 0.1975283950123447,
+    "third": 0.4938320988641995,
+    "sixth": 0.0,
+    "clash": 0.16048987646419596,
+    "ineff": 0.14814962965925985
+   }
+  },
+  {
+   "state": "if(BOX(S2),S3,S4):0.3333 + if(BOX(S3),S2,S4):0.2222 + if(BOX1(S3),S3,S2):0.4444",
+   "size": 3,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 8.112526707106502e-143,
+   "resolve_log10_pi": -142.09084386045598,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.6913604938765442,
+    "half": 0.1975283950123447,
+    "third": 0.4938320988641995,
+    "sixth": 0.0,
+    "clash": 0.16048987646419596,
+    "ineff": 0.14814962965925985
+   }
+  },
+  {
+   "state": "if(BOX(S5),S1,S4):0.0769 + if(BOX1(S1),S5,S4):0.3846 + if(BOX1(S3),S3,S2):0.5385",
+   "size": 3,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 1.1588112876009316e-143,
+   "resolve_log10_pi": -142.93598728312745,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.8461538461384613,
+    "half": 0.28993668636686365,
+    "third": 0.4970466272662727,
+    "sixth": 0.05917053250532505,
+    "clash": 0.1538461538615386,
+    "ineff": 0.0
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S5,S4):0.3846 + if(BOX1(S3),S3,S2):0.5385 + if(BOX1(S5),S1,S4):0.0769",
+   "size": 3,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": -5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 1.158811287600734e-143,
+   "resolve_log10_pi": -142.93598728312753,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.8461538461384613,
+    "half": 0.28993668636686365,
+    "third": 0.4970466272662727,
+    "sixth": 0.05917053250532505,
+    "clash": 0.1538461538615386,
+    "ineff": 0.0
+   }
+  },
+  {
+   "state": "if(BOX(S3),S1,S4):0.1111 + if(BOX1(S1),S3,S4):0.3333 + if(BOX1(S3),S3,S2):0.5556",
+   "size": 3,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 8.875096748275505e-168,
+   "resolve_log10_pi": -167.0518269039615,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.8024755555555556,
+    "half": 0.30864444444444444,
+    "third": 0.4938311111111111,
+    "sixth": 0.0,
+    "clash": 0.12345111111111112,
+    "ineff": 0.07407333333333334
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S1,S4):0.6667 + if(BOX1(S2),S4,S2):0.3333",
+   "size": 2,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 6.432400008309201e-176,
+   "resolve_log10_pi": -175.19162695617504,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.44444666666666666,
+    "half": 0.0,
+    "third": 0.44444666666666666,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.5555533333333333
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S1,S4):0.6667 + if(BOX1(S2),S3,S2):0.3333",
+   "size": 2,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 1.0722163473048499e-176,
+   "resolve_log10_pi": -175.9697175756873,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.44444666666666666,
+    "half": 0.0,
+    "third": 0.44444666666666666,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.5555533333333333
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S5,S2):0.3333 + if(BOX1(S1),S1,S4):0.6667",
+   "size": 2,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 5.457687312656244e-178,
+   "resolve_log10_pi": -177.26299134999223,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.44444666666666666,
+    "half": 0.0,
+    "third": 0.44444666666666666,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.5555533333333333
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S1,S4):0.6667 + if(BOX1(S3),S5,S2):0.3333",
+   "size": 2,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 6.786808666884591e-179,
+   "resolve_log10_pi": -178.1683343942279,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.44444666666666666,
+    "half": 0.0,
+    "third": 0.44444666666666666,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.5555533333333333
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S1,S4):0.6667 + if(BOX1(S3),S4,S2):0.3333",
+   "size": 2,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 6.786807707171701e-179,
+   "resolve_log10_pi": -178.1683344556409,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.44444666666666666,
+    "half": 0.0,
+    "third": 0.44444666666666666,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.5555533333333333
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S4,S2):0.3333 + if(BOX1(S1),S1,S4):0.6667",
+   "size": 2,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 3.820679966742148e-179,
+   "resolve_log10_pi": -178.4178593387834,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.44444666666666666,
+    "half": 0.0,
+    "third": 0.44444666666666666,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.5555533333333333
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S1,S4):0.6667 + if(BOX1(S2),S5,S2):0.3333",
+   "size": 2,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 1.5381505559417217e-179,
+   "resolve_log10_pi": -178.8130011532117,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.44444666666666666,
+    "half": 0.0,
+    "third": 0.44444666666666666,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.5555533333333333
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S3,S2):0.3333 + if(BOX1(S1),S1,S4):0.6667",
+   "size": 2,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 1.4845483782990531e-179,
+   "resolve_log10_pi": -178.82840564509655,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.44444666666666666,
+    "half": 0.0,
+    "third": 0.44444666666666666,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.5555533333333333
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S1,S4):0.6667 + if(BOX1(S4),S5,S2):0.3333",
+   "size": 2,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 7.806579817668675e-180,
+   "resolve_log10_pi": -179.1075391955269,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.44444666666666666,
+    "half": 0.0,
+    "third": 0.44444666666666666,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.5555533333333333
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S1,S4):0.6667 + if(BOX1(S4),S3,S2):0.3333",
+   "size": 2,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 7.734009704318193e-180,
+   "resolve_log10_pi": -179.1115952873277,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.44444666666666666,
+    "half": 0.0,
+    "third": 0.44444666666666666,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.5555533333333333
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S1,S4):0.6667 + if(BOX1(S5),S4,S2):0.3333",
+   "size": 2,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 7.697186911742138e-180,
+   "resolve_log10_pi": -179.1136679672858,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.44444666666666666,
+    "half": 0.0,
+    "third": 0.44444666666666666,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.5555533333333333
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S1,S4):0.6667 + if(BOX1(S5),S3,S2):0.3333",
+   "size": 2,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0003677663601946998,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 7.69534864790327e-180,
+   "resolve_log10_pi": -179.11377169910338,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.44444666666666666,
+    "half": 0.0,
+    "third": 0.44444666666666666,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.5555533333333333
+   }
+  },
+  {
+   "state": "if(BOX(S2),S1,S4):0.1429 + if(BOX1(S1),S2,S4):0.2857 + if(BOX1(S3),S3,S2):0.5714",
+   "size": 3,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 3.901663386478118e-191,
+   "resolve_log10_pi": -190.4087502018049,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.816330204102041,
+    "half": 0.326529795897959,
+    "third": 0.48980040820408205,
+    "sixth": 0.0,
+    "clash": 0.10203591835918359,
+    "ineff": 0.08163387753877539
+   }
+  },
+  {
+   "state": "if(BOX(S1),S2,S4):0.4000 + if(BOX1(S3),S3,S2):0.4000 + if(BOX1(S4),S2,S4):0.2000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 2.000000165480742e-10,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 1.5081167836685112e-196,
+   "resolve_log10_pi": -195.82156502680905,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.8000040000400004,
+    "half": 0.15999759997599977,
+    "third": 0.6400064000640007,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.0
+   }
+  },
+  {
+   "state": "if(BOX(S2),S1,S4):0.2000 + if(BOX1(S1),S2,S4):0.4000 + if(BOX1(S2),S4,S2):0.4000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 7.0636787259476165e-199,
+   "resolve_log10_pi": -198.15096906179755,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX(S2),S1,S4):0.2000 + if(BOX1(S1),S2,S4):0.4000 + if(BOX1(S2),S3,S2):0.4000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 2.6619461512404645e-199,
+   "resolve_log10_pi": -198.57480073415647,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX(S2),S1,S4):0.2000 + if(BOX1(S1),S4,S2):0.4000 + if(BOX1(S1),S2,S4):0.4000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 1.5142221065765155e-202,
+   "resolve_log10_pi": -201.81981041771184,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX(S2),S1,S4):0.2000 + if(BOX1(S1),S3,S2):0.4000 + if(BOX1(S1),S2,S4):0.4000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 9.8978058967785e-203,
+   "resolve_log10_pi": -202.00446106727415,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S3,S4):0.3333 + if(BOX1(S3),S3,S2):0.5556 + if(BOX1(S3),S1,S4):0.1111",
+   "size": 3,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 1.6479279605420496e-212,
+   "resolve_log10_pi": -211.78306177748289,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.8024755555555556,
+    "half": 0.30864444444444444,
+    "third": 0.4938311111111111,
+    "sixth": 0.0,
+    "clash": 0.12345111111111112,
+    "ineff": 0.07407333333333334
+   }
+  },
+  {
+   "state": "S2:0.0833 + if(BOX(S2),S4,S5):0.5333 + if(BOX(S4),S2,S4):0.1667 + if(BOX1(S2),S4,S1):0.1333 + if(BOX1(S4),S2,S4):0.0833",
+   "size": 5,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.19338020551649543,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 4.605111728591844e-235,
+   "resolve_log10_pi": -234.33675982854587,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.6561152389259447,
+    "half": 0.0,
+    "third": 0.5138931944930561,
+    "sixth": 0.14222204443288858,
+    "clash": 0.3191654082984159,
+    "ineff": 0.024719352775639396
+   }
+  },
+  {
+   "state": "S2:0.0833 + if(BOX(S2),S4,S1):0.1333 + if(BOX(S2),S4,S5):0.5333 + if(BOX(S4),S2,S4):0.1667 + if(BOX1(S4),S2,S4):0.0833",
+   "size": 5,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.19338020551649543,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 4.605111728591844e-235,
+   "resolve_log10_pi": -234.33675982854587,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.6561152389259447,
+    "half": 0.0,
+    "third": 0.5138931944930561,
+    "sixth": 0.14222204443288858,
+    "clash": 0.3191654082984159,
+    "ineff": 0.024719352775639396
+   }
+  },
+  {
+   "state": "if(BOX(S1),S2,S5):0.5714 + if(BOX(S2),S1,S5):0.2857 + if(BOX1(S3),S3,S1):0.1429",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 4.582762667526588e-235,
+   "resolve_log10_pi": -234.3388726334496,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.2653122449224492,
+    "half": 0.020407755077550774,
+    "third": 0.0,
+    "sixth": 0.24490448984489843,
+    "clash": 0.4081579591795918,
+    "ineff": 0.326529795897959
+   }
+  },
+  {
+   "state": "if(BOX(S2),S4,S5):0.4571 + if(BOX(S4),S2,S4):0.1429 + if(BOX1(S2),S4,S1):0.1143 + if(BOX1(S4),S2,S3):0.2857",
+   "size": 4,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0007355327203893996,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": -5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 4.0918703728539396e-241,
+   "resolve_log10_pi": -240.3880781328401,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.7575565551655515,
+    "half": 0.08162816328163282,
+    "third": 0.5714342857428574,
+    "sixth": 0.10449410614106142,
+    "clash": 0.2293822530225302,
+    "ineff": 0.01306119181191812
+   }
+  },
+  {
+   "state": "if(BOX(S2),S4,S1):0.1143 + if(BOX(S2),S4,S5):0.4571 + if(BOX(S4),S2,S4):0.1429 + if(BOX1(S4),S2,S3):0.2857",
+   "size": 4,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0007355327203893996,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": -5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 4.0918703728539396e-241,
+   "resolve_log10_pi": -240.3880781328401,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.7575565551655518,
+    "half": 0.08162816328163282,
+    "third": 0.5714342857428575,
+    "sixth": 0.10449410614106142,
+    "clash": 0.2293822530225302,
+    "ineff": 0.01306119181191812
+   }
+  },
+  {
+   "state": "if(BOX(S2),S4,S5):0.4000 + if(BOX(S4),S2,S3):0.5000 + if(BOX1(S2),S4,S1):0.1000",
+   "size": 3,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 9.054977643230138e-246,
+   "resolve_log10_pi": -245.04311261762308,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.8300033000330004,
+    "half": 0.24999749997499976,
+    "third": 0.5000050000500005,
+    "sixth": 0.08000080000800008,
+    "clash": 0.15999759997599977,
+    "ineff": 0.00999909999099991
+   }
+  },
+  {
+   "state": "if(BOX(S2),S4,S1):0.1000 + if(BOX(S2),S4,S5):0.4000 + if(BOX(S4),S2,S3):0.5000",
+   "size": 3,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 9.05497764322808e-246,
+   "resolve_log10_pi": -245.0431126176232,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.8300033000330004,
+    "half": 0.24999749997499976,
+    "third": 0.5000050000500005,
+    "sixth": 0.08000080000800008,
+    "clash": 0.15999759997599977,
+    "ineff": 0.00999909999099991
+   }
+  },
+  {
+   "state": "if(BOX(S3),S3,S4):1.0000",
+   "size": 1,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0001838831800973499,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": false,
+   "in_published_explored": true,
+   "in_published_recurrent": false,
+   "resolve_pi": 4.214740962300689e-264,
+   "resolve_log10_pi": -263.375229111929,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 1.0,
+    "half": 1.0,
+    "third": 0.0,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.0
+   }
+  },
+  {
+   "state": "if(BOX(S3),S3,S5):1.0000",
+   "size": 1,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0001838831800973499,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": false,
+   "in_published_explored": true,
+   "in_published_recurrent": false,
+   "resolve_pi": 3.71164771537549e-264,
+   "resolve_log10_pi": -263.43043325080686,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 1.0,
+    "half": 1.0,
+    "third": 0.0,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 0.0
+   }
+  },
+  {
+   "state": "if(BOX(S2),S2,S5):1.0000",
+   "size": 1,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0001838831800973499,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": false,
+   "in_published_explored": true,
+   "in_published_recurrent": false,
+   "resolve_pi": 1.8948529926037146e-264,
+   "resolve_log10_pi": -263.72242447803234,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.0,
+    "half": 0.0,
+    "third": 0.0,
+    "sixth": 0.0,
+    "clash": 0.0,
+    "ineff": 1.0
+   }
+  },
+  {
+   "state": "if(BOX(S1),S2,S4):0.4000 + if(BOX(S2),S1,S4):0.2000 + if(BOX1(S2),S4,S2):0.4000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX(S1),S2,S4):0.4000 + if(BOX1(S2),S4,S2):0.4000 + if(BOX1(S2),S1,S4):0.2000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX(S2),S4,S2):0.3333 + if(BOX1(S2),S4,S1):0.1333 + if(BOX1(S2),S4,S5):0.5333",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.5866709334106681,
+    "half": 0.0,
+    "third": 0.44444888897777957,
+    "sixth": 0.14222204443288858,
+    "clash": 0.28444408886577716,
+    "ineff": 0.12888497772355473
+   }
+  },
+  {
+   "state": "if(BOX(S2),S1,S4):0.2000 + if(BOX1(S1),S5,S2):0.4000 + if(BOX1(S1),S2,S4):0.4000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": -1381.0338784865153,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX(S2),S1,S4):0.2000 + if(BOX1(S1),S2,S4):0.4000 + if(BOX1(S2),S5,S2):0.4000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": -823.733645547896,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX(S2),S1,S4):0.2000 + if(BOX1(S1),S2,S4):0.4000 + if(BOX1(S3),S4,S2):0.4000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": -826.5608975209492,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX(S2),S1,S4):0.2000 + if(BOX1(S1),S2,S4):0.4000 + if(BOX1(S3),S5,S2):0.4000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": -827.0495446572156,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX(S2),S1,S4):0.2000 + if(BOX1(S1),S2,S4):0.4000 + if(BOX1(S5),S3,S2):0.4000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": -825.559085640328,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX(S2),S1,S4):0.2000 + if(BOX1(S1),S2,S4):0.4000 + if(BOX1(S5),S4,S2):0.4000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": -826.5608314440495,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX(S3),S5,S4):0.4000 + if(BOX1(S3),S3,S2):0.4000 + if(BOX1(S4),S2,S4):0.2000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 2.000000165480742e-10,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.8000040000400004,
+    "half": 0.15999759997599977,
+    "third": 0.6400064000640007,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.0
+   }
+  },
+  {
+   "state": "if(BOX(S4),S3,S4):0.4000 + if(BOX1(S3),S3,S2):0.4000 + if(BOX1(S4),S2,S4):0.2000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 2.000000165480742e-10,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.8000040000400004,
+    "half": 0.15999759997599977,
+    "third": 0.6400064000640007,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.0
+   }
+  },
+  {
+   "state": "if(BOX(S4),S5,S4):0.4000 + if(BOX1(S3),S3,S2):0.4000 + if(BOX1(S4),S2,S4):0.2000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 2.000000165480742e-10,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.8000040000400004,
+    "half": 0.15999759997599977,
+    "third": 0.6400064000640007,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.0
+   }
+  },
+  {
+   "state": "if(BOX(S5),S2,S4):0.4000 + if(BOX1(S3),S3,S2):0.4000 + if(BOX1(S4),S2,S4):0.2000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 2.000000165480742e-10,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.8000040000400004,
+    "half": 0.15999759997599977,
+    "third": 0.6400064000640007,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.0
+   }
+  },
+  {
+   "state": "if(BOX(S5),S3,S4):0.4000 + if(BOX1(S3),S3,S2):0.4000 + if(BOX1(S4),S2,S4):0.2000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 2.000000165480742e-10,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.8000040000400004,
+    "half": 0.15999759997599977,
+    "third": 0.6400064000640007,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.0
+   }
+  },
+  {
+   "state": "if(BOX(S5),S5,S4):0.4000 + if(BOX1(S3),S3,S2):0.4000 + if(BOX1(S4),S2,S4):0.2000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 2.000000165480742e-10,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.8000040000400004,
+    "half": 0.15999759997599977,
+    "third": 0.6400064000640007,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.0
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S2,S4):0.4000 + if(BOX1(S2),S4,S2):0.4000 + if(BOX1(S2),S1,S4):0.2000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX1(S1),S2,S4):0.4000 + if(BOX1(S2),S5,S2):0.4000 + if(BOX1(S2),S1,S4):0.2000",
+   "size": 3,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0005516495402920497,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.4800048000480005,
+    "half": 0.0,
+    "third": 0.4800048000480005,
+    "sixth": 0.0,
+    "clash": 0.19999599995999962,
+    "ineff": 0.31999919999199994
+   }
+  },
+  {
+   "state": "if(BOX(S1),S5,S2):0.0750 + if(BOX1(S1),S5,S4):0.4750 + if(BOX1(S2),S4,S2):0.4000 + if(BOX1(S5),S1,S4):0.0500",
+   "size": 4,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0007355327203893996,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.6062560625606257,
+    "half": 0.0,
+    "third": 0.5512555125551256,
+    "sixth": 0.055000550005500054,
+    "clash": 0.2281220312203122,
+    "ineff": 0.1656219062190622
+   }
+  },
+  {
+   "state": "if(BOX(S1),S5,S2):0.0750 + if(BOX(S5),S1,S4):0.0500 + if(BOX1(S1),S5,S4):0.4750 + if(BOX1(S2),S4,S2):0.4000",
+   "size": 4,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0007355327203893996,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.6062560625606256,
+    "half": 0.0,
+    "third": 0.5512555125551255,
+    "sixth": 0.055000550005500054,
+    "clash": 0.2281220312203122,
+    "ineff": 0.1656219062190622
+   }
+  },
+  {
+   "state": "if(BOX(S1),S5,S2):0.0750 + if(BOX(S1),S5,S4):0.4750 + if(BOX1(S2),S4,S2):0.4000 + if(BOX1(S5),S1,S4):0.0500",
+   "size": 4,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0007355327203893996,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.6062560625606257,
+    "half": 0.0,
+    "third": 0.5512555125551256,
+    "sixth": 0.055000550005500054,
+    "clash": 0.2281220312203122,
+    "ineff": 0.1656219062190622
+   }
+  },
+  {
+   "state": "if(BOX(S1),S5,S2):0.0750 + if(BOX(S1),S5,S4):0.4750 + if(BOX(S5),S1,S4):0.0500 + if(BOX1(S2),S4,S2):0.4000",
+   "size": 4,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0007355327203893996,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.6062560625606256,
+    "half": 0.0,
+    "third": 0.5512555125551255,
+    "sixth": 0.055000550005500054,
+    "clash": 0.2281220312203122,
+    "ineff": 0.1656219062190622
+   }
+  },
+  {
+   "state": "if(BOX(S1),S5,S4):0.4828 + if(BOX(S5),S1,S4):0.0345 + if(BOX1(S1),S5,S2):0.1034 + if(BOX1(S2),S4,S2):0.3276 + if(BOX1(S4),S2,S4):0.0517",
+   "size": 5,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0009194159004867495,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.5772892448924489,
+    "half": 0.0,
+    "third": 0.5368637990379904,
+    "sixth": 0.04042544585445855,
+    "clash": 0.23691772597725977,
+    "ineff": 0.1857930291302913
+   }
+  },
+  {
+   "state": "if(BOX(S1),S5,S4):0.4444 + if(BOX(S5),S1,S4):0.0889 + if(BOX1(S3),S3,S2):0.3111 + if(BOX1(S4),S2,S4):0.1556",
+   "size": 4,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0007355327203893996,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 1.5555556842627993e-10,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.7703773333733339,
+    "half": 0.09678728887288873,
+    "third": 0.5945767111671117,
+    "sixth": 0.07901333333333334,
+    "clash": 0.22962266662666628,
+    "ineff": 0.0
+   }
+  },
+  {
+   "state": "if(BOX(S2),S4,S5):0.5647 + if(BOX(S4),S2,S4):0.1765 + if(BOX1(S2),S4,S1):0.1412 + if(BOX1(S4),S2,S1):0.0235 + if(BOX1(S4),S2,S5):0.0941",
+   "size": 5,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0009194159004867495,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.620630721092789,
+    "half": 0.0,
+    "third": 0.45675155708442916,
+    "sixth": 0.16387916400835992,
+    "clash": 0.35888567754322453,
+    "ineff": 0.02048360136398636
+   }
+  },
+  {
+   "state": "if(BOX(S2),S4,S1):0.1412 + if(BOX(S2),S4,S5):0.5647 + if(BOX(S4),S2,S4):0.1765 + if(BOX1(S4),S2,S1):0.0235 + if(BOX1(S4),S2,S5):0.0941",
+   "size": 5,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0009194159004867495,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": -5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.620630721092789,
+    "half": 0.0,
+    "third": 0.45675155708442916,
+    "sixth": 0.16387916400835992,
+    "clash": 0.35888567754322453,
+    "ineff": 0.02048360136398636
+   }
+  },
+  {
+   "state": "if(BOX(S2),S4,S5):0.6013 + if(BOX(S4),S2,S5):0.2040 + if(BOX1(S2),S4,S1):0.1436 + if(BOX1(S4),S2,S1):0.0443 + if(BOX1(S5),S1,S5):0.0067",
+   "size": 5,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0009194159004867495,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 1.1102230246251565e-16,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.5741334863348633,
+    "half": 0.0,
+    "third": 0.36999553355533554,
+    "sixth": 0.2041379527795278,
+    "clash": 0.4032789725897259,
+    "ineff": 0.022587541075410757
+   }
+  },
+  {
+   "state": "if(BOX(S2),S4,S1):0.1436 + if(BOX(S2),S4,S5):0.6013 + if(BOX(S4),S2,S5):0.2040 + if(BOX1(S4),S2,S1):0.0443 + if(BOX1(S5),S1,S5):0.0067",
+   "size": 5,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0009194159004867495,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.5741334863348633,
+    "half": 0.0,
+    "third": 0.36999553355533554,
+    "sixth": 0.2041379527795278,
+    "clash": 0.4032789725897259,
+    "ineff": 0.022587541075410757
+   }
+  },
+  {
+   "state": "if(BOX(S2),S4,S5):0.6013 + if(BOX(S4),S2,S1):0.0443 + if(BOX(S4),S2,S5):0.2040 + if(BOX1(S2),S4,S1):0.1436 + if(BOX1(S5),S1,S5):0.0067",
+   "size": 5,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0009194159004867495,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.5741334863348633,
+    "half": 0.0,
+    "third": 0.36999553355533554,
+    "sixth": 0.2041379527795278,
+    "clash": 0.4032789725897259,
+    "ineff": 0.022587541075410757
+   }
+  },
+  {
+   "state": "if(BOX(S2),S4,S1):0.1426 + if(BOX(S2),S4,S5):0.6016 + if(BOX(S4),S2,S1):0.0434 + if(BOX(S4),S2,S5):0.2047 + if(BOX1(S1),S5,S1):0.0078",
+   "size": 5,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0009194159004867495,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": -5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.5739710545105451,
+    "half": 0.0,
+    "third": 0.3692112349123491,
+    "sixth": 0.20475981959819597,
+    "clash": 0.403740000400004,
+    "ineff": 0.022288945089450896
+   }
+  },
+  {
+   "state": "if(BOX(S1),S3,S2):0.0500 + if(BOX1(S1),S3,S4):0.4500 + if(BOX1(S2),S4,S2):0.4000 + if(BOX1(S3),S1,S4):0.1000",
+   "size": 4,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0007355327203893996,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.5250052500525004,
+    "half": 0.0,
+    "third": 0.5250052500525004,
+    "sixth": 0.0,
+    "clash": 0.21249662496624966,
+    "ineff": 0.2624981249812498
+   }
+  },
+  {
+   "state": "if(BOX(S1),S3,S2):0.0500 + if(BOX(S3),S1,S4):0.1000 + if(BOX1(S1),S3,S4):0.4500 + if(BOX1(S2),S4,S2):0.4000",
+   "size": 4,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0007355327203893996,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.5250052500525005,
+    "half": 0.0,
+    "third": 0.5250052500525005,
+    "sixth": 0.0,
+    "clash": 0.21249662496624966,
+    "ineff": 0.2624981249812498
+   }
+  },
+  {
+   "state": "S4:0.4627 + if(BOX(S1),S4,S2):0.0746 + if(BOX(S4),S1,S4):0.0597 + if(BOX1(S2),S4,S2):0.3881 + if(BOX1(S4),S1,S4):0.0149",
+   "size": 5,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.19338020551649543,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.5440023033769663,
+    "half": 0.0,
+    "third": 0.5440023033769663,
+    "sixth": 0.0,
+    "clash": 0.21786147918520815,
+    "ineff": 0.23813621743782565
+   }
+  },
+  {
+   "state": "if(BOX(S2),S3,S5):0.5381 + if(BOX(S3),S2,S5):0.2761 + if(BOX1(S2),S3,S1):0.1168 + if(BOX1(S3),S2,S1):0.0513 + if(BOX1(S5),S1,S5):0.0177",
+   "size": 5,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0009194159004867495,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.18882000180001798,
+    "half": 0.0,
+    "third": 0.0,
+    "sixth": 0.18882000180001798,
+    "clash": 0.3660431664316643,
+    "ineff": 0.44513683176831764
+   }
+  },
+  {
+   "state": "if(BOX(S2),S3,S5):0.5381 + if(BOX(S3),S2,S1):0.0513 + if(BOX(S3),S2,S5):0.2761 + if(BOX1(S2),S3,S1):0.1168 + if(BOX1(S5),S1,S5):0.0177",
+   "size": 5,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0009194159004867495,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.18882000180001798,
+    "half": 0.0,
+    "third": 0.0,
+    "sixth": 0.18882000180001798,
+    "clash": 0.3660431664316643,
+    "ineff": 0.44513683176831775
+   }
+  },
+  {
+   "state": "if(BOX(S2),S3,S4):0.4667 + if(BOX(S3),S2,S4):0.0667 + if(BOX1(S1),S4,S2):0.0667 + if(BOX1(S2),S3,S2):0.3667 + if(BOX1(S4),S1,S4):0.0333",
+   "size": 5,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0009194159004867495,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.4377811777882221,
+    "half": 0.0,
+    "third": 0.4377811777882221,
+    "sixth": 0.0,
+    "clash": 0.22332876671233287,
+    "ineff": 0.338890055499445
+   }
+  },
+  {
+   "state": "if(BOX(S1),S4,S2):0.0513 + if(BOX(S2),S3,S4):0.4615 + if(BOX(S3),S2,S4):0.0513 + if(BOX1(S2),S3,S2):0.3846 + if(BOX1(S4),S1,S4):0.0513",
+   "size": 5,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0009194159004867495,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": -5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.4470809468094681,
+    "half": 0.0,
+    "third": 0.4470809468094681,
+    "sixth": 0.0,
+    "clash": 0.21827499014990148,
+    "ineff": 0.3346440630406303
+   }
+  },
+  {
+   "state": "S2:0.2500 + if(BOX(S2),S3,S5):0.4000 + if(BOX(S3),S2,S4):0.2500 + if(BOX1(S2),S3,S1):0.1000",
+   "size": 4,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.19319632233639808,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.2050020500205002,
+    "half": 0.0,
+    "third": 0.12500125001250012,
+    "sixth": 0.08000080000800008,
+    "clash": 0.2224957249572496,
+    "ineff": 0.5725022250222502
+   }
+  },
+  {
+   "state": "if(BOX(S1),S3,S4):0.3871 + if(BOX(S3),S1,S4):0.1290 + if(BOX1(S3),S3,S2):0.3226 + if(BOX1(S4),S2,S4):0.1613",
+   "size": 4,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0007355327203893996,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 1.6129031443767872e-10,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.7075992091920918,
+    "half": 0.10405567115671156,
+    "third": 0.6035435380353803,
+    "sixth": 0.0,
+    "clash": 0.1925047658476585,
+    "ineff": 0.0998960249602496
+   }
+  },
+  {
+   "state": "if(BOX(S1),S3,S2):0.0500 + if(BOX(S1),S3,S4):0.4500 + if(BOX(S3),S1,S4):0.1000 + if(BOX1(S2),S4,S2):0.4000",
+   "size": 4,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0007355327203893996,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.5250052500525004,
+    "half": 0.0,
+    "third": 0.5250052500525004,
+    "sixth": 0.0,
+    "clash": 0.21249662496624966,
+    "ineff": 0.2624981249812498
+   }
+  },
+  {
+   "state": "if(BOX(S2),S3,S1):0.1168 + if(BOX(S2),S3,S5):0.5381 + if(BOX(S3),S2,S5):0.2761 + if(BOX1(S3),S2,S1):0.0513 + if(BOX1(S5),S1,S5):0.0177",
+   "size": 5,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.0009194159004867495,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": -5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.18882000180001798,
+    "half": 0.0,
+    "third": 0.0,
+    "sixth": 0.18882000180001798,
+    "clash": 0.3660431664316643,
+    "ineff": 0.44513683176831764
+   }
+  },
+  {
+   "state": "S2:0.2500 + if(BOX(S2),S3,S1):0.1000 + if(BOX(S2),S3,S5):0.4000 + if(BOX(S3),S2,S4):0.2500",
+   "size": 4,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.19319632233639808,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.2050020500205002,
+    "half": 0.0,
+    "third": 0.12500125001250012,
+    "sixth": 0.08000080000800008,
+    "clash": 0.2224957249572496,
+    "ineff": 0.5725022250222502
+   }
+  },
+  {
+   "state": "if(BOX(S2),S3,S1):0.1143 + if(BOX(S2),S3,S5):0.5388 + if(BOX(S3),S2,S1):0.0490 + if(BOX(S3),S2,S5):0.2776 + if(BOX1(S1),S5,S1):0.0204",
+   "size": 5,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0009194159004867495,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 1.1102230246251565e-16,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.19032849911500882,
+    "half": 0.0,
+    "third": 0.0,
+    "sixth": 0.19032849911500882,
+    "clash": 0.36730605453945464,
+    "ineff": 0.44236544634553654
+   }
+  },
+  {
+   "state": "if(BOX(S1),S3,S2):0.0500 + if(BOX(S1),S3,S4):0.4500 + if(BOX1(S2),S4,S2):0.4000 + if(BOX1(S3),S1,S4):0.1000",
+   "size": 4,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.0007355327203893996,
+   "mass_min": 0.0001838831800973499,
+   "max_inv": 5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.0,
+   "resolve_log10_pi": null,
+   "resolve_recurrent": false,
+   "stat": {
+    "eff": 0.5250052500525004,
+    "half": 0.0,
+    "third": 0.5250052500525004,
+    "sixth": 0.0,
+    "clash": 0.21249662496624966,
+    "ineff": 0.2624981249812498
+   }
+  }
+ ],
+ "deep_mutant_lists": [
+  {
+   "state": "if(BOX(S1),S1,S4):0.5714 + if(BOX1(S3),S3,S2):0.2857 + if(BOX1(S4),S2,S4):0.1429",
+   "outside": [
+    [
+     "if(BOX1(S2),S4,S2)",
+     1.4285717053752478e-10,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S2)",
+     1.4285717053752478e-10,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S2)",
+     0.0,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "S2",
+     -0.047619047489795896,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX1(S4),S1,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S2)",
+     -0.047619047489795896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S3)",
+     -0.04761904748979595,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S4)",
+     -0.09523809512244902,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "S4",
+     -0.09523809569387759,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S5),S1,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S4)",
+     -0.09523809569387759,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S1)",
+     -0.11904761836734695,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S1)",
+     -0.11904761879591841,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S1)",
+     -0.11904761879591841,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S1)",
+     -0.14285714218367349,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S1)",
+     -0.14285714218367349,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S2)",
+     -0.14285714261224494,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S2)",
+     -0.14285714261224494,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S3)",
+     -0.14285714261224497,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S3)",
+     -0.14285714261224497,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S4)",
+     -0.14285714318367349,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S3)",
+     -0.14285714318367349,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S3)",
+     -0.14285714318367349,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S5)",
+     -0.1904761896734694,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S4)",
+     -0.19047619081632658,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "S1",
+     -0.21428571348979597,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S5),S4,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S1)",
+     -0.21428571348979597,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S2)",
+     -0.23809523830612248,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S2)",
+     -0.23809523830612248,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S2)",
+     -0.23809523830612248,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "S3",
+     -0.2380952383061225,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX1(S4),S4,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S5)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S4)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S5)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S3)",
+     -0.2380952383061225,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S5)",
+     -0.2857142847959184,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S5)",
+     -0.2857142847959184,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S5)",
+     -0.28571428536734694,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S5)",
+     -0.28571428536734694,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S1)",
+     -0.3095238091836735,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S1)",
+     -0.3095238091836735,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S1)",
+     -0.3095238091836735,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "S5",
+     -0.38095238048979596,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S1),S2,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S5)",
+     -0.38095238048979596,
+     0.0001838831800973499
+    ]
+   ]
+  },
+  {
+   "state": "S2:0.0833 + if(BOX(S2),S4,S5):0.5333 + if(BOX(S4),S2,S4):0.1667 + if(BOX1(S2),S4,S1):0.1333 + if(BOX1(S4),S2,S4):0.0833",
+   "outside": [
+    [
+     "if(BOX(S2),S4,S1)",
+     5.551115123125783e-17,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S5)",
+     5.551115123125783e-17,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S3)",
+     -0.0138888888194445,
+     0.0001838831800973499
+    ],
+    [
+     "S4",
+     -0.022222222231111033,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX1(S4),S2,S1)",
+     -0.02777777751388899,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S3)",
+     -0.04444444459555552,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S3)",
+     -0.04444444459555552,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S1)",
+     -0.05555555511111121,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S5)",
+     -0.05555555519444455,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S2)",
+     -0.06666666695999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S2)",
+     -0.06666666695999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S3)",
+     -0.06944444418055556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S2)",
+     -0.08888888865777778,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S4)",
+     -0.09999999928999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S5)",
+     -0.11111111055555561,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S5)",
+     -0.1333333322533334,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S4)",
+     -0.1333333331199999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S3)",
+     -0.13611111047388888,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S1)",
+     -0.13888888844444444,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S1)",
+     -0.13888888844444444,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S1)",
+     -0.15277777726388891,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S1)",
+     -0.15277777726388891,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S4)",
+     -0.16111111071722217,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S2)",
+     -0.1638888890294444,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S2)",
+     -0.1638888890294444,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "S1",
+     -0.16666666600000005,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S4),S5,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S1)",
+     -0.1805555548194445,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S1)",
+     -0.1805555548194445,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S5)",
+     -0.18055555506944443,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S5)",
+     -0.18055555506944443,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S4)",
+     -0.18888888848111107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S4)",
+     -0.18888888848111107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S4)",
+     -0.18888888848111107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S4)",
+     -0.18888888848111107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S4)",
+     -0.18888888848111107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S4)",
+     -0.18888888848111107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S4)",
+     -0.18888888848111107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S4)",
+     -0.18888888848111107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S4)",
+     -0.18888888848111107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S4)",
+     -0.18888888848111107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S4)",
+     -0.18888888848111107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S4)",
+     -0.18888888848111107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S4)",
+     -0.18888888848111107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S2)",
+     -0.19166666658499998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S2)",
+     -0.19166666658499998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S5)",
+     -0.1944444436805556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S1)",
+     -0.19444444376388892,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S1)",
+     -0.19444444376388892,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S5)",
+     -0.19444444388888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S5)",
+     -0.19444444388888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S3)",
+     -0.1972222219011111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S4)",
+     -0.20277777730055552,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S4)",
+     -0.20277777730055552,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S2)",
+     -0.20555555540444445,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S2)",
+     -0.20555555540444445,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S2)",
+     -0.20555555544611107,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S5)",
+     -0.208333332625,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S5)",
+     -0.208333332625,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S4)",
+     -0.21666666612,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S4)",
+     -0.21666666612,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "S5",
+     -0.22222222144444448,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S1),S1,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "S3",
+     -0.22499999966499995,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX1(S5),S4,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S3)",
+     -0.22499999966499995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S4)",
+     -0.23055555485611112,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S4)",
+     -0.23055555485611112,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S2)",
+     -0.23333333320999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S2)",
+     -0.23333333320999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S3)",
+     -0.23888888848444442,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S3)",
+     -0.23888888848444442,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S4)",
+     -0.2444444436755556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S4)",
+     -0.2444444436755556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S3)",
+     -0.25277777722055556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S3)",
+     -0.25277777722055556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S1)",
+     -0.2555555551911111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S1)",
+     -0.2555555551911111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S1)",
+     -0.2555555551911111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S3)",
+     -0.26666666604,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S3)",
+     -0.26666666604,
+     0.0001838831800973499
+    ]
+   ]
+  },
+  {
+   "state": "S2:0.0833 + if(BOX(S2),S4,S1):0.1333 + if(BOX(S2),S4,S5):0.5333 + if(BOX(S4),S2,S4):0.1667 + if(BOX1(S4),S2,S4):0.0833",
+   "outside": [
+    [
+     "if(BOX1(S2),S4,S5)",
+     0.0,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S1)",
+     0.0,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S3)",
+     -0.013888888819444445,
+     0.0001838831800973499
+    ],
+    [
+     "S4",
+     -0.02222222223111109,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX1(S4),S2,S1)",
+     -0.027777777513888935,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S3)",
+     -0.04444444459555552,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S3)",
+     -0.04444444459555552,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S1)",
+     -0.055555555111111155,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S5)",
+     -0.055555555194444495,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S2)",
+     -0.06666666695999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S2)",
+     -0.06666666695999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S3)",
+     -0.06944444418055556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S1)",
+     -0.07777777680888892,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S2)",
+     -0.08888888865777778,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S1)",
+     -0.09999999904000006,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S4)",
+     -0.09999999929,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S5)",
+     -0.11111111055555559,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S2)",
+     -0.11111111088888889,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S1)",
+     -0.1222222214044445,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S5)",
+     -0.13333333225333338,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S4)",
+     -0.13333333311999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S2)",
+     -0.13333333312,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S3)",
+     -0.1361111104738889,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S1)",
+     -0.13888888844444447,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S1)",
+     -0.13888888844444447,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S1)",
+     -0.15277777726388891,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S1)",
+     -0.15277777726388891,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S2)",
+     -0.15555555548444444,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S4)",
+     -0.16111111071722223,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S2)",
+     -0.16388888902944443,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S2)",
+     -0.16388888902944443,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "S1",
+     -0.16666666600000005,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX1(S3),S5,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S1)",
+     -0.16666666600000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S4)",
+     -0.16666666625,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S2)",
+     -0.17777777784888887,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S1)",
+     -0.1805555548194445,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S1)",
+     -0.1805555548194445,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S3)",
+     -0.18055555506944446,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S5)",
+     -0.18055555506944446,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S5)",
+     -0.18055555506944446,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S4)",
+     -0.1888888884811111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S4)",
+     -0.1888888884811111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S4)",
+     -0.1888888884811111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S4)",
+     -0.1888888884811111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S4)",
+     -0.1888888884811111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S4)",
+     -0.1888888884811111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S4)",
+     -0.1888888884811111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S4)",
+     -0.1888888884811111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S4)",
+     -0.1888888884811111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S4)",
+     -0.1888888884811111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S2)",
+     -0.191666666585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S2)",
+     -0.191666666585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S5)",
+     -0.1944444436805556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S1)",
+     -0.19444444376388892,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S1)",
+     -0.19444444376388892,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S5)",
+     -0.1944444438888889,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S5)",
+     -0.1944444438888889,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S3)",
+     -0.19722222190111113,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S2)",
+     -0.20000000008,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S3)",
+     -0.20277777730055557,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S4)",
+     -0.20277777730055557,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S4)",
+     -0.20277777730055557,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S2)",
+     -0.20555555540444445,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S2)",
+     -0.20555555540444445,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S2)",
+     -0.2055555554461111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S5)",
+     -0.20833333262500003,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S5)",
+     -0.20833333262500003,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S4)",
+     -0.21111111084555556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S4)",
+     -0.21666666612000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S4)",
+     -0.21666666612000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "S5",
+     -0.22222222144444448,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S1),S1,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S5)",
+     -0.22222222144444448,
+     0.0001838831800973499
+    ],
+    [
+     "S3",
+     -0.224999999665,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S1),S2,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S3)",
+     -0.224999999665,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S4)",
+     -0.23055555485611112,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S4)",
+     -0.23055555485611112,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S2)",
+     -0.23333333321,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S2)",
+     -0.23333333321,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S3)",
+     -0.23888888848444445,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S3)",
+     -0.23888888848444445,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S4)",
+     -0.2444444436755556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S4)",
+     -0.2444444436755556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S5)",
+     -0.2444444436755556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S3)",
+     -0.25277777722055556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S3)",
+     -0.25277777722055556,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S1)",
+     -0.2555555551911111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S1)",
+     -0.2555555551911111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S1)",
+     -0.2555555551911111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S4)",
+     -0.2555555554411111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S5)",
+     -0.26666666604,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S3)",
+     -0.26666666604,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S3)",
+     -0.26666666604,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S3)",
+     -0.2694444442605555,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S5)",
+     -0.3111111106355556,
+     0.0001838831800973499
+    ]
+   ]
+  },
+  {
+   "state": "S4:0.4627 + if(BOX(S1),S4,S2):0.0746 + if(BOX(S4),S1,S4):0.0597 + if(BOX1(S2),S4,S2):0.3881 + if(BOX1(S4),S1,S4):0.0149",
+   "outside": [
+    [
+     "if(BOX1(S1),S4,S2)",
+     0.0,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S4)",
+     -0.004975124394742625,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S2)",
+     -0.012437811009244737,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S4)",
+     -0.014925373139451803,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S3)",
+     -0.017412935403987473,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "S2",
+     -0.024875622018489585,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX1(S2),S1,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S2)",
+     -0.024875622018489585,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S3)",
+     -0.03731343295310746,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S1)",
+     -0.039800995143016216,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S4)",
+     -0.03980099515794144,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S1)",
+     -0.049751243887725505,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S4)",
+     -0.049751243962352254,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S2)",
+     -0.049751243962352365,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S5)",
+     -0.0547263683570951,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S4)",
+     -0.0621890549715971,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S3)",
+     -0.06467661687046111,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S3)",
+     -0.07462686567487187,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S5)",
+     -0.07462686590621515,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S4)",
+     -0.07462686598084195,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S3)",
+     -0.0771144278797059,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S3)",
+     -0.0771144278797059,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S4)",
+     -0.09950248792470479,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S2)",
+     -0.11442786060147025,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S3)",
+     -0.1144278608328134,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S2)",
+     -0.12437810934617952,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "S3",
+     -0.12686567184205824,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S1),S1,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S3)",
+     -0.12686567184205824,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S3)",
+     -0.1393034828513031,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S1)",
+     -0.15422885506538195,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S1)",
+     -0.15422885506538206,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S1)",
+     -0.15422885506538206,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S3)",
+     -0.1641791047951659,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S1)",
+     -0.1666666660746268,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S1)",
+     -0.17910447708387162,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S2)",
+     -0.17910447777790148,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S2)",
+     -0.17910447777790148,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S2)",
+     -0.17910447777790148,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S2)",
+     -0.17910447777790148,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "S1",
+     -0.1915422880184896,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S5),S5,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S1)",
+     -0.1915422880184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S2)",
+     -0.1990049753270215,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S2)",
+     -0.1990049753270215,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S1)",
+     -0.20398009902773445,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S5)",
+     -0.25870646709378475,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S5)",
+     -0.2686567158981955,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S1)",
+     -0.26865671612953884,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S1)",
+     -0.26865671612953884,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S1)",
+     -0.26865671612953884,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S1)",
+     -0.26865671612953884,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S1)",
+     -0.2786069649339496,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S1)",
+     -0.2786069649339496,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S5)",
+     -0.3084577110561371,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S5)",
+     -0.3084577110561373,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S5)",
+     -0.3084577110561373,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S5)",
+     -0.32089552206538197,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S5)",
+     -0.33333333307462676,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "S5",
+     -0.3582089550184896,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S1),S1,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S5)",
+     -0.3582089550184896,
+     0.0001838831800973499
+    ]
+   ]
+  },
+  {
+   "state": "S2:0.2500 + if(BOX(S2),S3,S5):0.4000 + if(BOX(S3),S2,S4):0.2500 + if(BOX1(S2),S3,S1):0.1000",
+   "outside": [
+    [
+     "if(BOX1(S3),S2,S4)",
+     0.0,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S1)",
+     0.0,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S5)",
+     0.0,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S4)",
+     -0.016666666689999998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S4)",
+     -0.016666666689999998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S4)",
+     -0.01666666681500001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S4)",
+     -0.03333333298000002,
+     0.0001838831800973499
+    ],
+    [
+     "S3",
+     -0.033333333480000005,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S3),S2,S3)",
+     -0.04166666656250001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S1)",
+     -0.04166666656250001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S3)",
+     -0.04166666656250001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S1)",
+     -0.04166666656250001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S2)",
+     -0.05000000027000001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S2)",
+     -0.05000000027000001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S2)",
+     -0.05000000039500002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S2)",
+     -0.05000000039500002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S4)",
+     -0.05833333325250001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S2)",
+     -0.06666666656000003,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S3)",
+     -0.07500000016750002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S1)",
+     -0.08333333275000004,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S1)",
+     -0.08333333275000004,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S5)",
+     -0.08333333325,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S5)",
+     -0.08333333325,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S3)",
+     -0.09166666633250001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "S4",
+     -0.09999999994,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S4),S2,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S4)",
+     -0.09999999994,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S3)",
+     -0.116666666605,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S3)",
+     -0.11666666673000001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S3)",
+     -0.11666666673000001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S1)",
+     -0.12499999956250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S1)",
+     -0.12499999968750003,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S1)",
+     -0.12499999968750003,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S2)",
+     -0.13333333352,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S3)",
+     -0.15833333329250002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S5)",
+     -0.166666666,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S5)",
+     -0.166666666,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "S1",
+     -0.16666666600000002,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S4),S3,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S5)",
+     -0.166666666125,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S5)",
+     -0.166666666375,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S5)",
+     -0.166666666375,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S2)",
+     -0.1749999998325,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S2)",
+     -0.1749999998325,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S2)",
+     -0.1749999999575,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S5)",
+     -0.18333333229,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S4)",
+     -0.183333333065,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S4)",
+     -0.183333333065,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S3)",
+     -0.199999999855,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S3)",
+     -0.199999999855,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S5)",
+     -0.2083333325625,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S1)",
+     -0.20833333256250003,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S1)",
+     -0.20833333256250003,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S1)",
+     -0.2083333326875,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S5)",
+     -0.2083333326875,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S1)",
+     -0.2083333326875,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S5)",
+     -0.2083333326875,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S2)",
+     -0.21666666639499998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S2)",
+     -0.21666666639499998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S2)",
+     -0.216666666645,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S2)",
+     -0.216666666645,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S4)",
+     -0.2249999993775,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S4)",
+     -0.2249999993775,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S1)",
+     -0.23333333296000003,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S1)",
+     -0.23333333296000003,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S1)",
+     -0.23333333296000003,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S3)",
+     -0.24166666616750002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S3)",
+     -0.24166666616750002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "S5",
+     -0.24999999925,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S1),S1,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S5)",
+     -0.24999999925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S4)",
+     -0.26666666594,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S4)",
+     -0.26666666594,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S3)",
+     -0.28333333273,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S3)",
+     -0.28333333273,
+     0.0001838831800973499
+    ]
+   ]
+  },
+  {
+   "state": "S2:0.2500 + if(BOX(S2),S3,S1):0.1000 + if(BOX(S2),S3,S5):0.4000 + if(BOX(S3),S2,S4):0.2500",
+   "outside": [
+    [
+     "if(BOX1(S2),S3,S5)",
+     5.551115123125783e-17,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S1)",
+     5.551115123125783e-17,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S4)",
+     0.0,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S4)",
+     -0.016666666689999943,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S4)",
+     -0.016666666689999943,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S4)",
+     -0.016666666814999953,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S4)",
+     -0.03333333298000002,
+     0.0001838831800973499
+    ],
+    [
+     "S3",
+     -0.03333333347999995,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S2),S4,S1)",
+     -0.041666666562499954,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S1)",
+     -0.041666666562499954,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S3)",
+     -0.04166666656250001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S3)",
+     -0.04166666656250001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S3,S2)",
+     -0.050000000269999956,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S3,S2)",
+     -0.050000000269999956,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S2)",
+     -0.05000000039499991,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S2)",
+     -0.05000000039499991,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S4)",
+     -0.05833333325249995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S2)",
+     -0.06666666655999998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S3)",
+     -0.07500000016749997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S1)",
+     -0.08333333275000004,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S1)",
+     -0.08333333275000004,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S5)",
+     -0.08333333324999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S5)",
+     -0.08333333324999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S4)",
+     -0.08333333324999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S2)",
+     -0.08333333324999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S3)",
+     -0.09166666633250001,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S1)",
+     -0.09999999904000006,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "S4",
+     -0.09999999993999997,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S5),S1,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S2)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S4)",
+     -0.09999999993999997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S1)",
+     -0.11666666573000006,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S3)",
+     -0.116666666605,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S4,S3)",
+     -0.11666666672999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S4,S3)",
+     -0.11666666672999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S4)",
+     -0.11666666672999995,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S2)",
+     -0.11666666672999998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S1)",
+     -0.12499999956249999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S1)",
+     -0.1249999996875,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S1)",
+     -0.1249999996875,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S5,S3)",
+     -0.12499999981249998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S1)",
+     -0.13333333252000004,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S2)",
+     -0.13333333351999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S3)",
+     -0.14166666650249998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S4)",
+     -0.15000000020999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S2)",
+     -0.15000000020999996,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S1,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S3)",
+     -0.1583333332925,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S5,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S5,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "S1",
+     -0.16666666600000002,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S5),S3,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S5,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S5,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S5,S1)",
+     -0.16666666600000002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S2,S5)",
+     -0.16666666600000007,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S2,S5)",
+     -0.16666666600000007,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S2,S5)",
+     -0.16666666612500003,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S5)",
+     -0.166666666375,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S5)",
+     -0.166666666375,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S2)",
+     -0.17499999983249998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S2)",
+     -0.17499999983249998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S2)",
+     -0.17499999995749999,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S1,S5)",
+     -0.18333333229000007,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S4)",
+     -0.183333333065,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S4)",
+     -0.183333333065,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S3)",
+     -0.19166666677249997,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S2,S3)",
+     -0.199999999855,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S2,S3)",
+     -0.199999999855,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S1)",
+     -0.20833333256250003,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S1)",
+     -0.20833333256250003,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S1,S5)",
+     -0.20833333256250006,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S1)",
+     -0.2083333326875,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S1)",
+     -0.2083333326875,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S5)",
+     -0.20833333268750004,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S5)",
+     -0.20833333268750004,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S2)",
+     -0.21666666639499998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S2)",
+     -0.21666666639499998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S5,S2)",
+     -0.21666666664499998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S2)",
+     -0.21666666664499998,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S4)",
+     -0.22499999937750004,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S4)",
+     -0.22499999937750004,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S1)",
+     -0.23333333296,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S1)",
+     -0.23333333296,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S5,S1)",
+     -0.23333333296,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S1,S3)",
+     -0.24166666616750002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S1,S3)",
+     -0.24166666616750002,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S3,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S2,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S4),S4,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S4,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S3,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "S5",
+     -0.24999999925000005,
+     0.19264467279610603
+    ],
+    [
+     "if(BOX(S1),S1,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S2,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S3,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S1),S4,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S1,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S3,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S3),S4,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S1,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S2,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S4,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S3,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S1,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S2,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S5),S3,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S3,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S2,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S3),S1,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S4),S4,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S5),S4,S5)",
+     -0.24999999925000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S4)",
+     -0.26666666594000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S4,S5)",
+     -0.26666666594000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S4)",
+     -0.26666666594000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX(S2),S5,S3)",
+     -0.28333333273000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S3,S5)",
+     -0.28333333273000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S2),S5,S3)",
+     -0.28333333273000005,
+     0.0001838831800973499
+    ],
+    [
+     "if(BOX1(S1),S1,S5)",
+     -0.31666666621,
+     0.0001838831800973499
+    ]
+   ]
+  }
+ ],
+ "discrepancy": {},
+ "discrepancy_vs_rerun": {
+  "eff": 0.20861578235782258,
+  "half": 0.08162816328163273
+ },
+ "time_s": 910.4349219799042,
+ "theta_log": 1e-20
+}

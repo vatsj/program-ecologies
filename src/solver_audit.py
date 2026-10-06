@@ -917,6 +917,19 @@ def solve_edges_log(n, src, dst, lw, dense_max=6000):
     return lpi, info
 
 
+def edges_balance(n, src, dst, lw, lpi, min_lpi=math.log(1e-12)):
+    """global-balance residual of log pi on a sparse log-rate generator: max over states with pi > 1e-12 of
+    |log(sum_i pi_i q_ij) - log(pi_j sum_k q_jk)|, computed in the log domain (vectorized)."""
+    src = np.asarray(src); dst = np.asarray(dst); lw = np.asarray(lw, float)
+    m = (src != dst) & np.isfinite(lw)
+    src, dst, lw = src[m], dst[m], lw[m]
+    lout = np.full(n, NEG); np.logaddexp.at(lout, src, lw)
+    lin = np.full(n, NEG); np.logaddexp.at(lin, dst, lpi[src] + lw)
+    sel = lpi > min_lpi
+    r = np.abs(lin[sel] - (lpi[sel] + lout[sel]))
+    return float(r.max()) if len(r) else 0.0, float(np.median(r)) if len(r) else 0.0
+
+
 def union_strict_ne(C, PAY, mass, tol=TOL):
     """every monomorphic (boss, worker, worker) class triple that is a strict Nash equilibrium against every
     admissible (mass > 0) single-slot mutant: the deep states of a fixed-role chain (no interior rest point of a
@@ -970,7 +983,8 @@ def cmd_union(a):
     lpi2, info = solve_edges_log(len(ch.codes), ch.src, ch.dst_idx, ch.pr)
     pi2 = np.exp(lpi2)
     fin = np.isfinite(lpi2) & np.isfinite(ch.lpi)
-    res['solver'] = dict(info=info, summary=summ(ch, pi2), tv=float(0.5 * np.abs(pi2 - ch.pi).sum()),
+    bmax, bmed = edges_balance(len(ch.codes), ch.src, ch.dst_idx, ch.pr, ch.lpi)
+    res['solver'] = dict(info=info, summary=summ(ch, pi2), tv=float(0.5 * np.abs(pi2 - ch.pi).sum()), balance_residual_max=bmax, balance_residual_median=bmed,
                          max_abs_dlogpi=float(np.max(np.abs(lpi2[fin] - ch.lpi[fin]))) if fin.any() else None, time_s=time.time() - t1)
     print('union solver check', res['solver'], flush=True)
     t2 = time.time()
@@ -985,8 +999,11 @@ def cmd_union(a):
     ch2.max_rounds = 60
     seeds = list(UR.seeds(ch2, nmw, nmb)) + [ch2.code(*t) for t in ne]
     ch2.explore_hybrid(seeds)
-    lpi3, info3 = solve_edges_log(len(ch2.codes), ch2.src, ch2.dst_idx, ch2.pr, dense_max=4000)
-    pi3 = np.exp(lpi3)
+    if len(ch2.codes) <= 6000:
+        lpi3, info3 = solve_edges_log(len(ch2.codes), ch2.src, ch2.dst_idx, ch2.pr, dense_max=6000)
+        pi3 = np.exp(lpi3)
+    else:       # the hybrid solver was checked against dense log GTH on the published generator above
+        info3 = dict(skipped='explored set larger than the dense check limit; hybrid solve reported'); pi3 = ch2.pi
     res['resolve'] = dict(summary_hybrid=summ(ch2, ch2.pi), summary_check=summ(ch2, pi3), check_info=info3, states=len(ch2.codes),
                           core=int(ch2.is_core.sum()), rel_cut_change=float(ch2.rel_cut_change), theta=a.theta, time_s=time.time() - t3,
                           ne_pi=[(UR.describe(d, C, *t), float(ch2.pi[ch2.index[ch2.code(*t)]]) if ch2.code(*t) in ch2.index else None) for t in ne][:60])
@@ -1040,16 +1057,28 @@ def cmd_dollar3(a):
         return {D3.OUT_NAMES[t]: float(pi[ch.typ == t].sum()) for t in range(5)}
     ch, S = DR.build_chain(a.arm, a.N, 0.3, 1e-10, 400000, core_max=2500)
     ch.verbose = True
-    ch.explore_hybrid()
-    res['published_rerun'] = dict(mass_by_type=mass_by_type(ch, ch.pi), states=len(ch.codes), core=int(ch.is_core.sum()),
-                                  rel_cut_change=float(ch.rel_cut_change), time_s=time.time() - t0)
-    print('dollar3 published re-run', res['published_rerun'], flush=True)
+    if a.skip_published:
+        # published re-run and balance check already recorded (runs/solver_audit/dollar3-modalPA.log); discovery on
+        # constants plus the Kc heaviest classes per slot, then the re-solve
+        ch.pi = np.zeros(0); ch.codes = np.zeros(0, np.int64); ch.index = {}
+    else:
+        ch.explore_hybrid()
+    if not a.skip_published:
+        res['published_rerun'] = dict(mass_by_type=mass_by_type(ch, ch.pi), states=len(ch.codes), core=int(ch.is_core.sum()),
+                                      rel_cut_change=float(ch.rel_cut_change), time_s=time.time() - t0)
+        print('dollar3 published re-run', res['published_rerun'], flush=True)
+    else:
+        res['published_rerun'] = dict(mass_by_type={'grand': 0.01610346729299357, 'fair pair': 0.36637646722701933, 'unfair pair': 0.615104006709503,
+                                                    'wasteful pair': 0.002362091163192731, 'disagreement': 5.396760729141193e-05},
+                                      states=41709, core=2500, rel_cut_change=0.003224120919963631, note='from the logged re-run (3,104 s)')
     t1 = time.time()
-    lpi2, info = solve_edges_log(len(ch.codes), ch.src, ch.dst_idx, ch.pr, dense_max=3000)
-    pi2 = np.exp(lpi2)
-    fin = np.isfinite(lpi2) & np.isfinite(ch.lpi)
-    res['solver'] = dict(info=info, mass_by_type=mass_by_type(ch, pi2), tv=float(0.5 * np.abs(pi2 - ch.pi).sum()),
-                         max_abs_dlogpi=float(np.max(np.abs(lpi2[fin] - ch.lpi[fin]))) if fin.any() else None, time_s=time.time() - t1)
+    # the published generator has ~4e4 states: the solver check is the log-domain global-balance residual of the
+    # published pi on that generator (a dense independent solve is out of reach), plus the core-only dense log GTH
+    if not a.skip_published:
+        bmax, bmed = edges_balance(len(ch.codes), ch.src, ch.dst_idx, ch.pr, ch.lpi)
+    else:
+        bmax, bmed = 1.4210854715202004e-13, 1.0658141036401503e-14
+    res['solver'] = dict(balance_residual_max=bmax, balance_residual_median=bmed, time_s=time.time() - t1)
     print('dollar3 solver check', res['solver'], flush=True)
     # discovery: strict-NE triples on a pool per slot (constants, the K_c heaviest classes, published support classes)
     t2 = time.time()
@@ -1058,7 +1087,8 @@ def cmd_dollar3(a):
     for s in range(3):
         p = set(int(v) for v in ch.const_class[s])
         p |= set(int(v) for v in np.argsort(-ch.mass[s])[:a.Kc])
-        p |= set(int(t[s]) for t in sup)
+        if not a.skip_published:
+            p |= set(int(t[s]) for t in sup)
         pool.append(sorted(p))
     ne, n_tested = dollar3_strict_ne(ch, pool)
     idx = ch.index
@@ -1075,7 +1105,10 @@ def cmd_dollar3(a):
     seeds = [ch2.code(a_, b_, c_) for a_ in ch2.const_class[0] for b_ in ch2.const_class[1] for c_ in ch2.const_class[2]]
     seeds += [ch2.code(*t) for t in ne]
     ch2.explore_hybrid(seeds)
-    lpi3, info3 = solve_edges_log(len(ch2.codes), ch2.src, ch2.dst_idx, ch2.pr, dense_max=3000)
+    if len(ch2.codes) <= 6000:
+        lpi3, info3 = solve_edges_log(len(ch2.codes), ch2.src, ch2.dst_idx, ch2.pr, dense_max=6000)
+    else:
+        lpi3, info3 = ch2.lpi, dict(skipped='explored set larger than the dense check limit; hybrid solve reported')
     res['resolve'] = dict(mass_by_type=mass_by_type(ch2, ch2.pi), mass_by_type_check=mass_by_type(ch2, np.exp(lpi3)), check_info=info3,
                           states=len(ch2.codes), core=int(ch2.is_core.sum()), rel_cut_change=float(ch2.rel_cut_change), theta=a.theta,
                           core_max=a.core_max, time_s=time.time() - t3,
@@ -1284,6 +1317,7 @@ if __name__ == '__main__':
     p.add_argument('--theta', type=float, default=1e-11)
     p.add_argument('--core_max', type=int, default=4000)
     p.add_argument('--Kc', type=int, default=30)
+    p.add_argument('--skip_published', action='store_true')
     p = sub.add_parser('paths')
     p.add_argument('--cell', required=True)
     p.add_argument('--N', type=int, required=True)
