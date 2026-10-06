@@ -3756,6 +3756,109 @@ Largest check returning T anywhere: 50,986 steps. Scripts: CB 5 nodes; CB1 and C
 - **The Löbian content is a symmetry, not a fixed point.** The own-call (self-fulfilment) guard alone yields twins and simulators, exactly as in milestone 3. **The guard is the point:** assuming the partner's check without validating it accepts a false atom. Dcert threatens no hypothesis rule: a run without a call can only be certified by evaluation.
 - **The new conventions are the checker entry and the call skeleton.** Pairs on different checker entries never cooperate, even with identical code (a checker cannot decide another's equivalence); a script covers exactly the sources with its call skeleton; certificates do not grow with the number of opponents. The checker is a convention, as the proof system was in the modal arm.
 - *Realizability caveat.* Production is a host tactic, not charged; scripts are fixed per checker; unit-cost `eq` on large values and arithmetic as in milestone 3; the cap V = K/4 is a design parameter; whether the Run cap guard is necessary for Lemma N is left open.
+## Concessions: a boss grammar with probes, "pay fair to those who would strike" (`runs/concessions.md`, `runs/concessions.json`, `runs/concessions-static.json`, `runs/concessions/`; spec `specs/2026-10-06-concessions.md`, predictions in `predictions/2026-10-06-concessions.md`)
+
+Designed by the RE from the RS's proposal, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/concessions.py`, `src/concessions_report.py`, `tests/test_concessions.py`, 4 pass).
+
+**What ran.** Static tables for four boss languages (P₀, P₀₁, sham, mass-preserved reference) under CC and the named tables under RR; the ε→0 chain (UChain hybrid, log-scaled GTH, seeds = named states plus every strict-NE triple, dense log GTH re-solve where ≤ 6,000 states): P₀₁ CC at N = 10², 10³, 10⁴, 3·10⁴, P₀ CC at 10³, 10⁴, sham and reference CC at 10², 10³, 10⁴ (reference 3·10⁴), c = 0.1 at 10⁴ (P₀₁, reference), RR (P₀₁, reference) at 10³, 10⁴, P₀₁ + pool at c = 0.1 and 0.5, N = 10³, 10⁴, P₀₁ at 10⁴ with the no-threat wage fakers nulled, θ-sensitivity at 10⁻¹⁰ for P₀₁ at 10⁴ and 3·10⁴ (stopped unfinished after ~2 h; a cut diagnostic replaces it); the preregistered lottery (P₀₁ and reference, CC and RR, 40 runs). Not preregistered: reduced chains over the named programs (uniform and length prior; CC, RR, pool); the lottery with the constant striker's prior mass moved onto the militant (400 runs for P₀₁, P₀, sham, reference CC; 40 for RR) and onto militant⁻ (40 runs). Not run or not finished: the worker-probe arm; θ = 10⁻¹¹ (round 1 at 110 k states did not finish in 70 min) and θ = 10⁻¹⁰ (not converged in 2 h); a uniform prior over all boss classes (abandoned at > 60 k states in round 0). *Deviation forced by size (spec-sanctioned):* D\* first appears at boss cutoff n = 11, where P₀₁ has 439,209 boss functions; the chain language is that grammar's constants and one-atom functions plus the eight D\* variants (`D*_j`, probe levels in {PA, PA + Con}), each class carrying the n = 11 mass of every function with its behaviour (fingerprint over 3,000 worker pairs; 550 merges re-checked exactly, 0 failures); novel two-atom policies are null mutations (0.0133 of the boss mass in P₀₁). **Sham** = P₀₁'s function list with every probe a literal constant at every world (a box of a false sentence is true at world 0 and would be a world-0 wage faker); it lumps into the union run's 297 boss classes. **Reference** = P₀₁'s prior with every probe-carrying function nulled (0.064), the rest at their P₀₁ masses. Probe semantics: `BOX_L(W_j(^(s,none)) = a)` holds at world n iff W_j's executed action in the quoted encounter ((s, none), W1, W2) equalled a at every world in [L, n).
+
+**Static.**
+- *Masses* (P₀₁, n = 11): each constant 0.1025 (0.923 in all); each one-atom probe concession (D₀, D₀q, D0[L1], D14) 4.4·10⁻⁵; **each D\* variant 9.7·10⁻⁹** (no behavioural duplicates in the n = 11 grammar); T₀, T₁, militant⁻, T₀⁻ 1.2·10⁻³ each; scab and constant striker 0.480 each.
+- *The ratchet is real (sol):* T₀ is neutral in D₀'s read slot, and at (D₀, T₀, T₀) the constant 1/4 boss invades strictly (+0.5, 1.6·10⁻² per event at 10⁴). *D\* reverses it in the slot it reads:* T₀ there is deleterious (−0.25) and at (D\*, T₀, T₀) the militant invades strictly (+0.25). *But D\* reads one slot:* at F\* = (D\*, T₁, T₁) the unread slot has neutral substitutes of mass 0.499, the scab first.
+- *Probes bring their own wage fakers:* `if(BOX(W1(^(0,none))=work),(1/2,·),(0,·))` pays 1/2 at world 0 (the probe is vacuous there), the militants' low-wage box fails for ever, and it pays 0 for work. Strict entry at F\* of mass 0.0095 (N-independent, 6.3·10⁻⁴ per event), plus 0.0021 among the null two-atom policies; wage fakers of the militant pair 0.0032 in P₀₁ against 0.0011 in the reference.
+- *The current-encounter concession C₁ = `if(BOX(W1=strike),(1/2,·),(0,·))` lands at (pay 0, work) against the militant pair*, not (pay 0, strike): it is itself a world-0 wage faker.
+- *The unfakeable fair state* F\*⁻ = (D\*[L1], militant⁻, militant⁻) exists (only level-1 probes certify militant⁻, which works at world 0 of every quoted encounter); nothing in the n = 11 grammar invades it strictly; its exits are the constant fair bosses (neutral, 0.31) and the unread slot (neutral, 0.499).
+- *Fakers by exhaustive search:* 106 worker classes certified to strike at the 0-boss still work for ≤ 0 against some boss class (soundness certifies the quoted encounter only); 0 boss classes get work from militant⁻ below 1/2 (Lemma 0).
+
+**Basin-to-basin rates** (per mutation event, from the explored generator; strike and scab-split states transient):
+
+| cell | fair escape 10³ → 10⁴ | fair residence at 10⁴ | fair → zero / 1/4 | 1/4 escape at 10⁴ (→ zero) | zero-wage residence at 10⁴ |
+|---|---|---|---|---|---|
+| P₀₁ | 2.1·10⁻³ → 1.0·10⁻⁴ (×21); cut-corrected 4.3·10⁻⁴ (×4.9) | 9.9·10³ | 0.64 / 0.36 | 1.5·10⁻⁴ (0.99) | 2.3·10⁵ |
+| P₀ | 2.1·10⁻³ → 2.1·10⁻⁴ (×10); cut-corrected 3.8·10⁻⁴ | 4.7·10³ | 0.63 / 0.37 | 1.4·10⁻⁴ (0.99) | 2.1·10⁵ |
+| sham, reference | 2.0·10⁻³ → 2.7·10⁻⁴ (×7) | 3.7·10³ | 0.64 / 0.37 | 1.4·10⁻⁴ (1.00) | 2.6–2.7·10⁵ |
+
+The fair basin's exits are strict boss moves (P₀₁, 10⁴: 1.25·10⁻⁴ per unit fair mass, neutral 3·10⁻⁶): the 0-boss cutting a fair state that holds a scab, and the wage fakers at the probe states; return fraction ≈ 0.01. In the explored P₀₁ chain the fair mass appears to move onto probe-concession states at 10⁴, but their strict wage-faker exits fall below θ and were dropped (the cut, below).
+
+**Chain** (CC, c = 0.5 unless stated; fair / 1/4 / zero wage; efficiency; worker payoff):
+
+| cell | N = 10² | 10³ | 10⁴ | 3·10⁴ |
+|---|---|---|---|---|
+| P₀₁ CC, fair (explored → cut-corrected) | 0.0053 | 0.0040 | 0.0086 → **0.0020** | 0.0091 → **0.0008** |
+| P₀ CC, fair | – | 0.0039 | 0.0043 → 0.0024 | – |
+| sham CC, fair | 0.0050 | 0.0035 | 0.0025 → 0.0023 | – |
+| reference CC, fair | 0.0051 | 0.0036 | 0.0025 → 0.0023 | 0.0023 → 0.0018 |
+| P₀₁ / reference CC, 1/4 | 0.022 / 0.023 | 0.013 / 0.014 | 0.010 / 0.010 | 0.010 / 0.009 |
+| P₀₁ / reference CC, zero wage | 0.46 / 0.46 | 0.48 / 0.48 | 0.48 / 0.48 | 0.48 / 0.48 |
+| P₀₁ CC, efficiency; payoff per worker | 1.36; 0.010 | 1.375; 0.005 | 1.373; 0.007 | 1.371; 0.007 |
+| P₀₁ / reference RR, 1/4 (fair) | – | 0.760 / 0.752 (2·10⁻⁴ / 10⁻⁴) | 0.759 / 0.750 (2·10⁻⁵ / 5·10⁻⁶) | – |
+| P₀₁ CC + pool, zero wage (fair), c = 0.1 / 0.5 | – | 0.992 / 0.984 (10⁻⁴) | 0.999 / 0.995 (≤ 6·10⁻⁵) | – |
+
+c = 0.1 at 10⁴: P₀₁ 0.0084, reference 0.0024 (explored). *The exploration cut* (`runs/concessions/cut_diagnostic.json`): at θ = 10⁻⁹ the P₀₁ cells at 10⁴ and 3·10⁴ leave 0.096 and 0.211 of the total flow to 3–3.6 million unexplored states, each below θ, and 0.65 / 0.77 of that cut leaves *fair* states — the strict wage-faker exits from the probe-concession fair states, spread over hundreds of faker classes of mass ~10⁻⁵. The restricted chain treats them as self-loops, so it underestimates the fair escape (dropped exit 3.3·10⁻⁴ per unit fair mass per event at 10⁴, three times the explored 1.0·10⁻⁴) and overestimates fair. The first-order correction (dropped flow out of a basin added to its escape; exits into faker states do not return, a concession boss being deleterious there) is in bold; the reference and sham cuts are 0.014–0.021 and change little. The θ = 10⁻¹⁰ re-exploration did not finish (each round 1.5 h, the explored set still growing at 39–41 k states with an outcome-changing cut of 0.47–0.73 when stopped after ~2 h). 0 strict-NE triples (no trap); dense log GTH re-solve TV ≤ 2.3·10⁻¹⁴ where ≤ 6,000 states.
+
+Support at 10⁴ in every CC arm: the zero-wage triples ((0, strike|source|none), scab, scab) 0.42, the four scab/striker splits 0.35, two striker pairs 0.12 — the union run's picture; 0 strict-NE triples (no trap). In the explored P₀₁ chain probe bosses hold 0.11 / 0.22 / 0.65 of the fair mass at N = 10² / 10³ / 10⁴ — the 10⁴ value is the cut artefact above. Preservation of demands: ≥ 0.96 of the fair π in every arm and N has a demand-lowering neutral worker substitute (the scab, then T₀), and ≥ 0.96 has one after whose fixation a boss strictly invades. Union mass in fair 2·10⁻⁴. Three-role threshold ≤ 0.012 in every CC cell (only s = 1/2 with both working reaches a 1/6 share). Nulling the 184 no-threat wage-faker classes (mass 0.0083) leaves fair at 10⁴ at 0.0019 cut-corrected (0.0108 explored): the probe fakers that operate under a committed whack policy (never executed) remain.
+
+**Reduced chains over the named programs** (not preregistered; fair / 1/4 / zero at N = 10⁴):
+
+| boss set | uniform prior | length prior |
+|---|---|---|
+| constants | 0.079 / 0.579 / 0.314 | 0.005 / 0.009 / 0.445 |
+| + D₀ family (P₀) | 0.105 / **0.845** / 0.044 | 0.006 / 0.010 / 0.444 |
+| + D14 | **0.787** / 0.183 / 0.019 | 0.007 / 0.009 / 0.444 |
+| + D\* family | **0.977** / 0.020 / 0.002 | 0.007 / 0.009 / 0.444 |
+| D\* family only | 0.970 / 0.024 / 0.004 | 0.005 / 0.009 / 0.445 |
+| all + wage fakers (C₁, base and probe) | 0.463 / 0.147 / 0.301 | 0.005 / 0.008 / 0.446 |
+
+RR keeps the smallest positive wage whatever the concessions (fair ≤ 2·10⁻⁴, 1/4 0.59–1.00 uniform); the pool keeps zero wage (≥ 0.99).
+
+**Lottery** (ε = 0, I = 16, N = 100, mN = 0.1, horizon 10⁵):
+
+| cell | runs | fair island by gen. 500 | median time to first | fair islands at stop | probe boss holds the fair island |
+|---|---|---|---|---|---|
+| P₀₁ CC (preregistered) | 40 | 0 [0, 0.09] | – | 0 | – |
+| reference CC (preregistered) | 40 | 0 [0, 0.09] | – | 0 | – |
+| P₀₁ RR / reference RR | 40 / 40 | 0.03 / 0.05 (transient) | 27 / 82 | 0 / 0 | – |
+| P₀₁ CC, militants in numbers | 400 | 0.99 [0.98, 1.00] | 26 | **0.322 ± 0.046** | 0.81 |
+| P₀ CC, militants in numbers | 400 | 0.98 [0.97, 0.99] | 25 | 0.185 ± 0.038 | 0.80 |
+| sham CC, militants in numbers | 400 | 0.98 [0.96, 0.99] | 24 | 0.055 ± 0.022 | 0 |
+| reference CC, militants in numbers | 400 | 0.98 [0.97, 0.99] | 23 | 0.050 ± 0.021 | 0 |
+| P₀₁ / reference CC, militant⁻ in numbers | 40 / 40 | 0.97 / 1.00 | 28 / 24 | 0.175 / 0.100 | 0.27 / 0 |
+| P₀₁ / reference RR, militants in numbers | 40 / 40 | 0.12 / 0.05 | 36 / 40 | 0 / 0 | – |
+
+Under the prior, islands close at zero wage (CC, 0.73–0.83) or 1/4 (RR, 0.83–0.90). With militants in numbers, concession bosses (pay 1/2 to the militant pair, 0 to the scab pair) grow from 0.007 of the boss slot at seeding to 0.16 by generation 1,000 in P₀₁ (0.006 in the reference).
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | P₀ π at the smallest positive wage (1/4 ≥ 0.5, fair ≤ 0.1 at 10⁴); P₀₁: T₀ deleterious against D\*, the only neutral exit the boss shadow | **failed, falsifier fired** (static: D\*'s unread slot takes the scab neutrally, mass 0.499); P₀ 1/4 occupancy 0.012 (fair 0.004); T₀ deleterious against D\* in the read slot **held**; the ratchet itself is real statically and in the uniform-prior reduced chain (1/4 0.85) |
+| RE 2 | P₀₁ fair ≥ 0.3 at 10⁴ with positive slope; reference ≤ 0.005, sham ≤ 0.05 | **failed, falsifier fired** (P₀₁ 0.0086 explored, 0.0020 cut-corrected, ≤ 0.1; sham within 0.006 of P₀₁); reference 0.0025 and sham 0.0025 clauses held; slope +0.12 explored, −0.31 corrected |
+| RE 3 | union mass in P₀₁'s fair support ≤ 0.1 | **held** (2·10⁻⁴) |
+| RE 4 | RR: 1/4 ≥ 0.5, fair ≤ 0.1; pool fair ≤ 0.05 | **held** (RR 1/4 0.76, fair 2·10⁻⁵; pool fair ≤ 1.4·10⁻⁴ at c = 0.1 and 0.5) |
+| RE 5 | lottery: P₀₁ fair island by 500 in ≥ 0.6 of runs (reference ≤ 0.1); ≥ 0.5 islands fair at the horizon | **failed, falsifier fired** (0/40 by 10⁴; persistence 0); with militants in numbers (not preregistered) 0.99 by 500 but the reference too (0.98), persistence 0.32 |
+| RE 6 | D\*'s fakers ≤ 10⁻³ and change nothing by > 0.05; every neutral substitute of P₀₁'s fair state a militant twin; P₀'s fair state has T₀ as a demand-lowering substitute | **failed, falsifier fired** (demand-lowering neutral substitutes for ≥ 0.96 of P₀₁'s fair π; strict wage-faker mass at F\* 0.0095 in the chain language, 0.0116 with the null two-atom policies); "changes nothing by > 0.05" **held** (+0.002); the P₀ clause **held** |
+| RS | bosses adopt concessions; unions get higher wages quickly | **failed as scored** (probe-concession bosses 0.006 of π at 10⁴; no fair island in the preregistered lottery); holds conditionally with militants in numbers (not preregistered): fair islands in ~25 generations in every arm, 0.8 of the surviving ones held by probe-carrying bosses, persistence 0.32 vs 0.05 |
+| S1 | P₀₁ fair ≤ 0.02 at 10³, 10⁴ | **held** (0.0040, 0.0086) |
+| S2 | P₀₁ − ref ≤ 0.01 on fair at 10⁴; sham = ref to 0.005 | **held** (0.006 explored, −0.0003 corrected; ≤ 0.002) |
+| S3 | P₀ 1/4 ≤ 0.05, zero ≥ 0.4 at 10⁴ | **held** (0.012, 0.48) |
+| S4 | fair escape falls by 2–15× from 10³ to 10⁴ in P₀₁ | **inconclusive** (explored ×21; cut-corrected ×4.9; the θ = 10⁻¹⁰ check unfinished) |
+| S5 | probe bosses ≤ 0.3 of fair mass at 10⁴; F\*⁻-type ≤ 0.1 | **inconclusive** (explored 0.65 would fire the falsifier, but it is the cut artefact: the dropped exits leave exactly the probe-concession fair states, and the corrected fair mass is 4× lower); F\*⁻ clause held (0.07 explored) |
+| S6 | union ≤ 0.01 of fair | **held** |
+| S7 | RR 1/4 ≥ 0.6, fair ≤ 0.02, within 0.05 of reference | **held** (0.759 vs 0.750) |
+| S8 | pool: zero ≥ 0.9 at c = 0.1, ≥ 0.6 at c = 0.5 | **held** (0.999, 0.995) |
+| S9 | lottery establishment ≤ 0.2 by 500, ≤ 0.3 by 10⁴ (P₀₁ and ref) | **held** (0, 0) |
+| S10 | lottery persistence ≤ 0.05 | **held** (0) |
+| S11 | P₀₁ RR ≥ 0.6 of islands at 1/4 | **held** (0.90) |
+| S12 | ≥ 0.9 of fair π with a demand-lowering neutral substitute, ≥ 0.5 with a strict boss after it | **held** (0.998, 0.995) |
+| S13 | fair log-odds slope ≤ 0 over 10²–3·10⁴ | **inconclusive** (explored +0.12, cut-corrected −0.31; held on the corrected numbers) |
+
+**Reading.**
+- **The concession works as a mechanism and loses to the prior.** Under a uniform prior over named programs the zero-wage probe ratchets the wage down to 1/4 (0.85) and the full discriminator lifts it to fair (0.98); under the length prior D\* weighs 10⁻⁸ against 0.1 for each constant, and π is the union run's (fair ≤ 0.01, zero wage 0.48). Cut-corrected, P₀₁ equals the reference at 10⁴ (0.0020 vs 0.0023) and falls below it at 3·10⁴ (0.0008 vs 0.0018); sham = reference to 0.002. "The prior decides" now holds for an expressive concession too.
+- **"Quickly" is about militants, not about the concession.** Once militants arrive in numbers, fair islands form within ~25 generations in every arm, the reference included; what the probe buys is persistence (0.32 against 0.05, sham 0.055), and 0.8 of the surviving fair islands are held by a probe-carrying boss. The RS's story holds conditional on strikers in numbers, and bosses do adopt "if they strike, give them what they want" there.
+- **Two leaks remain under any concession.** D\* protects only the slot it reads (the unread slot takes a scab neutrally; every fair state has a demand-lowering neutral substitute after which a boss strictly cuts), and probes create world-0 wage fakers of their own (probe vacuity at world 0 is the same hole as the union run's faker). The militant's certificate is sound but not cross-context: soundness certifies the quoted encounter, not every low-paying boss (sol).
+- **The unfakeable version exists but is level-1 and two-atom:** (D\*[L1], militant⁻, militant⁻) has no strict invader in the n = 11 grammar, and militant⁻ is certified only by PA + Con probes. Its exits are neutral and ∝ 1/N, so the sibling theorem's arithmetic applies; under the length prior its mass (10⁻⁸) keeps it out of π.
+- **Method: θ-pruning hides exits spread thin.** The strict faker exits from probe-concession fair states go to hundreds of distinct faker classes of mass ~10⁻⁵ each, every destination below θ = 10⁻⁹; the explored chain made P₀₁'s fair share look like it grew with N (0.004 → 0.009). A cut diagnostic (re-evaluate every edge leaving the explored set under the solved π, by source and destination summary) catches it in seconds where a lower θ takes hours; it should accompany every hybrid-explored cell whose cut exceeds ~2%.
+- **RR and the pool erase the probe**: with ex-post rational strikes no worker is certified to strike at 1/4, so D\* pays 1/4 and π is the enforcement run's smallest positive wage (0.76); the pool gives zero wage (≥ 0.98) at c = 0.1 and 0.5.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

@@ -164,8 +164,12 @@ REJECTED.md the ones we dropped.
 - *Evidence (2026-10-06, seed lottery):* zero wage 0.825 committed, intermediate 0.90 rational; the three-role threshold
   met on 0 islands (fair wage only, by arithmetic); time-averaged worker shares 0.003 (CC) and 0.113 (RR). Neither
   target is approached under fixed roles without a wage-conditional worker mass; the RS's "arrive in numbers" lever
-  kills the threat, not the zero wage (RESULTS "The social organization game under the seed lottery"). Next: the
-  concessions run (`specs/2026-10-06-concessions.md`).
+  kills the threat, not the zero wage (RESULTS "The social organization game under the seed lottery").
+- *Evidence (2026-10-06, concessions):* with an expressive concession language the fair state is stochastically
+  stable under a uniform prior over the named programs (0.98) and absent under the length prior (≤ 0.01); in the
+  lottery it needs strikers in numbers, then persists on 0.32 of islands with probes against 0.05 without (RESULTS
+  "Concessions"). The fair *state* is a prior-and-seeding property in this game, not a grammar property, and the
+  time-averaged target does no better.
 - *Naming (RS, 2026-10-06):* the boss/worker family is "the social organization game". *Open:* whether the target is
   Θ(1/n) as a stochastically stable state or time-averaged (the three-player rotating dictatorship already gives the
   latter by symmetry); decided (RS, 2026-10-06): the state; the time-average is free by symmetry in the symmetric games and is
@@ -196,8 +200,15 @@ REJECTED.md the ones we dropped.
   and wage-conditional refusers 0.0065; reassigning the striker mass to refusers or militants raises intermediate to
   0.23 or fair to 0.05 under a diverse boss seed and to 0 under a hostile one (RESULTS "The social organization game
   under the seed lottery"). A prior that weights wage-conditional behaviour is necessary, not sufficient.
-- *Would settle it:* a worker language whose strike handshake does not need a world-0 condition (none known); the
-  concessions run (probes for the boss), which may make wage-conditional workers strictly favoured rather than rare.
+- *Evidence (2026-10-06, concessions):* the length prior weighs the full price discriminator D\* at 9.7·10⁻⁹ per
+  variant against 0.1025 per constant boss; under a uniform prior over the named programs the same game puts 0.98
+  of π on fair (RESULTS "Concessions"). The worker-probe arm (workers reading the boss's play against a quoted
+  striker) was not run and is the remaining route to a worker-side counterfactual.
+- *Operating hypothesis (amended, 2026-10-06):* distribution results are stated relative to the prior, the commitment
+  structure, and (at ε = 0) the seed composition; the boss's expressivity changes π only when the concession is as
+  likely as a constant.
+- *Would settle it:* a principled prior over program *policies* (behaviour classes) rather than spellings, or a
+  realizable-language prior (entry 11) under which a two-probe concession is not 10⁻⁷ times rarer than a constant.
 
 ## 11. The realizable language: how to leave the modal fragment
 - *Options:* extend the weak-arm DSL (self-application, divergence) with K boxes; a new small Turing-complete

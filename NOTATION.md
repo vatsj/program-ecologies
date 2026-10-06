@@ -277,3 +277,31 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   **Dcert** (D with cyclic scripts), **CBfake**, **CBdef**, **CBmut**, **LöbC** (self-trust: a certified
   CooperateBot), **CBsloppy**, **CBN / CBN0** (naive, with and without a list), **CB0** (sound, empty list),
   **CBS2** (sound copy entry), **SFc** (certificate-carrying simulator).
+
+- **Probe atom** `BOX_L(W_j(^(s,none)) = a)` (concessions) — worker j's executed action against the quoted constant
+  boss (s, none), beside the current encounter's other worker, boxed on the quoted encounter's own world chain (true
+  at world n iff it held at every world in [L, n)); level L ∈ {0 (PA), 1 (PA + Con)}; executed = after the arm's
+  enforcement rule (RR: per-world rational override, ties to the committed recommendation).
+- **P₀ / P₀₁ / sham / mass-preserved reference** — boss grammars: base atoms plus the zero-wage probes / plus probes at
+  0 and 1/4 / P₀₁'s function list with every probe a literal constant at every world / P₀₁'s prior with probe-carrying
+  functions nulled. **Mass-preserving substitution** — chain language = the n = 11 grammar's constants and one-atom
+  functions plus named two-atom classes, each class carrying the n = 11 mass of every function with its behaviour; the
+  remaining two-atom policies are null mutations.
+- **T₀** = `if(BOX(s ∈ {0}),strike,work)`; **T₁** = the militant; **T₀⁻** = `if(BOX(s ∈ {1/4,1/2}),work,strike)`.
+- **D₀** = `if(BOX(W1(^(0,none))=strike),(1/2,none),(0,none))`; **D₀q** the same paying 1/4; **D0[L1]** with BOX1;
+  **D14** = `if(BOX(W1(^(1/4,none))=strike),(1/2,none),(0,none))`; **D\*** (full price discriminator) = pay 1/2 iff
+  provably strikes at the 1/4-boss, else 1/4 iff provably strikes at the 0-boss, else 0; **D\*[L1]** with both probes
+  BOX1; **D\*_j L_{a}{b}** its eight variants (slot read, probe levels). **C₁** = `if(BOX(W1=strike),(1/2,none),(0,none))`
+  (the current-encounter concession; a world-0 wage faker). **Probe wage faker** =
+  `if(BOX(W1(^(0,none))=work),(1/2,·),(0,·))` and kin. **Concession boss** — a probe-carrying boss paying 1/2 to the
+  militant pair and 0 to the scab pair.
+- **F\*** = (D\*, T₁, T₁); **F\*⁻** = (D\*[L1], militant⁻, militant⁻), the unfakeable fair state.
+- **Accommodation ratchet** (sol) — a worker that strikes only at lower wages enters neutrally beside a discriminator
+  that pays it the same, after which a lower wage strictly invades. **Preservation of demands** (sol) — for a fair
+  state, the set of neutral worker substitutes and whether a demand-lowering one opens a strict boss move; reported as
+  the fair π-fraction with a demand-lowering neutral substitute, and with one after which a boss strictly invades.
+- **Basin-to-basin rate** k[A→B] — Σ_{i∈A} π_i Σ_{j∉A} q_ij h_B(j) / π_A per mutation event, h_B the hitting probability
+  of basin B before any other basin; basins by outcome summary (fair, 1/4, zero wage, whacking); residence = 1/escape.
+- **Fair island** (lottery) — locally closed with play (1/2, W, W) and no whack; **establishment** = first check with a
+  fair island; **persistence** = fraction of islands fair at the stop. **Militants in numbers** — seeds with the
+  constant striker's prior mass moved onto T₁ (or militant⁻).
