@@ -209,8 +209,30 @@ Re-solve with θ = 10⁻¹⁰ (10× below published) and core 3,000: 17,075 stat
 0.088 each; transitions from the top state are neutral boss drift to other zero-wage policies (3.6·10⁻⁵ each per
 event), deleterious exits 10⁻⁶⁷. Every headline moves by < 0.003.
 
-**Three-player modalPA, N = 10³**: [status filled below]
+**Three-player modalPA, N = 10³** (`runs/solver_audit/dollar3-modalPA_rerun.log`, `dollar3-modalPA_strictne_Kc120.json`).
+Published re-run reproduces exactly (41,709 states, core 2,500; grand 0.01610, fair pair 0.36638, unfair pair
+0.61510, wasteful 0.00236, disagreement 5.4·10⁻⁵; 3,104 s). Solver: the published π is stationary on its own
+generator to a global-balance residual of 1.4·10⁻¹³ (median 1.1·10⁻¹⁴) in log units; a dense independent solve of
+41,709 states is out of reach. Discovery: **0 strict-NE triples** among the 120 heaviest classes per slot (1.73 M
+triples, 0.98 of each slot's prior mass), and none among the 20 heaviest. **Not finished:** the re-solve at a lower
+exploration threshold, twice (θ = 10⁻¹¹ with core 4,000 was stopped in its second exploration round after 2 h at 43%
+of machine memory; θ = 3·10⁻¹¹ with core 2,500 was stopped in its second round after 1.5 h). So the three-player
+cell's arithmetic and trap discovery are checked and its exploration is not.
 
 ## 7. Verdicts
 
-[see RESULTS draft]
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | PD: no deep state within coverage; re-solve within 0.01 | **failed, falsifier fired** (all-D strictly deep under atom pricing, μ 0.47); numbers held (≤ 4·10⁻⁴) |
+| RE 2 | dollar: deep states; greedy polymorphism absorbing; P(eff) moves < 0.1 | **failed, falsifier fired** (`dollar5 role` 10⁴: −0.383, S3 → R5); identity held where stated; deep only modulo twins |
+| RE 3 | union and three-player within 0.02 | union **held** (≤ 0.003); three-player re-run, solver and discovery checks pass, lower-θ re-solve **not finished** |
+| RE 4 | twins change no identity at 10⁴; effect < 0.05 | **failed, falsifier fired** (`dollar3 norole` +0.37; modal dollar −0.11) |
+| RE 5 | regression tests fail lazy, pass log; positive control fails | **held** |
+| S1 | failures are near-closed classes in the linear solve | **failed, falsifier fired** (none anywhere) |
+| S2 | at least one dollar correction ≥ 0.05 | **held** |
+| S3 | PD within 0.005 (lazy 0.01) | **held** |
+| S4 | RE 1 fails on price, not provers | **held** |
+| S5 | twin-expanded top state same at 10⁵ as at 10⁴ | **failed, falsifier fired** (`dollar5 role`, modal dollar) |
+| S6 | fixed-role cells clean, < 0.005 | union **held**; three-player not finished (no strict-NE trap; re-run exact) |
+| S7 | log GTH = mpmath to 10⁻⁹ incl. < 10⁻³⁰⁰ | **held** |
+| S8 | missed deep states carry < 10⁻³ | **failed, falsifier fired** (R5) |
