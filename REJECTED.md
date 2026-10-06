@@ -815,3 +815,14 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 Subagent S4, S5 and S13 are inconclusive (explored and cut-corrected numbers fall on opposite sides of their thresholds), not rejected.
 
 **Design choices dropped:** reading a θ-pruned hybrid chain's π without a cut diagnostic (at θ = 10⁻⁹ the P₀₁ cells at 10⁴–3·10⁴ dropped strict faker exits worth three times the explored fair escape, spread over millions of destinations below θ; the explored fair share was 4–11× too high); the full n = 11 P₀₁ chain (439,209 boss functions; mass-preserving substitution instead, spec-sanctioned); a sham made of boxes of fixed sentences (a box of a false sentence is true at world 0 and acts as a world-0 wage faker; literals at every world instead); θ-lowering as the sensitivity check at this state-space size (10⁻¹¹ did not finish round 1 in 70 min; 10⁻¹⁰ did not converge in 2 h; the cut diagnostic instead); the worker-probe arm (not run); a "wage faker" definition counting committed whackers (coercion, not deception; reported separately).
+
+
+## Added 2026-10-06: mixed budgets (RESULTS.md, "Mixed-budget populations under K")
+
+**"Holder composition separates from the prior after founding by ≥ 0.1 TV" (Fable, prediction 3; falsifier fired narrowly).** Measured +0.030 [0.026, 0.034]. Founder filtering dominates at a horizon of 10⁵; post-founding selection toward higher budgets is real but small (+0.32 budget units). TV against the prior is also a poor detector here: its per-run and pooled versions move in opposite directions.
+
+**"The above-threshold prior has ≤ 2 natural separations" (Fable, prediction 2's point guess; the prediction held on its falsifier).** 6 of 3,000, all through the b = 8 soft clique `and(BOX1(THEM(ME)),BOX1(THEM(THEM)))`@8.
+
+**Subagent S1** (no FairBot or `BOX1(THEM(ME))` copy appears in an above-threshold bridge-less pair; falsifier fired: the b = 8 soft clique is bridge-less against both at 8 and 16) and **S3's reasoning** (holder budgets fall or stay because the budget-4 side is heavier; they rise, since compatibility favours copies with more partners even where budget-4 mass dominates).
+
+**Design choices dropped:** the certified-holder composition vote (local frozenness drops minority islands receiving migrants; replaced by a strong cooperative holder ≥ 0.9 of the island, fixed before any counted run); trace-flag resolution counting (overcounts, 656 vs 438; replaced by the horizon holder test). **Not run** (compute, not design): the forced bridge-less and bridged pairs with their controls, the calibrated cheap-heavy cell, the uniform prior, the scaling panel; RE 4 is untested.

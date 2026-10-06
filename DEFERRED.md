@@ -54,10 +54,16 @@ REJECTED.md the ones we dropped.
   *Operating hypothesis (RE, 2026-10-05, refined):* island-level efficiency is the claim for the free box; for a
   sound bounded reader with budgets above every establisher pair's distinct-budget threshold, metapopulation
   universality along I ≫ N is not obstructed at n = 8 and is the candidate claim.
+- *Evidence (2026-10-06k, mixed budgets):* with budgets mixed in {4, 8, 16}, natural horizon separation is 0.683
+  under a cheap-heavy prior, 0.002 above the copy thresholds and 0/300 at homogeneous b = 16; `BOX1(THEM(ME))`@4
+  is in 0.94 of the separations and FairBot is compatible with itself at every budget pair; a living bridge resolves
+  every bridged incompatibility (382/382) (RESULTS "Mixed-budget populations under K"). *Operating hypothesis
+  (refined):* universality along I ≫ N is the candidate claim for budget priors supported on budgets at or above
+  every copy's own copy threshold.
   *Would settle it:* K tables at n ≥ 9 (do new bridge-less rivals appear at larger cutoffs, as the P* family did
-  under the free box?); the budget rule for mixed-budget populations (does a distribution of budgets restore
-  soft-clique rivalries?); the cross-budget catalogue lottery; whether the program wants universality at all (a
-  separated patchwork has cf cross-island P(C,C) ≈ 0.6 while every island is efficient).
+  under the free box?); the forced pairs and the scaling panel of the mixed-budgets spec (not run); the
+  cross-budget catalogue lottery; whether the program wants universality at all (a separated patchwork has cf
+  cross-island P(C,C) ≈ 0.6 while every island is efficient).
 - *Evidence (2026-10-05g):* (i) is done and stronger than conjectured: Lemma D′ is proved for any lineage and any
   stopping time with no fitness hypothesis (Lemma D is the killed fixed-time case); (ii) is done: the per-founder
   union bound replaces 1/P(A) by a measured r_q = 0.8–1.7 and the bound is positive in 27/27 cells; the per-island

@@ -305,3 +305,12 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
 - **Fair island** (lottery) — locally closed with play (1/2, W, W) and no whack; **establishment** = first check with a
   fair island; **persistence** = fraction of islands fair at the stop. **Militants in numbers** — seeds with the
   constant striker's prior mass moved onto T₁ (or militant⁻).
+- **Mixed budgets:** **source@b** — a budgeted establisher (a genotype of K's catalogue with its own budget);
+  **incompatible pair** — two establisher classes that mutually defect, the screening unit; **structural bridge** —
+  a class in the catalogue cooperating with both members of an incompatible pair (prior-present if its prior mass is
+  positive); **copy threshold** — the smallest b at which source@b self-cooperates with its own copies at other
+  budgets (FairBot 4, `BOX1(THEM(ME))` 8, PrudentBot 16); **cheap-heavy / uniform / above-threshold priors** — budget
+  priors (0.6, 0.3, 0.1), (1/3, 1/3, 1/3), (0, 0.5, 0.5) over {4, 8, 16}; **composition distance** — TV between the
+  island-weighted budget composition of strong cooperative holders (≥ 0.9 of an island) and the prior, at the first
+  checkpoint after every island is established and at the horizon; **A₁₆** — the above-threshold rivals of the b = 16
+  core (secondary statistic); **resolution hazard** — resolutions per separated run-generation.

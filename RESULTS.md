@@ -3859,6 +3859,71 @@ Under the prior, islands close at zero wage (CC, 0.73–0.83) or 1/4 (RR, 0.83�
 - **The unfakeable version exists but is level-1 and two-atom:** (D\*[L1], militant⁻, militant⁻) has no strict invader in the n = 11 grammar, and militant⁻ is certified only by PA + Con probes. Its exits are neutral and ∝ 1/N, so the sibling theorem's arithmetic applies; under the length prior its mass (10⁻⁸) keeps it out of π.
 - **Method: θ-pruning hides exits spread thin.** The strict faker exits from probe-concession fair states go to hundreds of distinct faker classes of mass ~10⁻⁵ each, every destination below θ = 10⁻⁹; the explored chain made P₀₁'s fair share look like it grew with N (0.004 → 0.009). A cut diagnostic (re-evaluate every edge leaving the explored set under the solved π, by source and destination summary) catches it in seconds where a lower θ takes hours; it should accompany every hybrid-explored cell whose cut exceeds ~2%.
 - **RR and the pool erase the probe**: with ex-post rational strikes no worker is certified to strike at 1/4, so D\* pays 1/4 and π is the enforcement run's smallest positive wage (0.76); the pool gives zero wage (≥ 0.98) at c = 0.1 and 0.5.
+## Mixed-budget populations under K: budget mixing splits `BOX1(THEM(ME))`, not FairBot (`runs/mixed-budgets.md`, `runs/mixed-budgets.json`, `runs/mixed-budgets-static.json`, `runs/mixed-budgets-calib.json`, `runs/mixed-budgets/`; spec `specs/2026-10-05-mixed-budgets.md`, predictions in `predictions/2026-10-05-mixed-budgets.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/mixed_budgets.py`; core files unchanged). The run was interrupted once (the K-cut sibling's mistyped `pkill` killed its workers on 10-06 around 00:00) and resumed by rep set; the chain then ran detached and the report was regenerated from the finished data. RE check: the 2,048/3,000 horizon separation is in `runs/mixed-budgets.md` with its separated pairs and bridge fates.
+
+**Setup.** Modal language L₈ under K with genotypes (source, budget), budget ∈ {4, 8, 16}, C and D budget-free: 1,826 genotypes in 1,027 behavioural classes. Cross-budget blocks (4, 8) and (8, 16) computed here, (4, 16) from RESULTS "Rivals under K"; K's soundness check finds 0 bad cases in every block (16,249, 97,215 and 37,893 cases) and in each same-budget table. PD, w = 0.3, ε = 0, complete island graph, N = 200, I = 64, horizon 10⁵. Seeding: iid sources from the length prior; each non-constant individual's budget from one uniform draw shared across priors, so seeds are paired across priors. Kernel: a copy of `rival_islands._kern` that also tracks each island's expected budget composition, trajectory-identical to the original in every returned array. Lumping valid: 0 violations, 0 test mismatches on 1,785 incompatible genotype pairs, seed-law max |z| 3.3. *Scope:* finite-horizon incidence at n = 8; not large-population universality or permanent isolation.
+
+**What ran:** static screening under six priors; m = 0 calibration for every prior (T_nuc 55 generations, 60 under cheap-heavy; boundary mN 1.091, cheap-heavy 1.000); homogeneous controls at b = 4 (150 runs), 8 (300), 16 (300); (a) natural runs at the common mN = 1.091 under cheap-heavy (0.6, 0.3, 0.1) and above-threshold (0, 0.5, 0.5) budget priors, 3,000 runs each. **Did not run** (compute): (b) the forced bridge-less and bridged pairs with their controls, the calibrated cheap-heavy cell, the uniform prior, (c) the scaling panel. One report fix before the verdicts: ever-separated runs count as resolved only if not separated at the horizon (the per-check separation flag flickers off when a migrant is present and overcounted resolutions, 656 against 438 in the cheap-heavy cell; separation counts unaffected).
+
+**Budget grid on the catalogue.** FairBot mutually cooperates with itself at every pair of budgets. `BOX1(THEM(ME))`@4 mutually defects with its own copies at 8 and 16 and with FairBot at every budget; FairBot and `BOX1(THEM(ME))` cooperate once both budgets are ≥ 8. PrudentBot self-cooperates only at 16.
+
+**Static screening** (unit: an incompatible pair of establisher classes; bridges enumerated exhaustively):
+
+| prior | establishers | components | incompatible pairs: n, mass | direct-bridge-less: n, mass | share on `BOX1(THEM(ME))`@4 | bridge-less pairs with a FairBot/`BOX1(THEM(ME))` copy |
+|---|---|---|---|---|---|---|
+| cheap-heavy | 219 | 3 (217, 1, 1) | 1,659, 5.9·10⁻⁵ | 349, 3.4·10⁻⁵ | 0.995 | 80 |
+| uniform | 219 | 3 | 1,659, 4.0·10⁻⁵ | 349, 1.8·10⁻⁵ | 0.994 | 80 |
+| above-threshold | 187 | 2 (186, 1) | 739, 1.5·10⁻⁶ | 67, 6.4·10⁻⁸ | 0 | 4 |
+| homogeneous 4 / 8 / 16 | 35 / 77 / 110 | 4 / 2 / 1 | 112 / 113 / 150 | 92, 6.8·10⁻⁵ / 30, 1.4·10⁻⁷ / 0 | 0.876 / 0 / – | 20 / 2 / 0 |
+
+The cheap-heavy / above-threshold ratio of bridge-less mass is ≈ 530. In the mixed priors every bridge-less pair is structurally bridge-less with no mediator path of length ≤ 3. 15 incompatible pairs are budget copies of one source, 3 of them bridge-less. FairBot, `BOX(THEM(THEM))`, `BOX1(THEM(THEM))` and `BOX(THEM(^C))` keep their 4, 8 and 16 copies in one component; `BOX1(THEM(ME))`@4 is a component of its own. The only above-threshold bridge-less pairs involving the core are against the b = 8 soft clique `and(BOX1(THEM(ME)),BOX1(THEM(THEM)))`@8.
+
+**Natural runs** (N = 200, I = 64, horizon 10⁵, x ≈ 0.30; exact 95% intervals):
+
+| cell | runs | ever separated | separated at the horizon | with `BOX1(THEM(ME))`@4 | bridge-less / bridged | island P(C,C), certified (lowest run) | run-level efficient | cf cross P(C,C), separated runs | resolved / censored; KM P(still separated) at 10³ / 10⁴ |
+|---|---|---|---|---|---|---|---|---|---|
+| homogeneous b = 4 | 150 | 0.840 | **0.813 [0.742, 0.872]** | 121 | 121 / 1 | 0.9925 (0.982) | 0.930 | 0.654 | 4 / 122; 0.99 / 0.99 |
+| homogeneous b = 8 | 300 | 0.027 | **0.003 [0.000, 0.018]** | 0 | 1 / 0 | 1.000 (0.986) | 1.000 | 0.518 | 7 / 1; 0.13 / 0.13 |
+| homogeneous b = 16 | 300 | 0 | **0 [0, 0.012]** | – | – | 1.000 | 1.000 | – | – |
+| cheap-heavy | 3,000 | 0.829 | **0.683 [0.666, 0.699]** | 1,931 | 1,935 / 113 | 0.9931 (0.979) | 0.935 | 0.61 | 438 / 2,048; 0.93 / 0.83 |
+| above-threshold | 3,000 | 0.029 | **0.002 [0.001, 0.004]** | 0 | 6 / 0 | 1.000 (0.987) | 1.000 | 0.53 | 81 / 6; 0.24 / 0.08 |
+
+Paired on the same seeds: cheap-heavy vs above-threshold, 5 separated under both, 2,043 under cheap-heavy only, 1 under above-threshold only; homogeneous b = 4 vs cheap-heavy, 79 both, 43 b = 4 only, 20 cheap-heavy only. Cheap-heavy separated pairs: FairBot@4 × `BOX1(THEM(ME))`@4 (1,021 runs), `BOX(THEM(THEM))`@4 × `BOX1(THEM(ME))`@4 (641), FairBot@8 × `BOX1(THEM(ME))`@4 (123), `BOX1(THEM(ME))` at 4 vs 8 (82); budget copies of one source account for 98 separations. All 6 above-threshold separations involve `and(BOX1(THEM(ME)),BOX1(THEM(THEM)))`@8. **Bridge fate** (cheap-heavy runs whose first separation was a bridged pair): bridge alive at the horizon, 382 of 382 resolved; bridge dead, 481 of 512 ended separated; all 113 horizon separations of bridged pairs are runs whose bridge died. Resolution hazard per separated run-generation 2.1·10⁻⁶ under cheap-heavy, 3.2·10⁻⁷ at b = 4.
+
+**Composition of cooperative holders** (island-weighted votes over strongly held islands; first checkpoint = first check after every island is established; TV against the prior):
+
+| cell | composition 4 / 8 / 16, first → horizon | TV first → horizon | ΔTV [95%] | mean budget first → horizon | Δ [95%] |
+|---|---|---|---|---|---|
+| cheap-heavy (2,992 runs) | 0.786 / 0.161 / 0.054 → 0.736 / 0.196 / 0.069 | 0.284 → 0.314 | +0.030 [+0.026, +0.034] | 5.29 → 5.61 | +0.32 [+0.28, +0.36] |
+| above-threshold (2,986 runs) | 0 / 0.587 / 0.413 → 0 / 0.586 / 0.414 | 0.202 → 0.202 | 0.000 | 11.31 → 11.31 | 0.00 |
+
+In cheap-heavy runs that ended unseparated the mean holder budget rises 5.91 → 6.42; the pooled-over-runs TV falls 0.186 → 0.136.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | no structural bridge between the budget soft cliques; bridge-less mass ratio cheap-heavy/above ≫ 1; FairBot and `BOX1(THEM(ME))` at 8 and 16 in one component | **held** (ratio ≈ 530) |
+| RE 2 | cheap-heavy natural separation ≫ above-threshold at the common mN | **held** (0.683 vs 0.002; paired 2,043 vs 1; the above-threshold count 6 exceeds the point guess ≤ 2, not the falsifier) |
+| RE 3 | holder composition separates from the prior after founding by ≥ 0.1 TV | **failed, falsifier fired narrowly** (ΔTV +0.030 [0.026, 0.034]; direction as guessed, +0.32 budget units) |
+| RE 4 | forced pairs: bridge-less permanent, bridged resolved | **not tested**; indirect natural evidence: living bridge 382/382 resolved, dead bridge 481/512 separated |
+| RE 5 | island efficiency untouched; b = 4 control separated, b = 16 not | **held** on the cells that ran |
+| S1 (no core copy in an above-threshold bridge-less pair) | subagent's own | **failed, falsifier fired** (the b = 8 soft clique `and(BOX1(THEM(ME)),BOX1(THEM(THEM)))`@8) |
+| S3 (budget composition falls or stays) | subagent's own | held on its numbers; **direction wrong** (budgets rose) |
+| S2, S7 | subagent's own | inconclusive (grey zones) |
+| S4, S8 calibration clause | subagent's own | held |
+| S5, S6, S8 separation clause | subagent's own | not tested |
+
+**Reading.**
+- **Mixing budgets does not split FairBot; it splits `BOX1(THEM(ME))`.** FairBot is compatible with itself at every budget pair. The budget-4 copy of `BOX1(THEM(ME))` is a soft clique of one class that nothing bridges: 0.995 of the cheap-heavy bridge-less mass and a member of 0.943 of the separations. **The compatibility floor is per program copy:** a reader whose budget is below its own copy threshold is a permanent bridge-less soft clique, whatever the rest of the population's budgets.
+- **The statics predict the dynamics:** 0.683 of cheap-heavy runs end separated against 0.002 above threshold on paired seeds and 0.813 in the homogeneous b = 4 control.
+- **Island-level efficiency is untouched** (island P(C,C) ≥ 0.99 in every cell); the loss is cross-island P(C,C), 0.61 in separated runs.
+- **Bridged incompatibilities resolve exactly when the bridge survives** (382 of 382); every horizon separation of a bridged pair is a run whose bridge died.
+- Above the copy thresholds the residue is one light b = 8 soft clique (a 2-box conjunction, separation 2·10⁻³); the b = 16 control has none.
+- Holder budgets drift upward after founding (+0.32 units, +0.51 in unseparated runs): compatibility selection, real but small at a horizon of 10⁵.
+- *Scope:* the forced, calibrated, uniform and scaling cells did not run; the claims are at n = 8 and one (N, I).
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
