@@ -701,3 +701,10 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Design choices dropped:** n = 15 and n = 14 for the static screening (140 GB / 16 GB); B₂ as the second forced bridged rival (B₁'s twin; B₄ instead); 40 runs per P\* scaling cell (capped at 12–13 under machine load).
 
 **Operating hypothesis revised (DEFERRED 1):** "metapopulation universality is conceded beyond N ≈ 100 only for bridge-less pairs" is replaced by "metapopulation universality is not claimed along I ≫ N at N ≥ 200", since about a quarter of rival mass is bridge-less and permanent and independent P\* establishments accumulate linearly in I.
+
+
+## Added 2026-10-05: rivals under K (RESULTS.md, "Rivals under the bounded prover K")
+
+**"The direct-bridge-less share under K is below 0.05 at b = 4, 16 and 54" (Fable, prediction 4; falsifier fired at b = 4).** At b = 4 the share is 1.000: FairBot (copy/distinct thresholds 3/4) and `BOX1(THEM(ME))` (4/7) mutually defect, so A is not a network and nothing can bridge it; rival mass is 0.017 (budget soft cliques, not the P\* family) and 0.80 of natural runs at (200, 64) end separated. Held at b = 16 and 54 (0.000). The budget-independent form of "K removes the bridge-less obstruction" is rejected; it holds from b = 12 at n = 8 (bridge-less mass 2.9·10⁻⁴ at b = 6, 7.6·10⁻⁶ at b = 8, 0 from 12). Reopen only with a budget rule that guarantees each establisher pair's distinct-budget threshold.
+
+**Design choices dropped:** "zero transition" as an operational category (the kernel's fixation is positive for any finite payoff; use the < 10⁻¹² category and the hazard bound); a 1,000-source lumping sample (the language has 610); forced cell (d) (no direct-bridge-less rival under K at b = 16); the K b = 4 natural cell at 1,000 runs (stopped at the complete 50-run prefix under machine load). No subagent prediction failed.

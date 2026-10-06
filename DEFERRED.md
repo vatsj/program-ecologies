@@ -47,10 +47,17 @@ REJECTED.md the ones we dropped.
   universality is **not** claimed along I ≫ N at N ≥ 200: it fails with probability → 1 once I ≫ 1/(μ_bl·N·p₁)
   ≈ 10⁴ at N = 200, because about a quarter of rival mass is bridge-less and permanent; for bridged rivals it holds
   with probability → 1 in I.
-  *Would settle it:* whether any I ≫ N path with growing N keeps μ_bl·N·I·p₁(N) bounded (it grows in every measured
-  direction), or whether the program wants universality at all (a separated patchwork has cf cross-island P(C,C)
-  ≈ 0.6 while every island is efficient); whether a language without the P*-family rivals (e.g. the bounded prover
-  K, in which P* self-defects) removes the obstruction.
+- *Evidence (2026-10-05j):* under K at n = 8 the bridge-less share of rival mass is 0 at b = 16 and 54 (free 0.221),
+  no new rival appears by source, natural horizon separation at (200, 64) is 0/3,000 against free's 8/3,000 at the
+  same and the calibrated mN, and forced P* dies like an inert defector; at b = 4 K's soft cliques split FairBot's
+  pair and 0.80 of natural runs end separated (RESULTS "Rivals under the bounded prover K").
+  *Operating hypothesis (RE, 2026-10-05, refined):* island-level efficiency is the claim for the free box; for a
+  sound bounded reader with budgets above every establisher pair's distinct-budget threshold, metapopulation
+  universality along I ≫ N is not obstructed at n = 8 and is the candidate claim.
+  *Would settle it:* K tables at n ≥ 9 (do new bridge-less rivals appear at larger cutoffs, as the P* family did
+  under the free box?); the budget rule for mixed-budget populations (does a distribution of budgets restore
+  soft-clique rivalries?); the cross-budget catalogue lottery; whether the program wants universality at all (a
+  separated patchwork has cf cross-island P(C,C) ≈ 0.6 while every island is efficient).
 - *Evidence (2026-10-05g):* (i) is done and stronger than conjectured: Lemma D′ is proved for any lineage and any
   stopping time with no fitness hypothesis (Lemma D is the killed fixed-time case); (ii) is done: the per-founder
   union bound replaces 1/P(A) by a measured r_q = 0.8–1.7 and the bound is positive in 27/27 cells; the per-island
@@ -83,7 +90,12 @@ REJECTED.md the ones we dropped.
   decided by the guard convention (own budget: bounded Gödel II blocks it; one up: b* = 11, no faker returns); a
   trace classifier is a sufficient but not necessary sign of what K removes (RESULTS "K with the 4-rule").
   *Operating hypothesis (guard convention):* readers read Con one budget up; it costs nothing and returns no faker.
-- *Would settle it next:* K with a sound distribution rule under a box (does P* return, and do Con-sentence fakers
+- *Evidence (2026-10-05h):* the sound bounded prover removes the free box's bridge-less rivals between islands as
+  it removed its Gödel-sentence fakers within them; low budgets add a compatibility cost (soft cliques are permanent
+  rivals) (RESULTS "Rivals under the bounded prover K"). *Operating hypothesis refined:* source reading through a
+  sound bounded prover whose budget clears its partners' distinct-budget thresholds; incompleteness that removes
+  Con-dependent cooperation is a feature across islands too.
+- *Would settle it next:* K with a sound distribution rule under a box (running, `specs/2026-10-05-k-cut.md`; does P* return, and do Con-sentence fakers
   return with it?); K beyond the modal fragment; a bounded prover in bargaining (hawks need Löb above the copy
   threshold).
 

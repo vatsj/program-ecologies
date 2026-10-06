@@ -197,3 +197,14 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   is lost or the horizon reached (equal to the bridge's scramble survival); **q_est** — local establishments
   relative to the m = 0 reference, the nucleation statistic (holder-form q also counts later neutral replacement
   and is retired). Forced-rival labels **P\***, **P\*′**, **S\***, **B₁**, **H**, **B₄** as in RESULTS.
+- **Rivals under K:** **direct bridge / direct-bridge-less** — the pairwise bridge of (A, R) / none; **mediator path**
+  — a path of length ≤ 3 from R to A in the establisher mutual-cooperation graph; **zero transition / below
+  threshold** — one-migrant fixation exactly 0 (empty under the kernel) / below 10⁻¹²; **new rival by source** — a
+  canonical source that is a rival under K's table and not under the free table; **lumping validity** — identical
+  directed rows and columns within each class, preserved masses and seed law, and agreement of establisher, rival
+  and bridge tests between lumped and source tables; **common mN** — the free arm's calibrated boundary value
+  (1.091 at N = 200, n = 8) used for both tables; **tracked lineage** — forced founders followed as a tagged
+  duplicate column with no dynamic effect; **cooperative establishment / lineage survival** — an island certified
+  cooperative with the lineage as holder / the lineage present at the horizon; **inert-defector control** — one D
+  founder per island under the same replacement rule; **budget soft-clique rival** — a rival created by a budget
+  below a pair's distinct-budget threshold (FairBot vs `BOX1(THEM(ME))` at b = 4).

@@ -3400,6 +3400,68 @@ Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/bridg
 - **Bridge-less rivals make metapopulation universality fail with probability → 1 along I ≫ N:** each P\*-family copy establishes with probability ≈ 0.048 at N = 200 and then holds ≈ 40% of the islands with no measured loss; natural separations arrive at μ_bl·N·I·p₁ per run, linear in I, so at fixed N ≥ 200 a patchwork is certain once I ≫ 1/(μ_bl·N·p₁) ≈ 10⁴. **Island-level efficiency is untouched** (island P(C,C) ≥ 0.978 in every cell); what fails is the counterfactual cross-island P(C,C), ≈ 0.6 in separated runs.
 - **Probe-readers carry their own spoilers between islands:** B₁ without its bridges is less permanent than P\* only because its faker captures it, and in 2 of 200 B₁ runs that faker and then D took the whole archipelago, the one way this run found to lose efficiency at run level.
 - Holder-form q is retired as the nucleation statistic in favour of q_est.
+## Rivals under the bounded prover K: incompleteness removes the bridge-less obstruction above the budget thresholds, and low budgets create their own (`runs/rivals-under-k.md`, `runs/rivals-under-k.json`, `runs/rivals-under-k-static.json`, `runs/rivals-under-k-calib.json`, `runs/rivals-under-k-budgets.json`; spec `specs/2026-10-05-rivals-under-k.md`, predictions in `predictions/2026-10-05-rivals-under-k.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/rivals_under_k.py`, `src/rivals_under_k_report.py`; kernel and core files unchanged). Modal language L₈ (610 canonical sources) under the free box and under K at global budget b with the guard at the reader's own budget; PD, w = 0.3, ε = 0, complete island graph, N = 200, I = 64, horizon 10⁵; seeds iid from the length prior drawn at the source level and lumped by each table's classes, so the arms are paired by seed. **Scope:** finite-cutoff (n = 8), finite-horizon evidence about the bridge-less obstruction relative to FairBot's pair; not a large-population or large-cutoff conclusion. RE check: the static screening JSON reproduces the report's rival counts and the eleven lost sources.
+
+**What ran.** Static screening at b = 4, 16, 54 with the lumping validity check and the free reproduction; m = 0 calibration (free, K b = 16, K b = 4; 120 runs each); (a) natural runs, 3,000 each: free at its calibrated mN = 1.091 (also the common mN), K b = 16 at its calibrated 1.200 and at 1.091; (b) positive control, PrudentBot forced under K b = 16, 100 runs; (c) forced P\* under K b = 16 with inert-D and iid controls, plus forced P\* under the free box as a reference, 100 runs each with paired m = 0 references; (e) the 8 separated natural runs continued to 3·10⁵; beyond the spec and declared, a K b = 4 natural cell (50 of 1,000 runs, a complete prefix, stopped under machine load 35–45) and a static budget profile at b = 3–54. (d) did not run: there is no direct-bridge-less rival under K at b = 16. *Deviations:* all 610 sources were lumping-tested (the spec's 1,000 exceeds the language); "zero transition" is empty by construction (the kernel's fixation is positive for any finite payoff), the < 10⁻¹² category carries the information.
+
+**Checks.** The free class table built from the GL+Def table equals `modal.build(8)` (471 classes, identical names and payoffs, |Δμ| ≤ 4·10⁻¹⁵). Lumping validity in every arm: 0 member-row or member-column violations; mass error ≤ 6·10⁻¹⁷; seed draws lumped from sources match class-level draws (max |z| ≤ 2.8); establisher, rival and direct-bridge tests give 0 lumped-versus-source mismatches on all 610 sources.
+
+**Static screening** (rival = establisher mutually defecting with FairBot or `BOX1(THEM(ME))`; cut units):
+
+| table | classes | establishers (μ) | rivals (full) | rival μ [raw] | direct-bridge-less share | hard share | establisher graph |
+|---|---|---|---|---|---|---|---|
+| free | 471 | 96 (0.0242) | 12 (6) | 1.85·10⁻⁵ [1.41·10⁻⁵] | **0.221** (P\*, P\*′) | 0.221 | 1 component; path 1/2/3 = 70/22/2 |
+| K b = 16 | 476 | 93 (0.0242) | 2 (0) | 2.73·10⁻⁶ | **0.000** | 0 | 1 component; path 1/2 = 57/34 |
+| K b = 54 | 255 | 52 (0.0242) | 2 (0) | 2.73·10⁻⁶ | 0.000 | 0 | 1 component |
+| K b = 4 | 83 | 25 (0.0281) | 18 (5) | **1.68·10⁻²** | **1.000** | 0.906 | 4 components; FairBot and `BOX1(THEM(ME))` **not** connected |
+
+At b = 16 and 54 the only rivals are the PrudentBot pair (`and(BOX(THEM(ME)),BOXD1(THEM(^D)))`, `and(BOX(THEM(THEM)),BOXD1(THEM(^D)))`), half-rivals bridged by `BOX(THEM(THEM))` (9 and 17 bridges, total bridge mass 5.1·10⁻³); **by source identity there are 0 new rivals**, and 11 free-arm rival sources (μ 1.6·10⁻⁵: the P\* family, the B₁ family, the `not(BOXD1(THEM(^not(…))))` family) are lost. P\* under K b = 16 is a singleton class that self-defects; its row equals D's but its column differs in 175 classes (it has prey D lacks, μ 0.006, including 40 light establishers that cooperate unless they can prove defection; D has prey P\* lacks, μ 0.014). **At b = 4** FairBot (copy/distinct thresholds 3/4) and `BOX1(THEM(ME))` (4/7) mutually defect, so no class bridges them and every rival is literally bridge-less, each member of A being the other's rival; none of these rivals is in the P\* family. One-migrant fixations between every rival and the A member it defects with are ≈ 7·10⁻⁹ at N = 200 and < 10⁻¹² at N = 400 in every arm. **Budget profile** (exploratory): direct-bridge-less mass 0.010 / 0.017 / 2.9·10⁻⁴ / 7.6·10⁻⁶ / 0 at b = 3 / 4 / 6 / 8 / ≥ 12 (free box 4.1·10⁻⁶); at b = 8 the one bridge-less rival is `and(BOX1(THEM(ME)),BOX1(THEM(THEM)))` in its own soft-clique component; every bridge-less rival under K at any budget is new by source identity.
+
+**Calibration** (m = 0, N = 200, I = 16): T_nuc 55 / 50 / 55 generations, p 0.128 / 0.131 / 0.147, boundary mN 1.091 / 1.200 / 1.091 for free / K b = 16 / K b = 4.
+
+**(a) Natural runs** (N = 200, I = 64):
+
+| table | mN | x = mN·T_nuc/N | ever separated | **separated at the horizon** [95%] | of which direct-bridge-less | run-level efficient | cf cross P(C,C), separated |
+|---|---|---|---|---|---|---|---|
+| free | 1.091 | 0.300 | 20 | **8/3,000 = 0.0027 [0.0014, 0.0053]** | 7 (P\* family; the 8th B₁ with a dead bridge) | 3,000/3,000 | 0.65 |
+| K b = 16 | 1.091 (common) | 0.273 | 5 | **0/3,000** (one-sided 95% ≤ 0.0010) | – | 3,000/3,000 | – |
+| K b = 16 | 1.200 (calibrated) | 0.300 | 13 | **0/3,000** (≤ 0.0010) | – | 3,000/3,000 | – |
+
+Paired at the common mN (same seeds): horizon separation free-only 8, K-only 0; ever separated free-only 19, K-only 4, both 1. All 18 of K's ever-separations resolved (median ≈ 10³ generations, all within 10⁴; the bridge alive in 15); the A-rivals among them are only the PrudentBot pair (13), the other 5 rivalries between non-A establishers. In the free arm 12 of 20 ever-separations resolved, 11 with a living bridge; the 8 horizon separations had no A-bridge copy in the seed (P\* family) or a dead bridge (B₁). Island P(C,C) ≥ 0.9999 per cell (lowest single run 0.977).
+
+**(b) Positive control** (PrudentBot forced densely under K b = 16, mN = 1.2): established 98/100; **mediation-before-loss 89/98 = 0.91 [0.83, 0.95]**; horizon separated 2/100, both with the bridge dead; 95 losses in 1.8·10⁶ minority-island-generations; island P(C,C) 0.9998.
+
+**(c) Forced P\*** (one founder per island replacing a uniformly chosen seed, followed as a tagged lineage):
+
+| cell | cooperative establishment: runs (islands) | lineage alive at the horizon | median lineage extinction | q_est | Δq_est vs iid | Δq_est vs D control |
+|---|---|---|---|---|---|---|
+| P\* under K b = 16 | **0 (0)** | **0/100** [0, 0.04] | 144 generations | 0.88 | +0.013 [−0.100, +0.129] | −0.027 [−0.140, +0.089] |
+| inert D under K b = 16 | 0 | 0/100 | 128 generations | 0.91 | +0.040 | – |
+| iid under K b = 16 | – | – | – | 0.86 [0.80, 0.94] | – | – |
+| P\* under free (reference) | **96 (2,597)** | 96/100 | alive | 0.82 | −0.090 | – |
+
+Under the free box the forced P\* runs end separated in 96/100 (island P(C,C) 0.983, cf cross 0.59). **(e) Continuation:** all 8 separated free-arm runs still separated at 3·10⁵ (each trajectory reproduces its 10⁵ state exactly); 0 resolutions in 2.4·10⁶ separated-run-generations (hazard ≤ 1.3·10⁻⁶). **K b = 4 natural runs** (50 runs): **separated at the horizon 40/50 = 0.80 [0.67, 0.89]** (FairBot vs `BOX1(THEM(ME))` 34, `BOX(THEM(THEM))` vs `BOX1(THEM(ME))` 6); island P(C,C) 0.989; run-level efficient 50/50; cf cross-island P(C,C) 0.66.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | K b = 16 direct-bridge-less share < 0.02; no new rival ≥ 10⁻⁶ by source | **held** (0.000; 0 new) |
+| RE 2 | K natural horizon separation below free at the same mN, none direct-bridge-less | **held** (0 vs 8 at the common mN, 0 at the calibrated; K bound 0.001 per run) |
+| RE 3 | forced P\* under K: 0 cooperative establishments; lineage survival ≤ 0.1 and ≤ D's; \|Δq_est\| ≤ 0.1 vs iid, ≤ 0.05 vs D | **held** (0; 0/100 vs 0/100; +0.01; −0.03) |
+| RE 4 | direct-bridge-less share under K < 0.05 at b = 4, 16, 54 | **failed, falsifier fired at b = 4** (1.000: A itself is split); held at 16 and 54 |
+| RE 5 | positive control ≥ 0.7; island P(C,C) ≥ 0.97 every K cell; K efficiency not below free by ≥ 0.05 | **held** (0.91; ≥ 0.9998; 1.000 vs 1.000) |
+| S1–S9 | subagent's own | all held (S4 on 50 of 1,000 declared runs) |
+
+**Reading.**
+- **At b ≥ 12, K removes the bridge-less obstruction at n = 8, and the dynamics follow the statics:** the free box's 0.221 direct-bridge-less share (P\*, P\*′) becomes 0, the only remaining rivals are the bridged PrudentBot pair, no source becomes a new rival, natural horizon separation falls from 8/3,000 to 0/3,000 at both the common and the calibrated mN, and every ever-separation under K resolved, mostly through a living bridge.
+- **P\* under K is a defector, not a rival:** forced at one copy per island it never establishes cooperatively, dies as fast as an inert D, and leaves nucleation unchanged; under the free box the same forcing makes a permanent patchwork in 96/100 runs.
+- **The bridge machinery is validated under K** (mediation-before-loss 0.91; separations only with a dead bridge).
+- **The budget is not innocent.** Below `BOX1(THEM(ME))`'s distinct-budget threshold K creates bridge-less rivals of its own, budget soft cliques rather than Gödelian programs: at b = 4 FairBot and `BOX1(THEM(ME))` mutually defect, rival mass is 900× the free arm's, and 0.80 of natural runs end separated, every island efficient. Bridge-less mass is 0.017 / 2.9·10⁻⁴ / 7.6·10⁻⁶ / 0 at b = 4 / 6 / 8 / ≥ 12. **So b = 4, the best K budget in the well-mixed chain, is the worst arm across islands:** the obstruction moves from Gödel sentences to budget thresholds, and vanishes once the budget clears every establisher pair's distinct-budget threshold. A realizable reader's budget has a lower bound set by compatibility, not cost.
+- **Island-level efficiency is unchanged everywhere** (1.00 in every cell).
+- *Scope:* n = 8, N = 200, I = 64, horizons 10⁵–3·10⁵; K is a sound bounded calculus for the modal fragment with a GL-decidability prune, not a bounded PA prover; no K table exists at n ≥ 9; longer bridge paths and non-A networks are covered only by the static graph (one component at b ≥ 12).
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
