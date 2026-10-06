@@ -497,7 +497,7 @@ def _kern_mb(U, PCC, coopmask, tag, init, comp0, N, w, m, seed, checks, lump, iD
                 if ne == I:
                     snap_gen = g
                     for i in range(I):
-                        snap_hold[i] = bigs[i]; snap_cert[i] = certs[i]
+                        snap_hold[i] = bigs[i]; snap_cert[i] = 1 if 10 * counts[i, bigs[i]] >= 9 * N else 0
                         for z_ in range(NBm): snap_comp[i, z_] = comp[i, bigs[i], z_]
             sepf = 0
             for u in range(nh):
@@ -890,7 +890,8 @@ def job(j):
     # holders and composition at the two checkpoints
     r['snap_gen'] = int(snap_gen)
     sd, sn = comp_dist(snap_hold, snap_cert, coop, snap_comp) if snap_gen >= 0 else (None, 0)
-    ed, en = comp_dist(hold, cert_end, coop, [comp[i, hold[i]] for i in range(I)])
+    strong_end = np.array([10 * counts[i, hold[i]] >= 9 * N for i in range(I)])
+    ed, en = comp_dist(hold, strong_end, coop, [comp[i, hold[i]] for i in range(I)])
     r['comp_snap'] = sd; r['comp_snap_n'] = sn; r['comp_end'] = ed; r['comp_end_n'] = en
     r['holders_end'] = dict(Counter(G_(h) for h in hold).most_common(8))
     r['holders_end_budget'] = dict(Counter('%s' % budgets_of(d, int(ext[h])) for h in hold if coop[h]).most_common(4))

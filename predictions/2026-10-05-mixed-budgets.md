@@ -123,3 +123,5 @@ soft clique `and(BOX1(THEM(ME)),BOX1(THEM(THEM)))`@8 (its own component) mutuall
 - bridged: (`BOX(THEM(ME))`@4, `BOX1(THEM(ME))`@8), pair mass 4.6·10⁻⁶, 6 bridges of mass 0.0040 (heaviest
   FairBot@8, then FairBot@16), path 2; the bridge-absent cell removes these 6 classes from the seed law and
   renormalizes (individuals drawn into them are redrawn, so the other individuals stay paired).
+
+**Definition fixed before any counted run (timing check, rep 0):** a composition vote is cast by an island whose holder is cooperative and holds ≥ 0.9 of the island, at both checkpoints (not "certified", which at the first checkpoint requires local frozenness and so drops minority-network islands that are receiving foreign migrants; the horizon used island P(C,C) ≥ 0.95, a different test). Separation keeps the certified definition above.
