@@ -128,3 +128,22 @@ Held / failed / grey exactly as each prediction states; grey is reported as inco
 computation did not run is "not run", never held. A design degeneracy (e.g. an empty faker or partner set) is
 reported as such and the dependent prediction is "degenerate", not held. Failures, including mine, go to REJECTED
 drafts.
+
+## Addendum (2026-10-06, after the catalogue and static screening, before any chain, attribution, lottery or price run)
+
+1. **Design choice 8 is degenerate as written and is replaced for the attribution cells.** At n = 8 the literal
+   "newly enabled faker" set (z newly strictly invades some x) has 1,005 genotypes of μ-mass 0.53: it contains C, D,
+   FairBot and every program that exploits some newly suckered g = L reader. Deleting it would delete the background.
+   *Used instead:* fakers = non-establishers that newly strictly invade an **establisher** (118 genotypes, μ 0.0031,
+   headed by the Gödel sentences `not(BOX(THEM(ME)))`, `not(BOX(THEM(THEM)))` and the Con sentence `not(BOX(THEM(^C)))`
+   at both labels); partners = g = L genotypes with newly enabled **self**-cooperation (7 genotypes, μ 6.9·10⁻⁶: P\*,
+   its three THEM-variants and three `BOX1(THEM(^not(…)))` readers; exactly the R_coop of the k-cut long-guard 2×2).
+   The literal sets are reported. RE 2's verdict is on the replacement sets; this is a post-catalogue deviation and is
+   reported as such.
+2. **The catalogue is targeted with a stated residual.** K_c4 was searched exactly (with the GL-pruned, cached Dist⁺
+   enumeration and a JLöb sibling closure, both value-preserving or strictly completing; see runs) on every relevant
+   uncertified content entering an undecided pair with a source of μ ≥ 10⁻⁵ (8,858 contents); 37,944 relevant
+   contents whose undecided pairs involve only sources of μ < 7.6·10⁻⁶ keep K's value (μ²-weight 2.4·10⁻⁷). Every
+   prediction is judged on this table; the residual is reported with every result.
+3. **RE 3 at n = 8:** PrudentBot is a core program with a guard, and its g = L and g = 0 genotypes mutually defect
+   (four payoffs 0, −1, −1, 0). This was seen before any chain; RE 3's literal statement (FairBot, P\*_L) is unaffected.

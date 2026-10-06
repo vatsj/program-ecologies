@@ -936,8 +936,14 @@ def erased_index(cat):
     return np.array([pos[(c, 0)] for c, g in cat])
 
 
-def faker_partner_sets(v, cat):
-    """Newly enabled fakers and cooperative partners (design choice 8)."""
+def faker_partner_sets(v, cat, L, mode='est'):
+    """Newly enabled fakers and cooperative partners.
+    mode 'literal' (design choice 8 as written): z strictly invades some x in the mixed table and z-bar does not
+    strictly invade x-bar in the guard-erased table.  Degenerate at n = 8 (it contains C, D, FairBot, ...: every
+    program that exploits some newly suckered g = L reader), so it is reported, not used.
+    mode 'est' (used; addendum to the predictions, fixed before the attribution chains): the victim x must be an
+    establisher (self-cooperates, defects on D) and z must not be one -- a faker exploits a cooperative reader.
+    Partners: g = L genotypes with a newly enabled mutual-cooperation cell (self-play included), not fakers."""
     import modal as M
     U, _ = M.pd_payoffs(v, M.PD)
     e = erased_index(cat); lab = np.array([g for c, g in cat])
@@ -945,11 +951,19 @@ def faker_partner_sets(v, cat):
     inv = U > np.diag(U)[None, :] + 1e-12           # inv[z, x]: z strictly invades x
     inv_e = Ue > np.diag(Ue)[None, :] + 1e-12
     new_inv = inv & ~inv_e
+    if mode == 'est':
+        iD = [i for i, (c, g) in enumerate(cat) if g == 0 and L.rep[c] == 'D'][0]
+        est = np.array([v[i, i] == 1 and v[i, iD] == 0 for i in range(len(cat))])
+        new_inv = new_inv & est[None, :] & ~est[:, None]
     fakers = sorted(set(np.nonzero(new_inv.any(1))[0].tolist()))
     mut = (v == 1) & (v.T == 1); mut_e = mut[np.ix_(e, e)]
     new_mut = mut & ~mut_e
     fs = set(fakers)
-    partners = [z for z in np.nonzero(new_mut.any(1))[0].tolist() if lab[z] == 1 and z not in fs]
+    if mode == 'est':
+        # newly enabled self-cooperation (the R_coop of the k-cut long-guard 2x2: P*, its variants, ...)
+        partners = [z for z in range(len(cat)) if lab[z] == 1 and new_mut[z, z] and z not in fs]
+    else:
+        partners = [z for z in np.nonzero(new_mut.any(1))[0].tolist() if lab[z] == 1 and z not in fs]
     return fakers, partners, new_inv, new_mut
 
 
@@ -989,7 +1003,7 @@ def make_cat(arm, prior, N=10000):
         return Cat(v, cat, L, pg, cost=price_cost(cat, gd, c, N))
     C = Cat(v, cat, L, pg)
     if arm in ('delF', 'delP', 'delFP'):
-        fk, pt, _, _ = faker_partner_sets(v, cat)
+        fk, pt, _, _ = faker_partner_sets(v, cat, L)
         dele = (fk if arm in ('delF', 'delFP') else []) + (pt if arm in ('delP', 'delFP') else [])
         keep = [i for i in range(len(cat)) if i not in set(dele)]
         C2 = Cat(v[np.ix_(keep, keep)], [cat[i] for i in keep], L, pg)
@@ -1101,7 +1115,10 @@ def cmd_static(a):
                                  ratio_coop_to_expl=(tab['enabled cooperation (new mutual C)'] / expl if expl > 0 else float('inf')))
     # -- P*-type sources (cooperate with themselves only at g = L) and fakers acting only against g = L readers
     pstar = [L.rep[c] for c in range(nr) if v[pos.get(L.rep[c] + '/L', 0), pos.get(L.rep[c] + '/L', 0)] == 1 and v[c, c] == 0 and gd[c]]
-    fk, pt, new_inv, new_mut = faker_partner_sets(v, cat)
+    fk, pt, new_inv, new_mut = faker_partner_sets(v, cat, L)
+    fkl, ptl, _, _ = faker_partner_sets(v, cat, L, mode='literal')
+    out['fakers_literal'] = dict(n=len(fkl), mu=float(mu[fkl].sum()), top=[names[z] for z in sorted(fkl, key=lambda z: -mu[z])][:20],
+                                 partners_n=len(ptl))
     vict = defaultdict(list)
     for z, x in np.argwhere(new_inv):
         vict[names[z]].append(names[x])
