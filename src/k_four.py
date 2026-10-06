@@ -480,6 +480,31 @@ def cmd_classify(a):
     print('uncertified', out['uncertified'], 'no root', out['no_root'])
 
 
+def _posthoc_job(j):
+    z, x = j
+    return z, x, Classifier(maxlev=6).classify(z, x)
+
+
+def cmd_posthoc(a):
+    """Post-hoc variant (declared after the frozen result; descriptive only): the frozen classifier with the level cap
+    raised from 2 to 6."""
+    d = json.load(open(os.path.join(K4DIR, 'classify_n8.json')))
+    todo = [(r['zname'], r['xname']) for r in d['pairs']]
+    res = {}
+    with Pool(a.workers) as pool:
+        for z, x, r in pool.imap_unordered(_posthoc_job, todo, chunksize=2):
+            res[(z, x)] = r
+    out = {}
+    for lab in d['labels']:
+        l = [r[lab] for r in d['pairs']]
+        for which in ('flag_spec', 'flag_pair'):
+            f = [res[(r['zname'], r['xname'])][which] for r in d['pairs']]
+            out['maxlev6|%s|%s' % (lab, which)] = confusion(f, l)
+    out['maxlev6|no_root'] = sum(1 for r in res.values() if r['spec'].get('level') is None)
+    json.dump(out, open(os.path.join(K4DIR, 'posthoc_n8.json'), 'w'), indent=1)
+    print(out)
+
+
 # ====================================================================== Part B: misclassified pairs
 class RestrictedSearch(G.MinSearch):
     """Exact minimal GLS+Def derivations in which no GLR premise keeps a triggering hypothesis: every GLR premise drops
@@ -518,9 +543,9 @@ class RestrictedSearch(G.MinSearch):
             if lab == 'GLR':
                 (pL, pR), = prem
                 goal = next(iter(pR)); diag = next(a for a in pL if F[a][0] == FBOX and F[a][1] == goal and a in S[1])
-                if self.trig(diag) or con_under_box(self.th, goal):
+                if con_under_box(self.th, goal):
                     continue
-                drop = {a for a in pL if a != diag and self.trig(a)}
+                drop = {a for a in pL if self.trig(a)}          # an unused diagonal is weakened away like any hypothesis
                 drop |= {F[a][1] for a in drop if F[a][0] == FBOX}
                 prem = ((pL - drop, pR),)
             out.append((prem, glr, lab))
@@ -1128,6 +1153,7 @@ def main():
     p.add_argument('--goff', type=int, default=0); p.add_argument('--workers', type=int, default=3)
     p = sp.add_parser('n6res')
     p = sp.add_parser('report')
+    p = sp.add_parser('posthoc'); p.add_argument('--workers', type=int, default=3)
     p = sp.add_parser('misclass'); p.add_argument('--n', type=int, default=8); p.add_argument('--label', default='K@16')
     p.add_argument('--also_tp', action='store_true'); p.add_argument('--workers', type=int, default=3)
     p = sp.add_parser('partc'); p.add_argument('--b', type=int, default=16); p.add_argument('--N', type=int, default=10000); p.add_argument('--workers', type=int, default=3)
