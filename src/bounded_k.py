@@ -29,12 +29,18 @@ def has_box(t):
 
 
 class KTheory:
-    def __init__(self, cap=60, arity=3, prune=None, ustar_limit=40, filter_first=False):
+    def __init__(self, cap=60, arity=3, prune=None, ustar_limit=40, filter_first=False, four=None):
         """prune(A) -> False when A's budget erasure is known not to be a GL theorem (then K cannot derive |- A:
         every K rule is GL-sound after erasing budgets, notes/proof-length.md §3; specs/2026-10-05-k-at-n8.md), None
         when unknown.  A pruning only: it removes derivations that cannot exist.  ustar_limit / filter_first: the JLoeb
         candidate set is the reachable box-content closure truncated at ustar_limit elements (the n = 6 run's rule);
-        with filter_first the prune is applied before truncation (src/k_at_n8.py)."""
+        with filter_first the prune is applied before truncation (src/k_at_n8.py).
+        four: the 4-rule as an initial sequent (specs/2026-10-05-k-four.md; soundness proof in notes/k-four.md §1),
+        default None (off: K exactly).  'lit': Gamma, [](A, a) |- [](([](A, a)), c), Delta with c >= a + 1 (the spec's
+        literal rule).  'mono': the literal rule closed under BoxEq's monotonicity and one unfolding (cases i-iv of
+        `four_ax`)."""
+        assert four in (None, 'lit', 'mono')
+        self.four = four
         self.cap = cap; self.arity = arity
         self.prune = prune; self._dead = {}; self.ustar_limit = ustar_limit; self.filter_first = filter_first
         self.trees = []; self.tree_id = {}
@@ -140,7 +146,42 @@ class KTheory:
         if self.BOT in L or self.TOP in R: return True
         for a in L:
             if a in R and F[a][0] in (FP, FBOX): return True
-        return self.boxeq(L, R)
+        if self.boxeq(L, R): return True
+        return self.four is not None and self.four_ax(L, R)
+
+    def four_ax(self, L, R):
+        """The 4-rule as an initial sequent (notes/k-four.md §1).  A left box [](A, a) and a right box [](B, c):
+        'lit':  B = [](A, a) and c >= a + 1.
+        'mono': (i)   B = [](A, d), d >= a, c >= a + 1;
+                (ii)  A a constant P, B = [](phi(P), d), d >= a, c >= a + 1;
+                (iii) A = phi(P), B = [](P, d), d >= a + 1, c >= a + 2;
+                (iv)  B a constant Q with phi(Q) = [](A', d) and (A', d) as in (i)-(iii), c >= (its bound) + 1.
+        Each case is witnessed by Nec (and UnfR) applied to the derivation that makes [](A, a) true."""
+        F = self.forms
+        lb = [(F[x][1], F[x][2]) for x in L if F[x][0] == FBOX]
+        if not lb: return False
+        lit = self.four == 'lit'
+        for r in R:
+            t = F[r]
+            if t[0] != FBOX: continue
+            B, c = t[1], t[2]
+            tb = F[B]
+            if tb[0] == FBOX:
+                Ai, d = tb[1], tb[2]; extra = 0
+            elif not lit and tb[0] == FP:
+                u = F[self.unfold(B)]
+                if u[0] != FBOX: continue
+                Ai, d = u[1], u[2]; extra = 1
+            else:
+                continue
+            for A, a in lb:
+                if lit:
+                    if Ai == A and d == a and c >= a + 1: return True
+                    continue
+                if Ai == A and d >= a and c >= a + 1 + extra: return True
+                if F[A][0] == FP and self.unfold(A) == Ai and d >= a and c >= a + 1 + extra: return True
+                if F[Ai][0] == FP and self.unfold(Ai) == A and d >= a + 1 and c >= a + 2 + extra: return True
+        return False
 
     def _leafJ(self, A):
         """JLoeb leaf for a right formula A (also via phi^-1)."""

@@ -1,0 +1,25 @@
+{
+ "flagged": [
+  "not(BOX(THEM(ME)))",
+  "not(BOX(THEM(^BOX1(THEM(ME)))))",
+  "not(BOX(THEM(^BOX1(THEM(THEM)))))",
+  "BOX1(THEM(^not(BOX(THEM(ME)))))",
+  "BOX1(THEM(^not(BOX(THEM(THEM)))))",
+  "not(and(BOX(THEM(ME)),BOX(THEM(THEM))))",
+  "not(and(BOX(THEM(ME)),BOX1(THEM(ME))))",
+  "not(and(BOX(THEM(ME)),BOX1(THEM(THEM))))",
+  "not(and(BOX(THEM(THEM)),BOX1(THEM(ME))))",
+  "not(and(BOX(THEM(THEM)),BOX1(THEM(THEM))))",
+  "not(BOX(THEM(^not(BOX(THEM(ME))))))",
+  "not(BOX(THEM(^not(BOX(THEM(THEM))))))",
+  "and(BOX1(THEM(THEM)),not(BOX(THEM(ME))))",
+  "and(BOX1(THEM(THEM)),not(BOX(THEM(THEM))))",
+  "BOX1(THEM(^not(BOX(THEM(^C)))))",
+  "BOX1(THEM(^not(BOX(THEM(^D)))))"
+ ],
+ "mu_flagged": 0.0013220870895199143,
+ "restored_coop": [],
+ "restored_exploiters": [
+  "and(BOX(THEM(ME)),BOX(THEM(THEM)))"
+ ]
+}
