@@ -97,4 +97,6 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 19. Concessions (RS proposal, 2026-10-06): a boss grammar with probes; the zero-wage probe alone yields a worker-side accommodation ratchet to the smallest positive wage (sol), the full price discriminator (probes at 0 and 1/4) makes accommodators deleterious; effective basin-to-basin rates, sham-probe and mass-preserved controls, RR, pool, lottery (running: `specs/2026-10-06-concessions.md`).
 20. ~~The realizable language, milestone 3: the prover as code~~ (done; RESULTS "The realizable language, milestone 3": sound, the simulator leak closed, but Löbian cooperation only between twins; four of K's rules lost (existence is not finding within a cap); distinct sources fail by the mutual-verification regress; milestone 1's min-rule was an idealization artefact; the next lever is certificates that are checked, not searched for).
 
+21. The realizable language, milestone 4: certificates as code (carried derivations checked, not searched for; the guarded pair rule with unconditional semantic soundness gating the run; fakers Dcert/CBfake/CBdef/CBmut; held-out sources; the measured disabled control) (running: `specs/2026-10-06-certificates-as-code.md`).
+
 No paper draft (RS, 2026-10-04).
