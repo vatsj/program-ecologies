@@ -122,8 +122,15 @@ def cell_stats(rs, ref, qa_ctrl):
         q, qci, a = qstat(rs, ref)
         st['q'] = [q, qci[0], qci[1], len(a)]
         if qa_ctrl is not None and len(a):
-            d, dci = dq(a, qa_ctrl)
+            d, dci = dq(a, qa_ctrl[0])
             st['dq'] = [d, dci[0], dci[1]]
+        q2, qci2, a2 = qstat(rs, ref, key='n_loc_est')
+        st['q_est'] = [q2, qci2[0], qci2[1]]
+        if qa_ctrl is not None and len(a2):
+            d, dci = dq(a2, qa_ctrl[1])
+            st['dq_est'] = [d, dci[0], dci[1]]
+    st['run_alld'] = sum(r['pcc'] < 0.05 for r in rs)
+    st['run_ineff'] = sum(r['pcc'] < 0.95 for r in rs)
     return st
 
 
@@ -231,7 +238,7 @@ def main():
     P('## 2. Enriched lottery (N = 200, I = 64, mN = 1.091, n = 9, horizon 10⁵, 100 runs per cell)')
     P('')
     ctrl = rows['iid']; ctrl0 = rows['iid-m0']
-    qa_ctrl = qstat(ctrl, ctrl0)[2] if ctrl and ctrl0 else None
+    qa_ctrl = (qstat(ctrl, ctrl0)[2], qstat(ctrl, ctrl0, key='n_loc_est')[2]) if ctrl and ctrl0 else None
     if ctrl:
         cs = dict(n=len(ctrl), gen_sep_end=sum(r['n_sep_end'] > 0 for r in ctrl), gen_sep_ever=sum(r['first_sep'] >= 0 for r in ctrl),
                   pcc=[float(np.mean([r['pcc'] for r in ctrl])), float(np.min([r['pcc'] for r in ctrl]))],
@@ -239,10 +246,12 @@ def main():
                   status=dict(Counter(r['status'] for r in ctrl)))
         if ctrl0:
             q, qci, a = qstat(ctrl, ctrl0); cs['q'] = [q, qci[0], qci[1], len(a)]
+            q, qci, a = qstat(ctrl, ctrl0, key='n_loc_est'); cs['q_est'] = [q, qci[0], qci[1], len(a)]
         out['cells']['d iid'] = cs
         P('**(d) iid control:** %d runs; generic separation ever %d, at the horizon %d; island P(C,C) %.3f (min %.3f); cf cross-island %.3f; '
-          'q (holder form) %s; status %s; %.2f worker-h.' % (cs['n'], cs['gen_sep_ever'], cs['gen_sep_end'], cs['pcc'][0], cs['pcc'][1], cs['cf'],
-                                                             ('%.2f [%.2f, %.2f] (%d pairs)' % tuple(cs['q'])) if 'q' in cs else '–', cs['status'], cs['hours']))
+          'q (holder form) %s; q_est (local establishment form) %s; status %s; %.2f worker-h.' % (cs['n'], cs['gen_sep_ever'], cs['gen_sep_end'], cs['pcc'][0], cs['pcc'][1], cs['cf'],
+                                                             ('%.2f [%.2f, %.2f] (%d pairs)' % tuple(cs['q'])) if 'q' in cs else '–',
+                                                             ('%.2f [%.2f, %.2f]' % tuple(cs['q_est'][:3])) if 'q_est' in cs else '–', cs['status'], cs['hours']))
         P('')
     groups = []
     for exp, lab in (('dense', 'a'), ('nobridge', 'c'), ('sparse', 'b')):
@@ -277,15 +286,16 @@ def main():
         P('')
         P('### Establishment, bridge founders, efficiency and q')
         P('')
-        P('| cell | rival | per-island local rival establishment (tag 2 / the class R) | islands established by A / rival / bridge (mean per run) | bridge founders: seeded islands, copies (mean) | runs with a bridge establishment | bridge alive at end (runs) | bridge islands at end (mean) | mediation events | islands held at end A / R / bridge / other | island P(C,C) (min) | cf cross P(C,C): all / separated runs | q [95%] | Δq vs (d) [95%] |')
-        P('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|')
+        P('| cell | rival | per-island local rival establishment (tag 2 / the class R) | islands established by A / rival / bridge (mean per run) | bridge founders: seeded islands, copies (mean) | runs with a bridge establishment | bridge alive at end (runs) | bridge islands at end (mean) | mediation events | islands held at end A / R / bridge / other | island P(C,C) (min) | runs all-D / with island P(C,C) < 0.95 | cf cross P(C,C): all / separated runs | q holder [95%] | Δq holder vs (d) | q_est [95%] | Δq_est vs (d) |')
+        P('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|')
         for g, rv, rs, ref in groups:
             s = S[(g, rv)]; h = s['held_end']
-            P('| %s | %s | %.4f / %.4f | %.1f / %.2f / %.2f | %.1f, %.1f | %d | %d | %.2f | %d | %.1f / %.1f / %.1f / %.1f | %.3f (%.3f) | %.3f / %s | %s | %s |' % (
+            P('| %s | %s | %.4f / %.4f | %.1f / %.2f / %.2f | %.1f, %.1f | %d | %d | %.2f | %d | %.1f / %.1f / %.1f / %.1f | %.3f (%.3f) | %d / %d | %.3f / %s | %s | %s | %s | %s |' % (
                 g, short(rv), s['p_rival_loc'], s['p_rival_cls_loc'], s['A_isl_est'], s['rival_isl_est'], s['bridge_isl_est'], s['bseed_isl'], s['bseed_cp'],
-                s['b_est_runs'], s['b_alive_end'], s['b_held_end'], s['n_med_events'], h['1'], h['2'], h['3'], h['0'], s['pcc'][0], s['pcc'][1], s['cf'],
+                s['b_est_runs'], s['b_alive_end'], s['b_held_end'], s['n_med_events'], h['1'], h['2'], h['3'], h['0'], s['pcc'][0], s['pcc'][1], s['run_alld'], s['run_ineff'], s['cf'],
                 '%.3f' % s['cf_sep'] if not math.isnan(s['cf_sep']) else '–',
-                ('%.2f [%.2f, %.2f]' % tuple(s['q'][:3])) if 'q' in s else '–', ('%+.2f [%+.2f, %+.2f]' % tuple(s['dq'])) if 'dq' in s else '–'))
+                ('%.2f [%.2f, %.2f]' % tuple(s['q'][:3])) if 'q' in s else '–', ('%+.2f [%+.2f, %+.2f]' % tuple(s['dq'])) if 'dq' in s else '–',
+                ('%.2f [%.2f, %.2f]' % tuple(s['q_est'][:3])) if 'q_est' in s else '–', ('%+.2f [%+.2f, %+.2f]' % tuple(s['dq_est'])) if 'dq_est' in s else '–'))
         P('')
     # ---------------------------------------------------------------- natural
     nat = rows['nat']
