@@ -522,8 +522,8 @@ class RestrictedSearch(G.MinSearch):
         r = self._trig.get(a)
         if r is None:
             th = self.th; F = th.forms
-            r = con_under_box(th, a)
-            if not r and F[a][0] == FBOX:
+            r = False
+            if F[a][0] == FBOX:
                 B = F[a][1]; pol = 1; Bp = B
                 if F[Bp][0] == FNOT: pol = 0; Bp = F[Bp][1]
                 cands = [Bp] if F[Bp][0] == FP else [P_ for P_, D_ in th.defn.items() if D_ == Bp]
@@ -545,8 +545,8 @@ class RestrictedSearch(G.MinSearch):
                 goal = next(iter(pR)); diag = next(a for a in pL if F[a][0] == FBOX and F[a][1] == goal and a in S[1])
                 if con_under_box(self.th, goal):
                     continue
-                drop = {a for a in pL if self.trig(a)}          # an unused diagonal is weakened away like any hypothesis
-                drop |= {F[a][1] for a in drop if F[a][0] == FBOX}
+                dg = {a for a in pL if self.trig(a)}            # G-triggers (an unused diagonal is weakened away too)
+                drop = dg | {F[a][1] for a in dg} | {a for a in pL if con_under_box(self.th, a)}
                 prem = ((pL - drop, pR),)
             out.append((prem, glr, lab))
         return out
@@ -975,7 +975,7 @@ def cmd_report(a):
         for b in sorted(st, key=int):
             for four, r in st[b].items():
                 if r.get('changed_pairs'):
-                    w('- b = %s, %s: changed plays vs K (reader, opponent, K, new): %s' % (b, four, '; '.join('`%s` vs `%s` %d→%d' % t for t in r['changed_pairs'][:12])))
+                    w('- b = %s, %s: changed plays vs K (reader, opponent, K, new): %s' % (b, four, '; '.join('`%s` vs `%s` %d→%d' % tuple(t) for t in r['changed_pairs'][:12])))
                 sm = r.get('split_merge_vs_K')
                 if sm and (sm['splits'] or sm['merges']):
                     w('  - classes K %d → %d; splits: %s; merges: %s' % (sm['n_classes_a'], sm['n_classes_b'],
@@ -1043,7 +1043,7 @@ def cmd_report(a):
         rows = [r for r in pub if r['label'] in ('free', 'K b=16', 'K b=54')] + ch
         J['chain'] = ch
         w('## 4. The lim_N chain at n = 8 (PD, w = 0.3)\n')
-        w('| arm | P(C,C) N = 10³ | 10⁴ | 3·10⁴ | π(all-D) 3·10⁴ | top state (π) 3·10⁴ | top exit 10³ / 10⁴ / 3·10⁴ | exit slope | strict share | ALLC share | entry N·ρ (10⁴) | classes | terminal / indeterminate / cut |')
+        w('| arm | P(C,C) N = 10³ | 10⁴ | 3·10⁴ | π(all-D) 3·10⁴ | top state (π) 3·10⁴ | top exit 10³ / 10⁴ / 3·10⁴ | exit slope | strict share | ALLC share | entry N·ρ 10³ / 10⁴ / 3·10⁴ | classes | terminal / indeterminate / cut |')
         w('|---|---|---|---|---|---|---|---|---|---|---|---|---|')
         labs = list(dict.fromkeys(r['label'] for r in rows))
         for lab in labs:
@@ -1056,7 +1056,7 @@ def cmd_report(a):
                 lab, _fmt(rr.get(1000, {}).get('pcc')), _fmt(rr.get(10000, {}).get('pcc')), _fmt(rr.get(30000, {}).get('pcc')),
                 top['pi_D'], top.get('top_coop'), top.get('pi_top', 0), ' / '.join(_fmt(e, '%.2e') for e in ex), _fmt(slope, '%.2f'),
                 top.get('top_exit_strict', 0) / top['top_exit'] if top.get('top_exit') else 0, top.get('allc_share', float('nan')),
-                _fmt((rr.get(10000, {}).get('entry') or {}).get('N_rho'), '%.1f'), top['n_classes'], top['n_terminal'], top['indeterminate'], top['cut_flow']))
+                ' / '.join(_fmt((rr[N].get('entry') or {}).get('N_rho'), '%.1f') for N in Ns), top['n_classes'], top['n_terminal'], top['indeterminate'], top['cut_flow']))
         w('')
         for lab in labs:
             rr = [r for r in rows if r['label'] == lab and r['N'] == 30000]
@@ -1102,7 +1102,7 @@ def cmd_report(a):
             nstr = sum(1 for r in rs if r['lost'] and not any(o['finite_budget_at'] for o in r['lost']))
             nnone = sum(1 for r in rs if not r['lost'])
             nalt = sum(1 for r in rs if r['alt'] and r['alt']['untriggered'] and r['alt']['untriggered'].get('c'))
-            w('- %s: %d pairs; lost atoms structural in %d, some finite-budget in %d, no lost GL-true atom in %d; untriggered alternative within 2× in %d.' % (kd, len(rs), nstr, nfin, nnone, nalt))
+            w('- %s: %d pairs; lost atoms structural in %d, some finite-budget in %d, no lost GL-true atom in %d; untriggered derivation within 2× in %d%s.' % (kd, len(rs), nstr, nfin, nnone, nalt, ' (for an FN the minimal derivation is itself untriggered; the 8 without one have no proof at level ≤ 2)' if kd == 'FN' else ''))
         w('')
         for r in mc:
             alt = r['alt'] and r['alt']['untriggered']

@@ -1901,5 +1901,759 @@
    ]
   },
   "t": 66.73821806907654
+ },
+ {
+  "label": "K4m b=16 g=1",
+  "n": 8,
+  "N": 10000,
+  "n_classes": 474,
+  "pcc": 0.6709585946532491,
+  "pi_D": 0.3288534993966018,
+  "pi_C": 0.00025615764079519796,
+  "poly": 0.0,
+  "cut_flow": 2.988831361096895e-08,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "n_states": 474,
+  "support": [
+   [
+    "mono {D:1}",
+    0.3288534993966018
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.15683630222031805
+   ],
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.1555426613558654
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.1474632434614066
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.1438816755482295
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),BOXD1(THEM(^D))):1}",
+    0.05266805667237691
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.00251107039863256
+   ],
+   [
+    "mono {BOX1(THEM(^C)):1}",
+    0.0024636402736689248
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),BOX1(THEM(^C))):1}",
+    0.0010955739044223602
+   ]
+  ],
+  "pi_mono": {
+   "D": 0.3288534993966018,
+   "BOX(THEM(ME))": 0.15683630222031805,
+   "BOX1(THEM(ME))": 0.1555426613558654,
+   "BOX(THEM(THEM))": 0.1474632434614066,
+   "BOX1(THEM(THEM))": 0.1438816755482295,
+   "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": 0.05266805667237691,
+   "BOX(THEM(^C))": 0.00251107039863256,
+   "BOX1(THEM(^C))": 0.0024636402736689248,
+   "and(BOX(THEM(ME)),BOX1(THEM(^C)))": 0.0010955739044223602,
+   "BOX(THEM(^BOX1(THEM(ME))))": 0.0009732930544862744,
+   "BOX(THEM(^BOX1(THEM(THEM))))": 0.0009732924676398417,
+   "BOX(THEM(^BOX(THEM(THEM))))": 0.0009525364036573279,
+   "BOX1(THEM(^BOX1(THEM(ME))))": 0.0009456136174164725,
+   "BOX1(THEM(^BOX1(THEM(THEM))))": 0.0009156188231235907,
+   "or(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.0004357168531254403,
+   "and(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.00027048719790199853,
+   "C": 0.00025615764079519796,
+   "and(BOX(THEM(THEM)),BOX1(THEM(ME)))": 0.00024130499995746055,
+   "and(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.00024124349085676098,
+   "and(BOX(THEM(ME)),BOX1(THEM(ME)))": 0.00024122169309222764,
+   "and(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.00023610917973886374,
+   "or(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.0002216418177062038,
+   "or(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.00021785829679354333,
+   "and(BOX(THEM(THEM)),BOX1(THEM(THEM)))": 0.0002165582678532749,
+   "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))": 0.00021495101788283436,
+   "BOX(THEM(^BOX1(THEM(^C))))": 0.00012781062086836446,
+   "and(BOX(THEM(THEM)),BOXD1(THEM(^D)))": 0.0001263018901493682,
+   "BOX(THEM(^BOX(THEM(^C))))": 0.00012587822789936795,
+   "BOX1(THEM(^BOX1(THEM(^C))))": 0.00010439607297639273,
+   "BOX1(THEM(^BOX(THEM(ME))))": 0.00010395300722919374,
+   "BOX1(THEM(^BOX(THEM(THEM))))": 0.00010175814248894967
+  },
+  "pi_selfcoop": 0.670702437012454,
+  "top_coop": "BOX(THEM(ME))",
+  "pi_top": 0.15683630222031805,
+  "top_exit": 4.852210148152877e-05,
+  "top_exit_strict": 0.0,
+  "top_exit_neutral": 4.852210148152877e-05,
+  "top_exit_other": 0.0,
+  "allc_share": 0.9613580648001765,
+  "top_dest": [
+   [
+    "C",
+    "neutral",
+    4.6647113580320275e-05
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "neutral",
+    5.05256219181086e-07
+   ],
+   [
+    "BOX(THEM(THEM))",
+    "neutral",
+    5.044974922361916e-07
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    "neutral",
+    5.044974922361916e-07
+   ]
+  ],
+  "entry": {
+   "mutant": "BOX(THEM(ME))",
+   "rho": 0.004351378610733737,
+   "N_rho": 43.513786107337374
+  },
+  "exits": [
+   {
+    "mutant": "C",
+    "to": "mono {C:1}",
+    "w": 4.6647113580320275e-05,
+    "rho": 9.999999999999998e-05,
+    "N_rho": 0.9999999999999998,
+    "d_vs_res": 0.0,
+    "d_res_vs": 0.0,
+    "d_self": 0.0
+   },
+   {
+    "mutant": "BOX1(THEM(ME))",
+    "to": "mono {BOX1(THEM(ME)):1}",
+    "w": 5.05256219181086e-07,
+    "rho": 9.999999999999998e-05,
+    "N_rho": 0.9999999999999998,
+    "d_vs_res": 0.0,
+    "d_res_vs": 0.0,
+    "d_self": 0.0
+   },
+   {
+    "mutant": "BOX(THEM(THEM))",
+    "to": "mono {BOX(THEM(THEM)):1}",
+    "w": 5.044974922361916e-07,
+    "rho": 9.999999999999998e-05,
+    "N_rho": 0.9999999999999998,
+    "d_vs_res": 0.0,
+    "d_res_vs": 0.0,
+    "d_self": 0.0
+   },
+   {
+    "mutant": "BOX1(THEM(THEM))",
+    "to": "mono {BOX1(THEM(THEM)):1}",
+    "w": 5.044974922361916e-07,
+    "rho": 9.999999999999998e-05,
+    "N_rho": 0.9999999999999998,
+    "d_vs_res": 0.0,
+    "d_res_vs": 0.0,
+    "d_self": 0.0
+   },
+   {
+    "mutant": "BOX1(THEM(^C))",
+    "to": "mono {BOX1(THEM(^C)):1}",
+    "w": 1.5356063708759196e-07,
+    "rho": 9.999999999999998e-05,
+    "N_rho": 0.9999999999999998,
+    "d_vs_res": 0.0,
+    "d_res_vs": 0.0,
+    "d_self": 0.0
+   },
+   {
+    "mutant": "BOX(THEM(^C))",
+    "to": "mono {BOX(THEM(^C)):1}",
+    "w": 1.5315150545505138e-07,
+    "rho": 9.999999999999998e-05,
+    "N_rho": 0.9999999999999998,
+    "d_vs_res": 0.0,
+    "d_res_vs": 0.0,
+    "d_self": 0.0
+   }
+  ],
+  "strict_invaders": {
+   "BOX(THEM(ME))": [],
+   "BOX(THEM(THEM))": [
+    "or(BOXD(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX1(THEM(^D)))"
+   ],
+   "BOX(THEM(^C))": [
+    "BOX(THEM(^D))",
+    "BOX1(THEM(^D))",
+    "BOX1(THEM(^BOXD(THEM(THEM))))",
+    "BOX(THEM(^BOXD(THEM(ME))))",
+    "BOX(THEM(^BOXD(THEM(THEM))))",
+    "BOX(THEM(^BOXD1(THEM(ME))))",
+    "BOX(THEM(^BOXD1(THEM(THEM))))",
+    "BOX1(THEM(^BOXD(THEM(ME))))",
+    "BOX1(THEM(^BOXD1(THEM(ME))))",
+    "BOX(THEM(^BOXD(THEM(^C))))",
+    "BOX1(THEM(^BOXD(THEM(^C))))",
+    "BOX(THEM(^BOXD(THEM(^D))))",
+    "BOX(THEM(^BOXD1(THEM(^D))))",
+    "BOX1(THEM(^BOXD(THEM(^D))))",
+    "BOX1(THEM(^BOXD1(THEM(^D))))",
+    "BOX(THEM(^not(BOX(THEM(ME)))))",
+    "BOX(THEM(^not(BOX(THEM(THEM)))))",
+    "BOX(THEM(^not(BOXD(THEM(ME)))))",
+    "BOX(THEM(^not(BOXD(THEM(THEM)))))",
+    "BOX(THEM(^not(BOX1(THEM(ME)))))",
+    "BOX(THEM(^not(BOX1(THEM(THEM)))))",
+    "BOX(THEM(^not(BOXD1(THEM(ME)))))",
+    "BOX(THEM(^not(BOXD1(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOX(THEM(ME)))))",
+    "BOX1(THEM(^not(BOX(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOXD(THEM(ME)))))",
+    "BOX1(THEM(^not(BOXD(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOX1(THEM(ME)))))",
+    "BOX1(THEM(^not(BOX1(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOXD1(THEM(ME)))))",
+    "BOX1(THEM(^not(BOXD1(THEM(THEM)))))",
+    "and(BOX(THEM(ME)),BOX(THEM(^D)))",
+    "and(BOX(THEM(ME)),BOX1(THEM(^D)))",
+    "and(BOX(THEM(THEM)),BOX(THEM(^D)))",
+    "and(BOX(THEM(THEM)),BOX1(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX1(THEM(^D)))",
+    "and(BOX1(THEM(ME)),BOX(THEM(^D)))",
+    "and(BOX1(THEM(ME)),BOX1(THEM(^D)))",
+    "and(BOX1(THEM(THEM)),BOX(THEM(^D)))",
+    "and(BOX1(THEM(THEM)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX1(THEM(^D)))",
+    "BOX(THEM(^not(BOXD(THEM(^C)))))",
+    "BOX1(THEM(^not(BOXD(THEM(^C)))))",
+    "BOX(THEM(^not(BOX(THEM(^C)))))",
+    "BOX(THEM(^not(BOX(THEM(^D)))))",
+    "BOX(THEM(^not(BOXD(THEM(^D)))))",
+    "BOX(THEM(^not(BOX1(THEM(^C)))))",
+    "BOX(THEM(^not(BOX1(THEM(^D)))))",
+    "BOX(THEM(^not(BOXD1(THEM(^D)))))",
+    "BOX1(THEM(^not(BOX(THEM(^C)))))",
+    "BOX1(THEM(^not(BOX(THEM(^D)))))",
+    "BOX1(THEM(^not(BOXD(THEM(^D)))))",
+    "BOX1(THEM(^not(BOX1(THEM(^C)))))",
+    "BOX1(THEM(^not(BOX1(THEM(^D)))))",
+    "BOX1(THEM(^not(BOXD1(THEM(^D)))))"
+   ],
+   "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": [],
+   "and(BOX(THEM(ME)),BOX1(THEM(^C)))": [],
+   "BOX1(THEM(^C))": [
+    "BOX(THEM(^D))",
+    "BOX1(THEM(^D))",
+    "BOX1(THEM(^BOXD(THEM(THEM))))",
+    "BOX(THEM(^BOXD(THEM(ME))))",
+    "BOX(THEM(^BOXD(THEM(THEM))))",
+    "BOX(THEM(^BOXD1(THEM(ME))))",
+    "BOX(THEM(^BOXD1(THEM(THEM))))",
+    "BOX1(THEM(^BOXD(THEM(ME))))",
+    "BOX1(THEM(^BOXD1(THEM(ME))))",
+    "BOX(THEM(^BOXD(THEM(^C))))",
+    "BOX1(THEM(^BOXD(THEM(^C))))",
+    "BOX(THEM(^BOXD(THEM(^D))))",
+    "BOX(THEM(^BOXD1(THEM(^D))))",
+    "BOX1(THEM(^BOXD(THEM(^D))))",
+    "BOX1(THEM(^BOXD1(THEM(^D))))",
+    "BOX(THEM(^not(BOX(THEM(ME)))))",
+    "BOX(THEM(^not(BOX(THEM(THEM)))))",
+    "BOX(THEM(^not(BOXD(THEM(ME)))))",
+    "BOX(THEM(^not(BOXD(THEM(THEM)))))",
+    "BOX(THEM(^not(BOX1(THEM(ME)))))",
+    "BOX(THEM(^not(BOX1(THEM(THEM)))))",
+    "BOX(THEM(^not(BOXD1(THEM(ME)))))",
+    "BOX(THEM(^not(BOXD1(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOX(THEM(ME)))))",
+    "BOX1(THEM(^not(BOX(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOXD(THEM(ME)))))",
+    "BOX1(THEM(^not(BOXD(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOX1(THEM(ME)))))",
+    "BOX1(THEM(^not(BOX1(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOXD1(THEM(ME)))))",
+    "BOX1(THEM(^not(BOXD1(THEM(THEM)))))",
+    "and(BOX(THEM(ME)),BOX(THEM(^D)))",
+    "and(BOX(THEM(ME)),BOX1(THEM(^D)))",
+    "and(BOX(THEM(THEM)),BOX(THEM(^D)))",
+    "and(BOX(THEM(THEM)),BOX1(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX1(THEM(^D)))",
+    "and(BOX1(THEM(ME)),BOX(THEM(^D)))",
+    "and(BOX1(THEM(ME)),BOX1(THEM(^D)))",
+    "and(BOX1(THEM(THEM)),BOX(THEM(^D)))",
+    "and(BOX1(THEM(THEM)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX1(THEM(^D)))",
+    "BOX(THEM(^not(BOXD(THEM(^C)))))",
+    "BOX1(THEM(^not(BOXD(THEM(^C)))))",
+    "BOX(THEM(^not(BOX(THEM(^C)))))",
+    "BOX(THEM(^not(BOX(THEM(^D)))))",
+    "BOX(THEM(^not(BOXD(THEM(^D)))))",
+    "BOX(THEM(^not(BOX1(THEM(^C)))))",
+    "BOX(THEM(^not(BOX1(THEM(^D)))))",
+    "BOX(THEM(^not(BOXD1(THEM(^D)))))",
+    "BOX1(THEM(^not(BOX(THEM(^C)))))",
+    "BOX1(THEM(^not(BOX(THEM(^D)))))",
+    "BOX1(THEM(^not(BOXD(THEM(^D)))))",
+    "BOX1(THEM(^not(BOX1(THEM(^C)))))",
+    "BOX1(THEM(^not(BOX1(THEM(^D)))))",
+    "BOX1(THEM(^not(BOXD1(THEM(^D)))))"
+   ],
+   "BOX1(THEM(THEM))": [
+    "and(BOX(THEM(ME)),BOX1(THEM(^C)))",
+    "and(BOX(THEM(ME)),BOXD1(THEM(^D)))",
+    "and(BOX(THEM(THEM)),BOXD1(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX1(THEM(^D)))"
+   ],
+   "BOX1(THEM(ME))": []
+  },
+  "canon_members": {
+   "D": [
+    1
+   ],
+   "BOX(THEM(ME))": [
+    2,
+    34
+   ],
+   "BOX(THEM(THEM))": [
+    3
+   ],
+   "BOX(THEM(^C))": [
+    18
+   ],
+   "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": [
+    366
+   ],
+   "and(BOX(THEM(ME)),BOX1(THEM(^C)))": [
+    360
+   ],
+   "BOX1(THEM(^C))": [
+    22,
+    361,
+    473,
+    481
+   ],
+   "BOX1(THEM(THEM))": [
+    7
+   ],
+   "BOX1(THEM(ME))": [
+    6,
+    105
+   ]
+  },
+  "t": 42.82024383544922
+ },
+ {
+  "label": "K b=16 g=1",
+  "n": 8,
+  "N": 10000,
+  "n_classes": 476,
+  "pcc": 0.6709573006821333,
+  "pi_D": 0.32885479261035416,
+  "pi_C": 0.0002561584902732517,
+  "poly": 0.0,
+  "cut_flow": 2.988767229674136e-08,
+  "indeterminate": 0,
+  "n_terminal": 1,
+  "n_states": 476,
+  "support": [
+   [
+    "mono {D:1}",
+    0.32885479261035416
+   ],
+   [
+    "mono {BOX(THEM(ME)):1}",
+    0.15683687407165237
+   ],
+   [
+    "mono {BOX1(THEM(ME)):1}",
+    0.15554326057741807
+   ],
+   [
+    "mono {BOX(THEM(THEM)):1}",
+    0.14746378342602742
+   ],
+   [
+    "mono {BOX1(THEM(THEM)):1}",
+    0.14388223301554195
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),BOXD1(THEM(^D))):1}",
+    0.05266508798097619
+   ],
+   [
+    "mono {BOX(THEM(^C)):1}",
+    0.0025110801593700633
+   ],
+   [
+    "mono {BOX1(THEM(^C)):1}",
+    0.0024636498539195523
+   ],
+   [
+    "mono {BOX(THEM(^BOX1(THEM(ME)))):1}",
+    0.001946588110377849
+   ],
+   [
+    "mono {and(BOX(THEM(ME)),BOX1(THEM(^C))):1}",
+    0.001095508095071961
+   ]
+  ],
+  "pi_mono": {
+   "D": 0.32885479261035416,
+   "BOX(THEM(ME))": 0.15683687407165237,
+   "BOX1(THEM(ME))": 0.15554326057741807,
+   "BOX(THEM(THEM))": 0.14746378342602742,
+   "BOX1(THEM(THEM))": 0.14388223301554195,
+   "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": 0.05266508798097619,
+   "BOX(THEM(^C))": 0.0025110801593700633,
+   "BOX1(THEM(^C))": 0.0024636498539195523,
+   "BOX(THEM(^BOX1(THEM(ME))))": 0.001946588110377849,
+   "and(BOX(THEM(ME)),BOX1(THEM(^C)))": 0.001095508095071961,
+   "BOX(THEM(^BOX(THEM(THEM))))": 0.0009525376260483912,
+   "BOX1(THEM(^BOX1(THEM(THEM))))": 0.0009523646046145682,
+   "BOX1(THEM(^BOX1(THEM(ME))))": 0.0009093860371828088,
+   "or(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.00043571853171046264,
+   "and(BOX(THEM(THEM)),BOX1(THEM(ME)))": 0.0002777976423095864,
+   "C": 0.0002561584902732517,
+   "and(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.00024122413067920965,
+   "and(BOX(THEM(ME)),BOX1(THEM(ME)))": 0.0002411956459271335,
+   "and(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.00023921321147751446,
+   "and(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.00023608955295698286,
+   "or(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.0002216426258511548,
+   "or(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.00021785913987144075,
+   "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))": 0.00021495185070907912,
+   "and(BOX(THEM(THEM)),BOX1(THEM(THEM)))": 0.00020746046205285173,
+   "BOX(THEM(^BOX1(THEM(^C))))": 0.00013313948986948824,
+   "and(BOX(THEM(THEM)),BOXD1(THEM(^D)))": 0.00012630236568621746,
+   "BOX(THEM(^BOX(THEM(^C))))": 0.00012142691571391145,
+   "BOX1(THEM(^BOX1(THEM(^C))))": 0.00010924598219402545,
+   "BOX1(THEM(^BOX(THEM(ME))))": 0.00010395340979652602,
+   "BOX1(THEM(^BOX(THEM(THEM))))": 0.00010183678786971651
+  },
+  "pi_selfcoop": 0.6707011421918602,
+  "top_coop": "BOX(THEM(ME))",
+  "pi_top": 0.15683687407165237,
+  "top_exit": 4.85221014815288e-05,
+  "top_exit_strict": 0.0,
+  "top_exit_neutral": 4.85221014815288e-05,
+  "top_exit_other": 0.0,
+  "allc_share": 0.9613580648001764,
+  "top_dest": [
+   [
+    "C",
+    "neutral",
+    4.66471135803203e-05
+   ],
+   [
+    "BOX1(THEM(ME))",
+    "neutral",
+    5.052562191810862e-07
+   ],
+   [
+    "BOX(THEM(THEM))",
+    "neutral",
+    5.044974922361919e-07
+   ],
+   [
+    "BOX1(THEM(THEM))",
+    "neutral",
+    5.044974922361919e-07
+   ]
+  ],
+  "entry": {
+   "mutant": "BOX(THEM(ME))",
+   "rho": 0.004351378610733737,
+   "N_rho": 43.513786107337374
+  },
+  "exits": [
+   {
+    "mutant": "C",
+    "to": "mono {C:1}",
+    "w": 4.66471135803203e-05,
+    "rho": 9.999999999999998e-05,
+    "N_rho": 0.9999999999999998,
+    "d_vs_res": 0.0,
+    "d_res_vs": 0.0,
+    "d_self": 0.0
+   },
+   {
+    "mutant": "BOX1(THEM(ME))",
+    "to": "mono {BOX1(THEM(ME)):1}",
+    "w": 5.052562191810862e-07,
+    "rho": 9.999999999999998e-05,
+    "N_rho": 0.9999999999999998,
+    "d_vs_res": 0.0,
+    "d_res_vs": 0.0,
+    "d_self": 0.0
+   },
+   {
+    "mutant": "BOX(THEM(THEM))",
+    "to": "mono {BOX(THEM(THEM)):1}",
+    "w": 5.044974922361919e-07,
+    "rho": 9.999999999999998e-05,
+    "N_rho": 0.9999999999999998,
+    "d_vs_res": 0.0,
+    "d_res_vs": 0.0,
+    "d_self": 0.0
+   },
+   {
+    "mutant": "BOX1(THEM(THEM))",
+    "to": "mono {BOX1(THEM(THEM)):1}",
+    "w": 5.044974922361919e-07,
+    "rho": 9.999999999999998e-05,
+    "N_rho": 0.9999999999999998,
+    "d_vs_res": 0.0,
+    "d_res_vs": 0.0,
+    "d_self": 0.0
+   },
+   {
+    "mutant": "BOX1(THEM(^C))",
+    "to": "mono {BOX1(THEM(^C)):1}",
+    "w": 1.5356063708759204e-07,
+    "rho": 9.999999999999998e-05,
+    "N_rho": 0.9999999999999998,
+    "d_vs_res": 0.0,
+    "d_res_vs": 0.0,
+    "d_self": 0.0
+   },
+   {
+    "mutant": "BOX(THEM(^C))",
+    "to": "mono {BOX(THEM(^C)):1}",
+    "w": 1.5315150545505148e-07,
+    "rho": 9.999999999999998e-05,
+    "N_rho": 0.9999999999999998,
+    "d_vs_res": 0.0,
+    "d_res_vs": 0.0,
+    "d_self": 0.0
+   }
+  ],
+  "strict_invaders": {
+   "BOX(THEM(ME))": [],
+   "BOX(THEM(THEM))": [
+    "or(BOXD(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX1(THEM(^D)))"
+   ],
+   "BOX(THEM(^C))": [
+    "BOX(THEM(^D))",
+    "BOX1(THEM(^D))",
+    "BOX(THEM(^BOXD(THEM(ME))))",
+    "BOX(THEM(^BOXD(THEM(THEM))))",
+    "BOX(THEM(^BOXD1(THEM(ME))))",
+    "BOX(THEM(^BOXD1(THEM(THEM))))",
+    "BOX1(THEM(^BOXD(THEM(ME))))",
+    "BOX1(THEM(^BOXD(THEM(THEM))))",
+    "BOX1(THEM(^BOXD1(THEM(ME))))",
+    "BOX1(THEM(^BOXD1(THEM(THEM))))",
+    "BOX(THEM(^BOXD(THEM(^C))))",
+    "BOX1(THEM(^BOXD(THEM(^C))))",
+    "BOX(THEM(^BOXD(THEM(^D))))",
+    "BOX(THEM(^BOXD1(THEM(^D))))",
+    "BOX1(THEM(^BOXD(THEM(^D))))",
+    "BOX1(THEM(^BOXD1(THEM(^D))))",
+    "BOX(THEM(^not(BOX(THEM(ME)))))",
+    "BOX(THEM(^not(BOX(THEM(THEM)))))",
+    "BOX(THEM(^not(BOXD(THEM(ME)))))",
+    "BOX(THEM(^not(BOXD(THEM(THEM)))))",
+    "BOX(THEM(^not(BOX1(THEM(ME)))))",
+    "BOX(THEM(^not(BOX1(THEM(THEM)))))",
+    "BOX(THEM(^not(BOXD1(THEM(ME)))))",
+    "BOX(THEM(^not(BOXD1(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOX(THEM(ME)))))",
+    "BOX1(THEM(^not(BOX(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOXD(THEM(ME)))))",
+    "BOX1(THEM(^not(BOXD(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOX1(THEM(ME)))))",
+    "BOX1(THEM(^not(BOX1(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOXD1(THEM(ME)))))",
+    "BOX1(THEM(^not(BOXD1(THEM(THEM)))))",
+    "and(BOX(THEM(ME)),BOX(THEM(^D)))",
+    "and(BOX(THEM(ME)),BOX1(THEM(^D)))",
+    "and(BOX(THEM(THEM)),BOX(THEM(^D)))",
+    "and(BOX(THEM(THEM)),BOX1(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX1(THEM(^D)))",
+    "and(BOX1(THEM(ME)),BOX(THEM(^D)))",
+    "and(BOX1(THEM(ME)),BOX1(THEM(^D)))",
+    "and(BOX1(THEM(THEM)),BOX(THEM(^D)))",
+    "and(BOX1(THEM(THEM)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX1(THEM(^D)))",
+    "BOX(THEM(^not(BOXD(THEM(^C)))))",
+    "BOX1(THEM(^not(BOXD(THEM(^C)))))",
+    "BOX(THEM(^not(BOX(THEM(^C)))))",
+    "BOX(THEM(^not(BOX(THEM(^D)))))",
+    "BOX(THEM(^not(BOXD(THEM(^D)))))",
+    "BOX(THEM(^not(BOX1(THEM(^C)))))",
+    "BOX(THEM(^not(BOX1(THEM(^D)))))",
+    "BOX(THEM(^not(BOXD1(THEM(^D)))))",
+    "BOX1(THEM(^not(BOX(THEM(^C)))))",
+    "BOX1(THEM(^not(BOX(THEM(^D)))))",
+    "BOX1(THEM(^not(BOXD(THEM(^D)))))",
+    "BOX1(THEM(^not(BOX1(THEM(^C)))))",
+    "BOX1(THEM(^not(BOX1(THEM(^D)))))",
+    "BOX1(THEM(^not(BOXD1(THEM(^D)))))"
+   ],
+   "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": [],
+   "and(BOX(THEM(ME)),BOX1(THEM(^C)))": [],
+   "BOX(THEM(^BOX1(THEM(ME))))": [],
+   "BOX1(THEM(^C))": [
+    "BOX(THEM(^D))",
+    "BOX1(THEM(^D))",
+    "BOX(THEM(^BOXD(THEM(ME))))",
+    "BOX(THEM(^BOXD(THEM(THEM))))",
+    "BOX(THEM(^BOXD1(THEM(ME))))",
+    "BOX(THEM(^BOXD1(THEM(THEM))))",
+    "BOX1(THEM(^BOXD(THEM(ME))))",
+    "BOX1(THEM(^BOXD(THEM(THEM))))",
+    "BOX1(THEM(^BOXD1(THEM(ME))))",
+    "BOX1(THEM(^BOXD1(THEM(THEM))))",
+    "BOX(THEM(^BOXD(THEM(^C))))",
+    "BOX1(THEM(^BOXD(THEM(^C))))",
+    "BOX(THEM(^BOXD(THEM(^D))))",
+    "BOX(THEM(^BOXD1(THEM(^D))))",
+    "BOX1(THEM(^BOXD(THEM(^D))))",
+    "BOX1(THEM(^BOXD1(THEM(^D))))",
+    "BOX(THEM(^not(BOX(THEM(ME)))))",
+    "BOX(THEM(^not(BOX(THEM(THEM)))))",
+    "BOX(THEM(^not(BOXD(THEM(ME)))))",
+    "BOX(THEM(^not(BOXD(THEM(THEM)))))",
+    "BOX(THEM(^not(BOX1(THEM(ME)))))",
+    "BOX(THEM(^not(BOX1(THEM(THEM)))))",
+    "BOX(THEM(^not(BOXD1(THEM(ME)))))",
+    "BOX(THEM(^not(BOXD1(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOX(THEM(ME)))))",
+    "BOX1(THEM(^not(BOX(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOXD(THEM(ME)))))",
+    "BOX1(THEM(^not(BOXD(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOX1(THEM(ME)))))",
+    "BOX1(THEM(^not(BOX1(THEM(THEM)))))",
+    "BOX1(THEM(^not(BOXD1(THEM(ME)))))",
+    "BOX1(THEM(^not(BOXD1(THEM(THEM)))))",
+    "and(BOX(THEM(ME)),BOX(THEM(^D)))",
+    "and(BOX(THEM(ME)),BOX1(THEM(^D)))",
+    "and(BOX(THEM(THEM)),BOX(THEM(^D)))",
+    "and(BOX(THEM(THEM)),BOX1(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX1(THEM(^D)))",
+    "and(BOX1(THEM(ME)),BOX(THEM(^D)))",
+    "and(BOX1(THEM(ME)),BOX1(THEM(^D)))",
+    "and(BOX1(THEM(THEM)),BOX(THEM(^D)))",
+    "and(BOX1(THEM(THEM)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX1(THEM(^D)))",
+    "BOX(THEM(^not(BOXD(THEM(^C)))))",
+    "BOX1(THEM(^not(BOXD(THEM(^C)))))",
+    "BOX(THEM(^not(BOX(THEM(^C)))))",
+    "BOX(THEM(^not(BOX(THEM(^D)))))",
+    "BOX(THEM(^not(BOXD(THEM(^D)))))",
+    "BOX(THEM(^not(BOX1(THEM(^C)))))",
+    "BOX(THEM(^not(BOX1(THEM(^D)))))",
+    "BOX(THEM(^not(BOXD1(THEM(^D)))))",
+    "BOX1(THEM(^not(BOX(THEM(^C)))))",
+    "BOX1(THEM(^not(BOX(THEM(^D)))))",
+    "BOX1(THEM(^not(BOXD(THEM(^D)))))",
+    "BOX1(THEM(^not(BOX1(THEM(^C)))))",
+    "BOX1(THEM(^not(BOX1(THEM(^D)))))",
+    "BOX1(THEM(^not(BOXD1(THEM(^D)))))"
+   ],
+   "BOX1(THEM(THEM))": [
+    "and(BOX(THEM(ME)),BOX1(THEM(^C)))",
+    "and(BOX(THEM(ME)),BOXD1(THEM(^D)))",
+    "and(BOX(THEM(THEM)),BOXD1(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD(THEM(THEM)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(ME)),BOX1(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX(THEM(^D)))",
+    "or(BOXD1(THEM(THEM)),BOX1(THEM(^D)))"
+   ],
+   "BOX1(THEM(ME))": []
+  },
+  "canon_members": {
+   "D": [
+    1
+   ],
+   "BOX(THEM(ME))": [
+    2,
+    34
+   ],
+   "BOX(THEM(THEM))": [
+    3
+   ],
+   "BOX(THEM(^C))": [
+    18
+   ],
+   "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": [
+    366
+   ],
+   "and(BOX(THEM(ME)),BOX1(THEM(^C)))": [
+    360
+   ],
+   "BOX(THEM(^BOX1(THEM(ME))))": [
+    38,
+    39
+   ],
+   "BOX1(THEM(^C))": [
+    22,
+    361,
+    473,
+    481
+   ],
+   "BOX1(THEM(THEM))": [
+    7
+   ],
+   "BOX1(THEM(ME))": [
+    6,
+    105
+   ]
+  },
+  "t": 43.20845580101013
  }
 ]

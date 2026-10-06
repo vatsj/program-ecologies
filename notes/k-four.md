@@ -145,14 +145,41 @@ pairs (25 residents, 89 invader classes), 74 K-disarmed at b = 16 (37 classes).
   0 FP; Con part alone: 15 TP, 0 FP. C_pair (either play of the invasion): precision 1.00, recall 0.65 (48/74).
 - So the instrument is a sufficient sign of K-disarming on this catalogue (no false positive among 334 surviving
   invasions) but far from necessary. The 43 misses fall in three groups:
-  1. *Level cap* (8 pairs): readers of Gödel/Con sentences against `BOX1(THEM(^BOX1(THEM(THEM))))`, whose defection
-     is first provable at level 3 (□□□⊥-type plays); the frozen classifier stops at level 2. 264 surviving invasions
-     share the cap, so the cap does not bias precision.
-  2. *The failure is on the resident's side* (C_pair recovers 17): the invader's defection is proved cleanly, but the
-     resident's cooperation with the invader needs a Gödel hypothesis (e.g. `not(BOX(THEM(THEM)))` vs
+  1. *Level cap* (8 pairs, 4 of them caught by C_pair): readers of Gödel/Con sentences against
+     `BOX1(THEM(^BOX1(THEM(THEM))))`, whose defection is first provable at level 3 (□□□⊥-type plays); the frozen
+     classifier stops at level 2. 264 surviving invasions share the cap. **The cap is part of the precision:** the
+     post-hoc variant with the cap at 6 (declared after the frozen result, descriptive) finds roots for all 408 pairs,
+     gains no true positive and adds 21 false positives (precision 0.60; C_pair 0.70).
+  2. *The failure is on the resident's side* (13 more caught by C_pair, 17 in all): the invader's defection is proved
+     cleanly, but the resident's cooperation with the invader needs a Gödel hypothesis (e.g. `not(BOX(THEM(THEM)))` vs
      `BOX1(THEM(THEM))`).
-  3. *Con sentences without a self-play hypothesis*: `not(BOX(THEM(^C)))` (self-play ≡ ¬□⊥), `not(BOX(THEM(^BOX(…))))`,
+  3. *Con sentences without a self-play hypothesis* (22 pairs): `not(BOX(THEM(^C)))` (self-play ≡ ¬□⊥), `not(BOX(THEM(^BOX(…))))`,
      the probe readers `BOX(THEM(^not(BOX(THEM(^C)))))`. K loses them because the resident must prove
      □P[z, C] → □⊥ where P[z, C] unfolds to ¬□⊤: box congruence under a provable equivalence, i.e. distribution
      (□(A → B), □A ⊢ □B), which K has in no form. Neither trigger sees it: the hypothesis is □P[z, C], a cross-play,
      and no guard sits under a box.
+
+**Misclassifications** (`runs/k-four/misclass_n8_K16.json`). For all 74 K-disarmed pairs the lost atoms (GL-true atoms
+of z vs x, x vs z, x vs x that are K-false at b = 16) are **structural**: none is K-derivable at any budget up to
+2L + 10 (L ≤ 22, so up to 54). So there is no finite-budget counterexample of the kind RE 3 named; the 43 false
+negatives are structural failures without a trigger. In the other direction, 6 of the 31 true positives have a GL
+derivation of the invader's play with no used trigger within twice the minimal size (e.g.
+`and(BOX1(THEM(THEM)),not(BOX(THEM(THEM))))` vs `or(BOX(THEM(THEM)),BOX1(THEM(THEM)))`: minimal 7, untriggered 7 —
+a tie broken towards the triggered one). The trigger is a property of one derivation, not of the play. There are no
+false positives to analyse. Held-out n = 6: 3 K-disarmed pairs (all against `BOX1(THEM(THEM))`); C_spec catches
+`not(BOX(THEM(ME)))` only, C_pair adds `not(BOX(THEM(THEM)))`, neither catches the Con sentence `not(BOX(THEM(^C)))`.
+
+## 3. Results in one paragraph
+
+The literal 4-rule is vacuous on the DSL (Lemma V; K+4 = K at n = 6, b = 4, 16, 40 and n = 8, b = 16, 54). Its
+monotone closure 4m is sound and acts, but only as a **finite-budget accelerator**: K+4m differs from K at n = 8 in
+864 / 482 / 150 / 57 / 14 / 0 plays at b = 8 / 12 / 16 / 24 / 32 / 54 (0 at b = 4), every change at b ≥ 12 toward the
+free arm, μ²-weight ≤ 3·10⁻⁶, and the chain at b = 16 and 54 is K's to 10⁻⁴. It re-arms none of PB2, P\*, P2, P12b,
+P\*1b and no Gödel sentence at any b ≤ 54 (Lemma G). Reading the guard one budget up (X-arm) lets K+4m re-arm PB2 at
+b\* = 11 with the same witness costs as PrudentBot (11 for the Löb step, 6 for the Con lemma), while K with the same
+guard never does; P\*, P2 and the ladder stay disarmed (they need distribution under a box, not 4); no Gödel sentence
+returns. At n = 8 the X-arm changes nothing beyond K+4m (PB2 is outside L_8). On the cross-budget catalogue {4, 16}
+4m changes 126 + 248 plays (higher-budget readers now prove facts about lower-budget programs, Lemma V′) and closes
+nothing. The frozen classifier is a perfect-precision, low-recall instrument (1.00 / 0.42; C_pair 1.00 / 0.65), and
+its precision depends on the level cap; deleting its flagged classes from the free table recovers 0.39 of the
+K − free gap.
