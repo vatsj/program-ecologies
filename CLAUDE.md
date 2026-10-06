@@ -85,5 +85,6 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 9. ~~The modal arm on divide-the-dollar~~ (done; RESULTS "The modal arm on two-player divide-the-dollar": sound reading creates the leak (Löbian shadows of 50–50) and a new deep trap (hawks meek with their copies, 0.65 efficiency) where the matched simulation grammar keeps 50–50 at 1.000; P′ rescues the greedy polymorphism at √N in isolation, P makes an inescapable trap; the linear-domain lazy chain fails on deep polymorphisms, use the seeded log-domain chain).
 10. Bridge-less rivals: their prior mass in n, forced-rival lotteries with a bridge-removed control, mediation before loss at N ≥ 200 (follow-up to "A path in (N, I, mN)"; running: `specs/2026-10-05-bridgeless-rivals.md`).
 11. K with the 4-rule (soundness proved inductively; do PB2 and the ladder return, and do the Gödel-sentence fakers?) and a frozen classifier for what K loses, with matched table interventions (follow-up to "K at n = 8"; running: `specs/2026-10-05-k-four.md`).
+12. Solver audit: unconditional re-solves of every published chain with independent deep-state discovery, separated rate/solver checks, controls, regression tests and twin drift (corrective; running: `specs/2026-10-05-solver-audit.md`).
 
 No paper draft (RS, 2026-10-04).
