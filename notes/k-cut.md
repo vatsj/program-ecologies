@@ -228,3 +228,25 @@ readers need the same: P[G,G], □_b P[G,G] ⊢ ⊥ (s = 3: UnfL, ¬L, Ax), **b 
 calculus of this family, **P\* and the Gödel-sentence fakers are restored together, by the same reflection margin**.
 The exploratory long-guard arm (declared in the predictions, outside every RE verdict) reads the guard at 2b + 8
 (g = b + 8) in K_c4 and measures what comes back.
+
+## 2. What the computation found (details in runs/k-cut.md)
+
+- **Option off = K exactly** (n = 8, b = 4, 8, 16; n = 6, b = 4, 16, 40). The hand distribution example has d\* = a + c + 5,
+  size 6; K never derives it (tests/test_k_cut.py).
+- **Certificates.** At every n = 8 budget tested the same **31,491 GL-true atom contents are certified structural**
+  (underivable in K_c, K_c + 4m and K_c4 at any size); at n = 6 all 252 of K's misses are structural. The named family:
+  P\*, P2, P12b, P\*1b and PB2's self-play contents are certified at every b from 4 to 200, at g = 0 and g = 1, with
+  and without 4m — except PB2 under 4m at g = 1 (re-armed there at b\* = 11, as in "K with the 4-rule").
+- **Tables.** n = 6: K_c = K at b = 4, 16, 40. n = 8 (targeted, exact by Corollary T): b = 4 and 8 identical to K;
+  b = 16: 197 plays change (μ² 2.3·10⁻⁸), 195 toward free, 195 equal to K's own play at b = 32/54 (acceleration);
+  b = 24: 182 change, 179 equal K's at b = 54; **b = 54: 2 plays change** — a restoration K never reaches (checked
+  to b = 200): x = `and(BOXD(THEM(ME)),BOXD1(THEM(ME)))` against y = `not(and(BOX(THEM(ME)),BOX1(THEM(ME))))`. The
+  derivation (size 17, JLöb over S = {¬P[y,x], P[x,y]} at b′ = 17) needs, inside the Löb branch, □_17 P[x,y] ⊢
+  □_54(¬□⊥ → P[x,y]) — **weakening of a box's content** (Dist from P ⊢ ¬□⊥ → P, size 2), which K's BoxEq cannot do.
+  So what distribution adds on the DSL is monotonicity under a box between level-0 and level-1 readings, not Con
+  reasoning. 0 soundness violations everywhere; every newly derived content passes the independent checker, with
+  328 / 282 / 8 Lemma C witnesses replayed at b = 16 / 24 / 54.
+- **Long-guard arm (K_c4, guard at 2b + 8, family sweep).** P\* self-cooperates from b = 12 (witness 12), P2 from b = 14;
+  at b = 12 eight Gödel-type classes (`not(BOX(THEM(ME)))`, `not(BOX(THEM(THEM)))`, `not(BOX(THEM(^C)))`, the P\*-type
+  conjunctions, …) strictly invade their free-arm victims `BOX1(THEM(THEM))` and `or(BOX(THEM(THEM)),BOX1(THEM(THEM)))`
+  again, and three probe readers theirs. Completeness and its fakers return together, as §1.9 predicted.

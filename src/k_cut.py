@@ -737,7 +737,7 @@ def cmd_sweep(a):
     idx = {s: i for i, s in enumerate(progs)}
     path = os.path.join(KCDIR, a.out)
     out = json.load(open(path)) if os.path.exists(path) else dict(progs=progs, godel=godel, con=con, cells={})
-    jobs = [(progs, b, arm) for arm in a.arms for b in range(a.bmin, a.bmax + 1, a.step) if '%s/%d' % (arm, b) not in out['cells']]
+    jobs = [(progs, b, arm) for arm in a.arms for b in (a.blist or range(a.bmin, a.bmax + 1, a.step)) if '%s/%d' % (arm, b) not in out['cells']]
     jobs.sort(key=lambda j: (j[1] if a.asc else -j[1]))
     with Pool(a.workers) as pool:
         for b, arm, val, meta, wit in pool.imap_unordered(_sweep_job, jobs):
@@ -801,7 +801,7 @@ def moran_log_rho(uqq, uqa, uaq, uaa, N, w, kstar):
     return float(mp.log(1 / (1 + s)))
 
 
-def chain_log(label, val, N, keep=None, twins=False, lazy=True, deep3=True, log_theta=-27.6):
+def chain_log(label, val, N, keep=None, twins=False, lazy=True, deep3=False, log_theta=-27.6):
     """Seeded log-domain chain (modal_dollar.seeded_chain on chain.Chain's transition model) on an n = 8 PD table:
     every monomorphic state and every deep polymorphism seeded and expanded; log-domain GTH.  Audit outputs: the
     lazy linear-domain chain on the same table and its state set (independent discovery), residual of pi against
@@ -1046,16 +1046,82 @@ def _graft_job(j):
 def cmd_graft(a):
     info, cells = graft_tables(a.b)
     print({k: v for k, v in info.items()}, flush=True)
-    jobs = [('graft coop=%d expl=%d' % ce, v, a.N) for ce, (v, ns) in cells.items()]
-    out = dict(info=info, n_grafted_entries={'%d%d' % ce: ns for ce, (v, ns) in cells.items()}, rows=[])
+    # identical hybrid tables are one chain (same matrix, same pi); solve each distinct table once
+    uniq = {}
+    for ce, (v, ns) in cells.items():
+        uniq.setdefault(v.tobytes(), []).append(ce)
+    jobs = [('graft ' + '+'.join('coop=%d expl=%d' % ce for ce in ces), cells[ces[0]][0], a.N) for ces in uniq.values()]
+    out = dict(info=info, n_grafted_entries={'%d%d' % ce: ns for ce, (v, ns) in cells.items()}, n_distinct_tables=len(uniq),
+               identical_to_K=[('%d%d' % ce) for ce, (v, ns) in cells.items() if (v == load_c(8, a.b, None)).all()], rows=[])
     with Pool(a.workers) as pool:
         for r in pool.imap_unordered(_graft_job, jobs):
             out['rows'].append(r); print(r['label'], r['pcc'], flush=True)
-    p = {r['label']: r['pcc'] for r in out['rows']}
+    p = {}
+    for r in out['rows']:
+        for part in r['label'][len('graft '):].split('+'):
+            p['graft ' + part] = r['pcc']
     g = lambda c, e: p['graft coop=%d expl=%d' % (c, e)]
     out['main_coop'] = g(1, 0) - g(0, 0); out['main_expl'] = g(0, 1) - g(0, 0)
     out['interaction'] = g(1, 1) - g(1, 0) - g(0, 1) + g(0, 0)
     json.dump(out, open(os.path.join(KCDIR, 'graft.json'), 'w'), indent=1, default=str)
+    print({k: out[k] for k in ('main_coop', 'main_expl', 'interaction')})
+
+
+def cmd_longgraft(a):
+    """Exploratory: the 2x2 restoration design in the long-guard arm, where it is not degenerate.  The full n = 8
+    long-guard table is not computed (a K_c4 closure at cap 2b + 8 does not fit); the donor is the long-guard family
+    table at b (src/k_cut.py sweep_long.json), restricted to family members in L_8, grafted into K's n = 8 table at b
+    (family-vs-nonfamily plays stay K's).  R_coop = family classes self-cooperating in the donor and not in K;
+    R_expl = family classes strictly invading a fixed-panel victim or one of their free-arm victims in the donor and
+    not in K."""
+    import k_at_n8 as KN, modal as M
+    L = KN.tables(8)[0]; idx8 = {s: i for i, s in enumerate(L.rep)}
+    sw = json.load(open(os.path.join(KCDIR, 'sweep_long.json')))
+    progs = sw['progs']; cell = sw['cells']['Kc4_L/%d' % a.b]; vD = np.array(cell['val'])
+    fam = [(k, idx8[s]) for k, s in enumerate(progs) if s in idx8]
+    vK = load_c(8, a.b, None)
+    sub = np.array([[vK[i, j] for _, j in fam] for _, i in fam])
+    don = np.array([[vD[k, l] for l, _ in fam] for k, _ in fam])
+    U, _ = M.pd_payoffs(don, M.PD); Uk, _ = M.pd_payoffs(sub, M.PD)
+    _, _, fk = faker_sets()
+    loc = {progs[k]: m for m, (k, _) in enumerate(fam)}
+    rc = [m for m in range(len(fam)) if don[m, m] == 1 and sub[m, m] == 0]
+    rex = {}
+    for z in range(len(fam)):
+        vict = set(PANEL) | set(fk.get(progs[fam[z][0]], []))
+        for x in [loc[v] for v in vict if v in loc]:
+            if U[z, x] > U[x, x] + 1e-12 and not (Uk[z, x] > Uk[x, x] + 1e-12):
+                rex.setdefault(z, []).append(x)
+    def build(coop, expl):
+        v = vK.copy(); src = np.zeros(v.shape, np.int8)
+        def put(m, n_):
+            i, j = fam[m][1], fam[n_][1]; v[i, j] = don[m, n_]; src[i, j] = 1
+        if coop:
+            for m in rc:
+                for n_ in range(len(fam)): put(m, n_); put(n_, m)
+        if expl:
+            for z, xs in rex.items():
+                for x in xs: put(z, x); put(x, z)
+        return v
+    names = lambda ms: [progs[fam[m][0]] for m in ms]
+    info = dict(b=a.b, n_family_in_L8=len(fam), Rcoop=names(rc), Rexpl={progs[fam[z][0]]: names(xs) for z, xs in rex.items()},
+                family_plays_differing_from_K=int((don != sub).sum()))
+    print(info, flush=True)
+    jobs = [('longgraft coop=%d expl=%d' % (c, e), build(c, e), a.N) for c in (0, 1) for e in (0, 1)]
+    jobs.append(('longgraft all family plays', None, a.N))
+    vall = vK.copy()
+    for m in range(len(fam)):
+        for n_ in range(len(fam)): vall[fam[m][1], fam[n_][1]] = don[m, n_]
+    jobs[-1] = ('longgraft all family plays', vall, a.N)
+    out = dict(info=info, rows=[])
+    with Pool(a.workers) as pool:
+        for r in pool.imap_unordered(_graft_job, jobs):
+            out['rows'].append(r); print(r['label'], r['pcc'], r.get('top_coop'), r.get('pi_mono', {}).get('and(BOX1(THEM(ME)),not(BOX(THEM(ME))))'), flush=True)
+    p = {r['label']: r['pcc'] for r in out['rows']}
+    g = lambda c, e: p['longgraft coop=%d expl=%d' % (c, e)]
+    out['main_coop'] = g(1, 0) - g(0, 0); out['main_expl'] = g(0, 1) - g(0, 0)
+    out['interaction'] = g(1, 1) - g(1, 0) - g(0, 1) + g(0, 0)
+    json.dump(out, open(os.path.join(KCDIR, 'longgraft_b%d.json' % a.b), 'w'), indent=1, default=str)
     print({k: out[k] for k in ('main_coop', 'main_expl', 'interaction')})
 
 
@@ -1108,7 +1174,7 @@ def main():
     p.add_argument('--check', action='store_true'); p.add_argument('--targeted', action='store_true')
     p.add_argument('--workers', type=int, default=3)
     p = sub.add_parser('sweep'); p.add_argument('--arms', nargs='+', default=['K', 'Kc']); p.add_argument('--bmin', type=int, default=4)
-    p.add_argument('--bmax', type=int, default=54); p.add_argument('--step', type=int, default=1); p.add_argument('--workers', type=int, default=3); p.add_argument('--out', default='sweep.json'); p.add_argument('--asc', action='store_true')
+    p.add_argument('--bmax', type=int, default=54); p.add_argument('--step', type=int, default=1); p.add_argument('--workers', type=int, default=3); p.add_argument('--out', default='sweep.json'); p.add_argument('--asc', action='store_true'); p.add_argument('--blist', type=int, nargs='+')
     p = sub.add_parser('structural'); p.add_argument('--arms', nargs='+', default=['Kc', 'Kc4m', 'Kc_g1', 'Kc4m_g1'])
     p.add_argument('--bmin', type=int, default=4); p.add_argument('--bmax', type=int, default=200)
     p = sub.add_parser('chain'); p.add_argument('--cells', nargs='+'); p.add_argument('--Ns', type=int, nargs='+', default=[1000, 10000, 30000])
@@ -1118,6 +1184,8 @@ def main():
     p = sub.add_parser('catalogue'); p.add_argument('--arm', default='Kc'); p.add_argument('--budgets', type=int, nargs='+', default=[4, 16])
     p = sub.add_parser('graft'); p.add_argument('--b', type=int, default=16); p.add_argument('--N', type=int, default=10000)
     p.add_argument('--workers', type=int, default=3)
+    p = sub.add_parser('longgraft'); p.add_argument('--b', type=int, default=16); p.add_argument('--N', type=int, default=10000)
+    p.add_argument('--workers', type=int, default=2)
     p = sub.add_parser('lottery'); p.add_argument('--cells', nargs='+', default=['Kc@16']); p.add_argument('--reps', type=int, default=20)
     p.add_argument('--workers', type=int, default=3)
     a = ap.parse_args()
