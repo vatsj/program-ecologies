@@ -1050,7 +1050,7 @@ def cells(exp, a):
             out.append(('cal', p, 200, 16, 0.0, 120, GENS, None))
     elif exp == 'hom':
         for p in ('h16', 'h8', 'h4'):
-            out.append(('hom', p, 200, 64, COMMON_MN, a.reps, GENS, None))
+            out.append(('hom', p, 200, 64, COMMON_MN, min(a.reps, 150) if p == 'h4' else a.reps, GENS, None))
     elif exp == 'nat':
         for p in a.priors:
             out.append(('nat', p, 200, 64, COMMON_MN, a.reps, GENS, None))
@@ -1070,15 +1070,14 @@ def cells(exp, a):
 def run_main(a):
     load_forced()
     rows = load(a.exp)
-    done = Counter(ckey(r) for r in rows)
+    done = {(ckey(r), r['rep']) for r in rows}
     jobs = []
     for c in cells(a.exp, a):
         e, p, N, I, mN, reps, gens, cell = c
         key = (e, p, N, I, mN, gens, cell)
-        if a.exp == 'scale':
-            FORCED['I'] = I
-        for rep in range(done[key], reps):
-            jobs.append((e, p, N, I, mN, rep, gens, cell))
+        for rep in range(reps):
+            if (key, rep) not in done:
+                jobs.append((e, p, N, I, mN, rep, gens, cell))
     jobs.sort(key=lambda j: (j[5], j[1], str(j[7])))
     print('%s: %d jobs' % (a.exp, len(jobs)), flush=True)
     t0 = time.time()
@@ -1412,14 +1411,14 @@ def a_static_md(S, out):
     md.append('')
     md.append('Direct-bridge-less pair mass, cheap-heavy / above-threshold: %s.' % (
         ('%.3g' % (ch / ab)) if ab else ('∞ (above-threshold has none; cheap-heavy %s)' % fe(ch))))
-    # share of bridge-less mass involving BOX1@4
-    for p in ('cheap', 'uniform'):
+    for p in ('cheap', 'uniform', 'above', 'h4', 'h8'):
         s = S['screen'][p]
-        allbl = s['pairs_bridgeless']
-        b4 = sum(r['pair_mu'] for r in allbl if has_b1_4([r['a'], r['b']]))
-        out['static_summary']['b14_share_' + p] = b4 / s['direct_bridgeless']['mu'] if s['direct_bridgeless']['mu'] else None
-        md.append('Under %s, pairs with `BOX1(THEM(ME))`@4\'s class as a member carry %.3f of the direct-bridge-less mass '
-                  '(over the %d heaviest bridge-less pairs listed).' % (PRLAB[p], out['static_summary']['b14_share_' + p] or 0, len(allbl)))
+        tot = s['direct_bridgeless']['mu']
+        out['static_summary']['b14_share_' + p] = s['b14_bridgeless']['mu'] / tot if tot else None
+        md.append('%s: `BOX1(THEM(ME))`@4\'s class is a member of %d direct-bridge-less pairs carrying %.3f of the bridge-less mass; '
+                  '%d bridge-less pairs (mass %s) have a FairBot or `BOX1(THEM(ME))` copy as a member.' % (
+                      PRLAB[p], s['b14_bridgeless']['n'], out['static_summary']['b14_share_' + p] or 0,
+                      s['core_bridgeless']['n'], fe(s['core_bridgeless']['mu'])))
     md.append('')
     md += ['**Core programs: do their budget copies share an establisher component?** (component index per budget; "—" = not an establisher at that budget)', '',
            '| program | prior | b = 4 | b = 8 | b = 16 | 4–8 | 4–16 | 8–16 |', '|---|---|---|---|---|---|---|---|']
