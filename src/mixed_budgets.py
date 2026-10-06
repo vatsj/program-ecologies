@@ -213,6 +213,8 @@ def screen(d, prior, top=40):
                disconnected=agg(lambda r: not r['same_comp']),
                budget_copy=agg(lambda r: bool(r['budget_copies'])),
                budget_copy_bridgeless=agg(lambda r: bool(r['budget_copies']) and r['n_bridges'] == 0),
+               b14_bridgeless=agg(lambda r: r['n_bridges'] == 0 and has_b1_4([r['a'], r['b']])),
+               core_bridgeless=agg(lambda r: r['n_bridges'] == 0 and any(x.rsplit('@', 1)[0] in (FB, FB1) for x in (r['a'], r['b']))),
                path_hist=dict(Counter(str(r['path']) for r in pairs)),
                n_pairs=len(pairs))
     out['pairs_top'] = pairs[:top]
@@ -839,6 +841,7 @@ def job(j):
     the pairs are fixed in FORCED, chosen from the static screening)."""
     exp, prior, N, I, mN, rep, gens, cell = j
     d = catalogue(B); nm = d['names']
+    FORCED['I'] = I
     cfg = forced_cfg(d, cell) if cell else None
     gcounts = build_seed(d, prior, N, I, rep, cfg)
     init, comp0 = lump_seed(d, gcounts)
@@ -1128,6 +1131,436 @@ def timing_main(a):
               'first', r['first_sep'], 'snap', r['snap_gen'], r['comp_snap'], r['comp_end'], r['holders_end'], flush=True)
 
 
+# ------------------------------------------------------------------ report
+OUT_MD = os.path.join(RUNS, 'mixed-budgets.md')
+OUT_JS = os.path.join(RUNS, 'mixed-budgets.json')
+MARKS = (100, 1000, 10000, 100000, 300000)
+
+
+def cp(k, n, a=0.05):
+    """Exact (Clopper-Pearson) two-sided interval."""
+    from scipy.stats import beta
+    if n == 0: return (float('nan'), float('nan'))
+    lo = 0.0 if k == 0 else float(beta.ppf(a / 2, k, n - k + 1))
+    hi = 1.0 if k == n else float(beta.ppf(1 - a / 2, k + 1, n - k))
+    return lo, hi
+
+
+def cps(k, n, d=3):
+    if n == 0: return '–'
+    lo, hi = cp(k, n)
+    return ('%d/%d = %.' + str(d) + 'f [%.' + str(d) + 'f, %.' + str(d) + 'f]') % (k, n, k / n, lo, hi)
+
+
+def fe(x, dg=2):
+    if x is None or (isinstance(x, float) and math.isnan(x)): return '–'
+    if x == 0: return '0'
+    return ('%.' + str(dg - 1) + 'e') % x if (abs(x) < 1e-2 or abs(x) >= 1e4) else ('%.' + str(dg + 1) + 'g') % x
+
+
+def km(times, events, marks=MARKS):
+    t = np.asarray(times, float); e = np.asarray(events, bool)
+    o = np.argsort(t, kind='stable'); t = t[o]; e = e[o]
+    S = 1.0; at = len(t); res = []
+    for ti, ei in zip(t, e):
+        if ei: S *= (at - 1) / at
+        at -= 1; res.append((ti, S))
+    out = {}
+    for mk in marks:
+        s = 1.0
+        for ti, Si in res:
+            if ti <= mk: s = Si
+            else: break
+        out[mk] = s
+    return out
+
+
+def poisson_upper(k, expo):
+    from scipy.stats import chi2
+    if expo <= 0: return float('nan')
+    return float(chi2.ppf(0.975, 2 * k + 2) / 2 / expo)
+
+
+BUD = np.array([4.0, 8.0, 16.0])
+
+
+def tv(p, q):
+    return 0.5 * float(np.abs(np.asarray(p) - np.asarray(q)).sum())
+
+
+def comp_stats(rs, prior):
+    pr = np.array(PRIORS[prior], float)
+    both = [r for r in rs if r['comp_snap'] is not None and r['comp_end'] is not None]
+    out = dict(n_both=len(both), n=len(rs))
+    if not both:
+        return out
+    S = np.array([r['comp_snap'] for r in both]); E = np.array([r['comp_end'] for r in both])
+    tS = np.array([tv(s, pr) for s in S]); tE = np.array([tv(e_, pr) for e_ in E])
+    dT = tE - tS; dB = E @ BUD - S @ BUD
+    rng = np.random.default_rng(5); bs = []; bb = []
+    for _ in range(2000):
+        ix = rng.integers(0, len(both), len(both))
+        bs.append(dT[ix].mean()); bb.append(dB[ix].mean())
+    out.update(snap=[float(x) for x in S.mean(0)], end=[float(x) for x in E.mean(0)], tv_snap=float(tS.mean()),
+               tv_end=float(tE.mean()), dtv=float(dT.mean()), dtv_ci=[float(np.percentile(bs, 2.5)), float(np.percentile(bs, 97.5))],
+               dbud=float(dB.mean()), dbud_ci=[float(np.percentile(bb, 2.5)), float(np.percentile(bb, 97.5))],
+               tv_pooled_snap=tv(S.mean(0), pr), tv_pooled_end=tv(E.mean(0), pr),
+               snap_gen_median=float(np.median([r['snap_gen'] for r in both])),
+               bud_snap=float((S @ BUD).mean()), bud_end=float((E @ BUD).mean()))
+    # the same, restricted to unseparated runs (the main network alone)
+    un = [r for r in both if r['n_sep_end'] == 0]
+    if un:
+        S2 = np.array([r['comp_snap'] for r in un]); E2 = np.array([r['comp_end'] for r in un])
+        out['unsep'] = dict(n=len(un), bud_snap=float((S2 @ BUD).mean()), bud_end=float((E2 @ BUD).mean()),
+                            dtv=float(np.mean([tv(e_, pr) - tv(s, pr) for s, e_ in zip(S2, E2)])))
+    return out
+
+
+def has_b1_4(names):
+    return any(x is not None and x.startswith(FB1 + '@4') for x in names)
+
+
+def nat_stats(rs):
+    n = len(rs); prior = rs[0]['prior']
+    st = dict(n=n, prior=prior, mN=rs[0]['mN'], status=dict(Counter(r['status'] for r in rs)))
+    st['ever'] = sum(r['first_sep'] >= 0 for r in rs)
+    st['end'] = sum(r['n_sep_end'] > 0 for r in rs)
+    st['end_ci'] = list(cp(st['end'], n)); st['ever_ci'] = list(cp(st['ever'], n))
+    ends = [r for r in rs if r['n_sep_end'] > 0]
+    pairs_end = Counter(); kinds = Counter()
+    for r in ends:
+        e_ = [s for s in r.get('seps', []) if s['when'] == 'end']
+        if not e_: continue
+        s = e_[0]
+        pairs_end['%s | %s' % tuple(sorted((s['a'], s['b'])))] += 1
+        kinds['bridge-less (prior)' if s['n_bridges_prior'] == 0 else 'bridged (prior)'] += 1
+        kinds['struct bridge-less' if s['n_bridges_struct'] == 0 else 'struct bridged'] += 1
+        kinds['budget copies' if s['budget_copies'] else 'distinct sources'] += 1
+        kinds['BOX1@4 member' if has_b1_4([s['a'], s['b']]) else 'no BOX1@4'] += 1
+        kinds['disconnected (no path<=3)' if (s['path'] is None or s['path'] > 3) else 'path<=3'] += 1
+        if s['n_bridges_prior'] > 0:
+            kinds['bridged: bridge seeded' if s['bridge_seed'] > 0 else 'bridged: bridge not seeded'] += 1
+            kinds['bridged: bridge alive at end' if s['bridge_alive_end'] else 'bridged: bridge dead/absent at end'] += 1
+    st['pairs_end'] = dict(pairs_end.most_common(12)); st['kinds_end'] = dict(kinds)
+    ev = [r for r in rs if r['sep']['ever']]
+    dur = [(r['sep']['resolved_at'] - r['sep']['first']) if not r['sep']['sep_at_end'] else (r['stop_gen'] - r['sep']['first']) for r in ev]
+    evt = [not r['sep']['sep_at_end'] for r in ev]
+    st['resolved'] = int(sum(evt)); st['censored'] = int(len(evt) - sum(evt))
+    st['expo'] = float(sum(dur)); st['hazard'] = st['resolved'] / st['expo'] if st['expo'] else float('nan')
+    st['hazard_upper'] = poisson_upper(st['resolved'], st['expo'])
+    st['km'] = {str(k): v for k, v in km(dur, evt).items()} if ev else {}
+    fate = Counter()
+    for r in ev:
+        f = [s for s in r.get('seps', []) if s['when'] == 'first']
+        if not f: continue
+        s = f[0]
+        key = ('bridge-less' if s['n_bridges_prior'] == 0 else ('bridged, ' + ('seeded' if s['bridge_seed'] else 'not seeded')
+               + (', alive' if s['bridge_alive_end'] else ', dead'))) + (', separated at end' if r['sep']['sep_at_end'] else ', resolved')
+        fate[key] += 1
+    st['fate_first'] = dict(fate)
+    pc = [r['pcc_cert'] for r in rs if not math.isnan(r['pcc_cert'])]
+    st['pcc_cert'] = float(np.mean(pc)) if pc else float('nan'); st['pcc_cert_min'] = float(np.min(pc)) if pc else float('nan')
+    st['runlevel'] = float(np.mean([r['isl_eff'] / r['I'] for r in rs]))
+    st['alld'] = sum(r['isl_eff'] == 0 for r in rs)
+    st['cf_sep'] = float(np.mean([r['cf_cross_pcc'] for r in ends])) if ends else float('nan')
+    st['cf_all'] = float(np.mean([r['cf_cross_pcc'] for r in rs]))
+    st['hours'] = sum(r['time_s'] for r in rs) / 3600
+    st['comp'] = comp_stats(rs, prior)
+    st['b14_end'] = sum(1 for r in ends if any(has_b1_4([s['a'], s['b']]) for s in r.get('seps', []) if s['when'] == 'end'))
+    return st
+
+
+def paired(a, b, key):
+    A = {r['rep']: r for r in a}; Bm = {r['rep']: r for r in b}
+    common = sorted(set(A) & set(Bm))
+    x = [(key(A[k]), key(Bm[k])) for k in common]
+    return dict(n=len(common), both=sum(1 for p, q in x if p and q), a_only=sum(1 for p, q in x if p and not q),
+                b_only=sum(1 for p, q in x if q and not p))
+
+
+def forced_stats(rs):
+    n = len(rs)
+    st = dict(n=n, cell=rs[0]['cell'], prior=rs[0]['prior'], I=rs[0]['I'], gens=rs[0]['gens'], forced=rs[0].get('forced'))
+    st['end'] = sum(r['n_sep_end'] > 0 for r in rs)
+    st['pcc_cert'] = float(np.nanmean([r['pcc_cert'] for r in rs]))
+    st['runlevel'] = float(np.mean([r['isl_eff'] / r['I'] for r in rs]))
+    st['hours'] = sum(r['time_s'] for r in rs) / 3600
+    st['n_loc_est'] = float(np.mean([r.get('n_loc_est', 0) for r in rs]))
+    if rs[0]['cell'] in ('bl', 'br', 'brabs'):
+        both = [r for r in rs if r['ever_sep_tag']]
+        st['x_est'] = sum(r['x_est'] for r in rs); st['y_est'] = sum(r['y_est'] for r in rs)
+        st['both_est'] = len(both)
+        st['sep_tag_end'] = sum(r['sep_end_tag'] for r in rs)
+        st['sep_tag_end_given_both'] = sum(r['sep_end_tag'] for r in both)
+        st['losses'] = sum(r['loss_t'] >= 0 for r in both)
+        st['expo'] = float(sum(r['expo'] for r in both))
+        st['hazard'] = st['losses'] / st['expo'] if st['expo'] else float('nan')
+        st['hazard_upper'] = poisson_upper(st['losses'], st['expo'])
+        st['med_before'] = sum(r['med_before_end'] for r in both)
+        st['bridge_classes'] = float(np.mean([r['bridge_classes'] for r in rs]))
+        st['bridge_seed_islands'] = float(np.mean([r['bridge_seed_islands'] for r in rs]))
+        st['bridge_alive_end'] = sum(r['bridge_alive_end'] for r in rs)
+        st['sep_bridge_alive'] = sum(r['sep_end_tag'] for r in rs if r['bridge_alive_end'])
+        st['sep_bridge_dead'] = sum(r['sep_end_tag'] for r in rs if not r['bridge_alive_end'])
+        st['n_bridge_alive'] = sum(1 for r in rs if r['bridge_alive_end'])
+        st['inv'] = dict(sum((Counter(r['inv']) for r in rs), Counter()))
+        st['held_end'] = {k: float(np.mean([r['held_end'][k] for r in rs])) for k in ('0', '1', '2', '3')}
+        st['cf_sep'] = float(np.mean([r['cf_cross_pcc'] for r in rs if r['sep_end_tag']])) if st['sep_tag_end'] else float('nan')
+    return st
+
+
+def report_main(a):
+    S = json.load(open(STATIC))
+    cal = json.load(open(CALIB)) if os.path.exists(CALIB) else None
+    out = dict(static_summary={}, cells={})
+    md = ['# Mixed-budget populations under K: do budget soft cliques become bridge-less rivals when budgets vary? '
+          '(`src/mixed_budgets.py`)', '',
+          'Spec `specs/2026-10-05-mixed-budgets.md` (reviewed by gpt-6.1-sol); predictions '
+          '`predictions/2026-10-05-mixed-budgets.md`. Modal language L_8 under the sound bounded calculus K; genotypes '
+          '(source, budget) with budget in B = {4, 8, 16} (C and D unbudgeted); plays from the K tables and the cross-budget '
+          'blocks (`runs/k-at-n8/`, guard at the reader\'s own budget). PD, w = 0.3, ε = 0, complete island graph, '
+          'N = 200, I = 64, horizon 10⁵, generation = I·N births. Seeds: iid canonical sources from the length prior, a '
+          'budget per non-constant individual by inverse CDF of one shared uniform (so every prior sees the same sources '
+          'and monotonically coupled budgets: paired seeds across priors), lumped by the catalogue\'s behavioural classes. '
+          '**Finite-horizon incidence at n = 8; not large-population universality or permanent isolation.** Intervals are '
+          'exact (Clopper–Pearson) with runs as the units; hazards are events per exposure with a 97.5% Poisson upper '
+          'bound; resolution times are right-censored (Kaplan–Meier).', '']
+    md += a_static_md(S, out)
+    if cal:
+        md += ['## 3. Calibration (m = 0, N = 200, I = 16, 120 runs per prior)', '',
+               '| prior | T_nuc (median [95% bootstrap]) | quartiles | per-island nucleation p | boundary mN = 0.3·N/T_nuc |',
+               '|---|---|---|---|---|']
+        for p in ('cheap', 'above', 'uniform', 'h4', 'h8', 'h16'):
+            if p not in cal['T_nuc']: continue
+            dd = cal['dist'][p]
+            md.append('| %s | %.0f [%.0f, %.0f] | %.0f / %.0f / %.0f | %.3f (%d / %d) | %.3f |' % (
+                PRLAB[p], cal['T_nuc'][p], dd['median_ci'][0], dd['median_ci'][1], dd['25'], dd['50'], dd['75'],
+                cal['p'][p], cal['n_nuc'][p][0], cal['n_nuc'][p][1], cal['mN_boundary'][p]))
+        md += ['', 'Checks are every 5 generations, so T_nuc is resolved to 5.', '']
+        out['calib'] = cal
+    md += lottery_md(cal, out)
+    open(OUT_MD, 'w').write('\n'.join(md) + '\n')
+    json.dump(out, open(OUT_JS, 'w'), indent=1, default=str)
+    print('wrote', OUT_MD, OUT_JS)
+
+
+def pr_fmt(p):
+    return '(%s)' % ', '.join('%.2g' % x for x in PRIORS[p])
+
+
+def a_static_md(S, out):
+    md = ['## 1. The budgeted catalogue', '']
+    so = S['soundness']
+    md.append('**Catalogue.** %d genotypes (C, D and 608 non-constant sources at each of b = 4, 8, 16), %d behavioural '
+              'classes (identical directed rows and columns). Soundness checks of the K closures behind each block: %s.' % (
+                  S['G'], S['K'], '; '.join('%s: %d bad of %d' % (k.replace('_', '×'), v['sound_bad'], v['sound_checked'])
+                                            for k, v in sorted(so.items()))))
+    lc = S['lumping']
+    md.append('')
+    md.append('**Lumping validity.** Member rows/columns identical in every class (%d violations); masses preserved under '
+              'every prior (max error %s); genotype-level seed draws lumped versus class-level draws agree in first moments '
+              '(max |z| %.1f over priors, 500 islands each); establisher, incompatibility and pairwise-bridge tests at '
+              'genotype level against the class tests on all %d incompatible genotype pairs: mismatches %s.' % (
+                  lc['members_bad'], fe(max(lc['mass_err'].values())), max(lc['seed_z'].values()),
+                  lc['genotype_incompatible_pairs'], lc['mismatches'] or '0'))
+    md.append('')
+    md += ['**The budget grid on the catalogue** (row program\'s play, column program\'s play; C = cooperates):', '',
+           '| pair | 4 vs 4 | 4 vs 8 | 4 vs 16 | 8 vs 4 | 8 vs 8 | 8 vs 16 | 16 vs 4 | 16 vs 8 | 16 vs 16 |', '|---|' + '---|' * 9]
+    seen = []
+    for k in S['named']:
+        s1, s2 = k.split(' vs ')
+        key = (s1.rsplit('@', 1)[0], s2.rsplit('@', 1)[0])
+        if key not in seen: seen.append(key)
+    for s1, s2 in seen:
+        row = ['`%s` vs `%s`' % (s1, s2)]
+        for bx in (4, 8, 16):
+            for by in (4, 8, 16):
+                row.append(S['named']['%s@%d vs %s@%d' % (s1, bx, s2, by)])
+        md.append('| ' + ' | '.join(row) + ' |')
+    md.append('')
+    md += ['**Induced class tables** (classes of positive mass; establisher = self-cooperates, defects on D, not all-C):', '',
+           '| prior (b = 4, 8, 16) | classes | establishers | establisher μ (cut) [raw] | establisher μ by budget 4 / 8 / 16 |',
+           '|---|---|---|---|---|']
+    for p in ('cheap', 'uniform', 'above', 'h4', 'h8', 'h16'):
+        c = S['classes'][p]
+        md.append('| %s %s | %d | %d | %.4f [%.4f] | %s |' % (PRLAB[p], pr_fmt(p), c['K_pos'], c['est_n'], c['est_mu'], c['est_raw'],
+                                                            ' / '.join('%.4f' % c['est_budget_mu'][str(b)] for b in B)))
+    md.append('')
+    md += ['## 2. Static screening: incompatible pairs of budgeted establishers', '',
+           'Unit: an incompatible pair = two establisher classes of positive mass that mutually defect. Pairwise bridge = '
+           'a cooperative class of positive mass under the prior mutually cooperating with both (exhaustive); structural '
+           'bridge = any cooperative class of the catalogue; mediator path = shortest path in the establisher '
+           'mutual-cooperation graph of the prior\'s support. Pair mass = product of the two class masses (cut); '
+           'co-seeding = P(both on one island of N = 200), summed over pairs.', '',
+           '| prior | establishers | components (sizes) | incompatible: n, mass [raw] | bridged: n, mass | **direct-bridge-less**: n, mass [raw], co-seed sum (max) | structurally bridge-less: n, mass | no path ≤ 3: n, mass | disconnected: n, mass | budget copies of one source: n (bridge-less n) |',
+           '|---|---|---|---|---|---|---|---|---|---|']
+    for p in ('cheap', 'uniform', 'above', 'h4', 'h8', 'h16'):
+        s = S['screen'][p]
+        g = lambda k: s[k]
+        md.append('| %s | %d | %d (%s) | %d, %s [%s] | %d, %s | **%d, %s** [%s], %.3g (%.3g) | %d, %s | %d, %s | %d, %s | %d (%d) |' % (
+            PRLAB[p], s['est_n'], s['components'], ', '.join(map(str, s['comp_sizes'][:5])),
+            g('incompatible')['n'], fe(g('incompatible')['mu']), fe(g('incompatible')['raw']),
+            g('bridged')['n'], fe(g('bridged')['mu']),
+            g('direct_bridgeless')['n'], fe(g('direct_bridgeless')['mu']), fe(g('direct_bridgeless')['raw']),
+            g('direct_bridgeless')['coseed'], g('direct_bridgeless')['coseed_max'],
+            g('direct_bridgeless_struct')['n'], fe(g('direct_bridgeless_struct')['mu']),
+            g('no_path3')['n'], fe(g('no_path3')['mu']), g('disconnected')['n'], fe(g('disconnected')['mu']),
+            g('budget_copy')['n'], g('budget_copy_bridgeless')['n']))
+    ch, ab = S['screen']['cheap']['direct_bridgeless']['mu'], S['screen']['above']['direct_bridgeless']['mu']
+    out['static_summary']['bl_ratio_cheap_above'] = ch / ab if ab else float('inf')
+    md.append('')
+    md.append('Direct-bridge-less pair mass, cheap-heavy / above-threshold: %s.' % (
+        ('%.3g' % (ch / ab)) if ab else ('∞ (above-threshold has none; cheap-heavy %s)' % fe(ch))))
+    # share of bridge-less mass involving BOX1@4
+    for p in ('cheap', 'uniform'):
+        s = S['screen'][p]
+        allbl = s['pairs_bridgeless']
+        b4 = sum(r['pair_mu'] for r in allbl if has_b1_4([r['a'], r['b']]))
+        out['static_summary']['b14_share_' + p] = b4 / s['direct_bridgeless']['mu'] if s['direct_bridgeless']['mu'] else None
+        md.append('Under %s, pairs with `BOX1(THEM(ME))`@4\'s class as a member carry %.3f of the direct-bridge-less mass '
+                  '(over the %d heaviest bridge-less pairs listed).' % (PRLAB[p], out['static_summary']['b14_share_' + p] or 0, len(allbl)))
+    md.append('')
+    md += ['**Core programs: do their budget copies share an establisher component?** (component index per budget; "—" = not an establisher at that budget)', '',
+           '| program | prior | b = 4 | b = 8 | b = 16 | 4–8 | 4–16 | 8–16 |', '|---|---|---|---|---|---|---|---|']
+    for p in ('cheap', 'uniform', 'above'):
+        for prog, row in S['screen'][p]['core'].items():
+            cells_ = [('—' if row[str(b)]['comp'] is None else str(row[str(b)]['comp'])) for b in B]
+            sh = row['share']
+            md.append('| `%s` | %s | %s | %s | %s | %s |' % (prog, PRLAB[p], ' | '.join(cells_), 'yes' if sh['4-8'] else 'no',
+                                                         'yes' if sh['4-16'] else 'no', 'yes' if sh['8-16'] else 'no'))
+    md.append('')
+    for p in ('cheap', 'above', 'uniform'):
+        s = S['screen'][p]
+        md += ['**Incompatible-pair list, %s** (heaviest direct-bridge-less pairs, then heaviest bridged pairs; budgets in class names; path = mediator path length, – = none):' % PRLAB[p], '',
+               '| pair | pair mass | co-seed | bridges (n, mass, heaviest) | structural bridges | path | same component | budget copies of |', '|---|---|---|---|---|---|---|---|']
+        for r in s['pairs_bridgeless'][:15] + s['pairs_bridged'][:10]:
+            md.append('| `%s` × `%s` | %s | %.3g | %d, %s, %s | %d | %s | %s | %s |' % (
+                r['a'], r['b'], fe(r['pair_mu']), r['coseed'], r['n_bridges'], fe(r['bridge_mu']),
+                ('`%s`' % r['bridges_top'][0][0]) if r['bridges_top'] else '–', r['n_bridges_struct'],
+                r['path'] if r['path'] is not None else '–', 'yes' if r['same_comp'] else 'no',
+                ', '.join('`%s`' % x for x in r['budget_copies']) or '–'))
+        md.append('')
+    md += ['**Secondary: rivals of A₁₆ = {FairBot@16, `BOX1(THEM(ME))`@16}** (establishers of positive mass mutually defecting with either member):', '',
+           '| prior | rivals | rival mass | direct-bridge-less mass (share) | heaviest rivals |', '|---|---|---|---|---|']
+    for p in ('cheap', 'uniform', 'above'):
+        r = S['a16'][p]
+        md.append('| %s | %d | %s | %s (%s) | %s |' % (PRLAB[p], r['n'], fe(r['mu']), fe(r['bridgeless_mu']),
+                                                    fe(r['bridgeless_share']), ', '.join('`%s` (%s, %d bridges)' % (x['name'], fe(x['mu']), x['n_bridges']) for x in r['rows'][:4])))
+    md.append('')
+    out['static'] = {p: {k: v for k, v in S['screen'][p].items() if k not in ('pairs_top',)} for p in S['screen']}
+    out['static_a16'] = S['a16']
+    return md
+
+
+def lottery_md(cal, out):
+    md = []
+    groups = defaultdict(list)
+    for exp in ('hom', 'nat', 'natcal', 'forced', 'scale'):
+        for r in load(exp):
+            groups[(exp, r['prior'], r['I'], r['mN'], r['gens'], r['cell'])].append(r)
+    T = cal['T_nuc'] if cal else {}
+
+    def xval(p, mN):
+        return mN * T[p] / 200 if p in T else float('nan')
+    # natural cells
+    nat_keys = [k for k in groups if k[0] in ('hom', 'nat', 'natcal')]
+    order = {'hom': 0, 'nat': 1, 'natcal': 2}
+    pord = {'h4': 0, 'h8': 1, 'h16': 2, 'cheap': 3, 'uniform': 4, 'above': 5}
+    nat_keys.sort(key=lambda k: (order[k[0]], pord.get(k[1], 9)))
+    if nat_keys:
+        md += ['## 4. Natural runs (N = 200, I = 64, horizon 10⁵): homogeneous controls, common mN, calibrated mN', '',
+               '| cell | prior | mN | x = mN·T_nuc/N | runs | ever separated [95%] | **separated at the horizon** [95%] | with `BOX1(THEM(ME))`@4 | bridge-less (prior) / structural | budget copies | island P(C,C), certified (min) | run-level efficient | all-D runs | cf cross P(C,C): separated / all | worker-hours |',
+               '|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|']
+        out['cells']['natural'] = {}
+        for k in nat_keys:
+            rs = sorted(groups[k], key=lambda r: r['rep'])
+            st = nat_stats(rs)
+            out['cells']['natural']['%s|%s|%g' % (k[0], k[1], k[3])] = st
+            kd = st['kinds_end']
+            md.append('| %s | %s | %.3f | %.3f | %d | %s | **%s** | %d | %d / %d | %d | %.4f (%.3f) | %.3f | %d | %s / %.3f | %.2f |' % (
+                {'hom': 'homogeneous', 'nat': 'common mN', 'natcal': 'calibrated'}[k[0]], PRLAB[k[1]], k[3], xval(k[1], k[3]),
+                st['n'], cps(st['ever'], st['n']), cps(st['end'], st['n']), st['b14_end'],
+                kd.get('bridge-less (prior)', 0), kd.get('struct bridge-less', 0), kd.get('budget copies', 0),
+                st['pcc_cert'], st['pcc_cert_min'], st['runlevel'], st['alld'], fe(st['cf_sep']), st['cf_all'], st['hours']))
+        md.append('')
+        # paired comparisons
+        def get(e, p):
+            for k in nat_keys:
+                if k[0] == e and k[1] == p: return groups[k]
+            return []
+        pc = []
+        for e1, p1, e2, p2 in (('nat', 'cheap', 'nat', 'above'), ('nat', 'cheap', 'nat', 'uniform'), ('nat', 'uniform', 'nat', 'above'),
+                               ('nat', 'cheap', 'natcal', 'cheap'), ('hom', 'h4', 'nat', 'cheap')):
+            A_, B_ = get(e1, p1), get(e2, p2)
+            if A_ and B_:
+                pr_ = paired(A_, B_, lambda r: r['n_sep_end'] > 0)
+                pc.append('%s %s vs %s %s: %d common reps, both %d, first only %d, second only %d' % (
+                    e1, PRLAB[p1], e2, PRLAB[p2], pr_['n'], pr_['both'], pr_['a_only'], pr_['b_only']))
+                out.setdefault('paired', []).append(dict(a=[e1, p1], b=[e2, p2], **pr_))
+        if pc:
+            md += ['**Paired horizon separation** (same source seeds and budget uniforms): ' + '; '.join(pc) + '.', '']
+        md += ['**Separated pairs at the horizon** (first listed pair of each separated run) and per-separation tracking:', '',
+               '| cell | prior | heaviest separated pairs (runs) | first-separation fate | resolved / censored | resolution hazard per separated-run-generation [upper] | KM P(still separated) at 10² / 10³ / 10⁴ / 10⁵ after first separation |',
+               '|---|---|---|---|---|---|---|']
+        for k in nat_keys:
+            st = out['cells']['natural']['%s|%s|%g' % (k[0], k[1], k[3])]
+            if st['ever'] == 0:
+                continue
+            md.append('| %s | %s | %s | %s | %d / %d | %s [%s] | %s |' % (
+                k[0], PRLAB[k[1]], '; '.join('`%s` %d' % (p_, c) for p_, c in list(st['pairs_end'].items())[:4]) or '–',
+                ', '.join('%s %d' % (a_, b_) for a_, b_ in st['fate_first'].items()), st['resolved'], st['censored'],
+                fe(st['hazard']), fe(st['hazard_upper']),
+                ' / '.join('%.2f' % st['km'].get(str(m), float('nan')) for m in (100, 1000, 10000, 100000))))
+        md.append('')
+        md += ['**Budget composition of cooperative holders** (island-weighted, one vote per holding island, each vote the '
+               'holder\'s expected budget composition on that island; first checkpoint = first check after every island '
+               'is established, horizon = 10⁵ or the stop of a frozen run; TV against the prior over {4, 8, 16}; mean over '
+               'runs with both checkpoints, bootstrap 95%):', '',
+               '| cell | prior | runs with both | first checkpoint (median gen) | composition 4 / 8 / 16 at first | at horizon | TV first → horizon | ΔTV [95%] | mean budget first → horizon | Δ budget [95%] | unseparated runs: mean budget first → horizon |',
+               '|---|---|---|---|---|---|---|---|---|---|---|']
+        for k in nat_keys:
+            st = out['cells']['natural']['%s|%s|%g' % (k[0], k[1], k[3])]
+            c = st['comp']
+            if not c.get('n_both'):
+                continue
+            u = c.get('unsep', {})
+            md.append('| %s | %s | %d | %.0f | %s | %s | %.3f → %.3f | %+.3f [%+.3f, %+.3f] | %.2f → %.2f | %+.2f [%+.2f, %+.2f] | %s |' % (
+                k[0], PRLAB[k[1]], c['n_both'], c['snap_gen_median'], ' / '.join('%.3f' % x for x in c['snap']),
+                ' / '.join('%.3f' % x for x in c['end']), c['tv_snap'], c['tv_end'], c['dtv'], c['dtv_ci'][0], c['dtv_ci'][1],
+                c['bud_snap'], c['bud_end'], c['dbud'], c['dbud_ci'][0], c['dbud_ci'][1],
+                ('%.2f → %.2f (%d)' % (u['bud_snap'], u['bud_end'], u['n'])) if u else '–'))
+        md.append('')
+    fk = sorted([k for k in groups if k[0] in ('forced', 'scale')], key=lambda k: (k[0], str(k[5]), k[2], k[4]))
+    if fk:
+        md += ['## 5. Forced cells (cheap-heavy background, common mN; founders on disjoint island halves)', '',
+               '| cell | I | horizon | forced pair | runs | X / Y network established | both established | **separated at the horizon (tags)** [95%] | given both | losses / exposure (minority-island-generations), hazard [upper] | mediation-before-loss (given both) | bridge classes in support, seed islands | separated with bridge alive / dead | island P(C,C) cert | run-level efficient | cf cross (separated) | worker-hours |',
+               '|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|']
+        out['cells']['forced'] = {}
+        for k in fk:
+            rs = groups[k]
+            st = forced_stats(rs)
+            out['cells']['forced']['%s|%s|%d|%d' % (k[0], k[5], k[2], k[4])] = st
+            lab = {'bl': 'bridge-less pair', 'br': 'bridged pair, bridges present', 'brabs': 'bridged pair, bridges removed',
+                   'dctl': 'inert-defector control', None: 'iid control'}[k[5]]
+            if k[5] in ('bl', 'br', 'brabs'):
+                md.append('| %s | %d | %d | `%s` × `%s` | %d | %d / %d | %d | **%s** | %s | %d / %s, %s [%s] | %s | %.1f, %.1f | %d of %d / %d of %d | %.4f | %.3f | %s | %.2f |' % (
+                    lab, k[2], k[4], st['forced'][0], st['forced'][1], st['n'], st['x_est'], st['y_est'], st['both_est'],
+                    cps(st['sep_tag_end'], st['n'], 2), cps(st['sep_tag_end_given_both'], st['both_est'], 2),
+                    st['losses'], fe(st['expo']), fe(st['hazard']), fe(st['hazard_upper']),
+                    cps(st['med_before'], st['both_est'], 2), st['bridge_classes'], st['bridge_seed_islands'],
+                    st['sep_bridge_alive'], st['n_bridge_alive'], st['sep_bridge_dead'], st['n'] - st['n_bridge_alive'],
+                    st['pcc_cert'], st['runlevel'], fe(st['cf_sep']), st['hours']))
+            else:
+                md.append('| %s | %d | %d | %s | %d | – | – | %s (any incompatible holders) | – | – | – | – | – | %.4f | %.3f | – | %.2f |' % (
+                    lab, k[2], k[4], 'D on both halves' if k[5] == 'dctl' else 'none', st['n'], cps(st['end'], st['n'], 2),
+                    st['pcc_cert'], st['runlevel'], st['hours']))
+        md.append('')
+        md.append('Local establishments per run (q-style nucleation count, islands whose holder at establishment was ≥ ½ local): ' + '; '.join(
+            '%s %s %.1f' % (k[0], k[5], out['cells']['forced']['%s|%s|%d|%d' % (k[0], k[5], k[2], k[4])]['n_loc_est']) for k in fk) + '.')
+        md.append('')
+    return md
+
+
 def kcheck_main(a):
     """_kern_mb against rival_islands._kern (kprop = 1) on the same inputs: identical trajectories (counts, traces,
     establishment times, separation records); composition rows sum to 1 on present classes; a class whose members
@@ -1180,4 +1613,4 @@ if __name__ == '__main__':
     ap.add_argument('--rep', type=int, default=0)
     a = ap.parse_args()
     {'cross': cmd_cross, 'static': static_main, 'run': run_main, 'calib': calib_main, 'timing': timing_main,
-     'kcheck': kcheck_main}[a.what](a)
+     'kcheck': kcheck_main, 'report': report_main}[a.what](a)

@@ -95,3 +95,31 @@ bridge; above the thresholds the only incompatibilities are light ones.
   founders on both halves; iid control = no founders, same seeds. Mediation-before-loss = among runs in which both
   networks held a certified island, the fraction with an island of either network strongly taken by a bridge class
   before either network is lost (or the horizon).
+
+## Addendum: the full {4, 8, 16} screening and the forced pairs (before any lottery run)
+
+Recorded after the predictions above were committed (4f48b33) and before any lottery or calibration run; the forced
+pairs are chosen from it by the spec's rule. Catalogue: 1,826 genotypes, 1,027 classes; K soundness 0 bad in every
+block ((4, 8) 0 / 16,249; (8, 16) 0 / 97,215; (4, 16) 0 / 37,893; same-budget tables 0 bad); lumping valid (0 member
+violations, 0 test mismatches on 1,785 incompatible genotype pairs, seed-law max |z| ≤ 3.3).
+
+| prior | establishers | components | incompatible pairs (mass) | direct-bridge-less: n, mass | share with `BOX1(THEM(ME))`@4 | with a FairBot/`BOX1(THEM(ME))` copy |
+|---|---|---|---|---|---|---|
+| cheap-heavy | 219 | 3 (217, 1, 1) | 1,659 (5.9·10⁻⁵) | 349, 3.4·10⁻⁵ | 0.995 | 80, 3.4·10⁻⁵ |
+| uniform | 219 | 3 | 1,659 (4.0·10⁻⁵) | 349, 1.8·10⁻⁵ | 0.994 | 80 |
+| above-threshold | 187 | 2 (186, 1) | 739 (1.5·10⁻⁶) | 67, 6.4·10⁻⁸ | 0 | 4, 3.8·10⁻⁸ (each with `and(BOX1(THEM(ME)),BOX1(THEM(THEM)))`@8) |
+| homogeneous 4 / 8 / 16 | 35 / 77 / 110 | 4 / 2 / 1 | 112 / 113 / 150 | 92, 6.8·10⁻⁵ / 30, 1.4·10⁻⁷ / 0 | – | – |
+
+Read against the static clauses before any run (final verdicts in the report): RE 1's named pair is incompatible and
+structurally bridge-less; the cheap-heavy / above-threshold ratio is ≈ 530; FairBot and `BOX1(THEM(ME))` at budgets
+8 and 16 share one component. S1's share clause holds (0.995) and its mass clause is in the grey zone
+(6.4·10⁻⁸), but its "no FairBot/`BOX1(THEM(ME))` copy in an above-threshold bridge-less pair" clause fails: the b = 8
+soft clique `and(BOX1(THEM(ME)),BOX1(THEM(THEM)))`@8 (its own component) mutually defects with FairBot and
+`BOX1(THEM(ME))` at 8 and 16 with no bridge. S1's falsifier fires.
+
+**Forced pairs** (rule: heaviest under cheap-heavy, the background prior of the forced cells):
+- bridge-less: (`BOX(THEM(ME))`@4, `BOX1(THEM(ME))`@4), pair mass 9.2·10⁻⁶, no structural bridge, no mediator path
+  (tied with (`BOX(THEM(THEM))`@4, `BOX1(THEM(ME))`@4); FairBot taken as the reference program);
+- bridged: (`BOX(THEM(ME))`@4, `BOX1(THEM(ME))`@8), pair mass 4.6·10⁻⁶, 6 bridges of mass 0.0040 (heaviest
+  FairBot@8, then FairBot@16), path 2; the bridge-absent cell removes these 6 classes from the seed law and
+  renormalizes (individuals drawn into them are redrawn, so the other individuals stay paired).
