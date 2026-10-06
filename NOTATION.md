@@ -250,3 +250,16 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   FB1_b, PB_b, G_b, P\*_b, SF_k, SC_b, Vlet_b, Vwrap_b**; **b\*** in L_T: FB 8 (distinct budgets 12), FB1 13, PB 25,
   Vlet 9, Vwrap 11; **simulator leak** — a sound reader's true idealized proof about a simulator, exploited by the
   simulator's fuel-limited run under search-charged charging.
+- **Prover as code:** **L_T^code** — L_T without prove/sprove/mk/fv, plus arithmetic, `capk`, `lib`/`libsrc`;
+  **SEARCH_i / CORE_i** — the search wrapper and core in the library (i = 0 sound, 1 sloppy SC_code, 2 sound without
+  JLöb^self, the control); **U** — a search's declared cap, u = U + 7 its maximum cost; **⟨σ, f⟩⇓a / ⇓⁺a** —
+  fuel-indexed exact and monotone atoms; **⊡^U_{c,i}ψ** — "the code search CORE_i on (c, ψ) returns T within U
+  steps"; **K_T^code** — the calculus (Ax, G3, EvR/EvL, SrchR, Run/RunNeg, JLöb^self); **SrchR** — the search-call
+  rule with the static fit condition (every counter ≥ u) and minimal-residual readings; **Run / RunNeg** — a box
+  verified by running its core, never on the root call; **JLöb^self** — the self-fulfilling Löb rule (hypothesis =
+  the root call's own box), sound ex post (Theorem S^code); **root call** — (ψ₀, b, U, i); **Run regress** — mutual
+  verification re-entering the reader's own query, costing U + 1; **regress lemma** — the evaluator fast-forward;
+  **matched / mismatched certified target** — the reader's proof names the fuel the target actually ran with, or
+  not; **static boundary** — k = U + 10 for FB vs SF_k; **FB2** — the visibility probe; **FBx** — the
+  mismatched-target reader; **twins** — programs whose search calls are the same root query, the only pairs that
+  cooperate under the code semantics.

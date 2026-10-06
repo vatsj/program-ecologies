@@ -104,8 +104,14 @@ REJECTED.md the ones we dropped.
   3/4); the realizable core is FairBot's family plus PrudentBot (b* = 25); the simulator leak is the new faker under
   real charging (RESULTS "The realizable language L_T, milestone 1"). *Operating hypothesis refined:* a sound bounded
   prover whose cost model matches the opponent's actual execution.
-- *Would settle it next:* the guard margin as an evolving trait (running); the prover as code (milestone 3), where
-  simulating a prover costs its real steps; bounded PA provers whose consistency strength is explicit. (Earlier line, now settled: K with a sound distribution rule
+- *Evidence (2026-10-06, prover as code):* with the prover as code and fuel-indexed atoms the sound reader is never
+  exploited (the leak closes) but cooperates only with twins; distinct sources fail by the mutual-verification
+  regress, and the min-rule was an artefact of the idealization (RESULTS "The realizable language, milestone 3").
+  *Operating hypothesis refined:* a sound bounded prover whose box means its own code search within a declared cap;
+  cooperation between distinct sources needs certificates that are checked, not searched for.
+- *Would settle it next:* proof-carrying certificates as code (checked derivations with a sound ex-post rule for
+  mutual checks; `specs/2026-10-06-certificates-as-code.md`); the guard margin as an evolving trait (running);
+  bounded PA provers whose consistency strength is explicit. (Earlier line, now settled: K with a sound distribution rule
   under a box; does P* return, and do Con-sentence fakers
   return with it?); K beyond the modal fragment; a bounded prover in bargaining (hawks need Löb above the copy
   threshold).
@@ -207,5 +213,9 @@ REJECTED.md the ones we dropped.
   restricted grammar or a template prior; the RE's operating hypothesis is a template grammar over the modal
   fragment's shapes (conditionals on prove_b and run_k atoms about quoted sources) with the length prior on its
   node counts, which reproduces the modal arm as a sub-language and adds the simulator atoms.
-- *Would settle it:* milestone 2 under that grammar; milestone 3 (the prover as code), now motivated by the
-  simulator leak.
+- *Evidence (2026-10-06, milestone 3):* the prover as code is feasible from K = 10⁶ (FairBot 1.1·10⁵ steps, b* = 7;
+  PrudentBot 9·10⁵ at K = 10⁷), twins only, nothing at K = 10⁵. *Operating hypothesis for milestone 2, revised:*
+  under the code semantics only exact query identity cooperates, so a population prior is judged by its mass on
+  twins; milestone 2 waits on the certificate mechanism (milestone 4), which may restore distinct-source
+  cooperation. *Open (RE decision):* the cap U as a heritable trait versus a fixed fraction of K.
+- *Would settle it:* milestone 4 (certificates as code); then milestone 2 under a template grammar.
