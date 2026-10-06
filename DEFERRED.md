@@ -170,3 +170,15 @@ REJECTED.md the ones we dropped.
   world-0 condition in the two-level language, and PA + Con^k only moves the faker up a world (the sibling theorem's
   regress), so that route is closed.
 - *Would settle it:* a worker language whose strike handshake does not need a world-0 condition (none known).
+
+## 11. The realizable language: how to leave the modal fragment
+- *Options:* extend the weak-arm DSL (self-application, divergence) with K boxes; a new small Turing-complete
+  language (λ-calculus with quoting and a step-counting evaluator) with a bounded prover over its own evaluation
+  rules; the prover as a primitive, or as code in the language.
+- *Decision (RS, 2026-10-06):* the new language; the single-pair result (FairBot by bounded proof cooperates with
+  itself above a budget threshold, Critch's bounded Löb in our ecology) as the first milestone, before any chain;
+  the stated end state is that programs run their own proof search as code, so the budget is the program's own step
+  count, the checker's source is visible, and soundness becomes a trait (sloppy checkers are a new faker class).
+- *Operating hypothesis:* K's results transfer (thresholds, copies cheaper than distinct budgets, Gödel-sentence
+  fakers disarmed, bounded Gödel II), with the search exponential and the cutoff small.
+- *Would settle it:* `specs/2026-10-06-realizable-language.md` milestones 1–3.
