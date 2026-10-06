@@ -37,11 +37,11 @@ two-atom functions (novel policies) are null mutations, and their mass and their
 states are reported.
 """
 import os, sys, json, time, math, zlib
+for _v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS", "VECLIB_MAXIMUM_THREADS", "NUMBA_NUM_THREADS"):
+    os.environ[_v] = "1"
 from collections import defaultdict
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
-for _v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS", "VECLIB_MAXIMUM_THREADS", "NUMBA_NUM_THREADS"):
-    os.environ.setdefault(_v, "1")
 from abm import njit
 import union as U
 import union_enforcement as E
@@ -868,10 +868,9 @@ def basin_rates(ch, lab, nb=4):
     for A in range(nb):
         piA[A] = pi[lab == A].sum()
     rate = np.exp(lw)
-    eA = (lab[src] >= 0) & (lab[dst] != lab[src])
-    for e in np.nonzero(eA)[0]:
-        A = lab[src[e]]
-        K[A] += pi[src[e]] * rate[e] * H[dst[e]]
+    eA = np.nonzero((lab[src] >= 0) & (lab[dst] != lab[src]))[0]
+    contrib = (pi[src[eA]] * rate[eA])[:, None] * H[dst[eA]]
+    np.add.at(K, lab[src[eA]], contrib)
     out = {}
     for A in range(nb):
         if piA[A] <= 0:
@@ -895,7 +894,7 @@ def demand(CF, x, y):
     return 2
 
 
-def preservation(ch, C, CF, lab_summ, PAY, top_mass=0.99, max_states=60):
+def preservation(ch, C, CF, lab_summ, PAY, top_mass=0.99, max_states=400):
     """Preservation of demands under neutral worker substitution, for the fair states carrying `top_mass` of the
     fair mass: the neutral worker substitutes in either slot, each classified by its demand against the resident
     other worker relative to the resident it replaces (same / lower / higher), and whether, once a demand-lowering
@@ -969,7 +968,7 @@ def make_chain(C, enf, pool, c, N, theta=1e-9, max_states=400000, promote=1e-6, 
 def seeds_for(ch, C):
     """Named states (every named boss with every pair of named workers) and every strict-NE triple."""
     from solver_audit import union_strict_ne
-    nb = list(C['nmb'].values()); nw = list(C['nmw'].values())
+    nb = [v for v in C['nmb'].values() if C['massB'][v] > 0]; nw = [v for v in C['nmw'].values() if C['massW'][v] > 0]
     s = set(ch.code(b, x, y) for b in nb for x in nw for y in nw)
     ne = union_strict_ne(C, ch.PAY, ch.mass)
     for t in ne:
@@ -1075,11 +1074,30 @@ def analyse(ch, C, enf, pool, c, N):
     return out
 
 
+def faker_mask(C, enf, pool, c):
+    """Boss classes that pay < 1/2, with whack policy none, for work from a worker self-pair that strikes against
+    every constant low-wage boss (the no-threat wage fakers of `fakers`)."""
+    CF = cf_for(enf, pool, c, C['arm'] == 'sham')
+    Jc = C['Jc'].astype(np.int64); rep = C['repW']
+    refuse = [x for x in range(C['KcW']) if all(CF['EXS'][rep[x], rep[x], q, 0] == 1 for q in range(2))]
+    fk = np.zeros(C['KcB'], bool)
+    for x in refuse:
+        j = Jc[:, x, x]
+        fk |= ((j // 4) // 3 < 2) & ((j // 2) % 2 == 0) & ((j // 4) % 3 == 1)
+    return fk
+
+
 def run_cell(arm, enf='CC', pool=0, c=0.5, N=1000, theta=1e-9, tag='', save=True):
     t = time.time()
     C = build_language(arm, enf, pool, c, procs=3)
-    ch = make_chain(C, enf, pool, c, N, theta=theta)
+    if 'nofaker' in tag:
+        C = dict(C)
+        fk = faker_mask(C, enf, pool, c)
+        C['massB'] = np.where(fk, 0.0, C['massB'])
+        print('nofaker: %d classes, mass %.4f set to null' % (fk.sum(), float(build_language(arm, enf, pool, c)['massB'][fk].sum())), flush=True)
+    ch = make_chain(C, enf, pool, c, N, theta=theta, verbose=True)
     seeds, ne = seeds_for(ch, C)
+    print('[%s %s pool%d c%g N%g] %d seeds (%d strict NE)' % (arm, enf, pool, c, N, len(seeds), len(ne)), flush=True)
     ch.explore_hybrid(seeds)
     tex = time.time() - t
     out = analyse(ch, C, enf, pool, c, N)
@@ -1099,6 +1117,38 @@ def run_cell(arm, enf='CC', pool=0, c=0.5, N=1000, theta=1e-9, tag='', save=True
         json.dump(out, open(os.path.join(OUT, 'chain_%s.json' % name), 'w'), indent=1, default=float)
         np.savez_compressed(os.path.join(OUT, 'chain_%s.npz' % name), codes=ch.codes, lpi=ch.lpi, src=ch.src, dst=ch.dst_idx, pr=ch.pr)
     return out, ch, C
+
+
+class _Saved:
+    """A solved chain reloaded from runs/concessions/chain_<name>.npz (codes, log pi, edges)."""
+
+    def __init__(self, name, C):
+        z = np.load(os.path.join(OUT, 'chain_%s.npz' % name))
+        self.codes, self.lpi = z['codes'], z['lpi']
+        self.pi = np.exp(self.lpi)
+        self.src, self.dst_idx, self.pr = z['src'], z['dst'], z['pr']
+        self.KcW = C['KcW']
+
+    def decode(self, code):
+        K = self.KcW
+        return code // (K * K), (code // K) % K, code % K
+
+
+def reanalyse_preservation(name, arm, enf, pool, c):
+    """Recompute the preservation-of-demands statistic of a saved cell (all fair states up to 0.99 of fair mass)."""
+    C = build_language(arm, enf, pool, c)
+    ch = _Saved(name, C)
+    PAY = payoff_table(enf, pool, c)
+    summ = np.empty(len(ch.codes), np.int64)
+    for k, cd in enumerate(ch.codes):
+        b, x, y = ch.decode(int(cd))
+        summ[k] = U.summary(int(C['Jc'][b, x, y]), int(C['tagc'][x]), int(C['tagc'][y]))
+    CF = cf_for(enf, pool, c, arm == 'sham')
+    fn = os.path.join(OUT, 'chain_%s.json' % name)
+    d = json.load(open(fn))
+    d['preservation'] = preservation(ch, C, CF, summ, PAY, max_states=2000)
+    json.dump(d, open(fn, 'w'), indent=1, default=float)
+    return d['preservation']
 
 
 def _cell_main(argv):
@@ -1317,9 +1367,11 @@ def lottery_cell_data(arm, enf, pool=0, c=0.5):
     probeB = np.array(['(^' in s for s in C['srcB']])
     # concession to the militant: pays 1/2 with both working against the militant pair
     T1 = nm['T1 = militant (strike iff s <= 1/4)']
-    conc = np.array([(int(C['Jc'][b, T1, T1]) // 4) // 3 == 2 and int(C['Jc'][b, T1, T1]) % 4 == 0 for b in range(KB)])
-    sw = np.zeros(KB, bool)
     st, sc = nm['always strike'], nm['scab']
+    # a concession: pays 1/2 to the militant pair (both working) and 0 to the scab pair
+    conc = np.array([(int(C['Jc'][b, T1, T1]) // 4) // 3 == 2 and int(C['Jc'][b, T1, T1]) % 4 == 0
+                     and (int(C['Jc'][b, sc, sc]) // 4) // 3 == 0 for b in range(KB)])
+    sw = np.zeros(KB, bool)
     for b in range(KB):
         for x in (st, sc):
             for y in (st, sc):
@@ -1339,9 +1391,16 @@ def lottery_cell_data(arm, enf, pool=0, c=0.5):
 
 def _lottery_job(args):
     import sog_lottery as SL
-    arm, enf, pool, c, r, N, I, mN, gens = args
+    arm, enf, pool, c, r, N, I, mN, gens = args[:9]
+    swap = args[9] if len(args) > 9 else None
     C, PAY, T, LBm, LWm, pB, pW = lottery_cell_data(arm, enf, pool, c)
-    seed = (20261006 + 1009 * (zlib.crc32(('%s-%s-%d-%g' % (arm, enf, pool, c)).encode()) % 1000003) + r) % (2 ** 31)
+    if swap:
+        # not preregistered: move the constant striker's prior mass onto a named wage-conditional striker
+        pW = pW.copy()
+        k = C['nmw'][{'militant': 'T1 = militant (strike iff s <= 1/4)', 'militant-': 'militant- (strike iff not BOX(s = 1/2))'}[swap]]
+        st = C['nmw']['always strike']
+        pW[k] += pW[st]; pW[st] = 0.0
+    seed = (20261006 + 1009 * (zlib.crc32(('%s-%s-%d-%g%s' % (arm, enf, pool, c, ('-' + swap) if swap else '')).encode()) % 1000003) + r) % (2 ** 31)
     rng = np.random.default_rng(seed)
     init = SL.init_counts(rng, I, N, pB, pW)
     chk = SL.checks_schedule(gens)
@@ -1361,17 +1420,59 @@ def _lottery_job(args):
                 wall=time.time() - t0)
 
 
-def run_lottery(arm, enf='CC', pool=0, c=0.5, runs=40, N=100, I=16, mN=0.1, gens=100000, procs=3):
+def run_lottery(arm, enf='CC', pool=0, c=0.5, runs=40, N=100, I=16, mN=0.1, gens=100000, procs=3, swap=None):
     from multiprocessing import Pool
     lottery_cell_data(arm, enf, pool, c)
-    jobs = [(arm, enf, pool, c, r, N, I, mN, gens) for r in range(runs)]
+    jobs = [(arm, enf, pool, c, r, N, I, mN, gens, swap) for r in range(runs)]
     t = time.time()
     with Pool(procs) as pl:
         recs = pl.map(_lottery_job, jobs, chunksize=1)
-    name = 'lottery_%s_%s%s_c%g' % (arm, enf, '_pool' if pool else '', c)
-    out = dict(cell=name, params=dict(arm=arm, enf=enf, pool=pool, c=c, runs=runs, N=N, I=I, mN=mN, gens=gens), runs=recs,
+    name = 'lottery_%s_%s%s_c%g%s' % (arm, enf, '_pool' if pool else '', c, ('_x' + swap) if swap else '')
+    out = dict(cell=name, params=dict(arm=arm, enf=enf, pool=pool, c=c, runs=runs, N=N, I=I, mN=mN, gens=gens, swap=swap), runs=recs,
                wall=time.time() - t)
     json.dump(out, open(os.path.join(OUT, name + '.json'), 'w'))
+    return out
+
+
+def reduced_chains(enf='CC', pool=0, c=0.5, Ns=(100, 1000, 10000, 100000)):
+    """Not preregistered: exact chains over named classes only (as the union run's reduced canonical chain), under a
+    uniform prior over the listed programs and under their length-prior masses, for nested boss sets:
+    constants | + D0 family | + D* family | + wage fakers (probe and base).  Workers: the seven named workers."""
+    from union_chain import dense_chain
+    C = build_language('P01', enf, pool, c)
+    PAY = payoff_table(enf, pool, c)
+    nb, nw = C['nmb'], C['nmw']
+    consts = [nb[U.bname(b)] for b in range(NB)]
+    d0 = [nb[k] for k in nb if k.startswith(('D0 =', 'D0q', 'D0[L1]'))]
+    d14 = [nb[k] for k in nb if k.startswith(('D14',))]
+    ds = [nb[k] for k in nb if k.startswith(('D*_',))]
+    fk = [nb[k] for k in nb if k.startswith(('C1', 'wage faker'))]
+    # the heaviest probe wage faker of the militant pair
+    T1 = nw['T1 = militant (strike iff s <= 1/4)']
+    Jc = C['Jc'].astype(np.int64)
+    pf = [b for b in range(C['KcB']) if '(^' in C['srcB'][b] and (Jc[b, T1, T1] // 4) // 3 < 2 and Jc[b, T1, T1] % 4 == 0
+          and (Jc[b, T1, T1] // 4) % 3 == 1]
+    pf = sorted(pf, key=lambda b: -C['massB'][b])[:2]
+    sets = {'constants': consts, '+D0 family (P0)': consts + d0, '+D0 family, D14': consts + d0 + d14,
+            '+D0 family, D14, D* family': consts + d0 + d14 + ds, '+D* family only': consts + ds,
+            '+all, and wage fakers': consts + d0 + d14 + ds + fk + pf}
+    Ws = list(dict.fromkeys(nw.values()))
+    out = {}
+    for name, Bs in sets.items():
+        Bs = list(dict.fromkeys(Bs))
+        for prior in ('uniform', 'length'):
+            mB = np.ones(len(Bs)) if prior == 'uniform' else C['massB'][Bs]
+            mW = np.ones(len(Ws)) if prior == 'uniform' else C['massW'][Ws]
+            for N in Ns:
+                st, lpi, A = dense_chain(C['Jc'], C['tagc'], PAY, Bs, Ws, mB, mW, float(N), 0.3)
+                pi = np.exp(lpi - lpi.max()); pi /= pi.sum()
+                summ = np.zeros(7)
+                for k, (b, x, y) in enumerate(st):
+                    summ[U.summary(int(C['Jc'][b, x, y]), int(C['tagc'][x]), int(C['tagc'][y]))] += pi[k]
+                top = [dict(pi=float(pi[k]), state='%s | %s | %s' % (C['srcB'][st[k][0]], C['srcW'][st[k][1]], C['srcW'][st[k][2]]),
+                            play=play_str(int(C['Jc'][st[k]])))
+                       for k in np.argsort(-pi)[:6]]
+                out['%s | %s | N=%d' % (name, prior, N)] = dict(summary=dict(zip(U.SUMM, summ.tolist())), top=top, bosses=len(Bs))
     return out
 
 
@@ -1407,4 +1508,20 @@ if __name__ == '__main__':
     elif len(sys.argv) > 1 and sys.argv[1] == 'lang':
         for a in sys.argv[2:]:
             arm, enf, pool, c = a.split(':')
-            build_language(arm, enf, int(pool), float(c))
+            build_language(arm, enf, int(pool), float(c), procs=int(os.environ.get('CONC_PROCS', '3')))
+    elif len(sys.argv) > 1 and sys.argv[1] == 'cells':
+        # arm:enf:pool:c:N[:theta[:tag]] ... run sequentially in this process
+        for a in sys.argv[2:]:
+            p = a.split(':')
+            th = float(p[5]) if len(p) > 5 else 1e-9
+            tg = p[6] if len(p) > 6 else ''
+            t0 = time.time()
+            out, ch, C = run_cell(p[0], p[1], int(p[2]), float(p[3]), float(p[4]), th, tg)
+            print(a, 'states', out['states'], 'cut', '%.2e' % out['rel_cut_change'], {k: round(v, 4) for k, v in out['summary'].items()},
+                  'eff %.3f' % out['efficiency'], '%.0fs' % (time.time() - t0), flush=True)
+    elif len(sys.argv) > 1 and sys.argv[1] == 'lottery':
+        for a in sys.argv[2:]:
+            p = a.split(':')
+            o = run_lottery(p[0], p[1], int(p[2]), float(p[3]), runs=int(p[4]) if len(p) > 4 else 40,
+                            procs=int(os.environ.get('CONC_PROCS', '3')), swap=(p[5] if len(p) > 5 and p[5] else None))
+            print(a, 'done %.0fs' % o['wall'], flush=True)
