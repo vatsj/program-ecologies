@@ -100,8 +100,12 @@ REJECTED.md the ones we dropped.
   a long guard (2b + 8) with a K4 rule returns P* and the fakers together, and the net is below K (RESULTS "K with
   cut"). *Operating hypothesis refined:* read Con at one's own budget; distribution adds nothing Con-dependent, and
   the long guard trades P* for Gödel fakers.
-- *Would settle it next:* the guard margin as an evolving trait of the reader; bounded PA provers whose consistency
-  strength is explicit; K beyond the modal fragment. (Earlier line, now settled: K with a sound distribution rule
+- *Evidence (2026-10-06, L_T):* K's facts transfer to a Turing-complete evaluator with evaluation costs (8/12 against
+  3/4); the realizable core is FairBot's family plus PrudentBot (b* = 25); the simulator leak is the new faker under
+  real charging (RESULTS "The realizable language L_T, milestone 1"). *Operating hypothesis refined:* a sound bounded
+  prover whose cost model matches the opponent's actual execution.
+- *Would settle it next:* the guard margin as an evolving trait (running); the prover as code (milestone 3), where
+  simulating a prover costs its real steps; bounded PA provers whose consistency strength is explicit. (Earlier line, now settled: K with a sound distribution rule
   under a box; does P* return, and do Con-sentence fakers
   return with it?); K beyond the modal fragment; a bounded prover in bargaining (hawks need Löb above the copy
   threshold).
@@ -196,4 +200,12 @@ REJECTED.md the ones we dropped.
   count, the checker's source is visible, and soundness becomes a trait (sloppy checkers are a new faker class).
 - *Operating hypothesis:* K's results transfer (thresholds, copies cheaper than distinct budgets, Gödel-sentence
   fakers disarmed, bounded Gödel II), with the search exponential and the cutoff small.
-- *Would settle it:* `specs/2026-10-06-realizable-language.md` milestones 1–3.
+- *Evidence (2026-10-06):* milestone 1 held (sound; witness executable within K = 10⁶; thresholds FB 8 / FB1 13 /
+  PB 25; the control removes exactly the Löbian cooperation); the hypothesis was right on transfer and wrong on
+  "cutoff small" for prudent readers (PB needs W ≈ 3.7·10⁵). *Open (RE decision):* milestone 2's prior. Literal
+  enumeration of L_T terms is infeasible (FB_b is ≈ 11 nodes over ≈ 20 constructors), so milestone 2 needs a
+  restricted grammar or a template prior; the RE's operating hypothesis is a template grammar over the modal
+  fragment's shapes (conditionals on prove_b and run_k atoms about quoted sources) with the length prior on its
+  node counts, which reproduces the modal arm as a sub-language and adds the simulator atoms.
+- *Would settle it:* milestone 2 under that grammar; milestone 3 (the prover as code), now motivated by the
+  simulator leak.

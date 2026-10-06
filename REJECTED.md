@@ -753,3 +753,16 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Subagent S2** (decline on 0.15–0.55 of islands, policies on ≥ 0.25; 0.69 and 0.10), **S3 mechanism** (RR's intermediate wage from neutral worker drift; the boss race decides while workers stay polymorphic), **S9 N = 400 clause** (≥ 0.3 censored; 0), **S10 Pareto clause** ("RR Pareto-dominates CC in the lottery"; boss 1.55 vs 1.84).
 
 **Design choices dropped:** single-draw matching noise (fitness is the expectation, as in `union_abm` and `rival_islands`); "patchwork at mN > 0 as a finite-horizon object" (not testable under global closure); the continuation of CC main (vacuous, no censoring); matched per-spelling weights for the single-worker variant (a phantom W₂ slot frozen at the scab with native length priors instead).
+
+
+## Added 2026-10-06: the realizable language, milestone 1 (RESULTS.md, "The realizable language L_T, milestone 1")
+
+**"The JLöb-disabled control shows no cooperation between any two conditional programs" (Fable, prediction 5, control clause; falsifier fired).** In K_T⁻ readers still prove an extensional constant (SC) cooperates by evaluation, and G cooperates with itself and with SF by refutation. What K_T⁻ removes is exactly the Löbian cooperation; the control's claim is stated that way.
+
+**"Harmless variants cooperate with FairBot within +4 of FairBot's threshold" (Fable, prediction 5).** They need +5 (the `let` variant) and +7 (the wrapper): distinct sources pay the joint-JLöb price of distinct budgets plus their own evaluation steps.
+
+**"G's victim, if any, is a level-1 reader" (Fable, prediction 3, partly).** In L_T, G exploits only unconditional cooperators (C, SC); the level-1 reader FB1 defects on G.
+
+**Subagent S7** ("K_T⁻ has no mutual cooperation outside {C, SC}"; G–G and G–SF cooperate by refutation) and **S9** ("every found box has W < 10⁴"; 982 found boxes exceed 10⁴, up to 8.6·10⁵, and prudent self-cooperation needs K = 10⁶).
+
+**Design choices dropped:** a "refuted-search" discharge as a calculus rule (unsound unless charged more than its budget); charging prove searches inside sims in the calculus (circular; the search-charged arm measures the gap instead); a merge-free completeness argument (merges occur; Lemma U); the renamed-variable harmless variant (identical under de Bruijn; a `let` variant instead); the literal sloppy checker as an interesting faker (under the frozen generator it is CooperateBot with a prove-shaped source; a checker that checks rule shapes but not side conditions is left for milestone 3); the "cap + 1" lower-bound memo (replaced before any table by instance-minimum bounds); **milestone 2 as "the length prior over L_T terms up to a node cutoff"** (infeasible as literal enumeration; a grammar or template prior is needed, DEFERRED 11).

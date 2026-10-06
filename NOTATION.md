@@ -240,3 +240,13 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   only at the fair wage since a both-working island pays (2(1 − s), s, s); **refuser** —
   `if(BOX(s ∈ {0}), strike, work)`; **xref / xmil seeds** — the constant striker's prior mass moved onto the refuser
   or the militant; **phantom slot** — the single-worker variant's frozen W₂.
+- **Realizable language:** **L_T** — the untyped call-by-value de Bruijn λ-calculus with quoting, `prove_b`, `run_k`
+  and a step-counting evaluator; **K_T / K_T⁻** — its bounded calculus with / without JLöb; **⟨σ⟩⇓a** — a
+  configuration atom, with plays(⌜p⌝, ⌜q⌝, a) := ⟨p ⌜p⌝ ⌜q⌝⟩⇓a; **ρ(σ, a)** — the reading ⊤/⊥ at terminal states;
+  **EvR/EvL, PrvR/PrvL** — evaluation and prove-step rules; **box obligation** — the □_c ψ owed on the not-found
+  branch of a prove step; **A ≻_k B** — B is k deterministic steps downstream of A (BoxEq along chains); **idealized
+  vs actual evaluation**; **primitive-assisted / search-charged** charging; **W(ψ, b)** — search work in node
+  expansions; **found / refuted / timeout**; **sim frame, TO**; **Lemma W_T, Lemma U, merge**; programs **FB_b,
+  FB1_b, PB_b, G_b, P\*_b, SF_k, SC_b, Vlet_b, Vwrap_b**; **b\*** in L_T: FB 8 (distinct budgets 12), FB1 13, PB 25,
+  Vlet 9, Vwrap 11; **simulator leak** — a sound reader's true idealized proof about a simulator, exploited by the
+  simulator's fuel-limited run under search-charged charging.
