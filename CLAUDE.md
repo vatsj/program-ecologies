@@ -87,5 +87,6 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 11. ~~K with the 4-rule; the frozen classifier~~ (done; RESULTS "K with the 4-rule": the literal rule is vacuous on the DSL and its closure changes nothing in the chain; PB2 is blocked by bounded Gödel II at its own budget and returns at b* = 11 with the guard read one up, no faker with it; K's faker removal is structural; the trace classifier has recall 0.42, so the faker set is a property of the calculus).
 12. Solver audit: unconditional re-solves of every published chain with independent deep-state discovery, separated rate/solver checks, controls, regression tests and twin drift (corrective; running: `specs/2026-10-05-solver-audit.md`).
 13. K with analytic cut (distribution under a box): does P* return and do its fakers return with it, measured as logical restoration with a 2×2 graft design and the guard × calculus factorial (follow-up to "K with the 4-rule"; running: `specs/2026-10-05-k-cut.md`).
+14. Rivals under K: does the bounded prover remove the bridge-less obstruction (the P* family self-defects in K)? Static screening under free and K at n = 8, matched natural arms at calibrated and common mN, controls (joins items 10 and 7; running: `specs/2026-10-05-rivals-under-k.md`).
 
 No paper draft (RS, 2026-10-04).
