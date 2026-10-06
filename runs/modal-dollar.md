@@ -52,8 +52,9 @@ disagreements in 21,321 pairs (41,814 atoms) at n = 7 plus P, and 0 in a 6,000-p
 | P vs S5 | (S1, S5) | P's BOX(S5) (2, 0): P accepts certified greed |
 | P vs A5 | (S5, S1) | P's BOX(S1) (14, 3); A5's BOX(S5) (20, 3) |
 | A5 vs S5 / A5 vs A5 | (S1, S5) / (S3, S3) | BOX(S5) (2, 0) / none |
-| X vs X (X = `if(BOX(S1), S1, S4)`) | (S1, S1) | both BOX(S1) by Löb: the hawk is meek with its copies |
-| X vs Z, X vs V, Z vs V | (S4, S2), (S4, S2), (S2, S4) | none |
+| X vs X (X = `if(BOX(S1), S1, S4)`) | (S1, S1) | both BOX(S1) (4, 1), by Löb: the hawk is provably meek with its copies |
+| Z vs Z (Z = `if(BOX1(S3), S3, S2)`) | (S3, S3) | both BOX1(S3) (6, 1) |
+| X vs Z / X vs V (V = `if(BOX1(S4), S2, S4)`) / Z vs V / V vs V | (S4, S2) / (S4, S2) / (S2, S4) / (S4, S4) | none / V's BOX1(S4) (7, 1) / none / none |
 
 **Invasion table** (modal; every one of the 42 self-efficient classes is in `static.json`; the named ones here;
 exit flows per mutation event at N = 10⁴; G = S5 2/3 + A5 1/3, mean 5/18):
@@ -309,7 +310,7 @@ differ. "Falsifier" = the stated falsifier.
   the seeded log-domain chain is.
 - **Distribution:** fixed roles spread π over all five splits (50–50 0.29, 1/3-type 0.48, endpoints 0.23) in both arms,
   with no endpoint ratchet in this grammar; the ε = 0 lottery makes 50–50 universal with migration in both arms
-  (identical within 0.01). Distribution statistics are evaluations, not selectors.
+  (≤ 0.01 apart). Distribution statistics are evaluations, not selectors.
 - *Finite N:* the modal arm is 0.986 efficient at N = 10², 0.89–0.95 at 10³; these are finite-N numbers.
 - *Free-box caveat:* the box is free and sound (provability decided by the GL Kripke chain, audited by GLS+Def at
   0 disagreements); the hawks' meekness with copies and P′'s exploitation of certified conceders both use Löb, which a
