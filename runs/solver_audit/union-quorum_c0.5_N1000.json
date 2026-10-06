@@ -1,0 +1,324 @@
+{
+ "cell": "union-quorum",
+ "c": 0.5,
+ "N": 1000.0,
+ "KcB": 297,
+ "KcW": 364,
+ "published_rerun": {
+  "summary": {
+   "fair": 0.0032347939336212586,
+   "intermediate": 0.013204440527764367,
+   "zero wage": 0.47579098580744583,
+   "strike": 0.12466067083169283,
+   "scab split": 0.3830916573593485,
+   "repression:strike": 1.741957853612959e-05,
+   "repression:source": 3.1961590796847304e-08
+  },
+  "states": 5565,
+  "core": 1103,
+  "rel_cut_change": 0.004721593279038677,
+  "solver": "gth_scaled",
+  "time_s": 24.175108909606934
+ },
+ "solver": {
+  "info": {
+   "n_components": 1,
+   "n_closed": 1,
+   "closed_sizes": [
+    5565
+   ],
+   "solver": "chain_log.gth_log (dense)"
+  },
+  "summary": {
+   "fair": 0.0032347939336210994,
+   "intermediate": 0.013204440527764273,
+   "zero wage": 0.47579098580744483,
+   "strike": 0.12466067083169546,
+   "scab split": 0.38309165735935785,
+   "repression:strike": 1.7419578536129522e-05,
+   "repression:source": 3.1961590796848337e-08
+  },
+  "tv": 1.1024933650391384e-14,
+  "balance_residual_max": 4.618527782440651e-14,
+  "balance_residual_median": 3.552713678800501e-15,
+  "max_abs_dlogpi": 2.6645352591003757e-13,
+  "time_s": 271.07928800582886
+ },
+ "discovery": {
+  "n_strict_ne": 0,
+  "in_published_explored": 0,
+  "published_pi": [],
+  "time_s": 3.239171028137207
+ },
+ "resolve": {
+  "summary_hybrid": {
+   "fair": 0.003525090325407187,
+   "intermediate": 0.014527700155487412,
+   "zero wage": 0.4784265572185883,
+   "strike": 0.12332201736810307,
+   "scab split": 0.38017964323500786,
+   "repression:strike": 1.8826482568094038e-05,
+   "repression:source": 1.6521483797875925e-07
+  },
+  "summary_check": {
+   "fair": 0.003525090325407187,
+   "intermediate": 0.014527700155487412,
+   "zero wage": 0.4784265572185883,
+   "strike": 0.12332201736810307,
+   "scab split": 0.38017964323500786,
+   "repression:strike": 1.8826482568094038e-05,
+   "repression:source": 1.6521483797875925e-07
+  },
+  "check_info": {
+   "skipped": "explored set larger than the dense check limit; hybrid solve reported"
+  },
+  "states": 17075,
+  "core": 3000,
+  "rel_cut_change": 0.002151360834103271,
+  "theta": 1e-10,
+  "time_s": 418.3652400970459,
+  "ne_pi": [],
+  "support": [
+   [
+    "(0,strike) | work | work",
+    0.19779831272274498
+   ],
+   [
+    "(0,source) | work | work",
+    0.11081914755166024
+   ],
+   [
+    "(0,none) | work | work",
+    0.11062759047815708
+   ],
+   [
+    "(0,source) | work | strike",
+    0.0882411397681161
+   ],
+   [
+    "(0,source) | strike | work",
+    0.08824113976811593
+   ],
+   [
+    "(0,none) | work | strike",
+    0.0881089173998442
+   ],
+   [
+    "(0,none) | strike | work",
+    0.08810891739984388
+   ],
+   [
+    "(0,source) | strike | strike",
+    0.05997516415543369
+   ],
+   [
+    "(0,none) | strike | strike",
+    0.0599348680712927
+   ],
+   [
+    "(0,strike) | work | if(BOX(h in {none,source}),strike,work)",
+    0.002165085911128072
+   ],
+   [
+    "(0,strike) | if(BOX(h in {none,source}),strike,work) | work",
+    0.002165085911128047
+   ],
+   [
+    "(0,strike) | if(BOX(h in {strike}),work,strike) | work",
+    0.002150081293733114
+   ]
+  ],
+  "transitions": [
+   {
+    "state": "(0,strike) | work | work",
+    "exit_by_kind": {
+     "strict": 0,
+     "neutral-change": 7.407407407407452e-05,
+     "neutral-keep": 1.4110189435915083e-05,
+     "deleterious": 1.2901958036886643e-67
+    },
+    "top": [
+     {
+      "p": 3.61472583694806e-05,
+      "kind": "neutral-change",
+      "slot": "B",
+      "to": "zero wage"
+     },
+     {
+      "p": 3.61472583694806e-05,
+      "kind": "neutral-change",
+      "slot": "B",
+      "to": "zero wage"
+     },
+     {
+      "p": 4.043812446467663e-07,
+      "kind": "neutral-keep",
+      "slot": "W1",
+      "to": "zero wage"
+     },
+     {
+      "p": 4.043812446467663e-07,
+      "kind": "neutral-keep",
+      "slot": "W1",
+      "to": "zero wage"
+     }
+    ]
+   },
+   {
+    "state": "(0,source) | work | work",
+    "exit_by_kind": {
+     "strict": 0,
+     "neutral-change": 0.0004064336489440268,
+     "neutral-keep": 1.3136430972537362e-05,
+     "deleterious": 1.2901958036886643e-67
+    },
+    "top": [
+     {
+      "p": 0.00016005646128248728,
+      "kind": "neutral-change",
+      "slot": "W1",
+      "to": "scab split"
+     },
+     {
+      "p": 0.00016005646128248728,
+      "kind": "neutral-change",
+      "slot": "W2",
+      "to": "scab split"
+     },
+     {
+      "p": 3.61472583694806e-05,
+      "kind": "neutral-change",
+      "slot": "B",
+      "to": "zero wage"
+     },
+     {
+      "p": 3.61472583694806e-05,
+      "kind": "neutral-change",
+      "slot": "B",
+      "to": "zero wage"
+     }
+    ]
+   },
+   {
+    "state": "(0,none) | work | work",
+    "exit_by_kind": {
+     "strict": 0,
+     "neutral-change": 0.0004074074074074039,
+     "neutral-keep": 1.4110189435915083e-05,
+     "deleterious": 1.2901958036886643e-67
+    },
+    "top": [
+     {
+      "p": 0.00016005646128248728,
+      "kind": "neutral-change",
+      "slot": "W1",
+      "to": "scab split"
+     },
+     {
+      "p": 0.00016005646128248728,
+      "kind": "neutral-change",
+      "slot": "W2",
+      "to": "scab split"
+     },
+     {
+      "p": 3.61472583694806e-05,
+      "kind": "neutral-change",
+      "slot": "B",
+      "to": "zero wage"
+     },
+     {
+      "p": 3.61472583694806e-05,
+      "kind": "neutral-change",
+      "slot": "B",
+      "to": "zero wage"
+     }
+    ]
+   },
+   {
+    "state": "(0,source) | work | strike",
+    "exit_by_kind": {
+     "strict": 0,
+     "neutral-change": 0.00036939661190698935,
+     "neutral-keep": 1.3136430972537362e-05,
+     "deleterious": 1.5453582614711958e-35
+    },
+    "top": [
+     {
+      "p": 0.00016005646128248728,
+      "kind": "neutral-change",
+      "slot": "W1",
+      "to": "strike"
+     },
+     {
+      "p": 0.00016005646128248728,
+      "kind": "neutral-change",
+      "slot": "W2",
+      "to": "zero wage"
+     },
+     {
+      "p": 3.61472583694806e-05,
+      "kind": "neutral-change",
+      "slot": "B",
+      "to": "scab split"
+     },
+     {
+      "p": 4.043812446467663e-07,
+      "kind": "neutral-change",
+      "slot": "W1",
+      "to": "strike"
+     }
+    ]
+   },
+   {
+    "state": "(0,source) | strike | work",
+    "exit_by_kind": {
+     "strict": 0,
+     "neutral-change": 0.00036939661190698935,
+     "neutral-keep": 1.3136430972537362e-05,
+     "deleterious": 1.5453582614711958e-35
+    },
+    "top": [
+     {
+      "p": 0.00016005646128248728,
+      "kind": "neutral-change",
+      "slot": "W1",
+      "to": "zero wage"
+     },
+     {
+      "p": 0.00016005646128248728,
+      "kind": "neutral-change",
+      "slot": "W2",
+      "to": "strike"
+     },
+     {
+      "p": 3.61472583694806e-05,
+      "kind": "neutral-change",
+      "slot": "B",
+      "to": "scab split"
+     },
+     {
+      "p": 4.043812446467663e-07,
+      "kind": "neutral-keep",
+      "slot": "W1",
+      "to": "scab split"
+     }
+    ]
+   }
+  ]
+ },
+ "discrepancy_vs_published": {
+  "fair": 0.0005250903254071871,
+  "intermediate": 0.0015277001554874128,
+  "zero wage": -0.0015734427814116936
+ },
+ "discrepancy_vs_rerun": {
+  "fair": 0.00029029639178592857,
+  "intermediate": 0.0013232596277230457,
+  "zero wage": 0.0026355714111424566,
+  "strike": -0.001338653463589759,
+  "scab split": -0.002912014124340667,
+  "repression:strike": 1.4069040319644477e-06,
+  "repression:source": 1.3325324718191195e-07
+ },
+ "time_s": 716.9206609725952
+}

@@ -1,0 +1,1425 @@
+{
+ "cell": "pd-priced6-atoms",
+ "N": 10000,
+ "K": 52,
+ "chain_kw": {
+  "w": 0.3,
+  "eager_poly": false
+ },
+ "published": {
+  "pcc": 0.015
+ },
+ "discovery_keep_all": true,
+ "discovery": {
+  "counts": {
+   "stable_size1": 52,
+   "stable_size1_noadv": 1,
+   "singletons": 52,
+   "pairs_tested": 1326,
+   "pairs_neutral_line": 149,
+   "pairs_unstable_interior": 238,
+   "pairs_stable": 76,
+   "stable_size2": 76,
+   "stable_size2_noadv": 0,
+   "triples_tested": 22100,
+   "triples_singular": 5758,
+   "triples_interior": 2192,
+   "triples_stable": 976,
+   "triples_center": 0,
+   "triples_unstable_or_neutral": 1216,
+   "stable_size3": 976,
+   "stable_size3_noadv": 0
+  },
+  "pool_K": 52,
+  "triples": true,
+  "n_candidates": 1104,
+  "n_stable": 1104,
+  "n_center": 0,
+  "n_deep": 1,
+  "n_deep_mod_twins": 0,
+  "n_deep_penalty_only": 0,
+  "n_deep_pen_total": 1,
+  "deep_by_size": {
+   "deep": {
+    "1": 1,
+    "2": 0,
+    "3": 0
+   },
+   "deep_mod_twins": {
+    "1": 0,
+    "2": 0,
+    "3": 0
+   },
+   "deep_penalty_only": {
+    "1": 0,
+    "2": 0,
+    "3": 0
+   }
+  },
+  "deep_mass_sum_max": 0.4689773627879541,
+  "deep_any_mass_sum_max": 0.4689773627879541,
+  "time_s": 0.05779719352722168,
+  "deep_in_published_explored": 1,
+  "deep_missed": 0,
+  "deep_missed_mass_sum": 0.0,
+  "published_recurrent_not_candidates": [],
+  "missed_detail": []
+ },
+ "published_rerun": {
+  "stat": {
+   "pcc": 0.014995959837012799
+  },
+  "n_expanded": 52,
+  "n_states": 128,
+  "cut_flow": 8.432416547695591e-09,
+  "near_closed": 0,
+  "n_terminal": 1,
+  "indeterminate": 0,
+  "absorb_error": 2.220446049250313e-16,
+  "time_s": 0.5572631359100342,
+  "top": [
+   [
+    "D:1.000",
+    0.984990092429606
+   ],
+   [
+    "BOX(THEM(ME)):1.000",
+    0.004911632543932477
+   ],
+   [
+    "BOX(THEM(THEM)):1.000",
+    0.004862811279543419
+   ],
+   [
+    "BOX1(THEM(ME)):1.000",
+    0.002170959678920192
+   ],
+   [
+    "BOX1(THEM(THEM)):1.000",
+    0.0014670502475975507
+   ],
+   [
+    "BOX(THEM(^C)):1.000",
+    0.0008908088387854583
+   ],
+   [
+    "BOX1(THEM(^C)):1.000",
+    0.0003948492322314193
+   ],
+   [
+    "C:1.000",
+    0.0001691577035470726
+   ]
+  ]
+ },
+ "rates": {
+  "same_explored_set": true,
+  "n_edges": 2652,
+  "max_abs_log_err": 7.105427357601002e-15,
+  "n_underflow": 1020,
+  "n_denormal": 0,
+  "worst": [
+   7.105427357601002e-15,
+   "D:1.000",
+   "not(BOXD(THEM(ME))):1.000"
+  ],
+  "time_s": 0.707252025604248
+ },
+ "solver": {
+  "log_gth_stat": {
+   "pcc": 0.014995960779486358
+  },
+  "linear_stat": {
+   "pcc": 0.014995959837012799
+  },
+  "linear_near_closed": 0,
+  "linear_terminal": 1,
+  "log_closed": {
+   "n_components": 1,
+   "n_closed": 1
+  },
+  "tv": 8.4389217008906e-09,
+  "resid_linear": 0.003267970627330641,
+  "resid_log": 1.4210854715202004e-14,
+  "top_log": [
+   [
+    "D:1.000",
+    0.9849900841168211
+   ],
+   [
+    "BOX(THEM(ME)):1.000",
+    0.004911632502480983
+   ],
+   [
+    "BOX(THEM(THEM)):1.000",
+    0.004862811238503867
+   ],
+   [
+    "BOX1(THEM(ME)):1.000",
+    0.002170959660555973
+   ],
+   [
+    "BOX1(THEM(THEM)):1.000",
+    0.001467050235216495
+   ],
+   [
+    "BOX(THEM(^C)):1.000",
+    0.0008908088312675282
+   ]
+  ]
+ },
+ "published_recurrent": [
+  {
+   "state": "D:1.000",
+   "size": 1,
+   "pi": 0.984990092429606,
+   "tier": "deep",
+   "max_inv": -0.010000000000000009,
+   "n_neutral": 0,
+   "n_adv": 0,
+   "neutral_mutants": []
+  },
+  {
+   "state": "BOX(THEM(ME)):1.000",
+   "size": 1,
+   "pi": 0.004911632543932477,
+   "tier": "non-deep",
+   "max_inv": 0.01,
+   "n_neutral": 8,
+   "n_adv": 1,
+   "neutral_mutants": [
+    "BOX1(THEM(ME))",
+    "BOX(THEM(THEM))",
+    "BOX1(THEM(THEM))",
+    "BOX(THEM(^C))",
+    "BOX1(THEM(^C))",
+    "BOXD1(THEM(^D))",
+    "BOX(THEM(^BOX1(THEM(ME))))",
+    "BOX1(THEM(^BOX(THEM(ME))))"
+   ]
+  },
+  {
+   "state": "C:1.000",
+   "size": 1,
+   "pi": 0.0001691577035470726,
+   "tier": "non-deep",
+   "max_inv": 1.0,
+   "n_neutral": 0,
+   "n_adv": 29,
+   "neutral_mutants": []
+  },
+  {
+   "state": "BOX1(THEM(^BOX(THEM(ME)))):1.000",
+   "size": 1,
+   "pi": 1.733852451381616e-05,
+   "tier": "non-deep",
+   "max_inv": 0.98,
+   "n_neutral": 7,
+   "n_adv": 2,
+   "neutral_mutants": [
+    "BOX(THEM(ME))",
+    "BOX1(THEM(ME))",
+    "BOX(THEM(THEM))",
+    "BOX1(THEM(THEM))",
+    "BOX(THEM(^C))",
+    "BOX1(THEM(^C))",
+    "BOX(THEM(^BOX1(THEM(ME))))"
+   ]
+  },
+  {
+   "state": "BOX(THEM(^BOX1(THEM(ME)))):1.000",
+   "size": 1,
+   "pi": 4.901251634012139e-05,
+   "tier": "non-deep",
+   "max_inv": 0.01,
+   "n_neutral": 7,
+   "n_adv": 1,
+   "neutral_mutants": [
+    "BOX(THEM(ME))",
+    "BOX1(THEM(ME))",
+    "BOX(THEM(THEM))",
+    "BOX1(THEM(THEM))",
+    "BOX(THEM(^C))",
+    "BOX1(THEM(^C))",
+    "BOX1(THEM(^BOX(THEM(ME))))"
+   ]
+  },
+  {
+   "state": "not(BOXD1(THEM(^C))):1.000",
+   "size": 1,
+   "pi": 2.6233738931793572e-05,
+   "tier": "non-deep",
+   "max_inv": 1.03,
+   "n_neutral": 2,
+   "n_adv": 27,
+   "neutral_mutants": [
+    "not(BOXD(THEM(ME)))",
+    "not(BOXD(THEM(^C)))"
+   ]
+  },
+  {
+   "state": "not(BOXD(THEM(^C))):1.000",
+   "size": 1,
+   "pi": 2.668798249512676e-05,
+   "tier": "non-deep",
+   "max_inv": 1.02,
+   "n_neutral": 1,
+   "n_adv": 37,
+   "neutral_mutants": [
+    "not(BOXD1(THEM(^C)))"
+   ]
+  },
+  {
+   "state": "not(BOX(THEM(THEM))):1.000",
+   "size": 1,
+   "pi": 3.960399459747199e-06,
+   "tier": "non-deep",
+   "max_inv": 1.02,
+   "n_neutral": 3,
+   "n_adv": 32,
+   "neutral_mutants": [
+    "not(BOX(THEM(ME)))",
+    "not(BOX(THEM(^C)))",
+    "not(BOX(THEM(^D)))"
+   ]
+  },
+  {
+   "state": "not(BOX(THEM(ME))):1.000",
+   "size": 1,
+   "pi": 3.926020731286926e-06,
+   "tier": "non-deep",
+   "max_inv": 1.02,
+   "n_neutral": 3,
+   "n_adv": 30,
+   "neutral_mutants": [
+    "not(BOX(THEM(THEM)))",
+    "not(BOX(THEM(^C)))",
+    "not(BOX(THEM(^D)))"
+   ]
+  },
+  {
+   "state": "BOX1(THEM(^D)):1.000",
+   "size": 1,
+   "pi": 3.271500415132403e-06,
+   "tier": "non-deep",
+   "max_inv": 2.0300000000000002,
+   "n_neutral": 3,
+   "n_adv": 27,
+   "neutral_mutants": [
+    "BOX(THEM(ME))",
+    "BOX(THEM(^D))",
+    "BOX1(THEM(^BOX(THEM(ME))))"
+   ]
+  },
+  {
+   "state": "BOX1(THEM(^C)):1.000",
+   "size": 1,
+   "pi": 0.0003948492322314193,
+   "tier": "non-deep",
+   "max_inv": 0.97,
+   "n_neutral": 7,
+   "n_adv": 7,
+   "neutral_mutants": [
+    "BOX(THEM(ME))",
+    "BOX1(THEM(ME))",
+    "BOX(THEM(THEM))",
+    "BOX1(THEM(THEM))",
+    "BOX(THEM(^C))",
+    "BOX(THEM(^BOX1(THEM(ME))))",
+    "BOX1(THEM(^BOX(THEM(ME))))"
+   ]
+  },
+  {
+   "state": "BOX(THEM(^D)):1.000",
+   "size": 1,
+   "pi": 3.3800479403746203e-06,
+   "tier": "non-deep",
+   "max_inv": 2.01,
+   "n_neutral": 1,
+   "n_adv": 26,
+   "neutral_mutants": [
+    "BOX1(THEM(^D))"
+   ]
+  },
+  {
+   "state": "BOX(THEM(^C)):1.000",
+   "size": 1,
+   "pi": 0.0008908088387854583,
+   "tier": "non-deep",
+   "max_inv": 0.98,
+   "n_neutral": 7,
+   "n_adv": 7,
+   "neutral_mutants": [
+    "BOX(THEM(ME))",
+    "BOX1(THEM(ME))",
+    "BOX(THEM(THEM))",
+    "BOX1(THEM(THEM))",
+    "BOX1(THEM(^C))",
+    "BOX(THEM(^BOX1(THEM(ME))))",
+    "BOX1(THEM(^BOX(THEM(ME))))"
+   ]
+  },
+  {
+   "state": "BOXD1(THEM(THEM)):1.000",
+   "size": 1,
+   "pi": 1.3773207673955766e-06,
+   "tier": "non-deep",
+   "max_inv": 2.0300000000000002,
+   "n_neutral": 9,
+   "n_adv": 19,
+   "neutral_mutants": [
+    "BOXD1(THEM(ME))",
+    "BOXD1(THEM(^C))",
+    "BOXD1(THEM(^D))",
+    "BOXD1(THEM(^BOX(THEM(ME))))",
+    "BOXD1(THEM(^BOXD(THEM(ME))))",
+    "BOXD1(THEM(^BOXD(THEM(THEM))))",
+    "BOXD1(THEM(^BOX1(THEM(ME))))",
+    "BOXD1(THEM(^BOX1(THEM(THEM))))"
+   ]
+  },
+  {
+   "state": "BOX1(THEM(THEM)):1.000",
+   "size": 1,
+   "pi": 0.0014670502475975507,
+   "tier": "non-deep",
+   "max_inv": 1.0,
+   "n_neutral": 7,
+   "n_adv": 4,
+   "neutral_mutants": [
+    "BOX(THEM(ME))",
+    "BOX1(THEM(ME))",
+    "BOX(THEM(THEM))",
+    "BOX(THEM(^C))",
+    "BOX1(THEM(^C))",
+    "BOX(THEM(^BOX1(THEM(ME))))",
+    "BOX1(THEM(^BOX(THEM(ME))))"
+   ]
+  },
+  {
+   "state": "BOXD(THEM(THEM)):1.000",
+   "size": 1,
+   "pi": 1.301123215716484e-06,
+   "tier": "non-deep",
+   "max_inv": 2.02,
+   "n_neutral": 9,
+   "n_adv": 10,
+   "neutral_mutants": [
+    "BOXD(THEM(ME))",
+    "BOXD(THEM(^C))",
+    "BOXD(THEM(^D))",
+    "BOXD(THEM(^BOX(THEM(ME))))",
+    "BOXD(THEM(^BOXD(THEM(THEM))))",
+    "BOXD(THEM(^BOX1(THEM(ME))))",
+    "BOXD(THEM(^BOX1(THEM(THEM))))",
+    "BOXD(THEM(^BOXD1(THEM(ME))))"
+   ]
+  },
+  {
+   "state": "BOX(THEM(THEM)):1.000",
+   "size": 1,
+   "pi": 0.004862811279543419,
+   "tier": "non-deep",
+   "max_inv": 0.01,
+   "n_neutral": 7,
+   "n_adv": 1,
+   "neutral_mutants": [
+    "BOX(THEM(ME))",
+    "BOX1(THEM(ME))",
+    "BOX1(THEM(THEM))",
+    "BOX(THEM(^C))",
+    "BOX1(THEM(^C))",
+    "BOX(THEM(^BOX1(THEM(ME))))",
+    "BOX1(THEM(^BOX(THEM(ME))))"
+   ]
+  },
+  {
+   "state": "BOXD1(THEM(ME)):1.000",
+   "size": 1,
+   "pi": 1.3559429151814083e-06,
+   "tier": "non-deep",
+   "max_inv": 2.0300000000000002,
+   "n_neutral": 9,
+   "n_adv": 15,
+   "neutral_mutants": [
+    "BOXD1(THEM(THEM))",
+    "BOXD1(THEM(^C))",
+    "BOXD1(THEM(^D))",
+    "BOXD1(THEM(^BOX(THEM(ME))))",
+    "BOXD1(THEM(^BOXD(THEM(ME))))",
+    "BOXD1(THEM(^BOXD(THEM(THEM))))",
+    "BOXD1(THEM(^BOX1(THEM(ME))))",
+    "BOXD1(THEM(^BOX1(THEM(THEM))))"
+   ]
+  },
+  {
+   "state": "BOXD(THEM(ME)):1.000",
+   "size": 1,
+   "pi": 1.276842542380644e-06,
+   "tier": "non-deep",
+   "max_inv": 2.02,
+   "n_neutral": 9,
+   "n_adv": 7,
+   "neutral_mutants": [
+    "BOXD(THEM(THEM))",
+    "BOXD(THEM(^C))",
+    "BOXD(THEM(^D))",
+    "BOXD(THEM(^BOX(THEM(ME))))",
+    "BOXD(THEM(^BOXD(THEM(THEM))))",
+    "BOXD(THEM(^BOX1(THEM(ME))))",
+    "BOXD(THEM(^BOX1(THEM(THEM))))",
+    "BOXD(THEM(^BOXD1(THEM(ME))))"
+   ]
+  },
+  {
+   "state": "BOX1(THEM(ME)):1.000",
+   "size": 1,
+   "pi": 0.002170959678920192,
+   "tier": "non-deep",
+   "max_inv": 0.01,
+   "n_neutral": 7,
+   "n_adv": 1,
+   "neutral_mutants": [
+    "BOX(THEM(ME))",
+    "BOX(THEM(THEM))",
+    "BOX1(THEM(THEM))",
+    "BOX(THEM(^C))",
+    "BOX1(THEM(^C))",
+    "BOX(THEM(^BOX1(THEM(ME))))",
+    "BOX1(THEM(^BOX(THEM(ME))))"
+   ]
+  }
+ ],
+ "resolve": {
+  "stat": {
+   "pcc": 0.014996222054688028
+  },
+  "n_states": 137,
+  "n_seeded": 0,
+  "n_seeded_traps": 0,
+  "seeds_all_stable": false,
+  "log10_cut": -10.56957963897118,
+  "n_cand_left": 0,
+  "closed": {
+   "n_components": 1,
+   "n_closed": 1,
+   "closed_sizes": [
+    137
+   ],
+   "n_expanded": 137,
+   "n_recurrent": 137
+  },
+  "mass_deep": 0.9849898207003573,
+  "mass_deep_any": {
+   "deep": 0.9849898207003573,
+   "deep_mod_twins": 0.0,
+   "deep_penalty_only": 0.0
+  },
+  "mass_poly": 1.9350946288446195e-07,
+  "indeterminate": 14,
+  "twin_moves": 0,
+  "twins": false,
+  "support": [
+   {
+    "state": "D:1.000",
+    "pi": 0.9849898207003573,
+    "log10_pi": -0.00656825766127927,
+    "log10_exit": -4.6277273053223515,
+    "exits": [
+     {
+      "to": "BOX(THEM(ME)):1.000",
+      "log10_rate": -5.159105754624693,
+      "mutants": [
+       [
+        "BOX(THEM(ME))",
+        -5.159105754624693
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(THEM)):1.000",
+      "log10_rate": -5.163461131176952,
+      "mutants": [
+       [
+        "BOX(THEM(THEM))",
+        -5.163461131176952
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(ME)):1.000",
+      "log10_rate": -5.515339304704355,
+      "mutants": [
+       [
+        "BOX1(THEM(ME))",
+        -5.515339304704355
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(THEM)):1.000",
+      "log10_rate": -5.519694681256614,
+      "mutants": [
+       [
+        "BOX1(THEM(THEM))",
+        -5.519694681256614
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(^C)):1.000",
+      "log10_rate": -5.7146858784743655,
+      "mutants": [
+       [
+        "BOX(THEM(^C))",
+        -5.7146858784743655
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "pcc": 0.0
+    }
+   },
+   {
+    "state": "BOX(THEM(ME)):1.000",
+    "pi": 0.004911683707269342,
+    "log10_pi": -2.3087696077891904,
+    "log10_exit": -2.8518341294143488,
+    "exits": [
+     {
+      "to": "C:1.000",
+      "log10_rate": -2.8523781440151668,
+      "mutants": [
+       [
+        "C",
+        -2.8523781440151668
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(ME)):1.000",
+      "log10_rate": -6.305300283237673,
+      "mutants": [
+       [
+        "BOX1(THEM(ME))",
+        -6.305300283237673
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(THEM)):1.000",
+      "log10_rate": -6.309655659789931,
+      "mutants": [
+       [
+        "BOX(THEM(THEM))",
+        -6.309655659789931
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(THEM)):1.000",
+      "log10_rate": -6.309655659789931,
+      "mutants": [
+       [
+        "BOX1(THEM(THEM))",
+        -6.309655659789931
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(^C)):1.000",
+      "log10_rate": -6.860880407087345,
+      "mutants": [
+       [
+        "BOX1(THEM(^C))",
+        -6.860880407087345
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "pcc": 1.0
+    }
+   },
+   {
+    "state": "BOX(THEM(THEM)):1.000",
+    "pi": 0.004862873250866906,
+    "log10_pi": -2.313107050021883,
+    "log10_exit": -2.8518326040172233,
+    "exits": [
+     {
+      "to": "C:1.000",
+      "log10_rate": -2.8523781440151668,
+      "mutants": [
+       [
+        "C",
+        -2.8523781440151668
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(ME)):1.000",
+      "log10_rate": -6.305300283237673,
+      "mutants": [
+       [
+        "BOX(THEM(ME))",
+        -6.305300283237673
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(ME)):1.000",
+      "log10_rate": -6.305300283237673,
+      "mutants": [
+       [
+        "BOX1(THEM(ME))",
+        -6.305300283237673
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(THEM)):1.000",
+      "log10_rate": -6.309655659789931,
+      "mutants": [
+       [
+        "BOX1(THEM(THEM))",
+        -6.309655659789931
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(^C)):1.000",
+      "log10_rate": -6.860880407087345,
+      "mutants": [
+       [
+        "BOX1(THEM(^C))",
+        -6.860880407087345
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "pcc": 1.0
+    }
+   },
+   {
+    "state": "BOX1(THEM(ME)):1.000",
+    "pi": 0.0021709816111794007,
+    "log10_pi": -2.66334385512556,
+    "log10_exit": -2.8518341294143488,
+    "exits": [
+     {
+      "to": "C:1.000",
+      "log10_rate": -2.8523781440151668,
+      "mutants": [
+       [
+        "C",
+        -2.8523781440151668
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(ME)):1.000",
+      "log10_rate": -6.305300283237673,
+      "mutants": [
+       [
+        "BOX(THEM(ME))",
+        -6.305300283237673
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(THEM)):1.000",
+      "log10_rate": -6.309655659789931,
+      "mutants": [
+       [
+        "BOX(THEM(THEM))",
+        -6.309655659789931
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(THEM)):1.000",
+      "log10_rate": -6.309655659789931,
+      "mutants": [
+       [
+        "BOX1(THEM(THEM))",
+        -6.309655659789931
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(^C)):1.000",
+      "log10_rate": -6.860880407087345,
+      "mutants": [
+       [
+        "BOX1(THEM(^C))",
+        -6.860880407087345
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "pcc": 1.0
+    }
+   },
+   {
+    "state": "BOX1(THEM(THEM)):1.000",
+    "pi": 0.001467087955844506,
+    "log10_pi": -2.8335438482611215,
+    "log10_exit": -2.6819064418141436,
+    "exits": [
+     {
+      "to": "C:1.000",
+      "log10_rate": -2.8523781440151668,
+      "mutants": [
+       [
+        "C",
+        -2.8523781440151668
+       ]
+      ]
+     },
+     {
+      "to": "not(BOX(THEM(THEM))):1.000",
+      "log10_rate": -3.4998164057839487,
+      "mutants": [
+       [
+        "not(BOX(THEM(THEM)))",
+        -3.4998164057839487
+       ]
+      ]
+     },
+     {
+      "to": "not(BOX(THEM(ME))):1.000",
+      "log10_rate": -3.4998164057839487,
+      "mutants": [
+       [
+        "not(BOX(THEM(ME)))",
+        -3.4998164057839487
+       ]
+      ]
+     },
+     {
+      "to": "not(BOX(THEM(^C))):1.000",
+      "log10_rate": -4.388996992951972,
+      "mutants": [
+       [
+        "not(BOX(THEM(^C)))",
+        -4.388996992951972
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(ME)):1.000",
+      "log10_rate": -6.305300283237673,
+      "mutants": [
+       [
+        "BOX(THEM(ME))",
+        -6.305300283237673
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "pcc": 1.0
+    }
+   },
+   {
+    "state": "BOX(THEM(^C)):1.000",
+    "pi": 0.0008908173002936104,
+    "log10_pi": -3.050211357254196,
+    "log10_exit": -2.6658368709819573,
+    "exits": [
+     {
+      "to": "C:1.000",
+      "log10_rate": -2.8523781440151668,
+      "mutants": [
+       [
+        "C",
+        -2.8523781440151668
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(^D)):1.000",
+      "log10_rate": -3.454735140192138,
+      "mutants": [
+       [
+        "BOX(THEM(^D))",
+        -3.454735140192138
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(^D)):1.000",
+      "log10_rate": -3.454736255115931,
+      "mutants": [
+       [
+        "BOX1(THEM(^D))",
+        -3.454736255115931
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(^BOXD(THEM(ME)))):1.000",
+      "log10_rate": -4.903923192423717,
+      "mutants": [
+       [
+        "BOX(THEM(^BOXD(THEM(ME))))",
+        -4.903923192423717
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(^BOXD(THEM(ME)))):1.000",
+      "log10_rate": -4.903923192423717,
+      "mutants": [
+       [
+        "BOX1(THEM(^BOXD(THEM(ME))))",
+        -4.903923192423717
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "pcc": 1.0
+    }
+   },
+   {
+    "state": "BOX1(THEM(^C)):1.000",
+    "pi": 0.0003948530374362965,
+    "log10_pi": -3.4035645167955324,
+    "log10_exit": -2.6670794622979166,
+    "exits": [
+     {
+      "to": "C:1.000",
+      "log10_rate": -2.8523781440151668,
+      "mutants": [
+       [
+        "C",
+        -2.8523781440151668
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(^D)):1.000",
+      "log10_rate": -3.4585677037516835,
+      "mutants": [
+       [
+        "BOX(THEM(^D))",
+        -3.4585677037516835
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(^D)):1.000",
+      "log10_rate": -3.458568845342033,
+      "mutants": [
+       [
+        "BOX1(THEM(^D))",
+        -3.458568845342033
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(^BOXD(THEM(ME)))):1.000",
+      "log10_rate": -4.903923192423717,
+      "mutants": [
+       [
+        "BOX(THEM(^BOXD(THEM(ME))))",
+        -4.903923192423717
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(^BOXD(THEM(ME)))):1.000",
+      "log10_rate": -4.903923192423717,
+      "mutants": [
+       [
+        "BOX1(THEM(^BOXD(THEM(ME))))",
+        -4.903923192423717
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "pcc": 1.0
+    }
+   },
+   {
+    "state": "C:1.000",
+    "pi": 0.00016914040709995915,
+    "log10_pi": -3.7717526284506007,
+    "log10_exit": -0.8878680685806164,
+    "exits": [
+     {
+      "to": "D:1.000",
+      "log10_rate": -0.9151691734865928,
+      "mutants": [
+       [
+        "D",
+        -0.9151691734865928
+       ]
+      ]
+     },
+     {
+      "to": "BOXD(THEM(ME)):1.000",
+      "log10_rate": -2.901327244836635,
+      "mutants": [
+       [
+        "BOXD(THEM(ME))",
+        -2.901327244836635
+       ]
+      ]
+     },
+     {
+      "to": "BOXD(THEM(THEM)):1.000",
+      "log10_rate": -2.903510392894724,
+      "mutants": [
+       [
+        "BOXD(THEM(THEM))",
+        -2.903510392894724
+       ]
+      ]
+     },
+     {
+      "to": "BOXD1(THEM(ME)):1.000",
+      "log10_rate": -2.9051609499865303,
+      "mutants": [
+       [
+        "BOXD1(THEM(ME))",
+        -2.9051609499865303
+       ]
+      ]
+     },
+     {
+      "to": "BOXD1(THEM(THEM)):1.000",
+      "log10_rate": -2.9073440980446192,
+      "mutants": [
+       [
+        "BOXD1(THEM(THEM))",
+        -2.9073440980446192
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "pcc": 1.0
+    }
+   },
+   {
+    "state": "BOX(THEM(^BOX1(THEM(ME)))):1.000",
+    "pi": 4.901314045491044e-05,
+    "log10_pi": -4.309687469726855,
+    "log10_exit": -2.851682812624127,
+    "exits": [
+     {
+      "to": "C:1.000",
+      "log10_rate": -2.8523781440151668,
+      "mutants": [
+       [
+        "C",
+        -2.8523781440151668
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(ME)):1.000",
+      "log10_rate": -6.305300283237673,
+      "mutants": [
+       [
+        "BOX(THEM(ME))",
+        -6.305300283237673
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(ME)):1.000",
+      "log10_rate": -6.305300283237673,
+      "mutants": [
+       [
+        "BOX1(THEM(ME))",
+        -6.305300283237673
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(THEM)):1.000",
+      "log10_rate": -6.309655659789931,
+      "mutants": [
+       [
+        "BOX(THEM(THEM))",
+        -6.309655659789931
+       ]
+      ]
+     },
+     {
+      "to": "BOX1(THEM(THEM)):1.000",
+      "log10_rate": -6.309655659789931,
+      "mutants": [
+       [
+        "BOX1(THEM(THEM))",
+        -6.309655659789931
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "pcc": 1.0
+    }
+   },
+   {
+    "state": "not(BOXD(THEM(^C))):1.000",
+    "pi": 2.665113598904958e-05,
+    "log10_pi": -4.574284274695152,
+    "log10_exit": -1.8190271278726404,
+    "exits": [
+     {
+      "to": "C:1.000",
+      "log10_rate": -2.378182294150809,
+      "mutants": [
+       [
+        "C",
+        -2.378182294150809
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(ME)):1.000",
+      "log10_rate": -2.8878160499314256,
+      "mutants": [
+       [
+        "BOX(THEM(ME))",
+        -2.8878160499314256
+       ]
+      ]
+     },
+     {
+      "to": "BOX(THEM(THEM)):1.000",
+      "log10_rate": -2.892171426483684,
+      "mutants": [
+       [
+        "BOX(THEM(THEM))",
+        -2.892171426483684
+       ]
+      ]
+     },
+     {
+      "to": "BOXD(THEM(ME)):1.000",
+      "log10_rate": -2.8937939376998925,
+      "mutants": [
+       [
+        "BOXD(THEM(ME))",
+        -2.8937939376998925
+       ]
+      ]
+     },
+     {
+      "to": "BOXD1(THEM(ME)):1.000",
+      "log10_rate": -2.8937950017624043,
+      "mutants": [
+       [
+        "BOXD1(THEM(ME))",
+        -2.8937950017624043
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "pcc": 1.0
+    }
+   }
+  ],
+  "time_s": 35.09887218475342,
+  "resid": 2.842170943040401e-14
+ },
+ "deep_states": [
+  {
+   "state": "D:1.0000",
+   "size": 1,
+   "tier": "deep",
+   "mass_sum": 0.4689773627879541,
+   "mass_min": 0.4689773627879541,
+   "max_inv": -0.010000000000000009,
+   "deep_pen": true,
+   "in_published_explored": true,
+   "in_published_recurrent": true,
+   "resolve_pi": 0.9849898207003573,
+   "resolve_log10_pi": -0.00656825766127927,
+   "resolve_recurrent": true,
+   "stat": {
+    "pcc": 0.0
+   }
+  }
+ ],
+ "deep_mutant_lists": [
+  {
+   "state": "D:1.0000",
+   "outside": [
+    [
+     "not(BOXD1(THEM(^D)))",
+     -0.010000000000000009,
+     0.00015747760883286872
+    ],
+    [
+     "not(BOXD(THEM(ME)))",
+     -0.010000000000000009,
+     0.0012201111583902947
+    ],
+    [
+     "not(BOXD1(THEM(^C)))",
+     -0.010000000000000009,
+     0.00015747760883286872
+    ],
+    [
+     "not(BOXD1(THEM(ME)))",
+     -0.010000000000000009,
+     0.0012201111583902947
+    ],
+    [
+     "not(BOXD1(THEM(THEM)))",
+     -0.010000000000000009,
+     0.0012201111583902947
+    ],
+    [
+     "not(BOXD(THEM(^D)))",
+     -0.010000000000000009,
+     0.00015747760883286872
+    ],
+    [
+     "not(BOXD(THEM(THEM)))",
+     -0.010000000000000009,
+     0.0012201111583902947
+    ],
+    [
+     "not(BOXD(THEM(^C)))",
+     -0.010000000000000009,
+     0.00015747760883286872
+    ],
+    [
+     "BOX(THEM(^BOXD1(THEM(ME))))",
+     -0.020000000000000018,
+     4.94043563773366e-05
+    ],
+    [
+     "BOX(THEM(^D))",
+     -0.020000000000000018,
+     0.0013775887672231634
+    ],
+    [
+     "BOX(THEM(THEM))",
+     -0.020000000000000018,
+     0.004901673055810318
+    ],
+    [
+     "BOX(THEM(^BOX1(THEM(ME))))",
+     -0.020000000000000018,
+     4.94043563773366e-05
+    ],
+    [
+     "BOX(THEM(^BOXD(THEM(ME))))",
+     -0.020000000000000018,
+     4.94043563773366e-05
+    ],
+    [
+     "BOX(THEM(ME))",
+     -0.020000000000000018,
+     0.004951077412187655
+    ],
+    [
+     "BOX(THEM(^C))",
+     -0.020000000000000018,
+     0.0013775887672231634
+    ],
+    [
+     "BOX1(THEM(THEM))",
+     -0.030000000000000027,
+     0.004901673055810318
+    ],
+    [
+     "BOX1(THEM(^C))",
+     -0.030000000000000027,
+     0.0013775887672231634
+    ],
+    [
+     "BOX1(THEM(^D))",
+     -0.030000000000000027,
+     0.0013775887672231634
+    ],
+    [
+     "BOX1(THEM(ME))",
+     -0.030000000000000027,
+     0.004951077412187655
+    ],
+    [
+     "BOX1(THEM(^BOX(THEM(ME))))",
+     -0.030000000000000027,
+     4.94043563773366e-05
+    ],
+    [
+     "BOX1(THEM(^BOXD1(THEM(ME))))",
+     -0.030000000000000027,
+     4.94043563773366e-05
+    ],
+    [
+     "BOX1(THEM(^BOXD(THEM(ME))))",
+     -0.030000000000000027,
+     4.94043563773366e-05
+    ],
+    [
+     "C",
+     -1.0,
+     0.4689773627879541
+    ],
+    [
+     "BOXD(THEM(^BOX1(THEM(ME))))",
+     -1.0099999999999998,
+     2.47021781886683e-05
+    ],
+    [
+     "BOXD(THEM(^BOX1(THEM(THEM))))",
+     -1.0099999999999998,
+     2.47021781886683e-05
+    ],
+    [
+     "BOXD(THEM(^BOX(THEM(ME))))",
+     -1.0099999999999998,
+     4.94043563773366e-05
+    ],
+    [
+     "BOXD(THEM(^BOXD1(THEM(ME))))",
+     -1.0099999999999998,
+     2.47021781886683e-05
+    ],
+    [
+     "BOXD(THEM(^BOXD1(THEM(THEM))))",
+     -1.0099999999999998,
+     2.47021781886683e-05
+    ],
+    [
+     "BOXD1(THEM(^BOXD(THEM(ME))))",
+     -1.0099999999999998,
+     2.47021781886683e-05
+    ],
+    [
+     "BOXD1(THEM(^BOXD(THEM(THEM))))",
+     -1.0099999999999998,
+     2.47021781886683e-05
+    ],
+    [
+     "BOXD1(THEM(^BOX1(THEM(ME))))",
+     -1.0099999999999998,
+     2.47021781886683e-05
+    ],
+    [
+     "BOXD1(THEM(^BOX(THEM(ME))))",
+     -1.0099999999999998,
+     4.94043563773366e-05
+    ],
+    [
+     "BOXD(THEM(^BOXD(THEM(THEM))))",
+     -1.0099999999999998,
+     2.47021781886683e-05
+    ],
+    [
+     "BOXD1(THEM(^BOXD1(THEM(THEM))))",
+     -1.0099999999999998,
+     2.47021781886683e-05
+    ],
+    [
+     "BOXD1(THEM(^C))",
+     -1.0099999999999998,
+     0.0013775887672231634
+    ],
+    [
+     "BOXD(THEM(ME))",
+     -1.0099999999999998,
+     0.004926375233998986
+    ],
+    [
+     "BOXD1(THEM(^BOX1(THEM(THEM))))",
+     -1.0099999999999998,
+     2.47021781886683e-05
+    ],
+    [
+     "BOXD1(THEM(ME))",
+     -1.0099999999999998,
+     0.004926375233998986
+    ],
+    [
+     "BOXD(THEM(THEM))",
+     -1.0099999999999998,
+     0.004901673055810318
+    ],
+    [
+     "BOXD1(THEM(THEM))",
+     -1.0099999999999998,
+     0.004901673055810318
+    ],
+    [
+     "BOXD(THEM(^C))",
+     -1.0099999999999998,
+     0.0013775887672231634
+    ],
+    [
+     "BOXD1(THEM(^D))",
+     -1.0099999999999998,
+     0.0013775887672231634
+    ],
+    [
+     "BOXD(THEM(^D))",
+     -1.0099999999999998,
+     0.0013775887672231634
+    ],
+    [
+     "not(BOX(THEM(^C)))",
+     -1.02,
+     0.00015747760883286872
+    ],
+    [
+     "not(BOX(THEM(ME)))",
+     -1.02,
+     0.0012201111583902947
+    ],
+    [
+     "not(BOX(THEM(THEM)))",
+     -1.02,
+     0.0012201111583902947
+    ],
+    [
+     "not(BOX(THEM(^D)))",
+     -1.02,
+     0.00015747760883286872
+    ],
+    [
+     "not(BOX1(THEM(ME)))",
+     -1.0299999999999998,
+     0.0012201111583902947
+    ],
+    [
+     "not(BOX1(THEM(THEM)))",
+     -1.0299999999999998,
+     0.0012201111583902947
+    ],
+    [
+     "not(BOX1(THEM(^D)))",
+     -1.0299999999999998,
+     0.00015747760883286872
+    ],
+    [
+     "not(BOX1(THEM(^C)))",
+     -1.0299999999999998,
+     0.00015747760883286872
+    ]
+   ]
+  }
+ ],
+ "discrepancy": {
+  "pcc": -3.7779453119710094e-06
+ },
+ "discrepancy_vs_rerun": {
+  "pcc": 2.622176752294092e-07
+ },
+ "time_s": 36.79550790786743
+}

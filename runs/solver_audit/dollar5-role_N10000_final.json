@@ -1,0 +1,4819 @@
+{
+ "cell": "dollar5-role",
+ "N": 10000,
+ "K": 140,
+ "chain_kw": {
+  "w": 0.3,
+  "theta": 1e-07,
+  "max_states": 30000
+ },
+ "published": {
+  "eff": 0.9682,
+  "half": 0.8062
+ },
+ "discovery_keep_all": true,
+ "discovery": {
+  "counts": {
+   "stable_size1": 140,
+   "stable_size1_noadv": 8,
+   "singletons": 140,
+   "pairs_tested": 9730,
+   "pairs_neutral_line": 660,
+   "pairs_unstable_interior": 1077,
+   "pairs_stable": 2748,
+   "stable_size2": 2748,
+   "stable_size2_noadv": 2,
+   "triples_tested": 447580,
+   "triples_singular": 38918,
+   "triples_interior": 67742,
+   "triples_stable": 13590,
+   "triples_center": 19,
+   "triples_unstable_or_neutral": 54133,
+   "stable_size3": 13590,
+   "stable_size3_noadv": 2,
+   "closure": {
+    "nodes_full": 6000,
+    "complete_full": false,
+    "nodes_branch2": 18000,
+    "complete_branch2": false,
+    "saturated": 23,
+    "added": 12,
+    "added_by_size": {
+     "2": 4,
+     "3": 0,
+     "4": 4,
+     "5": 3,
+     "6": 1,
+     "7": 0,
+     "8": 0
+    },
+    "time_s": 498.01463890075684
+   }
+  },
+  "pool_K": 140,
+  "triples": true,
+  "n_candidates": 16509,
+  "n_stable": 16484,
+  "n_center": 19,
+  "n_deep": 0,
+  "n_deep_mod_twins": 4,
+  "n_deep_penalty_only": 2,
+  "n_deep_pen_total": 6,
+  "deep_by_size": {
+   "deep": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0
+   },
+   "deep_mod_twins": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 2,
+    "5": 2,
+    "6": 0,
+    "7": 0,
+    "8": 0
+   },
+   "deep_penalty_only": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 2,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0
+   }
+  },
+  "deep_mass_sum_max": 0.0,
+  "deep_any_mass_sum_max": 0.1428562359661677,
+  "time_s": 498.80106687545776,
+  "deep_in_published_explored": 2,
+  "deep_missed": 4,
+  "deep_missed_mass_sum": 0.012016738269375903,
+  "published_recurrent_not_candidates": [
+   [
+    "S2:0.167 + S4:0.500 + flip(THEM(ME)):0.067 + flip(THEM(^S5)):0.267",
+    0.00038758894372908887
+   ],
+   [
+    "S2:0.167 + S4:0.500 + flip(THEM(THEM)):0.067 + flip(THEM(^S5)):0.267",
+    0.0004392344708345445
+   ]
+  ],
+  "missed_detail": [
+   {
+    "tier": "deep_mod_twins",
+    "state": "max(S4,ROLE):0.550 + flip(min(S4,ROLE)):0.100 + flip(THEM(THEM)):0.117 + flip(THEM(^S2)):0.058 + flip(THEM(^S4)):0.175",
+    "mass_sum": 0.003008190674654571,
+    "resolve_pi": 0.5261386630693448,
+    "log10_best_path_from_published_top": -44.6021927225238
+   },
+   {
+    "tier": "deep_mod_twins",
+    "state": "max(S4,ROLE):0.550 + flip(min(S4,ROLE)):0.100 + flip(THEM(ME)):0.117 + flip(THEM(^S2)):0.058 + flip(THEM(^S4)):0.175",
+    "mass_sum": 0.003008190674654571,
+    "resolve_pi": 0.47385981972731556,
+    "log10_best_path_from_published_top": -44.6021927225238
+   },
+   {
+    "tier": "deep_penalty_only",
+    "state": "max(S4,ROLE):0.577 + flip(min(S4,ROLE)):0.154 + flip(THEM(THEM)):0.054 + flip(THEM(^S5)):0.215",
+    "mass_sum": 0.003000178460033381,
+    "resolve_pi": 1.9165466560887974e-10,
+    "log10_best_path_from_published_top": -37.406051137287704
+   },
+   {
+    "tier": "deep_penalty_only",
+    "state": "max(S4,ROLE):0.577 + flip(min(S4,ROLE)):0.154 + flip(THEM(ME)):0.054 + flip(THEM(^S5)):0.215",
+    "mass_sum": 0.003000178460033381,
+    "resolve_pi": 1.4152831791509682e-12,
+    "log10_best_path_from_published_top": -37.406051137287704
+   }
+  ]
+ },
+ "published_rerun": {
+  "stat": {
+   "eff": 0.9682435622880318,
+   "half": 0.806203618550983,
+   "third": 0.06483532128208486,
+   "sixth": 0.09720462245496343,
+   "clash": 0.026311814024338576,
+   "ineff": 0.005444623687629493
+  },
+  "n_expanded": 252,
+  "n_states": 3432,
+  "cut_flow": 6.124216654959429e-10,
+  "near_closed": 0,
+  "n_terminal": 1,
+  "indeterminate": 3,
+  "absorb_error": 4.440892098500626e-16,
+  "time_s": 119.56895685195923,
+  "top": [
+   [
+    "S3:1.000",
+    0.8014070725229766
+   ],
+   [
+    "max(S2,min(S4,ROLE)):1.000",
+    0.06395424225518098
+   ],
+   [
+    "ROLE:1.000",
+    0.05474312398129299
+   ],
+   [
+    "S5:0.667 + flip(THEM(^S3)):0.333",
+    0.035068164911337574
+   ],
+   [
+    "S5:0.667 + flip(THEM(^ROLE)):0.333",
+    0.023377463113920142
+   ],
+   [
+    "flip(ROLE):1.000",
+    0.01300028446941235
+   ],
+   [
+    "max(THEM(THEM),S5):1.000",
+    0.003523804508931228
+   ],
+   [
+    "max(THEM(ME),S5):1.000",
+    0.0016431713859628907
+   ]
+  ]
+ },
+ "rates": {
+  "same_explored_set": true,
+  "n_edges": 34637,
+  "max_abs_log_err": 0.39932594088088535,
+  "n_underflow": 545,
+  "n_denormal": 96,
+  "worst": [
+   0.39932594088088535,
+   "S2:0.511 + max(S4,min(X,X)):0.489",
+   "S1:1.000"
+  ],
+  "time_s": 115.71988725662231
+ },
+ "solver": {
+  "log_gth_stat": {
+   "eff": 0.9682435619974725,
+   "half": 0.8062035977453234,
+   "third": 0.06483531989048189,
+   "sixth": 0.0972046443616672,
+   "clash": 0.026311814042527235,
+   "ineff": 0.005444623960000388
+  },
+  "linear_stat": {
+   "eff": 0.9682435622880318,
+   "half": 0.806203618550983,
+   "third": 0.06483532128208486,
+   "sixth": 0.09720462245496343,
+   "clash": 0.026311814024338576,
+   "ineff": 0.005444623687629493
+  },
+  "linear_near_closed": 0,
+  "linear_terminal": 1,
+  "log_closed": {
+   "n_components": 1,
+   "n_closed": 1
+  },
+  "tv": 2.2608534399935458e-08,
+  "resid_linear": 0.023680406973284107,
+  "resid_log": 3.907985046680551e-14,
+  "top_log": [
+   [
+    "S3:1.000",
+    0.8014070517253
+   ],
+   [
+    "max(S2,min(S4,ROLE)):1.000",
+    0.06395424061335923
+   ],
+   [
+    "ROLE:1.000",
+    0.05474314155215753
+   ],
+   [
+    "S5:0.667 + flip(THEM(^S3)):0.333",
+    0.0350681648416133
+   ],
+   [
+    "S5:0.667 + flip(THEM(^ROLE)):0.333",
+    0.023377463067453072
+   ],
+   [
+    "flip(ROLE):1.000",
+    0.013000288859759242
+   ]
+  ]
+ },
+ "published_recurrent": [
+  {
+   "state": "THEM(^flip(ROLE)):1.000",
+   "size": 1,
+   "pi": 4.702091186159496e-05,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 2,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "S3",
+    "flip(THEM(ME))"
+   ]
+  },
+  {
+   "state": "S3:1.000",
+   "size": 1,
+   "pi": 0.8014070725229766,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 27,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "THEM(ME)",
+    "THEM(THEM)",
+    "THEM(^S4)",
+    "THEM(^X)",
+    "THEM(^S5)",
+    "THEM(^S3)",
+    "THEM(^S2)",
+    "THEM(^S1)"
+   ]
+  },
+  {
+   "state": "THEM(^ROLE):1.000",
+   "size": 1,
+   "pi": 0.0008083615372680534,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 3,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "S3",
+    "flip(THEM(ME))",
+    "flip(THEM(^ROLE))"
+   ]
+  },
+  {
+   "state": "THEM(^S3):1.000",
+   "size": 1,
+   "pi": 0.000855455039569334,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 14,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "S3",
+    "THEM(ME)",
+    "THEM(THEM)",
+    "flip(THEM(THEM))",
+    "flip(THEM(ME))",
+    "min(S4,THEM(THEM))",
+    "max(S2,THEM(ME))",
+    "max(S2,THEM(THEM))"
+   ]
+  },
+  {
+   "state": "ROLE:1.000",
+   "size": 1,
+   "pi": 0.05474312398129299,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 9,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "flip(THEM(THEM))",
+    "flip(THEM(ME))",
+    "flip(THEM(^S1))",
+    "flip(THEM(^ROLE))",
+    "flip(THEM(^S2))",
+    "flip(THEM(^S3))",
+    "flip(THEM(^S4))",
+    "flip(THEM(^S5))"
+   ]
+  },
+  {
+   "state": "S5:0.667 + flip(THEM(^S3)):0.333",
+   "size": 2,
+   "pi": 0.035068164911337574,
+   "tier": "non-deep",
+   "max_inv": 1.111188889996173e-05,
+   "n_neutral": 0,
+   "n_adv": 2,
+   "neutral_mutants": []
+  },
+  {
+   "state": "max(THEM(THEM),S5):1.000",
+   "size": 1,
+   "pi": 0.003523804508931228,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 36,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "S1",
+    "THEM(ME)",
+    "THEM(THEM)",
+    "flip(THEM(THEM))",
+    "flip(THEM(ME))",
+    "min(THEM(ME),S1)",
+    "min(S4,THEM(THEM))",
+    "max(S4,THEM(THEM))"
+   ]
+  },
+  {
+   "state": "max(THEM(ME),S5):1.000",
+   "size": 1,
+   "pi": 0.0016431713859628907,
+   "tier": "non-deep",
+   "max_inv": 0.10000000000000003,
+   "n_neutral": 37,
+   "n_adv": 1,
+   "neutral_mutants": [
+    "S1",
+    "THEM(ME)",
+    "THEM(THEM)",
+    "flip(THEM(THEM))",
+    "flip(THEM(ME))",
+    "min(THEM(ME),S1)",
+    "min(S4,THEM(THEM))",
+    "max(S4,THEM(THEM))"
+   ]
+  },
+  {
+   "state": "max(THEM(ME),S5):0.727 + max(X,THEM(THEM)):0.273",
+   "size": 2,
+   "pi": 1.423663105634169e-05,
+   "tier": "non-deep",
+   "max_inv": 0.1090772730247884,
+   "n_neutral": 0,
+   "n_adv": 11,
+   "neutral_mutants": []
+  },
+  {
+   "state": "S5:0.667 + flip(THEM(^ROLE)):0.333",
+   "size": 2,
+   "pi": 0.023377463113920142,
+   "tier": "non-deep",
+   "max_inv": 1.111188889996173e-05,
+   "n_neutral": 0,
+   "n_adv": 2,
+   "neutral_mutants": []
+  },
+  {
+   "state": "S2:0.500 + S4:0.500",
+   "size": 2,
+   "pi": 2.0431393461844613e-05,
+   "tier": "non-deep",
+   "max_inv": 0.16666666674999997,
+   "n_neutral": 5,
+   "n_adv": 9,
+   "neutral_mutants": [
+    "max(S2,min(S4,ROLE))",
+    "max(S4,THEM(THEM))",
+    "min(S2,THEM(THEM))",
+    "min(S2,THEM(ME))",
+    "max(S4,THEM(ME))"
+   ]
+  },
+  {
+   "state": "S2:0.167 + S4:0.500 + flip(THEM(ME)):0.333",
+   "size": 3,
+   "pi": 0.00011456955284014292,
+   "tier": "non-deep",
+   "max_inv": 0.22221111141670008,
+   "n_neutral": 0,
+   "n_adv": 8,
+   "neutral_mutants": []
+  },
+  {
+   "state": "S2:0.167 + S4:0.500 + flip(THEM(ME)):0.067 + flip(THEM(^S5)):0.267",
+   "size": 4,
+   "pi": 0.00038758894372908887,
+   "tier": "non-deep",
+   "max_inv": 0.011106668329968927,
+   "n_neutral": 0,
+   "n_adv": 3,
+   "neutral_mutants": []
+  },
+  {
+   "state": "S2:0.167 + S4:0.500 + flip(THEM(THEM)):0.333",
+   "size": 3,
+   "pi": 0.00012978410004216802,
+   "tier": "non-deep",
+   "max_inv": 0.22221111141670008,
+   "n_neutral": 0,
+   "n_adv": 8,
+   "neutral_mutants": []
+  },
+  {
+   "state": "S2:0.167 + S4:0.500 + flip(THEM(THEM)):0.067 + flip(THEM(^S5)):0.267",
+   "size": 4,
+   "pi": 0.0004392344708345445,
+   "tier": "non-deep",
+   "max_inv": 0.011106668329968927,
+   "n_neutral": 0,
+   "n_adv": 2,
+   "neutral_mutants": []
+  },
+  {
+   "state": "S2:0.333 + max(S4,THEM(THEM)):0.667",
+   "size": 2,
+   "pi": 0.0002459181567624006,
+   "tier": "non-deep",
+   "max_inv": 0.1111111114444,
+   "n_neutral": 0,
+   "n_adv": 6,
+   "neutral_mutants": []
+  },
+  {
+   "state": "max(S4,THEM(THEM)):0.500 + flip(THEM(^S3)):0.500",
+   "size": 2,
+   "pi": 0.00016318617535213042,
+   "tier": "non-deep",
+   "max_inv": 0.08333333325000003,
+   "n_neutral": 4,
+   "n_adv": 2,
+   "neutral_mutants": [
+    "S5",
+    "max(S4,THEM(ME))",
+    "max(THEM(ME),ROLE)",
+    "max(THEM(THEM),ROLE)"
+   ]
+  },
+  {
+   "state": "max(S2,min(S4,ROLE)):1.000",
+   "size": 1,
+   "pi": 0.06395424225518098,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 9,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "flip(THEM(THEM))",
+    "flip(THEM(ME))",
+    "flip(THEM(^S1))",
+    "flip(THEM(^ROLE))",
+    "flip(THEM(^S2))",
+    "flip(THEM(^S3))",
+    "flip(THEM(^S4))",
+    "flip(THEM(^S5))"
+   ]
+  },
+  {
+   "state": "S2:0.333 + max(S4,THEM(ME)):0.667",
+   "size": 2,
+   "pi": 3.1997674440634524e-05,
+   "tier": "non-deep",
+   "max_inv": 0.1111111114444,
+   "n_neutral": 0,
+   "n_adv": 6,
+   "neutral_mutants": []
+  },
+  {
+   "state": "max(S4,THEM(ME)):0.500 + flip(THEM(^S3)):0.500",
+   "size": 2,
+   "pi": 2.1297532202576804e-05,
+   "tier": "non-deep",
+   "max_inv": 0.08333333325000003,
+   "n_neutral": 4,
+   "n_adv": 2,
+   "neutral_mutants": [
+    "S5",
+    "max(S4,THEM(THEM))",
+    "max(THEM(ME),ROLE)",
+    "max(THEM(THEM),ROLE)"
+   ]
+  },
+  {
+   "state": "flip(ROLE):1.000",
+   "size": 1,
+   "pi": 0.01300028446941235,
+   "tier": "non-deep",
+   "max_inv": 0.0,
+   "n_neutral": 9,
+   "n_adv": 0,
+   "neutral_mutants": [
+    "flip(THEM(THEM))",
+    "flip(THEM(ME))",
+    "flip(THEM(^S1))",
+    "flip(THEM(^ROLE))",
+    "flip(THEM(^S2))",
+    "flip(THEM(^S3))",
+    "flip(THEM(^S4))",
+    "flip(THEM(^S5))"
+   ]
+  }
+ ],
+ "resolve": {
+  "stat": {
+   "eff": 0.5849162770897354,
+   "half": 1.1338032922282867e-06,
+   "third": 0.3573925461500835,
+   "sixth": 0.2275225971363583,
+   "clash": 0.39808174383734696,
+   "ineff": 0.01700197907292006
+  },
+  "n_states": 733,
+  "n_seeded": 122,
+  "n_seeded_traps": 10,
+  "seeds_all_stable": false,
+  "log10_cut": -16.373237490800044,
+  "n_cand_left": 0,
+  "closed": {
+   "n_components": 1,
+   "n_closed": 1,
+   "closed_sizes": [
+    733
+   ],
+   "n_expanded": 733,
+   "n_recurrent": 733
+  },
+  "mass_deep": 0.0,
+  "mass_deep_any": {
+   "deep": 0.0,
+   "deep_mod_twins": 0.9999984845641949,
+   "deep_penalty_only": 1.930699487880307e-10
+  },
+  "mass_poly": 0.9999986062118965,
+  "indeterminate": 57,
+  "twin_moves": 0,
+  "twins": false,
+  "est_floor": false,
+  "n_floored": 0,
+  "support": [
+   {
+    "state": "max(S4,ROLE):0.550 + flip(min(S4,ROLE)):0.100 + flip(THEM(THEM)):0.117 + flip(THEM(^S2)):0.058 + flip(THEM(^S4)):0.175",
+    "pi": 0.5261386630693448,
+    "log10_pi": -0.278899783090297,
+    "log10_exit": -18.52573269052095,
+    "exits": [
+     {
+      "to": "S3:1.000",
+      "log10_rate": -18.525876630008536,
+      "mutants": [
+       [
+        "S3",
+        -18.525876630008536
+       ]
+      ]
+     },
+     {
+      "to": "flip(ROLE):1.000",
+      "log10_rate": -22.013669055613555,
+      "mutants": [
+       [
+        "flip(ROLE)",
+        -22.013669055613555
+       ]
+      ]
+     },
+     {
+      "to": "ROLE:1.000",
+      "log10_rate": -23.92226552957483,
+      "mutants": [
+       [
+        "ROLE",
+        -23.92226552957483
+       ]
+      ]
+     },
+     {
+      "to": "max(S2,min(S4,ROLE)):1.000",
+      "log10_rate": -24.1830282865677,
+      "mutants": [
+       [
+        "max(S2,min(S4,ROLE))",
+        -24.1830282865677
+       ]
+      ]
+     },
+     {
+      "to": "max(S4,ROLE):0.577 + flip(min(S4,ROLE)):0.154 + flip(THEM(THEM)):0.054 + flip(THEM(^S5)):0.215",
+      "log10_rate": -26.214753773723128,
+      "mutants": [
+       [
+        "flip(THEM(^S5))",
+        -26.214753773723128
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.584916,
+     "half": 0.0,
+     "third": 0.357393,
+     "sixth": 0.227523,
+     "clash": 0.398082,
+     "ineff": 0.017002
+    }
+   },
+   {
+    "state": "max(S4,ROLE):0.550 + flip(min(S4,ROLE)):0.100 + flip(THEM(ME)):0.117 + flip(THEM(^S2)):0.058 + flip(THEM(^S4)):0.175",
+    "pi": 0.47385981972731556,
+    "log10_pi": -0.3243501151252756,
+    "log10_exit": -18.525621840026034,
+    "exits": [
+     {
+      "to": "S3:1.000",
+      "log10_rate": -18.525876630008536,
+      "mutants": [
+       [
+        "S3",
+        -18.525876630008536
+       ]
+      ]
+     },
+     {
+      "to": "flip(ROLE):1.000",
+      "log10_rate": -22.013669055613555,
+      "mutants": [
+       [
+        "flip(ROLE)",
+        -22.013669055613555
+       ]
+      ]
+     },
+     {
+      "to": "THEM(^S2):1.000",
+      "log10_rate": -22.118723938918524,
+      "mutants": [
+       [
+        "THEM(^S2)",
+        -22.118723938918524
+       ]
+      ]
+     },
+     {
+      "to": "ROLE:1.000",
+      "log10_rate": -23.92226552957483,
+      "mutants": [
+       [
+        "ROLE",
+        -23.92226552957483
+       ]
+      ]
+     },
+     {
+      "to": "max(S2,min(S4,ROLE)):1.000",
+      "log10_rate": -24.1830282865677,
+      "mutants": [
+       [
+        "max(S2,min(S4,ROLE))",
+        -24.1830282865677
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.584916,
+     "half": 0.0,
+     "third": 0.357393,
+     "sixth": 0.227523,
+     "clash": 0.398082,
+     "ineff": 0.017002
+    }
+   },
+   {
+    "state": "S3:1.000",
+    "pi": 1.1269361169660734e-06,
+    "log10_pi": -5.948100702263987,
+    "log10_exit": -7.512084968509822,
+    "exits": [
+     {
+      "to": "THEM(^S3):1.000",
+      "log10_rate": -7.836354079704948,
+      "mutants": [
+       [
+        "THEM(^S3)",
+        -7.836354079704948
+       ]
+      ]
+     },
+     {
+      "to": "THEM(^ROLE):1.000",
+      "log10_rate": -7.8609073742956985,
+      "mutants": [
+       [
+        "THEM(^ROLE)",
+        -7.8609073742956985
+       ]
+      ]
+     },
+     {
+      "to": "THEM(^flip(ROLE)):1.000",
+      "log10_rate": -9.096247425884934,
+      "mutants": [
+       [
+        "THEM(^flip(ROLE))",
+        -9.096247425884934
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(^ROLE)):1.000",
+      "log10_rate": -9.096247425884934,
+      "mutants": [
+       [
+        "flip(THEM(^ROLE))",
+        -9.096247425884934
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(^S3)):1.000",
+      "log10_rate": -9.096247425884934,
+      "mutants": [
+       [
+        "flip(THEM(^S3))",
+        -9.096247425884934
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 1.0,
+     "half": 1.0,
+     "third": 0.0,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "max(S2,min(S4,ROLE)):1.000",
+    "pi": 1.1785801298697457e-07,
+    "log10_pi": -6.928640885114844,
+    "log10_exit": -8.795217430220955,
+    "exits": [
+     {
+      "to": "flip(THEM(^ROLE)):1.000",
+      "log10_rate": -9.096247425884934,
+      "mutants": [
+       [
+        "flip(THEM(^ROLE))",
+        -9.096247425884934
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(^S3)):1.000",
+      "log10_rate": -9.096247425884934,
+      "mutants": [
+       [
+        "flip(THEM(^S3))",
+        -9.096247425884934
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.000",
+      "log10_rate": -73.43025361181624,
+      "mutants": [
+       [
+        "S3",
+        -73.43025361181624
+       ]
+      ]
+     },
+     {
+      "to": "min(S3,max(X,ROLE)):1.000",
+      "log10_rate": -81.82383731668475,
+      "mutants": [
+       [
+        "min(S3,max(X,ROLE))",
+        -81.82383731668475
+       ]
+      ]
+     },
+     {
+      "to": "min(S3,max(X,X)):1.000",
+      "log10_rate": -86.32005811481567,
+      "mutants": [
+       [
+        "min(S3,max(X,X))",
+        -86.32005811481567
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 1.0,
+     "half": 0.0,
+     "third": 1.0,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "ROLE:1.000",
+    "pi": 1.1229455552948866e-07,
+    "log10_pi": -6.94964129948938,
+    "log10_exit": -8.795217430220955,
+    "exits": [
+     {
+      "to": "flip(THEM(^ROLE)):1.000",
+      "log10_rate": -9.096247425884934,
+      "mutants": [
+       [
+        "flip(THEM(^ROLE))",
+        -9.096247425884934
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(^S3)):1.000",
+      "log10_rate": -9.096247425884934,
+      "mutants": [
+       [
+        "flip(THEM(^S3))",
+        -9.096247425884934
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(ME),S5):1.000",
+      "log10_rate": -35.26481076808965,
+      "mutants": [
+       [
+        "max(THEM(ME),S5)",
+        -35.26481076808965
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(ME),ROLE):1.000",
+      "log10_rate": -35.26481076808965,
+      "mutants": [
+       [
+        "max(THEM(ME),ROLE)",
+        -35.26481076808965
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(THEM),S5):1.000",
+      "log10_rate": -35.26481076808965,
+      "mutants": [
+       [
+        "max(THEM(THEM),S5)",
+        -35.26481076808965
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 1.0,
+     "half": 0.0,
+     "third": 0.0,
+     "sixth": 1.0,
+     "clash": 0.0,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "S5:0.667 + flip(THEM(^S3)):0.333",
+    "pi": 5.07872281331235e-08,
+    "log10_pi": -7.294245489461993,
+    "log10_exit": -7.63147895162109,
+    "exits": [
+     {
+      "to": "max(THEM(THEM),S5):1.000",
+      "log10_rate": -7.932508947285075,
+      "mutants": [
+       [
+        "max(THEM(THEM),S5)",
+        -7.932508947285075
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(ME),S5):1.000",
+      "log10_rate": -7.932508947285075,
+      "mutants": [
+       [
+        "max(THEM(ME),S5)",
+        -7.932508947285075
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.000",
+      "log10_rate": -21.79642810536945,
+      "mutants": [
+       [
+        "S3",
+        -21.79642810536945
+       ]
+      ]
+     },
+     {
+      "to": "ROLE:1.000",
+      "log10_rate": -22.222699761244908,
+      "mutants": [
+       [
+        "ROLE",
+        -22.222699761244908
+       ]
+      ]
+     },
+     {
+      "to": "flip(ROLE):1.000",
+      "log10_rate": -22.826468259317334,
+      "mutants": [
+       [
+        "flip(ROLE)",
+        -22.826468259317334
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.555533,
+     "half": 0.111067,
+     "third": 0.0,
+     "sixth": 0.444467,
+     "clash": 0.444467,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "S5:0.667 + flip(THEM(^ROLE)):0.333",
+    "pi": 3.373214650594194e-08,
+    "log10_pi": -7.471956022106823,
+    "log10_exit": -7.455383317668241,
+    "exits": [
+     {
+      "to": "max(THEM(THEM),ROLE):1.000",
+      "log10_rate": -7.932508947285075,
+      "mutants": [
+       [
+        "max(THEM(THEM),ROLE)",
+        -7.932508947285075
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(THEM),S5):1.000",
+      "log10_rate": -7.932508947285075,
+      "mutants": [
+       [
+        "max(THEM(THEM),S5)",
+        -7.932508947285075
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(ME),S5):1.000",
+      "log10_rate": -7.932508947285075,
+      "mutants": [
+       [
+        "max(THEM(ME),S5)",
+        -7.932508947285075
+       ]
+      ]
+     },
+     {
+      "to": "max(S4,THEM(THEM)):0.750 + flip(THEM(^ROLE)):0.250",
+      "log10_rate": -12.452201966922917,
+      "mutants": [
+       [
+        "max(S4,THEM(THEM))",
+        -12.452201966922917
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.000",
+      "log10_rate": -21.79642810536945,
+      "mutants": [
+       [
+        "S3",
+        -21.79642810536945
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.555533,
+     "half": 0.0,
+     "third": 0.0,
+     "sixth": 0.555533,
+     "clash": 0.444467,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "S2:0.059 + max(S4,THEM(THEM)):0.706 + flip(THEM(^ROLE)):0.235",
+    "pi": 3.3699719308029954e-08,
+    "log10_pi": -7.4723737164426485,
+    "log10_exit": -9.621107369634375,
+    "exits": [
+     {
+      "to": "max(S4,THEM(THEM)):0.500 + flip(THEM(^S3)):0.500",
+      "log10_rate": -9.6224867889336,
+      "mutants": [
+       [
+        "flip(THEM(^S3))",
+        -9.6224867889336
+       ]
+      ]
+     },
+     {
+      "to": "S2:0.167 + max(S4,THEM(THEM)):0.667 + flip(THEM(^S4)):0.167",
+      "log10_rate": -12.120761572655331,
+      "mutants": [
+       [
+        "flip(THEM(^S4))",
+        -12.120761572655331
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(THEM),ROLE):1.000",
+      "log10_rate": -14.820793830980755,
+      "mutants": [
+       [
+        "max(THEM(THEM),ROLE)",
+        -14.820793830980755
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(ME),S5):1.000",
+      "log10_rate": -17.015004343048698,
+      "mutants": [
+       [
+        "max(THEM(ME),S5)",
+        -17.015004343048698
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(THEM),S5):1.000",
+      "log10_rate": -17.015004343048698,
+      "mutants": [
+       [
+        "max(THEM(THEM),S5)",
+        -17.015004343048698
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.498274,
+     "half": 0.0,
+     "third": 0.276811,
+     "sixth": 0.221463,
+     "clash": 0.0,
+     "ineff": 0.501726
+    }
+   },
+   {
+    "state": "flip(ROLE):1.000",
+    "pi": 2.6936702608868196e-08,
+    "log10_pi": -7.569655568465275,
+    "log10_exit": -8.795217430220955,
+    "exits": [
+     {
+      "to": "flip(THEM(^ROLE)):1.000",
+      "log10_rate": -9.096247425884934,
+      "mutants": [
+       [
+        "flip(THEM(^ROLE))",
+        -9.096247425884934
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(^S3)):1.000",
+      "log10_rate": -9.096247425884934,
+      "mutants": [
+       [
+        "flip(THEM(^S3))",
+        -9.096247425884934
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(ME),S5):1.000",
+      "log10_rate": -35.26481076808965,
+      "mutants": [
+       [
+        "max(THEM(ME),S5)",
+        -35.26481076808965
+       ]
+      ]
+     },
+     {
+      "to": "max(THEM(THEM),S5):1.000",
+      "log10_rate": -35.26481076808965,
+      "mutants": [
+       [
+        "max(THEM(THEM),S5)",
+        -35.26481076808965
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.000",
+      "log10_rate": -64.67571921845716,
+      "mutants": [
+       [
+        "S3",
+        -64.67571921845716
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 1.0,
+     "half": 0.0,
+     "third": 0.0,
+     "sixth": 1.0,
+     "clash": 0.0,
+     "ineff": 0.0
+    }
+   },
+   {
+    "state": "max(THEM(THEM),S5):1.000",
+    "pi": 5.0170620164969025e-09,
+    "log10_pi": -8.299550530573617,
+    "log10_exit": -6.687180570548876,
+    "exits": [
+     {
+      "to": "THEM(THEM):1.000",
+      "log10_rate": -7.125197126090826,
+      "mutants": [
+       [
+        "THEM(THEM)",
+        -7.125197126090826
+       ]
+      ]
+     },
+     {
+      "to": "THEM(ME):1.000",
+      "log10_rate": -7.125197126090826,
+      "mutants": [
+       [
+        "THEM(ME)",
+        -7.125197126090826
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(ME)):1.000",
+      "log10_rate": -7.8609073742956985,
+      "mutants": [
+       [
+        "flip(THEM(ME))",
+        -7.8609073742956985
+       ]
+      ]
+     },
+     {
+      "to": "flip(THEM(THEM)):1.000",
+      "log10_rate": -7.8609073742956985,
+      "mutants": [
+       [
+        "flip(THEM(THEM))",
+        -7.8609073742956985
+       ]
+      ]
+     },
+     {
+      "to": "min(S2,THEM(ME)):1.000",
+      "log10_rate": -8.795217430220953,
+      "mutants": [
+       [
+        "min(S2,THEM(ME))",
+        -8.795217430220953
+       ]
+      ]
+     }
+    ],
+    "stat": {
+     "eff": 0.0,
+     "half": 0.0,
+     "third": 0.0,
+     "sixth": 0.0,
+     "clash": 0.0,
+     "ineff": 1.0
+    }
+   }
+  ],
+  "time_s": 568.36057305336,
+  "resid": 1.0658141036401503e-13
+ },
+ "deep_states": [
+  {
+   "state": "max(S4,ROLE):0.5500 + flip(min(S4,ROLE)):0.1000 + flip(THEM(THEM)):0.1167 + flip(THEM(^S2)):0.0583 + flip(THEM(^S4)):0.1750",
+   "size": 5,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.003008190674654571,
+   "mass_min": 8.01221462119001e-06,
+   "max_inv": -5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.5261386630693448,
+   "resolve_log10_pi": -0.278899783090297,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.5849157115711571,
+    "half": 0.0,
+    "third": 0.3573929592959295,
+    "sixth": 0.22752275227522753,
+    "clash": 0.3980823082308231,
+    "ineff": 0.017001980198019802
+   }
+  },
+  {
+   "state": "max(S4,ROLE):0.5500 + flip(min(S4,ROLE)):0.1000 + flip(THEM(ME)):0.1167 + flip(THEM(^S2)):0.0583 + flip(THEM(^S4)):0.1750",
+   "size": 5,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.003008190674654571,
+   "mass_min": 8.01221462119001e-06,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 0.47385981972731556,
+   "resolve_log10_pi": -0.3243501151252756,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.5849157115711571,
+    "half": 0.0,
+    "third": 0.3573929592959295,
+    "sixth": 0.22752275227522753,
+    "clash": 0.3980823082308231,
+    "ineff": 0.017001980198019802
+   }
+  },
+  {
+   "state": "S5:0.7500 + flip(THEM(THEM)):0.0833 + flip(THEM(^S2)):0.0417 + flip(THEM(^S4)):0.1250",
+   "size": 4,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.1428562359661677,
+   "mass_min": 8.01221462119001e-06,
+   "max_inv": -2.7755575615628914e-17,
+   "deep_pen": true,
+   "in_published_explored": true,
+   "in_published_recurrent": false,
+   "resolve_pi": 9.155200073642144e-10,
+   "resolve_log10_pi": -9.038332160381474,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.4132385438543854,
+    "half": 0.0,
+    "third": 0.0382010401040104,
+    "sixth": 0.37503750375037503,
+    "clash": 0.5780953095309531,
+    "ineff": 0.008666146614661465
+   }
+  },
+  {
+   "state": "S5:0.7500 + flip(THEM(ME)):0.0833 + flip(THEM(^S2)):0.0417 + flip(THEM(^S4)):0.1250",
+   "size": 4,
+   "tier": "deep_mod_twins",
+   "mass_sum": 0.1428562359661677,
+   "mass_min": 8.01221462119001e-06,
+   "max_inv": -2.7755575615628914e-17,
+   "deep_pen": true,
+   "in_published_explored": true,
+   "in_published_recurrent": false,
+   "resolve_pi": 8.520145350030684e-10,
+   "resolve_log10_pi": -9.06955299629224,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.4132385438543854,
+    "half": 0.0,
+    "third": 0.0382010401040104,
+    "sixth": 0.37503750375037503,
+    "clash": 0.5780953095309531,
+    "ineff": 0.008666146614661465
+   }
+  },
+  {
+   "state": "max(S4,ROLE):0.5769 + flip(min(S4,ROLE)):0.1538 + flip(THEM(THEM)):0.0538 + flip(THEM(^S5)):0.2154",
+   "size": 4,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.003000178460033381,
+   "mass_min": 8.01221462119001e-06,
+   "max_inv": -5.551115123125783e-17,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 1.9165466560887974e-10,
+   "resolve_log10_pi": -9.717480603889264,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.5054647693215011,
+    "half": 0.0,
+    "third": 0.28551730948249854,
+    "sixth": 0.21994745983900252,
+    "clash": 0.49164530375822135,
+    "ineff": 0.002889926920277545
+   }
+  },
+  {
+   "state": "max(S4,ROLE):0.5769 + flip(min(S4,ROLE)):0.1538 + flip(THEM(ME)):0.0538 + flip(THEM(^S5)):0.2154",
+   "size": 4,
+   "tier": "deep_penalty_only",
+   "mass_sum": 0.003000178460033381,
+   "mass_min": 8.01221462119001e-06,
+   "max_inv": 0.0,
+   "deep_pen": true,
+   "in_published_explored": false,
+   "in_published_recurrent": false,
+   "resolve_pi": 1.4152831791509682e-12,
+   "resolve_log10_pi": -11.849156654953685,
+   "resolve_recurrent": true,
+   "stat": {
+    "eff": 0.5054647693215011,
+    "half": 0.0,
+    "third": 0.28551730948249854,
+    "sixth": 0.21994745983900252,
+    "clash": 0.49164530375822135,
+    "ineff": 0.002889926920277545
+   }
+  }
+ ],
+ "deep_mutant_lists": [
+  {
+   "state": "max(S4,ROLE):0.5500 + flip(min(S4,ROLE)):0.1000 + flip(THEM(THEM)):0.1167 + flip(THEM(^S2)):0.0583 + flip(THEM(^S4)):0.1750",
+   "outside": [
+    [
+     "flip(THEM(ME))",
+     -5.551115123125783e-17,
+     0.00013775032294797933
+    ],
+    [
+     "S5",
+     -0.004166666862500001,
+     0.14270246121397737
+    ],
+    [
+     "flip(THEM(^S5))",
+     -0.019444444309722253,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S4,max(X,ROLE))",
+     -0.0241666666125,
+     9.614657545428013e-05
+    ],
+    [
+     "S4",
+     -0.029166666537499997,
+     0.1365578844307292
+    ],
+    [
+     "flip(THEM(^S3))",
+     -0.029166666668750063,
+     8.01221462119001e-06
+    ],
+    [
+     "flip(min(S2,ROLE))",
+     -0.0333333334,
+     0.0005830501502766773
+    ],
+    [
+     "max(S3,ROLE)",
+     -0.037499999862499966,
+     0.0022072680552180143
+    ],
+    [
+     "flip(THEM(^ROLE))",
+     -0.038888888809027855,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S4,min(X,X))",
+     -0.03936666673770001,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S4,min(X,ROLE))",
+     -0.04666666653000001,
+     3.204885848476004e-05
+    ],
+    [
+     "flip(THEM(^X))",
+     -0.05249999998625007,
+     8.01221462119001e-06
+    ],
+    [
+     "max(ROLE,THEM(THEM))",
+     -0.0555555555027778,
+     8.01221462119001e-06
+    ],
+    [
+     "flip(THEM(^S1))",
+     -0.05833333307500008,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S3,max(X,ROLE))",
+     -0.060666666614,
+     9.614657545428013e-05
+    ],
+    [
+     "flip(max(S2,ROLE))",
+     -0.062499999937499995,
+     0.0005830501502766773
+    ],
+    [
+     "flip(min(S3,ROLE))",
+     -0.06249999993750002,
+     0.0005830501502766773
+    ],
+    [
+     "min(S2,ROLE)",
+     -0.06250000003750011,
+     0.002271365772187534
+    ],
+    [
+     "max(S3,min(S4,ROLE))",
+     -0.06666666674999999,
+     6.409771696952008e-05
+    ],
+    [
+     "flip(ROLE)",
+     -0.06666666690000003,
+     0.02599686147799602
+    ],
+    [
+     "ROLE",
+     -0.06666666690000003,
+     0.1043973363914671
+    ],
+    [
+     "max(X,max(X,ROLE))",
+     -0.06910666692724002,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S4,X)",
+     -0.07083333314249998,
+     0.002790318205494693
+    ],
+    [
+     "S2",
+     -0.07083333321250004,
+     0.1365578844307292
+    ],
+    [
+     "max(ROLE,min(S4,X))",
+     -0.07316666660150001,
+     3.204885848476004e-05
+    ],
+    [
+     "max(ROLE,min(S3,X))",
+     -0.0741666664625,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,ROLE)",
+     -0.07500000007499999,
+     0.0021431703382484937
+    ],
+    [
+     "min(S2,max(X,X))",
+     -0.07764666630958006,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S2,max(X,ROLE))",
+     -0.07850000016350009,
+     3.204885848476004e-05
+    ],
+    [
+     "flip(min(X,ROLE))",
+     -0.08000000012000005,
+     0.0005830501502766773
+    ],
+    [
+     "max(THEM(ME),S5)",
+     -0.08194444456805558,
+     8.01221462119001e-06
+    ],
+    [
+     "max(THEM(THEM),S5)",
+     -0.08194444456805558,
+     8.01221462119001e-06
+    ],
+    [
+     "max(ROLE,min(S2,X))",
+     -0.08266666647600002,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,max(X,ROLE))",
+     -0.082666666566,
+     9.614657545428013e-05
+    ],
+    [
+     "max(X,ROLE)",
+     -0.08333333322000003,
+     0.0020149749043094534
+    ],
+    [
+     "min(S2,min(X,ROLE))",
+     -0.0851666667235001,
+     9.614657545428013e-05
+    ],
+    [
+     "max(ROLE,min(X,X))",
+     -0.08710666661723998,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S4,max(X,X))",
+     -0.08736666655370001,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S4,THEM(ME))",
+     -0.08749999987500001,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S4,THEM(THEM))",
+     -0.08749999987500001,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S2,THEM(ME))",
+     -0.09027777758055561,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S2,THEM(THEM))",
+     -0.09027777758055561,
+     1.602442924238002e-05
+    ],
+    [
+     "max(THEM(THEM),ROLE)",
+     -0.09444444435555557,
+     8.01221462119001e-06
+    ],
+    [
+     "max(ROLE,THEM(ME))",
+     -0.09444444438472221,
+     8.01221462119001e-06
+    ],
+    [
+     "S3",
+     -0.09583333328749999,
+     0.1365578844307292
+    ],
+    [
+     "min(S4,ROLE)",
+     -0.09583333343750006,
+     0.0021431703382484937
+    ],
+    [
+     "flip(max(S3,ROLE))",
+     -0.10000000025,
+     0.0005830501502766773
+    ],
+    [
+     "min(S2,X)",
+     -0.10116666629950005,
+     0.002790318205494693
+    ],
+    [
+     "min(S4,max(X,ROLE))",
+     -0.102333333139,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,min(S4,ROLE))",
+     -0.10416666661250001,
+     6.409771696952008e-05
+    ],
+    [
+     "max(S3,THEM(THEM))",
+     -0.1055555553840278,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S4,max(X,X))",
+     -0.11141999986482001,
+     1.602442924238002e-05
+    ],
+    [
+     "min(ROLE,max(S4,X))",
+     -0.11333333343000004,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S3,min(X,ROLE))",
+     -0.115666666729,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S3,max(X,X))",
+     -0.11824666628017999,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S2,min(X,X))",
+     -0.11871333319198007,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S3,min(X,X))",
+     -0.11888666672762,
+     1.602442924238002e-05
+    ],
+    [
+     "max(X,max(X,X))",
+     -0.11978106661152241,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,THEM(THEM))",
+     -0.12361111089305557,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(THEM)",
+     -0.12361111089305557,
+     0.0007495539098888975
+    ],
+    [
+     "min(S4,THEM(THEM))",
+     -0.12361111089305557,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S3,ROLE)",
+     -0.12500000032500005,
+     0.0022072680552180143
+    ],
+    [
+     "max(S3,min(S4,X))",
+     -0.1251666665135,
+     6.409771696952008e-05
+    ],
+    [
+     "max(S2,min(X,X))",
+     -0.12528666628402005,
+     1.602442924238002e-05
+    ],
+    [
+     "min(ROLE,max(S2,X))",
+     -0.12683333346850006,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,THEM(THEM))",
+     -0.12699999986225002,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S2,min(S3,X))",
+     -0.12783333317950002,
+     6.409771696952008e-05
+    ],
+    [
+     "min(THEM(ME),S1)",
+     -0.1291666662875001,
+     1.602442924238002e-05
+    ],
+    [
+     "S1",
+     -0.1291666662875001,
+     0.14270246121397737
+    ],
+    [
+     "max(S2,min(S4,X))",
+     -0.12916666641750002,
+     6.409771696952008e-05
+    ],
+    [
+     "max(X,min(S4,ROLE))",
+     -0.12999999975,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S3,max(X,ROLE))",
+     -0.1324999998875,
+     3.204885848476004e-05
+    ],
+    [
+     "THEM(^S3)",
+     -0.13333333310625,
+     0.00014576253756916932
+    ],
+    [
+     "max(S2,min(S3,ROLE))",
+     -0.13333333315,
+     6.409771696952008e-05
+    ],
+    [
+     "max(THEM(ME),ROLE)",
+     -0.13333333323750002,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S3,THEM(ME))",
+     -0.1347222221402778,
+     1.602442924238002e-05
+    ],
+    [
+     "min(ROLE,THEM(THEM))",
+     -0.13472222229027783,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(THEM),ROLE)",
+     -0.13472222229027783,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S3,max(X,X))",
+     -0.13488666654362003,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S2,min(X,ROLE))",
+     -0.13516666629350005,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,THEM(ME))",
+     -0.1353222222435778,
+     8.01221462119001e-06
+    ],
+    [
+     "max(X,min(S4,X))",
+     -0.13628666657702002,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,max(X,X))",
+     -0.13648666644522,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(S3,min(X,ROLE))",
+     -0.13666666671000005,
+     9.614657545428013e-05
+    ],
+    [
+     "min(ROLE,max(X,X))",
+     -0.13693999976674004,
+     1.602442924238002e-05
+    ],
+    [
+     "flip(max(S4,ROLE))",
+     -0.13750000011250002,
+     0.0005830501502766773
+    ],
+    [
+     "min(X,min(X,ROLE))",
+     -0.13760666655274006,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S3,X)",
+     -0.1388333331305,
+     0.0027262204885251727
+    ],
+    [
+     "min(S4,min(X,ROLE))",
+     -0.13900000015900005,
+     9.614657545428013e-05
+    ],
+    [
+     "max(X,X)",
+     -0.13937999989398,
+     0.0012669636688083057
+    ],
+    [
+     "min(X,ROLE)",
+     -0.14250000015750006,
+     0.0020149749043094534
+    ],
+    [
+     "max(THEM(THEM),X)",
+     -0.14255555538002782,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S2,X)",
+     -0.14283333313450003,
+     0.002662122771555651
+    ],
+    [
+     "max(X,min(S2,ROLE))",
+     -0.14349999998850005,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S3,X)",
+     -0.14416666627250002,
+     0.0027262204885251727
+    ],
+    [
+     "min(ROLE,max(S3,X))",
+     -0.14483333341650007,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S4,X)",
+     -0.14549999986050002,
+     0.002662122771555651
+    ],
+    [
+     "flip(max(X,ROLE))",
+     -0.14583333325750003,
+     0.0005830501502766773
+    ],
+    [
+     "max(X,min(S2,X))",
+     -0.14684666658278003,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(S2,X))",
+     -0.14721999972462005,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(S4,ROLE))",
+     -0.14899999985900003,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(S3,ROLE))",
+     -0.14999999972000003,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(S3,X))",
+     -0.15004666657798002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(S4,X))",
+     -0.15009999971310004,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(X,X))",
+     -0.15043706628009842,
+     1.602442924238002e-05
+    ],
+    [
+     "min(X,min(X,X))",
+     -0.15248506657350647,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S3,THEM(THEM))",
+     -0.15277777764930559,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S3,min(X,X))",
+     -0.15291333317218006,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(X,min(X,ROLE))",
+     -0.15360666673674,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S4,min(X,X))",
+     -0.15568666641642004,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(X,max(S3,X))",
+     -0.15601999971742003,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,X)",
+     -0.15804666626998004,
+     0.0012669636688083057
+    ],
+    [
+     "min(X,max(X,X))",
+     -0.15820239986877044,
+     1.602442924238002e-05
+    ],
+    [
+     "min(X,max(S2,ROLE))",
+     -0.15849999973350004,
+     3.204885848476004e-05
+    ],
+    [
+     "X",
+     -0.15916666657750003,
+     0.12812283209727557
+    ],
+    [
+     "max(X,min(S3,ROLE))",
+     -0.16149999973650003,
+     3.204885848476004e-05
+    ],
+    [
+     "THEM(^S2)",
+     -0.16249999968750004,
+     0.00014576253756916932
+    ],
+    [
+     "THEM(^S4)",
+     -0.1625000000375,
+     0.00014576253756916932
+    ],
+    [
+     "min(X,max(X,ROLE))",
+     -0.16293999997474004,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,THEM(THEM))",
+     -0.16433333306725004,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(THEM),X)",
+     -0.16433333306725004,
+     8.01221462119001e-06
+    ],
+    [
+     "min(S3,THEM(ME))",
+     -0.1722222219590278,
+     1.602442924238002e-05
+    ],
+    [
+     "min(THEM(ME),ROLE)",
+     -0.17361111123055561,
+     8.01221462119001e-06
+    ],
+    [
+     "max(THEM(ME),X)",
+     -0.1742111110963556,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(ME),X)",
+     -0.17553333289725004,
+     8.01221462119001e-06
+    ],
+    [
+     "min(ROLE,THEM(ME))",
+     -0.18333333353125006,
+     8.01221462119001e-06
+    ],
+    [
+     "THEM(^X)",
+     -0.18777777771597226,
+     0.00014576253756916932
+    ],
+    [
+     "min(X,THEM(ME))",
+     -0.19108888853169448,
+     8.01221462119001e-06
+    ],
+    [
+     "min(S4,THEM(ME))",
+     -0.20138888871527783,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(ME)",
+     -0.20138888871527783,
+     0.0007495539098888975
+    ],
+    [
+     "max(S2,THEM(ME))",
+     -0.20138888871527783,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(^S5)",
+     -0.22083333311250003,
+     0.00014576253756916932
+    ],
+    [
+     "THEM(^flip(ROLE))",
+     -0.25000000000000006,
+     8.01221462119001e-06
+    ],
+    [
+     "THEM(^ROLE)",
+     -0.25000000000000006,
+     0.00013775032294797933
+    ],
+    [
+     "THEM(^S1)",
+     -0.27916666653750005,
+     0.00014576253756916932
+    ]
+   ]
+  },
+  {
+   "state": "max(S4,ROLE):0.5500 + flip(min(S4,ROLE)):0.1000 + flip(THEM(ME)):0.1167 + flip(THEM(^S2)):0.0583 + flip(THEM(^S4)):0.1750",
+   "outside": [
+    [
+     "flip(THEM(THEM))",
+     0.0,
+     0.00013775032294797933
+    ],
+    [
+     "S5",
+     -0.004166666862500057,
+     0.14270246121397737
+    ],
+    [
+     "flip(THEM(^S5))",
+     -0.019444444309722142,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S4,max(X,ROLE))",
+     -0.024166666612500054,
+     9.614657545428013e-05
+    ],
+    [
+     "S4",
+     -0.029166666537499997,
+     0.1365578844307292
+    ],
+    [
+     "flip(THEM(^S3))",
+     -0.029166666668749952,
+     8.01221462119001e-06
+    ],
+    [
+     "flip(min(S2,ROLE))",
+     -0.033333333400000054,
+     0.0005830501502766773
+    ],
+    [
+     "max(S3,ROLE)",
+     -0.03749999986250002,
+     0.0022072680552180143
+    ],
+    [
+     "flip(THEM(^ROLE))",
+     -0.03888888880902769,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S4,min(X,X))",
+     -0.03936666673770001,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S4,min(X,ROLE))",
+     -0.04666666653000001,
+     3.204885848476004e-05
+    ],
+    [
+     "flip(THEM(^X))",
+     -0.05249999998624996,
+     8.01221462119001e-06
+    ],
+    [
+     "max(ROLE,THEM(THEM))",
+     -0.0555555555027778,
+     8.01221462119001e-06
+    ],
+    [
+     "flip(THEM(^S1))",
+     -0.058333333074999966,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S3,max(X,ROLE))",
+     -0.060666666614000025,
+     9.614657545428013e-05
+    ],
+    [
+     "flip(max(S2,ROLE))",
+     -0.06249999993749997,
+     0.0005830501502766773
+    ],
+    [
+     "flip(min(S3,ROLE))",
+     -0.06249999993750002,
+     0.0005830501502766773
+    ],
+    [
+     "min(S2,ROLE)",
+     -0.06250000003749995,
+     0.002271365772187534
+    ],
+    [
+     "max(S3,min(S4,ROLE))",
+     -0.06666666675000002,
+     6.409771696952008e-05
+    ],
+    [
+     "flip(ROLE)",
+     -0.0666666669,
+     0.02599686147799602
+    ],
+    [
+     "ROLE",
+     -0.0666666669,
+     0.1043973363914671
+    ],
+    [
+     "max(X,max(X,ROLE))",
+     -0.06910666692724002,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S4,X)",
+     -0.07083333314250001,
+     0.002790318205494693
+    ],
+    [
+     "S2",
+     -0.07083333321249996,
+     0.1365578844307292
+    ],
+    [
+     "max(ROLE,min(S4,X))",
+     -0.07316666660150004,
+     3.204885848476004e-05
+    ],
+    [
+     "max(ROLE,min(S3,X))",
+     -0.0741666664625,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,ROLE)",
+     -0.07500000007500002,
+     0.0021431703382484937
+    ],
+    [
+     "min(S2,max(X,X))",
+     -0.07764666630957998,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S2,max(X,ROLE))",
+     -0.0785000001635,
+     3.204885848476004e-05
+    ],
+    [
+     "flip(min(X,ROLE))",
+     -0.08000000012000003,
+     0.0005830501502766773
+    ],
+    [
+     "max(THEM(THEM),S5)",
+     -0.08194444456805561,
+     8.01221462119001e-06
+    ],
+    [
+     "max(THEM(ME),S5)",
+     -0.08194444456805561,
+     8.01221462119001e-06
+    ],
+    [
+     "max(ROLE,min(S2,X))",
+     -0.08266666647599999,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,max(X,ROLE))",
+     -0.082666666566,
+     9.614657545428013e-05
+    ],
+    [
+     "max(X,ROLE)",
+     -0.08333333322000003,
+     0.0020149749043094534
+    ],
+    [
+     "THEM(^S2)",
+     -0.08472222186527778,
+     0.00014576253756916932
+    ],
+    [
+     "min(S2,min(X,ROLE))",
+     -0.08516666672349993,
+     9.614657545428013e-05
+    ],
+    [
+     "max(ROLE,min(X,X))",
+     -0.08710666661723998,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S4,max(X,X))",
+     -0.08736666655370001,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S4,THEM(THEM))",
+     -0.08749999987500001,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S4,THEM(ME))",
+     -0.08749999987500001,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S2,THEM(THEM))",
+     -0.09027777758055552,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S2,THEM(ME))",
+     -0.09027777758055552,
+     1.602442924238002e-05
+    ],
+    [
+     "max(THEM(THEM),ROLE)",
+     -0.09444444435555557,
+     8.01221462119001e-06
+    ],
+    [
+     "max(ROLE,THEM(ME))",
+     -0.09444444438472221,
+     8.01221462119001e-06
+    ],
+    [
+     "S3",
+     -0.09583333328749999,
+     0.1365578844307292
+    ],
+    [
+     "min(S4,ROLE)",
+     -0.09583333343749997,
+     0.0021431703382484937
+    ],
+    [
+     "flip(max(S3,ROLE))",
+     -0.10000000024999994,
+     0.0005830501502766773
+    ],
+    [
+     "min(S2,X)",
+     -0.10116666629949997,
+     0.002790318205494693
+    ],
+    [
+     "min(S4,max(X,ROLE))",
+     -0.102333333139,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,min(S4,ROLE))",
+     -0.10416666661250001,
+     6.409771696952008e-05
+    ],
+    [
+     "max(S3,THEM(THEM))",
+     -0.1055555553840278,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S4,max(X,X))",
+     -0.11141999986481999,
+     1.602442924238002e-05
+    ],
+    [
+     "min(ROLE,max(S4,X))",
+     -0.11333333342999999,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S3,min(X,ROLE))",
+     -0.115666666729,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S3,max(X,X))",
+     -0.11824666628017996,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S2,min(X,X))",
+     -0.11871333319197996,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S3,min(X,X))",
+     -0.11888666672762,
+     1.602442924238002e-05
+    ],
+    [
+     "max(X,max(X,X))",
+     -0.11978106661152241,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(THEM)",
+     -0.12361111089305557,
+     0.0007495539098888975
+    ],
+    [
+     "min(S4,THEM(THEM))",
+     -0.12361111089305557,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,THEM(THEM))",
+     -0.12361111089305557,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S3,ROLE)",
+     -0.12500000032499997,
+     0.0022072680552180143
+    ],
+    [
+     "max(S3,min(S4,X))",
+     -0.12516666651349997,
+     6.409771696952008e-05
+    ],
+    [
+     "max(S2,min(X,X))",
+     -0.12528666628401997,
+     1.602442924238002e-05
+    ],
+    [
+     "min(ROLE,max(S2,X))",
+     -0.12683333346849998,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,THEM(THEM))",
+     -0.12699999986225,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S2,min(S3,X))",
+     -0.12783333317949996,
+     6.409771696952008e-05
+    ],
+    [
+     "min(THEM(ME),S1)",
+     -0.12916666628749995,
+     1.602442924238002e-05
+    ],
+    [
+     "S1",
+     -0.12916666628749995,
+     0.14270246121397737
+    ],
+    [
+     "max(S2,min(S4,X))",
+     -0.12916666641749996,
+     6.409771696952008e-05
+    ],
+    [
+     "max(X,min(S4,ROLE))",
+     -0.12999999974999998,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S3,max(X,ROLE))",
+     -0.13249999988749997,
+     3.204885848476004e-05
+    ],
+    [
+     "THEM(^S3)",
+     -0.13333333310624995,
+     0.00014576253756916932
+    ],
+    [
+     "max(S2,min(S3,ROLE))",
+     -0.13333333314999998,
+     6.409771696952008e-05
+    ],
+    [
+     "max(THEM(ME),ROLE)",
+     -0.1333333332375,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S3,THEM(ME))",
+     -0.1347222221402778,
+     1.602442924238002e-05
+    ],
+    [
+     "min(ROLE,THEM(THEM))",
+     -0.13472222229027778,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(THEM),ROLE)",
+     -0.13472222229027778,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S3,max(X,X))",
+     -0.13488666654361997,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S2,min(X,ROLE))",
+     -0.13516666629349997,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(S4,X))",
+     -0.13628666657702,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,max(X,X))",
+     -0.13648666644521998,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(S3,min(X,ROLE))",
+     -0.13666666670999997,
+     9.614657545428013e-05
+    ],
+    [
+     "min(ROLE,max(X,X))",
+     -0.13693999976673996,
+     1.602442924238002e-05
+    ],
+    [
+     "flip(max(S4,ROLE))",
+     -0.13750000011249996,
+     0.0005830501502766773
+    ],
+    [
+     "min(X,min(X,ROLE))",
+     -0.13760666655273993,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S3,X)",
+     -0.13883333313049998,
+     0.0027262204885251727
+    ],
+    [
+     "min(S4,min(X,ROLE))",
+     -0.13900000015899996,
+     9.614657545428013e-05
+    ],
+    [
+     "max(X,X)",
+     -0.13937999989397998,
+     0.0012669636688083057
+    ],
+    [
+     "min(X,ROLE)",
+     -0.14250000015749997,
+     0.0020149749043094534
+    ],
+    [
+     "max(THEM(THEM),X)",
+     -0.1425555553800278,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S2,X)",
+     -0.14283333313449995,
+     0.002662122771555651
+    ],
+    [
+     "max(X,min(S2,ROLE))",
+     -0.14349999998849997,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S3,X)",
+     -0.14416666627249997,
+     0.0027262204885251727
+    ],
+    [
+     "min(ROLE,max(S3,X))",
+     -0.14483333341649998,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S4,X)",
+     -0.14549999986049997,
+     0.002662122771555651
+    ],
+    [
+     "flip(max(X,ROLE))",
+     -0.14583333325749995,
+     0.0005830501502766773
+    ],
+    [
+     "max(X,min(S2,X))",
+     -0.14684666658277998,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(S2,X))",
+     -0.14721999972461994,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(S4,ROLE))",
+     -0.14899999985899995,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(S3,ROLE))",
+     -0.14999999971999997,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(S3,X))",
+     -0.15004666657797996,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(S4,X))",
+     -0.15009999971309995,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(X,X))",
+     -0.1504370662800984,
+     1.602442924238002e-05
+    ],
+    [
+     "min(X,min(X,X))",
+     -0.15248506657350636,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S3,THEM(THEM))",
+     -0.15277777764930556,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S3,min(X,X))",
+     -0.15291333317217995,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(X,min(X,ROLE))",
+     -0.15360666673673995,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S4,min(X,X))",
+     -0.15568666641641996,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(X,max(S3,X))",
+     -0.15601999971741995,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,THEM(ME))",
+     -0.1572669476118119,
+     8.01221462119001e-06
+    ],
+    [
+     "min(X,X)",
+     -0.15804666626997996,
+     0.0012669636688083057
+    ],
+    [
+     "min(X,max(X,X))",
+     -0.15820239986877035,
+     1.602442924238002e-05
+    ],
+    [
+     "min(X,max(S2,ROLE))",
+     -0.15849999973349996,
+     3.204885848476004e-05
+    ],
+    [
+     "X",
+     -0.15916666657749998,
+     0.12812283209727557
+    ],
+    [
+     "max(X,min(S3,ROLE))",
+     -0.16149999973649998,
+     3.204885848476004e-05
+    ],
+    [
+     "THEM(^S4)",
+     -0.16250000003749998,
+     0.00014576253756916932
+    ],
+    [
+     "min(X,max(X,ROLE))",
+     -0.16293999997473996,
+     3.204885848476004e-05
+    ],
+    [
+     "min(THEM(THEM),X)",
+     -0.16433333306724998,
+     8.01221462119001e-06
+    ],
+    [
+     "min(X,THEM(THEM))",
+     -0.16433333306724998,
+     8.01221462119001e-06
+    ],
+    [
+     "min(X,THEM(ME))",
+     -0.17164886548030583,
+     8.01221462119001e-06
+    ],
+    [
+     "min(S3,THEM(ME))",
+     -0.17222222195902775,
+     1.602442924238002e-05
+    ],
+    [
+     "min(THEM(ME),ROLE)",
+     -0.17361111123055553,
+     8.01221462119001e-06
+    ],
+    [
+     "min(ROLE,THEM(ME))",
+     -0.17361111123055553,
+     8.01221462119001e-06
+    ],
+    [
+     "max(THEM(ME),X)",
+     -0.17421111109635554,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(ME),X)",
+     -0.17553333289724996,
+     8.01221462119001e-06
+    ],
+    [
+     "THEM(^S1)",
+     -0.18194444434722215,
+     0.00014576253756916932
+    ],
+    [
+     "THEM(^X)",
+     -0.1877777777159722,
+     0.00014576253756916932
+    ],
+    [
+     "min(S4,THEM(ME))",
+     -0.20138888871527774,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,THEM(ME))",
+     -0.20138888871527774,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(ME)",
+     -0.20138888871527774,
+     0.0007495539098888975
+    ],
+    [
+     "THEM(^ROLE)",
+     -0.20138888884652772,
+     0.00013775032294797933
+    ],
+    [
+     "THEM(^flip(ROLE))",
+     -0.20138888884652772,
+     8.01221462119001e-06
+    ],
+    [
+     "THEM(^S5)",
+     -0.22083333311249997,
+     0.00014576253756916932
+    ]
+   ]
+  },
+  {
+   "state": "S5:0.7500 + flip(THEM(ME)):0.0833 + flip(THEM(^S2)):0.0417 + flip(THEM(^S4)):0.1250",
+   "outside": [
+    [
+     "flip(THEM(THEM))",
+     -2.7755575615628914e-17,
+     0.00013775032294797933
+    ],
+    [
+     "flip(THEM(^S5))",
+     -0.013888888819444445,
+     8.01221462119001e-06
+    ],
+    [
+     "flip(min(S2,ROLE))",
+     -0.020833333281250033,
+     0.0005830501502766773
+    ],
+    [
+     "max(S4,ROLE)",
+     -0.020833333281250033,
+     0.002271365772187534
+    ],
+    [
+     "flip(THEM(^S3))",
+     -0.020833333375000013,
+     8.01221462119001e-06
+    ],
+    [
+     "ROLE",
+     -0.020833333656250036,
+     0.1043973363914671
+    ],
+    [
+     "flip(ROLE)",
+     -0.020833333656250036,
+     0.02599686147799602
+    ],
+    [
+     "flip(THEM(^ROLE))",
+     -0.027777777774305568,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S4,max(X,ROLE))",
+     -0.033333333300000045,
+     9.614657545428013e-05
+    ],
+    [
+     "flip(THEM(^X))",
+     -0.03750000006250001,
+     8.01221462119001e-06
+    ],
+    [
+     "S1",
+     -0.04166666656249998,
+     0.14270246121397737
+    ],
+    [
+     "min(THEM(ME),S1)",
+     -0.04166666656249998,
+     1.602442924238002e-05
+    ],
+    [
+     "flip(THEM(^S1))",
+     -0.04166666656249998,
+     8.01221462119001e-06
+    ],
+    [
+     "flip(min(S3,ROLE))",
+     -0.04166666656250001,
+     0.0005830501502766773
+    ],
+    [
+     "max(S3,ROLE)",
+     -0.04166666656250001,
+     0.0022072680552180143
+    ],
+    [
+     "S4",
+     -0.04166666656250001,
+     0.1365578844307292
+    ],
+    [
+     "flip(max(S2,ROLE))",
+     -0.04166666693750001,
+     0.0005830501502766773
+    ],
+    [
+     "min(S4,ROLE)",
+     -0.04166666693750001,
+     0.0021431703382484937
+    ],
+    [
+     "max(S4,min(X,X))",
+     -0.04800000007200003,
+     1.602442924238002e-05
+    ],
+    [
+     "max(ROLE,THEM(THEM))",
+     -0.048611111086805575,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S4,min(X,ROLE))",
+     -0.05416666658125002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(ROLE,max(S4,X))",
+     -0.054166666956250026,
+     3.204885848476004e-05
+    ],
+    [
+     "max(THEM(THEM),S5)",
+     -0.05555555561111114,
+     8.01221462119001e-06
+    ],
+    [
+     "max(THEM(ME),S5)",
+     -0.05555555561111114,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S3,max(X,ROLE))",
+     -0.05583333333375004,
+     9.614657545428013e-05
+    ],
+    [
+     "max(X,max(X,ROLE))",
+     -0.05710000034065005,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(ROLE,min(S3,X))",
+     -0.0583333331125,
+     3.204885848476004e-05
+    ],
+    [
+     "max(ROLE,min(S4,X))",
+     -0.05999999986500004,
+     3.204885848476004e-05
+    ],
+    [
+     "max(ROLE,min(X,X))",
+     -0.06043333338565002,
+     1.602442924238002e-05
+    ],
+    [
+     "max(ROLE,min(S2,X))",
+     -0.06083333311625,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,ROLE)",
+     -0.062499999868750045,
+     0.0020149749043094534
+    ],
+    [
+     "flip(min(X,ROLE))",
+     -0.062499999868750045,
+     0.0005830501502766773
+    ],
+    [
+     "max(S3,min(S4,ROLE))",
+     -0.06250000009375004,
+     6.409771696952008e-05
+    ],
+    [
+     "flip(min(S4,ROLE))",
+     -0.06250000009375004,
+     0.0005830501502766773
+    ],
+    [
+     "max(S2,ROLE)",
+     -0.06250000009375004,
+     0.0021431703382484937
+    ],
+    [
+     "min(S3,ROLE)",
+     -0.06250000046875001,
+     0.0022072680552180143
+    ],
+    [
+     "flip(max(S3,ROLE))",
+     -0.06250000046875001,
+     0.0005830501502766773
+    ],
+    [
+     "max(S4,X)",
+     -0.06666666660000001,
+     0.002790318205494693
+    ],
+    [
+     "max(S2,max(X,ROLE))",
+     -0.06916666660375001,
+     9.614657545428013e-05
+    ],
+    [
+     "THEM(^S2)",
+     -0.06944444424305554,
+     0.00014576253756916932
+    ],
+    [
+     "min(THEM(THEM),ROLE)",
+     -0.06944444474305558,
+     8.01221462119001e-06
+    ],
+    [
+     "min(ROLE,THEM(THEM))",
+     -0.06944444474305558,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S4,max(X,X))",
+     -0.07466666661200003,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(THEM(THEM),ROLE)",
+     -0.07638888889236115,
+     8.01221462119001e-06
+    ],
+    [
+     "max(ROLE,THEM(ME))",
+     -0.07638888891319445,
+     8.01221462119001e-06
+    ],
+    [
+     "min(ROLE,max(S3,X))",
+     -0.07666666699000002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(ROLE,max(X,X))",
+     -0.0779333332469,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S3,min(X,ROLE))",
+     -0.07916666676875,
+     9.614657545428013e-05
+    ],
+    [
+     "min(S4,max(X,ROLE))",
+     -0.08083333314625002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S4,min(X,ROLE))",
+     -0.08083333352125002,
+     9.614657545428013e-05
+    ],
+    [
+     "min(X,min(X,ROLE))",
+     -0.0812666670419,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(S2,min(X,ROLE))",
+     -0.08166666677250004,
+     9.614657545428013e-05
+    ],
+    [
+     "max(S4,THEM(ME))",
+     -0.08333333331250004,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S4,THEM(THEM))",
+     -0.08333333331250004,
+     1.602442924238002e-05
+    ],
+    [
+     "S3",
+     -0.08333333337500001,
+     0.1365578844307292
+    ],
+    [
+     "max(S2,min(S4,ROLE))",
+     -0.08333333337500001,
+     6.409771696952008e-05
+    ],
+    [
+     "min(X,ROLE)",
+     -0.08333333352500003,
+     0.0020149749043094534
+    ],
+    [
+     "flip(max(X,ROLE))",
+     -0.08333333352500003,
+     0.0005830501502766773
+    ],
+    [
+     "min(S2,ROLE)",
+     -0.08333333375000002,
+     0.002271365772187534
+    ],
+    [
+     "flip(max(S4,ROLE))",
+     -0.08333333375000002,
+     0.0005830501502766773
+    ],
+    [
+     "min(ROLE,max(S2,X))",
+     -0.09000000051000001,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S3,THEM(THEM))",
+     -0.09027777774305558,
+     1.602442924238002e-05
+    ],
+    [
+     "max(X,min(S4,ROLE))",
+     -0.09583333316875002,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,max(X,X))",
+     -0.09629600039644402,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S4,THEM(THEM))",
+     -0.09722222217361112,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,THEM(THEM))",
+     -0.09722222217361112,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(THEM)",
+     -0.09722222217361112,
+     0.0007495539098888975
+    ],
+    [
+     "min(ROLE,THEM(ME))",
+     -0.09722222261111113,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(ME),ROLE)",
+     -0.09722222261111113,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S3,min(X,ROLE))",
+     -0.09750000014625003,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S3,min(X,X))",
+     -0.09980000014970002,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S3,max(X,ROLE))",
+     -0.09999999992500003,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,THEM(THEM))",
+     -0.10083333330500001,
+     8.01221462119001e-06
+    ],
+    [
+     "min(S4,max(X,X))",
+     -0.10279999991420002,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S3,max(X,X))",
+     -0.10386666641580002,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(^S3)",
+     -0.104166666625,
+     0.00014576253756916932
+    ],
+    [
+     "max(S2,min(S3,ROLE))",
+     -0.10416666665625002,
+     6.409771696952008e-05
+    ],
+    [
+     "max(THEM(ME),ROLE)",
+     -0.10416666671875002,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S3,max(X,X))",
+     -0.10646666665970002,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S3,min(S4,X))",
+     -0.10666666666000002,
+     6.409771696952008e-05
+    ],
+    [
+     "min(X,min(X,X))",
+     -0.10965600053648403,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S3,THEM(ME))",
+     -0.11111111118055558,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S3,X)",
+     -0.11166666666750001,
+     0.0027262204885251727
+    ],
+    [
+     "max(THEM(THEM),X)",
+     -0.11194444441055557,
+     8.01221462119001e-06
+    ],
+    [
+     "max(X,X)",
+     -0.11419999993130002,
+     0.0012669636688083057
+    ],
+    [
+     "min(S2,min(X,X))",
+     -0.11420000026130003,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(X,min(S4,X))",
+     -0.11579999993370003,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S3,X)",
+     -0.11666666697500001,
+     0.0027262204885251727
+    ],
+    [
+     "max(S2,max(X,X))",
+     -0.11713333342570002,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(S3,min(X,X))",
+     -0.11720000026580002,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(S3,THEM(THEM))",
+     -0.11805555561111114,
+     1.602442924238002e-05
+    ],
+    [
+     "max(X,min(S3,ROLE))",
+     -0.11833333320250003,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(X,ROLE))",
+     -0.11960000020940001,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S4,X)",
+     -0.12000000048000004,
+     0.002662122771555651
+    ],
+    [
+     "min(S4,min(X,X))",
+     -0.12013333352020002,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(X,max(S3,ROLE))",
+     -0.12083333373125002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,X)",
+     -0.12086666677130002,
+     0.0012669636688083057
+    ],
+    [
+     "min(S2,X)",
+     -0.12166666698250002,
+     0.002790318205494693
+    ],
+    [
+     "min(X,max(S4,X))",
+     -0.12233333373350003,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,THEM(ME))",
+     -0.12245258173923852,
+     8.01221462119001e-06
+    ],
+    [
+     "min(X,max(S4,ROLE))",
+     -0.12250000048375002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(X,ROLE))",
+     -0.12293333325440002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S2,max(X,ROLE))",
+     -0.12333333321000003,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(S2,ROLE))",
+     -0.12333333373500002,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(S3,X))",
+     -0.12419999994630003,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S2,max(X,X))",
+     -0.12486666644730002,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(^S4)",
+     -0.12500000018750002,
+     0.00014576253756916932
+    ],
+    [
+     "S2",
+     -0.12500000018750002,
+     0.1365578844307292
+    ],
+    [
+     "X",
+     -0.12500000048750004,
+     0.12812283209727557
+    ],
+    [
+     "min(X,max(S3,X))",
+     -0.12513333373770003,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(X,X))",
+     -0.12600266670700402,
+     1.602442924238002e-05
+    ],
+    [
+     "min(X,THEM(THEM))",
+     -0.12750000041000004,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(THEM),X)",
+     -0.12750000041000004,
+     8.01221462119001e-06
+    ],
+    [
+     "min(X,max(X,X))",
+     -0.12821600000032402,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,min(S3,X))",
+     -0.13000000019500002,
+     6.409771696952008e-05
+    ],
+    [
+     "max(X,min(S2,ROLE))",
+     -0.13166666647250003,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,min(X,ROLE))",
+     -0.13166666669750002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S3,THEM(ME))",
+     -0.13194444443055556,
+     1.602442924238002e-05
+    ],
+    [
+     "min(X,THEM(ME))",
+     -0.13272538071511744,
+     8.01221462119001e-06
+    ],
+    [
+     "min(X,max(S2,X))",
+     -0.13313333374970002,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,min(S4,X))",
+     -0.13333333345000004,
+     6.409771696952008e-05
+    ],
+    [
+     "max(THEM(ME),X)",
+     -0.13455555568011113,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(ME),X)",
+     -0.135500000304,
+     8.01221462119001e-06
+    ],
+    [
+     "max(X,min(S2,X))",
+     -0.13619999996430004,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,X)",
+     -0.1383333334575,
+     0.002662122771555651
+    ],
+    [
+     "THEM(^S1)",
+     -0.13888888900694446,
+     0.00014576253756916932
+    ],
+    [
+     "min(S2,THEM(THEM))",
+     -0.13888888904861113,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S2,THEM(ME))",
+     -0.13888888904861113,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,min(X,X))",
+     -0.14246666671370004,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(^X)",
+     -0.14305555570694445,
+     0.00014576253756916932
+    ],
+    [
+     "THEM(ME)",
+     -0.15277777786805558,
+     0.0007495539098888975
+    ],
+    [
+     "min(S4,THEM(ME))",
+     -0.15277777786805558,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,THEM(ME))",
+     -0.15277777786805558,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(^ROLE)",
+     -0.15277777796180558,
+     0.00013775032294797933
+    ],
+    [
+     "THEM(^flip(ROLE))",
+     -0.15277777796180558,
+     8.01221462119001e-06
+    ],
+    [
+     "THEM(^S5)",
+     -0.16666666675000003,
+     0.00014576253756916932
+    ]
+   ]
+  },
+  {
+   "state": "S5:0.7500 + flip(THEM(THEM)):0.0833 + flip(THEM(^S2)):0.0417 + flip(THEM(^S4)):0.1250",
+   "outside": [
+    [
+     "flip(THEM(ME))",
+     -2.7755575615628914e-17,
+     0.00013775032294797933
+    ],
+    [
+     "flip(THEM(^S5))",
+     -0.013888888819444445,
+     8.01221462119001e-06
+    ],
+    [
+     "flip(min(S2,ROLE))",
+     -0.020833333281250033,
+     0.0005830501502766773
+    ],
+    [
+     "max(S4,ROLE)",
+     -0.020833333281250033,
+     0.002271365772187534
+    ],
+    [
+     "flip(THEM(^S3))",
+     -0.020833333375000013,
+     8.01221462119001e-06
+    ],
+    [
+     "ROLE",
+     -0.020833333656250036,
+     0.1043973363914671
+    ],
+    [
+     "flip(ROLE)",
+     -0.020833333656250036,
+     0.02599686147799602
+    ],
+    [
+     "flip(THEM(^ROLE))",
+     -0.027777777774305568,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S4,max(X,ROLE))",
+     -0.033333333300000045,
+     9.614657545428013e-05
+    ],
+    [
+     "flip(THEM(^X))",
+     -0.03750000006250001,
+     8.01221462119001e-06
+    ],
+    [
+     "S1",
+     -0.04166666656249998,
+     0.14270246121397737
+    ],
+    [
+     "flip(THEM(^S1))",
+     -0.04166666656249998,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(ME),S1)",
+     -0.04166666656249998,
+     1.602442924238002e-05
+    ],
+    [
+     "flip(min(S3,ROLE))",
+     -0.04166666656250001,
+     0.0005830501502766773
+    ],
+    [
+     "max(S3,ROLE)",
+     -0.04166666656250001,
+     0.0022072680552180143
+    ],
+    [
+     "S4",
+     -0.04166666656250001,
+     0.1365578844307292
+    ],
+    [
+     "flip(max(S2,ROLE))",
+     -0.04166666693750001,
+     0.0005830501502766773
+    ],
+    [
+     "min(S4,ROLE)",
+     -0.04166666693750001,
+     0.0021431703382484937
+    ],
+    [
+     "max(S4,min(X,X))",
+     -0.04800000007200003,
+     1.602442924238002e-05
+    ],
+    [
+     "max(ROLE,THEM(THEM))",
+     -0.048611111086805575,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S4,min(X,ROLE))",
+     -0.05416666658125002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(ROLE,max(S4,X))",
+     -0.054166666956250026,
+     3.204885848476004e-05
+    ],
+    [
+     "max(THEM(ME),S5)",
+     -0.05555555561111114,
+     8.01221462119001e-06
+    ],
+    [
+     "max(THEM(THEM),S5)",
+     -0.05555555561111114,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S3,max(X,ROLE))",
+     -0.05583333333375004,
+     9.614657545428013e-05
+    ],
+    [
+     "max(X,max(X,ROLE))",
+     -0.05710000034065005,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(ROLE,min(S3,X))",
+     -0.0583333331125,
+     3.204885848476004e-05
+    ],
+    [
+     "max(ROLE,min(S4,X))",
+     -0.05999999986500004,
+     3.204885848476004e-05
+    ],
+    [
+     "max(ROLE,min(X,X))",
+     -0.06043333338565002,
+     1.602442924238002e-05
+    ],
+    [
+     "max(ROLE,min(S2,X))",
+     -0.06083333311625,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,ROLE)",
+     -0.062499999868750045,
+     0.0020149749043094534
+    ],
+    [
+     "flip(min(X,ROLE))",
+     -0.062499999868750045,
+     0.0005830501502766773
+    ],
+    [
+     "max(S3,min(S4,ROLE))",
+     -0.06250000009375004,
+     6.409771696952008e-05
+    ],
+    [
+     "flip(min(S4,ROLE))",
+     -0.06250000009375004,
+     0.0005830501502766773
+    ],
+    [
+     "max(S2,ROLE)",
+     -0.06250000009375004,
+     0.0021431703382484937
+    ],
+    [
+     "flip(max(S3,ROLE))",
+     -0.06250000046875001,
+     0.0005830501502766773
+    ],
+    [
+     "min(S3,ROLE)",
+     -0.06250000046875001,
+     0.0022072680552180143
+    ],
+    [
+     "max(S4,X)",
+     -0.06666666660000001,
+     0.002790318205494693
+    ],
+    [
+     "max(S2,max(X,ROLE))",
+     -0.06916666660375001,
+     9.614657545428013e-05
+    ],
+    [
+     "min(ROLE,THEM(THEM))",
+     -0.06944444474305558,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(THEM),ROLE)",
+     -0.06944444474305558,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S4,max(X,X))",
+     -0.07466666661200003,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(THEM(THEM),ROLE)",
+     -0.07638888889236115,
+     8.01221462119001e-06
+    ],
+    [
+     "max(ROLE,THEM(ME))",
+     -0.07638888891319445,
+     8.01221462119001e-06
+    ],
+    [
+     "min(ROLE,max(S3,X))",
+     -0.07666666699000002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(ROLE,max(X,X))",
+     -0.0779333332469,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S3,min(X,ROLE))",
+     -0.07916666676875,
+     9.614657545428013e-05
+    ],
+    [
+     "min(S4,max(X,ROLE))",
+     -0.08083333314625002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S4,min(X,ROLE))",
+     -0.08083333352125002,
+     9.614657545428013e-05
+    ],
+    [
+     "min(X,min(X,ROLE))",
+     -0.0812666670419,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(S2,min(X,ROLE))",
+     -0.08166666677250004,
+     9.614657545428013e-05
+    ],
+    [
+     "max(S4,THEM(THEM))",
+     -0.08333333331250004,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S4,THEM(ME))",
+     -0.08333333331250004,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,min(S4,ROLE))",
+     -0.08333333337500001,
+     6.409771696952008e-05
+    ],
+    [
+     "S3",
+     -0.08333333337500001,
+     0.1365578844307292
+    ],
+    [
+     "min(X,ROLE)",
+     -0.08333333352500003,
+     0.0020149749043094534
+    ],
+    [
+     "flip(max(X,ROLE))",
+     -0.08333333352500003,
+     0.0005830501502766773
+    ],
+    [
+     "min(S2,ROLE)",
+     -0.08333333375000002,
+     0.002271365772187534
+    ],
+    [
+     "flip(max(S4,ROLE))",
+     -0.08333333375000002,
+     0.0005830501502766773
+    ],
+    [
+     "min(ROLE,max(S2,X))",
+     -0.09000000051000001,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S3,THEM(THEM))",
+     -0.09027777774305558,
+     1.602442924238002e-05
+    ],
+    [
+     "max(X,min(S4,ROLE))",
+     -0.09583333316875002,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,max(X,X))",
+     -0.09629600039644402,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(THEM)",
+     -0.09722222217361112,
+     0.0007495539098888975
+    ],
+    [
+     "min(S4,THEM(THEM))",
+     -0.09722222217361112,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,THEM(THEM))",
+     -0.09722222217361112,
+     1.602442924238002e-05
+    ],
+    [
+     "min(THEM(ME),ROLE)",
+     -0.09722222261111113,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S3,min(X,ROLE))",
+     -0.09750000014625003,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S3,min(X,X))",
+     -0.09980000014970002,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S3,max(X,ROLE))",
+     -0.09999999992500003,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,THEM(THEM))",
+     -0.10083333330500001,
+     8.01221462119001e-06
+    ],
+    [
+     "min(S4,max(X,X))",
+     -0.10279999991420002,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S3,max(X,X))",
+     -0.10386666641580002,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(^S3)",
+     -0.104166666625,
+     0.00014576253756916932
+    ],
+    [
+     "max(S2,min(S3,ROLE))",
+     -0.10416666665625002,
+     6.409771696952008e-05
+    ],
+    [
+     "max(THEM(ME),ROLE)",
+     -0.10416666671875002,
+     8.01221462119001e-06
+    ],
+    [
+     "min(ROLE,THEM(ME))",
+     -0.10416666712500001,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S3,max(X,X))",
+     -0.10646666665970002,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S3,min(S4,X))",
+     -0.10666666666000002,
+     6.409771696952008e-05
+    ],
+    [
+     "max(X,THEM(ME))",
+     -0.10677777787455557,
+     8.01221462119001e-06
+    ],
+    [
+     "min(X,min(X,X))",
+     -0.10965600053648403,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S3,THEM(ME))",
+     -0.11111111118055558,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S3,X)",
+     -0.11166666666750001,
+     0.0027262204885251727
+    ],
+    [
+     "max(THEM(THEM),X)",
+     -0.11194444441055557,
+     8.01221462119001e-06
+    ],
+    [
+     "max(X,X)",
+     -0.11419999993130002,
+     0.0012669636688083057
+    ],
+    [
+     "min(S2,min(X,X))",
+     -0.11420000026130003,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(X,min(S4,X))",
+     -0.11579999993370003,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S3,X)",
+     -0.11666666697500001,
+     0.0027262204885251727
+    ],
+    [
+     "max(S2,max(X,X))",
+     -0.11713333342570002,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(S3,min(X,X))",
+     -0.11720000026580002,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(S3,THEM(THEM))",
+     -0.11805555561111114,
+     1.602442924238002e-05
+    ],
+    [
+     "max(X,min(S3,ROLE))",
+     -0.11833333320250003,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(X,ROLE))",
+     -0.11960000020940001,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S4,X)",
+     -0.12000000048000004,
+     0.002662122771555651
+    ],
+    [
+     "min(S4,min(X,X))",
+     -0.12013333352020002,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(X,max(S3,ROLE))",
+     -0.12083333373125002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,X)",
+     -0.12086666677130002,
+     0.0012669636688083057
+    ],
+    [
+     "min(S2,X)",
+     -0.12166666698250002,
+     0.002790318205494693
+    ],
+    [
+     "min(X,max(S4,X))",
+     -0.12233333373350003,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(S4,ROLE))",
+     -0.12250000048375002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(X,ROLE))",
+     -0.12293333325440002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S2,max(X,ROLE))",
+     -0.12333333321000003,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(S2,ROLE))",
+     -0.12333333373500002,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(S3,X))",
+     -0.12419999994630003,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S2,max(X,X))",
+     -0.12486666644730002,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(^S2)",
+     -0.12499999993750001,
+     0.00014576253756916932
+    ],
+    [
+     "S2",
+     -0.12500000018750002,
+     0.1365578844307292
+    ],
+    [
+     "THEM(^S4)",
+     -0.12500000018750002,
+     0.00014576253756916932
+    ],
+    [
+     "X",
+     -0.12500000048750004,
+     0.12812283209727557
+    ],
+    [
+     "min(X,max(S3,X))",
+     -0.12513333373770003,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(X,X))",
+     -0.12600266670700402,
+     1.602442924238002e-05
+    ],
+    [
+     "min(X,THEM(THEM))",
+     -0.12750000041000004,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(THEM),X)",
+     -0.12750000041000004,
+     8.01221462119001e-06
+    ],
+    [
+     "min(X,max(X,X))",
+     -0.12821600000032402,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,min(S3,X))",
+     -0.13000000019500002,
+     6.409771696952008e-05
+    ],
+    [
+     "max(X,min(S2,ROLE))",
+     -0.13166666647250003,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,min(X,ROLE))",
+     -0.13166666669750002,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S3,THEM(ME))",
+     -0.13194444443055556,
+     1.602442924238002e-05
+    ],
+    [
+     "min(X,max(S2,X))",
+     -0.13313333374970002,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,min(S4,X))",
+     -0.13333333345000004,
+     6.409771696952008e-05
+    ],
+    [
+     "max(THEM(ME),X)",
+     -0.13455555568011113,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(ME),X)",
+     -0.135500000304,
+     8.01221462119001e-06
+    ],
+    [
+     "max(X,min(S2,X))",
+     -0.13619999996430004,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,X)",
+     -0.1383333334575,
+     0.002662122771555651
+    ],
+    [
+     "min(S2,THEM(THEM))",
+     -0.13888888904861113,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S2,THEM(ME))",
+     -0.13888888904861113,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,min(X,X))",
+     -0.14246666671370004,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(^X)",
+     -0.14305555570694445,
+     0.00014576253756916932
+    ],
+    [
+     "min(X,THEM(ME))",
+     -0.1466111114928889,
+     8.01221462119001e-06
+    ],
+    [
+     "THEM(ME)",
+     -0.15277777786805558,
+     0.0007495539098888975
+    ],
+    [
+     "min(S4,THEM(ME))",
+     -0.15277777786805558,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,THEM(ME))",
+     -0.15277777786805558,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(^S5)",
+     -0.16666666675000003,
+     0.00014576253756916932
+    ],
+    [
+     "THEM(^ROLE)",
+     -0.18750000028125002,
+     0.00013775032294797933
+    ],
+    [
+     "THEM(^flip(ROLE))",
+     -0.18750000028125002,
+     8.01221462119001e-06
+    ],
+    [
+     "THEM(^S1)",
+     -0.20833333356250003,
+     0.00014576253756916932
+    ]
+   ]
+  },
+  {
+   "state": "max(S4,ROLE):0.5769 + flip(min(S4,ROLE)):0.1538 + flip(THEM(ME)):0.0538 + flip(THEM(^S5)):0.2154",
+   "outside": [
+    [
+     "flip(THEM(THEM))",
+     0.0,
+     0.00013775032294797933
+    ],
+    [
+     "flip(THEM(^S1))",
+     0.0,
+     8.01221462119001e-06
+    ],
+    [
+     "flip(THEM(^ROLE))",
+     -1.0769229952245496e-10,
+     8.01221462119001e-06
+    ],
+    [
+     "THEM(^S1)",
+     -0.003205128205621355,
+     0.00014576253756916932
+    ],
+    [
+     "flip(THEM(^S4))",
+     -0.00897435896650886,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S4,THEM(THEM))",
+     -0.013461538611301838,
+     1.602442924238002e-05
+    ],
+    [
+     "flip(THEM(^S3))",
+     -0.0179487179868639,
+     8.01221462119001e-06
+    ],
+    [
+     "max(ROLE,THEM(THEM))",
+     -0.021153846192485254,
+     8.01221462119001e-06
+    ],
+    [
+     "S4",
+     -0.02243589736242607,
+     0.1365578844307292
+    ],
+    [
+     "max(S4,max(X,ROLE))",
+     -0.02371794863698229,
+     9.614657545428013e-05
+    ],
+    [
+     "flip(THEM(^X))",
+     -0.02512820530007101,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S3,THEM(THEM))",
+     -0.026282051395325495,
+     1.602442924238002e-05
+    ],
+    [
+     "flip(THEM(^S2))",
+     -0.02692307700721891,
+     8.01221462119001e-06
+    ],
+    [
+     "S5",
+     -0.0288461539275148,
+     0.14270246121397737
+    ],
+    [
+     "flip(max(S2,ROLE))",
+     -0.028846153927514828,
+     0.0005830501502766773
+    ],
+    [
+     "min(S2,ROLE)",
+     -0.02884615408136093,
+     0.002271365772187534
+    ],
+    [
+     "max(X,THEM(THEM))",
+     -0.02935897453087577,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S4,min(X,X))",
+     -0.03130769236973968,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S3,ROLE)",
+     -0.03525641014644973,
+     0.0022072680552180143
+    ],
+    [
+     "max(S4,min(X,ROLE))",
+     -0.03589743583372787,
+     3.204885848476004e-05
+    ],
+    [
+     "max(THEM(THEM),X)",
+     -0.036538461714852116,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S2,THEM(THEM))",
+     -0.03910256417934915,
+     1.602442924238002e-05
+    ],
+    [
+     "THEM(THEM)",
+     -0.03910256417934915,
+     0.0007495539098888975
+    ],
+    [
+     "max(THEM(THEM),ROLE)",
+     -0.03910256417934915,
+     8.01221462119001e-06
+    ],
+    [
+     "S2",
+     -0.04166666663461538,
+     0.1365578844307292
+    ],
+    [
+     "min(S2,max(X,ROLE))",
+     -0.046282051613786984,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S2,max(X,X))",
+     -0.046907692099955045,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S2,min(X,ROLE))",
+     -0.047564102849881634,
+     9.614657545428013e-05
+    ],
+    [
+     "THEM(^S2)",
+     -0.04807692293047339,
+     0.00014576253756916932
+    ],
+    [
+     "max(S4,THEM(ME))",
+     -0.04935897436964501,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S2,THEM(THEM))",
+     -0.05064102560112427,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S2,THEM(ME))",
+     -0.05064102560112427,
+     1.602442924238002e-05
+    ],
+    [
+     "flip(min(S2,ROLE))",
+     -0.051282051289940844,
+     0.0005830501502766773
+    ],
+    [
+     "max(S3,max(X,ROLE))",
+     -0.05564102558650891,
+     9.614657545428013e-05
+    ],
+    [
+     "max(S3,min(S4,ROLE))",
+     -0.05769230777810655,
+     6.409771696952008e-05
+    ],
+    [
+     "ROLE",
+     -0.05769230800887576,
+     0.1043973363914671
+    ],
+    [
+     "flip(ROLE)",
+     -0.05769230800887576,
+     0.02599686147799602
+    ],
+    [
+     "max(S4,X)",
+     -0.059615384470710076,
+     0.002790318205494693
+    ],
+    [
+     "max(ROLE,min(S4,X))",
+     -0.06141025637201186,
+     3.204885848476004e-05
+    ],
+    [
+     "flip(max(S3,ROLE))",
+     -0.06410256449704144,
+     0.0005830501502766773
+    ],
+    [
+     "max(ROLE,min(S3,X))",
+     -0.06474358956893492,
+     3.204885848476004e-05
+    ],
+    [
+     "max(THEM(ME),S5)",
+     -0.06474358990124263,
+     8.01221462119001e-06
+    ],
+    [
+     "max(THEM(THEM),S5)",
+     -0.06474358990124263,
+     8.01221462119001e-06
+    ],
+    [
+     "min(S2,X)",
+     -0.06499999980538462,
+     0.002790318205494693
+    ],
+    [
+     "max(X,max(X,ROLE))",
+     -0.06546666690726158,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S2,ROLE)",
+     -0.07051282056213021,
+     0.0021431703382484937
+    ],
+    [
+     "flip(min(S3,ROLE))",
+     -0.07371794865236689,
+     0.0005830501502766773
+    ],
+    [
+     "max(X,ROLE)",
+     -0.0743589742319527,
+     0.0020149749043094534
+    ],
+    [
+     "min(S4,THEM(THEM))",
+     -0.07499999993769235,
+     1.602442924238002e-05
+    ],
+    [
+     "max(ROLE,min(S2,X))",
+     -0.07512820496437872,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,max(X,ROLE))",
+     -0.07512820510284027,
+     9.614657545428013e-05
+    ],
+    [
+     "max(ROLE,min(X,X))",
+     -0.07521025639696569,
+     1.602442924238002e-05
+    ],
+    [
+     "min(THEM(THEM),ROLE)",
+     -0.07564102599573966,
+     8.01221462119001e-06
+    ],
+    [
+     "min(ROLE,THEM(THEM))",
+     -0.07564102599573966,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S4,max(X,X))",
+     -0.07643589740950299,
+     4.8073287727140066e-05
+    ],
+    [
+     "flip(min(X,ROLE))",
+     -0.07820512830946746,
+     0.0005830501502766773
+    ],
+    [
+     "min(S2,min(X,X))",
+     -0.07849743589209704,
+     4.8073287727140066e-05
+    ],
+    [
+     "S3",
+     -0.08012820514053257,
+     0.1365578844307292
+    ],
+    [
+     "min(S4,ROLE)",
+     -0.08012820537130178,
+     0.0021431703382484937
+    ],
+    [
+     "min(S4,max(X,ROLE))",
+     -0.0838461537344379,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S4,max(X,X))",
+     -0.0849384614701752,
+     1.602442924238002e-05
+    ],
+    [
+     "S1",
+     -0.08653846135946747,
+     0.14270246121397737
+    ],
+    [
+     "min(THEM(ME),S1)",
+     -0.08653846135946747,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,min(X,X))",
+     -0.09047692285133493,
+     1.602442924238002e-05
+    ],
+    [
+     "max(ROLE,THEM(ME))",
+     -0.09294871792455622,
+     8.01221462119001e-06
+    ],
+    [
+     "THEM(^flip(ROLE))",
+     -0.09294871792455622,
+     8.01221462119001e-06
+    ],
+    [
+     "max(S2,min(S4,ROLE))",
+     -0.09294871792455622,
+     6.409771696952008e-05
+    ],
+    [
+     "THEM(^S3)",
+     -0.09294871792455622,
+     0.00014576253756916932
+    ],
+    [
+     "THEM(^ROLE)",
+     -0.09294871792455622,
+     0.00013775032294797933
+    ],
+    [
+     "min(ROLE,max(S4,X))",
+     -0.09358974384260355,
+     3.204885848476004e-05
+    ],
+    [
+     "min(ROLE,max(S2,X))",
+     -0.09371794901082842,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S3,max(X,X))",
+     -0.09429230740355268,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S3,min(X,ROLE))",
+     -0.09538461549775151,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S2,min(S4,X))",
+     -0.09551282039674558,
+     6.409771696952008e-05
+    ],
+    [
+     "max(S2,min(S3,X))",
+     -0.09705128197698226,
+     6.409771696952008e-05
+    ],
+    [
+     "max(S3,min(X,X))",
+     -0.09786153857647104,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S3,THEM(ME))",
+     -0.09807692312739649,
+     1.602442924238002e-05
+    ],
+    [
+     "min(X,min(X,ROLE))",
+     -0.09815897448152189,
+     4.8073287727140066e-05
+    ],
+    [
+     "flip(max(S4,ROLE))",
+     -0.09935897464349114,
+     0.0005830501502766773
+    ],
+    [
+     "max(S3,min(S4,X))",
+     -0.10012820511437873,
+     6.409771696952008e-05
+    ],
+    [
+     "max(X,THEM(ME))",
+     -0.10051295027632842,
+     8.01221462119001e-06
+    ],
+    [
+     "min(S3,min(X,ROLE))",
+     -0.1025641028106509,
+     9.614657545428013e-05
+    ],
+    [
+     "min(S3,ROLE)",
+     -0.1025641030029586,
+     0.0022072680552180143
+    ],
+    [
+     "flip(max(X,ROLE))",
+     -0.1032051283133136,
+     0.0005830501502766773
+    ],
+    [
+     "min(S4,min(X,ROLE))",
+     -0.10435897469656805,
+     9.614657545428013e-05
+    ],
+    [
+     "max(X,max(X,X))",
+     -0.10480594871210103,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,min(X,ROLE))",
+     -0.10653846129485209,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,ROLE)",
+     -0.1070512823908284,
+     0.0020149749043094534
+    ],
+    [
+     "THEM(^X)",
+     -0.10730769234635507,
+     0.00014576253756916932
+    ],
+    [
+     "min(X,max(S2,X))",
+     -0.10734871782511007,
+     3.204885848476004e-05
+    ],
+    [
+     "min(ROLE,max(X,X))",
+     -0.10790256398661066,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S4,X)",
+     -0.10807692305970418,
+     0.002662122771555651
+    ],
+    [
+     "max(THEM(ME),X)",
+     -0.10833333344692311,
+     8.01221462119001e-06
+    ],
+    [
+     "min(X,min(X,X))",
+     -0.10842441034549463,
+     1.602442924238002e-05
+    ],
+    [
+     "max(X,min(S4,X))",
+     -0.10919487179985565,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S3,X)",
+     -0.10961538437071006,
+     0.0027262204885251727
+    ],
+    [
+     "min(S3,max(X,ROLE))",
+     -0.10961538456301778,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(S4,ROLE))",
+     -0.11025641006568049,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(S2,ROLE))",
+     -0.11038461554159765,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(S4,ROLE))",
+     -0.11076923075396453,
+     3.204885848476004e-05
+    ],
+    [
+     "max(THEM(ME),ROLE)",
+     -0.11089743591142015,
+     8.01221462119001e-06
+    ],
+    [
+     "min(S3,THEM(ME))",
+     -0.11089743591142015,
+     1.602442924238002e-05
+    ],
+    [
+     "min(S3,THEM(THEM))",
+     -0.11089743591142015,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,X)",
+     -0.1111538461047929,
+     0.002662122771555651
+    ],
+    [
+     "min(S3,min(X,X))",
+     -0.11172820509751716,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(X,max(S4,X))",
+     -0.11264102548697041,
+     3.204885848476004e-05
+    ],
+    [
+     "min(S4,min(X,X))",
+     -0.11283589736667218,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S2,max(X,X))",
+     -0.11345128192184378,
+     4.8073287727140066e-05
+    ],
+    [
+     "min(X,max(S3,ROLE))",
+     -0.11410256395088758,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(S2,X))",
+     -0.11424102568395506,
+     3.204885848476004e-05
+    ],
+    [
+     "max(S3,max(X,X))",
+     -0.11529743590120475,
+     4.8073287727140066e-05
+    ],
+    [
+     "max(S2,min(S3,ROLE))",
+     -0.11538461528698227,
+     6.409771696952008e-05
+    ],
+    [
+     "min(X,X)",
+     -0.11567692286961184,
+     0.0012669636688083057
+    ],
+    [
+     "max(X,X)",
+     -0.11567692303884261,
+     0.0012669636688083057
+    ],
+    [
+     "max(S3,X)",
+     -0.11576923066857989,
+     0.0027262204885251727
+    ],
+    [
+     "min(ROLE,max(S3,X))",
+     -0.11782051309094674,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(S3,X))",
+     -0.11873333318501542,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(X,X))",
+     -0.11877107692917463,
+     1.602442924238002e-05
+    ],
+    [
+     "max(X,min(X,X))",
+     -0.11997723051466483,
+     1.602442924238002e-05
+    ],
+    [
+     "max(X,min(S3,X))",
+     -0.1213179487330438,
+     3.204885848476004e-05
+    ],
+    [
+     "X",
+     -0.1237179487677515,
+     0.12812283209727557
+    ],
+    [
+     "min(X,max(S2,ROLE))",
+     -0.12448717934633138,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,max(X,ROLE))",
+     -0.12456923093276451,
+     3.204885848476004e-05
+    ],
+    [
+     "max(X,min(X,ROLE))",
+     -0.1245692309404568,
+     3.204885848476004e-05
+    ],
+    [
+     "min(X,THEM(ME))",
+     -0.1280789636763259,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(ME),X)",
+     -0.12987179479731362,
+     8.01221462119001e-06
+    ],
+    [
+     "min(X,THEM(THEM))",
+     -0.12987179479731362,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(THEM),X)",
+     -0.12987179479731362,
+     8.01221462119001e-06
+    ],
+    [
+     "max(X,min(S3,ROLE))",
+     -0.13448717931402368,
+     3.204885848476004e-05
+    ],
+    [
+     "THEM(^S4)",
+     -0.13782051291863906,
+     0.00014576253756916932
+    ],
+    [
+     "min(S4,THEM(ME))",
+     -0.14679487188514795,
+     1.602442924238002e-05
+    ],
+    [
+     "max(S2,THEM(ME))",
+     -0.14679487188514795,
+     1.602442924238002e-05
+    ],
+    [
+     "min(ROLE,THEM(ME))",
+     -0.14743589772781066,
+     8.01221462119001e-06
+    ],
+    [
+     "min(THEM(ME),ROLE)",
+     -0.14743589772781066,
+     8.01221462119001e-06
+    ],
+    [
+     "THEM(ME)",
+     -0.18269230764349115,
+     0.0007495539098888975
+    ],
+    [
+     "THEM(^S5)",
+     -0.18269230764349115,
+     0.00014576253756916932
+    ]
+   ]
+  }
+ ],
+ "discrepancy": {
+  "eff": -0.3832837229102646,
+  "half": -0.8061988661967078
+ },
+ "discrepancy_vs_rerun": {
+  "eff": -0.3833272851982964,
+  "half": -0.8062024847476907
+ },
+ "time_s": 1303.0659687519073,
+ "theta_log": 1e-14
+}
