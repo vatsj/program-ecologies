@@ -319,6 +319,68 @@ def _kc4_job(j):
                 bad_examples=[K.show(x) for x in bad[:10]], checker=ck, t=time.time() - t, n_forms=len(K.forms))
 
 
+def _relevant_job(j):
+    """Uncertified contents that can change a play.  K_c4 contains K, so a K-true atom stays true; an uncertified
+    K-false atom is unknown; a certified one stays false.  A pair whose play is decided under Kleene's three-valued
+    evaluation with every uncertified atom unknown cannot change, whatever the search finds; the goals are the
+    uncertified contents of the atoms of the undecided pairs.  Unsearched uncertified contents keep K's value, which
+    by construction changes no play."""
+    n, b, blk = j
+    K, L, cat, kg = build_K(n, b, b + 8)
+    gx, gy = block_genos(L, kg, blk)
+    contents, atoms = contents_block(K, gx, gy)
+    arr = np.load(os.path.join(GDIR, 'kT_n%d_b%d_%s.npy' % (n, b, blk)))
+    K.T = {int(c): (int(v) if v < 10**6 else INF) for c, v in zip(arr[0], arr[1])}
+    d = json.load(open(os.path.join(GDIR, 'kclosure_n%d_b%d_%s.json' % (n, b, blk))))
+    unc_s = set(d['uncertified'])
+    unc = {c for c in contents if K.T.get(c, INF) > b and K.show(c) in unc_s}
+    F = K.forms
+    memo = {}
+
+    def tv(f, x, y):
+        t = F[f]; k = t[0]
+        if k == FBOT: return False
+        if k == FTOP: return True
+        if k == FNOT:
+            r = tv(t[1], x, y); return None if r is None else (not r)
+        if k in (FAND, FOR):
+            p, q = tv(t[1], x, y), tv(t[2], x, y)
+            if k == FAND:
+                if p is False or q is False: return False
+                return None if (p is None or q is None) else True
+            if p is True or q is True: return True
+            return None if (p is None or q is None) else False
+        if k == FBOX:
+            c = t[1]
+            if c in unc: return None
+            return K.T.get(c, INF) <= t[2]
+        raise ValueError(k)
+    goals = set(); undecided = 0; pairs = 0
+    for x in sorted(set(gx)):
+        for y in sorted(set(gy)):
+            pairs += 1
+            if tv(K.phi(x, y), x, y) is None:
+                undecided += 1
+                for a_ in K.atoms(x, y):
+                    c = F[a_][1]
+                    if c in unc: goals.add(K.show(c))
+    return blk, sorted(goals), dict(pairs=pairs, undecided_pairs=undecided, uncertified=len(unc), relevant=len(goals))
+
+
+def cmd_relevant(a):
+    jobs = [(a.n, a.b, blk) for blk in BLOCKS]
+    with Pool(min(a.workers, 4)) as pool:
+        for blk, goals, st in pool.imap_unordered(_relevant_job, jobs):
+            json.dump(dict(goals=goals, **st), open(os.path.join(GDIR, 'relevant_n%d_b%d_%s.json' % (a.n, a.b, blk)), 'w'))
+            print(blk, st, flush=True)
+
+
+def goals_of(n, b, blk):
+    p = os.path.join(GDIR, 'relevant_n%d_b%d_%s.json' % (n, b, blk))
+    if os.path.exists(p): return sorted(json.load(open(p))['goals'])
+    return sorted(json.load(open(os.path.join(GDIR, 'kclosure_n%d_b%d_%s.json' % (n, b, blk))))['uncertified'])
+
+
 def cmd_kc4(a):
     n, b = a.n, a.b
     path = os.path.join(GDIR, 'kc4_n%d_b%d.json' % (n, b))
@@ -326,8 +388,7 @@ def cmd_kc4(a):
     done = {(r['block'], r['seed']) for r in out}
     jobs = []
     for blk in BLOCKS:
-        d = json.load(open(os.path.join(GDIR, 'kclosure_n%d_b%d_%s.json' % (n, b, blk))))
-        goals = sorted(d['uncertified'])
+        goals = goals_of(n, b, blk)
         if not goals: continue
         nch = max(1, min(a.chunks, (len(goals) + a.chunk_size - 1) // a.chunk_size))
         rng = np.random.default_rng(0); perm = rng.permutation(len(goals))
@@ -364,14 +425,14 @@ def patched_tables(n, b):
         assert (vb == np.load(os.path.join(GDIR, 'vK_n%d_b%d_%s.npy' % (n, b, blk)))).all()
         d = json.load(open(os.path.join(GDIR, 'kclosure_n%d_b%d_%s.json' % (n, b, blk))))
         R = [r for r in rows if r['block'] == blk]
-        unc = set(d['uncertified'])
+        unc = set(goals_of(n, b, blk)); unc_all = set(d['uncertified'])
         assert sum(r['n_goals'] for r in R) == len(unc), (blk, len(unc))
         Tn = {}
         for r in R: Tn.update(r['T'])
         byshow = {K.show(c): c for c in contents if K.T.get(c, INF) > b}
         T2 = dict(K.T); newly = []
         for s_, v in Tn.items():
-            assert s_ in unc
+            assert s_ in unc_all
             if v <= b and s_ in byshow:
                 T2[byshow[s_]] = v; newly.append(byshow[s_])
         v4b = block_play(K, gx, gy, T2)
@@ -1124,10 +1185,12 @@ def main():
         q = sp.add_parser(nm); q.add_argument('--n', type=int, default=8); q.add_argument('--b', type=int, default=16)
     q = sp.add_parser('chain'); q.add_argument('--cells', nargs='+'); q.add_argument('--workers', type=int, default=3)
     sp.add_parser('static')
+    q = sp.add_parser('relevant'); q.add_argument('--n', type=int, default=8); q.add_argument('--b', type=int, default=16)
+    q.add_argument('--workers', type=int, default=2)
     q = sp.add_parser('lottery'); q.add_argument('--reps', type=int, default=20); q.add_argument('--workers', type=int, default=3)
     a = p.parse_args()
     {'kclosure': cmd_kclosure, 'kc4': cmd_kc4, 'patch': cmd_patch, 'full': cmd_full, 'chain': cmd_chain,
-     'static': cmd_static, 'lottery': cmd_lottery}[a.cmd](a)
+     'static': cmd_static, 'lottery': cmd_lottery, 'relevant': cmd_relevant}[a.cmd](a)
 
 
 if __name__ == '__main__':
