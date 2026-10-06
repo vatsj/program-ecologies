@@ -1,5 +1,5 @@
 {
- "CC": {
+ "CC pool0 c0.5": {
   "constants | uniform | N=100": {
    "summary": {
     "fair": 0.09110086742619676,
@@ -352,7 +352,359 @@
    ],
    "bosses": 9
   },
-  "+D0 family | uniform | N=100": {
+  "+D0 family (P0) | uniform | N=100": {
+   "summary": {
+    "fair": 0.1513511477929716,
+    "intermediate": 0.7747597309291681,
+    "zero wage": 0.057514761063635275,
+    "strike": 0.001700621626424859,
+    "scab split": 0.014604150572797578,
+    "repression:strike": 8.635271364542595e-06,
+    "repression:source": 6.0952743638300333e-05
+   },
+   "top": [
+    {
+     "pi": 0.05960156426360229,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.046049719074933104,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.044925298479397795,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.04444507150476262,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.038607823097072724,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {1/4,1/2}),work,strike)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.02303421607779446,
+     "state": "(1/4,source) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,source) WW"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | uniform | N=1000": {
+   "summary": {
+    "fair": 0.11018033501092864,
+    "intermediate": 0.8372261715244422,
+    "zero wage": 0.04607470603485389,
+    "strike": 0.00022824470976464667,
+    "scab split": 0.006288207365042319,
+    "repression:strike": 3.5356474677004645e-07,
+    "repression:source": 1.9817902212790574e-06
+   },
+   "top": [
+    {
+     "pi": 0.07806709963339098,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.05684331039926604,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.05598022949136244,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.054626088939497906,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.04466932602355349,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {1/4,1/2}),work,strike)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.02471835870935377,
+     "state": "(1/4,source) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,source) WW"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | uniform | N=10000": {
+   "summary": {
+    "fair": 0.10491169093072354,
+    "intermediate": 0.8453941524941933,
+    "zero wage": 0.043927862323652964,
+    "strike": 0.0001208153943042969,
+    "scab split": 0.005645299082185159,
+    "repression:strike": 3.050438802083264e-08,
+    "repression:source": 1.4927055282152103e-07
+   },
+   "top": [
+    {
+     "pi": 0.08061178324053324,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.05834830882397368,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.05772701820522821,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.05618476462137408,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.04545311693884952,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {1/4,1/2}),work,strike)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.024922197502395653,
+     "state": "(1/4,source) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,source) WW"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | uniform | N=100000": {
+   "summary": {
+    "fair": 0.10436274093106576,
+    "intermediate": 0.8462477628500268,
+    "zero wage": 0.04369220152614407,
+    "strike": 0.00011059173806985004,
+    "scab split": 0.005586685523487851,
+    "repression:strike": 3.00323450409353e-09,
+    "repression:source": 1.442797132746255e-08
+   },
+   "top": [
+    {
+     "pi": 0.08087752794184229,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.05850569026132837,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.057915434237275853,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.056352364341927835,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0455346949790747,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {1/4,1/2}),work,strike)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.024943246143530412,
+     "state": "(1/4,source) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,source) WW"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | length | N=100": {
+   "summary": {
+    "fair": 0.005019454476747367,
+    "intermediate": 0.014539861333953508,
+    "zero wage": 0.43243186740588435,
+    "strike": 0.14301624702838325,
+    "scab split": 0.40496561834448297,
+    "repression:strike": 2.6924867478517965e-05,
+    "repression:source": 2.6543069558913016e-08
+   },
+   "top": [
+    {
+     "pi": 0.19068444401568638,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.12081762923725907,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.12081220161353419,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.09831920200406301,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.09831514289477865,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    },
+    {
+     "pi": 0.09827931983414274,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | length | N=1000": {
+   "summary": {
+    "fair": 0.004843986328927474,
+    "intermediate": 0.00964507704321912,
+    "zero wage": 0.44357657676596357,
+    "strike": 0.13837474326246452,
+    "scab split": 0.40355860535956223,
+    "repression:strike": 1.007885250785021e-06,
+    "repression:source": 3.354612561318308e-09
+   },
+   "top": [
+    {
+     "pi": 0.19613586014465414,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.1236488324867296,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.12364385293212578,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.10018809107695818,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.10018480961614758,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    },
+    {
+     "pi": 0.10013412010874947,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | length | N=10000": {
+   "summary": {
+    "fair": 0.005699002772881012,
+    "intermediate": 0.009646561405775394,
+    "zero wage": 0.4443260373032558,
+    "strike": 0.13762835618841943,
+    "scab split": 0.4026999599969773,
+    "repression:strike": 8.195281453706524e-08,
+    "repression:source": 3.7987673507074144e-10
+   },
+   "top": [
+    {
+     "pi": 0.19656435730674418,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.1237816509767583,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.1237765122197263,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.1002309834298223,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.1002276024374995,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    },
+    {
+     "pi": 0.10014694294735742,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | length | N=100000": {
+   "summary": {
+    "fair": 0.007983181090778385,
+    "intermediate": 0.011131407657141018,
+    "zero wage": 0.4428728276732552,
+    "strike": 0.1370305610328739,
+    "scab split": 0.4009820145255535,
+    "repression:strike": 7.973714702622635e-09,
+    "repression:source": 4.668335814778155e-11
+   },
+   "top": [
+    {
+     "pi": 0.19605205963793554,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.12336156497271768,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.12335541062083746,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.0998924449172459,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.09988801872812991,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    },
+    {
+     "pi": 0.09973078611393013,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family, D14 | uniform | N=100": {
    "summary": {
     "fair": 0.6664007582505274,
     "intermediate": 0.25644344002433794,
@@ -396,7 +748,7 @@
    ],
    "bosses": 13
   },
-  "+D0 family | uniform | N=1000": {
+  "+D0 family, D14 | uniform | N=1000": {
    "summary": {
     "fair": 0.7727139683915677,
     "intermediate": 0.19117033211801626,
@@ -440,7 +792,7 @@
    ],
    "bosses": 13
   },
-  "+D0 family | uniform | N=10000": {
+  "+D0 family, D14 | uniform | N=10000": {
    "summary": {
     "fair": 0.7866326236884488,
     "intermediate": 0.18256173475607748,
@@ -484,7 +836,7 @@
    ],
    "bosses": 13
   },
-  "+D0 family | uniform | N=100000": {
+  "+D0 family, D14 | uniform | N=100000": {
    "summary": {
     "fair": 0.788068572874855,
     "intermediate": 0.18167378458120853,
@@ -528,7 +880,7 @@
    ],
    "bosses": 13
   },
-  "+D0 family | length | N=100": {
+  "+D0 family, D14 | length | N=100": {
    "summary": {
     "fair": 0.005021267390142476,
     "intermediate": 0.014534453667791047,
@@ -572,7 +924,7 @@
    ],
    "bosses": 13
   },
-  "+D0 family | length | N=1000": {
+  "+D0 family, D14 | length | N=1000": {
    "summary": {
     "fair": 0.004884310352054265,
     "intermediate": 0.009593063073084008,
@@ -616,7 +968,7 @@
    ],
    "bosses": 13
   },
-  "+D0 family | length | N=10000": {
+  "+D0 family, D14 | length | N=10000": {
    "summary": {
     "fair": 0.0067173126687312314,
     "intermediate": 0.00901110392431948,
@@ -660,7 +1012,7 @@
    ],
    "bosses": 13
   },
-  "+D0 family | length | N=100000": {
+  "+D0 family, D14 | length | N=100000": {
    "summary": {
     "fair": 0.01324493341222686,
     "intermediate": 0.006932338256125204,
@@ -704,7 +1056,7 @@
    ],
    "bosses": 13
   },
-  "+D0 and D* families | uniform | N=100": {
+  "+D0 family, D14, D* family | uniform | N=100": {
    "summary": {
     "fair": 0.8714234558176783,
     "intermediate": 0.09501367274474498,
@@ -748,7 +1100,7 @@
    ],
    "bosses": 21
   },
-  "+D0 and D* families | uniform | N=1000": {
+  "+D0 family, D14, D* family | uniform | N=1000": {
    "summary": {
     "fair": 0.9653353428583779,
     "intermediate": 0.028107117764164778,
@@ -792,7 +1144,7 @@
    ],
    "bosses": 21
   },
-  "+D0 and D* families | uniform | N=10000": {
+  "+D0 family, D14, D* family | uniform | N=10000": {
    "summary": {
     "fair": 0.9766828294157649,
     "intermediate": 0.019635757524054345,
@@ -836,7 +1188,7 @@
    ],
    "bosses": 21
   },
-  "+D0 and D* families | uniform | N=100000": {
+  "+D0 family, D14, D* family | uniform | N=100000": {
    "summary": {
     "fair": 0.977843499716782,
     "intermediate": 0.01876389872416744,
@@ -880,7 +1232,7 @@
    ],
    "bosses": 21
   },
-  "+D0 and D* families | length | N=100": {
+  "+D0 family, D14, D* family | length | N=100": {
    "summary": {
     "fair": 0.005021273485358358,
     "intermediate": 0.014534458782314822,
@@ -924,7 +1276,7 @@
    ],
    "bosses": 21
   },
-  "+D0 and D* families | length | N=1000": {
+  "+D0 family, D14, D* family | length | N=1000": {
    "summary": {
     "fair": 0.00488439283802273,
     "intermediate": 0.009593092820716896,
@@ -968,7 +1320,7 @@
    ],
    "bosses": 21
   },
-  "+D0 and D* families | length | N=10000": {
+  "+D0 family, D14, D* family | length | N=10000": {
    "summary": {
     "fair": 0.00671906826949739,
     "intermediate": 0.009011042644199298,
@@ -1012,7 +1364,7 @@
    ],
    "bosses": 21
   },
-  "+D0 and D* families | length | N=100000": {
+  "+D0 family, D14, D* family | length | N=100000": {
    "summary": {
     "fair": 0.01327543646604232,
     "intermediate": 0.006932798534363746,
@@ -1056,7 +1408,359 @@
    ],
    "bosses": 21
   },
-  "+D0, D* and wage fakers | uniform | N=100": {
+  "+D* family only | uniform | N=100": {
+   "summary": {
+    "fair": 0.8764412291797609,
+    "intermediate": 0.09750815182066097,
+    "zero wage": 0.01517526183617875,
+    "strike": 0.0004209307091804339,
+    "scab split": 0.010430871037689594,
+    "repression:strike": 2.0360681571250486e-06,
+    "repression:source": 2.1519348372296985e-05
+   },
+   "top": [
+    {
+     "pi": 0.026886468796266005,
+     "state": "f[BOX(W1(^(1/4,none))=strike),BOX1(W1(^(0,none))=strike)]:(0,none),(1/2,none),(1/4,none),(1/2,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.02688646879626591,
+     "state": "f[BOX(W2(^(1/4,none))=strike),BOX1(W2(^(0,none))=strike)]:(0,none),(1/2,none),(1/4,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.023769696645924918,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.02376969664592478,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.021211114783701843,
+     "state": "f[BOX1(W1(^(0,none))=strike),BOX1(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.021211114783701832,
+     "state": "f[BOX1(W2(^(0,none))=strike),BOX1(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/2,none) WW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | uniform | N=1000": {
+   "summary": {
+    "fair": 0.9602445687272577,
+    "intermediate": 0.031582916427168414,
+    "zero wage": 0.004669999572652082,
+    "strike": 4.4234576461306875e-05,
+    "scab split": 0.003456616832893433,
+    "repression:strike": 9.055220961939262e-08,
+    "repression:source": 1.5733113572190027e-06
+   },
+   "top": [
+    {
+     "pi": 0.03657932868402655,
+     "state": "f[BOX(W2(^(1/4,none))=strike),BOX1(W2(^(0,none))=strike)]:(0,none),(1/2,none),(1/4,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.03657932868402652,
+     "state": "f[BOX(W1(^(1/4,none))=strike),BOX1(W1(^(0,none))=strike)]:(0,none),(1/2,none),(1/4,none),(1/2,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.029936653215838847,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.029936653215838823,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.027501022838219084,
+     "state": "f[BOX1(W2(^(0,none))=strike),BOX1(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.027501022838219036,
+     "state": "f[BOX1(W1(^(0,none))=strike),BOX1(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/2,none) WW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | uniform | N=10000": {
+   "summary": {
+    "fair": 0.9694671536434554,
+    "intermediate": 0.024147195500244276,
+    "zero wage": 0.0035167737048911398,
+    "strike": 1.8875762163844242e-05,
+    "scab split": 0.0028498441986636743,
+    "repression:strike": 8.12586969118227e-09,
+    "repression:source": 1.4906471212518825e-07
+   },
+   "top": [
+    {
+     "pi": 0.0379329223660824,
+     "state": "f[BOX(W2(^(1/4,none))=strike),BOX1(W2(^(0,none))=strike)]:(0,none),(1/2,none),(1/4,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.03793292236608237,
+     "state": "f[BOX(W1(^(1/4,none))=strike),BOX1(W1(^(0,none))=strike)]:(0,none),(1/2,none),(1/4,none),(1/2,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.030680718938502265,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.030680718938502233,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.028322567245170963,
+     "state": "f[BOX1(W1(^(0,none))=strike),BOX1(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.028322567245170866,
+     "state": "f[BOX1(W2(^(0,none))=strike),BOX1(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/2,none) WW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | uniform | N=100000": {
+   "summary": {
+    "fair": 0.9703916948861309,
+    "intermediate": 0.02340041224430166,
+    "zero wage": 0.0034009210370356513,
+    "strike": 1.6468899750846367e-05,
+    "scab split": 0.0027904873092589886,
+    "repression:strike": 8.035512877293352e-10,
+    "repression:source": 1.4819970903115498e-08
+   },
+   "top": [
+    {
+     "pi": 0.03807339141427647,
+     "state": "f[BOX(W1(^(1/4,none))=strike),BOX1(W1(^(0,none))=strike)]:(0,none),(1/2,none),(1/4,none),(1/2,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.03807339141427627,
+     "state": "f[BOX(W2(^(1/4,none))=strike),BOX1(W2(^(0,none))=strike)]:(0,none),(1/2,none),(1/4,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.030756138532611877,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.03075613853261166,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.02840689783628086,
+     "state": "f[BOX1(W1(^(0,none))=strike),BOX1(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/2,none) WW"
+    },
+    {
+     "pi": 0.02840689783628076,
+     "state": "f[BOX1(W2(^(0,none))=strike),BOX1(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/2,none) WW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | length | N=100": {
+   "summary": {
+    "fair": 0.005012369030420882,
+    "intermediate": 0.014536905930554019,
+    "zero wage": 0.4325015660644563,
+    "strike": 0.14302675163844342,
+    "scab split": 0.4048955170642232,
+    "repression:strike": 2.686372487140801e-05,
+    "repression:source": 2.6547030643681948e-08
+   },
+   "top": [
+    {
+     "pi": 0.19079750809827667,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.12084736055650862,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.1208419313130336,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.09830723658092998,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.09830723658092927,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    },
+    {
+     "pi": 0.09830317765040911,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | length | N=1000": {
+   "summary": {
+    "fair": 0.004768359119847701,
+    "intermediate": 0.009612481782276552,
+    "zero wage": 0.44368313632649803,
+    "strike": 0.13840046083676683,
+    "scab split": 0.40353455109508674,
+    "repression:strike": 1.0075041855063585e-06,
+    "repression:source": 3.3353391759500495e-09
+   },
+   "top": [
+    {
+     "pi": 0.19628683903127245,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.12369170013955685,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.12368673447865154,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.10017489304784796,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    },
+    {
+     "pi": 0.10017489304784725,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.10017162854344686,
+     "state": "(0,source) | work | strike",
+     "play": "(0,source) WS"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | length | N=10000": {
+   "summary": {
+    "fair": 0.004807476226786035,
+    "intermediate": 0.009111298380753228,
+    "zero wage": 0.44493315659624955,
+    "strike": 0.13785492203981284,
+    "scab split": 0.40329306430683565,
+    "repression:strike": 8.210035256854276e-08,
+    "repression:source": 3.492096685064705e-10
+   },
+   "top": [
+    {
+     "pi": 0.19693898680172797,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.12399021431523759,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.12398537021477472,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.10034828075460905,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.10034828075460887,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    },
+    {
+     "pi": 0.10034520821643,
+     "state": "(0,source) | work | strike",
+     "play": "(0,source) WS"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | length | N=100000": {
+   "summary": {
+    "fair": 0.004829933492347639,
+    "intermediate": 0.009057212562060555,
+    "zero wage": 0.44505227954202237,
+    "strike": 0.13779754907602898,
+    "scab split": 0.4032630172719296,
+    "repression:strike": 8.02044889727636e-09,
+    "repression:source": 3.516232056289724e-11
+   },
+   "top": [
+    {
+     "pi": 0.19700157521726758,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.12401842054791544,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.12401358815425907,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.10036418269349708,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    },
+    {
+     "pi": 0.10036418269349673,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.10036113013097782,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+all, and wage fakers | uniform | N=100": {
    "summary": {
     "fair": 0.417571371524642,
     "intermediate": 0.1990213236339759,
@@ -1100,7 +1804,7 @@
    ],
    "bosses": 25
   },
-  "+D0, D* and wage fakers | uniform | N=1000": {
+  "+all, and wage fakers | uniform | N=1000": {
    "summary": {
     "fair": 0.4548024909931307,
     "intermediate": 0.1582577808338515,
@@ -1144,7 +1848,7 @@
    ],
    "bosses": 25
   },
-  "+D0, D* and wage fakers | uniform | N=10000": {
+  "+all, and wage fakers | uniform | N=10000": {
    "summary": {
     "fair": 0.4633180022038869,
     "intermediate": 0.1467699644221291,
@@ -1188,7 +1892,7 @@
    ],
    "bosses": 25
   },
-  "+D0, D* and wage fakers | uniform | N=100000": {
+  "+all, and wage fakers | uniform | N=100000": {
    "summary": {
     "fair": 0.4643166265602862,
     "intermediate": 0.14536961760815054,
@@ -1232,7 +1936,7 @@
    ],
    "bosses": 25
   },
-  "+D0, D* and wage fakers | length | N=100": {
+  "+all, and wage fakers | length | N=100": {
    "summary": {
     "fair": 0.005013766886538151,
     "intermediate": 0.014521681246890858,
@@ -1276,7 +1980,7 @@
    ],
    "bosses": 25
   },
-  "+D0, D* and wage fakers | length | N=1000": {
+  "+all, and wage fakers | length | N=1000": {
    "summary": {
     "fair": 0.00474685170343109,
     "intermediate": 0.009456470371522738,
@@ -1320,7 +2024,7 @@
    ],
    "bosses": 25
   },
-  "+D0, D* and wage fakers | length | N=10000": {
+  "+all, and wage fakers | length | N=10000": {
    "summary": {
     "fair": 0.004797593259467682,
     "intermediate": 0.008023117923498212,
@@ -1364,7 +2068,7 @@
    ],
    "bosses": 25
   },
-  "+D0, D* and wage fakers | length | N=100000": {
+  "+all, and wage fakers | length | N=100000": {
    "summary": {
     "fair": 0.004225376689335452,
     "intermediate": 0.006065176407290202,
@@ -1404,6 +2108,4234 @@
      "pi": 0.1003934264060659,
      "state": "(0,none) | work | strike",
      "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 25
+  }
+ },
+ "RR pool0 c0.5": {
+  "constants | uniform | N=100": {
+   "summary": {
+    "fair": 0.0038921461614315014,
+    "intermediate": 0.9195257787065213,
+    "zero wage": 0.06419836152603592,
+    "strike": 0.0017568034868100362,
+    "scab split": 0.010626910119201511,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.027699702678042677,
+     "state": "(1/4,strike) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027699702678042677,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027699702678042663,
+     "state": "(1/4,strike) | strike | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027699702678042663,
+     "state": "(1/4,strike) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027699702678042663,
+     "state": "(1/4,strike) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027699702678042663,
+     "state": "(1/4,strike) | if(BOX(s in {0}),strike,work) | strike",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 3
+  },
+  "constants | uniform | N=1000": {
+   "summary": {
+    "fair": 0.0003453609203999543,
+    "intermediate": 0.9169549323433819,
+    "zero wage": 0.08083159048070367,
+    "strike": 0.0001796686444714665,
+    "scab split": 0.0016884476110429042,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.0277765350003191,
+     "state": "(1/4,strike) | strike | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0277765350003191,
+     "state": "(1/4,strike) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0277765350003191,
+     "state": "(1/4,strike) | if(BOX(s in {0}),strike,work) | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0277765350003191,
+     "state": "(1/4,strike) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0277765350003191,
+     "state": "(1/4,strike) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0277765350003191,
+     "state": "(1/4,strike) | if(BOX(s in {0,1/4}),strike,work) | strike",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 3
+  },
+  "constants | uniform | N=10000": {
+   "summary": {
+    "fair": 3.3401600703057155e-05,
+    "intermediate": 0.9166953191446239,
+    "zero wage": 0.08307502520826605,
+    "strike": 1.7887474838198034e-05,
+    "scab split": 0.00017836657156882895,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.027777764665597008,
+     "state": "(1/4,strike) | if(BOX(s in {0,1/4}),strike,work) | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027777764665597008,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027777764665596998,
+     "state": "(1/4,strike) | if(BOX(s in {0}),strike,work) | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027777764665596998,
+     "state": "(1/4,strike) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027777764665596973,
+     "state": "(1/4,strike) | strike | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027777764665596973,
+     "state": "(1/4,strike) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 3
+  },
+  "constants | uniform | N=100000": {
+   "summary": {
+    "fair": 3.327668572696123e-06,
+    "intermediate": 0.9166695298450351,
+    "zero wage": 0.0833074180090235,
+    "strike": 1.7877485865133758e-06,
+    "scab split": 1.7936728782068004e-05,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.027777777645939656,
+     "state": "(1/4,strike) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027777777645939642,
+     "state": "(1/4,strike) | if(BOX(s in {0}),strike,work) | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027777777645939642,
+     "state": "(1/4,strike) | if(BOX(s in {0,1/4}),strike,work) | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027777777645939642,
+     "state": "(1/4,strike) | strike | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027777777645939642,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.02777777764593963,
+     "state": "(1/4,strike) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 3
+  },
+  "constants | length | N=100": {
+   "summary": {
+    "fair": 0.0036831246677169805,
+    "intermediate": 0.7548330818294522,
+    "zero wage": 0.20599107774745962,
+    "strike": 0.0007983454334228609,
+    "scab split": 0.034694370321948664,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24519214458703545,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.22911377581751016,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2291137758175101,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.20596591295756655,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.041319200320603516,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.01716563704796739,
+     "state": "(0,strike) | strike | work",
+     "play": "(0,none) SW"
+    }
+   ],
+   "bosses": 3
+  },
+  "constants | length | N=1000": {
+   "summary": {
+    "fair": 5.854708028983908e-05,
+    "intermediate": 0.7527384034531888,
+    "zero wage": 0.24212988353269577,
+    "strike": 1.2205070381859265e-05,
+    "scab split": 0.005060960863443841,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24732784927732046,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24484003756434242,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2448400375643417,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24210018058048594,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.005261432653138149,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.00250399751920662,
+     "state": "(0,strike) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 3
+  },
+  "constants | length | N=10000": {
+   "summary": {
+    "fair": 6.299139269220693e-07,
+    "intermediate": 0.752619522560987,
+    "zero wage": 0.2468505736462254,
+    "strike": 1.3466509972987252e-07,
+    "scab split": 0.0005291392137608266,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24736139036901117,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24709975875894388,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24709975875894383,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24682028944959375,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.001310567407881579,
+     "state": "(1/4,strike) | strike | if(BOX(s in {1/2}),work,strike)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0013105674078815767,
+     "state": "(1/4,strike) | if(BOX(s in {1/2}),work,strike) | strike",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 3
+  },
+  "constants | length | N=100000": {
+   "summary": {
+    "fair": 7.550966916580126e-09,
+    "intermediate": 0.7526090491893335,
+    "zero wage": 0.24733778667907352,
+    "strike": 2.0075891081597395e-09,
+    "scab split": 5.3154573037124784e-05,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24736174358266744,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.247335446141301,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24733544614130054,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24730744268563293,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0013105692792815319,
+     "state": "(1/4,strike) | strike | if(BOX(s in {1/2}),work,strike)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0013105692792815273,
+     "state": "(1/4,strike) | if(BOX(s in {1/2}),work,strike) | strike",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 3
+  },
+  "+D0 family (P0) | uniform | N=100": {
+   "summary": {
+    "fair": 0.01070801632676234,
+    "intermediate": 0.9750856373545495,
+    "zero wage": 0.012496538496580022,
+    "strike": 0.00016321207147869808,
+    "scab split": 0.0015465957506296708,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.02632154249607919,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.026095392000675878,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.02566771519254457,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.025487037572245342,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.02548703757224532,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.02548703757224532,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | work",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 6
+  },
+  "+D0 family (P0) | uniform | N=1000": {
+   "summary": {
+    "fair": 0.0012005452429387324,
+    "intermediate": 0.9919452776507264,
+    "zero wage": 0.006682830390380843,
+    "strike": 1.1831450298691776e-05,
+    "scab split": 0.0001595152656552971,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.028251680115200985,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027847705121437253,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027606305242309583,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027098913112405424,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027098913112405396,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027098913112405396,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | work",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 6
+  },
+  "+D0 family (P0) | uniform | N=10000": {
+   "summary": {
+    "fair": 0.00012171325545622962,
+    "intermediate": 0.9938848369674772,
+    "zero wage": 0.005976085240911231,
+    "strike": 1.1330855682956521e-06,
+    "scab split": 1.623145058732438e-05,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.028472597622813428,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.02804293700384099,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027835999247670384,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0272759430201708,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0272759430201708,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027275943020170793,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | strike | work",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 6
+  },
+  "+D0 family (P0) | uniform | N=100000": {
+   "summary": {
+    "fair": 1.2188261273752016e-05,
+    "intermediate": 0.9940823439681016,
+    "zero wage": 0.005903728675554643,
+    "strike": 1.1278000106581761e-07,
+    "scab split": 1.6263150690605124e-06,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.028495065062878168,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.028062733531594105,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027859497749423225,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027293849050957227,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027293849050957216,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.027293849050957192,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | work",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 6
+  },
+  "+D0 family (P0) | length | N=100": {
+   "summary": {
+    "fair": 0.003807895186063555,
+    "intermediate": 0.7559910267963686,
+    "zero wage": 0.20489561866432743,
+    "strike": 0.000793478265756416,
+    "scab split": 0.03451198108748391,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.2450585236204685,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.22919602703628336,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.22844942882702501,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.20469052904052623,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.04116851814125948,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.017075833491217687,
+     "state": "(0,strike) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 6
+  },
+  "+D0 family (P0) | length | N=1000": {
+   "summary": {
+    "fair": 8.067232987056763e-05,
+    "intermediate": 0.7544783423136074,
+    "zero wage": 0.24040101477260634,
+    "strike": 1.2117997373051814e-05,
+    "scab split": 0.005027852586542235,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24723643882232,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24507164478917184,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2438741886539253,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2403431658708341,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.005237717926604585,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0024891661291409363,
+     "state": "(0,strike) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 6
+  },
+  "+D0 family (P0) | length | N=10000": {
+   "summary": {
+    "fair": 4.5630797472101e-06,
+    "intermediate": 0.7547649440395455,
+    "zero wage": 0.2447054622105804,
+    "strike": 1.3351476261489806e-07,
+    "scab split": 0.0005248971553640725,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24749747373571596,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2474227884296673,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.245764465855263,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2446709234525716,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.001743250858766737,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0013108926441730282,
+     "state": "(1/4,strike) | strike | if(BOX(s in {1/2}),work,strike)",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 6
+  },
+  "+D0 family (P0) | length | N=100000": {
+   "summary": {
+    "fair": 5.968099530546701e-07,
+    "intermediate": 0.7551253526003635,
+    "zero wage": 0.24482139845939757,
+    "strike": 1.9886798387556043e-09,
+    "scab split": 5.265014160590027e-05,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24792560951544743,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24761508026863635,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24563418795637537,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24479066855123652,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.001915489743687002,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0014417134514004496,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | strike | strike",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 6
+  },
+  "+D0 family, D14 | uniform | N=100": {
+   "summary": {
+    "fair": 0.016106360985720547,
+    "intermediate": 0.6055598459536977,
+    "zero wage": 0.3277205800246701,
+    "strike": 0.0011066970081232703,
+    "scab split": 0.04950651602778835,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.02450495975167094,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.02450495975167092,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.024412069957076576,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.024412069957076565,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.02438134654814611,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.02438134654814609,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 7
+  },
+  "+D0 family, D14 | uniform | N=1000": {
+   "summary": {
+    "fair": 0.0011135648274179324,
+    "intermediate": 0.5915508592022293,
+    "zero wage": 0.39861649456462095,
+    "strike": 2.922779438287383e-05,
+    "scab split": 0.008689853611348757,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.030986129527052306,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.030986129527052292,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.030935359693327964,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03093535969332795,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03078171694376988,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03078171694376985,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 7
+  },
+  "+D0 family, D14 | uniform | N=10000": {
+   "summary": {
+    "fair": 9.782445452642747e-05,
+    "intermediate": 0.589894698692274,
+    "zero wage": 0.4090688719311403,
+    "strike": 1.2124940226334518e-06,
+    "scab split": 0.0009373924280368105,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.03198335052369954,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03198335052369949,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.031938248276530974,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.031938248276530946,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03171827133083316,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0317182713308331,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 7
+  },
+  "+D0 family, D14 | uniform | N=100000": {
+   "summary": {
+    "fair": 9.629444963427814e-06,
+    "intermediate": 0.5897275113425395,
+    "zero wage": 0.41016827575299386,
+    "strike": 1.024555391824338e-07,
+    "scab split": 9.448100396400411e-05,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.03209397781049082,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03209397781049081,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.032038241513937665,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.032038241513937624,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03181657016131993,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.031816570161319876,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 7
+  },
+  "+D0 family, D14 | length | N=100": {
+   "summary": {
+    "fair": 0.003823356750844281,
+    "intermediate": 0.7555248978783473,
+    "zero wage": 0.2052056130405039,
+    "strike": 0.0007987629049374317,
+    "scab split": 0.034647369425367204,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.2450428578297765,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.22912365178574462,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.22838267714839364,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.20305326288826075,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.04094735147846583,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.01698209192330843,
+     "state": "(0,strike) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 7
+  },
+  "+D0 family, D14 | length | N=1000": {
+   "summary": {
+    "fair": 8.025941669651053e-05,
+    "intermediate": 0.7538301170601642,
+    "zero wage": 0.24102265656809002,
+    "strike": 1.2216167255912351e-05,
+    "scab split": 0.005054750787793299,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.247228203077532,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24504950123202449,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24388339553052563,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2380489934408653,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.005201376308693357,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.002472581312871783,
+     "state": "(0,strike) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 7
+  },
+  "+D0 family, D14 | length | N=10000": {
+   "summary": {
+    "fair": 3.3869406062819026e-06,
+    "intermediate": 0.7527527355727969,
+    "zero wage": 0.24671307010740864,
+    "strike": 1.3517843025395196e-07,
+    "scab split": 0.000530672200758003,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24738087580754392,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24731165421663154,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24601063747851257,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24210046541625696,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0028316118364311873,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.001605300368539027,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | strike | work",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 7
+  },
+  "+D0 family, D14 | length | N=100000": {
+   "summary": {
+    "fair": 3.0261200562016735e-07,
+    "intermediate": 0.7523057712605212,
+    "zero wage": 0.24764052053254443,
+    "strike": 2.0014018914097222e-09,
+    "scab split": 5.3403593526732465e-05,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.2476372883835967,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24733007784465685,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2462057411405081,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2423563090070277,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.003014915574208063,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0016300216731679092,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | strike | work",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 7
+  },
+  "+D0 family, D14, D* family | uniform | N=100": {
+   "summary": {
+    "fair": 0.0021031735649348956,
+    "intermediate": 0.7459541151925654,
+    "zero wage": 0.2313111117264887,
+    "strike": 0.0003203622323837097,
+    "scab split": 0.020311237283627392,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.01971723110627295,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.019717231106272916,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0197048074123691,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.019704807412369026,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.018959630339843783,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.01895963033984377,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 15
+  },
+  "+D0 family, D14, D* family | uniform | N=1000": {
+   "summary": {
+    "fair": 0.0001701990867432688,
+    "intermediate": 0.6526418328454643,
+    "zero wage": 0.34339362137163476,
+    "strike": 7.542380211054257e-06,
+    "scab split": 0.003786804315946713,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.03266364904803585,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03266364904803582,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.032568790770019417,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.032568790770019417,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.030007311074554302,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.030007311074554274,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 15
+  },
+  "+D0 family, D14, D* family | uniform | N=10000": {
+   "summary": {
+    "fair": 1.576279521257222e-05,
+    "intermediate": 0.6355760504040888,
+    "zero wage": 0.36399491136575435,
+    "strike": 2.039951914782284e-07,
+    "scab split": 0.00041307143975293127,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.035088031917950686,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.035088031917950624,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03497271039456592,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03497271039456583,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03194462243448219,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03194462243448216,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 15
+  },
+  "+D0 family, D14, D* family | uniform | N=100000": {
+   "summary": {
+    "fair": 1.5617559686399361e-06,
+    "intermediate": 0.63372453501391,
+    "zero wage": 0.36623220514584925,
+    "strike": 1.4278410773521926e-08,
+    "scab split": 4.1683805861213725e-05,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.03535220913144304,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03535220913144304,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.035234550536359044,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.035234550536358954,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.032153574942217204,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.032153574942217114,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 15
+  },
+  "+D0 family, D14, D* family | length | N=100": {
+   "summary": {
+    "fair": 0.003822806232075024,
+    "intermediate": 0.7555489073481058,
+    "zero wage": 0.20518603878309294,
+    "strike": 0.0007986634740333292,
+    "scab split": 0.034643584162692295,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24503290545673193,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.22911056361517035,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.22836967135972916,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.20303127768312368,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.04094400597360615,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.01698015238534633,
+     "state": "(0,strike) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 15
+  },
+  "+D0 family, D14, D* family | length | N=1000": {
+   "summary": {
+    "fair": 8.024493659523694e-05,
+    "intermediate": 0.753863454164428,
+    "zero wage": 0.24099006187472402,
+    "strike": 1.2214276018891725e-05,
+    "scab split": 0.005054024748234015,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.2472168745065861,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24503078480146573,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2438649198525572,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.23801667449672842,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.005200819998432485,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0024722281409849172,
+     "state": "(0,strike) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 15
+  },
+  "+D0 family, D14, D* family | length | N=10000": {
+   "summary": {
+    "fair": 3.3852942112217285e-06,
+    "intermediate": 0.7527933249339375,
+    "zero wage": 0.2466725734902403,
+    "strike": 1.3515398810675207e-07,
+    "scab split": 0.0005305811276231759,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24735881117067957,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24729925939627878,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2459895722116462,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2420643351314803,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0028301687730275123,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0016049704599525008,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | strike | work",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 15
+  },
+  "+D0 family, D14, D* family | length | N=100000": {
+   "summary": {
+    "fair": 3.023917560569099e-07,
+    "intermediate": 0.7523498300569691,
+    "zero wage": 0.24759647184651773,
+    "strike": 2.001038242464761e-09,
+    "scab split": 5.33937037190878e-05,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24761397680135527,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2473172492849146,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24618391571916293,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24231936132904452,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0030127372599197135,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0016296165735897972,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | strike | work",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 15
+  },
+  "+D* family only | uniform | N=100": {
+   "summary": {
+    "fair": 1.4643523672004059e-05,
+    "intermediate": 0.9838153269075657,
+    "zero wage": 0.015459129160196186,
+    "strike": 1.6842689498844944e-05,
+    "scab split": 0.0006940577190660335,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.005606793153360941,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX1(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.005606793153360941,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.005606793153360936,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.005606793153360936,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX1(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.005606793153360926,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.005606793153360921,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 11
+  },
+  "+D* family only | uniform | N=1000": {
+   "summary": {
+    "fair": 1.8566894929300717e-07,
+    "intermediate": 0.9976754574473575,
+    "zero wage": 0.0023094541978778923,
+    "strike": 7.64867466874082e-07,
+    "scab split": 1.413781834778688e-05,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.006114931407690539,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX1(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.006114931407690539,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX1(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.006114931407690539,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.006114931407690539,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.006114931407690533,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX1(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.006114931407690528,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 11
+  },
+  "+D* family only | uniform | N=10000": {
+   "summary": {
+    "fair": 1.5378297129303804e-08,
+    "intermediate": 0.9993631295689294,
+    "zero wage": 0.0006360562657736544,
+    "strike": 7.365345132702045e-08,
+    "scab split": 7.251335483053791e-07,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.006179223693256056,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.006179223693256051,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.006179223693256051,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX1(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.006179223693256045,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX1(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0061792236932560396,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX1(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0061792236932560396,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX1(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 11
+  },
+  "+D* family only | uniform | N=100000": {
+   "summary": {
+    "fair": 1.5190155661297504e-09,
+    "intermediate": 0.9995356668613762,
+    "zero wage": 0.0004642588858575445,
+    "strike": 7.340626331713e-09,
+    "scab split": 6.539312374115489e-08,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.006185833302834385,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.006185833302834385,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.00618583330283438,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX1(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.00618583330283438,
+     "state": "f[BOX(W2(^(0,none))=strike),BOX1(W2(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.006185833302834369,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX1(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.006185833302834369,
+     "state": "f[BOX(W1(^(0,none))=strike),BOX(W1(^(1/4,none))=strike)]:(0,none),(1/4,none),(1/2,none),(1/2,none) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 11
+  },
+  "+D* family only | length | N=100": {
+   "summary": {
+    "fair": 0.0036825870520066006,
+    "intermediate": 0.7548573204617475,
+    "zero wage": 0.20597129166487335,
+    "strike": 0.0007982454658697586,
+    "scab split": 0.03469055535550292,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24518218805184805,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.22910066120694622,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2291006612069457,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.20594345344747736,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.04131579850718195,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.017163664080715207,
+     "state": "(0,strike) | strike | work",
+     "play": "(0,none) SW"
+    }
+   ],
+   "bosses": 11
+  },
+  "+D* family only | length | N=1000": {
+   "summary": {
+    "fair": 5.853648750521309e-05,
+    "intermediate": 0.7527725637891447,
+    "zero wage": 0.24209647655851768,
+    "strike": 1.2203147018997831e-05,
+    "scab split": 0.005060220017813739,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.2473163719894503,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24482093181458553,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24482093181458536,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24206632010373608,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0052608485698626885,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0025036297720108036,
+     "state": "(0,strike) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 11
+  },
+  "+D* family only | length | N=10000": {
+   "summary": {
+    "fair": 6.29743995653359e-07,
+    "intermediate": 0.7526759535795068,
+    "zero wage": 0.24679426755248562,
+    "strike": 1.3463213760458404e-07,
+    "scab split": 0.000529014491874598,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.2473447752141662,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24706682790746695,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2470668279074669,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2467638763931687,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0013104536668802375,
+     "state": "(1/4,strike) | strike | if(BOX(s in {1/2}),work,strike)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0013104536668802212,
+     "state": "(1/4,strike) | if(BOX(s in {1/2}),work,strike) | strike",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 11
+  },
+  "+D* family only | length | N=100000": {
+   "summary": {
+    "fair": 7.543163280145175e-09,
+    "intermediate": 0.752863691952383,
+    "zero wage": 0.24708319903806714,
+    "strike": 2.0056533014991873e-09,
+    "scab split": 5.309946073267338e-05,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24729793838681796,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24717980469092288,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2471798046909222,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2470528069070999,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0013100736376194832,
+     "state": "(1/4,strike) | strike | if(BOX(s in {1/2}),work,strike)",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.001310073637619476,
+     "state": "(1/4,strike) | if(BOX(s in {1/2}),work,strike) | strike",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 11
+  },
+  "+all, and wage fakers | uniform | N=100": {
+   "summary": {
+    "fair": 0.012755234816793573,
+    "intermediate": 0.7417828138031773,
+    "zero wage": 0.22591995582756957,
+    "strike": 0.0002916561940443655,
+    "scab split": 0.019250339358415015,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.01832314432457985,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.018323144324579814,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.018305372193233138,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.01830537219323312,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.01781502265613678,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.01778739339073954,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+all, and wage fakers | uniform | N=1000": {
+   "summary": {
+    "fair": 0.002128404064665248,
+    "intermediate": 0.6412242131484163,
+    "zero wage": 0.35297614760667734,
+    "strike": 7.897905799061905e-06,
+    "scab split": 0.003663337274442321,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.03290427624307702,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03290427624307699,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03275988309410547,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03275988309410547,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.030870392327050057,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.030717711340223126,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+all, and wage fakers | uniform | N=10000": {
+   "summary": {
+    "fair": 0.00023087259407403088,
+    "intermediate": 0.6202946401990864,
+    "zero wage": 0.3790716202542332,
+    "strike": 2.993891001378226e-07,
+    "scab split": 0.0004025675635064042,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.03596396108695824,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03596396108695821,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03578360109505725,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03578360109505719,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.033457861976886626,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.033275397391569525,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+all, and wage fakers | uniform | N=100000": {
+   "summary": {
+    "fair": 2.328894731023786e-05,
+    "intermediate": 0.6179708494923123,
+    "zero wage": 0.3819651785409112,
+    "strike": 2.444005158817936e-08,
+    "scab split": 4.065857941445915e-05,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.036305185527955086,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.036305185527955086,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03612060833055678,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03612060833055675,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | if(BOX(s in {0,1/4}),strike,work) | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.033743368056621474,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0}),strike,work)",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.03355758489467792,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | f[BOX(s in {0}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+all, and wage fakers | length | N=100": {
+   "summary": {
+    "fair": 0.003907724901870798,
+    "intermediate": 0.7551537349080181,
+    "zero wage": 0.20546052166221093,
+    "strike": 0.0007989419431804576,
+    "scab split": 0.034679076584719165,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24467259570086763,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2286635414317136,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.22856584417460443,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.20330315763791554,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.04098025364358876,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.017016679813369812,
+     "state": "(0,strike) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 17
+  },
+  "+all, and wage fakers | length | N=1000": {
+   "summary": {
+    "fair": 8.993093787852762e-05,
+    "intermediate": 0.7533769451264739,
+    "zero wage": 0.24145931428592773,
+    "strike": 1.2223931664718516e-05,
+    "scab split": 0.005061585718054876,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24688853614214515,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24453839452720258,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24417825723943157,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.23848223869975807,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.005208043391412728,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.0024793728756161127,
+     "state": "(0,strike) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 17
+  },
+  "+all, and wage fakers | length | N=10000": {
+   "summary": {
+    "fair": 4.364196271647693e-06,
+    "intermediate": 0.7522914100145982,
+    "zero wage": 0.2471726830789494,
+    "strike": 1.3526776341532908e-07,
+    "scab split": 0.0005314074424168826,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24697497646055958,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24685999446762985,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24631684774043647,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2425601682539449,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0028346864474490005,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0016027616766688133,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | strike | work",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+all, and wage fakers | length | N=100000": {
+   "summary": {
+    "fair": 4.005838204257903e-07,
+    "intermediate": 0.7518456069207116,
+    "zero wage": 0.24810051336377378,
+    "strike": 2.0026420896070702e-09,
+    "scab split": 5.347712905202898e-05,
+    "repression:strike": 0.0,
+    "repression:source": 0.0
+   },
+   "top": [
+    {
+     "pi": 0.24711423980186875,
+     "state": "(1/4,strike) | strike | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24699326625848916,
+     "state": "(1/4,strike) | strike | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.2465128763803158,
+     "state": "(1/4,strike) | work | strike",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.24281829545047937,
+     "state": "(0,strike) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0030175337630695877,
+     "state": "if(BOX(W1=strike),(1/2,strike),(0,strike)) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0016274526141452244,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,strike),(0,strike)) | strike | work",
+     "play": "(1/4,none) WW"
+    }
+   ],
+   "bosses": 17
+  }
+ },
+ "CC pool1 c0.1": {
+  "constants | uniform | N=100": {
+   "summary": {
+    "fair": 0.0039434216614634785,
+    "intermediate": 0.042216548153889845,
+    "zero wage": 0.9097698819426129,
+    "strike": 0.0019675642830346268,
+    "scab split": 0.018914224788732805,
+    "repression:strike": 0.022146636717104342,
+    "repression:source": 0.0010417224531621004
+   },
+   "top": [
+    {
+     "pi": 0.2807712982895372,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.2807712982895372,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.26489822011117065,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.022403221464145282,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.021182129176432418,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.019871857305895045,
+     "state": "(0,none) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 9
+  },
+  "constants | uniform | N=1000": {
+   "summary": {
+    "fair": 0.00021405878724562586,
+    "intermediate": 0.004125411321137005,
+    "zero wage": 0.9911782466854547,
+    "strike": 0.00013597119671023087,
+    "scab split": 0.0021948634252341817,
+    "repression:strike": 0.0020934082176507175,
+    "repression:source": 5.804036656771918e-05
+   },
+   "top": [
+    {
+     "pi": 0.3108714147535824,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.3108714147535817,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.2835074720293162,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.0217571015474259,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.021562531499064588,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.021304156051242005,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 9
+  },
+  "constants | uniform | N=10000": {
+   "summary": {
+    "fair": 1.901751022894991e-05,
+    "intermediate": 0.000413837872376051,
+    "zero wage": 0.9991140404056077,
+    "strike": 1.278783136778804e-05,
+    "scab split": 0.00022573589704376798,
+    "repression:strike": 0.00020878537679842302,
+    "repression:source": 5.7951065774123935e-06
+   },
+   "top": [
+    {
+     "pi": 0.31330187342471283,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.31330187342471266,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.28626204856896253,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.02185542666179507,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.021626797121273154,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.021383010602075748,
+     "state": "(0,none) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 9
+  },
+  "constants | uniform | N=100000": {
+   "summary": {
+    "fair": 1.8767677878829305e-06,
+    "intermediate": 4.139528879783693e-05,
+    "zero wage": 0.9999113688557782,
+    "strike": 1.2703450110449508e-06,
+    "scab split": 2.2637874381776843e-05,
+    "repression:strike": 2.087147942974636e-05,
+    "repression:source": 5.7938881368889e-07
+   },
+   "top": [
+    {
+     "pi": 0.3135453461682908,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.3135453461682897,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.28654166835557005,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.021865025530947713,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.02163284566749754,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.021390568482591205,
+     "state": "(0,none) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 9
+  },
+  "constants | length | N=100": {
+   "summary": {
+    "fair": 0.00030403743023057204,
+    "intermediate": 0.012121265141811515,
+    "zero wage": 0.9313648314189447,
+    "strike": 0.0017300870895792587,
+    "scab split": 0.040810692891872245,
+    "repression:strike": 0.013669020675697741,
+    "repression:source": 6.535186402592201e-08
+   },
+   "top": [
+    {
+     "pi": 0.7337502897585054,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.0987926393274846,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0987877104072354,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.01081510679967981,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,strike) WW"
+    },
+    {
+     "pi": 0.010114721378358666,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.01011472137835864,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 9
+  },
+  "constants | length | N=1000": {
+   "summary": {
+    "fair": 3.409310204121926e-06,
+    "intermediate": 0.001288530053390618,
+    "zero wage": 0.992349056599211,
+    "strike": 2.2876315126192992e-05,
+    "scab split": 0.004903606137369658,
+    "repression:strike": 0.001432517444314159,
+    "repression:source": 4.140384257443649e-09
+   },
+   "top": [
+    {
+     "pi": 0.7974353166830448,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09744054110409853,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09743542522645943,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.0012165209886736415,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.0012165209886736404,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    },
+    {
+     "pi": 0.0012164377624163006,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    }
+   ],
+   "bosses": 9
+  },
+  "constants | length | N=10000": {
+   "summary": {
+    "fair": 3.540347541183908e-08,
+    "intermediate": 0.00012970200632543,
+    "zero wage": 0.9992256584581835,
+    "strike": 2.3700940166759934e-07,
+    "scab split": 0.0005004798253121664,
+    "repression:strike": 0.00014388688599488585,
+    "repression:source": 4.113070010373459e-10
+   },
+   "top": [
+    {
+     "pi": 0.8047472680908884,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09722271162145917,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0972176153481618,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.00012416529627633775,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.00012416529627633775,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    },
+    {
+     "pi": 0.00012415674475728476,
+     "state": "(0,source) | work | strike",
+     "play": "(0,source) WS"
+    }
+   ],
+   "bosses": 9
+  },
+  "constants | length | N=100000": {
+   "summary": {
+    "fair": 3.843832248069785e-10,
+    "intermediate": 1.2978749244399443e-05,
+    "zero wage": 0.9999224716488947,
+    "strike": 2.4910415976637353e-09,
+    "scab split": 5.015169792060212e-05,
+    "repression:strike": 1.439498741366602e-05,
+    "repression:source": 4.110189924979907e-11
+   },
+   "top": [
+    {
+     "pi": 0.8054900282940822,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.0971997223850246,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09719462819164426,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 1.706407950411481e-05,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 1.706407950411478e-05,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 1.2442278762727296e-05,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    }
+   ],
+   "bosses": 9
+  },
+  "+D0 family (P0) | uniform | N=100": {
+   "summary": {
+    "fair": 0.04010305538652658,
+    "intermediate": 0.14133399437989336,
+    "zero wage": 0.7490111870815701,
+    "strike": 0.0019380992493312425,
+    "scab split": 0.018983035132977884,
+    "repression:strike": 0.04722031151090252,
+    "repression:source": 0.001410317258798199
+   },
+   "top": [
+    {
+     "pi": 0.2531380485767054,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.22032940106115084,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.18778496762425276,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.016008348697317116,
+     "state": "if(BOX(W1(^(0,none))=strike),(1/4,none),(0,none)) | if(BOX(s in {0}),strike,work) | work",
+     "play": "(1/4,none) WW"
+    },
+    {
+     "pi": 0.013290512655323453,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.012640845459145041,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | uniform | N=1000": {
+   "summary": {
+    "fair": 0.00490833502954035,
+    "intermediate": 0.021478825873755304,
+    "zero wage": 0.965550778341041,
+    "strike": 0.00013418971459489018,
+    "scab split": 0.002026704080701175,
+    "repression:strike": 0.005772046848139659,
+    "repression:source": 0.00012912011222781532
+   },
+   "top": [
+    {
+     "pi": 0.3673259458745419,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.298595009284167,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.23343646896013448,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.016795042064623057,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.015319986523488892,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.01492969345635172,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | uniform | N=10000": {
+   "summary": {
+    "fair": 0.0005016646715538104,
+    "intermediate": 0.0022851947473670423,
+    "zero wage": 0.9963976961871599,
+    "strike": 1.2276955421776827e-05,
+    "scab split": 0.00020028010403247643,
+    "repression:strike": 0.0005898715963230852,
+    "repression:source": 1.3015738141991e-05
+   },
+   "top": [
+    {
+     "pi": 0.38662947159640315,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.3115390831645711,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.23781612875190028,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.017454700581409105,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.015695915027604784,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.01528584784641547,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | uniform | N=100000": {
+   "summary": {
+    "fair": 5.027482652720665e-05,
+    "intermediate": 0.00023002851706108618,
+    "zero wage": 0.9996380794558655,
+    "strike": 1.2151727248175962e-06,
+    "scab split": 1.998730263986957e-05,
+    "repression:strike": 5.911240840494442e-05,
+    "repression:source": 1.3023167766223599e-06
+   },
+   "top": [
+    {
+     "pi": 0.3887356171260377,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.31292574788639604,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.23823438938317812,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.017526347346938392,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.015734599391474795,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.015322495433633074,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | length | N=100": {
+   "summary": {
+    "fair": 0.0003052968309221659,
+    "intermediate": 0.012125092902737689,
+    "zero wage": 0.9313344752021241,
+    "strike": 0.0017306782598816748,
+    "scab split": 0.040829694352308085,
+    "repression:strike": 0.013674697076387793,
+    "repression:source": 6.537563806945809e-08
+   },
+   "top": [
+    {
+     "pi": 0.7336351891444709,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09877366731269262,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09876873946086553,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.010817221692481142,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,strike) WW"
+    },
+    {
+     "pi": 0.01011551119497717,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.010114918634012161,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | length | N=1000": {
+   "summary": {
+    "fair": 4.0553939463310374e-06,
+    "intermediate": 0.001289824836811606,
+    "zero wage": 0.9923444913038814,
+    "strike": 2.2883873920997584e-05,
+    "scab split": 0.004905513632859784,
+    "repression:strike": 0.0014332268152064836,
+    "repression:source": 4.143373795093711e-09
+   },
+   "top": [
+    {
+     "pi": 0.7973658709892006,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09742255140718718,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09741743657355634,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.001216624590588048,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.0012165413636798668,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    },
+    {
+     "pi": 0.0012164663505676585,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | length | N=10000": {
+   "summary": {
+    "fair": 2.1092433353829977e-07,
+    "intermediate": 0.00013010390887607497,
+    "zero wage": 0.9992249390240904,
+    "strike": 2.3705000498039787e-07,
+    "scab split": 0.0005005375521707438,
+    "repression:strike": 0.00014397112903636838,
+    "repression:source": 4.114882388426219e-10
+   },
+   "top": [
+    {
+     "pi": 0.8047451572656741,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09720158930028706,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09719649414241104,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.00012416288478656154,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.00012415612895902393,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    },
+    {
+     "pi": 0.0001241543334828913,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family (P0) | length | N=100000": {
+   "summary": {
+    "fair": 2.2088392375671892e-08,
+    "intermediate": 1.3043192569484818e-05,
+    "zero wage": 0.9999223797358096,
+    "strike": 2.4911732463705908e-09,
+    "scab split": 5.0148333525471484e-05,
+    "repression:strike": 1.4404117418427411e-05,
+    "repression:source": 4.111131175558682e-11
+   },
+   "top": [
+    {
+     "pi": 0.805529607430966,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09717600247580867,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09717090946249275,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 1.7068322599953752e-05,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 1.706259675953213e-05,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 1.244115125492746e-05,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    }
+   ],
+   "bosses": 12
+  },
+  "+D0 family, D14 | uniform | N=100": {
+   "summary": {
+    "fair": 0.07488492694024457,
+    "intermediate": 0.1043318233836111,
+    "zero wage": 0.7408512502140201,
+    "strike": 0.0021712413237839636,
+    "scab split": 0.022348047204565426,
+    "repression:strike": 0.053471119812453984,
+    "repression:source": 0.0019415911213209241
+   },
+   "top": [
+    {
+     "pi": 0.24332380873505305,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.20985639537915055,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.1795894423189127,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.011919430726472925,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.011238241422889431,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.010953657886108532,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 13
+  },
+  "+D0 family, D14 | uniform | N=1000": {
+   "summary": {
+    "fair": 0.011314631341196242,
+    "intermediate": 0.014917163220605777,
+    "zero wage": 0.9642738648050775,
+    "strike": 0.00017615027320760693,
+    "scab split": 0.0022501198983912968,
+    "repression:strike": 0.006835341887671811,
+    "repression:source": 0.0002327285738499732
+   },
+   "top": [
+    {
+     "pi": 0.3693294140134163,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.29847874899386817,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.2286439845145666,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.015768324715380918,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.014564616515148439,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.01391173359137724,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 13
+  },
+  "+D0 family, D14 | uniform | N=10000": {
+   "summary": {
+    "fair": 0.0012019139377187978,
+    "intermediate": 0.0015662147556235778,
+    "zero wage": 0.9962713082896253,
+    "strike": 1.680757813418485e-05,
+    "scab split": 0.00021745543235455534,
+    "repression:strike": 0.0007021036092206356,
+    "repression:source": 2.4196397322706444e-05
+   },
+   "top": [
+    {
+     "pi": 0.39204867538737326,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.31409331266499213,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.23261521422605988,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.016572391779544966,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.01508652430631973,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.01438793333441706,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 13
+  },
+  "+D0 family, D14 | uniform | N=100000": {
+   "summary": {
+    "fair": 0.00012096475544545248,
+    "intermediate": 0.00015741890351702906,
+    "zero wage": 0.9996254785212477,
+    "strike": 1.6718841490308543e-06,
+    "scab split": 2.164179443145766e-05,
+    "repression:strike": 7.039493717791882e-05,
+    "repression:source": 2.4292040314290534e-06
+   },
+   "top": [
+    {
+     "pi": 0.39455441371783373,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.3157897550973522,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.23295317194354243,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.016661221701804448,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.015142322176575395,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.014438716492300673,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 13
+  },
+  "+D0 family, D14 | length | N=100": {
+   "summary": {
+    "fair": 0.0003056415570259644,
+    "intermediate": 0.01212601549591354,
+    "zero wage": 0.9313247576586119,
+    "strike": 0.0017308765725404414,
+    "scab split": 0.04083605912977154,
+    "repression:strike": 0.013676584201548797,
+    "repression:source": 6.538458817952923e-08
+   },
+   "top": [
+    {
+     "pi": 0.7335961145282239,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09876755601496232,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09876262851023422,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.010817975376326614,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,strike) WW"
+    },
+    {
+     "pi": 0.010115847783612242,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.010115255223398614,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    }
+   ],
+   "bosses": 13
+  },
+  "+D0 family, D14 | length | N=1000": {
+   "summary": {
+    "fair": 4.236826925669978e-06,
+    "intermediate": 0.0012899420067716356,
+    "zero wage": 0.992343229642618,
+    "strike": 2.288667351255145e-05,
+    "scab split": 0.004906242612922321,
+    "repression:strike": 0.0014334580927199917,
+    "repression:source": 4.144529397875121e-09
+   },
+   "top": [
+    {
+     "pi": 0.7973377602682233,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09741717842653205,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0974120639167393,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.0012166778318282705,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.00121659460394621,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    },
+    {
+     "pi": 0.0012164560451556892,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 13
+  },
+  "+D0 family, D14 | length | N=10000": {
+   "summary": {
+    "fair": 2.941466118890515e-07,
+    "intermediate": 0.00013011817736025,
+    "zero wage": 0.9992247765324005,
+    "strike": 2.370697645736547e-07,
+    "scab split": 0.0005005735994456143,
+    "repression:strike": 0.00014400006286245757,
+    "repression:source": 4.115551775866402e-10
+   },
+   "top": [
+    {
+     "pi": 0.804736721164741,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09719649454542628,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09719139969059606,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.0001241655081134014,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.00012415695677981217,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    },
+    {
+     "pi": 0.00012415555859218236,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 13
+  },
+  "+D0 family, D14 | length | N=100000": {
+   "summary": {
+    "fair": 3.565486759807316e-08,
+    "intermediate": 1.3044807682741998e-05,
+    "zero wage": 0.9999223607470121,
+    "strike": 2.4912914091419547e-09,
+    "scab split": 5.0148804089240384e-05,
+    "repression:strike": 1.4407453942647985e-05,
+    "repression:source": 4.11142962178126e-11
+   },
+   "top": [
+    {
+     "pi": 0.8055364028145954,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09717107954101348,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09716598681577085,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 1.70693199622962e-05,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 1.7061934293710483e-05,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 1.244117063285058e-05,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    }
+   ],
+   "bosses": 13
+  },
+  "+D0 family, D14, D* family | uniform | N=100": {
+   "summary": {
+    "fair": 0.19643329515374897,
+    "intermediate": 0.1514539682470527,
+    "zero wage": 0.5586785302063099,
+    "strike": 0.0018830841037082834,
+    "scab split": 0.019590330556585628,
+    "repression:strike": 0.06946750341615887,
+    "repression:source": 0.00249328831643574
+   },
+   "top": [
+    {
+     "pi": 0.16356628885741947,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.15478546460164788,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.1445233337455497,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.008273592605225226,
+     "state": "(1/4,strike) | if(BOX(s in {1/4,1/2}),work,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,strike) WW"
+    },
+    {
+     "pi": 0.007875148988629063,
+     "state": "(1/4,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {1/4,1/2}),work,strike)",
+     "play": "(1/4,strike) WW"
+    },
+    {
+     "pi": 0.006874383854200544,
+     "state": "(1/4,strike) | if(BOX(s in {1/4,1/2}),work,strike) | if(BOX(s in {1/4,1/2}),work,strike)",
+     "play": "(1/4,strike) WW"
+    }
+   ],
+   "bosses": 21
+  },
+  "+D0 family, D14, D* family | uniform | N=1000": {
+   "summary": {
+    "fair": 0.03748696491320126,
+    "intermediate": 0.031205272948225744,
+    "zero wage": 0.9158333273338872,
+    "strike": 0.00024596248093066347,
+    "scab split": 0.0021170178463466925,
+    "repression:strike": 0.012681978844104647,
+    "repression:source": 0.0004294756333042179
+   },
+   "top": [
+    {
+     "pi": 0.3097879085132167,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.29499831672298266,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.26431344227598536,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.007468800282463204,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.007348045234620808,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0070265090437921,
+     "state": "(0,none) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 21
+  },
+  "+D0 family, D14, D* family | uniform | N=10000": {
+   "summary": {
+    "fair": 0.004138754154356866,
+    "intermediate": 0.0034992536138173905,
+    "zero wage": 0.9906880241705441,
+    "strike": 2.578716337024127e-05,
+    "scab split": 0.00020868683219385102,
+    "repression:strike": 0.001392312078507132,
+    "repression:source": 4.71819872102088e-05
+   },
+   "top": [
+    {
+     "pi": 0.3414880949679507,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.32571460226366855,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.29048030006757863,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.008022597623341359,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.007981084805617687,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0076291222299671915,
+     "state": "(0,none) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 21
+  },
+  "+D0 family, D14, D* family | uniform | N=100000": {
+   "summary": {
+    "fair": 0.00041826887795099355,
+    "intermediate": 0.00035423635523083906,
+    "zero wage": 0.9990586941844843,
+    "strike": 2.591846998100469e-06,
+    "scab split": 2.081755208519872e-05,
+    "repression:strike": 0.00014062521628058637,
+    "repression:source": 4.765966970044273e-06
+   },
+   "top": [
+    {
+     "pi": 0.34505870179085196,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.32918015584842286,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.29342149332462036,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.008084117974000393,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.00805213372887847,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.007696501376109372,
+     "state": "(0,none) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 21
+  },
+  "+D0 family, D14, D* family | length | N=100": {
+   "summary": {
+    "fair": 0.00030564231469750765,
+    "intermediate": 0.012126017957719849,
+    "zero wage": 0.9313247399992163,
+    "strike": 0.0017308769089860057,
+    "scab split": 0.0408360699213904,
+    "repression:strike": 0.013676587513386908,
+    "repression:source": 6.538460329367601e-08
+   },
+   "top": [
+    {
+     "pi": 0.7335960472301059,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09876754519317435,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09876261768905813,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.010817976638350081,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,strike) WW"
+    },
+    {
+     "pi": 0.010115847847907602,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.010115255287728041,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    }
+   ],
+   "bosses": 21
+  },
+  "+D0 family, D14, D* family | length | N=1000": {
+   "summary": {
+    "fair": 4.237228269754884e-06,
+    "intermediate": 0.001289942794206634,
+    "zero wage": 0.992343226964573,
+    "strike": 2.2886677797740267e-05,
+    "scab split": 0.004906243677234019,
+    "repression:strike": 0.0014334585133875411,
+    "repression:source": 4.144531047690673e-09
+   },
+   "top": [
+    {
+     "pi": 0.7973377204104001,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.0974171683963561,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09741205388714831,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.0012166778540608474,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.0012165946261814469,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    },
+    {
+     "pi": 0.0012164560673902749,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 21
+  },
+  "+D0 family, D14, D* family | length | N=10000": {
+   "summary": {
+    "fair": 2.942705574191021e-07,
+    "intermediate": 0.000130118387894874,
+    "zero wage": 0.9992247761206114,
+    "strike": 2.3706978718062767e-07,
+    "scab split": 0.0005005736246730695,
+    "repression:strike": 0.00014400011492076646,
+    "repression:source": 4.115552248414222e-10
+   },
+   "top": [
+    {
+     "pi": 0.8047367233616164,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09719648358223001,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09719138872799064,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.000124165506162567,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.00012415695482925477,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    },
+    {
+     "pi": 0.0001241555566411772,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 21
+  },
+  "+D0 family, D14, D* family | length | N=100000": {
+   "summary": {
+    "fair": 3.567093070577489e-08,
+    "intermediate": 1.3044834628089175e-05,
+    "zero wage": 0.9999223606995833,
+    "strike": 2.4912915299591646e-09,
+    "scab split": 5.014880288404861e-05,
+    "repression:strike": 1.4407459568136504e-05,
+    "repression:source": 4.111429622777548e-11
+   },
+   "top": [
+    {
+     "pi": 0.8055364230615314,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09717106811133923,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09716597538668979,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 1.706932076630653e-05,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 1.706193510581291e-05,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 1.2441170236120422e-05,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    }
+   ],
+   "bosses": 21
+  },
+  "+D* family only | uniform | N=100": {
+   "summary": {
+    "fair": 0.15074934833447334,
+    "intermediate": 0.13770246235261568,
+    "zero wage": 0.6227919358420274,
+    "strike": 0.001659858121158561,
+    "scab split": 0.015858996873572073,
+    "repression:strike": 0.06884530386013381,
+    "repression:source": 0.002392094616018913
+   },
+   "top": [
+    {
+     "pi": 0.18536736119705263,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.18536736119705108,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.16891033851775075,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.007033757822727241,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.006685947301274542,
+     "state": "(1/4,strike) | if(BOX(s in {1/4,1/2}),work,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(1/4,strike) WW"
+    },
+    {
+     "pi": 0.006685947301274518,
+     "state": "(1/4,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {1/4,1/2}),work,strike)",
+     "play": "(1/4,strike) WW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | uniform | N=1000": {
+   "summary": {
+    "fair": 0.02480227943955052,
+    "intermediate": 0.02473836528776719,
+    "zero wage": 0.9370842773746557,
+    "strike": 0.00020186786397779013,
+    "scab split": 0.0018315796148304104,
+    "repression:strike": 0.010992505817683944,
+    "repression:source": 0.00034912460153422903
+   },
+   "top": [
+    {
+     "pi": 0.3088695600946778,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.3088695600946738,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.27156363793887,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.00954632689356167,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.00938144322073442,
+     "state": "(0,none) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.009381443220734328,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | uniform | N=10000": {
+   "summary": {
+    "fair": 0.00264960818986008,
+    "intermediate": 0.0027040095481138957,
+    "zero wage": 0.9932278993090939,
+    "strike": 2.0735622062130784e-05,
+    "scab split": 0.00018786442494344625,
+    "repression:strike": 0.0011727874979993154,
+    "repression:source": 3.709540792702511e-05
+   },
+   "top": [
+    {
+     "pi": 0.33110410481007574,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.3311041048100745,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.29052912355208865,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.010047904513332288,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.009941272177934684,
+     "state": "(0,none) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.009941272177934649,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | uniform | N=100000": {
+   "summary": {
+    "fair": 0.0002667773796823853,
+    "intermediate": 0.00027296795361928905,
+    "zero wage": 0.9993175346944149,
+    "strike": 2.079147249140185e-06,
+    "scab split": 1.8836322914174476e-05,
+    "repression:strike": 0.00011807173817494413,
+    "repression:source": 3.732763945160223e-06
+   },
+   "top": [
+    {
+     "pi": 0.333518267492669,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.33351826749266816,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.29259182469153383,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.010102086271802231,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.010001731378015395,
+     "state": "(0,none) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.010001731378015216,
+     "state": "(0,none) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | length | N=100": {
+   "summary": {
+    "fair": 0.00030403818850210186,
+    "intermediate": 0.012121267607340763,
+    "zero wage": 0.9313648137511727,
+    "strike": 0.0017300874260215678,
+    "scab split": 0.04081070368534653,
+    "repression:strike": 0.013669023989737312,
+    "repression:source": 6.535187915061776e-08
+   },
+   "top": [
+    {
+     "pi": 0.7337502224233571,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09879262850292107,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.0987876995832842,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.010815108063880903,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,strike) WW"
+    },
+    {
+     "pi": 0.010114721443002815,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    },
+    {
+     "pi": 0.010114721443002815,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | length | N=1000": {
+   "summary": {
+    "fair": 3.4097117267444434e-06,
+    "intermediate": 0.0012885308416951632,
+    "zero wage": 0.9923490539201383,
+    "strike": 2.287631941044513e-05,
+    "scab split": 0.004903607201475154,
+    "repression:strike": 0.0014325178651684873,
+    "repression:source": 4.140385904706277e-09
+   },
+   "top": [
+    {
+     "pi": 0.7974352768186488,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09744053107199196,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09743541519493833,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.0012165210109413677,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.0012165210109413623,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    },
+    {
+     "pi": 0.0012164377846866912,
+     "state": "(0,source) | work | strike",
+     "play": "(0,source) WS"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | length | N=10000": {
+   "summary": {
+    "fair": 3.552738528663273e-08,
+    "intermediate": 0.0001297022169809629,
+    "zero wage": 0.9992256580463522,
+    "strike": 2.3700942426289156e-07,
+    "scab split": 0.0005004798505016891,
+    "repression:strike": 0.00014388693804868107,
+    "repression:source": 4.11307044303767e-10
+   },
+   "top": [
+    {
+     "pi": 0.8047472703058108,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09722270065486477,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09721760438216163,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.00012416529432672535,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    },
+    {
+     "pi": 0.00012416529432672513,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.00012415674280795685,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+D* family only | length | N=100000": {
+   "summary": {
+    "fair": 4.004351817448991e-10,
+    "intermediate": 1.2978776198082857e-05,
+    "zero wage": 0.9999224716014727,
+    "strike": 2.4910417176501076e-09,
+    "scab split": 5.0151696714224136e-05,
+    "repression:strike": 1.4394993036415225e-05,
+    "repression:source": 4.1101898499690543e-11
+   },
+   "top": [
+    {
+     "pi": 0.8054900485542859,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09719971095021872,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09719461675743876,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 1.7064080175479402e-05,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 1.7064080175479402e-05,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 1.2442278365928739e-05,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    }
+   ],
+   "bosses": 17
+  },
+  "+all, and wage fakers | uniform | N=100": {
+   "summary": {
+    "fair": 0.13392362100613764,
+    "intermediate": 0.13793056431549638,
+    "zero wage": 0.6156301239094808,
+    "strike": 0.002146662829235666,
+    "scab split": 0.057246614991162896,
+    "repression:strike": 0.052060327796847015,
+    "repression:source": 0.0010620851516397055
+   },
+   "top": [
+    {
+     "pi": 0.14290616970452152,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.12468481591799532,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.10199469291943714,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.009165676735355555,
+     "state": "if(BOX(W1=strike),(1/2,none),(0,none)) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.008960519619764136,
+     "state": "if(BOX(W1=strike),(1/2,none),(0,none)) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.008543949177252638,
+     "state": "if(BOX(W1=strike),(1/2,none),(0,none)) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 25
+  },
+  "+all, and wage fakers | uniform | N=1000": {
+   "summary": {
+    "fair": 0.025094505483475735,
+    "intermediate": 0.028980552292175953,
+    "zero wage": 0.9264115801741649,
+    "strike": 0.00013347137289827673,
+    "scab split": 0.00963775190846319,
+    "repression:strike": 0.00955070364688898,
+    "repression:source": 0.00019143512193255048
+   },
+   "top": [
+    {
+     "pi": 0.29275367498937427,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.22646987883451244,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.17805725221151492,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.01686256894580188,
+     "state": "if(BOX(W1=strike),(1/2,none),(0,none)) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.015757858877321906,
+     "state": "if(BOX(W1=strike),(1/2,none),(0,none)) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.014270262260186252,
+     "state": "if(BOX(W1=strike),(1/2,none),(0,none)) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 25
+  },
+  "+all, and wage fakers | uniform | N=10000": {
+   "summary": {
+    "fair": 0.0027686533132191614,
+    "intermediate": 0.003257562895050327,
+    "zero wage": 0.9918318834204697,
+    "strike": 1.13446274614221e-05,
+    "scab split": 0.0010555582036129222,
+    "repression:strike": 0.0010534452949967263,
+    "repression:source": 2.155224519024362e-05
+   },
+   "top": [
+    {
+     "pi": 0.3302902615839973,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.2491297002581724,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.19318399175765333,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.01873773748117965,
+     "state": "if(BOX(W1=strike),(1/2,none),(0,none)) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.017351665034295635,
+     "state": "if(BOX(W1=strike),(1/2,none),(0,none)) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.015488622727081028,
+     "state": "if(BOX(W1=strike),(1/2,none),(0,none)) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 25
+  },
+  "+all, and wage fakers | uniform | N=100000": {
+   "summary": {
+    "fair": 0.00027979302499873797,
+    "intermediate": 0.0003298452489145761,
+    "zero wage": 0.9991739984060436,
+    "strike": 1.1111205222984198e-06,
+    "scab split": 0.00010660820638973006,
+    "repression:strike": 0.00010646073315106669,
+    "repression:source": 2.183259979343831e-06
+   },
+   "top": [
+    {
+     "pi": 0.3346565464616262,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.251684399818418,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.19484578691644383,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.018954652787568242,
+     "state": "if(BOX(W1=strike),(1/2,none),(0,none)) | if(BOX(s in {0,1/4}),strike,work) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.017535026260957553,
+     "state": "if(BOX(W1=strike),(1/2,none),(0,none)) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.015624808632553807,
+     "state": "if(BOX(W1=strike),(1/2,none),(0,none)) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | if(BOX(s in {0,1/4}),strike,work)",
+     "play": "(0,none) WW"
+    }
+   ],
+   "bosses": 25
+  },
+  "+all, and wage fakers | length | N=100": {
+   "summary": {
+    "fair": 0.0003060304266723945,
+    "intermediate": 0.012127546999434158,
+    "zero wage": 0.931314459821628,
+    "strike": 0.0017313320351226929,
+    "scab split": 0.04084352839814012,
+    "repression:strike": 0.013677036955575653,
+    "repression:source": 6.536342670308336e-08
+   },
+   "top": [
+    {
+     "pi": 0.7335720231233955,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09875344882027555,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09874852220900483,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.010819340983385717,
+     "state": "(1/4,strike) | work | work",
+     "play": "(1/4,strike) WW"
+    },
+    {
+     "pi": 0.010116248784826483,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.010115656266686436,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    }
+   ],
+   "bosses": 25
+  },
+  "+all, and wage fakers | length | N=1000": {
+   "summary": {
+    "fair": 4.258661743319156e-06,
+    "intermediate": 0.0012900987155241895,
+    "zero wage": 0.9923419441088642,
+    "strike": 2.2893864121808084e-05,
+    "scab split": 0.004907273109380563,
+    "repression:strike": 0.001433527397341784,
+    "repression:source": 4.143023699866179e-09
+   },
+   "top": [
+    {
+     "pi": 0.7973234930682991,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09740251933996552,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09739740582986516,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.0012167885756378819,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.0012167053509640202,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    },
+    {
+     "pi": 0.001216499965966865,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 25
+  },
+  "+all, and wage fakers | length | N=10000": {
+   "summary": {
+    "fair": 2.96115867433024e-07,
+    "intermediate": 0.00013013347798148596,
+    "zero wage": 0.9992246449819325,
+    "strike": 2.3714502820327813e-07,
+    "scab split": 0.0005006806456497316,
+    "repression:strike": 0.00014400722213646952,
+    "repression:source": 4.1140392308451456e-10
+   },
+   "top": [
+    {
+     "pi": 0.8047237162983867,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.0971817694179776,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09717667556434935,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 0.0001241776448260737,
+     "state": "(0,none) | strike | work",
+     "play": "(0,none) SW"
+    },
+    {
+     "pi": 0.0001241690937593717,
+     "state": "(0,source) | strike | work",
+     "play": "(0,source) SW"
+    },
+    {
+     "pi": 0.0001241604395278362,
+     "state": "(0,none) | work | strike",
+     "play": "(0,none) WS"
+    }
+   ],
+   "bosses": 25
+  },
+  "+all, and wage fakers | length | N=100000": {
+   "summary": {
+    "fair": 3.584943843625429e-08,
+    "intermediate": 1.3046297225361609e-05,
+    "zero wage": 0.9999223475889282,
+    "strike": 2.492006716940298e-09,
+    "scab split": 5.015956174067331e-05,
+    "repression:strike": 1.4408169560930624e-05,
+    "repression:source": 4.1099189543921326e-11
+   },
+   "top": [
+    {
+     "pi": 0.8055234751595988,
+     "state": "(0,strike) | work | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 0.09715636601517129,
+     "state": "(0,none) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 0.09715127429070484,
+     "state": "(0,source) | work | work",
+     "play": "(0,source) WW"
+    },
+    {
+     "pi": 4.1822054813468204e-05,
+     "state": "if(BOX(W1=strike),(1/2,none),(0,none)) | work | work",
+     "play": "(0,none) WW"
+    },
+    {
+     "pi": 1.7064038004386426e-05,
+     "state": "(0,strike) | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS | work",
+     "play": "(0,strike) WW"
+    },
+    {
+     "pi": 1.7061264159552222e-05,
+     "state": "(0,strike) | work | f[BOX(s in {0,1/4}),BOX(QUORUM)]:WWWS",
+     "play": "(0,strike) WW"
     }
    ],
    "bosses": 25

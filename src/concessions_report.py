@@ -249,12 +249,25 @@ def lottery_summary(d):
                      striker=float(v[:, :, 3].mean()))
     out['ts'] = ts
     maj = {}
+    nf = 0; npb = 0
+    wage_isl = np.zeros(4)
     for r in runs:
         for i, m in enumerate(r['majority']):
             if r['fair_final'][i]:
                 key = ' | '.join(m)
                 maj[key] = maj.get(key, 0) + 1
+                nf += 1
+                if '(^' in m[0]:
+                    npb += 1
+            fi = r['final'][i]
+            prod = fi[22]
+            if prod >= 0.05:
+                wage_isl[int(np.argmax([sum(fi[7 + 3 * w_:10 + 3 * w_]) for w_ in range(3)]))] += 1
+            else:
+                wage_isl[3] += 1
     out['fair_island_majorities'] = dict(sorted(maj.items(), key=lambda kv: -kv[1])[:8])
+    out['fair_islands_probe_boss_majority'] = (npb / nf) if nf else None
+    out['island_wage'] = dict(zip(['0', '1/4', '1/2', 'none'], (wage_isl / wage_isl.sum()).round(4).tolist()))
     return out
 
 
@@ -269,7 +282,13 @@ def lottery_md(sums):
             w('established_by_100000'), f(s['establishment_time_median'], 0), s['persistence_mean'], s['persistence_ci'], w('runs_with_fair_at_stop'),
             lb['fair'], lb['intermediate'], lb['zero wage'], lb['strike'], lb['scab split'], ', '.join('%.3f' % x for x in s['payoff_vector'])))
     L.append('')
-    L.append('Island shares over time (mean over runs and islands): militant T1 / probe-carrying boss / boss conceding 1/2 to the militant pair / constant striker.\n')
+    L.append('| cell | island wage at stop (0 / 1/4 / 1/2 / no production) | fair islands whose majority boss carries a probe |')
+    L.append('|---|---|---|')
+    for s in sums:
+        w = s['island_wage']
+        L.append('| %s | %.3f / %.3f / %.3f / %.3f | %s |' % (s['cell'], w['0'], w['1/4'], w['1/2'], w['none'], f(s['fair_islands_probe_boss_majority'], 3)))
+    L.append('')
+    L.append('Island shares over time (mean over runs and islands): militant T1 / probe-carrying boss / concession boss (pays 1/2 to the militant pair, 0 to the scab pair) / constant striker.\n')
     gs = list(sums[0]['ts'])
     L.append('| cell | ' + ' | '.join('g = %s' % g for g in gs) + ' |')
     L.append('|---' * (len(gs) + 1) + '|')
@@ -279,8 +298,110 @@ def lottery_md(sums):
     return '\n'.join(L)
 
 
+def reduced_md(R):
+    sets = ['constants', '+D0 family (P0)', '+D0 family, D14', '+D0 family, D14, D* family', '+D* family only', '+all, and wage fakers']
+    L = ['| evaluator | boss set | prior | N = 10² fair / 1/4 / zero | N = 10³ | N = 10⁴ | N = 10⁵ | top state at 10⁴ (π) |', '|---|---|---|---|---|---|---|---|']
+    for ev, D in R.items():
+        for s in sets:
+            for pr in ('uniform', 'length'):
+                cells = []
+                for N in (100, 1000, 10000, 100000):
+                    v = D.get('%s | %s | N=%d' % (s, pr, N))
+                    if v is None:
+                        cells.append('–'); continue
+                    m = v['summary']
+                    cells.append('%.3f / %.3f / %.3f' % (m['fair'], m['intermediate'], m['zero wage']))
+                t = D['%s | %s | N=10000' % (s, pr)]['top'][0]
+                L.append('| %s | %s | %s | %s | `%s` (%.3f) |' % (ev, s, pr, ' | '.join(cells), t['state'], t['pi']))
+    return '\n'.join(L)
+
+
+def all_tables():
+    S = json.load(open(os.path.join(RUNS, 'concessions-static.json')))
+    cells = load_cells()
+    T = {}
+    T['named'] = named_block(S)
+    T['named_RR'] = named_block(S, 'named_table_RR')
+    T['languages'] = static_md(S)
+    T['states_P01'] = states_md(S, 'P01'); T['states_P0'] = states_md(S, 'P0')
+    T['fakers'] = json.dumps(S['fakers'], indent=1)
+    T['loeb'] = '\n'.join('- %s: %s' % (k, ' → '.join(v)) for k, v in S['loeb_traces_CC'].items())
+    main = ['P01_CC_c0.5_N100', 'P01_CC_c0.5_N1000', 'P01_CC_c0.5_N10000', 'P01_CC_c0.5_N10000_th10', 'P01_CC_c0.5_N30000', 'P01_CC_c0.5_N30000_th10',
+            'P0_CC_c0.5_N1000', 'P0_CC_c0.5_N10000', 'sham_CC_c0.5_N100', 'sham_CC_c0.5_N1000', 'sham_CC_c0.5_N10000',
+            'ref_CC_c0.5_N100', 'ref_CC_c0.5_N1000', 'ref_CC_c0.5_N10000', 'ref_CC_c0.5_N30000',
+            'P01_CC_c0.1_N10000', 'ref_CC_c0.1_N10000', 'P01_CC_c0.5_N10000_nofaker',
+            'P01_RR_pool0_c0.5_c0.5_N1000', 'P01_RR_pool0_c0.5_c0.5_N10000', 'ref_RR_pool0_c0.5_c0.5_N1000', 'ref_RR_pool0_c0.5_c0.5_N10000',
+            'P01_CC_pool1_c0.1_c0.1_N1000', 'P01_CC_pool1_c0.1_c0.1_N10000', 'P01_CC_pool1_c0.5_c0.5_N1000', 'P01_CC_pool1_c0.5_c0.5_N10000']
+    T['chain'] = chain_table(cells, main)
+    T['basins'] = basin_table(cells, ['P01_CC_c0.5_N1000', 'P01_CC_c0.5_N10000', 'P01_CC_c0.5_N10000_th10', 'P01_CC_c0.5_N30000', 'P0_CC_c0.5_N1000', 'P0_CC_c0.5_N10000',
+                                      'sham_CC_c0.5_N1000', 'sham_CC_c0.5_N10000', 'ref_CC_c0.5_N1000', 'ref_CC_c0.5_N10000'])
+    T['pres'] = pres_md(cells, [k for k in main if k in cells])
+    T['support'] = {k: support_md(cells[k]) + '\n\n' + fair_md(cells[k]) for k in main if k in cells}
+    if os.path.exists(os.path.join(OUT, 'reduced.json')):
+        T['reduced'] = reduced_md(json.load(open(os.path.join(OUT, 'reduced.json'))))
+    lots = []
+    for fn in sorted(glob.glob(os.path.join(OUT, 'lottery_*.json*'))):
+        import gzip
+        d = json.load(gzip.open(fn) if fn.endswith('.gz') else open(fn))
+        lots.append(lottery_summary(d))
+    T['lottery'] = lottery_md(lots) if lots else ''
+    T['lottery_sums'] = lots
+    # N-scaling: fair log-odds
+    sc = []
+    for arm in ('P01', 'ref', 'sham'):
+        for N in (100, 1000, 10000, 30000):
+            k = '%s_CC_c0.5_N%d' % (arm, N)
+            if k in cells:
+                p = cells[k]['summary']['fair']
+                sc.append((arm, N, p, float(np.log(p / (1 - p)))))
+    T['scaling'] = sc
+    return T
+
+
+def write_md(template):
+    """runs/concessions.md from a prose template with {{key}} / {{support:cell}} placeholders, and
+    runs/concessions.json (chain summaries, basin rates, preservation, lottery summaries, reduced chains)."""
+    T = all_tables()
+    txt = open(template).read()
+    import re
+    def rep(m):
+        k = m.group(1)
+        if k.startswith('support:'):
+            return T['support'].get(k[8:], '(cell not run)')
+        if k == 'scaling':
+            return '\n'.join(['| arm | N | fair | log odds |', '|---|---|---|---|'] +
+                             ['| %s | %d | %s | %.2f |' % (a, N, f(p, 4), lo) for a, N, p, lo in T['scaling']])
+        return T.get(k, '(missing %s)' % k)
+    out = re.sub(r'\{\{([^}]+)\}\}', rep, txt)
+    open(os.path.join(RUNS, 'concessions.md'), 'w').write(out)
+    cells = load_cells()
+    J = dict(chain={k: {kk: v[kk] for kk in ('arm', 'enf', 'pool', 'c', 'N', 'theta', 'states', 'core', 'rel_cut_change', 'summary',
+                                              'wage_offered', 'wage_paid_both_work', 'mean_payoff', 'efficiency', 'three_role',
+                                              'support_size_99', 'basin_rates', 'preservation', 'fair_boss_mass', 'fair_worker_mass',
+                                              'fair_exit_by_slot_kind', 'union_mass_in_fair', 'mass_probe_boss', 'support', 'transitions')
+                        if kk in v} for k, v in cells.items()},
+             lottery=T['lottery_sums'],
+             reduced=json.load(open(os.path.join(OUT, 'reduced.json'))) if os.path.exists(os.path.join(OUT, 'reduced.json')) else None,
+             fairshare=json.load(open(os.path.join(OUT, 'fairshare.json'))) if os.path.exists(os.path.join(OUT, 'fairshare.json')) else None,
+             static='runs/concessions-static.json')
+    json.dump(J, open(os.path.join(RUNS, 'concessions.json'), 'w'), indent=1, default=float)
+
+
 if __name__ == '__main__':
     S = json.load(open(os.path.join(RUNS, 'concessions-static.json')))
+    if sys.argv[1] == 'md':
+        write_md(sys.argv[2])
+    if sys.argv[1] == 'tables':
+        T = all_tables()
+        for k, v in T.items():
+            if k in ('lottery_sums',):
+                continue
+            print('\n\n#### %s\n' % k)
+            if isinstance(v, dict):
+                for kk, vv in v.items():
+                    print('\n##### %s\n\n%s' % (kk, vv))
+            else:
+                print(v)
     if sys.argv[1] == 'named':
         print(named_block(S))
         print()
