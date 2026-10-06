@@ -69,7 +69,7 @@ class KTheoryC(K4.KTheoryG):
             for (a, A, x), ch in zip(H, choice):
                 t = self.T.get(A, INF)
                 if A in ch: tot += t + 1
-                if x in ch: tot += t + 2
+                if x in ch: tot += (t + 2) if t <= a else INF          # Nec on |- A needs T(A) <= a
             if tot < best: best, wit = tot, (Pi, H, choice)
         return (best if best <= self.cap else INF), wit
 
@@ -735,10 +735,10 @@ def cmd_sweep(a):
     progs, godel, con = sweep_progs()
     _, _, fk = faker_sets()
     idx = {s: i for i, s in enumerate(progs)}
-    path = os.path.join(KCDIR, 'sweep.json')
+    path = os.path.join(KCDIR, a.out)
     out = json.load(open(path)) if os.path.exists(path) else dict(progs=progs, godel=godel, con=con, cells={})
     jobs = [(progs, b, arm) for arm in a.arms for b in range(a.bmin, a.bmax + 1, a.step) if '%s/%d' % (arm, b) not in out['cells']]
-    jobs.sort(key=lambda j: -j[1])
+    jobs.sort(key=lambda j: (j[1] if a.asc else -j[1]))
     with Pool(a.workers) as pool:
         for b, arm, val, meta, wit in pool.imap_unordered(_sweep_job, jobs):
             v = np.array(val); U, _ = M.pd_payoffs(v, M.PD)
@@ -770,11 +770,11 @@ def cmd_structural(a):
             cert = Certifier(K, b, four=(four is not None))
             for s in progs:
                 x = K.geno(s, b)
-                for a_ in K.atoms(x, x):
+                for ai, a_ in enumerate(K.atoms(x, x)):
                     A = K.forms[a_][1]
                     if not cert.gltrue(A): continue
                     r = cert.run([A])[A]
-                    key = '%s|%s' % (s, K.show(a_).replace('@%d' % b, ''))
+                    key = '%s|atom%d' % (s, ai)
                     out.setdefault(arm, {}).setdefault(key, {})[b] = 'structural' if r is not None else 'uncertified'
         print(arm, {k: (sum(1 for v in d.values() if v == 'structural'), len(d)) for k, d in out.get(arm, {}).items()}, flush=True)
     json.dump(out, open(os.path.join(KCDIR, 'structural.json'), 'w'), indent=1)
@@ -1108,7 +1108,7 @@ def main():
     p.add_argument('--check', action='store_true'); p.add_argument('--targeted', action='store_true')
     p.add_argument('--workers', type=int, default=3)
     p = sub.add_parser('sweep'); p.add_argument('--arms', nargs='+', default=['K', 'Kc']); p.add_argument('--bmin', type=int, default=4)
-    p.add_argument('--bmax', type=int, default=54); p.add_argument('--step', type=int, default=1); p.add_argument('--workers', type=int, default=3)
+    p.add_argument('--bmax', type=int, default=54); p.add_argument('--step', type=int, default=1); p.add_argument('--workers', type=int, default=3); p.add_argument('--out', default='sweep.json'); p.add_argument('--asc', action='store_true')
     p = sub.add_parser('structural'); p.add_argument('--arms', nargs='+', default=['Kc', 'Kc4m', 'Kc_g1', 'Kc4m_g1'])
     p.add_argument('--bmin', type=int, default=4); p.add_argument('--bmax', type=int, default=200)
     p = sub.add_parser('chain'); p.add_argument('--cells', nargs='+'); p.add_argument('--Ns', type=int, nargs='+', default=[1000, 10000, 30000])
