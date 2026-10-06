@@ -1,0 +1,2870 @@
+{
+ "modal_1000": {
+  "outcome": {
+   "1/6-5/6": 0.008339535862589294,
+   "1/3-2/3": 0.0,
+   "1/2-1/2": 0.9833209282748214,
+   "ineff": 0.0,
+   "clash": 0.008339535862589294,
+   "eff": 0.9916604641374107,
+   "E_max_pay": 0.49861007735623514,
+   "dwl": 0.004169767931294647,
+   "mean_pay": 0.49583023206870536,
+   "exante_max": 0.49583023206870536,
+   "o:1/6|5/6": 0.004169767931294647,
+   "o:1/3|2/3": 0.0,
+   "o:1/2|1/2": 0.9833209282748214,
+   "o:2/3|1/3": 0.0,
+   "o:5/6|1/6": 0.004169767931294647,
+   "E_max_share_compat": 0.5028032228651445
+  },
+  "state_label_mass": {
+   "1/2-1/2": 0.9812454215983749,
+   "clash": 3.0299960776081436e-33,
+   "mixed": 0.0187545784016251
+  },
+  "mass_mono_constant": 0.9802095361417781,
+  "mass_polymorphic": 0.0187545784016251,
+  "support": [
+   {
+    "state": "S3:1.00",
+    "kinds": [
+     "constant"
+    ],
+    "pi": 0.9802095361417781,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "S5:0.67 + if(BOX(S5),S1,S3):0.33",
+    "kinds": [
+     "constant",
+     "reader"
+    ],
+    "pi": 0.009606055756996213,
+    "label": "mixed"
+   },
+   {
+    "state": "S5:0.67 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.33",
+    "kinds": [
+     "constant",
+     "reader"
+    ],
+    "pi": 0.009148522644628886,
+    "label": "mixed"
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0010206711156406272,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 9.842597115023638e-06,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 5.371743841196645e-06,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "S5:1.00",
+    "kinds": [
+     "constant"
+    ],
+    "pi": 3.0299960776081436e-33,
+    "label": "clash"
+   }
+  ],
+  "transitions": [
+   {
+    "src": "1/2-1/2",
+    "dst": "mixed",
+    "flux": 7.135902824816735e-07,
+    "share_from_nonconstant_states": 1.0,
+    "rate_per_unit_mass": 7.272291587555014e-07
+   },
+   {
+    "src": "mixed",
+    "dst": "1/2-1/2",
+    "flux": 7.135902823912757e-07,
+    "share_from_nonconstant_states": 1.0,
+    "rate_per_unit_mass": 3.804885757013032e-05
+   },
+   {
+    "src": "1/2-1/2",
+    "dst": "clash",
+    "flux": 1.4765270791849373e-35,
+    "share_from_nonconstant_states": 0.0010401953670927512,
+    "rate_per_unit_mass": 1.5047479934018808e-35
+   }
+  ],
+  "top_exits": [
+   {
+    "state": "S3:1.00",
+    "exits": [
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 4.766812318751173e-07,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        4.766812318751173e-07
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 4.766812318751173e-07,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        4.766812318751173e-07
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "1/2-1/2",
+      "p": 2.5925639556223035e-07,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        2.5925639556223035e-07
+       ]
+      ]
+     },
+     {
+      "to": "S5:1.00",
+      "label": "clash",
+      "p": 1.5047713250817002e-35,
+      "mutants": [
+       [
+        "S5",
+        1.5047713250817002e-35
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "S5:0.67 + if(BOX(S5),S1,S3):0.33",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 3.5794241488841446e-05,
+      "mutants": [
+       [
+        "S3",
+        3.5794241488841446e-05
+       ]
+      ]
+     },
+     {
+      "to": "S5:0.67 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.33",
+      "label": "mixed",
+      "p": 7.893864887285126e-06,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        7.893864887285126e-06
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 4.369306591522366e-06,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        4.369306591522366e-06
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "S5:0.67 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.33",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 3.5794241488841446e-05,
+      "mutants": [
+       [
+        "S3",
+        3.5794241488841446e-05
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 3.41663169741889e-08,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        3.41663169741889e-08
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 4.8638122717428294e-34,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        4.8638122717428294e-34
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.00",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.0004993936905703435,
+      "mutants": [
+       [
+        "S3",
+        0.0004993936905703435
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "1/2-1/2",
+      "p": 2.592563955622303e-07,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        2.592563955622303e-07
+       ]
+      ]
+     },
+     {
+      "to": "S5:1.00",
+      "label": "clash",
+      "p": 1.5047713250817e-35,
+      "mutants": [
+       [
+        "S5",
+        1.5047713250817e-35
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 1.6891151619010132e-48,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        1.6891151619010132e-48
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.00",
+    "exits": [
+     {
+      "to": "S5:0.67 + if(BOX(S5),S1,S3):0.33",
+      "label": "mixed",
+      "p": 0.04690247737546113,
+      "mutants": [
+       [
+        "S5",
+        0.04690247737546113
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.0004993936905703435,
+      "mutants": [
+       [
+        "S3",
+        0.0004993936905703435
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 4.5405389671606516e-05,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        4.5405389671606516e-05
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "1/2-1/2",
+      "p": 2.4694988764405985e-05,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        2.4694988764405985e-05
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+    "exits": [
+     {
+      "to": "S5:0.67 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.33",
+      "label": "mixed",
+      "p": 0.04690247737546113,
+      "mutants": [
+       [
+        "S5",
+        0.04690247737546113
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.0004993936905703435,
+      "mutants": [
+       [
+        "S3",
+        0.0004993936905703435
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 4.7668123187511725e-07,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        4.7668123187511725e-07
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 1.6891151619010132e-48,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        1.6891151619010132e-48
+       ]
+      ]
+     }
+    ]
+   }
+  ],
+  "net_flux": {
+   "1/2-1/2 -> mixed": 9.039779135070229e-17
+  },
+  "cut_flow": 0.0,
+  "poly_flow": 7.89419188727129e-07,
+  "indeterminate": 0,
+  "n_states": 7,
+  "P_efficient": 0.9916604641374107,
+  "effset": {
+   "mass": 0.9812454215983749,
+   "exit_rate": 7.272291587555014e-07,
+   "entry_rate": 3.804885757013032e-05,
+   "flux_out": 7.135902824816735e-07,
+   "flux_in": 7.135902823912757e-07
+  },
+  "greedy": {
+   "mass": 0.0187545784016251,
+   "exit_rate": 3.804885757013032e-05,
+   "entry_rate": 7.272291587555014e-07,
+   "flux_out": 7.135902823912757e-07,
+   "flux_in": 7.135902824816735e-07
+  },
+  "reentry_greedy_to_eff": {
+   "total": 7.135902823912757e-07,
+   "by_mutant": [
+    {
+     "q": "S3",
+     "flux": 6.713059083291788e-07,
+     "share": 0.9407441845754964
+    },
+    {
+     "q": "if(BOX(S1),S5,S3)",
+     "flux": 4.2284374062096856e-08,
+     "share": 0.05925581542450363
+    },
+    {
+     "q": "if(BOX(S5),S1,S3)",
+     "flux": 4.449669670726314e-36,
+     "share": 6.2356085565168506e-30
+    }
+   ]
+  },
+  "exit_eff_to_any": {
+   "total": 7.135902824816735e-07,
+   "by_mutant": [
+    {
+     "q": "S5",
+     "flux": 7.135902824816735e-07,
+     "share": 1.0
+    }
+   ]
+  },
+  "exit_eff_to_greedy": {
+   "total": 7.135902824816735e-07,
+   "by_mutant": [
+    {
+     "q": "S5",
+     "flux": 7.135902824816735e-07,
+     "share": 1.0
+    }
+   ]
+  },
+  "top_states": [
+   {
+    "state": "S3:1.000",
+    "pi": 0.9802095361417781,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "S5:0.667 + if(BOX(S5),S1,S3):0.333",
+    "pi": 0.009606055756996213,
+    "eff": 0.5553333333333333,
+    "effset": false,
+    "greedy": true,
+    "label": "mixed",
+    "xs5": 0.667
+   },
+   {
+    "state": "S5:0.667 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.333",
+    "pi": 0.009148522644628886,
+    "eff": 0.5553333333333333,
+    "effset": false,
+    "greedy": true,
+    "label": "mixed",
+    "xs5": 0.667
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.000",
+    "pi": 0.0010206711156406272,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.000",
+    "pi": 9.842597115023638e-06,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.000",
+    "pi": 5.371743841196645e-06,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "S5:1.000",
+    "pi": 3.0299960776081436e-33,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "clash",
+    "xs5": 1.0
+   }
+  ],
+  "arm": "modal",
+  "n": 7,
+  "N": 1000,
+  "theta": 1e-12,
+  "K": 5,
+  "aug_mass": 0.0,
+  "aug": [],
+  "time_s": 0.0135040283203125,
+  "n_expanded": 7,
+  "tag": ""
+ },
+ "modal_10000": {
+  "outcome": {
+   "1/6-5/6": 0.4444666666666667,
+   "1/3-2/3": 0.0,
+   "1/2-1/2": 0.11106666666666666,
+   "ineff": 0.0,
+   "clash": 0.4444666666666667,
+   "eff": 0.5555333333333333,
+   "E_max_pay": 0.42592222222222226,
+   "dwl": 0.22223333333333328,
+   "mean_pay": 0.2777666666666667,
+   "exante_max": 0.27776666666666666,
+   "o:1/6|5/6": 0.22223333333333334,
+   "o:1/3|2/3": 0.0,
+   "o:1/2|1/2": 0.11106666666666666,
+   "o:2/3|1/3": 0.0,
+   "o:5/6|1/6": 0.22223333333333334,
+   "E_max_share_compat": 0.7666906676267051
+  },
+  "state_label_mass": {
+   "1/2-1/2": 0.0,
+   "clash": 0.0,
+   "mixed": 1.0
+  },
+  "mass_mono_constant": 0.0,
+  "mass_polymorphic": 1.0,
+  "support": [
+   {
+    "state": "S5:0.67 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.33",
+    "kinds": [
+     "constant",
+     "reader"
+    ],
+    "pi": 1.0,
+    "label": "mixed"
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "S3:1.00",
+    "kinds": [
+     "constant"
+    ],
+    "pi": 0.0,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "S5:1.00",
+    "kinds": [
+     "constant"
+    ],
+    "pi": 0.0,
+    "label": "clash"
+   },
+   {
+    "state": "S5:0.67 + if(BOX(S5),S1,S3):0.33",
+    "kinds": [
+     "constant",
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "mixed"
+   }
+  ],
+  "transitions": [
+   {
+    "src": "mixed",
+    "dst": "1/2-1/2",
+    "flux": 5.849416027154321e-22,
+    "share_from_nonconstant_states": 1.0,
+    "rate_per_unit_mass": 5.849416027154321e-22
+   }
+  ],
+  "top_exits": [
+   {
+    "state": "S5:0.67 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.33",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 5.8438379673314895e-22,
+      "mutants": [
+       [
+        "S3",
+        5.8438379673314895e-22
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 5.578059822831852e-25,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        5.578059822831852e-25
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 1.2952099694197104e-294,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        1.2952099694197104e-294
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+    "exits": [
+     {
+      "to": "S5:0.67 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.33",
+      "label": "mixed",
+      "p": 0.04746346074437734,
+      "mutants": [
+       [
+        "S5",
+        0.04746346074437734
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 4.993936905703437e-05,
+      "mutants": [
+       [
+        "S3",
+        4.993936905703437e-05
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 4.766812318751173e-08,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        4.766812318751173e-08
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 0.0,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        0.0
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.00",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 4.9939369057034354e-05,
+      "mutants": [
+       [
+        "S3",
+        4.9939369057034354e-05
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "1/2-1/2",
+      "p": 2.592563955622303e-08,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        2.592563955622303e-08
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 0.0,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        0.0
+       ]
+      ]
+     },
+     {
+      "to": "S5:1.00",
+      "label": "clash",
+      "p": 0.0,
+      "mutants": [
+       [
+        "S5",
+        0.0
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "S3:1.00",
+    "exits": [
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 4.766812318751172e-08,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        4.766812318751172e-08
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 4.766812318751172e-08,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        4.766812318751172e-08
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "1/2-1/2",
+      "p": 2.592563955622303e-08,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        2.592563955622303e-08
+       ]
+      ]
+     },
+     {
+      "to": "S5:1.00",
+      "label": "clash",
+      "p": 0.0,
+      "mutants": [
+       [
+        "S5",
+        0.0
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.00",
+    "exits": [
+     {
+      "to": "S5:0.67 + if(BOX(S5),S1,S3):0.33",
+      "label": "mixed",
+      "p": 0.04746346074437734,
+      "mutants": [
+       [
+        "S5",
+        0.04746346074437734
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 4.993936905703437e-05,
+      "mutants": [
+       [
+        "S3",
+        4.993936905703437e-05
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 4.5366530355842514e-05,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        4.5366530355842514e-05
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "1/2-1/2",
+      "p": 2.467385404068431e-05,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        2.467385404068431e-05
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "S5:1.00",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.0015385428434414412,
+      "mutants": [
+       [
+        "S3",
+        0.0015385428434414412
+       ]
+      ]
+     },
+     {
+      "to": "S5:0.67 + if(BOX(S5),S1,S3):0.33",
+      "label": "mixed",
+      "p": 2.3102253426991022e-05,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        2.3102253426991022e-05
+       ]
+      ]
+     },
+     {
+      "to": "S5:0.67 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.33",
+      "label": "mixed",
+      "p": 1.2564805476578953e-05,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        1.2564805476578953e-05
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 1.4685698112579726e-06,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        1.4685698112579726e-06
+       ]
+      ]
+     }
+    ]
+   }
+  ],
+  "net_flux": {},
+  "cut_flow": 0.0,
+  "poly_flow": 0.0,
+  "indeterminate": 0,
+  "n_states": 7,
+  "P_efficient": 0.5555333333333333,
+  "effset": {
+   "mass": 0.0,
+   "exit_rate": null,
+   "entry_rate": 5.849416027154321e-22,
+   "flux_out": 0.0,
+   "flux_in": 5.849416027154321e-22
+  },
+  "greedy": {
+   "mass": 1.0,
+   "exit_rate": 5.849416027154321e-22,
+   "entry_rate": null,
+   "flux_out": 5.849416027154321e-22,
+   "flux_in": 0.0
+  },
+  "reentry_greedy_to_eff": {
+   "total": 5.849416027154321e-22,
+   "by_mutant": [
+    {
+     "q": "S3",
+     "flux": 5.8438379673314895e-22,
+     "share": 0.999046390306838
+    },
+    {
+     "q": "if(BOX(S1),S5,S3)",
+     "flux": 5.578059822831852e-25,
+     "share": 0.0009536096931620571
+    },
+    {
+     "q": "if(BOX(S5),S1,S3)",
+     "flux": 1.2952099694197104e-294,
+     "share": 2.21425517249423e-273
+    }
+   ]
+  },
+  "exit_eff_to_any": {
+   "total": 0.0,
+   "by_mutant": [
+    {
+     "q": "S5",
+     "flux": 0.0,
+     "share": 0.0
+    }
+   ]
+  },
+  "exit_eff_to_greedy": {
+   "total": 0.0,
+   "by_mutant": [
+    {
+     "q": "S5",
+     "flux": 0.0,
+     "share": 0.0
+    }
+   ]
+  },
+  "top_states": [
+   {
+    "state": "S5:0.667 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.333",
+    "pi": 1.0,
+    "eff": 0.5555333333333333,
+    "effset": false,
+    "greedy": true,
+    "label": "mixed",
+    "xs5": 0.6667
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.000",
+    "pi": 0.0,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.000",
+    "pi": 0.0,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "S3:1.000",
+    "pi": 0.0,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.000",
+    "pi": 0.0,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "S5:1.000",
+    "pi": 0.0,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "clash",
+    "xs5": 1.0
+   },
+   {
+    "state": "S5:0.667 + if(BOX(S5),S1,S3):0.333",
+    "pi": 0.0,
+    "eff": 0.5555333333333333,
+    "effset": false,
+    "greedy": true,
+    "label": "mixed",
+    "xs5": 0.6667
+   }
+  ],
+  "arm": "modal",
+  "n": 7,
+  "N": 10000,
+  "theta": 1e-12,
+  "K": 5,
+  "aug_mass": 0.0,
+  "aug": [],
+  "time_s": 0.01961684226989746,
+  "n_expanded": 7,
+  "tag": ""
+ },
+ "modal_30000": {
+  "outcome": {
+   "1/6-5/6": 0.4444592597531029,
+   "1/3-2/3": 0.0,
+   "1/2-1/2": 0.11110370345678189,
+   "ineff": 0.0,
+   "clash": 0.4444370367901152,
+   "eff": 0.5555629632098849,
+   "E_max_pay": 0.42593456818931,
+   "dwl": 0.22221851839505757,
+   "mean_pay": 0.2777814816049424,
+   "exante_max": 0.2777777777777778,
+   "o:1/6|5/6": 0.22222962987655145,
+   "o:1/3|2/3": 0.0,
+   "o:1/2|1/2": 0.11110370345678189,
+   "o:2/3|1/3": 0.0,
+   "o:5/6|1/6": 0.22222962987655145,
+   "E_max_share_compat": 0.7666720001066687
+  },
+  "state_label_mass": {
+   "1/2-1/2": 0.0,
+   "clash": 0.0,
+   "mixed": 1.0
+  },
+  "mass_mono_constant": 0.0,
+  "mass_polymorphic": 1.0,
+  "support": [
+   {
+    "state": "S5:0.67 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.33",
+    "kinds": [
+     "constant",
+     "reader"
+    ],
+    "pi": 1.0,
+    "label": "mixed"
+   },
+   {
+    "state": "S5:0.67 + if(BOX(S5),S1,S3):0.33",
+    "kinds": [
+     "constant",
+     "reader"
+    ],
+    "pi": 1.1587942290319288e-19,
+    "label": "mixed"
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "S3:1.00",
+    "kinds": [
+     "constant"
+    ],
+    "pi": 0.0,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "S5:1.00",
+    "kinds": [
+     "constant"
+    ],
+    "pi": 0.0,
+    "label": "clash"
+   }
+  ],
+  "transitions": [
+   {
+    "src": "mixed",
+    "dst": "1/2-1/2",
+    "flux": 2.1630351786732094e-58,
+    "share_from_nonconstant_states": 1.0,
+    "rate_per_unit_mass": 2.1630351786732094e-58
+   }
+  ],
+  "top_exits": [
+   {
+    "state": "S5:0.67 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.33",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 2.160972487360176e-58,
+      "mutants": [
+       [
+        "S3",
+        2.160972487360176e-58
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 2.062691313033295e-61,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        2.062691313033295e-61
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 0.0,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        0.0
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "S5:0.67 + if(BOX(S5),S1,S3):0.33",
+    "exits": [
+     {
+      "to": "S5:0.67 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.33",
+      "label": "mixed",
+      "p": 8.482089857921987e-06,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        8.482089857921987e-06
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 8.011594780044974e-07,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        8.011594780044974e-07
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 2.160972487360176e-58,
+      "mutants": [
+       [
+        "S3",
+        2.160972487360176e-58
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+    "exits": [
+     {
+      "to": "S5:0.67 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.33",
+      "label": "mixed",
+      "p": 0.04750359410593097,
+      "mutants": [
+       [
+        "S5",
+        0.04750359410593097
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 1.664645635234478e-05,
+      "mutants": [
+       [
+        "S3",
+        1.664645635234478e-05
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 1.5889374395837235e-08,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        1.5889374395837235e-08
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 0.0,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        0.0
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.00",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 1.664645635234478e-05,
+      "mutants": [
+       [
+        "S3",
+        1.664645635234478e-05
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "1/2-1/2",
+      "p": 8.64187985207434e-09,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        8.64187985207434e-09
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 0.0,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        0.0
+       ]
+      ]
+     },
+     {
+      "to": "S5:1.00",
+      "label": "clash",
+      "p": 0.0,
+      "mutants": [
+       [
+        "S5",
+        0.0
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "S3:1.00",
+    "exits": [
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 1.5889374395837238e-08,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        1.5889374395837238e-08
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 1.5889374395837238e-08,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        1.5889374395837238e-08
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "1/2-1/2",
+      "p": 8.641879852074342e-09,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        8.641879852074342e-09
+       ]
+      ]
+     },
+     {
+      "to": "S5:1.00",
+      "label": "clash",
+      "p": 0.0,
+      "mutants": [
+       [
+        "S5",
+        0.0
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.00",
+    "exits": [
+     {
+      "to": "S5:0.67 + if(BOX(S5),S1,S3):0.33",
+      "label": "mixed",
+      "p": 0.04750359410593097,
+      "mutants": [
+       [
+        "S5",
+        0.04750359410593097
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "1/2-1/2",
+      "p": 4.536365453148221e-05,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        4.536365453148221e-05
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "1/2-1/2",
+      "p": 2.4672289943320984e-05,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        2.4672289943320984e-05
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 1.664645635234478e-05,
+      "mutants": [
+       [
+        "S3",
+        1.664645635234478e-05
+       ]
+      ]
+     }
+    ]
+   }
+  ],
+  "net_flux": {},
+  "cut_flow": 0.0,
+  "poly_flow": 9.828996777490251e-25,
+  "indeterminate": 0,
+  "n_states": 7,
+  "P_efficient": 0.5555629632098849,
+  "effset": {
+   "mass": 0.0,
+   "exit_rate": null,
+   "entry_rate": 9.283789796458441e-26,
+   "flux_out": 0.0,
+   "flux_in": 9.283789796458441e-26
+  },
+  "greedy": {
+   "mass": 1.0,
+   "exit_rate": 9.283789796458441e-26,
+   "entry_rate": null,
+   "flux_out": 9.283789796458441e-26,
+   "flux_in": 0.0
+  },
+  "reentry_greedy_to_eff": {
+   "total": 9.283789796458441e-26,
+   "by_mutant": [
+    {
+     "q": "if(BOX(S1),S5,S3)",
+     "flux": 9.283789796458441e-26,
+     "share": 1.0
+    },
+    {
+     "q": "S3",
+     "flux": 2.160972487360176e-58,
+     "share": 2.3276835589109728e-33
+    },
+    {
+     "q": "if(BOX(S5),S1,S3)",
+     "flux": 0.0,
+     "share": 0.0
+    }
+   ]
+  },
+  "exit_eff_to_any": {
+   "total": 0.0,
+   "by_mutant": [
+    {
+     "q": "S5",
+     "flux": 0.0,
+     "share": 0.0
+    }
+   ]
+  },
+  "exit_eff_to_greedy": {
+   "total": 0.0,
+   "by_mutant": [
+    {
+     "q": "S5",
+     "flux": 0.0,
+     "share": 0.0
+    }
+   ]
+  },
+  "top_states": [
+   {
+    "state": "S5:0.667 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.333",
+    "pi": 1.0,
+    "eff": 0.5555629632098849,
+    "effset": false,
+    "greedy": true,
+    "label": "mixed",
+    "xs5": 0.6666666666666666
+   },
+   {
+    "state": "S5:0.667 + if(BOX(S5),S1,S3):0.333",
+    "pi": 1.1587942290319288e-19,
+    "eff": 0.5555629632098849,
+    "effset": false,
+    "greedy": true,
+    "label": "mixed",
+    "xs5": 0.6666666666666666
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.000",
+    "pi": 0.0,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.000",
+    "pi": 0.0,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "S3:1.000",
+    "pi": 0.0,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.000",
+    "pi": 0.0,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "S5:1.000",
+    "pi": 0.0,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "clash",
+    "xs5": 1.0
+   }
+  ],
+  "arm": "modal",
+  "n": 7,
+  "N": 30000,
+  "theta": 1e-12,
+  "K": 5,
+  "aug_mass": 0.0,
+  "aug": [],
+  "time_s": 0.011085748672485352,
+  "n_expanded": 7,
+  "tag": ""
+ },
+ "weak_1000": {
+  "outcome": {
+   "1/6-5/6": 0.0,
+   "1/3-2/3": 0.0,
+   "1/2-1/2": 1.0,
+   "ineff": 0.0,
+   "clash": 0.0,
+   "eff": 1.0,
+   "E_max_pay": 0.5,
+   "dwl": 0.0,
+   "mean_pay": 0.5,
+   "exante_max": 0.5,
+   "o:1/6|5/6": 0.0,
+   "o:1/3|2/3": 0.0,
+   "o:1/2|1/2": 1.0,
+   "o:2/3|1/3": 0.0,
+   "o:5/6|1/6": 0.0,
+   "E_max_share_compat": 0.5
+  },
+  "state_label_mass": {
+   "ineff": 0.0,
+   "1/2-1/2": 1.0,
+   "clash": 0.0
+  },
+  "mass_mono_constant": 1.0,
+  "mass_polymorphic": 0,
+  "support": [
+   {
+    "state": "S3:1.00",
+    "kinds": [
+     "constant"
+    ],
+    "pi": 1.0,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "ineff"
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "ineff"
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "ineff"
+   },
+   {
+    "state": "S5:1.00",
+    "kinds": [
+     "constant"
+    ],
+    "pi": 0.0,
+    "label": "clash"
+   }
+  ],
+  "transitions": [
+   {
+    "src": "1/2-1/2",
+    "dst": "ineff",
+    "flux": 4.344643616298528e-26,
+    "share_from_nonconstant_states": 0.0,
+    "rate_per_unit_mass": 4.344643616298528e-26
+   },
+   {
+    "src": "1/2-1/2",
+    "dst": "clash",
+    "flux": 1.5033380989678183e-35,
+    "share_from_nonconstant_states": 0.0,
+    "rate_per_unit_mass": 1.5033380989678183e-35
+   }
+  ],
+  "top_exits": [
+   {
+    "state": "S3:1.00",
+    "exits": [
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "ineff",
+      "p": 1.912306490387587e-26,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        1.912306490387587e-26
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "ineff",
+      "p": 1.912306490387587e-26,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        1.912306490387587e-26
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "ineff",
+      "p": 5.2003063552335366e-27,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        5.2003063552335366e-27
+       ]
+      ]
+     },
+     {
+      "to": "S5:1.00",
+      "label": "clash",
+      "p": 1.5033380989678183e-35,
+      "mutants": [
+       [
+        "S5",
+        1.5033380989678183e-35
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+    "exits": [
+     {
+      "to": "S5:0.80 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.20",
+      "label": "?",
+      "p": 0.08997025302927524,
+      "mutants": [
+       [
+        "S5",
+        0.08997025302927524
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.046993428040481657,
+      "mutants": [
+       [
+        "S3",
+        0.046993428040481657
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "ineff",
+      "p": 9.524544294487653e-07,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        9.524544294487653e-07
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "ineff",
+      "p": 9.524544294487653e-07,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        9.524544294487653e-07
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.00",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.046993428040481657,
+      "mutants": [
+       [
+        "S3",
+        0.046993428040481657
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "ineff",
+      "p": 9.524544294487653e-07,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        9.524544294487653e-07
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "ineff",
+      "p": 2.5900946565991416e-07,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        2.5900946565991416e-07
+       ]
+      ]
+     },
+     {
+      "to": "S5:1.00",
+      "label": "clash",
+      "p": 4.088621462117326e-14,
+      "mutants": [
+       [
+        "S5",
+        4.088621462117326e-14
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.00",
+    "exits": [
+     {
+      "to": "S5:0.80 + if(BOX(S5),S1,S3):0.20",
+      "label": "?",
+      "p": 0.08997025302927524,
+      "mutants": [
+       [
+        "S5",
+        0.08997025302927524
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.046993428040481657,
+      "mutants": [
+       [
+        "S3",
+        0.046993428040481657
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "ineff",
+      "p": 9.524544294487653e-07,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        9.524544294487653e-07
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "ineff",
+      "p": 2.5900946565991416e-07,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        2.5900946565991416e-07
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "S5:1.00",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.004830572830489099,
+      "mutants": [
+       [
+        "S3",
+        0.004830572830489099
+       ]
+      ]
+     },
+     {
+      "to": "S5:0.80 + if(BOX(S5),S1,S3):0.20",
+      "label": "?",
+      "p": 4.013783983407387e-05,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        4.013783983407387e-05
+       ]
+      ]
+     },
+     {
+      "to": "S5:0.80 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.20",
+      "label": "?",
+      "p": 1.0915042365001589e-05,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        1.0915042365001589e-05
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "ineff",
+      "p": 5.346126696230282e-06,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        5.346126696230282e-06
+       ]
+      ]
+     }
+    ]
+   }
+  ],
+  "net_flux": {},
+  "cut_flow": 0.0,
+  "poly_flow": 0.0,
+  "indeterminate": 0,
+  "n_states": 5,
+  "P_efficient": 1.0,
+  "effset": {
+   "mass": 1.0,
+   "exit_rate": 4.3446436178018656e-26,
+   "entry_rate": null,
+   "flux_out": 4.3446436178018656e-26,
+   "flux_in": 0.0
+  },
+  "greedy": {
+   "mass": 0.0,
+   "exit_rate": null,
+   "entry_rate": 0.0,
+   "flux_out": 0.0,
+   "flux_in": 0.0
+  },
+  "reentry_greedy_to_eff": {
+   "total": 0.0,
+   "by_mutant": []
+  },
+  "exit_eff_to_any": {
+   "total": 4.3446436178018656e-26,
+   "by_mutant": [
+    {
+     "q": "if(BOX(S5),S1,S3)",
+     "flux": 1.912306490387587e-26,
+     "share": 0.4401526704174419
+    },
+    {
+     "q": "if(BOX(S1),S5,S3)",
+     "flux": 1.912306490387587e-26,
+     "share": 0.4401526704174419
+    },
+    {
+     "q": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+     "flux": 5.2003063552335366e-27,
+     "share": 0.11969465881909518
+    },
+    {
+     "q": "S5",
+     "flux": 1.5033380989678183e-35,
+     "share": 3.4602103905784086e-10
+    }
+   ]
+  },
+  "exit_eff_to_greedy": {
+   "total": 0.0,
+   "by_mutant": []
+  },
+  "top_states": [
+   {
+    "state": "S3:1.000",
+    "pi": 1.0,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.000",
+    "pi": 0.0,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "ineff",
+    "xs5": 0.0
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.000",
+    "pi": 0.0,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "ineff",
+    "xs5": 0.0
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.000",
+    "pi": 0.0,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "ineff",
+    "xs5": 0.0
+   },
+   {
+    "state": "S5:1.000",
+    "pi": 0.0,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "clash",
+    "xs5": 1.0
+   }
+  ],
+  "arm": "weak",
+  "n": 7,
+  "N": 1000,
+  "theta": 1e-12,
+  "K": 5,
+  "aug_mass": 0.0,
+  "aug": [],
+  "time_s": 0.021505117416381836,
+  "n_expanded": 5,
+  "tag": ""
+ },
+ "weak_10000": {
+  "outcome": {
+   "1/6-5/6": 0.0,
+   "1/3-2/3": 0.0,
+   "1/2-1/2": 0.9999999999999976,
+   "ineff": 8.590220713351184e-20,
+   "clash": 2.3968366401456154e-15,
+   "eff": 0.9999999999999976,
+   "E_max_pay": 0.4999999999999988,
+   "dwl": 1.1984469541418522e-15,
+   "mean_pay": 0.4999999999999988,
+   "exante_max": 0.4999999999999988,
+   "o:1/6|5/6": 0.0,
+   "o:1/3|2/3": 0.0,
+   "o:1/2|1/2": 0.9999999999999976,
+   "o:2/3|1/3": 0.0,
+   "o:5/6|1/6": 0.0,
+   "E_max_share_compat": 0.5
+  },
+  "state_label_mass": {
+   "ineff": 8.590220713351184e-20,
+   "1/2-1/2": 0.9999999999999976,
+   "clash": 2.3968366401456154e-15
+  },
+  "mass_mono_constant": 1.0,
+  "mass_polymorphic": 0,
+  "support": [
+   {
+    "state": "S3:1.00",
+    "kinds": [
+     "constant"
+    ],
+    "pi": 0.9999999999999976,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "S5:1.00",
+    "kinds": [
+     "constant"
+    ],
+    "pi": 2.3968366401456154e-15,
+    "label": "clash"
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 8.581878800038125e-20,
+    "label": "ineff"
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 8.341913313058273e-23,
+    "label": "ineff"
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "ineff"
+   }
+  ],
+  "transitions": [
+   {
+    "src": "1/2-1/2",
+    "dst": "ineff",
+    "flux": 1.6197975094962338e-221,
+    "share_from_nonconstant_states": 0.0,
+    "rate_per_unit_mass": 1.6197975094962377e-221
+   },
+   {
+    "src": "1/2-1/2",
+    "dst": "clash",
+    "flux": 0.0,
+    "share_from_nonconstant_states": NaN,
+    "rate_per_unit_mass": 0.0
+   }
+  ],
+  "top_exits": [
+   {
+    "state": "S3:1.00",
+    "exits": [
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "ineff",
+      "p": 7.129581995869892e-222,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        7.129581995869892e-222
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "ineff",
+      "p": 7.129581995869892e-222,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        7.129581995869892e-222
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "ineff",
+      "p": 1.9388111032225917e-222,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        1.9388111032225917e-222
+       ]
+      ]
+     },
+     {
+      "to": "S5:1.00",
+      "label": "clash",
+      "p": 0.0,
+      "mutants": [
+       [
+        "S5",
+        0.0
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "S5:1.00",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.0015370774514953083,
+      "mutants": [
+       [
+        "S3",
+        0.0015370774514953083
+       ]
+      ]
+     },
+     {
+      "to": "S5:0.80 + if(BOX(S5),S1,S3):0.20",
+      "label": "?",
+      "p": 4.597748658909754e-05,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        4.597748658909754e-05
+       ]
+      ]
+     },
+     {
+      "to": "S5:0.80 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.20",
+      "label": "?",
+      "p": 1.250306982216477e-05,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        1.250306982216477e-05
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "ineff",
+      "p": 1.6963541719790177e-06,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        1.6963541719790177e-06
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.00",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.04743078984814441,
+      "mutants": [
+       [
+        "S3",
+        0.04743078984814441
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "ineff",
+      "p": 9.524544294487656e-08,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        9.524544294487656e-08
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "ineff",
+      "p": 2.590094656599142e-08,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        2.590094656599142e-08
+       ]
+      ]
+     },
+     {
+      "to": "S5:1.00",
+      "label": "clash",
+      "p": 2.4934207242137626e-112,
+      "mutants": [
+       [
+        "S5",
+        2.4934207242137626e-112
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.00",
+    "exits": [
+     {
+      "to": "S5:0.80 + if(BOX(S5),S1,S3):0.20",
+      "label": "?",
+      "p": 0.09039230535239873,
+      "mutants": [
+       [
+        "S5",
+        0.09039230535239873
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.04743078984814441,
+      "mutants": [
+       [
+        "S3",
+        0.04743078984814441
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "ineff",
+      "p": 9.524544294487656e-08,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        9.524544294487656e-08
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "ineff",
+      "p": 2.590094656599142e-08,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        2.590094656599142e-08
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+    "exits": [
+     {
+      "to": "S5:0.80 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.20",
+      "label": "?",
+      "p": 0.09039230535239873,
+      "mutants": [
+       [
+        "S5",
+        0.09039230535239873
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.04743078984814441,
+      "mutants": [
+       [
+        "S3",
+        0.04743078984814441
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "ineff",
+      "p": 9.524544294487656e-08,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        9.524544294487656e-08
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "ineff",
+      "p": 9.524544294487656e-08,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        9.524544294487656e-08
+       ]
+      ]
+     }
+    ]
+   }
+  ],
+  "net_flux": {},
+  "cut_flow": 1.4017588079037026e-19,
+  "poly_flow": 1.4017588079037026e-19,
+  "indeterminate": 0,
+  "n_states": 5,
+  "P_efficient": 0.9999999999999976,
+  "effset": {
+   "mass": 0.9999999999999976,
+   "exit_rate": 1.6197975094962377e-221,
+   "entry_rate": 0.001538722215194912,
+   "flux_out": 1.6197975094962338e-221,
+   "flux_in": 3.6881979640196415e-18
+  },
+  "greedy": {
+   "mass": 0.0,
+   "exit_rate": null,
+   "entry_rate": 0.0,
+   "flux_out": 0.0,
+   "flux_in": 0.0
+  },
+  "reentry_greedy_to_eff": {
+   "total": 0.0,
+   "by_mutant": []
+  },
+  "exit_eff_to_any": {
+   "total": 1.6197975094962338e-221,
+   "by_mutant": [
+    {
+     "q": "if(BOX(S5),S1,S3)",
+     "flux": 7.129581995869875e-222,
+     "share": 0.44015267056974394
+    },
+    {
+     "q": "if(BOX(S1),S5,S3)",
+     "flux": 7.129581995869875e-222,
+     "share": 0.44015267056974394
+    },
+    {
+     "q": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+     "flux": 1.938811103222587e-222,
+     "share": 0.11969465886051205
+    },
+    {
+     "q": "S5",
+     "flux": 0.0,
+     "share": 0.0
+    }
+   ]
+  },
+  "exit_eff_to_greedy": {
+   "total": 0.0,
+   "by_mutant": []
+  },
+  "top_states": [
+   {
+    "state": "S3:1.000",
+    "pi": 0.9999999999999976,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "S5:1.000",
+    "pi": 2.3968366401456154e-15,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "clash",
+    "xs5": 1.0
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.000",
+    "pi": 8.581878800038125e-20,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "ineff",
+    "xs5": 0.0
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.000",
+    "pi": 8.341913313058273e-23,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "ineff",
+    "xs5": 0.0
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.000",
+    "pi": 0.0,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "ineff",
+    "xs5": 0.0
+   }
+  ],
+  "arm": "weak",
+  "n": 7,
+  "N": 10000,
+  "theta": 1e-12,
+  "K": 5,
+  "aug_mass": 0.0,
+  "aug": [],
+  "time_s": 0.006649971008300781,
+  "n_expanded": 5,
+  "tag": ""
+ },
+ "weak_30000": {
+  "outcome": {
+   "1/6-5/6": 0.0,
+   "1/3-2/3": 0.0,
+   "1/2-1/2": 1.0,
+   "ineff": 0.0,
+   "clash": 0.0,
+   "eff": 1.0,
+   "E_max_pay": 0.5,
+   "dwl": 0.0,
+   "mean_pay": 0.5,
+   "exante_max": 0.5,
+   "o:1/6|5/6": 0.0,
+   "o:1/3|2/3": 0.0,
+   "o:1/2|1/2": 1.0,
+   "o:2/3|1/3": 0.0,
+   "o:5/6|1/6": 0.0,
+   "E_max_share_compat": 0.5
+  },
+  "state_label_mass": {
+   "ineff": 0.0,
+   "1/2-1/2": 1.0,
+   "clash": 0.0
+  },
+  "mass_mono_constant": 1.0,
+  "mass_polymorphic": 0,
+  "support": [
+   {
+    "state": "S3:1.00",
+    "kinds": [
+     "constant"
+    ],
+    "pi": 1.0,
+    "label": "1/2-1/2"
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "ineff"
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "ineff"
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.00",
+    "kinds": [
+     "reader"
+    ],
+    "pi": 0.0,
+    "label": "ineff"
+   },
+   {
+    "state": "S5:1.00",
+    "kinds": [
+     "constant"
+    ],
+    "pi": 0.0,
+    "label": "clash"
+   }
+  ],
+  "transitions": [
+   {
+    "src": "1/2-1/2",
+    "dst": "clash",
+    "flux": 0.0,
+    "share_from_nonconstant_states": NaN,
+    "rate_per_unit_mass": 0.0
+   },
+   {
+    "src": "1/2-1/2",
+    "dst": "ineff",
+    "flux": 0.0,
+    "share_from_nonconstant_states": NaN,
+    "rate_per_unit_mass": 0.0
+   }
+  ],
+  "top_exits": [
+   {
+    "state": "S3:1.00",
+    "exits": [
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "ineff",
+      "p": 0.0,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        0.0
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "ineff",
+      "p": 0.0,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        0.0
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "ineff",
+      "p": 0.0,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        0.0
+       ]
+      ]
+     },
+     {
+      "to": "S5:1.00",
+      "label": "clash",
+      "p": 0.0,
+      "mutants": [
+       [
+        "S5",
+        0.0
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+    "exits": [
+     {
+      "to": "S5:0.80 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.20",
+      "label": "?",
+      "p": 0.09042311523064223,
+      "mutants": [
+       [
+        "S5",
+        0.09042311523064223
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.047462504876610946,
+      "mutants": [
+       [
+        "S3",
+        0.047462504876610946
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "ineff",
+      "p": 3.17484809816255e-08,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        3.17484809816255e-08
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "ineff",
+      "p": 3.17484809816255e-08,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        3.17484809816255e-08
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.00",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.047462504876610946,
+      "mutants": [
+       [
+        "S3",
+        0.047462504876610946
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S5),S1,S3):1.00",
+      "label": "ineff",
+      "p": 3.17484809816255e-08,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        3.17484809816255e-08
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "ineff",
+      "p": 8.633648855330469e-09,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        8.633648855330469e-09
+       ]
+      ]
+     },
+     {
+      "to": "S5:1.00",
+      "label": "clash",
+      "p": 0.0,
+      "mutants": [
+       [
+        "S5",
+        0.0
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.00",
+    "exits": [
+     {
+      "to": "S5:0.80 + if(BOX(S5),S1,S3):0.20",
+      "label": "?",
+      "p": 0.09042311523064223,
+      "mutants": [
+       [
+        "S5",
+        0.09042311523064223
+       ]
+      ]
+     },
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.047462504876610946,
+      "mutants": [
+       [
+        "S3",
+        0.047462504876610946
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "ineff",
+      "p": 3.17484809816255e-08,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        3.17484809816255e-08
+       ]
+      ]
+     },
+     {
+      "to": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.00",
+      "label": "ineff",
+      "p": 8.633648855330469e-09,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        8.633648855330469e-09
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "S5:1.00",
+    "exits": [
+     {
+      "to": "S3:1.00",
+      "label": "1/2-1/2",
+      "p": 0.0008885606602475678,
+      "mutants": [
+       [
+        "S3",
+        0.0008885606602475678
+       ]
+      ]
+     },
+     {
+      "to": "S5:0.80 + if(BOX(S5),S1,S3):0.20",
+      "label": "?",
+      "p": 4.629588848517711e-05,
+      "mutants": [
+       [
+        "if(BOX(S5),S1,S3)",
+        4.629588848517711e-05
+       ]
+      ]
+     },
+     {
+      "to": "S5:0.80 + {BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:0.20",
+      "label": "?",
+      "p": 1.258965570220147e-05,
+      "mutants": [
+       [
+        "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+        1.258965570220147e-05
+       ]
+      ]
+     },
+     {
+      "to": "if(BOX(S1),S5,S3):1.00",
+      "label": "ineff",
+      "p": 9.800961021518215e-07,
+      "mutants": [
+       [
+        "if(BOX(S1),S5,S3)",
+        9.800961021518215e-07
+       ]
+      ]
+     }
+    ]
+   }
+  ],
+  "net_flux": {},
+  "cut_flow": 0.0,
+  "poly_flow": 0.0,
+  "indeterminate": 0,
+  "n_states": 5,
+  "P_efficient": 1.0,
+  "effset": {
+   "mass": 1.0,
+   "exit_rate": 0.0,
+   "entry_rate": null,
+   "flux_out": 0.0,
+   "flux_in": 0.0
+  },
+  "greedy": {
+   "mass": 0.0,
+   "exit_rate": null,
+   "entry_rate": 0.0,
+   "flux_out": 0.0,
+   "flux_in": 0.0
+  },
+  "reentry_greedy_to_eff": {
+   "total": 0.0,
+   "by_mutant": []
+  },
+  "exit_eff_to_any": {
+   "total": 0.0,
+   "by_mutant": [
+    {
+     "q": "S5",
+     "flux": 0.0,
+     "share": 0.0
+    },
+    {
+     "q": "if(BOX(S5),S1,S3)",
+     "flux": 0.0,
+     "share": 0.0
+    },
+    {
+     "q": "if(BOX(S1),S5,S3)",
+     "flux": 0.0,
+     "share": 0.0
+    },
+    {
+     "q": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+     "flux": 0.0,
+     "share": 0.0
+    }
+   ]
+  },
+  "exit_eff_to_greedy": {
+   "total": 0.0,
+   "by_mutant": []
+  },
+  "top_states": [
+   {
+    "state": "S3:1.000",
+    "pi": 1.0,
+    "eff": 1.0,
+    "effset": true,
+    "greedy": false,
+    "label": "1/2-1/2",
+    "xs5": 0.0
+   },
+   {
+    "state": "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}:1.000",
+    "pi": 0.0,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "ineff",
+    "xs5": 0.0
+   },
+   {
+    "state": "if(BOX(S1),S5,S3):1.000",
+    "pi": 0.0,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "ineff",
+    "xs5": 0.0
+   },
+   {
+    "state": "if(BOX(S5),S1,S3):1.000",
+    "pi": 0.0,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "ineff",
+    "xs5": 0.0
+   },
+   {
+    "state": "S5:1.000",
+    "pi": 0.0,
+    "eff": 0.0,
+    "effset": false,
+    "greedy": false,
+    "label": "clash",
+    "xs5": 1.0
+   }
+  ],
+  "arm": "weak",
+  "n": 7,
+  "N": 30000,
+  "theta": 1e-12,
+  "K": 5,
+  "aug_mass": 0.0,
+  "aug": [],
+  "time_s": 0.09105110168457031,
+  "n_expanded": 5,
+  "tag": ""
+ }
+}

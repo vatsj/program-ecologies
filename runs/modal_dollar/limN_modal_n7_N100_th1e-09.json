@@ -1,0 +1,188 @@
+{
+ "arm": "modal",
+ "n": 7,
+ "N": 100,
+ "log10_theta": -8.999999999999998,
+ "aug_mass": 0.0,
+ "aug": [],
+ "tag": "",
+ "n_states": 903,
+ "log10_cut": -6.732607335049297,
+ "n_deep": 47,
+ "P_efficient": 0.9857630620489805,
+ "E_max": 0.49772928268939276,
+ "mean_pay": 0.4955929170191843,
+ "effset": {
+  "mass": 0.9727583523066421,
+  "log10_mass": -0.011995031564967167,
+  "log10_exit_rate": -4.0181377300645895,
+  "log10_entry_rate": -2.465366133684195
+ },
+ "greedy": {
+  "mass": 0.002013741485524262,
+  "log10_mass": -2.6959962828471618,
+  "log10_exit_rate": -2.333618439438638,
+  "log10_entry_rate": -5.028739283720973
+ },
+ "deep": {
+  "mass": 4.036476866042874e-06,
+  "log10_mass": -5.393997532212822,
+  "log10_exit_rate": -2.7225270551312595,
+  "log10_entry_rate": -8.116522834320852
+ },
+ "top_states": [
+  {
+   "state": "S3:1.000",
+   "pi": 0.9479307192624351,
+   "log10_pi": -0.02322340247366243,
+   "eff": 1.0,
+   "effset": true,
+   "greedy": false,
+   "deep": false,
+   "label": "1/2-1/2",
+   "mean": 0.5,
+   "E_max": 0.5
+  },
+  {
+   "state": "S2:0.500 + S4:0.500",
+   "pi": 0.014758846490927898,
+   "log10_pi": -1.8309475843965293,
+   "eff": 0.5050505050505051,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "mixed",
+   "mean": 0.33501683501683505,
+   "E_max": 0.4191919191919192
+  },
+  {
+   "state": "S2:1.000",
+   "pi": 0.0028344573593513797,
+   "log10_pi": -2.5475300720078824,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "ineff",
+   "mean": 0.3333333333333333,
+   "E_max": 0.3333333333333333
+  },
+  {
+   "state": "S4:0.330 + if(BOX(S4),S2,S3):0.670",
+   "pi": 0.0010174483167326065,
+   "log10_pi": -2.992487642375876,
+   "eff": 0.8933333333333333,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "mixed",
+   "mean": 0.44666666666666666,
+   "E_max": 0.5211111111111111
+  },
+  {
+   "state": "S4:0.330 + if(BOX1(S4),S2,S3):0.670",
+   "pi": 0.0009777226038080406,
+   "log10_pi": -3.0097843443164454,
+   "eff": 0.8933333333333333,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "mixed",
+   "mean": 0.44666666666666666,
+   "E_max": 0.5211111111111111
+  },
+  {
+   "state": "if(BOX(S3),S3,S4):1.000",
+   "pi": 0.0009668550338041162,
+   "log10_pi": -3.0146386373322307,
+   "eff": 1.0,
+   "effset": true,
+   "greedy": false,
+   "deep": false,
+   "label": "1/2-1/2",
+   "mean": 0.5,
+   "E_max": 0.5
+  },
+  {
+   "state": "if(BOX1(S2),S4,S3):1.000",
+   "pi": 0.0009657663059691676,
+   "log10_pi": -3.015127950506312,
+   "eff": 1.0,
+   "effset": true,
+   "greedy": false,
+   "deep": false,
+   "label": "1/2-1/2",
+   "mean": 0.5,
+   "E_max": 0.5
+  },
+  {
+   "state": "if(BOX(S2),S4,S3):1.000",
+   "pi": 0.0009621273236808726,
+   "log10_pi": -3.0167674515453005,
+   "eff": 1.0,
+   "effset": true,
+   "greedy": false,
+   "deep": false,
+   "label": "1/2-1/2",
+   "mean": 0.5,
+   "E_max": 0.5
+  },
+  {
+   "state": "if(BOX1(S3),S3,S4):1.000",
+   "pi": 0.000959997119059952,
+   "log10_pi": -3.017730070271101,
+   "eff": 1.0,
+   "effset": true,
+   "greedy": false,
+   "deep": false,
+   "label": "1/2-1/2",
+   "mean": 0.5,
+   "E_max": 0.5
+  },
+  {
+   "state": "if(BOX1(S3),S4,S3):1.000",
+   "pi": 0.0009314978560129619,
+   "log10_pi": -3.0308181403628125,
+   "eff": 1.0,
+   "effset": true,
+   "greedy": false,
+   "deep": false,
+   "label": "1/2-1/2",
+   "mean": 0.5,
+   "E_max": 0.5
+  },
+  {
+   "state": "if(BOX1(S3),S5,S3):1.000",
+   "pi": 0.0009304867768401511,
+   "log10_pi": -3.0312897942539667,
+   "eff": 1.0,
+   "effset": true,
+   "greedy": false,
+   "deep": false,
+   "label": "1/2-1/2",
+   "mean": 0.5,
+   "E_max": 0.5
+  },
+  {
+   "state": "if(BOX(S3),S5,S3):1.000",
+   "pi": 0.0009256559214310707,
+   "log10_pi": -3.0335504163344873,
+   "eff": 1.0,
+   "effset": true,
+   "greedy": false,
+   "deep": false,
+   "label": "1/2-1/2",
+   "mean": 0.5,
+   "E_max": 0.5
+  }
+ ],
+ "path_S3_to_deep": {
+  "log10_w": -10.839757245153649,
+  "path": [
+   "S3:1.000",
+   "if(BOX1(S3),S3,S2):1.000",
+   "if(BOX1(S1),S1,S4):0.500 + if(BOX1(S3),S3,S2):0.500"
+  ]
+ },
+ "time_s": 1365.3880910873413
+}

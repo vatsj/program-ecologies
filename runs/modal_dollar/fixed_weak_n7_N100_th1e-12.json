@@ -1,0 +1,494 @@
+{
+ "outcome": {
+  "1/6-5/6": 0.11806817412704418,
+  "1/3-2/3": 0.5334579663409389,
+  "1/2-1/2": 0.3396125264085558,
+  "ineff": 0.008098734327848802,
+  "clash": 0.0007625987956119385,
+  "eff": 0.9911386668765391,
+  "E_max_pay": 0.6283485992248831,
+  "dwl": 0.001083481769300415,
+  "mean_pay": 0.4989165182306967,
+  "exante_max": 0.6283485992248831,
+  "slot1": 0.49891651823069677,
+  "slot2": 0.4989165182306975,
+  "o:1/6|5/6": 0.05903408706352211,
+  "o:1/3|2/3": 0.26672898317047056,
+  "o:1/2|1/2": 0.3396125264085558,
+  "o:2/3|1/3": 0.26672898317046856,
+  "o:5/6|1/6": 0.05903408706352209,
+  "E_max_share_compat": 0.6297722430828081
+ },
+ "state_label_mass": {
+  "ineff": 0.008098734327848802,
+  "1/6-5/6": 0.11806817412704418,
+  "1/3-2/3": 0.5334579663409389,
+  "clash": 0.0007625987956119385,
+  "1/2-1/2": 0.3396125264085558
+ },
+ "ordered_label_mass": {
+  "ineff": 0.008098734327848802,
+  "1/6|5/6": 0.05903408706352211,
+  "1/3|2/3": 0.26672898317047056,
+  "clash": 0.0007625987956119385,
+  "1/2|1/2": 0.3396125264085558,
+  "2/3|1/3": 0.26672898317046856,
+  "5/6|1/6": 0.05903408706352209
+ },
+ "slot_more": {
+  "equal": 0.34047094508207854,
+  "slot2": 0.32976452745896256,
+  "slot1": 0.32976452745896057
+ },
+ "mass_constant_pairs": 0.9336211615652461,
+ "support": [
+  {
+   "state": "S3 | S3",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.3185542464872963,
+   "label": "1/2|1/2"
+  },
+  {
+   "state": "S2 | S4",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.2500103620211456,
+   "label": "1/3|2/3"
+  },
+  {
+   "state": "S4 | S2",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.2500103620211434,
+   "label": "2/3|1/3"
+  },
+  {
+   "state": "S1 | S5",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.05376269240546546,
+   "label": "1/6|5/6"
+  },
+  {
+   "state": "S5 | S1",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.053762692405465363,
+   "label": "5/6|1/6"
+  },
+  {
+   "state": "S3 | if(BOX(S4),S4,S3)",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.003051525408175338,
+   "label": "1/2|1/2"
+  },
+  {
+   "state": "if(BOX(S4),S4,S3) | S3",
+   "kinds": [
+    "reader",
+    "constant"
+   ],
+   "pi": 0.0030515254081752026,
+   "label": "1/2|1/2"
+  },
+  {
+   "state": "if(BOX(S3),S5,S4) | S2",
+   "kinds": [
+    "reader",
+    "constant"
+   ],
+   "pi": 0.0028308565931071577,
+   "label": "2/3|1/3"
+  },
+  {
+   "state": "S2 | if(BOX(S3),S5,S4)",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.00283085659310713,
+   "label": "1/3|2/3"
+  },
+  {
+   "state": "S2 | S3",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.0021848179964425135,
+   "label": "ineff"
+  },
+  {
+   "state": "S3 | S2",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.0021848179964424922,
+   "label": "ineff"
+  },
+  {
+   "state": "S4 | if(BOX(S5),S3,S2)",
+   "kinds": [
+    "constant",
+    "reader"
+   ],
+   "pi": 0.0014533846734691004,
+   "label": "2/3|1/3"
+  },
+  {
+   "state": "if(BOX(S5),S3,S2) | S4",
+   "kinds": [
+    "reader",
+    "constant"
+   ],
+   "pi": 0.001453384673468979,
+   "label": "1/3|2/3"
+  },
+  {
+   "state": "S1 | S4",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.0011606679221535059,
+   "label": "ineff"
+  },
+  {
+   "state": "S4 | S1",
+   "kinds": [
+    "constant",
+    "constant"
+   ],
+   "pi": 0.0011606679221534957,
+   "label": "ineff"
+  }
+ ],
+ "transitions": [
+  {
+   "src": "1/2|1/2",
+   "dst": "ineff",
+   "flux": 0.07469852512429173,
+   "share_from_nonconstant_states": 0.10660532793519939,
+   "rate_per_unit_mass": 0.21995220822458408
+  },
+  {
+   "src": "ineff",
+   "dst": "1/2|1/2",
+   "flux": 0.07454688558510492,
+   "share_from_nonconstant_states": 0.12649418748535712,
+   "rate_per_unit_mass": 9.204757504979938
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "ineff",
+   "flux": 0.05991897601185478,
+   "share_from_nonconstant_states": 0.13174858773782555,
+   "rate_per_unit_mass": 0.22464366376547706
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "ineff",
+   "flux": 0.059918976011854516,
+   "share_from_nonconstant_states": 0.1317485877378296,
+   "rate_per_unit_mass": 0.22464366376547776
+  },
+  {
+   "src": "ineff",
+   "dst": "1/3|2/3",
+   "flux": 0.05761000500603867,
+   "share_from_nonconstant_states": 0.12802610969935554,
+   "rate_per_unit_mass": 7.113457816234
+  },
+  {
+   "src": "ineff",
+   "dst": "2/3|1/3",
+   "flux": 0.05761000500603831,
+   "share_from_nonconstant_states": 0.12802610969935796,
+   "rate_per_unit_mass": 7.1134578162339555
+  },
+  {
+   "src": "1/6|5/6",
+   "dst": "clash",
+   "flux": 0.02437029971093587,
+   "share_from_nonconstant_states": 0.08819847447702417,
+   "rate_per_unit_mass": 0.4128174233424299
+  },
+  {
+   "src": "5/6|1/6",
+   "dst": "clash",
+   "flux": 0.024370299710935833,
+   "share_from_nonconstant_states": 0.08819847447702502,
+   "rate_per_unit_mass": 0.4128174233424294
+  },
+  {
+   "src": "ineff",
+   "dst": "1/6|5/6",
+   "flux": 0.019584058237128717,
+   "share_from_nonconstant_states": 0.09201455582282045,
+   "rate_per_unit_mass": 2.418162819563766
+  },
+  {
+   "src": "ineff",
+   "dst": "5/6|1/6",
+   "flux": 0.019584058237128582,
+   "share_from_nonconstant_states": 0.0920145558228222,
+   "rate_per_unit_mass": 2.418162819563749
+  },
+  {
+   "src": "clash",
+   "dst": "ineff",
+   "flux": 0.018512366835629516,
+   "share_from_nonconstant_states": 0.06649850654785612,
+   "rate_per_unit_mass": 24.275368571457662
+  },
+  {
+   "src": "1/6|5/6",
+   "dst": "ineff",
+   "flux": 0.008428868359670695,
+   "share_from_nonconstant_states": 0.33178646850506877,
+   "rate_per_unit_mass": 0.1427796850758618
+  },
+  {
+   "src": "5/6|1/6",
+   "dst": "ineff",
+   "flux": 0.008428868359670555,
+   "share_from_nonconstant_states": 0.33178646850508103,
+   "rate_per_unit_mass": 0.1427796850758595
+  },
+  {
+   "src": "clash",
+   "dst": "5/6|1/6",
+   "flux": 0.007373258137846612,
+   "share_from_nonconstant_states": 0.04113900711152348,
+   "rate_per_unit_mass": 9.668593997621027
+  },
+  {
+   "src": "clash",
+   "dst": "1/6|5/6",
+   "flux": 0.007373258137846598,
+   "share_from_nonconstant_states": 0.04113900711152366,
+   "rate_per_unit_mass": 9.668593997621008
+  },
+  {
+   "src": "clash",
+   "dst": "2/3|1/3",
+   "flux": 0.00626780039919166,
+   "share_from_nonconstant_states": 0.04430607047159295,
+   "rate_per_unit_mass": 8.21900117762727
+  },
+  {
+   "src": "clash",
+   "dst": "1/3|2/3",
+   "flux": 0.006267800399191639,
+   "share_from_nonconstant_states": 0.04430607047159246,
+   "rate_per_unit_mass": 8.219001177627243
+  },
+  {
+   "src": "clash",
+   "dst": "1/2|1/2",
+   "flux": 0.006204505262264612,
+   "share_from_nonconstant_states": 0.04463337816497674,
+   "rate_per_unit_mass": 8.136001916034864
+  },
+  {
+   "src": "1/2|1/2",
+   "dst": "2/3|1/3",
+   "flux": 0.003436591313745821,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.010119153583903976
+  },
+  {
+   "src": "1/2|1/2",
+   "dst": "1/3|2/3",
+   "flux": 0.0034365913137457816,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.01011915358390386
+  },
+  {
+   "src": "1/2|1/2",
+   "dst": "5/6|1/6",
+   "flux": 0.002840748319552085,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.008364674735626944
+  },
+  {
+   "src": "1/2|1/2",
+   "dst": "1/6|5/6",
+   "flux": 0.002840748319551915,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.008364674735626442
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "1/2|1/2",
+   "flux": 0.0027637698395636314,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.010361715501300673
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "1/2|1/2",
+   "flux": 0.0027637698395635906,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.010361715501300599
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "5/6|1/6",
+   "flux": 0.002608035293526693,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.0097778473959835
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "1/6|5/6",
+   "flux": 0.002608035293526683,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.00977784739598339
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "2/3|1/3",
+   "flux": 0.0022265854722491782,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.008347744762428512
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "1/3|2/3",
+   "flux": 0.0022265854722491674,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.008347744762428534
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "1/6|5/6",
+   "flux": 0.0020561593139633945,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.007708795982809589
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "5/6|1/6",
+   "flux": 0.0020561593139632743,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.007708795982809081
+  },
+  {
+   "src": "1/3|2/3",
+   "dst": "clash",
+   "flux": 0.0011334204938124083,
+   "share_from_nonconstant_states": 0.061235985383558005,
+   "rate_per_unit_mass": 0.004249333838190437
+  },
+  {
+   "src": "2/3|1/3",
+   "dst": "clash",
+   "flux": 0.0011334204938124003,
+   "share_from_nonconstant_states": 0.06123598538355926,
+   "rate_per_unit_mass": 0.004249333838190439
+  },
+  {
+   "src": "ineff",
+   "dst": "clash",
+   "flux": 0.0009715686315284512,
+   "share_from_nonconstant_states": 0.23522115635738935,
+   "rate_per_unit_mass": 0.11996548993928052
+  },
+  {
+   "src": "1/6|5/6",
+   "dst": "1/3|2/3",
+   "flux": 0.0007060537570892365,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.011960102920360325
+  },
+  {
+   "src": "5/6|1/6",
+   "dst": "2/3|1/3",
+   "flux": 0.000706053757089232,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.011960102920360254
+  },
+  {
+   "src": "1/6|5/6",
+   "dst": "1/2|1/2",
+   "flux": 0.0004971269976662381,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.008421016100940417
+  },
+  {
+   "src": "5/6|1/6",
+   "dst": "1/2|1/2",
+   "flux": 0.0004971269976662217,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.008421016100940143
+  },
+  {
+   "src": "5/6|1/6",
+   "dst": "1/3|2/3",
+   "flux": 0.0004599104766549564,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.007790591834850969
+  },
+  {
+   "src": "1/6|5/6",
+   "dst": "2/3|1/3",
+   "flux": 0.00045991047665495114,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.007790591834850877
+  },
+  {
+   "src": "1/6|5/6",
+   "dst": "5/6|1/6",
+   "flux": 0.00043398876981955533,
+   "share_from_nonconstant_states": 1.0,
+   "rate_per_unit_mass": 0.007351494558602607
+  }
+ ],
+ "net_flux": {
+  "1/6|5/6 -> ineff": -0.011155189877458022,
+  "1/6|5/6 -> clash": 0.016997041573089275,
+  "1/6|5/6 -> 5/6|1/6": 2.574980159653073e-17,
+  "1/6|5/6 -> 2/3|1/3": -0.0015962488373084433,
+  "1/3|2/3 -> ineff": 0.0023089710058161114,
+  "1/3|2/3 -> clash": -0.005134379905379231,
+  "clash -> ineff": 0.017540798204101066,
+  "1/3|2/3 -> 1/6|5/6": 0.0019019815364374464,
+  "1/3|2/3 -> 5/6|1/6": 0.001596248837308318,
+  "1/3|2/3 -> 2/3|1/3": 1.0842021724855044e-17,
+  "1/2|1/2 -> ineff": 0.00015163953918681528,
+  "1/2|1/2 -> clash": -0.006184525131321295,
+  "1/2|1/2 -> 1/6|5/6": 0.0023436213218856767,
+  "1/2|1/2 -> 1/3|2/3": 0.0006728214741821502,
+  "1/2|1/2 -> 5/6|1/6": 0.002343621321885863,
+  "1/2|1/2 -> 2/3|1/3": 0.0006728214741822305,
+  "2/3|1/3 -> ineff": 0.0023089710058162086,
+  "2/3|1/3 -> clash": -0.00513437990537926,
+  "2/3|1/3 -> 5/6|1/6": 0.001901981536437461,
+  "5/6|1/6 -> ineff": -0.011155189877458027,
+  "5/6|1/6 -> clash": 0.01699704157308922
+ },
+ "cut": 0.0,
+ "arm": "weak",
+ "n": 7,
+ "N": 100,
+ "theta": 1e-12,
+ "n_states": 5929,
+ "time_s": 23.826887845993042,
+ "K": 77
+}

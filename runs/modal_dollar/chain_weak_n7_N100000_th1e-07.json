@@ -1,0 +1,852 @@
+{
+ "outcome": {
+  "1/6-5/6": 0.0,
+  "1/3-2/3": 0.0,
+  "1/2-1/2": 1.0000000000000004,
+  "ineff": 0.0,
+  "clash": 1.0803245682613502e-19,
+  "eff": 1.0000000000000004,
+  "E_max_pay": 0.5000000000000002,
+  "dwl": 5.401622841306751e-20,
+  "mean_pay": 0.5000000000000002,
+  "exante_max": 0.5000000000000002,
+  "o:1/6|5/6": 0.0,
+  "o:1/3|2/3": 0.0,
+  "o:1/2|1/2": 1.0000000000000004,
+  "o:2/3|1/3": 0.0,
+  "o:5/6|1/6": 0.0,
+  "E_max_share_compat": 0.5
+ },
+ "state_label_mass": {
+  "ineff": 0.0,
+  "1/2-1/2": 1.0000000000000004,
+  "clash": 1.0803245682613502e-19
+ },
+ "mass_mono_constant": 1.0000000000000004,
+ "mass_polymorphic": 0,
+ "support": [
+  {
+   "state": "S3:1.00",
+   "kinds": [
+    "constant"
+   ],
+   "pi": 1.0000000000000004,
+   "label": "1/2-1/2"
+  },
+  {
+   "state": "S4:1.00",
+   "kinds": [
+    "constant"
+   ],
+   "pi": 1.0744650042515639e-19,
+   "label": "clash"
+  },
+  {
+   "state": "S5:1.00",
+   "kinds": [
+    "constant"
+   ],
+   "pi": 5.859564009786194e-22,
+   "label": "clash"
+  },
+  {
+   "state": "if(BOX(S4),S3,S1):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S1),S5,S3):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S1),S1,S4):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S1),S2,S4):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S1),S3,S4):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "S1:1.00",
+   "kinds": [
+    "constant"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S1),S1,S5):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S1),S4,S3):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S1),S2,S5):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S3),S4,S5):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S1),S3,S5):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S2),S2,S1):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S2),S3,S1):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S2),S4,S1):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S2),S5,S1):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S3),S5,S4):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  },
+  {
+   "state": "if(BOX(S1),S2,S3):1.00",
+   "kinds": [
+    "reader"
+   ],
+   "pi": 0.0,
+   "label": "ineff"
+  }
+ ],
+ "transitions": [
+  {
+   "src": "1/2-1/2",
+   "dst": "ineff",
+   "flux": 0.0,
+   "share_from_nonconstant_states": NaN,
+   "rate_per_unit_mass": 0.0
+  },
+  {
+   "src": "1/2-1/2",
+   "dst": "clash",
+   "flux": 0.0,
+   "share_from_nonconstant_states": NaN,
+   "rate_per_unit_mass": 0.0
+  }
+ ],
+ "top_exits": [
+  {
+   "state": "S3:1.00",
+   "exits": [
+    {
+     "to": "if(BOX(S5),S1,S5):1.00",
+     "label": "ineff",
+     "p": 0.0,
+     "mutants": [
+      [
+       "if(BOX(S5),S1,S5)",
+       0.0
+      ]
+     ]
+    },
+    {
+     "to": "if(BOX(S5),S1,S4):1.00",
+     "label": "ineff",
+     "p": 0.0,
+     "mutants": [
+      [
+       "if(BOX(S5),S1,S4)",
+       0.0
+      ]
+     ]
+    },
+    {
+     "to": "if(BOX(S5),S1,S3):1.00",
+     "label": "ineff",
+     "p": 0.0,
+     "mutants": [
+      [
+       "if(BOX(S5),S1,S3)",
+       0.0
+      ]
+     ]
+    },
+    {
+     "to": "if(BOX(S5),S3,S2):1.00",
+     "label": "ineff",
+     "p": 0.0,
+     "mutants": [
+      [
+       "if(BOX(S5),S3,S2)",
+       0.0
+      ]
+     ]
+    },
+    {
+     "to": "if(BOX(S5),S1,S2):1.00",
+     "label": "ineff",
+     "p": 0.0,
+     "mutants": [
+      [
+       "if(BOX(S5),S1,S2)",
+       0.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "state": "S4:1.00",
+   "exits": [
+    {
+     "to": "S2:0.50 + S4:0.50",
+     "label": "?",
+     "p": 0.018328899482505264,
+     "mutants": [
+      [
+       "S2",
+       0.018328899482505264
+      ]
+     ]
+    },
+    {
+     "to": "S1:0.25 + S4:0.75",
+     "label": "?",
+     "p": 0.009387864677536049,
+     "mutants": [
+      [
+       "S1",
+       0.009387864677536049
+      ]
+     ]
+    },
+    {
+     "to": "S3:1.00",
+     "label": "1/2-1/2",
+     "p": 0.00018807046375505504,
+     "mutants": [
+      [
+       "S3",
+       0.00018807046375505504
+      ]
+     ]
+    },
+    {
+     "to": "S4:0.60 + if(BOX(S5),S3,S2):0.40",
+     "label": "?",
+     "p": 0.0001049670486343654,
+     "mutants": [
+      [
+       "if(BOX(S5),S3,S2)",
+       0.0001049670486343654
+      ]
+     ]
+    },
+    {
+     "to": "S4:0.75 + if(BOX(S5),S2,S1):0.25",
+     "label": "?",
+     "p": 7.168723167573848e-05,
+     "mutants": [
+      [
+       "if(BOX(S5),S2,S1)",
+       7.168723167573848e-05
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "state": "S5:1.00",
+   "exits": [
+    {
+     "to": "S1:0.20 + S5:0.80",
+     "label": "?",
+     "p": 0.009385979159376365,
+     "mutants": [
+      [
+       "S1",
+       0.009385979159376365
+      ]
+     ]
+    },
+    {
+     "to": "S3:1.00",
+     "label": "1/2-1/2",
+     "p": 0.0001880704637550554,
+     "mutants": [
+      [
+       "S3",
+       0.0001880704637550554
+      ]
+     ]
+    },
+    {
+     "to": "S2:1.00",
+     "label": "ineff",
+     "p": 0.00015358641457479666,
+     "mutants": [
+      [
+       "S2",
+       0.00015358641457479666
+      ]
+     ]
+    },
+    {
+     "to": "S5:0.80 + if(BOX(S4),S3,S1):0.20",
+     "label": "?",
+     "p": 5.375462516880343e-05,
+     "mutants": [
+      [
+       "if(BOX(S4),S3,S1)",
+       5.375462516880343e-05
+      ]
+     ]
+    },
+    {
+     "to": "S5:0.80 + if(BOX(S3),S4,S1):0.20",
+     "label": "?",
+     "p": 3.583641677920229e-05,
+     "mutants": [
+      [
+       "if(BOX(S3),S4,S1)",
+       3.583641677920229e-05
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "state": "if(BOX(S4),S3,S1):1.00",
+   "exits": [
+    {
+     "to": "S5:0.80 + if(BOX(S4),S3,S1):0.20",
+     "label": "?",
+     "p": 0.03491877350384703,
+     "mutants": [
+      [
+       "S5",
+       0.03491877350384703
+      ]
+     ]
+    },
+    {
+     "to": "S3:1.00",
+     "label": "1/2-1/2",
+     "p": 0.018332564447463926,
+     "mutants": [
+      [
+       "S3",
+       0.018332564447463926
+      ]
+     ]
+    },
+    {
+     "to": "S2:1.00",
+     "label": "ineff",
+     "p": 0.009395391522487842,
+     "mutants": [
+      [
+       "S2",
+       0.009395391522487842
+      ]
+     ]
+    },
+    {
+     "to": "S1:1.00",
+     "label": "ineff",
+     "p": 1.926446727961054e-06,
+     "mutants": [
+      [
+       "S1",
+       1.926446727961054e-06
+      ]
+     ]
+    },
+    {
+     "to": "if(BOX(S3),S4,S5):1.00",
+     "label": "ineff",
+     "p": 2.206598161168191e-08,
+     "mutants": [
+      [
+       "if(BOX(S3),S4,S5)",
+       2.206598161168191e-08
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "state": "if(BOX(S1),S5,S3):1.00",
+   "exits": [
+    {
+     "to": "S3:1.00",
+     "label": "1/2-1/2",
+     "p": 0.018330732332502483,
+     "mutants": [
+      [
+       "S3",
+       0.018330732332502483
+      ]
+     ]
+    },
+    {
+     "to": "S2:0.50 + if(BOX(S1),S5,S3):0.50",
+     "label": "?",
+     "p": 0.009391631097886311,
+     "mutants": [
+      [
+       "S2",
+       0.009391631097886311
+      ]
+     ]
+    },
+    {
+     "to": "if(BOX(S3),S4,S5):1.00",
+     "label": "ineff",
+     "p": 2.2065981611681916e-08,
+     "mutants": [
+      [
+       "if(BOX(S3),S4,S5)",
+       2.2065981611681916e-08
+      ]
+     ]
+    },
+    {
+     "to": "if(BOX(S3),S5,S4):1.00",
+     "label": "ineff",
+     "p": 2.2065981611681916e-08,
+     "mutants": [
+      [
+       "if(BOX(S3),S5,S4)",
+       2.2065981611681916e-08
+      ]
+     ]
+    },
+    {
+     "to": "if(BOX(S4),S4,S3):1.00",
+     "label": "ineff",
+     "p": 1.838831800973493e-08,
+     "mutants": [
+      [
+       "if(BOX(S4),S4,S3)",
+       1.838831800973493e-08
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "state": "if(BOX(S1),S1,S4):1.00",
+   "exits": [
+    {
+     "to": "S2:0.33 + if(BOX(S1),S1,S4):0.67",
+     "label": "?",
+     "p": 0.009389748618831016,
+     "mutants": [
+      [
+       "S2",
+       0.009389748618831016
+      ]
+     ]
+    },
+    {
+     "to": "S1:1.00",
+     "label": "ineff",
+     "p": 1.9264467279610547e-06,
+     "mutants": [
+      [
+       "S1",
+       1.9264467279610547e-06
+      ]
+     ]
+    },
+    {
+     "to": "if(BOX(S3),S4,S5):1.00",
+     "label": "ineff",
+     "p": 2.206598161168192e-08,
+     "mutants": [
+      [
+       "if(BOX(S3),S4,S5)",
+       2.206598161168192e-08
+      ]
+     ]
+    },
+    {
+     "to": "if(BOX(S3),S5,S4):1.00",
+     "label": "ineff",
+     "p": 2.206598161168192e-08,
+     "mutants": [
+      [
+       "if(BOX(S3),S5,S4)",
+       2.206598161168192e-08
+      ]
+     ]
+    },
+    {
+     "to": "if(BOX(S4),S4,S3):1.00",
+     "label": "ineff",
+     "p": 1.8388318009734937e-08,
+     "mutants": [
+      [
+       "if(BOX(S4),S4,S3)",
+       1.8388318009734937e-08
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "net_flux": {},
+ "cut_flow": 3.097480730200151e-21,
+ "poly_flow": 3.0974807302001507e-21,
+ "indeterminate": 0,
+ "n_states": 77,
+ "P_efficient": 1.0000000000000004,
+ "effset": {
+  "mass": 1.0000000000000004,
+  "exit_rate": 0.0,
+  "entry_rate": 0.00018807046375505504,
+  "flux_out": 0.0,
+  "flux_in": 2.0317714255889174e-23
+ },
+ "greedy": {
+  "mass": 0.0,
+  "exit_rate": null,
+  "entry_rate": 0.0,
+  "flux_out": 0.0,
+  "flux_in": 0.0
+ },
+ "reentry_greedy_to_eff": {
+  "total": 0.0,
+  "by_mutant": []
+ },
+ "exit_eff_to_any": {
+  "total": 0.0,
+  "by_mutant": [
+   {
+    "q": "S1",
+    "flux": 0.0,
+    "share": 0.0
+   },
+   {
+    "q": "S2",
+    "flux": 0.0,
+    "share": 0.0
+   },
+   {
+    "q": "S4",
+    "flux": 0.0,
+    "share": 0.0
+   },
+   {
+    "q": "S5",
+    "flux": 0.0,
+    "share": 0.0
+   },
+   {
+    "q": "if(BOX(S3),S5,S4)",
+    "flux": 0.0,
+    "share": 0.0
+   },
+   {
+    "q": "if(BOX(S3),S4,S5)",
+    "flux": 0.0,
+    "share": 0.0
+   },
+   {
+    "q": "if(BOX(S4),S4,S3)",
+    "flux": 0.0,
+    "share": 0.0
+   },
+   {
+    "q": "if(BOX(S5),S2,S1)",
+    "flux": 0.0,
+    "share": 0.0
+   },
+   {
+    "q": "if(BOX(S4),S3,S1)",
+    "flux": 0.0,
+    "share": 0.0
+   },
+   {
+    "q": "if(BOX(S4),S3,S2)",
+    "flux": 0.0,
+    "share": 0.0
+   },
+   {
+    "q": "if(BOX(S5),S3,S2)",
+    "flux": 0.0,
+    "share": 0.0
+   },
+   {
+    "q": "if(BOX(S1),S5,S4)",
+    "flux": 0.0,
+    "share": 0.0
+   }
+  ]
+ },
+ "exit_eff_to_greedy": {
+  "total": 0.0,
+  "by_mutant": []
+ },
+ "top_states": [
+  {
+   "state": "S3:1.000",
+   "pi": 1.0000000000000004,
+   "eff": 1.0,
+   "effset": true,
+   "greedy": false,
+   "label": "1/2-1/2",
+   "xs5": 0.0
+  },
+  {
+   "state": "S4:1.000",
+   "pi": 1.0744650042515639e-19,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "clash",
+   "xs5": 0.0
+  },
+  {
+   "state": "S5:1.000",
+   "pi": 5.859564009786194e-22,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "clash",
+   "xs5": 1.0
+  },
+  {
+   "state": "if(BOX(S4),S3,S1):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S1),S5,S3):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S1),S1,S4):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S1),S2,S4):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S1),S3,S4):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "S1:1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S1),S1,S5):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S1),S4,S3):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S1),S2,S5):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S3),S4,S5):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S1),S3,S5):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S2),S2,S1):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S2),S3,S1):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S2),S4,S1):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S2),S5,S1):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S3),S5,S4):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  },
+  {
+   "state": "if(BOX(S1),S2,S3):1.000",
+   "pi": 0.0,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "label": "ineff",
+   "xs5": 0.0
+  }
+ ],
+ "arm": "weak",
+ "n": 7,
+ "N": 100000,
+ "theta": 1e-07,
+ "K": 77,
+ "aug_mass": 0.0,
+ "aug": [],
+ "time_s": 5.992079257965088,
+ "n_expanded": 77,
+ "tag": ""
+}
