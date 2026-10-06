@@ -263,3 +263,17 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   not; **static boundary** — k = U + 10 for FB vs SF_k; **FB2** — the visibility probe; **FBx** — the
   mismatched-target reader; **twins** — programs whose search calls are the same root query, the only pairs that
   cooperate under the code semantics.
+- **Certificates as code:** **script** — a derivation skeleton (rule names and principal-formula positions) the
+  checker expands from a root built out of the two quotes; **Lemma F** — a carrier's explicit self-derivation is
+  not finite data; **CHK / CC_x** — the check wrapper and core, modes x = 0 sound, 1 naive (unguarded pair rule),
+  2 none (control), 3 self-only, 4 sloppy, 5 sound copy at another entry; **V** — the check cap, u(V) = V + 6 the
+  check's maximum cost, W its actual inner steps; **K_T^cert** — Ax, EvR\*, ChkR, Run/RunNeg (cap ≥ root), Hyp^self,
+  Hyp^pair; **R** — the box of this check (its root); **S** — the swap, the checked program's own check of the
+  reader's script; **Hyp^pair** — closes S, guarded by partner validation; **Lemma N** — nested runs return their
+  clean values or the root times out; **Lemma Sym** — reader's and partner's checks compute the same two validations
+  and agree; **Theorem S^cert** — unconditional soundness of modes 0, 2, 3, 5; **call skeleton** — the sequence of
+  check calls a source makes, the coverage class of a script; **carriers** CB (FB-shaped), CB1 (self-auditing),
+  CBP (prudent), CBlet, CBwrap; held-out CBlet2, CBw2, CB1h, CB1r, CBPh, CBPr; **Ccert** (C with an acyclic script),
+  **Dcert** (D with cyclic scripts), **CBfake**, **CBdef**, **CBmut**, **LöbC** (self-trust: a certified
+  CooperateBot), **CBsloppy**, **CBN / CBN0** (naive, with and without a list), **CB0** (sound, empty list),
+  **CBS2** (sound copy entry), **SFc** (certificate-carrying simulator).

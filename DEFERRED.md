@@ -109,9 +109,12 @@ REJECTED.md the ones we dropped.
   regress, and the min-rule was an artefact of the idealization (RESULTS "The realizable language, milestone 3").
   *Operating hypothesis refined:* a sound bounded prover whose box means its own code search within a declared cap;
   cooperation between distinct sources needs certificates that are checked, not searched for.
-- *Would settle it next:* proof-carrying certificates as code (checked derivations with a sound ex-post rule for
-  mutual checks; `specs/2026-10-06-certificates-as-code.md`); the guard margin as an evolving trait (running);
-  bounded PA provers whose consistency strength is explicit. (Earlier line, now settled: K with a sound distribution rule
+- *Evidence (2026-10-06, certificates as code):* checked carried scripts restore distinct-source cooperation under
+  a shared sound checker, with unconditional soundness; the pair rule is a symmetry (Lemma Sym), not a fixed point
+  (RESULTS "The realizable language, milestone 4"). *Operating hypothesis refined:* source reading through a
+  shared sound checker of carried scripts; the checker is a convention, as the proof system was.
+- *Would settle it next:* populations of carriers under a template grammar over call skeletons (milestone 2); the
+  guard margin as an evolving trait (running); bounded PA provers whose consistency strength is explicit. (Earlier line, now settled: K with a sound distribution rule
   under a box; does P* return, and do Con-sentence fakers
   return with it?); K beyond the modal fragment; a bounded prover in bargaining (hawks need Löb above the copy
   threshold).
@@ -218,4 +221,9 @@ REJECTED.md the ones we dropped.
   under the code semantics only exact query identity cooperates, so a population prior is judged by its mass on
   twins; milestone 2 waits on the certificate mechanism (milestone 4), which may restore distinct-source
   cooperation. *Open (RE decision):* the cap U as a heritable trait versus a fixed fraction of K.
-- *Would settle it:* milestone 4 (certificates as code); then milestone 2 under a template grammar.
+- *Evidence (2026-10-06, milestone 4):* certificates as code restore distinct-source cooperation (10 of 10 distinct
+  carrier pairs at K = 10⁶, checks of 1–4·10⁴ steps, twins no longer special). *Operating hypothesis for
+  milestone 2:* a grammar of carriers by call skeleton over one shared checker, with the prior's mass on
+  certificate-carrying sources, judged by cooperation among distinct skeletons. *Open (RE decisions):* whether
+  production is part of the program (charged) or a public service; the cap V as a trait or a fixed fraction of K.
+- *Would settle it:* milestone 2 under that grammar (the seed lottery and the ε→0 chain over carriers).

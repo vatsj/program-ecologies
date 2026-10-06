@@ -781,3 +781,18 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Subagent S1** (SC_code from b = 6; from 2), **S5** (the boundary at U + 9; U + 10), **S10** (SC_code defects on D; it cooperates with everyone, and PB defects on it).
 
 **Design choices dropped:** SrchL (its converse fails); a reflection rule (with JLöb^self it proves anything); an exact-cost side condition checked by running the search (re-enters itself); a static runtime bound for the uncapped search (sound but astronomic; the declared cap U instead); syntactic boxes with a "completeness within cap" assumption (sound only on a closed catalogue; an expensive true box becomes a cap faker); hand instance 6 as first written; the audit entry COREW run under U (now 4U + 10⁶); SF boundary cells at K = 10⁶ (moved to 10⁷); "every side condition true" as the sloppy checker (CooperateBot again; the fit-skipping checker is the meaningful one); the instance-minimum lower bounds of milestone 1's memo.
+
+
+## Added 2026-10-06: the realizable language, milestone 4 (RESULTS.md, "The realizable language, milestone 4: certificates as code")
+
+**"The guard for the pair rule is that the hypothesis names the checking program's own call" (Fable, RE 1, the guard clause).** Sound but twins-only, plus simulators carrying a self-certificate. The guard that admits distinct sources is partner validation of the swap box (Lemma Sym): the reader validates the partner's script one level deep, so the two checks compute the same predicate.
+
+**"The unrestricted pair rule admits Dcert's cyclic certificate" (Fable, RE 1, the counterexample).** Dcert cannot be certified under any hypothesis rule, because its run has no check call and Hyp only closes boxes a call puts on the right. The unguarded rule's false atom is CBN0 (naive, no list) accepting CBN (naive, which defects on it).
+
+**"Literal certificates do not transfer; quantified templates with checked instantiation cover every held-out same-shape carrier" (Fable, RE 5; falsifier fired).** Literal self-certificates do not exist (Lemma F: an explicit derivation of one's own run is not finite data). Scripts are opponent-generic with no instantiation and cover exactly the sources with their call skeleton; CBPr is PB-shaped but has reversed calls and is not covered.
+
+**"Acyclic proofs certify carrier–SF_k; the pair rule adds exactly the carrier–carrier cells" (Fable, RE 6, two clauses).** SFc needs Hyp^self; the sound arm also adds twins, SFc and CB1–Ccert.
+
+**Subagent predictions:** S3's arm-O twin clause (the frozen production gives self-only carriers no script); S8's regress clause (cross-checker pairs fail by Hyp not applying before any regress in the main cells); S9 as worded (Ccert and SFc are found by searchers); S10's "every production-set carrier" clause; S11's "the actual run succeeds below the boundary" clause; S12 as worded (milestone-3 cells change at 10⁷).
+
+**Design choices dropped:** explicit-sequent certificates and placeholder quines (Lemma F); lookup by opponent key (scripts are opponent-generic); ChkR as one step (a check is charged V + 6, per sol's review); Run without a cap guard (Lemma N's proof needs it; necessity open); the "leaves unchecked" sloppy variant (not run); probes carrying only D scripts (a production bug fixed before any cell); an unbounded host replay (it loops on SFc's self-simulation; now bounded).
