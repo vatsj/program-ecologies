@@ -351,3 +351,50 @@ by at most two per new source (its C and D scripts) and no existing carrier need
 9. **Naive counterexample** (§1.7(a)): CC_1 accepts; the play shows the atom false.
 10. **Lemma Sym, measured:** for every pair in which a check used Hyp^pair, the swap check returns T with the same
     step count when the partner also used Hyp^pair, and no more otherwise.
+
+### 1.11 Code validation of §1.8–1.10, before any counted cell
+
+From `tests/test_lt_cert.py` (16 tests, all passing), run after the code existed and before any counted cell. The
+check costs quoted here come from the validation runs (measurements of single checks, not cells).
+
+- **Production reproduces the hand scripts exactly** (K = 10⁶): CB, CBlet, CBwrap, CBN, CBS2, LöbC and SFc carry
+  EvR*; ChkR[EvR*; Ax · Hyp] (5 nodes); CB1 EvR*; ChkR[EvR*; ChkR[EvR*; Ax · Hyp] · Hyp] (8); CBP EvR*; ChkR[EvR*;
+  ChkR[EvR*; Ax · Run] · Hyp] (8); every carrier's D script EvR*; ChkR[RunNeg · EvR*; Ax] (5); Ccert EvR*; Ax (2);
+  SFc's D script EvR*; Ax; CBsloppy EvR*; ChkR[EvR*; Ax · Run] (its call names the sloppy checker, which sound readers
+  Run). Held-out fresh productions: CBlet2 and CBw2 get CB's script, CB1h and CB1r get CB1's, CBPh gets CBP's, and
+  **CBPr gets EvR*; ChkR[EvR*; ChkR[EvR*; Ax · Hyp] · Run]**, a different call skeleton, as §1.9 derived.
+- **A production bug fixed before any cell:** the first version gave the probes only their D scripts, so CBsloppy's
+  Run (the sloppy check of a probe's C entry) failed and CBsloppy got no C script. The probes now carry their own C
+  scripts (a third production pass, notes §1.9 as written: "probes that already carry theirs"). No other list changed.
+- **Instance 1 (valid pair):** CB–CB1 both checks T, the host replay accepts, inner cost 21,542 ≤ V.
+- **Instance 2:** CBfake and CBdef rejected against CB, CB1, CBP.
+- **Instance 3 (fuel mismatch, K′ = 10K in the call):** the reader's check F, (D, D).
+- **Instance 4 (fit):** with V = 25,000 in the sources, CB against itself: F at K = V + 8 and V + 9, T at V + 10 and
+  V + 11, and the plays follow the check (D, D, C, C). The flip is at the static boundary because the program's own
+  check implements it.
+- **Instance 5 (a call on a third program):** Hyp rejected; F.
+- **Instance 6 (partner validation):** CB0 checking CB: F (Hyp^pair is syntactically fine; the partner has no
+  script). The naive checker on the same shape (CBN0 checking CBN): T, and the plays are CBN0 C, CBN D: **the accepted
+  atom is false**, at K = 10⁵ and 10⁶.
+- **Instance 7:** Run on S (CB's script with Run in place of Hyp) and on R (LöbC's) rejected; a sloppy carrier whose
+  call has cap V/2 is refused by a sound reader (Run cap guard); CBsloppy at cap V accepted.
+- **Instance 8 (Dcert):** rejected by modes 0, 1, 2, 3, 5 against CB, CB1, CBP, CBN, CBS2; accepted by mode 4; plain
+  D refused by mode 4; CBsloppy plays C against Dcert, CB plays D.
+- **Instance 10 (Lemma Sym):** every sampled sound or copy-checker check that closed S (16 sources, both modes): the
+  swap check is T, with an equal step count when the partner's script closed R and no more otherwise.
+- **The self-interpreter** `cstep` equals the host decomposition (value, stuck, deterministic successor with its
+  timeout flag, call state with its library index, argument and frames, and the plugged T/F continuations) along 30
+  play chains through check calls and simulation frames.
+- **The evaluator** equals the substitution semantics in value and step count on four whole plays at K = 10⁵ (CB–CB,
+  CB–CB0, CB–Ccert, CBN0–CBN), the checks run step by step.
+- **The cost bound:** a wrapper call costs exactly W + 6 ≤ V + 6 (W the inner steps), also when the core times out.
+- **Checker term against host replay:** every (target, opponent, outcome, mode) over the arm-S catalogue at K = 10⁶,
+  all six modes, wherever the term finished: equal.
+- **Host replay budget:** the host replay counts no fuel, so its EvR* is bounded by V/20 depth-weighted steps; the
+  test confirms that one interpreted step at context depth d costs the term at least 20(1 + d) evaluator steps
+  (sampled along SFc–SFc, SFc–CB, CB–CB1, CBP–CB and SF–SF chains), so a host abort implies a term timeout. Found
+  necessary because SFc's script against SFc steps through a regress of simulations for up to K steps.
+- **Fuzz audit (validation size):** 14 random carrier-like codes per mode with random and produced scripts, every
+  ordered pair and outcome (512 checks per mode): accepted 99 / 66 / 103 / 112 / 90 in modes 0 / 1 / 2 / 3 / 5, false
+  atoms accepted 0 in every mode (the naive checker's false atom needs a carrier paired with a script-less reader that
+  runs the same checker, which random codes rarely produce; the designed counterexample is instance 6).
