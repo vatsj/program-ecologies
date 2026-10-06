@@ -224,6 +224,33 @@ WHAT_RAN = ('Everything in the spec\'s priority order that the screening left ru
             'selection by run length; stopped when the machine load reached 35–45 on 10 cores and separated K b = 4 runs took several minutes each; §7).')
 
 
+READING = '''**Reading.**
+- **At b ≥ 12 K removes the bridge-less obstruction at n = 8, and the dynamics follow the statics.** Under the free box 0.221
+  of rival mass is direct-bridge-less (P\\*, P\\*′); under K at b = 16 and 54 the only rivals of FairBot's pair are the
+  PrudentBot pair, half-rivals bridged by `BOX(THEM(THEM))` (μ 5·10⁻³), and no source becomes a new rival. Natural horizon
+  separation is 8/3,000 under the free box (7 P\\*-family, 1 B₁ whose bridge died; all 8 still separated at 3·10⁵) and
+  0/3,000 under K at both the common and the calibrated mN (paired: free-only 8, K-only 0; one-sided 95% bound 0.001 per
+  run). K's 18 ever-separations all resolved (median ≈ 10³ generations, all within 10⁴), 15 of them with the bridge alive.
+- **P\\* under K is a defector, not a rival:** forced at one copy per island it never establishes cooperatively, dies as fast
+  as an inert D (median 144 vs 128 generations; 0/100 alive in both), and leaves nucleation unchanged (Δq_est +0.01 vs iid,
+  −0.03 vs D). The same forcing under the free box gives a permanent cooperative patchwork in 96/100 runs. P\\*'s column
+  differs from D's (it has prey D lacks, μ 0.006), but this does not show demographically.
+- **The bridge machinery works under K:** forced PrudentBot establishes in 98/100 runs, a bridge mediates before loss in
+  0.91, and the 2 horizon separations both have a dead bridge, the free arm's pattern.
+- **The budget is not innocent.** Below `BOX1(THEM(ME))`'s distinct-budget threshold K creates bridge-less rivals of its
+  own, budget soft cliques rather than Gödelian programs: at b = 4 FairBot and `BOX1(THEM(ME))` mutually defect, rival mass
+  is 0.017 (900× the free arm's), every rival is bridge-less, and natural runs end separated in 0.80 [0.67, 0.89] at
+  (200, 64), every island efficient (island P(C,C) 0.989, cross-island 0.66). Bridge-less mass is 0.017 / 2.9·10⁻⁴ /
+  7.6·10⁻⁶ / 0 at b = 4 / 6 / 8 / ≥ 12. So b = 4, the best K budget in the well-mixed chain at N = 10⁴, is the worst arm
+  across islands; the obstruction moves from Gödel sentences to budget thresholds and vanishes once the budget clears every
+  establisher pair's distinct-budget threshold.
+- **Island-level efficiency is untouched everywhere** (run-level efficient fraction 1.00 in every natural cell). *Scope:*
+  n = 8, N = 200, I = 64, horizons 10⁵–3·10⁵; K is a sound bounded calculus for the modal fragment with a GL-decidability
+  prune; K tables at n ≥ 9 do not exist; longer bridge paths and non-A networks are covered only by the static graph (one
+  component at b ≥ 12).
+'''
+
+
 def verdicts(out, stat, calib):
     B = calib['mN_boundary']
     nat = out['nat']
@@ -458,6 +485,26 @@ def write_md(out, stat, calib):
         w('| %s | `%s` | %d | %s | %.3f | %.3f |' % (ARMLAB[arm], ref, v['n_rivals'], e(v['rival_mu']),
                                                 g['direct_bridgeless']['share'] or 0, g['hard_bridgeless']['share'] or 0))
     w('')
+    bp = os.path.join(RUNS, 'rivals-under-k-budgets.json')
+    if os.path.exists(bp):
+        bud = json.load(open(bp))
+        w('**Budget profile** (exploratory static, computed after the predictions and the runs, no prediction attached; the K tables '
+          'at b = 3–54 from `src/k_at_n8.py`): rivals of A under K by budget.')
+        w('')
+        w('| b | classes | establishers (μ) | FairBot, `BOX1(THEM(ME))` self-cooperate / mutually cooperate | rivals | rival μ | direct-bridge-less μ (share) | hard share | establisher-graph components | new rivals by source: n, μ (bridge-less μ) | heaviest rivals |')
+        w('|---|---|---|---|---|---|---|---|---|---|---|')
+        for arm, v in sorted(bud.items(), key=lambda t: int(t[0][1:])):
+            w('| %s | %d | %d (%.4f) | %s / %s | %d | %s | %s (%.3f) | %.3f | %d | %d, %s (%s) | %s |' % (
+                arm[1:], v['classes'], v['est'], v['est_mu'], '/'.join('yes' if x else 'no' for x in v['A_selfcoop']),
+                'yes' if v['A_mutual'] else '**no**', v['n_rivals'], e(v['rival_mu']), e(v['bl_mu']), v['bl_share'] or 0,
+                v['hard_share'] or 0, v['comps'], v['new'], e(v['new_mu']), e(v['new_bl_mu']), ', '.join('`%s`' % x for x in v['rivals'][:3])))
+        w('')
+        w('The direct-bridge-less mass under K is 0.010 / 0.017 / 2.9·10⁻⁴ / 7.6·10⁻⁶ / 0 at b = 3 / 4 / 6 / 8 / ≥ 12, against 4.1·10⁻⁶ '
+          'under the free box. Below b = 7 (`BOX1(THEM(ME))`\'s distinct-budget threshold) A itself is split or its readers cannot '
+          'certify each other\'s neighbours; at b = 8 the one bridge-less rival is `and(BOX1(THEM(ME)),BOX1(THEM(THEM)))` (a full '
+          'rival in its own component: a soft clique whose two-box proof does not fit the budget against non-copies). Every bridge-less '
+          'rival under K at any budget is new by source identity; none is P\\*-family.')
+        w('')
     # ---------------- calibration
     w('## 2. Calibration (m = 0, N = 200, I = 16, 120 runs per table)')
     w('')
@@ -616,6 +663,7 @@ def write_md(out, stat, calib):
     V = out.get('verdicts_md')
     if V:
         w(V)
+        w(READING)
     open(OUT_MD, 'w').write('\n'.join(L) + '\n')
 
 
