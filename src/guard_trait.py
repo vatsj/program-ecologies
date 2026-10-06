@@ -77,6 +77,27 @@ class KTheoryM(KC.KTheoryC):
             gid = len(self.genos); self.geno_id[key] = gid; self.genos.append((ti, b)); self.gg.append(g)
         return gid
 
+    def solve(self, targets, max_passes=200):
+        """bounded_k.KTheory.solve plus the JLoeb sibling closure: an instance (S, b) of total size v concludes every
+        member of S (the rule's conclusion is any A_i), but the candidate rule searches S only from one member, so a
+        member's own search can miss it (found at n = 8: P[x, y] derived by an instance containing a content x's
+        atom needs, while that content's own search failed, making the computed table inconsistent).  After each
+        fixpoint, every member of a recorded instance gets J <= v, and the fixpoint is resumed until nothing moves.
+        Values only decrease and every value is witnessed by the instance, so this is sound and more complete."""
+        while True:
+            r = super().solve(targets, max_passes)
+            changed = False
+            for A, w in list(self.Jw.items()):
+                if not w: continue
+                S, b = w; v = self.J.get(A, INF)
+                if v >= INF: continue
+                for s in S:
+                    if self.J.get(s, INF) > v:
+                        self.J[s] = v; self.Jw[s] = w; self.goalsJ.add(s); self.goalsT.add(s); changed = True
+            if not changed:
+                return r
+            self.n_sibling = getattr(self, 'n_sibling', 0) + 1
+
     def _dist(self, L, B, c, memo):
         """bounded_k.KTheory._dist with two value-preserving accelerations (the search is otherwise unchanged):
         (i) a cache per phase memo (within one memo the T/J/M values are fixed, and the side effects -- premise
@@ -354,6 +375,15 @@ def _kc4_job(j):
             if s in want: cmap[s] = c
     K.solve(sorted(set(cmap.values())))
     T = {s: int(K.T.get(c, INF)) for s, c in cmap.items() if K.T.get(c, INF) <= K.cap}
+    # every other uncertified content of the block that this closure derived within b (any derivation found anywhere
+    # is a K_c4 derivation; the patch takes the minimum over chunks)
+    unc_all = set(json.load(open(os.path.join(GDIR, 'kclosure_n%d_b%d_%s.json' % (n, b, blk))))['uncertified'])
+    extra = {}
+    for c, v in list(K.T.items()):
+        if v <= b and K.forms[c][0] != FP:
+            s = K.show(c)
+            if s in unc_all and s not in T: extra[s] = int(v); cmap.setdefault(s, c)
+    T.update(extra)
     nchk, bad = K.soundness_check()
     if bad: nchk, bad = K4.closure_check(K)
     newly = [s for s, v in T.items() if v <= b]
@@ -367,7 +397,7 @@ def _kc4_job(j):
         except (AssertionError, ValueError, KeyError) as e:
             ck['fail'] += 1
     return dict(seed=seed, block=blk, n_goals=len(goals), goals=list(goals), matched=len(cmap), T=T, sound_checked=nchk, sound_bad=len(bad),
-                bad_examples=[K.show(x) for x in bad[:10]], checker=ck, t=time.time() - t, n_forms=len(K.forms))
+                bad_examples=[K.show(x) for x in bad[:10]], checker=ck, t=time.time() - t, n_forms=len(K.forms), n_extra=len(extra), n_sibling=getattr(K, 'n_sibling', 0))
 
 
 def _relevant_job(j):
@@ -500,7 +530,8 @@ def patched_tables(n, b):
         resid_w1 = max([rel.get('w1', {}).get(g, 0.0) for g in resid], default=0.0)
         resid_w2 = float(sum(rel.get('w2', {}).get(g, 0.0) for g in resid))
         Tn = {}
-        for r in R: Tn.update(r['T'])
+        for r in R:
+            for s_, v in r['T'].items(): Tn[s_] = min(v, Tn.get(s_, INF))
         byshow = {K.show(c): c for c in contents if K.T.get(c, INF) > b}
         T2 = dict(K.T); newly = []
         for s_, v in Tn.items():
