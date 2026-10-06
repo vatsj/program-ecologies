@@ -159,11 +159,22 @@ def check_trace(trace):
         elif r[0] == 'prove':
             n += 1
             if b != r[3] and b != r[4]:
-                # search-charged prove steps decrement sim fuels by W: compare shape only
-                if _strip(b) not in (_strip(r[3]), _strip(r[4])): bad += 1
+                # search-charged prove steps decrement sim fuels by W: compare shape only; a sim frame that cannot
+                # afford the search is replaced by TO (a charged timeout, checked by shape)
+                if _strip(b) not in (_strip(r[3]), _strip(r[4])) and not _sim_to(a, b): bad += 1
         else:
             bad += 1
     return n, bad
+
+
+def _sim_to(a, b):
+    """b is a with exactly one sim frame replaced by TO (fuels of the frames outside it may differ)."""
+    if a == b: return False
+    if isinstance(a, tuple) and a and a[0] == 'sim' and b == ('con', 'TO'): return True
+    if not (isinstance(a, tuple) and isinstance(b, tuple)) or len(a) != len(b) or a[0] != b[0]: return False
+    diffs = [i for i in range(1, len(a)) if a[i] != b[i]]
+    if a[0] == 'sim': diffs = [i for i in diffs if i != 1]
+    return len(diffs) == 1 and _sim_to(a[diffs[0]], b[diffs[0]])
 
 
 def _strip(t):
