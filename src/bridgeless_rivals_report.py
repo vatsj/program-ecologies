@@ -297,6 +297,23 @@ def main():
                 ('%.2f [%.2f, %.2f]' % tuple(s['q'][:3])) if 'q' in s else '–', ('%+.2f [%+.2f, %+.2f]' % tuple(s['dq'])) if 'dq' in s else '–',
                 ('%.2f [%.2f, %.2f]' % tuple(s['q_est'][:3])) if 'q_est' in s else '–', ('%+.2f [%+.2f, %+.2f]' % tuple(s['dq_est'])) if 'dq_est' in s else '–'))
         P('')
+    if groups:
+        P('### Separation conditional on the bridge (bridged rivals): bridge established on some island / bridge alive at the end')
+        P('')
+        P('| cell | rival | runs with a bridge establishment: separated at horizon | without: separated | bridge alive at end: separated | bridge extinct: separated | median bridge extinction gen (extinct runs) |')
+        P('|---|---|---|---|---|---|---|')
+        for g, rv, rs, ref in groups:
+            if rv not in forced['bridged']: continue
+            a = [r for r in rs if r['bridge_est'] > 0]; b = [r for r in rs if r['bridge_est'] == 0]
+            ae = [r for r in rs if r['bridge_alive_end']]; be = [r for r in rs if not r['bridge_alive_end']]
+            te = [r['t_ext'][3] for r in be if r['t_ext'][3] >= 0]
+            row = dict(est=[len(a), sum(r['sep_end_tag'] for r in a)], noest=[len(b), sum(r['sep_end_tag'] for r in b)],
+                       alive=[len(ae), sum(r['sep_end_tag'] for r in ae)], dead=[len(be), sum(r['sep_end_tag'] for r in be)],
+                       t_ext_med=float(np.median(te)) if te else float('nan'))
+            out['cells']['%s %s' % (g, short(rv))]['bridge_cond'] = row
+            P('| %s | %s | %d / %d | %d / %d | %d / %d | %d / %d | %s |' % (g, short(rv), row['est'][1], row['est'][0], row['noest'][1], row['noest'][0],
+                                                               row['alive'][1], row['alive'][0], row['dead'][1], row['dead'][0], e(row['t_ext_med'])))
+        P('')
     # ---------------------------------------------------------------- natural
     nat = rows['nat']
     if nat:

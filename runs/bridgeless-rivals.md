@@ -185,6 +185,18 @@ Horizon separated = tags 1 and 2 each hold a certified island at the end; generi
 | (b) sparse | H | 0.0119 / 0.0119 | 23.7 / 13.52 / 26.73 | 56.4, 131.1 | 99 | 99 | 41.42 | 2075 | 13.2 / 9.4 / 41.4 / 0.0 | 1.000 (1.000) | 0 / 0 | 1.000 / – | 0.40 [0.35, 0.46] | -0.41 [-0.50, -0.32] | 0.83 [0.76, 0.90] | +0.01 [-0.09, +0.12] |
 | (b) sparse | B4 | 0.0058 / 0.0052 | 45.1 / 6.84 / 12.06 | 41.4, 66.6 | 84 | 85 | 18.81 | 726 | 40.5 / 4.6 / 18.8 / 0.0 | 0.999 (0.967) | 0 / 0 | 0.975 / 0.585 | 0.61 [0.54, 0.68] | -0.20 [-0.31, -0.09] | 0.92 [0.84, 1.00] | +0.10 [-0.01, +0.22] |
 
+### Separation conditional on the bridge (bridged rivals): bridge established on some island / bridge alive at the end
+
+| cell | rival | runs with a bridge establishment: separated at horizon | without: separated | bridge alive at end: separated | bridge extinct: separated | median bridge extinction gen (extinct runs) |
+|---|---|---|---|---|---|---|
+| (a) dense | B1 | 2 / 83 | 10 / 17 | 0 / 81 | 12 / 19 | 35.7 |
+| (a) dense | H | 0 / 99 | 1 / 1 | 0 / 99 | 1 / 1 | 21.5 |
+| (a) dense | B4 | 0 / 80 | 9 / 20 | 0 / 79 | 9 / 21 | 29.7 |
+| (c) nobridge | B1 | 0 / 0 | 67 / 100 | 0 / 0 | 67 / 100 | 0 |
+| (b) sparse | B1 | 1 / 83 | 2 / 17 | 0 / 82 | 3 / 18 | 36.7 |
+| (b) sparse | H | 0 / 99 | 0 / 1 | 0 / 99 | 0 / 1 | 29.5 |
+| (b) sparse | B4 | 0 / 84 | 6 / 16 | 0 / 85 | 6 / 15 | 32.8 |
+
 ## 3. Unconditional natural runs (f): (200, 64), boundary, 3000 runs
 
 Ever separated 0.01 [0.01, 0.01]; separated at the horizon 0.00 [0.00, 0.01] (Wilson 95%; zero gives the rule-of-three bound 3/n = 0.0010). Island P(C,C) mean 0.9996, min 0.000; 0.37 worker-h.
