@@ -174,7 +174,12 @@ premises are independent); Nec on each right box □_c A via minsize(⊢ A, min(
 right formula X (§1.7 for the candidate sets), each tried at hypothesis budgets m from 2 upward with the jump
 m := 1 + Σ s_j(m) (premise sizes are non-decreasing in m because a larger m is a weaker hypothesis, so the first
 feasible m gives the minimal instance). The memo stores, per sequent, an exact value or a lower bound; a call is an
-**expansion** when the memo cannot answer it. The prover runs **iterative deepening** n = 1, 2, …, b on ⊢ ψ with one
+**expansion** when the memo cannot answer it. *Lower-bound rule* (fixed during implementation, before any table;
+it does not change any outcome or minimal size, only W): a failed expansion at cap stores max(cap + 1, ℓ), where ℓ
+is the minimum over the sequent's rule instances of the instance's lower bound (1 + the premises' bounds; Nec is
+impossible, ℓ = ∞, when its premise's bound exceeds the box budget; a JLöb (S, m) instance's bound at the m reached is
+a bound for every larger m, since premise sizes are non-decreasing in m). Every stored bound is a valid lower bound, so
+the search stays exact; a sequent with bound ∞ is never expanded again. The prover runs **iterative deepening** n = 1, 2, …, b on ⊢ ψ with one
 fresh memo per prove call, stops at the first n with a derivation (**found**, size n certified minimal) or after
 n = b (**refuted**), and returns W(ψ, b) = the number of expansions. W is a deterministic function of (ψ, b) and the
 catalogue.
