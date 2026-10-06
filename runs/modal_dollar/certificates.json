@@ -370,5 +370,245 @@
    ],
    []
   ]
+ },
+ {
+  "x": "X",
+  "y": "X",
+  "x_src": "if(BOX(S1),S1,S4)",
+  "y_src": "if(BOX(S1),S1,S4)",
+  "plays": [
+   "S1",
+   "S1"
+  ],
+  "evaluator": [
+   "S1",
+   "S1"
+  ],
+  "agree": true,
+  "atoms": [
+   [
+    {
+     "atom": "BOX(THEM=S1)",
+     "provable": true,
+     "size": 4,
+     "loeb": 1,
+     "certified": true
+    }
+   ],
+   [
+    {
+     "atom": "BOX(THEM=S1)",
+     "provable": true,
+     "size": 4,
+     "loeb": 1,
+     "certified": true
+    }
+   ]
+  ]
+ },
+ {
+  "x": "X",
+  "y": "Z",
+  "x_src": "if(BOX(S1),S1,S4)",
+  "y_src": "if(BOX1(S3),S3,S2)",
+  "plays": [
+   "S4",
+   "S2"
+  ],
+  "evaluator": [
+   "S4",
+   "S2"
+  ],
+  "agree": true,
+  "atoms": [
+   [
+    {
+     "atom": "BOX(THEM=S1)",
+     "provable": false
+    }
+   ],
+   [
+    {
+     "atom": "BOX1(THEM=S3)",
+     "provable": false
+    }
+   ]
+  ]
+ },
+ {
+  "x": "X",
+  "y": "V",
+  "x_src": "if(BOX(S1),S1,S4)",
+  "y_src": "if(BOX1(S4),S2,S4)",
+  "plays": [
+   "S4",
+   "S2"
+  ],
+  "evaluator": [
+   "S4",
+   "S2"
+  ],
+  "agree": true,
+  "atoms": [
+   [
+    {
+     "atom": "BOX(THEM=S1)",
+     "provable": false
+    }
+   ],
+   [
+    {
+     "atom": "BOX1(THEM=S4)",
+     "provable": true,
+     "size": 7,
+     "loeb": 1,
+     "certified": true
+    }
+   ]
+  ]
+ },
+ {
+  "x": "Z",
+  "y": "Z",
+  "x_src": "if(BOX1(S3),S3,S2)",
+  "y_src": "if(BOX1(S3),S3,S2)",
+  "plays": [
+   "S3",
+   "S3"
+  ],
+  "evaluator": [
+   "S3",
+   "S3"
+  ],
+  "agree": true,
+  "atoms": [
+   [
+    {
+     "atom": "BOX1(THEM=S3)",
+     "provable": true,
+     "size": 6,
+     "loeb": 1,
+     "certified": true
+    }
+   ],
+   [
+    {
+     "atom": "BOX1(THEM=S3)",
+     "provable": true,
+     "size": 6,
+     "loeb": 1,
+     "certified": true
+    }
+   ]
+  ]
+ },
+ {
+  "x": "Z",
+  "y": "V",
+  "x_src": "if(BOX1(S3),S3,S2)",
+  "y_src": "if(BOX1(S4),S2,S4)",
+  "plays": [
+   "S2",
+   "S4"
+  ],
+  "evaluator": [
+   "S2",
+   "S4"
+  ],
+  "agree": true,
+  "atoms": [
+   [
+    {
+     "atom": "BOX1(THEM=S3)",
+     "provable": false
+    }
+   ],
+   [
+    {
+     "atom": "BOX1(THEM=S4)",
+     "provable": false
+    }
+   ]
+  ]
+ },
+ {
+  "x": "V",
+  "y": "V",
+  "x_src": "if(BOX1(S4),S2,S4)",
+  "y_src": "if(BOX1(S4),S2,S4)",
+  "plays": [
+   "S4",
+   "S4"
+  ],
+  "evaluator": [
+   "S4",
+   "S4"
+  ],
+  "agree": true,
+  "atoms": [
+   [
+    {
+     "atom": "BOX1(THEM=S4)",
+     "provable": false
+    }
+   ],
+   [
+    {
+     "atom": "BOX1(THEM=S4)",
+     "provable": false
+    }
+   ]
+  ]
+ },
+ {
+  "x": "Z",
+  "y": "S3",
+  "x_src": "if(BOX1(S3),S3,S2)",
+  "y_src": "S3",
+  "plays": [
+   "S3",
+   "S3"
+  ],
+  "evaluator": [
+   "S3",
+   "S3"
+  ],
+  "agree": true,
+  "atoms": [
+   [
+    {
+     "atom": "BOX1(THEM=S3)",
+     "provable": true,
+     "size": 3,
+     "loeb": 0,
+     "certified": true
+    }
+   ],
+   []
+  ]
+ },
+ {
+  "x": "X",
+  "y": "S4",
+  "x_src": "if(BOX(S1),S1,S4)",
+  "y_src": "S4",
+  "plays": [
+   "S4",
+   "S4"
+  ],
+  "evaluator": [
+   "S4",
+   "S4"
+  ],
+  "agree": true,
+  "atoms": [
+   [
+    {
+     "atom": "BOX(THEM=S1)",
+     "provable": false
+    }
+   ],
+   []
+  ]
  }
 ]

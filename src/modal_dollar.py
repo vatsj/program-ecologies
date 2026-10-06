@@ -752,7 +752,24 @@ def gth_log(LA):
     return x - m
 
 
-def edge_logweights(d, ch, N, keys):
+def twin_of(U, ids, q):
+    """the resident r of the support ids of which q is a payoff twin (same payoffs against every other resident, in
+    both directions, and U[q,q] = U[q,r] = U[r,q] = U[r,r]), or None."""
+    for r in ids:
+        if q == r: continue
+        if not (abs(U[q, q] - U[r, r]) < 1e-9 and abs(U[q, r] - U[r, r]) < 1e-9 and abs(U[r, q] - U[r, r]) < 1e-9):
+            continue
+        ok = True
+        for j in ids:
+            if j == r: continue
+            if abs(U[q, j] - U[r, j]) > 1e-9 or abs(U[j, q] - U[j, r]) > 1e-9:
+                ok = False; break
+        if ok:
+            return r
+    return None
+
+
+def edge_logweights(d, ch, N, keys, twins=False):
     """log transition weights among the expanded states `keys` (recomputed from chain.Chain's fates and k*), plus the
     log inflow weights into unexpanded targets."""
     pos = {k: i for i, k in enumerate(keys)}
@@ -761,6 +778,7 @@ def edge_logweights(d, ch, N, keys):
     LA = np.full((n, n), -np.inf)
     out_un = defaultdict(list)
     cache = {}
+    twin_done = set()
     for (k1, k2, q), (rho, kstar, tk) in ch.edge_rho.items():
         i = pos.get(k1)
         if i is None: continue
@@ -769,6 +787,23 @@ def edge_logweights(d, ch, N, keys):
             ids = list(ids); x = np.array(x)
             cache[k1] = (ids, x, float(x @ U[np.ix_(ids, ids)] @ x))
         ids, x, uaa = cache[k1]
+        if twins and len(ids) > 1:
+            r = twin_of(U, ids, q)
+            if r is not None:
+                # q is a payoff twin of resident r on the support: neutral drift inside r's compartment replaces r by q
+                # with probability 1/(x_r N) (the chain's lumped-resident fixation would charge it a frequency penalty)
+                if (k1, q) in twin_done: continue
+                twin_done.add((k1, q))
+                xr = x[ids.index(r)]
+                ids2 = [q if j == r else j for j in ids]
+                k3 = ch.add_state(ids2, x)
+                lw = math.log(mu[q]) - math.log(max(xr * N, 1.0))
+                j = pos.get(k3)
+                if j is None:
+                    out_un[k3].append((i, lw))
+                else:
+                    LA[i, j] = _lae(LA[i, j], lw)
+                continue
         uqa = float(U[q, ids] @ x); uaq = float(U[ids, q] @ x); uqq = float(U[q, q])
         lr = log_fixation(uqq, uqa, uaq, uaa, N, W, int(kstar))
         tm = ch.trans_mut.get((k1, k2), {}).get(q, 0.0)
@@ -793,7 +828,7 @@ def solve_log(LA):
     return lpi - np.logaddexp.reduce(lpi), lex
 
 
-def seeded_chain(d, N, extra_states=(), log_theta=math.log(1e-12), max_states=4000, max_rounds=80, verbose=False):
+def seeded_chain(d, N, extra_states=(), log_theta=math.log(1e-12), max_states=4000, max_rounds=80, verbose=False, twins=False):
     """Log-domain lazy chain: every monomorphic state and every state in extra_states ((ids, x) pairs, e.g. all deep
     polymorphisms) is expanded; then, round by round, every unexpanded target whose stationary inflow (log domain,
     relative to the total) exceeds log_theta is expanded; pi by log-domain GTH (reflecting boundary).  Returns the
@@ -812,7 +847,7 @@ def seeded_chain(d, N, extra_states=(), log_theta=math.log(1e-12), max_states=40
                 ch.expand(k2)
     for rnd in range(max_rounds):
         keys = list(ch.trans)
-        LA, out_un = edge_logweights(d, ch, N, keys)
+        LA, out_un = edge_logweights(d, ch, N, keys, twins=twins)
         lpi, lex = solve_log(LA)
         inflow = {k2: np.logaddexp.reduce([lpi[i] + lw for i, lw in lst]) for k2, lst in out_un.items()}
         cand = [k for k, f in inflow.items() if f > log_theta]
@@ -897,7 +932,7 @@ def best_path(LA, src, dst_set):
     return -np.inf, []
 
 
-def limN_run(arm, N, log_theta, n=7, aug=None, aug_mass=0.0, deep=None, tag=''):
+def limN_run(arm, N, log_theta, n=7, aug=None, aug_mass=0.0, deep=None, tag='', twins=False):
     """seeded log-domain chain at one N, with the summary statistics, the efficient set's and the deep set's
     entry/exit rates, and the best paths S3 -> deep set and deep set -> efficient set."""
     from dollar_partitions import pop_outcome, label_of
@@ -905,7 +940,7 @@ def limN_run(arm, N, log_theta, n=7, aug=None, aug_mass=0.0, deep=None, tag=''):
     d = data(arm, n, aug=aug, aug_mass=aug_mass)
     if deep is None:
         deep = deep_states(d, 3)
-    F = seeded_chain(d, N, deep, log_theta=log_theta)
+    F = seeded_chain(d, N, deep, log_theta=log_theta, twins=twins)
     ch, keys, pi, LA = F['ch'], F['keys'], F['pi'], F['LA']
     s5 = find(d, S['S5'])
     deepkeys = set(ch.add_state(ids, x) for ids, x in deep)
@@ -917,7 +952,7 @@ def limN_run(arm, N, log_theta, n=7, aug=None, aug_mass=0.0, deep=None, tag=''):
         info.append(dict(eff=o['eff'], effset=o['eff'] >= 0.99, greedy=len(ids) > 1 and xs5 >= 0.5, deep=k in deepkeys, label=label_of(o),
                          mean=o['mean_pay'], E_max=o['E_max_pay']))
     P_eff = float(sum(p * i['eff'] for p, i in zip(pi, info)))
-    res = dict(arm=arm, n=n, N=N, log10_theta=log_theta / math.log(10), aug_mass=aug_mass, aug=[fsrc(f) for f in (aug or [])], tag=tag,
+    res = dict(arm=arm, n=n, N=N, twins=twins, log10_theta=log_theta / math.log(10), aug_mass=aug_mass, aug=[fsrc(f) for f in (aug or [])], tag=tag,
                n_states=F['n'], log10_cut=F['log10_cut'], n_deep=len(deep), P_efficient=P_eff,
                E_max=float(sum(p * i['E_max'] for p, i in zip(pi, info))), mean_pay=float(sum(p * i['mean'] for p, i in zip(pi, info))))
     for nm_ in ('effset', 'greedy', 'deep'):
@@ -962,11 +997,12 @@ def cmd_limN(a):
         key = (j['arm'], j.get('aug_mass', 0.0), a.aug)
         if key not in deep_cache:
             deep_cache[key] = deep_states(data(j['arm'], 7, aug=j.get('aug'), aug_mass=j.get('aug_mass', 0.0)), 3)
-        r = limN_run(j['arm'], j['N'], math.log(j['lt']), aug=j.get('aug'), aug_mass=j.get('aug_mass', 0.0), deep=deep_cache[key], tag=j.get('tag', ''))
-        fn = os.path.join(OUT, 'limN_%s_n7_N%d_th%g%s.json' % (j['arm'], j['N'], j['lt'], j.get('tag', '')))
+        tg = j.get('tag', '') + ('_twins' if a.twins else '')
+        r = limN_run(j['arm'], j['N'], math.log(j['lt']), aug=j.get('aug'), aug_mass=j.get('aug_mass', 0.0), deep=deep_cache[key], tag=tg, twins=a.twins)
+        fn = os.path.join(OUT, 'limN_%s_n7_N%d_th%g%s.json' % (j['arm'], j['N'], j['lt'], tg))
         json.dump(r, open(fn, 'w'), indent=1, default=str)
         print('%s N=%d th=%g %s: P(eff) %.4f effset %.3g (log10 %.1f) deep %.4f greedy %.3g | states %d cut 1e%.1f | top %s (%.3f) | S3->deep 1e%.1f (%.0fs)' % (
-            j['arm'], j['N'], j['lt'], j.get('tag', ''), r['P_efficient'], r['effset']['mass'], r['effset'].get('log10_mass', 0), r['deep']['mass'],
+            j['arm'], j['N'], j['lt'], tg, r['P_efficient'], r['effset']['mass'], r['effset'].get('log10_mass', 0), r['deep']['mass'],
             r['greedy']['mass'], r['n_states'], r['log10_cut'], r['top_states'][0]['state'], r['top_states'][0]['pi'],
             r['path_S3_to_deep']['log10_w'], r['time_s']), flush=True)
 
@@ -1071,13 +1107,123 @@ def fixed_chain_lazy(d, N, w=W, theta=1e-12, rel_drop=1e-25, max_states=5000, ve
     return dict(pi=pi.reshape(K, K), logR=R, P1=P1, P2=P2, cut=cut, n_states=len(E), rounds=rnd + 1)
 
 
+def fixed_chain_full(d, N, w=W, method='sparse'):
+    """The fixed-role chain over all K^2 joint states: jump chain from dollar_partitions.fixed_chain's rates (no
+    dropping), stationary by a sparse direct solve ('sparse') or dense GTH ('gth', K^2 <= ~6000); pi(s) =
+    pi_jump(s)/R(s) in log space.  Returns the fixed_chain dict."""
+    import scipy.sparse as sp_
+    import scipy.sparse.linalg as spl
+    from dollar_partitions import lrho_vec, gth_linear
+    U, mu, K = d['U'], d['mu'], d['K']
+    lmu = np.log(0.5 * mu)
+    L1 = lrho_vec(U.T[None, :, :] - U[:, :, None], N, w) + lmu[None, None, :]
+    L2 = lrho_vec(U.T[:, None, :] - U.T[:, :, None], N, w) + lmu[None, None, :]
+    idx = np.arange(K)
+    L1[idx, :, idx] = -np.inf
+    L2[:, idx, idx] = -np.inf
+    mm = np.maximum(L1.max(axis=2), L2.max(axis=2))
+    R = mm + np.log(np.exp(L1 - mm[:, :, None]).sum(axis=2) + np.exp(L2 - mm[:, :, None]).sum(axis=2))
+    P1 = np.exp(L1 - R[:, :, None]); P2 = np.exp(L2 - R[:, :, None])
+    del L1, L2
+    S_ = K * K
+    a_, b_ = np.divmod(np.arange(S_), K)
+    rows = np.concatenate([np.repeat(np.arange(S_), K), np.repeat(np.arange(S_), K)])
+    cols = np.concatenate([(idx[None, :] * K + b_[:, None]).ravel(), (a_[:, None] * K + idx[None, :]).ravel()])
+    vals = np.concatenate([P1.reshape(S_, K).ravel(), P2.reshape(S_, K).ravel()])
+    keep = vals > 0
+    P = sp_.csr_matrix((vals[keep], (rows[keep], cols[keep])), shape=(S_, S_))
+    if method == 'gth':
+        xj = gth_linear(P.toarray())
+    else:
+        A = (sp_.identity(S_, format='csr') - P).T.tolil()
+        A[S_ - 1, :] = np.ones(S_)
+        bvec = np.zeros(S_); bvec[-1] = 1.0
+        xj = spl.spsolve(A.tocsc(), bvec)
+        xj = np.maximum(xj, 0.0); xj /= xj.sum()
+    lpi = np.log(np.maximum(xj, 1e-320)) - R.ravel()
+    lpi -= lpi.max()
+    pi = np.exp(lpi); pi /= pi.sum()
+    return dict(pi=pi.reshape(K, K), logR=R, P1=P1, P2=P2, cut=0.0, n_states=S_, xjump=xj.reshape(K, K))
+
+
+def fixed_chain_poly(d, N, w=W, log_cut=-60.0):
+    """Large-N fixed-role chain: keep only edges with log weight > log_cut (strict and neutral moves; deleterious
+    fixations are exp(-Theta(N)) and dropped), find the closed communicating classes of what remains, and solve the
+    stationary distribution inside each (sparse).  With a single closed class this is the N -> infinity support at
+    this N; with several, their relative weights need the dropped (exponential) edges and are not computed."""
+    import scipy.sparse as sp_
+    import scipy.sparse.linalg as spl
+    import scipy.sparse.csgraph as csg_
+    from dollar_partitions import lrho_vec
+    U, mu, K = d['U'], d['mu'], d['K']
+    lmu = np.log(0.5 * mu)
+    L1 = lrho_vec(U.T[None, :, :] - U[:, :, None], N, w) + lmu[None, None, :]
+    L2 = lrho_vec(U.T[:, None, :] - U.T[:, :, None], N, w) + lmu[None, None, :]
+    idx = np.arange(K)
+    L1[idx, :, idx] = -np.inf
+    L2[:, idx, idx] = -np.inf
+    S_ = K * K
+    a_, b_ = np.divmod(np.arange(S_), K)
+    rows = np.concatenate([np.repeat(np.arange(S_), K), np.repeat(np.arange(S_), K)])
+    cols = np.concatenate([(idx[None, :] * K + b_[:, None]).ravel(), (a_[:, None] * K + idx[None, :]).ravel()])
+    lv = np.concatenate([L1.reshape(S_, K).ravel(), L2.reshape(S_, K).ravel()])
+    keep = lv > log_cut
+    rows, cols, lv = rows[keep], cols[keep], lv[keep]
+    G = sp_.csr_matrix((np.ones(len(rows)), (rows, cols)), shape=(S_, S_))
+    ncomp, lab = csg_.connected_components(G, directed=True, connection='strong')
+    out_edge = np.zeros(ncomp, bool)
+    out_edge[lab[rows][lab[rows] != lab[cols]]] = True
+    closed = [c for c in range(ncomp) if not out_edge[c]]
+    pi = np.zeros(S_)
+    classes = []
+    vals = np.exp(lv)
+    for c in closed:
+        mem = np.nonzero(lab == c)[0]
+        pos = -np.ones(S_, int); pos[mem] = np.arange(len(mem))
+        m = (lab[rows] == c) & (lab[cols] == c)
+        Q = sp_.csr_matrix((vals[m], (pos[rows[m]], pos[cols[m]])), shape=(len(mem), len(mem)))
+        Q = Q - sp_.diags(np.asarray(Q.sum(axis=1)).ravel())
+        n = len(mem)
+        if n == 1:
+            x = np.ones(1)
+        else:
+            A = Q.T.tolil(); A[n - 1, :] = np.ones(n)
+            bvec = np.zeros(n); bvec[-1] = 1.0
+            x = spl.spsolve(A.tocsc(), bvec); x = np.maximum(x, 0); x /= x.sum()
+        classes.append(dict(size=n, members=mem, pi=x))
+    return dict(closed=classes, n_closed=len(closed), ncomp=ncomp, K=K)
+
+
+def cmd_fixed_poly(a):
+    from dollar_partitions import slot_outcome, olabel_of
+    out = {}
+    for arm in a.arm:
+        d = data(arm, 7)
+        K = d['K']; nm = d['names']
+        for N in a.N:
+            r = fixed_chain_poly(d, N)
+            rec = dict(arm=arm, N=N, n_closed=r['n_closed'], classes=[])
+            for c in r['closed']:
+                lab = defaultdict(float); eff = 0.0; top = []
+                for s, p in zip(c['members'], c['pi']):
+                    aa, bb = divmod(int(s), K)
+                    o = slot_outcome(d, aa, bb)
+                    lab[olabel_of(o)] += p; eff += p * o['eff']
+                order = np.argsort(-c['pi'])[:8]
+                top = [('%s | %s' % (nm[divmod(int(c['members'][i]), K)[0]], nm[divmod(int(c['members'][i]), K)[1]]), float(c['pi'][i])) for i in order]
+                rec['classes'].append(dict(size=c['size'], eff=eff, labels=dict(lab), top=top))
+            out['%s_%d' % (arm, N)] = rec
+            print(arm, N, 'closed classes', r['n_closed'], [(c['size'], round(c['eff'], 4), {k: round(v, 3) for k, v in c['labels'].items() if v > 1e-3}) for c in rec['classes']][:6], flush=True)
+    json.dump(out, open(os.path.join(OUT, 'fixed_poly.json'), 'w'), indent=1, default=str)
+
+
 def cmd_fixed(a):
     from dollar_partitions import fixed_summary
     for arm in a.arm:
         d = data(arm, 7)
         for N in a.N:
             t0 = time.time()
-            ch = fixed_chain_lazy(d, N, theta=a.theta[0], verbose=True)
+            ch = fixed_chain_full(d, N, method='sparse')
             r = fixed_summary(d, ch)
             r.update(arm=arm, n=7, N=N, theta=a.theta[0], n_states=ch['n_states'], time_s=time.time() - t0, K=d['K'])
             fn = os.path.join(OUT, 'fixed_%s_n7_N%d_th%g.json' % (arm, N, a.theta[0]))
@@ -1127,9 +1273,11 @@ def cmd_proofs(a):
     th = Theory5()
     ms = GP.MinSearch(th)
     F = {"P'": PPRIME, 'A5': ACC5, 'P': PPROG, 'S5': S['S5'], 'S3': S['S3'], "P'1": PPRIME_1,
-         'C3': one(0, 2, 2, 0)}      # C3 = if(BOX(S3), S3, S1): the 'concede unless provably fair' accommodator
+         'C3': one(0, 2, 2, 0),      # C3 = if(BOX(S3), S3, S1): the 'concede unless provably fair' accommodator
+         'X': one(0, 0, 0, 3), 'Z': one(1, 2, 2, 1), 'V': one(1, 3, 1, 3), 'S4': S['S4']}   # the deep polymorphism's members
     pairs = [("P'", "P'"), ("P'", 'A5'), ("P'", 'P'), ('P', 'S5'), ('A5', 'S5'), ('A5', 'A5'), ('P', 'P'), ('P', 'A5'),
-             ("P'", 'S5'), ("P'", 'C3'), ("P'1", 'A5'), ('C3', 'S5')]
+             ("P'", 'S5'), ("P'", 'C3'), ("P'1", 'A5'), ('C3', 'S5'),
+             ('X', 'X'), ('X', 'Z'), ('X', 'V'), ('Z', 'Z'), ('Z', 'V'), ('V', 'V'), ('Z', 'S3'), ('X', 'S4')]
     names = {th.prog(f): k for k, f in F.items()}
     nat, atL, atA, tab = to_arrays([F[k] for k in F])
     keys = list(F)
@@ -1200,6 +1348,7 @@ if __name__ == '__main__':
     ap.add_argument('--tag', default='')
     ap.add_argument('--aug', default=None)
     ap.add_argument('--shard', type=int, nargs=2, default=None)
+    ap.add_argument('--twins', action='store_true')
     ap.add_argument('--cells', type=lambda s: tuple(int(x) for x in s.split(',')), nargs='+', default=[(100, 64), (400, 16)])
     ap.add_argument('--mN', type=float, nargs='+', default=[0.0, 0.1])
     ap.add_argument('--runs', type=int, default=40)
@@ -1219,6 +1368,8 @@ if __name__ == '__main__':
         cmd_limN(a)
     elif a.cmd == 'lottery':
         cmd_lottery(a)
+    elif a.cmd == 'fixed_poly':
+        cmd_fixed_poly(a)
     elif a.cmd == 'fixed':
         cmd_fixed(a)
     elif a.cmd == 'proofs':

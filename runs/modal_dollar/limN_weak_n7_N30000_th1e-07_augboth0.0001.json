@@ -1,0 +1,197 @@
+{
+ "arm": "weak",
+ "n": 7,
+ "N": 30000,
+ "log10_theta": -7.0,
+ "aug_mass": 0.0001,
+ "aug": [
+  "{BOX(S1),BOX(S5): TT S5, TF S5, FT S1, FF S3}",
+  "{BOX1(S1),BOX1(S5): TT S5, TF S5, FT S1, FF S3}",
+  "if(BOX(S1),S5,S3)",
+  "if(BOX1(S1),S5,S3)"
+ ],
+ "tag": "_augboth0.0001",
+ "n_states": 106,
+ "log10_cut": -653.582103935753,
+ "n_deep": 28,
+ "P_efficient": 1.0,
+ "E_max": 0.5,
+ "mean_pay": 0.5,
+ "effset": {
+  "mass": 1.0,
+  "log10_mass": 0.0,
+  "log10_exit_rate": -653.4139713200173,
+  "log10_entry_rate": -179.0597346167431
+ },
+ "greedy": {
+  "mass": 0.0,
+  "log10_mass": -575.5280577213067,
+  "log10_exit_rate": -80.21161664861752,
+  "log10_entry_rate": -655.7396743699239
+ },
+ "deep": {
+  "mass": 1.0,
+  "log10_mass": 0.0,
+  "log10_exit_rate": -653.4139712354074,
+  "log10_entry_rate": -4.2276460384244325
+ },
+ "top_states": [
+  {
+   "state": "S3:1.000",
+   "pi": 1.0,
+   "log10_pi": 0.0,
+   "eff": 1.0,
+   "effset": true,
+   "greedy": false,
+   "deep": true,
+   "label": "1/2-1/2",
+   "mean": 0.5,
+   "E_max": 0.5
+  },
+  {
+   "state": "S1:1.000",
+   "pi": 0.0,
+   "log10_pi": -657.6805686786926,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "ineff",
+   "mean": 0.16666666666666666,
+   "E_max": 0.16666666666666666
+  },
+  {
+   "state": "if(BOX(S5),S1,S5):1.000",
+   "pi": 0.0,
+   "log10_pi": -659.2063660917604,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "ineff",
+   "mean": 0.16666666666666666,
+   "E_max": 0.16666666666666666
+  },
+  {
+   "state": "if(BOX(S5),S1,S4):1.000",
+   "pi": 0.0,
+   "log10_pi": -659.212858458088,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "ineff",
+   "mean": 0.16666666666666666,
+   "E_max": 0.16666666666666666
+  },
+  {
+   "state": "if(BOX(S5),S1,S3):1.000",
+   "pi": 0.0,
+   "log10_pi": -654.5806502201975,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "ineff",
+   "mean": 0.16666666666666666,
+   "E_max": 0.16666666666666666
+  },
+  {
+   "state": "if(BOX(S5),S3,S2):1.000",
+   "pi": 0.0,
+   "log10_pi": -658.649845656123,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "ineff",
+   "mean": 0.16666666666666666,
+   "E_max": 0.16666666666666666
+  },
+  {
+   "state": "if(BOX(S5),S1,S2):1.000",
+   "pi": 0.0,
+   "log10_pi": -659.4809893187827,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "ineff",
+   "mean": 0.16666666666666666,
+   "E_max": 0.16666666666666666
+  },
+  {
+   "state": "if(BOX(S5),S2,S1):1.000",
+   "pi": 0.0,
+   "log10_pi": -658.5330694536318,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "ineff",
+   "mean": 0.16666666666666666,
+   "E_max": 0.16666666666666666
+  },
+  {
+   "state": "if(BOX(S4),S2,S5):1.000",
+   "pi": 0.0,
+   "log10_pi": -659.0919038947264,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "ineff",
+   "mean": 0.16666666666666666,
+   "E_max": 0.16666666666666666
+  },
+  {
+   "state": "if(BOX(S4),S1,S5):1.000",
+   "pi": 0.0,
+   "log10_pi": -654.7529737006182,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "ineff",
+   "mean": 0.16666666666666666,
+   "E_max": 0.16666666666666666
+  },
+  {
+   "state": "if(BOX(S4),S2,S4):1.000",
+   "pi": 0.0,
+   "log10_pi": -654.7594660669453,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "ineff",
+   "mean": 0.16666666666666666,
+   "E_max": 0.16666666666666666
+  },
+  {
+   "state": "if(BOX(S4),S1,S4):1.000",
+   "pi": 0.0,
+   "log10_pi": -654.7594660669453,
+   "eff": 0.0,
+   "effset": false,
+   "greedy": false,
+   "deep": false,
+   "label": "ineff",
+   "mean": 0.16666666666666666,
+   "E_max": 0.16666666666666666
+  }
+ ],
+ "path_S3_to_deep": {
+  "log10_w": -0.0,
+  "path": [
+   "S3:1.000"
+  ]
+ },
+ "path_top_to_eff": {
+  "log10_w": -0.0,
+  "path": [
+   "S3:1.000"
+  ]
+ },
+ "time_s": 5.451547861099243
+}

@@ -164,3 +164,95 @@ the certified minimal derivation (size in sequents, Löb steps) of each provable
 
 - C3's atom BOX(THEM=S3): not provable
 
+### X = `if(BOX(S1),S1,S4)` vs X = `if(BOX(S1),S1,S4)`: plays (S1, S1); evaluator (S1, S1)
+
+- X's atom BOX(THEM=S1): **provable**, 4 sequents, 1 Löb step(s)
+
+```
+ |- PS1[X,X]   [UnfR]
+   |- []PS1[X,X]   [GLR]
+    []PS1[X,X] |- PS1[X,X]   [UnfR]
+      []PS1[X,X] |- []PS1[X,X]   [Ax]
+```
+
+- X's atom BOX(THEM=S1): **provable**, 4 sequents, 1 Löb step(s)
+
+```
+ |- PS1[X,X]   [UnfR]
+   |- []PS1[X,X]   [GLR]
+    []PS1[X,X] |- PS1[X,X]   [UnfR]
+      []PS1[X,X] |- []PS1[X,X]   [Ax]
+```
+
+
+### X = `if(BOX(S1),S1,S4)` vs Z = `if(BOX1(S3),S3,S2)`: plays (S4, S2); evaluator (S4, S2)
+
+- X's atom BOX(THEM=S1): not provable
+- Z's atom BOX1(THEM=S3): not provable
+
+### X = `if(BOX(S1),S1,S4)` vs V = `if(BOX1(S4),S2,S4)`: plays (S4, S2); evaluator (S4, S2)
+
+- X's atom BOX(THEM=S1): not provable
+- V's atom BOX1(THEM=S4): **provable**, 7 sequents, 1 Löb step(s)
+
+```
+ |- (~[]F -> PS4[X,V])   [->R]
+  ~[]F |- PS4[X,V]   [~L]
+     |- PS4[X,V], []F   [UnfR]
+       |- []F, ~[]PS1[V,X]   [~R]
+        []PS1[V,X] |- []F   [GLR]
+          PS1[V,X], []F, []PS1[V,X] |- F   [UnfL]
+            F, []F, []PS1[V,X] |- F   [Ax]
+```
+
+
+### Z = `if(BOX1(S3),S3,S2)` vs Z = `if(BOX1(S3),S3,S2)`: plays (S3, S3); evaluator (S3, S3)
+
+- Z's atom BOX1(THEM=S3): **provable**, 6 sequents, 1 Löb step(s)
+
+```
+ |- (~[]F -> PS3[Z,Z])   [->R]
+   |- PS3[Z,Z]   [UnfR]
+     |- [](~[]F -> PS3[Z,Z])   [GLR]
+      [](~[]F -> PS3[Z,Z]) |- (~[]F -> PS3[Z,Z])   [->R]
+        [](~[]F -> PS3[Z,Z]) |- PS3[Z,Z]   [UnfR]
+          [](~[]F -> PS3[Z,Z]) |- [](~[]F -> PS3[Z,Z])   [Ax]
+```
+
+- Z's atom BOX1(THEM=S3): **provable**, 6 sequents, 1 Löb step(s)
+
+```
+ |- (~[]F -> PS3[Z,Z])   [->R]
+   |- PS3[Z,Z]   [UnfR]
+     |- [](~[]F -> PS3[Z,Z])   [GLR]
+      [](~[]F -> PS3[Z,Z]) |- (~[]F -> PS3[Z,Z])   [->R]
+        [](~[]F -> PS3[Z,Z]) |- PS3[Z,Z]   [UnfR]
+          [](~[]F -> PS3[Z,Z]) |- [](~[]F -> PS3[Z,Z])   [Ax]
+```
+
+
+### Z = `if(BOX1(S3),S3,S2)` vs V = `if(BOX1(S4),S2,S4)`: plays (S2, S4); evaluator (S2, S4)
+
+- Z's atom BOX1(THEM=S3): not provable
+- V's atom BOX1(THEM=S4): not provable
+
+### V = `if(BOX1(S4),S2,S4)` vs V = `if(BOX1(S4),S2,S4)`: plays (S4, S4); evaluator (S4, S4)
+
+- V's atom BOX1(THEM=S4): not provable
+- V's atom BOX1(THEM=S4): not provable
+
+### Z = `if(BOX1(S3),S3,S2)` vs S3 = `S3`: plays (S3, S3); evaluator (S3, S3)
+
+- Z's atom BOX1(THEM=S3): **provable**, 3 sequents, 0 Löb step(s)
+
+```
+ |- (~[]F -> PS3[S3,Z])   [->R]
+   |- PS3[S3,Z]   [UnfR]
+     |- T   [Ax]
+```
+
+
+### X = `if(BOX(S1),S1,S4)` vs S4 = `S4`: plays (S4, S4); evaluator (S4, S4)
+
+- X's atom BOX(THEM=S1): not provable
+
