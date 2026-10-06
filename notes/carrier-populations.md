@@ -286,3 +286,61 @@ merges (one entry's last establisher lost) occur, the separation hazard from the
 7. Lemma G: no strict invader of any S-guarded establisher (exhaustive).
 8. Bor against CB0, CB5, itself and D on the E catalogue.
 9. Twin-expanded lumped chain = unlumped chain on n ≤ 5.
+
+### 1.10 Code validation of §1 (after the code, before any counted cell)
+
+From `tests/test_carrier_populations.py` (8 tests, all passing) and `carrier_populations_run.py validate`
+(`runs/carrier_populations/validate.json`), run on the static tables before any chain or lottery cell.
+
+- **Counts** reproduce §1.1 (P 130 / 2,242 / 12,546; E at n ≤ 6 8,578; the recurrences with k = 16 and 32).
+- **Production** reproduces milestone 4's lists for CB, CB1, CBP, LöbC and Ccert, and the catalogue's CB spelling is
+  milestone 4's CB term exactly.
+- **The §1.7 hand table** (Cc, Dc, CB, CB1, CBP, LöbC, CBdef) is reproduced cell for cell by whole actual plays.
+- **Composition and Lemma T:** on the n ≤ 5 sub-catalogue every one of the 16,900 spelling pairs, played whole by the
+  term, equals the τ-composed table, and the ideal and executable τ tables are identical. Lemma T by direct plays
+  (no table) on 40 random same-τ quadruples at n ≤ 6. At n = 7: 2,750 random spelling pairs (including 500 same-τ
+  cross-twin pairs and 250 self-plays) played whole against the τ table, 0 mismatches; 1,600 class-table cells played
+  whole, 0 mismatches; the empty-selection shortcut against the term on 201 checks, 0 mismatches.
+- **A bug found here and fixed before any cell: milestone 4's host replay memo is order-dependent.** `HostCheck`
+  memoizes clean check values and returns them when the same check recurs nested inside another; but a nested check
+  whose clean run called (transitively) a key that is now on the stack, or whose clean value is TO, does not return
+  its clean value in context: it regresses and kills the root (Lemma N). Found as two cells of the n ≤ 5 τ table where
+  the ideal table said C and the term said D (`if(CHK(them,me,D),C,D)` against CB-shaped opponents: the shared memo
+  held a TO from an earlier top-level check and let RunNeg close on it). `ExactHost` records the keys each memoized
+  check called and raises the regress in those cases; the ideal table and production use it. Production through
+  `Producer` used the same memo, so production became order-dependent across a catalogue; with `ExactHost` every
+  host value in production is the clean term value. The named lists (CB, CB1, CBP, LöbC, Ccert) are unchanged.
+  Milestone 4's audit compared host and term per check with its own instance order, so its published cells are not
+  affected as far as I can see, but its host-agreement claim was order-dependent.
+- **Lemma G exhaustively at n = 7:** 101 establisher classes, 14 of them S-guarded; no S-guarded establisher has a
+  strict invader.
+- **Exploited establishers: my §1.7 expectation was wrong.** 75 of the 101 establisher classes are strictly
+  exploited (9,044 exploiter pairs). The exploitable ones are not `or(S_C, Y_C)` templates but *defection
+  detectors*: e.g. `if(CHK(them, ⌜C⌝, D), D, C)` ("defect iff them is certified to defect against plain C") cooperates
+  with itself, defects on D (D carries a certified D script), and is exploited by every defector that carries no
+  certificate for the question, e.g. `if(CHK(me, ⌜D⌝, D), D, C)`. RE 3(c) holds; my S4 is falsified (recorded in the
+  run report, not changed here).
+- **The n ≤ 5 chain check** (§1.5): the unlumped chain over 130 spellings, the lumped chain over 31 classes and the
+  lumped chain with twin drift give P(C,C) 0.328200897 / 0.328200897 / 0.328200898 at N = 10³ and 0.599591006 (all
+  three, to 3·10⁻¹⁰) at N = 10⁴. (π of the single spelling `D` in the unlumped chain is a different object from π of
+  the D class and is not compared.)
+- **Bor** (E production): (C, C) with CB on entry 0, with CB on entry 5 and with itself; (D, D) against D; CB0 against
+  CB5 (D, D). The hand derivation holds.
+
+## 2. Implementation and costs
+
+`src/carrier_populations.py` (grammar, run trees, production, catalogue, `ExactHost`/`IdealCheck`, the checker
+wrapper for both tables, composition, lumping); `src/carrier_populations_run.py` (static tables with ≤ 3 worker
+processes, validation, chain, lottery); `src/carrier_populations_report.py` (tables). Raw arrays in
+`runs/carrier_populations/*.npz` (not committed).
+
+**Scale guard (P, n = 7, K = 10⁶, 2 workers while the foreign chains were alive):** 12,546 spellings, 4,162 τ-types
+(the scratch count of run trees; lists are a function of the run tree here, so τ-types = run trees), catalogue and
+production 4 s; the ideal τ table needs 3,828,352 pair checks (targets without an entry for the asked outcome are F
+without running), 194 s; lumping gives **588 classes** (18 split τ-types, i.e. types whose spellings play their twins
+differently from themselves, giving 54 singleton classes); the executable class table needs 122,744 term checks,
+247 s. Total 447 s, far under the 2-hour guard, so the cutoff stays at n = 7. **Executable = ideal on every class
+cell.** Executable check costs (inner steps): median 21,962; 99th percentile below V 67,683; the largest check that
+did not time out 101,644 (V = 250,000); 13,982 checks end at exactly V: every one a regress (the evaluator
+fast-forwards a regress to the root's deadline), and the ideal table, which has no step limit, gives TO for the same
+checks.
