@@ -150,7 +150,8 @@ REJECTED.md the ones we dropped.
 
 - *Naming (RS, 2026-10-06):* the boss/worker family is "the social organization game". *Open:* whether the target is
   Θ(1/n) as a stochastically stable state or time-averaged (the three-player rotating dictatorship already gives the
-  latter by symmetry); operating hypothesis unchanged (the state) until the RS says otherwise.
+  latter by symmetry); decided (RS, 2026-10-06): the state; the time-average is free by symmetry in the symmetric games and is
+  reported only as a fallback.
 
 ## 7. Rates
 - *RS:* no normative opinion. *RE's opinion:* the relevant quantity is the cost of a given confidence; in the seeds run

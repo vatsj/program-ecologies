@@ -29,6 +29,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
    **Autonomy** (RS, 2026-10-04): be maximalist with experiments; they cost the RS only tokens. Run them autonomously under this workflow, in parallel within the 10-core budget, and report only the ones that matter, spending roughly as many tokens on a result as were spent discussing the experiment.
 
+   **Decisions that are the RS's** (object, normative target, design calls he has reserved): ask, wait about 15 minutes for his answer while working on independent items, then proceed under the operating hypothesis and record it in DEFERRED.md (RS, 2026-10-06). Island selection on bosses is a modelling feature, not a flaw (RS, 2026-10-06).
+
    Keep-awake must be on while subagents run (`mcp__ccd_host__request_keep_awake`, session_idle). A closed lid still stalls them; stalled agents stay paused until the RS says go.
 
 ## Current state (2026-09-23, after the island model)
