@@ -111,9 +111,10 @@ REJECTED.md the ones we dropped.
   `ROLE` kept only as the symmetric control, since it internalizes the externality by fiat ("a cheap trick").
 - *Evidence:* THEORY §3 "Distribution"; the ultimatum fixed-role results; the three-player spec.
 - *Evidence (2026-10-05):* divide-the-dollar (RESULTS "Divide-the-dollar partitions"): fixed roles give a rotating
-  dictatorship of the largest demand (0.99 of π at N ≥ 300); `ROLE` keeps 50–50 at 0.69–0.83 until N ≈ 2·10⁴; one
-  population without `ROLE` 0.91–1.00 until 5·10³; both one-population arms then lose efficiency to the greedy
-  polymorphism. The role structure decides which split; the population structure decides whether efficiency
+  dictatorship of the largest demand (0.99 of π at N ≥ 300); `ROLE` keeps 50–50 at 0.69 at N = 10³ and loses it below 10⁴ to a
+  role-conditioned hawk polymorphism, then to the greedy one (corrected by RESULTS "Solver audit"); one population
+  without `ROLE` 0.91–1.00 until 5·10³ and then the greedy polymorphism in `dollar5` (in `dollar3` the greedy state
+  is a lumping artefact removed by twin drift). The role structure decides which split; the population structure decides whether efficiency
   survives in lim_N; the no-`ROLE` control shows the 50–50 advantage comes from the structure, not the signal. In the one-atom modal
   grammar (RESULTS "The modal arm on two-player divide-the-dollar") fixed-role π spreads over all splits (endpoints
   0.23), so the rotating dictatorship depends on universal conceders being in the language.
