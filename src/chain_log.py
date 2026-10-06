@@ -282,8 +282,14 @@ def twin_of(U, ids, q, tol=1e-9):
 class LogChain(Chain):
     """chain.Chain with every edge also kept as a log weight (identical transition model)."""
 
-    def __init__(self, provider, N, w=1.0, twins=False, Ufull=None, **kw):
+    def __init__(self, provider, N, w=1.0, twins=False, Ufull=None, est_floor=False, **kw):
         super().__init__(provider, N=N, w=w, **kw)
+        # est_floor (a labelled diagnostic, off by default): a mutant with a first-order advantage d = u(q, res) -
+        # u(res, res) > 0 gets at least the branching-process establishment probability 1 - exp(-w d) of reaching its
+        # replicator target, in place of the lumped-resident truncated product (which can charge it a barrier growing
+        # in N when the target is polymorphic)
+        self.est_floor = est_floor
+        self.n_floored = 0
         self.ledge = {}                       # key -> {key2: log weight per mutation event}
         self.lmut = defaultdict(dict)         # (key, key2) -> {q: log weight}
         self.twins = twins
@@ -352,6 +358,10 @@ class LogChain(Chain):
                 self.edge_rho[(key, k2, q)] = (rho, int(kstar), self.states[k2][2])
                 if share > 0:
                     lr = log_fixation(float(diag[qi]), float(uqa[qi]), float(uaq[qi]), uaa, N, w, int(kstar))
+                    if self.est_floor and uqa[qi] - uaa > 1e-9:
+                        lf = math.log(-math.expm1(-w * (uqa[qi] - uaa)))
+                        if lf > lr:
+                            lr = lf; self.n_floored += 1
                     lw = math.log(m_q) + math.log(share) + lr
                     lout[k2] = lae(lout.get(k2, NEG), lw)
                     lmuts[k2][q] = lae(lmuts[k2].get(q, NEG), lw)

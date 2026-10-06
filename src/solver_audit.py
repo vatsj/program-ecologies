@@ -249,6 +249,99 @@ def enumerate_candidates_fast(U, mu, pool=None, keep_all=False, verbose=False):
     return cands, dict(counts)
 
 
+def attractor_search(U, mu, n_starts=4000, seed=1, max_sub=8, verbose=False):
+    """Discovery of saturated attractors of any support size: the full K-type replicator (chain.replicator) from
+    random starts (random subsets of 2..max_sub classes with Dirichlet weights, half of them with every other class
+    at 1e-4), rest points collected and classified (internally stable by the Jacobian on their support, deep tiers,
+    n_adv).  Not exhaustive: an attractor with a tiny basin can be missed; it complements the exhaustive <= 3-class
+    enumeration."""
+    rng = np.random.default_rng(seed)
+    K = U.shape[0]
+    found = {}
+    for s in range(n_starts):
+        m = int(rng.integers(2, max_sub + 1))
+        sub = rng.choice(K, m, replace=False)
+        x0 = np.zeros(K)
+        if s % 2 == 0:
+            x0[:] = 1e-4
+        x0[sub] += rng.dirichlet(np.ones(m))
+        x0 /= x0.sum()
+        x, st, _, _ = replicator(U, x0, rest_tol=1e-10)
+        if st != 'rest':
+            continue
+        sup = np.nonzero(x > 1e-6)[0]
+        key = tuple(sup.tolist())
+        if key in found:
+            found[key]['hits'] += 1
+            continue
+        xs = x[sup] / x[sup].sum()
+        stat, ev = classify_rest(U[np.ix_(sup, sup)], xs) if len(sup) > 1 else ('stable', None)
+        dp, pen, f, out, mt = deep_test(U, sup, xs)
+        fo = f[out]
+        found[key] = dict(ids=[int(i) for i in sup], x=[float(v) for v in xs], size=len(sup), status=stat, deep=dp, deep_pen=pen, deep_mt=mt,
+                          max_inv=float(fo.max()) if len(fo) else -np.inf, n_neutral=int((np.abs(fo) <= TOL).sum()), n_adv=int((fo > TOL).sum()),
+                          mass_sum=float(mu[sup].sum()), mass_min=float(mu[sup].min()), hits=1, source='attractor_search')
+        if verbose and len(found) % 50 == 0:
+            print('    attractor search: %d starts, %d rest supports' % (s + 1, len(found)), flush=True)
+    return list(found.values())
+
+
+def invasion_closure(U, mu, starts=None, max_nodes=30000, verbose=False, branch=None, max_steps=8000):
+    """Saturated rest points of any support size reachable from the starts (default: every monomorphic state) by
+    sequences of strict invasions: from a rest point, every outside class with invasion fitness > tol is added at
+    frequency 1e-3 and the replicator on the enlarged support is run to its rest point; repeated until no class
+    invades (saturated).  Independent of any chain probability or threshold.  Returns (saturated list, n_nodes,
+    complete flag)."""
+    K = U.shape[0]
+    if starts is None:
+        starts = [([i], [1.0]) for i in range(K)]
+    seen = set()
+    sat = {}
+    stack = []
+    for ids, x in starts:
+        key = tuple(sorted(int(i) for i in ids))
+        if key not in seen:
+            seen.add(key); stack.append((list(ids), np.asarray(x, float)))
+    n = 0
+    while stack and n < max_nodes:
+        ids, x = stack.pop()
+        n += 1
+        ids = np.asarray(ids)
+        phi = float(x @ U[np.ix_(ids, ids)] @ x)
+        f = U[:, ids] @ x - phi
+        f[ids] = -np.inf
+        adv = np.nonzero(f > TOL)[0]
+        if len(adv) == 0:
+            key = tuple(sorted(int(i) for i in ids))
+            if key not in sat:
+                o = np.argsort(ids)
+                xs = x[o]; idss = ids[o]
+                stat = classify_rest(U[np.ix_(idss, idss)], xs)[0] if len(idss) > 1 else 'stable'
+                dp, pen, ff, out, mt = deep_test(U, idss, xs)
+                fo = ff[out]
+                sat[key] = dict(ids=[int(i) for i in idss], x=[float(v) for v in xs], size=len(idss), status=stat, deep=dp, deep_pen=pen,
+                                deep_mt=mt, max_inv=float(fo.max()) if len(fo) else -np.inf, n_neutral=int((np.abs(fo) <= TOL).sum()),
+                                n_adv=0, mass_sum=float(mu[idss].sum()), mass_min=float(mu[idss].min()), source='invasion_closure')
+            continue
+        if branch is not None and len(adv) > branch:
+            adv = adv[np.argsort(-f[adv])[:branch]]      # the `branch` strongest invaders only
+        for q in adv:
+            sup = np.append(ids, q)
+            x0 = np.append(x * (1 - 1e-3), 1e-3)
+            xr, st, _, _ = replicator(U[np.ix_(sup, sup)], x0, rest_tol=1e-10, max_steps=max_steps)
+            if st != 'rest':
+                continue
+            keep = xr > 1e-6
+            key = tuple(sorted(int(i) for i in sup[keep]))
+            if key in seen:
+                continue
+            seen.add(key)
+            stack.append((sup[keep], xr[keep] / xr[keep].sum()))
+        if verbose and n % 2000 == 0:
+            print('    invasion closure: %d nodes, %d saturated, stack %d' % (n, len(sat), len(stack)), flush=True)
+    return list(sat.values()), n, not stack
+
+
 def deep_detail(U, names, mu, cand, top=None):
     """the full list of outside mutants of a candidate with their invasion fitnesses (sorted, closest to 0 first)."""
     deep, pen, f, out, mt = deep_test(U, cand['ids'], cand['x'])
@@ -426,7 +519,7 @@ def cand_key(ch, cand, c):
 
 
 def run_cell(name, N, log_theta=math.log(1e-30), max_states=20000, verbose=True, twins=False, extra_only_deep=False,
-             skip_published=False, triples=True, pool_K=None, full_seed=False):
+             skip_published=False, triples=True, pool_K=None, full_seed=False, est_floor=False, closure_nodes=0, closure_starts=20000):
     t0 = time.time()
     c = make_cell(name, N)
     res = dict(cell=name, N=N, K=int(len(c.mu)), chain_kw={k: v for k, v in c.chain_kw.items()}, published=PUBLISHED.get((name, N)))
@@ -438,6 +531,26 @@ def run_cell(name, N, log_theta=math.log(1e-30), max_states=20000, verbose=True,
     keep_all = len(c.mu) <= 250
     cands, counts = enumerate_candidates_fast(c.U, c.mu, pool=None if pool is None else sorted(pool), keep_all=keep_all, verbose=verbose)
     res['discovery_keep_all'] = keep_all
+    if closure_nodes:
+        tcl = time.time()
+        cfn = os.path.join(OUT, 'closure_%s_%d.json' % (name, closure_nodes))
+        if os.path.exists(cfn):                       # the closure is N-independent: cached per cell
+            z = json.load(open(cfn)); S1, n1, comp1, S2, n2, comp2 = z['S1'], z['n1'], z['comp1'], z['S2'], z['n2'], z['comp2']
+        else:
+            S1, n1, comp1 = invasion_closure(c.U, c.mu, max_nodes=closure_nodes, branch=None)
+            starts = [(x['ids'], x['x']) for x in cands if x['size'] > 1 and x['status'] == 'stable'][:closure_starts]
+            S2, n2, comp2 = invasion_closure(c.U, c.mu, starts=[([i], [1.0]) for i in range(len(c.mu))] + starts, max_nodes=3 * closure_nodes, branch=2)
+            json.dump(_jsonable(dict(S1=S1, n1=n1, comp1=comp1, S2=S2, n2=n2, comp2=comp2)), open(cfn, 'w'))
+        have = set(tuple(sorted(x['ids'])) for x in cands)
+        added = 0
+        for x in S1 + S2:
+            if x['size'] >= 2 and tuple(sorted(x['ids'])) not in have:
+                have.add(tuple(sorted(x['ids']))); cands.append(x); added += 1
+        counts['closure'] = dict(nodes_full=n1, complete_full=comp1, nodes_branch2=n2, complete_branch2=comp2,
+                                 saturated=len(S1) + len(S2), added=added, added_by_size={str(k): sum(1 for x in cands if x.get('source') == 'invasion_closure' and x['size'] == k) for k in range(2, 9)},
+                                 time_s=time.time() - tcl)
+        if verbose:
+            print('[%s N=%d] invasion closure: %s' % (name, N, counts['closure']), flush=True)
     for x in cands:
         x['tier'] = 'deep' if x['deep'] else ('deep_mod_twins' if x['deep_mt'] else ('deep_penalty_only' if x['deep_pen'] else 'non-deep'))
     deep = [x for x in cands if x['status'] == 'stable' and x['tier'] != 'non-deep']
@@ -447,7 +560,7 @@ def run_cell(name, N, log_theta=math.log(1e-30), max_states=20000, verbose=True,
                             n_deep=len(strict), n_deep_mod_twins=sum(1 for x in deep if x['tier'] == 'deep_mod_twins'),
                             n_deep_penalty_only=sum(1 for x in deep if x['tier'] == 'deep_penalty_only'),
                             n_deep_pen_total=sum(1 for x in cands if x['status'] == 'stable' and x['deep_pen']),
-                            deep_by_size={t: {s: sum(1 for x in deep if x['size'] == s and x['tier'] == t) for s in (1, 2, 3)}
+                            deep_by_size={t: {s: sum(1 for x in deep if x['size'] == s and x['tier'] == t) for s in range(1, 9)}
                                           for t in ('deep', 'deep_mod_twins', 'deep_penalty_only')},
                             deep_mass_sum_max=max([x['mass_sum'] for x in strict], default=0.0),
                             deep_any_mass_sum_max=max([x['mass_sum'] for x in deep], default=0.0), time_s=time.time() - td)
@@ -556,7 +669,7 @@ def run_cell(name, N, log_theta=math.log(1e-30), max_states=20000, verbose=True,
             ids_, x_, kind_ = pch.states[k]
             if kind_ == 'poly':
                 seeds.append((list(ids_), list(x_))); layer.append(False)
-    fch = LogChain(c.provider(), N=N, Ufull=c.U if twins else None, twins=twins, theta=1.0, max_states=10 ** 9,
+    fch = LogChain(c.provider(), N=N, Ufull=c.U if twins else None, twins=twins, est_floor=est_floor, theta=1.0, max_states=10 ** 9,
                    **{k: v for k, v in c.chain_kw.items() if k in ('w',)})
     fch.explore_log(extra_states=seeds, log_theta=log_theta, max_states=max_states + len(seeds), verbose=verbose, layer_mask=layer)
     keys_all, lpi_all, info, out_un, rec = fch.solve_sparse()
@@ -581,7 +694,7 @@ def run_cell(name, N, log_theta=math.log(1e-30), max_states=20000, verbose=True,
                           n_cand_left=fch.n_cand_left, closed=info, mass_deep=float(sum(x.get('resolve_pi') or 0 for x in strict)),
                           mass_deep_any={t: float(sum(x.get('resolve_pi') or 0 for x in deep if x['tier'] == t)) for t in ('deep', 'deep_mod_twins', 'deep_penalty_only')},
                           mass_poly=float(sum(p for k, p in zip(keys, pi) if len(fch.states[k][0]) > 1)),
-                          indeterminate=len(fch.indeterminate), twin_moves=fch.n_twin_moves, twins=twins,
+                          indeterminate=len(fch.indeterminate), twin_moves=fch.n_twin_moves, twins=twins, est_floor=est_floor, n_floored=fch.n_floored,
                           support=sup, time_s=time.time() - tf, resid=balance_residual(LA, pi))
     if not skip_published:
         # missed deep states: re-solved pi and best path weight from the published top state
@@ -756,8 +869,9 @@ def cmd_cell(a):
     for N in a.N:
         r = run_cell(a.cell, N, log_theta=math.log(a.theta), max_states=a.max_states, twins=a.twins,
                      extra_only_deep=a.only_deep, skip_published=a.skip_published, triples=not a.no_triples, pool_K=a.pool_K,
-                     full_seed=a.full_seed)
-        fn = os.path.join(OUT, '%s_N%d%s%s.json' % (a.cell, N, '_twins' if a.twins else '', '_fullseed' if a.full_seed else ''))
+                     full_seed=a.full_seed, est_floor=a.est_floor, closure_nodes=a.closure)
+        fn = os.path.join(OUT, '%s_N%d%s%s%s%s.json' % (a.cell, N, '_twins' if a.twins else '', '_fullseed' if a.full_seed else '', '_estfloor' if a.est_floor else '', a.tag))
+        r['theta_log'] = a.theta
         json.dump(_jsonable(r), open(fn, 'w'), indent=1, default=str)
 
 
@@ -1092,6 +1206,9 @@ if __name__ == '__main__':
     p.add_argument('--no_triples', action='store_true')
     p.add_argument('--pool_K', type=int, default=None)
     p.add_argument('--full_seed', action='store_true')
+    p.add_argument('--tag', default='')
+    p.add_argument('--est_floor', action='store_true')
+    p.add_argument('--closure', type=int, default=0)
     p = sub.add_parser('union')
     p.add_argument('--c', type=float, default=0.5)
     p.add_argument('--N', type=float, default=1000)
