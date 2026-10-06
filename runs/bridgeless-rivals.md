@@ -185,14 +185,14 @@ Horizon separated = tags 1 and 2 each hold a certified island at the end; generi
 | (b) sparse | H | 0.0119 / 0.0119 | 23.7 / 13.52 / 26.73 | 56.4, 131.1 | 99 | 99 | 41.42 | 2075 | 13.2 / 9.4 / 41.4 / 0.0 | 1.000 (1.000) | 0 / 0 | 1.000 / – | 0.40 [0.35, 0.46] | -0.41 [-0.50, -0.32] | 0.83 [0.76, 0.90] | +0.01 [-0.09, +0.12] |
 | (b) sparse | B4 | 0.0058 / 0.0052 | 45.1 / 6.84 / 12.06 | 41.4, 66.6 | 84 | 85 | 18.81 | 726 | 40.5 / 4.6 / 18.8 / 0.0 | 0.999 (0.967) | 0 / 0 | 0.975 / 0.585 | 0.61 [0.54, 0.68] | -0.20 [-0.31, -0.09] | 0.92 [0.84, 1.00] | +0.10 [-0.01, +0.22] |
 
-## 3. Unconditional natural runs (f): (200, 64), boundary, 275 runs
+## 3. Unconditional natural runs (f): (200, 64), boundary, 3000 runs
 
-Ever separated 0.01 [0.00, 0.03]; separated at the horizon 0.00 [0.00, 0.01] (Wilson 95%; zero gives the rule-of-three bound 3/n = 0.0109). Island P(C,C) mean 1.0000, min 1.000; 0.02 worker-h.
+Ever separated 0.01 [0.01, 0.01]; separated at the horizon 0.00 [0.00, 0.01] (Wilson 95%; zero gives the rule-of-three bound 3/n = 0.0010). Island P(C,C) mean 0.9996, min 0.000; 0.37 worker-h.
 
 | separation | bridge-less (τ = 0) | bridge-less (τ = 10⁻⁴) | A-faked | bridged | neither in A / not a rival of A |
 |---|---|---|---|---|---|
-| ever (first separated pair) | 0 | 0 | 0 | 2 | 0 |
-| at the horizon (every pair) | 0 | 0 | 0 | 0 | 0 |
+| ever (first separated pair) | 8 | 0 | 0 | 21 | 0 |
+| at the horizon (every pair) | 8 | 0 | 0 | 1 | 0 |
 
 Every separation (first separated pair of each ever-separated run, and every pair separated at the end): bridge classes of the pair in the run's support, seeded copies / islands, islands held at the end, alive at the end, mediation transitions (a strong holder of the pair replaced by a bridge class), islands held at the end by each member.
 
@@ -200,4 +200,40 @@ Every separation (first separated pair of each ever-separated run, and every pai
 |---|---|---|---|---|---|---|---|---|---|---|
 | 51 | first | `BOX1(THEM(ME))` × `and(BOX(THEM(THEM)),BOXD1(THEM(^D)))` | bridged | 3 | 151 / 60 | 0 | n | 2 | 64 / 0 | n |
 | 122 | first | `BOX1(THEM(ME))` × `BOX1(THEM(^not(BOX(THEM(^D)))))` | bridged | 2 | 77 / 43 | 41 | y | 74 | 0 / 23 | n |
+| 269 | first | `BOX1(THEM(^not(BOX(THEM(ME)))))` × `BOX1(THEM(ME))` | bridged | 2 | 75 / 45 | 39 | y | 71 | 0 / 25 | n |
+| 278 | first | `BOX1(THEM(ME))` × `and(BOX(THEM(ME)),BOXD1(THEM(^D)))` | bridged | 4 | 144 / 59 | 54 | y | 43 | 10 / 0 | n |
+| 535 | first | `BOX1(THEM(ME))` × `and(BOX(THEM(ME)),BOXD1(THEM(^D)))` | bridged | 2 | 137 / 55 | 57 | y | 74 | 0 / 7 | n |
+| 285 | first | `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` × `BOX(THEM(THEM))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 35 / 29 | y |
+| 285 | end | `BOX(THEM(THEM))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 29 / 35 | y |
+| 820 | first | `and(BOX(THEM(THEM)),BOXD1(THEM(^D)))` × `BOX(THEM(THEM))` | bridged | 4 | 131 / 55 | 64 | y | 3 | 0 / 64 | n |
+| 993 | first | `and(BOX(THEM(ME)),BOXD1(THEM(^D)))` × `BOX1(THEM(ME))` | bridged | 2 | 122 / 55 | 59 | y | 29 | 5 / 0 | n |
+| 1042 | first | `BOX1(THEM(ME))` × `BOX1(THEM(^not(BOX(THEM(ME)))))` | bridged | 3 | 70 / 43 | 38 | y | 85 | 0 / 26 | n |
+| 1246 | first | `and(BOX(THEM(THEM)),BOXD1(THEM(^D)))` × `BOX1(THEM(ME))` | bridged | 4 | 117 / 55 | 64 | y | 54 | 0 / 0 | n |
+| 1308 | first | `BOX1(THEM(^not(BOX(THEM(THEM)))))` × `BOX1(THEM(ME))` | bridged | 4 | 62 / 40 | 40 | y | 95 | 0 / 24 | n |
+| 1044 | first | `BOX1(THEM(ME))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 48 / 16 | y |
+| 1044 | end | `BOX1(THEM(ME))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 48 / 16 | y |
+| 1364 | first | `BOX(THEM(THEM))` × `and(BOX(THEM(THEM)),BOXD1(THEM(^D)))` | bridged | 4 | 140 / 56 | 64 | y | 0 | 64 / 0 | n |
+| 1263 | first | `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` × `BOX1(THEM(ME))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 14 / 50 | y |
+| 1263 | end | `BOX1(THEM(ME))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 50 / 14 | y |
+| 1617 | first | `BOX1(THEM(ME))` × `and(BOX(THEM(ME)),BOXD1(THEM(^D)))` | bridged | 3 | 137 / 54 | 48 | y | 6 | 16 / 0 | n |
+| 1774 | first | `and(BOX(THEM(ME)),BOXD1(THEM(^D)))` × `BOX1(THEM(ME))` | bridged | 5 | 114 / 53 | 37 | y | 85 | 27 / 0 | n |
+| 1922 | first | `BOX1(THEM(ME))` × `and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 62 / 2 | y |
+| 1922 | end | `BOX1(THEM(ME))` × `and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 62 / 2 | y |
+| 2154 | first | `BOX1(THEM(^not(BOX(THEM(THEM)))))` × `BOX1(THEM(ME))` | bridged | 1 | 74 / 42 | 47 | y | 83 | 17 / 0 | n |
+| 2180 | first | `BOX1(THEM(ME))` × `BOX1(THEM(^not(BOX(THEM(THEM)))))` | bridged | 5 | 79 / 48 | 0 | n | 0 | 64 / 0 | n |
+| 2088 | first | `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` × `BOX(THEM(THEM))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 8 / 56 | y |
+| 2088 | end | `BOX(THEM(THEM))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 56 / 8 | y |
+| 2110 | first | `BOX1(THEM(^not(BOX(THEM(ME)))))` × `BOX1(THEM(ME))` | bridged | 3 | 58 / 37 | 0 | n | 0 | 38 / 26 | y |
+| 2110 | end | `BOX1(THEM(ME))` × `BOX1(THEM(^not(BOX(THEM(ME)))))` | bridged | 3 | 58 / 37 | 0 | n | 0 | 26 / 38 | y |
+| 2422 | first | `BOX(THEM(ME))` × `BOX1(THEM(^not(BOX(THEM(THEM)))))` | bridged | 2 | 63 / 39 | 19 | y | 34 | 45 / 0 | n |
+| 2282 | first | `BOX1(THEM(^C))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 0 / 55 | y |
+| 2282 | end | `BOX(THEM(ME))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 9 / 55 | y |
+| 2493 | first | `BOX1(THEM(^not(BOX(THEM(ME)))))` × `BOX1(THEM(ME))` | bridged | 3 | 63 / 40 | 0 | n | 0 | 0 / 64 | n |
+| 2510 | first | `BOX1(THEM(^not(BOX(THEM(THEM)))))` × `BOX1(THEM(ME))` | bridged | 4 | 73 / 47 | 23 | y | 5 | 0 / 41 | n |
+| 2542 | first | `BOX1(THEM(ME))` × `and(BOX(THEM(ME)),BOXD1(THEM(^D)))` | bridged | 2 | 134 / 54 | 57 | y | 4 | 7 / 0 | n |
+| 2725 | first | `and(BOX(THEM(THEM)),BOXD1(THEM(^D)))` × `BOX1(THEM(ME))` | bridged | 3 | 121 / 58 | 0 | n | 1 | 0 / 64 | n |
+| 2883 | first | `BOX1(THEM(ME))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 54 / 10 | y |
+| 2883 | end | `BOX1(THEM(ME))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 54 / 10 | y |
+| 2799 | first | `BOX1(THEM(ME))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 43 / 21 | y |
+| 2799 | end | `BOX1(THEM(ME))` × `and(BOX1(THEM(ME)),not(BOX(THEM(ME))))` | bridge-less (tau = 0) | 0 | 0 / 0 | 0 | n | 0 | 43 / 21 | y |
 
