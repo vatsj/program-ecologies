@@ -263,7 +263,7 @@ root call (JLöb^self); any other search call's outcome must be run (Run/RunNeg)
 that search's work. Every other step of the target is one EvR node, and derivations have at most b nodes. Hence:
 **a reader can certify a run of length up to about m(U + 7) + b, longer than its own computation, if and only if
 every search call in it is a copy of the reader's own root call (or a call whose run the reader pays for).** The
-canonical example: a twin that searches the reader's query twice (FB2 below) runs for about 2W while the reader
+canonical example: FB2 = `if S(q) then (if S(q) then C else D) else D` with q = plays_K(them, me, C) (predictions, design 6), a twin that searches the reader's query twice, runs for about 2W while the reader
 computes for about W. A simulation is certifiable without unfolding its prover's search when that prover's search is
 the reader's own root call; it is never certifiable by unfolding (W ≫ b). So the RE's dichotomy ("simulations obey a
 fuel bound, provers do not") is replaced by: **every target obeys the static cap condition (counters ≥ U + 7 at each
@@ -299,3 +299,54 @@ interact with it. Hand-checked instances (FB_{b,U,K}, root A = plays_K(FB, FB, C
    The exclusion is therefore a liveness condition, not a soundness one.
 
 §1.10 records the code's verdicts on exactly these instances.
+
+### 1.10 Code validation of §1.9, before any counted cell
+
+From `tests/test_lt_code.py` (8 tests, all passing, commit 37f0b6c), run after the code existed and before any counted
+cell (the benchmark table of §2.2 was computed alongside; it is a measurement, not a cell):
+
+- **Instance 1 (valid).** The term search CORE_0 on the root call (A, b, U), A = plays_K(FB, FB, C), K = 10⁶,
+  U = 2.5·10⁵, returns T at b = 7 and 8 and F at b = 6, with the witness JLöb^self[EvR, EvR, SrchR(EvR, Ax; Ax)] of
+  size 7, exactly the derivation of §1.7. The host oracle and the brute-force prover (§2.1) give the same minimum
+  (b = 5–8, seven queries). The replay checker and the checker term CHECK_0 accept it.
+- **Instances 2 and 3 (hypothesis budget b − 1, cap U − 1).** Rejected by the replay checker ("JLöb premise is not
+  H ⊢ root") and by CHECK_0 (returns F, 5,452 steps).
+- **Instance 4 (non-root member).** Rejected by both.
+- **Instance 5 (JLöb concluding the search call's after-state ⟨if(T, C, D)⟩⇓⁺C).** Rejected by both (not on the
+  root's deterministic chain).
+- **Instance 6 (SrchR fit skipped).** The hand instance (FB at K = U + 8) turned out not to need the fit test: with
+  the global counter below u the minimal-residual reading is already ⊥, so no derivation exists either way. The fit
+  test matters where the minimal residual reading of a too-small *sim* frame unwraps a value without a timeout step:
+  Y = `λλ SEARCH_0(b, plays_K(C, C, C), U)` returns its search's bit directly, and SFX = `if eq(run(100, ⌜Y⌝, me), T)
+  then C else D` simulates it with sim fuel 100 ≪ U + 7. The actual simulation times out, so SFX defects (checked).
+  A search with the fit test removed (the host oracle with `h_asucc`'s fit skipped) finds a derivation of
+  ⟨SFX ⌜SFX⌝ ⌜FB⌝, K⟩⇓C at b = 16 (the reading sim(0, T) → T → C); the replay checker and CHECK_0 reject it, and
+  the sound search does not find it. So the fit side condition is load-bearing exactly for sim frames.
+- **Instance 7 (Run on the root call).** Rejected by both.
+- Evaluator exactness: the compiled evaluator matches the reference stepper in value and step count on 18 small
+  terms at 7 fuels each and on seven plays at four fuels (the whole library run by substitution); the self-
+  interpreter's `step`/`plug` match the reference stepper on every configuration along 28 play chains (up to 40 steps,
+  through `run`, sim frames and search calls); the regress fast-forward matches the reference on SF_k against itself.
+
+## 2. Implementation, benchmarks and costs
+
+### 2.1 How the evaluator runs 10⁷ steps (exactness of the accounting)
+
+`src/lt_code.py` has three evaluators of L_T^code: the **reference stepper** (substitution, `decompose`/`plug`, the
+definition), the **compiled evaluator** (closure compilation, one `tick` per contraction, sim frames as deadlines on
+the global step counter), and the **self-interpreter** (an L_T^code term, `step` in the library, used by the checker
+and the search for EvR). The compiled evaluator uses two exact accelerations, both deterministic-function arguments:
+
+- **Core-run cache.** `capk(U, CORE_i, arg)` is a fixed computation of its key (i, U, arg). Its first run happens in a
+  clean context (fresh counters); the record (value or TO, number of steps until the frame returns or times out) is
+  replayed later with exact charging: if an enclosing counter would be exhausted before the record's step count, the
+  replay advances to that step and times out exactly there (the inner trajectory up to that point is the cached one).
+- **Regress lemma.** If a `run` or `capk` call has the same key (k, callee, argument) as a frame that encloses it,
+  then the enclosing frame's computation, which started from the same term, has reached a nested copy of itself; the
+  nested copy will do the same after the same number of steps, and so on, so no level returns a value before some
+  counter that encloses the nested call is exhausted (every inner frame's deadline is later, being created later with
+  the same fuel). The evaluator therefore advances the step counter to the earliest enclosing deadline (or the global
+  limit) and times out there. This is what makes SF_k against itself (k nested simulations) and the Run regress of
+  distinct-source provers (notes §1.7) cost O(1) host time with the exact step count.
+
+Tests check both against the reference stepper (`test_evaluator_matches_reference_*`, `test_regress_jump_matches_reference`).
