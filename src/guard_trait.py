@@ -165,52 +165,81 @@ def catalogue_genos(K, L, b):
     return cat, kg
 
 
-def build_K(n, b, glong, cut=None, ustar_limit=40):
+def build_K(n, b, glong, cut=None, ustar_limit=40, cap=None):
+    """KTheoryM on L_n's catalogue.  cap: K needs only b (atoms are boxed at b; the only boxes above b are guard boxes
+    with contents F / []F, never derivable, so every K value <= b is exact at cap b); K_c4 needs b + glong (a Dist+
+    witness into []_{2b+8} has Lemma C size up to 2b + 8)."""
     import k_at_n8 as KN
     L, val_free, hc, hd = KN.tables(n)
-    K = KTheoryM(cap=max(b + glong, 1), ustar_limit=ustar_limit, filter_first=True, cut=cut, glong=glong)
+    if cap is None: cap = b if cut is None else b + glong
+    K = KTheoryM(cap=max(cap, 1), ustar_limit=ustar_limit, filter_first=True, cut=cut, glong=glong)
     K.prune = KN.make_prune(K, L, hc, hd)
     cat, kg = catalogue_genos(K, L, b)
     return K, L, cat, kg
 
 
-def contents_of(K, kg):
-    ug = sorted(set(kg))
+BLOCKS = ('00', 'LL', '0L', 'L0')
+
+
+def block_genos(L, kg, blk):
+    nr = len(L.rep)
+    bx, by = (0 if blk[0] == '0' else 1), (0 if blk[1] == '0' else 1)
+    return [kg[bx * nr + c] for c in range(nr)], [kg[by * nr + c] for c in range(nr)]
+
+
+def contents_block(K, gx, gy):
     contents = set(); atoms = defaultdict(list)
-    for x in ug:
-        for y in ug:
+    for x in sorted(set(gx)):
+        for y in sorted(set(gy)):
             for a in K.atoms(x, y):
                 c = K.forms[a][1]; contents.add(c); atoms[c].append((x, y))
-    return ug, contents, atoms
+    return contents, atoms
 
 
-def play_table(K, kg, T=None):
+def block_play(K, gx, gy, T=None):
     if T is not None:
         save = K.T; K.T = T
     play = K.play_fn()
-    ug = sorted(set(kg)); pos = {g: i for i, g in enumerate(ug)}
-    small = np.array([[int(play(x, y)) for y in ug] for x in ug], np.int8)
+    out = np.array([[int(play(x, y)) for y in gy] for x in gx], np.int8)
     if T is not None:
         K.T = save
-    idx = np.array([pos[g] for g in kg])
-    return small[np.ix_(idx, idx)]
+    return out
 
 
-def cmd_kclosure(a):
-    """Step 1: K's mixed closure at cap b + glong; the play table; the K misses certified (high-budget rule); the
-    uncertified misses written for the K_c4 search."""
-    n, b = a.n, a.b; glong = b + 8
+def play_table(K, kg, T=None):
+    return block_play(K, kg, kg, T)
+
+
+def has_long(K, c, b):
+    st = [c]; seen = set()
+    while st:
+        f = st.pop()
+        if f in seen: continue
+        seen.add(f); tt = K.forms[f]
+        if tt[0] == FBOX:
+            if tt[2] > b + 1: return True
+            st.append(tt[1])
+        elif tt[0] == FP: st.append(K.unfold(f))
+        elif tt[0] == FNOT: st.append(tt[1])
+        elif tt[0] in (FAND, FOR, FIMP): st += [tt[1], tt[2]]
+    return False
+
+
+def _kclosure_job(j):
+    """One block of the mixed catalogue: K's closure (cap b), its play subtable, soundness, the K misses certified
+    (Lemma E1 at budgets <= b + 1, Lemma H above), the uncertified misses written for the K_c4 search."""
+    n, b, blk = j
+    glong = b + 8
     t = time.time()
     K, L, cat, kg = build_K(n, b, glong)
-    ug, contents, atoms = contents_of(K, kg)
+    gx, gy = block_genos(L, kg, blk)
+    contents, atoms = contents_block(K, gx, gy)
     t_build = time.time() - t
-    print('n=%d b=%d: %d catalogue genotypes, %d K genotypes, %d contents (%.0fs)' % (n, b, len(cat), len(ug), len(contents), t_build), flush=True)
     passes = K.solve(sorted(contents))
     t_solve = time.time() - t - t_build
-    vK = play_table(K, kg)
+    vb = block_play(K, gx, gy)
     nchk, bad = K.soundness_check()
     if bad: nchk, bad = K4.closure_check(K)
-    print('K solved (%.0fs), soundness %d / %d' % (t_solve, len(bad), nchk), flush=True)
     gl_true = [c for c in contents if K.prune(c)]
     miss = [c for c in gl_true if K.T.get(c, INF) > b]
     tc = time.time()
@@ -218,56 +247,53 @@ def cmd_kclosure(a):
     res = cert.run(miss)
     unc = [c for c in miss if res[c] is None]
     t_cert = time.time() - tc
-    # which uncertified contents involve a long guard anywhere in their closure?
-    def has_long(c, seen=None):
-        st = [c]; seen = set()
-        while st:
-            f = st.pop()
-            if f in seen: continue
-            seen.add(f); tt = K.forms[f]
-            if tt[0] == FBOX:
-                if tt[2] > b + 1: return True
-                st.append(tt[1])
-            elif tt[0] == FP: st.append(K.unfold(f))
-            elif tt[0] == FNOT: st.append(tt[1])
-            elif tt[0] in (FAND, FOR, FIMP): st += [tt[1], tt[2]]
-        return False
-    unc_long = [c for c in unc if has_long(c)]
-    mu = L.mu_canon / L.mu_canon.sum()
-    meta = dict(n=n, b=b, glong=glong, cap=b + glong, n_catalogue=len(cat), n_kgenos=len(ug), n_contents=len(contents),
-                passes=passes, t_build=t_build, t_solve=t_solve, t_cert=t_cert, sound_checked=nchk, sound_bad=len(bad),
+    unc_long = [c for c in unc if has_long(K, c, b)]
+    meta = dict(n=n, b=b, block=blk, glong=glong, cap=K.cap, n_kgenos=len(K.genos), n_contents=len(contents), passes=passes,
+                t_build=t_build, t_solve=t_solve, t_cert=t_cert, sound_checked=nchk, sound_bad=len(bad),
                 gl_true_contents=len(gl_true), K_derived_contents=len(gl_true) - len(miss), missing_contents=len(miss),
                 certified_contents=len(miss) - len(unc), uncertified_contents=len(unc), uncertified_long=len(unc_long),
                 cert_high_queries=cert.n_high, n_forms=len(K.forms))
-    np.save(os.path.join(GDIR, 'vK_n%d_b%d.npy' % (n, b)), vK)
+    np.save(os.path.join(GDIR, 'vK_n%d_b%d_%s.npy' % (n, b, blk)), vb)
     cs = np.array(sorted(contents), np.int64)
-    np.save(os.path.join(GDIR, 'kT_n%d_b%d.npy' % (n, b)), np.stack([cs, np.array([min(K.T.get(c, INF), 10**6) for c in cs], np.int64)]))
-    json.dump(dict(meta=meta, cat=cat, kg=kg, names=[K.name(g) for g in range(len(K.genos))],
-                   uncertified=[K.show(c) for c in unc], uncertified_long=[K.show(c) for c in unc_long],
+    np.save(os.path.join(GDIR, 'kT_n%d_b%d_%s.npy' % (n, b, blk)), np.stack([cs, np.array([min(K.T.get(c, INF), 10**6) for c in cs], np.int64)]))
+    json.dump(dict(meta=meta, uncertified=[K.show(c) for c in unc], uncertified_long=[K.show(c) for c in unc_long],
                    n_atoms_unc=[len(atoms[c]) for c in unc]),
-              open(os.path.join(GDIR, 'kclosure_n%d_b%d.json' % (n, b)), 'w'))
-    print({k: v for k, v in meta.items()}, flush=True)
-    # g = 0 block vs the published K table
+              open(os.path.join(GDIR, 'kclosure_n%d_b%d_%s.json' % (n, b, blk)), 'w'))
+    meta['t'] = time.time() - t
+    return meta
+
+
+def cmd_kclosure(a):
     import k_at_n8 as KN
-    nr = len(L.rep)
-    try:
-        ref = KN.load_val(n, b) if n == 8 else np.load(os.path.join(RUNS, 'k-four', 'K_g0_n%d_b%d.npy' % (n, b)))
-        print('g = 0 block vs published K table: %d differing plays' % int((vK[:nr, :nr] != ref).sum()), flush=True)
-    except Exception as e:
-        print('no published reference:', e)
+    n, b = a.n, a.b
+    L = KN.tables(n)[0]
+    K = KTheoryM(cap=b, glong=b + 8)
+    cat, kg = catalogue_genos(K, L, b)
+    json.dump(dict(cat=cat, kg=kg, names=[K.name(g) for g in range(len(K.genos))]),
+              open(os.path.join(GDIR, 'kclosure_n%d_b%d.json' % (n, b)), 'w'))
+    jobs = [(n, b, blk) for blk in (a.blocks or BLOCKS)
+            if not os.path.exists(os.path.join(GDIR, 'kclosure_n%d_b%d_%s.json' % (n, b, blk)))]
+    with Pool(min(a.workers, max(len(jobs), 1)), maxtasksperchild=1) as pool:
+        for m in pool.imap_unordered(_kclosure_job, jobs):
+            print(m, flush=True)
+    if os.path.exists(os.path.join(GDIR, 'vK_n%d_b%d_00.npy' % (n, b))):
+        v00 = np.load(os.path.join(GDIR, 'vK_n%d_b%d_00.npy' % (n, b)))
+        ref = KN.load_val(n, b) if n == 8 else np.load(os.path.join(RUNS, 'k-cut', 'K_g0_n%d_b%d.npy' % (n, b)))
+        print('g = 0 block vs published K table: %d differing plays' % int((v00 != ref).sum()), flush=True)
 
 
 def _kc4_job(j):
-    """K_c4 search on a chunk of uncertified goals (matched by printed form).  Returns {shown: T} for every goal
-    derived within the cap, soundness, and the checker on every newly derived goal (witness replay)."""
-    n, b, goals, seed = j
+    """K_c4 search (cap b + glong) on a chunk of one block's uncertified goals (matched by printed form).  Returns
+    {shown: T} for every goal derived within the cap, soundness, and the independent checker on every goal derived
+    within b (Lemma C witnesses replayed with the reader's budget and the opponent's genotype)."""
+    n, b, blk, goals, seed = j
     glong = b + 8
     t = time.time()
     K, L, cat, kg = build_K(n, b, glong, cut='c4')
-    ug = sorted(set(kg))
+    gx, gy = block_genos(L, kg, blk)
     want = set(goals); cmap = {}
-    for x in ug:
-        for y in ug:
+    for x in sorted(set(gx)):
+        for y in sorted(set(gy)):
             for a_ in K.atoms(x, y):
                 c = K.forms[a_][1]
                 s = K.show(c)
@@ -286,66 +312,86 @@ def _kc4_job(j):
             ck['dist'] += st['dist']; ck['replayed'] += st['replayed']; ck['nodes'] += st['nodes']
         except (AssertionError, ValueError, KeyError) as e:
             ck['fail'] += 1
-    return dict(seed=seed, n_goals=len(goals), matched=len(cmap), T=T, sound_checked=nchk, sound_bad=len(bad),
+    return dict(seed=seed, block=blk, n_goals=len(goals), matched=len(cmap), T=T, sound_checked=nchk, sound_bad=len(bad),
                 bad_examples=[K.show(x) for x in bad[:10]], checker=ck, t=time.time() - t, n_forms=len(K.forms))
 
 
 def cmd_kc4(a):
     n, b = a.n, a.b
-    d = json.load(open(os.path.join(GDIR, 'kclosure_n%d_b%d.json' % (n, b))))
-    goals = sorted(d['uncertified'])
-    rng = np.random.default_rng(0); perm = rng.permutation(len(goals))
-    chunks = [[goals[i] for i in perm[k::a.chunks]] for k in range(a.chunks)]
     path = os.path.join(GDIR, 'kc4_n%d_b%d.json' % (n, b))
     out = json.load(open(path)) if os.path.exists(path) and not a.fresh else []
-    done = {r['seed'] for r in out}
-    jobs = [(n, b, ch, k) for k, ch in enumerate(chunks) if k not in done]
-    print('%d goals in %d chunks, %d to run' % (len(goals), len(chunks), len(jobs)), flush=True)
-    with Pool(min(a.workers, len(jobs) or 1)) as pool:
+    done = {(r['block'], r['seed']) for r in out}
+    jobs = []
+    for blk in BLOCKS:
+        d = json.load(open(os.path.join(GDIR, 'kclosure_n%d_b%d_%s.json' % (n, b, blk))))
+        goals = sorted(d['uncertified'])
+        if not goals: continue
+        nch = max(1, min(a.chunks, (len(goals) + a.chunk_size - 1) // a.chunk_size))
+        rng = np.random.default_rng(0); perm = rng.permutation(len(goals))
+        for k in range(nch):
+            if (blk, k) not in done:
+                jobs.append((n, b, blk, [goals[i] for i in perm[k::nch]], k))
+    print('%d chunks to run' % len(jobs), [(j[2], len(j[3])) for j in jobs], flush=True)
+    with Pool(min(a.workers, len(jobs) or 1), maxtasksperchild=1) as pool:
         for r in pool.imap_unordered(_kc4_job, jobs):
             out.append(r); json.dump(out, open(path, 'w'))
-            print('chunk %d: %d goals, %d matched, %d derived within cap, %d within b, sound %d/%d, checker %s, %.0fs' % (
-                r['seed'], r['n_goals'], r['matched'], len(r['T']), sum(1 for v in r['T'].values() if v <= b),
+            print('block %s chunk %d: %d goals, %d matched, %d derived within cap, %d within b, sound %d/%d, checker %s, %.0fs' % (
+                r['block'], r['seed'], r['n_goals'], r['matched'], len(r['T']), sum(1 for v in r['T'].values() if v <= b),
                 r['sound_bad'], r['sound_checked'], r['checker'], r['t']), flush=True)
 
 
 def patched_tables(n, b):
-    """Rebuild the mixed catalogue's formulas (same construction order, so the same content ids), load K's values
-    and the K_c4 search results, and return (vK, vKc4, info, (K, L, cat, kg))."""
+    """Per block: rebuild the formulas (same construction order, so the same content ids), load K's values and the
+    K_c4 search results, recompute the plays.  Returns (vK, vKc4, info) on the full catalogue."""
+    import k_at_n8 as KN
     glong = b + 8
-    K, L, cat, kg = build_K(n, b, glong)
-    ug, contents, atoms = contents_of(K, kg)
-    arr = np.load(os.path.join(GDIR, 'kT_n%d_b%d.npy' % (n, b)))
-    assert len(arr[0]) == len(contents) and set(arr[0].tolist()) == contents
-    K.T = {int(c): (int(v) if v < 10**6 else INF) for c, v in zip(arr[0], arr[1])}
-    vK = play_table(K, kg)
-    d = json.load(open(os.path.join(GDIR, 'kclosure_n%d_b%d.json' % (n, b))))
-    rows = json.load(open(os.path.join(GDIR, 'kc4_n%d_b%d.json' % (n, b))))
-    Tn = {}
-    for r in rows: Tn.update(r['T'])
-    unc = set(d['uncertified'])
-    assert sum(r['n_goals'] for r in rows) == len(unc)
-    byshow = {K.show(c): c for c in contents if K.T.get(c, INF) > b}
-    T2 = dict(K.T); newly = []
-    for s_, v in Tn.items():
-        assert s_ in unc
-        if v <= b and s_ in byshow:
-            T2[byshow[s_]] = v; newly.append(byshow[s_])
-    v4 = play_table(K, kg, T2)
-    info = dict(newly_derived=len(newly), newly_examples=[K.show(c) for c in newly[:40]],
-                newly_pairs=[(K.name(x), K.name(y)) for c in newly[:40] for x, y in atoms[c][:2]],
-                derived_within_cap=sum(1 for v in Tn.values() if v < INF), sound_bad=sum(r['sound_bad'] for r in rows),
-                sound_checked=sum(r['sound_checked'] for r in rows),
-                checker={k: sum(r['checker'][k] for r in rows) for k in rows[0]['checker']} if rows else {})
-    return vK, v4, info, (K, L, cat, kg)
+    L = KN.tables(n)[0]; nr = len(L.rep)
+    p4 = os.path.join(GDIR, 'kc4_n%d_b%d.json' % (n, b))
+    rows = json.load(open(p4)) if os.path.exists(p4) else []
+    vK = np.zeros((2 * nr, 2 * nr), np.int8); v4 = vK.copy()
+    info = dict(blocks={})
+    for blk in BLOCKS:
+        K, L, cat, kg = build_K(n, b, glong)
+        gx, gy = block_genos(L, kg, blk)
+        contents, atoms = contents_block(K, gx, gy)
+        arr = np.load(os.path.join(GDIR, 'kT_n%d_b%d_%s.npy' % (n, b, blk)))
+        assert len(arr[0]) == len(contents) and set(arr[0].tolist()) == contents
+        K.T = {int(c): (int(v) if v < 10**6 else INF) for c, v in zip(arr[0], arr[1])}
+        vb = block_play(K, gx, gy)
+        assert (vb == np.load(os.path.join(GDIR, 'vK_n%d_b%d_%s.npy' % (n, b, blk)))).all()
+        d = json.load(open(os.path.join(GDIR, 'kclosure_n%d_b%d_%s.json' % (n, b, blk))))
+        R = [r for r in rows if r['block'] == blk]
+        unc = set(d['uncertified'])
+        assert sum(r['n_goals'] for r in R) == len(unc), (blk, len(unc))
+        Tn = {}
+        for r in R: Tn.update(r['T'])
+        byshow = {K.show(c): c for c in contents if K.T.get(c, INF) > b}
+        T2 = dict(K.T); newly = []
+        for s_, v in Tn.items():
+            assert s_ in unc
+            if v <= b and s_ in byshow:
+                T2[byshow[s_]] = v; newly.append(byshow[s_])
+        v4b = block_play(K, gx, gy, T2)
+        bx, by = (0 if blk[0] == '0' else 1), (0 if blk[1] == '0' else 1)
+        vK[bx * nr:(bx + 1) * nr, by * nr:(by + 1) * nr] = vb
+        v4[bx * nr:(bx + 1) * nr, by * nr:(by + 1) * nr] = v4b
+        info['blocks'][blk] = dict(meta=d['meta'], newly_derived=len(newly), derived_within_cap=sum(1 for v in Tn.values() if v < INF),
+                                   newly_examples=[K.show(c) for c in newly[:30]],
+                                   newly_pairs=[(K.name(x), K.name(y)) for c in newly[:30] for x, y in atoms[c][:1]],
+                                   diff_vs_K=int((v4b != vb).sum()),
+                                   sound_bad=sum(r['sound_bad'] for r in R), sound_checked=sum(r['sound_checked'] for r in R),
+                                   checker={k: sum(r['checker'][k] for r in R) for k in R[0]['checker']} if R else {},
+                                   t_kc4=sum(r['t'] for r in R))
+    return vK, v4, info
 
 
 def cmd_patch(a):
-    vK, v4, info, (K, L, cat, kg) = patched_tables(a.n, a.b)
+    vK, v4, info = patched_tables(a.n, a.b)
+    np.save(os.path.join(GDIR, 'vK_n%d_b%d.npy' % (a.n, a.b)), vK)
     np.save(os.path.join(GDIR, 'vKc4_n%d_b%d.npy' % (a.n, a.b)), v4)
     info['diff_vs_K'] = int((v4 != vK).sum())
     json.dump(info, open(os.path.join(GDIR, 'patch_n%d_b%d.json' % (a.n, a.b)), 'w'), indent=1)
-    print({k: v for k, v in info.items() if 'examples' not in k and 'pairs' not in k})
+    print('diff vs K', info['diff_vs_K'], {k: (v['newly_derived'], v['diff_vs_K'], v['sound_bad'], v['checker']) for k, v in info['blocks'].items()})
 
 
 def cmd_full(a):
@@ -353,7 +399,7 @@ def cmd_full(a):
     n, b = a.n, a.b; glong = b + 8
     t = time.time()
     K, L, cat, kg = build_K(n, b, glong, cut='c4')
-    ug, contents, atoms = contents_of(K, kg)
+    ug = sorted(set(kg)); contents, atoms = contents_block(K, ug, ug)
     K.solve(sorted(contents))
     vf = play_table(K, kg)
     nchk, bad = K.soundness_check()
@@ -1067,8 +1113,10 @@ def main():
     p = argparse.ArgumentParser()
     sp = p.add_subparsers(dest='cmd')
     q = sp.add_parser('kclosure'); q.add_argument('--n', type=int, default=8); q.add_argument('--b', type=int, default=16)
+    q.add_argument('--blocks', nargs='*'); q.add_argument('--workers', type=int, default=2)
     q = sp.add_parser('kc4'); q.add_argument('--n', type=int, default=8); q.add_argument('--b', type=int, default=16)
-    q.add_argument('--chunks', type=int, default=3); q.add_argument('--workers', type=int, default=3); q.add_argument('--fresh', action='store_true')
+    q.add_argument('--chunks', type=int, default=6); q.add_argument('--chunk-size', type=int, default=1500)
+    q.add_argument('--workers', type=int, default=3); q.add_argument('--fresh', action='store_true')
     for nm in ('patch', 'full'):
         q = sp.add_parser(nm); q.add_argument('--n', type=int, default=8); q.add_argument('--b', type=int, default=16)
     q = sp.add_parser('chain'); q.add_argument('--cells', nargs='+'); q.add_argument('--workers', type=int, default=3)
