@@ -227,3 +227,6 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   modal-dollar twin-expanded five-class S4-hawk polymorphism; **W** — a strictly invadable state made sticky by the
   lumped polymorphic-target fixation; **establishment floor** (diagnostic) — the fixation probability of a
   first-order-advantageous invader floored at 1 − e^{−wd}; **`chain_log.LogChain`** — the audited solver.
+- **The social organization game** (RS, 2026-10-06) — the name for the boss/worker family of fixed-role games with a
+  monopoly on force (wage, strike, repression, replacement pool); "the union game" names only the 2026-10-05 run of
+  it with the QUORUM atom, and "the enforcement run" its commitment ablation.
