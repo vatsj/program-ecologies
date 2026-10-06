@@ -262,3 +262,30 @@ Every separation (first separated pair of each ever-separated run, and every pai
 | P* | 200 | 256 | 1.0e+05 | 12 | 1.00 [0.76, 1.00] | 1.00 [0.76, 1.00] | 1.00 [0.76, 1.00] | 0 / 1.3e+08 | 0 [0, 2.9e-08] | 5 / 0 / 0 | 0.00 [0.00, 0.24] | 0.979 | 0.523 | 1.69 |
 | P* | 400 | 64 | 1.0e+05 | 12 | 1.00 [0.76, 1.00] | 1.00 [0.76, 1.00] | 1.00 [0.76, 1.00] | 0 / 2.7e+07 | 0 [0, 1.4e-07] | 0 / 0 / 0 | 0.00 [0.00, 0.24] | 0.985 | 0.566 | 0.91 |
 
+## 5. Verdicts and reading
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | more rivals gain bridges; τ = 0 share falls from n = 9 to 15; τ = 10⁻⁴ ratio in [0.1, 0.5] | **failed, falsifier fired** on 9 → 13 (n = 15 not computable): the τ = 0 share rises 0.214 → 0.252 → 0.253 and no n = 9 bridge-less rival gains a bridge; the τ = 10⁻⁴ clause held (0.425 at n = 13) |
+| RE 2 | dense bridge-less ≥ 0.5, bridged ≤ 0.1; (c) ≥ 0.4; (b) between | **failed, falsifier fired** for S\* (0.01; bridge-less only at τ ≥ 10⁻⁵ and A-faked); held for P\* and P\*′ (0.97), (c) (0.67, +0.55) and (b) (0.54–0.60 between 0.97 and 0.00–0.06); bridged ≤ 0.1 failed narrowly for B₁ (0.12 [0.07, 0.20]), held for H and B₄ |
+| RE 3 | 1–15 of 3,000 at the horizon; bridge-less share ≥ 0.5 | **held** (9; 0.89; the one bridged separation had a dead bridge, sol's point) |
+| RE 4 | island P(C,C) ≥ 0.95 per cell; cf ≤ 0.8 in separated runs; \|Δq\| ≤ 0.1 | **failed, falsifier fired** on \|Δq\| (holder form −0.41 to −0.52 in bridged cells, by absorption after nucleation); island P(C,C) ≥ 0.978 per cell and cf 0.49–0.66 held; q_est within ±0.10 |
+| RE 5 | scaling: bridge-less ≥ 0.5 at (400, 64) and 3·10⁵; bridged faster at (200, 256) | **held** (P\* 12/12 and 13/13 separated, 0 losses; B₁ 0.00 at (200, 256) against 0.12 at (200, 64)); P\* cells at 12–13 runs, not 40 |
+| S1 | P\* family establishes in [0.55, 0.95]; ≥ 0.9 of separations survive | failed, falsifier not fired (establishment 0.98, above the band); survival 0.99 and hazard bound held |
+| S2 | S\* ≤ 0.1, losses by 2>1 / 2>3 | held (0.01; 151 replacements) |
+| S3 | B₁, B₄ in [0.03, 0.3]; mediation-before-loss ≥ 0.6 | held (0.12, 0.09; 0.80, 0.76) |
+| S4 | H ≤ 0.1 | held (0.01) |
+| S5 | (c) within 0.15 of dense P\* | failed, falsifier not fired (0.67 vs 0.97, a difference of exactly 0.30; B₁'s own faker) |
+| S6 | sparse = 1 − (1 − p̂)^16 ± 0.15 | held (0.54 vs 0.54; 0.60 vs 0.54) |
+| S7 | 2–12 natural horizon separations, ≥ half P\*-family | held (9; 8 of 9) |
+| S8 | island P(C,C) ≥ 0.97 per cell; cf in separated runs [0.45, 0.85] | held (≥ 0.978; 0.49–0.66); two single runs collapsed to all-D by B₁'s faker |
+
+**Reading.**
+- **The bridge-less obstruction is a fixed fraction of rival mass, not a vanishing one.** On 9 → 13 the hard bridge-less share (no bridge, no mediator, not eaten by A) is 0.21 → 0.26 → 0.26, 0.98–0.99 of it by mass is the P\* family (`and(BOX1(THEM(·)),not(BOX(THEM(·))))`: cooperate when provable from PA + Con but not from PA; the rest is a tail of light `not(or(BOX(…),BOXD(…)))` classes), and no member present at n = 9 gains a bridge as the language grows. The threshold τ only adds rivals that `BOX1(THEM(ME))` eats, so "literally bridge-less" is the right object and is stable at about a quarter of rival mass.
+- **The mediation-before-loss probability is the bridge's scramble survival.** A living bridge resolved every bridged rivalry (0 of 525); separations come only from runs in which the bridge died early, and the bridge's death is a per-run scramble lottery whose failure shrinks geometrically in I (≈ 0.19 per run at I = 64 with ≈ 42 seeded islands).
+- **Bridge-less rivals make metapopulation universality fail with probability → 1 along I ≫ N.** Each P\*-family copy establishes with probability ≈ 0.048 at N = 200 and, once established, holds ≈ 40% of the islands with no measured loss; natural separations occur at μ_bl·N·I·p₁ per run (0.0030 measured, 0.0032 predicted at (200, 64)), so the expected number of independent P\* establishments grows linearly in I. At fixed N ≥ 200 a patchwork is certain for I ≫ 1/(μ_bl·N·p₁) ≈ 10⁴. Island-level efficiency is untouched (island P(C,C) ≥ 0.978 in every cell, every certified island efficient); what fails is the counterfactual cross-island P(C,C) (≈ 0.6 in separated runs).
+- **Probe-readers carry their own spoilers into the metapopulation.** B₁ without bridges is less permanent than P\* only because its faker captures it, and in two runs that faker, then D, took the whole archipelago: forcing a fakeable rival everywhere is the one way this run found to lose efficiency at run level.
+- **Holder-form q is the wrong nucleation statistic when bridges are active**; q_est is flat (±0.10) across every forced rival.
+
