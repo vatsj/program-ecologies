@@ -554,6 +554,8 @@ def run_main(a):
         jobs = []
         for c in (ref_cells(exp) if ref else cells(exp)):
             e, N, I, mN, reps, gens, rv, pre = c
+            if a.rival and rv != a.rival:
+                continue
             key = (e, N, I, mN, gens, rv, pre)
             for rep in range(done[key], min(reps, a.maxreps)):
                 jobs.append((e, N, I, mN, rep, gens, rv, pre))
@@ -580,6 +582,7 @@ if __name__ == '__main__':
     ap.add_argument('--procs', type=int, default=3)
     ap.add_argument('--maxreps', type=int, default=10 ** 9)
     ap.add_argument('--ref', action='store_true')
+    ap.add_argument('--rival', default=None)
     a = ap.parse_args()
     if a.what == 'classes':
         classes_main(a)
