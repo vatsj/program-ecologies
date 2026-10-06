@@ -87,6 +87,25 @@ for b in [b for b in (8, 16, 25, 32, 64) if b in mains]:
     for x in NAMES:
         P('| %s | %s |' % (x, ' | '.join(play(b, x, y).replace('BOT', '⊥') for y in NAMES)))
 
+# ---------------------------------------------------------------- minimal sizes at the top budget
+bt = B[-1]
+P('\n### Certified minimal derivation size (Λ) of each found box of the row program against the column program, b = %d\n' % bt)
+P('Entry per prove call in order (PB and P\\* make two); "r" refuted; empty: no prove call.\n')
+P('| row \\ col | ' + ' | '.join(NAMES) + ' |')
+P('|---' * (len(NAMES) + 1) + '|')
+J['sizes_top'] = {}
+for x in NAMES:
+    row = []
+    for y in NAMES:
+        ent = []
+        for p in mains[bt]['cells'][x + '|' + y]['prim']['proves']:
+            fm = mains[bt]['formulas'].get('%s@%d' % (p[0], p[1]))
+            if p[2] == 'found' and fm: ent.append('%d(%s)' % (fm['size'], fm.get('lam')))
+            else: ent.append('r' if p[2] == 'refuted' else p[2])
+        J['sizes_top'][x + '|' + y] = ent
+        row.append(' / '.join(ent))
+    P('| %s | %s |' % (x, ' | '.join(row)))
+
 # ---------------------------------------------------------------- exploitation
 P('\n## 3. Exploitation cells: the row program plays C, the column program plays D or ⊥\n')
 J['exploitation'] = {}
@@ -228,7 +247,7 @@ P('- Independent replay (`src/lt_check.py`): %d witnesses, %d nodes, %d evaluati
   'evaluator, %d JLöb instances; **%d failures**.' % (tot['rep'], tot['repnodes'], tot['repsteps'], tot['repjlob'], tot['repfail']))
 P('- Independent evaluator on every play trace (both charging semantics, every K, full calculus and control under '
   'primitive-assisted): %d steps; **%d disagreements**.' % (tot['trace'], tot['tracebad']))
-P('- Merges in Reach(Cat) over every root closure: max %d (the completeness argument of notes §1.7 needs 0). Largest root '
+P('- Merges (states with two deterministic predecessors) in any root closure: max %d (allowed by Lemma U, notes §1.7 as amended). Largest root '
   'closure %d formulas. Searches stopped by the work limit 5·10⁷: %d.' % (tot['merges'], tot['closure_max'], tot['incomplete']))
 br = load('brute_*.json')
 nb = sum(len(d['rows']) for d in br.values()); ab = sum(r['agree'] for d in br.values() for r in d['rows'])
