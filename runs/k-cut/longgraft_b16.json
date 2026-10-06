@@ -1,0 +1,854 @@
+{
+ "info": {
+  "b": 16,
+  "n_family_in_L8": 49,
+  "Rcoop": [
+   "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+   "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))",
+   "and(BOX1(THEM(THEM)),not(BOX(THEM(ME))))",
+   "and(BOX1(THEM(THEM)),not(BOX(THEM(THEM))))",
+   "BOX1(THEM(^not(BOX(THEM(ME)))))",
+   "BOX1(THEM(^not(BOX(THEM(THEM)))))",
+   "BOX1(THEM(^not(BOX(THEM(^C)))))"
+  ],
+  "Rexpl": {
+   "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "and(BOX1(THEM(THEM)),not(BOX(THEM(ME))))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "and(BOX1(THEM(THEM)),not(BOX(THEM(THEM))))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "not(BOX(THEM(ME)))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "not(BOX(THEM(THEM)))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "not(BOX(THEM(^BOX(THEM(ME)))))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "not(BOX(THEM(^BOX(THEM(THEM)))))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "not(BOX(THEM(^BOX(THEM(^C)))))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "not(BOX(THEM(^BOX1(THEM(ME)))))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "not(BOX(THEM(^BOX1(THEM(THEM)))))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "not(BOX(THEM(^BOX1(THEM(^C)))))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "not(BOX(THEM(^C)))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "not(and(BOX(THEM(ME)),BOX(THEM(THEM))))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "not(or(BOX(THEM(ME)),BOX(THEM(THEM))))": [
+    "BOX1(THEM(THEM))",
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))"
+   ],
+   "BOX(THEM(^not(BOX(THEM(ME)))))": [
+    "BOX(THEM(^BOX1(THEM(THEM))))",
+    "BOX1(THEM(^BOX1(THEM(THEM))))"
+   ],
+   "BOX(THEM(^not(BOX(THEM(THEM)))))": [
+    "BOX(THEM(^BOX1(THEM(THEM))))",
+    "BOX1(THEM(^BOX1(THEM(THEM))))"
+   ],
+   "BOX(THEM(^not(BOX(THEM(^C)))))": [
+    "BOX(THEM(^BOX1(THEM(THEM))))",
+    "BOX1(THEM(^BOX1(THEM(THEM))))"
+   ],
+   "BOX(THEM(^not(BOXD(THEM(ME)))))": [
+    "BOX(THEM(^BOX1(THEM(ME))))"
+   ],
+   "BOX(THEM(^not(BOXD(THEM(THEM)))))": [
+    "BOX(THEM(^BOX1(THEM(ME))))"
+   ],
+   "BOX(THEM(^not(BOXD(THEM(^C)))))": [
+    "BOX(THEM(^BOX1(THEM(ME))))"
+   ],
+   "BOX1(THEM(^not(BOX(THEM(ME)))))": [
+    "BOX1(THEM(^BOX1(THEM(THEM))))",
+    "BOX(THEM(THEM))",
+    "and(BOX(THEM(THEM)),BOX1(THEM(THEM)))",
+    "BOX(THEM(^BOX1(THEM(THEM))))"
+   ],
+   "BOX1(THEM(^not(BOX(THEM(THEM)))))": [
+    "BOX1(THEM(^BOX1(THEM(THEM))))",
+    "BOX(THEM(THEM))",
+    "and(BOX(THEM(THEM)),BOX1(THEM(THEM)))",
+    "BOX(THEM(^BOX1(THEM(THEM))))"
+   ],
+   "BOX1(THEM(^not(BOX(THEM(^C)))))": [
+    "BOX1(THEM(^BOX1(THEM(THEM))))",
+    "BOX(THEM(THEM))",
+    "and(BOX(THEM(THEM)),BOX1(THEM(THEM)))",
+    "BOX(THEM(^BOX1(THEM(THEM))))"
+   ],
+   "BOX1(THEM(^not(BOXD(THEM(ME)))))": [
+    "BOX(THEM(^BOX1(THEM(ME))))"
+   ],
+   "BOX1(THEM(^not(BOXD(THEM(THEM)))))": [
+    "BOX(THEM(^BOX1(THEM(ME))))"
+   ],
+   "BOX1(THEM(^not(BOXD(THEM(^C)))))": [
+    "BOX(THEM(^BOX1(THEM(ME))))"
+   ]
+  },
+  "family_plays_differing_from_K": 256
+ },
+ "rows": [
+  {
+   "label": "longgraft coop=0 expl=0",
+   "N": 10000,
+   "n_classes": 476,
+   "pcc": 0.6709596305445348,
+   "pi_D": 0.3288557957556826,
+   "poly": 3.0546397579483386e-07,
+   "n_states": 656,
+   "n_deep": 0,
+   "n_deep_poly": 0,
+   "log10_cut": -9.93126247497908,
+   "residual": 8.03682464717773e-15,
+   "twins": false,
+   "support": [
+    [
+     "D 1.00",
+     0.3288557957556826
+    ],
+    [
+     "BOX(THEM(ME)) 1.00",
+     0.15683710782333726
+    ],
+    [
+     "BOX1(THEM(ME)) 1.00",
+     0.15554341628309887
+    ],
+    [
+     "BOX(THEM(THEM)) 1.00",
+     0.14746540668778602
+    ],
+    [
+     "BOX1(THEM(THEM)) 1.00",
+     0.14388237707391
+    ],
+    [
+     "and(BOX(THEM(ME)),BOXD1(THEM(^D))) 1.00",
+     0.05266513569692693
+    ],
+    [
+     "BOX(THEM(^C)) 1.00",
+     0.002511086401108316
+    ],
+    [
+     "BOX1(THEM(^C)) 1.00",
+     0.0024636526541144447
+    ],
+    [
+     "BOX(THEM(^BOX1(THEM(ME)))) 1.00",
+     0.0019466091998221107
+    ],
+    [
+     "and(BOX(THEM(ME)),BOX1(THEM(^C))) 1.00",
+     0.0010955096352481275
+    ]
+   ],
+   "pi_mono": {
+    "D": 0.3288557957556826,
+    "BOX(THEM(ME))": 0.15683710782333726,
+    "BOX1(THEM(ME))": 0.15554341628309887,
+    "BOX(THEM(THEM))": 0.14746540668778602,
+    "BOX1(THEM(THEM))": 0.14388237707391,
+    "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": 0.05266513569692693,
+    "BOX(THEM(^C))": 0.002511086401108316,
+    "BOX1(THEM(^C))": 0.0024636526541144447,
+    "BOX(THEM(^BOX1(THEM(ME))))": 0.0019466091998221107,
+    "and(BOX(THEM(ME)),BOX1(THEM(^C)))": 0.0010955096352481275,
+    "BOX(THEM(^BOX(THEM(THEM))))": 0.0009525390513717892,
+    "BOX1(THEM(^BOX1(THEM(THEM))))": 0.0009523655574675798,
+    "BOX1(THEM(^BOX1(THEM(ME))))": 0.0009093869473899093,
+    "or(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.00043571896796820535,
+    "and(BOX(THEM(THEM)),BOX1(THEM(ME)))": 0.0002778002909467188,
+    "C": 0.0002560842137317058,
+    "and(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.00024122674284748552,
+    "and(BOX(THEM(ME)),BOX1(THEM(ME)))": 0.0002411960250942228,
+    "and(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.00023921579945176445,
+    "and(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.0002360898119731979,
+    "or(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.0002216429562321526,
+    "or(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.00021785935800372144,
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))": 0.00021495206592197185,
+    "and(BOX(THEM(THEM)),BOX1(THEM(THEM)))": 0.00020746275320048093,
+    "BOX(THEM(^BOX1(THEM(^C))))": 0.00013314093249857845,
+    "and(BOX(THEM(THEM)),BOXD1(THEM(^D)))": 0.00012630247815220976,
+    "BOX(THEM(^BOX(THEM(^C))))": 0.00012142709739012013,
+    "BOX1(THEM(^BOX1(THEM(^C))))": 0.00010924613441401799,
+    "BOX1(THEM(^BOX(THEM(ME))))": 0.00010395326995213282,
+    "BOX1(THEM(^BOX(THEM(THEM))))": 0.00010183665078883893
+   },
+   "top_coop": "BOX(THEM(ME))",
+   "pi_top": 0.15683710782333726,
+   "exit_total": 4.852210148152841e-05,
+   "N_exit": 0.48522101481528407,
+   "exits": [
+    {
+     "mutant": "C",
+     "weight": 4.6647113580319916e-05,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "BOX1(THEM(ME))",
+     "weight": 5.052562191810819e-07,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "BOX1(THEM(THEM))",
+     "weight": 5.044974922361876e-07,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "BOX(THEM(THEM))",
+     "weight": 5.044974922361876e-07,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    }
+   ],
+   "entry": {
+    "mutant": "BOX(THEM(ME))",
+    "weight": 2.2087220198288047e-05,
+    "rho": 0.004351378610733737,
+    "N_rho": 43.513786107337374,
+    "mp_log_rho": -5.43726256208296,
+    "chain_log_rho": -5.43726256208296
+   },
+   "strict_invaders_of_top": [],
+   "t": 404.6202862262726
+  },
+  {
+   "label": "longgraft coop=0 expl=1",
+   "N": 10000,
+   "n_classes": 479,
+   "pcc": 0.5927192670929802,
+   "pi_D": 0.4069806780845947,
+   "poly": 4.334216089733113e-07,
+   "n_states": 694,
+   "n_deep": 0,
+   "n_deep_poly": 0,
+   "log10_cut": -9.966676652705301,
+   "residual": 5.9289631666312226e-15,
+   "twins": false,
+   "support": [
+    [
+     "D 1.00",
+     0.4069806780845947
+    ],
+    [
+     "BOX(THEM(ME)) 1.00",
+     0.19251813078740931
+    ],
+    [
+     "BOX1(THEM(ME)) 1.00",
+     0.19152426654248722
+    ],
+    [
+     "BOX(THEM(THEM)) 1.00",
+     0.1738292984566106
+    ],
+    [
+     "BOX1(THEM(THEM)) 1.00",
+     0.011818447790948093
+    ],
+    [
+     "and(BOX(THEM(ME)),BOXD1(THEM(^D))) 1.00",
+     0.007104519782541884
+    ],
+    [
+     "BOX1(THEM(^C)) 1.00",
+     0.003033533549740033
+    ],
+    [
+     "BOX(THEM(^C)) 1.00",
+     0.0030334530453812983
+    ],
+    [
+     "BOX(THEM(^BOX(THEM(THEM)))) 1.00",
+     0.001172952991097656
+    ],
+    [
+     "BOX1(THEM(^BOX1(THEM(ME)))) 1.00",
+     0.0011197498435479897
+    ]
+   ],
+   "pi_mono": {
+    "D": 0.4069806780845947,
+    "BOX(THEM(ME))": 0.19251813078740931,
+    "BOX1(THEM(ME))": 0.19152426654248722,
+    "BOX(THEM(THEM))": 0.1738292984566106,
+    "BOX1(THEM(THEM))": 0.011818447790948093,
+    "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": 0.007104519782541884,
+    "BOX1(THEM(^C))": 0.003033533549740033,
+    "BOX(THEM(^C))": 0.0030334530453812983,
+    "BOX(THEM(^BOX(THEM(THEM))))": 0.001172952991097656,
+    "BOX1(THEM(^BOX1(THEM(ME))))": 0.0011197498435479897,
+    "BOX(THEM(^BOX1(THEM(ME))))": 0.0010813008560223824,
+    "BOX(THEM(^BOX1(THEM(THEM))))": 0.0010812932957018557,
+    "BOX1(THEM(^BOX1(THEM(THEM))))": 0.0010784316890920015,
+    "or(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.0005365110644996765,
+    "and(BOX(THEM(THEM)),BOX1(THEM(ME)))": 0.00033648158296709237,
+    "and(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.00029458440608083624,
+    "and(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.0002914487959246409,
+    "and(BOX(THEM(ME)),BOX1(THEM(ME)))": 0.00029141084830152395,
+    "and(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.00029068537266223955,
+    "or(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.0002720675758789332,
+    "or(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.00026825537053736843,
+    "C": 0.00025490366845740066,
+    "and(BOX(THEM(THEM)),BOX1(THEM(THEM)))": 0.000245925837998806,
+    "BOX(THEM(^BOX1(THEM(^C))))": 0.0001607483089810831,
+    "BOX(THEM(^BOX(THEM(^C))))": 0.00014952485969809995,
+    "and(BOX(THEM(ME)),BOX1(THEM(^C)))": 0.0001407774976565002,
+    "BOX1(THEM(^BOX1(THEM(^C))))": 0.00013434212457278722,
+    "BOX1(THEM(^BOX(THEM(ME))))": 0.00012800010389726072,
+    "BOX1(THEM(^BOX(THEM(THEM))))": 0.00012540214311348717
+   },
+   "top_coop": "BOX(THEM(ME))",
+   "pi_top": 0.19251813078740931,
+   "exit_total": 4.852210148152842e-05,
+   "N_exit": 0.48522101481528424,
+   "exits": [
+    {
+     "mutant": "C",
+     "weight": 4.6647113580319936e-05,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "BOX1(THEM(ME))",
+     "weight": 5.052562191810823e-07,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "BOX1(THEM(THEM))",
+     "weight": 5.044974922361879e-07,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "BOX(THEM(THEM))",
+     "weight": 5.044974922361879e-07,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    }
+   ],
+   "entry": {
+    "mutant": "BOX(THEM(ME))",
+    "weight": 2.2087220198288054e-05,
+    "rho": 0.004351378610733737,
+    "N_rho": 43.513786107337374,
+    "mp_log_rho": -5.43726256208296,
+    "chain_log_rho": -5.43726256208296
+   },
+   "strict_invaders_of_top": [],
+   "t": 543.4722981452942
+  },
+  {
+   "label": "longgraft coop=1 expl=0",
+   "N": 10000,
+   "n_classes": 478,
+   "pcc": 0.8176851399446117,
+   "pi_D": 0.18221319637449646,
+   "poly": 1.677551467719426e-07,
+   "n_states": 603,
+   "n_deep": 0,
+   "n_deep_poly": 0,
+   "log10_cut": -10.024622838505785,
+   "residual": 1.6720485050196145e-14,
+   "twins": false,
+   "support": [
+    [
+     "and(BOX1(THEM(ME)),not(BOX(THEM(ME)))) 1.00",
+     0.21987445697411656
+    ],
+    [
+     "and(BOX1(THEM(ME)),not(BOX(THEM(THEM)))) 1.00",
+     0.21759455625984733
+    ],
+    [
+     "D 1.00",
+     0.18221319637449646
+    ],
+    [
+     "BOX(THEM(ME)) 1.00",
+     0.08700267604115447
+    ],
+    [
+     "BOX1(THEM(ME)) 1.00",
+     0.08629305627217052
+    ],
+    [
+     "BOX(THEM(THEM)) 1.00",
+     0.07872683170826222
+    ],
+    [
+     "BOX1(THEM(THEM)) 1.00",
+     0.07760308178792698
+    ],
+    [
+     "and(BOX(THEM(ME)),BOXD1(THEM(^D))) 1.00",
+     0.02844063522072052
+    ],
+    [
+     "and(BOX1(THEM(THEM)),not(BOX(THEM(THEM)))) 1.00",
+     0.013947518924288334
+    ],
+    [
+     "BOX(THEM(^C)) 1.00",
+     0.001392322832385681
+    ]
+   ],
+   "pi_mono": {
+    "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))": 0.21987445697411656,
+    "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))": 0.21759455625984733,
+    "D": 0.18221319637449646,
+    "BOX(THEM(ME))": 0.08700267604115447,
+    "BOX1(THEM(ME))": 0.08629305627217052,
+    "BOX(THEM(THEM))": 0.07872683170826222,
+    "BOX1(THEM(THEM))": 0.07760308178792698,
+    "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": 0.02844063522072052,
+    "and(BOX1(THEM(THEM)),not(BOX(THEM(THEM))))": 0.013947518924288334,
+    "BOX(THEM(^C))": 0.001392322832385681,
+    "BOX1(THEM(^C))": 0.0013667939710111981,
+    "and(BOX(THEM(ME)),BOX1(THEM(^C)))": 0.0005915695285685125,
+    "BOX(THEM(^BOX1(THEM(ME))))": 0.0005396637874271652,
+    "BOX(THEM(^BOX(THEM(THEM))))": 0.0005284480299502676,
+    "BOX(THEM(^BOX1(THEM(THEM))))": 0.0005170506921220311,
+    "BOX1(THEM(^BOX1(THEM(THEM))))": 0.0005062129424262982,
+    "BOX1(THEM(^BOX1(THEM(ME))))": 0.0005045136520660583,
+    "or(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.0002417300747866696,
+    "and(BOX(THEM(THEM)),BOX1(THEM(ME)))": 0.0001543307387368969,
+    "C": 0.0001403669613036564,
+    "and(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.00013404031331464648,
+    "and(BOX(THEM(ME)),BOX1(THEM(ME)))": 0.00013402330424211947,
+    "and(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.00013299717731097074,
+    "and(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.0001312652290551717,
+    "and(BOX1(THEM(ME)),BOX(THEM(^C)))": 0.0001259589489037795,
+    "or(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.00012295260160060683,
+    "or(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.000120864967442955,
+    "or(BOX(THEM(THEM)),BOX1(THEM(THEM)))": 0.00011595320666715415,
+    "and(BOX(THEM(THEM)),BOX1(THEM(THEM)))": 0.00011103848262976253
+   },
+   "top_coop": "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+   "pi_top": 0.21987445697411656,
+   "exit_total": 1.526059966116628e-07,
+   "N_exit": 0.0015260599661166279,
+   "exits": [
+    {
+     "mutant": "not(BOX(THEM(THEM)))",
+     "weight": 1.2946386016457953e-07,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "not(BOX(THEM(^C)))",
+     "weight": 2.2733004814542726e-08,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "not(and(BOX(THEM(THEM)),BOX1(THEM(THEM))))",
+     "weight": 1.3637721084685115e-10,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "not(and(BOX(THEM(THEM)),BOX1(THEM(ME))))",
+     "weight": 1.3637721084685115e-10,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    }
+   ],
+   "entry": {
+    "mutant": "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))",
+    "weight": 5.934288782705133e-09,
+    "rho": 0.004351378610733737,
+    "N_rho": 43.513786107337374,
+    "mp_log_rho": -5.43726256208296,
+    "chain_log_rho": -5.43726256208296
+   },
+   "strict_invaders_of_top": [],
+   "t": 319.58926606178284
+  },
+  {
+   "label": "longgraft coop=1 expl=1",
+   "N": 10000,
+   "n_classes": 480,
+   "pcc": 0.6317997312126106,
+   "pi_D": 0.36799454193475156,
+   "poly": 3.386593921425858e-07,
+   "n_states": 656,
+   "n_deep": 0,
+   "n_deep_poly": 0,
+   "log10_cut": -9.88762749336473,
+   "residual": 6.571106759636035e-15,
+   "twins": false,
+   "support": [
+    [
+     "D 1.00",
+     0.36799454193475156
+    ],
+    [
+     "BOX(THEM(ME)) 1.00",
+     0.17406124637648515
+    ],
+    [
+     "BOX1(THEM(ME)) 1.00",
+     0.17316271441773046
+    ],
+    [
+     "BOX(THEM(THEM)) 1.00",
+     0.15719927932710354
+    ],
+    [
+     "and(BOX1(THEM(ME)),not(BOX(THEM(ME)))) 1.00",
+     0.0466273467461238
+    ],
+    [
+     "and(BOX1(THEM(ME)),not(BOX(THEM(THEM)))) 1.00",
+     0.04611175477639097
+    ],
+    [
+     "BOX1(THEM(THEM)) 1.00",
+     0.010686348084198775
+    ],
+    [
+     "and(BOX(THEM(ME)),BOXD1(THEM(^D))) 1.00",
+     0.0064230418391939435
+    ],
+    [
+     "and(BOX1(THEM(THEM)),not(BOX(THEM(THEM)))) 1.00",
+     0.0029517353899077025
+    ],
+    [
+     "BOX1(THEM(^C)) 1.00",
+     0.0027427221445728255
+    ]
+   ],
+   "pi_mono": {
+    "D": 0.36799454193475156,
+    "BOX(THEM(ME))": 0.17406124637648515,
+    "BOX1(THEM(ME))": 0.17316271441773046,
+    "BOX(THEM(THEM))": 0.15719927932710354,
+    "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))": 0.0466273467461238,
+    "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))": 0.04611175477639097,
+    "BOX1(THEM(THEM))": 0.010686348084198775,
+    "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": 0.0064230418391939435,
+    "and(BOX1(THEM(THEM)),not(BOX(THEM(THEM))))": 0.0029517353899077025,
+    "BOX1(THEM(^C))": 0.0027427221445728255,
+    "BOX(THEM(^C))": 0.0027426479209029207,
+    "BOX(THEM(^BOX(THEM(THEM))))": 0.0010604996761447317,
+    "BOX1(THEM(^BOX1(THEM(ME))))": 0.0010123987166063657,
+    "BOX(THEM(^BOX1(THEM(ME))))": 0.0009776341138869984,
+    "BOX(THEM(^BOX1(THEM(THEM))))": 0.0009776247944667349,
+    "BOX1(THEM(^BOX1(THEM(THEM))))": 0.0009750380534612765,
+    "or(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.0004850754117079635,
+    "and(BOX(THEM(THEM)),BOX1(THEM(ME)))": 0.00030428230116972583,
+    "and(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.0002664012491175826,
+    "and(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.000263566828088447,
+    "and(BOX(THEM(ME)),BOX1(THEM(ME)))": 0.0002635325559292106,
+    "and(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.00026287672704880256,
+    "or(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.00024598421595384837,
+    "or(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.0002425375595892382,
+    "C": 0.00022832669025129096,
+    "and(BOX(THEM(THEM)),BOX1(THEM(THEM)))": 0.00022239859061151706,
+    "BOX(THEM(^BOX1(THEM(^C))))": 0.0001453540953848972,
+    "BOX(THEM(^BOX(THEM(^C))))": 0.0001351896163150113,
+    "and(BOX(THEM(ME)),BOX1(THEM(^C)))": 0.00012729923535518018,
+    "BOX1(THEM(^BOX1(THEM(^C))))": 0.00012147688345153919,
+    "BOX1(THEM(^BOX(THEM(ME))))": 0.0001157286542542049,
+    "BOX1(THEM(^BOX(THEM(THEM))))": 0.00011337961693472187
+   },
+   "top_coop": "BOX(THEM(ME))",
+   "pi_top": 0.17406124637648515,
+   "exit_total": 4.852210148152842e-05,
+   "N_exit": 0.48522101481528424,
+   "exits": [
+    {
+     "mutant": "C",
+     "weight": 4.6647113580319936e-05,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "BOX1(THEM(ME))",
+     "weight": 5.052562191810822e-07,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "BOX1(THEM(THEM))",
+     "weight": 5.044974922361878e-07,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "BOX(THEM(THEM))",
+     "weight": 5.044974922361878e-07,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    }
+   ],
+   "entry": {
+    "mutant": "BOX(THEM(ME))",
+    "weight": 2.208722019828805e-05,
+    "rho": 0.004351378610733737,
+    "N_rho": 43.513786107337374,
+    "mp_log_rho": -5.43726256208296,
+    "chain_log_rho": -5.43726256208296
+   },
+   "strict_invaders_of_top": [],
+   "t": 405.0683708190918
+  },
+  {
+   "label": "longgraft all family plays",
+   "N": 10000,
+   "n_classes": 481,
+   "pcc": 0.6318034536876275,
+   "pi_D": 0.36799082760707114,
+   "poly": 3.38647177482815e-07,
+   "n_states": 657,
+   "n_deep": 0,
+   "n_deep_poly": 0,
+   "log10_cut": -9.887642106989128,
+   "residual": 1.0735408584758228e-14,
+   "twins": false,
+   "support": [
+    [
+     "D 1.00",
+     0.36799082760707114
+    ],
+    [
+     "BOX(THEM(ME)) 1.00",
+     0.17405959901404336
+    ],
+    [
+     "BOX1(THEM(ME)) 1.00",
+     0.1729081981475924
+    ],
+    [
+     "BOX(THEM(THEM)) 1.00",
+     0.15719779209944587
+    ],
+    [
+     "and(BOX1(THEM(ME)),not(BOX(THEM(ME)))) 1.00",
+     0.04662788853725208
+    ],
+    [
+     "and(BOX1(THEM(ME)),not(BOX(THEM(THEM)))) 1.00",
+     0.04611229148038469
+    ],
+    [
+     "BOX1(THEM(THEM)) 1.00",
+     0.010686614368298378
+    ],
+    [
+     "and(BOX(THEM(ME)),BOXD1(THEM(^D))) 1.00",
+     0.006423107382675277
+    ],
+    [
+     "and(BOX1(THEM(THEM)),not(BOX(THEM(THEM)))) 1.00",
+     0.0029517696756207273
+    ],
+    [
+     "BOX1(THEM(^C)) 1.00",
+     0.0027426962121264845
+    ]
+   ],
+   "pi_mono": {
+    "D": 0.36799082760707114,
+    "BOX(THEM(ME))": 0.17405959901404336,
+    "BOX1(THEM(ME))": 0.1729081981475924,
+    "BOX(THEM(THEM))": 0.15719779209944587,
+    "and(BOX1(THEM(ME)),not(BOX(THEM(ME))))": 0.04662788853725208,
+    "and(BOX1(THEM(ME)),not(BOX(THEM(THEM))))": 0.04611229148038469,
+    "BOX1(THEM(THEM))": 0.010686614368298378,
+    "and(BOX(THEM(ME)),BOXD1(THEM(^D)))": 0.006423107382675277,
+    "and(BOX1(THEM(THEM)),not(BOX(THEM(THEM))))": 0.0029517696756207273,
+    "BOX1(THEM(^C))": 0.0027426962121264845,
+    "BOX(THEM(^C))": 0.0027426221112500848,
+    "BOX(THEM(^BOX(THEM(THEM))))": 0.0010604896311241924,
+    "BOX1(THEM(^BOX1(THEM(ME))))": 0.001012389128576448,
+    "BOX(THEM(^BOX1(THEM(ME))))": 0.0009776249075742508,
+    "BOX(THEM(^BOX1(THEM(THEM))))": 0.00097761558450347,
+    "BOX1(THEM(^BOX1(THEM(THEM))))": 0.0009750606864690963,
+    "or(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.00048507081775259116,
+    "and(BOX(THEM(THEM)),BOX1(THEM(ME)))": 0.00030427943236266674,
+    "and(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.00026639872663425347,
+    "and(BOX(THEM(ME)),BOX1(THEM(THEM)))": 0.00026356434488557603,
+    "and(BOX(THEM(ME)),BOX1(THEM(ME)))": 0.00026353007343778666,
+    "and(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.0002628742389091898,
+    "or(BOX(THEM(ME)),BOX1(THEM(ME)))": 0.0002600303925287513,
+    "or(BOX(THEM(ME)),BOX(THEM(THEM)))": 0.0002459818878941487,
+    "or(BOX1(THEM(ME)),BOX1(THEM(THEM)))": 0.0002425352626126585,
+    "C": 0.00022832163719208268,
+    "and(BOX(THEM(THEM)),BOX1(THEM(THEM)))": 0.00022239648487815258,
+    "BOX(THEM(^BOX1(THEM(^C))))": 0.00014535272531068216,
+    "BOX(THEM(^BOX(THEM(^C))))": 0.00013518833580307454,
+    "and(BOX(THEM(ME)),BOX1(THEM(^C)))": 0.00012730071487468278,
+    "BOX1(THEM(^BOX1(THEM(^C))))": 0.00012147573330154504,
+    "BOX1(THEM(^BOX(THEM(ME))))": 0.00011572755823873928,
+    "BOX1(THEM(^BOX(THEM(THEM))))": 0.00011337854314507558
+   },
+   "top_coop": "BOX(THEM(ME))",
+   "pi_top": 0.17405959901404336,
+   "exit_total": 4.852210148152842e-05,
+   "N_exit": 0.48522101481528424,
+   "exits": [
+    {
+     "mutant": "C",
+     "weight": 4.6647113580319936e-05,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "BOX1(THEM(THEM))",
+     "weight": 5.044974922361878e-07,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "BOX1(THEM(ME))",
+     "weight": 5.044974922361878e-07,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    },
+    {
+     "mutant": "BOX(THEM(THEM))",
+     "weight": 5.044974922361878e-07,
+     "rho": 9.999999999999998e-05,
+     "N_rho": 0.9999999999999998,
+     "kind": "neutral",
+     "mp_log_rho": -9.210340371976184,
+     "chain_log_rho": -9.210340371976184,
+     "mp_abs_err": 6.776263578034403e-20
+    }
+   ],
+   "entry": {
+    "mutant": "BOX(THEM(ME))",
+    "weight": 2.208722019828805e-05,
+    "rho": 0.004351378610733737,
+    "N_rho": 43.513786107337374,
+    "mp_log_rho": -5.43726256208296,
+    "chain_log_rho": -5.43726256208296
+   },
+   "strict_invaders_of_top": [],
+   "t": 401.77028799057007
+  }
+ ],
+ "main_coop": 0.1467255094000769,
+ "main_expl": -0.0782403634515546,
+ "interaction": -0.1076450452804465
+}

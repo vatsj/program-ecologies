@@ -1,0 +1,50 @@
+{
+ "n": 8,
+ "b": 54,
+ "cut": "c",
+ "four": null,
+ "goff": 0,
+ "method": "targeted",
+ "n_contents": 260656,
+ "gl_true_contents": 59982,
+ "K_derived_contents": 28487,
+ "missing_contents": 31495,
+ "certified_contents": 31491,
+ "uncertified_contents": 4,
+ "uncertified_w": 4.138922581561501e-11,
+ "uncertified_examples": [
+  "~P[not(and(BOX(THEM(ME)),BOX1(THEM(ME))))@54,and(BOXD(THEM(ME)),BOXD1(THEM(ME)))@54]",
+  "(~[54]F -> ~P[not(and(BOX(THEM(ME)),BOX1(THEM(ME))))@54,and(BOXD(THEM(ME)),BOXD1(THEM(ME)))@54])",
+  "P[and(BOXD(THEM(ME)),BOXD1(THEM(ME)))@54,not(and(BOX(THEM(ME)),BOX1(THEM(ME))))@54]",
+  "(~[54]F -> P[and(BOXD(THEM(ME)),BOXD1(THEM(ME)))@54,not(and(BOX(THEM(ME)),BOX1(THEM(ME))))@54])"
+ ],
+ "newly_derived_contents": 4,
+ "newly_derived_w": 4.138922581561501e-11,
+ "newly_derived_examples": [
+  "(~[54]F -> P[and(BOXD(THEM(ME)),BOXD1(THEM(ME)))@54,not(and(BOX(THEM(ME)),BOX1(THEM(ME))))@54])",
+  "(~[54]F -> ~P[not(and(BOX(THEM(ME)),BOX1(THEM(ME))))@54,and(BOXD(THEM(ME)),BOXD1(THEM(ME)))@54])",
+  "P[and(BOXD(THEM(ME)),BOXD1(THEM(ME)))@54,not(and(BOX(THEM(ME)),BOX1(THEM(ME))))@54]",
+  "~P[not(and(BOX(THEM(ME)),BOX1(THEM(ME))))@54,and(BOXD(THEM(ME)),BOXD1(THEM(ME)))@54]"
+ ],
+ "derived_contents": 28491,
+ "gl_true_atoms": 143269,
+ "derived_atoms": 88908,
+ "gl_true_w": 0.03294591900822676,
+ "derived_w": 0.03267121553647088,
+ "Kc_goals": 4,
+ "Kc_sound_checked": 20,
+ "sound_bad": 0,
+ "diff_vs_K": 2,
+ "diff_vs_free": 34040,
+ "t_K": 858.1511280536652,
+ "t_cert": 6.355072021484375,
+ "t_Kc": 4.111576795578003,
+ "checker": {
+  "goals": 4,
+  "size_mismatch": 0,
+  "dist": 24,
+  "replayed": 8,
+  "fail": 0
+ },
+ "t": 870.6781680583954
+}
