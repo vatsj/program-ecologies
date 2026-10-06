@@ -165,3 +165,11 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   per lifetime), **lazy** (c·b only against non-constant non-copy opponents, with copy rules (a) identical budgeted
   program, (b) same source at any budget, (c) extensionally identical play); **N·Δ** and **fixation ratio N·ρ** on
   the decisive edge (≈ 1 + w·c·b/2 for the amortized ALLC exit).
+- **Modal divide-the-dollar:** **P / P′** — accept / refuse certified greed (P′ = `if(BOX(S1),S5,S3)`: exploit a
+  certified conceder, otherwise demand 1/2); **A5** = `if(BOX(S5),S1,S3)`, the one-atom accommodator; **G** — the
+  S5–A5 polymorphism (2/3 S5, mean 5/18); **Löbian hawk** — `if(BOX_L(S1),·,S4)`, provably meek with its own copies;
+  **deep state** — a recurrent state every exit of which is deleterious (barrier linear in N); **support twin /
+  twin drift** — a payoff-identical relabelling of a deep state's members, reachable by free drift at rate
+  1/(x_r N), which the lumped chain under-weights; **seeded log-domain chain** — the chain solved in the log domain
+  with every deep polymorphism expanded, the instrument to use where deep states exist; **resistance to profitable
+  certified demands** — the property P′ has and P lacks, distinct from unfakeability.

@@ -148,6 +148,8 @@ Then $P(A\to B)\propto\sum_q\mu(q)\,\mathbf 1[\text{settles at }B]$, normalize r
 
 **Behavioral dedup (extensional arms only).** Two programs identical against every attractor are interchangeable for the chain. Collapse them *after* computing, and assign the merged class the summed $\mu$. Never in the source arm.
 
+**Solver caveat (2026-10-05, RESULTS "The modal arm on two-player divide-the-dollar").** The lazy linear-domain chain (`eager_poly=False`, exploration threshold θ) is not trustworthy once *deep polymorphisms* exist (recurrent mixed states every exit of which is deleterious): their flows underflow and the answer moves with θ (0.44 vs 0.75 at θ = 10⁻⁷ vs 10⁻⁹). Where such states can exist, use the seeded log-domain chain of `src/modal_dollar.py` (every deep state expanded, log-domain GTH) and report twin drift (free relabelling of a deep state's members at rate 1/(x_r N), which the lumped-resident fixation under-weights).
+
 ## 5. Games as config
 
 ```yaml

@@ -65,8 +65,12 @@ REJECTED.md the ones we dropped.
   removal; K loses exactly Con-dependent and 4-axiom cooperation and keeps PrudentBot from b = 11 (RESULTS "K at
   n = 8"). *Operating hypothesis refined:* a prover sound for its own derivability semantics, whose incompleteness
   removes Gödelian and Con-dependent cooperation; the realizable core is FairBot's family plus PrudentBot.
-- *Would settle it next:* a K with a sound 4-axiom rule (□A ⊢ □□A), to see whether PB2 and the ladder return and
-  whether fakers return with them; K beyond the modal fragment.
+- *Evidence (2026-10-05f, bargaining):* a sound reader certifies commitments as well as cooperation; in one-population
+  divide-the-dollar the free box at n = 7 does worse than the matched simulation grammar (Löbian shadows and hawks),
+  and "sound reading preferred" holds there only with a refusal rule for certified greed (RESULTS "The modal arm on
+  two-player divide-the-dollar").
+- *Would settle it next:* a K with a sound 4-axiom rule (running, `specs/2026-10-05-k-four.md`); K beyond the modal
+  fragment; a bounded prover in bargaining (hawks need Löb above the copy threshold).
 
 ## 3. Roles: `ROLE` or fixed roles with separate populations?
 - *Operating hypothesis (RS, 2026-10-04):* fixed roles with separate slot populations for every social-choice question;
@@ -76,7 +80,9 @@ REJECTED.md the ones we dropped.
   dictatorship of the largest demand (0.99 of π at N ≥ 300); `ROLE` keeps 50–50 at 0.69–0.83 until N ≈ 2·10⁴; one
   population without `ROLE` 0.91–1.00 until 5·10³; both one-population arms then lose efficiency to the greedy
   polymorphism. The role structure decides which split; the population structure decides whether efficiency
-  survives in lim_N; the no-`ROLE` control shows the 50–50 advantage comes from the structure, not the signal.
+  survives in lim_N; the no-`ROLE` control shows the 50–50 advantage comes from the structure, not the signal. In the one-atom modal
+  grammar (RESULTS "The modal arm on two-player divide-the-dollar") fixed-role π spreads over all splits (endpoints
+  0.23), so the rotating dictatorship depends on universal conceders being in the language.
 
 ## 4. The form of a compute price
 - *Options:* none; atoms/depth pricing; lazy (copy subsidy); certificate pricing (decidability = monotonicity); amortized
@@ -105,7 +111,7 @@ REJECTED.md the ones we dropped.
   deliberately violable; "threats hard to enforce" ≡ a symmetric threat point.
 - *Operating hypothesis:* efficiency first; for distribution, Θ(1/n) as a stable state with anonymity violable by slot
   asymmetry; universality over the club, accepting the 1/N leak as a mutation artifact (entry 1). The club is dropped as a target: it is a clique by declaration (RESULTS "The closed club").
-- *Evidence:* THEORY §3 "Distribution"; the club spec; RESULTS "Three-player majority divide-the-dollar" (2026-10-05): the pure chain with fixed roles selects rotating, mostly unfair pairs (a rotated dictatorship of the pivot); the grand coalition at thirds gets ≤ 0.017 and leaks through "accept a pair offer" bridges; source reading does not change it. Democracy as a stable state needs something beyond the pure chain. The union game (RESULTS "The union game", 2026-10-05) did not supply it: a quorum precondition is FairBot's handshake on strikes, the fair share is set by the prior (0.31 uniform vs 0.001 length prior), and the strike pact's wage check is fakeable (the polarity dilemma). The enforcement run (RESULTS "Incentive-compatible enforcement", 2026-10-05) reads "threats hard to enforce" as ex-post rationality on both sides and gets the smallest positive wage (0.75 intermediate under the length prior, workers 0.19), not equal division; a non-credible committed threat deters because the chain never tests it; equal division is unsupported under every commitment structure except a uniform named-program prior with a rational boss (0.55). Divide-the-dollar (RESULTS "Divide-the-dollar partitions", 2026-10-05): a Θ(1/n) fair split is not stochastically stable under fixed roles (≤ 0.003 of π at N ≥ 10³, the accommodator ratchet) but is the modal island outcome of the seed lottery (0.23–0.78; 0.94–1.00 with one population and migration). If the target is a fair *state*, the seed lottery delivers it and the mutation object does not: entry 1's choice of object decides this entry.
+- *Evidence:* THEORY §3 "Distribution"; the club spec; RESULTS "Three-player majority divide-the-dollar" (2026-10-05): the pure chain with fixed roles selects rotating, mostly unfair pairs (a rotated dictatorship of the pivot); the grand coalition at thirds gets ≤ 0.017 and leaks through "accept a pair offer" bridges; source reading does not change it. Democracy as a stable state needs something beyond the pure chain. The union game (RESULTS "The union game", 2026-10-05) did not supply it: a quorum precondition is FairBot's handshake on strikes, the fair share is set by the prior (0.31 uniform vs 0.001 length prior), and the strike pact's wage check is fakeable (the polarity dilemma). The enforcement run (RESULTS "Incentive-compatible enforcement", 2026-10-05) reads "threats hard to enforce" as ex-post rationality on both sides and gets the smallest positive wage (0.75 intermediate under the length prior, workers 0.19), not equal division; a non-credible committed threat deters because the chain never tests it; equal division is unsupported under every commitment structure except a uniform named-program prior with a rational boss (0.55). Divide-the-dollar (RESULTS "Divide-the-dollar partitions", 2026-10-05): a Θ(1/n) fair split is not stochastically stable under fixed roles (≤ 0.003 of π at N ≥ 10³, the accommodator ratchet) but is the modal island outcome of the seed lottery (0.23–0.78; 0.94–1.00 with one population and migration). If the target is a fair *state*, the seed lottery delivers it and the mutation object does not: entry 1's choice of object decides this entry. Under sound reading the fair state also fails in lim_N for one population (Löbian hawk traps at 0.65 efficiency) while the lottery still makes 50–50 universal in both arms (RESULTS "The modal arm on two-player divide-the-dollar").
 
 ## 7. Rates
 - *RS:* no normative opinion. *RE's opinion:* the relevant quantity is the cost of a given confidence; in the seeds run

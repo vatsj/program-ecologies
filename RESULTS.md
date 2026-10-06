@@ -3245,6 +3245,51 @@ Under the amortized price P(C,C) rises with N at every c (at c = 1: 0.17 / 0.42 
 - **Lemma sharing needs weakening-aware certificates.** Exact-identity DAG gives almost nothing; analytic cut helps only where a boxed lemma is reused across Löb branches (PrudentBot 24 → 18); subsumption saves 30–40% for prudent provers; siblings stay ≥ 1.96× for prudent readers under every certified measure, so proof length is still not a closure mechanism.
 - **Amortized and cache-accounting prices do not rebuild the ladder:** N·Δ = c·b is N-independent, the fixation ratio is 1 + w·c·b/2, the exit slope is −1 and cooperation rises with N (the α = 1 path, now as a schedule). The per-match price rebuilds the ladder at n = 6 and n = 8. **Lazy pricing becomes a closure exactly when an ALLC punisher exists** (PrudentBot@16 at n = 8, absorbing even at c = 0.01): the copy subsidy is the moat.
 - *Realizability caveat.* K is a sound bounded calculus for the modal fragment, not a bounded PA prover; the prune uses GL decidability, which Turing-complete readers lack; lengths are minima in a stated calculus; prices are imposed schedules with verification events and cache lifetimes uncounted.
+## The modal arm on two-player divide-the-dollar: sound reading creates the leak, and Löbian hawks hold π (`runs/modal-dollar.md`, `runs/modal-dollar.json`, `runs/modal_dollar/`, `notes/modal-dollar.md`; spec `specs/2026-10-05-modal-dollar.md`, predictions in `predictions/2026-10-05-modal-dollar.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/modal_dollar.py`, on `dollar3`'s canonical reduction, `dollar_partitions`' chain, summary and lottery code, and `gl_proofs`). ε→0 chains (two solvers; see the methods finding), reduced subsystems, an augmentation arm, fixed roles, and ε = 0 lotteries. RE check: P′'s escape probability √(8w/(9πN)) agrees with the diffusion calculation (advantage slope 4w/9 once the mean's first-order decline is included).
+
+**What ran.** The static go/no-go checkpoint; paired modal/weak chains at n = 7, N = 10²–10⁵ (the repo's lazy linear-domain chain at θ = 10⁻⁷ and 10⁻⁹, which did not converge, and a new seeded log-domain chain with every deep polymorphism expanded); the reduced subsystems to N = 3·10⁵; augmentation, paired (P, P′ and their PA + Con twins at added mass 10⁻⁴, 10⁻³, 10⁻²; a P-only variant; the un-augmented arm kept); fixed roles (weak exact to 10⁵, modal at 10² and 10³); lotteries at (100, 64) and (400, 16), mN ∈ {0, 0.1}, 40 runs, both arms. *Not run:* the n = 11 chain (8,118 modal classes; the augmentation arm stands in); the modal fixed-role arm at N ≥ 10⁴ (a sparse solve over 42,025 states stopped after 42 CPU-minutes). *Deviations:* the evaluators are two-player re-implementations of `dollar3`'s, audited against GLS+Def (0 disagreements in 21,321 pairs at n = 7 and 6,000 sampled at n = 11); the matched weak arm ignores box levels so its grammar and prior are identical to the modal arm's, with divergence playing S1; P′'s 11-node spelling reduces to the one-atom `if(BOX(S1),S5,S3)`, so P′ is already in L₇.
+
+**Static checkpoint: go for P′, no-go for P.** Certificates (sequents, Löb steps): P′ vs A5 = `if(BOX(S5),S1,S3)` plays (S5, S1), both atoms (6, 2), a Löbian fixed point in which P′ exploits a certified conceder; P vs S5 plays (S1, S5), BOX(S5) (2, 0), P accepting certified greed; P′ vs P plays (S3, S3), nothing provable; the hawk X = `if(BOX(S1),S1,S4)` vs itself plays (S1, S1) (4, 1), provably meek with its own copies. P′ has no constant invader; its payoff entering G = S5 2/3 + A5 1/3 is exactly G's mean 5/18, its fixation probability is √(8w/(9πN)) (9.2·10⁻³ at N = 10³), and its fate is all-P′. P is a neutral neighbour of S3, S5 invades it strictly (ρ = 0.094), and P enters G strictly and lands on S5 2/3 + P 1/3 (sol's x_P = 1/3). In the weak arm S3 is the only self-efficient class and has no neutral neighbour, because a reader's self-play diverges to S1.
+
+**Deep states** (every outside mutant deleterious, so every exit has a barrier linear in N): modal arm 47 (0 monomorphic, 14 two-type, 33 three-type; encounter efficiency 0.27–0.85, none efficient; all mixtures of Löbian hawks with PA + Con doves); weak arm 27, including S3.
+
+**Paired n = 7 chains, P(efficient):**
+
+| N | modal, lazy linear chain θ 10⁻⁷ / 10⁻⁹ | modal, seeded log-domain chain | weak |
+|---|---|---|---|
+| 10² | 0.986 / 0.986 | 0.986 | 0.988 |
+| 10³ | 0.953 / 0.890 | 0.894 (efficient set 0.67, deep 0.22, greedy 0.02) | 1.000 |
+| 10⁴ | 0.445 / 0.750 | 0.653 (trap X+Z+V 1.000) | 1.000 |
+| 3·10⁴ / 10⁵ | 0.445 / 0.445 · 0.444 / 0.750 | 0.653 / 0.653 | 1.000 |
+
+The trap is X+Z+V = `if(BOX(S1),S1,S4)` 4/7 + `if(BOX1(S3),S3,S2)` 2/7 + `if(BOX1(S4),S2,S4)` 1/7; the greedy S5 polymorphism holds ≤ 0.03 of π at every N. The modal efficient set's exit falls like 1/N (log₁₀ per mutation event −5.7, −7.0, −7.4, −7.9 from 10³ to 10⁵) through S3 → Z (a neutral PA + Con shadow of S3) → X₁+Z, while its entry falls exponentially (−31.5, −84.7, −270 at 10⁴, 3·10⁴, 10⁵). In the weak arm every rate is exponential and S3's barrier is the largest.
+
+**Reduced subsystems** (log-domain, every state expanded; P(efficient), efficient odds in brackets): {S3, S5, A5}: 0.994 / 0.556 / 0.556 / 0.556 at N = 10³ / 10⁴ / 10⁵ / 3·10⁵, G absorbs; **{S3, S5, A5, P′}: 0.995 (85) / 0.985 (29) / 0.995 (92) / 0.997 (160), nothing absorbs, odds ∝ N^0.500**; {S3, S5, A5, P, P′}: 0.992 / 0.556 / 0.556 / 0.556, S5/P absorbs and P′ cannot enter it. **Augmentation:** modal P(efficient) is 0.653 at N ≥ 10⁴ for every added mass; at N = 10³ adding P and P′ lowers it from 0.894 to 0.846 (greedy mass 0.022 → 0.157), P alone at 10⁻² to 0.796; the weak arm stays at 1.000.
+
+**Caveat: twin drift.** Every modal deep state has a payoff twin whose relabelled state can be strictly invaded; the chain's lumped-resident fixation charges twin drift a frequency penalty, while true twin drift is free at rate 1/(x_r N). With twin moves the best path from X+Z+V into efficiency (exact Dijkstra) has weight 10^−46.1, 10^−48.5, 10^−51.1 at N = 10⁵, 3·10⁵, 10⁶ (∝ N^−5.0), while the efficient set's path into the trap stays ∝ N^−1; a full stationary solve with twin moves hit its 4,000-state cap.
+
+**Fixed roles.** No ratchet in this grammar, in either arm: at N = 10³ 50–50 0.292 / 0.293, 1/3-type splits 0.474 / 0.479, endpoints 0.233 / 0.228 (modal / weak); weak unchanged at 10⁴ and 10⁵. Every move between splits goes through a one-atom conceder aimed at a single demand; the n = 5 ratchet ran on universal conceders, which this grammar lacks. **Lotteries:** the arms are ≤ 0.01 apart in every cell; (100, 64): 50–50 0.526 / 0.520 at m = 0 and 1.000 / 1.000 at mN = 0.1; (400, 16): 0.759 / 0.769 and 0.998 / 1.000.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | both arms leak through accommodators; greedy polymorphism ≥ 0.8 of π by 3·10⁴ | **failed**, falsifier not fired (0.653; the modal trap is a Löbian hawk–dove mixture; the weak arm does not leak, having no shadows) |
+| RE 2 | P invaded by S5; ≤ 0.6 with P; P/S5 mixture at 1/3 | mechanism held (ρ = 0.094, x_P = 0.333); the ≤ 0.6 clause failed narrowly (0.653, the trap's efficiency); falsifier not fired |
+| RE 3 | P′ at best neutral in G; ≤ 0.6 with P′ | payoff clause held (exactly the mean); "at best neutral" **failed**: P′ rescues the subsystem at odds ∝ N^0.5; ≤ 0.6 failed narrowly |
+| RE 4 | fixed-role endpoints ≥ 0.9; lotteries match | fixed-role clause **failed, falsifier fired** (0.233); lottery clauses held |
+| S3, S4, S5, S8 | subagent's own | held |
+| S1, S2 (re-entry), S6, S7, S9 | subagent's own | failed (S2 re-entry, S7 and S9 with falsifiers fired) |
+
+**Reading.**
+- **Sound reading does not rescue one-population bargaining efficiency at n = 7, and it is what opens the leak.** The matched weak arm keeps S3 at 1.000 because no simulation reader can recognize itself; Löb gives every one-atom reader a neutral shadow of S3, the efficient set exits like 1/N, and π moves to Löbian hawk–dove polymorphisms from N ≈ 10⁴.
+- **The trap is a hawk that is provably meek with its own copies**, not the greedy polymorphism: because Löb lets the hawk avoid fighting itself, hawk–dove mixtures resist every single mutant.
+- **In isolation both hypotheses hold.** P′ (refuse certified greed, exploit certified concession) rescues G at the modal PD's √N rate; P (accept certified greed) creates S5/P, which nothing can re-enter. Unfakeability and resistance to profitable certified demands are different properties: P′ has both, P only the first.
+- **THEORY §9.2's characterization survives once it quantifies over traps:** each inefficient recurrent state needs a neutral, unfakeable efficient entrant; P′ is one for G; nothing is one for S5/P or the hawk mixtures.
+- **Methods:** the repo's linear-domain lazy chain is not trustworthy once deep polymorphisms exist (0.44 vs 0.75 at different θ); use the seeded log-domain chain, and account for twin drift, under which the lim_N failure stands but is polynomial (N^−4 to N^−5 on best paths) and which trap holds π is open.
+- Distribution: with fixed roles in this grammar π spreads over all splits (the n = 5 rotating dictatorship ran on universal conceders); the lottery makes 50–50 universal under migration in both arms, so bargaining under the primary object is unaffected. *Free-box caveat:* the hawk's meekness with copies and P′'s exploitation both need Löb, which a realizable bounded prover has only above its copy threshold.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

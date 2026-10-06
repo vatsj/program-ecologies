@@ -660,3 +660,18 @@ on-path-equivalent programs (astra), since several classes can carry the flux.
 **Subagent S3** ("unchanged over b ∈ {32, 54}"; 151 plays of μ-weight 10⁻⁹ change: the count keeps moving on rare disjunctive readers).
 
 **Design choices dropped:** the all-orders Knuth graph with cut on every n = 6 pair (does not fit for a third of pairs; normal-form graph with cut on every pair plus an all-orders 1-in-10 sample instead); unpruned cross-budget closures for the price catalogue (pruned closures agree on four unpruned cells); cut search on all 6,422 n = 8 establisher pairs (a 200-pair sample capped at 10⁵ expansions; cut-free measures cover all); a frequency-dependent cache price (the spec's c·b·k/N with k = 2 on single-mutant transitions used instead). **Not reached:** certification of the cut minima for the P12b self-proof, PrudentBot's sibling and four other sibling and ladder roots (reported as brackets or upper bounds).
+
+
+## Added 2026-10-05: the modal arm on divide-the-dollar (RESULTS.md, "The modal arm on two-player divide-the-dollar")
+
+**"At n = 7 both arms leak by the same mechanism; the greedy polymorphism holds ≥ 0.8 of π" (Fable, prediction 1).** Neither arm does. The modal arm's π goes to Löbian hawk–dove mixtures (greedy ≤ 0.03); the matched weak arm has no reader shadow because self-simulation diverges, and S3 holds 1.000. The n = 5 weak leak ran on probe readers, which this grammar lacks.
+
+**"P′ cannot re-enter the greedy polymorphism; at best neutral" (Fable, prediction 3, mechanism clause).** P′ is first-order neutral but positively frequency-dependent, with ρ = √(8w/(9πN)) ≫ 1/N; in {S3, S5, A5, P′} it rescues efficiency at odds ∝ N^0.5. The RE's first-draft idea, in its refusing form, holds where P is absent.
+
+**"P(efficient) ≤ 0.6 at 3·10⁴ with P / with P′" (Fable, predictions 2 and 3, one clause each).** 0.653, the trap's efficiency, not a P or P′ effect.
+
+**"Fixed roles keep the accommodator ratchet; endpoints ≥ 0.9" (Fable, prediction 4; subagent S7; falsifier fired).** Endpoints 0.23 in both arms: one-atom conceders target one demand each, so every split is two steps from every other; the ratchet needs universal conceders.
+
+**Subagent S1** (modal ≥ 0.75 at 3·10⁴ with √N odds; 0.653 with exponentially falling odds), **S2 re-entry clause** (P′ carries re-entry; re-entry from the binding trap is a deleterious fixation), **S6** (the reduced subsystem has the full chain's top cycle; P breaks it and the trap lies outside), **S9** (θ-convergence of the lazy chain; 0.44 vs 0.75).
+
+**Design choices dropped:** the n = 11 chain (8,118 classes); `eager_poly=True` in the lazy chain (did not finish); **the linear-domain lazy chain as the large-N instrument where deep polymorphisms exist** (underflow hides deep states behind tiny flows; the seeded log-domain chain replaces it); a full closure chain at N = 10⁴; a dense or sparse solve of the 42,025-state modal fixed-role chain at N ≥ 10⁴; the twin-corrected full stationary solve (4,000-state cap; replaced by exact best paths).
