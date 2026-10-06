@@ -398,3 +398,34 @@ check costs quoted here come from the validation runs (measurements of single ch
   ordered pair and outcome (512 checks per mode): accepted 99 / 66 / 103 / 112 / 90 in modes 0 / 1 / 2 / 3 / 5, false
   atoms accepted 0 in every mode (the naive checker's false atom needs a carrier paired with a script-less reader that
   runs the same checker, which random codes rarely produce; the designed counterexample is instance 6).
+
+## 2. Implementation and costs
+
+### 2.1 How it runs
+
+`src/lt_cert.py` appends the K_T^cert library to milestone 3's (milestone 3's indices and terms unchanged except the
+constant NLIB) and installs it into `lt_code`'s evaluator; the check cores are registered as deterministic cores, so
+milestone 3's core-run cache and regress lemma apply to them unchanged (both exact under the cap guard, notes §1.6).
+The host replay checker (`HostCheck`) is written from the rule table of §1.5 over the reference stepper with its own
+call-state decomposition; it counts no fuel, emulates nested checks recursively (a key already on its stack aborts the
+outermost check, as the term's regress does under cap monotonicity) and bounds EvR* by V/20 depth-weighted steps, a
+bound below the term's cost (tested). Production (`Producer`) is the frozen tactic of §1.9 on the host.
+
+### 2.2 Costs (runs/certificates-as-code.md §1; K = 10⁷)
+
+| check (reader checks the target's script) | inner steps W | first K with V = K/4 |
+|---|---|---|
+| CB by CB (twin; one validation) | 8,782 | 35,128 |
+| CB1 by CB1 (twin) | 12,757 | |
+| CB by CB1 and CB1 by CB (pair; two validations) | 21,541 | 86,164 |
+| CB by CBP and CBP by CB (two validations, one nested D check) | 30,491 | 121,964 |
+| CB1 by CBP and CBP by CB1 | 37,140 | 148,563 |
+| CBP by CBP (twin, nested D check) | 24,388 | 97,554 |
+| Ccert by any sound reader (acyclic, 2 nodes) | 2,065 | |
+
+A check costs W + 6 steps of its caller. The largest check returning T in any cell is 50,986 (CB1r checked by CBPh).
+Checking a pair costs about 2× a twin's single validation, plus a nested 10⁴-step check per PB-shaped side. Against
+milestone 3: FairBot's self-proof by search cost 1.1·10⁵ and PrudentBot's 9·10⁵, and distinct sources never finished;
+here every distinct pair finishes in 2–4·10⁴ (a pair of FB-shaped carriers from K ≈ 8.6·10⁴). Scripts are 2–8 nodes,
+two per carrier, ≈ 40–60 term nodes of storage per list, and production is 20–29 tactic nodes and at most 7 host check
+emulations per source.

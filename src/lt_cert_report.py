@@ -268,6 +268,53 @@ def main():
     md.append(table(rows, ['K', 'top-level search outcomes of searchers against carriers (T found, F refuted, TO interrupted)']))
     md.append('')
 
+    # ---------------- held-out rows against their class ----------------
+    cls = {'CBlet2': 'CB', 'CBw2': 'CB', 'CB1h': 'CB1', 'CB1r': 'CB1', 'CBPh': 'CBP', 'CBPr': 'CBP'}
+    md.append('Held-out rows against their class representative (arm S main cells; the held-out source carries the '
+              'production-set script of its class): columns where the pair (held-out vs column, column vs held-out) '
+              'differs from (class vs column, column vs class):\n')
+    rows = []
+    for K in KS:
+        m = mains[('S', K)]
+        if not m: continue
+        names = [n for n in m['names'] if n not in cls]
+        for h, k in cls.items():
+            diff = [y for y in names if (cell(m, h, y), cell(m, y, h)) != (cell(m, k, y), cell(m, y, k))]
+            rows.append([KN[K], h, k, ', '.join(diff) or 'none'])
+    md.append(table(rows, ['K', 'held-out', 'class', 'differing columns']))
+    md.append('')
+
+    # ---------------- supplements ----------------
+    extra = load('extra_')
+    if extra:
+        md.append('## 11. Supplement: cross-checker carriers whose scripts Run the other checker\'s call\n')
+        md.append('Run after the main cells. CBrun / CBS2run / CBNrun carry EvR*; ChkR[EvR*; Ax · Run] (Run in place of '
+                  'Hyp on the partner\'s call) plus the D script. Term regress events counted on a fresh evaluation.\n')
+        rows = []
+        for K, rs in extra.items():
+            for k, v in rs.items():
+                rows.append([K, k, v['result'], v['inner'], v['regress_events'], v['play_x'] + v['play_y']])
+        md.append(table(rows, ['K', 'check', 'result', 'inner steps', 'regress events', 'plays (x, y)']))
+        md.append('')
+        js['extra'] = extra
+    sp = load('selfprobe_O')
+    if sp:
+        md.append('## 12. Supplement: arm O with self-probe production\n')
+        md.append('Run after the main cells. The frozen procedure\'s probes are other carriers, so under the self-only '
+                  'checker no carrier got a C script and no twin cooperated in §3. Here each carrier\'s C script is '
+                  'produced against its own twin and carried.\n')
+        fam = ['CB', 'CB1', 'CBP', 'CBlet', 'CBwrap']
+        for K, r in sp.items():
+            rows = [[x] + [r['cells']['%s|%s' % (x, y)][0] + r['cells']['%s|%s' % (y, x)][0]
+                           for y in fam + ['Ccert', 'SFc', 'CB0']] for x in fam]
+            md.append('K = %s; scripts: %s\n' % (K, '; '.join('%s: %s' % kv for kv in r['scripts'].items())))
+            md.append(table(rows, ['row \\ col'] + fam + ['Ccert', 'SFc', 'CB0']))
+            md.append('')
+        js['selfprobe_O'] = sp
+    vpath = os.path.join(IN, 'verdicts.md')
+    if os.path.exists(vpath):
+        md.append(open(vpath).read())
+
     open(OUT_MD, 'w').write('\n'.join(md) + '\n')
     json.dump(js, open(OUT_JS, 'w'), indent=1, default=str)
     print('wrote', OUT_MD)

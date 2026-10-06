@@ -1,0 +1,3563 @@
+{
+ "bench": {
+  "task": "bench",
+  "checks": {
+   "CB|CB": {
+    "result": "T",
+    "inner": 8782,
+    "call_cost": 8788
+   },
+   "CB|CB1": {
+    "result": "T",
+    "inner": 21541,
+    "call_cost": 21547
+   },
+   "CB1|CB": {
+    "result": "T",
+    "inner": 21541,
+    "call_cost": 21547
+   },
+   "CB|CBP": {
+    "result": "T",
+    "inner": 30491,
+    "call_cost": 30497
+   },
+   "CBP|CB": {
+    "result": "T",
+    "inner": 30491,
+    "call_cost": 30497
+   },
+   "CB1|CBP": {
+    "result": "T",
+    "inner": 37140,
+    "call_cost": 37146
+   },
+   "CBP|CB1": {
+    "result": "T",
+    "inner": 37140,
+    "call_cost": 37146
+   },
+   "CBP|CBP": {
+    "result": "T",
+    "inner": 24388,
+    "call_cost": 24394
+   },
+   "CB1|CB1": {
+    "result": "T",
+    "inner": 12757,
+    "call_cost": 12763
+   },
+   "CB|CBlet": {
+    "result": "T",
+    "inner": 18166,
+    "call_cost": 18172
+   },
+   "CB|CBwrap": {
+    "result": "T",
+    "inner": 18526,
+    "call_cost": 18532
+   },
+   "CB|SFc": {
+    "result": "T",
+    "inner": 25078,
+    "call_cost": 25084
+   },
+   "CB|Ccert": {
+    "result": "T",
+    "inner": 10827,
+    "call_cost": 10833
+   },
+   "CB|LobC": {
+    "result": "T",
+    "inner": 17545,
+    "call_cost": 17551
+   },
+   "CB|CBsloppy": {
+    "result": "T",
+    "inner": 18298,
+    "call_cost": 18304
+   },
+   "CBP|CBsloppy": {
+    "result": "T",
+    "inner": 31442,
+    "call_cost": 31448
+   },
+   "CB|CBmut": {
+    "result": "T",
+    "inner": 28507,
+    "call_cost": 28513
+   },
+   "CB|Dcert": {
+    "result": "F",
+    "inner": 19599,
+    "call_cost": 19605
+   },
+   "CB|CB0": {
+    "result": "F",
+    "inner": 8857,
+    "call_cost": 8863
+   }
+  },
+  "scripts": {
+   "CB": [
+    {
+     "a": "C",
+     "script": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 7
+    },
+    {
+     "a": "D",
+     "script": "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 7
+    }
+   ],
+   "CB_storage_nodes": 65,
+   "CB_source_nodes": 83,
+   "CB1": [
+    {
+     "a": "C",
+     "script": "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]",
+     "nodes": 8,
+     "expanded_vs_CB_or_D": 10
+    },
+    {
+     "a": "D",
+     "script": "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 7
+    }
+   ],
+   "CB1_storage_nodes": 83,
+   "CB1_source_nodes": 114,
+   "CBP": [
+    {
+     "a": "C",
+     "script": "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]",
+     "nodes": 8,
+     "expanded_vs_CB_or_D": 10
+    },
+    {
+     "a": "D",
+     "script": "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 7
+    }
+   ],
+   "CBP_storage_nodes": 83,
+   "CBP_source_nodes": 117,
+   "CBlet": [
+    {
+     "a": "C",
+     "script": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 8
+    },
+    {
+     "a": "D",
+     "script": "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 8
+    }
+   ],
+   "CBlet_storage_nodes": 65,
+   "CBlet_source_nodes": 86,
+   "CBwrap": [
+    {
+     "a": "C",
+     "script": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 8
+    },
+    {
+     "a": "D",
+     "script": "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 8
+    }
+   ],
+   "CBwrap_storage_nodes": 65,
+   "CBwrap_source_nodes": 86,
+   "Ccert": [
+    {
+     "a": "C",
+     "script": "EvR*; Ax",
+     "nodes": 2,
+     "expanded_vs_CB_or_D": 4
+    }
+   ],
+   "Ccert_storage_nodes": 15,
+   "Ccert_source_nodes": 20,
+   "SFc": [
+    {
+     "a": "C",
+     "script": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 14
+    },
+    {
+     "a": "D",
+     "script": "EvR*; Ax",
+     "nodes": 2,
+     "expanded_vs_CB_or_D": 10
+    }
+   ],
+   "SFc_storage_nodes": 47,
+   "SFc_source_nodes": 60,
+   "LobC": [
+    {
+     "a": "C",
+     "script": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 7
+    },
+    {
+     "a": "D",
+     "script": "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 7
+    }
+   ],
+   "LobC_storage_nodes": 65,
+   "LobC_source_nodes": 83,
+   "CBsloppy": [
+    {
+     "a": "C",
+     "script": "EvR*; ChkR[EvR*; Ax \u00b7 Run]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 7
+    },
+    {
+     "a": "D",
+     "script": "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 7
+    }
+   ],
+   "CBsloppy_storage_nodes": 65,
+   "CBsloppy_source_nodes": 83,
+   "CBN": [
+    {
+     "a": "C",
+     "script": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 7
+    },
+    {
+     "a": "D",
+     "script": "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 7
+    }
+   ],
+   "CBN_storage_nodes": 65,
+   "CBN_source_nodes": 83,
+   "CBS2": [
+    {
+     "a": "C",
+     "script": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 7
+    },
+    {
+     "a": "D",
+     "script": "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+     "nodes": 5,
+     "expanded_vs_CB_or_D": 7
+    }
+   ],
+   "CBS2_storage_nodes": 65,
+   "CBS2_source_nodes": 83
+  },
+  "production": {
+   "CB": {
+    "tactic_nodes": 20,
+    "host_checks": 1,
+    "secs": 0.0,
+    "scripts": 2
+   },
+   "CB1": {
+    "tactic_nodes": 29,
+    "host_checks": 1,
+    "secs": 0.0,
+    "scripts": 2
+   },
+   "CBP": {
+    "tactic_nodes": 29,
+    "host_checks": 7,
+    "secs": 0.0,
+    "scripts": 2
+   },
+   "CBlet": {
+    "tactic_nodes": 20,
+    "host_checks": 1,
+    "secs": 0.0,
+    "scripts": 2
+   },
+   "CBwrap": {
+    "tactic_nodes": 20,
+    "host_checks": 1,
+    "secs": 0.0,
+    "scripts": 2
+   },
+   "CBlet2": {
+    "tactic_nodes": 20,
+    "host_checks": 1,
+    "secs": 0.0,
+    "scripts": 2
+   },
+   "CBw2": {
+    "tactic_nodes": 20,
+    "host_checks": 1,
+    "secs": 0.0,
+    "scripts": 2
+   },
+   "CB1h": {
+    "tactic_nodes": 29,
+    "host_checks": 1,
+    "secs": 0.0,
+    "scripts": 2
+   },
+   "CB1r": {
+    "tactic_nodes": 29,
+    "host_checks": 1,
+    "secs": 0.0,
+    "scripts": 2
+   },
+   "CBPh": {
+    "tactic_nodes": 29,
+    "host_checks": 7,
+    "secs": 0.0,
+    "scripts": 2
+   },
+   "CBPr": {
+    "tactic_nodes": 29,
+    "host_checks": 7,
+    "secs": 0.0,
+    "scripts": 2
+   }
+  },
+  "first_K": {
+   "CB|CB": 35128,
+   "CB|CB1": 86164,
+   "CB|CBP": 121964,
+   "CB1|CBP": 148563,
+   "CBP|CBP": 97554
+  },
+  "secs": 2.0
+ },
+ "decomposition": {
+  "1e5_X": {
+   "twins": 0,
+   "distinct": 0,
+   "Ccert": 3,
+   "SFc": 0
+  },
+  "1e5_O": {
+   "twins": 0,
+   "distinct": 0,
+   "Ccert": 3,
+   "SFc": 3
+  },
+  "1e5_S": {
+   "twins": 5,
+   "distinct": 6,
+   "Ccert": 4,
+   "SFc": 3
+  },
+  "1e6_X": {
+   "twins": 0,
+   "distinct": 0,
+   "Ccert": 3,
+   "SFc": 0
+  },
+  "1e6_O": {
+   "twins": 0,
+   "distinct": 0,
+   "Ccert": 3,
+   "SFc": 3
+  },
+  "1e6_S": {
+   "twins": 5,
+   "distinct": 10,
+   "Ccert": 4,
+   "SFc": 3
+  },
+  "1e7_X": {
+   "twins": 0,
+   "distinct": 0,
+   "Ccert": 3,
+   "SFc": 0
+  },
+  "1e7_O": {
+   "twins": 0,
+   "distinct": 0,
+   "Ccert": 3,
+   "SFc": 3
+  },
+  "1e7_S": {
+   "twins": 5,
+   "distinct": 10,
+   "Ccert": 4,
+   "SFc": 3
+  }
+ },
+ "audit": {
+  "1e5_S_0": {
+   "checks": 453,
+   "F": 245,
+   "host_agree": 392,
+   "T": 147,
+   "usesS": 59,
+   "sym_ok": 59,
+   "TO": 61
+  },
+  "1e5_S_1": {
+   "checks": 60,
+   "F": 53,
+   "host_agree": 60,
+   "T": 7,
+   "violations": 1,
+   "usesS": 1,
+   "sym_ok": 0
+  },
+  "1e5_S_4": {
+   "checks": 30,
+   "F": 9,
+   "host_agree": 30,
+   "T": 21,
+   "violations": 3
+  },
+  "1e5_S_5": {
+   "checks": 30,
+   "F": 26,
+   "host_agree": 30,
+   "T": 4
+  },
+  "1e5_O_2": {
+   "checks": 74,
+   "F": 64,
+   "host_agree": 74,
+   "T": 10
+  },
+  "1e5_X_3": {
+   "checks": 74,
+   "F": 68,
+   "host_agree": 74,
+   "T": 6
+  },
+  "1e6_S_0": {
+   "checks": 458,
+   "F": 254,
+   "host_agree": 458,
+   "T": 204,
+   "usesS": 115,
+   "sym_ok": 115
+  },
+  "1e6_S_1": {
+   "checks": 60,
+   "F": 53,
+   "host_agree": 60,
+   "T": 7,
+   "violations": 1,
+   "usesS": 1,
+   "sym_ok": 0
+  },
+  "1e6_S_4": {
+   "checks": 30,
+   "F": 9,
+   "host_agree": 30,
+   "T": 21,
+   "violations": 3
+  },
+  "1e6_S_5": {
+   "checks": 30,
+   "F": 26,
+   "host_agree": 30,
+   "T": 4
+  },
+  "1e6_O_2": {
+   "checks": 74,
+   "F": 64,
+   "host_agree": 74,
+   "T": 10
+  },
+  "1e6_X_3": {
+   "checks": 74,
+   "F": 68,
+   "host_agree": 74,
+   "T": 6
+  },
+  "1e7_S_0": {
+   "checks": 458,
+   "F": 254,
+   "host_agree": 458,
+   "T": 204,
+   "usesS": 115,
+   "sym_ok": 115
+  },
+  "1e7_S_1": {
+   "checks": 60,
+   "F": 53,
+   "host_agree": 60,
+   "T": 7,
+   "violations": 1,
+   "usesS": 1,
+   "sym_ok": 0
+  },
+  "1e7_S_4": {
+   "checks": 30,
+   "F": 9,
+   "host_agree": 30,
+   "T": 21,
+   "violations": 3
+  },
+  "1e7_S_5": {
+   "checks": 30,
+   "F": 26,
+   "host_agree": 30,
+   "T": 4
+  },
+  "1e7_O_2": {
+   "checks": 74,
+   "F": 64,
+   "host_agree": 74,
+   "T": 10
+  },
+  "1e7_X_3": {
+   "checks": 74,
+   "F": 68,
+   "host_agree": 74,
+   "T": 6
+  }
+ },
+ "heldout": {
+  "1e5": {
+   "CBlet2": {
+    "class": "CB",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+      5
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "TO",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "TO",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "class_script_covers": false
+   },
+   "CBw2": {
+    "class": "CB",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+      5
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "TO",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "TO",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "class_script_covers": false
+   },
+   "CB1h": {
+    "class": "CB1",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]",
+      8
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBP": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBP": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "class_script_covers": false
+   },
+   "CB1r": {
+    "class": "CB1",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]",
+      8
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBP": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBP": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "class_script_covers": false
+   },
+   "CBPh": {
+    "class": "CBP",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]",
+      8
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CB1": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBP": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBwrap": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "SFc": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "TO",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "D"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CB1": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBP": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBwrap": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "SFc": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "TO",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "D"
+    },
+    "class_script_covers": false
+   },
+   "CBPr": {
+    "class": "CBP",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Run]",
+      8
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CB1": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBP": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBwrap": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "F",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "D"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CB1": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBP": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBwrap": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "SFc": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "TO",
+      "play_heldout": "D",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "TO",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "class_script_covers": false
+   }
+  },
+  "1e6": {
+   "CBlet2": {
+    "class": "CB",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+      5
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "class_script_covers": true
+   },
+   "CBw2": {
+    "class": "CB",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+      5
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "class_script_covers": true
+   },
+   "CB1h": {
+    "class": "CB1",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]",
+      8
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "class_script_covers": true
+   },
+   "CB1r": {
+    "class": "CB1",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]",
+      8
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "class_script_covers": true
+   },
+   "CBPh": {
+    "class": "CBP",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]",
+      8
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "class_script_covers": true
+   },
+   "CBPr": {
+    "class": "CBP",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Run]",
+      8
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CB1": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBP": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBwrap": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "F",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "D"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "class_script_covers": false
+   }
+  },
+  "1e7": {
+   "CBlet2": {
+    "class": "CB",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+      5
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "class_script_covers": true
+   },
+   "CBw2": {
+    "class": "CB",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+      5
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "class_script_covers": true
+   },
+   "CB1h": {
+    "class": "CB1",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]",
+      8
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "class_script_covers": true
+   },
+   "CB1r": {
+    "class": "CB1",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]",
+      8
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "self": "C"
+    },
+    "class_script_covers": true
+   },
+   "CBPh": {
+    "class": "CBP",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]",
+      8
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "class_script_covers": true
+   },
+   "CBPr": {
+    "class": "CBP",
+    "fresh": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Run]",
+      8
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      5
+     ]
+    ],
+    "class_list": [
+     [
+      "C",
+      "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+     ]
+    ],
+    "carrying_class": {
+     "CB": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CB1": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBP": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBlet": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "CBwrap": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "F",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "D"
+    },
+    "carrying_fresh": {
+     "CB": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CB1": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBP": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBlet": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBwrap": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "SFc": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "LobC": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "C"
+     },
+     "CBsloppy": {
+      "check_of_heldout": "T",
+      "play_heldout": "C",
+      "play_other": "C"
+     },
+     "CBmut": {
+      "check_of_heldout": "F",
+      "play_heldout": "D",
+      "play_other": "D"
+     },
+     "self": "C"
+    },
+    "class_script_covers": false
+   }
+  }
+ },
+ "boundary": {
+  "task": "boundary",
+  "Vscan": {
+   "CB|CB": {
+    "W": 8782,
+    "V=W-1": {
+     "check": "TO",
+     "inner": 8781,
+     "play_xy": "D",
+     "play_yx": "D"
+    },
+    "V=W+0": {
+     "check": "T",
+     "inner": 8782,
+     "play_xy": "C",
+     "play_yx": "C"
+    },
+    "V=W+1": {
+     "check": "T",
+     "inner": 8782,
+     "play_xy": "C",
+     "play_yx": "C"
+    }
+   },
+   "CB|CB1": {
+    "W": 21541,
+    "V=W-1": {
+     "check": "TO",
+     "inner": 21540,
+     "play_xy": "D",
+     "play_yx": "D"
+    },
+    "V=W+0": {
+     "check": "T",
+     "inner": 21541,
+     "play_xy": "C",
+     "play_yx": "C"
+    },
+    "V=W+1": {
+     "check": "T",
+     "inner": 21541,
+     "play_xy": "C",
+     "play_yx": "C"
+    }
+   },
+   "CB|CBP": {
+    "W": 30491,
+    "V=W-1": {
+     "check": "TO",
+     "inner": 30490,
+     "play_xy": "D",
+     "play_yx": "D"
+    },
+    "V=W+0": {
+     "check": "T",
+     "inner": 30491,
+     "play_xy": "C",
+     "play_yx": "C"
+    },
+    "V=W+1": {
+     "check": "T",
+     "inner": 30491,
+     "play_xy": "C",
+     "play_yx": "C"
+    }
+   },
+   "CB1|CBP": {
+    "W": 37140,
+    "V=W-1": {
+     "check": "TO",
+     "inner": 37139,
+     "play_xy": "D",
+     "play_yx": "D"
+    },
+    "V=W+0": {
+     "check": "T",
+     "inner": 37140,
+     "play_xy": "C",
+     "play_yx": "C"
+    },
+    "V=W+1": {
+     "check": "T",
+     "inner": 37140,
+     "play_xy": "C",
+     "play_yx": "C"
+    }
+   },
+   "SFc|CB": {
+    "W": 16315,
+    "V=W-1": {
+     "check": "TO",
+     "inner": 16314,
+     "play_xy": "D",
+     "play_yx": "D"
+    },
+    "V=W+0": {
+     "check": "T",
+     "inner": 16315,
+     "play_xy": "C",
+     "play_yx": "C"
+    },
+    "V=W+1": {
+     "check": "T",
+     "inner": 16315,
+     "play_xy": "C",
+     "play_yx": "C"
+    }
+   }
+  },
+  "Kscan": {
+   "CB|CB": {
+    "static_boundary": 25010,
+    "K=b-2": {
+     "check_x_by_y": "F",
+     "play_xy": "D",
+     "steps_xy": 8256,
+     "play_yx": "D"
+    },
+    "K=b-1": {
+     "check_x_by_y": "F",
+     "play_xy": "D",
+     "steps_xy": 8547,
+     "play_yx": "D"
+    },
+    "K=b+0": {
+     "check_x_by_y": "T",
+     "play_xy": "C",
+     "steps_xy": 8792,
+     "play_yx": "C"
+    },
+    "K=b+1": {
+     "check_x_by_y": "T",
+     "play_xy": "C",
+     "steps_xy": 8792,
+     "play_yx": "C"
+    }
+   },
+   "CB|CB1": {
+    "static_boundary": 50017,
+    "K=b-2": {
+     "check_x_by_y": "F",
+     "play_xy": "D",
+     "steps_xy": 12162,
+     "play_yx": "D"
+    },
+    "K=b-1": {
+     "check_x_by_y": "F",
+     "play_xy": "D",
+     "steps_xy": 12461,
+     "play_yx": "D"
+    },
+    "K=b+0": {
+     "check_x_by_y": "T",
+     "play_xy": "C",
+     "steps_xy": 21551,
+     "play_yx": "C"
+    },
+    "K=b+1": {
+     "check_x_by_y": "T",
+     "play_xy": "C",
+     "steps_xy": 21551,
+     "play_yx": "C"
+    }
+   },
+   "CB1|CB": {
+    "static_boundary": 50017,
+    "K=b-2": {
+     "check_x_by_y": "F",
+     "play_xy": "D",
+     "steps_xy": 20930,
+     "play_yx": "D"
+    },
+    "K=b-1": {
+     "check_x_by_y": "F",
+     "play_xy": "D",
+     "steps_xy": 21229,
+     "play_yx": "D"
+    },
+    "K=b+0": {
+     "check_x_by_y": "T",
+     "play_xy": "C",
+     "steps_xy": 43099,
+     "play_yx": "C"
+    },
+    "K=b+1": {
+     "check_x_by_y": "T",
+     "play_xy": "C",
+     "steps_xy": 43099,
+     "play_yx": "C"
+    }
+   },
+   "CB|CBP": {
+    "static_boundary": 50017,
+    "K=b-2": {
+     "check_x_by_y": "F",
+     "play_xy": "D",
+     "steps_xy": 12171,
+     "play_yx": "D"
+    },
+    "K=b-1": {
+     "check_x_by_y": "F",
+     "play_xy": "D",
+     "steps_xy": 12470,
+     "play_yx": "D"
+    },
+    "K=b+0": {
+     "check_x_by_y": "TO",
+     "play_xy": "D",
+     "steps_xy": 25010,
+     "play_yx": "D"
+    },
+    "K=b+1": {
+     "check_x_by_y": "TO",
+     "play_xy": "D",
+     "steps_xy": 25010,
+     "play_yx": "D"
+    }
+   },
+   "CBP|CB": {
+    "static_boundary": 50017,
+    "K=b-2": {
+     "check_x_by_y": "F",
+     "play_xy": "D",
+     "steps_xy": 20939,
+     "play_yx": "D"
+    },
+    "K=b-1": {
+     "check_x_by_y": "F",
+     "play_xy": "D",
+     "steps_xy": 21238,
+     "play_yx": "D"
+    },
+    "K=b+0": {
+     "check_x_by_y": "TO",
+     "play_xy": "D",
+     "steps_xy": 25010,
+     "play_yx": "D"
+    },
+    "K=b+1": {
+     "check_x_by_y": "TO",
+     "play_xy": "D",
+     "steps_xy": 25010,
+     "play_yx": "D"
+    }
+   }
+  },
+  "secs": 0.5
+ },
+ "fuzz": {
+  "0": {
+   "checks": 3528,
+   "accepted": 591,
+   "violations": 0,
+   "examples": []
+  },
+  "1": {
+   "checks": 3528,
+   "accepted": 909,
+   "violations": 36,
+   "examples": [
+    {
+     "t_size": 242,
+     "a": "C"
+    },
+    {
+     "t_size": 242,
+     "a": "C"
+    },
+    {
+     "t_size": 242,
+     "a": "C"
+    }
+   ]
+  },
+  "2": {
+   "checks": 3528,
+   "accepted": 767,
+   "violations": 0,
+   "examples": []
+  },
+  "3": {
+   "checks": 3528,
+   "accepted": 715,
+   "violations": 0,
+   "examples": []
+  },
+  "5": {
+   "checks": 3528,
+   "accepted": 815,
+   "violations": 0,
+   "examples": []
+  }
+ },
+ "plateau": {
+  "1e5->1e6": [
+   "CB|CBP",
+   "CB|CBmut",
+   "CB|CBPh",
+   "CB1|CBP",
+   "CB1|CBmut",
+   "CB1|CB1h",
+   "CB1|CB1r",
+   "CB1|CBPh",
+   "CBP|CB",
+   "CBP|CB1",
+   "CBP|CBlet",
+   "CBP|CBwrap",
+   "CBP|CBlet2",
+   "CBP|CBw2",
+   "CBP|CB1h",
+   "CBP|CB1r",
+   "CBP|CBPh",
+   "CBlet|CBP",
+   "CBlet|CBmut",
+   "CBlet|CBPh",
+   "CBwrap|CBP",
+   "CBwrap|CBmut",
+   "CBwrap|CBPh",
+   "CBmut|CB",
+   "CBmut|CB1",
+   "CBmut|CBlet",
+   "CBmut|CBwrap",
+   "CBmut|CBlet2",
+   "CBmut|CBw2",
+   "CBmut|CB1h",
+   "CBmut|CB1r",
+   "FB_code|Ccert",
+   "FB_code|FB_code",
+   "FB1_code|C",
+   "FB1_code|Ccert",
+   "G_code|Ccert",
+   "CBlet2|CBP",
+   "CBlet2|CBmut",
+   "CBlet2|CBPh",
+   "CBw2|CBP",
+   "CBw2|CBmut",
+   "CBw2|CBPh",
+   "CB1h|CB1",
+   "CB1h|CBP",
+   "CB1h|CBmut",
+   "CB1h|CB1r",
+   "CB1h|CBPh",
+   "CB1r|CB1",
+   "CB1r|CBP",
+   "CB1r|CBmut",
+   "CB1r|CB1h",
+   "CB1r|CBPh",
+   "CBPh|CB",
+   "CBPh|CB1",
+   "CBPh|CBP",
+   "CBPh|CBlet",
+   "CBPh|CBwrap",
+   "CBPh|CBlet2",
+   "CBPh|CBw2",
+   "CBPh|CB1h",
+   "CBPh|CB1r",
+   "CBPh|CBPh"
+  ],
+  "1e6->1e7": [
+   "SF|FB_code",
+   "SF|FB1_code",
+   "SFc|FB_code",
+   "SFc|FB1_code",
+   "FB_code|SF",
+   "FB_code|SFc",
+   "FB1_code|SF",
+   "FB1_code|SFc",
+   "FB1_code|FB1_code",
+   "PB_code|PB_code"
+  ]
+ },
+ "extra": {
+  "1000000": {
+   "CB checked by CBS2run": {
+    "result": "F",
+    "inner": 8801,
+    "regress_events": 0,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CBS2run checked by CB": {
+    "result": "F",
+    "inner": 17633,
+    "regress_events": 0,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CBrun checked by CBS2": {
+    "result": "F",
+    "inner": 17631,
+    "regress_events": 0,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CBrun checked by CBS2run": {
+    "result": "TO",
+    "inner": 250000,
+    "regress_events": 1,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CB checked by CBNrun": {
+    "result": "F",
+    "inner": 8803,
+    "regress_events": 0,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CBNrun checked by CB": {
+    "result": "F",
+    "inner": 17643,
+    "regress_events": 0,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CBrun checked by CBNrun": {
+    "result": "TO",
+    "inner": 250000,
+    "regress_events": 1,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CBS2 checked by CBS2run": {
+    "result": "F",
+    "inner": 17583,
+    "regress_events": 0,
+    "play_x": "D",
+    "play_y": "D"
+   }
+  },
+  "10000000": {
+   "CB checked by CBS2run": {
+    "result": "F",
+    "inner": 8801,
+    "regress_events": 0,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CBS2run checked by CB": {
+    "result": "F",
+    "inner": 17633,
+    "regress_events": 0,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CBrun checked by CBS2": {
+    "result": "F",
+    "inner": 17631,
+    "regress_events": 0,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CBrun checked by CBS2run": {
+    "result": "TO",
+    "inner": 2500000,
+    "regress_events": 1,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CB checked by CBNrun": {
+    "result": "F",
+    "inner": 8803,
+    "regress_events": 0,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CBNrun checked by CB": {
+    "result": "F",
+    "inner": 17643,
+    "regress_events": 0,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CBrun checked by CBNrun": {
+    "result": "TO",
+    "inner": 2500000,
+    "regress_events": 1,
+    "play_x": "D",
+    "play_y": "D"
+   },
+   "CBS2 checked by CBS2run": {
+    "result": "F",
+    "inner": 17583,
+    "regress_events": 0,
+    "play_x": "D",
+    "play_y": "D"
+   }
+  }
+ },
+ "selfprobe_O": {
+  "100000": {
+   "scripts": {
+    "CB": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+    "CB1": "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Ax] \u00b7 Hyp]",
+    "CBP": "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]",
+    "CBlet": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+    "CBwrap": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+   },
+   "cells": {
+    "CB|CB": "C",
+    "CB|CB1": "D",
+    "CB|CBP": "D",
+    "CB|CBlet": "D",
+    "CB|CBwrap": "D",
+    "CB|C": "D",
+    "CB|D": "D",
+    "CB|Ccert": "C",
+    "CB|SFc": "C",
+    "CB|CB0": "D",
+    "CB1|CB": "D",
+    "CB1|CB1": "C",
+    "CB1|CBP": "D",
+    "CB1|CBlet": "D",
+    "CB1|CBwrap": "D",
+    "CB1|C": "D",
+    "CB1|D": "D",
+    "CB1|Ccert": "D",
+    "CB1|SFc": "D",
+    "CB1|CB0": "D",
+    "CBP|CB": "D",
+    "CBP|CB1": "D",
+    "CBP|CBP": "C",
+    "CBP|CBlet": "D",
+    "CBP|CBwrap": "D",
+    "CBP|C": "D",
+    "CBP|D": "D",
+    "CBP|Ccert": "D",
+    "CBP|SFc": "D",
+    "CBP|CB0": "D",
+    "CBlet|CB": "D",
+    "CBlet|CB1": "D",
+    "CBlet|CBP": "D",
+    "CBlet|CBlet": "C",
+    "CBlet|CBwrap": "D",
+    "CBlet|C": "D",
+    "CBlet|D": "D",
+    "CBlet|Ccert": "C",
+    "CBlet|SFc": "C",
+    "CBlet|CB0": "D",
+    "CBwrap|CB": "D",
+    "CBwrap|CB1": "D",
+    "CBwrap|CBP": "D",
+    "CBwrap|CBlet": "D",
+    "CBwrap|CBwrap": "C",
+    "CBwrap|C": "D",
+    "CBwrap|D": "D",
+    "CBwrap|Ccert": "C",
+    "CBwrap|SFc": "C",
+    "CBwrap|CB0": "D",
+    "C|CB": "C",
+    "C|CB1": "C",
+    "C|CBP": "C",
+    "C|CBlet": "C",
+    "C|CBwrap": "C",
+    "C|C": "C",
+    "C|D": "C",
+    "C|Ccert": "C",
+    "C|SFc": "C",
+    "C|CB0": "C",
+    "D|CB": "D",
+    "D|CB1": "D",
+    "D|CBP": "D",
+    "D|CBlet": "D",
+    "D|CBwrap": "D",
+    "D|C": "D",
+    "D|D": "D",
+    "D|Ccert": "D",
+    "D|SFc": "D",
+    "D|CB0": "D",
+    "Ccert|CB": "C",
+    "Ccert|CB1": "C",
+    "Ccert|CBP": "C",
+    "Ccert|CBlet": "C",
+    "Ccert|CBwrap": "C",
+    "Ccert|C": "C",
+    "Ccert|D": "C",
+    "Ccert|Ccert": "C",
+    "Ccert|SFc": "C",
+    "Ccert|CB0": "C",
+    "SFc|CB": "C",
+    "SFc|CB1": "D",
+    "SFc|CBP": "D",
+    "SFc|CBlet": "C",
+    "SFc|CBwrap": "C",
+    "SFc|C": "C",
+    "SFc|D": "D",
+    "SFc|Ccert": "C",
+    "SFc|SFc": "D",
+    "SFc|CB0": "C",
+    "CB0|CB": "D",
+    "CB0|CB1": "D",
+    "CB0|CBP": "D",
+    "CB0|CBlet": "D",
+    "CB0|CBwrap": "D",
+    "CB0|C": "D",
+    "CB0|D": "D",
+    "CB0|Ccert": "C",
+    "CB0|SFc": "C",
+    "CB0|CB0": "D"
+   }
+  },
+  "1000000": {
+   "scripts": {
+    "CB": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+    "CB1": "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Ax] \u00b7 Hyp]",
+    "CBP": "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]",
+    "CBlet": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+    "CBwrap": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+   },
+   "cells": {
+    "CB|CB": "C",
+    "CB|CB1": "D",
+    "CB|CBP": "D",
+    "CB|CBlet": "D",
+    "CB|CBwrap": "D",
+    "CB|C": "D",
+    "CB|D": "D",
+    "CB|Ccert": "C",
+    "CB|SFc": "C",
+    "CB|CB0": "D",
+    "CB1|CB": "D",
+    "CB1|CB1": "C",
+    "CB1|CBP": "D",
+    "CB1|CBlet": "D",
+    "CB1|CBwrap": "D",
+    "CB1|C": "D",
+    "CB1|D": "D",
+    "CB1|Ccert": "D",
+    "CB1|SFc": "D",
+    "CB1|CB0": "D",
+    "CBP|CB": "D",
+    "CBP|CB1": "D",
+    "CBP|CBP": "C",
+    "CBP|CBlet": "D",
+    "CBP|CBwrap": "D",
+    "CBP|C": "D",
+    "CBP|D": "D",
+    "CBP|Ccert": "D",
+    "CBP|SFc": "D",
+    "CBP|CB0": "D",
+    "CBlet|CB": "D",
+    "CBlet|CB1": "D",
+    "CBlet|CBP": "D",
+    "CBlet|CBlet": "C",
+    "CBlet|CBwrap": "D",
+    "CBlet|C": "D",
+    "CBlet|D": "D",
+    "CBlet|Ccert": "C",
+    "CBlet|SFc": "C",
+    "CBlet|CB0": "D",
+    "CBwrap|CB": "D",
+    "CBwrap|CB1": "D",
+    "CBwrap|CBP": "D",
+    "CBwrap|CBlet": "D",
+    "CBwrap|CBwrap": "C",
+    "CBwrap|C": "D",
+    "CBwrap|D": "D",
+    "CBwrap|Ccert": "C",
+    "CBwrap|SFc": "C",
+    "CBwrap|CB0": "D",
+    "C|CB": "C",
+    "C|CB1": "C",
+    "C|CBP": "C",
+    "C|CBlet": "C",
+    "C|CBwrap": "C",
+    "C|C": "C",
+    "C|D": "C",
+    "C|Ccert": "C",
+    "C|SFc": "C",
+    "C|CB0": "C",
+    "D|CB": "D",
+    "D|CB1": "D",
+    "D|CBP": "D",
+    "D|CBlet": "D",
+    "D|CBwrap": "D",
+    "D|C": "D",
+    "D|D": "D",
+    "D|Ccert": "D",
+    "D|SFc": "D",
+    "D|CB0": "D",
+    "Ccert|CB": "C",
+    "Ccert|CB1": "C",
+    "Ccert|CBP": "C",
+    "Ccert|CBlet": "C",
+    "Ccert|CBwrap": "C",
+    "Ccert|C": "C",
+    "Ccert|D": "C",
+    "Ccert|Ccert": "C",
+    "Ccert|SFc": "C",
+    "Ccert|CB0": "C",
+    "SFc|CB": "C",
+    "SFc|CB1": "D",
+    "SFc|CBP": "D",
+    "SFc|CBlet": "C",
+    "SFc|CBwrap": "C",
+    "SFc|C": "C",
+    "SFc|D": "D",
+    "SFc|Ccert": "C",
+    "SFc|SFc": "D",
+    "SFc|CB0": "C",
+    "CB0|CB": "D",
+    "CB0|CB1": "D",
+    "CB0|CBP": "D",
+    "CB0|CBlet": "D",
+    "CB0|CBwrap": "D",
+    "CB0|C": "D",
+    "CB0|D": "D",
+    "CB0|Ccert": "C",
+    "CB0|SFc": "C",
+    "CB0|CB0": "D"
+   }
+  },
+  "10000000": {
+   "scripts": {
+    "CB": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+    "CB1": "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Ax] \u00b7 Hyp]",
+    "CBP": "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]",
+    "CBlet": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+    "CBwrap": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+   },
+   "cells": {
+    "CB|CB": "C",
+    "CB|CB1": "D",
+    "CB|CBP": "D",
+    "CB|CBlet": "D",
+    "CB|CBwrap": "D",
+    "CB|C": "D",
+    "CB|D": "D",
+    "CB|Ccert": "C",
+    "CB|SFc": "C",
+    "CB|CB0": "D",
+    "CB1|CB": "D",
+    "CB1|CB1": "C",
+    "CB1|CBP": "D",
+    "CB1|CBlet": "D",
+    "CB1|CBwrap": "D",
+    "CB1|C": "D",
+    "CB1|D": "D",
+    "CB1|Ccert": "D",
+    "CB1|SFc": "D",
+    "CB1|CB0": "D",
+    "CBP|CB": "D",
+    "CBP|CB1": "D",
+    "CBP|CBP": "C",
+    "CBP|CBlet": "D",
+    "CBP|CBwrap": "D",
+    "CBP|C": "D",
+    "CBP|D": "D",
+    "CBP|Ccert": "D",
+    "CBP|SFc": "D",
+    "CBP|CB0": "D",
+    "CBlet|CB": "D",
+    "CBlet|CB1": "D",
+    "CBlet|CBP": "D",
+    "CBlet|CBlet": "C",
+    "CBlet|CBwrap": "D",
+    "CBlet|C": "D",
+    "CBlet|D": "D",
+    "CBlet|Ccert": "C",
+    "CBlet|SFc": "C",
+    "CBlet|CB0": "D",
+    "CBwrap|CB": "D",
+    "CBwrap|CB1": "D",
+    "CBwrap|CBP": "D",
+    "CBwrap|CBlet": "D",
+    "CBwrap|CBwrap": "C",
+    "CBwrap|C": "D",
+    "CBwrap|D": "D",
+    "CBwrap|Ccert": "C",
+    "CBwrap|SFc": "C",
+    "CBwrap|CB0": "D",
+    "C|CB": "C",
+    "C|CB1": "C",
+    "C|CBP": "C",
+    "C|CBlet": "C",
+    "C|CBwrap": "C",
+    "C|C": "C",
+    "C|D": "C",
+    "C|Ccert": "C",
+    "C|SFc": "C",
+    "C|CB0": "C",
+    "D|CB": "D",
+    "D|CB1": "D",
+    "D|CBP": "D",
+    "D|CBlet": "D",
+    "D|CBwrap": "D",
+    "D|C": "D",
+    "D|D": "D",
+    "D|Ccert": "D",
+    "D|SFc": "D",
+    "D|CB0": "D",
+    "Ccert|CB": "C",
+    "Ccert|CB1": "C",
+    "Ccert|CBP": "C",
+    "Ccert|CBlet": "C",
+    "Ccert|CBwrap": "C",
+    "Ccert|C": "C",
+    "Ccert|D": "C",
+    "Ccert|Ccert": "C",
+    "Ccert|SFc": "C",
+    "Ccert|CB0": "C",
+    "SFc|CB": "C",
+    "SFc|CB1": "D",
+    "SFc|CBP": "D",
+    "SFc|CBlet": "C",
+    "SFc|CBwrap": "C",
+    "SFc|C": "C",
+    "SFc|D": "D",
+    "SFc|Ccert": "C",
+    "SFc|SFc": "D",
+    "SFc|CB0": "C",
+    "CB0|CB": "D",
+    "CB0|CB1": "D",
+    "CB0|CBP": "D",
+    "CB0|CBlet": "D",
+    "CB0|CBwrap": "D",
+    "CB0|C": "D",
+    "CB0|D": "D",
+    "CB0|Ccert": "C",
+    "CB0|SFc": "C",
+    "CB0|CB0": "D"
+   }
+  }
+ }
+}
