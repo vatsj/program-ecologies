@@ -1294,6 +1294,44 @@ def cmd_lottery(a):
     json.dump(dict(rows=rows, summary=summ, paired=pairs), open(path, 'w'), default=str, indent=1)
 
 
+def tables_md():
+    """Markdown tables for runs/guard-trait.md from the run files."""
+    v, cat, L, gd = base()
+    rows = json.load(open(opath('chains.json')))
+    by = {(r['arm'], r['kernel_req'], r['prior_key'], r['N']): r for r in rows}
+    C = Cat(v, cat, L, PRIORS['u']); tw = C.twins(); names = C.names
+    fk, pt, _, _ = faker_partner_sets(v, cat, L)
+    fkset = set(fk); ptset = set(pt)
+    core0 = {'BOX(THEM(ME))', 'BOX1(THEM(ME))', 'and(BOX(THEM(ME)),BOXD1(THEM(^D)))', 'BOX(THEM(THEM))', 'BOX1(THEM(THEM))'}
+    lines = []
+    lines.append('| cell | kernel | prior | N | P(C,C) | π(D) | π active L | of which core near-twins / P\\*-type partners / fakers / other | π neutral L | twin allocation | coop π: g = 0 / L neutral / L active | blocks | states | residual | lazy P(C,C) |')
+    lines.append('|' + '---|' * 15)
+    for key in sorted(by, key=lambda k: (k[0] != 'mixed', k[0], k[1], k[2], k[3])):
+        r = by[key]
+        gpi = np.array(r['gpi'])
+        if len(gpi) == len(cat) and key[0] not in ('sham',):
+            act = [i for i in range(len(cat)) if cat[i][1] == 1 and not tw[i]]
+            nt = sum(gpi[i] for i in act if L.rep[cat[i][0]] in core0)
+            pp = sum(gpi[i] for i in act if i in ptset)
+            ff = sum(gpi[i] for i in act if i in fkset)
+            oth = sum(gpi[i] for i in act) - nt - pp - ff
+            br = '%.4f / %.4f / %.4f / %.4f' % (nt, pp, ff, oth)
+        else:
+            br = '—'
+        lines.append('| %s | %s | %s | %d | %.6f | %.4f | %.4f | %s | %.4f | %s | %.3f / %.3f / %.3f | %d | %d | %.0e | %.6f |' % (
+            key[0], key[1] if key[0] not in ('g0', 'L') else 'joint', key[2], key[3], r['pcc'], r['pi_D'], r['pi_active_long'], br,
+            r['pi_neutral_long'], ('%.4f' % r['allocation_twins']) if r['allocation_twins'] == r['allocation_twins'] else '—',
+            r['coop_g0'], r['coop_long_neutral'], r['coop_long_active'], r['n_blocks'], r['n_states'], r['residual'],
+            r.get('lazy', {}).get('pcc', float('nan'))))
+    return '\n'.join(lines)
+
+
+def cmd_tables(a):
+    s = tables_md()
+    open(os.path.join(GDIR, 'tables.md'), 'w').write(s + '\n')
+    print(s)
+
+
 def cmd_collect(a):
     """runs/guard-trait.json: block metas, relevance, patch summary, static screening, chain rows (without the
     per-genotype vectors), lottery summary."""
@@ -1303,7 +1341,7 @@ def cmd_collect(a):
         p = os.path.join(GDIR, 'kclosure_n%d_b%d_%s.json' % (n, b, blk))
         if os.path.exists(p): out['blocks'][blk] = json.load(open(p))['meta']
         p = os.path.join(GDIR, 'relevant_n%d_b%d_%s.json' % (n, b, blk))
-        if os.path.exists(p): out['relevant'][blk] = {k: v for k, v in json.load(open(p)).items() if k != 'goals'}
+        if os.path.exists(p): out['relevant'][blk] = {k: v for k, v in json.load(open(p)).items() if k not in ('goals', 'w1', 'w2', 'where')}
     for nm, key in (('patch_n8_b16.json', 'patch'), ('static.json', 'static'), ('lottery.json', 'lottery')):
         p = os.path.join(GDIR, nm)
         if os.path.exists(p):
@@ -1331,13 +1369,13 @@ def main():
     for nm in ('patch', 'full'):
         q = sp.add_parser(nm); q.add_argument('--n', type=int, default=8); q.add_argument('--b', type=int, default=16)
     q = sp.add_parser('chain'); q.add_argument('--cells', nargs='+'); q.add_argument('--workers', type=int, default=3)
-    sp.add_parser('static'); sp.add_parser('collect')
+    sp.add_parser('static'); sp.add_parser('collect'); sp.add_parser('tables')
     q = sp.add_parser('relevant'); q.add_argument('--n', type=int, default=8); q.add_argument('--b', type=int, default=16)
     q.add_argument('--workers', type=int, default=2)
     q = sp.add_parser('lottery'); q.add_argument('--reps', type=int, default=20); q.add_argument('--workers', type=int, default=3)
     a = p.parse_args()
     {'kclosure': cmd_kclosure, 'kc4': cmd_kc4, 'patch': cmd_patch, 'full': cmd_full, 'chain': cmd_chain,
-     'static': cmd_static, 'lottery': cmd_lottery, 'relevant': cmd_relevant, 'collect': cmd_collect}[a.cmd](a)
+     'static': cmd_static, 'lottery': cmd_lottery, 'relevant': cmd_relevant, 'collect': cmd_collect, 'tables': cmd_tables}[a.cmd](a)
 
 
 if __name__ == '__main__':
