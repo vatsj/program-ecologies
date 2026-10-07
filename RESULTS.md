@@ -3969,6 +3969,65 @@ The deficit against g = 0 grows with N: −0.008, −0.024, −0.030 (separate k
 - **Guard heterogeneity is itself a compatibility cost,** and it brings back the bridge-less P\* rival network that K had removed.
 - **The ε = 0 lottery sees none of this** (20/20 everywhere).
 - *Realizability caveat.* DSL readers under a bounded calculus; the 2b + 8 margin and K_c4 are modelling choices; the targeted table leaves pairs of μ < 7.6·10⁻⁶ at K's value; the price result is about an imposed schedule.
+## The realizable language, milestone 2: populations of carriers (`runs/carrier-populations.md`, `runs/carrier-populations.json`, `runs/carrier_populations/`, `notes/carrier-populations.md`; spec `specs/2026-10-06-carrier-populations.md`, predictions in `predictions/2026-10-06-carrier-populations.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/carrier_populations.py`, `src/carrier_populations_run.py`, `src/carrier_populations_report.py`, `tests/test_carrier_populations.py`; 8 tests, all passing on main). Order of commits: the notes' §1 (grammar and counts, the τ-symmetry lemma, hand plays, Lemma G, the Bor bridge, priors, endpoint) before any code; the predictions, including an endpoint revision stated before any cell; the code with its validation (§1.10) and the scale guard; the cells. *Scope (after review):* a finite template ecology inside a Turing-complete evaluator, with certificates from milestone 4's frozen host tactic; it tests executable verification in populations, not endogenous certificate discovery. RE check: the ten closed classes and their spellings are in the run report's leak test for every arm; the mechanism of the twin clique (below) follows from K_T^cert's rule that Run/RunNeg never apply to the root box R; the tests pass on main.
+
+**Built.** *Grammar:* actions `C | D | if(B, A, A)`; conditions are check atoms `CHK_e(p, q, a)` (p ∈ {them, me}, q ∈ {me, them, ⌜C⌝, ⌜D⌝}, a ∈ {C, D}) under `not/and/or`; cutoff n = 7 nodes, at most two check calls per run. Catalogue: P 12,546 spellings; O 23,790 distinct programs from 25,092 derivations; E 49,666. Programs compile to milestone 4's carriers at K = 10⁶, V = K/4, with lists from the frozen tactic. *Plays are compositions of clean check values* (Lemma N), validated against whole runs. *Lemma T (τ-symmetry):* spellings with the same run tree and certificate list are interchangeable up to quote identity, so the table is computed on τ-types (P 4,162, O 7,743, E 16,514) and lumped exactly, comparing rows and columns against every spelling including self and cross-twin cells: classes P 588, O 701, E 3,115. *Two tables:* the ideal-verification control (host replay, no step cost) on every τ pair (P: 3.83 M checks) and the executable table on class representatives (P: 122,744 term checks; scale guard 447 s). *Priors:* L (2^−nodes, the spec's form), U (uniform over classes), and L_std (the repo's Elias-gamma μ) as a labelled sensitivity arm. *Chain:* `LogChain` with twin drift and seeding at N ∈ {10³, 10⁴, 3·10⁴, 10⁵}. *Lottery:* (100, 64), mN = 1, 40 runs per arm, horizon 2,000, with three endpoints: E1 (the spec's: every island monomorphic and resolved), E2 (a one-step reading of the same rule), E3 (polymorphic islands allowed; an island is resolved cooperating iff every class in the closure of entrants present anywhere in the run cooperates with itself), E3 stated before any cell.
+
+**Bug found in validation, fixed before any cell.** Milestone 4's host replay memo was order-dependent: it returned a nested check's clean value even where, in context, that check would re-enter a key on the stack (a regress, which kills the root). Two n ≤ 5 cells showed it (ideal C, term D). `ExactHost` records each memoized check's dependencies and raises the regress exactly there; production uses it; milestone 4's named lists are unchanged.
+
+**Verification and soundness** (P, every class cell): executable = ideal on every class cell in P and O and on a 291-class sample in E, so the ideal-table chain is the same computation. Check costs: median 21,962 steps; the largest check that did not time out 101,644 (V = 250,000); 13,982 checks end exactly at V, all regresses, which the ideal table also marks TO. Soundness audit: 72,991 checks returned T across both tables, **0 false atoms**. K sensitivity (sources and lists rebuilt): 3·10⁶ changes 0 cells; 3·10⁵ changes 305 class cells (35 between establishers) by timeouts. Validation: Lemma T on 2,750 sampled spelling pairs, 0 mismatches; 1,600 class cells played whole, 0 mismatches; all 16,900 n ≤ 5 pairs exact; the twin-expanded chain equals the unlumped chain on n ≤ 5 to 3·10⁻¹⁰.
+
+**Static** (L×P): establishers (self-C, D on D) 101 classes, mass 0.061; of which **S-guarded** 14 (mass 0.011), prudent (refuse Cc) 34 (0.009), **strictly exploited 75 (0.047)**; unconditional cooperators 0.354 (L_std 0.48, U 0.065); all-D rows 0.376. *Lemma G:* an establisher is S-guarded if every path to a C leaf passes a true "them certifies cooperation with me" atom; by Theorem S^cert it has no strict invader, and none of the 14 has one (checked exhaustively). *The exploited establishers are defection detectors*, e.g. `if(CHK(them,⌜C⌝,D),D,C)`: they cooperate unless the opponent is certified to defect against plain C, so any defector carrying no certificate for that question exploits them; soundness does not protect them. *O:* certificate-less spellings enter 78 detector establishers neutrally and none of the S-guarded carriers. *E:* carriers on different entries play (D, D); the only non-shadow, unexploitable bridges are `Bor` = `if(or(CHK(them,me,C),CHK_5(them,me,C)),C,D)` and its order twin (mass 1.2·10⁻⁴), which cooperate with CB on both entries and have no strict invader; 103 exploitable detector establishers and 246 unconditional cooperators also bridge.
+
+**The twin clique (TwinD).** The leak test's closed components are exactly ten singleton classes: `if(or(CHK(me,me,D),CHK(me,them,D)),D,C)` and nine 7-node spellings of two run trees, mass 7·10⁻⁴ under L. Plain reading: "defect if I am certified to defect against you, unless I am certified to defect against myself." *Mechanism:* its produced D script is `EvR*; ChkR[RunNeg · EvR*; ChkR[EvR*; Ax · Hyp]]`; against any other source it closes the self-box ⊡(X, X, D) by RunNeg (clean value F) and the box ⊡(X, Y, D) by Hyp^self, certifying defection against everyone else; in self-play the self-box *is* the root's R, where RunNeg is forbidden, so the script fails and it cooperates. **The checker's syntactic R/S coincidence is a quote-equality test, and six nodes turn it into CliqueBot.** Verified by whole runs; it defects on its own run-tree twins (other spellings of the same tree). It enters all-D neutrally with a second-order advantage, like every establisher; once fixed, every mutant earns ≤ −1 against its 0. **It absorbs the ε→0 chain at every N in every arm and prior:** P(C,C) = 1 with π split among the ten cliques by prior mass; exits deleterious only (log₁₀ rate −36 at N = 10³, −330 at 10⁴).
+
+**Chain** (P(C,C); π(all-D) in parentheses):
+
+| cell | 10³ | 10⁴ | 3·10⁴ | 10⁵ |
+|---|---|---|---|---|
+| L×P, U×P, L_std×P, L×O, L×P×E, E-eq (as specified) | 1 (≈ 0) | 1 | 1 | 1 |
+| no-clique control L×P (not preregistered) | 0.503 (0.099) | 0.758 (0.044) | 0.844 (0.028) | 0.908 (0.016) |
+| no-clique L×O | – | 0.756 | – | 0.907 |
+| no-clique L_std×P | – | 0.416 (0.43) | – | 0.691 (0.20) |
+| no-clique U×P | – | – | – | 0.984 (11% of flow unexplored, all between non-cooperative states; uncorroborated) |
+
+E's chain ran at 10³ and 10⁴ only. In the no-clique control the top state is CB (π 0.15–0.28), surrounded by CBP-like prudent carriers such as `if(and(CHK(them,me,C),CHK(them,⌜C⌝,D)),C,D)`; **CB's exits are purely neutral drift into Cc-type shadows with N·ρ = 1 (∝ 1/N); entry from all-D has N·ρ 13.6 / 43.5 / 75.5 / 138 (∝ N^½); the cooperative/D odds rise as N^½, local slopes 0.53 / 0.52 / 0.52 (L_std 0.57).** Under E the cooperative π splits by clique mass, entry 0 at 0.79 (the label costs one node per atom and the clique has two); E-eq 0.50/0.50.
+
+**Lottery** (successes of 40 under E1 / E3, Wilson intervals):
+
+| arm | E1 | E3 | median generation of the first island at P(C,C) ≥ 0.9 | E3 winners |
+|---|---|---|---|---|
+| L×P | 8 [0.10, 0.35] | 40 [0.91, 1.00] | 30 | CB 26; 39/40 contain a "them certifies cooperation with me" atom |
+| U×P | 0 | 40 | 20 | carriers; TwinD cliques won 2 |
+| L×O | 15 | 38 (2 fail) | 30 | CB 27 |
+| L_std×P | 17 (6 fail) | 23 (17 fail) | 40 | CB 15; 6 detectors |
+| L×P×E | 2 | 40 | 30 | CB 13; both entries' establishers alive at the horizon in 20/40 (merges in 20) |
+| E-eq | 5 | 40 | 30 | both entries alive in 16/40 |
+
+E1's censoring is islands left polymorphic among neutral cooperating classes at the horizon; every one of the 32 runs E1 censored under L×P is resolved cooperating under E3.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | lottery success ≥ 0.8; establishment within 100 generations; carriers win | **failed as scored on E1, falsifier fired** (8/40; one run won by a non-carrier); establishment held (40/40); E3 40/40 |
+| RE 2 | chain exits by neutral shadow drift, P(C,C) rising, odds slope [0.3, 0.6] | **mechanism failed in the chain as specified** (absorbed by a clique; the falsifier as worded did not fire); **held exactly in the no-clique control** (slope 0.52; exits neutral ∝ 1/N) |
+| RE 3 | (a) 0 false atoms; (b) CB/CB1/CBP not strictly exploited; (c) some other establisher exploited | **held** (0/72,991; Lemma G, checked exhaustively; 75 exploited) |
+| RE 4 | certificate-less spellings never enter carriers neutrally; L×O lower | **falsifier fired** (78 neutral entries into detector establishers, none into S-guarded carriers); L×O not lower (−0.002) |
+| RE 5 | every bridge a shadow; ≥ 0.9 of cooperative π on one entry; both entries alive in the lottery | **falsifier fired** (Bor); 0.79 not ≥ 0.9; the lottery clause held (20/40) |
+| RE 6 | L×P and U×P both ≥ 0.5 at 10⁴ | held as worded, through the clique |
+| RE 7 | ideal and executable differ only by timeouts | **held** (identical tables) |
+| S1, S3, S8, S9, S11, S14, S15 | subagent's own | held |
+| S2 (number), S4, S5, S6, S7, S10, S12 (at 3·10⁵), S13 | subagent's own | failed |
+
+**Reading.**
+- **Executable verification costs a constant, not the mechanism.** Once cliques are absent, the modal arm's population machinery transfers exactly to a Turing-complete evaluator with checked carried certificates: neutral shadow exits ∝ 1/N, D-entry by establishers with a second-order advantage ∝ N^−½, cooperative/D odds ∝ N^½ (the modal arm measured 0.44 and derived ½).
+- **Soundness protects exactly the S-guarded establishers.** Templates that cooperate for reasons other than certified opponent cooperation (defection detectors) are exploitable, and they hold most of the establisher mass.
+- **Source identity makes CliqueBot reachable, and it is drift-closed.** The pair rule's R/S coincidence is quote equality; a 6-node template turns it into "cooperate iff you are my exact source", which absorbs the rare-mutation chain at every N and prior. This is the closed club of RESULTS "The closed club", emergent rather than declared, and the sibling theorem's premise (extensionality) fails in any language with quotes: L_T itself has `eq`, so `if eq(me, them) then C else D` is CliqueBot at one node of the base language. The chain's object therefore ends parochial in any Turing-complete source-reading language.
+- **The two objects disagree** (DEFERRED 1): the chain is absorbed by a twin clique; the seed lottery is won by FairBot-shaped carriers (40/40 under E3). The clique's mass, 7·10⁻⁴, keeps it out of the lottery (it won 2/40 under the uniform prior).
+- *Caveats:* production is a host tactic, not charged; E's class table is the ideal one (executable = ideal checked on a 291-class sample); E's chain covers N ≤ 10⁴; the no-clique control is not preregistered (θ = 10⁻⁸, ≤ 4,000 explored states); the L_std lottery is weaker (23/40) because the D class holds 0.45 of that prior's mass.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

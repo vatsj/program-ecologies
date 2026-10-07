@@ -54,6 +54,13 @@ REJECTED.md the ones we dropped.
   *Operating hypothesis (RE, 2026-10-05, refined):* island-level efficiency is the claim for the free box; for a
   sound bounded reader with budgets above every establisher pair's distinct-budget threshold, metapopulation
   universality along I ≫ N is not obstructed at n = 8 and is the candidate claim.
+- *Evidence (2026-10-06, carrier populations):* for realizable carriers the two objects disagree outright: the ε→0
+  chain is absorbed at every N by a drift-closed twin clique (source identity through the checker; `eq` in L_T), while
+  the seed lottery is won by FairBot-shaped carriers 40/40 (RESULTS "The realizable language, milestone 2").
+  *Operating hypothesis (RE, 2026-10-06):* the seed lottery is the object for the Turing-complete goal because the
+  rare-mutation object is parochial by construction in any quoting language; the chain remains the stress test for
+  unfakeability (its no-clique control reproduces the modal mechanism with odds ∝ N^½). *Open (RS):* whether a
+  self-recognizing clique counts as cooperation for the goal (it is efficient and sound, and not universal).
 - *Evidence (2026-10-06k, mixed budgets):* with budgets mixed in {4, 8, 16}, natural horizon separation is 0.683
   under a cheap-heavy prior, 0.002 above the copy thresholds and 0/300 at homogeneous b = 16; `BOX1(THEM(ME))`@4
   is in 0.94 of the separations and FairBot is compatible with itself at every budget pair; a living bridge resolves
@@ -119,8 +126,12 @@ REJECTED.md the ones we dropped.
   a shared sound checker, with unconditional soundness; the pair rule is a symmetry (Lemma Sym), not a fixed point
   (RESULTS "The realizable language, milestone 4"). *Operating hypothesis refined:* source reading through a
   shared sound checker of carried scripts; the checker is a convention, as the proof system was.
-- *Would settle it next:* populations of carriers under a template grammar over call skeletons (milestone 2); the
-  bounded PA provers whose consistency strength is explicit.
+- *Evidence (2026-10-06, carrier populations):* the R/S identity test in the checker is an observation channel the
+  symmetric rule cannot hide: quote equality is one step, and it yields a drift-closed CliqueBot (RESULTS "The
+  realizable language, milestone 2"). Soundness protects only S-guarded establishers.
+- *Would settle it next:* bounded PA provers whose consistency strength is explicit; whether any checker design
+  (symmetric closure of the self-box, no (me, me) atoms) removes identity without removing it from the base language
+  (it cannot: `eq` is in L_T).
 - *Evidence (2026-10-06, guard trait):* a heritable reflection margin is neither bought nor driven out; its active
   mass costs 0.02–0.04 P(C,C), growing with N, through restored Gödel fakers and cross-guard soft cliques, and brings
   back the bridge-less P\* rival (RESULTS "The guard margin as a heritable trait"). *Operating hypothesis:* read Con
@@ -220,6 +231,9 @@ REJECTED.md the ones we dropped.
   likely as a constant.
 - *Would settle it:* a principled prior over program *policies* (behaviour classes) rather than spellings, or a
   realizable-language prior (entry 11) under which a two-probe concession is not 10⁻⁷ times rarer than a constant.
+- *Evidence (2026-10-06, carrier populations):* L (2^−nodes), U (uniform over classes) and the repo's L_std agree on
+  the chain's verdict (the clique; without it 0.91 / 0.98 / 0.69 at N = 10⁵); L_std weakens the lottery (23/40)
+  because its D class holds 0.45 of the mass.
 - *The research question, restated by the RS (2026-10-06):* "how do we design a prior that lets us cheaply point at
   good programs?" Not length as such, but a million-line program is suspect. *Operating frame (RE):* description
   length in a language with a public library of general-purpose primitives (quotes, evaluation, a sound checker,
@@ -265,4 +279,11 @@ REJECTED.md the ones we dropped.
 - *Operating hypotheses (RE, 2026-10-06, pending the RS's answer on the prior under the 15-minute rule):* production
   is a public service (the frozen tactic, free, like the library), with optional charged production as an arm; the
   cap V is a fixed fraction of K; the length prior over spellings is the main arm, uniform over classes the control.
-- *Would settle it:* milestone 2 under that grammar (running: `specs/2026-10-06-carrier-populations.md`).
+- *Evidence (2026-10-06, milestone 2 done):* the machinery transfers (odds ∝ N^½ without cliques; lottery 40/40 under
+  the polymorphic endpoint; L, U and L_std agree on the chain's verdict, L_std weakens the lottery to 23/40 since D
+  holds 0.45 of that prior); a 6-node twin clique absorbs the chain (RESULTS "The realizable language, milestone 2").
+  *Open (RS):* accept syntactic self-recognition as a realizable program (the RE's view: it is, since `eq` is in the
+  base language, so the finding is about the object, not the checker), or change the checker or grammar so self-play
+  is indistinguishable (which the base language would undo). *Next (after 2026-10-08):* the social organization game
+  over the realizable language (the RS's prior question), and milestone 5, endogenous certificate production
+  (charged search at production time, the tactic as code).

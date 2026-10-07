@@ -324,3 +324,18 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   concludes every member of S; **relevant content / tiered residual** — an uncertified content in a pair whose play
   is undecided under three-valued evaluation, and the μ of the unsearched part; **cross-guard soft clique** — same
   source, different guards, mutual defection below a cross-guard threshold (PrudentBot: 20).
+- **Carrier populations (milestone 2):** **template grammar** — `C | D | if(B, A, A)` over check atoms
+  `CHK_e(p, q, a)` under `not/and/or`, cutoff n = 7; **arms** P (public production) / O (optional, one node) / E
+  (entry label, one node for `CHK_5`) and **priors** L (2^−nodes), U (uniform over classes), L_std (the repo's
+  Elias-gamma μ); **τ-type** — spellings with the same run tree and certificate list (Lemma T: interchangeable up to
+  quote identity); **S-guarded establisher** — every path to a C leaf passes a true "them certifies cooperation with
+  me" atom (Lemma G: no strict invader); **defection detector** — an establisher that cooperates unless the opponent
+  is certified to defect against a constant, exploitable by certificate-less defectors; **TwinD** — the twin clique
+  `if(or(CHK(me,me,D),CHK(me,them,D)),D,C)` and its nine 7-node spellings: cooperate iff the opponent is one's exact
+  source, by the R/S coincidence (Run/RunNeg forbidden on the root box), drift-closed; **Bor** —
+  `if(or(CHK(them,me,C),CHK_5(them,me,C)),C,D)`, the unexploitable bridge across checker entries; **E1 / E2 / E3** —
+  lottery endpoints (every island monomorphic and resolved / one-step reading / polymorphic islands allowed,
+  resolved cooperating iff every class in the closure of present entrants self-cooperates); **ExactHost** — the
+  host replay with dependency-tracked regress detection; **FastChain** — closed-form two-type fates in monomorphic
+  states (equals `LogChain` on the P cells); **no-clique control** — the chain with the ten closed classes removed
+  (not preregistered).
