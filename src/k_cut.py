@@ -61,7 +61,7 @@ class KTheoryC(K4.KTheoryG):
         """As KTheory.mp_value, but skips registered premises whose hypotheses have no closed derivation yet (their
         lemma cuts cannot be formed) before searching the premise."""
         best = INF; wit = None
-        for Pi, H, choice in self.mp.get(B, ()):
+        for Pi, H, choice in list(self.mp.get(B, ())):
             if any(self.T.get(A, INF) >= INF for a, A, x in H): continue
             sv = self.m(Pi, frozenset([B]), memo)
             if sv >= INF: continue
