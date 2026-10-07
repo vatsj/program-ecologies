@@ -120,7 +120,12 @@ REJECTED.md the ones we dropped.
   (RESULTS "The realizable language, milestone 4"). *Operating hypothesis refined:* source reading through a
   shared sound checker of carried scripts; the checker is a convention, as the proof system was.
 - *Would settle it next:* populations of carriers under a template grammar over call skeletons (milestone 2); the
-  guard margin as an evolving trait (running); bounded PA provers whose consistency strength is explicit. (Earlier line, now settled: K with a sound distribution rule
+  bounded PA provers whose consistency strength is explicit.
+- *Evidence (2026-10-06, guard trait):* a heritable reflection margin is neither bought nor driven out; its active
+  mass costs 0.02–0.04 P(C,C), growing with N, through restored Gödel fakers and cross-guard soft cliques, and brings
+  back the bridge-less P\* rival (RESULTS "The guard margin as a heritable trait"). *Operating hypothesis:* read Con
+  at one's own budget under a population-uniform guard convention; guard heterogeneity is a compatibility cost.
+  *Would settle it next:* PrudentBot's cross-guard threshold as a function of b (does the deficit vanish at b ≥ 24?). (Earlier line, now settled: K with a sound distribution rule
   under a box; does P* return, and do Con-sentence fakers
   return with it?); K beyond the modal fragment; a bounded prover in bargaining (hawks need Löb above the copy
   threshold).

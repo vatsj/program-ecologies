@@ -3924,6 +3924,51 @@ In cheap-heavy runs that ended unseparated the mean holder budget rises 5.91 →
 - Above the copy thresholds the residue is one light b = 8 soft clique (a 2-box conjunction, separation 2·10⁻³); the b = 16 control has none.
 - Holder budgets drift upward after founding (+0.32 units, +0.51 in unseparated runs): compatibility selection, real but small at a horizon of 10⁵.
 - *Scope:* the forced, calibrated, uniform and scaling cells did not run; the claims are at n = 8 and one (N, I).
+## The guard margin as a heritable trait (`runs/guard-trait.md`, `runs/guard-trait.json`, `runs/guard-trait/`; spec `specs/2026-10-06-guard-trait.md`, predictions in `predictions/2026-10-06-guard-trait.md` with an addendum after the catalogue and static screening, both before any chain)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/guard_trait.py`, `tests/test_guard_trait.py`; one iteration-safety fix to `src/k_cut.py` in its own commit, no value change). RE check: the mixed-chain P(C,C) at N = 10⁴ (0.6467 against 0.6710 for K) is in `runs/guard-trait.md` with its audit columns; tests pass on main.
+
+**Setup.** The (source, g) catalogue at n = 8, b = 16 under K_c4 (K with cut and the 4-rule), g ∈ {0, L} the guard offset (read Con at one's own budget, or one 2b + 8 margin up): 1,220 genotypes, 1,066 distinct programs; four guard blocks from one mixed semantics. Chains at N ∈ {10³, 10⁴, 3·10⁴} under the joint kernel (a mutant redraws (s, g) together) and the separate kernel (one trait changes, ½ each), uniform guard prior, plus 0.9/0.1 at 10⁴; the g = 0-only (= K_c) and g = L-only reference chains; the sham bit (a label changing neither proofs nor costs); three attribution cells; the lottery (3 cells × 20 paired seeds); the amortized price sweep c·40/N per match.
+
+**What changed in the design, all before any chain.** A single mixed closure at cap 2b + 8 thrashed at 32 GB and was replaced by four block closures at cap b (Lemma Cap: every value ≤ b is exact at cap b in K and K_c4, since Dist⁺'s side condition compares premise sizes with the box budget, not the cap). The catalogue is *targeted* with a residual: K_c4 was searched on 8,858 uncertified contents in pairs whose play is undecided and that involve a source of μ ≥ 10⁻⁵; 37,944 further contents in pairs where every source has μ < 7.6·10⁻⁶ (μ² 2.4·10⁻⁷) keep K's value; a third tier was stopped after 3.5 h with 0 of 188 chunks done. The spec's literal faker set was degenerate (1,005 genotypes of μ 0.53, containing C, D and FairBot) and was replaced by "non-establishers newly invading an establisher" (fakers) and "newly self-cooperating sources" (partners). Price c = 0.1 is lazy-solver only (the seeded solve was still expanding polymorphic states after 5 CPU-h).
+
+**Proved and validated.** *Lemma H* (high-budget certificate): with ⊡E = ∧(X ∧ □X) over E, every element of B_E satisfies GL+Def ⊢ ⊡E → Y at every budget, since GL ⊢ ⊡E → □⊡E, which extends the structural certificates to the long guard. *JLöb sibling closure:* an instance concludes every member of S; K's candidate rule missed this, and at n = 8 the miss left two chunks inconsistent (P[x, y] derived while the content of x's own atom was not), caught by the soundness check and fixed, both chunks rerun with 0 violations. Two value-preserving accelerations (a per-memo cache of Dist instances; GL pruning by weakening). n = 6 validation: the targeted table equals the full K_c4 closure (0 of 17,424 plays differ). Twin allocation under the joint kernel is exactly the prior, a theorem of the lumped chain, for guard twins and sham alike. Soundness: 0 violations in the K and K_c4 closures; the independent checker replayed 5,328 goals, 6,602 Dist nodes and 748 Lemma C witnesses with 0 failures. The g = 0 block differs from the published K_c b = 16 table in 147 plays (μ² 1.2·10⁻⁹, all in unsearched low-μ pairs).
+
+**Catalogue and static screening.** 11,700 plays differ from K's mixed table (L–L 5,887; L reader vs g = 0 opponent 4,449; g = 0 reader vs L opponent 1,312; g = 0 block 52). *Twins:* 257 of 610 g = L genotypes are exact twins of their g = 0 source (154 guard-free by construction), μ 0.970; 353 are active, μ 0.030. *Action changes:* enabled exploitation μ 8.6·10⁻⁵ against enabled cooperation 1.0·10⁻⁵ (ratio 0.12). *Partners* (newly self-cooperating at g = L): exactly the 7 P\*-type sources, μ 1.4·10⁻⁵. *Fakers* (non-establishers newly invading an establisher): 118 genotypes, μ 0.0031, headed by `not(BOX(THEM(ME)))`, `not(BOX(THEM(THEM)))`, `not(BOX(THEM(^C)))`; chief victim `BOX1(THEM(THEM))`/L. *Four encounter payoffs:* FairBot, `BOX(THEM(THEM))`, `BOX1(THEM(ME))`, `BOX1(THEM(THEM))` give 0, 0, 0, 0 with N·ρ = 1 (neutral across guards); **PrudentBot gives 0, −1, −1, 0 with N·ρ ≈ 0**: PB_0 and PB_L need a size-20 derivation to recognize each other (11 within one guard), so at b = 16 they are a cross-guard soft clique, cooperating from b ≥ 24. *Rivals:* 36 incompatible pairs between the g = 0 core and the g = L core; **the P\* family at g = L is a bridge-less rival of the g = 0 core** (μ 7.5·10⁻⁶).
+
+**Chains** (P(C,C); PD, w = 0.3; uniform guard prior unless stated):
+
+| cell | N = 10³ | 10⁴ | 3·10⁴ | π active L at 10⁴ (near-twins / P\* partners / other) | twin allocation |
+|---|---|---|---|---|---|
+| g = 0 only (= K_c) | 0.3920 | 0.6710 | 0.7909 | — | — |
+| g = L only | 0.3813 | 0.6319 | 0.7378 | — | — |
+| mixed, joint | 0.3836 | **0.6467** | 0.7611 | 0.140 (0.103 / 0.032 / 0.005) | 0.5000 |
+| mixed, separate | 0.3845 | 0.6413 | 0.7530 | 0.166 (0.098 / 0.063 / 0.005) | 0.5218 |
+| mixed, joint, 0.9/0.1 | | 0.6655 | | 0.027 | 0.1000 |
+| mixed, separate, 0.9/0.1 | | 0.6618 | | 0.040 | 0.1125 |
+| sham (all 4 cells) | | 0.6710 | | 0 | exactly the prior |
+
+The deficit against g = 0 grows with N: −0.008, −0.024, −0.030 (separate kernel −0.008, −0.030, −0.038); active L mass grows 0.088 → 0.140 → 0.184. *Exits and entries:* the core exits by neutral drift into ALLC at N·exit ≈ 0.49; PrudentBot 0.010; P\*_L 0.002, neutrally into the Gödel sentences (its only doors); **`BOX1(THEM(THEM))`/L exits strictly into the Gödel sentences at N·exit 1.2 / 7.9 / 22.7**, an N-independent per-event faker exit restored for long-guard carriers only; entry from D N·ρ 13.6 / 43.5 / 75.5 (∝ N^0.5). PrudentBot (both labels) carries 0.084 at 3·10⁴ against 0.148 in the g = 0-only chain. Audit: residual ≤ 3·10⁻¹⁴; seeded and lazy solvers agree to ≤ 1.2·10⁻⁴; mpmath recomputation of the top exits agrees to ≤ 2·10⁻¹⁶.
+
+**Attribution** (N = 10⁴, joint): mixed 0.6467; delete fakers **1.0000** (degenerate: P\*/L becomes absorbing once its Gödel exits are gone); delete partners 0.6370; delete both 0.6711 (= K). **Lottery:** 20/20 efficient in every cell, 0 discordant pairs; holders under the uniform prior g = 0 0.41, g = L active 0.33 (mostly `BOX1(THEM(ME))`/L-type near-twins), g = L twins 0.25, no P\*-type holder. **Price sweep** (N·w·δ = 12c): c = 0 0.6467 / active 0.140; 0.01 0.6440 / 0.133; 0.1 0.6261 / 0.086 (lazy only); 1 0.5973 / 0.014; the price removes the active mass but rebuilds a ladder (a priced reader is strictly invaded by its unpriced twin source and by ALLC).
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | active L ≤ 0.2; sham within 0.05 of twins | **held** (0.140 / 0.166; gaps 0 / 0.022) |
+| RE 2 | within 0.03 of K; faker loss > partner gain | **held**, with the degeneracy caveat (−0.024; fakers +0.034 without partners against partners +0.010) |
+| RE 3 | FairBot_L exactly neutral; P\*_L invades no g = 0 core program | **held** (FairBot is guard-free, so trivially; PrudentBot is not neutral) |
+| RE 4 | lottery unchanged; g = 0 holders ≥ 0.5 | inconclusive (0 discordant; g = 0 holders 0.41) |
+| RE 5 | price monotone; active ≤ 0.05 at c = 0.1 | inconclusive (monotone; 0.086, lazy only) |
+| S1–S7 | subagent's own | held (S1's P2 clause untestable: P2 is not in L₈) |
+
+**Reading.**
+- **As a heritable trait, the reflection margin is neither bought nor driven out.** Its neutral part is allocated by the prior (exactly so under joint mutation, as a theorem); its active part is mostly near-twins of core readers plus a long-lived P\* family.
+- **Its net effect on cooperation is negative and grows with N** (−0.008 → −0.030), through exactly two mechanisms, since deleting both sets returns K to four decimals: the Gödel-sentence fakers regain an N-independent exit against long-guard carriers, and heterogeneous guards split PrudentBot into a cross-guard soft clique (threshold 20 > b = 16).
+- **Guard heterogeneity is itself a compatibility cost,** and it brings back the bridge-less P\* rival network that K had removed.
+- **The ε = 0 lottery sees none of this** (20/20 everywhere).
+- *Realizability caveat.* DSL readers under a bounded calculus; the 2b + 8 margin and K_c4 are modelling choices; the targeted table leaves pairs of μ < 7.6·10⁻⁶ at K's value; the price result is about an imposed schedule.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

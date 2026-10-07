@@ -314,3 +314,13 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   island-weighted budget composition of strong cooperative holders (≥ 0.9 of an island) and the prior, at the first
   checkpoint after every island is established and at the horizon; **A₁₆** — the above-threshold rivals of the b = 16
   core (secondary statistic); **resolution hazard** — resolutions per separated run-generation.
+- **Guard trait:** **genotype (s, g)** — a source plus its guard offset g ∈ {0, L} (read Con at one's own budget,
+  or 2b + 8 up); **guard twin / neutral guard mass** — an (s, L) whose row and column match (s, 0)'s, and the π on
+  such genotypes; **active guard mass** — π on non-twin (s, L); **near-twin** — an active (s, L) whose four encounter
+  payoffs equal (s, 0)'s; **allocation** — the label-L share of the π of twin pairs (exactly the prior under the
+  joint kernel); **joint / separate kernel** — a mutant redraws (s, g) together, or changes one trait with
+  probability ½ each; **sham bit** — a label that changes neither proofs nor costs; **Lemma H** — the high-budget
+  certificate (GL ⊢ ⊡E → □⊡E); **Lemma Cap** — values ≤ b are exact at cap b; **JLöb sibling closure** — an instance
+  concludes every member of S; **relevant content / tiered residual** — an uncertified content in a pair whose play
+  is undecided under three-valued evaluation, and the μ of the unsearched part; **cross-guard soft clique** — same
+  source, different guards, mutual defection below a cross-guard threshold (PrudentBot: 20).
