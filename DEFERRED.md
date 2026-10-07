@@ -215,6 +215,20 @@ REJECTED.md the ones we dropped.
   likely as a constant.
 - *Would settle it:* a principled prior over program *policies* (behaviour classes) rather than spellings, or a
   realizable-language prior (entry 11) under which a two-probe concession is not 10⁻⁷ times rarer than a constant.
+- *The research question, restated by the RS (2026-10-06):* "how do we design a prior that lets us cheaply point at
+  good programs?" Not length as such, but a million-line program is suspect. *Operating frame (RE):* description
+  length in a language with a public library of general-purpose primitives (quotes, evaluation, a sound checker,
+  probes of play against quoted opponents), so that the prior is set by the library, and the discipline test is that
+  the primitives are general purpose, not the answer. *The seeding argument (RS: everything gets seeded, good
+  strategies should not die out):* holds in three stages whose rate is set by the prior. (1) A seeded copy needs
+  I ≈ 1/(p·N) islands (10⁶ at p = 10⁻⁸). (2) A device that needs a partner (the two-probe boss and the wage-conditional
+  worker are each neutral alone) establishes only by a two-type coincidence on one island, so the island count is
+  set by the product of the two masses; a self-sufficient device (FairBot against the seed mixture) does not pay
+  this. (3) After establishment the one-slot leak killed two thirds of fair islands by the horizon; only the
+  unfakeable fair state (D\*[L1], militant⁻, militant⁻) has no strict invader. Uniform priors over hand-named
+  programs are not a finding but a choice (RESULTS "Concessions"); a uniform prior over all behaviour classes is
+  cutoff-dependent and was abandoned at 1,393 classes.
+- *Pause (RS, 2026-10-06):* no new experiments before Thursday morning 2026-10-08.
 
 ## 11. The realizable language: how to leave the modal fragment
 - *Options:* extend the weak-arm DSL (self-application, divergence) with K boxes; a new small Turing-complete
