@@ -1,0 +1,21 @@
+chain jobs 12 workers 2 foreign []
+P U N=100000 tw=True: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000 (0.100) exit 0.00e+00 [n 0.00e+00 s 0.00e+00] states 588 cut 0.0e+00 (296s)
+P L N=100000 tw=True: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000 (0.182) exit 0.00e+00 [n 0.00e+00 s 0.00e+00] states 588 cut 0.0e+00 (296s)
+P L N=30000 tw=True: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000 (0.182) exit 0.00e+00 [n 0.00e+00 s 0.00e+00] states 588 cut 0.0e+00 (109s)
+P U N=30000 tw=True: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000 (0.100) exit 0.00e+00 [n 0.00e+00 s 0.00e+00] states 588 cut 0.0e+00 (109s)
+P Lstd N=100000 tw=True: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000 (0.425) exit 0.00e+00 [n 0.00e+00 s 0.00e+00] states 588 cut 0.0e+00 (296s)
+P Lstd N=30000 tw=True: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000 (0.425) exit 0.00e+00 [n 0.00e+00 s 0.00e+00] states 588 cut 0.0e+00 (109s)
+P L N=10000 tw=True: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000 (0.182) exit 0.00e+00 [n 0.00e+00 s 0.00e+00] states 588 cut 0.0e+00 (55s)
+P U N=10000 tw=True: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000 (0.100) exit 0.00e+00 [n 0.00e+00 s 0.00e+00] states 588 cut 0.0e+00 (56s)
+P Lstd N=10000 tw=True: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000 (0.425) exit 0.00e+00 [n 0.00e+00 s 0.00e+00] states 588 cut 0.0e+00 (55s)
+P L N=1000 tw=True: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000 (0.182) exit 1.37e-36 [n 0.00e+00 s 0.00e+00] states 588 cut 4.9e-03 (33s)
+P U N=1000 tw=True: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000 (0.100) exit 4.32e-36 [n 0.00e+00 s 0.00e+00] states 588 cut 1.1e-01 (33s)
+P Lstd N=1000 tw=True: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000 (0.425) exit 1.73e-37 [n 0.00e+00 s 0.00e+00] states 588 cut 3.2e-04 (33s)
+chain jobs 4 workers 2 foreign []
+P L N=30000 tw=False: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000 (0.182) exit 0.00e+00 [n 0.00e+00 s 0.00e+00] states 588 cut 0.0e+00 (112s)
+P L N=10000 tw=False: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000 (0.182) exit 0.00e+00 [n 0.00e+00 s 0.00e+00] states 588 cut 0.0e+00 (56s)
+P L N=1000 tw=False: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000 (0.182) exit 1.37e-36 [n 0.00e+00 s 0.00e+00] states 588 cut 4.9e-03 (33s)
+P L N=100000 tw=False: P(C,C) 1.0000 pi(D) 0.0000 pi(coop) 1.0000 top if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000 (0.182) exit 0.00e+00 [n 0.00e+00 s 0.00e+00] states 588 cut 0.0e+00 (298s)
+chain jobs 12 workers 2 foreign []
+/Users/jstav/anaconda3/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

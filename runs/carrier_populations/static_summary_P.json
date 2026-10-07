@@ -1,0 +1,2266 @@
+{
+ "arm": "P",
+ "n_classes": 588,
+ "n_tau": 4162,
+ "n_spellings": 12546,
+ "exec_vs_ideal_diff": 0,
+ "exec_check_steps": {
+  "n": 122744,
+  "max": 250000,
+  "p50": 21962.0,
+  "p99": 250000.0
+ },
+ "mass_L": {
+  "establishers": 0.06113848547717842,
+  "s_guarded_est": 0.010892116182572612,
+  "prudent_est": 0.008947095435684647,
+  "exploited_est": 0.04745850622406639,
+  "self_cooperators": 0.48975622406638997,
+  "unconditional_C": 0.3536047717842324,
+  "all_D": 0.37610217842323646,
+  "D_class": 0.096926867219917,
+  "Cc_class": 0.08966545643153528,
+  "sucker_fringe": 0.1097640041493776
+ },
+ "mass_Lstd": {
+  "establishers": 0.008066344921992472,
+  "s_guarded_est": 0.0018520470508888841,
+  "prudent_est": 0.00044520695803006865,
+  "exploited_est": 0.0060843718293525405,
+  "self_cooperators": 0.4982849783787022,
+  "unconditional_C": 0.4816162050657673,
+  "all_D": 0.4851155817993237,
+  "D_class": 0.4508846931221231,
+  "Cc_class": 0.4493207363320847,
+  "sucker_fringe": 0.015465014150423345
+ },
+ "mass_U": {
+  "establishers": 0.17176870748299317,
+  "s_guarded_est": 0.0238095238095238,
+  "prudent_est": 0.05782312925170068,
+  "exploited_est": 0.12755102040816327,
+  "self_cooperators": 0.5017006802721089,
+  "unconditional_C": 0.06462585034013606,
+  "all_D": 0.06462585034013606,
+  "D_class": 0.0017006802721088435,
+  "Cc_class": 0.0017006802721088435,
+  "sucker_fringe": 0.26190476190476186
+ },
+ "counts": {
+  "establishers": 101,
+  "s_guarded": 14,
+  "prudent": 34,
+  "exploited": 75,
+  "self_cooperators": 295,
+  "unconditional_C": 38,
+  "sucker_fringe": 154,
+  "split_classes": 54
+ },
+ "compatible_est_pairs": 2316,
+ "est_pairs_total": 5050,
+ "shadow_mass_by_establisher": [
+  [
+   "if(CHK(them,^C,D),D,C)",
+   0.4210969917012448,
+   165
+  ],
+  [
+   "if(CHK(them,^D,D),D,C)",
+   0.4198651452282157,
+   165
+  ],
+  [
+   "CB",
+   0.38323392116182564,
+   184
+  ],
+  [
+   "if(CHK(them,them,D),D,C)",
+   0.37700985477178417,
+   122
+  ],
+  [
+   "if(or(CHK(them,them,D),CHK(me,me,C)),D,C)",
+   0.38628112033195017,
+   120
+  ],
+  [
+   "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+   0.4213563278008299,
+   166
+  ],
+  [
+   "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C)",
+   0.4213563278008299,
+   166
+  ],
+  [
+   "if(or(CHK(them,me,C),CHK(me,them,D)),C,D)",
+   0.30335840248962653,
+   97
+  ],
+  [
+   "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+   0.3423884854771784,
+   138
+  ],
+  [
+   "if(or(CHK(them,them,D),CHK(me,^C,C)),D,C)",
+   0.3867997925311203,
+   135
+  ],
+  [
+   "if(or(CHK(them,them,D),CHK(me,^D,C)),D,C)",
+   0.3867997925311203,
+   135
+  ],
+  [
+   "if(and(CHK(me,^D,D),CHK(them,me,C)),C,D)",
+   0.3423884854771784,
+   138
+  ],
+  [
+   "if(or(CHK(them,me,C),CHK(them,them,D)),D,C)",
+   0.1644839211618257,
+   92
+  ],
+  [
+   "if(or(CHK(them,me,C),CHK(them,^C,D)),D,C)",
+   0.16526192946058088,
+   96
+  ],
+  [
+   "if(or(CHK(them,me,C),CHK(them,^D,D)),D,C)",
+   0.16526192946058088,
+   96
+  ]
+ ],
+ "exploited_establishers": [
+  {
+   "est": "if(CHK(them,^C,D),D,C)",
+   "est_mass": 0.009789937759336098,
+   "s_guarded": false,
+   "n_strict": 98,
+   "strict_mass": 0.1708376556016597,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,^C,D),C,D)",
+    "if(CHK(me,them,D),C,D)"
+   ],
+   "dt": "CHK(them,^C,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,^D,D),D,C)",
+   "est_mass": 0.009789937759336098,
+   "s_guarded": false,
+   "n_strict": 57,
+   "strict_mass": 0.0800051867219917,
+   "examples": [
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),D,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,^D,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,them,D),D,C)",
+   "est_mass": 0.005640560165975103,
+   "s_guarded": false,
+   "n_strict": 234,
+   "strict_mass": 0.2962914937759335,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,them,D),CHK(me,me,C)),D,C)",
+   "est_mass": 0.0018153526970954357,
+   "s_guarded": false,
+   "n_strict": 244,
+   "strict_mass": 0.2907157676348547,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(me,me,C)?D:C"
+  },
+  {
+   "est": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+   "est_mass": 0.0014263485477178425,
+   "s_guarded": false,
+   "n_strict": 98,
+   "strict_mass": 0.1708376556016597,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,^C,D),C,D)",
+    "if(CHK(me,them,D),C,D)"
+   ],
+   "dt": "CHK(them,me,D)?CHK(them,^C,D)?D:C:C"
+  },
+  {
+   "est": "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C)",
+   "est_mass": 0.001361514522821577,
+   "s_guarded": false,
+   "n_strict": 72,
+   "strict_mass": 0.12597251037344398,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),D,D)"
+   ],
+   "dt": "CHK(them,me,D)?CHK(them,^D,D)?D:C:C"
+  },
+  {
+   "est": "if(or(CHK(them,them,D),CHK(me,^C,C)),D,C)",
+   "est_mass": 0.0007780082987551868,
+   "s_guarded": false,
+   "n_strict": 224,
+   "strict_mass": 0.2886410788381742,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(me,^C,C)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,them,D),CHK(me,^D,C)),D,C)",
+   "est_mass": 0.0007780082987551868,
+   "s_guarded": false,
+   "n_strict": 223,
+   "strict_mass": 0.28851141078838166,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(me,^D,C)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,me,C),CHK(them,them,D)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 238,
+   "strict_mass": 0.2745072614107883,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,me,C)?D:CHK(them,them,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,me,C),CHK(them,^C,D)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 98,
+   "strict_mass": 0.1708376556016597,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,^C,D),C,D)",
+    "if(CHK(me,them,D),C,D)"
+   ],
+   "dt": "CHK(them,me,C)?D:CHK(them,^C,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,me,C),CHK(them,^D,D)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 57,
+   "strict_mass": 0.0800051867219917,
+   "examples": [
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),D,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,me,C)?D:CHK(them,^D,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,them,C),CHK(them,them,D)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 177,
+   "strict_mass": 0.23677385892116176,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,C)?D:CHK(them,them,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,them,C),CHK(them,^C,D)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 88,
+   "strict_mass": 0.16545643153526968,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,^C,D),C,D)",
+    "if(CHK(me,them,D),C,D)"
+   ],
+   "dt": "CHK(them,them,C)?D:CHK(them,^C,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,them,C),CHK(them,^D,D)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 54,
+   "strict_mass": 0.07838433609958506,
+   "examples": [
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),D,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,C)?D:CHK(them,^D,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,them,D),CHK(them,^C,D)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 67,
+   "strict_mass": 0.11222769709543567,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(them,^C,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,them,D),CHK(them,^D,D)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 38,
+   "strict_mass": 0.05640560165975103,
+   "examples": [
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)",
+    "if(and(CHK(me,them,C),CHK(me,me,D)),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(them,^D,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,them,D),CHK(me,them,C)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 238,
+   "strict_mass": 0.2745072614107883,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(me,them,C)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,^C,C),CHK(them,^C,D)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 98,
+   "strict_mass": 0.1708376556016597,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,^C,D),C,D)",
+    "if(CHK(me,them,D),C,D)"
+   ],
+   "dt": "CHK(them,^C,C)?D:CHK(them,^C,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,^C,C),CHK(them,^D,D)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 57,
+   "strict_mass": 0.0800051867219917,
+   "examples": [
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),D,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,^C,C)?D:CHK(them,^D,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,^C,D),CHK(them,^D,C)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 98,
+   "strict_mass": 0.1708376556016597,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,^C,D),C,D)",
+    "if(CHK(me,them,D),C,D)"
+   ],
+   "dt": "CHK(them,^C,D)?D:CHK(them,^D,C)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,^C,D),CHK(them,^D,D)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 57,
+   "strict_mass": 0.0800051867219917,
+   "examples": [
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),D,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,^C,D)?D:CHK(them,^D,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,^D,C),CHK(them,^D,D)),D,C)",
+   "est_mass": 0.0005186721991701245,
+   "s_guarded": false,
+   "n_strict": 57,
+   "strict_mass": 0.0800051867219917,
+   "examples": [
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),D,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,^D,C)?D:CHK(them,^D,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,^C,C),C,if(CHK(them,them,D),D,C))",
+   "est_mass": 0.00038900414937759333,
+   "s_guarded": false,
+   "n_strict": 246,
+   "strict_mass": 0.2911047717842323,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,^C,C)?C:CHK(them,them,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,^C,C),C,if(CHK(them,^D,D),D,C))",
+   "est_mass": 0.00038900414937759333,
+   "s_guarded": false,
+   "n_strict": 57,
+   "strict_mass": 0.0800051867219917,
+   "examples": [
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),D,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,^C,C)?C:CHK(them,^D,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,them,D),if(CHK(them,^C,C),C,D),C)",
+   "est_mass": 0.00038900414937759333,
+   "s_guarded": false,
+   "n_strict": 236,
+   "strict_mass": 0.2968101659751036,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?CHK(them,^C,C)?C:D:C"
+  },
+  {
+   "est": "if(and(CHK(them,me,D),CHK(them,them,D)),D,C)",
+   "est_mass": 0.00025933609958506224,
+   "s_guarded": false,
+   "n_strict": 255,
+   "strict_mass": 0.29771784232365134,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,me,D)?CHK(them,them,D)?D:C:C"
+  },
+  {
+   "est": "if(and(CHK(them,them,D),CHK(them,me,D)),D,C)",
+   "est_mass": 0.00025933609958506224,
+   "s_guarded": false,
+   "n_strict": 275,
+   "strict_mass": 0.3734439834024896,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?CHK(them,me,D)?D:C:C"
+  },
+  {
+   "est": "if(and(CHK(them,them,D),CHK(them,^C,D)),D,C)",
+   "est_mass": 0.00025933609958506224,
+   "s_guarded": false,
+   "n_strict": 259,
+   "strict_mass": 0.3532157676348546,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?CHK(them,^C,D)?D:C:C"
+  },
+  {
+   "est": "if(and(CHK(them,them,D),CHK(them,^D,D)),D,C)",
+   "est_mass": 0.00025933609958506224,
+   "s_guarded": false,
+   "n_strict": 253,
+   "strict_mass": 0.3211877593360995,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?CHK(them,^D,D)?D:C:C"
+  },
+  {
+   "est": "if(and(CHK(them,^C,D),CHK(them,them,D)),D,C)",
+   "est_mass": 0.00025933609958506224,
+   "s_guarded": false,
+   "n_strict": 242,
+   "strict_mass": 0.3206042531120331,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,^C,D)?CHK(them,them,D)?D:C:C"
+  },
+  {
+   "est": "if(and(CHK(them,^D,D),CHK(them,them,D)),D,C)",
+   "est_mass": 0.00025933609958506224,
+   "s_guarded": false,
+   "n_strict": 228,
+   "strict_mass": 0.2841026970954356,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,^D,D)?CHK(them,them,D)?D:C:C"
+  },
+  {
+   "est": "if(CHK(them,them,C),C,if(CHK(them,them,D),D,C))",
+   "est_mass": 0.00025933609958506224,
+   "s_guarded": false,
+   "n_strict": 217,
+   "strict_mass": 0.26037344398340245,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,C)?C:CHK(them,them,D)?D:C"
+  },
+  {
+   "est": "if(CHK(me,them,D),if(CHK(them,them,C),C,D),C)",
+   "est_mass": 0.00025933609958506224,
+   "s_guarded": false,
+   "n_strict": 20,
+   "strict_mass": 0.0060295643153526965,
+   "examples": [
+    "if(and(CHK(me,them,C),CHK(me,me,D)),C,D)",
+    "if(and(CHK(them,me,C),CHK(me,them,D)),C,D)",
+    "if(CHK(them,them,C),if(CHK(them,them,D),C,C),D)"
+   ],
+   "dt": "CHK(me,them,D)?CHK(them,them,C)?C:D:C"
+  },
+  {
+   "est": "if(CHK(them,me,C),C,if(CHK(them,me,D),D,C))",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 84,
+   "strict_mass": 0.136475622406639,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,them,C),D,D)"
+   ],
+   "dt": "CHK(them,me,C)?C:CHK(them,me,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,me,C),C,if(CHK(them,them,D),D,C))",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 203,
+   "strict_mass": 0.2662733402489626,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,me,C)?C:CHK(them,them,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,me,C),C,if(CHK(them,^C,D),D,C))",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 97,
+   "strict_mass": 0.178228734439834,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,^C,D),C,D)",
+    "if(CHK(me,them,D),C,D)"
+   ],
+   "dt": "CHK(them,me,C)?C:CHK(them,^C,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,me,C),C,if(CHK(them,^D,D),D,C))",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 65,
+   "strict_mass": 0.09193464730290457,
+   "examples": [
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),D,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,me,C)?C:CHK(them,^D,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,me,C),C,if(CHK(me,them,D),D,C))",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 30,
+   "strict_mass": 0.019450207468879665,
+   "examples": [
+    "if(CHK(them,me,D),C,D)",
+    "if(and(CHK(me,them,C),CHK(me,me,D)),C,D)",
+    "if(and(CHK(them,me,C),CHK(me,them,D)),C,D)"
+   ],
+   "dt": "CHK(them,me,C)?C:CHK(me,them,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,them,C),C,if(CHK(them,^C,D),D,C))",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 129,
+   "strict_mass": 0.18925051867219916,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,^C,D),C,D)",
+    "if(CHK(me,them,D),C,D)"
+   ],
+   "dt": "CHK(them,them,C)?C:CHK(them,^C,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,them,C),C,if(CHK(them,^D,D),D,C))",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 95,
+   "strict_mass": 0.10217842323651452,
+   "examples": [
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),D,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,C)?C:CHK(them,^D,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,them,D),D,if(CHK(them,^D,D),C,D))",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 125,
+   "strict_mass": 0.18296161825726137,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(them,^D,D)?C:D"
+  },
+  {
+   "est": "if(CHK(them,them,D),D,if(CHK(me,them,C),C,D))",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 217,
+   "strict_mass": 0.28915975103734426,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(me,them,C)?C:D"
+  },
+  {
+   "est": "if(CHK(them,me,D),if(CHK(them,me,C),C,D),C)",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 202,
+   "strict_mass": 0.21479512448132776,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,them,D),D,D)"
+   ],
+   "dt": "CHK(them,me,D)?CHK(them,me,C)?C:D:C"
+  },
+  {
+   "est": "if(CHK(them,them,D),if(CHK(them,me,C),C,D),C)",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 234,
+   "strict_mass": 0.2962914937759335,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?CHK(them,me,C)?C:D:C"
+  },
+  {
+   "est": "if(CHK(them,^C,D),if(CHK(them,me,C),C,D),C)",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 98,
+   "strict_mass": 0.1708376556016597,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,^C,D),C,D)",
+    "if(CHK(me,them,D),C,D)"
+   ],
+   "dt": "CHK(them,^C,D)?CHK(them,me,C)?C:D:C"
+  },
+  {
+   "est": "if(CHK(them,^C,D),if(CHK(them,me,D),D,C),D)",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 25,
+   "strict_mass": 0.043957468879668046,
+   "examples": [
+    "if(CHK(them,^C,D),D,D)",
+    "if(or(CHK(them,me,C),CHK(them,^C,D)),D,D)",
+    "if(or(CHK(them,them,C),CHK(them,^C,D)),D,D)"
+   ],
+   "dt": "CHK(them,^C,D)?CHK(them,me,D)?D:C:D"
+  },
+  {
+   "est": "if(CHK(them,^C,D),if(CHK(them,them,C),C,D),C)",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 134,
+   "strict_mass": 0.1923625518672199,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,^C,D),C,D)",
+    "if(CHK(me,them,D),C,D)"
+   ],
+   "dt": "CHK(them,^C,D)?CHK(them,them,C)?C:D:C"
+  },
+  {
+   "est": "if(CHK(them,^C,D),if(CHK(them,them,D),D,C),D)",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 87,
+   "strict_mass": 0.12098029045643151,
+   "examples": [
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)",
+    "if(CHK(them,them,D),D,D)"
+   ],
+   "dt": "CHK(them,^C,D)?CHK(them,them,D)?D:C:D"
+  },
+  {
+   "est": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 57,
+   "strict_mass": 0.0800051867219917,
+   "examples": [
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),D,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,^D,D)?CHK(them,me,C)?C:D:C"
+  },
+  {
+   "est": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 39,
+   "strict_mass": 0.09083246887966803,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(or(CHK(them,^C,D),CHK(me,^C,D)),D,D)"
+   ],
+   "dt": "CHK(them,^D,D)?CHK(them,me,D)?D:C:D"
+  },
+  {
+   "est": "if(CHK(them,^D,D),if(CHK(them,them,C),C,D),C)",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 98,
+   "strict_mass": 0.10379927385892115,
+   "examples": [
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),D,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,^D,D)?CHK(them,them,C)?C:D:C"
+  },
+  {
+   "est": "if(CHK(them,^D,D),if(CHK(them,them,D),D,C),D)",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 100,
+   "strict_mass": 0.16928163900414933,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,^D,D)?CHK(them,them,D)?D:C:D"
+  },
+  {
+   "est": "if(CHK(me,them,D),if(CHK(them,me,C),C,D),C)",
+   "est_mass": 0.0001945020746887967,
+   "s_guarded": false,
+   "n_strict": 105,
+   "strict_mass": 0.05212655601659751,
+   "examples": [
+    "if(CHK(them,me,D),C,D)",
+    "CB",
+    "if(CHK(them,them,C),C,D)"
+   ],
+   "dt": "CHK(me,them,D)?CHK(them,me,C)?C:D:C"
+  },
+  {
+   "est": "if(CHK(them,them,D),D,if(CHK(them,^C,C),C,C))",
+   "est_mass": 0.00012966804979253112,
+   "s_guarded": false,
+   "n_strict": 244,
+   "strict_mass": 0.29058609958506215,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(them,^C,C)?C:C"
+  },
+  {
+   "est": "if(or(CHK(them,them,D),CHK(them,me,D)),D,C)",
+   "est_mass": 0.00012966804979253112,
+   "s_guarded": false,
+   "n_strict": 49,
+   "strict_mass": 0.10042790456431536,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(them,me,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(them,them,D),CHK(me,them,D)),D,C)",
+   "est_mass": 0.00012966804979253112,
+   "s_guarded": false,
+   "n_strict": 20,
+   "strict_mass": 0.006937240663900415,
+   "examples": [
+    "if(and(CHK(me,them,C),CHK(me,me,D)),C,D)",
+    "if(or(CHK(them,^C,D),CHK(me,me,D)),D,D)",
+    "if(and(CHK(them,me,C),CHK(me,them,D)),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(me,them,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(me,me,D),CHK(them,me,D)),D,C)",
+   "est_mass": 0.00012966804979253112,
+   "s_guarded": false,
+   "n_strict": 48,
+   "strict_mass": 0.10016856846473028,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(me,me,D)?D:CHK(them,me,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,them,D),D,if(CHK(them,me,C),C,C))",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 205,
+   "strict_mass": 0.26653267634854766,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(them,me,C)?C:C"
+  },
+  {
+   "est": "if(CHK(them,them,D),D,if(CHK(them,me,D),C,C))",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 236,
+   "strict_mass": 0.2741182572614107,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(them,me,D)?C:C"
+  },
+  {
+   "est": "if(CHK(them,them,D),D,if(CHK(them,^C,D),C,C))",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 211,
+   "strict_mass": 0.2619942946058091,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(them,^C,D)?C:C"
+  },
+  {
+   "est": "if(CHK(them,them,D),D,if(CHK(them,^D,D),C,C))",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 209,
+   "strict_mass": 0.260503112033195,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(me,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(them,^D,D)?C:C"
+  },
+  {
+   "est": "if(CHK(them,me,D),if(CHK(them,them,D),D,D),C)",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 68,
+   "strict_mass": 0.124027489626556,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),D,D)"
+   ],
+   "dt": "CHK(them,me,D)?CHK(them,them,D)?D:D:C"
+  },
+  {
+   "est": "if(CHK(them,me,D),if(CHK(me,me,D),D,D),C)",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 48,
+   "strict_mass": 0.10016856846473028,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,me,D)?CHK(me,me,D)?D:D:C"
+  },
+  {
+   "est": "if(CHK(them,them,D),D,if(CHK(them,me,D),D,C))",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 49,
+   "strict_mass": 0.10042790456431536,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(them,me,D)?D:C"
+  },
+  {
+   "est": "if(not(or(CHK(them,them,D),CHK(them,me,D))),C,D)",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 49,
+   "strict_mass": 0.10042790456431536,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(them,me,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,them,D),D,if(CHK(me,them,D),D,C))",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 20,
+   "strict_mass": 0.006937240663900415,
+   "examples": [
+    "if(and(CHK(me,them,C),CHK(me,me,D)),C,D)",
+    "if(or(CHK(them,^C,D),CHK(me,me,D)),D,D)",
+    "if(and(CHK(them,me,C),CHK(me,them,D)),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(me,them,D)?D:C"
+  },
+  {
+   "est": "if(not(or(CHK(them,them,D),CHK(me,them,D))),C,D)",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 20,
+   "strict_mass": 0.006937240663900415,
+   "examples": [
+    "if(and(CHK(me,them,C),CHK(me,me,D)),C,D)",
+    "if(or(CHK(them,^C,D),CHK(me,me,D)),D,D)",
+    "if(and(CHK(them,me,C),CHK(me,them,D)),C,D)"
+   ],
+   "dt": "CHK(them,them,D)?D:CHK(me,them,D)?D:C"
+  },
+  {
+   "est": "if(CHK(me,me,D),D,if(CHK(them,me,D),D,C))",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 48,
+   "strict_mass": 0.10016856846473028,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(me,me,D)?D:CHK(them,me,D)?D:C"
+  },
+  {
+   "est": "if(not(or(CHK(me,me,D),CHK(them,me,D))),C,D)",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 48,
+   "strict_mass": 0.10016856846473028,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(me,me,D)?D:CHK(them,me,D)?D:C"
+  },
+  {
+   "est": "if(CHK(me,me,D),C,if(CHK(them,me,D),D,C))",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 48,
+   "strict_mass": 0.10016856846473028,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(me,me,D)?C:CHK(them,me,D)?D:C"
+  },
+  {
+   "est": "if(or(CHK(me,me,D),not(CHK(them,me,D))),C,D)",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 48,
+   "strict_mass": 0.10016856846473028,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(me,me,D)?C:CHK(them,me,D)?D:C"
+  },
+  {
+   "est": "if(and(not(CHK(me,me,D)),CHK(them,me,D)),D,C)",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 48,
+   "strict_mass": 0.10016856846473028,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(me,me,D)?C:CHK(them,me,D)?D:C"
+  },
+  {
+   "est": "if(CHK(them,me,D),if(CHK(me,me,D),C,D),C)",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 48,
+   "strict_mass": 0.10016856846473028,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,me,D)?CHK(me,me,D)?C:D:C"
+  },
+  {
+   "est": "if(and(CHK(them,me,D),not(CHK(me,me,D))),D,C)",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 48,
+   "strict_mass": 0.10016856846473028,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,me,D)?CHK(me,me,D)?C:D:C"
+  },
+  {
+   "est": "if(or(not(CHK(them,me,D)),CHK(me,me,D)),C,D)",
+   "est_mass": 6.483402489626556e-05,
+   "s_guarded": false,
+   "n_strict": 48,
+   "strict_mass": 0.10016856846473028,
+   "examples": [
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,them,D),C,D)",
+    "if(CHK(them,me,D),C,D)"
+   ],
+   "dt": "CHK(them,me,D)?CHK(me,me,D)?C:D:C"
+  }
+ ],
+ "establishers": [
+  {
+   "name": "if(CHK(them,^C,D),D,C)",
+   "mass_L": 0.009789937759336098,
+   "mass_Lstd": 0.0017508981604203468,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 126,
+   "dt": "CHK(them,^C,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,^D,D),D,C)",
+   "mass_L": 0.009789937759336098,
+   "mass_Lstd": 0.0017508981604203468,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 126,
+   "dt": "CHK(them,^D,D)?D:C"
+  },
+  {
+   "name": "CB",
+   "mass_L": 0.0077800829875518665,
+   "mass_Lstd": 0.0017294898839451467,
+   "s_guarded": true,
+   "prudent": false,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 91,
+   "dt": "CHK(them,me,C)?C:D"
+  },
+  {
+   "name": "if(CHK(them,them,D),D,C)",
+   "mass_L": 0.005640560165975103,
+   "mass_Lstd": 0.0015848260925794687,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 69,
+   "dt": "CHK(them,them,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,them,D),CHK(me,me,C)),D,C)",
+   "mass_L": 0.0018153526970954357,
+   "mass_Lstd": 8.014484444383751e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 24,
+   "dt": "CHK(them,them,D)?D:CHK(me,me,C)?D:C"
+  },
+  {
+   "name": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+   "mass_L": 0.0014263485477178425,
+   "mass_Lstd": 6.981740841817271e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 18,
+   "dt": "CHK(them,me,D)?CHK(them,^C,D)?D:C:C"
+  },
+  {
+   "name": "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C)",
+   "mass_L": 0.001361514522821577,
+   "mass_Lstd": 5.2121097585194345e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 19,
+   "dt": "CHK(them,me,D)?CHK(them,^D,D)?D:C:C"
+  },
+  {
+   "name": "if(or(CHK(them,me,C),CHK(me,them,D)),C,D)",
+   "mass_L": 0.0012966804979253114,
+   "mass_Lstd": 6.637492974295111e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 16,
+   "dt": "CHK(them,me,C)?C:CHK(me,them,D)?C:D"
+  },
+  {
+   "name": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+   "mass_L": 0.0007780082987551868,
+   "mass_Lstd": 3.662994354669715e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 10,
+   "dt": "CHK(them,me,C)?C:CHK(me,^C,D)?C:D"
+  },
+  {
+   "name": "if(or(CHK(them,them,D),CHK(me,^C,C)),D,C)",
+   "mass_L": 0.0007780082987551868,
+   "mass_Lstd": 3.662994354669715e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 10,
+   "dt": "CHK(them,them,D)?D:CHK(me,^C,C)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,them,D),CHK(me,^D,C)),D,C)",
+   "mass_L": 0.0007780082987551868,
+   "mass_Lstd": 3.662994354669715e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 10,
+   "dt": "CHK(them,them,D)?D:CHK(me,^D,C)?D:C"
+  },
+  {
+   "name": "if(and(CHK(me,^D,D),CHK(them,me,C)),C,D)",
+   "mass_L": 0.0007131742738589212,
+   "mass_Lstd": 2.692116846140257e-05,
+   "s_guarded": true,
+   "prudent": false,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 10,
+   "dt": "CHK(me,^D,D)?CHK(them,me,C)?C:D:D"
+  },
+  {
+   "name": "if(or(CHK(them,me,C),CHK(them,them,D)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,me,C)?D:CHK(them,them,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,me,C),CHK(them,^C,D)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,me,C)?D:CHK(them,^C,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,me,C),CHK(them,^D,D)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,me,C)?D:CHK(them,^D,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,them,C),CHK(them,them,D)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,them,C)?D:CHK(them,them,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,them,C),CHK(them,^C,D)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,them,C)?D:CHK(them,^C,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,them,C),CHK(them,^D,D)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,them,C)?D:CHK(them,^D,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,them,D),CHK(them,^C,D)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,them,D)?D:CHK(them,^C,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,them,D),CHK(them,^D,D)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,them,D)?D:CHK(them,^D,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,them,D),CHK(me,them,C)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,them,D)?D:CHK(me,them,C)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,^C,C),CHK(them,^C,D)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,^C,C)?D:CHK(them,^C,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,^C,C),CHK(them,^D,D)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,^C,C)?D:CHK(them,^D,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,^C,D),CHK(them,^D,C)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,^C,D)?D:CHK(them,^D,C)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,^C,D),CHK(them,^D,D)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,^C,D)?D:CHK(them,^D,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,^D,C),CHK(them,^D,D)),D,C)",
+   "mass_L": 0.0005186721991701245,
+   "mass_Lstd": 2.974498619625396e-05,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,^D,C)?D:CHK(them,^D,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,^C,C),C,if(CHK(them,them,D),D,C))",
+   "mass_L": 0.00038900414937759333,
+   "mass_Lstd": 1.0327436025664794e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,^C,C)?C:CHK(them,them,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,^C,C),C,if(CHK(them,^D,D),D,C))",
+   "mass_L": 0.00038900414937759333,
+   "mass_Lstd": 1.0327436025664794e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,^C,C)?C:CHK(them,^D,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,^C,C),D,if(CHK(them,me,C),C,D))",
+   "mass_L": 0.00038900414937759333,
+   "mass_Lstd": 1.0327436025664794e-05,
+   "s_guarded": true,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,^C,C)?D:CHK(them,me,C)?C:D"
+  },
+  {
+   "name": "if(CHK(them,^D,C),D,if(CHK(them,me,C),C,D))",
+   "mass_L": 0.00038900414937759333,
+   "mass_Lstd": 1.0327436025664794e-05,
+   "s_guarded": true,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,^D,C)?D:CHK(them,me,C)?C:D"
+  },
+  {
+   "name": "if(CHK(them,them,D),if(CHK(them,^C,C),C,D),C)",
+   "mass_L": 0.00038900414937759333,
+   "mass_Lstd": 1.0327436025664794e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 6,
+   "dt": "CHK(them,them,D)?CHK(them,^C,C)?C:D:C"
+  },
+  {
+   "name": "if(and(CHK(them,me,C),CHK(them,^C,D)),C,D)",
+   "mass_L": 0.00025933609958506224,
+   "mass_Lstd": 1.487249309812698e-05,
+   "s_guarded": true,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,me,C)?CHK(them,^C,D)?C:D:D"
+  },
+  {
+   "name": "if(and(CHK(them,me,C),CHK(them,^D,D)),C,D)",
+   "mass_L": 0.00025933609958506224,
+   "mass_Lstd": 1.487249309812698e-05,
+   "s_guarded": true,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,me,C)?CHK(them,^D,D)?C:D:D"
+  },
+  {
+   "name": "if(and(CHK(them,me,D),CHK(them,them,D)),D,C)",
+   "mass_L": 0.00025933609958506224,
+   "mass_Lstd": 1.487249309812698e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,me,D)?CHK(them,them,D)?D:C:C"
+  },
+  {
+   "name": "if(and(CHK(them,them,D),CHK(them,me,D)),D,C)",
+   "mass_L": 0.00025933609958506224,
+   "mass_Lstd": 1.487249309812698e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,them,D)?CHK(them,me,D)?D:C:C"
+  },
+  {
+   "name": "if(and(CHK(them,them,D),CHK(them,^C,D)),D,C)",
+   "mass_L": 0.00025933609958506224,
+   "mass_Lstd": 1.487249309812698e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,them,D)?CHK(them,^C,D)?D:C:C"
+  },
+  {
+   "name": "if(and(CHK(them,them,D),CHK(them,^D,D)),D,C)",
+   "mass_L": 0.00025933609958506224,
+   "mass_Lstd": 1.487249309812698e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,them,D)?CHK(them,^D,D)?D:C:C"
+  },
+  {
+   "name": "if(and(CHK(them,^C,D),CHK(them,me,C)),C,D)",
+   "mass_L": 0.00025933609958506224,
+   "mass_Lstd": 1.487249309812698e-05,
+   "s_guarded": true,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,^C,D)?CHK(them,me,C)?C:D:D"
+  },
+  {
+   "name": "if(and(CHK(them,^C,D),CHK(them,them,D)),D,C)",
+   "mass_L": 0.00025933609958506224,
+   "mass_Lstd": 1.487249309812698e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,^C,D)?CHK(them,them,D)?D:C:C"
+  },
+  {
+   "name": "if(and(CHK(them,^D,D),CHK(them,me,C)),C,D)",
+   "mass_L": 0.00025933609958506224,
+   "mass_Lstd": 1.487249309812698e-05,
+   "s_guarded": true,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,^D,D)?CHK(them,me,C)?C:D:D"
+  },
+  {
+   "name": "if(and(CHK(them,^D,D),CHK(them,them,D)),D,C)",
+   "mass_L": 0.00025933609958506224,
+   "mass_Lstd": 1.487249309812698e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,^D,D)?CHK(them,them,D)?D:C:C"
+  },
+  {
+   "name": "if(CHK(them,them,C),C,if(CHK(them,them,D),D,C))",
+   "mass_L": 0.00025933609958506224,
+   "mass_Lstd": 6.884957350443196e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 4,
+   "dt": "CHK(them,them,C)?C:CHK(them,them,D)?D:C"
+  },
+  {
+   "name": "if(CHK(me,them,D),if(CHK(them,them,C),C,D),C)",
+   "mass_L": 0.00025933609958506224,
+   "mass_Lstd": 6.884957350443196e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 4,
+   "dt": "CHK(me,them,D)?CHK(them,them,C)?C:D:C"
+  },
+  {
+   "name": "if(CHK(them,me,C),C,if(CHK(them,me,D),D,C))",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,me,C)?C:CHK(them,me,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,me,C),C,if(CHK(them,them,D),D,C))",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,me,C)?C:CHK(them,them,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,me,C),C,if(CHK(them,^C,D),D,C))",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,me,C)?C:CHK(them,^C,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,me,C),C,if(CHK(them,^D,D),D,C))",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,me,C)?C:CHK(them,^D,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,me,C),C,if(CHK(me,them,D),D,C))",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,me,C)?C:CHK(me,them,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,them,C),C,if(CHK(them,^C,D),D,C))",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,them,C)?C:CHK(them,^C,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,them,C),C,if(CHK(them,^D,D),D,C))",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,them,C)?C:CHK(them,^D,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,them,D),D,if(CHK(them,me,C),C,D))",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": true,
+   "prudent": false,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,them,D)?D:CHK(them,me,C)?C:D"
+  },
+  {
+   "name": "if(CHK(them,them,D),D,if(CHK(them,^D,D),C,D))",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,them,D)?D:CHK(them,^D,D)?C:D"
+  },
+  {
+   "name": "if(CHK(them,them,D),D,if(CHK(me,them,C),C,D))",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,them,D)?D:CHK(me,them,C)?C:D"
+  },
+  {
+   "name": "if(CHK(them,me,D),if(CHK(them,me,C),C,D),C)",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,me,D)?CHK(them,me,C)?C:D:C"
+  },
+  {
+   "name": "if(CHK(them,them,D),if(CHK(them,me,C),C,D),C)",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,them,D)?CHK(them,me,C)?C:D:C"
+  },
+  {
+   "name": "if(CHK(them,^C,D),if(CHK(them,me,C),C,D),C)",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,^C,D)?CHK(them,me,C)?C:D:C"
+  },
+  {
+   "name": "if(CHK(them,^C,D),if(CHK(them,me,D),D,C),D)",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,^C,D)?CHK(them,me,D)?D:C:D"
+  },
+  {
+   "name": "if(CHK(them,^C,D),if(CHK(them,them,C),C,D),C)",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,^C,D)?CHK(them,them,C)?C:D:C"
+  },
+  {
+   "name": "if(CHK(them,^C,D),if(CHK(them,them,D),D,C),D)",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,^C,D)?CHK(them,them,D)?D:C:D"
+  },
+  {
+   "name": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,^D,D)?CHK(them,me,C)?C:D:C"
+  },
+  {
+   "name": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,^D,D)?CHK(them,me,D)?D:C:D"
+  },
+  {
+   "name": "if(CHK(them,^D,D),if(CHK(them,them,C),C,D),C)",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,^D,D)?CHK(them,them,C)?C:D:C"
+  },
+  {
+   "name": "if(CHK(them,^D,D),if(CHK(them,them,D),D,C),D)",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(them,^D,D)?CHK(them,them,D)?D:C:D"
+  },
+  {
+   "name": "if(CHK(me,them,D),if(CHK(them,me,C),C,D),C)",
+   "mass_L": 0.0001945020746887967,
+   "mass_Lstd": 5.163718012832397e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 3,
+   "dt": "CHK(me,them,D)?CHK(them,me,C)?C:D:C"
+  },
+  {
+   "name": "if(CHK(them,me,C),C,if(CHK(them,^C,D),D,D))",
+   "mass_L": 0.00012966804979253112,
+   "mass_Lstd": 3.442478675221598e-06,
+   "s_guarded": true,
+   "prudent": false,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 2,
+   "dt": "CHK(them,me,C)?C:CHK(them,^C,D)?D:D"
+  },
+  {
+   "name": "if(CHK(them,them,D),D,if(CHK(them,^C,C),C,C))",
+   "mass_L": 0.00012966804979253112,
+   "mass_Lstd": 3.442478675221598e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 2,
+   "dt": "CHK(them,them,D)?D:CHK(them,^C,C)?C:C"
+  },
+  {
+   "name": "if(or(CHK(them,them,D),CHK(them,me,D)),D,C)",
+   "mass_L": 0.00012966804979253112,
+   "mass_Lstd": 1.1430014422905382e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,them,D)?D:CHK(them,me,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(them,them,D),CHK(me,them,D)),D,C)",
+   "mass_L": 0.00012966804979253112,
+   "mass_Lstd": 1.1430014422905382e-05,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,them,D)?D:CHK(me,them,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(me,me,D),CHK(them,me,D)),D,C)",
+   "mass_L": 0.00012966804979253112,
+   "mass_Lstd": 1.1430014422905382e-05,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,me,D)?D:CHK(them,me,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(me,me,D),CHK(me,them,D)),D,C)",
+   "mass_L": 0.00012966804979253112,
+   "mass_Lstd": 1.1430014422905382e-05,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,me,D)?D:CHK(me,them,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,me,C),C,if(CHK(them,me,D),D,D))",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": true,
+   "prudent": false,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,me,C)?C:CHK(them,me,D)?D:D"
+  },
+  {
+   "name": "if(CHK(them,me,C),C,if(CHK(them,them,D),D,D))",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": true,
+   "prudent": false,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,me,C)?C:CHK(them,them,D)?D:D"
+  },
+  {
+   "name": "if(CHK(them,them,D),D,if(CHK(them,me,C),C,C))",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,them,D)?D:CHK(them,me,C)?C:C"
+  },
+  {
+   "name": "if(CHK(them,them,D),D,if(CHK(them,me,D),C,C))",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,them,D)?D:CHK(them,me,D)?C:C"
+  },
+  {
+   "name": "if(CHK(them,them,D),D,if(CHK(them,^C,D),C,C))",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,them,D)?D:CHK(them,^C,D)?C:C"
+  },
+  {
+   "name": "if(CHK(them,them,D),D,if(CHK(them,^D,D),C,C))",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,them,D)?D:CHK(them,^D,D)?C:C"
+  },
+  {
+   "name": "if(CHK(them,me,C),if(CHK(them,^C,D),C,C),D)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": true,
+   "prudent": false,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,me,C)?CHK(them,^C,D)?C:C:D"
+  },
+  {
+   "name": "if(CHK(them,me,C),if(CHK(them,^D,D),C,C),D)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": true,
+   "prudent": false,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,me,C)?CHK(them,^D,D)?C:C:D"
+  },
+  {
+   "name": "if(CHK(them,me,D),if(CHK(them,them,D),D,D),C)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,me,D)?CHK(them,them,D)?D:D:C"
+  },
+  {
+   "name": "if(CHK(them,me,D),if(CHK(me,me,D),D,D),C)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,me,D)?CHK(me,me,D)?D:D:C"
+  },
+  {
+   "name": "if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,them,D)?CHK(me,me,D)?D:D:C"
+  },
+  {
+   "name": "if(CHK(them,them,D),D,if(CHK(them,me,D),D,C))",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,them,D)?D:CHK(them,me,D)?D:C"
+  },
+  {
+   "name": "if(not(or(CHK(them,them,D),CHK(them,me,D))),C,D)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,them,D)?D:CHK(them,me,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,them,D),D,if(CHK(me,them,D),D,C))",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,them,D)?D:CHK(me,them,D)?D:C"
+  },
+  {
+   "name": "if(not(or(CHK(them,them,D),CHK(me,them,D))),C,D)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,them,D)?D:CHK(me,them,D)?D:C"
+  },
+  {
+   "name": "if(CHK(me,me,D),D,if(CHK(them,me,D),D,C))",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,me,D)?D:CHK(them,me,D)?D:C"
+  },
+  {
+   "name": "if(not(or(CHK(me,me,D),CHK(them,me,D))),C,D)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,me,D)?D:CHK(them,me,D)?D:C"
+  },
+  {
+   "name": "if(CHK(me,me,D),D,if(CHK(me,them,D),D,C))",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,me,D)?D:CHK(me,them,D)?D:C"
+  },
+  {
+   "name": "if(not(or(CHK(me,me,D),CHK(me,them,D))),C,D)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,me,D)?D:CHK(me,them,D)?D:C"
+  },
+  {
+   "name": "if(CHK(me,me,D),C,if(CHK(them,me,D),D,C))",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,me,D)?C:CHK(them,me,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(me,me,D),not(CHK(them,me,D))),C,D)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,me,D)?C:CHK(them,me,D)?D:C"
+  },
+  {
+   "name": "if(and(not(CHK(me,me,D)),CHK(them,me,D)),D,C)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,me,D)?C:CHK(them,me,D)?D:C"
+  },
+  {
+   "name": "if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,me,D)?C:CHK(me,them,D)?D:C"
+  },
+  {
+   "name": "if(or(CHK(me,me,D),not(CHK(me,them,D))),C,D)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,me,D)?C:CHK(me,them,D)?D:C"
+  },
+  {
+   "name": "if(and(not(CHK(me,me,D)),CHK(me,them,D)),D,C)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,me,D)?C:CHK(me,them,D)?D:C"
+  },
+  {
+   "name": "if(CHK(them,me,D),if(CHK(me,me,D),C,D),C)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,me,D)?CHK(me,me,D)?C:D:C"
+  },
+  {
+   "name": "if(and(CHK(them,me,D),not(CHK(me,me,D))),D,C)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,me,D)?CHK(me,me,D)?C:D:C"
+  },
+  {
+   "name": "if(or(not(CHK(them,me,D)),CHK(me,me,D)),C,D)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": false,
+   "exploited": true,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(them,me,D)?CHK(me,me,D)?C:D:C"
+  },
+  {
+   "name": "if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,them,D)?CHK(me,me,D)?C:D:C"
+  },
+  {
+   "name": "if(and(CHK(me,them,D),not(CHK(me,me,D))),D,C)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,them,D)?CHK(me,me,D)?C:D:C"
+  },
+  {
+   "name": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+   "mass_L": 6.483402489626556e-05,
+   "mass_Lstd": 1.721239337610799e-06,
+   "s_guarded": false,
+   "prudent": true,
+   "exploited": false,
+   "entry": "0",
+   "n_spellings": 1,
+   "dt": "CHK(me,them,D)?CHK(me,me,D)?C:D:C"
+  }
+ ],
+ "leak": {
+  "n_selfcoop": 295,
+  "n_components": 11,
+  "n_closed": 10,
+  "sizes": [
+   285,
+   1,
+   1,
+   1,
+   1
+  ],
+  "closed": [
+   [
+    "if(or(CHK(me,me,D),CHK(me,them,D)),D,C)"
+   ],
+   [
+    "if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)"
+   ],
+   [
+    "if(CHK(me,me,D),D,if(CHK(me,them,D),D,C))"
+   ],
+   [
+    "if(not(or(CHK(me,me,D),CHK(me,them,D))),C,D)"
+   ],
+   [
+    "if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))"
+   ],
+   [
+    "if(or(CHK(me,me,D),not(CHK(me,them,D))),C,D)"
+   ],
+   [
+    "if(and(not(CHK(me,me,D)),CHK(me,them,D)),D,C)"
+   ],
+   [
+    "if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)"
+   ]
+  ]
+ }
+}

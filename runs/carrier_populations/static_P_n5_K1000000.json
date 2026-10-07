@@ -1,0 +1,519 @@
+{
+ "arm": "P",
+ "n": 5,
+ "K": 1000000,
+ "V": 250000,
+ "n_sexprs": 130,
+ "n_spellings": 130,
+ "n_tau": 66,
+ "n_classes": 31,
+ "n_split_types": 0,
+ "n_split_classes": 0,
+ "build_s": 0.03348088264465332,
+ "ideal_pair_checks": 504,
+ "ideal_s": 0.3570210933685303,
+ "exec_pair_checks": 120,
+ "exec_s": 0.319317102432251,
+ "exec_vs_ideal_diff": 0,
+ "exec_sample_classes": null,
+ "class_table": "executable",
+ "exec_TO": 8,
+ "ideal_TO": 8,
+ "exec_check_steps": {
+  "n": 120,
+  "max": 250000,
+  "p50": 9250.5,
+  "p99": 250000.0
+ },
+ "exec_unit_steps_max": 17741,
+ "classes": [
+  {
+   "rep": "D",
+   "n_spellings": 25,
+   "n_types": 13,
+   "split": false,
+   "mass_L": 0.23214285714285712,
+   "mass_Lstd": 0.47094671201814053,
+   "self_C": 0,
+   "dt": "D",
+   "list": [
+    [
+     "D",
+     "EvR*; Ax"
+    ]
+   ]
+  },
+  {
+   "rep": "C",
+   "n_spellings": 19,
+   "n_types": 10,
+   "split": false,
+   "mass_L": 0.19196428571428573,
+   "mass_Lstd": 0.4665887188208616,
+   "self_C": 1,
+   "dt": "C",
+   "list": [
+    [
+     "C",
+     "EvR*; Ax"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,^C,C),C,C)",
+   "n_spellings": 8,
+   "n_types": 4,
+   "split": false,
+   "mass_L": 0.05357142857142857,
+   "mass_Lstd": 0.005810657596371882,
+   "self_C": 1,
+   "dt": "CHK(them,^C,C)?C:C",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,^C,D),D,D)",
+   "n_spellings": 8,
+   "n_types": 4,
+   "split": false,
+   "mass_L": 0.05357142857142857,
+   "mass_Lstd": 0.005810657596371882,
+   "self_C": 0,
+   "dt": "CHK(them,^C,D)?D:D",
+   "list": [
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,them,C),C,C)",
+   "n_spellings": 6,
+   "n_types": 3,
+   "split": false,
+   "mass_L": 0.040178571428571425,
+   "mass_Lstd": 0.004357993197278911,
+   "self_C": 1,
+   "dt": "CHK(them,them,C)?C:C",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,me,D),C,C)",
+   "n_spellings": 4,
+   "n_types": 2,
+   "split": false,
+   "mass_L": 0.02678571428571428,
+   "mass_Lstd": 0.002905328798185941,
+   "self_C": 1,
+   "dt": "CHK(them,me,D)?C:C",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(me,them,D),C,D)",
+   "n_spellings": 4,
+   "n_types": 2,
+   "split": false,
+   "mass_L": 0.02678571428571428,
+   "mass_Lstd": 0.002905328798185941,
+   "self_C": 0,
+   "dt": "CHK(me,them,D)?C:D",
+   "list": []
+  },
+  {
+   "rep": "if(CHK(me,^C,C),C,C)",
+   "n_spellings": 4,
+   "n_types": 2,
+   "split": false,
+   "mass_L": 0.02678571428571428,
+   "mass_Lstd": 0.002905328798185941,
+   "self_C": 1,
+   "dt": "CHK(me,^C,C)?C:C",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(me,^C,D),C,D)",
+   "n_spellings": 4,
+   "n_types": 2,
+   "split": false,
+   "mass_L": 0.02678571428571428,
+   "mass_Lstd": 0.002905328798185941,
+   "self_C": 0,
+   "dt": "CHK(me,^C,D)?C:D",
+   "list": [
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(me,^D,C),C,C)",
+   "n_spellings": 4,
+   "n_types": 2,
+   "split": false,
+   "mass_L": 0.02678571428571428,
+   "mass_Lstd": 0.002905328798185941,
+   "self_C": 1,
+   "dt": "CHK(me,^D,C)?C:C",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(me,^D,D),D,C)",
+   "n_spellings": 4,
+   "n_types": 2,
+   "split": false,
+   "mass_L": 0.02678571428571428,
+   "mass_Lstd": 0.002905328798185941,
+   "self_C": 0,
+   "dt": "CHK(me,^D,D)?D:C",
+   "list": [
+    [
+     "D",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,me,C),C,C)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 1,
+   "dt": "CHK(them,me,C)?C:C",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,me,C),C,D)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 1,
+   "dt": "CHK(them,me,C)?C:D",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+    ],
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,me,C),D,C)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 1,
+   "dt": "CHK(them,me,C)?D:C",
+   "list": []
+  },
+  {
+   "rep": "if(CHK(them,me,C),D,D)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 0,
+   "dt": "CHK(them,me,C)?D:D",
+   "list": [
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,me,D),C,D)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 0,
+   "dt": "CHK(them,me,D)?C:D",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,me,D),D,C)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 0,
+   "dt": "CHK(them,me,D)?D:C",
+   "list": [
+    [
+     "D",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,me,D),D,D)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 0,
+   "dt": "CHK(them,me,D)?D:D",
+   "list": [
+    [
+     "D",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,them,C),C,D)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 0,
+   "dt": "CHK(them,them,C)?C:D",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ],
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,them,C),D,C)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 1,
+   "dt": "CHK(them,them,C)?D:C",
+   "list": []
+  },
+  {
+   "rep": "if(CHK(them,them,D),C,D)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 0,
+   "dt": "CHK(them,them,D)?C:D",
+   "list": [
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,them,D),D,C)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 1,
+   "dt": "CHK(them,them,D)?D:C",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,them,D),D,D)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 0,
+   "dt": "CHK(them,them,D)?D:D",
+   "list": [
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,^C,C),C,D)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 0,
+   "dt": "CHK(them,^C,C)?C:D",
+   "list": [
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,^C,C),D,C)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 0,
+   "dt": "CHK(them,^C,C)?D:C",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,^C,D),C,D)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 1,
+   "dt": "CHK(them,^C,D)?C:D",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ],
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,^C,D),D,C)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 1,
+   "dt": "CHK(them,^C,D)?D:C",
+   "list": []
+  },
+  {
+   "rep": "if(CHK(them,^D,C),C,D)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 0,
+   "dt": "CHK(them,^D,C)?C:D",
+   "list": [
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,^D,C),D,C)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 0,
+   "dt": "CHK(them,^D,C)?D:C",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,^D,D),C,D)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 1,
+   "dt": "CHK(them,^D,D)?C:D",
+   "list": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ],
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  },
+  {
+   "rep": "if(CHK(them,^D,D),D,C)",
+   "n_spellings": 2,
+   "n_types": 1,
+   "split": false,
+   "mass_L": 0.013392857142857142,
+   "mass_Lstd": 0.0014526643990929705,
+   "self_C": 1,
+   "dt": "CHK(them,^D,D)?D:C",
+   "list": []
+  }
+ ],
+ "total_s": 0.7375209331512451
+}
