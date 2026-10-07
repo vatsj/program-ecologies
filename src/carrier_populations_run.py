@@ -22,6 +22,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'runs', 'carrier_populations')
 os.makedirs(OUT, exist_ok=True)
 FOREIGN = (74221, 74545)
+MAX_STATES = int(os.environ.get('CP_MAX_STATES', 60000))
+VERBOSE = bool(int(os.environ.get('CP_VERBOSE', 0)))
 
 
 def foreign_alive():
@@ -172,8 +174,17 @@ def cmd_static(a):
     reps = {t: (cat.rep(t, 0), cat.rep(t, 1)) for t in range(T)}
     hasE = lambda u, aa: cat.has_entry(u, aa)
     with Pool(nw, initializer=_init, initargs=(a.n, a.arm, a.K)) as pool:
-        ideal = compute_tables(pool, cat, 'ideal', cat.tau_dt, cat.tau_atoms, None, hasE)
-        A_tau, self_tau = compose(cat.tau_dt, ideal)
+        ckpt = os.path.join(OUT, 'ideal_tau_%s_n%d_K%d.npz' % (a.arm, a.n, a.K))
+        if a.resume and os.path.exists(ckpt):
+            zz = np.load(ckpt); A_tau, self_tau = zz['A_tau'], zz['self_tau']
+            ideal = json.load(open(ckpt.replace('.npz', '.json')))
+        else:
+            ideal = compute_tables(pool, cat, 'ideal', cat.tau_dt, cat.tau_atoms, None, hasE)
+            A_tau, self_tau = compose(cat.tau_dt, ideal)
+            ideal = dict(n_pair=ideal['n_pair'], t_unit=ideal['t_unit'], t_pair=ideal['t_pair'],
+                         n_TO=int(sum(ideal['n_to'].values()) + sum(int((d['raw'] == 2).sum()) for d in ideal['UV'].values())))
+            np.savez_compressed(ckpt, A_tau=A_tau, self_tau=self_tau)
+            json.dump(ideal, open(ckpt.replace('.npz', '.json'), 'w'))
         w = cat.spelling_mass('L')
         lp = CP.lump(cat, A_tau, self_tau, w)
         classes = lp['classes']
@@ -181,20 +192,30 @@ def cmd_static(a):
         print('lumped: %d classes (%d split types, %d split classes) from %d types' % (nc, lp['n_split_types'], lp['n_split_classes'], T), flush=True)
         # executable table on class representatives
         crep = [c['rep'] for c in classes]
-        cdt = [cat.tau_dt[cat.tau[k]] for k in crep]
-        catoms = [cat.tau_atoms[cat.tau[k]] for k in crep]
-        creps = {i: (crep[i], crep[i]) for i in range(nc)}
-        hasC = lambda u, aa: cat.has_entry(int(cat.tau[crep[u]]), aa)
+        ct = np.array([cat.tau[k] for k in crep])
+        A_id = A_tau[np.ix_(ct, ct)].copy()
+        A_id[np.arange(nc), np.arange(nc)] = self_tau[ct]
+        # executable table on class representatives (all classes, or a sample when --exec_sample > 0)
+        sub = list(range(nc))
+        if a.exec_sample > 0:
+            rng = np.random.default_rng(5)
+            heavy = list(np.argsort(-np.array([cat.spelling_mass('L')[c['spellings']].sum() for c in classes]))[:a.exec_sample // 2])
+            sub = sorted(set(int(i) for i in heavy) | set(int(i) for i in rng.choice(nc, a.exec_sample // 2, replace=False)))
+        srep = [crep[i] for i in sub]
+        cdt = [cat.tau_dt[cat.tau[k]] for k in srep]
+        catoms = [cat.tau_atoms[cat.tau[k]] for k in srep]
+        creps = {i: (srep[i], srep[i]) for i in range(len(sub))}
+        hasC = lambda u, aa: cat.has_entry(int(cat.tau[srep[u]]), aa)
         te = time.time()
         exe = compute_tables(pool, cat, 'exec', cdt, catoms, creps, hasC)
         A_exe, self_exe = compose(cdt, exe)
         t_exec = time.time() - te
-        # ideal on class reps (from the tau table)
-        ct = np.array([cat.tau[k] for k in crep])
-        A_id = A_tau[np.ix_(ct, ct)].copy()
-        A_id[np.arange(nc), np.arange(nc)] = self_tau[ct]
-        A_exe2 = A_exe.copy(); A_exe2[np.arange(nc), np.arange(nc)] = self_exe
-        diff = np.argwhere(A_exe2 != A_id)
+        A_exe[np.arange(len(sub)), np.arange(len(sub))] = self_exe
+        diff = np.argwhere(A_exe != A_id[np.ix_(sub, sub)])
+        if a.exec_sample > 0:
+            A_exe2 = A_id.copy()        # the class table is the ideal one; the executable table checked on the sample
+        else:
+            A_exe2 = A_exe
     # masses per prior
     masses = {}
     for pr in ('L', 'Lstd') + (('Leq',) if a.arm == 'E' else ()):
@@ -210,8 +231,10 @@ def cmd_static(a):
                 n_classes=nc, n_split_types=lp['n_split_types'], n_split_classes=lp['n_split_classes'],
                 build_s=tb, ideal_pair_checks=ideal['n_pair'], ideal_s=ideal['t_unit'] + ideal['t_pair'],
                 exec_pair_checks=exe['n_pair'], exec_s=t_exec, exec_vs_ideal_diff=int(len(diff)),
+                exec_sample_classes=len(sub) if a.exec_sample > 0 else None,
+                class_table='ideal (executable checked on a sample of classes)' if a.exec_sample > 0 else 'executable',
                 exec_TO=int(sum(exe['n_to'].values()) + sum(int((d['raw'] == 2).sum()) for d in exe['UV'].values())),
-                ideal_TO=int(sum(ideal['n_to'].values()) + sum(int((d['raw'] == 2).sum()) for d in ideal['UV'].values())),
+                ideal_TO=ideal['n_TO'],
                 exec_check_steps=dict(n=int(len(steps)), max=int(steps.max()) if len(steps) else None,
                                       p50=float(np.median(steps)) if len(steps) else None,
                                       p99=float(np.percentile(steps, 99)) if len(steps) else None),
@@ -260,6 +283,29 @@ def class_props(A, info, arm):
     return dict(iD=iD, selfc=selfc, est=est, allc=allc, entry=np.array(ent))
 
 
+def fast_chain_class():
+    """LogChain with the two-type replicator fates of a monomorphic state in closed form (the same targets the
+    numerical replicator reaches: q fixes unless c > a and b > d, where the stable mixture x* = (c - a) / ((c - a) +
+    (b - d)) is the target; a first-order-dying q gets the chain's drift/valley target mono(q)).  Polymorphic states
+    use the numerical fates unchanged.  Validated against LogChain on the P arm (notes §2)."""
+    from chain_log import LogChain
+
+    class FastChain(LogChain):
+        def fates(self, key, ids, x, q, Uq):
+            if len(ids) != 1:
+                return LogChain.fates(self, key, ids, x, q, Uq)
+            a, b, c, d = Uq[0, 0], Uq[0, 1], Uq[1, 0], Uq[1, 1]
+            N = self.N
+            if c > a + 1e-12 and b > d + 1e-12:
+                xs = (c - a) / ((c - a) + (b - d))
+                if xs > 1 - 1e-6:
+                    return [(1.0, self.mono(q), N)]
+                kstar = max(1, int(round(N * xs)))
+                return self.targets(np.array([int(ids[0]), int(q)]), np.array([1.0 - xs, xs]), kstar, Uq)
+            return [(1.0, self.mono(q), N)]
+    return FastChain
+
+
 def chain_cell(job):
     """One chain cell: (arm, prior, N, twins, log_theta, tag)."""
     from chain_log import LogChain, NEG
@@ -269,23 +315,43 @@ def chain_cell(job):
     t0 = time.time()
     z, info = load_static(arm)
     A = z['A_class'] if A_kind == 'exec' else z['A_class_ideal']
-    U, PCC = CP.pay_matrix(A)
-    mu = z['mass_' + prior].astype(float); mu = mu / mu.sum()
+    mu = z['mass_' + prior].astype(float)
     names = class_names(info)
+    names0 = list(names)
+    dropped = []
+    if label.startswith('noclosed'):
+        # control (not preregistered): remove every class in a closed component of the leak test, iterated
+        from carrier_populations_report import leak_test
+        keep = np.arange(A.shape[0])
+        while True:
+            lt = leak_test(A[np.ix_(keep, keep)])
+            cl = sorted({int(keep[i]) for c in lt['closed'] for i in c})
+            if not cl: break
+            dropped += cl
+            keep = np.array([k for k in keep if k not in set(cl)])
+        A = A[np.ix_(keep, keep)]; mu = mu[keep]; names = [names[k] for k in keep]
+        info = dict(info, classes=[info['classes'][k] for k in keep])
+    dropped_names = [names0[k] for k in dropped]
+    U, PCC = CP.pay_matrix(A)
+    mu = mu / mu.sum()
     pr = class_props(A, info, arm)
     nc = len(mu)
     # seeds: stable candidates (<= 3 classes; triples on the heaviest 120 classes) and invasion-closure rest points
-    cfn = os.path.join(OUT, 'seeds_%s_%s_%s.json' % (arm, prior, A_kind))
+    cfn = os.path.join(OUT, 'seeds_%s_%s_%s_%s.json' % (arm, prior, A_kind, label.split('_')[0]))
     if os.path.exists(cfn):
         seeds = [tuple(s) for s in json.load(open(cfn))]
     else:
         pool = np.argsort(-mu)[:120]
         cands, counts = SA.enumerate_candidates_fast(U, mu, pool=pool)
-        S1, n1, comp1 = SA.invasion_closure(U, mu, max_nodes=20000)
+        S1, n1, comp1 = SA.invasion_closure(U, mu, max_nodes=6000, branch=3)
         seeds = [(x['ids'], x['x']) for x in cands + S1 if x['size'] > 1 and x['status'] == 'stable']
+        json.dump(dict(counts=counts, closure_nodes=n1, closure_complete=comp1, n_saturated=len(S1), n_seeds=len(seeds),
+                       saturated=[dict(ids=x['ids'], x=x['x'], deep=bool(x['deep']), status=x['status']) for x in S1]),
+                  open(cfn.replace('.json', '_meta.json'), 'w'), default=str)
         json.dump([[list(map(int, s[0])), list(map(float, s[1]))] for s in seeds], open(cfn, 'w'))
-    ch = LogChain(ClassProvider(U, mu), N=N, w=0.3, Ufull=U if twins else None, twins=twins, theta=1.0, max_states=10 ** 9)
-    ch.explore_log(extra_states=[(list(s[0]), list(s[1])) for s in seeds], log_theta=log_theta, max_states=60000)
+    CH = fast_chain_class() if os.environ.get('CP_FAST', '0') == '1' else LogChain
+    ch = CH(ClassProvider(U, mu), N=N, w=0.3, Ufull=U if twins else None, twins=twins, theta=1.0, max_states=10 ** 9)
+    ch.explore_log(extra_states=[(list(s[0]), list(s[1])) for s in seeds], log_theta=log_theta, max_states=MAX_STATES, verbose=VERBOSE)
     keys_all, lpi_all, sinfo, out_un, rec = ch.solve_sparse()
     keys = [keys_all[i] for i in rec]
     lpi = lpi_all[rec]
@@ -315,6 +381,20 @@ def chain_cell(job):
         if len(f): tot_flow += pi[i] * float(np.exp(np.logaddexp.reduce(f)))
     infl = {k2: float(np.exp(np.logaddexp.reduce([lpi_all[i] + lw for i, lw in lst]))) for k2, lst in out_un.items()}
     cut = float(sum(infl.values()))
+    # cut diagnostic (concessions_cutdiag pattern): the dropped flow by destination kind / cooperation and by source
+    cutdiag = defaultdict(float)
+    for k2, lst in out_un.items():
+        ids2, x2, kind2 = ch.states[k2]
+        c2 = float(np.asarray(x2) @ PCC[np.ix_(list(ids2), list(ids2))] @ np.asarray(x2))
+        for i, lw in lst:
+            f = float(np.exp(lpi_all[i] + lw))
+            ids1, x1, kind1 = ch.states[keys_all[i]]
+            c1 = float(np.asarray(x1) @ PCC[np.ix_(list(ids1), list(ids1))] @ np.asarray(x1))
+            cutdiag['dst_%s_%s' % (kind2, 'coop' if c2 >= 0.95 else 'noncoop')] += f
+            cutdiag['src_%s' % ('coop' if c1 >= 0.95 else 'noncoop')] += f
+            if c1 >= 0.95 and c2 < 0.95: cutdiag['coop_to_noncoop'] += f
+    cutdiag = {k: v / cut for k, v in cutdiag.items()} if cut > 0 else {}
+    cutdiag['n_destinations'] = len(out_un)
     def desc(k):
         ids, x, kind = ch.states[k]
         return ' + '.join('%s:%.3f' % (names[i], xi) for i, xi in zip(ids, x))
@@ -371,9 +451,10 @@ def chain_cell(job):
         ents.sort(key=lambda e: -e['rate'])
         entry = dict(total_rate=sum(e['rate'] for e in ents), coop_rate=sum(e['rate'] for e in ents if e['coop'] >= 0.95), top=ents[:8])
     res = dict(arm=arm, prior=prior, N=N, twins=twins, log10_theta=log_theta / math.log(10), label=label, table=A_kind,
-               n_classes=nc, n_seeds=len(seeds), n_expanded=len(keys_all), n_recurrent=len(keys), solve=sinfo,
+               fast=os.environ.get('CP_FAST', '0') == '1',
+               n_classes=nc, n_dropped=len(dropped), dropped=dropped_names, n_seeds=len(seeds), n_expanded=len(keys_all), n_recurrent=len(keys), solve=sinfo,
                pcc=pcc, pi_D=piD, pi_coop=pi_coop, poly=float(sum(pi[i] for i, k in enumerate(keys) if ch.states[k][2] == 'poly')),
-               entry_split=dict(ent_split), cut_flow=cut, total_flow=tot_flow, cut_rel=cut / tot_flow if tot_flow > 0 else None,
+               entry_split=dict(ent_split), cut_flow=cut, cut_diagnostic=dict(cutdiag), total_flow=tot_flow, cut_rel=cut / tot_flow if tot_flow > 0 else None,
                twin_moves=ch.n_twin_moves, indeterminate=len(ch.indeterminate), support=support, top_coop=top, entry_D=entry,
                time_s=time.time() - t0)
     return res
@@ -387,8 +468,8 @@ def cmd_chain(a):
                 jobs.append((arm, prior, N, bool(tw), math.log(a.theta), a.label, a.table))
     path = os.path.join(OUT, 'chain_%s.json' % a.out)
     rows = json.load(open(path)) if os.path.exists(path) else []
-    done = {(r['arm'], r['prior'], r['N'], r['twins'], round(r['log10_theta'], 3), r['table']) for r in rows}
-    jobs = [j for j in jobs if (j[0], j[1], j[2], j[3], round(j[4] / math.log(10), 3), j[6]) not in done]
+    done = {(r['arm'], r['prior'], r['N'], r['twins'], round(r['log10_theta'], 3), r['table'], r['label']) for r in rows}
+    jobs = [j for j in jobs if (j[0], j[1], j[2], j[3], round(j[4] / math.log(10), 3), j[6], j[5]) not in done]
     jobs.sort(key=lambda j: -j[2])
     nw = workers_allowed(a.workers)
     print('chain jobs', len(jobs), 'workers', nw, 'foreign', foreign_alive(), flush=True)
@@ -718,6 +799,88 @@ def cmd_lottery(a):
                 r['pcc_final'], r['top_final'][:2], r['time_s']), flush=True)
 
 
+def cmd_ksens(a):
+    """K sensitivity (after review): the executable class table recomputed at another K with V/K fixed (sources and
+    lists rebuilt at that K; the K = 10^6 classes' representative spellings), compared cell by cell."""
+    z, info = load_static(a.arm)
+    A0 = z['A_class']; crep = [int(k) for k in z['class_rep']]
+    names = class_names(info)
+    out = {}
+    nw = workers_allowed(a.workers)
+    pr = class_props(A0, info, a.arm)
+    est = set(np.nonzero(pr['est'])[0].tolist())
+    for K2 in a.Ks:
+        t0 = time.time()
+        cat = CP.Catalogue(7, a.arm, K2)
+        nc = len(crep)
+        cdt = [cat.tau_dt[cat.tau[k]] for k in crep]
+        catoms = [cat.tau_atoms[cat.tau[k]] for k in crep]
+        creps = {i: (crep[i], crep[i]) for i in range(nc)}
+        hasC = lambda u, aa: cat.has_entry(int(cat.tau[crep[u]]), aa)
+        same_lists = sum(1 for i, k in enumerate(crep)
+                         if [[e[0], C.show_script(e[1])] for e in (C.uncons(cat.tau_list[cat.tau[k]]) if cat.tau_list[cat.tau[k]] != 0 else [])]
+                         == [list(x) for x in info['classes'][i]['list']])
+        with Pool(nw, initializer=_init, initargs=(7, a.arm, K2)) as pool:
+            exe = compute_tables(pool, cat, 'exec', cdt, catoms, creps, hasC)
+        A, sa = compose(cdt, exe)
+        A[np.arange(nc), np.arange(nc)] = sa
+        diff = np.argwhere(A != A0)
+        steps = np.array([x[4] for x in exe['steps']]) if exe['steps'] else np.zeros(0)
+        V2 = K2 // 4
+        dest = [(int(i), int(j)) for i, j in diff if int(i) in est and int(j) in est]
+        out[str(K2)] = dict(K=K2, V=V2, n_classes=nc, lists_equal=same_lists, n_diff=int(len(diff)), n_diff_establisher_pairs=len(dest),
+                            diff_examples=[(names[i], names[j], int(A0[i, j]), int(A[i, j])) for i, j in diff[:20]],
+                            n_TO=int(sum(exe['n_to'].values())), n_at_cap=int((steps >= V2).sum()),
+                            max_below_cap=int(steps[steps < V2].max()) if (steps < V2).any() else None,
+                            time_s=time.time() - t0)
+        np.save(os.path.join(OUT, 'ksens_A_%s_K%d.npy' % (a.arm, K2)), A)
+        print(json.dumps(out[str(K2)])[:2000], flush=True)
+    json.dump(out, open(os.path.join(OUT, 'ksens_%s.json' % a.arm), 'w'), indent=1)
+
+
+def cmd_audit(a):
+    """Soundness audit (S1, RE 3(a)): every check that returned T in the executable class table, against the actual
+    play it certifies (pair checks against the class table, which is itself validated against whole plays; checks
+    against the quotes of plain C and D against whole plays of the representative)."""
+    z, info = load_static(a.arm)
+    A = z['A_class']; crep = [int(k) for k in z['class_rep']]
+    cat = CP.Catalogue(7, a.arm, 10 ** 6)
+    nc = len(crep)
+    cdt = [cat.tau_dt[cat.tau[k]] for k in crep]
+    catoms = [cat.tau_atoms[cat.tau[k]] for k in crep]
+    creps = {i: (crep[i], crep[i]) for i in range(nc)}
+    hasC = lambda u, aa: cat.has_entry(int(cat.tau[crep[u]]), aa)
+    nw = workers_allowed(a.workers)
+    out = {}
+    for kind in ('exec', 'ideal'):
+        with Pool(nw, initializer=_init, initargs=(7, a.arm, 10 ** 6)) as pool:
+            tb = compute_tables(pool, cat, kind, cdt, catoms, creps, hasC)
+        nT = 0; bad = []
+        for (md, aa), M in tb['CH'].items():
+            for t, m in np.argwhere(M == 1):
+                nT += 1
+                want = 1 if aa == 'C' else 0
+                act = A[t, m] if t != m else A[t, t]
+                if act != want: bad.append(('pair', int(md), aa, int(t), int(m)))
+        vsq = {}
+        for (k, md, aa), d in tb['UV'].items():
+            for t in np.nonzero(d['val'] == 1)[0]:
+                nT += 1
+                want = 'C' if aa == 'C' else 'D'
+                if k == 'self':
+                    act = 'C' if A[t, t] else 'D'
+                else:
+                    key = (int(t), k)
+                    if key not in vsq:
+                        L.CACHE.clear()
+                        vsq[key] = L.play(cat.term(crep[t]), L.PROG_C if k == 'C' else L.PROG_D, cat.K)[0]
+                    act = vsq[key]
+                if act != want: bad.append((k, int(md), aa, int(t)))
+        out[kind] = dict(n_true_checks=nT, false_atoms=len(bad), examples=bad[:10])
+        print(kind, out[kind], flush=True)
+    json.dump(out, open(os.path.join(OUT, 'audit_%s.json' % a.arm), 'w'), indent=1)
+
+
 def _dt_of(cat, k):
     return cat.tau_dt[cat.tau[k]]
 
@@ -735,6 +898,7 @@ if __name__ == '__main__':
     s = sub.add_parser('static')
     s.add_argument('--arm', default='P'); s.add_argument('--n', type=int, default=7); s.add_argument('--K', type=int, default=10 ** 6)
     s.add_argument('--workers', type=int, default=3)
+    s.add_argument('--exec_sample', type=int, default=0); s.add_argument('--resume', type=int, default=0)
     s = sub.add_parser('chain')
     s.add_argument('--cells', nargs='+', default=['P:L'])
     s.add_argument('--N', type=int, nargs='+', default=[1000, 10000, 30000, 100000])
@@ -753,5 +917,9 @@ if __name__ == '__main__':
     s.add_argument('--mN', type=float, default=1.0); s.add_argument('--gens', type=int, default=2000)
     s.add_argument('--out', default='main')
     s.add_argument('--workers', type=int, default=3)
+    s = sub.add_parser('audit'); s.add_argument('--arm', default='P'); s.add_argument('--workers', type=int, default=3)
+    s = sub.add_parser('ksens')
+    s.add_argument('--arm', default='P'); s.add_argument('--Ks', type=int, nargs='+', default=[300000, 3000000])
+    s.add_argument('--workers', type=int, default=3)
     a = ap.parse_args()
-    {'static': cmd_static, 'chain': cmd_chain, 'validate': cmd_validate, 'lottery': cmd_lottery}[a.cmd](a)
+    {'audit': cmd_audit, 'ksens': cmd_ksens, 'static': cmd_static, 'chain': cmd_chain, 'validate': cmd_validate, 'lottery': cmd_lottery}[a.cmd](a)

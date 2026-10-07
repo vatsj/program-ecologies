@@ -1,0 +1,2974 @@
+[
+ {
+  "arm": "P",
+  "prior": "L",
+  "N": 1000,
+  "twins": true,
+  "log10_theta": -14.0,
+  "label": "main",
+  "table": "exec",
+  "fast": true,
+  "n_classes": 588,
+  "n_dropped": 0,
+  "dropped": [],
+  "n_seeds": 0,
+  "n_expanded": 588,
+  "n_recurrent": 588,
+  "solve": {
+   "n_components": 1,
+   "n_closed": 1,
+   "closed_sizes": [
+    588
+   ]
+  },
+  "pcc": 1.0000000000000002,
+  "pi_D": 2.43816385012697e-32,
+  "pi_coop": 1.0000000000000002,
+  "poly": 0.0,
+  "entry_split": {
+   "none": 8.253909584316365e-35,
+   "0": 1.0000000000000002
+  },
+  "cut_flow": 1.5545199813254047e-36,
+  "total_flow": 3.1612681816461816e-34,
+  "cut_rel": 0.004917393564869629,
+  "twin_moves": 0,
+  "indeterminate": 0,
+  "support": [
+   {
+    "state": "if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000",
+    "pi": 0.1818181818181821,
+    "coop": 1.0,
+    "log10_exit": -35.864187524444745,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -36.6583268802125,
+      "mutants": [
+       [
+        "CB",
+        -36.6583268802125
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -37.39508544543792,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -37.39508544543792
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+    "pi": 0.0909090909090909,
+    "coop": 1.0,
+    "log10_exit": -35.863606528395685,
+    "exits": [
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -36.6583268802125,
+      "mutants": [
+       [
+        "CB",
+        -36.6583268802125
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -37.39508544543792,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -37.39508544543792
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,them,D),if(CHK(me,me,D),C,D),C):1.000",
+    "pi": 0.0909090909090909,
+    "coop": 1.0,
+    "log10_exit": -35.863606528395685,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -36.6583268802125,
+      "mutants": [
+       [
+        "CB",
+        -36.6583268802125
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -37.39508544543792,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -37.39508544543792
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(and(not(CHK(me,me,D)),CHK(me,them,D)),D,C):1.000",
+    "pi": 0.0909090909090909,
+    "coop": 1.0,
+    "log10_exit": -35.863606528395685,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -36.6583268802125,
+      "mutants": [
+       [
+        "CB",
+        -36.6583268802125
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -37.39508544543792,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -37.39508544543792
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(or(CHK(me,me,D),not(CHK(me,them,D))),C,D):1.000",
+    "pi": 0.0909090909090909,
+    "coop": 1.0,
+    "log10_exit": -35.863606528395685,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -36.6583268802125,
+      "mutants": [
+       [
+        "CB",
+        -36.6583268802125
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -37.39508544543792,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -37.39508544543792
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,me,D),C,if(CHK(me,them,D),D,C)):1.000",
+    "pi": 0.0909090909090909,
+    "coop": 1.0,
+    "log10_exit": -35.863606528395685,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -36.6583268802125,
+      "mutants": [
+       [
+        "CB",
+        -36.6583268802125
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -37.39508544543792,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -37.39508544543792
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(not(or(CHK(me,me,D),CHK(me,them,D))),C,D):1.000",
+    "pi": 0.0909090909090909,
+    "coop": 1.0,
+    "log10_exit": -35.863606528395685,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -36.6583268802125,
+      "mutants": [
+       [
+        "CB",
+        -36.6583268802125
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -37.39508544543792,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -37.39508544543792
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,me,D),D,if(CHK(me,them,D),D,C)):1.000",
+    "pi": 0.0909090909090909,
+    "coop": 1.0,
+    "log10_exit": -35.863606528395685,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -36.6583268802125,
+      "mutants": [
+       [
+        "CB",
+        -36.6583268802125
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -37.39508544543792,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -37.39508544543792
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,them,D),if(CHK(me,me,D),D,D),C):1.000",
+    "pi": 0.0909090909090909,
+    "coop": 1.0,
+    "log10_exit": -35.863606528395685,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -36.6583268802125,
+      "mutants": [
+       [
+        "CB",
+        -36.6583268802125
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -37.39508544543792,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -37.39508544543792
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(and(CHK(me,them,D),not(CHK(me,me,D))),D,C):1.000",
+    "pi": 0.0909090909090909,
+    "coop": 1.0,
+    "log10_exit": -35.863606528395685,
+    "exits": [
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -36.55853117896696,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -36.55853117896696
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -36.6583268802125,
+      "mutants": [
+       [
+        "CB",
+        -36.6583268802125
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -37.39508544543792,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -37.39508544543792
+       ]
+      ]
+     }
+    ]
+   }
+  ],
+  "top_coop": {
+   "state": "if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000",
+   "pi": 0.1818181818181821,
+   "exit_total": 1.367138380094507e-36,
+   "exit_neutral": 0.0,
+   "exit_strict": 0.0,
+   "exit_deleterious": 1.367138380094507e-36,
+   "exits": [
+    {
+     "mutant": "if(CHK(them,^C,D),D,C)",
+     "to": "if(CHK(them,^C,D),D,C):1.000",
+     "rate": 2.7635595099634576e-37,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0097899377593361
+    },
+    {
+     "mutant": "if(CHK(them,^D,D),D,C)",
+     "to": "if(CHK(them,^D,D),D,C):1.000",
+     "rate": 2.7635595099634576e-37,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0097899377593361
+    },
+    {
+     "mutant": "CB",
+     "to": "CB:1.000",
+     "rate": 2.1962062330835614e-37,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.007780082987551868
+    },
+    {
+     "mutant": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+     "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+     "rate": 4.0263780939864916e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0014263485477178427
+    },
+    {
+     "mutant": "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C)",
+     "to": "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C):1.000",
+     "rate": 3.843360907896181e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0013615145228215771
+    },
+    {
+     "mutant": "if(or(CHK(them,me,C),CHK(me,them,D)),C,D)",
+     "to": "if(or(CHK(them,me,C),CHK(me,them,D)),C,D):1.000",
+     "rate": 3.6603437218058856e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0012966804979253116
+    },
+    {
+     "mutant": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+     "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+     "rate": 2.1962062330835512e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.000778008298755187
+    },
+    {
+     "mutant": "if(and(CHK(me,^D,D),CHK(them,me,C)),C,D)",
+     "to": "if(and(CHK(me,^D,D),CHK(them,me,C)),C,D):1.000",
+     "rate": 2.0131890469932422e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0007131742738589213
+    },
+    {
+     "mutant": "if(or(CHK(them,me,C),CHK(them,^C,D)),D,C)",
+     "to": "if(or(CHK(them,me,C),CHK(them,^C,D)),D,C):1.000",
+     "rate": 1.4641374887223529e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0005186721991701246
+    },
+    {
+     "mutant": "if(or(CHK(them,me,C),CHK(them,^D,D)),D,C)",
+     "to": "if(or(CHK(them,me,C),CHK(them,^D,D)),D,C):1.000",
+     "rate": 1.4641374887223529e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0005186721991701246
+    }
+   ]
+  },
+  "entry_D": {
+   "total_rate": 0.0011879060377487259,
+   "coop_rate": 0.0008337825937653365,
+   "top": [
+    {
+     "mutant": "if(CHK(them,^C,D),D,C)",
+     "to": "if(CHK(them,^C,D),D,C):1.000",
+     "coop": 1.0,
+     "rate": 0.00013351131671109808,
+     "rho": 0.013637606284450302,
+     "N_rho": 13.637606284450301,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0097899377593361
+    },
+    {
+     "mutant": "if(CHK(them,^D,D),D,C)",
+     "to": "if(CHK(them,^D,D),D,C):1.000",
+     "coop": 1.0,
+     "rate": 0.00013351131671109808,
+     "rho": 0.013637606284450302,
+     "N_rho": 13.637606284450301,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0097899377593361
+    },
+    {
+     "mutant": "CB",
+     "to": "CB:1.000",
+     "coop": 1.0,
+     "rate": 0.00010610170864458143,
+     "rho": 0.013637606284450302,
+     "N_rho": 13.637606284450301,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.007780082987551868
+    },
+    {
+     "mutant": "if(CHK(them,them,D),D,C)",
+     "to": "if(CHK(them,them,D),D,C):1.000",
+     "coop": 1.0,
+     "rate": 7.692373876732148e-05,
+     "rho": 0.013637606284450302,
+     "N_rho": 13.637606284450301,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.005640560165975104
+    },
+    {
+     "mutant": "if(CHK(me,^D,D),D,C)",
+     "to": "if(CHK(me,^D,D),D,C):1.000",
+     "coop": 0.0,
+     "rate": 3.890041493775899e-05,
+     "rho": 0.0009999999999999996,
+     "N_rho": 0.9999999999999996,
+     "d1": 0.0,
+     "d2": 0.0,
+     "mu": 0.038900414937759344
+    },
+    {
+     "mutant": "if(CHK(them,^C,D),D,D)",
+     "to": "if(CHK(them,^C,D),D,D):1.000",
+     "coop": 0.0,
+     "rate": 3.488070539419053e-05,
+     "rho": 0.0009999999999999996,
+     "N_rho": 0.9999999999999996,
+     "d1": 0.0,
+     "d2": 0.0,
+     "mu": 0.03488070539419087
+    },
+    {
+     "mutant": "if(CHK(me,me,D),C,D)",
+     "to": "if(CHK(me,me,D),C,D):1.000",
+     "coop": 0.0,
+     "rate": 3.0147821576763203e-05,
+     "rho": 0.0009999999999999996,
+     "N_rho": 0.9999999999999996,
+     "d1": 0.0,
+     "d2": 0.0,
+     "mu": 0.03014782157676349
+    },
+    {
+     "mutant": "if(CHK(them,^C,C),D,D)",
+     "to": "if(CHK(them,^C,C),D,D):1.000",
+     "coop": 0.0,
+     "rate": 2.8786307053941625e-05,
+     "rho": 0.0009999999999999996,
+     "N_rho": 0.9999999999999996,
+     "d1": 0.0,
+     "d2": 0.0,
+     "mu": 0.02878630705394191
+    }
+   ]
+  },
+  "time_s": 12.022459030151367
+ },
+ {
+  "arm": "P",
+  "prior": "U",
+  "N": 1000,
+  "twins": true,
+  "log10_theta": -14.0,
+  "label": "main",
+  "table": "exec",
+  "fast": true,
+  "n_classes": 588,
+  "n_dropped": 0,
+  "dropped": [],
+  "n_seeds": 0,
+  "n_expanded": 588,
+  "n_recurrent": 588,
+  "solve": {
+   "n_components": 1,
+   "n_closed": 1,
+   "closed_sizes": [
+    588
+   ]
+  },
+  "pcc": 0.9999999999999998,
+  "pi_D": 1.0693725521764614e-34,
+  "pi_coop": 0.9999999999999998,
+  "poly": 0.0,
+  "entry_split": {
+   "none": 2.866696677983119e-36,
+   "0": 0.9999999999999998
+  },
+  "cut_flow": 1.2771300066686957e-35,
+  "total_flow": 1.1914865656293045e-34,
+  "cut_rel": 0.10718794852665059,
+  "twin_moves": 0,
+  "indeterminate": 0,
+  "support": [
+   {
+    "state": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -35.36444592633818,
+    "exits": [
+     {
+      "to": "if(CHK(them,me,D),if(CHK(them,them,D),D,D),C):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,me,D),if(CHK(them,them,D),D,D),C)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,them,C),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(CHK(them,them,C),CHK(them,^C,D)),D,C)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(me,me,D),D,if(CHK(me,them,D),D,C)):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(me,me,D),D,if(CHK(me,them,D),D,C))",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(not(or(CHK(me,me,D),CHK(them,me,D))),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(not(or(CHK(me,me,D),CHK(them,me,D))),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -35.36444592633818,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,them,D),if(CHK(me,me,D),D,D),C):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -35.36444592633818,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,me,D),D,if(CHK(me,them,D),D,C)):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -35.36444592633818,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(not(or(CHK(me,me,D),CHK(me,them,D))),C,D):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -35.36444592633818,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,me,D),C,if(CHK(me,them,D),D,C)):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -35.36444592633818,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(and(CHK(me,them,D),not(CHK(me,me,D))),D,C):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -35.36444592633818,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,them,C),C,D),C):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,them,C),C,D),C)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(and(not(CHK(me,me,D)),CHK(me,them,D)),D,C):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -35.36444592633818,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(or(CHK(me,me,D),not(CHK(me,them,D))),C,D):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -35.36444592633818,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,them,D),if(CHK(me,me,D),C,D),C):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -35.36444592633818,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -37.3186884357775
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -37.3186884357775,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -37.3186884357775
+       ]
+      ]
+     }
+    ]
+   }
+  ],
+  "top_coop": {
+   "state": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+   "pi": 0.09999999999999998,
+   "exit_total": 4.320699609576713e-36,
+   "exit_neutral": 0.0,
+   "exit_strict": 0.0,
+   "exit_deleterious": 4.320699609576713e-36,
+   "exits": [
+    {
+     "mutant": "if(CHK(them,^C,D),D,C)",
+     "to": "if(CHK(them,^C,D),D,C):1.000",
+     "rate": 4.800777343974119e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(CHK(them,^D,D),D,C)",
+     "to": "if(CHK(them,^D,D),D,C):1.000",
+     "rate": 4.800777343974119e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "CB",
+     "to": "CB:1.000",
+     "rate": 4.800777343974119e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+     "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+     "rate": 4.800777343974119e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C)",
+     "to": "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C):1.000",
+     "rate": 4.800777343974119e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(or(CHK(them,me,C),CHK(me,them,D)),C,D)",
+     "to": "if(or(CHK(them,me,C),CHK(me,them,D)),C,D):1.000",
+     "rate": 4.800777343974119e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+     "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+     "rate": 4.800777343974119e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(and(CHK(me,^D,D),CHK(them,me,C)),C,D)",
+     "to": "if(and(CHK(me,^D,D),CHK(them,me,C)),C,D):1.000",
+     "rate": 4.800777343974119e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(or(CHK(them,me,C),CHK(them,^C,D)),D,C)",
+     "to": "if(or(CHK(them,me,C),CHK(them,^C,D)),D,C):1.000",
+     "rate": 4.800777343974119e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(or(CHK(them,me,C),CHK(them,^D,D)),D,C)",
+     "to": "if(or(CHK(them,me,C),CHK(them,^D,D)),D,C):1.000",
+     "rate": 4.800777343974119e-38,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 1.0,
+     "rho": 2.822857078256757e-35,
+     "N_rho": 2.822857078256757e-32,
+     "N_d1": -1000.0,
+     "mu": 0.0017006802721088437
+    }
+   ]
+  },
+  "entry_D": {
+   "total_rate": 0.0026860514196080224,
+   "coop_rate": 0.0023425140046420202,
+   "top": [
+    {
+     "mutant": "if(CHK(them,^C,D),D,C)",
+     "to": "if(CHK(them,^C,D),D,C):1.000",
+     "coop": 1.0,
+     "rate": 2.3193207966752692e-05,
+     "rho": 0.013637606284450302,
+     "N_rho": 13.637606284450301,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(CHK(them,^D,D),D,C)",
+     "to": "if(CHK(them,^D,D),D,C):1.000",
+     "coop": 1.0,
+     "rate": 2.3193207966752692e-05,
+     "rho": 0.013637606284450302,
+     "N_rho": 13.637606284450301,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "CB",
+     "to": "CB:1.000",
+     "coop": 1.0,
+     "rate": 2.3193207966752692e-05,
+     "rho": 0.013637606284450302,
+     "N_rho": 13.637606284450301,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(CHK(them,them,D),D,C)",
+     "to": "if(CHK(them,them,D),D,C):1.000",
+     "coop": 1.0,
+     "rate": 2.3193207966752692e-05,
+     "rho": 0.013637606284450302,
+     "N_rho": 13.637606284450301,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(or(CHK(them,them,D),CHK(me,me,C)),D,C)",
+     "to": "if(or(CHK(them,them,D),CHK(me,me,C)),D,C):1.000",
+     "coop": 1.0,
+     "rate": 2.3193207966752692e-05,
+     "rho": 0.013637606284450302,
+     "N_rho": 13.637606284450301,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+     "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+     "coop": 1.0,
+     "rate": 2.3193207966752692e-05,
+     "rho": 0.013637606284450302,
+     "N_rho": 13.637606284450301,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C)",
+     "to": "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C):1.000",
+     "coop": 1.0,
+     "rate": 2.3193207966752692e-05,
+     "rho": 0.013637606284450302,
+     "N_rho": 13.637606284450301,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(or(CHK(them,me,C),CHK(me,them,D)),C,D)",
+     "to": "if(or(CHK(them,me,C),CHK(me,them,D)),C,D):1.000",
+     "coop": 1.0,
+     "rate": 2.3193207966752692e-05,
+     "rho": 0.013637606284450302,
+     "N_rho": 13.637606284450301,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    }
+   ]
+  },
+  "time_s": 11.775320053100586
+ },
+ {
+  "arm": "P",
+  "prior": "U",
+  "N": 10000,
+  "twins": true,
+  "log10_theta": -14.0,
+  "label": "main",
+  "table": "exec",
+  "fast": true,
+  "n_classes": 588,
+  "n_dropped": 0,
+  "dropped": [],
+  "n_seeds": 0,
+  "n_expanded": 588,
+  "n_recurrent": 588,
+  "solve": {
+   "n_components": 1,
+   "n_closed": 1,
+   "closed_sizes": [
+    588
+   ]
+  },
+  "pcc": 0.9999999999999998,
+  "pi_D": 0.0,
+  "pi_coop": 0.9999999999999998,
+  "poly": 0.0,
+  "entry_split": {
+   "none": 0.0,
+   "0": 0.9999999999999998
+  },
+  "cut_flow": 0.0,
+  "total_flow": 0.0,
+  "cut_rel": null,
+  "twin_moves": 0,
+  "indeterminate": 0,
+  "support": [
+   {
+    "state": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -329.01341675111036,
+    "exits": [
+     {
+      "to": "if(CHK(them,me,D),if(CHK(them,them,D),D,D),C):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,me,D),if(CHK(them,them,D),D,D),C)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,them,C),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(CHK(them,them,C),CHK(them,^C,D)),D,C)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(me,me,D),D,if(CHK(me,them,D),D,C)):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(me,me,D),D,if(CHK(me,them,D),D,C))",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(not(or(CHK(me,me,D),CHK(them,me,D))),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(not(or(CHK(me,me,D),CHK(them,me,D))),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -329.01341675111036,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,them,D),if(CHK(me,me,D),D,D),C):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -329.01341675111036,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,me,D),D,if(CHK(me,them,D),D,C)):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -329.01341675111036,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(not(or(CHK(me,me,D),CHK(me,them,D))),C,D):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -329.01341675111036,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,me,D),C,if(CHK(me,them,D),D,C)):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -329.01341675111036,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(or(CHK(me,me,D),not(CHK(me,them,D))),C,D):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -329.01341675111036,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(and(not(CHK(me,me,D)),CHK(me,them,D)),D,C):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -329.01341675111036,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(and(CHK(me,them,D),not(CHK(me,me,D))),D,C):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -329.01341675111036,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,them,C),C,D),C):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,them,C),C,D),C)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,them,D),if(CHK(me,me,D),C,D),C):1.000",
+    "pi": 0.09999999999999998,
+    "coop": 1.0,
+    "log10_exit": -329.01341675111036,
+    "exits": [
+     {
+      "to": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,C),C,D),C)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+        -330.9676592605495
+       ]
+      ]
+     },
+     {
+      "to": "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D):1.000",
+      "log10_rate": -330.9676592605495,
+      "mutants": [
+       [
+        "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)",
+        -330.9676592605495
+       ]
+      ]
+     }
+    ]
+   }
+  ],
+  "top_coop": {
+   "state": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+   "pi": 0.09999999999999998,
+   "exit_total": 0.0,
+   "exit_neutral": 0.0,
+   "exit_strict": 0.0,
+   "exit_deleterious": 0.0,
+   "exits": [
+    {
+     "mutant": "Dc",
+     "to": "Dc:1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "Cc",
+     "to": "Cc:1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -2.0,
+     "d2": -1.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -20000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(CHK(me,^D,D),D,C)",
+     "to": "if(CHK(me,^D,D),D,C):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(CHK(them,^C,D),D,D)",
+     "to": "if(CHK(them,^C,D),D,D):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(CHK(them,^C,C),C,C)",
+     "to": "if(CHK(them,^C,C),C,C):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -2.0,
+     "d2": -1.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -20000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(CHK(me,me,D),C,D)",
+     "to": "if(CHK(me,me,D),C,D):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(CHK(them,^C,C),D,D)",
+     "to": "if(CHK(them,^C,C),D,D):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(CHK(me,^C,D),C,D)",
+     "to": "if(CHK(me,^C,D),C,D):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(CHK(me,them,D),C,D)",
+     "to": "if(CHK(me,them,D),C,D):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(CHK(me,^C,C),C,C)",
+     "to": "if(CHK(me,^C,C),C,C):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -2.0,
+     "d2": -1.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -20000.0,
+     "mu": 0.0017006802721088437
+    }
+   ]
+  },
+  "entry_D": {
+   "total_rate": 0.0007817844212314744,
+   "coop_rate": 0.0007474306797348742,
+   "top": [
+    {
+     "mutant": "if(CHK(them,^C,D),D,C)",
+     "to": "if(CHK(them,^C,D),D,C):1.000",
+     "coop": 1.0,
+     "rate": 7.4003037597512275e-06,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(CHK(them,^D,D),D,C)",
+     "to": "if(CHK(them,^D,D),D,C):1.000",
+     "coop": 1.0,
+     "rate": 7.4003037597512275e-06,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "CB",
+     "to": "CB:1.000",
+     "coop": 1.0,
+     "rate": 7.4003037597512275e-06,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(CHK(them,them,D),D,C)",
+     "to": "if(CHK(them,them,D),D,C):1.000",
+     "coop": 1.0,
+     "rate": 7.4003037597512275e-06,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(or(CHK(them,them,D),CHK(me,me,C)),D,C)",
+     "to": "if(or(CHK(them,them,D),CHK(me,me,C)),D,C):1.000",
+     "coop": 1.0,
+     "rate": 7.4003037597512275e-06,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+     "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+     "coop": 1.0,
+     "rate": 7.4003037597512275e-06,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C)",
+     "to": "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C):1.000",
+     "coop": 1.0,
+     "rate": 7.4003037597512275e-06,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    },
+    {
+     "mutant": "if(or(CHK(them,me,C),CHK(me,them,D)),C,D)",
+     "to": "if(or(CHK(them,me,C),CHK(me,them,D)),C,D):1.000",
+     "coop": 1.0,
+     "rate": 7.4003037597512275e-06,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0017006802721088437
+    }
+   ]
+  },
+  "time_s": 37.67213487625122
+ },
+ {
+  "arm": "P",
+  "prior": "L",
+  "N": 10000,
+  "twins": true,
+  "log10_theta": -14.0,
+  "label": "main",
+  "table": "exec",
+  "fast": true,
+  "n_classes": 588,
+  "n_dropped": 0,
+  "dropped": [],
+  "n_seeds": 0,
+  "n_expanded": 588,
+  "n_recurrent": 588,
+  "solve": {
+   "n_components": 1,
+   "n_closed": 1,
+   "closed_sizes": [
+    588
+   ]
+  },
+  "pcc": 1.0,
+  "pi_D": 0.0,
+  "pi_coop": 1.0,
+  "poly": 0.0,
+  "entry_split": {
+   "none": 0.0,
+   "0": 1.0
+  },
+  "cut_flow": 0.0,
+  "total_flow": 0.0,
+  "cut_rel": null,
+  "twin_moves": 0,
+  "indeterminate": 0,
+  "support": [
+   {
+    "state": "if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000",
+    "pi": 0.18181818181819054,
+    "coop": 1.0,
+    "log10_exit": -329.51315834921667,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -330.3072977049845,
+      "mutants": [
+       [
+        "CB",
+        -330.3072977049845
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -331.0440562702099,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -331.0440562702099
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D):1.000",
+    "pi": 0.09090909090908993,
+    "coop": 1.0,
+    "log10_exit": -329.5125773531676,
+    "exits": [
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -330.3072977049845,
+      "mutants": [
+       [
+        "CB",
+        -330.3072977049845
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -331.0440562702099,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -331.0440562702099
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,them,D),if(CHK(me,me,D),D,D),C):1.000",
+    "pi": 0.09090909090908993,
+    "coop": 1.0,
+    "log10_exit": -329.5125773531676,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -330.3072977049845,
+      "mutants": [
+       [
+        "CB",
+        -330.3072977049845
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -331.0440562702099,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -331.0440562702099
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,me,D),D,if(CHK(me,them,D),D,C)):1.000",
+    "pi": 0.09090909090908993,
+    "coop": 1.0,
+    "log10_exit": -329.5125773531676,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -330.3072977049845,
+      "mutants": [
+       [
+        "CB",
+        -330.3072977049845
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -331.0440562702099,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -331.0440562702099
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(not(or(CHK(me,me,D),CHK(me,them,D))),C,D):1.000",
+    "pi": 0.09090909090908993,
+    "coop": 1.0,
+    "log10_exit": -329.5125773531676,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -330.3072977049845,
+      "mutants": [
+       [
+        "CB",
+        -330.3072977049845
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -331.0440562702099,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -331.0440562702099
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,me,D),C,if(CHK(me,them,D),D,C)):1.000",
+    "pi": 0.09090909090908993,
+    "coop": 1.0,
+    "log10_exit": -329.5125773531676,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -330.3072977049845,
+      "mutants": [
+       [
+        "CB",
+        -330.3072977049845
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -331.0440562702099,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -331.0440562702099
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(or(CHK(me,me,D),not(CHK(me,them,D))),C,D):1.000",
+    "pi": 0.09090909090908993,
+    "coop": 1.0,
+    "log10_exit": -329.5125773531676,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -330.3072977049845,
+      "mutants": [
+       [
+        "CB",
+        -330.3072977049845
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -331.0440562702099,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -331.0440562702099
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(and(not(CHK(me,me,D)),CHK(me,them,D)),D,C):1.000",
+    "pi": 0.09090909090908993,
+    "coop": 1.0,
+    "log10_exit": -329.5125773531676,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -330.3072977049845,
+      "mutants": [
+       [
+        "CB",
+        -330.3072977049845
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -331.0440562702099,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -331.0440562702099
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(and(CHK(me,them,D),not(CHK(me,me,D))),D,C):1.000",
+    "pi": 0.09090909090908993,
+    "coop": 1.0,
+    "log10_exit": -329.5125773531676,
+    "exits": [
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -330.3072977049845,
+      "mutants": [
+       [
+        "CB",
+        -330.3072977049845
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -331.0440562702099,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -331.0440562702099
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "state": "if(CHK(me,them,D),if(CHK(me,me,D),C,D),C):1.000",
+    "pi": 0.09090909090908993,
+    "coop": 1.0,
+    "log10_exit": -329.5125773531676,
+    "exits": [
+     {
+      "to": "if(CHK(them,^D,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^D,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "if(CHK(them,^C,D),D,C):1.000",
+      "log10_rate": -330.20750200373897,
+      "mutants": [
+       [
+        "if(CHK(them,^C,D),D,C)",
+        -330.20750200373897
+       ]
+      ]
+     },
+     {
+      "to": "CB:1.000",
+      "log10_rate": -330.3072977049845,
+      "mutants": [
+       [
+        "CB",
+        -330.3072977049845
+       ]
+      ]
+     },
+     {
+      "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+      "log10_rate": -331.0440562702099,
+      "mutants": [
+       [
+        "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+        -331.0440562702099
+       ]
+      ]
+     }
+    ]
+   }
+  ],
+  "top_coop": {
+   "state": "if(or(CHK(me,me,D),CHK(me,them,D)),D,C):1.000",
+   "pi": 0.18181818181819054,
+   "exit_total": 0.0,
+   "exit_neutral": 0.0,
+   "exit_strict": 0.0,
+   "exit_deleterious": 0.0,
+   "exits": [
+    {
+     "mutant": "Dc",
+     "to": "Dc:1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.09692686721991703
+    },
+    {
+     "mutant": "Cc",
+     "to": "Cc:1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -2.0,
+     "d2": -1.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -20000.0,
+     "mu": 0.0896654564315353
+    },
+    {
+     "mutant": "if(CHK(me,^D,D),D,C)",
+     "to": "if(CHK(me,^D,D),D,C):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.038900414937759344
+    },
+    {
+     "mutant": "if(CHK(them,^C,D),D,D)",
+     "to": "if(CHK(them,^C,D),D,D):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.03488070539419087
+    },
+    {
+     "mutant": "if(CHK(them,^C,C),C,C)",
+     "to": "if(CHK(them,^C,C),C,C):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -2.0,
+     "d2": -1.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -20000.0,
+     "mu": 0.03137966804979254
+    },
+    {
+     "mutant": "if(CHK(me,me,D),C,D)",
+     "to": "if(CHK(me,me,D),C,D):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.03014782157676349
+    },
+    {
+     "mutant": "if(CHK(them,^C,C),D,D)",
+     "to": "if(CHK(them,^C,C),D,D):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.02878630705394191
+    },
+    {
+     "mutant": "if(CHK(me,^C,D),C,D)",
+     "to": "if(CHK(me,^C,D),C,D):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.026711618257261417
+    },
+    {
+     "mutant": "if(CHK(me,them,D),C,D)",
+     "to": "if(CHK(me,them,D),C,D):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -1.0,
+     "d2": 0.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -10000.0,
+     "mu": 0.025868775933609964
+    },
+    {
+     "mutant": "if(CHK(me,^C,C),C,C)",
+     "to": "if(CHK(me,^C,C),C,C):1.000",
+     "rate": 0.0,
+     "type": "deleterious",
+     "d1": -2.0,
+     "d2": -1.0,
+     "rho": 0.0,
+     "N_rho": null,
+     "N_d1": -20000.0,
+     "mu": 0.025674273858921168
+    }
+   ]
+  },
+  "entry_D": {
+   "total_rate": 0.000301449042396389,
+   "coop_rate": 0.0002660366979980479,
+   "top": [
+    {
+     "mutant": "if(CHK(them,^C,D),D,C)",
+     "to": "if(CHK(them,^C,D),D,C):1.000",
+     "coop": 1.0,
+     "rate": 4.259972576638939e-05,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0097899377593361
+    },
+    {
+     "mutant": "if(CHK(them,^D,D),D,C)",
+     "to": "if(CHK(them,^D,D),D,C):1.000",
+     "coop": 1.0,
+     "rate": 4.259972576638939e-05,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0097899377593361
+    },
+    {
+     "mutant": "CB",
+     "to": "CB:1.000",
+     "coop": 1.0,
+     "rate": 3.385408670176646e-05,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.007780082987551868
+    },
+    {
+     "mutant": "if(CHK(them,them,D),D,C)",
+     "to": "if(CHK(them,them,D),D,C):1.000",
+     "coop": 1.0,
+     "rate": 2.4544212858780665e-05,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.005640560165975104
+    },
+    {
+     "mutant": "if(or(CHK(them,them,D),CHK(me,me,C)),D,C)",
+     "to": "if(or(CHK(them,them,D),CHK(me,me,C)),D,C):1.000",
+     "coop": 1.0,
+     "rate": 7.899286897078838e-06,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0018153526970954362
+    },
+    {
+     "mutant": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+     "to": "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C):1.000",
+     "coop": 1.0,
+     "rate": 6.206582561990514e-06,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0014263485477178427
+    },
+    {
+     "mutant": "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C)",
+     "to": "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C):1.000",
+     "coop": 1.0,
+     "rate": 5.924465172809134e-06,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0013615145228215771
+    },
+    {
+     "mutant": "if(or(CHK(them,me,C),CHK(me,them,D)),C,D)",
+     "to": "if(or(CHK(them,me,C),CHK(me,them,D)),C,D):1.000",
+     "coop": 1.0,
+     "rate": 5.642347783627746e-06,
+     "rho": 0.004351378610733737,
+     "N_rho": 43.513786107337374,
+     "d1": 0.0,
+     "d2": 1.0,
+     "mu": 0.0012966804979253116
+    }
+   ]
+  },
+  "time_s": 37.756535053253174
+ }
+]

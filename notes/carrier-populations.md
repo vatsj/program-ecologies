@@ -344,3 +344,20 @@ cell.** Executable check costs (inner steps): median 21,962; 99th percentile bel
 did not time out 101,644 (V = 250,000); 13,982 checks end at exactly V: every one a regress (the evaluator
 fast-forwards a regress to the root's deadline), and the ideal table, which has no step limit, gives TO for the same
 checks.
+
+### 2.1 Additions during the run (each before the cells that use it)
+
+- **Exact lumping with hashed keys** (E): the lumping keys rows and columns by hash and then verifies every group
+  exactly against its first member (the first E attempt's byte keys ran out of memory; the result is identical).
+- **E's class table is the ideal table.** The full executable E table needed 4.07 M term checks (≈ 3 h at 3
+  workers); it was computed on 291 classes (the 150 heaviest and 150 random; 24,702 term checks), identical to the
+  ideal table there, as in P (588 classes) and O (701 classes) where it was computed in full.
+- **`FastChain`** (`carrier_populations_run.fast_chain_class`): `LogChain` with closed-form two-type fates in
+  monomorphic states (q fixes unless c > a and b > d, where the stable mixture is the target; a first-order-dying q
+  gets the chain's own drift/valley target mono(q)); polymorphic states unchanged. On the P cells at N = 10³ and 10⁴
+  it reproduces `LogChain` exactly (π(all-D), entry rates, exits, support to all printed digits). Used for E and the
+  no-clique control.
+- **The no-clique control** (not preregistered): the ten closed leak components removed (iterated until none is
+  closed: one pass), θ = 10⁻⁸, ≤ 4,000 explored states; cut diagnostic recorded per cell.
+- **Process note:** killing a driver with `pkill -f` left its pool workers running as orphans; four such workers ran
+  for up to four hours beside the permitted three before I found and killed them (by pid).

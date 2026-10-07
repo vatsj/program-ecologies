@@ -521,9 +521,18 @@ def lump(cat, A_tau, self_tau, w_spell):
     for t in range(T):
         if split[t]:
             continue
-        groups[(R[t].tobytes(), R[:, t].tobytes())].append(t)
-    classes = []      # each: dict(types=[...], spellings=[...])
+        groups[(hash(R[t].tobytes()), hash(np.ascontiguousarray(R[:, t]).tobytes()))].append(t)
+    # memory-light keys (hashes); every group is verified exactly against its first member, splitting on mismatch
+    exact = []
     for ts in groups.values():
+        rest = list(ts)
+        while rest:
+            t0 = rest[0]
+            same = [t for t in rest if np.array_equal(R[t], R[t0]) and np.array_equal(R[:, t], R[:, t0])]
+            exact.append(same)
+            rest = [t for t in rest if t not in set(same)]
+    classes = []      # each: dict(types=[...], spellings=[...])
+    for ts in exact:
         sp = [k for t in ts for k in cat.members[t]]
         classes.append(dict(types=sorted(ts), spellings=sorted(sp), split=False))
     for t in np.nonzero(split)[0]:

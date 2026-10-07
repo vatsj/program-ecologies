@@ -1,0 +1,10 @@
+chain jobs 1 workers 2 foreign []
+P L N=30000 tw=True: P(C,C) 0.8442 pi(D) 0.0277 pi(coop) 0.8442 top CB:1.000 (0.262) exit 1.25e-05 [n 1.25e-05 s 0.00e+00] states 580 cut 5.8e-03 (93s)
+chain jobs 6 workers 2 foreign []
+P Lstd N=100000 tw=True: P(C,C) 0.6905 pi(D) 0.1955 pi(coop) 0.6905 top CB:1.000 (0.155) exit 4.84e-06 [n 4.84e-06 s 0.00e+00] states 578 cut 3.4e-04 (267s)
+O L N=100000 tw=True: P(C,C) 0.9070 pi(D) 0.0086 pi(coop) 0.9070 top CB:1.000 (0.290) exit 1.88e-06 [n 1.88e-06 s 0.00e+00] states 691 cut 8.1e-03 (384s)
+P U N=100000 tw=True: P(C,C) 0.9837 pi(D) 0.0004 pi(coop) 0.9837 top if(and(CHK(them,^C,D),CHK(them,me,C)),C,D):1.000 (0.136) exit 1.00e-06 [n 1.00e-06 s 0.00e+00] states 620 cut 1.1e-01 (1151s)
+P Lstd N=10000 tw=True: P(C,C) 0.4162 pi(D) 0.4344 pi(coop) 0.4162 top CB:1.000 (0.092) exit 4.84e-05 [n 4.84e-05 s 0.00e+00] states 578 cut 3.0e-04 (36s)
+O L N=10000 tw=True: P(C,C) 0.7564 pi(D) 0.0241 pi(coop) 0.7564 top CB:1.000 (0.241) exit 1.88e-05 [n 1.88e-05 s 0.00e+00] states 705 cut 3.7e-03 (140s)
+/Users/jstav/anaconda3/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
