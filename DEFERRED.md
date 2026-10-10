@@ -59,8 +59,15 @@ REJECTED.md the ones we dropped.
   the seed lottery is won by FairBot-shaped carriers 40/40 (RESULTS "The realizable language, milestone 2").
   *Operating hypothesis (RE, 2026-10-06):* the seed lottery is the object for the Turing-complete goal because the
   rare-mutation object is parochial by construction in any quoting language; the chain remains the stress test for
-  unfakeability (its no-clique control reproduces the modal mechanism with odds ∝ N^½). *Open (RS):* whether a
-  self-recognizing clique counts as cooperation for the goal (it is efficient and sound, and not universal).
+  unfakeability (its no-clique control reproduces the modal mechanism with odds ∝ N^½).
+- *Decision (RS, 2026-10-10):* a self-recognizing clique counts as cooperation but is not the desirable object; the
+  target is universal cooperation (probes or proofs). **The seed lottery is the object for the Turing-complete goal.**
+  Rationale (RE): under rare mutation universality is impossible in principle in any quoting language (universality
+  and drift-closure are exclusive, and a one-line identity clique exists and is drift-closed); under iid seeding a
+  universal family pools its seed mass across spellings while an exact-identity clique cannot (its spellings defect
+  on each other), so the lottery's selection pressure matches the target. The chain remains a diagnostic.
+  *Contingent and to test next:* the clique's mass with `eq` in the grammar (milestone 2's 7·10⁻⁴ understates it), and
+  pooled parochial clubs (tags: bridged; exclusive clubs: the bridge-less I ≫ N patchwork).
 - *Evidence (2026-10-06k, mixed budgets):* with budgets mixed in {4, 8, 16}, natural horizon separation is 0.683
   under a cheap-heavy prior, 0.002 above the copy thresholds and 0/300 at homogeneous b = 16; `BOX1(THEM(ME))`@4
   is in 0.94 of the separations and FairBot is compatible with itself at every budget pair; a living bridge resolves

@@ -101,4 +101,6 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 22. ~~The realizable language, milestone 2: populations of carriers~~ (done; RESULTS "The realizable language, milestone 2": the modal arm's machinery transfers exactly to checked carriers in the Turing-complete evaluator once cliques are absent (odds ∝ N^½, executable = ideal, 0 false atoms), the seed lottery is won by FairBot-shaped carriers 40/40 under the polymorphic endpoint, soundness protects only S-guarded establishers, and a 6-node twin clique built on the checker's quote-equality absorbs the ε→0 chain at every N and prior; the two objects disagree).
 23. After 2026-10-08 (RS pause): the social organization game over the realizable language (the RS's prior question: a library-rich length prior under which a two-probe boss is not 10⁷ times rarer than a constant); milestone 5, endogenous certificate production (the tactic as code, charged); the identity-clique question (RS decision, DEFERRED 11).
 
+**Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1).
+
 No paper draft (RS, 2026-10-04).
