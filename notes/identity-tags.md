@@ -392,10 +392,49 @@ removed iteratively), with the odds slope from those two points only.
 8. The ideal table equals the executable table on a sample of classes (the heaviest, a random set, every named class).
 9. The tilts' seed laws: empirical seed frequencies of the tilted blocks match M, M/10 and the renormalized rest.
 
-### 1.13 Code validation of §1 (appended after the code, before any counted cell)
+### 1.13 Code validation of §1 (appended after the code, before any lottery or chain cell)
 
-*(to be appended)*
+From `tests/test_identity_tags.py` (7 tests, all passing) and `identity_tags_run.py validate`
+(`runs/identity_tags/validate.json`), run on the static table before any lottery or chain cell.
+
+- **Counts** reproduce §1.1: 25,762 bodies, 34,968 spellings, 8,558 run trees, 17,305 τ′-units; Z = 322.8125.
+  *A hand slip in §1.8:* the eq-clique run tree has **12** spellings, not 11 (EQ′ is 5 nodes, so it carries both
+  markers too: EQ ×4, EQ′ ×4, double negation ×3, triple ×1), total mass 0.25/Z = **7.74·10⁻⁴** (§1.8 and the
+  predictions said 7.50·10⁻⁴); the same for CB's run tree. T1b's and T1c's ten heaviest spellings are therefore EQ ×4,
+  EQ′ ×4 and two double negations (code order), as listed in `validate.json`.
+- **Compilation:** `tag_t` returns the marker set on CB with every marker set and F on `PROG_C`, `PROG_D`; EQ cooperates
+  only in self-play, EQ against EQ′ (the same run tree) and against marked EQ is (D, D); a marker changes no play of
+  CB (test).
+- **Production:** CB, CB1, CBP lists equal milestone 4's; ⌜CB⌝ is the catalogue's CB term; the named lists are §1.6's
+  exactly; **0 of 12,546 milestone-2-shaped spellings change their list** under the extended probes; direct
+  production on 200 random marked spellings equals the (dt, M ∩ tags) list in every case.
+- **The 14 × 14 hand table of §1.6 is reproduced cell for cell by whole plays** (196/196; also in the tests).
+- **Composition, Lemma T′ and Lemma R:** 4,946 spelling pairs played whole against the composed table (random pairs,
+  marked against anything, same-unit twins, same body with and without a marker, self-plays): 0 mismatches. In the
+  tests: every pair at n ≤ 4 and 1,500 + all twin pairs at n ≤ 5; a scratch run at n ≤ 6 (3,419 pairs) also 0.
+- **Executable = ideal:** 304 classes (the 150 heaviest, 150 random, every named class), all 92,416 ordered class
+  pairs played whole by the term at K = 10⁶: 0 mismatches, 0 ⊥.
+- **Soundness audit:** every reduced key whose ideal check returned T (6,026,729 for C, 5,732,620 for D) against the
+  composed play of its instance: **0 false atoms**.
+- **Lumping:** the 12 eq-clique spellings are 12 singleton classes; CB, CB¹, CB², CB¹² are four classes; the
+  spelling-level criterion holds on 300 sampled merged pairs against 200 opponents each. *Not anticipated in §1.5:*
+  **CB itself is a singleton class**, distinguished from its negated respelling by programs that read ⌜CB⌝ about
+  themselves, e.g. `if(CHK(me,⌜CB⌝,C),C,C)`: its produced script closes the box ⊡(X, ⌜CB⌝, C) by Hyp^self, which is the
+  root's R exactly when the reader *is* ⌜CB⌝, so its certificate is accepted by CB and refused by `if(not(S),D,C)`
+  (term and host agree). The named quote is an identity channel of the same kind as TwinD's: R-box coincidence.
+- **Families** on the named sub-catalogue reproduce §1.7 (cliques {CB, MC¹, OF¹}, {MC¹, TC1¹, AF¹, OF¹}, {XC, XC′} and
+  three singletons; MC¹, AF¹, XC with no strict invader, OF¹ and TC1¹ invaded by D¹).
+- **Tilts:** block masses equal M (= 0.03144) to machine precision; 2·10⁵ draws give 0.0309–0.0322 for every block.
 
 ## 2. Implementation and costs
 
-*(to be appended)*
+`src/identity_tags.py` (grammar, compilation, production, catalogue, reduced keys, composition, lumping, cliques);
+`src/identity_tags_run.py` (static table with ≤ 3 workers, analysis, validation, lottery, chain);
+`src/identity_tags_report.py`; raw arrays in `runs/identity_tags/` (npz and pickles, not committed).
+
+**Scale guard (full grammar, 2 workers):** catalogue and production 10 s (10,038 lists, one per (dt, M ∩ tags)); unit
+values 9,287 canonical units × 8 checks, 4 s; **pair checks 8,798,799 (C) + 7,862,558 (D) reduced keys, 664 s + 517 s**
+(TO 312,882 and 321,954: regresses, as in milestone 2); composition 1 s; lumping 4 s; **3,974 classes** (606
+singleton classes from 202 split τ′-units); total 1,214 s. Classes exceed the spec's 2,500 trigger, but the full
+grammar is computable, so it is the experiment that is run; no reduced grammar was used. The lottery restricts the
+payoff matrix to the classes seeded in each run (exact at ε = 0).

@@ -1,0 +1,347 @@
+{
+ "tags": {
+  "CB tag1": "F",
+  "CB tag2": "F",
+  "CB^1 tag1": "T",
+  "CB^1 tag2": "F",
+  "CB^2 tag1": "F",
+  "CB^2 tag2": "T",
+  "CB^12 tag1": "T",
+  "CB^12 tag2": "T",
+  "PROG_C tag1": "F",
+  "PROG_C tag2": "F",
+  "PROG_D tag1": "F",
+  "PROG_D tag2": "F"
+ },
+ "tags_ok": true,
+ "production": {
+  "CB_equals_m4": true,
+  "CB1_equals_m4": true,
+  "CBP_equals_m4": true,
+  "CBquote_is_catalogue_CB": true,
+  "named_lists": {
+   "Cc": [
+    [
+     "C",
+     "EvR*; Ax"
+    ]
+   ],
+   "D": [
+    [
+     "D",
+     "EvR*; Ax"
+    ]
+   ],
+   "D^1": [
+    [
+     "D",
+     "EvR*; Ax"
+    ]
+   ],
+   "CB": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+    ],
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ],
+   "MC^1": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+    ],
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ],
+   "TC1": [
+    [
+     "C",
+     "EvR*; Ax"
+    ],
+    [
+     "D",
+     "EvR*; Ax"
+    ]
+   ],
+   "TC1^1": [
+    [
+     "C",
+     "EvR*; Ax"
+    ],
+    [
+     "D",
+     "EvR*; Ax"
+    ]
+   ],
+   "AF^1": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+    ],
+    [
+     "D",
+     "EvR*; Ax"
+    ]
+   ],
+   "OF^1": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]"
+    ],
+    [
+     "C",
+     "EvR*; Ax"
+    ],
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ],
+   "EQ": [
+    [
+     "D",
+     "EvR*; Ax"
+    ]
+   ],
+   "EQ'": [
+    [
+     "D",
+     "EvR*; Ax"
+    ]
+   ],
+   "TwinD": [
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[EvR*; Ax \u00b7 Hyp]]"
+    ]
+   ],
+   "XC": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]"
+    ],
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ],
+   "XC'": [
+    [
+     "C",
+     "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Run]"
+    ],
+    [
+     "D",
+     "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]"
+    ]
+   ]
+  }
+ },
+ "m2_list_changes": {
+  "n": 12546,
+  "n_changed": 0,
+  "examples": []
+ },
+ "lists_marker_reduction": {
+  "n": 200,
+  "mismatches": 0
+ },
+ "hand_table": {
+  "n": 196,
+  "mismatches": 0,
+  "examples": []
+ },
+ "lemma_TR_sample": {
+  "n": 4946,
+  "mismatches": 0,
+  "examples": []
+ },
+ "exec_vs_ideal": {
+  "n_classes": 304,
+  "n_cells": 92416,
+  "mismatches": 0,
+  "self_mismatches": 0,
+  "BOT": 0,
+  "examples": [],
+  "s": 112.96316528320312
+ },
+ "soundness_C": {
+  "n_true": 6026729,
+  "false_atoms": 0
+ },
+ "soundness_D": {
+  "n_true": 5732620,
+  "false_atoms": 0
+ },
+ "lumping": {
+  "eq_spellings": 12,
+  "eq_classes": 12,
+  "eq_singletons": true,
+  "CB_marked_classes": [
+   376,
+   183,
+   184,
+   1111
+  ],
+  "CB_class_size": 1,
+  "CB_class_members": [
+   "if(CHK(them,me,C),C,D)"
+  ],
+  "criterion_sample": {
+   "n": 300,
+   "violations": 0
+  }
+ },
+ "named_families": {
+  "cliques": [
+   [
+    "AF^1",
+    "MC^1",
+    "OF^1",
+    "TC1^1"
+   ],
+   [
+    "CB",
+    "MC^1",
+    "OF^1"
+   ],
+   [
+    "EQ"
+   ],
+   [
+    "EQ'"
+   ],
+   [
+    "TwinD"
+   ],
+   [
+    "XC",
+    "XC'"
+   ]
+  ],
+  "components": [
+   [
+    "AF^1",
+    "CB",
+    "MC^1",
+    "OF^1",
+    "TC1^1"
+   ],
+   [
+    "EQ"
+   ],
+   [
+    "EQ'"
+   ],
+   [
+    "TwinD"
+   ],
+   [
+    "XC",
+    "XC'"
+   ]
+  ],
+  "strict_invaders": {
+   "MC^1": [],
+   "OF^1": [
+    "D^1",
+    "if(CHK(me,^D,D),D,C)^1",
+    "if(CHK(me,me,D),C,D)^1",
+    "if(CHK(them,^C,D),D,D)^1",
+    "if(CHK(them,^C,C),D,D)^1"
+   ],
+   "AF^1": [],
+   "TC1^1": [
+    "D^1",
+    "if(CHK(me,^D,D),D,C)^1",
+    "if(CHK(me,me,D),C,D)^1",
+    "if(CHK(them,^C,D),D,D)^1",
+    "if(CHK(them,^C,C),D,D)^1"
+   ],
+   "XC": []
+  },
+  "n_strict_invaders": {
+   "MC^1": 0,
+   "OF^1": 419,
+   "AF^1": 0,
+   "TC1^1": 424,
+   "XC": 0,
+   "CB": 0
+  }
+ },
+ "tilts": {
+  "T1a": {
+   "M": 0.031437560503388196,
+   "block_mass": 0.031437560503388196,
+   "block_spellings": [
+    "if(eq,C,D)"
+   ],
+   "block_classes": 1,
+   "empirical_block": 0.030945,
+   "total": 0.9999999999999996
+  },
+  "T1b": {
+   "M": 0.031437560503388196,
+   "block_mass": 0.031437560503388196,
+   "block_spellings": [
+    "if(eq,C,D)",
+    "if(eq,C,D)^1",
+    "if(eq,C,D)^2",
+    "if(not(eq),D,C)",
+    "if(eq,C,D)^12",
+    "if(not(eq),D,C)^1",
+    "if(not(eq),D,C)^2",
+    "if(not(not(eq)),C,D)",
+    "if(not(eq),D,C)^12",
+    "if(not(not(eq)),C,D)^1"
+   ],
+   "block_classes": 10,
+   "empirical_block": 0.03141,
+   "total": 0.9999999999999997
+  },
+  "T1c": {
+   "M": 0.031437560503388196,
+   "block_mass": 0.031437560503388196,
+   "block_spellings": [
+    "if(CHK(them,me,C),C,D)",
+    "if(CHK(them,me,C),C,D)^1",
+    "if(CHK(them,me,C),C,D)^2",
+    "if(not(CHK(them,me,C)),D,C)",
+    "if(CHK(them,me,C),C,D)^12",
+    "if(not(CHK(them,me,C)),D,C)^1",
+    "if(not(CHK(them,me,C)),D,C)^2",
+    "if(not(not(CHK(them,me,C))),C,D)",
+    "if(not(CHK(them,me,C)),D,C)^12",
+    "if(not(not(CHK(them,me,C))),C,D)^1"
+   ],
+   "block_classes": 5,
+   "empirical_block": 0.03154,
+   "total": 1.0
+  },
+  "T2": {
+   "M": 0.031437560503388196,
+   "block_mass": 0.031437560503388196,
+   "block_spellings": [
+    "if(tag1,C,D)^1"
+   ],
+   "block_classes": 1,
+   "empirical_block": 0.032215,
+   "total": 0.9999999999999996
+  },
+  "T3": {
+   "M": 0.031437560503388196,
+   "block_mass": 0.031437560503388196,
+   "block_spellings": [
+    "if(and(CHK(them,me,C),CHK(them,^CB,D)),C,D)"
+   ],
+   "block_classes": 1,
+   "empirical_block": 0.031445,
+   "total": 0.9999999999999998
+  }
+ }
+}

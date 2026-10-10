@@ -1,0 +1,1378 @@
+{
+ "n_classes": 3974,
+ "n_selfc": 2160,
+ "n_est": 890,
+ "n_allc": 421,
+ "mass": {
+  "L": {
+   "est": 0.07514520813165577,
+   "selfc": 0.5185624394966114,
+   "allc": 0.3522265246853812,
+   "D": 0.06168925459825589,
+   "est_sguarded": 0.007042594385285613,
+   "est_exploited": 0.057817037754114536
+  },
+  "U": {
+   "est": 0.22395571212883753,
+   "selfc": 0.5435329642677404,
+   "allc": 0.1059386009058883,
+   "D": 0.0002516356316054353,
+   "est_sguarded": 0.015098137896326117,
+   "est_exploited": 0.12556618017111226
+  }
+ },
+ "labels": {
+  "-": {
+   "n": 3084,
+   "mass_L": 0.9248547918683442,
+   "mass_U": 0.7760442878711628
+  },
+  "exclusive": {
+   "n": 9,
+   "mass_L": 0.0005808325266214944,
+   "mass_U": 0.002264720684448918
+  },
+  "identity": {
+   "n": 322,
+   "mass_L": 0.008978702807357268,
+   "mass_U": 0.08102667337695019
+  },
+  "open": {
+   "n": 329,
+   "mass_L": 0.03823814133591503,
+   "mass_U": 0.08278812279818823
+  },
+  "other": {
+   "n": 172,
+   "mass_L": 0.024298160696999135,
+   "mass_U": 0.04328132863613488
+  },
+  "tag1": {
+   "n": 29,
+   "mass_L": 0.0015246853823814234,
+   "mass_U": 0.0072974333165576255
+  },
+  "tag2": {
+   "n": 29,
+   "mass_L": 0.0015246853823814234,
+   "mass_U": 0.0072974333165576255
+  }
+ },
+ "named": {
+  "Cc": {
+   "cls": 0,
+   "name": "C",
+   "mass_L": 0.06819941916747108,
+   "n_spellings": 2215,
+   "label": "-",
+   "est": false,
+   "selfc": true,
+   "s_guarded": false,
+   "n_strict_invaders": 1891,
+   "strict_invaders": [
+    "D",
+    "if(CHK(me,^D,D),D,C)",
+    "if(CHK(me,me,D),C,D)",
+    "if(CHK(them,^C,D),D,D)",
+    "if(CHK(them,^C,C),D,D)",
+    "if(CHK(me,^C,D),C,D)"
+   ]
+  },
+  "D": {
+   "cls": 1,
+   "name": "D",
+   "mass_L": 0.06168925459825589,
+   "n_spellings": 2010,
+   "label": "-",
+   "est": false,
+   "selfc": false,
+   "s_guarded": true,
+   "n_strict_invaders": 0,
+   "strict_invaders": []
+  },
+  "D^1": {
+   "cls": 16,
+   "name": "D^1",
+   "mass_L": 0.010987415295256533,
+   "n_spellings": 371,
+   "label": "-",
+   "est": false,
+   "selfc": false,
+   "s_guarded": true,
+   "n_strict_invaders": 0,
+   "strict_invaders": []
+  },
+  "CB": {
+   "cls": 376,
+   "name": "if(CHK(them,me,C),C,D)",
+   "mass_L": 0.0001936108422071648,
+   "n_spellings": 1,
+   "label": "open",
+   "est": true,
+   "selfc": true,
+   "s_guarded": true,
+   "n_strict_invaders": 0,
+   "strict_invaders": []
+  },
+  "MC^1": {
+   "cls": 183,
+   "name": "if(CHK(them,me,C),C,D)^1",
+   "mass_L": 0.000556631171345599,
+   "n_spellings": 19,
+   "label": "open",
+   "est": true,
+   "selfc": true,
+   "s_guarded": true,
+   "n_strict_invaders": 0,
+   "strict_invaders": []
+  },
+  "TC1": {
+   "cls": 51,
+   "name": "if(tag1,C,D)",
+   "mass_L": 0.0031945788964182096,
+   "n_spellings": 107,
+   "label": "-",
+   "est": false,
+   "selfc": false,
+   "s_guarded": false,
+   "n_strict_invaders": 936,
+   "strict_invaders": [
+    "C^1",
+    "D^1",
+    "if(CHK(me,^D,D),D,C)^1",
+    "if(CHK(me,me,C),C,C)^1",
+    "if(CHK(me,me,D),C,D)^1",
+    "if(CHK(them,^C,D),D,D)^1"
+   ]
+  },
+  "TC1^1": {
+   "cls": 194,
+   "name": "if(tag1,C,D)^1",
+   "mass_L": 0.0005324298160697034,
+   "n_spellings": 18,
+   "label": "tag1",
+   "est": true,
+   "selfc": true,
+   "s_guarded": false,
+   "n_strict_invaders": 424,
+   "strict_invaders": [
+    "D^1",
+    "if(CHK(me,^D,D),D,C)^1",
+    "if(CHK(me,me,D),C,D)^1",
+    "if(CHK(them,^C,D),D,D)^1",
+    "if(CHK(them,^C,C),D,D)^1",
+    "if(CHK(me,^C,D),C,D)^1"
+   ]
+  },
+  "AF^1": {
+   "cls": 3001,
+   "name": "if(and(tag1,CHK(them,me,C)),C,D)^1",
+   "mass_L": 2.42013552758956e-05,
+   "n_spellings": 1,
+   "label": "tag1",
+   "est": true,
+   "selfc": true,
+   "s_guarded": true,
+   "n_strict_invaders": 0,
+   "strict_invaders": []
+  },
+  "OF^1": {
+   "cls": 3007,
+   "name": "if(or(tag1,CHK(them,me,C)),C,D)^1",
+   "mass_L": 2.42013552758956e-05,
+   "n_spellings": 1,
+   "label": "open",
+   "est": true,
+   "selfc": true,
+   "s_guarded": false,
+   "n_strict_invaders": 419,
+   "strict_invaders": [
+    "D^1",
+    "if(CHK(me,^D,D),D,C)^1",
+    "if(CHK(me,me,D),C,D)^1",
+    "if(CHK(them,^C,D),D,D)^1",
+    "if(CHK(them,^C,C),D,D)^1",
+    "if(CHK(me,^C,D),C,D)^1"
+   ]
+  },
+  "EQ": {
+   "cls": 488,
+   "name": "if(eq,C,D)",
+   "mass_L": 0.0001936108422071648,
+   "n_spellings": 1,
+   "label": "identity",
+   "est": true,
+   "selfc": true,
+   "s_guarded": false,
+   "n_strict_invaders": 0,
+   "strict_invaders": []
+  },
+  "EQ'": {
+   "cls": 1104,
+   "name": "if(not(eq),D,C)",
+   "mass_L": 9.68054211035824e-05,
+   "n_spellings": 1,
+   "label": "identity",
+   "est": true,
+   "selfc": true,
+   "s_guarded": false,
+   "n_strict_invaders": 0,
+   "strict_invaders": []
+  },
+  "TwinD": {
+   "cls": 2080,
+   "name": "if(or(CHK(me,me,D),CHK(me,them,D)),D,C)",
+   "mass_L": 4.84027105517912e-05,
+   "n_spellings": 1,
+   "label": "identity",
+   "est": true,
+   "selfc": true,
+   "s_guarded": false,
+   "n_strict_invaders": 0,
+   "strict_invaders": []
+  },
+  "XC": {
+   "cls": 714,
+   "name": "if(and(CHK(them,me,C),CHK(them,^CB,D)),C,D)",
+   "mass_L": 9.68054211035824e-05,
+   "n_spellings": 3,
+   "label": "exclusive",
+   "est": true,
+   "selfc": true,
+   "s_guarded": true,
+   "n_strict_invaders": 0,
+   "strict_invaders": []
+  },
+  "XC'": {
+   "cls": 990,
+   "name": "if(and(CHK(them,^CB,D),CHK(them,me,C)),C,D)",
+   "mass_L": 9.68054211035824e-05,
+   "n_spellings": 3,
+   "label": "exclusive",
+   "est": true,
+   "selfc": true,
+   "s_guarded": true,
+   "n_strict_invaders": 0,
+   "strict_invaders": []
+  },
+  "TC2^2": {
+   "cls": 196,
+   "name": "if(tag2,C,D)^2",
+   "mass_L": 0.0005324298160697034,
+   "n_spellings": 18,
+   "label": "tag2",
+   "est": true,
+   "selfc": true,
+   "s_guarded": false,
+   "n_strict_invaders": 424,
+   "strict_invaders": [
+    "D^2",
+    "if(CHK(me,^D,D),D,C)^2",
+    "if(CHK(me,me,D),C,D)^2",
+    "if(CHK(them,^C,D),D,D)^2",
+    "if(CHK(them,^C,C),D,D)^2",
+    "if(CHK(me,^C,D),C,D)^2"
+   ]
+  }
+ },
+ "eq_tree": {
+  "n_spellings": 12,
+  "mass": 0.0007744433688286546,
+  "n_classes": 12
+ },
+ "cb_tree": {
+  "n_spellings": 12,
+  "mass": 0.0007744433688286546,
+  "n_classes": 5
+ },
+ "spelling_mass": {
+  "Cc": 0.001548886737657309,
+  "D": 0.001548886737657309,
+  "D^1": 0.0007744433688286545,
+  "CB": 0.0001936108422071636,
+  "MC^1": 9.68054211035818e-05,
+  "TC1": 0.0001936108422071636,
+  "TC1^1": 9.68054211035818e-05,
+  "AF^1": 2.420135527589545e-05,
+  "OF^1": 2.420135527589545e-05,
+  "EQ": 0.0001936108422071636,
+  "EQ'": 9.68054211035818e-05,
+  "TwinD": 4.84027105517909e-05,
+  "XC": 4.84027105517909e-05,
+  "XC'": 4.84027105517909e-05
+ },
+ "cliques": {
+  "n": 7318,
+  "complete": true,
+  "s": 6.074452877044678,
+  "n_components": 323,
+  "component_sizes": [
+   568,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ "F_CB": {
+  "M": 0.031437560503388196,
+  "size": 216,
+  "n_spellings": 1103,
+  "labels": {
+   "open": 216
+  },
+  "N_CB_size": 329,
+  "N_CB_mass": 0.03823814133591503,
+  "n_cliques_with_CB": 1707,
+  "heaviest_members": [
+   [
+    "if(CHK(them,^CB,C),C,D)",
+    0.0030009680542110464
+   ],
+   [
+    "if(CHK(them,them,D),D,C)",
+    0.002904162633107465
+   ],
+   [
+    "if(CHK(them,^CB,D),D,C)",
+    0.002904162633107465
+   ],
+   [
+    "if(not(CHK(them,me,C)),D,C)",
+    0.0026863504356244064
+   ],
+   [
+    "if(or(CHK(them,them,D),CHK(me,me,C)),D,C)",
+    0.0007502420135527639
+   ],
+   [
+    "if(or(CHK(them,^CB,D),CHK(me,me,C)),D,C)",
+    0.0006534365924491814
+   ],
+   [
+    "if(or(CHK(them,me,C),CHK(me,them,D)),C,D)",
+    0.0005808325266214946
+   ],
+   [
+    "if(or(CHK(them,^CB,C),CHK(me,them,D)),C,D)",
+    0.0005808325266214946
+   ],
+   [
+    "if(CHK(them,me,C),C,D)^1",
+    0.000556631171345599
+   ],
+   [
+    "if(CHK(them,me,C),C,D)^2",
+    0.000556631171345599
+   ]
+  ]
+ },
+ "identity_cliques": {
+  "n_singleton_cliques": 322,
+  "n_exact": 322,
+  "mass_exact": 0.008978702807357198,
+  "heaviest": [
+   [
+    "if(eq,C,D)",
+    0.0001936108422071648
+   ],
+   [
+    "if(not(eq),D,C)",
+    9.68054211035824e-05
+   ],
+   [
+    "if(eq,C,D)^1",
+    9.68054211035824e-05
+   ],
+   [
+    "if(eq,C,D)^2",
+    9.68054211035824e-05
+   ],
+   [
+    "if(not(eq),D,C)^1",
+    4.84027105517912e-05
+   ],
+   [
+    "if(not(eq),D,C)^2",
+    4.84027105517912e-05
+   ],
+   [
+    "if(eq,C,D)^12",
+    4.84027105517912e-05
+   ],
+   [
+    "if(and(CHK(them,^C,D),eq),C,D)",
+    4.84027105517912e-05
+   ],
+   [
+    "if(and(CHK(them,^D,D),eq),C,D)",
+    4.84027105517912e-05
+   ],
+   [
+    "if(and(CHK(them,^CB,D),eq),C,D)",
+    4.84027105517912e-05
+   ]
+  ],
+  "max_mass": 0.0001936108422071648
+ },
+ "ratio_M_over_max_identity_clique": 162.37499999999903,
+ "top_cliques": [
+  {
+   "mass": 0.03400290416263327,
+   "size": 181,
+   "n_spellings": 1211,
+   "labels": {
+    "other": 49,
+    "open": 120,
+    "tag1": 6,
+    "tag2": 6
+   },
+   "contains_CB": false,
+   "rival_of_FCB": true,
+   "bridges_with_FCB": 90,
+   "bridges_nonexploitable": 0,
+   "heaviest": [
+    "if(CHK(them,^C,D),D,C)",
+    "if(CHK(them,^D,D),D,C)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)"
+   ]
+  },
+  {
+   "mass": 0.03400290416263327,
+   "size": 181,
+   "n_spellings": 1211,
+   "labels": {
+    "other": 48,
+    "open": 121,
+    "tag1": 6,
+    "tag2": 6
+   },
+   "contains_CB": false,
+   "rival_of_FCB": true,
+   "bridges_with_FCB": 91,
+   "bridges_nonexploitable": 0,
+   "heaviest": [
+    "if(CHK(them,^C,D),D,C)",
+    "if(CHK(them,^D,D),D,C)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)"
+   ]
+  },
+  {
+   "mass": 0.03400290416263327,
+   "size": 181,
+   "n_spellings": 1211,
+   "labels": {
+    "other": 51,
+    "open": 118,
+    "tag1": 6,
+    "tag2": 6
+   },
+   "contains_CB": false,
+   "rival_of_FCB": true,
+   "bridges_with_FCB": 88,
+   "bridges_nonexploitable": 0,
+   "heaviest": [
+    "if(CHK(them,^C,D),D,C)",
+    "if(CHK(them,^D,D),D,C)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)"
+   ]
+  },
+  {
+   "mass": 0.03143756050338836,
+   "size": 216,
+   "n_spellings": 1103,
+   "labels": {
+    "open": 216
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 216,
+   "bridges_nonexploitable": 31,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.031243949661181165,
+   "size": 146,
+   "n_spellings": 1109,
+   "labels": {
+    "other": 43,
+    "open": 97,
+    "tag1": 6
+   },
+   "contains_CB": false,
+   "rival_of_FCB": true,
+   "bridges_with_FCB": 69,
+   "bridges_nonexploitable": 0,
+   "heaviest": [
+    "if(CHK(them,^C,D),D,C)",
+    "if(CHK(them,^D,D),D,C)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)"
+   ]
+  },
+  {
+   "mass": 0.031243949661181165,
+   "size": 146,
+   "n_spellings": 1109,
+   "labels": {
+    "other": 40,
+    "open": 100,
+    "tag1": 6
+   },
+   "contains_CB": false,
+   "rival_of_FCB": true,
+   "bridges_with_FCB": 72,
+   "bridges_nonexploitable": 0,
+   "heaviest": [
+    "if(CHK(them,^C,D),D,C)",
+    "if(CHK(them,^D,D),D,C)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)"
+   ]
+  },
+  {
+   "mass": 0.031243949661181165,
+   "size": 146,
+   "n_spellings": 1109,
+   "labels": {
+    "other": 41,
+    "open": 99,
+    "tag1": 6
+   },
+   "contains_CB": false,
+   "rival_of_FCB": true,
+   "bridges_with_FCB": 71,
+   "bridges_nonexploitable": 0,
+   "heaviest": [
+    "if(CHK(them,^C,D),D,C)",
+    "if(CHK(them,^D,D),D,C)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)"
+   ]
+  },
+  {
+   "mass": 0.031243949661181165,
+   "size": 146,
+   "n_spellings": 1109,
+   "labels": {
+    "other": 41,
+    "open": 99,
+    "tag2": 6
+   },
+   "contains_CB": false,
+   "rival_of_FCB": true,
+   "bridges_with_FCB": 71,
+   "bridges_nonexploitable": 0,
+   "heaviest": [
+    "if(CHK(them,^C,D),D,C)",
+    "if(CHK(them,^D,D),D,C)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)"
+   ]
+  },
+  {
+   "mass": 0.031243949661181165,
+   "size": 146,
+   "n_spellings": 1109,
+   "labels": {
+    "other": 43,
+    "open": 97,
+    "tag2": 6
+   },
+   "contains_CB": false,
+   "rival_of_FCB": true,
+   "bridges_with_FCB": 69,
+   "bridges_nonexploitable": 0,
+   "heaviest": [
+    "if(CHK(them,^C,D),D,C)",
+    "if(CHK(them,^D,D),D,C)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)"
+   ]
+  },
+  {
+   "mass": 0.031243949661181165,
+   "size": 146,
+   "n_spellings": 1109,
+   "labels": {
+    "other": 40,
+    "open": 100,
+    "tag2": 6
+   },
+   "contains_CB": false,
+   "rival_of_FCB": true,
+   "bridges_with_FCB": 72,
+   "bridges_nonexploitable": 0,
+   "heaviest": [
+    "if(CHK(them,^C,D),D,C)",
+    "if(CHK(them,^D,D),D,C)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)"
+   ]
+  },
+  {
+   "mass": 0.0312197483059053,
+   "size": 212,
+   "n_spellings": 1094,
+   "labels": {
+    "open": 212
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 209,
+   "bridges_nonexploitable": 31,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.03105033881897403,
+   "size": 221,
+   "n_spellings": 1089,
+   "labels": {
+    "open": 221
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 212,
+   "bridges_nonexploitable": 27,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.03095353339787045,
+   "size": 218,
+   "n_spellings": 1086,
+   "labels": {
+    "open": 218
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 208,
+   "bridges_nonexploitable": 27,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.030953533397870447,
+   "size": 211,
+   "n_spellings": 1086,
+   "labels": {
+    "open": 211
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 209,
+   "bridges_nonexploitable": 31,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.030929332042594553,
+   "size": 220,
+   "n_spellings": 1084,
+   "labels": {
+    "open": 220
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 210,
+   "bridges_nonexploitable": 27,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.030905130687318656,
+   "size": 218,
+   "n_spellings": 1083,
+   "labels": {
+    "open": 218
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 205,
+   "bridges_nonexploitable": 27,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.030759922555663285,
+   "size": 224,
+   "n_spellings": 1078,
+   "labels": {
+    "open": 224
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 206,
+   "bridges_nonexploitable": 21,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.030735721200387388,
+   "size": 222,
+   "n_spellings": 1078,
+   "labels": {
+    "open": 222
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 202,
+   "bridges_nonexploitable": 21,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.030711519845111494,
+   "size": 216,
+   "n_spellings": 1075,
+   "labels": {
+    "open": 216
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 203,
+   "bridges_nonexploitable": 27,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.03071151984511149,
+   "size": 218,
+   "n_spellings": 1078,
+   "labels": {
+    "open": 218
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 205,
+   "bridges_nonexploitable": 27,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.030687318489835597,
+   "size": 222,
+   "n_spellings": 1075,
+   "labels": {
+    "open": 222
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 199,
+   "bridges_nonexploitable": 21,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.030687318489835597,
+   "size": 216,
+   "n_spellings": 1074,
+   "labels": {
+    "open": 216
+   },
+   "contains_CB": true,
+   "rival_of_FCB": true,
+   "bridges_with_FCB": 205,
+   "bridges_nonexploitable": 27,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.0306631171345597,
+   "size": 224,
+   "n_spellings": 1074,
+   "labels": {
+    "open": 224
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 204,
+   "bridges_nonexploitable": 21,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.03056631171345612,
+   "size": 223,
+   "n_spellings": 1073,
+   "labels": {
+    "open": 223
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 199,
+   "bridges_nonexploitable": 21,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  },
+  {
+   "mass": 0.030517909002904325,
+   "size": 216,
+   "n_spellings": 1070,
+   "labels": {
+    "open": 216
+   },
+   "contains_CB": true,
+   "rival_of_FCB": false,
+   "bridges_with_FCB": 203,
+   "bridges_nonexploitable": 27,
+   "heaviest": [
+    "if(CHK(them,^CB,C),C,D)",
+    "if(CHK(them,them,D),D,C)",
+    "if(CHK(them,^CB,D),D,C)",
+    "if(not(CHK(them,me,C)),D,C)"
+   ]
+  }
+ ],
+ "heaviest_set_without_CB": {
+  "mass": 0.03400290416263327,
+  "labels": {
+   "other": 49,
+   "open": 120,
+   "tag1": 6,
+   "tag2": 6
+  },
+  "heaviest": [
+   "if(CHK(them,^C,D),D,C)",
+   "if(CHK(them,^D,D),D,C)",
+   "if(CHK(them,them,D),D,C)",
+   "if(CHK(them,^CB,D),D,C)"
+  ]
+ },
+ "rivals_of_CB": {
+  "n": 531,
+  "mass": 0.03453533397870298,
+  "labels": {
+   "other": 150,
+   "tag1": 25,
+   "tag2": 25,
+   "identity": 322,
+   "exclusive": 9
+  },
+  "heaviest": [
+   [
+    "if(CHK(them,^C,D),D,C)",
+    "other",
+    0.004670861568247828,
+    false,
+    447
+   ],
+   [
+    "if(CHK(them,^D,D),D,C)",
+    "other",
+    0.004670861568247828,
+    false,
+    274
+   ],
+   [
+    "if(CHK(them,^C,D),D,C)^1",
+    "other",
+    0.0006050338818973902,
+    false,
+    526
+   ],
+   [
+    "if(CHK(them,^C,D),D,C)^2",
+    "other",
+    0.0006050338818973902,
+    false,
+    526
+   ],
+   [
+    "if(CHK(them,^D,D),D,C)^1",
+    "other",
+    0.0006050338818973902,
+    false,
+    359
+   ],
+   [
+    "if(CHK(them,^D,D),D,C)^2",
+    "other",
+    0.0006050338818973902,
+    false,
+    359
+   ],
+   [
+    "if(tag1,C,D)^1",
+    "tag1",
+    0.0005324298160697034,
+    false,
+    424
+   ],
+   [
+    "if(tag2,C,D)^2",
+    "tag2",
+    0.0005324298160697034,
+    false,
+    424
+   ],
+   [
+    "if(and(CHK(them,me,D),CHK(them,^C,D)),D,C)",
+    "other",
+    0.0005324298160697034,
+    false,
+    447
+   ],
+   [
+    "if(and(CHK(them,me,D),CHK(them,^D,D)),D,C)",
+    "other",
+    0.0005082284607938077,
+    false,
+    339
+   ],
+   [
+    "if(or(CHK(them,me,C),CHK(them,^C,D)),D,C)",
+    "other",
+    0.00019361084220716483,
+    false,
+    447
+   ],
+   [
+    "if(or(CHK(them,me,C),CHK(them,^D,D)),D,C)",
+    "other",
+    0.00019361084220716483,
+    false,
+    274
+   ]
+  ]
+ },
+ "detector": {
+  "name": "if(CHK(them,^C,D),D,C)",
+  "mass_L": 0.004670861568247828,
+  "label": "other",
+  "mutual_with_CB": false,
+  "A_CB_det": 0,
+  "A_det_CB": 0,
+  "n_strict_invaders": 447
+ },
+ "pairwise_bridges": {
+  "CB|TC1^1": {
+   "n": 278,
+   "mass_L": 0.04934656340755103,
+   "n_est": 44,
+   "n_nonexploitable": 10,
+   "nonexploitable": [
+    [
+     "if(CHK(them,me,C),C,D)^1",
+     0.000556631171345599
+    ],
+    [
+     "if(or(CHK(them,me,C),CHK(me,them,D)),C,D)^1",
+     9.68054211035824e-05
+    ],
+    [
+     "if(CHK(them,me,C),C,D)^12",
+     7.26040658276868e-05
+    ],
+    [
+     "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)^1",
+     4.84027105517912e-05
+    ],
+    [
+     "if(and(CHK(them,me,C),CHK(them,^C,D)),C,D)^1",
+     2.42013552758956e-05
+    ],
+    [
+     "if(and(CHK(them,me,C),CHK(them,^D,D)),C,D)^1",
+     2.42013552758956e-05
+    ],
+    [
+     "if(and(CHK(them,^C,D),CHK(them,me,C)),C,D)^1",
+     2.42013552758956e-05
+    ],
+    [
+     "if(and(CHK(them,^D,D),CHK(them,me,C)),C,D)^1",
+     2.42013552758956e-05
+    ]
+   ],
+   "exploitable": [
+    [
+     "C^1",
+     0.01253630203291384,
+     1876
+    ],
+    [
+     "if(CHK(me,me,C),C,C)^1",
+     0.0031945788964182096,
+     1928
+    ],
+    [
+     "if(CHK(them,^C,C),C,C)^1",
+     0.002807357212003883,
+     1921
+    ],
+    [
+     "if(CHK(me,^CB,C),C,C)^1",
+     0.00261374636979672,
+     2023
+    ],
+    [
+     "if(CHK(me,^C,C),C,C)^1",
+     0.0021539206195547076,
+     1882
+    ],
+    [
+     "if(CHK(me,^D,C),C,C)^1",
+     0.0021297192642788123,
+     1881
+    ]
+   ]
+  },
+  "CB|TC2^2": {
+   "n": 278,
+   "mass_L": 0.04934656340755103,
+   "n_est": 44,
+   "n_nonexploitable": 10,
+   "nonexploitable": [
+    [
+     "if(CHK(them,me,C),C,D)^2",
+     0.000556631171345599
+    ],
+    [
+     "if(or(CHK(them,me,C),CHK(me,them,D)),C,D)^2",
+     9.68054211035824e-05
+    ],
+    [
+     "if(CHK(them,me,C),C,D)^12",
+     7.26040658276868e-05
+    ],
+    [
+     "if(or(CHK(them,me,C),CHK(me,^C,D)),C,D)^2",
+     4.84027105517912e-05
+    ],
+    [
+     "if(and(CHK(them,me,C),CHK(them,^C,D)),C,D)^2",
+     2.42013552758956e-05
+    ],
+    [
+     "if(and(CHK(them,me,C),CHK(them,^D,D)),C,D)^2",
+     2.42013552758956e-05
+    ],
+    [
+     "if(and(CHK(them,^C,D),CHK(them,me,C)),C,D)^2",
+     2.42013552758956e-05
+    ],
+    [
+     "if(and(CHK(them,^D,D),CHK(them,me,C)),C,D)^2",
+     2.42013552758956e-05
+    ]
+   ],
+   "exploitable": [
+    [
+     "C^2",
+     0.01253630203291384,
+     1876
+    ],
+    [
+     "if(CHK(me,me,C),C,C)^2",
+     0.0031945788964182096,
+     1928
+    ],
+    [
+     "if(CHK(them,^C,C),C,C)^2",
+     0.002807357212003883,
+     1921
+    ],
+    [
+     "if(CHK(me,^CB,C),C,C)^2",
+     0.00261374636979672,
+     2023
+    ],
+    [
+     "if(CHK(me,^C,C),C,C)^2",
+     0.0021539206195547076,
+     1882
+    ],
+    [
+     "if(CHK(me,^D,C),C,C)^2",
+     0.0021297192642788123,
+     1881
+    ]
+   ]
+  },
+  "CB|XC": {
+   "n": 0,
+   "mass_L": 0.0,
+   "n_est": 0,
+   "n_nonexploitable": 0,
+   "nonexploitable": [],
+   "exploitable": []
+  },
+  "CB|EQ": {
+   "n": 0,
+   "mass_L": 0.0,
+   "n_est": 0,
+   "n_nonexploitable": 0,
+   "nonexploitable": [],
+   "exploitable": []
+  },
+  "CB|TwinD": {
+   "n": 0,
+   "mass_L": 0.0,
+   "n_est": 0,
+   "n_nonexploitable": 0,
+   "nonexploitable": [],
+   "exploitable": []
+  },
+  "CB|detector": {
+   "n": 826,
+   "mass_L": 0.3643756050338807,
+   "n_est": 129,
+   "n_nonexploitable": 0,
+   "nonexploitable": [],
+   "exploitable": [
+    [
+     "C",
+     0.06819941916747108,
+     1891
+    ],
+    [
+     "if(CHK(me,me,C),C,C)",
+     0.01960309777347559,
+     1946
+    ],
+    [
+     "if(CHK(me,^CB,C),C,C)",
+     0.01621490803484999,
+     2050
+    ],
+    [
+     "if(CHK(them,^C,C),C,C)",
+     0.016166505324298197,
+     1941
+    ],
+    [
+     "if(CHK(me,^C,C),C,C)",
+     0.013576960309777352,
+     1900
+    ],
+    [
+     "if(CHK(me,^D,C),C,C)",
+     0.013455953533397874,
+     1899
+    ]
+   ]
+  }
+ },
+ "leak": {
+  "n_selfcoop": 2160,
+  "n_components": 343,
+  "n_closed": 322,
+  "sizes": [
+   1818,
+   1,
+   1,
+   1,
+   1
+  ],
+  "closed_mass_L": 0.0089787028073572,
+  "closed_labels": {
+   "identity": 322
+  },
+  "closed_heaviest": [
+   [
+    "if(eq,C,D)",
+    0.0001936108422071648,
+    1
+   ],
+   [
+    "if(not(eq),D,C)",
+    9.68054211035824e-05,
+    1
+   ],
+   [
+    "if(eq,C,D)^1",
+    9.68054211035824e-05,
+    1
+   ],
+   [
+    "if(eq,C,D)^2",
+    9.68054211035824e-05,
+    1
+   ],
+   [
+    "if(not(not(eq)),C,D)",
+    4.84027105517912e-05,
+    1
+   ],
+   [
+    "if(not(eq),D,C)^1",
+    4.84027105517912e-05,
+    1
+   ],
+   [
+    "if(not(eq),D,C)^2",
+    4.84027105517912e-05,
+    1
+   ],
+   [
+    "if(eq,C,D)^12",
+    4.84027105517912e-05,
+    1
+   ],
+   [
+    "if(and(CHK(them,^C,D),eq),C,D)",
+    4.84027105517912e-05,
+    1
+   ],
+   [
+    "if(and(CHK(them,^D,D),eq),C,D)",
+    4.84027105517912e-05,
+    1
+   ]
+  ]
+ },
+ "tilts": {
+  "T1a": {
+   "open_mass": 0.03704319941916725,
+   "EQ": 0.031437560503388036,
+   "TC1": 0.0005157913843175187,
+   "XC": 9.378025169409436e-05,
+   "D": 0.059761465392062944,
+   "identity": 0.03994811834462711,
+   "MC1": 0.0005392364472410423,
+   "marked_D": 0.02257759559535334
+  },
+  "T1b": {
+   "open_mass": 0.037062936653055475,
+   "EQ": 0.003143756050338847,
+   "TC1": 0.0005160662065615314,
+   "XC": 9.383021937482392e-05,
+   "D": 0.059793307296603745,
+   "identity": 0.03943658670509221,
+   "MC1": 0.0005395237614052373,
+   "marked_D": 0.022589625314488715
+  },
+  "T1c": {
+   "open_mass": 0.031437560503388175,
+   "EQ": 0.00019497985696962476,
+   "TC1": 0.0005361946066664684,
+   "XC": 9.748992848481238e-05,
+   "D": 0.06212545692694949,
+   "identity": 0.009042190866966348,
+   "MC1": 0.009431268151016452,
+   "marked_D": 0.02347070028271837
+  },
+  "T2": {
+   "open_mass": 0.03703961308947259,
+   "EQ": 0.00018754234475682334,
+   "TC1": 0.03185953077909112,
+   "XC": 9.377117237841167e-05,
+   "D": 0.059755679598142104,
+   "identity": 0.008697276238097683,
+   "MC1": 0.0005391842411758669,
+   "marked_D": 0.02257540975010263
+  },
+  "T3": {
+   "open_mass": 0.03703782018502009,
+   "EQ": 0.00018753326675959532,
+   "TC1": 0.0005157164835888872,
+   "XC": 0.03148444382007837,
+   "D": 0.05975278712127374,
+   "identity": 0.008696855245976232,
+   "MC1": 0.0005391581419338366,
+   "marked_D": 0.022574316986186047
+  },
+  "identity": {
+   "open_mass": 0.026425109623817424,
+   "EQ": 0.0004615739672282517,
+   "TC1": 0.0,
+   "XC": 0.0,
+   "D": 0.09393030233094743,
+   "identity": 0.013443341795522831,
+   "MC1": 0.0,
+   "marked_D": 0.0
+  },
+  "tags": {
+   "open_mass": 0.02484567901234558,
+   "EQ": 0.0,
+   "TC1": 0.0007330246913580221,
+   "XC": 0.0,
+   "D": 0.06855709876543453,
+   "identity": 0.0005015432098765414,
+   "MC1": 0.0007716049382716023,
+   "marked_D": 0.027430555555555382
+  },
+  "cbq": {
+   "open_mass": 0.04458867161159785,
+   "EQ": 0.0,
+   "TC1": 0.0,
+   "XC": 0.00016857720836142853,
+   "D": 0.08521577882670604,
+   "identity": 0.0004635873229939285,
+   "MC1": 0.0,
+   "marked_D": 0.0
+  }
+ },
+ "time_s": 8.513062953948975
+}
