@@ -121,3 +121,25 @@ alive at the first separation.
 - **S14.** At N = 10⁴ under L the chain is absorbed by identity cliques with π split roughly by mass, top state EQ;
   in the no-clique control the top state is an open carrier, P(C,C) in [0.4, 0.95], odds slope (10³ → 10⁴) in
   [0.3, 0.7]. *Falsifier:* the top state not an identity clique; the control's slope outside [0.2, 0.8].
+
+## Endpoint revision (after a one-run smoke test, before any counted cell; no prediction changed)
+
+A smoke test of the lottery code (cell L, replicate 0, which is also replicate 0 of the counted cell) showed that
+rival networks under mN = 1 carry a **migrant load**: 15 of 64 islands sat at island P(C,C) 0.69–0.87 for thousands of
+generations, each held by one self-cooperator with 5–16 immigrants of a mutually defecting network (migration–selection
+balance, not an unresolved state; E3 had resolved every island cooperating at generation 210). Notes §1.10's
+"every island at P(C,C) ≥ 0.9" would call every such patchwork *unresolved*. The scoring is therefore stated on
+**holders** (the island's majority class), as in RESULTS "Rival networks across islands":
+- an island is **held** by its majority class h_i when h_i self-cooperates and the island's P(C,C) ≥ 0.5;
+- **universal** = every island held and every pair of holders mutually cooperates (holder cross-island P(C,C) = 1);
+  *universal-open* if every holder also mutually cooperates with CB, else *universal-other*;
+- **patchwork** = every island held and some pair of holders mutually defects; **separated** (kernel, every 10
+  generations) = two held islands with mutually defecting holders;
+- **failed** = E3 failed, or an island's majority class is not a self-cooperator once E3 has decided;
+  **unresolved** = anything else;
+- "won by a clique" = universal with every holder an identity clique; a pairwise-compatible set **won** = universal
+  with every holder in the set; the **established-mass checkpoint** = the first checkpoint at which every island is
+  held.
+Realized cross-island P(C,C) (with the migrant load) is reported beside the holder-based one. Everything else in notes
+§1.10 is unchanged. What the smoke run showed, disclosed: a patchwork of an open carrier (29–35 islands) against
+several identity-clique spellings (28–31 islands), alive at 10,000 generations.

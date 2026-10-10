@@ -415,15 +415,19 @@ def _lottery_numba():
                     if cc < 0.9: allc = False
                     if estab < 0 and cc >= 0.9: estab = gg
                     maj[i] = majority(counts, pres, npres, i)
-                if all_estab < 0 and allc:
+                # an island is held when its majority class self-cooperates and its P(C,C) >= 0.5 (migrant load allowed)
+                allheld = True
+                for i in range(I):
+                    if not (selfc[maj[i]] and isl_cc[i] >= 0.5): allheld = False
+                if all_estab < 0 and allheld:
                     all_estab = gg
                     for k in range(K): snap_estab[k] = glob[k]
-                # separation: two cooperative islands whose majority classes mutually defect
+                # separation: two held islands whose majority classes mutually defect
                 sep = False
                 for i in range(I):
-                    if isl_cc[i] < 0.9: continue
+                    if not (selfc[maj[i]] and isl_cc[i] >= 0.5): continue
                     for j in range(i + 1, I):
-                        if isl_cc[j] < 0.9: continue
+                        if not (selfc[maj[j]] and isl_cc[j] >= 0.5): continue
                         a = maj[i]; b = maj[j]
                         if a != b and PCC[a, b] == 0.0 and U[a, b] < -0.5 and U[b, a] < -0.5:
                             sep = True; break
@@ -608,21 +612,32 @@ def lottery_job(job):
         glob = cnt.sum(0)
         cross = cross_pcc(cnt, PCC, N)
         occ = float(np.mean([mutCB[m_] for m_ in maj]))
-        allco = bool((cc >= 0.9).all())
+        held = np.array([bool(selfc[m_]) and cc[i] >= 0.5 for i, m_ in enumerate(maj)])
+        hm = PCC[np.ix_(maj, maj)]
+        cross_holders = float((hm.sum() - np.trace(hm)) / (I * (I - 1)))
         alive_est = [int(gl[k]) for k in np.nonzero((glob > 0) & est_loc)[0]]
+        holders_g = sorted({int(gl[m_]) for m_ in maj})
         maj_lab = Counter(str(lab[gl[m_]]) if st.est[gl[m_]] else ('nonest:' + ('selfc' if st.selfc[gl[m_]] else 'D')) for m_ in maj)
-        if allco and cross >= 0.99:
+        if e3_out == 0 and 0 <= e3_gen <= snap_gen[si]:
+            oc = 'failed'
+        elif any(not selfc[m_] for m_ in maj):
+            oc = 'failed' if e3_gen >= 0 and e3_gen <= snap_gen[si] else 'unresolved'
+        elif held.all() and cross_holders >= 1.0 - 1e-12:
             oc = 'universal-open' if occ == 1.0 else 'universal-other'
-        elif allco:
+        elif held.all():
             oc = 'patchwork'
-        elif e3_out == 0 and e3_gen >= 0 and e3_gen <= snap_gen[si]:
-            oc = 'failed'
-        elif glob.sum() > 0 and (glob > 0).sum() == 1 and not selfc[np.nonzero(glob)[0][0]]:
-            oc = 'failed'
         else:
             oc = 'unresolved'
-        clique_win = oc == 'universal-other' and all(lab[c] == 'identity' for c in alive_est) and len(alive_est) > 0
+        clique_win = oc == 'universal-other' and all(lab[c] == 'identity' for c in holders_g)
+        low = []
+        for i in np.nonzero(cc < 0.9)[0][:4]:
+            nz = np.nonzero(cnt[i])[0]
+            top = nz[np.argsort(-cnt[i][nz])][:4]
+            low.append(dict(cc=float(cc[i]), comp=[(names[gl[k]], int(cnt[i][k]), bool(selfc[k])) for k in top]))
+        out[tag + '_low_islands'] = low
+        out[tag + '_n_low'] = int((cc < 0.9).sum())
         out[tag] = dict(gen=int(snap_gen[si]), separated=bool(snap_sep[si]), outcome=oc, cross_pcc=cross, island_pcc=float(cc.mean()),
+                        cross_holders=cross_holders, n_held=int(held.sum()), holders_g=holders_g[:64],
                         occupancy=occ, labels=dict(maj_lab), clique_win=bool(clique_win),
                         alive_est=alive_est[:50], n_alive_est=len(alive_est),
                         holders=Counter(names[gl[m_]] for m_ in maj).most_common(6))
@@ -669,9 +684,9 @@ def pooling_check(st, init_full, present, snap_estab, out, lab):
         rows.append((seeded, em, per_isl, c))
     res = {}
     for tag in ('h2000', 'end'):
-        alive = set(out[tag]['alive_est'])
-        allco = out[tag]['island_pcc'] >= 0.9 and out[tag]['outcome'] in ('universal-open', 'universal-other')
-        won = [allco and alive and alive <= set(r[3]) for r in rows]
+        hold = set(out[tag]['holders_g'])
+        univ = out[tag]['outcome'] in ('universal-open', 'universal-other')
+        won = [bool(univ and hold and hold <= set(r[3])) for r in rows]
         ibest_seed = int(np.argmax([r[0] for r in rows]))
         ibest_est = int(np.argmax([r[1] for r in rows])) if out['all_established_gen'] >= 0 else None
         res[tag] = dict(decided=bool(any(won)), best_seed_won=bool(won[ibest_seed]),

@@ -365,6 +365,12 @@ cell's prior over spellings, mapped to classes); one generation = I·N births; c
   and-forms, their extinction generation, and whether the bridge was alive at the first separation.
 - **Cells** (40 runs each, Wilson intervals): L at (N, I) = (100, 64), (200, 64), (100, 256), mN = 1; at (100, 64): U,
   T1a, T1b, T1c, T2, T3 and the three ablations.
+- **Endpoint revision (before any counted cell, after a one-run smoke test; predictions file, "Endpoint revision"):**
+  under mN = 1 rival networks carry a migrant load (islands at P(C,C) 0.7–0.9 for thousands of generations), so the
+  outcome is scored on holders: an island is held by its majority class when that class self-cooperates and the
+  island's P(C,C) ≥ 0.5; universal = every island held and every pair of holders mutually cooperating; patchwork =
+  every island held, some pair of holders mutually defecting; separated (kernel) = two held islands with mutually
+  defecting holders; the established-mass checkpoint = every island held.
 
 ### 1.11 Chain (diagnostic only)
 
