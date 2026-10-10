@@ -460,3 +460,103 @@ states and the near-cap programs.
   masses, `union_chain.UChain`'s hybrid explorer with the J of Lemma F₃ supplied on the fly, N = 10⁴, θ = 10⁻⁹, seeded
   with every named state and every strict-NE triple found by the static analysis, with the cut diagnostic
   (`concessions_cutdiag.py`'s quantities) recorded.
+
+### 1.x Code validation of §1 (after the code, before any counted cell)
+
+From `src/sog_realizable_run.py validate` (`runs/sog-realizable-validate.json`), `gap` (`runs/sog-realizable-gap.json`)
+and `tests/test_sog_realizable.py`. *Disclosure:* one run of the main lottery cell (its seed 500000, which is run 1 of
+the cell) was executed once while debugging the kernel, after the static tables and before the cell; its result is
+the cell's run 1 and nothing was changed after it except two bookkeeping fixes in the report code.
+
+- **Library.** K₃ appended to milestone 4's library (178 entries; `CHK3` at 151); milestone 4's indices unchanged;
+  `iswrap` redefined in place. A `CHK3` call costs W + 6.
+- **Production.** The symbolic path tactic equals the host path tactic (`PathProducer` over the compiled terms) on all
+  422 worker run trees in both slots and on 2,000 random boss run trees plus every named boss: 0 mismatches; on 300
+  random *other spellings* of multi-spelling run trees per role, the host tactic gives the run tree's list: lists are
+  a function of the run tree (0 mismatches). Lists: at most 3 entries per worker, 6 per boss.
+- **Hand plays (§1.3.3) by whole runs:** 18/18 as derived, including F\* = (½, none; W, W) (T₁'s run 52,534 steps),
+  the one-slot leak (D\*, T₁, scab) fair and (D\*, scab, T₁) = (0; W, S), the ratchet start (D₀, T₀, T₀) fair, WF
+  against the T₁ pair (0; S, S) (no probe wage faker), Q's strike pact, U's pact below ½ and work at ½, and C₁ against
+  (T₁, T₁) = (0; S, S) by a regress at the cap (250,011 steps).
+- **Corrupted instances (§1.2.6), checker term and host replay agree on each:** (1) D\*'s =½ certificate accepted for
+  (D\*, T₁, scab), rejected for (D\*, scab, T₁); a misordered T₁ (slot-1 compilation in slot 2) works at wage 0 where
+  the correct T₁ strikes: **substitution**, checker sound. (2) T₁'s strike certificate accepted against ⌜pay(0)⌝ and
+  ⌜pay(¼)⌝, rejected against pay(½); D\*'s =½ accepted on the T₁ pair, rejected on the scab pair. (3) Forged lists
+  (premises exchanged; an F-path claiming work; a T-path claiming strike) and T₁'s work script against pay(0) all
+  rejected; the unequal mutual pair (Q, Qw) regresses on every check (TO) and plays (0; W, S): no accepted atom is
+  false; the **naive checker** accepts "QN strikes" for QN beside a list-less QN0 while QN works (a false atom), and
+  the sound checker on the same pair returns F. (4) Fit: F for K = V + 4 … V + 10, T from V + 11 (V = 25,000; the
+  three-abstraction run needs one more step than milestone 4's V + 10); D\* compiled at K = 2·10⁴ (V = 5,000): T₁'s
+  check times out (5,001 steps) and T₁ strikes; a four-check militant against C₁ exhausts K = 10⁶ (each check
+  regresses at the cap) and plays the default work at wage 0: **timeout**; an atom asked at fuel 40,000 below the
+  run's length is rejected. (5)–(6) as derived.
+- **Lemma Sym₃, measured** on 51 closures (Q-type pairs): every closure member's term check returns T with no more
+  steps than the root (6 with equal steps).
+- **Soundness audit:** every check that returned T in the term (3,065 of 9,270 sampled checks over 618 encounters)
+  was compared with the actual run of its subject: **0 false atoms**.
+- **Abstract evaluator = host replay** on certification values of 2,000 random worker pairs (and 150 in the tests):
+  0 mismatches. **Expanded node counts** from the formula equal the compiled-term counts on 2,000 spellings; the hand
+  counts of §1.3.5 are reproduced (B≥¼ 37, B½ 31, O 27, P⁰ 60, P^¼ 86; T₁ 34, D\* 151).
+- **The kernel** (`kern3`, J computed from the factorized table) reproduces `sog_lottery.kern` (dense Jc) exactly on a
+  random 12-boss × 10-worker subset (identical final counts and stop generation).
+- **Executable ≠ ideal (the cost finding; §1.3.6's condition fails).** Check costs are fuel-independent and
+  heavy-tailed: on 1,800 sampled checks, the checks that time out at K = 10⁶ but finish at K = 10⁷ cost 251,388 –
+  2,189,496 steps (median 396,533), and 262 time out at every fuel (regresses, which the ideal table also marks TO).
+  Matched samples of class triples (200 uniform over classes, 200 drawn from L), executable whole plays against the
+  ideal table:
+
+  | K (V = K/4) | play mismatches, uniform / L-weighted | checks disagreeing (of 3,000 each) |
+  |---|---|---|
+  | 3·10⁵ | 69/200 / 45/200 | 943 / 751 |
+  | 10⁶ | 17/200 / 6/200 | 276 / 98 |
+  | 3·10⁶ | 3/200 / 1/200 | 36 / 10 |
+
+  In every disagreement the term times out where the ideal replay returns T or F; never the reverse, and never a
+  different T/F value. The cost comes from nesting: a worker's check of a probe-reading boss Runs the boss's probes,
+  each a worker check in a probe encounter (which may itself close over the other worker), and every Run of the same
+  box inside one check replays its full cost; a worker with two wage atoms nests two such boss checks.
+  **Deviation (forced, recorded):** §1.3.6 said the lottery would run on executable values wherever they differ. An
+  exact executable table needs the cost of every check of every (boss tree, worker pair) — a full cost model of the
+  checker term, which this run did not build. The lottery therefore runs on the **ideal table** (the executable table
+  as K → ∞; equal to it on 199/200 L-weighted triples at K = 3·10⁶), and the realized encounters of the lottery are
+  audited by whole runs at K = 10⁶ (§2).
+
+### 1.4 Static invasion analysis (after the predictions file; `runs/sog-realizable-static.json`)
+
+- **Classes.** Workers: 1,282 spellings, 422 run trees, **318 exact classes per slot** (232 tagged); slot-1 and
+  slot-2 partitions coincide. Bosses: 137,385 spellings, 93,969 run trees, **77,211 exact classes** (behaviour on the
+  385 realized ternary probe codes); 11 boss views occur (3 certifiable, 8 with timeouts). Lemma W's 16 boss-only
+  behaviours are refined by the timeout views: T₁ and R are different classes (against an uncertifiable boss R works
+  and T₁ strikes).
+- **Masses under L** (aggregated class mass; the constant classes are single spellings, so aggregated = spelling):
+  each boss constant 4.12·10⁻⁴ (all nine 0.0037); D₀, D₀q, D14, WF 2.5·10⁻⁴ (five spellings each); **D\* 6.43·10⁻⁶ =
+  2⁻⁶.⁰ of a constant** (the modal run: 2⁻²³·³); D14₂ 2.6·10⁻⁵; scab, striker 0.035; **T₁ 0.0137 = 2⁻¹·⁴ of the
+  striker** (T₀ 0.0148, R 0.0137, Q 0.0137). Under the expanded syntax the nine constants hold 1.000 of the boss prior
+  (0.111 each) and scab + striker 0.99999999 of the worker prior; D\* weighs 7.8·10⁻⁴⁷. Under U every boss class has
+  1.3·10⁻⁵ and every worker class 3.1·10⁻³.
+- **Concession bosses** (classes paying ½ to the T₁ pair and less than ½ to the scab pair): **17,352 classes carrying
+  0.184 of the boss prior under L** (U 0.225, expanded 2·10⁻¹⁸). The library-rich prior does not make D\* in
+  particular common; it makes *some* concession common, because a random probe program pays ½ on the militant pair's
+  code about a third of the time and pays less on the scab pair's code about two thirds of the time.
+- **Fakers.** 0 triples (every boss class, every partner, both slots) in which the militant class works at a wage
+  below ½ (Lemma 0₃). WF plays (0; S, S) against the T₁ pair. Against the T₁ pair each wage leaf carries exactly 1/9
+  of the boss prior, and the T₁ pair works exactly at the three ½ leaves. Low-wage work over the prior (L³): 0.667 of
+  triple mass has some worker working below ½; of it **0.632 "accepts" (the worker's truthful action at that wage is
+  work) and 0.034 "uncertified default"** (it works because a check failed although its atom was true: closures
+  that time out, mostly among tagged workers); false certificate, timeout and substitution 0. (U: 0.594 / 0.072.)
+- **F\* = (D\*, T₁, T₁): no strict invader in any slot.** Neutral mass: boss 0.333 (every class paying ½ to the T₁
+  pair), slot 1 0.147 (workers certified to strike against ⌜pay(¼)⌝ that work at ½), **slot 2 0.500 (anything that
+  works at ½: the one-slot leak)**. (D\*, T₁, scab) has no strict invader either: pay(0, none) enters neutrally (boss
+  neutral mass 0.556), the cut is neutral. (D\*₂, T₁, T₁): no strict invader, slot-2 neutral mass 0.147 (the leak
+  closed). (D₀, T₀, T₀): strict boss invaders of mass 0.333 (pay ¼). (pay(½, ·), T₁, T₁) and (pay(½, ·), T₁, scab):
+  no strict invader.
+- **Founding coalitions** (fair triples with no strict invader among the catalogue's classes; a worker can never earn
+  more than ½, so only boss invaders matter): **mass 0.0171 under L**, 0.0217 under U, 2.3·10⁻¹¹ under the expanded
+  syntax; 10,860 of 101,124 worker-class pairs admit one. Of the L mass, concession bosses carry 0.0055 (32%) and the
+  constant fair bosses 6.8·10⁻⁵ (0.4%); the rest is other probe bosses that pay ½ on that pair. The modal comparison
+  value is the hand estimate of the predictions file (3.5·10⁻⁴, constant fair bosses beside militant⁻ and a scab), so
+  the L/modal ratio is ≈ 48.
+- **RR, derived (§1.3.4) and computed:** under realizable RR the ¼ probe certifies the T₁ pair's strike
+  *recommendation* (the T₁ pair's probe code is T on every strike probe), D\* pays ½ to them, and **every fair state
+  checked is strictly invaded by pay(¼, ·)** (boss 1.5 > 1; invader mass 1/3), as derived. RE 6's condition fails on
+  the realizable table; the executed-probe variant is run as a labelled extra.
