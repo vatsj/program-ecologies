@@ -271,3 +271,55 @@ unexplored flow exceeds 2%. Rare mutation and the lottery are separate objects, 
    exact mirror image.
 5. One-population modal arm (c) lottery: one population of N = 100 per island, same law otherwise, mN ∈ {0, 1}, all
    games (a one-sided norm is impossible by arithmetic: the asymmetric outcome has probability ≤ 2x(1 − x) ≤ ½).
+
+### 1.10 Code validation of §1 (appended after the code, before any counted cell)
+
+Code: `src/fixed_role_chicken.py` (tables, catalogues, classifier, static closure, the exact K² chain, the
+one-population seeded chain, the numba lottery), `src/fixed_role_chicken_run.py` (cells), `tests/test_fixed_role_chicken.py`
+(11 tests, all passing). *Disclosure:* to size the scale guard I ran one two-population chain cell (weak, chicken,
+N = 10³), started one one-population modal chain cell (chicken, N = 100) and ran four short and three full lottery runs
+with the counted seeds; those numbers are reproduced exactly by the counted cells (fixed seeds) and nothing in §1 or the
+predictions was changed after seeing them.
+
+- **Catalogues (§1.2):** class and program counts 46/1,852 (weak), 51/1,020 (modal), 12/666 (W0), 8/666 (M0), 2 (const);
+  bridge masses 0.00185 / 0.0310 / 0.00396 / 0.00396; in every arm and game the payoff classes (rows and columns of U)
+  coincide with the play classes (rows and columns of S). Held.
+- **Strictness (§1.1):** both constant conventions are strict Nash in every table; crash and mutual swerve are not
+  equilibria. Held.
+- **Program-space closure (§1.4):** on all K² pairs of every reader arm (weak, modal, W0, M0) and every game the
+  Δ ≥ 0 graph has exactly one closed class, containing R1, R2 and mutual-swerve states (and mixed states in the weak
+  arm); the constants arm has two closed classes, {R1} and {R2}. The shortest escape from (Straight | Swerve) is one
+  neutral step to a bridge winner and one strict step by the loser's Straight in every arm and game
+  (`not(THEM(ME))` in weak and W0, `not(BOX(THEM(ME)))` in M0, `BOXD(THEM(ME))` in modal). Held as derived. (Mutual
+  swerve is inside the closed class: a loser-seat bridge against a winner-seat bridge swerves with it and earns R > S,
+  a strict move; Straight then re-enters strictly from mutual swerve.)
+- **Bridge tables (§1.5):** the hand cells of the weak table hold (regress to Swerve among `not(THEM(ME))`,
+  `not(THEM(THEM))`; `not(THEM(^Swerve))` swerves against every bridge; `not(THEM(^Straight))` goes straight against
+  every bridge and crashes with itself; `(not(THEM(ME)) | not(THEM(^Swerve)))` is a one-sided convention between two
+  readers); modal `BOXD(THEM(ME))` crashes with itself and `not(BOX(THEM(ME)))` swerves with itself. Held.
+  **Correction:** §1.5's claim that the W0 and M0 play matrices differ only on matcher–bridge cells is wrong. They
+  differ in 2,000 of 443,556 program pairs (0.45%, as stated), and every differing cell is between two self-referential
+  readers, never involving a constant: matchers, bridges, and the soft commitments `and(THEM(ME),Straight)` /
+  `or(THEM(ME),Swerve)` (tagged firm / swerver by their play against constants), which the modal canon reduces to the
+  constants themselves while the weak regress resolves them to the minimax Swerve against other readers. By tag pair:
+  matcher–bridge 1,112, firm–matcher 352, firm–bridge 160, bridge–swerver 160, bridge–bridge 88, firm–firm 64,
+  firm–swerver 64.
+- **Classifier (§1.6):** constructed islands classify as stated (a polymorphic island implementing a perfect norm is
+  R1; `not(THEM(^Straight))` against itself is crash; `not(THEM(ME))` against itself is dove; X against X mixed; the
+  0.95 tolerance boundary). New, by construction: bridges in both seats are *not* a convention, because they swerve
+  with each other (an island with a bridge share in the winner seat and a bridge share in the loser seat has a
+  mutual-swerve fraction equal to the product of the two shares).
+- **Seed law (§1.7):** multinomial per island per role, roles independent, class frequencies match μ to 0.005 over
+  2,000 islands; paired seeds draw programs once and map them to both arms; forced founders have matched founder mass
+  (10 bridge founders per seat with bridges, 0 without, the same totals).
+- **Role-swap symmetry:** with the populations exchanged and the swap flag set, the same RNG seed gives the exact
+  mirror image of the unswapped run (test). The chain is symmetric, π(a | b) = π(b | a) to 10⁻⁹.
+- **Solver (§1.8):** jump-chain GTH against dense log-domain GTH on the full generator: TV ≤ 2·10⁻¹⁵ on W0, M0 and const
+  at N = 10², 10⁴ (test); the chain run repeats the check on every arm at N = 10².
+- **E3 (§1.6):** a (Straight | Swerve) island resolves at R1 on its own pool; with a bridge and the opposite
+  convention's Straight in the pool it is unresolved (the bridge joins the winner seat, then Straight joins the loser
+  seat and crash pairs appear); without the bridge the opposite Straight cannot join (test).
+
+**Scale guard.** Lottery (one worker): a 4,000-generation mN = 1 run of 64 × 2 × 100 takes 1–4 s (less when the
+metapopulation freezes); an mN = 0 run freezes within ~50–100 generations. The two-population chain is 0.25 s per cell
+at K² = 2,601. The one-population seeded modal chain is the expensive object (minutes per cell; measured in §2).
