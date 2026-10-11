@@ -79,6 +79,13 @@ REJECTED.md the ones we dropped.
   identity is not cheap (the RE's view: structural equality is derivable in any quoting language, so pricing it is a
   selector unless the prior is justified independently); (c) keep universality and measure the threshold.
   *Operating hypothesis until he answers:* (a), with the threshold scan as the next cheap run.
+- *Evidence (2026-10-11b, prudent openness):* the threshold is measured and is an abundance, not a price: m\* =
+  1.26·10⁻³ [6.6·10⁻⁴, 1.6·10⁻³] at (100, 64), about 8 seeded clique copies per run (L has 57), and it is not
+  scale-free (no crossing at (100, 128), where the clique-free baseline is 0.475). Option (b) would need about a 7×
+  cut in seeded clique copies at this scale, and the factor moves with (N, I). Prudence and openness coexist (CBP
+  is open to CB); the prudent open core is universal in 29/40 runs without cliques (RESULTS "Prudent openness
+  against identity"). Operating hypothesis (a) unchanged; the defended universal statement is relative to the
+  identity abundance and the (N, I) baseline.
 - *Evidence (2026-10-06k, mixed budgets):* with budgets mixed in {4, 8, 16}, natural horizon separation is 0.683
   under a cheap-heavy prior, 0.002 above the copy thresholds and 0/300 at homogeneous b = 16; `BOX1(THEM(ME))`@4
   is in 0.94 of the separations and FairBot is compatible with itself at every budget pair; a living bridge resolves

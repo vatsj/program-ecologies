@@ -869,3 +869,20 @@ No RE prediction failed outright (RE 4 and RE 5 inconclusive). **Design choices 
 **Subagent predictions** S7, S9, S12 (second clause), S13, S14 ("open top state"); two hand slips (the eq run tree has 12 spellings, not 11; XC has 6 nodes, not 7).
 
 **Design choices dropped:** the self-probe for production (it turns `CHK(me,me,C)`-readers into Löbian cooperators, a different ecology); island P(C,C) ≥ 0.9 scoring (replaced by holder-based outcomes under the migrant load, before any counted cell); per-pair separation hazards (saturated: every run separates by generation 20–30); the full-catalogue chain (90 min without finishing a cell; the reduced-support diagnostic instead).
+
+
+## Added 2026-10-11: prudent openness (RESULTS.md, "Prudent openness against identity")
+
+**"CBP is not compatible with CB, and the tactic produces CBP's D script against ⌜CB⌝" (Fable, RE 4 (i) and (ii); failed statically).** The hand reading conflated the certificate-carrying cooperator Cc with the certificate-less constant ⌜C⌝: `CHK(them,⌜C⌝,D)` is certified by every S-guarded carrier, so CBP is open to CB, and no D script of CBP against ⌜CB⌝ exists. The spec's premise ("CBP's family excludes the nice carriers") was wrong, and its literal tilts measured a nice-dominated family; the matched core/nice cells added before any cell are the informative ones.
+
+**"Prudent openness establishes like a clique; F_P universal ≥ 0.5" (Fable, RE 1; falsifier fired).** F_P-universal 0.175; the ≥ 0.35 islands-per-copy target was unreachable, since a block at M caps at 0.32.
+
+**"Pooling beats identity head to head" (Fable, RE 3; falsifier fired for F_P).** 0.30 vs 0.39 of islands; the mechanism holds for the prudent core alone (0.52 vs 0.25).
+
+**"The scaling panel moves the crossing by ≤ 2×" (Fable, RE 5, panel clause).** No crossing exists at (100, 128), where the clique-free baseline is 0.475; the 50% level is set by an (N, I)-dependent baseline. **"Prudent-open on top of the no-clique chain at 10³" (Fable, RE 6).** XC′ is on top at both N.
+
+**"Universality in a quoting language is a property of identity's *price* in the prior" (Fable, THEORY §9.2 after the identity run; refined).** It is a property of identity's seeded *abundance* relative to an (N, I)-dependent baseline: about 8 seeded clique copies per run at (100, 64).
+
+**Subagent predictions:** S1, S5 (the core without cliques badly underrated), S7, S12 missed on numbers; S10 indeterminate; the notes' §1.7 claim that the second curve's m_L point equals P1 (caught by a test).
+
+**Design choices dropped:** "CBP's family" as the test of prudence (the matched core/nice pair instead); the two-point panel as a crossing locator (it cannot locate a crossing when the baseline moves; the m = 0 baseline was added at each panel setting); P_open as worded (28 classes, 12 outside the open family); a first launch whose numpy threads oversubscribed the shared machine (killed by pid, relaunched single-threaded).

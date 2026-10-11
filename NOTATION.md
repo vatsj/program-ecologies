@@ -356,3 +356,12 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   island** — an island's majority class and the islands it holds (the endpoint under migrant load); **islands per
   seeded copy** — held islands per seeded copy of a label; **seed payoff** f = U·μ — expected payoff against the iid
   seed, the scramble diagnostic; **universal-open** — a run in which the open carrier family holds every island.
+- **Prudent openness:** **CBP** (this run) = `if(and(CHK(them,me,C),CHK(them,⌜C⌝,D)),C,D)`, the prudent open
+  carrier (distinct from milestone 4's probe, now **CBP₄**); **⌜C⌝ vs Cc** — the certificate-less constant against
+  which S-guarded carriers certify defection, vs the catalogue's certificate-carrying unconditional cooperator;
+  **F_P / F_P^pr / F_P^n** — CBP's frozen family (the heaviest maximal pairwise-compatible set containing it), its
+  prudent core and its nice part; **F_X, XB** — the exclusive club's family and its one bridge to CBP; **m, m_L, m\*** —
+  identity seed mass, its value under L (9·10⁻³, 57 copies per run at (100, 64)), and the 50% crossing of the
+  universal fraction (the abundance threshold); **f₀, q** — the clique-free baseline and the per-copy persistence
+  rate in f ≈ f₀·e^(−6,400·m·q); **established islands per occupied seed island** and **persistence** — the stage
+  statistics (arrival → establishment → persistence → spread).
