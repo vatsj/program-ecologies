@@ -339,3 +339,8 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   host replay with dependency-tracked regress detection; **FastChain** — closed-form two-type fates in monomorphic
   states (equals `LogChain` on the P cells); **no-clique control** — the chain with the ten closed classes removed
   (not preregistered).
+- **Gene** (RS, 2026-10-11) — the broader name for a certificate or contract: a declared modification of a program's
+  behaviour at special-cased points (a quorum strike, a carried derivation, a committed threat); **credible gene** —
+  one whose execution is ex-post rational at the point it fires (DEFERRED 12); **spontaneous generation** — a gene
+  arising on the spot as a credible deviation from an equilibrium condition, modelled as a structured mutation
+  kernel from a declared prior.

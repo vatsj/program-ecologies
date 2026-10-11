@@ -294,3 +294,49 @@ REJECTED.md the ones we dropped.
   is indistinguishable (which the base language would undo). *Next (after 2026-10-08):* the social organization game
   over the realizable language (the RS's prior question), and milestone 5, endogenous certificate production
   (charged search at production time, the tactic as code).
+
+## 12. Genes: certificates and contracts as behaviour-modifying genes (RS, 2026-10-11)
+- *RS's statement:* certificates and contracts are to be construed more broadly than proofs about a program: as
+  **genes** that modify program behaviour at deliberately special-cased points. Commitment races are then a
+  co-evolutionary arms race; some threats are fit (straight in chicken is credible). The union should get the power to
+  special-case on a quorum; the boss should not get to special-case a threat.
+- *Measured counterpart:* the RC arm of RESULTS "Incentive-compatible enforcement" (boss enforcement ex-post
+  rational, workers' quorum strike committed) gives fair 0.553 under the uniform prior, the best of the four arms.
+- *Spontaneous generation (RS):* certain classes of credible deviation get encoded as a gene on the spot; a gene is a
+  deviation from an equilibrium condition on the underlying program; proof device: no credible deviation (e.g. a
+  Pareto improvement) exists, else it would have been adopted as a fit gene. Stress test against equilibrium notions
+  (Nash too weak; Bayes–Nash with roles as public types); base strategies in a closed parametric form (single-digit
+  parameters, so genes cannot be hard-coded), genes expressing what strategies miss.
+- *RE's reading:* the existence half is the commitment folk theorem (Tennenholtz 2004; Kalai–Kalai–Lehrer–Samet 2010;
+  Peters–Szentes 2012): every individually rational profile is an equilibrium with commitment devices; the content is
+  selection, which our results say runs on resistance, prior mass and seeded counts, not on efficiency. "Fit" must be
+  measured by the dynamics (discipline rule 3); on-the-spot generation is a structured mutation kernel from a declared
+  prior, charged like any mutant.
+- *Operating hypothesis:* a credibility filter on genes (a gene is admissible iff executing it is ex-post rational
+  at the point it fires) reproduces RC's asymmetry without declaring it; to be tested as an arm beside declared
+  asymmetry.
+- *Would settle it:* the gene arm (parametric base strategies per role + declared special-case genes + the
+  credibility filter) on the social organization game and on fixed-role chicken; whether selection among genes
+  recovers RC.
+
+## 13. Threats: drift versus testing (RS, 2026-10-11)
+- *RS's guess:* inactive threats should drift out quickly enough to disarm them over the long run.
+- *Evidence:* in the chain a non-credible threat is neutral on path and drifts out at 1/N, but re-enters strictly as
+  soon as strikers appear (RESULTS "Incentive-compatible enforcement"); in the lottery the threat dies only where it is
+  *tested* (strikers in numbers, RESULTS "The social organization game under the seed lottery").
+- *Operating hypothesis:* disarming is a testing-rate condition (threats are called often enough that holding one is
+  costly), not a drift-rate condition; the drift route is re-armed by selection.
+
+## 14. Social choice and implementation (RS, 2026-10-11; side quest)
+- *RS:* view the game as a mechanism for social choice over outcomes; want threat-independence (an IIA-like axiom,
+  especially against expensive non-credible threats); VCG is not coalition-robust; sceptical of the revelation
+  principle, preferring revealed to imputed preferences; the program-theoretic infrastructure as the escape; hope for
+  a standalone statement on augmenting social choice theory for coalitional robustness.
+- *Literature (RE):* implementation theory (Hurwicz; Maskin 1977/1999; Moore–Repullo 1988; Jackson 2001 survey);
+  coalitional versions: strong Nash implementation (Maskin 1979), coalition-proof equilibrium (Bernheim–Peleg–Whinston
+  1987), group strategy-proofness; strong mediated equilibrium (Monderer–Tennenholtz 2009); evolutionary implementation
+  (Sandholm 2002, 2005); robust mechanism design (Bergemann–Morris 2005); threat-dependence: Nash 1953 variable
+  threats, subgame perfection, renegotiation-proofness (Farrell–Maskin 1989, Bernheim–Ray 1989).
+- *Operating hypothesis:* any implementation statement we prove is relative to the prior (our bargaining results are
+  prior-dependent), so the target theorem is "which social choice correspondences the seed lottery implements for
+  priors of a given bridge/pooling structure"; parked until the pooling result is in.
