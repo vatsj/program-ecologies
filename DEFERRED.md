@@ -359,6 +359,14 @@ REJECTED.md the ones we dropped.
   noted:* zero wage with everyone working is Pareto-efficient; the fair wage needs the credible strike to make zero
   wage inefficient, so distribution keeps credible threats in the game while threat-independence (entry 14) removes
   the non-credible ones. Added to the gene run as arm G-recip with RE 8.
+- *RS (2026-10-11):* "It's not clear to me that all costly actions are non-credible threats. A union of minimum-wage
+  workers might risk their jobs to strike and demand higher wages." *RE:* right; two definitions pull apart. Myopic
+  credibility (optimal when fired, subgame-perfect) is what a filter can test without lookahead, and it excludes
+  costly strikes and costly whacks alike (hence RR's smallest positive wage). Credibility over the horizon is
+  fitness, which the chain measures and which a filter would build in as lookahead (excluded, entry 8). The
+  union/boss asymmetry is therefore not a credibility asymmetry (both are costly investments) but a structural one:
+  the strike needs a quorum, the whack is unilateral; which survives is set by the testing rate (entry 13).
+  *Added to the gene run:* per-gene on-path execution rates and realized costs under G-all, CC and RC.
 - *Would settle it:* the gene arm (parametric base strategies per role + declared special-case genes + the
   credibility filter) on the social organization game and on fixed-role chicken; whether selection among genes
   recovers RC.
