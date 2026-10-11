@@ -1,0 +1,1028 @@
+{
+ "production": {
+  "worker_trees": 422,
+  "boss_trees_sampled": 2015,
+  "mismatches": []
+ },
+ "expanded_nodes": {
+  "sampled": 2000,
+  "mismatches": 0,
+  "atoms": {
+   "B>=1/4": 37,
+   "B=1/2": 31,
+   "B<=1/4": 37,
+   "O:S": 27,
+   "O:W": 27,
+   "P1^0:W": 60,
+   "P1^0:S": 60,
+   "P1^1/4:W": 86,
+   "P1^1/4:S": 86,
+   "P2^0:W": 60,
+   "P2^0:S": 60,
+   "P2^1/4:W": 86,
+   "P2^1/4:S": 86
+  },
+  "named": {
+   "scab": 1,
+   "striker": 1,
+   "T1": 34,
+   "T0": 40,
+   "R": 40,
+   "Q": 30,
+   "U": 63,
+   "Qw": 30,
+   "D0": 63,
+   "D0q": 63,
+   "D14": 89,
+   "D*": 151,
+   "D14_2": 177,
+   "WF": 63,
+   "pay(0,strike)": 1,
+   "pay(0,none)": 1,
+   "pay(0,source)": 1,
+   "pay(1/4,strike)": 1,
+   "pay(1/4,none)": 1,
+   "pay(1/4,source)": 1,
+   "pay(1/2,strike)": 1,
+   "pay(1/2,none)": 1,
+   "pay(1/2,source)": 1
+  }
+ },
+ "hand_plays": [
+  {
+   "enc": "D* | T1 | T1",
+   "play": [
+    7,
+    "C",
+    "C"
+   ],
+   "expected": [
+    7,
+    "C",
+    "C"
+   ],
+   "ok": true,
+   "steps": [
+    14281,
+    52534,
+    52534
+   ]
+  },
+  {
+   "enc": "D* | T0 | T0",
+   "play": [
+    4,
+    "C",
+    "C"
+   ],
+   "expected": [
+    4,
+    "C",
+    "C"
+   ],
+   "ok": true,
+   "steps": [
+    36669,
+    133985,
+    133985
+   ]
+  },
+  {
+   "enc": "D* | scab | scab",
+   "play": [
+    1,
+    "C",
+    "C"
+   ],
+   "expected": [
+    1,
+    "C",
+    "C"
+   ],
+   "ok": true,
+   "steps": [
+    552,
+    4,
+    4
+   ]
+  },
+  {
+   "enc": "D* | T1 | scab",
+   "play": [
+    7,
+    "C",
+    "C"
+   ],
+   "expected": [
+    7,
+    "C",
+    "C"
+   ],
+   "ok": true,
+   "steps": [
+    14281,
+    52534,
+    4
+   ]
+  },
+  {
+   "enc": "D* | scab | T1",
+   "play": [
+    1,
+    "C",
+    "D"
+   ],
+   "expected": [
+    1,
+    "C",
+    "D"
+   ],
+   "ok": true,
+   "steps": [
+    552,
+    4,
+    38541
+   ]
+  },
+  {
+   "enc": "D0 | T0 | T0",
+   "play": [
+    7,
+    "C",
+    "C"
+   ],
+   "expected": [
+    7,
+    "C",
+    "C"
+   ],
+   "ok": true,
+   "steps": [
+    15007,
+    34715,
+    34715
+   ]
+  },
+  {
+   "enc": "WF | T1 | T1",
+   "play": [
+    1,
+    "D",
+    "D"
+   ],
+   "expected": [
+    1,
+    "D",
+    "D"
+   ],
+   "ok": true,
+   "steps": [
+    13996,
+    33688,
+    33688
+   ]
+  },
+  {
+   "enc": "pay(1/2,none) | T1 | scab",
+   "play": [
+    7,
+    "C",
+    "C"
+   ],
+   "expected": [
+    7,
+    "C",
+    "C"
+   ],
+   "ok": true,
+   "steps": [
+    4,
+    6634,
+    4
+   ]
+  },
+  {
+   "enc": "pay(0,none) | Q | Q",
+   "play": [
+    1,
+    "D",
+    "D"
+   ],
+   "expected": [
+    1,
+    "D",
+    "D"
+   ],
+   "ok": true,
+   "steps": [
+    4,
+    26196,
+    26196
+   ]
+  },
+  {
+   "enc": "pay(1/2,none) | Q | Q",
+   "play": [
+    7,
+    "D",
+    "D"
+   ],
+   "expected": [
+    7,
+    "D",
+    "D"
+   ],
+   "ok": true,
+   "steps": [
+    4,
+    26196,
+    26196
+   ]
+  },
+  {
+   "enc": "pay(0,none) | Q | scab",
+   "play": [
+    1,
+    "C",
+    "C"
+   ],
+   "expected": [
+    1,
+    "C",
+    "C"
+   ],
+   "ok": true,
+   "steps": [
+    4,
+    278,
+    4
+   ]
+  },
+  {
+   "enc": "pay(0,none) | U | U",
+   "play": [
+    1,
+    "D",
+    "D"
+   ],
+   "expected": [
+    1,
+    "D",
+    "D"
+   ],
+   "ok": true,
+   "steps": [
+    4,
+    52494,
+    52494
+   ]
+  },
+  {
+   "enc": "pay(1/2,none) | U | U",
+   "play": [
+    7,
+    "C",
+    "C"
+   ],
+   "expected": [
+    7,
+    "C",
+    "C"
+   ],
+   "ok": true,
+   "steps": [
+    4,
+    6634,
+    6634
+   ]
+  },
+  {
+   "enc": "pay(0,none) | R | R",
+   "play": [
+    1,
+    "D",
+    "D"
+   ],
+   "expected": [
+    1,
+    "D",
+    "D"
+   ],
+   "ok": true,
+   "steps": [
+    4,
+    4322,
+    4322
+   ]
+  },
+  {
+   "enc": "pay(1/2,none) | R | R",
+   "play": [
+    7,
+    "C",
+    "C"
+   ],
+   "expected": [
+    7,
+    "C",
+    "C"
+   ],
+   "ok": true,
+   "steps": [
+    4,
+    550,
+    550
+   ]
+  },
+  {
+   "enc": "C1 | T1 | T1",
+   "play": [
+    1,
+    "D",
+    "D"
+   ],
+   "expected": [
+    1,
+    "D",
+    "D"
+   ],
+   "ok": true,
+   "steps": [
+    250011,
+    250011,
+    250011
+   ]
+  },
+  {
+   "enc": "D*_2 | T1 | T1",
+   "play": [
+    7,
+    "C",
+    "C"
+   ],
+   "expected": [
+    7,
+    "C",
+    "C"
+   ],
+   "ok": true,
+   "steps": [
+    28558,
+    133802,
+    133802
+   ]
+  },
+  {
+   "enc": "D*_2 | T1 | scab",
+   "play": [
+    1,
+    "D",
+    "C"
+   ],
+   "expected": [
+    1,
+    "D",
+    "C"
+   ],
+   "ok": true,
+   "steps": [
+    28860,
+    105486,
+    4
+   ]
+  }
+ ],
+ "term_vs_host": {
+  "encounters": 618,
+  "checks": 9270,
+  "disagreements": 914,
+  "disagree_examples": [
+   [
+    "named D*_2|T1|T1",
+    {
+     "j": 0,
+     "A": "<=1/4",
+     "probe": false,
+     "term": "TO",
+     "steps": 250001,
+     "host": "F",
+     "sound": null
+    }
+   ],
+   [
+    "named D*_2|T1|scab",
+    {
+     "j": 0,
+     "A": ">=1/4",
+     "probe": false,
+     "term": "TO",
+     "steps": 250001,
+     "host": "F",
+     "sound": null
+    }
+   ],
+   [
+    "named D*_2|T1|scab",
+    {
+     "j": 0,
+     "A": "<=1/4",
+     "probe": false,
+     "term": "TO",
+     "steps": 250001,
+     "host": "F",
+     "sound": null
+    }
+   ],
+   [
+    "sample 0",
+    {
+     "j": 1,
+     "A": "strike",
+     "probe": false,
+     "term": "TO",
+     "steps": 250001,
+     "host": "T",
+     "sound": null
+    }
+   ],
+   [
+    "sample 0",
+    {
+     "j": 2,
+     "A": "work",
+     "probe": false,
+     "term": "TO",
+     "steps": 250001,
+     "host": "T",
+     "sound": null
+    }
+   ],
+   [
+    "sample 2",
+    {
+     "j": 0,
+     "A": ">=1/4",
+     "probe": false,
+     "term": "TO",
+     "steps": 250001,
+     "host": "T",
+     "sound": null
+    }
+   ],
+   [
+    "sample 2",
+    {
+     "j": 0,
+     "A": "<=1/4",
+     "probe": false,
+     "term": "TO",
+     "steps": 250001,
+     "host": "T",
+     "sound": null
+    }
+   ],
+   [
+    "sample 2",
+    {
+     "j": 1,
+     "A": "work",
+     "probe": false,
+     "term": "TO",
+     "steps": 250001,
+     "host": "F",
+     "sound": null
+    }
+   ],
+   [
+    "sample 2",
+    {
+     "j": 1,
+     "A": "strike",
+     "probe": false,
+     "term": "TO",
+     "steps": 250001,
+     "host": "T",
+     "sound": null
+    }
+   ],
+   [
+    "sample 2",
+    {
+     "j": 2,
+     "A": "work",
+     "probe": false,
+     "term": "TO",
+     "steps": 250001,
+     "host": "T",
+     "sound": null
+    }
+   ]
+  ],
+  "true_checks": 3065,
+  "false_atoms": 0,
+  "false_examples": [],
+  "max_steps_not_TO": 249262,
+  "steps_TO": 2762,
+  "median_steps": 52894.5,
+  "p99_steps": 236881.72
+ },
+ "composition": {
+  "triples": 600,
+  "mismatches": 76,
+  "examples": [
+   {
+    "label": "sample 2",
+    "classes": [
+     19671,
+     184,
+     57
+    ],
+    "trees": [
+     24021,
+     246,
+     80
+    ],
+    "table": [
+     5,
+     "D",
+     "C"
+    ],
+    "whole": [
+     5,
+     "C",
+     "C"
+    ]
+   },
+   {
+    "label": "sample 9",
+    "classes": [
+     54298,
+     284,
+     294
+    ],
+    "trees": [
+     65506,
+     380,
+     390
+    ],
+    "table": [
+     1,
+     "D",
+     "C"
+    ],
+    "whole": [
+     1,
+     "D",
+     "D"
+    ]
+   },
+   {
+    "label": "sample 10",
+    "classes": [
+     19686,
+     176,
+     294
+    ],
+    "trees": [
+     24036,
+     236,
+     390
+    ],
+    "table": [
+     6,
+     "D",
+     "C"
+    ],
+    "whole": [
+     6,
+     "C",
+     "D"
+    ]
+   },
+   {
+    "label": "sample 23",
+    "classes": [
+     6376,
+     180,
+     176
+    ],
+    "trees": [
+     8176,
+     240,
+     236
+    ],
+    "table": [
+     4,
+     "D",
+     "D"
+    ],
+    "whole": [
+     4,
+     "C",
+     "C"
+    ]
+   },
+   {
+    "label": "sample 30",
+    "classes": [
+     38257,
+     26,
+     212
+    ],
+    "trees": [
+     45199,
+     78,
+     282
+    ],
+    "table": [
+     6,
+     "C",
+     "D"
+    ],
+    "whole": [
+     6,
+     "C",
+     "C"
+    ]
+   },
+   {
+    "label": "sample 56",
+    "classes": [
+     13078,
+     299,
+     273
+    ],
+    "trees": [
+     16492,
+     399,
+     363
+    ],
+    "table": [
+     0,
+     "D",
+     "D"
+    ],
+    "whole": [
+     0,
+     "C",
+     "D"
+    ]
+   },
+   {
+    "label": "sample 69",
+    "classes": [
+     41444,
+     182,
+     305
+    ],
+    "trees": [
+     48818,
+     242,
+     405
+    ],
+    "table": [
+     2,
+     "C",
+     "D"
+    ],
+    "whole": [
+     2,
+     "C",
+     "C"
+    ]
+   },
+   {
+    "label": "sample 72",
+    "classes": [
+     69644,
+     284,
+     215
+    ],
+    "trees": [
+     84182,
+     380,
+     285
+    ],
+    "table": [
+     0,
+     "D",
+     "C"
+    ],
+    "whole": [
+     0,
+     "C",
+     "D"
+    ]
+   },
+   {
+    "label": "sample 75",
+    "classes": [
+     60696,
+     209,
+     199
+    ],
+    "trees": [
+     73014,
+     279,
+     265
+    ],
+    "table": [
+     8,
+     "C",
+     "D"
+    ],
+    "whole": [
+     8,
+     "D",
+     "D"
+    ]
+   },
+   {
+    "label": "sample 78",
+    "classes": [
+     63174,
+     19,
+     102
+    ],
+    "trees": [
+     75492,
+     418,
+     140
+    ],
+    "table": [
+     4,
+     "D",
+     "D"
+    ],
+    "whole": [
+     4,
+     "D",
+     "C"
+    ]
+   }
+  ]
+ },
+ "corrupted": {
+  "1_slot2_ordering": {
+   "accepted_in_order": [
+    "T",
+    "T",
+    52524
+   ],
+   "same_question_misordered": [
+    "F",
+    "F",
+    38531
+   ],
+   "misordered_T1_play": [
+    1,
+    "C",
+    "C"
+   ],
+   "correct_T1_play": [
+    1,
+    "C",
+    "D"
+   ],
+   "classification": "substitution",
+   "ok": true
+  },
+  "2_opponent_substitution": {
+   "T1_strike_vs_pay0": [
+    "T",
+    "T",
+    14025
+   ],
+   "vs_pay14": [
+    "T",
+    "T",
+    14271
+   ],
+   "vs_actual_pay12": [
+    "F",
+    "F",
+    20006
+   ],
+   "Dstar_half_T1pair": [
+    "T",
+    "T",
+    52524
+   ],
+   "Dstar_half_scabpair": [
+    "F",
+    "F",
+    38531
+   ],
+   "ok": true
+  },
+  "3_unequal_branches": {
+   "forged": {
+    "premises_exchanged": {
+     "vs_pay12": [
+      "F",
+      "F",
+      9428
+     ],
+     "vs_pay0": [
+      "F",
+      "F",
+      9428
+     ]
+    },
+    "F_path_claims_work": {
+     "vs_pay12": [
+      "F",
+      "F",
+      16085
+     ],
+     "vs_pay0": [
+      "F",
+      "F",
+      10113
+     ]
+    },
+    "T_path_claims_strike": {
+     "vs_pay12": [
+      "F",
+      "F",
+      9665
+     ],
+     "vs_pay0": [
+      "F",
+      "F",
+      9665
+     ]
+    },
+    "T_leaf_box_false": [
+     "F",
+     "F",
+     13986
+    ]
+   },
+   "mutual_pair_play": [
+    1,
+    "C",
+    "D"
+   ],
+   "mutual_pair_checks": {
+    "x work": [
+     "TO",
+     "TO",
+     250001
+    ],
+    "x strike": [
+     "TO",
+     "TO",
+     250001
+    ],
+    "y work": [
+     "TO",
+     "TO",
+     250001
+    ],
+    "y strike": [
+     "TO",
+     "TO",
+     250001
+    ]
+   },
+   "mutual_pair_false_accepted": [],
+   "naive_play": [
+    1,
+    "C",
+    "D"
+   ],
+   "naive_accepts_QN_strikes": [
+    "T",
+    "T",
+    12992
+   ],
+   "sound_on_same": [
+    "F",
+    "F",
+    12970
+   ],
+   "ok": true
+  },
+  "4_exhausted_fuel": {
+   "fit_boundary": {
+    "4": [
+     "F",
+     "F"
+    ],
+    "5": [
+     "F",
+     "F"
+    ],
+    "6": [
+     "F",
+     "F"
+    ],
+    "7": [
+     "F",
+     "F"
+    ],
+    "8": [
+     "F",
+     "F"
+    ],
+    "9": [
+     "F",
+     "F"
+    ],
+    "10": [
+     "F",
+     "F"
+    ],
+    "11": [
+     "T",
+     "T"
+    ],
+    "12": [
+     "T",
+     "T"
+    ],
+    "13": [
+     "T",
+     "T"
+    ],
+    "14": [
+     "T",
+     "T"
+    ],
+    "15": [
+     "T",
+     "T"
+    ]
+   },
+   "cap_exceeded": {
+    "K": 20000,
+    "check_T1_works": [
+     "TO",
+     5001
+    ],
+    "play": [
+     1,
+     "D",
+     "D"
+    ],
+    "steps": [
+     10018,
+     5011,
+     5011
+    ]
+   },
+   "four_checks_vs_C1": {
+    "play": [
+     1,
+     "C",
+     "D"
+    ],
+    "raw": [
+     "1",
+     "BOT",
+     "D"
+    ],
+    "steps": [
+     250011,
+     1000000,
+     250011
+    ],
+    "classification": "timeout"
+   },
+   "fuel_below_run": {
+    "host": "F",
+    "term": "F"
+   },
+   "ok": true
+  },
+  "5_mixed_closure": {
+   "play": [
+    1,
+    "C",
+    "D"
+   ],
+   "ok": true
+  },
+  "6_C1": {
+   "play": [
+    1,
+    "D",
+    "D"
+   ],
+   "steps": [
+    250011,
+    250011,
+    250011
+   ],
+   "ok": true
+  }
+ },
+ "sym3": {
+  "closures": 51,
+  "violations": 0,
+  "equal_steps": 6,
+  "examples": []
+ },
+ "time_s": 91.07908415794373
+}
