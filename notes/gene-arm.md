@@ -348,3 +348,48 @@ Every kernel is a mutation kernel; fitness is the chain's (ρ(Δ) on the mutant-
   a committed whack. G-asym (declared) is the arm that can show the asymmetry's effect; no filter derives it.
 - **Proof device:** strict gene-stability cannot exclude Pareto improvements reachable only by neutral steps (S → Z),
   and on the frontier (every both-work play) it is vacuous: the device has content only at strikes and crashes.
+
+### 1.15 G-recip: reciprocal credible genes (added at the RS's request, 2026-10-11, before any code or cell)
+
+*RS:* "I want to find a narrower class of genes restricting outcomes to the 'good' (eg pareto efficient) ones."
+
+**Definition (frozen).** A gene is admissible in G-recip iff (i) its trigger is a certificate about the opponent's play
+in this encounter and (ii) its override passes the per-point continuation test (§1.5, the test G-cred-whole applies at
+every point) at every encounter of the frozen reference catalogue where it fires (§1.7). Execution CC (genes filtered,
+bases as written, as in G-cred); the base-commitment control (bosses h = none) is reported beside it.
+Reciprocal triggers (i):
+- workers: the boss's wage toward me, BOX(s∈{0}), BOX(s∈{0,¼}), BOX(s∈{½}); the other worker's play, BOX(OTHER=work),
+  BOX(OTHER=strike), Q\*. Excluded: BOX(h∈{strike}), BOX(h∈{source}) (the bare "whacked" condition: a policy, not
+  play toward me in this encounter);
+- bosses: BOX(W_j = strike), BOX(W_j = work). Excluded: the probes P_j(0), P_j(¼) (certificates about a quoted
+  constant, not about this encounter);
+- chicken: both triggers.
+So G-recip ⊂ G-cred (same test, fewer triggers).
+
+**Admitted genes by hand.** Workers: the six reciprocal triggers with override work (work is always a continuation best
+reply, §1.7); no reciprocal strike gene (each fires at a positive wage or under a strike-whacker somewhere: Q\* at ¼,
+BOX(s∈{0}) against (0, strike), BOX(OTHER=·) at ½). Bosses: the four reciprocal triggers with override whack none;
+whack strike / source and every wage override fail (§1.7 witnesses: the whack gene against the striker pair; wage
+cuts against (scab, T0); raises against (striker, scab)) unless a code count finds a vacuous one. Chicken: bridge
+`(BOX(THEM=Sw), St)` and yield `(BOX(THEM=St), Sw)` pass, firm and `(BOX(THEM=Sw), Sw)` fail (Swerve against a stable
+swerver, 0 < 2).
+
+**Is every gene-stable state under G-recip Pareto-efficient? No, by hand.**
+
+| gene-stable, Pareto-dominated state | dominated by | admissible gene that would leave it (weakly) |
+|---|---|---|
+| S = (0, none, 0) \| striker \| striker, play (0, S, S), payoffs (0, 0, 0) | Z (2, 0, 0) | worker `(BOX(s∈{0}), work)` (or any reciprocal work gene with a true trigger): neutral for the carrier (0 → 0), strict for the boss; then the other worker likewise |
+| scab split (0, none, 0) \| scab \| striker, (1, 0, 0) | Z | the striker's `(BOX(s∈{0}), work)`, neutral |
+| the same with a constant (s, none) boss, s > 0, both striking, (0, 0, 0) | the both-work play at s | the work gene is strict there (s > 0), so these are *not* gene-stable |
+
+The device fails only through neutral improvements: G-recip's admissible genes include the move that leaves S, but
+it is weak for its carrier, so strict gene-stability does not exclude S. Under the weak version ("no admissible gene
+weakly improves its carrier and strictly improves someone") S and the zero-wage splits are not stable; the code
+reports both versions.
+
+**Which Pareto-efficient states G-recip still admits.** Every both-work, no-whack play is on the frontier (§1.9), so
+G-recip cannot select among wages: Z (zero wage, everyone working) is efficient and gene-stable; F and I are gene-stable
+under CC execution because their bases carry the committed strikes; under any execution that rationalizes the strike
+(RR), F is gene-unstable (§1.9). **The fair wage needs a credible strike to make zero wage inefficient, and no strike
+at a positive wage is credible in this game** (work − strike = s + L[h = strike] ≥ 0): Pareto restriction alone
+cannot pick fair over zero wage, because the zero-wage play is Pareto-efficient.
