@@ -468,3 +468,21 @@ deters a reader with one visible policy. The strike needs a quorum: Q\* reads th
 striker beside a scab is a split (boss payoff 1 − s) that a boss can cut strictly, and the quorum pact resolves only by
 Löb between two slots (two mutations, notes §1.10). A strike at s > 0 is a costly action of the same kind as an executed
 whack (it forgoes s); the asymmetry between them is in who must coordinate, not in the per-point test.
+
+### 1.17 Deviation before the panel: the uniform prior and its solver
+
+The first panel launch (uniform over program texts, hybrid exploration) did not finish a single gene-arm uniform cell in
+45 minutes: under a uniform prior over the 1,323 × 136 cap-1 texts π is diffuse over large neutral networks, the
+θ-pruned exploration kept growing (10⁴ → 2.4·10⁴ states in two rounds at θ = 10⁻⁹) and at θ = 10⁻⁷ it stopped with
+46% of the outflow cut (explored fair 0.81 against a cut-corrected 0.09: unusable). The panel was killed (children
+first) with no gene-arm cell finished. Two changes, made before any gene-arm uniform cell was read:
+1. **The uniform prior is uniform over the named catalogue**, as in the enforcement and concessions runs' uniform
+   reduced chains: every base, alone or carrying one named gene (bosses: whack w_1, w_2, probe concession π,
+   de-escalation, the wage cut (BOX(W1 = work), wage 0), the current-encounter concession C₁ (BOX(W1 = strike), wage ½);
+   workers: quorum q, threat accommodation, work-if-fair (BOX(s = ½), work), solidarity (BOX(OTHER = strike), strike),
+   refusal (BOX(s = 0), strike)), 189 boss and 48 worker texts; filtered named programs are null. Under this prior
+   the local kernels' proposals are confined to named programs (a proposal outside the catalogue is dropped).
+2. **Uniform cells are solved on the complete state space** (≤ 68,208 unit triples) by power iteration of the lazy
+   jump chain (π ∝ x_J / R), with a second start (a point mass on the heaviest state of a different wage) whose TV
+   distance is reported; spaces ≤ 2,500 states use dense log-domain GTH. Validation: power vs dense log GTH TV ≤ 7·10⁻¹³
+   on three cells (test). Length-prior cells keep the hybrid exploration with the cut diagnostic.

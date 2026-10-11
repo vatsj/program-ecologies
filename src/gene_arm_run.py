@@ -75,7 +75,27 @@ def masses(A, prior):
         else:
             mB[bb] = 1.0 / len(bb); mW[ww] = 1.0 / len(ww)
         return mB, mW
+    if prior == 'uniform':
+        return named_uniform(A)
     return GA.priors(G)[prior]
+
+
+# the named genes of the reduced uniform catalogue (notes §1.17)
+NAMED_BGENES = {'whack w1': GA.bgene(0, 3), 'whack w2': GA.bgene(1, 3), 'probe concession': GA.bgene(4, 2),
+                'de-escalation': GA.bgene(0, 4), 'wage cut': GA.bgene(2, 0), 'strike concession C1': GA.bgene(0, 2)}
+NAMED_WGENES = {'quorum': GA.wgene(7, 1), 'threat accommodation': GA.wgene(3, 0), 'work if fair': GA.wgene(2, 0),
+                'solidarity': GA.wgene(6, 1), 'refusal': GA.wgene(0, 1)}
+
+
+def named_uniform(A):
+    """uniform over the named catalogue: every base, alone or with one named gene (the arm's admissible ones);
+    filtered named programs are null (mass preserved, 1 / |named catalogue| each)."""
+    G = sog()
+    nb = [b for b in range(G.KB) if not G.bprog[b][1] or G.bprog[b][1][0] in NAMED_BGENES.values()]
+    nw = [x for x in range(G.KW) if not G.wprog[x][1] or G.wprog[x][1][0] in NAMED_WGENES.values()]
+    mB = np.zeros(G.KB); mW = np.zeros(G.KW)
+    mB[nb] = 1.0 / len(nb); mW[nw] = 1.0 / len(nw)
+    return mB, mW
 
 
 NAMED = {
@@ -300,10 +320,16 @@ def sg_diag(ch, G, A, Tbl, top=8):
 def run_cell(arm_name, kernel, prior, N, theta=1e-9, save=True):
     t0 = time.time()
     G, A, Tbl, L, Un, QSc, mB, mW = build_cell(arm_name, kernel, prior)
-    ch = GA.GChain(L, Un, QSc, KERNELS[kernel], N, theta=theta, tag='%s/%s/%s' % (arm_name, kernel, prior))
-    ch.max_rounds = 60
-    seeds, ne = seeds_for(ch, G, A, L, Un)
-    ch.explore_hybrid(seeds)
+    if prior == 'uniform':
+        # notes §1.17: the named-catalogue uniform prior is diffuse; the full state space is solved exactly
+        ch = GA.FullChain(L, Un, QSc, KERNELS[kernel], N, tag='%s/%s/%s' % (arm_name, kernel, prior))
+        seeds, ne = seeds_for(ch, G, A, L, Un)
+        ch.solve_full()
+    else:
+        ch = GA.GChain(L, Un, QSc, KERNELS[kernel], N, theta=theta, tag='%s/%s/%s' % (arm_name, kernel, prior))
+        ch.max_rounds = 60
+        seeds, ne = seeds_for(ch, G, A, L, Un)
+        ch.explore_hybrid(seeds)
     res = dict(arm=arm_name, kernel=kernel, prior=prior, N=N, theta=theta, rule=A['rule'], KcB=L['KcB'], KcW=L['KcW'],
                KuB=Un['KuB'], KuW=Un['KuW'], seeds=len(seeds), strict_ne=len(ne),
                strict_ne_states=[state_name(G, int(A['bsel'][L['repB'][b]]), int(A['wsel'][L['repW'][x]]), int(A['wsel'][L['repW'][y]])) for (b, x, y) in ne[:10]],
@@ -830,6 +856,50 @@ def coalition():
     return out
 
 
+# ------------------------------------------------------------------ SG innovation in the lottery (finite-eps object)
+def _sg_lottery_job(args):
+    arm_name, r, N, I, mN, gens, inn = args
+    G, A, Tbl, L, Un, QSc, mB, mW = build_cell(arm_name, 'SG', 'length')
+    pB = Un['massB'] / Un['massB'].sum(); pW = Un['massW'] / Un['massW'].sum()
+    K = max(Un['KuB'], Un['KuW'])
+    rng = np.random.default_rng([20261011, zlib.crc32(arm_name.encode()) % 100000, r])
+    init = np.zeros((I, 3, K), np.int64)
+    for i in range(I):
+        init[i, 0, :Un['KuB']] = rng.multinomial(N, pB); init[i, 1, :Un['KuW']] = rng.multinomial(N, pW); init[i, 2, :Un['KuW']] = rng.multinomial(N, pW)
+    cdfB = np.cumsum(np.concatenate([pB, np.zeros(K - Un['KuB'])])); cdfW = np.cumsum(np.concatenate([pW, np.zeros(K - Un['KuW'])]))
+    ucB = np.concatenate([Un['ucB'], np.zeros(K - Un['KuB'], np.int64)]); ucW = np.concatenate([Un['ucW'], np.zeros(K - Un['KuW'], np.int64)])
+    LOCB = np.vstack([Un['LOCB'], np.full((K - Un['KuB'], GA.NBG), -2, np.int64)]); LOCW = np.vstack([Un['LOCW'], np.full((K - Un['KuW'], GA.NWG), -2, np.int64)])
+    t0 = time.time()
+    snap, counts, ninn = GA.kern_sg(L['Jc'], L['tagc'], GA.PAY, ucB, ucW, LOCB, LOCW, QSc, cdfB, cdfW, init, N, GA.W, mN / N,
+                                    (1.0 / N ** 2) if inn else 0.0, gens, 50, int(rng.integers(2 ** 31 - 1)))
+    js = snap[:, :, 3]
+    wage = (js // 4) // 3; both = (js % 4) == 0; noh = ~(((js // 4) % 3 == 0) & ((js % 4) != 0))
+    fair = (wage == 2) & both; zero = wage == 0; q = (wage == 1) & both
+    h = js.shape[0] // 2
+    return dict(arm=arm_name, run=r, innovation=bool(inn), innovations=int(ninn), time_s=time.time() - t0,
+                fair_end=float(fair[-1].mean()), quarter_end=float(q[-1].mean()), zero_end=float(zero[-1].mean()),
+                fair_2nd=float(fair[h:].mean()), quarter_2nd=float(q[h:].mean()), zero_2nd=float(zero[h:].mean()),
+                fair_ts=[float(v) for v in fair.mean(1)[::4]])
+
+
+def sg_lottery(procs, runs=10, N=100, I=16, mN=1.0, gens=2000):
+    from multiprocessing import Pool
+    jobs = [(a, r, N, I, mN, gens, inn) for a in ('G-all', 'G-cred') for inn in (1, 0) for r in range(runs)]
+    with Pool(procs) as pl:
+        recs = pl.map(_sg_lottery_job, jobs, chunksize=1)
+    out = dict(params=dict(N=N, I=I, mN=mN, gens=gens, runs=runs, u_inn_per_birth=1.0 / N ** 2), runs=recs)
+    summ = {}
+    for a in ('G-all', 'G-cred'):
+        for inn in (True, False):
+            rr = [x for x in recs if x['arm'] == a and x['innovation'] == inn]
+            summ['%s/%s' % (a, 'SG-innovation' if inn else 'no-innovation')] = {k: float(np.mean([x[k] for x in rr])) for k in
+                                                                              ('fair_end', 'quarter_end', 'zero_end', 'fair_2nd', 'quarter_2nd', 'zero_2nd', 'innovations')}
+    out['summary'] = summ
+    jdump(out, 'lottery_sg.json')
+    print(json.dumps(summ, indent=1))
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('cmd')
@@ -851,6 +921,8 @@ def main():
             r = lottery_cell(an, procs=a.procs)
             labs = Counter(l for rr in r['runs'] for l in rr['label'])
             print(an, {U.SUMM[k]: v / (64 * 40) for k, v in labs.items()}, flush=True)
+    elif a.cmd == 'lottery_sg':
+        sg_lottery(a.procs)
     elif a.cmd == 'coalition':
         print(json.dumps(coalition(), indent=1, default=str))
 

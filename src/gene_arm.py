@@ -1270,3 +1270,219 @@ def sg_proposals(G, Tbl, arm, b, x, y):
                                   whack=(slot == 0 and g % 6 in (3, 5))))
         out[['B', 'W1', 'W2'][slot]] = props
     return out
+
+
+# ------------------------------------------------------------------ lottery with SG innovation (finite-eps object)
+@njit(cache=True)
+def _fit_p(Jc, tagc, PAY, ucB, ucW, counts, pres, npres, i, s, k, N):
+    """expected payoff of unit k in slot s on island i against uniform draws of the other two slots."""
+    v = 0.0
+    if s == 0:
+        for a in range(npres[i, 1]):
+            x = pres[i, 1, a]; cx = ucW[x]
+            for b in range(npres[i, 2]):
+                y = pres[i, 2, b]; cy = ucW[y]
+                v += counts[i, 1, x] * counts[i, 2, y] * PAY[Jc[ucB[k], cx, cy], tagc[cx], tagc[cy], 0]
+    else:
+        o = 2 if s == 1 else 1
+        ck = ucW[k]
+        for a in range(npres[i, 0]):
+            bb = pres[i, 0, a]
+            for b in range(npres[i, o]):
+                y = pres[i, o, b]; cy = ucW[y]
+                if s == 1:
+                    v += counts[i, 0, bb] * counts[i, o, y] * PAY[Jc[ucB[bb], ck, cy], tagc[ck], tagc[cy], 1]
+                else:
+                    v += counts[i, 0, bb] * counts[i, o, y] * PAY[Jc[ucB[bb], cy, ck], tagc[cy], tagc[ck], 2]
+    return v / (float(N) * N)
+
+
+@njit(cache=True)
+def _sample_prior(cdf):
+    r = np.random.random() * cdf[-1]
+    lo = 0; hi = cdf.shape[0] - 1
+    while lo < hi:
+        m = (lo + hi) // 2
+        if cdf[m] < r:
+            lo = m + 1
+        else:
+            hi = m
+    return lo
+
+
+@njit(cache=True)
+def _major(counts, pres, npres, i, s):
+    best = pres[i, s, 0]
+    for a in range(npres[i, s]):
+        k = pres[i, s, a]
+        if counts[i, s, k] > counts[i, s, best]:
+            best = k
+    return best
+
+
+@njit(cache=True)
+def kern_sg(Jc, tagc, PAY, ucB, ucW, LOCB, LOCW, QSc, cdfB, cdfW, init, N, w, m, u_inn, gens, every, seed):
+    """island Moran birth-death per slot (the sog_lottery law, no event skipping) with SG innovation: a birth's child
+    is, with probability u_inn, replaced by an SG mutant of its parent (probability 1/2 a prior draw, 1/2 the targeted
+    proposal at the triple (parent, the island's majority units of the other slots)).  Returns snapshots of the
+    per-island majority units and their play code every `every` generations, the final counts and the number of
+    innovations."""
+    np.random.seed(seed)
+    I = init.shape[0]; K = init.shape[2]
+    counts = init.copy()
+    pres = np.zeros((I, 3, K), np.int64); npres = np.zeros((I, 3), np.int64); pos = -np.ones((I, 3, K), np.int64)
+    for i in range(I):
+        for s in range(3):
+            for k in range(K):
+                if counts[i, s, k] > 0:
+                    pres[i, s, npres[i, s]] = k; pos[i, s, k] = npres[i, s]; npres[i, s] += 1
+    F = np.zeros((I, 3, K))
+    for i in range(I):
+        for s in range(3):
+            for a in range(npres[i, s]):
+                k = pres[i, s, a]
+                F[i, s, k] = _fit_p(Jc, tagc, PAY, ucB, ucW, counts, pres, npres, i, s, k, N)
+    nsnap = gens // every
+    snap = np.zeros((nsnap, I, 4), np.int64)
+    locq = np.empty(64, np.int64); locl = np.empty(64)
+    ninn = 0
+    sidx = 0
+    for g in range(gens):
+        for e in range(3 * I * N):
+            i = np.random.randint(I); s = np.random.randint(3)
+            src = i
+            if m > 0.0 and np.random.random() < m:
+                src = np.random.randint(I - 1)
+                if src >= i: src += 1
+            tot = 0.0
+            for a in range(npres[src, s]):
+                k = pres[src, s, a]
+                tot += counts[src, s, k] * np.exp(w * F[src, s, k])
+            r = np.random.random() * tot; acc = 0.0; child = pres[src, s, npres[src, s] - 1]
+            for a in range(npres[src, s]):
+                k = pres[src, s, a]
+                acc += counts[src, s, k] * np.exp(w * F[src, s, k])
+                if r < acc:
+                    child = k; break
+            if u_inn > 0.0 and np.random.random() < u_inn:
+                ninn += 1
+                if np.random.random() < 0.5:
+                    child = _sample_prior(cdfB if s == 0 else cdfW)
+                else:
+                    mb = _major(counts, pres, npres, i, 0); mx = _major(counts, pres, npres, i, 1); my = _major(counts, pres, npres, i, 2)
+                    if s == 0: mb = child
+                    elif s == 1: mx = child
+                    else: my = child
+                    j0 = Jc[ucB[mb], ucW[mx], ucW[my]]
+                    nl = _local_cands(1, s, mb, mx, my, j0, Jc, tagc, PAY, ucB, ucW, LOCB, LOCW, QSc, float(N), w, locq, locl)
+                    if nl > 0:
+                        child = locq[np.random.randint(nl)]
+                    else:
+                        child = _sample_prior(cdfB if s == 0 else cdfW)
+            r2 = np.random.randint(N); acc2 = 0; victim = pres[i, s, 0]
+            for a in range(npres[i, s]):
+                k = pres[i, s, a]; acc2 += counts[i, s, k]
+                if r2 < acc2:
+                    victim = k; break
+            if victim == child:
+                continue
+            counts[i, s, victim] -= 1
+            if counts[i, s, victim] == 0:
+                q = pos[i, s, victim]; last = pres[i, s, npres[i, s] - 1]
+                pres[i, s, q] = last; pos[i, s, last] = q; pos[i, s, victim] = -1; npres[i, s] -= 1
+            new = counts[i, s, child] == 0
+            if new:
+                pres[i, s, npres[i, s]] = child; pos[i, s, child] = npres[i, s]; npres[i, s] += 1
+            counts[i, s, child] += 1
+            for sa in range(3):
+                if sa == s: continue
+                for a in range(npres[i, sa]):
+                    k = pres[i, sa, a]
+                    F[i, sa, k] = _fit_p(Jc, tagc, PAY, ucB, ucW, counts, pres, npres, i, sa, k, N)
+            if new:
+                F[i, s, child] = _fit_p(Jc, tagc, PAY, ucB, ucW, counts, pres, npres, i, s, child, N)
+        if (g + 1) % every == 0 and sidx < nsnap:
+            for i in range(I):
+                mb = _major(counts, pres, npres, i, 0); mx = _major(counts, pres, npres, i, 1); my = _major(counts, pres, npres, i, 2)
+                snap[sidx, i, 0] = mb; snap[sidx, i, 1] = mx; snap[sidx, i, 2] = my
+                snap[sidx, i, 3] = Jc[ucB[mb], ucW[mx], ucW[my]]
+            sidx += 1
+    return snap, counts, ninn
+
+
+# ------------------------------------------------------------------ full-state solve (diffuse cells)
+@njit(cache=True)
+def _full_edges(Jc, tagc, PAY, ucB, ucW, logm, KuB, KuW, kernel, LOCB, LOCW, QSc, N, w):
+    """all edges of the full unit-triple chain (src, dst, rate) and the total exit rates."""
+    S = KuB * KuW * KuW
+    codes = np.arange(S)
+    src, dst, lp, out_t, pay, typ, cut, chg, out_chg, cut_chg = _rows_g(Jc, tagc, PAY, ucB, ucW, logm, KuB, KuW, kernel, LOCB, LOCW, QSc,
+                                                                       codes, codes, N, w, np.zeros(S), -np.inf, 0)
+    return src, dst, lp, out_t, pay, typ
+
+
+@njit(cache=True)
+def _power(src, dst, prob, S, iters, tol, x0):
+    """stationary distribution of the lazy jump chain (probabilities prob on edges, rows sum to 1) by power
+    iteration from x0; returns x and the final L1 change."""
+    x = x0.copy()
+    y = np.zeros(S)
+    d = 1.0
+    it = 0
+    for it in range(iters):
+        for i in range(S):
+            y[i] = 0.5 * x[i]
+        for e in range(src.shape[0]):
+            y[dst[e]] += 0.5 * x[src[e]] * prob[e]
+        d = 0.0
+        for i in range(S):
+            d += abs(y[i] - x[i])
+            x[i] = y[i]
+        if d < tol:
+            break
+    return x, d, it
+
+
+class FullChain(GChain):
+    """GChain over the complete unit-triple state space, solved by power iteration of the lazy jump chain, then
+    polished by log-domain GTH on the top states' censored chain when the space is small (<= 2,500 states).  Used
+    where pi is diffuse and theta-pruned exploration does not converge."""
+
+    def solve_full(self, iters=200000, tol=1e-13):
+        t0 = time.time()
+        src, dst, lp, out_t, pay, typ = _full_edges(self.Jc, self.tagc, self.PAY, self.Un['ucB'], self.Un['ucW'], self.logm,
+                                                    self.KuB, self.KuW, self.kernel, self.Un['LOCB'], self.Un['LOCW'], self.QSc,
+                                                    float(self.N), self.w)
+        S = self.KuB * self.KuW * self.KuW
+        keep = src != dst
+        src, dst, lp = src[keep], dst[keep], lp[keep]
+        lR = np.full(S, -np.inf)
+        np.logaddexp.at(lR, src, lp)
+        prob = np.exp(lp - lR[src])
+        if S <= 2500:
+            from dollar3_solve import dense_log_gth
+            A = np.full((S, S), -np.inf)
+            np.logaddexp.at(A, (src, dst), lp)
+            lpi = dense_log_gth(A)
+            d, it = 0.0, 0
+        else:
+            xj, d, it = _power(src, dst, prob, S, iters, tol, np.ones(S) / S)
+            # second start: a point mass on the heaviest jump-chain state whose play has a different wage from the top
+            wage = ((typ // 4) // 4) // 3
+            top = int(np.argmax(xj))
+            other = np.where(wage != wage[top], xj, -1.0)
+            x0 = np.zeros(S); x0[int(np.argmax(other)) if other.max() >= 0 else (top + 1) % S] = 1.0
+            xj2, d2, it2 = _power(src, dst, prob, S, iters, tol, x0)
+            self.start_tv = float(0.5 * np.abs(xj - xj2).sum())
+            with np.errstate(divide='ignore'):
+                lpi = np.log(np.maximum(xj, 0)) - lR
+            lpi -= lpi.max(); lpi -= np.log(np.exp(lpi).sum())
+        self.codes = np.arange(S); self.lpi = lpi; self.pi = np.exp(lpi)
+        self.pay, self.typ, self.out_tot = pay, typ, out_t
+        self.src, self.dst_idx, self.pr = src, dst, lp
+        self.is_core = np.ones(S, bool)
+        self.rel_cut = 0.0; self.rel_cut_change = 0.0
+        self.log = [dict(solver='full power' if S > 2500 else 'full dense log GTH', states=int(S), l1_change=float(d), iterations=int(it), start_tv_jump=getattr(self, 'start_tv', 0.0),
+                         time_s=time.time() - t0)]
+        self.index = {int(c): k for k, c in enumerate(self.codes)}
+        return self

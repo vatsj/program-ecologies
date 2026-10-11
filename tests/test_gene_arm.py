@@ -157,3 +157,13 @@ def test_local_kernel_lumping():
         for g in range(GA.NWG):
             m = G.add_gene_w(int(x), g)
             assert Un['posW'].get(m, -1) == Un['LOCW'][u, g]
+
+
+def test_full_power_matches_dense_gth():
+    G_, A, T, L, Un, QSc, mB, mW = R.build_cell('G-cred-whole', 'prior', 'uniform')
+    ch = GA.FullChain(L, Un, QSc, 0, 1000.0); ch.solve_full()       # <= 2,500 states: dense log GTH
+    S = len(ch.codes)
+    lR = np.full(S, -np.inf); np.logaddexp.at(lR, ch.src, ch.pr)
+    xj, d, it = GA._power(ch.src, ch.dst_idx, np.exp(ch.pr - lR[ch.src]), S, 200000, 1e-13, np.ones(S) / S)
+    lpi = np.log(np.maximum(xj, 1e-300)) - lR; p = np.exp(lpi - lpi.max()); p /= p.sum()
+    assert 0.5 * np.abs(p - ch.pi).sum() < 1e-9
