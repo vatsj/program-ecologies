@@ -221,6 +221,11 @@ class Static:
             return w / w.sum()
         if cell == 'U':
             return None
+        if cell in ('noclique', 'noallc'):
+            # extra controls (not preregistered): identity-clique classes, or unconditional cooperators, removed
+            bad = (self.label() == 'identity') if cell == 'noclique' else self.allc
+            w = w * (~bad[self.cos])
+            return w / w.sum()
         Mmass = self.family_mass()
         w = w / w.sum()
         if cell == 'T1a':
@@ -518,6 +523,7 @@ CELLS = {   # cell -> (prior cell, N, I)
     'L': ('L', 100, 64), 'L_N200': ('L', 200, 64), 'L_I256': ('L', 100, 256), 'U': ('U', 100, 64),
     'T1a': ('T1a', 100, 64), 'T1b': ('T1b', 100, 64), 'T1c': ('T1c', 100, 64), 'T2': ('T2', 100, 64), 'T3': ('T3', 100, 64),
     'abl_identity': ('identity', 100, 64), 'abl_tags': ('tags', 100, 64), 'abl_cbq': ('cbq', 100, 64),
+    'X_noclique': ('noclique', 100, 64), 'X_noallc': ('noallc', 100, 64),
 }
 
 
@@ -818,6 +824,33 @@ def cmd_analyze(a):
     out['time_s'] = time.time() - t0
     json.dump(out, open(os.path.join(OUT, 'static_analysis.json'), 'w'), indent=1, default=str)
     print(json.dumps({k: out[k] for k in ('n_classes', 'n_est', 'F_CB', 'identity_cliques', 'cliques', 'ratio_M_over_max_identity_clique')}, default=str, indent=1))
+
+
+def cmd_diag(a):
+    """Seed payoff (expected payoff against the iid seed) by family label and for the named classes, per prior
+    (the scramble diagnostic; not a cell)."""
+    st = Static()
+    lab = st.label()
+    out = {}
+    for cell in ('L', 'U', 'T1a', 'T1b', 'T1c', 'T2', 'T3', 'identity', 'tags', 'cbq', 'noclique', 'noallc'):
+        mu = st.class_prior(cell)
+        f = st.U @ mu
+        d = dict(mean=float(mu @ f), allc_mass=float(mu[st.allc].sum()), D_mass=float(mu[st.iD]),
+                 named={n: float(f[c]) for n, c in st.named.items()})
+        for L_ in ('open', 'identity', 'other', 'tag1', 'tag2', 'exclusive'):
+            m = lab == L_
+            if mu[m].sum() > 0:
+                d[L_] = dict(mass=float(mu[m].sum()), mean_f=float((mu[m] * f[m]).sum() / mu[m].sum()), max_f=float(f[m].max()))
+        # open carriers that refuse unconditional cooperators (prudent) vs the rest
+        cc = st.named['Cc']
+        op = lab == 'open'
+        pr = op & (st.A[:, cc] == 0)
+        d['open_prudent'] = dict(n=int(pr.sum()), mass=float(mu[pr].sum()), mean_f=float((mu[pr] * f[pr]).sum() / max(mu[pr].sum(), 1e-300)))
+        d['open_accepting'] = dict(n=int((op & ~pr).sum()), mass=float(mu[op & ~pr].sum()),
+                                   mean_f=float((mu[op & ~pr] * f[op & ~pr]).sum() / max(mu[op & ~pr].sum(), 1e-300)))
+        out[cell] = d
+    json.dump(out, open(os.path.join(OUT, 'diag.json'), 'w'), indent=1)
+    print(json.dumps(out['L'], indent=1))
 
 
 # ------------------------------------------------------------------ validation (notes §1.12)
@@ -1150,6 +1183,7 @@ if __name__ == '__main__':
     s.add_argument('--gens', type=int, default=2000); s.add_argument('--gens_ext', type=int, default=10000)
     s.add_argument('--out', default='main'); s.add_argument('--workers', type=int, default=3)
     s = sub.add_parser('analyze')
+    s = sub.add_parser('diag')
     s = sub.add_parser('validate')
     s.add_argument('--sample', type=int, default=2000); s.add_argument('--prod_sample', type=int, default=200)
     s.add_argument('--exec_heavy', type=int, default=150); s.add_argument('--exec_random', type=int, default=150)
@@ -1159,4 +1193,4 @@ if __name__ == '__main__':
     s.add_argument('--theta', type=float, default=1e-14); s.add_argument('--fast', type=int, default=1)
     s.add_argument('--workers', type=int, default=3)
     a = ap.parse_args()
-    {'static': cmd_static, 'lottery': cmd_lottery, 'chain': cmd_chain, 'validate': cmd_validate, 'analyze': cmd_analyze}[a.cmd](a)
+    {'static': cmd_static, 'lottery': cmd_lottery, 'chain': cmd_chain, 'validate': cmd_validate, 'analyze': cmd_analyze, 'diag': cmd_diag}[a.cmd](a)

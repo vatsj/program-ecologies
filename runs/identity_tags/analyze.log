@@ -1,0 +1,124 @@
+{
+ "n_classes": 3974,
+ "n_est": 890,
+ "F_CB": {
+  "M": 0.031437560503388196,
+  "size": 216,
+  "n_spellings": 1103,
+  "labels": {
+   "open": 216
+  },
+  "N_CB_size": 329,
+  "N_CB_mass": 0.03823814133591503,
+  "n_cliques_with_CB": 1707,
+  "heaviest_members": [
+   [
+    "if(CHK(them,^CB,C),C,D)",
+    0.0030009680542110464
+   ],
+   [
+    "if(CHK(them,them,D),D,C)",
+    0.002904162633107465
+   ],
+   [
+    "if(CHK(them,^CB,D),D,C)",
+    0.002904162633107465
+   ],
+   [
+    "if(not(CHK(them,me,C)),D,C)",
+    0.0026863504356244064
+   ],
+   [
+    "if(or(CHK(them,them,D),CHK(me,me,C)),D,C)",
+    0.0007502420135527639
+   ],
+   [
+    "if(or(CHK(them,^CB,D),CHK(me,me,C)),D,C)",
+    0.0006534365924491814
+   ],
+   [
+    "if(or(CHK(them,me,C),CHK(me,them,D)),C,D)",
+    0.0005808325266214946
+   ],
+   [
+    "if(or(CHK(them,^CB,C),CHK(me,them,D)),C,D)",
+    0.0005808325266214946
+   ],
+   [
+    "if(CHK(them,me,C),C,D)^1",
+    0.000556631171345599
+   ],
+   [
+    "if(CHK(them,me,C),C,D)^2",
+    0.000556631171345599
+   ]
+  ]
+ },
+ "identity_cliques": {
+  "n_singleton_cliques": 322,
+  "n_exact": 322,
+  "mass_exact": 0.008978702807357198,
+  "heaviest": [
+   [
+    "if(eq,C,D)",
+    0.0001936108422071648
+   ],
+   [
+    "if(not(eq),D,C)",
+    9.68054211035824e-05
+   ],
+   [
+    "if(eq,C,D)^1",
+    9.68054211035824e-05
+   ],
+   [
+    "if(eq,C,D)^2",
+    9.68054211035824e-05
+   ],
+   [
+    "if(not(eq),D,C)^1",
+    4.84027105517912e-05
+   ],
+   [
+    "if(not(eq),D,C)^2",
+    4.84027105517912e-05
+   ],
+   [
+    "if(eq,C,D)^12",
+    4.84027105517912e-05
+   ],
+   [
+    "if(and(CHK(them,^C,D),eq),C,D)",
+    4.84027105517912e-05
+   ],
+   [
+    "if(and(CHK(them,^D,D),eq),C,D)",
+    4.84027105517912e-05
+   ],
+   [
+    "if(and(CHK(them,^CB,D),eq),C,D)",
+    4.84027105517912e-05
+   ]
+  ],
+  "max_mass": 0.0001936108422071648
+ },
+ "cliques": {
+  "n": 7318,
+  "complete": true,
+  "s": 6.074452877044678,
+  "n_components": 323,
+  "component_sizes": [
+   568,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ "ratio_M_over_max_identity_clique": 162.37499999999903
+}
