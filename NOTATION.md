@@ -381,3 +381,7 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   — firm against constants, swerving against readers; **f\*** = (S − P)/(T − P), the bridge share at which the
   loser's Straight wins the seat; **Lemma F** — within a role selection is constant, so the two-population chain is
   monomorphic on K² pairs; **W0 / M0** — the matched weak/modal pair on one grammar and prior.
+- **RC = rational commitment** (RS, 2026-10-11): the enforcement arm with the boss's enforcement ex-post rational and
+  the workers' quorum strike committed (RESULTS "Incentive-compatible enforcement"); **reciprocal credible gene** —
+  a gene whose trigger is a certificate about the opponent's play in the encounter and whose override is ex-post
+  rational when it fires (DEFERRED 12; the gene run's arm G-recip).

@@ -350,6 +350,15 @@ REJECTED.md the ones we dropped.
   reading winner is a shadow that hands the seat over (neutral in both seats, exits ∝ 1/N), and the readers that
   read the commitment are what unseat it, under mutation and between islands. The firm gene survives by prior mass,
   not by a credibility advantage; a gene arm should test whether a credibility filter keeps it.
+- *RS (2026-10-11), the target class:* "I feel like the folk theorem isn't what we want. It says a broad class of
+  outcomes (the individually rational ones) can be achieved via a broad class of genes. I want to find a narrower
+  class of genes restricting outcomes to the 'good' (eg pareto efficient) ones." *RE's candidate:* **reciprocal
+  credible genes** (fire only on certified opponent behaviour; override ex-post rational when fired), the gene
+  analogue of renegotiation-proofness (Farrell–Maskin 1989, Bernheim–Ray 1989) and of safe Pareto improvements
+  (Oesterheld–Conitzer 2021); proof device: every gene-stable state under the class is Pareto-efficient. *Tension
+  noted:* zero wage with everyone working is Pareto-efficient; the fair wage needs the credible strike to make zero
+  wage inefficient, so distribution keeps credible threats in the game while threat-independence (entry 14) removes
+  the non-credible ones. Added to the gene run as arm G-recip with RE 8.
 - *Would settle it:* the gene arm (parametric base strategies per role + declared special-case genes + the
   credibility filter) on the social organization game and on fixed-role chicken; whether selection among genes
   recovers RC.
@@ -361,6 +370,7 @@ REJECTED.md the ones we dropped.
   *tested* (strikers in numbers, RESULTS "The social organization game under the seed lottery").
 - *Operating hypothesis:* disarming is a testing-rate condition (threats are called often enough that holding one is
   costly), not a drift-rate condition; the drift route is re-armed by selection.
+- *RS (2026-10-11):* agreed.
 
 ## 14. Social choice and implementation (RS, 2026-10-11; side quest)
 - *RS:* view the game as a mechanism for social choice over outcomes; want threat-independence (an IIA-like axiom,
