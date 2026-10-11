@@ -850,3 +850,22 @@ No RE prediction failed outright (RE 4 and RE 5 inconclusive). **Design choices 
 **Subagent predictions:** S2's number (largest check 101,644 > 10⁵), S4 (no exploited establisher; 75), S5 (establisher mass ≤ 0.03; 0.061), S6 (the top cooperative state is prudent), S7 (L×P P(C,C) in [0.1, 0.7]; it is 1), S10 (certificate-less spellings never enter neutrally), S12 (unchanged at K = 3·10⁵; 305 cells change), S13 (U×P below L×P); the notes' §1.7 hand claim "no exploited establisher at n ≤ 7" missed the defection detectors.
 
 **Design choices dropped:** the literal endpoint closure test of notes §1.9 (replaced before any cell by the closure-of-entrants rule); the executable table on every τ pair (infeasible; composition on class representatives); the full executable E table (≈ 3 h; a 291-class sample); E's chain at 3·10⁴ and 10⁵; byte-keyed lumping (memory; hashed keys with exact verification); milestone 4's `HostCheck` memo (order-dependent; `ExactHost`); the no-clique control at θ = 10⁻¹⁴ and the U×P no-clique cell at 10⁴ (unfinished); an unbounded invasion closure (branch 3 with 6,000 nodes instead). **Process:** `pkill` of a driver leaves its pool workers running as orphans; four ran for up to four hours beside the three permitted workers before being killed by pid (kill the pool's children by pid first).
+
+
+## Added 2026-10-11: identity and tags (RESULTS.md, "Identity and tags in the carrier grammar")
+
+**The pooling rationale for the seed lottery (Fable, DEFERRED 1, 2026-10-10; refuted at establishment).** "A universal family pools its seed mass across spellings while an exact-identity clique cannot, so the lottery's selection pressure matches the universality target." Ten mutually incompatible clique spellings at M/10 establish as well as one identity at M (islands per seeded copy 0.197 against 0.204), because each spelling nucleates and colonizes on its own, and a clique converts seeded copies into islands 2–4× better than an open carrier by playing D against the seed's unconditional cooperators. Pooling matters only for slow absorption among established islands. The RS's decision (the seed lottery as the object) stands; its rationale does not, and the lottery does not deliver universality at identity mass 0.009.
+
+**"Families beat cliques by established mass; the open family holds every island on ≥ 0.7 of runs" (Fable, RE 2; falsifier fired).** 0/40 universal under L; identity cliques hold 0.41 of islands. The established-mass clause held (113/115).
+
+**"Pooling, matched" (Fable, RE 3; falsifier fired).** T1b ≈ T1a on islands held; carriers won 0/40 and 1/40.
+
+**"Tag clubs resolve through the marked carrier" (Fable, RE 4; falsifier fired as worded).** The club at mass M is extinct by median generation 110, eaten by marked defectors, before any rivalry forms; the bridge was never tested.
+
+**"Exclusive clubs make permanent patchworks" (Fable, RE 5; falsifier fired).** XC, prudent and S-guarded, beat the open family by majority in 9/40 runs without a bridge.
+
+**RE 6's resolution clause** (0 resolutions at I = 256).
+
+**Subagent predictions** S7, S9, S12 (second clause), S13, S14 ("open top state"); two hand slips (the eq run tree has 12 spellings, not 11; XC has 6 nodes, not 7).
+
+**Design choices dropped:** the self-probe for production (it turns `CHK(me,me,C)`-readers into Löbian cooperators, a different ecology); island P(C,C) ≥ 0.9 scoring (replaced by holder-based outcomes under the migrant load, before any counted cell); per-pair separation hazards (saturated: every run separates by generation 20–30); the full-catalogue chain (90 min without finishing a cell; the reduced-support diagnostic instead).

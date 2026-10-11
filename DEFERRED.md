@@ -68,6 +68,17 @@ REJECTED.md the ones we dropped.
   on each other), so the lottery's selection pressure matches the target. The chain remains a diagnostic.
   *Contingent and to test next:* the clique's mass with `eq` in the grammar (milestone 2's 7·10⁻⁴ understates it), and
   pooled parochial clubs (tags: bridged; exclusive clubs: the bridge-less I ≫ N patchwork).
+- *Evidence (2026-10-11, identity and tags):* **the pooling rationale is refuted at establishment.** With `eq` at one
+  node identity cliques weigh 0.009, hold 0.41 of islands and leave 0/40 runs universal (every island efficient);
+  ten incompatible clique spellings establish as well as one identity; the scramble rewards prudence (exploiting
+  the seed's unconditional cooperators), which open carriers forgo; without `eq` about half the runs are universal
+  (RESULTS "Identity and tags in the carrier grammar"). The decision (the seed lottery as the object) stands; the
+  reason for it does not.
+- *Open (RS, 2026-10-11):* (a) island-level efficiency as the defended target in quoting languages, with universality
+  a property of identity's price in the prior (threshold between 5·10⁻⁴ and 9·10⁻³); (b) a prior or library in which
+  identity is not cheap (the RE's view: structural equality is derivable in any quoting language, so pricing it is a
+  selector unless the prior is justified independently); (c) keep universality and measure the threshold.
+  *Operating hypothesis until he answers:* (a), with the threshold scan as the next cheap run.
 - *Evidence (2026-10-06k, mixed budgets):* with budgets mixed in {4, 8, 16}, natural horizon separation is 0.683
   under a cheap-heavy prior, 0.002 above the copy thresholds and 0/300 at homogeneous b = 16; `BOX1(THEM(ME))`@4
   is in 0.94 of the separations and FairBot is compatible with itself at every budget pair; a living bridge resolves

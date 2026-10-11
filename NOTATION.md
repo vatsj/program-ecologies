@@ -344,3 +344,15 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   one whose execution is ex-post rational at the point it fires (DEFERRED 12); **spontaneous generation** — a gene
   arising on the spot as a credible deviation from an equilibrium condition, modelled as a structured mutation
   kernel from a declared prior.
+- **Identity and tags:** **`eq(me, them)`** — structural quote equality, one node; **marker ^t / `tag_t(them)`** — a
+  no-op let around the body (one node) and the atom reading it; **⌜CB⌝** — the named quote inside check atoms (an
+  identity channel: it certifies only against the exact CB quote); **EQ** — `if(eq(me,them),C,D)`, the one-line
+  identity clique; **TC_t / TC_t^t** — the tag club without / with its own marker; **MC^t** — the marked carrier (CB
+  with marker t), the non-exploitable bridge between CB and the tag club; **AF / OF** — the and-form and or-form
+  tagged carriers (not a bridge / an exploitable bridge); **XC** — the exclusive club (certified cooperation with me
+  and certified defection against ⌜CB⌝), bridge-less by soundness; **τ′-unit** — a τ-type modulo markers (Lemma R:
+  a check depends on markers only through the tags read); **exact-identity clique** — a pairwise-compatible set of
+  one class; **F_CB, M** — the heaviest pairwise-compatible set containing CB and its pooled mass; **holder / held
+  island** — an island's majority class and the islands it holds (the endpoint under migrant load); **islands per
+  seeded copy** — held islands per seeded copy of a label; **seed payoff** f = U·μ — expected payoff against the iid
+  seed, the scramble diagnostic; **universal-open** — a run in which the open carrier family holds every island.

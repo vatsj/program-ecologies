@@ -4028,6 +4028,56 @@ E1's censoring is islands left polymorphic among neutral cooperating classes at 
 - **Source identity makes CliqueBot reachable, and it is drift-closed.** The pair rule's R/S coincidence is quote equality; a 6-node template turns it into "cooperate iff you are my exact source", which absorbs the rare-mutation chain at every N and prior. This is the closed club of RESULTS "The closed club", emergent rather than declared, and the sibling theorem's premise (extensionality) fails in any language with quotes: L_T itself has `eq`, so `if eq(me, them) then C else D` is CliqueBot at one node of the base language. The chain's object therefore ends parochial in any Turing-complete source-reading language.
 - **The two objects disagree** (DEFERRED 1): the chain is absorbed by a twin clique; the seed lottery is won by FairBot-shaped carriers (40/40 under E3). The clique's mass, 7·10⁻⁴, keeps it out of the lottery (it won 2/40 under the uniform prior).
 - *Caveats:* production is a host tactic, not charged; E's class table is the ideal one (executable = ideal checked on a 291-class sample); E's chain covers N ≤ 10⁴; the no-clique control is not preregistered (θ = 10⁻⁸, ≤ 4,000 explored states); the L_std lottery is weaker (23/40) because the D class holds 0.45 of that prior's mass.
+## Identity and tags in the carrier grammar: the seed lottery does not pool, and one-node identity breaks universality (`runs/identity-tags.md`, `runs/identity-tags.json`, `runs/identity_tags/`, `notes/identity-tags.md`; spec `specs/2026-10-10-identity-and-tags.md`, predictions in `predictions/2026-10-10-identity-and-tags.md`)
+
+Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/identity_tags.py`, `src/identity_tags_run.py`, `src/identity_tags_report.py`, `tests/test_identity_tags.py`; 7 tests, passing on main). Order of commits: the notes' §1 (grammar, a 14 × 14 hand table, families and bridges by hand, the pooling calculation) before any code; the predictions; the code with validation and the scale guard; an endpoint revision after a one-run smoke test and before any counted cell (outcomes scored on holders, each island's majority class, because rival networks under mN = 1 carry a migrant load); the cells. The session hosting the run ended once (the machine restarted); all 14 lottery cells had finished, and the only loss was the diagnostic chain, which was rerun on a reduced support (below). Lottery results are ε = 0, finite (N, I, horizon) evidence; the chain is a diagnostic. RE check: the seed-payoff mechanism (the clique exploits the seed's unconditional cooperators, which the open carrier only ties) follows from the PD normalization used (C/C 0, D/C 1, C/D −2, D/D −1) and needs no false atom; the per-copy figures and the T1a/T1b comparison are in the run report.
+
+**Built.** Milestone 2's carriers (K = 10⁶, V = K/4, sound checker, frozen tactic) plus three source-reading devices L_T already has: `eq(me, them)` (one evaluator step); `tag_t(them)`, reading no-op markers (a marker is a no-op let around the body, one node); the named quote ⌜CB⌝ inside check atoms. Size: 23 atoms, n ≤ 7 with markers counted: 34,968 spellings, 17,305 τ′-units, **3,974 exact identity-aware classes** (every eq-clique spelling is its own class). Production: the probe list extended by CB¹, CB², CB¹² and XC (without them a tag club has no C script and the exclusive club cannot cooperate with itself); 0 of 12,546 milestone-2 lists change. *Lemma R:* a check depends on markers only through the tags its two programs read, which cuts the table to 16.7 M reduced keys (20 min on 2 workers). Validation: the hand table by whole plays 196/196; 4,946 sampled pairs against the composed table, 0 mismatches; executable = ideal on all 92,416 cells among 304 classes; **11.8 M true checks, 0 false atoms.**
+
+**Static (L).** *The clique is as cheap as FairBot:* `if(eq(me,them),C,D)` and CB each weigh 1.94·10⁻⁴. The heaviest pairwise-compatible set containing CB (F_CB) has pooled mass M = 0.031 over 1,103 spellings, 162× the heaviest identity clique. *Identity cliques are plentiful in total:* the 322 identity cliques (exactly the closed components of the leak test) weigh 0.009, 13× milestone 2's figure. *F_CB is not the heaviest pooled set:* a defection-detector set weighs 0.034, rivals F_CB, and shares only exploitable bridges with it. *The named quote is itself an identity channel:* a program reading ⌜CB⌝ about itself certifies only against the exact CB quote (the root-box coincidence that makes TwinD), so CB is a singleton class. The hand-derived families hold: the marked carrier MC¹ is the non-exploitable bridge between CB and the tag club; the or-form bridges but marked D exploits it; the and-form is not a bridge; the exclusive club XC has no bridge, by soundness. *Seed payoff* (expected payoff against the iid seed; the scramble diagnostic): EQ 0.001, D 0.001, CB −0.441, the open prudent set (39 classes, mass 0.0023) −0.09, XC −0.025: the clique and the exclusive club exploit the seed's unconditional cooperators (mass 0.35 under L), which the open carrier only ties.
+
+**Lottery** (mN = 1, 40 runs per cell; entries at 2,000 → 10,000 generations; universal-open = runs in which the open carrier family holds every island; identity islands = fraction held by identity cliques; cross P(C,C) role-free across island pairs):
+
+| cell | universal-open | patchwork | identity islands | cross P(C,C) |
+|---|---|---|---|---|
+| L (100, 64) | **0 [0, 0.09] → 3** | 39 → 36 | 0.41 → 0.29 | 0.40 → 0.59 |
+| L (200, 64) | 0 → 0 | 40 → 40 (frozen) | 0.45 → 0.45 | 0.34 → 0.34 |
+| L (100, 256) | 0 → 0 | 30 → 35 | 0.36 → 0.17 | 0.38 → 0.69 |
+| U | 0 → 0 | 33 → 36 | 0.73 → 0.68 | 0.07 → 0.12 |
+| T1a (M on one EQ spelling) | 0 → 0 (EQ holds every island in 2 runs) | 39 → 38 | 0.82 → 0.91 | 0.50 → 0.75 |
+| T1b (M/10 on ten EQ spellings) | 0 → 0 | 34 → 38 | 0.78 → 0.72 | 0.14 → 0.21 |
+| T1c (M/10 on ten CB spellings) | 1 → 7 | 37 → 32 | 0.23 → 0.10 | 0.59 → 0.83 |
+| T2 (M on the tag club) | 0 → 1 | 38 → 38 | 0.47 → 0.36 | 0.40 → 0.58 |
+| T3 (M on XC) | 0 → 0 (XC holds every island in 3 runs) | 37 → 37 | 0.12 → 0.04 (XC 0.73 → 0.91) | 0.58 → 0.83 |
+| ablation: identity only | 0 → 2 | 35 → 37 | 0.59 → 0.47 | 0.30 → 0.49 |
+| ablation: tags only (no `eq`) | **18 [0.31, 0.60] → 26** | 19 → 10 | 0.05 → 0.04 | 0.91 → 0.96 |
+| ablation: ⌜CB⌝ only (no `eq`) | **22 [0.40, 0.69] → 30** | 17 → 10 | 0.04 → 0.03 | 0.90 → 0.97 |
+| extra: identity cliques removed | **24 [0.45, 0.74] → 30** | 15 → 7 | 0 | 0.93 → 0.98 |
+| extra: unconditional C removed | 1 → 5 | 37 → 35 | 0.35 → 0.23 | 0.52 → 0.74 |
+
+E3 (island-level efficiency) succeeded in every run of every cell, island P(C,C) 0.92–0.99. **Islands per seeded copy** (held islands per seeded copy of the label, pooled): identity clique 0.47 against open carrier 0.14 under L; T1b 0.197 against T1a 0.204. **Established mass predicts the winner, raw counts do not:** the largest-established set won 113 of 115 decided runs; the largest-seeded set 13 of 115. The tag club at mass M is eaten by marked defectors (extinct in 39/40 runs, median generation 110), so the marked-carrier bridge is never tested; the exclusive club at mass M takes most islands and beats the open family by majority in 9/40 runs, bridge-less. At N = 200 the patchwork is frozen; at I = 256 clique islands are absorbed slowly and no run finishes.
+
+**Chain** (diagnostic; the full 3,974-class chain did not finish one cell in 90 min at 3 workers and is **not run**; a reduced support of the 1,500 heaviest classes plus all 322 identity cliques, 1,818 classes, labelled as a deviation, with a 500-class sensitivity check): L absorbed by identity cliques at N = 10³ and 10⁴ (top state EQ, π on cliques 1.000, exits deleterious only); the no-clique control gives P(C,C) 0.56 / 0.78 at 10³ / 10⁴, odds slope 0.45, top state the exclusive club and its order twin (500-class support: 0.26 / 0.47, slope 0.40, an open-carrier top state).
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | the clique is cheap (within 4× of CB) but cannot pool (F_CB ≥ 10× any clique) | **held** (1× and 162×) |
+| RE 2 | families beat cliques by established mass; open family universal on ≥ 0.7 | **failed, falsifier fired** (0/40 universal; identity cliques hold 0.41 of islands); the established-mass clause held on decided runs |
+| RE 3 | pooling, matched: T1b ≪ T1a for the clique; carriers ≥ 0.8 under T1b and T1c | **failed, falsifier fired** (clique wins 0 under both; on islands T1b 0.78 ≈ T1a 0.82; carriers 0/40 and 1/40) |
+| RE 4 | tag clubs resolve through the marked carrier | falsifier fired as worded; in substance the club died to marked D before any rivalry formed |
+| RE 5 | exclusive clubs make permanent patchworks | **failed, falsifier fired** (XC beat the open family by majority in 9/40 runs with no bridge) |
+| RE 6 | the (N, I) panel within 0.15; hazards | held vacuously (0 everywhere); the resolution clause failed (0 resolutions at I = 256) |
+| RE 7 | the chain is absorbed by a clique | **held** on the reduced support |
+| S1–S6, S8, S10, S11 | subagent's own | held |
+| S7 (universal-open ≥ 0.5), S9 (T1a clique share in [0.2, 0.6]), S12 (second clause), S13 (U ≥ 0.4; ablations within 0.2 of L), S14 ("open top state") | subagent's own | failed |
+
+**Reading.**
+- **The pooling argument fails at establishment.** An identity clique turns each seeded copy into 2–4× as many islands as an open carrier, because against the iid seed it plays like D (it exploits the unconditional cooperators, a third of the length prior's seed, which the open carrier only ties) while cooperating with its own copies, and it is drift-closed once it holds an island. Each spelling nucleates and colonizes on its own: ten mutually incompatible spellings convert copies into islands at the same rate as one identity. Pooling shows only afterwards, as slow absorption by the largest clique (0.91 against 0.72 by 10,000). **The scramble rewards prudence, not pooling.**
+- **With one-node identity, universality fails in the seed lottery too.** Under L 0/40 runs are universal at 2,000 while every island stays efficient. The obstruction is identity mass: without `eq` it falls to 5·10⁻⁴ and 18–22 of 40 runs are universal; removing the identity cliques' mass gives 24/40; removing the unconditional cooperators does not help (1/40), so the shadows are not the whole mechanism. Identity cliques are bridge-less rivals seeded about 57 times per run at (100, 64), so universality along I ≫ N fails with probability → 1, as it did for the P\* family, but at 0.009 of prior mass rather than 10⁻⁵.
+- **Universality in a quoting language is a property of identity's price in the prior,** somewhere between 5·10⁻⁴ (about half the runs universal) and 9·10⁻³ (none).
+- *Caveats:* production is a host service with a probe list extended for the clubs; `eq` costs one node like any atom; the chain ran on a reduced support only; a holder-based endpoint.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
