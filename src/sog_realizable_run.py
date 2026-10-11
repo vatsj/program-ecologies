@@ -1334,6 +1334,202 @@ def chain(args):
           'cut', json.dumps(out['cut_diagnostic'])[:400], '%.0fs' % (time.time() - t0), flush=True)
 
 
+# ----------------------------------------------------------------------------------------------------------------
+# migration-off residence assays (forced D* vs D*2), the audit of realized encounters at K = 10^6, the fuel sweep
+# ----------------------------------------------------------------------------------------------------------------
+def _assay_job(args):
+    name, seed, T_path, horizon = args
+    if 'T' not in _JOB:
+        _JOB['T'] = pickle.load(open(T_path, 'rb'))
+    T = _JOB['T']
+    cfg = cell_config(name, T)
+    full = run_one(T, cfg, seed)
+    fair = fair_flags(full['stats'])
+    nck = fair.shape[0]
+    win = {}
+    for i in range(full['I']):
+        run = 0
+        for c in range(nck):
+            run = run + 1 if fair[c, i] else 0
+            if run >= FAIR_WINDOW:
+                win[i] = c; break
+    out = []
+    by_c = {}
+    for i, c in win.items():
+        by_c.setdefault(c, []).append(i)
+    ids = list(full['ids'])
+    for c, isl in sorted(by_c.items()):
+        g = int(c * CHECK_EVERY)
+        if g == 0:
+            snap = full['init']
+        else:
+            snap = run_one(T, cfg, seed, checks_upto=g)['counts']
+        for i in isl:
+            init = snap[i:i + 1].copy()
+            cfg1 = dict(cfg); cfg1['I'] = 1
+            r1 = run_one(T, cfg1, seed + 7919 * (i + 1), init_override=init, ids_override=ids, m_override=0.0,
+                         checks_upto=horizon)
+            f1 = fair_flags(r1['stats'])[:, 0]
+            nf = np.nonzero(~f1)[0]
+            res = int(nf[0] * CHECK_EVERY) if len(nf) else None
+            # holder at the window end
+            bmod = ids[int(np.argmax(init[0, 0]))]
+            out.append(dict(island=i, window_end_gen=g, residence=res, censored=res is None, horizon=horizon,
+                            boss_holder=int(bmod) if bmod >= 0 else -1, forced_share=float(init[0, 0][ids.index(cfg['forced'])] / cfg['N']) if cfg['forced'] in ids else 0.0))
+    return dict(seed=seed, established_islands=len(win), assays=out, persistence=float(fair[-1].mean()))
+
+
+def assays(args):
+    T = tables()
+    tpath = os.path.join(OUT, 'tables.pkl')
+    _JOB['T'] = T
+    out = {}
+    from multiprocessing import get_context
+    for name in ('forcedD*', 'forcedD*2'):
+        seeds = [777000 + k for k in range(args.runs or 40)]
+        t0 = time.time()
+        with get_context('fork').Pool(args.procs) as pool:
+            res = pool.map(_assay_job, [(name, s, tpath, 2000) for s in seeds], chunksize=1)
+        a = [x for r in res for x in r['assays']]
+        resid = [x['residence'] for x in a if not x['censored']]
+        cens = sum(1 for x in a if x['censored'])
+        out[name] = dict(runs=len(res), established_islands=len(a), censored_at_2000=cens,
+                         residence_median_uncensored=float(np.median(resid)) if resid else None,
+                         residence_mean_uncensored=float(np.mean(resid)) if resid else None,
+                         residence_lower_bound_mean=float(np.mean([x['residence'] if not x['censored'] else 2000 for x in a])) if a else None,
+                         per_run=[dict(seed=r['seed'], established=r['established_islands'], persistence_migration_on=r['persistence']) for r in res],
+                         time_s=time.time() - t0)
+        print(name, json.dumps({k: v for k, v in out[name].items() if k != 'per_run'}), flush=True)
+    json.dump(out, open(os.path.join(RUNS, 'sog-realizable-assays.json'), 'w'), indent=1)
+
+
+def _audit_job(args):
+    label, enc, want = args
+    play, steps, raw = S.play3(enc[0], enc[1], enc[2], K_MAIN)
+    return dict(label=label, match=(int(play[0]), play[1], play[2]) == tuple(want), steps=[int(s) for s in steps],
+                play=[int(play[0]), play[1], play[2]], want=list(want))
+
+
+def audit(args):
+    """Realized encounters of lottery runs, weighted by their frequency on the islands, played whole at K = 10^6
+    against the ideal table: the fraction of encounter mass whose executable play differs."""
+    T = tables()
+    _JOB['T'] = T
+    out = {}
+    rng = np.random.default_rng(4)
+    from multiprocessing import get_context
+    for name in ('L', 'Lmil'):
+        cfg = cell_config(name, T)
+        rows = []
+        jobs = []
+        for seed in [500000 + k for k in range(4)]:
+            for g in (0, 50, 200, 2000):
+                r = run_one(T, cfg, seed, checks_upto=g) if g > 0 else None
+                cnt = r['counts'] if r is not None else seed_run(T, cfg, seed)[1]
+                ids = list(r['ids']) if r is not None else seed_run(T, cfg, seed)[0]
+                # sample encounters by frequency
+                for k in range(60):
+                    i = int(rng.integers(cfg['I']))
+                    bs = cnt[i, 0]; xs = cnt[i, 1]; ys = cnt[i, 2]
+                    b = int(rng.choice(len(bs), p=bs / bs.sum())); x = int(rng.choice(len(xs), p=xs / xs.sum()))
+                    y = int(rng.choice(len(ys), p=ys / ys.sum()))
+                    g_b = ids[b]
+                    jc = S.joint_code(T, g_b, x, y)
+                    want = (jc // 4, 'CD'[(jc // 2) % 2], 'CD'[jc % 2])
+                    enc = (compiled('B', int(T['repb'][g_b]), 0) if g_b < T['nb_cat'] else named_programs()[1]['D*_2'],
+                           compiled('W', int(T['rep1'][x]), 1), compiled('W', int(T['rep2'][y]), 2))
+                    jobs.append(('%s %d %d' % (name, seed, g), enc, want))
+                    rows.append((seed, g))
+        with get_context('fork').Pool(args.procs) as pool:
+            res = pool.map(_audit_job, jobs, chunksize=4)
+        by_g = {}
+        for (seed, g), r in zip(rows, res):
+            by_g.setdefault(g, []).append(r['match'])
+        out[name] = {str(g): dict(sampled=len(v), mismatch_frac=float(1 - np.mean(v))) for g, v in sorted(by_g.items())}
+        out[name + '_examples'] = [r for r in res if not r['match']][:8]
+        print(name, json.dumps(out[name]), flush=True)
+    json.dump(out, open(os.path.join(RUNS, 'sog-realizable-audit.json'), 'w'), indent=1)
+
+
+def _cost_job(args):
+    label, enc, K = args
+    V = K // 4
+    play, steps, raw = S.play3(enc[0], enc[1], enc[2], K)
+    chk = []
+    for (e, j, A) in _checks_of_K(enc, V, K):
+        tv, ts = S.term_check(e, j, A, V, K)
+        chk.append(dict(j=j, A=S.ANAME[A], probe=e is not enc, value=tv, steps=int(ts)))
+    return dict(label=label, K=K, play=[int(play[0]), play[1], play[2]], raw=[str(v) for v in raw], run_steps=[int(s) for s in steps], checks=chk)
+
+
+def costs(args):
+    """The fuel sweep on the named states and on the most expensive catalogue encounters found in the gap sample;
+    production costs."""
+    out = {}
+    jobs = []
+    for K in (300000, 1000000, 3000000):
+        Wn, Bn, _ = named_programs(K=K)
+        for (bn, x, y), _ in HAND:
+            if bn == 'C1': continue
+            jobs.append(('%s | %s | %s' % (bn, x, y), (Bn[bn], Wn[x][0], Wn[y][1]), K))
+    from multiprocessing import get_context
+    with get_context('fork').Pool(args.procs) as pool:
+        res = pool.map(_cost_job, jobs, chunksize=2)
+    table = {}
+    for r in res:
+        table.setdefault(r['label'], {})[str(r['K'])] = dict(play=r['play'], run_steps=r['run_steps'],
+                                                            max_check=max(c['steps'] for c in r['checks'] if c['value'] != 'TO') if any(c['value'] != 'TO' for c in r['checks']) else None,
+                                                            timeouts=[(c['j'], c['A'], c['probe']) for c in r['checks'] if c['value'] == 'TO'])
+    out['named'] = table
+    # production costs
+    cat = catalogue()
+    t0 = time.time()
+    for role in ('W', 'B'):
+        r = cat.roles[role]
+        sizes = [S.C.script_nodes(e[1]) for l in r['lists'] for e in S.C.uncons(l)]
+        out['lists_' + role] = dict(trees=len(r['dt']), entries_mean=float(np.mean([len(S.C.uncons(l)) for l in r['lists']])),
+                                    entries_max=int(max(len(S.C.uncons(l)) for l in r['lists'])),
+                                    script_nodes_mean=float(np.mean(sizes)), script_nodes_max=int(max(sizes)))
+    pp = S.PathProducer()
+    w = cat.roles['W']
+    t0 = time.time()
+    for tk in range(len(w['dt'])):
+        x = w['spellings'][w['members'][tk][0]]
+        prog0 = S.compile_program(x, 'W', 1, V_MAIN, K_MAIN, 0)
+        S.produce_lists(w['dt'][tk], 'W', pp, prog0, 1, V_MAIN, K_MAIN)
+    out['host_production_time_all_worker_trees_s'] = time.time() - t0
+    json.dump(out, open(os.path.join(RUNS, 'sog-realizable-costs.json'), 'w'), indent=1)
+    for lab, v in table.items():
+        print(lab, {k: (vv['play'], vv['max_check'], len(vv['timeouts'])) for k, vv in v.items()}, flush=True)
+
+
+def modal_coalition(args):
+    """The founding-coalition mass of the modal social organization game (the union run's CC language, boss n = 6,
+    workers n = 10, length prior), computed exactly as in §1.4: fair triples with no strict boss invader among the
+    language's classes (workers cannot exceed 1/2 there either)."""
+    C = SL.class_data('CC')
+    Jc, tg, mB, mW = C['Jc'], C['tagc'], C['massB'], C['massW']
+    KB, KW = C['KcB'], C['KcW']
+    tot = 0.0; n_pairs = 0; const_b = C['constB']
+    tot_const = 0.0
+    fair_boss_payoff = 1.0
+    for x in range(KW):
+        for y in range(KW):
+            J = Jc[:, x, y].astype(np.int64)
+            u = PAY[J, tg[x], tg[y], 0]
+            fair = np.array([UN.summary(int(j), int(tg[x]), int(tg[y])) == 0 for j in J])
+            if not fair.any(): continue
+            if u.max() > fair_boss_payoff + 1e-12: continue
+            n_pairs += 1
+            tot += mB[fair].sum() * mW[x] * mW[y]
+            tot_const += mB[fair & const_b].sum() * mW[x] * mW[y]
+    out = dict(language='union run CC (boss n = 6, workers n = 10, quorum arm; RESULTS "The union game")', mass=float(tot),
+               constant_boss_mass=float(tot_const), compatible_pairs=n_pairs, KcB=int(KB), KcW=int(KW),
+               note='the concessions run (P01, n = 11) adds probe bosses of total mass 0.064 and D* at 9.7e-9; not rebuilt here')
+    json.dump(out, open(os.path.join(RUNS, 'sog-realizable-modal.json'), 'w'), indent=1)
+    print(json.dumps(out), flush=True)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--runs', type=int, default=None)
@@ -1359,6 +1555,14 @@ def main():
         lottery(args)
     elif args.cmd == 'chain':
         chain(args)
+    elif args.cmd == 'assays':
+        assays(args)
+    elif args.cmd == 'audit':
+        audit(args)
+    elif args.cmd == 'costs':
+        costs(args)
+    elif args.cmd == 'modal':
+        modal_coalition(args)
     else:
         raise SystemExit('unknown command')
 

@@ -560,3 +560,25 @@ the cell's run 1 and nothing was changed after it except two bookkeeping fixes i
   *recommendation* (the T₁ pair's probe code is T on every strike probe), D\* pays ½ to them, and **every fair state
   checked is strictly invaded by pay(¼, ·)** (boss 1.5 > 1; invader mass 1/3), as derived. RE 6's condition fails on
   the realizable table; the executed-probe variant is run as a labelled extra.
+
+## 2. Implementation and costs
+
+### 2.1 How it runs
+
+`src/sog_realizable.py` appends K₃ to milestone 4's library (checker term), installs it in `lt_code`'s evaluator,
+compiles both roles' templates to three-abstraction carriers (workers per slot), and implements the host replay
+(`HostCheck3`, an `ExactHost` with the K₃ rules and the closure), the path tactic on the host (`PathProducer`) and on
+run trees (`sym_produce`, equal to it: §1.x), the abstract evaluator (`AbsEval`: the host replay's memo, regress and
+closure semantics over recorded access programs, equal to the host replay on certification values: §1.x), the exact
+class tables (`build_tables`: worker-pair tables E_β for the 11 occurring boss views, 385 realized ternary probe
+codes, boss maps over them, exact lumping by full interaction tables) and the lottery kernel `kern3`
+(`sog_lottery.kern` with J = (FBA, FBB, PV, EA) looked up on the fly and a joint-code map for RR; equal to
+`sog_lottery.kern` on a dense subset: §1.x). `src/sog_realizable_run.py` holds validation, the gap measurement, the
+static analysis, the lottery cells (≤ 3 workers, forked, tables shared), the assays, the audit, the fuel sweep, the
+modal coalition value and the diagnostic chain (`FChain`: `union_chain.UChain` with rows computed from the factorized
+table). Table construction: catalogue and symbolic production 15 s; pair tables 4 s; boss views over 93,970 run
+trees × 385 codes 60–100 s; total under 3 minutes; the class table pickle is 406 MB (not committed).
+
+*No lazy triple cache.* The spec asked for the three-player table to be evaluated lazily on encountered triples with a
+cache. Lemma F₃ made the whole table exact and cheap instead (two lookups per triple), so there is no truncation and no
+cache; the test that the spec attached to the cache is the composition test (whole runs against the table).
