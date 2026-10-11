@@ -4109,6 +4109,99 @@ Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/prude
 - **Identity is.** Without cliques the prudent open core is universal in 29/40 runs; with one-node identity at the length prior's mass, 10/40 at best.
 - **The threshold is an abundance, and it is not scale-free:** about 8 seeded clique copies per run at (100, 64), against 57 under L; the 50% level is set by an (N, I)-dependent clique-free baseline, and at (100, 128) universality is below 50% even with no cliques. A priced identity (the RS's option (b)) would need about a 7× cut at this scale, and the factor moves with (N, I).
 - *Caveats:* the host tactic for certificates; finite (N, I, horizon); stage statistics aggregate the identity group; the reduced-support chain with named omitted exits; the spec's premise failure (the matched cells are the informative ones).
+## Fixed-role chicken and hawk–dove without `ROLE`: islands learn one-sided norms, and conditional straights merge them (`runs/fixed-role-chicken.md`, `runs/fixed-role-chicken.json`, `runs/fixed_role_chicken/`, `notes/fixed-role-chicken.md`; spec `specs/2026-10-11-fixed-role-chicken.md`, predictions in `predictions/2026-10-11-fixed-role-chicken.md`)
+
+Requested by the RS (DEFERRED 12), designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/fixed_role_chicken.py`, `src/fixed_role_chicken_run.py`, `src/fixed_role_chicken_report.py`, `tests/test_fixed_role_chicken.py`; 11 tests, passing on main). Order of commits: the notes' §1; the predictions (the RS's first); the code with its validation before any counted cell; the cells. The RS's registered prediction: "some islands will learn norms where one side 'wins' the straight play and the other role is forced to swerve." RE check: the per-island establishment rates and the forced-island resolution rates with and without bridges are in the run report.
+
+**Games and arms.** Games (Straight, Swerve): `chicken` (−10, 2, −1, 0); `hd3` (V = 2, C = 3: −½, 2, 0, 1); `hd6` (C = 6: −2, 2, 0, 1); all three share the minimax action (Swerve), so one weak play matrix serves all. Fixed-role arms (two populations, n = 6, no `ROLE`): weak (46 classes, 1,852 programs); modal (51); the matched pair W0/M0 (12 and 8 classes over the same 666 spellings and prior); constants {Straight, Swerve}. Arm (c): one population, modal. **Lemma F:** within a role selection is constant, so the two-population ε→0 chain is exactly monomorphic on the K² pairs: no polymorphic traps exist, and program-space closure is the Δ ≥ 0 graph on all K² pairs.
+
+**Static.** Both pure conventions are strict in action space and, in every reader arm, not drift-closed in program space. A *bridge* plays Straight iff you would swerve (weak `not(THEM(ME))`; modal `BOXD(THEM(ME))`, `not(BOX(THEM(ME)))`); bridge mass 0.00185 (weak), 0.031 (modal), 0.00396 (W0, M0). A bridge is neutral in both seats of both conventions; in the winner's seat it lets the loser's Straight in with Δ = T − S. Every reader arm and game has one closed Δ ≥ 0 class containing R1, R2 and mutual swerve; the constants arm has two, {R1} and {R2}. Identical deterministic readers in opposite roles never anti-coordinate; distinct probes do (`not(THEM(^Straight))` | `not(THEM(^Swerve))` is a role-1-wins norm between two readers), and it is open.
+
+**Chain** (ε→0, exact; N = 10², 10³, 10⁴ per population): π(R1) = π(R2) exactly; the two conventions hold ≥ 0.997 of π; crash states hold 0. Exits are one neutral step (a bridge enters the winner seat, N·ρ = 1) and one strict step (the loser's Straight, N·ρ = 593 in chicken, 451 in hawk–dove); N·exit is flat in N and game (weak 1.06–1.10·10⁻³, modal 1.48·10⁻², W0 2.3·10⁻³, M0 2.07·10⁻³; the hand estimate ½ μ_B 0.93 / 15.5 / 1.98 / 1.98·10⁻³). Bridges carry 0.98 (modal) but 0.85–0.87 (weak, W0) of the exit flux, the rest leaving through soft commitments such as `and(THEM(THEM),Straight)`, which swerve against readers by the minimax default. The constants' exits are deleterious (10⁻²⁵ at N = 100 in chicken). Solver check: TV against dense log-domain GTH ≤ 5·10⁻¹⁵.
+
+**Lottery** (ε = 0, I = 64, 40 runs per cell; finite-size). Per-island establishment of a one-sided norm by play at mN = 0, N = 100:
+
+| arm | chicken | hd3 | hd6 |
+|---|---|---|---|
+| weak | 0.941 | 0.785 | 0.903 |
+| modal | 1.000 | 0.998 | 1.000 |
+| constants, W0, M0 | 0.998–1.000 | 0.998–1.000 | 0.998–1.000 |
+
+The role split is in [0.46, 0.53] in every cell. The weak shortfall is islands frozen with a seat on an X-mixture (e.g. `Straight` | `X`), where half the encounters crash; it reaches 0.48 in hd3 at N = 25. At mN = 1, N = 100: runs still patchworks at 4,000 generations, weak 0.58 / 0.50 / 0.33 and modal 0.33 / 0.88 / 0.80 (chicken / hd3 / hd6); 22–76 island flips per run; cross-island loss falls from ≈ 5 to 0.36–2.2 in chicken. **Forced opposite-norm islands at matched founder mass** (resolution with bridges at β = 0.1 against without): weak 0.63 / 0.55 / 0.55 vs 0 / 0 / 0; modal 0.78 / 0.28 / 0.30 vs 0 / 0 / 0; without bridges chicken and hd6 have no flips at all, and hd3 has ≈ 1.3 demographic flips per run that resolve nothing. The flip is a coupled two-seat process: migrant Straights in the loser seat select bridges over firm Straight in the winner seat (bridges swerve instead of crashing), and once the winner seat is bridge-rich the loser's Straight wins it; 0.98–1.00 of flips cross f\* = (S − P)/(T − P) within the flip window. Demographic takeover operates only in small islands (constants resolve hd3 and hd6 at N = 25). On-island crash at mN = 1 runs chicken < hd6 < hd3: cheaper crashes linger. Matched pair W0/M0: identical at mN = 0; at mN = 1 in chicken M0 resolves far less (0.025 of runs vs 0.525; per-island establishment −0.35 ± 0.13).
+
+**One population, modal (arm c).** No one-sided norm forms; the chain sits in many-class Löbian polymorphisms with payoff per player −0.10 (chicken), 0.02 (hd3), 0.83 (hd6) at N = 10⁴ against the fixed-role 0.5, 1, 1; chicken and hd3 are deep (top-state exits 10⁻³⁸¹, 10⁻⁷⁴ per event); twin drift matters (chicken −0.40 lumped vs −0.10 twin-expanded); in the lottery islands freeze in mutual swerve (chicken, mN = 0: 0.94) or all-hawk (hd3: 0.98) once a pure strategy is lost.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RS | some islands learn norms where one side wins the straight play and the other swerves | **held** (0.78–1.00 of islands at N = 100, split ½/½) |
+| RE 1 | per-island ≥ 0.6 everywhere; reading changes it by ≤ 0.1 | falsifier fired in one cell (weak hd3, N = 25: 0.48); the control clause missed (weak − constants = −0.21 in hd3), an X-mixture effect, not a reading effect |
+| RE 2 | migration does not simply merge; resolutions demographic; bridges removed changes ≤ 0.1 | **falsifier fired** (removing bridges cuts resolution to 0, a fall of 0.55–0.78); the patchwork bet held in 4 of 6 cells |
+| RE 3 | neutral neighbourhoods; exits by the full escape path; possibly a hawk–dove trap | held, except the trap clause (impossible by Lemma F) |
+| RE 4 | provable commitment changes nothing (matched control) | held at mN = 0; **falsifier fired at mN = 1 in chicken** (M0 − W0 = −0.35) |
+| RE 5 | C = 6 lowers crash exposure | crash clause fired (hd6 crashes more than chicken) |
+| S1, S2, S10 | subagent's own | held |
+| S3–S9, S11 | subagent's own | one or more clauses fired (S4–S7 falsifiers; S9's arithmetic reason wrong; S11 miscalibrated from shared-norm islands) |
+
+**Reading.**
+- **The RS's norm learning is ordinary anti-coordination with fixed roles.** Constants do it, and reading adds nothing at mN = 0.
+- **"Straight is credible" only as a constant:** the firm constant is the only uninvadable winner. A reader that goes straight iff you would swerve drifts into the winner's seat neutrally and hands it to the loser, so no norm is drift-closed and exits go as 1/N with N·exit ≈ ½ μ_B.
+- **The readers that read the commitment are what unseat it,** under rare mutation and between islands under migration: bridges are the universality mechanism here as in RESULTS "Rival networks across islands", up to 0.68 of runs end with one global norm by 4,000 generations, none with the readers removed, and which norm wins is a coin flip. Provability changes how norms merge (M0 resolves far less in chicken), not which norm forms.
+- **One population without roles cannot learn the norm** and loses most of the surplus.
+- *Caveats:* finite (N, I, horizon); the flip attribution rule was revised post hoc (the frozen rule sampled too early) and the forced-island control is the clean evidence; one-population cells reduced to 12.
+## The social organization game over the realizable language: a library prior reaches the fair wage, the matched expanded prior does not (`runs/sog-realizable.md`, `runs/sog-realizable.json`, `runs/sog_realizable/`, `runs/sog-realizable-{validate,gap,static,costs,audit,assays,modal,chain}.json`, `notes/sog-realizable.md`; spec `specs/2026-10-10-sog-realizable.md`, predictions in `predictions/2026-10-10-sog-realizable.md`)
+
+Designed by the RE from the RS's prior question (DEFERRED 10), reviewed by gpt-6.1-sol, run by an Opus subagent (`src/sog_realizable.py`, `src/sog_realizable_run.py`, `src/sog_realizable_report.py`, `tests/test_sog_realizable.py`; 9 tests, one of which is a sample-size floor on the composition-vs-whole-runs check that passes the per-play assertions and misses its count on main, see commit history). Order of commits: the notes' §1.1–1.3 (calculus, grammar, prior, frozen conventions) before any code; the predictions before the static analysis; the code with its validation and the static tables; the cells. The hosting session ended once (the machine restarted); only missing cells were rerun. **Not run:** L at (100, 256). **Not converged:** the diagnostic chain at N = 10⁴ (five rounds, no promotions, outcome-changing cut 0.969 of flow over 2,500 core and 34,722 ring states; π not reported). **Deviation:** the lottery runs on the ideal (host-replay) table, with an audit of realized encounters at K = 10⁶. RE check: the founding-coalition masses, D\*'s weight ratio and the L / expanded-syntax lottery cells are in the run report; the mechanism of the expanded-syntax failure is the prior's mass on concession-like bosses, measured statically.
+
+**Calculus K₃.** Milestone 4's checker extended to roots built from three quotes; a check argument is (V, encounter, subject, outcome set, K). Two rules change: Hyp may close any box of the same encounter, and the check then validates the *closure* of every box it used, with uniform-cost bookkeeping; Run/RunNeg may apply to any box except the validated box's own root. Two mutual checks compute one predicate (every box in the shared closure has a valid entry); Lemma Sym₃ gives the values and the cost bound; **Theorem S^cert₃:** every accepted certificate implies the actual fuel-bounded run of its subject on the quotes in the argument. Mixing Hyp and RunNeg on one box kills the root by a regress. Production is the frozen path tactic (Hyp only for worker–worker boxes, Run/RunNeg elsewhere), public and uncharged. Bosses read probes only; workers are compiled per slot, so every worker check concerns the actual encounter.
+
+**Validation (before any cell).** Soundness: 0 false atoms in 3,065 audited T checks. Corrupted instances as derived: a slot-misordered militant works at wage 0 (sound; classed as substitution); constant-opponent certificates are rejected for the actual opponent; forged and exchanged branches rejected; the fit boundary is V + 11; a four-check militant against C₁ exhausts K and plays the default (classed as timeout); the naive closure-free checker accepts a false atom the sound checker rejects. **No world-0 faker:** the probe wage faker spelling plays (0; S, S) against militants, and the current-encounter concession C₁ gives (0; S, S) by a regress where the modal run gave (0; W). Code checks: Lemma Sym₃ on 51 closures, 0 violations; the 18 hand plays hold by whole runs; the abstract evaluator equals the host replay; the kernel equals `sog_lottery.kern`.
+
+**Cost: executable ≠ ideal.** Check costs are fuel-independent and heavy-tailed (up to 2.19·10⁶ steps): a worker's check of a probe boss re-runs the boss's probes, each nesting worker checks. Executable whole plays differ from the ideal table on 22% / 3% / 0.5% of L-weighted triples at K = 3·10⁵ / 10⁶ / 3·10⁶, always by a timeout, never by a different value. The lottery runs on the ideal table; an audit of the encounters realized at K = 10⁶ finds 2–4% mismatches at generations 0–50 and 0–0.4% from generation 200 on.
+
+**Static** (L = 2^−nodes over spellings): 318 worker classes per slot, 77,211 boss classes (exact, on 385 realized ternary probe codes). **D\* weighs 2⁻⁶·⁰ of a constant boss** (modal run: 2⁻²³·³); the militant T₁ weighs 2⁻¹·⁴ of the striker. The template prior dilutes constants (all nine together hold 0.0037) and **concession-like bosses (pay ½ to the T₁ pair, less to the scab pair) hold 0.184 of the boss prior.** Fakers: 0 triples in which the militant works below ½ (Lemma 0₃). F\* = (D\*, T₁, T₁) has no strict invader; the unread slot's neutral mass is 0.5, and after a scab enters it the boss's cut is neutral. **Founding-coalition mass:** 0.0171 under L, 0.0217 under U, 2·10⁻¹¹ under the expanded syntax; the modal union-run language gives 7.0·10⁻⁴, so L is ×25; concession bosses carry 32% of the L mass and constant fair bosses 0.4%.
+
+**Lottery** (40 runs per cell, (N, I) = (100, 64) unless stated, mN = 1, horizon 2,000; run-level intervals):
+
+| cell | established (runs) | persistence (fraction of islands fair at the horizon) | zero-wage plurality | ¼ plurality |
+|---|---|---|---|---|
+| **L** | **40/40** (39 by gen 200, median 115) | **0.53 [0.38, 0.68]** | 0 | 0.47 |
+| U | 40/40 | 0.87 | 0 | 0.13 |
+| **expanded syntax (same programs, same dynamics)** | **0/40** | 0 | **0.91** | 0 |
+| L (200, 64) | 40/40 | 0.66 | 0 | 0.35 |
+| militants in numbers | 40/40 | 0.75 | 0 | 0.25 |
+| forced D\* | 40/40 | 0.999 | 0 | – |
+| forced D\*₂ | 40/40 | 0.950 | 0.011 | 0.025 |
+| RR (both semantics) | 0/40 | 0 | 0 | 1.000 |
+| L + WF\* (synthetic faker at the modal faker mass, 0.0116) | 4/40 | 0 | 0.60 | 0.38 |
+| militants + WF\* | 1/40 | 0 | 0.62 | 0.34 |
+| militants, concessions ablated | 31/40 | 0 | 0 | 1.000 |
+
+Every island is co-seeded with some compatible coalition in every run; the chance that a co-seeded island becomes fair is 0.60 under L. Exits of fair islands are worker-slot drift (0.93), about half followed by a boss change; no exit is a false certificate, timeout or substitution. Migration-off assays: 95% (D\*) and 99% (D\*₂) of established fair islands survive 2,000 generations (exit probabilities 4.6% vs 0.94%). The three-role threshold is met exactly on the fair islands.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | the library makes the concession cheap (D\* within 2⁻⁸ of a constant; T₁ within 2⁻⁴ of the striker) | **held** (2⁻⁶·⁰, 2⁻¹·⁴) |
+| RE 2 | no false-certificate faker; low-wage work by timeout or substitution | **held** on the falsifier (0 fakers); the wording missed: low-wage work in the catalogue is acceptance (0.632 of triple mass) and uncertified default (0.034), not timeout or substitution |
+| RE 3 | coalition mass ≥ 10³× modal; establishment given co-seeding ≥ 0.5; ≥ 0.6 by gen 200; expanded ≤ 0.2 | coalition clause **failed** (×25; the falsifier, ≤ 10×, not fired); the three establishment clauses **held** (0.60; 39/40; 0/40) |
+| RE 4 | persistence 0.2–0.6; dominant exit unread-slot drift then a boss cut (≥ 0.5) | persistence **held** (0.53); the exit clause missed narrowly (0.49) |
+| RE 5 | D\*₂ lengthens residence ≥ 5×; no strict invader; persistence above D\*'s | no strict invader **held**; residence inconclusive (censored; exit ratio 4.9); persistence with migration **failed** (0.950 vs 0.999) |
+| RE 6 | RR keeps the ¼ wage, conditional on the derived table | **void** (the ¼ probe certifies recommendations, not executed strikes); the table gives ¼ on 1.000 of islands |
+| RE 7 | the chain says zero wage | not scored (not converged) |
+| S3, S6, S9, S11 | subagent's own | held |
+| S4, S5, S8 | subagent's own | failed, falsifiers fired (concession share < 5%: it is 32%; L establishment ≤ 0.35: 40/40; persistence ≤ 0.5: 0.75) |
+| S1, S14 | subagent's own | missed numbers (class counts); S2, S7, S10, S13 partial; S12 not scored |
+
+**Reading.**
+- **The library prior makes the concession cheap, but not as D\* in particular.** Under 2^−nodes over a library grammar about a fifth of all boss programs pay fair to certified militants and less to scabs; fair islands form on every run and hold half the islands.
+- **The matched expanded syntax** runs the same programs under the same dynamics and gives 0/40 with zero wage on 0.91 of islands: **library richness alone separates success from the modal failure.** This is the RS's prior question answered for the library frame: the decisive quantity is the mass of concession-like programs (0.18), not D\*'s length.
+- **Protection matters as much as seeding.** A faker re-injected at the modal faker mass, or the concession bosses removed, sends persistence to 0. The realizable language works because probes are facts about runs (no world-0 faker) *and* concessions are common.
+- **Under ex-post rationality the wage is ¼ again:** the ¼ probe certifies recommendations, not executed strikes.
+- **Realizability now binds on verification cost, not on fakers:** three-player certificates are sound by closure, and verifying them is heavy-tailed; 3% of encounters behave differently at K = 10⁶, almost all in the first generations.
+- *Caveats:* the lottery runs on the ideal table; production is a free host tactic; the modal coalition value comes from the union-run language, not the P₀₁ n = 11 language; L at (100, 256) not run; the chain not converged.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

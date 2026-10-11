@@ -365,3 +365,19 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   universal fraction (the abundance threshold); **f₀, q** — the clique-free baseline and the per-copy persistence
   rate in f ≈ f₀·e^(−6,400·m·q); **established islands per occupied seed island** and **persistence** — the stage
   statistics (arrival → establishment → persistence → spread).
+- **Social organization, realizable:** **K₃ / CHK3** — milestone 4's checker on three-quote roots, argument
+  (V, encounter, subject, outcome set, K); **encounter box** — a box about one run of the three-player encounter;
+  **closure Φ** — the set of boxes a check validates after closing any box of the same encounter by Hyp; **Lemma
+  Sym₃, Theorem S^cert₃** — the symmetry and unconditional soundness for three-quote roots; **path tactic** — the
+  frozen production driven by assignments (Hyp only for worker–worker boxes); **boss view β** — the boss's probe
+  reading; **concession boss** — pays ½ to the T₁ pair and less to the scab pair (0.184 of the boss prior under L);
+  **WF\*** — the synthetic faker re-injected at the modal faker mass (0.0116); **uncertified default** — the play a
+  program falls to when no certificate applies; **L / U / X priors** — 2^−nodes over library spellings / uniform
+  over classes / 2^−nodes over the matched expanded syntax; **founding-coalition mass** — Σ over fair, strict-
+  invader-free (boss, worker, worker) class triples of the product of their masses.
+- **Fixed-role chicken:** **chicken / hd3 / hd6** — the three payoff tables (Straight, Swerve); **R1 / R2 / crash /
+  dove / mixed** — outcome classes by play at tolerance 0.95; **bridge (anti-coordination)** — a conditional
+  straight, Straight iff the opponent would swerve; **firm** — Straight against both constants; **soft commitment**
+  — firm against constants, swerving against readers; **f\*** = (S − P)/(T − P), the bridge share at which the
+  loser's Straight wins the seat; **Lemma F** — within a role selection is constant, so the two-population chain is
+  monomorphic on K² pairs; **W0 / M0** — the matched weak/modal pair on one grammar and prior.

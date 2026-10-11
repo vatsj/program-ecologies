@@ -886,3 +886,26 @@ No RE prediction failed outright (RE 4 and RE 5 inconclusive). **Design choices 
 **Subagent predictions:** S1, S5 (the core without cliques badly underrated), S7, S12 missed on numbers; S10 indeterminate; the notes' §1.7 claim that the second curve's m_L point equals P1 (caught by a test).
 
 **Design choices dropped:** "CBP's family" as the test of prudence (the matched core/nice pair instead); the two-point panel as a crossing locator (it cannot locate a crossing when the baseline moves; the m = 0 baseline was added at each panel setting); P_open as worded (28 classes, 12 outside the open family); a first launch whose numpy threads oversubscribed the shared machine (killed by pid, relaunched single-threaded).
+
+
+## Added 2026-10-11: the social organization game over the realizable language (RESULTS.md, "The social organization game over the realizable language")
+
+**"The founding-coalition mass exceeds the modal run's by ≥ 10³" (Fable, RE 3, coalition clause; the falsifier, ≤ 10×, not fired).** ×25: concession bosses carry 32% of the L mass and constant fair bosses 0.4%; the library's gain is in concession-like programs as a class (0.18 of the boss prior), not in D\* in particular.
+
+**"Low-wage work occurs by timeout or substitution" (Fable, RE 2, wording).** In the catalogue it is acceptance (0.632 of triple mass) and uncertified default (0.034); 0 false-certificate fakers.
+
+**"The dominant exit is unread-slot drift followed by a boss cut, ≥ 0.5" (Fable, RE 4; missed narrowly, 0.49).** **"D\*₂'s persistence with migration exceeds D\*'s" (Fable, RE 5; failed, 0.950 vs 0.999; residence censored).** **RE 6 void:** the ¼ probe certifies recommendations, not executed strikes, so under RR the table gives ¼ on every island.
+
+**Subagent:** S4 (concession share < 5%: 32%), S5 (L establishment ≤ 0.35: 40/40; the seeding arithmetic ignored concession mass), S8 (persistence ≤ 0.5: 0.75), S2, S10, S13(b), S14 clauses; S1's aggregation argument (D\*/constant ≈ 2⁻⁹; it is 2⁻⁶ because constant classes are single spellings).
+
+**Design choices dropped:** milestone 4's fixed swap partner (no canonical partner across three subjects; the closure instead); forbidding Run on encounter boxes (it kills every probe); the tactic with Hyp first (never follows an F-branch; the path tactic instead); probe-set production; the lottery on the executable K = 10⁶ table (needs a full cost model; the ideal table plus an audit instead); lazy triple caching (an exact factorized table made it unnecessary); rebuilding the modal P₀₁ n = 11 language for the coalition comparison. **Not run:** L at (100, 256); the diagnostic chain (stopped unconverged at cut 0.97).
+
+## Added 2026-10-11: fixed-role chicken (RESULTS.md, "Fixed-role chicken and hawk–dove without `ROLE`")
+
+**"Migration does not simply merge the norms; resolutions are demographic; removing bridges changes resolution by ≤ 0.1" (Fable, RE 2; falsifier fired).** Removing the conditional straights cuts resolution from 0.28–0.78 to 0 in every arm and game; demography matters only at N ≤ 50. My post-review bet reversed the wrong way: the readers do bridge the norms, through a coupled two-seat flip.
+
+**"Per-island establishment ≥ 0.6 everywhere; reading changes it by ≤ 0.1" (Fable, RE 1; falsifier fired in weak hd3 at N = 25, 0.48).** The cause is seats frozen on an X-mixture at ε = 0, not reading. **"Provable commitment changes nothing" (Fable, RE 4; falsifier fired at mN = 1 in chicken, M0 − W0 = −0.35):** provability changes how norms merge under migration, not which norm forms. **"C = 6 lowers crash exposure" (Fable, RE 5; fired):** hd6 crashes more than chicken; cheaper crashes linger. **RE 3's hawk–dove trap clause:** impossible in the two-population chain (Lemma F).
+
+**Subagent:** S3's flux clause, S4–S7, S8 at mN = 1, S9's dove clause and its arithmetic reason, S11's ±0.1 falsifier (ignored that islands within a run share a norm); the hand claim that W0/M0 differ only on matcher–bridge cells.
+
+**Design choices dropped:** the frozen flip-attribution rule (last-sample bridge share; superseded post hoc by the window maximum and the forced control, disclosed); the one-population chain panel cut from 21 to 12 cells with the invasion closure capped at 2,000 nodes; the pooled Wilson interval for the role split (run-level instead).

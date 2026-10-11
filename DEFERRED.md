@@ -217,6 +217,10 @@ REJECTED.md the ones we dropped.
   lottery it needs strikers in numbers, then persists on 0.32 of islands with probes against 0.05 without (RESULTS
   "Concessions"). The fair *state* is a prior-and-seeding property in this game, not a grammar property, and the
   time-averaged target does no better.
+- *Evidence (2026-10-11, realizable):* fair state on 0.53 of islands under the library prior L, 0.87 under U, 0
+  under the matched expanded syntax and 0 under RR (¼ on every island); established on 40/40 runs under L (RESULTS
+  "The social organization game over the realizable language"). Fixed-role chicken: one-sided norms, efficient and
+  maximally unequal; equal treatment needs `ROLE` or alternation (RESULTS "Fixed-role chicken").
 - *Naming (RS, 2026-10-06):* the boss/worker family is "the social organization game". *Open:* whether the target is
   Θ(1/n) as a stochastically stable state or time-averaged (the three-player rotating dictatorship already gives the
   latter by symmetry); decided (RS, 2026-10-06): the state; the time-average is free by symmetry in the symmetric games and is
@@ -272,7 +276,13 @@ REJECTED.md the ones we dropped.
   unfakeable fair state (D\*[L1], militant⁻, militant⁻) has no strict invader. Uniform priors over hand-named
   programs are not a finding but a choice (RESULTS "Concessions"); a uniform prior over all behaviour classes is
   cutoff-dependent and was abandoned at 1,393 classes.
-- *Pause (RS, 2026-10-06):* no new experiments before Thursday morning 2026-10-08.
+- *Evidence (2026-10-11, the answer for the library frame):* under 2^−nodes over a library grammar the concession is
+  cheap as a class (0.18 of the boss prior; D\* at 2⁻⁶ of a constant), the founding-coalition mass is ×25 the modal
+  language's, and the lottery reaches and holds the fair wage; the same programs under a matched expanded-syntax
+  prior give 0/40 (RESULTS "The social organization game over the realizable language"). *Operating hypothesis
+  (amended):* the prior is set by the library; the transferable quantity is the mass of compatible executable
+  founding coalitions; the discipline test is that the library's primitives are general purpose.
+- *Pause (RS, 2026-10-06):* no new experiments before Thursday morning 2026-10-08 (passed).
 
 ## 11. The realizable language: how to leave the modal fragment
 - *Options:* extend the weak-arm DSL (self-application, divergence) with K boxes; a new small Turing-complete
@@ -312,6 +322,9 @@ REJECTED.md the ones we dropped.
   is indistinguishable (which the base language would undo). *Next (after 2026-10-08):* the social organization game
   over the realizable language (the RS's prior question), and milestone 5, endogenous certificate production
   (charged search at production time, the tactic as code).
+- *Evidence (2026-10-11, three-player K₃):* sound by closure; verification cost heavy-tailed (nested probe checks),
+  3% of triples differ at K = 10⁶ by timeout. *Open:* a cost model of the checker term, or caching nested probe
+  checks, for executable populations at K ≈ 10⁶; milestone 5 should report the identity-clique mass.
 
 ## 12. Genes: certificates and contracts as behaviour-modifying genes (RS, 2026-10-11)
 - *RS's statement:* certificates and contracts are to be construed more broadly than proofs about a program: as
@@ -333,6 +346,10 @@ REJECTED.md the ones we dropped.
 - *Operating hypothesis:* a credibility filter on genes (a gene is admissible iff executing it is ex-post rational
   at the point it fires) reproduces RC's asymmetry without declaring it; to be tested as an arm beside declared
   asymmetry.
+- *Evidence (2026-10-11, fixed-role chicken):* "straight in chicken is credible" holds only for the constant; any
+  reading winner is a shadow that hands the seat over (neutral in both seats, exits ∝ 1/N), and the readers that
+  read the commitment are what unseat it, under mutation and between islands. The firm gene survives by prior mass,
+  not by a credibility advantage; a gene arm should test whether a credibility filter keeps it.
 - *Would settle it:* the gene arm (parametric base strategies per role + declared special-case genes + the
   credibility filter) on the social organization game and on fixed-role chicken; whether selection among genes
   recovers RC.
