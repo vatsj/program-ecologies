@@ -1,0 +1,8702 @@
+[
+ {
+  "arm": "weak",
+  "game": "chicken",
+  "N": 100,
+  "K": 46,
+  "states": 2116,
+  "cut": 6.681128466233619e-31,
+  "pi_by_class": {
+   "R1": 0.49969453003900466,
+   "R2": 0.4996945300390047,
+   "crash": 4.6263933911324896e-76,
+   "dove": 0.0006028009810538522,
+   "mixed": 8.138940937353197e-06
+  },
+  "asym_R1_minus_R2": -5.551115123125783e-17,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.493287241220145,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.493287241220145,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.0023809134146684304,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.0023809134146684304,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.0023725316916924123,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.00237253169169241,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.00035061807057135597,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.00035061807057135564,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Straight | not(THEM(^X))",
+    "pi": 0.0002615455336991297,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^X)) | Straight",
+    "pi": 0.0002615455336991293,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.0002604202961181501,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.00026042029611814967,
+    "label": "R2",
+    "tags": "bridge | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 4.4461162656932614e-06
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 4.446116265693261e-06
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 3.811068821717033e-07
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 3.811068821717028e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 2.827860030075965e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 2.827860030075959e-07
+   },
+   {
+    "src": "dove",
+    "dst": "mixed",
+    "flux": 1.9919453169359925e-07
+   },
+   {
+    "src": "mixed",
+    "dst": "R1",
+    "flux": 1.206689174188215e-07
+   },
+   {
+    "src": "mixed",
+    "dst": "R2",
+    "flux": 1.2066891741882142e-07
+   },
+   {
+    "src": "R2",
+    "dst": "mixed",
+    "flux": 2.2348038254716596e-08
+   },
+   {
+    "src": "R1",
+    "dst": "mixed",
+    "flux": 2.2348038254716586e-08
+   },
+   {
+    "src": "mixed",
+    "dst": "dove",
+    "flux": 2.552773365389423e-09
+   },
+   {
+    "src": "mixed",
+    "dst": "crash",
+    "flux": 2.6360686346735804e-76
+   },
+   {
+    "src": "crash",
+    "dst": "mixed",
+    "flux": 1.1234922726713649e-76
+   },
+   {
+    "src": "crash",
+    "dst": "R2",
+    "flux": 7.14294425890588e-77
+   },
+   {
+    "src": "crash",
+    "dst": "R1",
+    "flux": 7.14294425890588e-77
+   },
+   {
+    "src": "crash",
+    "dst": "dove",
+    "flux": 4.065598829245038e-80
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 6.478619313168736e-118
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 6.478619313168736e-118
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 1.7007023171648846e-133
+   }
+  ],
+  "exit_R1_per_mass": 9.705071587918196e-06,
+  "N_exit_R1": 0.0009705071587918197,
+  "exit_R1_share_bridge_winner": 0.9307020205693628,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.39142289638921013
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.39082874735104534
+   },
+   {
+    "src": "not(THEM(^X)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.04387164030784405
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.043658593029030614
+   },
+   {
+    "src": "not(THEM(^Straight)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.04293650681131185
+   },
+   {
+    "src": "and(THEM(THEM),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(ME)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 100.0,
+    "N_rho": 25.918177931830645,
+    "share": 0.00951712973201361
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 9.171659560169468e-06,
+  "N_feeder": 0.0009171659560169468,
+  "E_outcome": {
+   "StSt": 3.301302253890418e-08,
+   "StSw": 0.49969678364869524,
+   "SwSt": 0.4996967836486953,
+   "SwSw": 0.0006063996895874437
+  },
+  "efficiency": 0.99939290703694,
+  "time_s": 0.8474729061126709,
+  "check_tv_vs_log_gth": 2.2698978810427598e-15
+ },
+ {
+  "arm": "weak",
+  "game": "chicken",
+  "N": 1000,
+  "K": 46,
+  "states": 2116,
+  "cut": 5.3633952252513207e-33,
+  "pi_by_class": {
+   "R1": 0.49941051312832996,
+   "R2": 0.4994105131283299,
+   "crash": 0.0,
+   "dove": 0.0011774449024881456,
+   "mixed": 1.5288408518964846e-06
+  },
+  "asym_R1_minus_R2": 5.551115123125783e-17,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49314115355885046,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49314115355885046,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.002414716843898629,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.002414716843898629,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.0024135730563904704,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.0024135730563904704,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.0003577396324869991,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.0003577396324869988,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.00027689940602353494,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.00027689940602353494,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | not(THEM(^X))",
+    "pi": 0.00026334221594396823,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^X)) | Straight",
+    "pi": 0.0002633422159439678,
+    "label": "R2",
+    "tags": "bridge | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 4.5355847908435885e-07
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 4.5355847908435875e-07
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 6.95881367195221e-08
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 6.95881367195221e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 5.1288554617849754e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 5.1288554617849675e-08
+   },
+   {
+    "src": "dove",
+    "dst": "mixed",
+    "flux": 3.709304347510245e-08
+   },
+   {
+    "src": "mixed",
+    "dst": "R1",
+    "flux": 2.2105977680128555e-08
+   },
+   {
+    "src": "mixed",
+    "dst": "R2",
+    "flux": 2.2105977680128492e-08
+   },
+   {
+    "src": "R2",
+    "dst": "mixed",
+    "flux": 3.806395578456391e-09
+   },
+   {
+    "src": "R1",
+    "dst": "mixed",
+    "flux": 3.80639557845639e-09
+   },
+   {
+    "src": "mixed",
+    "dst": "dove",
+    "flux": 4.938792717578746e-10
+   }
+  ],
+  "exit_R1_per_mass": 1.0551500169299198e-06,
+  "N_exit_R1": 0.0010551500169299198,
+  "exit_R1_share_bridge_winner": 0.8736989011535522,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.3654368597193929
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.3648873561568427
+   },
+   {
+    "src": "not(THEM(^X)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.040967385568797435
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.04077768267219125
+   },
+   {
+    "src": "not(THEM(^Straight)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.040075244792692415
+   },
+   {
+    "src": "and(THEM(THEM),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(ME)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 1000.0,
+    "N_rho": 259.1817793182821,
+    "share": 0.017780716873341155
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 9.170814948161635e-07,
+  "N_feeder": 0.0009170814948161636,
+  "E_outcome": {
+   "StSt": 6.047959840556924e-09,
+   "StSw": 0.49941090392795406,
+   "SwSt": 0.49941090392795406,
+   "SwSw": 0.0011781860961317492
+  },
+  "efficiency": 0.9988216868967115,
+  "time_s": 0.6096839904785156
+ },
+ {
+  "arm": "weak",
+  "game": "chicken",
+  "N": 10000,
+  "K": 46,
+  "states": 2116,
+  "cut": 2.641513244605411e-42,
+  "pi_by_class": {
+   "R1": 0.49942049689030044,
+   "R2": 0.4994204968903013,
+   "crash": 0.0,
+   "dove": 0.0011588190064423644,
+   "mixed": 1.8721295633052596e-07
+  },
+  "asym_R1_minus_R2": -8.881784197001252e-16,
+  "support": [
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49311258481999015,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49311258481998926,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.0024341192840908405,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.002434119284090836,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.002420162543265911,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.0024201625432659067,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.0003631895816985698,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.0003631895816985691,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.000350079887581893,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.000350079887581893,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "not(THEM(^X)) | Straight",
+    "pi": 0.00026351329532870295,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^X))",
+    "pi": 0.00026351329532870295,
+    "label": "R1",
+    "tags": "firm | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 4.6645970919540394e-08
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 4.664597091954036e-08
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 7.672403548027814e-09
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 7.672403548027804e-09
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 6.037657791677762e-09
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 6.03765779167775e-09
+   },
+   {
+    "src": "dove",
+    "dst": "mixed",
+    "flux": 3.349194378288227e-09
+   },
+   {
+    "src": "mixed",
+    "dst": "R1",
+    "flux": 2.3561549228798744e-09
+   },
+   {
+    "src": "mixed",
+    "dst": "R2",
+    "flux": 2.35615492287986e-09
+   },
+   {
+    "src": "R1",
+    "dst": "mixed",
+    "flux": 7.214091665297924e-10
+   },
+   {
+    "src": "R2",
+    "dst": "mixed",
+    "flux": 7.214091665297921e-10
+   },
+   {
+    "src": "mixed",
+    "dst": "dove",
+    "flux": 7.970286558806264e-11
+   }
+  ],
+  "exit_R1_per_mass": 1.1020729821224717e-07,
+  "N_exit_R1": 0.0011020729821224716,
+  "exit_R1_share_bridge_winner": 0.8600056628380327,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.35029943436524724
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.3497732554987392
+   },
+   {
+    "src": "not(THEM(^X)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.03927121415157388
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.039086523481237506
+   },
+   {
+    "src": "not(THEM(^Straight)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.03841414075680449
+   },
+   {
+    "src": "not(THEM(^Swerve)) | THEM(THEM)",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.02647010658705716
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 9.170200076417488e-08,
+  "N_feeder": 0.0009170200076417488,
+  "E_outcome": {
+   "StSt": 1.3787629871108556e-09,
+   "StSw": 0.4994205420753116,
+   "SwSt": 0.49942054207531267,
+   "SwSw": 0.001158914470613239
+  },
+  "efficiency": 0.9988410565753646,
+  "time_s": 0.5608859062194824
+ },
+ {
+  "arm": "weak",
+  "game": "hd3",
+  "N": 100,
+  "K": 46,
+  "states": 2116,
+  "cut": 2.810599554908037e-32,
+  "pi_by_class": {
+   "R1": 0.4990318871808293,
+   "R2": 0.49903188718082925,
+   "crash": 1.8626838833778222e-07,
+   "dove": 0.0005035617745748005,
+   "mixed": 0.0014324775953785398
+  },
+  "asym_R1_minus_R2": 5.551115123125783e-17,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49286302617700245,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49286302617700245,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.0023313334640865406,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.0023313334640865367,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.002321808409674202,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.0023218084096741976,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.0003486673366168977,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.0003486673366168971,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "X | Straight",
+    "pi": 0.0002982151664429917,
+    "label": "mixed",
+    "tags": "mixed | firm"
+   },
+   {
+    "state": "Straight | X",
+    "pi": 0.0002982151664429912,
+    "label": "mixed",
+    "tags": "firm | mixed"
+   },
+   {
+    "state": "or(X,X) | Straight",
+    "pi": 0.00027853793411402976,
+    "label": "mixed",
+    "tags": "mixed | firm"
+   },
+   {
+    "state": "Straight | or(X,X)",
+    "pi": 0.00027853793411402976,
+    "label": "mixed",
+    "tags": "firm | mixed"
+   }
+  ],
+  "flux": [
+   {
+    "src": "mixed",
+    "dst": "R2",
+    "flux": 7.057221664849085e-06
+   },
+   {
+    "src": "mixed",
+    "dst": "R1",
+    "flux": 7.057221664849083e-06
+   },
+   {
+    "src": "R1",
+    "dst": "mixed",
+    "flux": 6.998496899545611e-06
+   },
+   {
+    "src": "R2",
+    "dst": "mixed",
+    "flux": 6.998496899545611e-06
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 3.2281907826104123e-06
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 3.2281907826104093e-06
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 3.1548528526561336e-07
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 3.1548528526561325e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 2.56694804420298e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 2.56694804420298e-07
+   },
+   {
+    "src": "dove",
+    "dst": "mixed",
+    "flux": 1.748989230103458e-07
+   },
+   {
+    "src": "mixed",
+    "dst": "dove",
+    "flux": 5.714379027088427e-08
+   },
+   {
+    "src": "mixed",
+    "dst": "crash",
+    "flux": 4.84771241508865e-09
+   },
+   {
+    "src": "crash",
+    "dst": "mixed",
+    "flux": 4.5421102825498464e-09
+   },
+   {
+    "src": "crash",
+    "dst": "R2",
+    "flux": 4.261291994052989e-09
+   },
+   {
+    "src": "crash",
+    "dst": "R1",
+    "flux": 4.261291994052989e-09
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 4.1955764522006625e-09
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 4.1955764522006625e-09
+   },
+   {
+    "src": "crash",
+    "dst": "dove",
+    "flux": 1.7417104883427448e-10
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 2.560390865390698e-24
+   }
+  ],
+  "exit_R1_per_mass": 2.1133656615518538e-05,
+  "N_exit_R1": 0.002113365661551854,
+  "exit_R1_share_bridge_winner": 0.4277603470125001,
+  "decisive_exit_edges": [
+   {
+    "src": "Straight | Swerve",
+    "to": "mixed",
+    "mutant": "X",
+    "role": 2,
+    "Delta": -0.25,
+    "N_Delta": -25.0,
+    "N_rho": 0.004310034466350667,
+    "share": 0.3146416901482792
+   },
+   {
+    "src": "Straight | Swerve",
+    "to": "mixed",
+    "mutant": "or(X,X)",
+    "role": 2,
+    "Delta": -0.125,
+    "N_Delta": -12.5,
+    "N_rho": 0.09203034998405699,
+    "share": 0.1621783766732143
+   },
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.1307042671287439
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.1305789978700506
+   },
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "mixed",
+    "mutant": "X",
+    "role": 2,
+    "Delta": 0.625,
+    "N_Delta": 62.5,
+    "N_rho": 17.097088304958692,
+    "share": 0.04704079412444969
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "mixed",
+    "mutant": "X",
+    "role": 2,
+    "Delta": 0.625,
+    "N_Delta": 62.5,
+    "N_rho": 17.097088304958692,
+    "share": 0.04699570940351622
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 9.173589175477193e-06,
+  "N_feeder": 0.0009173589175477193,
+  "E_outcome": {
+   "StSt": 0.0004902283432989018,
+   "StSw": 0.49949079853666517,
+   "SwSt": 0.4994907985366652,
+   "SwSw": 0.0005281745833710042
+  },
+  "efficiency": 0.9992646574850519,
+  "time_s": 1.2429413795471191,
+  "check_tv_vs_log_gth": 1.4331930205884644e-15
+ },
+ {
+  "arm": "weak",
+  "game": "hd3",
+  "N": 1000,
+  "K": 46,
+  "states": 2116,
+  "cut": 2.1178663021163315e-31,
+  "pi_by_class": {
+   "R1": 0.49950728178540177,
+   "R2": 0.4995072817854019,
+   "crash": 1.0018682095491937e-29,
+   "dove": 0.0009705882315112204,
+   "mixed": 1.4848197684919999e-05
+  },
+  "asym_R1_minus_R2": -1.1102230246251565e-16,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49341714341333454,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49341714341333454,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.002379784974797219,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.0023797849747972145,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.002369603578775655,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.002369603578775651,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.00035255198165604675,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.0003525519816560465,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.0002654176207886838,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.0002654176207886833,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "not(THEM(^X)) | Straight",
+    "pi": 0.00025978994940619593,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^X))",
+    "pi": 0.00025978994940619593,
+    "label": "R1",
+    "tags": "firm | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 3.2857289360834965e-07
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 3.2857289360834933e-07
+   },
+   {
+    "src": "mixed",
+    "dst": "R2",
+    "flux": 1.6571683064337067e-07
+   },
+   {
+    "src": "mixed",
+    "dst": "R1",
+    "flux": 1.6571683064337017e-07
+   },
+   {
+    "src": "R1",
+    "dst": "mixed",
+    "flux": 1.5265404552630897e-07
+   },
+   {
+    "src": "R2",
+    "dst": "mixed",
+    "flux": 1.5265404552630878e-07
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 5.7013706881205316e-08
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 5.7013706881205316e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 4.3950921764144056e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 4.395092176414403e-08
+   },
+   {
+    "src": "dove",
+    "dst": "mixed",
+    "flux": 3.1723294620779264e-08
+   },
+   {
+    "src": "mixed",
+    "dst": "dove",
+    "flux": 5.597724386656784e-09
+   },
+   {
+    "src": "mixed",
+    "dst": "crash",
+    "flux": 7.164513556027748e-31
+   },
+   {
+    "src": "crash",
+    "dst": "mixed",
+    "flux": 2.493347312975892e-31
+   },
+   {
+    "src": "crash",
+    "dst": "R2",
+    "flux": 2.2809475621328194e-31
+   },
+   {
+    "src": "crash",
+    "dst": "R1",
+    "flux": 2.2809475621328194e-31
+   },
+   {
+    "src": "crash",
+    "dst": "dove",
+    "flux": 1.0927111621035827e-32
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 9.851253260030012e-68
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 9.851253260030012e-68
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 6.481512711831955e-200
+   }
+  ],
+  "exit_R1_per_mass": 1.0775431422981794e-06,
+  "N_exit_R1": 0.0010775431422981793,
+  "exit_R1_share_bridge_winner": 0.8530601986873284,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.25995798206208853
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.25971453003034256
+   },
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "mixed",
+    "mutant": "X",
+    "role": 2,
+    "Delta": 0.625,
+    "N_Delta": 625.0,
+    "N_rho": 170.97088181959967,
+    "share": 0.09355953019629022
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "mixed",
+    "mutant": "X",
+    "role": 2,
+    "Delta": 0.625,
+    "N_Delta": 625.0,
+    "N_rho": 170.97088181959967,
+    "share": 0.09347191119903996
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.029044551225733906
+   },
+   {
+    "src": "not(THEM(^X)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.02886308557236449
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 9.172478841073251e-07,
+  "N_feeder": 0.0009172478841073252,
+  "E_outcome": {
+   "StSt": 5.204019033080619e-06,
+   "StSw": 0.49951108100947117,
+   "SwSt": 0.49951108100947106,
+   "SwSw": 0.0009726339620243499
+  },
+  "efficiency": 0.9999921939714502,
+  "time_s": 1.07794189453125
+ },
+ {
+  "arm": "weak",
+  "game": "hd3",
+  "N": 10000,
+  "K": 46,
+  "states": 2116,
+  "cut": 2.7270406863384358e-34,
+  "pi_by_class": {
+   "R1": 0.4995164231898406,
+   "R2": 0.4995164231898404,
+   "crash": 0.0,
+   "dove": 0.0009655589476987349,
+   "mixed": 1.5946726202130948e-06
+  },
+  "asym_R1_minus_R2": 1.6653345369377348e-16,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4934091675927807,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.4934091675927807,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.002385107499083911,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.0023851074990839023,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.0023748583134957854,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.002374858313495781,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.00035328418252935235,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.000353284182529352,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.0003097586526865045,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.00030975865268650395,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^X)) | Straight",
+    "pi": 0.0002600248251378673,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^X))",
+    "pi": 0.0002600248251378673,
+    "label": "R1",
+    "tags": "firm | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 3.345644516431301e-08
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 3.3456445164312995e-08
+   },
+   {
+    "src": "mixed",
+    "dst": "R2",
+    "flux": 1.673731250546987e-08
+   },
+   {
+    "src": "mixed",
+    "dst": "R1",
+    "flux": 1.673731250546986e-08
+   },
+   {
+    "src": "R2",
+    "dst": "mixed",
+    "flux": 1.550741403567978e-08
+   },
+   {
+    "src": "R1",
+    "dst": "mixed",
+    "flux": 1.5507414035679742e-08
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 6.276245442567049e-09
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 6.27624544256703e-09
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 5.046346972776887e-09
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 5.046346972776884e-09
+   },
+   {
+    "src": "dove",
+    "dst": "mixed",
+    "flux": 3.077836404726466e-09
+   },
+   {
+    "src": "mixed",
+    "dst": "dove",
+    "flux": 6.180394651462032e-10
+   },
+   {
+    "src": "mixed",
+    "dst": "crash",
+    "flux": 1.1557357913315242e-114
+   }
+  ],
+  "exit_R1_per_mass": 1.1058716406120219e-07,
+  "N_exit_R1": 0.0011058716406120218,
+  "exit_R1_share_bridge_winner": 0.8461638406045858,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.25362394019671325
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.25338702205598623
+   },
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "mixed",
+    "mutant": "X",
+    "role": 2,
+    "Delta": 0.625,
+    "N_Delta": 6250.0,
+    "N_rho": 1709.7088181959966,
+    "share": 0.09127989263152947
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "mixed",
+    "mutant": "X",
+    "role": 2,
+    "Delta": 0.625,
+    "N_Delta": 6250.0,
+    "N_rho": 1709.7088181959966,
+    "share": 0.0911946251980559
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.02833706778081759
+   },
+   {
+    "src": "not(THEM(^X)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.028159979607409506
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 9.172266413650536e-08,
+  "N_feeder": 0.0009172266413650536,
+  "E_outcome": {
+   "StSt": 5.353144140142959e-07,
+   "StSw": 0.49951683035590494,
+   "SwSt": 0.4995168303559049,
+   "SwSw": 0.0009658039737761223
+  },
+  "efficiency": 0.9999991970283791,
+  "time_s": 0.630821943283081
+ },
+ {
+  "arm": "weak",
+  "game": "hd6",
+  "N": 100,
+  "K": 46,
+  "states": 2116,
+  "cut": 1.651788962310763e-32,
+  "pi_by_class": {
+   "R1": 0.4996736796246155,
+   "R2": 0.49967367962461556,
+   "crash": 1.1257557720595907e-19,
+   "dove": 0.0005720769376830651,
+   "mixed": 8.056381308555506e-05
+  },
+  "asym_R1_minus_R2": -5.551115123125783e-17,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49338805146922327,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49338805146922327,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.0023507811307737466,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.002350781130773745,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.0023414676023437225,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.002341467602343718,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.000350270439623169,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.000350270439623169,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(^X)) | Straight",
+    "pi": 0.00025810220078405157,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^X))",
+    "pi": 0.00025810220078405157,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.0002567535621120201,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.0002567535621120196,
+    "label": "R2",
+    "tags": "bridge | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 3.809406092556125e-06
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 3.8094060925561245e-06
+   },
+   {
+    "src": "mixed",
+    "dst": "R1",
+    "flux": 9.868434419769794e-07
+   },
+   {
+    "src": "mixed",
+    "dst": "R2",
+    "flux": 9.868434419769752e-07
+   },
+   {
+    "src": "R2",
+    "dst": "mixed",
+    "flux": 9.132352050078489e-07
+   },
+   {
+    "src": "R1",
+    "dst": "mixed",
+    "flux": 9.132352050078485e-07
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 3.624563966047346e-07
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 3.6245639660473386e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 2.8884815963559625e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 2.888481596355958e-07
+   },
+   {
+    "src": "dove",
+    "dst": "mixed",
+    "flux": 1.8582081462197986e-07
+   },
+   {
+    "src": "mixed",
+    "dst": "dove",
+    "flux": 3.8604340683707805e-08
+   },
+   {
+    "src": "mixed",
+    "dst": "crash",
+    "flux": 2.6586513706930122e-20
+   },
+   {
+    "src": "crash",
+    "dst": "mixed",
+    "flux": 9.706947619375814e-21
+   },
+   {
+    "src": "crash",
+    "dst": "R2",
+    "flux": 8.303593438978301e-21
+   },
+   {
+    "src": "crash",
+    "dst": "R1",
+    "flux": 8.303593438978301e-21
+   },
+   {
+    "src": "crash",
+    "dst": "dove",
+    "flux": 2.7238043120622595e-22
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 6.108043222563259e-28
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 6.108043222563259e-28
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 2.0135773478517472e-43
+   }
+  ],
+  "exit_R1_per_mass": 1.0176837207012653e-05,
+  "N_exit_R1": 0.0010176837207012653,
+  "exit_R1_share_bridge_winner": 0.8859327020265357,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.3197700207011861
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.31943556157617226
+   },
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "mixed",
+    "mutant": "X",
+    "role": 2,
+    "Delta": 0.25,
+    "N_Delta": 25.0,
+    "N_rho": 7.22964997354672,
+    "share": 0.04866511342343882
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "mixed",
+    "mutant": "X",
+    "role": 2,
+    "Delta": 0.25,
+    "N_Delta": 25.0,
+    "N_rho": 7.22964997354672,
+    "share": 0.048614212806743703
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.03576663933826665
+   },
+   {
+    "src": "not(THEM(^X)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.035751202025904316
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 9.172770086173775e-06,
+  "N_feeder": 0.0009172770086173775,
+  "E_outcome": {
+   "StSt": 6.992765093924547e-06,
+   "StSw": 0.49970005453245603,
+   "SwSt": 0.49970005453245603,
+   "SwSw": 0.0005928981699936673
+  },
+  "efficiency": 0.9999790217047179,
+  "time_s": 0.8631701469421387,
+  "check_tv_vs_log_gth": 4.930509320036399e-15
+ },
+ {
+  "arm": "weak",
+  "game": "hd6",
+  "N": 1000,
+  "K": 46,
+  "states": 2116,
+  "cut": 1.4878359475298908e-31,
+  "pi_by_class": {
+   "R1": 0.49941323486997574,
+   "R2": 0.4994132348699758,
+   "crash": 0.0,
+   "dove": 0.0011677082466246419,
+   "mixed": 5.822013423879513e-06
+  },
+  "asym_R1_minus_R2": -5.551115123125783e-17,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4932553344687202,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.4932553344687202,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.002390830819232964,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.002390830819232958,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.002381681861718791,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.002381681861718791,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.00035596524754862106,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.00035596524754862046,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.00026748054574328087,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.00026748054574328087,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | not(THEM(^X))",
+    "pi": 0.0002603394892771352,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^X)) | Straight",
+    "pi": 0.0002603394892771352,
+    "label": "R2",
+    "tags": "bridge | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 3.8852026163550016e-07
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 3.885202616354999e-07
+   },
+   {
+    "src": "mixed",
+    "dst": "R1",
+    "flux": 9.02173592269252e-08
+   },
+   {
+    "src": "mixed",
+    "dst": "R2",
+    "flux": 9.021735922692506e-08
+   },
+   {
+    "src": "R2",
+    "dst": "mixed",
+    "flux": 7.554325573602969e-08
+   },
+   {
+    "src": "R1",
+    "dst": "mixed",
+    "flux": 7.55432557360295e-08
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 6.834142536837525e-08
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 6.834142536837502e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 5.36673218774798e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 5.366732187747972e-08
+   },
+   {
+    "src": "dove",
+    "dst": "mixed",
+    "flux": 3.72273333620697e-08
+   },
+   {
+    "src": "mixed",
+    "dst": "dove",
+    "flux": 7.879126380278703e-09
+   },
+   {
+    "src": "mixed",
+    "dst": "crash",
+    "flux": 1.5365937008731051e-75
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 1.8480961747675013e-262
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 1.8480961747675013e-262
+   }
+  ],
+  "exit_R1_per_mass": 1.066060940252251e-06,
+  "N_exit_R1": 0.001066060940252251,
+  "exit_R1_share_bridge_winner": 0.8627598678757794,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.3104549820014201
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.31013953107931397
+   },
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "mixed",
+    "mutant": "X",
+    "role": 2,
+    "Delta": 0.25,
+    "N_Delta": 250.0,
+    "N_rho": 72.25651367144711,
+    "share": 0.047221345826559104
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "mixed",
+    "mutant": "X",
+    "role": 2,
+    "Delta": 0.25,
+    "N_Delta": 250.0,
+    "N_rho": 72.25651367144711,
+    "share": 0.04717336457984807
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.03474219897487549
+   },
+   {
+    "src": "not(THEM(^X)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.034718278990436835
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 9.171943034048849e-07,
+  "N_feeder": 0.0009171943034048848,
+  "E_outcome": {
+   "StSt": 6.65642963960268e-07,
+   "StSw": 0.4994147595108094,
+   "SwSt": 0.49941475951080944,
+   "SwSw": 0.0011698153354173925
+  },
+  "efficiency": 0.9999980030711084,
+  "time_s": 0.545234203338623
+ },
+ {
+  "arm": "weak",
+  "game": "hd6",
+  "N": 10000,
+  "K": 46,
+  "states": 2116,
+  "cut": 4.236384956594033e-36,
+  "pi_by_class": {
+   "R1": 0.4993999474277593,
+   "R2": 0.4993999474277593,
+   "crash": 0.0,
+   "dove": 0.001199476539757946,
+   "mixed": 6.286047237154406e-07
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.493221570999277,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.493221570999277,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.0023986595776784676,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.0023986595776784676,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.002390097501543609,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.0023900975015436047,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.0003577815330518744,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.0003577815330518744,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.0003229402306578893,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.0003229402306578893,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^X)) | Straight",
+    "pi": 0.000260553686609656,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^X))",
+    "pi": 0.000260553686609656,
+    "label": "R1",
+    "tags": "firm | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 3.9732035442390944e-08
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 3.9732035442390885e-08
+   },
+   {
+    "src": "mixed",
+    "dst": "R2",
+    "flux": 9.016109941815685e-09
+   },
+   {
+    "src": "mixed",
+    "dst": "R1",
+    "flux": 9.016109941815677e-09
+   },
+   {
+    "src": "R2",
+    "dst": "mixed",
+    "flux": 7.717275681625252e-09
+   },
+   {
+    "src": "R1",
+    "dst": "mixed",
+    "flux": 7.717275681625234e-09
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 7.639662656591073e-09
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 7.639662656591065e-09
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 6.3408283964005825e-09
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 6.340828396400571e-09
+   },
+   {
+    "src": "dove",
+    "dst": "mixed",
+    "flux": 3.7492906256492695e-09
+   },
+   {
+    "src": "mixed",
+    "dst": "dove",
+    "flux": 1.1516221052683113e-09
+   }
+  ],
+  "exit_R1_per_mass": 1.1031033155760625e-07,
+  "N_exit_R1": 0.0011031033155760625,
+  "exit_R1_share_bridge_winner": 0.8524423771992563,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.30048614455619105
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.30018173998552766
+   },
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "mixed",
+    "mutant": "X",
+    "role": 2,
+    "Delta": 0.25,
+    "N_Delta": 2500.0,
+    "N_rho": 722.5651367144711,
+    "share": 0.04570504894687894
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "mixed",
+    "mutant": "X",
+    "role": 2,
+    "Delta": 0.25,
+    "N_Delta": 2500.0,
+    "N_rho": 722.5651367144711,
+    "share": 0.04565874789089391
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.03362682017169324
+   },
+   {
+    "src": "not(THEM(^X)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.03360427153393568
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 9.17159652732013e-08,
+  "N_feeder": 0.0009171596527320129,
+  "E_outcome": {
+   "StSt": 6.937768939280226e-08,
+   "StSw": 0.49940011118056576,
+   "SwSt": 0.4994001111805659,
+   "SwSw": 0.0011997082611791927
+  },
+  "efficiency": 0.9999997918669321,
+  "time_s": 0.46408677101135254
+ },
+ {
+  "arm": "modal",
+  "game": "chicken",
+  "N": 100,
+  "K": 51,
+  "states": 2601,
+  "cut": 5.8927581073086066e-33,
+  "pi_by_class": {
+   "R1": 0.4999792156054718,
+   "R2": 0.4999792156054715,
+   "crash": 0.0,
+   "dove": 4.156878905627285e-05,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 3.3306690738754696e-16,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4419425722824982,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.44194257228249784,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(THEM))",
+    "pi": 0.009561146780461311,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(THEM)) | Straight",
+    "pi": 0.009561146780461311,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "BOXD(THEM(ME)) | Straight",
+    "pi": 0.009465877082838362,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(ME))",
+    "pi": 0.009465877082838362,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(THEM))",
+    "pi": 0.008959026649179885,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD1(THEM(THEM)) | Straight",
+    "pi": 0.008959026649179878,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "BOXD1(THEM(ME)) | Straight",
+    "pi": 0.008877188271598722,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(ME))",
+    "pi": 0.008877188271598706,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | BOXD(THEM(^D))",
+    "pi": 0.002685830180649817,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(^D)) | Straight",
+    "pi": 0.002685830180649805,
+    "label": "R2",
+    "tags": "bridge | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 7.109215098220008e-05
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 7.109215098219969e-05
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.4853937835567624e-06
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.485393783556759e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.485393783556734e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.4853937835567315e-06
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 9.535811934643834e-118
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 9.535811934643827e-118
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 1.403870043872695e-134
+   }
+  ],
+  "exit_R1_per_mass": 0.00014516112370364332,
+  "N_exit_R1": 0.014516112370364332,
+  "exit_R1_share_bridge_winner": 0.9825002565069468,
+  "decisive_exit_edges": [
+   {
+    "src": "BOXD(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.14649183298149338
+   },
+   {
+    "src": "BOXD(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.14615699237794208
+   },
+   {
+    "src": "BOXD1(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.1429985439430892
+   },
+   {
+    "src": "BOXD1(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.14246703984525577
+   },
+   {
+    "src": "BOXD(THEM(^D)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.04105747974438178
+   },
+   {
+    "src": "BOXD(THEM(^C)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.04097220498170437
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 0.00014214694260239764,
+  "N_feeder": 0.014214694260239764,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.49997921560547187,
+   "SwSt": 0.4999792156054715,
+   "SwSw": 4.156878905627285e-05
+  },
+  "efficiency": 0.9999584312109433,
+  "time_s": 0.7038059234619141,
+  "check_tv_vs_log_gth": 1.9193641293370844e-15
+ },
+ {
+  "arm": "modal",
+  "game": "chicken",
+  "N": 1000,
+  "K": 51,
+  "states": 2601,
+  "cut": 5.295777969133237e-134,
+  "pi_by_class": {
+   "R1": 0.499992513961904,
+   "R2": 0.4999925139619042,
+   "crash": 0.0,
+   "dove": 1.4972076191652297e-05,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": -2.220446049250313e-16,
+  "support": [
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.4420045188675262,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4420045188675262,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "BOXD(THEM(THEM)) | Straight",
+    "pi": 0.009640487881082464,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(THEM))",
+    "pi": 0.009640487881082464,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(ME)) | Straight",
+    "pi": 0.009541636511700292,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(ME))",
+    "pi": 0.009541636511700275,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD1(THEM(THEM)) | Straight",
+    "pi": 0.009022260401401899,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(THEM))",
+    "pi": 0.009022260401401883,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD1(THEM(ME)) | Straight",
+    "pi": 0.008937508265770576,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(ME))",
+    "pi": 0.00893750826577056,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(^D)) | Straight",
+    "pi": 0.0027080696576256046,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(^D))",
+    "pi": 0.0027080696576256,
+    "label": "R1",
+    "tags": "firm | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 7.2195082411802145e-06
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 7.219508241180189e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.5448024292442658e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.5448024292442396e-07
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.5448024292442348e-07
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.5448024292442205e-07
+   }
+  ],
+  "exit_R1_per_mass": 1.4748197779350121e-05,
+  "N_exit_R1": 0.014748197779350122,
+  "exit_R1_share_bridge_winner": 0.9819913633962466,
+  "decisive_exit_edges": [
+   {
+    "src": "BOXD(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.14628558193799032
+   },
+   {
+    "src": "BOXD(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.14591868666359661
+   },
+   {
+    "src": "BOXD1(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.14284427153380252
+   },
+   {
+    "src": "BOXD1(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.14227516358406544
+   },
+   {
+    "src": "BOXD(THEM(^D)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.04099006183465943
+   },
+   {
+    "src": "BOXD(THEM(^C)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.04092094520492822
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.4219376379260502e-05,
+  "N_feeder": 0.014219376379260502,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.49999251396190414,
+   "SwSt": 0.4999925139619042,
+   "SwSw": 1.4972076191652293e-05
+  },
+  "efficiency": 0.9999850279238083,
+  "time_s": 0.6233961582183838
+ },
+ {
+  "arm": "modal",
+  "game": "chicken",
+  "N": 10000,
+  "K": 51,
+  "states": 2601,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.4999952769003989,
+   "R2": 0.49999527690039886,
+   "crash": 0.0,
+   "dove": 9.446199202170229e-06,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 5.551115123125783e-17,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4420107884620053,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.4420107884620053,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "BOXD(THEM(THEM)) | Straight",
+    "pi": 0.009648617853143292,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(THEM))",
+    "pi": 0.009648617853143268,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(ME)) | Straight",
+    "pi": 0.009549387992309434,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(ME))",
+    "pi": 0.009549387992309434,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD1(THEM(THEM)) | Straight",
+    "pi": 0.009028734545582562,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(THEM))",
+    "pi": 0.009028734545582553,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(ME))",
+    "pi": 0.008943674032161167,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD1(THEM(ME)) | Straight",
+    "pi": 0.008943674032161142,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "BOXD(THEM(^D)) | Straight",
+    "pi": 0.00271034837456519,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(^D))",
+    "pi": 0.002710348374565188,
+    "label": "R1",
+    "tags": "firm | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 7.23116864132913e-07
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 7.23116864132911e-07
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.5535928674211605e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.553592867421154e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.5535928674211526e-08
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.5535928674211493e-08
+   }
+  ],
+  "exit_R1_per_mass": 1.4773195406689116e-06,
+  "N_exit_R1": 0.014773195406689116,
+  "exit_R1_share_bridge_winner": 0.9819015003318589,
+  "decisive_exit_edges": [
+   {
+    "src": "BOXD(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.14624966648722146
+   },
+   {
+    "src": "BOXD(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.14587945577506964
+   },
+   {
+    "src": "BOXD1(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.14281431830926922
+   },
+   {
+    "src": "BOXD1(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.14224135900795118
+   },
+   {
+    "src": "BOXD(THEM(^D)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.04097899309261231
+   },
+   {
+    "src": "BOXD(THEM(^C)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.040911573316355115
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.4219838297876117e-06,
+  "N_feeder": 0.014219838297876116,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.49999527690039886,
+   "SwSt": 0.49999527690039886,
+   "SwSw": 9.446199202170227e-06
+  },
+  "efficiency": 0.9999905538007977,
+  "time_s": 0.6271438598632812
+ },
+ {
+  "arm": "modal",
+  "game": "hd3",
+  "N": 100,
+  "K": 51,
+  "states": 2601,
+  "cut": 1.3621504147444899e-32,
+  "pi_by_class": {
+   "R1": 0.4999684592017191,
+   "R2": 0.4999684592017188,
+   "crash": 1.7228914229723956e-07,
+   "dove": 6.290930741961956e-05,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 3.3306690738754696e-16,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.44192911880828173,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.44192911880828134,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(THEM))",
+    "pi": 0.009532924007407129,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(THEM)) | Straight",
+    "pi": 0.00953292400740712,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(ME))",
+    "pi": 0.009439581312865382,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(ME)) | Straight",
+    "pi": 0.009439581312865358,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "BOXD1(THEM(THEM)) | Straight",
+    "pi": 0.008936514244029074,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(THEM))",
+    "pi": 0.008936514244029059,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(ME))",
+    "pi": 0.008856181209814674,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD1(THEM(ME)) | Straight",
+    "pi": 0.00885618120981464,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "BOXD(THEM(^D)) | Straight",
+    "pi": 0.0026779053553979996,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(^D))",
+    "pi": 0.0026779053553979996,
+    "label": "R1",
+    "tags": "firm | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 7.062197193761656e-05
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 7.062197193761618e-05
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.5695362129039098e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.569536212903903e-06
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.5692535556723715e-06
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.56925355567236e-06
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 6.180254344163425e-09
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 6.180254344163418e-09
+   },
+   {
+    "src": "crash",
+    "dst": "R2",
+    "flux": 5.897597112629771e-09
+   },
+   {
+    "src": "crash",
+    "dst": "R1",
+    "flux": 5.897597112629771e-09
+   },
+   {
+    "src": "crash",
+    "dst": "dove",
+    "flux": 5.653144630668937e-10
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 3.1744285077844406e-25
+   }
+  ],
+  "exit_R1_per_mass": 0.00014440392072513527,
+  "N_exit_R1": 0.014440392072513528,
+  "exit_R1_share_bridge_winner": 0.9824455771259845,
+  "decisive_exit_edges": [
+   {
+    "src": "BOXD(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.14652909970611466
+   },
+   {
+    "src": "BOXD(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.14603908249261277
+   },
+   {
+    "src": "BOXD1(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.1430198864224331
+   },
+   {
+    "src": "BOXD1(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.14229541666185397
+   },
+   {
+    "src": "BOXD(THEM(^D)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.041022703286231074
+   },
+   {
+    "src": "BOXD(THEM(^C)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.040948391396460615
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 0.00014213382253005247,
+  "N_feeder": 0.014213382253005247,
+  "E_outcome": {
+   "StSt": 1.7228914229723956e-07,
+   "StSw": 0.4999684592017192,
+   "SwSt": 0.4999684592017188,
+   "SwSw": 6.290930741961958e-05
+  },
+  "efficiency": 0.9999997415662865,
+  "time_s": 1.695544719696045,
+  "check_tv_vs_log_gth": 2.3236349297319255e-15
+ },
+ {
+  "arm": "modal",
+  "game": "hd3",
+  "N": 1000,
+  "K": 51,
+  "states": 2601,
+  "cut": 4.033597712051784e-63,
+  "pi_by_class": {
+   "R1": 0.49999079347142883,
+   "R2": 0.4999907934714296,
+   "crash": 0.0,
+   "dove": 1.84130571414681e-05,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": -7.771561172376096e-16,
+  "support": [
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.44200548643290904,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.44200548643290827,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "BOXD(THEM(THEM)) | Straight",
+    "pi": 0.009637003036368025,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(THEM))",
+    "pi": 0.009637003036368007,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(ME)) | Straight",
+    "pi": 0.009538817934533195,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(ME))",
+    "pi": 0.00953881793453317,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD1(THEM(THEM)) | Straight",
+    "pi": 0.009019344198397089,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(THEM))",
+    "pi": 0.009019344198397058,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD1(THEM(ME)) | Straight",
+    "pi": 0.008934971091159535,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(ME))",
+    "pi": 0.00893497109115951,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | BOXD(THEM(^D))",
+    "pi": 0.0027070909852274336,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(^D)) | Straight",
+    "pi": 0.002707090985227431,
+    "label": "R2",
+    "tags": "bridge | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 7.205497294346574e-06
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 7.205497294346564e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.6353894542910332e-07
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.6353894542910248e-07
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.6353894542910232e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.6353894542910224e-07
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 1.4512630870516593e-67
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 1.451263087051657e-67
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 1.6724059454365965e-201
+   }
+  ],
+  "exit_R1_per_mass": 1.4738343857518965e-05,
+  "N_exit_R1": 0.014738343857518965,
+  "exit_R1_share_bridge_winner": 0.98205380367752,
+  "decisive_exit_edges": [
+   {
+    "src": "BOXD(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.14631166666484086
+   },
+   {
+    "src": "BOXD(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.14577717563501788
+   },
+   {
+    "src": "BOXD1(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.14286794513688883
+   },
+   {
+    "src": "BOXD1(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.14209059740269872
+   },
+   {
+    "src": "BOXD(THEM(^D)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.040948475574957593
+   },
+   {
+    "src": "BOXD(THEM(^C)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.04089527758510567
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.4219299696838876e-05,
+  "N_feeder": 0.014219299696838876,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.49999079347142866,
+   "SwSt": 0.49999079347142966,
+   "SwSw": 1.84130571414681e-05
+  },
+  "efficiency": 0.9999999999999999,
+  "time_s": 0.8789350986480713
+ },
+ {
+  "arm": "modal",
+  "game": "hd3",
+  "N": 10000,
+  "K": 51,
+  "states": 2601,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.49999497845228297,
+   "R2": 0.4999949784522829,
+   "crash": 0.0,
+   "dove": 1.0043095434258629e-05,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 5.551115123125783e-17,
+  "support": [
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.44201330147088264,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.44201330147088264,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "BOXD(THEM(THEM)) | Straight",
+    "pi": 0.009647721870470173,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(THEM))",
+    "pi": 0.009647721870470147,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | BOXD(THEM(ME))",
+    "pi": 0.009549021968764797,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(ME)) | Straight",
+    "pi": 0.00954902196876478,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(THEM))",
+    "pi": 0.009027860044482167,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD1(THEM(THEM)) | Straight",
+    "pi": 0.009027860044482151,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "BOXD1(THEM(ME)) | Straight",
+    "pi": 0.00894305737767656,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(ME))",
+    "pi": 0.00894305737767655,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | BOXD(THEM(^D))",
+    "pi": 0.002710096540955407,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(^D)) | Straight",
+    "pi": 0.0027100965409554024,
+    "label": "R2",
+    "tags": "bridge | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 7.220716816566032e-07
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 7.220716816566021e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.64594581851095e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.6459458185109352e-08
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.6459458185109223e-08
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.6459458185109203e-08
+   }
+  ],
+  "exit_R1_per_mass": 1.477077114109843e-06,
+  "N_exit_R1": 0.01477077114109843,
+  "exit_R1_share_bridge_winner": 0.9819537229937212,
+  "decisive_exit_edges": [
+   {
+    "src": "BOXD(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.14626827430990252
+   },
+   {
+    "src": "BOXD(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.14572915205828776
+   },
+   {
+    "src": "BOXD1(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.14283230614019574
+   },
+   {
+    "src": "BOXD1(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.1420495126019141
+   },
+   {
+    "src": "BOXD(THEM(^D)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.04093491844065791
+   },
+   {
+    "src": "BOXD(THEM(^C)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.04088396753345738
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.421988592955822e-06,
+  "N_feeder": 0.01421988592955822,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.49999497845228297,
+   "SwSt": 0.49999497845228297,
+   "SwSw": 1.004309543425863e-05
+  },
+  "efficiency": 1.0000000000000002,
+  "time_s": 0.6457579135894775
+ },
+ {
+  "arm": "modal",
+  "game": "hd6",
+  "N": 100,
+  "K": 51,
+  "states": 2601,
+  "cut": 7.187178927106638e-31,
+  "pi_by_class": {
+   "R1": 0.49996855175950883,
+   "R2": 0.4999685517595083,
+   "crash": 7.896627312232983e-27,
+   "dove": 6.289648098262499e-05,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 5.551115123125783e-16,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4419290812638111,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.4419290812638107,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(THEM))",
+    "pi": 0.009532947680514657,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(THEM)) | Straight",
+    "pi": 0.009532947680514657,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(ME))",
+    "pi": 0.009439603994136877,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(ME)) | Straight",
+    "pi": 0.00943960399413686,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(THEM))",
+    "pi": 0.008936534119292109,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD1(THEM(THEM)) | Straight",
+    "pi": 0.008936534119292086,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "BOXD1(THEM(ME)) | Straight",
+    "pi": 0.008856200154733531,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(ME))",
+    "pi": 0.008856200154733516,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | BOXD(THEM(^D))",
+    "pi": 0.0026779120029094094,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(^D)) | Straight",
+    "pi": 0.0026779120029094094,
+    "label": "R2",
+    "tags": "bridge | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 7.062194737636438e-05
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 7.062194737636414e-05
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.5692487362811096e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.569248736281109e-06
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.5692487362810895e-06
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.5692487362810836e-06
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 8.987083372587182e-28
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 8.98708337258716e-28
+   },
+   {
+    "src": "crash",
+    "dst": "R2",
+    "flux": 8.674494338498345e-28
+   },
+   {
+    "src": "crash",
+    "dst": "R1",
+    "flux": 8.674494338498345e-28
+   },
+   {
+    "src": "crash",
+    "dst": "dove",
+    "flux": 6.251729575674191e-29
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 2.3332857579218715e-44
+   }
+  ],
+  "exit_R1_per_mass": 0.00014439147394088568,
+  "N_exit_R1": 0.014439147394088567,
+  "exit_R1_share_bridge_winner": 0.9825297359257326,
+  "decisive_exit_edges": [
+   {
+    "src": "BOXD(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.14654165491809107
+   },
+   {
+    "src": "BOXD(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.1460515960506078
+   },
+   {
+    "src": "BOXD1(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.1430321404876627
+   },
+   {
+    "src": "BOXD1(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.14230760903300882
+   },
+   {
+    "src": "BOXD(THEM(^D)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.041026218374103605
+   },
+   {
+    "src": "BOXD(THEM(^C)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.04095190001020824
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 0.00014213379530208495,
+  "N_feeder": 0.014213379530208495,
+  "E_outcome": {
+   "StSt": 7.896627312232981e-27,
+   "StSw": 0.49996855175950883,
+   "SwSt": 0.49996855175950833,
+   "SwSw": 6.2896480982625e-05
+  },
+  "efficiency": 0.9999999999999998,
+  "time_s": 1.3120148181915283,
+  "check_tv_vs_log_gth": 5.433642793075817e-15
+ },
+ {
+  "arm": "modal",
+  "game": "hd6",
+  "N": 1000,
+  "K": 51,
+  "states": 2601,
+  "cut": 5.538539051337062e-128,
+  "pi_by_class": {
+   "R1": 0.49999079347142883,
+   "R2": 0.4999907934714296,
+   "crash": 0.0,
+   "dove": 1.84130571414681e-05,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": -7.771561172376096e-16,
+  "support": [
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.44200548643290904,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.44200548643290827,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "BOXD(THEM(THEM)) | Straight",
+    "pi": 0.009637003036368025,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(THEM))",
+    "pi": 0.009637003036368007,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(ME)) | Straight",
+    "pi": 0.009538817934533195,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(ME))",
+    "pi": 0.00953881793453317,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD1(THEM(THEM)) | Straight",
+    "pi": 0.009019344198397089,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(THEM))",
+    "pi": 0.009019344198397058,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD1(THEM(ME)) | Straight",
+    "pi": 0.008934971091159535,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(ME))",
+    "pi": 0.00893497109115951,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | BOXD(THEM(^D))",
+    "pi": 0.0027070909852274336,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(^D)) | Straight",
+    "pi": 0.002707090985227431,
+    "label": "R2",
+    "tags": "bridge | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 7.205497294346574e-06
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 7.205497294346564e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.6353894542910332e-07
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.6353894542910248e-07
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.6353894542910232e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.6353894542910224e-07
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 2.723287248554595e-262
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 2.723287248554584e-262
+   }
+  ],
+  "exit_R1_per_mass": 1.4738343857518965e-05,
+  "N_exit_R1": 0.014738343857518965,
+  "exit_R1_share_bridge_winner": 0.98205380367752,
+  "decisive_exit_edges": [
+   {
+    "src": "BOXD(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.14631166666484086
+   },
+   {
+    "src": "BOXD(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.14577717563501788
+   },
+   {
+    "src": "BOXD1(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.14286794513688883
+   },
+   {
+    "src": "BOXD1(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.14209059740269872
+   },
+   {
+    "src": "BOXD(THEM(^D)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.040948475574957593
+   },
+   {
+    "src": "BOXD(THEM(^C)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.04089527758510567
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.4219299696838876e-05,
+  "N_feeder": 0.014219299696838876,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.49999079347142866,
+   "SwSt": 0.49999079347142966,
+   "SwSw": 1.84130571414681e-05
+  },
+  "efficiency": 0.9999999999999999,
+  "time_s": 0.6673071384429932
+ },
+ {
+  "arm": "modal",
+  "game": "hd6",
+  "N": 10000,
+  "K": 51,
+  "states": 2601,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.49999497845228297,
+   "R2": 0.4999949784522829,
+   "crash": 0.0,
+   "dove": 1.0043095434258629e-05,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 5.551115123125783e-17,
+  "support": [
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.44201330147088264,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.44201330147088264,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "BOXD(THEM(THEM)) | Straight",
+    "pi": 0.009647721870470173,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD(THEM(THEM))",
+    "pi": 0.009647721870470147,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | BOXD(THEM(ME))",
+    "pi": 0.009549021968764797,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(ME)) | Straight",
+    "pi": 0.00954902196876478,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(THEM))",
+    "pi": 0.009027860044482167,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD1(THEM(THEM)) | Straight",
+    "pi": 0.009027860044482151,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "BOXD1(THEM(ME)) | Straight",
+    "pi": 0.00894305737767656,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | BOXD1(THEM(ME))",
+    "pi": 0.00894305737767655,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | BOXD(THEM(^D))",
+    "pi": 0.002710096540955407,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOXD(THEM(^D)) | Straight",
+    "pi": 0.0027100965409554024,
+    "label": "R2",
+    "tags": "bridge | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 7.220716816566032e-07
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 7.220716816566021e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.64594581851095e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.6459458185109352e-08
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.6459458185109223e-08
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.6459458185109203e-08
+   }
+  ],
+  "exit_R1_per_mass": 1.477077114109843e-06,
+  "N_exit_R1": 0.01477077114109843,
+  "exit_R1_share_bridge_winner": 0.9819537229937212,
+  "decisive_exit_edges": [
+   {
+    "src": "BOXD(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.14626827430990252
+   },
+   {
+    "src": "BOXD(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.14572915205828776
+   },
+   {
+    "src": "BOXD1(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.14283230614019574
+   },
+   {
+    "src": "BOXD1(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.1420495126019141
+   },
+   {
+    "src": "BOXD(THEM(^D)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.04093491844065791
+   },
+   {
+    "src": "BOXD(THEM(^C)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.04088396753345738
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.421988592955822e-06,
+  "N_feeder": 0.01421988592955822,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.49999497845228297,
+   "SwSt": 0.49999497845228297,
+   "SwSw": 1.004309543425863e-05
+  },
+  "efficiency": 1.0000000000000002,
+  "time_s": 0.6163928508758545
+ },
+ {
+  "arm": "W0",
+  "game": "chicken",
+  "N": 100,
+  "K": 12,
+  "states": 144,
+  "cut": 4.0958768921444594e-38,
+  "pi_by_class": {
+   "R1": 0.49961464127016314,
+   "R2": 0.49961464127016303,
+   "crash": 0.0,
+   "dove": 0.0007707174596740678,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 1.1102230246251565e-16,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49067170026611395,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49067170026611395,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.003506726627257181,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.003506726627257181,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.003486625506132297,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.0034866255061322933,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.0006450724246634178,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.0006450724246634161,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.0004672634208188052,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.0004672634208188052,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | not(THEM(^Straight))",
+    "pi": 0.0004624444319353281,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^Straight)) | Straight",
+    "pi": 0.0004624444319353277,
+    "label": "R2",
+    "tags": "bridge | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.440759838054319e-06
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.440759838054309e-06
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.0187651390008152e-06
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.018765139000815e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.0187651390008142e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.018765139000813e-06
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 9.677227321782808e-118
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 9.677227321782808e-118
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 3.67705907791983e-133
+   }
+  ],
+  "exit_R1_per_mass": 2.09351850667627e-05,
+  "N_exit_R1": 0.0020935185066762703,
+  "exit_R1_share_bridge_winner": 0.9175121647636939,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.39493427347947235
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.3940406852681853
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.053940427764493024
+   },
+   {
+    "src": "not(THEM(^Straight)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.052944010926899154
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(ME)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 100.0,
+    "N_rho": 25.918177931830645,
+    "share": 0.028330352902104193
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(THEM)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 100.0,
+    "N_rho": 25.918177931830645,
+    "share": 0.02803670848335627
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.9484351583880626e-05,
+  "N_feeder": 0.0019484351583880625,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.49961464127016303,
+   "SwSt": 0.4996146412701631,
+   "SwSw": 0.0007707174596740677
+  },
+  "efficiency": 0.9992292825403261,
+  "time_s": 0.003141164779663086,
+  "check_tv_vs_log_gth": 4.3929461366959954e-16
+ },
+ {
+  "arm": "W0",
+  "game": "chicken",
+  "N": 1000,
+  "K": 12,
+  "states": 144,
+  "cut": 6.661480007631528e-130,
+  "pi_by_class": {
+   "R1": 0.4993567246081769,
+   "R2": 0.49935672460817704,
+   "crash": 0.0,
+   "dove": 0.001286550783646361,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": -1.1102230246251565e-16,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49057621162320114,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49057621162320114,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.003556911629399259,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.003556911629399259,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.003535632635751783,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.003535632635751783,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.0006540140114231555,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.0006540140114231555,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.0005063868820650308,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.0005063868820650298,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "and(THEM(ME),Straight) | and(THEM(ME),Straight)",
+    "pi": 0.0004892494945435105,
+    "label": "dove",
+    "tags": "firm | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Straight))",
+    "pi": 0.000465281972406125,
+    "label": "R1",
+    "tags": "firm | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.66946248606022e-07
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.669462486060219e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.6504350824531175e-07
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.650435082453116e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.650435082453115e-07
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.650435082453113e-07
+   }
+  ],
+  "exit_R1_per_mass": 2.266895990515709e-06,
+  "N_exit_R1": 0.002266895990515709,
+  "exit_R1_share_bridge_winner": 0.8681795995795061,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.3701949518495042
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.36936656702412307
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.050588655260363574
+   },
+   {
+    "src": "not(THEM(^Straight)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.049611002823682755
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(ME)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 1000.0,
+    "N_rho": 259.1817793182821,
+    "share": 0.047045153802128606
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(THEM)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 1000.0,
+    "N_rho": 259.1817793182821,
+    "share": 0.04655753026666228
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.9482343665193783e-06,
+  "N_feeder": 0.0019482343665193783,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.4993567246081769,
+   "SwSt": 0.4993567246081769,
+   "SwSw": 0.001286550783646361
+  },
+  "efficiency": 0.9987134492163539,
+  "time_s": 0.0033850669860839844,
+  "check_tv_vs_log_gth": 8.966551365169022e-16
+ },
+ {
+  "arm": "W0",
+  "game": "chicken",
+  "N": 10000,
+  "K": 12,
+  "states": 144,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.4994253252629623,
+   "R2": 0.4994253252629623,
+   "crash": 0.0,
+   "dove": 0.0011493494740750624,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4905575226828342,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.4905575226828342,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.003564291317649266,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.003564291317649266,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.0035428777768307745,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.0035428777768307745,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.0006556090270371888,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.0006556090270371888,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.0006326454014899289,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.0006326454014899289,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "and(THEM(ME),Straight) | and(THEM(ME),Straight)",
+    "pi": 0.0005279213691051246,
+    "label": "dove",
+    "tags": "firm | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Straight))",
+    "pi": 0.00046564437987792667,
+    "label": "R1",
+    "tags": "firm | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 1.0001215346589425e-07
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 1.0001215346589422e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.775027674160163e-08
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.775027674160162e-08
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.775027674160161e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.7750276741601604e-08
+   }
+  ],
+  "exit_R1_per_mass": 2.357958722767822e-07,
+  "N_exit_R1": 0.002357958722767822,
+  "exit_R1_share_bridge_winner": 0.8627346663786783,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.35626548886137954
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.35546920748524563
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(ME)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 10000.0,
+    "N_rho": 2591.8177931828213,
+    "share": 0.04912541669394896
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.04867955445122028
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(THEM)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 10000.0,
+    "N_rho": 2591.8177931828213,
+    "share": 0.04861623121077861
+   },
+   {
+    "src": "not(THEM(^Straight)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.04774260604274748
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.9481716576809695e-07,
+  "N_feeder": 0.0019481716576809694,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.49942532526296235,
+   "SwSt": 0.4994253252629624,
+   "SwSw": 0.001149349474075062
+  },
+  "efficiency": 0.9988506505259247,
+  "time_s": 0.0027992725372314453,
+  "check_tv_vs_log_gth": 1.8110926341871726e-15
+ },
+ {
+  "arm": "W0",
+  "game": "hd3",
+  "N": 100,
+  "K": 12,
+  "states": 144,
+  "cut": 3.016068566733547e-34,
+  "pi_by_class": {
+   "R1": 0.499606060885497,
+   "R2": 0.499606060885497,
+   "crash": 1.795990674994906e-07,
+   "dove": 0.0007876986299383375,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4906656694717654,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.4906656694717654,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.003497227037425045,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.0034972270374250417,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.003477290480489786,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.003477290480489786,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.0006452356919316623,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.0006452356919316623,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.00046502797790086035,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.00046502797790086035,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "not(THEM(^Straight)) | Straight",
+    "pi": 0.0004612174041604268,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Straight))",
+    "pi": 0.0004612174041604264,
+    "label": "R1",
+    "tags": "firm | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.34270512323265e-06
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.342705123232646e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.0657007284215343e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.065700728421534e-06
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.0655232660112978e-06
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.0655232660112968e-06
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 6.273485096985768e-09
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 6.273485096985768e-09
+   },
+   {
+    "src": "crash",
+    "dst": "R2",
+    "flux": 6.096022686749168e-09
+   },
+   {
+    "src": "crash",
+    "dst": "R1",
+    "flux": 6.096022686749168e-09
+   },
+   {
+    "src": "crash",
+    "dst": "dove",
+    "flux": 3.549248204732191e-10
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 6.163423114502825e-24
+   }
+  ],
+  "exit_R1_per_mass": 2.084542740711025e-05,
+  "N_exit_R1": 0.002084542740711025,
+  "exit_R1_share_bridge_winner": 0.9166061856241826,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.39233246099611413
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.39165486680520456
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.05388301819340209
+   },
+   {
+    "src": "not(THEM(^Straight)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.05277388922089731
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(ME)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 100.0,
+    "N_rho": 25.918177931830645,
+    "share": 0.028453656435379053
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(THEM)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 100.0,
+    "N_rho": 25.918177931830645,
+    "share": 0.028158733974155508
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.9484320686124948e-05,
+  "N_feeder": 0.0019484320686124948,
+  "E_outcome": {
+   "StSt": 1.795990674994906e-07,
+   "StSw": 0.4996060608854969,
+   "SwSt": 0.49960606088549697,
+   "SwSw": 0.0007876986299383375
+  },
+  "efficiency": 0.9999997306013987,
+  "time_s": 0.003926992416381836,
+  "check_tv_vs_log_gth": 9.003989096714816e-16
+ },
+ {
+  "arm": "W0",
+  "game": "hd3",
+  "N": 1000,
+  "K": 12,
+  "states": 144,
+  "cut": 2.52717673675006e-62,
+  "pi_by_class": {
+   "R1": 0.4993408007758833,
+   "R2": 0.49934080077588233,
+   "crash": 0.0,
+   "dove": 0.0013183984482345505,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 9.43689570931383e-16,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4905751522057438,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49057515220574294,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.0035557817260370595,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.0035557817260370565,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.003534526294699394,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.003534526294699394,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.000654303226027234,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.000654303226027234,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.0004915988561042923,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.0004915988561042918,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "and(THEM(ME),Straight) | and(THEM(ME),Straight)",
+    "pi": 0.00048970460024473,
+    "label": "dove",
+    "tags": "firm | firm"
+   },
+   {
+    "state": "not(THEM(^Straight)) | Straight",
+    "pi": 0.00046514080219876093,
+    "label": "R2",
+    "tags": "bridge | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.578518146715693e-07
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.578518146715689e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.6984557323122574e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.6984557323122566e-07
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.698455732312254e-07
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.698455732312254e-07
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 1.4709418296981582e-67
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 1.4709418296981556e-67
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 1.3573817159291556e-199
+   }
+  ],
+  "exit_R1_per_mass": 2.2583722102230806e-06,
+  "N_exit_R1": 0.0022583722102230805,
+  "exit_R1_share_bridge_winner": 0.8677591756455083,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.36923055810616495
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.3686086095937884
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.050749476835841176
+   },
+   {
+    "src": "not(THEM(^Straight)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.04964816579658832
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(ME)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 1000.0,
+    "N_rho": 259.1817793182821,
+    "share": 0.047225507068554176
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(THEM)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 1000.0,
+    "N_rho": 259.1817793182821,
+    "share": 0.046736014169502016
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.948236783265349e-06,
+  "N_feeder": 0.0019482367832653492,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.4993408007758832,
+   "SwSt": 0.4993408007758823,
+   "SwSw": 0.0013183984482345507
+  },
+  "efficiency": 0.9999999999999999,
+  "time_s": 0.0032291412353515625,
+  "check_tv_vs_log_gth": 4.688634978960414e-16
+ },
+ {
+  "arm": "W0",
+  "game": "hd3",
+  "N": 10000,
+  "K": 12,
+  "states": 144,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.49939315295750597,
+   "R2": 0.49939315295750597,
+   "crash": 0.0,
+   "dove": 0.0012136940849883674,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49055733306802063,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49055733306802063,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.0035640338279633913,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.0035640338279633913,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.0035426291500997797,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.0035426291500997797,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.0006559388911543456,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.0006559388911543451,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.000600676999211985,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.0006006769992119845,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "and(THEM(ME),Straight) | and(THEM(ME),Straight)",
+    "pi": 0.0005289090284073467,
+    "label": "dove",
+    "tags": "firm | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Straight))",
+    "pi": 0.0004656016723530674,
+    "label": "R1",
+    "tags": "firm | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.870917389423257e-08
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.870917389423247e-08
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.8238617471594387e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.8238617471594384e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.823861747159438e-08
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.823861747159438e-08
+   }
+  ],
+  "exit_R1_per_mass": 2.3417980537626273e-07,
+  "N_exit_R1": 0.002341798053762627,
+  "exit_R1_share_bridge_winner": 0.8618026908783065,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.3566316935777383
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.3560325766339698
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(ME)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 10000.0,
+    "N_rho": 2591.8177931828213,
+    "share": 0.04947077841670648
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.04901631010341877
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(THEM)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 10000.0,
+    "N_rho": 2591.8177931828213,
+    "share": 0.048958013255489506
+   },
+   {
+    "src": "not(THEM(^Straight)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.04795219762438175
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.948177310735037e-07,
+  "N_feeder": 0.0019481773107350368,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.499393152957506,
+   "SwSt": 0.49939315295750597,
+   "SwSw": 0.0012136940849883674
+  },
+  "efficiency": 1.0000000000000004,
+  "time_s": 0.002807140350341797,
+  "check_tv_vs_log_gth": 9.130563559987943e-16
+ },
+ {
+  "arm": "W0",
+  "game": "hd6",
+  "N": 100,
+  "K": 12,
+  "states": 144,
+  "cut": 3.9958339919161506e-39,
+  "pi_by_class": {
+   "R1": 0.499606155278595,
+   "R2": 0.499606155278595,
+   "crash": 8.162190994441782e-27,
+   "dove": 0.0007876894428099099,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4906657435963844,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.4906657435963844,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.003497236176839576,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.003497236176839576,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.003477299446623454,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.003477299446623454,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.0006452358520211539,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.0006452358520211539,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.0004650291473274315,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.0004650291473274315,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^Straight)) | Straight",
+    "pi": 0.0004612185880719799,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Straight))",
+    "pi": 0.0004612185880719799,
+    "label": "R1",
+    "tags": "firm | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.342704909092895e-06
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.342704909092895e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.0655222326464458e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.0655222326464456e-06
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.0655222326464454e-06
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.0655222326464454e-06
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 9.122655904619145e-28
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 9.122655904619145e-28
+   },
+   {
+    "src": "crash",
+    "dst": "R2",
+    "flux": 8.926369701107226e-28
+   },
+   {
+    "src": "crash",
+    "dst": "R1",
+    "flux": 8.926369701107226e-28
+   },
+   {
+    "src": "crash",
+    "dst": "dove",
+    "flux": 3.9257240702380466e-29
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 4.531213326200471e-43
+   }
+  ],
+  "exit_R1_per_mass": 2.08328641106021e-05,
+  "N_exit_R1": 0.00208328641106021,
+  "exit_R1_share_bridge_winner": 0.9171587524279857,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.39256898544312224
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.39189098231916314
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.053915502294971336
+   },
+   {
+    "src": "not(THEM(^Straight)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.052805704902041
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(ME)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 100.0,
+    "N_rho": 25.918177931830645,
+    "share": 0.02847077797490217
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(THEM)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 100.0,
+    "N_rho": 25.918177931830645,
+    "share": 0.02817567804873357
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.948432001422665e-05,
+  "N_feeder": 0.001948432001422665,
+  "E_outcome": {
+   "StSt": 8.16219099444178e-27,
+   "StSw": 0.499606155278595,
+   "SwSt": 0.4996061552785949,
+   "SwSw": 0.0007876894428099098
+  },
+  "efficiency": 0.9999999999999998,
+  "time_s": 0.004127025604248047,
+  "check_tv_vs_log_gth": 6.949577687806515e-16
+ },
+ {
+  "arm": "W0",
+  "game": "hd6",
+  "N": 1000,
+  "K": 12,
+  "states": 144,
+  "cut": 3.866036254632419e-127,
+  "pi_by_class": {
+   "R1": 0.4993408007758833,
+   "R2": 0.49934080077588233,
+   "crash": 0.0,
+   "dove": 0.0013183984482345505,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 9.43689570931383e-16,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4905751522057438,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49057515220574294,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.0035557817260370595,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.0035557817260370565,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.003534526294699394,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.003534526294699394,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.000654303226027234,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.000654303226027234,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.0004915988561042923,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.0004915988561042918,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "and(THEM(ME),Straight) | and(THEM(ME),Straight)",
+    "pi": 0.00048970460024473,
+    "label": "dove",
+    "tags": "firm | firm"
+   },
+   {
+    "state": "not(THEM(^Straight)) | Straight",
+    "pi": 0.00046514080219876093,
+    "label": "R2",
+    "tags": "bridge | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.578518146715693e-07
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.578518146715689e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.6984557323122574e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.6984557323122566e-07
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.698455732312254e-07
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.698455732312254e-07
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 2.7602143015437845e-262
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 2.76021430154378e-262
+   }
+  ],
+  "exit_R1_per_mass": 2.2583722102230806e-06,
+  "N_exit_R1": 0.0022583722102230805,
+  "exit_R1_share_bridge_winner": 0.8677591756455083,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.36923055810616495
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.3686086095937884
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.050749476835841176
+   },
+   {
+    "src": "not(THEM(^Straight)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.04964816579658832
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(ME)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 1000.0,
+    "N_rho": 259.1817793182821,
+    "share": 0.047225507068554176
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(THEM)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 1000.0,
+    "N_rho": 259.1817793182821,
+    "share": 0.046736014169502016
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.948236783265349e-06,
+  "N_feeder": 0.0019482367832653492,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.4993408007758832,
+   "SwSt": 0.4993408007758823,
+   "SwSw": 0.0013183984482345507
+  },
+  "efficiency": 0.9999999999999999,
+  "time_s": 0.0031287670135498047,
+  "check_tv_vs_log_gth": 4.688634978960414e-16
+ },
+ {
+  "arm": "W0",
+  "game": "hd6",
+  "N": 10000,
+  "K": 12,
+  "states": 144,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.49939315295750597,
+   "R2": 0.49939315295750597,
+   "crash": 0.0,
+   "dove": 0.0012136940849883674,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49055733306802063,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49055733306802063,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(THEM(THEM)) | Straight",
+    "pi": 0.0035640338279633913,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(THEM))",
+    "pi": 0.0035640338279633913,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(THEM(ME)) | Straight",
+    "pi": 0.0035426291500997797,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(ME))",
+    "pi": 0.0035426291500997797,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "or(THEM(ME),Swerve) | Straight",
+    "pi": 0.0006559388911543456,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | or(THEM(ME),Swerve)",
+    "pi": 0.0006559388911543451,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "not(THEM(^Swerve)) | Straight",
+    "pi": 0.000600676999211985,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Swerve))",
+    "pi": 0.0006006769992119845,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "and(THEM(ME),Straight) | and(THEM(ME),Straight)",
+    "pi": 0.0005289090284073467,
+    "label": "dove",
+    "tags": "firm | firm"
+   },
+   {
+    "state": "Straight | not(THEM(^Straight))",
+    "pi": 0.0004656016723530674,
+    "label": "R1",
+    "tags": "firm | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.870917389423257e-08
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.870917389423247e-08
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 1.8238617471594387e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 1.8238617471594384e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 1.823861747159438e-08
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 1.823861747159438e-08
+   }
+  ],
+  "exit_R1_per_mass": 2.3417980537626273e-07,
+  "N_exit_R1": 0.002341798053762627,
+  "exit_R1_share_bridge_winner": 0.8618026908783065,
+  "decisive_exit_edges": [
+   {
+    "src": "not(THEM(THEM)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.3566316935777383
+   },
+   {
+    "src": "not(THEM(ME)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.3560325766339698
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(ME)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 10000.0,
+    "N_rho": 2591.8177931828213,
+    "share": 0.04947077841670648
+   },
+   {
+    "src": "not(THEM(^Swerve)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.04901631010341877
+   },
+   {
+    "src": "and(THEM(ME),Straight) | Swerve",
+    "to": "dove",
+    "mutant": "THEM(THEM)",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 10000.0,
+    "N_rho": 2591.8177931828213,
+    "share": 0.048958013255489506
+   },
+   {
+    "src": "not(THEM(^Straight)) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.04795219762438175
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.948177310735037e-07,
+  "N_feeder": 0.0019481773107350368,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.499393152957506,
+   "SwSt": 0.49939315295750597,
+   "SwSw": 0.0012136940849883674
+  },
+  "efficiency": 1.0000000000000004,
+  "time_s": 0.002805948257446289,
+  "check_tv_vs_log_gth": 9.130563559987943e-16
+ },
+ {
+  "arm": "M0",
+  "game": "chicken",
+  "N": 100,
+  "K": 8,
+  "states": 64,
+  "cut": 4.524854655391791e-38,
+  "pi_by_class": {
+   "R1": 0.49999178887312673,
+   "R2": 0.49999178887312595,
+   "crash": 0.0,
+   "dove": 1.6422253747556194e-05,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 7.771561172376096e-16,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4922361627476339,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49223616274763304,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Straight",
+    "pi": 0.0037485700259351044,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(ME)))",
+    "pi": 0.0037485700259351044,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Straight",
+    "pi": 0.0034630013895502296,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(THEM)))",
+    "pi": 0.0034630013895502296,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(^C)))",
+    "pi": 0.0004709011715042648,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(^C))) | Straight",
+    "pi": 0.0004709011715042648,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Swerve",
+    "pi": 3.174339284564801e-05,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   },
+   {
+    "state": "Swerve | not(BOX(THEM(ME)))",
+    "pi": 3.174339284564801e-05,
+    "label": "R2",
+    "tags": "swerver | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Swerve",
+    "pi": 2.8898408247160514e-05,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   },
+   {
+    "state": "Swerve | not(BOX(THEM(THEM)))",
+    "pi": 2.8898408247160514e-05,
+    "label": "R2",
+    "tags": "swerver | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.555168687754069e-06
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.555168687754067e-06
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 5.920991050233335e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 5.920991050233333e-07
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 5.920991050233328e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 5.920991050233325e-07
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 9.684736527303882e-118
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 9.684736527303866e-118
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 5.385895380596327e-135
+   }
+  ],
+  "exit_R1_per_mass": 2.029486887304119e-05,
+  "N_exit_R1": 0.0020294868873041187,
+  "exit_R1_share_bridge_winner": 0.9448657777645066,
+  "decisive_exit_edges": [
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.45357224550605124
+   },
+   {
+    "src": "not(BOX(THEM(THEM))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.41292107570070957
+   },
+   {
+    "src": "not(BOX(THEM(^C))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.056049803664813456
+   },
+   {
+    "src": "BOX(THEM(ME)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 100.0,
+    "N_rho": 25.918177931830645,
+    "share": 0.03826149344578514
+   },
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "BOX(THEM(ME))",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 300.0,
+    "N_rho": 59.34303402594009,
+    "share": 0.013713201151251367
+   },
+   {
+    "src": "BOX(THEM(^D)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 100.0,
+    "N_rho": 25.918177931830645,
+    "share": 0.005293261380671284
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.9482455602126248e-05,
+  "N_feeder": 0.0019482455602126247,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.49999178887312673,
+   "SwSt": 0.49999178887312595,
+   "SwSw": 1.6422253747556197e-05
+  },
+  "efficiency": 0.9999835777462527,
+  "time_s": 0.0014672279357910156,
+  "check_tv_vs_log_gth": 8.794006478734116e-16
+ },
+ {
+  "arm": "M0",
+  "game": "chicken",
+  "N": 1000,
+  "K": 8,
+  "states": 64,
+  "cut": 4.947741167440086e-134,
+  "pi_by_class": {
+   "R1": 0.4999965895064733,
+   "R2": 0.49999658950647324,
+   "crash": 0.0,
+   "dove": 6.8209870534182004e-06,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 5.551115123125783e-17,
+  "support": [
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.4922579340197266,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4922579340197266,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Straight",
+    "pi": 0.003768538093868767,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(ME)))",
+    "pi": 0.003768538093868767,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Straight",
+    "pi": 0.0034882211789992045,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(THEM)))",
+    "pi": 0.0034882211789992045,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(^C))) | Straight",
+    "pi": 0.0004744462596351822,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(^C)))",
+    "pi": 0.0004744462596351822,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOX(THEM(ME)) | BOX(THEM(ME))",
+    "pi": 5.00856759323661e-06,
+    "label": "dove",
+    "tags": "matcher | matcher"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Swerve",
+    "pi": 3.220671183751055e-06,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   },
+   {
+    "state": "Swerve | not(BOX(THEM(ME)))",
+    "pi": 3.220671183751055e-06,
+    "label": "R2",
+    "tags": "swerver | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Swerve",
+    "pi": 2.9334583112560407e-06,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.697057921695502e-07
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.697057921695492e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 6.177370853087056e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 6.177370853087056e-08
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 6.177370853087056e-08
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 6.177370853087056e-08
+   }
+  ],
+  "exit_R1_per_mass": 2.0629730729134633e-06,
+  "N_exit_R1": 0.0020629730729134635,
+  "exit_R1_share_bridge_winner": 0.9433214270157423,
+  "decisive_exit_edges": [
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.45271828530139185
+   },
+   {
+    "src": "not(BOX(THEM(THEM))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.41234579406154087
+   },
+   {
+    "src": "not(BOX(THEM(^C))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.055975079911551914
+   },
+   {
+    "src": "BOX(THEM(ME)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 1000.0,
+    "N_rho": 259.1817793182821,
+    "share": 0.03922704642019618
+   },
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "BOX(THEM(ME))",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 3000.0,
+    "N_rho": 593.4303402594009,
+    "share": 0.013687382710688293
+   },
+   {
+    "src": "BOX(THEM(^D)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 1000.0,
+    "N_rho": 259.1817793182821,
+    "share": 0.005433751340390766
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.9483130232140926e-06,
+  "N_feeder": 0.0019483130232140927,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.4999965895064733,
+   "SwSt": 0.49999658950647335,
+   "SwSw": 6.820987053418199e-06
+  },
+  "efficiency": 0.9999931790129466,
+  "time_s": 0.0012750625610351562,
+  "check_tv_vs_log_gth": 8.704182201764942e-16
+ },
+ {
+  "arm": "M0",
+  "game": "chicken",
+  "N": 10000,
+  "K": 8,
+  "states": 64,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.4999973711185134,
+   "R2": 0.49999737111851345,
+   "crash": 0.0,
+   "dove": 5.2577629733483865e-06,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": -5.551115123125783e-17,
+  "support": [
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49226048317391397,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49226048317391397,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Straight",
+    "pi": 0.0037705491566953574,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(ME)))",
+    "pi": 0.0037705491566953574,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Straight",
+    "pi": 0.003490785192953041,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(THEM)))",
+    "pi": 0.003490785192953041,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(^C))) | Straight",
+    "pi": 0.0004748070106104869,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(^C)))",
+    "pi": 0.0004748070106104869,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOX(THEM(ME)) | BOX(THEM(ME))",
+    "pi": 5.010797592120275e-06,
+    "label": "dove",
+    "tags": "matcher | matcher"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Swerve",
+    "pi": 3.225381216372574e-07,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   },
+   {
+    "state": "Swerve | not(BOX(THEM(ME)))",
+    "pi": 3.225381216372568e-07,
+    "label": "R2",
+    "tags": "swerver | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Swerve",
+    "pi": 2.9378947323971406e-07,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.711486129243855e-08
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.71148612924384e-08
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 6.21740052703579e-09
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 6.217400527035789e-09
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 6.217400527035789e-09
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 6.2174005270357885e-09
+   }
+  ],
+  "exit_R1_per_mass": 2.0666561023774203e-07,
+  "N_exit_R1": 0.0020666561023774204,
+  "exit_R1_share_bridge_winner": 0.9430397744200384,
+  "decisive_exit_edges": [
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.4525716720802339
+   },
+   {
+    "src": "not(BOX(THEM(THEM))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.4122328004787072
+   },
+   {
+    "src": "not(BOX(THEM(^C))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.05596008329631705
+   },
+   {
+    "src": "BOX(THEM(ME)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 10000.0,
+    "N_rho": 2591.8177931828213,
+    "share": 0.03932175406375022
+   },
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "BOX(THEM(ME))",
+    "role": 2,
+    "Delta": 3.0,
+    "N_Delta": 30000.0,
+    "N_rho": 5934.303402594009,
+    "share": 0.01368295003956899
+   },
+   {
+    "src": "BOX(THEM(^D)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 10000.0,
+    "N_rho": 2591.8177931828213,
+    "share": 0.0054475886583234875
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.948320066857514e-07,
+  "N_feeder": 0.001948320066857514,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.4999973711185134,
+   "SwSt": 0.4999973711185134,
+   "SwSw": 5.257762973348387e-06
+  },
+  "efficiency": 0.9999947422370268,
+  "time_s": 0.0011429786682128906,
+  "check_tv_vs_log_gth": 1.2751293475338536e-16
+ },
+ {
+  "arm": "M0",
+  "game": "hd3",
+  "N": 100,
+  "K": 8,
+  "states": 64,
+  "cut": 2.0093025892441614e-33,
+  "pi_by_class": {
+   "R1": 0.49998785627517023,
+   "R2": 0.49998785627517034,
+   "crash": 1.797707321733903e-07,
+   "dove": 2.4107678926921455e-05,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": -1.1102230246251565e-16,
+  "support": [
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.4922316056646234,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4922316056646234,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Straight",
+    "pi": 0.0037394821176447673,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(ME)))",
+    "pi": 0.0037394821176447673,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Straight",
+    "pi": 0.0034541263998923784,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(THEM)))",
+    "pi": 0.0034541263998923784,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(^C)))",
+    "pi": 0.0004696863204629361,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(^C))) | Straight",
+    "pi": 0.0004696863204629361,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Swerve",
+    "pi": 4.1498475145749394e-05,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   },
+   {
+    "state": "Swerve | not(BOX(THEM(ME)))",
+    "pi": 4.1498475145749394e-05,
+    "label": "R2",
+    "tags": "swerver | bridge"
+   },
+   {
+    "state": "Swerve | not(BOX(THEM(THEM)))",
+    "pi": 3.777151963648742e-05,
+    "label": "R2",
+    "tags": "swerver | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Swerve",
+    "pi": 3.777151963648742e-05,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.496321613876908e-06
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.496321613876908e-06
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 6.004857170016497e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 6.004857170016489e-07
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 6.003089619715372e-07
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 6.003089619715369e-07
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 6.278412190801731e-09
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 6.278412190801731e-09
+   },
+   {
+    "src": "crash",
+    "dst": "R2",
+    "flux": 6.101657160689791e-09
+   },
+   {
+    "src": "crash",
+    "dst": "R1",
+    "flux": 6.101657160689791e-09
+   },
+   {
+    "src": "crash",
+    "dst": "dove",
+    "flux": 3.5351006022389195e-10
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 1.1830593456574855e-25
+   }
+  ],
+  "exit_R1_per_mass": 2.020630873578472e-05,
+  "N_exit_R1": 0.002020630873578472,
+  "exit_R1_share_bridge_winner": 0.9442078786207767,
+  "decisive_exit_edges": [
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.4528100862729551
+   },
+   {
+    "src": "not(BOX(THEM(THEM))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.4121434584087446
+   },
+   {
+    "src": "not(BOX(THEM(^C))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.05594285681688934
+   },
+   {
+    "src": "BOX(THEM(ME)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 100.0,
+    "N_rho": 25.918177931830645,
+    "share": 0.038303645767113745
+   },
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "BOX(THEM(ME))",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.013690158200594042
+   },
+   {
+    "src": "BOX(THEM(^D)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 100.0,
+    "N_rho": 25.918177931830645,
+    "share": 0.005299089335641138
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.948242847074435e-05,
+  "N_feeder": 0.0019482428470744349,
+  "E_outcome": {
+   "StSt": 1.7977073217339027e-07,
+   "StSw": 0.4999878562751703,
+   "SwSt": 0.4999878562751704,
+   "SwSw": 2.4107678926921455e-05
+  },
+  "efficiency": 0.9999997303439015,
+  "time_s": 0.0015769004821777344,
+  "check_tv_vs_log_gth": 4.722980396776456e-16
+ },
+ {
+  "arm": "M0",
+  "game": "hd3",
+  "N": 1000,
+  "K": 8,
+  "states": 64,
+  "cut": 2.9566026161479565e-62,
+  "pi_by_class": {
+   "R1": 0.4999960829017533,
+   "R2": 0.49999608290175324,
+   "crash": 0.0,
+   "dove": 7.834196493329886e-06,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 5.551115123125783e-17,
+  "support": [
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.4922573600647101,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4922573600647101,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Straight",
+    "pi": 0.0037676310392755585,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(ME)))",
+    "pi": 0.0037676310392755585,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Straight",
+    "pi": 0.003487275210332677,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(THEM)))",
+    "pi": 0.003487275210332677,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(^C))) | Straight",
+    "pi": 0.0004743157988533533,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(^C)))",
+    "pi": 0.0004743157988533533,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOX(THEM(ME)) | BOX(THEM(ME))",
+    "pi": 5.017995984737292e-06,
+    "label": "dove",
+    "tags": "matcher | matcher"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Swerve",
+    "pi": 4.229344148335686e-06,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   },
+   {
+    "state": "Swerve | not(BOX(THEM(ME)))",
+    "pi": 4.229344148335686e-06,
+    "label": "R2",
+    "tags": "swerver | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Swerve",
+    "pi": 3.851973231687384e-06,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.681388866222862e-07
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.681388866222862e-07
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 6.27603640275042e-08
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 6.276036402750419e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 6.276036402750418e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 6.276036402750415e-08
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 1.4728776230987265e-67
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 1.4728776230987265e-67
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 7.09171148361901e-202
+   }
+  ],
+  "exit_R1_per_mass": 2.0618146539607132e-06,
+  "N_exit_R1": 0.002061814653960713,
+  "exit_R1_share_bridge_winner": 0.9433648299768256,
+  "decisive_exit_edges": [
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.45225897668393533
+   },
+   {
+    "src": "not(BOX(THEM(THEM))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.4119053477032337
+   },
+   {
+    "src": "not(BOX(THEM(^C))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.05591492240046159
+   },
+   {
+    "src": "BOX(THEM(ME)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 1000.0,
+    "N_rho": 259.1817793182821,
+    "share": 0.03923638680946699
+   },
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "BOX(THEM(ME))",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.013673496077359012
+   },
+   {
+    "src": "BOX(THEM(^D)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 1000.0,
+    "N_rho": 259.1817793182821,
+    "share": 0.005435044291304335
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.9483127256136097e-06,
+  "N_feeder": 0.0019483127256136096,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.4999960829017533,
+   "SwSt": 0.4999960829017533,
+   "SwSw": 7.834196493329884e-06
+  },
+  "efficiency": 1.0,
+  "time_s": 0.0013308525085449219,
+  "check_tv_vs_log_gth": 9.089875248768756e-16
+ },
+ {
+  "arm": "M0",
+  "game": "hd3",
+  "N": 10000,
+  "K": 8,
+  "states": 64,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.49999728590381864,
+   "R2": 0.49999728590381853,
+   "crash": 0.0,
+   "dove": 5.4281923626044e-06,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 1.1102230246251565e-16,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49226039374560304,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49226039374560304,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(ME)))",
+    "pi": 0.0037704882821712766,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Straight",
+    "pi": 0.0037704882821712766,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(THEM)))",
+    "pi": 0.0034906622730946496,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Straight",
+    "pi": 0.0034906622730946496,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(^C)))",
+    "pi": 0.00047478916124030055,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(^C))) | Straight",
+    "pi": 0.00047478916124030055,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "BOX(THEM(ME)) | BOX(THEM(ME))",
+    "pi": 5.01278666039158e-06,
+    "label": "dove",
+    "tags": "matcher | matcher"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Swerve",
+    "pi": 4.2374653503022594e-07,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   },
+   {
+    "state": "Swerve | not(BOX(THEM(ME)))",
+    "pi": 4.237465350302252e-07,
+    "label": "R2",
+    "tags": "swerver | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Swerve",
+    "pi": 3.8596221080101785e-07,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.70030172356324e-08
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.700301723563222e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 6.320768879638297e-09
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 6.3207688796382965e-09
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 6.320768879638288e-09
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 6.3207688796382874e-09
+   }
+  ],
+  "exit_R1_per_mass": 2.0664869395940368e-07,
+  "N_exit_R1": 0.002066486939594037,
+  "exit_R1_share_bridge_winner": 0.9430682631303519,
+  "decisive_exit_edges": [
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.4521018062424071
+   },
+   {
+    "src": "not(BOX(THEM(THEM))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.41178911971989607
+   },
+   {
+    "src": "not(BOX(THEM(^C))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.055899592911030804
+   },
+   {
+    "src": "BOX(THEM(ME)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 10000.0,
+    "N_rho": 2591.8177931828213,
+    "share": 0.03932412701734423
+   },
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "BOX(THEM(ME))",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.013668744221615934
+   },
+   {
+    "src": "BOX(THEM(^D)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 10000.0,
+    "N_rho": 2591.8177931828213,
+    "share": 0.0054479173546110125
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.9483200449615261e-07,
+  "N_feeder": 0.0019483200449615262,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.4999972859038186,
+   "SwSt": 0.4999972859038186,
+   "SwSw": 5.428192362604401e-06
+  },
+  "efficiency": 0.9999999999999998,
+  "time_s": 0.0010340213775634766,
+  "check_tv_vs_log_gth": 4.4363650217584964e-16
+ },
+ {
+  "arm": "M0",
+  "game": "hd6",
+  "N": 100,
+  "K": 8,
+  "states": 64,
+  "cut": 8.758534053283559e-41,
+  "pi_by_class": {
+   "R1": 0.49998794996642165,
+   "R2": 0.49998794996642165,
+   "crash": 8.169609178299456e-27,
+   "dove": 2.4100067156610652e-05,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49223167977835647,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49223167977835647,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(ME)))",
+    "pi": 0.0037394912820902714,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Straight",
+    "pi": 0.0037394912820902684,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Straight",
+    "pi": 0.00345413554982712,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(THEM)))",
+    "pi": 0.003454135549827117,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(^C)))",
+    "pi": 0.0004696875760068283,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(^C))) | Straight",
+    "pi": 0.0004696875760068283,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Swerve",
+    "pi": 4.149847536444155e-05,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   },
+   {
+    "state": "Swerve | not(BOX(THEM(ME)))",
+    "pi": 4.149847536444155e-05,
+    "label": "R2",
+    "tags": "swerver | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Swerve",
+    "pi": 3.777151993739619e-05,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   },
+   {
+    "state": "Swerve | not(BOX(THEM(THEM)))",
+    "pi": 3.777151993739619e-05,
+    "label": "R2",
+    "tags": "swerver | bridge"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.496321677376358e-06
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.496321677376358e-06
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 6.003094271897101e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 6.003094271897096e-07
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 6.003094271897094e-07
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 6.00309427189709e-07
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 9.12982067673231e-28
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 9.12982067673231e-28
+   },
+   {
+    "src": "crash",
+    "dst": "R2",
+    "flux": 8.934462213026801e-28
+   },
+   {
+    "src": "crash",
+    "dst": "R1",
+    "flux": 8.934462213026801e-28
+   },
+   {
+    "src": "crash",
+    "dst": "dove",
+    "flux": 3.9071692741106435e-29
+   },
+   {
+    "src": "dove",
+    "dst": "crash",
+    "flux": 8.694802634839066e-45
+   }
+  ],
+  "exit_R1_per_mass": 2.0193748879836284e-05,
+  "N_exit_R1": 0.0020193748879836285,
+  "exit_R1_share_bridge_winner": 0.9447949726968619,
+  "decisive_exit_edges": [
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.4530916369244343
+   },
+   {
+    "src": "not(BOX(THEM(THEM))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.41239972426126875
+   },
+   {
+    "src": "not(BOX(THEM(^C))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.055977641431665365
+   },
+   {
+    "src": "BOX(THEM(ME)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 100.0,
+    "N_rho": 25.918177931830645,
+    "share": 0.03832751224955057
+   },
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "BOX(THEM(ME))",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 200.0,
+    "N_rho": 45.11883639059736,
+    "share": 0.013698670539601233
+   },
+   {
+    "src": "BOX(THEM(^D)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 100.0,
+    "N_rho": 25.918177931830645,
+    "share": 0.0053023911187855865
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.9482427753396337e-05,
+  "N_feeder": 0.0019482427753396336,
+  "E_outcome": {
+   "StSt": 8.169609178299456e-27,
+   "StSw": 0.49998794996642165,
+   "SwSt": 0.4999879499664217,
+   "SwSw": 2.4100067156610652e-05
+  },
+  "efficiency": 1.0,
+  "time_s": 0.0014312267303466797,
+  "check_tv_vs_log_gth": 4.582681257288418e-16
+ },
+ {
+  "arm": "M0",
+  "game": "hd6",
+  "N": 1000,
+  "K": 8,
+  "states": 64,
+  "cut": 4.51582304689975e-127,
+  "pi_by_class": {
+   "R1": 0.4999960829017533,
+   "R2": 0.49999608290175324,
+   "crash": 0.0,
+   "dove": 7.834196493329886e-06,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 5.551115123125783e-17,
+  "support": [
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.4922573600647101,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.4922573600647101,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Straight",
+    "pi": 0.0037676310392755585,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(ME)))",
+    "pi": 0.0037676310392755585,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Straight",
+    "pi": 0.003487275210332677,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(THEM)))",
+    "pi": 0.003487275210332677,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(^C))) | Straight",
+    "pi": 0.0004743157988533533,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(^C)))",
+    "pi": 0.0004743157988533533,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "BOX(THEM(ME)) | BOX(THEM(ME))",
+    "pi": 5.017995984737292e-06,
+    "label": "dove",
+    "tags": "matcher | matcher"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Swerve",
+    "pi": 4.229344148335686e-06,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   },
+   {
+    "state": "Swerve | not(BOX(THEM(ME)))",
+    "pi": 4.229344148335686e-06,
+    "label": "R2",
+    "tags": "swerver | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Swerve",
+    "pi": 3.851973231687384e-06,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.681388866222862e-07
+   },
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.681388866222862e-07
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 6.27603640275042e-08
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 6.276036402750419e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 6.276036402750418e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 6.276036402750415e-08
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 2.763846807276575e-262
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 2.763846807276575e-262
+   }
+  ],
+  "exit_R1_per_mass": 2.0618146539607132e-06,
+  "N_exit_R1": 0.002061814653960713,
+  "exit_R1_share_bridge_winner": 0.9433648299768256,
+  "decisive_exit_edges": [
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.45225897668393533
+   },
+   {
+    "src": "not(BOX(THEM(THEM))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.4119053477032337
+   },
+   {
+    "src": "not(BOX(THEM(^C))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.05591492240046159
+   },
+   {
+    "src": "BOX(THEM(ME)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 1000.0,
+    "N_rho": 259.1817793182821,
+    "share": 0.03923638680946699
+   },
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "BOX(THEM(ME))",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 2000.0,
+    "N_rho": 451.1883639059736,
+    "share": 0.013673496077359012
+   },
+   {
+    "src": "BOX(THEM(^D)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 1000.0,
+    "N_rho": 259.1817793182821,
+    "share": 0.005435044291304335
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.9483127256136097e-06,
+  "N_feeder": 0.0019483127256136096,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.4999960829017533,
+   "SwSt": 0.4999960829017533,
+   "SwSw": 7.834196493329884e-06
+  },
+  "efficiency": 1.0,
+  "time_s": 0.0012159347534179688,
+  "check_tv_vs_log_gth": 9.089875248768756e-16
+ },
+ {
+  "arm": "M0",
+  "game": "hd6",
+  "N": 10000,
+  "K": 8,
+  "states": 64,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.49999728590381864,
+   "R2": 0.49999728590381853,
+   "crash": 0.0,
+   "dove": 5.4281923626044e-06,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 1.1102230246251565e-16,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49226039374560304,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49226039374560304,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(ME)))",
+    "pi": 0.0037704882821712766,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Straight",
+    "pi": 0.0037704882821712766,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(THEM)))",
+    "pi": 0.0034906622730946496,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Straight",
+    "pi": 0.0034906622730946496,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "Straight | not(BOX(THEM(^C)))",
+    "pi": 0.00047478916124030055,
+    "label": "R1",
+    "tags": "firm | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(^C))) | Straight",
+    "pi": 0.00047478916124030055,
+    "label": "R2",
+    "tags": "bridge | firm"
+   },
+   {
+    "state": "BOX(THEM(ME)) | BOX(THEM(ME))",
+    "pi": 5.01278666039158e-06,
+    "label": "dove",
+    "tags": "matcher | matcher"
+   },
+   {
+    "state": "not(BOX(THEM(ME))) | Swerve",
+    "pi": 4.2374653503022594e-07,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   },
+   {
+    "state": "Swerve | not(BOX(THEM(ME)))",
+    "pi": 4.237465350302252e-07,
+    "label": "R2",
+    "tags": "swerver | bridge"
+   },
+   {
+    "state": "not(BOX(THEM(THEM))) | Swerve",
+    "pi": 3.8596221080101785e-07,
+    "label": "R1",
+    "tags": "bridge | swerver"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "R2",
+    "flux": 9.70030172356324e-08
+   },
+   {
+    "src": "R2",
+    "dst": "R1",
+    "flux": 9.700301723563222e-08
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 6.320768879638297e-09
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 6.3207688796382965e-09
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 6.320768879638288e-09
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 6.3207688796382874e-09
+   }
+  ],
+  "exit_R1_per_mass": 2.0664869395940368e-07,
+  "N_exit_R1": 0.002066486939594037,
+  "exit_R1_share_bridge_winner": 0.9430682631303519,
+  "decisive_exit_edges": [
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.4521018062424071
+   },
+   {
+    "src": "not(BOX(THEM(THEM))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.41178911971989607
+   },
+   {
+    "src": "not(BOX(THEM(^C))) | Swerve",
+    "to": "R2",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.055899592911030804
+   },
+   {
+    "src": "BOX(THEM(ME)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 10000.0,
+    "N_rho": 2591.8177931828213,
+    "share": 0.03932412701734423
+   },
+   {
+    "src": "not(BOX(THEM(ME))) | Swerve",
+    "to": "R2",
+    "mutant": "BOX(THEM(ME))",
+    "role": 2,
+    "Delta": 2.0,
+    "N_Delta": 20000.0,
+    "N_rho": 4511.883639059735,
+    "share": 0.013668744221615934
+   },
+   {
+    "src": "BOX(THEM(^D)) | not(BOX(THEM(ME)))",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 2,
+    "Delta": 1.0,
+    "N_Delta": 10000.0,
+    "N_rho": 2591.8177931828213,
+    "share": 0.0054479173546110125
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 1.9483200449615261e-07,
+  "N_feeder": 0.0019483200449615262,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.4999972859038186,
+   "SwSt": 0.4999972859038186,
+   "SwSw": 5.428192362604401e-06
+  },
+  "efficiency": 0.9999999999999998,
+  "time_s": 0.0010192394256591797,
+  "check_tv_vs_log_gth": 4.4363650217584964e-16
+ },
+ {
+  "arm": "const",
+  "game": "chicken",
+  "N": 100,
+  "K": 2,
+  "states": 4,
+  "cut": 5.303655378882667e-91,
+  "pi_by_class": {
+   "R1": 0.5,
+   "R2": 0.5,
+   "crash": 0.0,
+   "dove": 7.977701443265579e-27,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.5,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.5,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Swerve | Swerve",
+    "pi": 7.977701443265579e-27,
+    "label": "dove",
+    "tags": "swerver | swerver"
+   },
+   {
+    "state": "Straight | Straight",
+    "pi": 0.0,
+    "label": "crash",
+    "tags": "firm | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 8.998615154793333e-28
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 8.998615154793333e-28
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 8.9986151547933e-28
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 8.9986151547933e-28
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 9.545110733643016e-118
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 9.545110733643016e-118
+   }
+  ],
+  "exit_R1_per_mass": 1.7997230309586666e-27,
+  "N_exit_R1": 1.7997230309586666e-25,
+  "exit_R1_share_bridge_winner": 0.0,
+  "decisive_exit_edges": [
+   {
+    "src": "Straight | Swerve",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 1,
+    "Delta": -2.0,
+    "N_Delta": -200.0,
+    "N_rho": 7.198892123834642e-25,
+    "share": 1.0
+   },
+   {
+    "src": "Straight | Swerve",
+    "to": "crash",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": -9.0,
+    "N_Delta": -900.0,
+    "N_rho": 7.636088586914441e-115,
+    "share": 1.0607310757765408e-90
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 0.0,
+  "N_feeder": 0.0,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.5,
+   "SwSt": 0.5,
+   "SwSw": 7.977701443265579e-27
+  },
+  "efficiency": 1.0,
+  "time_s": 0.0003199577331542969,
+  "check_tv_vs_log_gth": 2.7981127735637947e-41
+ },
+ {
+  "arm": "const",
+  "game": "chicken",
+  "N": 1000,
+  "K": 2,
+  "states": 4,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.5,
+   "R2": 0.5,
+   "crash": 0.0,
+   "dove": 2.414668693859865e-261,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.5,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.5,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Swerve | Swerve",
+    "pi": 2.414668693859865e-261,
+    "label": "dove",
+    "tags": "swerver | swerver"
+   },
+   {
+    "state": "Straight | Straight",
+    "pi": 0.0,
+    "label": "crash",
+    "tags": "firm | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 2.7236760433940166e-262
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 2.7236760433940166e-262
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 2.72367604339391e-262
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 2.72367604339391e-262
+   }
+  ],
+  "exit_R1_per_mass": 5.44735208678782e-262,
+  "N_exit_R1": 5.44735208678782e-259,
+  "exit_R1_share_bridge_winner": 0.0,
+  "decisive_exit_edges": [
+   {
+    "src": "Straight | Swerve",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 1,
+    "Delta": -2.0,
+    "N_Delta": -2000.0,
+    "N_rho": 2.1789408347151363e-258,
+    "share": 1.0
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 0.0,
+  "N_feeder": 0.0,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.5,
+   "SwSt": 0.5,
+   "SwSw": 2.414668693859865e-261
+  },
+  "efficiency": 1.0,
+  "time_s": 0.00028514862060546875,
+  "check_tv_vs_log_gth": 0.0
+ },
+ {
+  "arm": "const",
+  "game": "chicken",
+  "N": 10000,
+  "K": 2,
+  "states": 4,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.5,
+   "R2": 0.5,
+   "crash": 0.0,
+   "dove": 0.0,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.5,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.5,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Straight",
+    "pi": 0.0,
+    "label": "crash",
+    "tags": "firm | firm"
+   },
+   {
+    "state": "Swerve | Swerve",
+    "pi": 0.0,
+    "label": "dove",
+    "tags": "swerver | swerver"
+   }
+  ],
+  "flux": [],
+  "exit_R1_per_mass": 0.0,
+  "N_exit_R1": 0.0,
+  "exit_R1_share_bridge_winner": null,
+  "decisive_exit_edges": [],
+  "feeder_into_bridge_winner_per_mass": 0.0,
+  "N_feeder": 0.0,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.5,
+   "SwSt": 0.5,
+   "SwSw": 0.0
+  },
+  "efficiency": 1.0,
+  "time_s": 0.0002200603485107422,
+  "check_tv_vs_log_gth": 0.0
+ },
+ {
+  "arm": "const",
+  "game": "hd3",
+  "N": 100,
+  "K": 2,
+  "states": 4,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.49999991114803644,
+   "R2": 0.49999991114803644,
+   "crash": 1.7770386386585205e-07,
+   "dove": 6.315733768901313e-14,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49999991114803644,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49999991114803644,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Straight",
+    "pi": 1.7770386386585205e-07,
+    "label": "crash",
+    "tags": "firm | firm"
+   },
+   {
+    "state": "Swerve | Swerve",
+    "pi": 6.315733768901313e-14,
+    "label": "dove",
+    "tags": "swerver | swerver"
+   }
+  ],
+  "flux": [
+   {
+    "src": "crash",
+    "dst": "R2",
+    "flux": 6.188184591720171e-09
+   },
+   {
+    "src": "crash",
+    "dst": "R1",
+    "flux": 6.188184591720171e-09
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 6.188184591720161e-09
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 6.188184591720161e-09
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 4.0923077898113905e-15
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 4.0923077898113905e-15
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 4.09230778981139e-15
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 4.09230778981139e-15
+   }
+  ],
+  "exit_R1_per_mass": 1.2376379567387155e-08,
+  "N_exit_R1": 1.2376379567387155e-06,
+  "exit_R1_share_bridge_winner": 0.0,
+  "decisive_exit_edges": [
+   {
+    "src": "Straight | Swerve",
+    "to": "crash",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": -0.5,
+    "N_Delta": -50.0,
+    "N_rho": 4.950548553108049e-06,
+    "share": 0.9999993386905283
+   },
+   {
+    "src": "Straight | Swerve",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 1,
+    "Delta": -1.0,
+    "N_Delta": -100.0,
+    "N_rho": 3.2738468136245484e-12,
+    "share": 6.613094717641461e-07
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 0.0,
+  "N_feeder": 0.0,
+  "E_outcome": {
+   "StSt": 1.7770386386585205e-07,
+   "StSw": 0.49999991114803644,
+   "SwSt": 0.49999991114803644,
+   "SwSw": 6.315733768901313e-14
+  },
+  "efficiency": 0.9999997334442041,
+  "time_s": 0.0002598762512207031,
+  "check_tv_vs_log_gth": 1.1102262009998447e-16
+ },
+ {
+  "arm": "const",
+  "game": "hd3",
+  "N": 1000,
+  "K": 2,
+  "states": 4,
+  "cut": 7.755684084824245e-66,
+  "pi_by_class": {
+   "R1": 0.5,
+   "R2": 0.5,
+   "crash": 4.1681360982420107e-66,
+   "dove": 0.0,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.5,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.5,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Straight",
+    "pi": 4.1681360982420107e-66,
+    "label": "crash",
+    "tags": "firm | firm"
+   },
+   {
+    "state": "Swerve | Swerve",
+    "pi": 0.0,
+    "label": "dove",
+    "tags": "swerver | swerver"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 1.4514702791497441e-67
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 1.4514702791497441e-67
+   },
+   {
+    "src": "crash",
+    "dst": "R2",
+    "flux": 1.4514702791497343e-67
+   },
+   {
+    "src": "crash",
+    "dst": "R1",
+    "flux": 1.4514702791497343e-67
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 2.251428988719415e-132
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 2.251428988719415e-132
+   }
+  ],
+  "exit_R1_per_mass": 2.9029405582994883e-67,
+  "N_exit_R1": 2.902940558299488e-64,
+  "exit_R1_share_bridge_winner": 0.0,
+  "decisive_exit_edges": [
+   {
+    "src": "Straight | Swerve",
+    "to": "crash",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": -0.5,
+    "N_Delta": -500.0,
+    "N_rho": 1.1611762233197997e-63,
+    "share": 1.0
+   },
+   {
+    "src": "Straight | Swerve",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 1,
+    "Delta": -1.0,
+    "N_Delta": -1000.0,
+    "N_rho": 1.8011431909755389e-128,
+    "share": 1.551136816964849e-65
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 0.0,
+  "N_feeder": 0.0,
+  "E_outcome": {
+   "StSt": 4.1681360982420107e-66,
+   "StSw": 0.5,
+   "SwSt": 0.5,
+   "SwSw": 0.0
+  },
+  "efficiency": 1.0,
+  "time_s": 0.00024080276489257812,
+  "check_tv_vs_log_gth": 1.7373358533468166e-131
+ },
+ {
+  "arm": "const",
+  "game": "hd3",
+  "N": 10000,
+  "K": 2,
+  "states": 4,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.5,
+   "R2": 0.5,
+   "crash": 0.0,
+   "dove": 0.0,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.5,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.5,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Straight",
+    "pi": 0.0,
+    "label": "crash",
+    "tags": "firm | firm"
+   },
+   {
+    "state": "Swerve | Swerve",
+    "pi": 0.0,
+    "label": "dove",
+    "tags": "swerver | swerver"
+   }
+  ],
+  "flux": [],
+  "exit_R1_per_mass": 0.0,
+  "N_exit_R1": 0.0,
+  "exit_R1_share_bridge_winner": null,
+  "decisive_exit_edges": [],
+  "feeder_into_bridge_winner_per_mass": 0.0,
+  "N_feeder": 0.0,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.5,
+   "SwSt": 0.5,
+   "SwSw": 0.0
+  },
+  "efficiency": 1.0,
+  "time_s": 0.00019884109497070312,
+  "check_tv_vs_log_gth": 0.0
+ },
+ {
+  "arm": "const",
+  "game": "hd6",
+  "N": 100,
+  "K": 2,
+  "states": 4,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.49999999999996847,
+   "R2": 0.49999999999996847,
+   "crash": 7.977701443265125e-27,
+   "dove": 6.31573489123182e-14,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.49999999999996847,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.49999999999996847,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Swerve | Swerve",
+    "pi": 6.31573489123182e-14,
+    "label": "dove",
+    "tags": "swerver | swerver"
+   },
+   {
+    "state": "Straight | Straight",
+    "pi": 7.977701443265125e-27,
+    "label": "crash",
+    "tags": "firm | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 4.092308517030434e-15
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 4.092308517030434e-15
+   },
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 4.092308517030427e-15
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 4.092308517030427e-15
+   },
+   {
+    "src": "crash",
+    "dst": "R2",
+    "flux": 8.998615154792788e-28
+   },
+   {
+    "src": "crash",
+    "dst": "R1",
+    "flux": 8.998615154792788e-28
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 8.998615154792766e-28
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 8.998615154792766e-28
+   }
+  ],
+  "exit_R1_per_mass": 8.18461703406317e-15,
+  "N_exit_R1": 8.184617034063169e-13,
+  "exit_R1_share_bridge_winner": 0.0,
+  "decisive_exit_edges": [
+   {
+    "src": "Straight | Swerve",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 1,
+    "Delta": -1.0,
+    "N_Delta": -100.0,
+    "N_rho": 3.2738468136245484e-12,
+    "share": 0.9999999999997801
+   },
+   {
+    "src": "Straight | Swerve",
+    "to": "crash",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": -2.0,
+    "N_Delta": -200.0,
+    "N_rho": 7.198892123834642e-25,
+    "share": 2.1989092751297767e-13
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 0.0,
+  "N_feeder": 0.0,
+  "E_outcome": {
+   "StSt": 7.977701443265125e-27,
+   "StSw": 0.49999999999996847,
+   "SwSt": 0.49999999999996847,
+   "SwSw": 6.31573489123182e-14
+  },
+  "efficiency": 1.0,
+  "time_s": 0.0002410411834716797,
+  "check_tv_vs_log_gth": 1.135959703518257e-28
+ },
+ {
+  "arm": "const",
+  "game": "hd6",
+  "N": 1000,
+  "K": 2,
+  "states": 4,
+  "cut": 6.048771817900202e-131,
+  "pi_by_class": {
+   "R1": 0.5,
+   "R2": 0.5,
+   "crash": 0.0,
+   "dove": 3.474671706693633e-131,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.5,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.5,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Swerve | Swerve",
+    "pi": 3.474671706693633e-131,
+    "label": "dove",
+    "tags": "swerver | swerver"
+   },
+   {
+    "state": "Straight | Straight",
+    "pi": 0.0,
+    "label": "crash",
+    "tags": "firm | firm"
+   }
+  ],
+  "flux": [
+   {
+    "src": "R1",
+    "dst": "dove",
+    "flux": 2.251428988719415e-132
+   },
+   {
+    "src": "R2",
+    "dst": "dove",
+    "flux": 2.251428988719415e-132
+   },
+   {
+    "src": "dove",
+    "dst": "R1",
+    "flux": 2.2514289887193703e-132
+   },
+   {
+    "src": "dove",
+    "dst": "R2",
+    "flux": 2.2514289887193703e-132
+   },
+   {
+    "src": "R1",
+    "dst": "crash",
+    "flux": 2.72367604339391e-262
+   },
+   {
+    "src": "R2",
+    "dst": "crash",
+    "flux": 2.72367604339391e-262
+   }
+  ],
+  "exit_R1_per_mass": 4.50285797743883e-132,
+  "N_exit_R1": 4.50285797743883e-129,
+  "exit_R1_share_bridge_winner": 0.0,
+  "decisive_exit_edges": [
+   {
+    "src": "Straight | Swerve",
+    "to": "dove",
+    "mutant": "Swerve",
+    "role": 1,
+    "Delta": -1.0,
+    "N_Delta": -1000.0,
+    "N_rho": 1.8011431909755389e-128,
+    "share": 1.0
+   },
+   {
+    "src": "Straight | Swerve",
+    "to": "crash",
+    "mutant": "Straight",
+    "role": 2,
+    "Delta": -2.0,
+    "N_Delta": -2000.0,
+    "N_rho": 2.1789408347151363e-258,
+    "share": 1.2097543635800404e-130
+   }
+  ],
+  "feeder_into_bridge_winner_per_mass": 0.0,
+  "N_feeder": 0.0,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.5,
+   "SwSt": 0.5,
+   "SwSw": 3.474671706693633e-131
+  },
+  "efficiency": 1.0,
+  "time_s": 0.0002300739288330078,
+  "check_tv_vs_log_gth": 1.2073343469299326e-261
+ },
+ {
+  "arm": "const",
+  "game": "hd6",
+  "N": 10000,
+  "K": 2,
+  "states": 4,
+  "cut": 0.0,
+  "pi_by_class": {
+   "R1": 0.5,
+   "R2": 0.5,
+   "crash": 0.0,
+   "dove": 0.0,
+   "mixed": 0.0
+  },
+  "asym_R1_minus_R2": 0.0,
+  "support": [
+   {
+    "state": "Straight | Swerve",
+    "pi": 0.5,
+    "label": "R1",
+    "tags": "firm | swerver"
+   },
+   {
+    "state": "Swerve | Straight",
+    "pi": 0.5,
+    "label": "R2",
+    "tags": "swerver | firm"
+   },
+   {
+    "state": "Straight | Straight",
+    "pi": 0.0,
+    "label": "crash",
+    "tags": "firm | firm"
+   },
+   {
+    "state": "Swerve | Swerve",
+    "pi": 0.0,
+    "label": "dove",
+    "tags": "swerver | swerver"
+   }
+  ],
+  "flux": [],
+  "exit_R1_per_mass": 0.0,
+  "N_exit_R1": 0.0,
+  "exit_R1_share_bridge_winner": null,
+  "decisive_exit_edges": [],
+  "feeder_into_bridge_winner_per_mass": 0.0,
+  "N_feeder": 0.0,
+  "E_outcome": {
+   "StSt": 0.0,
+   "StSw": 0.5,
+   "SwSt": 0.5,
+   "SwSw": 0.0
+  },
+  "efficiency": 1.0,
+  "time_s": 0.00025272369384765625,
+  "check_tv_vs_log_gth": 0.0
+ }
+]
