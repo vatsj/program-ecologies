@@ -1066,7 +1066,11 @@ def chain_cell(job):
     lab = st.label()
     keep = np.arange(A.shape[0])
     dropped = []
-    if label == 'noclosed':
+    if label.startswith('top'):
+        # reduced-support diagnostic (deviation, after the full-catalogue chain did not finish): the 500 heaviest
+        # classes under L plus every identity clique
+        keep = np.array(sorted(set(np.argsort(-mu)[:(1500 if label.startswith('topL') else 500)].tolist()) | set(np.nonzero(lab == 'identity')[0].tolist())))
+    if label.endswith('noclosed'):
         while True:
             lt = leak_test(A[np.ix_(keep, keep)])
             cl = sorted({int(keep[i]) for c in lt['closed'] for i in c})

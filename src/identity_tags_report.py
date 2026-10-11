@@ -351,6 +351,12 @@ def md(js, cells):
     if ch:
         w('## 4. The ε→0 chain (diagnostic)')
         w('')
+        w('*Deviation:* the full 3,974-class chain (θ = 10⁻⁸, ≤ 4,000 explored states, `FastChain`) did not finish a single cell in '
+          '90 minutes on 3 workers and was stopped (pool children killed by pid, then the driver); it is reported as not run. The cells below '
+          'run on a **reduced support**: `topL` = the 1,500 heaviest classes under L plus all 322 identity cliques (1,818 classes), `top` = the 500 '
+          'heaviest plus the identity cliques (821), with the no-clique control removing the closed leak components (exactly the identity cliques). '
+          'θ = 10⁻⁸, ≤ 4,000 states, twin drift on. Reduced support is a different object (rare classes cannot enter); it is a diagnostic only.')
+        w('')
         w('| label | N | P(C,C) | π(all-D) | π by label | top states (π, labels) | states | cut/flow | s |')
         w('|---|---|---|---|---|---|---|---|---|')
         for r in sorted(ch, key=lambda r: (r['label'], r['N'])):
@@ -374,7 +380,7 @@ def chain_summary(ch):
 def verdicts(js, cells):
     """The verdict table (scored by the conventions of the predictions file and its endpoint revision)."""
     ch = chain_summary(js.get('chain') or [])
-    m10 = ch.get(('main', 10000)); n3 = ch.get(('noclosed', 1000)); n4 = ch.get(('noclosed', 10000))
+    m10 = ch.get(('topL', 10000)); n3 = ch.get(('topLnoclosed', 1000)); n4 = ch.get(('topLnoclosed', 10000))
     c7 = ('**held**: top state at N = 10⁴ `%s` (π %.3f, labels %s); π on identity cliques %.3f' % (m10['top'], m10['top_pi'], m10['top_labels'], m10['pi_identity'])
           if m10 and m10['top_labels'] and all(l == 'identity' for l in m10['top_labels']) else
           ('**failed**: top state `%s` (%s)' % (m10['top'], m10['top_labels']) if m10 else 'not run'))
@@ -406,7 +412,7 @@ def verdicts(js, cells):
         ('RE 6', '(200, 64) and (100, 256) within 0.15 of (100, 64); separation hazard falling in N; resolution hazard rising in I',
          '**held as worded, vacuously** (universal 0/40 in all three; falsifier not fired); P(ever separated) = 1 in every cell so the per-pair hazard is saturated; the resolution clause **failed** '
          '(resolution events 4 at (100, 64), 0 at (100, 256), 0 at (200, 64)); N = 200 freezes the patchwork; I = 256 absorbs clique islands slowly (identity share 0.36 → 0.17) without resolving a run'),
-        ('RE 7', 'chain absorbed by the eq-clique or TwinD at N = 10⁴', c7),
+        ('RE 7', 'chain absorbed by the eq-clique or TwinD at N = 10⁴', c7 + ' (reduced support: the 1,500 heaviest classes plus all 322 identity cliques, 1,818 classes; the full 3,974-class chain did not finish in 90 min and is not run; the 500-class support gives the same top state)'),
         ('S1', 'hand table by whole plays', '**held** (196/196)'),
         ('S2', 'Lemma T′/R: 0 mismatches on ≥ 2,000 pairs', '**held** (0/4,946; every n ≤ 4 pair and 1,500+ at n ≤ 5 in the tests)'),
         ('S3', '≤ 1% of milestone-2 lists change', '**held** (0/12,546)'),
@@ -423,7 +429,9 @@ def verdicts(js, cells):
         ('S12', '(200, 64) within 0.15; (100, 256) lower by ≥ 0.1', 'first clause **held** (0 = 0); second **failed, number** (0 = 0; falsifier "higher" not fired)'),
         ('S13', 'U universal-open ≥ 0.4, clique wins ≤ 0.1; ablations within 0.2 of L', '**failed** (U 0/40, identity cliques hold 0.73 of islands, clique wins 0; tags-only 18/40 and ⌜CB⌝-only 22/40 against L 0/40); falsifier (clique wins > 0.2) not fired'),
         ('S14', 'chain absorbed by identity cliques, top EQ; no-clique control: open top state, P(C,C) [0.4, 0.95], slope [0.3, 0.7]',
-         (c7 + '; ' + ctrl) if m10 else 'not run'),
+         ('absorption clause **held** (top state EQ, π on identity cliques 1.000 at 10³ and 10⁴ on both supports); control: P(C,C) and slope clauses **held** (%s; '
+          'the 500-class support gives 0.264 / 0.474, slope 0.40, top state an open carrier), the "open top state" clause **failed** on the larger support, '
+          'where the top states are the exclusive club and its order twin (π 0.31 at 10⁴; exits neutral into `if(CHK(them,⌜CB⌝,D),C,D)`-type shadows)' % ctrl) if m10 else 'not run'),
     ]
     return rows
 
@@ -438,6 +446,22 @@ if __name__ == '__main__':
     for a_, b_, c_ in verdicts(js, cells):
         lines.append('| %s | %s | %s |' % (a_, b_, c_))
     lines.append('')
+    lines += ['## 7. Reading', '',
+              '- **The pooling argument fails at establishment.** An identity clique turns a seeded copy into 2–4 times as many islands as an '
+              'open carrier in every cell (0.47 against 0.14 under L), because against the iid seed it plays like D (seed payoff 0.001; CB −0.44) '
+              'while cooperating with its copies, and it is drift-closed once it holds an island. Each spelling nucleates and colonizes on its own: '
+              'ten mutually incompatible eq spellings at M/10 convert copies into islands at the rate one identity at M does (0.197 against 0.204) and '
+              'hold as many islands (0.78 against 0.82 at 2,000); pooling shows only as slow absorption by the largest clique afterwards (0.91 against 0.72 at 10,000).',
+              '- **With one-node identity, universality fails in the seed lottery too.** L: 0/40 universal at 2,000 (3/40 at 10,000), identity '
+              'cliques hold 0.41 of islands, every island efficient (E3 40/40, island P(C,C) 0.95). Without `eq` (tags-only, ⌜CB⌝-only ablations, identity mass '
+              '5·10⁻⁴) 18–22/40 are universal (26–30 by 10,000); deleting the identity cliques from L gives 24/40 (30). Removing the unconditional '
+              'cooperators does not rescue universality (1/40; 5/40), so the shadows are not the whole mechanism.',
+              '- **Established mass predicts winners; raw seeded counts do not** (113/115 against 13/115 decided runs).',
+              '- **Clubs:** the tag club at mass M is eaten by marked defectors within ~100 generations (extinct 39/40), so the marked-carrier bridge is '
+              'never tested; the exclusive club at mass M takes 0.73 → 0.91 of islands (prudent and S-guarded), bridge-less but winning by majority '
+              '(open family lost in 9/40 runs by 10,000).',
+              '- **Finite size:** at N = 200 the patchwork is frozen between 2,000 and 10,000; at I = 256 clique islands are absorbed slowly (0.36 → 0.17) '
+              'with no run finishing. The chain (reduced support) is absorbed by the identity cliques, top state EQ, as in milestone 2.', '']
     extra = os.path.join(OUT, 'report_tail.md')
     if os.path.exists(extra):
         lines += open(extra).read().split('\n')
