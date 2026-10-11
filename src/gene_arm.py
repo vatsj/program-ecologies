@@ -626,7 +626,9 @@ def gene_moves(G, Tbl, arm, b, x, y):
     j0 = int(J[b, x, y]); t = (int(G.tag[x]), int(G.tag[y]))
     u0 = PAY[j0, t[0], t[1]]
     res = []
-    bset = set(arm['bsel'].tolist()); wset = set(arm['wsel'].tolist())
+    if '_bset' not in arm:
+        arm['_bset'] = set(arm['bsel'].tolist()); arm['_wset'] = set(arm['wsel'].tolist())
+    bset = arm['_bset']; wset = arm['_wset']
     for g in range(NBG):
         if not arm['gb'][g]: continue
         m = G.add_gene_b(b, g)

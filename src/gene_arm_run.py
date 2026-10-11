@@ -203,12 +203,23 @@ def analyse_cell(ch, G, A, Tbl, top=12):
         e = state_exits(ch, int(codes[k]))
         e.update(state=unit_state_name(ch, int(codes[k])), pi=float(pi[k]), summary=U.SUMM[sm[k]])
         out['transitions'].append(e)
+    out['execution'] = execution_stats(G, A, Tbl, ch, reps, pi, js, t1, t2)
     # proof device on the top states (pi >= 0.01)
-    big = [s for s in sup if s['pi'] >= 0.01]
-    out['device'] = dict(top_states=len(big), strict_gene_unstable=sum(not s['gene_stable'] for s in big),
-                         pareto_dominated=sum(s['pareto_dominated'] for s in big),
-                         dominated_and_stable=[s['state'] for s in big if s['pareto_dominated'] and s['gene_stable']],
-                         nash=sum(s['nash'] for s in big))
+    dv = dict(stable=0.0, weak=0.0, dominated=0.0, dominated_stable=0.0, dominated_weak=0.0, nash=0.0, nash_stable=0.0, covered=0.0)
+    ex_dom = []
+    for k in order[:out['support_size_99']][:3000]:
+        b, x, y = reps[k]
+        pb, px, py = int(ch.Un['repB'][b]), int(ch.Un['repW'][x]), int(ch.Un['repW'][y])
+        j = int(js[k]); u = GA.PAY[j, int(t1[k]), int(t2[k])]
+        gs = GA.gene_stable(G, Tbl, A, pb, px, py)[0]; gw = GA.gene_stable(G, Tbl, A, pb, px, py, weak=True)[0]
+        dm = GA.pareto_dominated(u); nh = GA.is_nash(j, int(t1[k]), int(t2[k]))
+        p = pi[k]; dv['covered'] += p
+        dv['stable'] += p * gs; dv['weak'] += p * gw; dv['dominated'] += p * dm; dv['dominated_stable'] += p * (dm and gs)
+        dv['dominated_weak'] += p * (dm and gw); dv['nash'] += p * nh; dv['nash_stable'] += p * (nh and gs)
+        if dm and gs and len(ex_dom) < 5:
+            ex_dom.append(dict(pi=float(p), state=state_name(G, pb, px, py), play=U.joint_name(j)))
+    dv['dominated_stable_examples'] = ex_dom
+    out['device'] = {k: (float(v) if not isinstance(v, list) else v) for k, v in dv.items()}
     # cut diagnostic: leaving flow by source summary
     src, dst, pr, out_t = ch.rows(codes, codes, ch.lpi, 0.0, mode=1)[:4]
     cutf = np.zeros(7)
@@ -224,6 +235,50 @@ def analyse_cell(ch, G, A, Tbl, top=12):
         Cf = float(cutf[0])
         out['fair_cut_corrected'] = float(out['summary']['fair'] * E / (E + Cf)) if E + Cf > 0 else None
         out['fair_explored_exit'] = E; out['fair_cut_exit'] = Cf
+    return out
+
+
+def execution_stats(G, A, Tbl, ch, reps, pi, js, t1, t2):
+    """on-path execution of threat-type genes and base commitments over the explored chain (notes §1.16)."""
+    acc = {k: dict(carrier=0.0, executed=0.0, cost=0.0, pay_c=0.0, pay_n=0.0, mass_n=0.0) for k in ('whack', 'quorum strike', 'costly strike')}
+    for k, (b, x, y) in enumerate(reps):
+        pb, px, py = int(ch.Un['repB'][b]), int(ch.Un['repW'][x]), int(ch.Un['repW'][y])
+        j = int(js[k]); bi = j // 4; si, h = bi // 3, bi % 3; a = ((j // 2) % 2, j % 2); tg = (int(t1[k]), int(t2[k]))
+        u = GA.PAY[j, tg[0], tg[1]]; p = pi[k]
+        # whack (boss)
+        car = G.bh[pb] in (0, 2) or any(G.bov[pb, i] in (3, 5) for i in range(G.bng[pb]))
+        nwh = sum(int((h == 0 and a[i]) or (h == 2 and tg[i])) for i in range(2))
+        r = acc['whack']
+        if car:
+            r['carrier'] += p; r['pay_c'] += p * u[0]
+            if nwh:
+                r['executed'] += p; r['cost'] += p * GA.C_WHACK * nwh
+        else:
+            r['mass_n'] += p; r['pay_n'] += p * u[0]
+        for i, xx in ((0, px), (1, py)):
+            other = a[1 - i]
+            for key in ('quorum strike', 'costly strike'):
+                r = acc[key]
+                if key == 'quorum strike':
+                    car = G.wq[xx] == 1 or any(G.wtr[xx, q] == 7 and G.wov[xx, q] == 1 for q in range(G.wng[xx]))
+                    ex = a[i] == 1 and other == 1 and si <= 1
+                    cost = U.WAGES[si] + (1.0 if (h == 0 or (h == 2 and tg[i])) else 0.0)
+                else:
+                    car = G.wt[xx] >= 1 or any(G.wov[xx, q] == 1 for q in range(G.wng[xx]))
+                    ex = a[i] == 1 and si >= 1
+                    cost = U.WAGES[si] + (1.0 if (h == 0 or (h == 2 and tg[i])) else 0.0)
+                if car:
+                    r['carrier'] += 0.5 * p; r['pay_c'] += 0.5 * p * u[1 + i]
+                    if ex:
+                        r['executed'] += 0.5 * p; r['cost'] += 0.5 * p * cost
+                else:
+                    r['mass_n'] += 0.5 * p; r['pay_n'] += 0.5 * p * u[1 + i]
+    out = {}
+    for key, r in acc.items():
+        out[key] = dict(carrier_mass=r['carrier'], execution_rate=(r['executed'] / r['carrier']) if r['carrier'] > 0 else None,
+                        executed_mass=r['executed'], cost_per_execution=(r['cost'] / r['executed']) if r['executed'] > 0 else None,
+                        carrier_mean_payoff=(r['pay_c'] / r['carrier']) if r['carrier'] > 0 else None,
+                        noncarrier_mean_payoff=(r['pay_n'] / r['mass_n']) if r['mass_n'] > 0 else None)
     return out
 
 
@@ -668,12 +723,19 @@ def _lottery_job(args):
     fin = stats[ci - 1]
     lab = [int(np.argmax(fin[i, :7])) for i in range(I)]
     nlb = LB.shape[0]
+    gl = chk[:ci].astype(float); wts = np.diff(np.concatenate([[0.0], gl]))
+    st = stats[:ci]
+    pos_str = sum(n * st[:, :, 7 + 3 * si + n] for si in (1, 2) for n in (1, 2))
+    zero_str = sum(n * st[:, :, 7 + n] for n in (1, 2))
+    tavg = lambda arr: float((arr.mean(1) * wts).sum() / wts.sum())
+    trajectory = dict(whacks_per_encounter=tavg(st[:, :, 23]), strikes_pos_wage_per_encounter=tavg(pos_str),
+                      strikes_zero_wage_per_encounter=tavg(zero_str), first100_whacks=float(st[:100, :, 23].mean()))
     maj = Counter(state_name(G, int(rb[int(np.argmax(counts[i, 0]))]), int(rw[int(np.argmax(counts[i, 1]))]), int(rw[int(np.argmax(counts[i, 2]))])) for i in range(I))
     return dict(run=r, seed=int(seed), status=int(status), stop_gen=int(stop), first_fair=[int(v) for v in ff],
                 fair_final=[int(v) for v in fnow], label=lab, label_counts=dict(Counter(U.SUMM[k] for k in lab)),
                 strike_whacker_share_final=float(fin[:, 27].mean()), probe_share_final=float(fin[:, 28].mean()),
                 whacker_ts={str(g): float(ts[g][:, 1].mean()) for g in (0, 10, 25, 50, 100, 500, 1000) if g < ts.shape[0]},
-                majority=maj.most_common(3), wall=time.time() - t0)
+                majority=maj.most_common(3), trajectory=trajectory, wall=time.time() - t0)
 
 
 # ------------------------------------------------------------------ coalition kernel
