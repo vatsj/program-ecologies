@@ -393,3 +393,62 @@ under CC execution because their bases carry the committed strikes; under any ex
 (RR), F is gene-unstable (§1.9). **The fair wage needs a credible strike to make zero wage inefficient, and no strike
 at a positive wage is credible in this game** (work − strike = s + L[h = strike] ≥ 0): Pareto restriction alone
 cannot pick fair over zero wage, because the zero-wage play is Pareto-efficient.
+
+### 1.14 Code validation of §1 (before any counted cell)
+
+Code: `src/gene_arm.py`, `src/gene_arm_run.py`; `tests/test_gene_arm.py` (11 tests, passing). Outputs:
+`runs/gene_arm/guard.json`, `runs/gene_arm/static.json`, `runs/gene_arm/filter_cap1.json`.
+*Disclosure:* one debugging run of the base-CC uniform cell at N = 10³ was made while writing the chain wrapper,
+before this section; its file was deleted and the cell is re-run with the panel.
+
+- **Evaluator.** The flag evaluator equals an independent history-based trace on 600 random encounters (CC and RR);
+  every named play of §1.9 is reproduced (F, F_u, I, F\* at (½, W, W) under CC; F\* at (¼, W, W) under RR; the RR
+  witness `(BOX(W1 = work), wage ¼)` on F's boss gives (¼, W, W) and leaves CC at (½, W, W); the Z_D₀ worker gene
+  gives (½, W, W)).
+- **Counts:** as §1.3 (8 / 27 / 4 bases; 16 / 48 / 4 genes; 2,056 / 62,235 / 68 programs at cap 2; 136 / 1,323 / 20
+  at cap 1).
+- **Scale guard (fires).** At cap 2 the boss slot has ≥ 23,206 behavioural classes (fingerprints against 600 sampled
+  worker pairs) and the worker slot ≥ 571: every SOG arm exceeds 3,000, so **the SOG cells run at cap 1, reported as
+  a different experiment from the spec's ≤ 2-gene arm**. Chicken runs at cap 2. Class counts at cap 1 (boss / worker;
+  refined (class × base) units in brackets): G-all 706 / 80 [931 / 99], G-all-RC 112 / 57, G-cred 125 / 50,
+  G-cred-ctl 7 / 38, G-cred-whole 38 / 48, G-asym 482 / 80, G-recip 77 / 36, random 134 / 55, base-CC 21 / 8,
+  base-RC 7 / 8, base-RR 6 / 6.
+- **Filter (§1.7) confirmed exactly:** admitted are the 8 worker genes with override work and the 8 boss genes with
+  override whack none; every strike, whack-strike, whack-source and wage gene fails non-vacuously; no vacuous
+  admission. The heaviest failing witnesses differ from the hand witnesses (they are prior-weighted): whack
+  `(0, none, 0)+w_1` vs (striker, scab); quorum `(0, strike, 0)` vs (scab+q, striker) (−1 vs 0); probe concession
+  `(0, none, 0)+π` vs (striker, scab) (½ against 1 at s″ = 0). The hand witnesses also fail (tests). The worker
+  verdicts are identical in slot W2 (test). *Admitted-only* iteration: converged at the frozen verdicts (no change).
+  *Random removal* (seed 20261011): 8 worker and 8 boss genes kept at random.
+- **Encoding invariance (§1.8) confirmed:** q on a scab ≡ the union base and π on (0, none, 0) ≡ D₀ in every encounter
+  (CC and RR; tags equal); `w_1` on (0, none, 0) differs from (0, strike, 0) on 0.50 of reference encounter mass under
+  CC and 0 under RR.
+- **Named states (§1.9) confirmed, with one hand error:** S (and the zero-wage split) is **not** gene-stable under
+  G-cred-whole: the boss's `(BOX(W1 = work), wage ¼)` makes the rational constant striker work at w0 (¼ > 0), the
+  trigger stays true, play (¼, W, W), boss 1.5 > 0. The hand table said "stable"; it forgot that under RR a committed
+  striker is rationalized at every positive wage. Everything else as tabled; Z_w plays (0, none, W, W) under RR.
+- **Global scan of gene-stable program triples (cap 1, strict / weak):**
+  - G-cred-whole: 6.47·10⁶ stable triples, **none Pareto-dominated and none at the fair wage** (0: 0.40·10⁶, ¼:
+    6.08·10⁶); 5.6·10⁶ Nash triples are gene-unstable.
+  - G-cred and G-recip: **every Nash triple is gene-stable** (Nash-not-stable = 0: the admitted genes are work and
+    whack none, which cannot improve anyone at a zero-wage play), while 0.44·10⁶ / 0.16·10⁶ stable triples are not
+    Nash (fair and ¼ plays held by committed bases).
+  - **G-recip has gene-stable Pareto-dominated triples** (45,014 strict, 0.16 of prior mass; heaviest
+    (0, source, 0) | striker | striker; the leaving genes are reciprocal work genes, neutral for their carriers), and
+    12,740 *weakly* gene-stable dominated triples (prior mass 4·10⁻⁴), e.g. (0, none, 0) | striker |
+    striker+(BOX(OTHER = strike), work): the only Pareto improvement needs both workers to change, and no single
+    reciprocal gene makes W1 work while W2 keeps working (W1+(BOX(OTHER = strike), work) works at w0, both boxes die,
+    both strike). So RE 8's static falsifier and S14's falsifier fire before any chain; the chain clauses remain.
+  - G-all, G-asym: 0.76·10⁶ / 0.66·10⁶ strict-stable dominated triples; the weak version leaves 0.23·10⁶ / 0.20·10⁶.
+- **SG on hand states:** at Z_D₀ the targeted W1 proposals are `(BOX(s=0), strike)` and `(BOX(s≤¼), strike)`
+  (strict, +½) and `(BOX(OTHER = work), work)` (conservative); the boss's are conservative `wage 0` genes; at F under
+  G-cred-whole the boss's targeted proposals are the four strict `wage ¼` cuts (+½).
+- **Lumping:** GChain with the prior kernel reproduces `union_chain.UChain` exactly on the base-CC cell (same explored
+  set, max |Δπ| < 10⁻¹⁰); the refined units carry identical local mutants for every member (test).
+- **Seeds (deviation):** the chain is seeded with the named states and every *strict-NE* class triple (the
+  concessions / solver-audit convention), not "every class triple with no strict exit" (§1.12), which is ~10⁵–10⁶
+  triples at cap 1 and does not fit a dense core; the cut diagnostic is reported for every cell.
+
+## 2. Costs
+
+Cap-1 tables per execution rule 6–9 s (24.5·10⁶ encounters); scale guard 26 s; static tables 75 s; a base cell 6 s.
