@@ -323,3 +323,24 @@ predictions was changed after seeing them.
 **Scale guard.** Lottery (one worker): a 4,000-generation mN = 1 run of 64 × 2 × 100 takes 1–4 s (less when the
 metapopulation freezes); an mN = 0 run freezes within ~50–100 generations. The two-population chain is 0.25 s per cell
 at K² = 2,601. The one-population seeded modal chain is the expensive object (minutes per cell; measured in §2).
+
+## 2. Costs and deviations (after the cells)
+
+- **Costs** (one worker each unless stated; 2–3 workers in total while two other experiments ran): weak catalogue
+  64 s (1,852² pairs, cached); static closure < 1 s per arm and game; the exact two-population chain 0.02–1.7 s per
+  cell (K² ≤ 2,601), 45 cells; the lottery 0.1–4 s per run (mN = 0 islands freeze within ~20–200 generations), 3,360
+  runs in six sets, ≈ 25 min wall on 2 workers; the one-population seeded modal chain 100 s – 23 min per cell
+  (seed discovery: 11–137 candidates plus the invasion closure capped at 2,000 nodes, incomplete; exploration capped
+  at 3,000 states, log₁₀ cut −11 to −221).
+- **Deviations, all labelled in the report.** (1) The main lottery set was run twice: after its first pass I added
+  post-hoc flip diagnostics (the winner seat's largest bridge share over the flip window, the loser's straight share);
+  the rerun reproduced every mark of all 480 runs exactly (fixed seeds) and the frozen attribution rule of §1.7 is
+  reported unchanged beside them. (2) The one-population chain panel was cut from 21 to 12 cells after the hd3
+  N = 10⁴ cell took 23 min (θ sensitivity and the lumped comparison in chicken only); its seed discovery uses an
+  invasion closure capped at 2,000 nodes instead of 20,000. (3) The R1-share interval is run-level (a t-interval of
+  per-run fractions), not the pooled Wilson interval first written, because islands of one run share a norm under
+  migration.
+- **Hand claims that failed** (beyond §1.10's correction): the arithmetic bound "asymmetric outcome ≤ ½ in one
+  population" of §1.9 item 5 is wrong for populations of several readers (distinct readers anti-coordinate pairwise;
+  the chain reaches 0.69); the demographic-flip estimate of the predictions' hand table covered only the loser-seat
+  route and missed the winner seat drifting to Swerve under migration (chicken flips at N = 25).

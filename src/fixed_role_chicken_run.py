@@ -126,12 +126,19 @@ def onepop_job(job):
 
 
 def cmd_onepop(a):
-    jobs = [('modal', g, N, 1e-14, True) for g in F.GAME_NAMES for N in (100, 1000, 10000)]
-    jobs += [('modal', g, 10000, lt, True) for g in F.GAME_NAMES for lt in (1e-12, 1e-16)]
-    jobs += [('modal', g, N, 1e-14, False) for g in F.GAME_NAMES for N in (100, 1000, 10000)]
+    # N = 100 last (capped at 3,000 expanded states; ~15 min each); sensitivity and lumped at N = 10^4
+    # (cut to 12 cells after the hd3 N = 10^4 cell took 23 min: sensitivity and lumped in chicken only)
+    jobs = [('modal', g, N, 1e-14, True) for N in (10000, 1000) for g in F.GAME_NAMES]
+    jobs += [('modal', 'chicken', 10000, lt, True) for lt in (1e-12, 1e-16)]
+    jobs += [('modal', 'chicken', 10000, 1e-14, False)]
+    jobs += [('modal', g, 100, 1e-14, True) for g in F.GAME_NAMES]
     from multiprocessing import Pool
     procs = min(a.procs, worker_budget())
-    rows = []
+    path = os.path.join(OUT, 'onepop_chain.json')
+    rows = json.load(open(path)) if os.path.exists(path) else []
+    done = {(r['game'], r['N'], r['theta'], r['twins']) for r in rows}
+    jobs = [j for j in jobs if (j[1], j[2], j[3], j[4]) not in done]
+    print('%d one-population jobs, %d workers' % (len(jobs), procs), flush=True)
     with Pool(procs) as pool:
         for r in pool.imap_unordered(onepop_job, jobs):
             rows.append(r)
@@ -187,8 +194,14 @@ def analyse_two_pop(d, game, snap, N, mN, gens, stop_g, marks):
                     st_play = (1 - S) @ wx >= 0.5
                     cand = pool & st_play
                     favour = bool(cand.any() and f_l[cand].max() > mean_l + 1e-9)
+                    # post-hoc diagnostics (added after the first main-set cells; not in the frozen notes 1.7 rule): the winner seat's
+                    # largest bridge share over the flip window, and the loser seat's straight-playing share at the last convention sample
+                    Wwin = (X if w == 0 else Y)[last_s:s + 1, i]
+                    bmax = float(Wwin[:, br].sum(1).max())
+                    lst = float(lx @ ((1 - S) @ wx))
                     flips.append(dict(island=i, gen_before=(last_s + 1) * EVERY, gen_after=(s + 1) * EVERY, frm=F.LABELS[last_conv], to=F.LABELS[l],
                                       winner_bridge_share=bshare, reader_mediated=bool(bshare >= fs), selection_favoured=favour,
+                                      winner_bridge_max_window=bmax, posthoc_bridge_window=bool(bmax >= fs), loser_straight_share=lst,
                                       winner_top=F.display_name(d, int(np.argmax(wx))), loser_top=F.display_name(d, int(np.argmax(lx)))))
                 last_conv = l; last_s = s
     res['flips'] = flips

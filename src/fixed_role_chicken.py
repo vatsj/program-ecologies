@@ -569,13 +569,13 @@ def onepop_state_stats(d, game, ids, x):
     return dict(StSt=float(J[0]), asym=float(J[1] + J[2]), SwSw=float(J[3]), pay=float(x @ U @ x), cls=str(classify_onepop(J)))
 
 
-def onepop_chain(arm, game, N, log_theta=math.log(1e-14), twins=True, max_states=8000, verbose=False):
+def onepop_chain(arm, game, N, log_theta=math.log(1e-14), twins=True, max_states=3000, verbose=False):
     from chain_log import LogChain
     import solver_audit as SA
     d = catalogue(arm)
     U = payoff(d['S'], game); mu = d['mu']
     cands, counts = SA.enumerate_candidates_fast(np.round(U, 9), mu, keep_all=False)
-    S1, n1, comp1 = SA.invasion_closure(np.round(U, 9), mu, max_nodes=20000)
+    S1, n1, comp1 = SA.invasion_closure(np.round(U, 9), mu, max_nodes=2000)
     have = set(tuple(sorted(c['ids'])) for c in cands)
     for c in S1:
         if c['size'] >= 2 and tuple(sorted(c['ids'])) not in have:
