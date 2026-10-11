@@ -328,3 +328,40 @@ named as the caveat. **Twin-drift check:** the same cells with twin drift off.
 5. The kernel reproduces the identity run's L and T1c runs at 2,000 (outcome and cross P(C,C) per replicate, from
    `runs/identity_tags/lottery_main.json`) before any counted cell.
 6. The 50% crossing and its bootstrap on constructed curves with a known crossing.
+
+### 1.14 Code validation of §1 (appended after the code, before any counted cell)
+
+From `tests/test_prudent_openness.py` (6 tests, all passing) and `prudent_openness_run.py static` / `validate`
+(`runs/prudent_openness/static.json`, `validate.json`), run before any counted cell.
+
+- **Hand table** (§1.2): the 6 × 6 table is reproduced by whole plays (`lt_code.play`, freshly produced lists) and by the
+  class table, 36/36; the certificate facts behind it by the ideal checker: chk_D(CB, ⌜C⌝) = T, chk_D(Cc, ⌜C⌝) = F,
+  chk_D(CBP, ⌜C⌝) = T, chk_D(CBP, ⌜CB⌝) = F, chk_C(XC, CBP) = F, chk_C(CBP, CB) = chk_C(CB, CBP) = T.
+- **Families and paths** (§1.4–1.5): F_P 147 classes, mass 0.015513, CB ∈ F_P; core 38, nice 109; F_X = the exclusive
+  label (9); XB ∈ F_X, mutual with CBP, XC, XC′, MC¹, OF¹ and Cc, not with CB, no strict invader; 72 direct F_P–F_X
+  edges, all through XB; XB the only CBP|XC bridge; identity ∩ F_P = ∅; every §1.4 overlap reproduced.
+- **Seed laws** (§1.6–1.7): every block at its target mass to machine precision (error 0), removed sets at 0, the rest
+  and the inside of each block proportional to L (spread < 10⁻⁹); 2·10⁵ draws per cell within 3 s.d. of the target;
+  P2's prior equals the identity run's T1c prior exactly; scanA at m_L equals L, scanA at 0 equals the identity run's
+  no-clique prior (differences ≤ 7·10⁻¹⁸; the exact identity-run vectors are used for these cells).
+  *A slip in §1.7, found by the test:* the second curve's m_L point is **not** P1: the scan holds the identity mass at
+  exactly m_L (0.008979), while P1's rule renormalizes it with the rest (0.008833). scanB at m_L is therefore run as its
+  own cell; only scanA at m_L is shared (with L).
+- **Kernel reproduction** (§1.8): with the identity run's streams the kernel reproduces replicates 0–9 of L, T1c (= P2)
+  and no-clique (= scan m = 0) at 2,000 (outcome and cross P(C,C) to 10⁻⁹; 30/30) and at 10,000 for every replicate the
+  identity run continued (21/21). These 30 validation runs are not counted cells (the cells are rerun in full).
+- **Stage logger:** a constructed four-island case (seeded establishment, extinction before a hold, extinction after a
+  hold, spread by migration) gives the hand counts (test); on real runs the logger's initial counts equal the recount
+  from the seed, every held island has a first hold no later than the checkpoint, and every seeded island whose family
+  count is 0 at a checkpoint has a first zero before it (checked in every run, reported as `consistency`).
+- **Crossing:** the interpolation and the paired bootstrap reproduce a constructed curve's crossing exactly; the
+  two-parameter fit recovers (f₀, q) on a constructed exponential.
+
+## 2. Implementation and costs
+
+`src/prudent_openness.py` (families, seed laws, paths, stage statistics, crossing and fits), `src/prudent_openness_run.py`
+(static, validation, the kernel, lottery cells, the chain), `src/prudent_openness_report.py` (tables and verdicts);
+raw outputs in `runs/prudent_openness/` (json). The identity run's `src/identity_tags*.py` are imported, not modified;
+the cached class table is reused. The kernel is the identity run's with family counts at every event: about 5 s per
+run of 10,000 generations at (100, 64), plus about 5 s of checkpoint statistics; a 40-run cell takes about 2.5 min on 3
+workers.
