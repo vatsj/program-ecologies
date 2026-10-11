@@ -94,6 +94,32 @@ def fmt_ci(t, nd=3):
     return str(t)
 
 
+VERDICTS = [
+    '| # | prediction | outcome |', '|---|---|---|',
+    '| RE 1 | D* within 2^-8 of a constant (bet 2^-6); T1 within 2^-4 of the striker | **held**: D* class = 2^-6.0 of each constant class (constants are single-spelling classes); T1 class = 2^-1.4 of the striker |',
+    '| RE 2 | no false-certificate faker; no probe wage faker; low-wage work by timeout or substitution, classified | **held on the falsifier** (0 false atoms in 3,065 audited T checks; 0 low-wage work by the militant class against any boss; WF plays (0; S, S)); the clause on what low-wage work is **missed**: in the catalogue it is acceptance (0.632 of L-triple mass) and uncertified default (0.034); timeout and substitution occur only in corrupted instances |',
+    '| RE 3 | coalition mass >= 10^3 x modal; establishment given co-seeding >= 0.5; establishment >= 0.6 by gen 200; expanded <= 0.2 | coalition clause **failed** (L 0.0171 vs modal 7.0e-4: x25; falsifier "within 10x" not fired); establishment given co-seeding **held** (0.60 of islands; every island co-seeded); **held** 39/40 runs by gen 200 (40/40 overall); expanded **held** (0/40) |',
+    '| RE 4 | persistence in [0.2, 0.6]; >= 0.5 of exits unread-slot drift then boss cut | persistence **held** (0.528 [0.377, 0.677]); exit clause **missed narrowly** (worker drift then boss change 0.488; worker drift with or without a later boss change 0.93; the classifier does not separate the unread slot); no false-certificate exit |',
+    '| RE 5 | D*2 residence >= 5x D* (migration off); no strict invader; persistence with migration higher | no strict invader **held** (static); residence **inconclusive**: 95% (D*) and 99% (D*2) of established islands survive the 2,000-generation assay, exit probabilities 4.6% vs 0.94% (ratio 4.9); persistence with migration on **failed** (D*2 0.950 vs D* 0.999) |',
+    '| RE 6 | RR keeps 1/4 on >= 0.7, conditional on the 1/4 probe certifying no rational worker | **void** under the realizable semantics (the 1/4 probe certifies the T1 pair\'s strike recommendation); the table is the result: 1/4 plurality on 1.000 of islands, fair 0; the executed-probe variant gives the same (1.000) |',
+    '| RE 7 | chain pi(fair) <= 0.1 at N = 10^4 | **not scored**: the chain did not converge (outcome-changing cut 0.97 of flow after 5 rounds) |',
+    '| S1 | D*/constant class ratio in [2^-11, 2^-7] | **missed** (2^-6.0); falsifier not fired |',
+    '| S2 | 0 false atoms; low-wage work only as uncertified default with mass < 0.01 | 0 false atoms **held**; mass **missed** (0.034) |',
+    '| S3 | F* no strict invader; scab neutral in slot 2; pay(0) neutral after | **held** |',
+    '| S4 | coalition within x30 of modal; concession share < 5% | **failed, falsifier fired** (concession share 0.32); ratio x25 inside the range |',
+    '| S5 | L establishment <= 0.35; persistence <= 0.1 | **failed, falsifier fired** (40/40; 0.53) |',
+    '| S6 | expanded establishment <= 0.05; zero wage >= 0.7 | **held** (0/40; 0.91) |',
+    '| S7 | U and the (N, I) panel within 0.2-0.25 of L | establishment equal (40/40); L200 persistence 0.655 within 0.2; U persistence 0.868 (+0.34); L256 not run; falsifier (>= 0.4) not fired |',
+    '| S8 | militants in numbers: establishment >= 0.5; persistence in [0.05, 0.5] | establishment **held** (40/40); persistence **failed, falsifier fired** (0.750 > 0.6) |',
+    '| S9 | exits dominated by worker drift; none false-certificate/timeout/substitution | **held** (0.93; 0) |',
+    '| S10 | D*2 residence >= 3x; D*2 persistence (migration on) >= D* + 0.1 | residence inconclusive (censored; exit ratio 4.9); persistence clause **failed** (0.950 vs 0.999) |',
+    '| S11 | RR 1/4 plurality >= 0.6, fair <= 0.1, both variants | **held** (1.000, 0) |',
+    '| S12 | chain pi(fair) <= 0.05 | **not scored** (not converged) |',
+    '| S13 | WF* re-injection lowers Lmil persistence >= 0.1; ablation lowers it >= 0.1 with establishment within 0.15 | re-injection **held** (0.750 -> 0.000; L 0.528 -> 0.000); ablation persistence **held** (0.750 -> 0.000), its establishment clause **missed** (31/40 vs 40/40) |',
+    '| S14 | classes 60-250 / 2,000-30,000; D*-check 3e4-1.5e5; executable = ideal on named encounters at 10^6 | class counts **missed** (318; 77,211); D*-check **held** (52,534); executable = ideal on named *plays* held, on named *checks* failed (D*2 wage checks time out at 10^6) |',
+]
+
+
 def main():
     out = {}
     lines = ['# The social organization game over the realizable language: run report', '',
@@ -133,7 +159,14 @@ def main():
             s['exits'], s['mean_payoffs'], s['closed'], s['runs'], s['stop_gen_median']))
     if 'assays' in out:
         lines += ['', '## Migration-off residence assays (forced D* vs D*2)', '', '```', json.dumps(out['assays'], indent=1)[:4000], '```']
-    if 'chain' in out:
+    if 'chain' in out and 'status' in out['chain']:
+        ch = out['chain']
+        lines += ['', '## Diagnostic chain (N = 10^4, theta = 1e-9): %s' % ch['status'], '',
+                  '| round | core | ring | ring mass | rel. cut | outcome-changing cut | promoted | new | s |', '|---|---|---|---|---|---|---|---|---|']
+        for r in ch['rounds']:
+            lines.append('| %d | %d | %d | %.3f | %.3f | %.3f | %d | %d | %d |' % (r['round'], r['core'], r['ring'], r['ring_mass'], r['rel_cut'],
+                                                                         r['rel_cut_outcome_changing'], r['promoted'], r['new'], r['time_s']))
+    elif 'chain' in out:
         ch = out['chain']
         lines += ['', '## Diagnostic chain (N = %g, theta = %g)' % (ch['N'], ch['theta']), '',
                   '- summary: %s' % json.dumps(ch['summary']), '- wage offered: %s' % json.dumps(ch['wage_offered']),
@@ -148,6 +181,10 @@ def main():
     for key in ('costs', 'audit', 'modal'):
         if key in out:
             lines += ['', '## %s' % key, '', '```', json.dumps(out[key], indent=1, default=str)[:6000], '```']
+    lines += ['', '## Not run', '', '- L at (100, 256): not run (the session was stopped; estimated 0.5-1 h).',
+              '- The diagnostic chain: stopped unconverged (above).', '']
+    lines += ['', '## Verdicts', ''] + VERDICTS
+    out['verdicts'] = VERDICTS
     json.dump(out, open(os.path.join(RUNS, 'sog-realizable.json'), 'w'), indent=1, default=str)
     open(os.path.join(RUNS, 'sog-realizable.md'), 'w').write('\n'.join(lines) + '\n')
     print('\n'.join(lines))

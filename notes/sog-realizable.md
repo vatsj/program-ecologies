@@ -582,3 +582,20 @@ trees × 385 codes 60–100 s; total under 3 minutes; the class table pickle is 
 *No lazy triple cache.* The spec asked for the three-player table to be evaluated lazily on encountered triples with a
 cache. Lemma F₃ made the whole table exact and cheap instead (two lookups per triple), so there is no truncation and no
 cache; the test that the spec attached to the cache is the composition test (whole runs against the table).
+
+### 2.2 Costs (`runs/sog-realizable-costs.json`, `-gap.json`, `-audit.json`)
+
+- **Fuel sweep on the named encounters** (largest finished check, steps): F\* 66,164 / 101,972 / 101,972 at K = 3·10⁵ /
+  10⁶ / 3·10⁶; (D\*, T₀, T₀) 148,587 at 10⁶ and at 3·10⁵ T₀'s check times out, so the ¼ state plays (¼; S, S); D\*₂'s
+  wage checks need up to 673,515 steps: at 10⁶ one times out (plays unchanged), at 3·10⁵ the D\*₂ state collapses to
+  (½; S, S). Every other named state plays the same at all three fuels.
+- **Catalogue samples:** check costs heavy-tailed up to 2.19·10⁶; play mismatches against the ideal table 3% / 0.5% of
+  L-weighted triples at 10⁶ / 3·10⁶ (§1.x).
+- **Audit of realized lottery encounters at K = 10⁶** (frequency-weighted samples of 240 per checkpoint, 4 runs per
+  cell): mismatch 0.038 / 0.025 / 0 / 0 (L) and 0.021 / 0.029 / 0.008 / 0.004 (Lmil) at generations 0 / 50 / 200 /
+  2,000. The executable semantics differ only in the initial scramble; the encounters of established islands execute
+  as the ideal table says.
+- **Production:** lists ≤ 3 entries per worker, ≤ 6 per boss; host production of all 422 worker trees in seconds;
+  symbolic production of the whole catalogue 15 s.
+- **The chain** (N = 10⁴) was stopped after 5 rounds unconverged (outcome-changing cut 0.97 of flow; 2,500 core and
+  34,722 ring states; 0 strict-NE triples): π is not reported.
