@@ -145,8 +145,11 @@ class PO:
         if cell in T:
             return self.tilt(*T[cell])
         if cell.startswith('scan'):
-            # scanA_<i> / scanB_<i> (B = with F_P at M)
-            cur, i = cell[4], int(cell.split('_')[1])
+            # scanA_<i> / scanB_<i> (B = with F_P at M); scanAm_<m> / scanBm_<m>: a refinement point at identity mass m
+            cur = cell[4]
+            if cell[5] == 'm':
+                return self.scan_weights(float(cell.split('_')[1]), cur == 'B')
+            i = int(cell.split('_')[1])
             m = SCAN_M[i] if SCAN_M[i] is not None else self.m_L
             return self.scan_weights(m, cur == 'B')
         raise ValueError(cell)
