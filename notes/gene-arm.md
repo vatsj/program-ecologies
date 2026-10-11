@@ -452,3 +452,19 @@ before this section; its file was deleted and the cell is re-run with the panel.
 ## 2. Costs
 
 Cap-1 tables per execution rule 6–9 s (24.5·10⁶ encounters); scale guard 26 s; static tables 75 s; a base cell 6 s.
+
+### 1.16 Execution rates and the structural asymmetry (the RS's second addition, 2026-10-11)
+
+No horizon filter (DEFERRED 8). For every prior-kernel cell the chain reports, per threat type (whack: base h ∈
+{strike, source} or a whack-override gene; quorum strike: q = 1 or (Q\*, strike); costly strike: a strike executed at
+s > 0 by a base t ∈ {¼, ½, ∞} or a strike gene), the π-mass of carrier states, the on-path execution rate (π-weighted
+fraction of carrier states whose stable play executes it: a realized whack; a strike at s > 0; for the quorum gene, its
+operative override executed), the realized cost per execution (c per whack; s + L·[whacked] per costly strike), and the
+carriers' mean payoff against the non-carriers' in the same slot. The lottery reports the time-average along the
+trajectories (check generations up to the stop) of whacks, strikes at s > 0 and strikes at s = 0 per encounter.
+
+**Structural asymmetry (static).** The whack is unilateral: one boss slot executes it against any striker, and it
+deters a reader with one visible policy. The strike needs a quorum: Q\* reads the other worker, a lone committed
+striker beside a scab is a split (boss payoff 1 − s) that a boss can cut strictly, and the quorum pact resolves only by
+Löb between two slots (two mutations, notes §1.10). A strike at s > 0 is a costly action of the same kind as an executed
+whack (it forgoes s); the asymmetry between them is in who must coordinate, not in the per-point test.
