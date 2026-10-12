@@ -45,17 +45,27 @@ def boot_ci(x, nb=10000, seed=1):
 
 
 def snap_at(r, g):
+    """The snapshot at generation g: recorded, or the final state of a run that froze (one global type) or was never
+    extended (universal with E3 decided by the horizon); None for an extension censored before g."""
     s = r['snaps'].get(str(g))
-    if s is None and g >= r['last_gen'] and r.get('frozen_at', -1) > 0:
-        s = r['final']
-    return s
+    if s is not None: return s
+    if r.get('frozen_at', -1) > 0 and g >= r['last_gen']: return r['final']
+    if g > r['gens'] and r['horizon'] <= r['gens']: return r['snaps'].get(str(r['gens'])) or r['final']
+    return None
+
+
+def censored_at(rows, g):
+    return sum(1 for r in rows if snap_at(r, g) is None)
 
 
 def cell_summary(rows, g=2000):
     I = rows[0]['I']
     out = {}
+    cens = censored_at(rows, g)
+    rows = [r for r in rows if snap_at(r, g) is not None]
     n = len(rows)
-    sn = [snap_at(r, g) or r['final'] for r in rows]
+    out['censored'] = cens
+    sn = [snap_at(r, g) for r in rows]
     uo = sum(1 for s in sn if s['universal_open'])
     out['runs'] = n
     out['established'] = sum(1 for r in rows if 0 <= r['establish_gen'] <= g)
@@ -233,6 +243,26 @@ def holders(rows, g=2000, top=10):
     return sorted(c.items(), key=lambda z: -z[1])[:top]
 
 
+def pad_row(r):
+    """Rows written before the diagnostic rule was added have 10 rule rows; pad every per-rule array to NRULE."""
+    R = PV.NRULE
+
+    def pad(x, depth=0):
+        x = np.asarray(x)
+        if x.shape[0] >= R: return x.tolist()
+        z = np.zeros((R - x.shape[0],) + x.shape[1:], x.dtype)
+        return np.concatenate([x, z]).tolist()
+    for key in ('ctr', 'steps_rule', 'enc_exp', 'enc_futile', 'hist_wait', 'hist_acq', 'hist_steps', 'hist_cens', 'nprod'):
+        if key in r: r[key] = pad(r[key])
+    sns = list(r['snaps'].values()) + [r['final']] + ([r['est_snap']] if r.get('est_snap') else [])
+    for s in sns:
+        for key in ('rule_all', 'rule_coop', 'inst'):
+            s[key] = pad(s[key])
+        s['strat_tree'] = [(n, pad(v)) for n, v in s['strat_tree']]
+        s['strat_sp'] = [(n, pad(v)) for n, v in s['strat_sp']]
+    return r
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--files', nargs='+', default=['main'])
@@ -241,7 +271,7 @@ def main():
     for f in a.files:
         p = os.path.join(OUT, 'lottery_%s.json' % f)
         if os.path.exists(p):
-            rows += json.load(open(p))
+            rows += [pad_row(r) for r in json.load(open(p))]
     by = defaultdict(list)
     for r in rows:
         by[r['cell']].append(r)
@@ -260,7 +290,9 @@ def main():
              ('', 'S3strict', 'Sself'), ('', 'Sdel', 'Sself'), ('', 'CSnon', 'Snon'), ('', 'mixed', 'Sself'),
              ('', 'mixed', 'Snon'), ('', 'Sgate', 'Sself'), ('', 'Sgate', 'Snon'), ('', 'H', 'Snon'),
              ('', 'Cdonor', 'H'), ('', 'Snon_N200', 'Sself_N200'), ('', 'Snon_I128', 'Sself_I128'),
-             ('', 'Snon_N200', 'Cdonor_N200'), ('', 'Snon_I128', 'Cdonor_I128')]
+             ('', 'Snon_N200', 'Cdonor_N200'), ('', 'Snon_I128', 'Cdonor_I128'),
+             ('diag', 'S2own', 'S2'), ('diag', 'S2time', 'S2'), ('diag', 'SselfDF', 'Sself'), ('diag', 'S2time', 'SselfDF'),
+             ('diag', 'S2time', 'Sself')]
     for tag, A, B in pairs:
         if A in by and B in by:
             rep['contrasts']['%s%s - %s' % ('(%s) ' % tag if tag else '', A, B)] = paired(by[A], by[B])
@@ -277,6 +309,25 @@ def main():
             s['outcome']['patchwork'], s['outcome']['unheld'], s['universal_open'], w[0], w[1], s['pcc'],
             s['identity_islands'], s['spo_islands'], s['cross_pcc'], s['spo_fraction_held'], s['establish_median'],
             s['time_s_mean']))
+    print()
+    print('| cell | identity: entries, runs ever held, runs held at end, islands at end, per entry | SPO-only: entries, ever, end, islands, per entry | open: ever, end, islands | seeded Q / only-self per run |')
+    print('|---|---|---|---|---|')
+    for c, s in rep['stages'].items():
+        a, b, o = s['identity'], s['spo'], s['open']
+        f = lambda x: '-' if x is None else '%.3f' % x
+        print('| %s | %s, %d, %d, %d, %s | %s, %d, %d, %d, %s | %d, %d, %d | %.1f / %.1f |' % (
+            c, a['entries'], a['runs_ever_held'], a['runs_held_at_end'], a['islands_at_end'], f(a['islands_per_entry']),
+            b['entries'], b['runs_ever_held'], b['runs_held_at_end'], b['islands_at_end'], f(b['islands_per_entry']),
+            o['runs_ever_held'], o['runs_held_at_end'], o['islands_at_end'], s['seeded_Q_per_run'], s['seeded_only_self_per_run']))
+    print()
+    for c, cr in rep['costs'].items():
+        for rule, d in cr.items():
+            cap = d.get('producers', {}).get('capable', {})
+            print('%-12s %-15s per-match executed %.0f, futile share %.3f, C attempts %d ok %d capTO %.4f, acq median steps %s, capable producers %s acquired %s died %s at-horizon %s wait>=20 %.4f (near-mono %s: %s)' % (
+                c, rule, d['per_match_steps'], d['futile_share'], d['C_attempts'], d['C_ok'], d['capTO_share'],
+                '%.0f' % d['acq_steps_median'] if 'acq_steps_median' in d else '-', cap.get('producers'),
+                cap.get('acquired'), cap.get('censored_death'), cap.get('never_by_horizon'), cap.get('wait_ge20_share', 0),
+                cap.get('near_monoclonal'), cap.get('wait_ge20_mono_share')))
     print()
     for k, v in rep['contrasts'].items():
         print('%-34s n %d univ %d vs %d (A-only %d, B-only %d, p %.3g; diff %+.3f [%.3f, %.3f]) ident diff %+.3f [%.3f, %.3f]' % (

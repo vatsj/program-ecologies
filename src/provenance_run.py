@@ -740,6 +740,48 @@ def cmd_validate(a):
     json.dump(rep, open(os.path.join(OUT, 'validate.json'), 'w'), indent=1, default=str)
 
 
+def _vagate_init():
+    sys.setrecursionlimit(1000000)
+    st, meta = load_ext('gate')
+    U = GP.Universe(K, PCAP)
+    U.scripts = list(meta['scripts']); U.sid = {k: i for i, k in enumerate(U.scripts)}
+    U.units = list(meta['units']); U.uid = {k: i for i, k in enumerate(U.units)}
+    _VA['U'] = U
+
+
+def cmd_validate_gate(a):
+    """The gate cell's kernel transitions against term-executed gate encounters (fresh caches), on its own tables."""
+    t0 = time.time()
+    LS = lot_static('gate')
+    st, meta = LS['st'], LS['meta']
+    units = meta['units']
+    rng = np.random.default_rng(20261013)
+    O = np.asarray(st['O'])
+    items = []
+    for z in range(a.nenc):
+        u = int(rng.choice(O)); v = int(rng.choice(O)); rel = 0
+        r_ = rng.random()
+        if r_ < 0.15: v, rel = u, 2
+        elif r_ < 0.25: v, rel = u, 1
+        items.append(('S-gate+cache', u, v, rel, None))
+    nw = min(3, a.workers)
+    res = []
+    with Pool(nw, initializer=_vagate_init) as pool:
+        for out in pool.imap_unordered(_va_job, [items[i::nw * 8] for i in range(nw * 8)]):
+            res.extend(out)
+    mism = []; n = 0
+    for rule, u, v, rel, shadow, got in res:
+        if got is None: continue
+        n += 1
+        ku = kernel_one(LS, PV.R_SGATE, u, v, rel)
+        kk = units[ku] if ku >= 0 else None
+        if kk is None or list(kk[1]) != got[0] or list(kk[2]) != got[1]:
+            mism.append([u, v, rel, None if kk is None else [list(kk[1]), list(kk[2])], got[:2], got[2][:6]])
+    rep = dict(n=n, n_mismatch=len(mism), mismatches=mism[:30], time_s=time.time() - t0)
+    json.dump(rep, open(os.path.join(OUT, 'validate_gate.json'), 'w'), indent=1, default=str)
+    log('gate transitions: %d compared, %d mismatches' % (n, len(mism)))
+
+
 # ------------------------------------------------------------------ the lottery (notes §1.7)
 MIX4 = (PV.R_SSELF, PV.R_SNON, PV.R_SK2, PV.R_CSNON)
 # cell: (N, I, rule spec, prior, static)
@@ -756,12 +798,17 @@ CELLS = {
     'H': (100, 64, 'H', 'L', 'ext'),
     'ablation': (100, 64, 'S-nonself', 'ablation', 'ext'),
     'Sgate': (100, 64, 'S-gate+cache', 'L', 'gate'),
+    'S2own': (100, 64, 'S-2 own-root', 'L', 'ext'),          # post-hoc diagnostic (not predicted, not scored)
+    'S2time': (100, 64, 'S-2 timing', 'L', 'ext'),           # post-hoc diagnostic (not predicted, not scored)
+    'SselfDF': (100, 64, 'S-self D-first', 'L', 'ext'),      # post-hoc diagnostic (not predicted, not scored)
     'Sself_N200': (200, 64, 'S-self', 'L', 'ext'),
     'Snon_N200': (200, 64, 'S-nonself', 'L', 'ext'),
     'Cdonor_N200': (200, 64, 'Cdonor', 'L', 'ext'),
     'Sself_I128': (100, 128, 'S-self', 'L', 'ext'),
     'Snon_I128': (100, 128, 'S-nonself', 'L', 'ext'),
     'Cdonor_I128': (100, 128, 'Cdonor', 'L', 'ext'),
+    'ablation_N200': (200, 64, 'S-nonself', 'ablation', 'ext'),     # extra, not predicted
+    'ablation_I128': (100, 128, 'S-nonself', 'ablation', 'ext'),    # extra, not predicted
 }
 SALT = 20261012
 SNAPS = (10, 50, 200, 1000, 2000, 5000, 10000)
@@ -1038,7 +1085,9 @@ class Run:
 
 
 def lottery_job(job):
-    cell, rep, gens, ext = job
+    cell, rep, gens, ext = job[:4]
+    tmax = job[4] if len(job) > 4 else 0           # wall-clock cap on the extension phase (0: none)
+    ext_cut = -1
     sys.setrecursionlimit(1000000)
     t0 = time.time()
     R = Run(cell, rep)
@@ -1061,7 +1110,8 @@ def lottery_job(job):
         if estab < 0 and (cc >= 0.9).any():
             estab = g
         ever90 |= cc >= 0.9
-        if e3_gen < 0:
+        if e3_gen < 0 and (g <= gens or g in SNAPS or g % 500 == 0):
+            # every checkpoint to the 2,000-generation horizon; sparser in an extension (the closure is O(I·types²))
             s3 = R.e3()
             if s3 is not None and (s3 >= 0).all():
                 e3_gen = g; e3_out = 'success' if (s3 == 1).all() else 'fail'
@@ -1076,8 +1126,11 @@ def lottery_job(job):
                           sn['spo_islands'], sn['n_types']))
         if g == gens and ext > gens:
             sn = snaps.get(gens)
-            if sn is not None and (sn['outcome'] != 'universal' or e3_out is None):
+            if sn is not None and (sn['outcome'] != 'universal' or e3_out is None) and e3_out != 'fail':
                 horizon = ext
+        if tmax > 0 and g > gens and time.time() - t0 > tmax:
+            ext_cut = g                              # the extension is censored at g (budget)
+            break
         if g >= 50 and R.frozen():
             frozen_at = g
             sn = R.snapshot(R.island_stats())
@@ -1093,6 +1146,7 @@ def lottery_job(job):
     seeded_q = int(np.isin(sp0, LS['Q']).sum())
     seeded_only_self = int(LS['only_self'][LS['tau'][sp0]].sum())
     return dict(cell=cell, rep=rep, N=R.N, I=R.I, gens=gens, horizon=horizon, last_gen=R.g, frozen_at=frozen_at,
+                ext_cut=ext_cut,
                 establish_gen=estab, E3_gen=e3_gen, E3=e3_out if e3_out else 'censored', ever90=int(ever90.sum()),
                 persistence=persist, trace=trace, snaps={str(k): v for k, v in snaps.items()}, est_snap=est_snap,
                 final=fin, group_max=group_max.tolist(), group_first=group_first,
@@ -1108,7 +1162,7 @@ def cmd_lottery(a):
     path = os.path.join(OUT, 'lottery_%s.json' % a.out)
     rows = json.load(open(path)) if os.path.exists(path) else []
     done = {(r['cell'], r['rep']) for r in rows}
-    jobs = [(c, rep, a.gens, a.ext) for rep in range(a.rep0, a.rep0 + a.runs) for c in a.cells if (c, rep) not in done]
+    jobs = [(c, rep, a.gens, a.ext, a.tmax) for rep in range(a.rep0, a.rep0 + a.runs) for c in a.cells if (c, rep) not in done]
     log('lottery jobs %d (pid %d)' % (len(jobs), os.getpid()))
     t0 = time.time()
     with Pool(min(3, a.workers)) as pool:
@@ -1133,15 +1187,18 @@ def main():
     s = sub.add_parser('lottery'); s.add_argument('--cells', nargs='+'); s.add_argument('--runs', type=int, default=40)
     s.add_argument('--rep0', type=int, default=0)
     s.add_argument('--gens', type=int, default=2000); s.add_argument('--ext', type=int, default=0)
+    s.add_argument('--tmax', type=float, default=0)
     s.add_argument('--workers', type=int, default=3); s.add_argument('--out', default='main')
     s = sub.add_parser('pairs'); s.add_argument('--workers', type=int, default=3)
     s = sub.add_parser('validate'); s.add_argument('--workers', type=int, default=3)
     s.add_argument('--nenc', type=int, default=150); s.add_argument('--skipgens', type=int, default=150)
     s = sub.add_parser('gate_static'); s.add_argument('--workers', type=int, default=3)
     s.add_argument('--budget', type=float, default=6.0)
+    s = sub.add_parser('validate_gate'); s.add_argument('--workers', type=int, default=3)
+    s.add_argument('--nenc', type=int, default=300)
     a = ap.parse_args()
     {'static': cmd_static, 'osv': cmd_osv, 'sets': cmd_sets, 'lottery': cmd_lottery, 'pairs': cmd_pairs,
-     'validate': cmd_validate, 'gate_static': cmd_gate_static}[a.cmd](a)
+     'validate': cmd_validate, 'gate_static': cmd_gate_static, 'validate_gate': cmd_validate_gate}[a.cmd](a)
 
 
 if __name__ == '__main__':

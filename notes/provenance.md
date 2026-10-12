@@ -448,3 +448,43 @@ validate}.json`, `pairs.json`) and `tests/test_provenance.py` (10 tests, passing
   individuals count encounters only on processed islands (a lower bound), while their "never acquired" status is
   exact. Producer statistics are reported for capable producers (run trees with a non-self production), whose logs
   are exact.
+
+## 2. Costs (after the counted cells)
+
+Modelled steps (milestone 5's term medians: a C production 13,743, a D production 9,058, a cap timeout P + 5, an
+adoption check 19,443 + 56, a gate check 15,815 or 101 without a C entry; S-k adds one own-side validation per
+(candidate, other window partner) at the adoption-check cost; the cache charges 1 + e per lookup and 3 per store).
+
+- **Per acquisition** (median over producers that acquired, 0.1-decade bins): S-self, S-nonself, S-self-delayed
+  22,387 (one C and one D production); CS-nonself 44,668 (adoption checks first); S-2 89,125 (4.0×); S-3 and S-3 strict
+  177,828 (7.9×). The nonself rule costs nothing extra per acquisition.
+- **Per match.** The kernel executes the costs of unsettled, non-futile individuals: 8–26 steps per match for the
+  S rules, 864–874 for the copying rules (copiers still lacking an entry re-try every donor script at every match),
+  134 for S-3 strict (whose refused programs keep opening windows). Futile individuals (a rule that can never produce
+  the missing entry) retry a production at every match in the dynamics; they are 3.6–16% of matches (S-self 6.3%,
+  S-nonself 11.8%, since the only-self class never acquires under it), so the full per-match production cost is about
+  10³ steps per match for every S rule (≈ 870 S-self, ≈ 1,600 S-nonself), as in milestone 5, and dominated by programs
+  that never acquire (no negative cache under the lack rule).
+- **Cap timeouts** are 0.05–4.1% of C production attempts (S-nonself's 4.1% is the price of trying only non-self roots,
+  whose signatures time out more often on regressing boxes).
+- **Waiting.** S-nonself: 0.25% of capable producers wait ≥ 20 encounters before their first attempt; among the 0.7%
+  born into islands ≥ 90% their own spelling, 32.7% do. No capable producer of any rule is still lacking at a
+  2,000-generation horizon except under S-3 strict (0.008%); 98.7–99.4% of capable producers die before acquiring
+  under every rule (newborns of lineages whose productions fail against the partners they meet).
+
+### 1.13 The gate cell's universe (after the main cells, before any gate-cell run)
+
+- **Closure (notes §1.9 budget).** From the empty units under S-gate alone, seeded with the cached tables: converged
+  in 6 rounds, **18,285 reachable units (24,000 in all; 6,606 with two to five C scripts), 218.5 M new host checks,
+  4 h 24 min on 3 workers** (within the 6-hour budget). A first attempt on 1 worker (while the size panel held the
+  other two) was stopped after 2 h 45 min in round 2 and restarted on 3 workers; its log is kept. Round growth: 9,287
+  → 13,612 → 16,606 → 17,932 → 18,265 → 18,285 → 18,285. 1,456 new production signatures, 609 of which (42%) exceed the
+  executable producer's cap P = K/4 (the tactic on a multi-script list walks longer nested checks).
+- **Validation.** Kernel gate transitions = term-executed gate encounters (fresh caches) on 295/295 sampled
+  encounters; own-side validity's signature reduction 1,361/1,361.
+- **Correction to §1.4 (hand table), found here:** "MM holding ι meets a distinct partner, its gate fails and its
+  production returns none: MM stays an identity clique" is wrong. Once MM holds ι its own box ⊡(me, me, C) is true,
+  so at a distinct root the tactic can Run that box and Hyp the second: MM's production now succeeds and appends a
+  general script. In the gate universe only 14 run trees (mass 0.0036) remain only-self, against 97 (0.018) under the
+  lack rule. The gate can repair the only-self class after it mints ι; 39 identity units are reachable (21 under the
+  lack rule).

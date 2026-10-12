@@ -1,0 +1,241 @@
+{
+ "n_units": 24000,
+ "n_ident_universe": 39,
+ "nonself_reach": 10953,
+ "nonself_ident_units": 8,
+ "Q_trees": [
+  [
+   "if(or(CHK(me,me,D),CHK(me,them,D)),D,C)",
+   0.0002593
+  ],
+  [
+   "if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))",
+   0.0001945
+  ],
+  [
+   "if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)",
+   0.0001945
+  ],
+  [
+   "if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)",
+   6.48e-05
+  ]
+ ],
+ "Q_spellings": 10,
+ "Q_mass": 0.0007131742738589212,
+ "Q_copies_per_run": 4.564315352697096,
+ "R_trees": [
+  [
+   "if(and(CHK(them,me,C),CHK(them,^C,D)),C,D)",
+   0.0002593
+  ],
+  [
+   "if(and(CHK(them,me,C),CHK(them,^D,D)),C,D)",
+   0.0002593
+  ],
+  [
+   "if(and(CHK(them,^C,D),CHK(them,me,C)),C,D)",
+   0.0002593
+  ],
+  [
+   "if(and(CHK(them,^D,D),CHK(them,me,C)),C,D)",
+   0.0002593
+  ],
+  [
+   "if(CHK(them,them,D),D,if(CHK(them,^D,D),C,D))",
+   0.0001945
+  ],
+  [
+   "if(CHK(them,^C,C),D,if(CHK(them,me,C),C,D))",
+   0.0001945
+  ],
+  [
+   "if(CHK(them,^D,C),D,if(CHK(them,me,C),C,D))",
+   0.0001945
+  ],
+  [
+   "if(CHK(them,me,C),if(CHK(them,^C,C),D,C),D)",
+   0.0001945
+  ],
+  [
+   "if(CHK(them,me,C),if(CHK(them,^D,C),D,C),D)",
+   0.0001945
+  ],
+  [
+   "if(CHK(them,^C,D),if(CHK(them,them,D),D,C),D)",
+   0.0001945
+  ],
+  [
+   "if(CHK(them,^D,D),if(CHK(them,them,D),D,C),D)",
+   0.0001945
+  ]
+ ],
+ "R_spellings": 33,
+ "R_mass": 0.002398858921161826,
+ "spo_pairs": 492,
+ "spo_trees": 467,
+ "spo_tree_mass": 0.10742997925311204,
+ "spo_written_at_self_codes": 477,
+ "spo_written_at_nonself_codes": 12,
+ "spo_written_at_nonself": [
+  [
+   "if(or(CHK(them,^C,C),CHK(me,me,C)),C,D)",
+   "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[EvR*; Ax \u00b7 Run]]"
+  ],
+  [
+   "if(or(CHK(them,^D,C),CHK(me,me,C)),C,D)",
+   "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[EvR*; Ax \u00b7 Run]]"
+  ],
+  [
+   "if(and(CHK(me,me,C),CHK(them,^C,C)),D,C)",
+   "EvR*; ChkR[EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax] \u00b7 Run]"
+  ],
+  [
+   "if(and(CHK(me,me,C),CHK(them,^D,C)),D,C)",
+   "EvR*; ChkR[EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax] \u00b7 Run]"
+  ],
+  [
+   "if(CHK(them,^C,C),D,if(CHK(me,me,C),C,D))",
+   "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[EvR*; Ax \u00b7 Run]]"
+  ],
+  [
+   "if(CHK(them,^D,C),D,if(CHK(me,me,C),C,D))",
+   "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[EvR*; Ax \u00b7 Run]]"
+  ],
+  [
+   "if(CHK(them,them,C),if(CHK(them,me,D),C,C),D)",
+   "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Run]"
+  ],
+  [
+   "if(CHK(them,them,C),if(CHK(me,me,D),C,C),D)",
+   "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Run]"
+  ],
+  [
+   "if(CHK(me,me,C),if(CHK(them,^C,C),C,C),D)",
+   "EvR*; ChkR[EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax] \u00b7 Run]"
+  ],
+  [
+   "if(CHK(me,me,C),if(CHK(them,^C,C),D,C),D)",
+   "EvR*; ChkR[EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax] \u00b7 Run]"
+  ],
+  [
+   "if(CHK(me,me,C),if(CHK(them,^D,C),C,C),D)",
+   "EvR*; ChkR[EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax] \u00b7 Run]"
+  ],
+  [
+   "if(CHK(me,me,C),if(CHK(them,^D,C),D,C),D)",
+   "EvR*; ChkR[EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax] \u00b7 Run]"
+  ]
+ ],
+ "held_spo_pairs_in_universe": 489,
+ "spo_trees_heaviest": [
+  [
+   "if(CHK(them,them,C),C,C)",
+   0.0009725
+  ],
+  [
+   "if(CHK(them,them,C),C,D)",
+   0.0009725
+  ],
+  [
+   "if(CHK(me,me,C),C,C)",
+   0.0009725
+  ],
+  [
+   "if(CHK(me,me,C),C,D)",
+   0.0009725
+  ],
+  [
+   "if(and(CHK(them,me,C),CHK(them,them,C)),C,C)",
+   0.000389
+  ],
+  [
+   "if(and(CHK(them,me,C),CHK(me,me,C)),C,C)",
+   0.000389
+  ],
+  [
+   "if(and(CHK(them,me,C),CHK(me,them,C)),C,C)",
+   0.000389
+  ],
+  [
+   "if(or(CHK(them,me,D),CHK(them,them,C)),C,C)",
+   0.000389
+  ],
+  [
+   "if(or(CHK(them,me,D),CHK(me,me,C)),C,C)",
+   0.000389
+  ],
+  [
+   "if(or(CHK(them,me,D),CHK(me,me,D)),C,C)",
+   0.000389
+  ],
+  [
+   "if(or(CHK(them,me,D),CHK(me,them,D)),C,C)",
+   0.000389
+  ],
+  [
+   "if(and(CHK(them,them,C),CHK(them,me,C)),C,C)",
+   0.000389
+  ],
+  [
+   "if(or(CHK(them,them,C),CHK(them,me,C)),C,C)",
+   0.000389
+  ],
+  [
+   "if(and(CHK(them,them,C),CHK(them,me,D)),C,C)",
+   0.000389
+  ],
+  [
+   "if(or(CHK(them,them,C),CHK(them,me,D)),C,C)",
+   0.000389
+  ],
+  [
+   "if(and(CHK(them,them,C),CHK(them,them,C)),C,C)",
+   0.000389
+  ],
+  [
+   "if(or(CHK(them,them,C),CHK(them,them,C)),C,C)",
+   0.000389
+  ],
+  [
+   "if(and(CHK(them,them,C),CHK(them,them,D)),C,C)",
+   0.000389
+  ],
+  [
+   "if(or(CHK(them,them,C),CHK(them,them,D)),C,C)",
+   0.000389
+  ],
+  [
+   "if(and(CHK(them,them,C),CHK(them,^C,C)),C,C)",
+   0.000389
+  ],
+  [
+   "if(or(CHK(them,them,C),CHK(them,^C,C)),C,C)",
+   0.000389
+  ],
+  [
+   "if(and(CHK(them,them,C),CHK(them,^C,D)),C,C)",
+   0.000389
+  ],
+  [
+   "if(or(CHK(them,them,C),CHK(them,^C,D)),C,C)",
+   0.000389
+  ],
+  [
+   "if(and(CHK(them,them,C),CHK(them,^D,C)),C,C)",
+   0.000389
+  ],
+  [
+   "if(or(CHK(them,them,C),CHK(them,^D,C)),C,C)",
+   0.000389
+  ]
+ ],
+ "spo_self_trees_mass": 0.10742997925311204,
+ "only_self_trees": 14,
+ "only_self_mass": 0.003630705394190871,
+ "capable_trees": 3361,
+ "capable_mass": 0.8009595435684647,
+ "open_units": 6551,
+ "spo_units": 825,
+ "time_s": 10.196279764175415
+}

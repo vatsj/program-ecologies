@@ -25,13 +25,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'runs', 'provenance')
 
 # ---------------------------------------------------------------------------------------------------------------- 1
-R_H, R_SSELF, R_C, R_SNON, R_SK2, R_SK3, R_SK3S, R_SGATE, R_SDEL, R_CSNON = range(10)
-NRULE = 10
+R_H, R_SSELF, R_C, R_SNON, R_SK2, R_SK3, R_SK3S, R_SGATE, R_SDEL, R_CSNON, R_SK2F, R_SK2T, R_SDF = range(13)
+NRULE = 13
 RULE_NAMES = ['H', 'S-self', 'C', 'S-nonself', 'S-2', 'S-3', 'S-3 strict', 'S-gate+cache', 'S-self-delayed',
-              'CS-nonself']
+              'CS-nonself', 'S-2 own-root', 'S-2 timing', 'S-self D-first']
 RULE_OF = {n: i for i, n in enumerate(RULE_NAMES)}
-MODE_OF = np.array([0, 1, 2, 1, 1, 1, 1, 1, 1, 3], np.int64)       # H S C CS
-PRODUCING = np.array([0, 1, 0, 1, 1, 1, 1, 1, 1, 1], np.bool_)      # rules with an S step
+MODE_OF = np.array([0, 1, 2, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1], np.int64)       # H S C CS
+PRODUCING = np.array([0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], np.bool_)      # rules with an S step
 LMAX = KN.LMAX
 UV_C_SELF, UV_D_SELF, UV_C_C, UV_D_C, UV_C_D, UV_D_D = range(6)
 PAYM = KN.PAYM
@@ -242,13 +242,21 @@ def window_close(i, a, t, rule, wn, wsid, wcode, OSV, ctr):
     n = wn[i, a]
     best = -1
     first = -1
+    if rule == R_SK2T:
+        # diagnostic: S-2's window timing with S-self's choice (the first script written, no validity test)
+        for c in range(n):
+            if wsid[i, a, c] >= 0:
+                ctr[C_WIN_FALLBACK] += 1
+                return wsid[i, a, c], 2
+        ctr[C_WIN_EMPTYCLR] += 1
+        return -1, 0
     for c in range(n):
         s = wsid[i, a, c]
         if s < 0: continue
         sc = 0
         for m in range(n):
-            if OSV[t, s, wcode[i, a, m]] == 1:
-                sc += 1
+            if OSV[t, s, wcode[i, a, m]] == 1 or (rule == R_SK2F and m == c):
+                sc += 1                                 # (diagnostic rule: valid at its own root by fiat)
         if sc >= 1 and first < 0:
             first = s                                   # the earliest admissible candidate (validity >= 1)
         if sc >= 2:
@@ -344,7 +352,11 @@ def side(i, a, k, j, rel, shadow_sp, d, tunit, trule, tsp, tanc, ntv, KCAP, utau
                         else:
                             cr[C_OVERFLOW] += 1
         elif BLC[u, 0] < 0:
-            if rule == R_SSELF or rule == R_CSNON or rule == R_SNON or rule == R_SDEL:
+            if rule == R_SDF:
+                # diagnostic: S-self with the D step before the C step (the order a window rule imposes)
+                u, anc = d_step(u, anc, PD, BLD, cr, st, COSTS, err)
+                if err[0] != 0: return k
+            if rule == R_SSELF or rule == R_CSNON or rule == R_SNON or rule == R_SDEL or rule == R_SDF:
                 go = True
                 if rule == R_SNON or rule == R_CSNON:
                     go = spv != sp
@@ -367,7 +379,7 @@ def side(i, a, k, j, rel, shadow_sp, d, tunit, trule, tsp, tanc, ntv, KCAP, utau
                         cr[C_COK] += 1
             else:
                 # S-k windows
-                kk = 2 if rule == R_SK2 else 3
+                kk = 2 if (rule == R_SK2 or rule == R_SK2F or rule == R_SK2T) else 3
                 wenc[i, a] += 1
                 n = wn[i, a]
                 seen = False
