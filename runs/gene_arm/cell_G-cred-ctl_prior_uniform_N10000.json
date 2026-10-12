@@ -1,0 +1,758 @@
+{
+ "arm": "G-cred-ctl",
+ "kernel": "prior",
+ "prior": "uniform",
+ "N": 10000,
+ "theta": 1e-09,
+ "rule": "CC",
+ "KcB": 7,
+ "KcW": 17,
+ "KuB": 7,
+ "KuW": 17,
+ "seeds": 8,
+ "strict_ne": 0,
+ "strict_ne_states": [],
+ "null_mass": {
+  "boss": 0.9047619047619048,
+  "worker": 0.5
+ },
+ "explore_log": [
+  {
+   "solver": "full dense log GTH",
+   "states": 2023,
+   "l1_change": 0.0,
+   "iterations": 0,
+   "start_tv_jump": 0.0,
+   "time_s": 19.643072843551636
+  }
+ ],
+ "states": 2023,
+ "core": 2023,
+ "rel_cut": 0.0,
+ "rel_cut_change": 0.0,
+ "summary": {
+  "fair": 0.9730613991159335,
+  "intermediate": 0.022480497972063144,
+  "zero wage": 0.00230706070021701,
+  "strike": 5.2123902153333275e-05,
+  "scab split": 0.0020989183096343242,
+  "repression:strike": 0.0,
+  "repression:source": 0.0
+ },
+ "wage": {
+  "0": 0.004456713889841276,
+  "1/4": 0.022480846844792145,
+  "1/2": 0.973062439265368
+ },
+ "implemented_whack": {
+  "strike": 0.0,
+  "none": 1.0000000000000013,
+  "source": 0.0
+ },
+ "payoffs": {
+  "boss": 1.0134945803516617,
+  "W1": 0.49215111523916144,
+  "W2": 0.49215113829523893,
+  "efficiency": 1.99779683388606
+ },
+ "strike_whacker_base": 0.0,
+ "probe_boss": 0.8953943406680738,
+ "gene_carrier_mass": {
+  "boss": 0.0,
+  "workers": 0.2363690958073816
+ },
+ "support_size_99": 214,
+ "support": [
+  {
+   "pi": 0.021810566668199232,
+   "state": "(0,none,2) | militant | scab",
+   "play": "(1/2,none) W W",
+   "summary": "fair",
+   "pay": [
+    1.0,
+    0.5,
+    0.5
+   ],
+   "nash": false,
+   "pareto_dominated": false,
+   "gene_stable": true,
+   "gene_witness": null,
+   "weak_gene_stable": true,
+   "weak_witness": null
+  },
+  {
+   "pi": 0.021810566668199142,
+   "state": "(0,none,2) | tagged militant | scab",
+   "play": "(1/2,none) W W",
+   "summary": "fair",
+   "pay": [
+    1.0,
+    0.5,
+    0.5
+   ],
+   "nash": false,
+   "pareto_dominated": false,
+   "gene_stable": true,
+   "gene_witness": null,
+   "weak_gene_stable": true,
+   "weak_witness": null
+  },
+  {
+   "pi": 0.014959297808503219,
+   "state": "(0,none,2) | militant | T0+(BOX(s=1/2) -> work)",
+   "play": "(1/2,none) W W",
+   "summary": "fair",
+   "pay": [
+    1.0,
+    0.5,
+    0.5
+   ],
+   "nash": false,
+   "pareto_dominated": false,
+   "gene_stable": true,
+   "gene_witness": null,
+   "weak_gene_stable": true,
+   "weak_witness": null
+  },
+  {
+   "pi": 0.014959297808503219,
+   "state": "(0,none,2) | tagged militant | T0+(BOX(s=1/2) -> work)",
+   "play": "(1/2,none) W W",
+   "summary": "fair",
+   "pay": [
+    1.0,
+    0.5,
+    0.5
+   ],
+   "nash": false,
+   "pareto_dominated": false,
+   "gene_stable": true,
+   "gene_witness": null,
+   "weak_gene_stable": true,
+   "weak_witness": null
+  },
+  {
+   "pi": 0.014958326286104483,
+   "state": "(0,none,2) | tagged militant | T0-union+(BOX(s=1/2) -> work)",
+   "play": "(1/2,none) W W",
+   "summary": "fair",
+   "pay": [
+    1.0,
+    0.5,
+    0.5
+   ],
+   "nash": false,
+   "pareto_dominated": false,
+   "gene_stable": true,
+   "gene_witness": null,
+   "weak_gene_stable": true,
+   "weak_witness": null
+  },
+  {
+   "pi": 0.014958326286104483,
+   "state": "(0,none,2) | militant | T0-union+(BOX(s=1/2) -> work)",
+   "play": "(1/2,none) W W",
+   "summary": "fair",
+   "pay": [
+    1.0,
+    0.5,
+    0.5
+   ],
+   "nash": false,
+   "pareto_dominated": false,
+   "gene_stable": true,
+   "gene_witness": null,
+   "weak_gene_stable": true,
+   "weak_witness": null
+  },
+  {
+   "pi": 0.014838130289064427,
+   "state": "(1/4,none,2) | militant | scab",
+   "play": "(1/2,none) W W",
+   "summary": "fair",
+   "pay": [
+    1.0,
+    0.5,
+    0.5
+   ],
+   "nash": false,
+   "pareto_dominated": false,
+   "gene_stable": true,
+   "gene_witness": null,
+   "weak_gene_stable": true,
+   "weak_witness": null
+  },
+  {
+   "pi": 0.014838130289064414,
+   "state": "(1/4,none,2) | tagged militant | scab",
+   "play": "(1/2,none) W W",
+   "summary": "fair",
+   "pay": [
+    1.0,
+    0.5,
+    0.5
+   ],
+   "nash": false,
+   "pareto_dominated": false,
+   "gene_stable": true,
+   "gene_witness": null,
+   "weak_gene_stable": true,
+   "weak_witness": null
+  },
+  {
+   "pi": 0.014806425020856207,
+   "state": "(0,none,2) | tagged militant | union+(BOX(s=1/2) -> work)",
+   "play": "(1/2,none) W W",
+   "summary": "fair",
+   "pay": [
+    1.0,
+    0.5,
+    0.5
+   ],
+   "nash": false,
+   "pareto_dominated": false,
+   "gene_stable": true,
+   "gene_witness": null,
+   "weak_gene_stable": true,
+   "weak_witness": null
+  },
+  {
+   "pi": 0.014806425020856193,
+   "state": "(0,none,2) | militant | union+(BOX(s=1/2) -> work)",
+   "play": "(1/2,none) W W",
+   "summary": "fair",
+   "pay": [
+    1.0,
+    0.5,
+    0.5
+   ],
+   "nash": false,
+   "pareto_dominated": false,
+   "gene_stable": true,
+   "gene_witness": null,
+   "weak_gene_stable": true,
+   "weak_witness": null
+  },
+  {
+   "pi": 0.014744961234069131,
+   "state": "(0,none,2) | tagged militant | militant+(BOX(s=1/2) -> work)",
+   "play": "(1/2,none) W W",
+   "summary": "fair",
+   "pay": [
+    1.0,
+    0.5,
+    0.5
+   ],
+   "nash": false,
+   "pareto_dominated": false,
+   "gene_stable": true,
+   "gene_witness": null,
+   "weak_gene_stable": true,
+   "weak_witness": null
+  },
+  {
+   "pi": 0.014744961234069117,
+   "state": "(0,none,2) | militant | militant+(BOX(s=1/2) -> work)",
+   "play": "(1/2,none) W W",
+   "summary": "fair",
+   "pay": [
+    1.0,
+    0.5,
+    0.5
+   ],
+   "nash": false,
+   "pareto_dominated": false,
+   "gene_stable": true,
+   "gene_witness": null,
+   "weak_gene_stable": true,
+   "weak_witness": null
+  }
+ ],
+ "transitions": [
+  {
+   "exit_total": 1.4969135802469119e-05,
+   "by_kind": {
+    "neutral-change": 3.527336860670186e-07,
+    "deleterious": 0.0,
+    "neutral-keep": 1.46164021164021e-05
+   },
+   "top": [
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | T0+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | militant+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | union+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | T0-union+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | tagged militant+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.0582010582010572e-06,
+     "slot": "B",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(1/2,none,0) | militant | scab",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    }
+   ],
+   "state": "(0,none,2) | militant | scab",
+   "pi": 0.021810566668199232,
+   "summary": "fair"
+  },
+  {
+   "exit_total": 1.4969135802469119e-05,
+   "by_kind": {
+    "neutral-change": 3.527336860670186e-07,
+    "deleterious": 0.0,
+    "neutral-keep": 1.46164021164021e-05
+   },
+   "top": [
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | T0+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | militant+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | union+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | T0-union+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | tagged militant+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.0582010582010572e-06,
+     "slot": "B",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(1/2,none,0) | tagged militant | scab",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    }
+   ],
+   "state": "(0,none,2) | tagged militant | scab",
+   "pi": 0.021810566668199142,
+   "summary": "fair"
+  },
+  {
+   "exit_total": 1.5310846560846544e-05,
+   "by_kind": {
+    "deleterious": 0.0,
+    "neutral-keep": 1.5310846560846544e-05
+   },
+   "top": [
+    {
+     "rate": 2.083333333333332e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | scab",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | militant+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | union+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | T0-union+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | tagged militant+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.0582010582010572e-06,
+     "slot": "B",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(1/2,none,0) | militant | T0+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    }
+   ],
+   "state": "(0,none,2) | militant | T0+(BOX(s=1/2) -> work)",
+   "pi": 0.014959297808503219,
+   "summary": "fair"
+  },
+  {
+   "exit_total": 1.5310846560846544e-05,
+   "by_kind": {
+    "deleterious": 0.0,
+    "neutral-keep": 1.5310846560846544e-05
+   },
+   "top": [
+    {
+     "rate": 2.083333333333332e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | scab",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | militant+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | union+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | T0-union+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | tagged militant+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.0582010582010572e-06,
+     "slot": "B",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(1/2,none,0) | tagged militant | T0+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    }
+   ],
+   "state": "(0,none,2) | tagged militant | T0+(BOX(s=1/2) -> work)",
+   "pi": 0.014959297808503219,
+   "summary": "fair"
+  },
+  {
+   "exit_total": 1.5310846560846544e-05,
+   "by_kind": {
+    "deleterious": 0.0,
+    "neutral-keep": 1.5310846560846544e-05
+   },
+   "top": [
+    {
+     "rate": 2.083333333333332e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | scab",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | T0+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | militant+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | union+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | tagged militant | tagged militant+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.0582010582010572e-06,
+     "slot": "B",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(1/2,none,0) | tagged militant | T0-union+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    }
+   ],
+   "state": "(0,none,2) | tagged militant | T0-union+(BOX(s=1/2) -> work)",
+   "pi": 0.014958326286104483,
+   "summary": "fair"
+  },
+  {
+   "exit_total": 1.5310846560846544e-05,
+   "by_kind": {
+    "deleterious": 0.0,
+    "neutral-keep": 1.5310846560846544e-05
+   },
+   "top": [
+    {
+     "rate": 2.083333333333332e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | scab",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | T0+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | militant+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | union+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.3888888888888864e-06,
+     "slot": "W2",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(0,none,2) | militant | tagged militant+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    },
+    {
+     "rate": 1.0582010582010572e-06,
+     "slot": "B",
+     "kind": "neutral-keep",
+     "delta": 0.0,
+     "N_delta": 0.0,
+     "to": "(1/2,none,0) | militant | T0-union+(BOX(s=1/2) -> work)",
+     "to_play": "(1/2,none) W W",
+     "to_summary": "fair"
+    }
+   ],
+   "state": "(0,none,2) | militant | T0-union+(BOX(s=1/2) -> work)",
+   "pi": 0.014958326286104483,
+   "summary": "fair"
+  }
+ ],
+ "execution": {
+  "whack": {
+   "carrier_mass": 0.0,
+   "execution_rate": null,
+   "executed_mass": 0.0,
+   "cost_per_execution": null,
+   "carrier_mean_payoff": null,
+   "noncarrier_mean_payoff": 1.013494580351662
+  },
+  "quorum strike": {
+   "carrier_mass": 0.5805821299210351,
+   "execution_rate": 4.5955791823975796e-05,
+   "executed_mass": 2.668111149937156e-05,
+   "cost_per_execution": 1.3545373646623604e-05,
+   "carrier_mean_payoff": 0.4936497986391289,
+   "noncarrier_mean_payoff": 0.49007657971155455
+  },
+  "costly strike": {
+   "carrier_mass": 0.8035260325689491,
+   "execution_rate": 8.674985159533646e-07,
+   "executed_mass": 6.970576407834582e-07,
+   "cost_per_execution": 0.4369364714064526,
+   "carrier_mean_payoff": 0.4940729569005736,
+   "noncarrier_mean_payoff": 0.4842913549993059
+  }
+ },
+ "device": {
+  "stable": 0.990282930480301,
+  "weak": 0.990282930480301,
+  "dominated": 0.001263232061287992,
+  "dominated_stable": 0.001263232061287992,
+  "dominated_weak": 0.001263232061287992,
+  "nash": 0.0021673909607742214,
+  "nash_stable": 0.0021673909607742214,
+  "covered": 0.990282930480301,
+  "dominated_stable_examples": [
+   {
+    "pi": 0.000631616030643996,
+    "state": "(0,none,0) | militant | scab",
+    "play": "(0,none) S W"
+   },
+   {
+    "pi": 0.000631616030643996,
+    "state": "(0,none,0) | tagged militant | scab",
+    "play": "(0,none) S W"
+   }
+  ]
+ },
+ "cut_by_source": {},
+ "cut_total_rel": 0.0,
+ "time_s": 19.680965900421143
+}

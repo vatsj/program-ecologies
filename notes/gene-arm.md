@@ -486,3 +486,13 @@ first) with no gene-arm cell finished. Two changes, made before any gene-arm uni
    jump chain (π ∝ x_J / R), with a second start (a point mass on the heaviest state of a different wage) whose TV
    distance is reported; spaces ≤ 2,500 states use dense log-domain GTH. Validation: power vs dense log GTH TV ≤ 7·10⁻¹³
    on three cells (test). Length-prior cells keep the hybrid exploration with the cut diagnostic.
+
+**Costs of the panel (2026-10-11).** Uniform cells (full state space, ≤ 1.4·10⁵ unit triples): 0–70 s each. Length
+cells (hybrid): base and filtered arms 0–300 s; G-all and G-asym 8–22 min; G-cred-whole SG / local 9–14 min at
+N = 10⁴; G-all SG / local not finished (stopped after 70 min; runs/gene-arm.md "Not finished"). Chicken (all cells and
+lotteries) 3 min; SOG lottery 4 × 40 runs < 10 min on one worker; SG lottery 40 runs < 2 min; coalition < 1 min.
+*Process disclosure:* two of my diagnostic processes (a verbose hybrid test and a named-uniform hybrid test) were left
+running for about 70 minutes beside the three-worker panel (five of my processes during that window); a duplicate G-all
+SG cell ran for 30 s before it was killed. The first panel was killed children-first; the singular-ring failure of one
+hybrid cell was fixed by moving ring states that cannot reach the core into the core (`gene_arm._safe_solve_censored`,
+a runtime wrapper, no edit to `src/dollar3_chain.py`).
