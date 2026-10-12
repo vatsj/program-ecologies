@@ -446,3 +446,49 @@ was written, and the lack rule), so the gate semantics is measured where it is c
   there); the units whose S transition differs between self-play and twin play are counted in validation.
 - **Encounter rate:** r = N/2 encounters per Moran event (25, 50, 100 at N = 50, 100, 200), about one match with
   every island resident per generation; r = 1 as the slow-transfer sensitivity.
+
+### 1.14 Code validation of §1 (after the code, before any counted cell)
+
+From `tests/test_lt_genes.py` (8 tests, all passing), `lt_genes_run.py validate` (`runs/lt_genes/validate.json`),
+`graph` (`runs/lt_genes/graph.json`) and the static build (`runs/lt_genes/static.log`). No lottery cell and no
+single-pair table had run.
+
+- **The tactic as code equals the host tactic.** On the named catalogue (10 programs × {against CB-H for C, against
+  ⌜D⌝ for D} and the tests' cases) PCORE returns exactly the host Producer's script; costs: σCB 4,613 steps, δ 4,850,
+  σCB1 8,169, σCBP 27,574 (one nested Run of the partner's D check), CBPr's script 46,847–59,035, ε 1,220. On the
+  population tables, every one of the 23,840 signature representatives was produced by the term: **0 disagreements
+  wherever the term finished**; **3,898 (16%) exceed the cap P = K/4** and return TO (1,862 of them where the host
+  finds a script). They are the signatures whose tactic path meets a box whose check regresses (TO): a regressing
+  nested check burns its whole cap V = P, so the executable producer times out where the ideal one does not. The
+  populations use the executable outcome (no script, counted as a production timeout). Median production cost (term)
+  13,743 steps for C scripts (q90 at the cap) and 9,058 for D scripts. *Signature codes were extended to three box
+  values (F, T, TO) for this reason before the final static build.*
+- **Plays by composition = whole actual plays:** 1,300 unit pairs (600 random reachable pairs, 400 with an acquired
+  inventory, 150 twins, 150 self-plays) played whole by the term: 0 mismatches.
+- **Transitions = direct encounters:** 750 encounters of S, C and CS units against random reachable units, executed by
+  the term (`lt_genes.encounter`, lack rule): 749 agree with the kernel's tables. The one disagreement is a C
+  production that fits its cap for the signature's representative opponent but exceeds it for this opponent (the box
+  check costs nearly V for it); cap timeouts are assigned per signature, an approximation measured here at 1/750.
+- **Executable = ideal checks:** 492 sampled adoption and gate-type checks where the ideal table has the value: 0
+  mismatches.
+- **Mode markers change no H list:** 300 random spellings produced with the S marker: lists identical to milestone 2's.
+- **Identity:** 97 reachable units are split (twin play ≠ self play; 48 run trees); a further 790 units on non-split
+  run trees have an S transition that differs between self-play and twin play (e.g. the tactic at a self-play root,
+  where R = S). The kernel therefore keeps the spelling in the type for **704 run trees** (every run tree with either
+  property), so same-quote encounters are exact there; elsewhere twin and self behave identically.
+- **Static build (lack rule):** base 7,743 units; the closure converges after 2 rounds at 15,532 units (11,379
+  reachable in some mode; the rest are single-entry units used only by adoption checks), 29 scripts (25 host + 4
+  produced only by S); 24.7 M host checks, 1,229 s on 3 workers; plus 239,488 checks for the Lemma A transfer
+  statistic. Split units 97, PD (D production) undefined for 12 unreachable units only.
+- **Kernel:** a synthetic universe checks the incremental payoff sums against direct sums after Moran events,
+  adoptions and the inheritance-disabled rule; a 100-generation smoke run of the mixed and seeded C-only cells takes
+  12–17 s (not a counted cell; discarded).
+- **Cost model** (`costs.json`, term medians on samples): adoption check 17,626 steps (+56 for quote surgery), tactic
+  for a C script 13,743, for a D script 9,058, a production cap timeout P + 5; the gate-rule check against a partner
+  15,648, against a listless target 101.
+- **The transfer graph** (exact, every run tree as recipient against every H list as donor): 681,834 C edges between
+  distinct run trees (1,083 self edges) and 1,154,418 D edges; δ is accepted by 45% of run trees. Among the 345
+  establisher run trees (mass 0.061) the C-edge graph has 22 components (largest 128 and 117 run trees), median C
+  in-degree 28, 18 establishers with none. Of the establisher pairs that cooperate under (H, H) but not at the first
+  (C, H) encounter, 1,554 are on the graph (18 do not cooperate at encounter 2) and 11,173 are off it (14 do
+  cooperate at encounter 2, through an adopted D script read by a defection-detecting donor).
