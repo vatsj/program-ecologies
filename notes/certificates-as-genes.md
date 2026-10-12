@@ -409,3 +409,40 @@ accept a foreign skeleton through Hyp^self (LöbC accepts σCB).
    tracking; cost accounting (gate, production, AC, quote surgery); the transfer graph on a sample.
 6. The scale guard: the size of the unit universe, the number of checks the tables need, and the time to compute
    them, before any population cell.
+
+### 1.13 Revision before any counted cell: the scale guard and the population rule
+
+*Written after the scale guard (notes §1.12 item 6) and before any counted cell; the predictions file has an
+addendum of the same date.*
+
+**Scale guard under the rules of §1.3 as written ("gate" rule).** The closure of §1.8 (host replay checker, 3
+workers) grew the unit universe from 7,743 base units to 16,505 after round 0 (2,020 s; 3.7 M D checks for the
+signatures, 1.3 M adoption checks, 2.5 M D checks, 33.3 M gate-row checks) and to 21,890 after round 1 (6,300 s;
+92.4 M gate-row checks), with round 2 projected at ≥ 10⁸ further checks and the universe still growing. The growth is
+the gate itself: an S or CS program collects a new script whenever its own check against a partner fails, and a C
+program collects every script that validates against some donor, so inventories become sequences of several
+scripts per outcome, and every S/CS unit with a C entry needs a full row of gate values against every reachable unit.
+The run was stopped there (log kept as `runs/lt_genes/static_gate_semantics.log`).
+
+**Population rule ("lack" rule), used in every population cell.** A program acts on an outcome only while its list
+has no entry of that outcome: C tries the donor's entries of an outcome (in the donor's order, adopting the first that
+passes AC) only if it holds no entry of that outcome; S produces a C script (PROD against the partner) only if it
+holds no C entry, and a D script (against ⌜D⌝) only if it holds no D entry; CS copies, then searches, under the same
+test. The S "gate" is therefore a list inspection, not a check. Consequences, by construction: every program holds at
+most one C and one D entry (the shape of every H list, §0 disclosure), so the certificate is a gene with one allele
+per outcome, acquired once and then inherited; production is paid at acquisition (and by C copiers on every encounter
+in which they still lack an entry and try a donor's scripts), never as a per-match gate; F2 (first-valid order)
+cannot arise in the populations. The single-pair tables are run under **both** rules (the gate rule exactly as §1.3
+was written, and the lack rule), so the gate semantics is measured where it is cheap.
+
+**Other corrections and conventions fixed here.**
+- PROD's wrapper costs at most **P + 5** steps (lib-β, `fst`, `snd`, `capk`, at most P inner steps, return or
+  timeout), not P + 4 as §1.3 said (the `snd arg` step); a timeout returns TO and adopts nothing (tests).
+- **Cost model in the populations:** production steps per act are the median term costs measured on samples of the
+  population tables (adoption check + quote surgery, tactic for a C script, tactic for a D script; `costs.json`);
+  the per-match cost by mode and the price arm use these modelled costs. The single-pair tables use exact term costs.
+- **Identity in the kernel:** a type keeps its spelling only for run trees with a split unit (twin play ≠ self play);
+  otherwise two individuals of one unit and mode interact as twins (exact for plays, since twin play = self play
+  there); the units whose S transition differs between self-play and twin play are counted in validation.
+- **Encounter rate:** r = N/2 encounters per Moran event (25, 50, 100 at N = 50, 100, 200), about one match with
+  every island resident per generation; r = 1 as the slow-transfer sensitivity.

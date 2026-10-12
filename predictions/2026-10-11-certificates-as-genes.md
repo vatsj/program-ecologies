@@ -126,3 +126,18 @@ used with distinct sources), falsifier expected to fire.
   establishers per island, f₀ = 0.05 ≈ 0.3.
 - Encounters per individual per generation: 2r = 100 at r = 50; 2 at r = 1.
 - Price: a production of ≈ 2·10⁴ steps at c = 0.1 costs 0.002 per match; w·Δ = 6·10⁻⁴; N·w·Δ = 0.06 at N = 100.
+
+## Addendum (2026-10-11, after the scale guard, before any counted cell)
+
+The population cells use the **lack rule** (notes §1.13): a program copies or produces for an outcome only while its
+list has no entry of that outcome; the S gate is a list inspection. The rules of notes §1.3 (the gate rule) are run in
+the single-pair tables beside it. Effect on the predictions above (originals stand as committed):
+- **S4's S clause** (steady cost including the gate) is scored on the single-pair gate-rule table only; under the lack
+  rule I expect S's steady production cost to be 0, so its steady per-match cost equals H's for the same pair of
+  quotes.
+- **S15** (S re-pays its gate every match, α ≈ 0) does not apply to the populations as revised. Revised expectation:
+  per-match production steps by mode are set by the fraction of individuals still lacking an entry (C copiers off the
+  transfer graph keep trying donors' scripts every encounter), and are independent of N within 30% at r = N/2;
+  acquisition cost per lineage independent of N within 30%. *Falsifier:* a 2× change of any mode's per-match
+  production steps between N = 50 and N = 200.
+- Every other prediction (the RE's six and S1–S3, S5–S14, S16, S17) is unchanged.
