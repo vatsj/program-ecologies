@@ -101,6 +101,7 @@ def costs(rows):
     ctr = np.array([r['ctr'] for r in rows]).sum(0)
     steps = np.array([r['steps_rule'] for r in rows]).sum(0)
     enc = np.array([r['enc_exp'] for r in rows]).sum(0)
+    encf = np.array([r.get('enc_futile', [0] * PV.NRULE) for r in rows]).sum(0)
     hw = np.array([r['hist_wait'] for r in rows]).sum(0)          # rule, cap, kind(4), bins
     ha = np.array([r['hist_acq'] for r in rows]).sum(0)           # rule, cap, bins
     hs = np.array([r['hist_steps'] for r in rows]).sum(0)         # rule, bins
@@ -111,7 +112,8 @@ def costs(rows):
     for k in range(PV.NRULE):
         if enc[k] <= 0: continue
         c = ctr[k]
-        d = dict(per_match_steps=float(steps[k] / enc[k]), enc_exp=float(enc[k]), C_attempts=int(c[PV.C_CATT]),
+        d = dict(per_match_steps=float(steps[k] / enc[k]), enc_exp=float(enc[k]), futile_enc=float(encf[k]),
+                 futile_share=float(encf[k] / enc[k]), C_attempts=int(c[PV.C_CATT]),
                  C_ok=int(c[PV.C_COK]), C_capTO=int(c[PV.C_CTO]), C_none=int(c[PV.C_CNONE]),
                  capTO_share=float(c[PV.C_CTO] / max(1, c[PV.C_CATT])), D_attempts=int(c[PV.C_DATT]),
                  AC=int(c[PV.C_AC]), AC_ok=int(c[PV.C_ACOK]), skip_self=int(c[PV.C_SKIPSELF]),

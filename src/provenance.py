@@ -494,26 +494,45 @@ def init_paysum(counts, paysum, pres, npres, tunit, tsp, A, selfa):
 
 
 @njit(cache=True)
-def is_settled(k, tunit, trule, tset, BLC, BLD):
-    """A type none of whose encounters can change it: H, or a lack rule holding a C and a D entry."""
+def is_settled(k, tunit, trule, tset, BLC, BLD, PD, utau, FUT):
+    """A type none of whose encounters can change it (tset 1: H, or a lack rule holding a C and a D entry; tset 2:
+    *futile*, a non-copying lack rule still lacking an entry that its rule can never produce: no C script at any code
+    its rule reaches (FUT[t, 0] any code, FUT[t, 1] non-self codes) and no D script (PD[u] = u or a cap timeout),
+    both deterministic in the unit).  Copying rules and the gate rule are settled only when complete / never."""
     s = tset[k]
     if s >= 0:
-        return s == 1
+        return s >= 1
     rule = trule[k]; u = tunit[k]
-    v = 1 if (rule == R_H or (rule != R_SGATE and BLC[u, 0] >= 0 and BLD[u, 0] >= 0)) else 0
+    hc = BLC[u, 0] >= 0; hd = BLD[u, 0] >= 0
+    if rule == R_H:
+        v = 1
+    elif rule == R_SGATE:
+        v = 0
+    elif rule == R_C or rule == R_CSNON:
+        v = 1 if (hc and hd) else 0
+    else:
+        t = utau[u]
+        cdone = hc or (FUT[t, 1] == 1 if rule == R_SNON else FUT[t, 0] == 1)
+        ddone = hd or PD[u] == u or PD[u] == -3
+        if cdone and ddone:
+            v = 1 if (hc and hd) else 2
+        else:
+            v = 0
     tset[k] = v
-    return v == 1
+    return v >= 1
 
 
 @njit(cache=True)
-def init_uns(slots, tunit, trule, tset, BLC, BLD, uns, rulecount):
+def init_uns(slots, tunit, trule, tset, BLC, BLD, PD, utau, FUT, uns, rulecount, fcount):
     I, N = slots.shape
     for i in range(I):
         uns[i] = 0
         for j in range(N):
             k = slots[i, j]
-            if not is_settled(k, tunit, trule, tset, BLC, BLD):
+            if not is_settled(k, tunit, trule, tset, BLC, BLD, PD, utau, FUT):
                 uns[i] += 1
+            if tset[k] == 2:
+                fcount[trule[k]] += 1
             rulecount[trule[k]] += 1
 
 
@@ -521,7 +540,7 @@ def init_uns(slots, tunit, trule, tset, BLC, BLD, uns, rulecount):
 def segment(g0, gens, seed, N, w, m, r, slots, counts, paysum, pres, npres, pos, spcount, d, tunit, trule, tsp, tanc,
             ntv, utau, BLC, BLD, SINGLE, APP, PRODC, PD, KIND, NAT, CHC, CHD, UVt, A, selfa, OSV, SPO, capable, COSTS,
             ctr, steps_rule, wn, wenc, wsp, wcode, wsid, ckey, cval, ncache, plog, hist_wait, hist_acq, hist_steps,
-            hist_cens, nprod, identu, spou, tset, uns, rulecount, enc_exp, skip, err):
+            hist_cens, nprod, identu, spou, tset, uns, rulecount, enc_exp, skip, FUT, fcount, enc_futile, err):
     """Generations g0 .. g0 + gens - 1 (I*N Moran events each, r encounters per event).  An encounter on an island
     whose residents are all *settled* (H, or holding a C and a D entry under a lack rule) changes nothing and is
     skipped (its draws are event-indexed, so skipping consumes nothing); enc_exp accumulates the expected
@@ -537,6 +556,8 @@ def segment(g0, gens, seed, N, w, m, r, slots, counts, paysum, pres, npres, pos,
             for rr in range(NRULE):
                 if rulecount[rr] > 0:
                     enc_exp[rr] += 2.0 * r * rulecount[rr] / tot_ind
+                if fcount[rr] > 0:
+                    enc_futile[rr] += 2.0 * r * fcount[rr] / tot_ind
             for q in range(r):
                 b0 = 8 + 5 * q
                 i = ri(seed, ev, b0, I)
@@ -546,8 +567,8 @@ def segment(g0, gens, seed, N, w, m, r, slots, counts, paysum, pres, npres, pos,
                 p = ri(seed, ev, b0 + 2, N - 1)
                 if p >= f: p += 1
                 kf = slots[i, f]; kp = slots[i, p]
-                if skip and is_settled(kf, tunit, trule, tset, BLC, BLD) and \
-                        is_settled(kp, tunit, trule, tset, BLC, BLD):
+                if skip and is_settled(kf, tunit, trule, tset, BLC, BLD, PD, utau, FUT) and \
+                        is_settled(kp, tunit, trule, tset, BLC, BLD, PD, utau, FUT):
                     continue
                 rel = relation(kf, kp, tunit, tsp)
                 shf = -1; shp = -1
@@ -579,8 +600,9 @@ def segment(g0, gens, seed, N, w, m, r, slots, counts, paysum, pres, npres, pos,
                                    hist_cens, nprod, 0)
                     if identu[tunit[nf]] and not identu[tunit[kf]]: ctr[trule[kf], C_IDENT_ENTRY] += 1
                     if spou[tunit[nf]] and not spou[tunit[kf]]: ctr[trule[kf], C_SPOU_ENTRY] += 1
-                    uns[i] += (0 if is_settled(nf, tunit, trule, tset, BLC, BLD) else 1) - \
-                        (0 if is_settled(kf, tunit, trule, tset, BLC, BLD) else 1)
+                    uns[i] += (0 if is_settled(nf, tunit, trule, tset, BLC, BLD, PD, utau, FUT) else 1) - \
+                        (0 if is_settled(kf, tunit, trule, tset, BLC, BLD, PD, utau, FUT) else 1)
+                    fcount[trule[kf]] += (1 if tset[nf] == 2 else 0) - (1 if tset[kf] == 2 else 0)
                     _change(i, kf, nf, counts, paysum, pres, npres, pos, tunit, tsp, A, selfa)
                 if np_ != kp:
                     slots[i, p] = np_; ctr[trule[kp], C_CHANGE] += 1
@@ -589,8 +611,9 @@ def segment(g0, gens, seed, N, w, m, r, slots, counts, paysum, pres, npres, pos,
                                    hist_cens, nprod, 0)
                     if identu[tunit[np_]] and not identu[tunit[kp]]: ctr[trule[kp], C_IDENT_ENTRY] += 1
                     if spou[tunit[np_]] and not spou[tunit[kp]]: ctr[trule[kp], C_SPOU_ENTRY] += 1
-                    uns[i] += (0 if is_settled(np_, tunit, trule, tset, BLC, BLD) else 1) - \
-                        (0 if is_settled(kp, tunit, trule, tset, BLC, BLD) else 1)
+                    uns[i] += (0 if is_settled(np_, tunit, trule, tset, BLC, BLD, PD, utau, FUT) else 1) - \
+                        (0 if is_settled(kp, tunit, trule, tset, BLC, BLD, PD, utau, FUT) else 1)
+                    fcount[trule[kp]] += (1 if tset[np_] == 2 else 0) - (1 if tset[kp] == 2 else 0)
                     _change(i, kp, np_, counts, paysum, pres, npres, pos, tunit, tsp, A, selfa)
             # birth-death (milestone 2's), event-indexed draws 0-4
             i = ri(seed, ev, 0, I)
@@ -630,8 +653,10 @@ def segment(g0, gens, seed, N, w, m, r, slots, counts, paysum, pres, npres, pos,
             rulecount[trule[kv]] -= 1
             rulecount[trule[child]] += 1
             if kv == child: continue
-            uns[i] += (0 if is_settled(child, tunit, trule, tset, BLC, BLD) else 1) - \
-                (0 if is_settled(kv, tunit, trule, tset, BLC, BLD) else 1)
+            uns[i] += (0 if is_settled(child, tunit, trule, tset, BLC, BLD, PD, utau, FUT) else 1) - \
+                (0 if is_settled(kv, tunit, trule, tset, BLC, BLD, PD, utau, FUT) else 1)
+            fcount[trule[child]] += 1 if tset[child] == 2 else 0
+            fcount[trule[kv]] -= 1 if tset[kv] == 2 else 0
             slots[i, vs] = child
             _change(i, kv, child, counts, paysum, pres, npres, pos, tunit, tsp, A, selfa)
     return g0 + gens

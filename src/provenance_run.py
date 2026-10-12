@@ -697,7 +697,7 @@ def cmd_validate(a):
     rep = {}
     # 1. the settled-skip is exact (identical trajectories with and without skipping)
     sk = []
-    for cell in ('Sself', 'S3', 'mixed', 'Cdonor', 'Sdel', 'CSnon'):
+    for cell in ('Sself', 'Snon', 'S3', 'S3strict', 'mixed', 'Cdonor', 'Sdel', 'CSnon', 'H', 'ablation'):
         Rs = []
         for skip in (True, False):
             R = Run(cell, 997); R.skip = skip
@@ -793,7 +793,10 @@ def lot_static(which='ext'):
     costs = json.load(open(os.path.join(M5, 'costs.json')))
     COSTS = np.array([costs['ac'] + costs['surgery'], costs['gate'], costs['gate0'], costs['prodC'], costs['prodD'],
                       PCAP + 5], float)
-    LS = dict(st=st, meta=meta, PRODC=PRODC, PD=PD, OSV=OSV, SPO=SPO, cat=cat, mu=mu, names=names, tau=tau,
+    FUT = np.zeros((PRODC.shape[0], 2), np.int8)
+    FUT[:, 0] = ~(PRODC >= 0).any(1)
+    FUT[:, 1] = ~(PRODC[:, :25] >= 0).any(1)
+    LS = dict(st=st, meta=meta, PRODC=PRODC, PD=PD, OSV=OSV, SPO=SPO, FUT=FUT, cat=cat, mu=mu, names=names, tau=tau,
               Hu=Hu, Eu=Eu, u_cb=u_cb, u_d=u_d, donor_ok=donor_ok, COSTS=COSTS,
               ident=sets['ident'], openu=sets['openu'], spo_unit=sets['spo_unit'], capable=sets['capable'],
               only_self=sets['only_self'], Q=sets['Q'], R=sets['R'])
@@ -899,7 +902,10 @@ class Run:
         self.uns = np.zeros(I, np.int64)
         self.rulecount = np.zeros(PV.NRULE, np.int64)
         self.enc_exp = np.zeros(PV.NRULE)
-        PV.init_uns(self.slots, self.tunit, self.trule, self.tset, st['BLC'], st['BLD'], self.uns, self.rulecount)
+        self.fcount = np.zeros(PV.NRULE, np.int64)
+        self.enc_futile = np.zeros(PV.NRULE)
+        PV.init_uns(self.slots, self.tunit, self.trule, self.tset, st['BLC'], st['BLD'], LS['PD'], st['utau'], LS['FUT'],
+                    self.uns, self.rulecount, self.fcount)
         self.seed = kernel_seed(N, I, rep)
         self.skip = True
         self.g = 0
@@ -915,7 +921,7 @@ class Run:
                        self.wn, self.wenc, self.wsp, self.wcode, self.wsid, self.ckey, self.cval, self.ncache,
                        self.plog, self.hist_wait, self.hist_acq, self.hist_steps, self.hist_cens, self.nprod,
                        LS['ident'], LS['spo_unit'], self.tset, self.uns, self.rulecount, self.enc_exp, self.skip,
-                       self.err)
+                       LS['FUT'], self.fcount, self.enc_futile, self.err)
         if self.err[0] != 0:
             raise RuntimeError('kernel error %d in %s rep %d at generation %d (types %d)' % (
                 self.err[0], self.cell, self.rep, g, self.ntv[0]))
@@ -1092,6 +1098,7 @@ def lottery_job(job):
                 final=fin, group_max=group_max.tolist(), group_first=group_first,
                 seeded_Q=seeded_q, seeded_only_self=seeded_only_self,
                 ctr=R.ctr.tolist(), steps_rule=R.steps_rule.tolist(), enc_exp=R.enc_exp.tolist(),
+                enc_futile=R.enc_futile.tolist(),
                 hist_wait=R.hist_wait.tolist(),
                 hist_acq=R.hist_acq.tolist(), hist_steps=R.hist_steps.tolist(), hist_cens=R.hist_cens.tolist(),
                 nprod=R.nprod.tolist(), n_types=int(R.ntv[0]), time_s=time.time() - t0)

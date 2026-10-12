@@ -436,3 +436,15 @@ validate}.json`, `pairs.json`) and `tests/test_provenance.py` (10 tests, passing
   so both sides of an S-self-delayed pair have independent shadows); §1.7 said four.
 - **Scale guard.** Types created per run ≈ 10⁴ (cap 150,000); a 2,000-generation run at (100, 64) ≈ 1 min. The gate
   cell's universe is built next (§1.9 budget).
+- **Addendum (before any counted cell; the first launch of the main batch was stopped after 18 runs because islands
+  holding *futile* programs could never be skipped, which made 10,000-generation extensions too slow; those 18 runs
+  are kept aside as `lottery_main_aborted_v1.json` and not used).** The skip now also covers *futile* individuals:
+  a non-copying lack rule that still lacks an entry its rule can never produce (no C script at any code the rule
+  reaches, all codes for S-self/S-self-delayed/S-k, non-self codes for S-nonself; and no D script, deterministic in
+  the unit), whose encounters change no type. Dynamics are unchanged (identical trajectories with and without the
+  skip over 300 generations in 10 cells, `validate.json`; kernel = term 728/728 again). Their futile production
+  attempts are no longer executed one by one: the expected number of side-encounters of futile individuals per rule
+  is accumulated per event (`enc_futile`) and reported beside the executed costs; producer logs of futile
+  individuals count encounters only on processed islands (a lower bound), while their "never acquired" status is
+  exact. Producer statistics are reported for capable producers (run trees with a non-self production), whose logs
+  are exact.
