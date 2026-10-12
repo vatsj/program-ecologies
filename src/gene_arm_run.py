@@ -326,11 +326,13 @@ def run_cell(arm_name, kernel, prior, N, theta=1e-9, save=True):
         seeds, ne = seeds_for(ch, G, A, L, Un)
         ch.solve_full()
     else:
-        ch = GA.GChain(L, Un, QSc, KERNELS[kernel], N, theta=theta, tag='%s/%s/%s' % (arm_name, kernel, prior))
-        ch.max_rounds = 60
+        ch = GA.GChain(L, Un, QSc, KERNELS[kernel], N, theta=theta, tag='%s/%s/%s' % (arm_name, kernel, prior),
+                       max_states=int(os.environ.get('GA_MAX_STATES', 400000)), verbose=bool(os.environ.get('GA_VERBOSE')))
+        ch.max_rounds = int(os.environ.get('GA_MAX_ROUNDS', 60))
         seeds, ne = seeds_for(ch, G, A, L, Un)
         ch.explore_hybrid(seeds)
-    res = dict(arm=arm_name, kernel=kernel, prior=prior, N=N, theta=theta, rule=A['rule'], KcB=L['KcB'], KcW=L['KcW'],
+    res = dict(arm=arm_name, kernel=kernel, prior=prior, N=N, theta=theta, rule=A['rule'],
+               caps=dict(max_states=getattr(ch, 'max_states', None), max_rounds=getattr(ch, 'max_rounds', None)), KcB=L['KcB'], KcW=L['KcW'],
                KuB=Un['KuB'], KuW=Un['KuW'], seeds=len(seeds), strict_ne=len(ne),
                strict_ne_states=[state_name(G, int(A['bsel'][L['repB'][b]]), int(A['wsel'][L['repW'][x]]), int(A['wsel'][L['repW'][y]])) for (b, x, y) in ne[:10]],
                null_mass=dict(boss=float(1 - mB[A['bsel']].sum()), worker=float(1 - mW[A['wsel']].sum())),
@@ -353,8 +355,8 @@ SOG_ARMS = ['base-CC', 'base-RC', 'base-RR', 'G-all', 'G-all-RC', 'G-cred', 'G-c
 
 def planned_cells():
     cells = []
-    for N in (1000, 10000):
-        for prior in ('uniform', 'length'):
+    for prior in ('uniform', 'length'):
+        for N in (1000, 10000):
             for a in SOG_ARMS:
                 cells.append((a, 'prior', prior, N))
             for a in ('G-all', 'G-cred', 'G-cred-whole'):
@@ -900,6 +902,43 @@ def sg_lottery(procs, runs=10, N=100, I=16, mN=1.0, gens=2000):
     return out
 
 
+def coalition_eps():
+    """eps* for the coalition kernel: coalition flux / sequential flux = eps * 3 * e_int * rho2 / (rho1 rho2'), with
+    e_int the per-event exit probability of the intermediate state (one mutant in) in the length-prior prior-kernel
+    chain; computed for the coalition.json pairs."""
+    co = json.load(open(os.path.join(OUT, 'coalition.json')))
+    G = sog()
+    out = {}
+    for key, v in co.items():
+        if not v.get('coalition'):
+            continue
+        arm_name, st = key.split('/')
+        b, x0, y0 = named_progs()[st]
+        q1 = [x for x in range(G.KW) if G.wname(x) == v['coalition'][0]][0]
+        q2 = [x for x in range(G.KW) if G.wname(x) == v['coalition'][1]][0]
+        G_, A, Tbl, L, Un, QSc, mB, mW = build_cell(arm_name, 'prior', 'length')
+        res = {}
+        for N in (1000, 10000):
+            ch = GA.GChain(L, Un, QSc, 0, float(N))
+            if b not in Un['posB'] or q1 not in Un['posW'] or y0 not in Un['posW']:
+                res['N%d' % N] = None; continue
+            code = ch.code(Un['posB'][b], Un['posW'][q1], Un['posW'][y0])
+            src, dst, lp = ch.rows(np.array([code]), np.array([code]), np.zeros(1), 0.0, mode=1)[:3]
+            e_int = float(np.exp(lp).sum())
+            m1 = Un['massW'][Un['posW'][q1]] / 3; m2 = Un['massW'][Un['posW'][q2]] / 3
+            u = lambda bb, x, y, s: GA.PAY[int(Tbl['J'][bb, x, y]), G.tag[x], G.tag[y]][s]
+            r1 = math.exp(GA._lrho(GA.W * (u(b, q1, y0, 1) - u(b, x0, y0, 1)), float(N)))
+            r2 = math.exp(GA._lrho(GA.W * (u(b, q1, q2, 2) - u(b, q1, y0, 2)), float(N)))
+            rho2 = v['N%d' % N]['rho2'] if ('N%d' % N) in v else r1 * r2
+            seq = m1 * r1 * (m2 * r2 / e_int)          # per event of single mutations (eps)
+            coal = (1.0 / 3) * (3 * m1) * (3 * m2) * rho2   # per eps^2 (a pair of slots w.p. 1/3, masses unscaled)
+            res['N%d' % N] = dict(e_int=e_int, seq_per_eps=seq, coal_per_eps2=coal, eps_star=seq / coal)
+        out[key] = res
+    json.dump(out, open(os.path.join(OUT, 'coalition_eps.json'), 'w'), indent=1)
+    print(json.dumps(out, indent=1))
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('cmd')
@@ -923,9 +962,12 @@ def main():
             print(an, {U.SUMM[k]: v / (64 * 40) for k, v in labs.items()}, flush=True)
     elif a.cmd == 'lottery_sg':
         sg_lottery(a.procs)
+    elif a.cmd == 'coalition_eps':
+        coalition_eps()
     elif a.cmd == 'coalition':
         print(json.dumps(coalition(), indent=1, default=str))
 
 
 if __name__ == '__main__':
     main()
+

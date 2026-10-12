@@ -1486,3 +1486,43 @@ class FullChain(GChain):
                          time_s=time.time() - t0)]
         self.index = {int(c): k for k, c in enumerate(self.codes)}
         return self
+
+
+# ------------------------------------------------------------------ robust censored solve
+import dollar3_chain as _D3
+_orig_solve_censored = _D3.solve_censored
+
+
+def _safe_solve_censored(n, is_core, src, dst, lp, gth, batch=256):
+    """dollar3_chain.solve_censored, but ring states that cannot reach the core inside the explored set (a closed
+    ring subset makes I - P_rr singular) are moved into the core first."""
+    keep = src != dst
+    s2, d2 = src[keep], dst[keep]
+    reach = is_core.copy()
+    # reverse BFS from the core over explored edges
+    import scipy.sparse as sp
+    from scipy.sparse.csgraph import breadth_first_order
+    M = sp.csr_matrix((np.ones(len(s2)), (d2, s2)), shape=(n, n))
+    for c in np.nonzero(is_core)[0][:1]:
+        pass
+    frontier = list(np.nonzero(is_core)[0])
+    seen = reach
+    MT = M.tocsr()
+    while frontier:
+        nxt = []
+        for v in frontier:
+            for u in MT.indices[MT.indptr[v]:MT.indptr[v + 1]]:
+                if not seen[u]:
+                    seen[u] = True; nxt.append(u)
+        frontier = nxt
+    new_core = is_core | ~seen
+    try:
+        return _orig_solve_censored(n, new_core, src, dst, lp, gth, batch)
+    except RuntimeError:
+        # fall back: everything in the core (dense log GTH)
+        from dollar3_solve import dense_log_gth
+        A = _D3._assemble(n, s2, d2, lp[keep])
+        return dense_log_gth(A)
+
+
+_D3.solve_censored = _safe_solve_censored
