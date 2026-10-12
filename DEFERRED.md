@@ -367,6 +367,16 @@ REJECTED.md the ones we dropped.
   union/boss asymmetry is therefore not a credibility asymmetry (both are costly investments) but a structural one:
   the strike needs a quorum, the whack is unilateral; which survives is set by the testing rate (entry 13).
   *Added to the gene run:* per-gene on-path execution rates and realized costs under G-all, CC and RC.
+- *Evidence (2026-10-11, the gene arm; one gene per program, scale guard):* no filter derives the asymmetry (the
+  per-point test rejects a strike at s > 0 as it rejects a whack; whole-program credibility is RR; the declared ban
+  is empty, since a gene whack keyed on a strike box never deters); the filter's effect is wage-faker removal
+  (uniform-prior fair 0.012 → 0.914, random removal 0.011; nothing under the length prior); the proof device fails
+  through neutral improvements (0.50 of the length-prior π on dominated gene-stable states); G-recip keeps 45,014
+  dominated gene-stable triples and cannot choose among wages; SG adds nothing targeted; encoding invariance fails
+  for every named gene (RESULTS "The gene arm"). *Operating hypothesis (revised):* genes are a mutation support,
+  not an equilibrium filter; if a filter is kept, it is the stage-1 counterfactual test (the wage-faker remover);
+  the asymmetry the RS wants, if it exists, comes from coordination (two slots against one) and the testing rate
+  (entry 13), and the proof device needs weak and two-slot moves.
 - *Would settle it:* the gene arm (parametric base strategies per role + declared special-case genes + the
   credibility filter) on the social organization game and on fixed-role chicken; whether selection among genes
   recovers RC.
@@ -379,6 +389,10 @@ REJECTED.md the ones we dropped.
 - *Operating hypothesis:* disarming is a testing-rate condition (threats are called often enough that holding one is
   costly), not a drift-rate condition; the drift route is re-armed by selection.
 - *RS (2026-10-11):* agreed.
+- *Evidence (2026-10-11, the gene arm):* both sides' threats are carried by most of π and executed almost never
+  (whack 2·10⁻⁶–8·10⁻⁶ per encounter; costly strike 0.0013–0.019), carriers out-earning non-carriers where the
+  threat is not called; lottery trajectories show 0.003 whacks and 0.006 strikes at positive wages per encounter
+  (RESULTS "The gene arm"). The testing-rate hypothesis holds on the workers' side too.
 
 ## 14. Social choice and implementation (RS, 2026-10-11; side quest)
 - *RS:* view the game as a mechanism for social choice over outcomes; want threat-independence (an IIA-like axiom,
@@ -393,3 +407,6 @@ REJECTED.md the ones we dropped.
 - *Operating hypothesis:* any implementation statement we prove is relative to the prior (our bargaining results are
   prior-dependent), so the target theorem is "which social choice correspondences the seed lottery implements for
   priors of a given bridge/pooling structure"; parked until the pooling result is in.
+- *Evidence (2026-10-11, the gene arm):* a Pareto restriction on genes (G-recip) cannot implement a wage, because
+  zero wage with everyone working is Pareto-efficient; a threat-independence axiom would have to bind on stage-1
+  commitments (the world-0 wage faker), which is where the credibility filter actually acted.

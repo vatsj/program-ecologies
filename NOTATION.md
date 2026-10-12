@@ -385,3 +385,15 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   the workers' quorum strike committed (RESULTS "Incentive-compatible enforcement"); **reciprocal credible gene** —
   a gene whose trigger is a certificate about the opponent's play in the encounter and whose override is ex-post
   rational when it fires (DEFERRED 12; the gene run's arm G-recip).
+- **Gene arm:** **gene (τ, o)** — a special-case clause `if(τ, o, ·)` placed ahead of a parametric base; the first
+  firing gene wins; it fires at world 0; 5 nodes; **Q\*** = BOX(s ∈ {0, ¼} ∧ OTHER = strike), the gene arm's quorum
+  atom; **arms** G-all (every gene admissible), G-cred (the per-point override filter), G-cred-whole (the RR execution
+  rule applied to the whole program), G-asym (no boss whack genes), G-recip (reciprocal triggers passing the filter),
+  random (removal of as many genes as G-cred removes), -ctl (bosses restricted to h = none); **continuation best
+  reply** — the per-point test with others' actions held fixed; **mutant-program best reply** — the whole encounter
+  re-evaluated with the carrier's program replaced; **gene-stable** — strict: no admissible gene strictly improves its
+  carrier; weak: none weakly improves its carrier and strictly improves someone; **SG** — the mutation kernel proposing
+  the best-reply gene on each trigger true in the stable play with probability ½; **C₁ as a gene** =
+  (BOX(W1 = strike), wage ½), the world-0 wage faker; **ε\*** — the mutation rate above which the coalition kernel is
+  faster than the sequential path; **on-path execution rate** — the fraction of encounters at the top states and along
+  lottery trajectories in which a gene's override is actually executed.

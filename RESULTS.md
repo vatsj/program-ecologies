@@ -4202,6 +4202,65 @@ Every island is co-seeded with some compatible coalition in every run; the chanc
 - **Under ex-post rationality the wage is ¼ again:** the ¼ probe certifies recommendations, not executed strikes.
 - **Realizability now binds on verification cost, not on fakers:** three-player certificates are sound by closure, and verifying them is heavy-tailed; 3% of encounters behave differently at K = 10⁶, almost all in the first generations.
 - *Caveats:* the lottery runs on the ideal table; production is a free host tactic; the modal coalition value comes from the union-run language, not the P₀₁ n = 11 language; L at (100, 256) not run; the chain not converged.
+## The gene arm: a credibility filter on special-case genes removes wage fakers, not threats, and no filter derives the union's asymmetry (`runs/gene-arm.md`, `runs/gene-arm.json`, `runs/gene_arm/`, `notes/gene-arm.md`; spec `specs/2026-10-11-gene-arm.md`, predictions in `predictions/2026-10-11-gene-arm.md` with two late additions from the RS, each before the cells it scores)
+
+Requested by the RS (DEFERRED 12), designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/gene_arm.py`, `src/gene_arm_run.py`, `src/gene_arm_report.py`, `tests/test_gene_arm.py`; 12 tests, passing on main). Order of commits: the notes' §1 by hand; the predictions with the RS's framing first; the RS's G-recip addition (RE 8) before any code; the code with its validation before any counted cell; the RS's execution-rate addition (RE 9) after one counted cell, which was re-run. **Deviations, disclosed:** the scale guard fired (≥ 23,206 boss classes at ≤ 2 genes), so every social-organization chain ran at **one gene per program** (136 worker and 1,323 boss programs), a different experiment from the spec's; chicken ran at the 2-gene cap; the uniform prior over program texts was too diffuse for the solver and was replaced, before any uniform cell was read, by a uniform prior over a named catalogue (each base alone or with one named gene, as in the enforcement and concessions runs), solved exactly by power iteration and checked against dense log-domain GTH to 10⁻¹²; chains seeded with strict-NE triples plus the named states; one hybrid cell's singular ring handled by a runtime wrapper in the new module; G-all with the SG and uniform-local kernels under the length prior did not converge in 70 minutes at a 60k-state cap and is not reported; two diagnostic processes briefly exceeded the worker cap and were killed by pid. RE check: the uniform-prior G-cred/random-removal contrast (0.914 vs 0.011) and the execution rates are in the run report, and the identified faker is the union run's world-0 wage faker as a gene.
+
+**What ran.** The social organization game (c = 0.5, L = 1, no pool) with parametric bases: workers (t, q), 8 bases (strike iff wage < t, or q and Q\*, where Q\* = BOX(s ≤ ¼ ∧ OTHER = strike)); bosses (s, h, p), 27 bases, p ∈ {0, D₀, D\*}. Genes (trigger, override): 16 worker genes and 48 boss genes; the first firing gene wins; a gene always fires at world 0. Fixed-role chicken at ≤ 2 genes, 68 programs per role. Arms: base-CC, base-RC, base-RR and G-all-RC as references; G-all; G-cred (the per-point override filter against all unfiltered programs, wage overrides judged against the workers' play at the alternative wage); G-cred-whole (= the RR execution rule applied to the whole program; void in chicken, where it empties the catalogue); G-asym (no boss whack genes); G-recip (reciprocal triggers that also pass the filter); random removal of as many genes as G-cred removes; base-commitment controls (-ctl, bosses restricted to h = none). Kernels: the prior kernel, SG, the uniform admissible-local kernel, and the coalition kernel as a labelled cell. Chain at N = 10³ and 10⁴ under the length prior (hybrid solver, cut ≤ 4%) and the named-catalogue uniform prior (full state space); lottery at ε = 0, (100, 64), mN = 1, 40 runs per arm, with SG innovation as a separate finite-ε object.
+
+**Static.** *The filter admits exactly 16 genes:* the 8 worker genes with override work (work − strike = s + L·[h = strike] ≥ 0 at every point) and the 8 boss genes with override whack-none; it removes every strike, whack and wage gene; all four named commitment genes fail (whack: −2c against the striker pair; quorum: fails at (¼, none) and under strike targeting; probe concession: ¼ beats ½ against the T₀ pair; firm in chicken: −10 against −1); nothing is admitted vacuously; the admitted-only iteration converges to the same verdicts. *Encoding invariance fails for every named gene:* the quorum gene on a scab is identical to the union base, and the zero-wage probe gene is identical to D₀, but base encodings are never filtered; the whack gene differs from the base whack on 0.50 of encounter mass. *Gene-stability against Nash* (2.4·10⁷ program triples): incomparable; the fair state is gene-stable under G-all and *unstable* under G-cred-whole (with `(BOX(W1=work), wage ¼)` the rational militant works at world 0, so the cut sticks); under G-cred-whole no gene-stable triple is Pareto-dominated and none pays ½; **G-recip keeps 45,014 gene-stable Pareto-dominated triples** and 12,740 weakly gene-stable ones (two-worker coordination failures). *Structural asymmetry:* the whack is unilateral; the strike needs a quorum of two slots.
+
+**Chain** (fair / ¼ / zero wage at N = 10⁴):
+
+| arm | named-catalogue uniform prior | length prior |
+|---|---|---|
+| base-CC | 0.894 / 0.082 / 0.019 | 0.093 / 0.033 / 0.424 |
+| base-RC | 0.907 / 0.081 / 0.006 | 0.123 / 0.049 / 0.289 |
+| base-RR | 10⁻⁴ / 0.994 / 0.006 | 6·10⁻⁵ / 0.781 / 0.218 |
+| G-all | 0.012 / 0.003 / 0.924 | 0.015 / 0.006 / 0.477 |
+| G-all-RC | 0.047 / 0.004 / 0.677 | 0.016 / 0.012 / 0.343 |
+| G-cred | **0.914** / 0.028 / 0.053 | 0.023 / 0.012 / 0.452 |
+| G-cred-ctl | 0.973 / 0.022 / 0.002 | 0.058 / 0.027 / 0.280 |
+| G-cred-whole | 2·10⁻⁴ / 0.484 / 0.515 | 3·10⁻⁵ / 0.762 / 0.238 |
+| G-asym | 0.010 / 0.002 / 0.933 | 0.014 / 0.006 / 0.478 |
+| G-recip | 0.941 / 0.040 / 0.013 | 0.020 / 0.012 / 0.445 |
+| random removal | **0.011** / 0.001 / 0.935 | 0.014 / 0.009 / 0.463 |
+| G-cred, SG / local (fair) | 0.929 / 0.936 | 0.018 / 0.055 (zero wage 0.62 / 0.61) |
+| G-cred-whole, SG / local (¼) | 0.32 / 0.48 | 0.77 / 0.79 |
+
+*The faker* (uniform prior): G-all's top states have the boss `(0, strike, 0) + (BOX(W1 = strike) → wage ½)`, the union run's world-0 wage faker C₁ as a gene, beside conditional strikers who work for 0; the filter removes it, and random removal of the same number of genes keeps it (fair 0.011). *Length prior:* every CC arm reproduces the union run (zero wage 0.45–0.48, strikes and splits 0.50). *Execution* (G-all; length / uniform): the whack is carried by 0.63 / 0.81 of π, executed on path at 2·10⁻⁶ / 8·10⁻⁶ per encounter at cost 0.5, carriers out-earning non-carriers (1.47 vs 1.17 / 1.97 vs 1.64); the costly strike is carried by 0.35 / 0.88, executed at 0.0013 / 0.019 at cost 0.43–0.50, carriers out-earning non-carriers (0.022 vs 0.003 / 0.012 vs 0.006). *Proof device:* Pareto-dominated strictly gene-stable states hold 0.50 / 0.51 / 0.52 of the length-prior π under G-all / G-cred / G-recip, 0 under G-cred-whole. *SG:* at every top state the targeted half proposes 0 strict genes and 0 whack genes. *Coalition:* ρ₂ equals the product of the sequential fixations; ε\* = 21 (G-cred-whole) and 250–420 (G-all), so the coalition kernel is never faster for ε ≤ 1. *Exit from zero wage under G-cred-whole:* a lone constant striker enters neutrally, then the boss strictly raises the wage to ¼.
+
+**Lottery** (share of islands at closure; all runs closed): fair 0 in every arm; zero wage 0.80 (G-all), 0.825 (G-cred), 0.875 (G-asym), 0.975 (G-recip); trajectories show 0.002–0.003 whacks and 0.004–0.006 strikes at positive wages per encounter; SG innovation leaves every island at zero wage.
+
+**Chicken.** The filter removes the firm gene and admits the bridge and the yield gene; G-all, G-cred and random removal give π(R1) = π(R2) = 0.5 with lottery establishment 1.000 at mN = 0 and 0.996 at mN = 1 (constants 1.000 / 0.963); on the base-commitment control mutual swerve is absorbing (π 1.000; establishment 0.43 at mN = 0, 0 at mN = 1).
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RS (a), the asymmetry | **not derived by any filter:** the per-point test rejects a strike at s > 0 as it rejects a whack; whole-program credibility is RR (¼); declared, the asymmetry moves fair by ≤ 0.003 |
+| RS (b), the proof device | **fails as stated:** dominated gene-stable states hold 0.50 of the length-prior π; it holds only under G-cred-whole, which never selects fair |
+| RE 1 | override filter ≈ CC; whole-program ≈ RC | **failed, both falsifier clauses fired** (G-cred 0.914 under the uniform prior; G-cred-whole 2·10⁻⁴); against the same catalogue G-cred ≈ base-CC and G-cred-ctl ≈ base-RC |
+| RE 2 | G-all is CC with more fakers; zero wage ≥ 0.4 everywhere under L | number held for the CC arms with committed bases; missed for the controls, RC and G-cred-whole; "the whack gene deters" failed (a `BOX(W_j = strike)` whack never deters) |
+| RE 3 | targeted SG favours concessions; (G-cred, SG) ≥ (G-cred, prior) | failed on the numbers (SG −0.005; the untargeted local kernel highest); mechanism wrong (mutation support, not targeting) |
+| RE 4 | gene-stability and Nash incomparable; fair gene-stable under G-cred-whole | incomparability held; **the fair-state clause fired in reverse** (gene-stable under G-all, unstable under G-cred-whole) |
+| RE 5 | one gene deep; sequential exit; coalition faster | first clause held; the exit is sequential by a different mechanism; **coalition clause failed** (ε\* ≥ 21) |
+| RE 6 | chicken: firm gene fails the filter; norm survives | held except the control clause (mutual swerve, not a norm) |
+| RE 7 | encoding invariance fails somewhere | **held** (for every named gene) |
+| RE 8 (RS's class) | under G-recip every gene-stable state is Pareto-efficient; fair ≥ RC's | **failed, falsifier fired** (45,014 dominated gene-stable triples; fair 0.941 under the uniform prior only, 0.020 under L) |
+| RE 9 (RS's credibility point) | the costly strike survives where repaid; the whack survives untested | **held as scored:** both commitments are fit while essentially untested |
+| S1, S2, S6, S7, S9–S12, S15 | subagent's own | held |
+| S3, S8, S14 | subagent's own | falsifiers fired |
+| S4, S5, S13 | subagent's own | missed numbers (S13's lottery clause fired) |
+
+**Reading.**
+- **Credibility filtering acts on stage 1.** Its whole effect is the removal of the world-0 wage faker ("pay ½ while they are provably striking"): under the uniform prior fair goes 0.012 → 0.914 where random removal of as many genes gives 0.011; under the length prior it changes nothing (0.015 → 0.023). Whole-program credibility keeps the faker (its zero-wage mass sits on C₁ bosses) and reproduces RR.
+- **The union/boss asymmetry is not a credibility property.** A strike at a positive wage forgoes s as an executed whack costs c, and no per-point test separates them; declared, the ban on boss whack genes is empty in this grammar, because a gene whack keyed on `BOX(W_j = strike)` never deters. The real difference is structural: a strike needs two slots, a whack one.
+- **"Credible as fitness" means untested.** Both sides' commitments are carried by most of π and executed almost never (whack 10⁻⁶–10⁻⁵, costly strike 10⁻³–10⁻²), and carriers out-earn non-carriers where the threat is not called: DEFERRED 13's testing-rate reading, on the workers' side too.
+- **The proof device needs neutral and two-slot moves.** The Pareto-improving move out of a zero-wage split is neutral for its carrier, so strict gene-stability cannot exclude dominated states (half the length-prior π); G-recip cannot choose among wages, because zero wage with everyone working is Pareto-efficient; the coalition kernel is never faster than the sequential path.
+- **SG adds nothing targeted:** its best replies at the top states are all conservative; what SG and the untargeted local kernel share is mutation support.
+- **Chicken without the firm default:** bridges meeting bridges swerve, mutual swerve absorbs, no norm forms.
+- *Caveats:* one gene per program (scale guard); the uniform prior is over a named catalogue; G-all with SG and local under the length prior not finished; the lottery's SG innovation is a short finite-ε run.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
