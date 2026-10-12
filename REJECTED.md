@@ -920,3 +920,18 @@ No RE prediction failed outright (RE 4 and RE 5 inconclusive). **Design choices 
 **Subagent:** S3 (|G-cred − G-all| ≤ 0.05; 0.90 under the uniform prior), S8 (conventions ≥ 0.95 in every chicken arm; the control gives mutual swerve), S14 (the weak version removes every dominated gene-stable state; 12,740 remain), S13's lottery clause, S4, S5; the notes' hand claim "S is gene-stable under G-cred-whole" (corrected by code before any cell).
 
 **Design choices dropped:** the ≤ 2-gene social-organization chain (scale guard; one gene per program instead); the union run's QUORUM in the base (vacuous at the fair wage under "or"; Q\* instead); a stage-1 whole-program filter (empties the boss set); whole-program credibility in chicken (empties the catalogue); SG's box-at-stable-world reading (not lumpable); a uniform prior over program texts (too diffuse for the solver; a named catalogue instead, before any uniform cell was read); "every class triple with no strict exit" as seeds. **Not finished:** G-all with SG or the local kernel under the length prior.
+
+
+## Added 2026-10-12: certificates as genes (RESULTS.md, "The realizable language, milestone 5: certificates as genes")
+
+**"Search alone is twins-only in populations; S-only ≤ 0.2 of H-only" (Fable, RE 2; falsifier fired).** S-only E3 is 40/40, equal to H-only, and search restores every (H, H)-cooperating distinct carrier pair by encounter 2–3. Milestone 3's twins-only result belonged to reading by search (which re-enters the opponent's search), not to producing one's own script.
+
+**"Every held script has a host ancestor in the mixed cell" (Fable, RE 6; falsifier fired).** 0.75 of held instances are host-free, and host-free scripts are held by types cooperating with other units in 28/40 runs.
+
+**"S ≤ 0.1; H leads during acquisition; C/CS exceed H under a price" (Fable, RE 4 clauses).** Final shares S 0.29 and CS 0.38; at generation 10, S 0.44 and H 0.11; under the price arm H holds 0.27–0.32, since H is free and the price is ≈ 10⁻³ of the stakes. **"Seeded C-only establishes ≥ 2× later" (Fable, RE 5 timing clause):** 1.2×. **"C cooperates iff on the graph" as an exact catalogue-level law (Fable, RE 1; fired narrowly):** 18 F1 exceptions on the graph, 14 off-graph cooperations through D scripts.
+
+**Milestone 3's search CORE as the producer (the spec's text).** It cannot output a K_T^cert script (no rule for check calls; Lemma F); the producer is milestone 4's tactic written in L_T^code. **The single-entry adoption check** (notes §1.3, revised §1.15 after a counted single-pair finding): blocks every PB-shaped copier (F5). **The S gate plus unbounded copying in populations** (notes §1.3, revised §1.13 after the scale guard): the unit universe grows without bound; measured in the single-pair tables only.
+
+**Subagent:** S3 (a 116,877-step production and 16% cap timeouts), S4's S clause, S6 (scripts are not tied to codes), S13's inheritance clause (transient establishment in 6/10), S15 (CS cost 943 → 4,406 steps per match between N = 50 and 200); S5, S8, S9, S11, S14 missed numbers.
+
+**Design choices dropped:** the gate rule in populations; the single-entry adoption check; an exact per-pair term cost model; exact per-opponent cap timeouts; the no-clique frozen chain (unfinished); 40 runs for the secondary cells. **Process:** a duplicated secondary batch ran 6 workers for ≈ 3.5 h (a queued shell believed dead); the worker formula in the prompt counted shell wrappers and single-process cells.

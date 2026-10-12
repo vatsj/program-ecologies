@@ -325,6 +325,13 @@ REJECTED.md the ones we dropped.
 - *Evidence (2026-10-11, three-player K₃):* sound by closure; verification cost heavy-tailed (nested probe checks),
   3% of triples differ at K = 10⁶ by timeout. *Open:* a cost model of the checker term, or caching nested probe
   checks, for executable populations at K ≈ 10⁶; milestone 5 should report the identity-clique mass.
+- *Evidence (2026-10-12, milestone 5):* producing a certificate as code costs ≈ 10⁴ steps and an adoption check
+  ≈ 2·10⁴; 16% of signatures time out at P = K/4 on regressing boxes; search restores every host-cooperating pair;
+  endogenous search mints identity cliques by self-play production (identity islands 0.06 → 0.22) and the
+  single-donor copy-only cell is the most universal measured (33/40) (RESULTS "The realizable language, milestone
+  5"). *Operating hypothesis:* production stays a public service in the main arms. *Open (RE decision):* whether
+  self-play production is admitted as endogenous production, or producers search only against non-self partners
+  (or the gate rule with a negative cache); the identity question of entry 1 reappears here as provenance.
 
 ## 12. Genes: certificates and contracts as behaviour-modifying genes (RS, 2026-10-11)
 - *RS's statement:* certificates and contracts are to be construed more broadly than proofs about a program: as
@@ -367,6 +374,10 @@ REJECTED.md the ones we dropped.
   union/boss asymmetry is therefore not a credibility asymmetry (both are costly investments) but a structural one:
   the strike needs a quorum, the whack is unilateral; which survives is set by the testing rate (entry 13).
   *Added to the gene run:* per-gene on-path execution rates and realized costs under G-all, CC and RC.
+- *Evidence (2026-10-12, certificates as genes):* as genes, certificates act as one allele per outcome under the lack
+  rule; horizontal transfer runs only along script skeletons; vertical inheritance is necessary (E3 0/10 without
+  it) and publication is not (9/10 without it); copying can recruit into identity cliques (RESULTS "The realizable
+  language, milestone 5").
 - *Evidence (2026-10-11, the gene arm; one gene per program, scale guard):* no filter derives the asymmetry (the
   per-point test rejects a strike at s > 0 as it rejects a whack; whole-program credibility is RR; the declared ban
   is empty, since a gene whack keyed on a strike box never deters); the filter's effect is wage-faker removal

@@ -397,3 +397,15 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   (BOX(W1 = strike), wage ½), the world-0 wage faker; **ε\*** — the mutation rate above which the coalition kernel is
   faster than the sequential path; **on-path execution rate** — the fraction of encounters at the top states and along
   lottery trajectories in which a gene's override is actually executed.
+- **Certificates as genes (milestone 5):** **gene triple** (code, mode, list), the mode a no-op marker in the quote;
+  **modes** H (host tactic, free) / S (PROD, the tactic as code, cap P = K/4, run after the play in the residual
+  budget) / C (copy-and-check against one's own would-be self) / CS (copy, then search); **PROD / PCORE** — the
+  tactic as an L_T^code term (cost ≤ P + 5); **AC(x, s, a)** — the would-be-self adoption check (current list plus
+  the script); **lack rule / gate rule** — act on an outcome only while the list lacks an entry of it / one's own check
+  against each partner; **unit** (τ, Cseq, Dseq) — run tree × C block × D block, the population state; **signature**
+  — (box values F/T/TO, R, S, self flag), the key of production outcomes; **Lemma A** with failure points **F0**
+  (fuel allocation), **F1** (list-dependent boxes), **F2** (first-valid order), **F3** (cost), **F5** (missing genes);
+  **transfer graph** — the directed graph of (donor list, copier run tree) pairs whose script validates; **host
+  ancestry** — whether a held script descends from an H-produced one; **CF** — the copied-script faker (D code in
+  mode C); **self-play-only script** — `EvR*; ChkR[EvR*; ChkR[EvR*; Ax · Ax] · Hyp]`, valid only at R = S, minted
+  when a producer's first partner is its own copy.
