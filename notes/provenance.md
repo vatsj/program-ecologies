@@ -392,3 +392,47 @@ tables or transfer graph.
    identical rules reproduce identically; a state change in one cell leaves the other's draws unchanged).
 4. The ablation's masses (μ'(Q) = 0, μ'(R) = μ(R) + μ(Q), the rest unchanged) and its paired seeding.
 5. The scale guard: per-run time of a 100-generation smoke run per rule (discarded), the gate closure's size.
+
+### 1.12 Validation by code (after the code, before any counted cell)
+
+From `src/provenance_run.py` `static`, `osv`, `sets`, `pairs`, `validate` (`runs/provenance/{static_ext,osv,sets,
+validate}.json`, `pairs.json`) and `tests/test_provenance.py` (10 tests, passing). No counted cell had run; two
+100–200-generation smoke runs and a profile run (replicates 997–999, discarded) were used for the scale guard.
+
+- **Universe.** S-k can keep a candidate written while the list was empty after the D step has added δ; 3 such units
+  were missing from milestone 5's lack-rule universe. Added and closed (0 rounds, 24,489 new host checks, 0 new
+  production signatures): 17,394 units, 11,365 reachable, 29 scripts. Everything else reused.
+- **Own-side validity.** 28,283 (τ, script, code) values. The signature reduction holds on 4,005 of 4,014 sampled
+  other pairs (9 mismatches, 0.2%: the partner's boxes about the would-be self are not fully encoded by the
+  signature of the program without the script). **Correction to §1.2:** the tactic's own output is *not* own-side
+  valid at its would-be self in 468 of the 19,102 (τ, code) signatures (F1: the appended script flips a box that
+  reads the program's own list, e.g. `if(CHK(them,^C,C),C,C)` at its self root). Such a candidate scores 0 against
+  the partner it was written against and is inadmissible, as the spec says; the fallback keeps only admissible
+  candidates (score ≥ 1). §1.2's sentence "every candidate scores ≥ 1" is wrong for these signatures.
+- **SPO audit, static.** 484 SPO (τ, s) pairs on 480 run trees (mass 0.111; most are trees that end in C on both
+  branches, where the script changes no play); **every one is written only at self-root codes, 0 at non-self codes**
+  (Claim N over the full universe, including every script that enters by copying); 782 units hold only SPO C
+  entries. Only-self trees 97 (mass 0.0178); capable trees (some non-self production or cap timeout) 3,284 (0.787).
+- **The ablation's sets (frozen rule of §1.6).** The S-nonself closure has 10,953 units and 8 identity units, all of
+  the TwinD family: **Q = 4 run trees, 10 spellings, μ(Q) = 7.13·10⁻⁴, 4.56 seeded copies per run** (the hand value).
+  **R = 11 run trees, 33 spellings, μ(R) = 0.0024** (scratch count (iii) confirmed).
+- **Hand scripts by whole runs** (`pairs.json`, 7 rules × 7 carriers × 5 first-partner types, 4 encounters; S-k with
+  partner sequences first type → distinct → D → C): every entry of the §1.4 table holds (CB writes σCB against every
+  partner; CB1 and AND2 write ι against a copy and σCB1 otherwise; MM writes ι against a copy and nothing elsewhere;
+  CBP₄/CBPr write nothing at encounter 1 and σCBP/σCBPr from encounter 2 against δ-holders, never against C; TwinD
+  writes τ₀ at the self root and τ₁ elsewhere; S-nonself writes nothing against itself). S-k: CB1's window {copy,
+  distinct} scores ι 1 and σCB1 2 and keeps σCB1; MM's window has the single candidate ι (score 1), kept by the
+  fallback, refused by S-3 strict; TwinD's candidates are valid against one partner only (score 1): the fallback
+  keeps them, S-3 strict refuses them (TwinD then carries δ only, its H list, which is still an identity clique).
+- **Kernel = term.** 728 sampled encounters (S-self, S-nonself, S-self-delayed with the shadow both ways, CS-nonself,
+  C; distinct, twin and self partners) executed by the term give exactly the kernel's transitions (0 mismatches).
+- **Settled encounters are skipped, exactly.** An encounter between two individuals that hold a C and a D entry under
+  a lack rule (or H) changes nothing; the kernel skips them (and every encounter on an island with no unsettled
+  resident) without consuming draws, since draws are event-indexed. Identical trajectories with and without the skip
+  over 150 generations in 6 cells (S-self, S-3, mixed, C-donor, S-self-delayed, CS-nonself). Per-match costs use the
+  expected side-encounters per rule as the denominator. Speed: 0.26 s per generation before establishment,
+  ≈ 0.001 s after (at (100, 64)).
+- **Deviations from §1.7, stated:** each encounter uses five draws (island, focal, partner, and one shadow per side,
+  so both sides of an S-self-delayed pair have independent shadows); §1.7 said four.
+- **Scale guard.** Types created per run ≈ 10⁴ (cap 150,000); a 2,000-generation run at (100, 64) ≈ 1 min. The gate
+  cell's universe is built next (§1.9 budget).
