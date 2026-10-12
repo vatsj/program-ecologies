@@ -263,7 +263,7 @@ class Acct:
         return sum(self.steps.values())
 
 
-def produce_side(x, y, mode, K, V, Pcap, fuel, publish=True, negcache=None, acct=None, rule='lack'):
+def produce_side(x, y, mode, K, V, Pcap, fuel, publish=True, negcache=None, acct=None, rule='lack', ac='full'):
     """x's mode procedure after a play against y (quotes as of the encounter).  Returns (new Prog, Acct).
     negcache: optional set of (a, script, y-term-id) refused before (single-pair tables only; the dynamics do not
     cache)."""
@@ -288,7 +288,10 @@ def produce_side(x, y, mode, K, V, Pcap, fuel, publish=True, negcache=None, acct
             key = (a, s, id(yt) if a == 'C' else 'D')
             if negcache is not None and key in negcache:
                 acct.events.append(('ac', 'cached', 0, a)); continue
-            xs = x.single(a, s)
+            if ac == 'single':
+                xs = x.single(a, s)
+            else:                     # the would-be self: the current list with s appended (notes §1.15)
+                xs = x.with_list(cseq + [s] if a == 'C' else cseq, dseq + [s] if a == 'D' else dseq)
             sc = data_size(canon_list(xs.cseq, xs.dseq)) + 5
             charge('surgery', sc)
             if rem <= 0:
@@ -342,7 +345,7 @@ def play_side(x, y, K):
     return ('D' if a == 'BOT' else a), n, a == 'BOT'
 
 
-def encounter(x, y, K, V, Pcap, alloc='post', publish=True, negcache=(None, None), self_play=False, reserve=0, rule='lack'):
+def encounter(x, y, K, V, Pcap, alloc='post', publish=True, negcache=(None, None), self_play=False, reserve=0, rule='lack', ac='full'):
     """One encounter.  alloc 'post' (main): plays at fuel K, then each side's production in its residual; 'pre'
     (F0 demonstration): production first in K, then the play at the remaining fuel.  Returns dict with actions, play
     steps, Accts and the updated programs.  self_play: x and y are the same individual's quote (one production)."""
@@ -350,21 +353,21 @@ def encounter(x, y, K, V, Pcap, alloc='post', publish=True, negcache=(None, None
     if alloc == 'post':
         ax, wx, bx = play_side(x, y, K)
         ay, wy, by = (ax, wx, bx) if self_play else play_side(y, x, K)
-        nx, accx = produce_side(x, y, x.mode, K, V, Pcap, K - wx, publish, negcache[0], rule=rule)
+        nx, accx = produce_side(x, y, x.mode, K, V, Pcap, K - wx, publish, negcache[0], rule=rule, ac=ac)
         if self_play:
             ny, accy = nx, accx
         else:
-            ny, accy = produce_side(y, x, y.mode, K, V, Pcap, K - wy, publish, negcache[1], rule=rule)
+            ny, accy = produce_side(y, x, y.mode, K, V, Pcap, K - wy, publish, negcache[1], rule=rule, ac=ac)
     elif alloc == 'pre':
-        nx, accx = produce_side(x, y, x.mode, K, V, Pcap, K, publish, negcache[0], rule=rule)
-        ny, accy = (nx, accx) if self_play else produce_side(y, x, y.mode, K, V, Pcap, K, publish, negcache[1], rule=rule)
+        nx, accx = produce_side(x, y, x.mode, K, V, Pcap, K, publish, negcache[0], rule=rule, ac=ac)
+        ny, accy = (nx, accx) if self_play else produce_side(y, x, y.mode, K, V, Pcap, K, publish, negcache[1], rule=rule, ac=ac)
         ax, wx, bx = play_side(x, y, K - accx.total())
         ay, wy, by = (ax, wx, bx) if self_play else play_side(y, x, K - accy.total())
     elif alloc == 'reserved':
         # sources and checks are at K (= K_play); production first with its own reserve R, the play gets
         # K + (R - production steps) >= K, so every accepted atom about the fuel-K play holds (notes §1.2)
-        nx, accx = produce_side(x, y, x.mode, K, V, Pcap, reserve, publish, negcache[0], rule=rule)
-        ny, accy = (nx, accx) if self_play else produce_side(y, x, y.mode, K, V, Pcap, reserve, publish, negcache[1], rule=rule)
+        nx, accx = produce_side(x, y, x.mode, K, V, Pcap, reserve, publish, negcache[0], rule=rule, ac=ac)
+        ny, accy = (nx, accx) if self_play else produce_side(y, x, y.mode, K, V, Pcap, reserve, publish, negcache[1], rule=rule, ac=ac)
         ax, wx, bx = play_side(x, y, K + reserve - accx.total())
         ay, wy, by = (ax, wx, bx) if self_play else play_side(y, x, K + reserve - accy.total())
     else:

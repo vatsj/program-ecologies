@@ -492,3 +492,28 @@ single-pair table had run.
   in-degree 28, 18 establishers with none. Of the establisher pairs that cooperate under (H, H) but not at the first
   (C, H) encounter, 1,554 are on the graph (18 do not cooperate at encounter 2) and 11,173 are off it (14 do
   cooperate at encounter 2, through an adopted D script read by a defection-detecting donor).
+
+### 1.15 Revision after the first single-pair table, before any population cell: the adoption check reads the would-be self
+
+*Written after the single-pair tables had run once with the adoption check of §1.3 (`runs/lt_genes/pairs_acsingle.json`,
+kept as a result) and before any population cell had produced a result (the first lottery launch was stopped before
+any run finished).*
+
+**Finding (counted, single-pair table).** With AC on the single-entry quote x_s = (code, mode, [(a, s)]), a
+PB-shaped copier can never adopt a PB-shaped donor's C script: CBP and CBPh in mode C against CBP-H or CBPh-H play
+(D, D) in all five encounters and end holding only δ. The donor's partner validation of x_s runs the donor's σCBP on
+the donor's run against x_s, whose second call asks "x_s defects against ⌜D⌝"; x_s carries no D script, so that box
+is false and the validation fails, at every encounter, because the single-entry quote never contains the copier's own
+δ even after it has adopted one. This is a fifth failure point of Lemma A's single-entry form, **F5: the checked
+object lacks the carrier's other genes, which a prudent partner reads.** (F1 is the converse case: the other genes
+falsify a box the check assumed.)
+
+**Revision for every later table and every population cell.** AC checks the **would-be self**:
+AC(x, s, a) := CHK(x', q_a, a) with x' = (code, mode, the current list with (a, s) appended). Then the adopted object
+is exactly the checked object (A1 holds trivially at the adoption encounter; F1 and F5 cannot occur there), and the
+statistic "adopted object certified against the donor" measures only what later appends in the same encounter (the D
+entry after the C entry) do to it. Under the lack rule x' differs from x_s only by x's D entry when it copies a C
+script. The wildcard screen (§1.11) still uses the single-entry unit (it ignores box values and partner validation,
+so it is an upper bound for x' as well). The single-pair tables are rerun with the revised check; the first table is
+reported beside them. Tests: `test_full_quote_check_lets_a_prudent_copier_adopt` (CBP copies CBPh's script from
+encounter 2, (C, C) at encounter 3) and the LöbC instance, where the revised check refuses δ.

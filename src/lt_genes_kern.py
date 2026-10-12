@@ -134,6 +134,7 @@ def trans_C(u, v, rel, anc, ancv, utau, BLC, BLD, SINGLE, APP, CHC, UVt, ctr, co
             if xs < 0:
                 ctr[C_AC_SCREEN0] += 1
                 continue
+            xs = APP[u, s]                         # the adoption check reads the would-be self (notes §1.15)
             if blk == 0:
                 acv = CHC[xs, v]
             else:

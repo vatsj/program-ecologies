@@ -525,12 +525,22 @@ class Closure:
             for u in O:
                 for s in U.units[u][1]: donors[s].append(u)
             tl, ml = [], []
-            for (t, s_), xs in self.single.items():
-                if U.scripts[s_][0] == 'C' and donors.get(s_):
-                    d = np.asarray(donors[s_], np.int64)
-                    tl.append(np.full(len(d), xs, np.int64)); ml.append(d)
+            compat = defaultdict(list)
+            for (t, s_) in self.single:
+                compat[t].append(s_)
+            ac_units = set()
+            for u in sorted(self.reach['C'] | self.reach['CS']):
+                t, cs, ds = U.units[u]
+                for s_ in compat.get(t, []):
+                    a_ = U.scripts[s_][0]
+                    if (a_ == 'C' and cs) or (a_ == 'D' and ds): continue
+                    xs = U.append(u, s_)
+                    ac_units.add(xs)
+                    if a_ == 'C' and donors.get(s_):
+                        d = np.asarray(donors[s_], np.int64)
+                        tl.append(np.full(len(d), xs, np.int64)); ml.append(d)
             Tb._grow()
-            Tb.ensure_uv(sorted(set(self.single.values())))
+            Tb.ensure_uv(sorted(set(self.single.values()) | ac_units))
             if tl: Tb.ensure_pairs('C', np.concatenate(tl), np.concatenate(ml), label='(adoption)')
             # C successors
             new = defaultdict(set)
@@ -617,6 +627,10 @@ class Closure:
                     xs = np.where(cand, SINGLE[t, np.where(sk >= 0, sk, 0)], -1)
                     valid = xs >= 0
                     if not valid.any(): continue
+                    # the adoption check reads the would-be self u + s (notes §1.15); the single-entry unit is the screen
+                    xs = xs.copy()
+                    for j in np.nonzero(valid)[0].tolist():
+                        xs[j] = U.append(u, int(sk[j]))
                     ok = np.zeros(len(Oa), bool)
                     if a == 'C':
                         vals = CHC[xs[valid], Oa[valid]]

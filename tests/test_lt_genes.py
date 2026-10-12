@@ -15,12 +15,12 @@ PC = K // 4
 CAT = G.named_catalogue(K, V)
 
 
-def run(xn, xm, yn, ym, E=3, xstart='mode', ystart='mode', cat=CAT, K=K, V=V, P=PC, alloc='post', rule='lack'):
+def run(xn, xm, yn, ym, E=3, xstart='mode', ystart='mode', cat=CAT, K=K, V=V, P=PC, alloc='post', rule='lack', ac='full'):
     x = G.make_prog(cat, xn, xm, xstart)
     y = G.make_prog(cat, yn, ym, ystart)
     hist = []
     for _ in range(E):
-        r = G.encounter(x, y, K, V, P, alloc=alloc, rule=rule)
+        r = G.encounter(x, y, K, V, P, alloc=alloc, rule=rule, ac=ac)
         hist.append(r)
         x, y = r['nx'], r['ny']
     return hist, x, y
@@ -61,7 +61,9 @@ def test_refusal_across_skeletons_and_copied_faker():
 def test_lemma_A_F1_list_mutation_invalidates_an_adopted_script():
     """LöbC in mode C adopts σCB (Hyp^self) and δ (valid on the single-entry quote); in the adopted object δ is
     invalid because LöbC' now cooperates with ⌜D⌝ (notes §1.5 F1).  Soundness: the check of the D claim is F."""
-    hist, x, y = run('LobC', 'C', 'CB', 'H', E=1)
+    hist, x, y = run('LobC', 'C', 'CB', 'H', E=1, ac='full')
+    assert len(x.cseq) == 1 and len(x.dseq) == 0              # the full-quote check refuses δ (notes §1.15)
+    hist, x, y = run('LobC', 'C', 'CB', 'H', E=1, ac='single')
     assert len(x.cseq) == 1 and len(x.dseq) == 1
     xd = x.single('D', x.dseq[0])
     v1, _ = G.check_term(xd.term(), L.PROG_D, 'D', V, K, K)
@@ -133,6 +135,15 @@ def test_ancestry_and_cost_accounting():
     xC = G.make_prog(CAT, 'CB', 'C', 'empty')
     r = G.encounter(xC, yS, K, V, PC)
     assert r['nx'].cseq and set(r['nx'].anc) == {'search'}
+
+
+def test_full_quote_check_lets_a_prudent_copier_adopt():
+    """CBP copying CBPh's script: the single-entry quote lacks the copier's D script, which the donor's partner
+    validation reads, so it is refused forever; the would-be self carries it from encounter 2 on (notes §1.15)."""
+    hist, x, y = run('CBP', 'C', 'CBPh', 'H', E=3, ac='single')
+    assert x.cseq == () and all(h['ax'] == 'D' for h in hist)
+    hist, x, y = run('CBP', 'C', 'CBPh', 'H', E=3, ac='full')
+    assert x.cseq and (hist[2]['ax'], hist[2]['ay']) == ('C', 'C')
 
 
 def test_transfer_graph_sample():

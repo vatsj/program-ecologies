@@ -77,7 +77,7 @@ def cat_at(Kc, Vc):
     return _CATS[(Kc, Vc)]
 
 
-def run_seq(xn, yn, setting, Kc=K, Vc=None, P=None, E=5, alloc='post', reserve=0, negcache=False, rule='lack'):
+def run_seq(xn, yn, setting, Kc=K, Vc=None, P=None, E=5, alloc='post', reserve=0, negcache=False, rule='lack', ac='full'):
     Vc = Kc // 4 if Vc is None else Vc
     P = Kc // 4 if P is None else P
     cat = cat_at(Kc, Vc)
@@ -88,7 +88,7 @@ def run_seq(xn, yn, setting, Kc=K, Vc=None, P=None, E=5, alloc='post', reserve=0
     nc = (set(), set()) if negcache else (None, None)
     encs = []
     for e in range(E):
-        r = G.encounter(x, y, Kc, Vc, P, alloc=alloc, negcache=nc, self_play=same, reserve=reserve, rule=rule)
+        r = G.encounter(x, y, Kc, Vc, P, alloc=alloc, negcache=nc, self_play=same, reserve=reserve, rule=rule, ac=ac)
         encs.append(dict(
             act=r['ax'] + r['ay'], wx=r['wx'], wy=r['wy'], botx=bool(r['botx']), boty=bool(r['boty']),
             px=dict(r['accx'].steps), py=dict(r['accy'].steps),
@@ -102,7 +102,7 @@ def run_seq(xn, yn, setting, Kc=K, Vc=None, P=None, E=5, alloc='post', reserve=0
         if all(h['act'] == 'CC' for h in encs[e:]) and all(not h['adx'] and not h['ady'] for h in encs[e:]):
             steady = e + 1; break
     last = encs[-1]
-    return dict(x=xn, y=yn, setting=setting, K=Kc, V=Vc, P=P, alloc=alloc, reserve=reserve, negcache=negcache, rule=rule,
+    return dict(x=xn, y=yn, setting=setting, K=Kc, V=Vc, P=P, alloc=alloc, reserve=reserve, negcache=negcache, rule=rule, ac=ac,
                 same_quote=same, first_cc=first_cc, steady_cc=steady,
                 cost_x_last=last['wx'] + sum(last['px'].values()), cost_y_last=last['wy'] + sum(last['py'].values()),
                 prod_x_last=sum(last['px'].values()), play_x_last=last['wx'],
