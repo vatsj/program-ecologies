@@ -1,0 +1,6893 @@
+{
+ "validate": {
+  "plays": {
+   "n": 1300,
+   "mismatches": [],
+   "n_mismatch": 0
+  },
+  "productions": {
+   "n": 23840,
+   "n_mismatch": 1862,
+   "n_cap_timeouts": 3898,
+   "n_mismatch_not_cap": 0,
+   "mismatches": [
+    [
+     216,
+     785,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     364,
+     195,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     512,
+     195,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     640,
+     775,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     760,
+     1419,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     848,
+     646,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     2214,
+     275,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     2220,
+     1355,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     3241,
+     275,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     3251,
+     275,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     3263,
+     775,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     3273,
+     195,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     3601,
+     775,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     4171,
+     75,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     4182,
+     775,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     4358,
+     195,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     4364,
+     775,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     4375,
+     139,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     4430,
+     775,
+     0,
+     "C",
+     "capTO"
+    ],
+    [
+     4457,
+     75,
+     0,
+     "C",
+     "capTO"
+    ]
+   ],
+   "cost_C": {
+    "median": 13743.0,
+    "max": 250005,
+    "q90": 250005.0
+   },
+   "cost_D": {
+    "median": 9058.0,
+    "max": 250005
+   }
+  },
+  "encounters": {
+   "n": 750,
+   "n_mismatch": 0,
+   "mismatches": []
+  },
+  "marker": {
+   "n": 300,
+   "n_mismatch": 0
+  },
+  "checks_exec_vs_ideal": {
+   "n": 900,
+   "n_compared": 500,
+   "n_mismatch": 0,
+   "mismatches": []
+  },
+  "costs": {
+   "ac": 19443.0,
+   "gate": 15815.0,
+   "gate0": 101.0,
+   "prodC": 13743.0,
+   "prodD": 9058.0,
+   "surgery": 56.0,
+   "ac_q90": 38564.10000000002,
+   "gate_q90": 41403.8,
+   "n": {
+    "ac": 400,
+    "gate": 400,
+    "gate0": 100
+   }
+  },
+  "identity": {
+   "split_units": 97,
+   "split_tau": 48,
+   "S_self_vs_twin_diff": 874,
+   "S_self_vs_twin_diff_nonsplit": 790,
+   "tracked_tau": 704
+  },
+  "time_s": 693.0786502361298
+ },
+ "graph": {
+  "T": 4162,
+  "n_C_edges": 681834,
+  "n_C_self": 1083,
+  "n_D_edges": 1154418,
+  "n_est": 345,
+  "est_mass": 0.06113848547717842,
+  "cross_skeleton_C_edges": 273534,
+  "cross_examples": [
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(CHK(them,them,D),C,C)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(CHK(them,them,D),C,D)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,me,C)),C,C)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,me,C)),C,D)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,me,D)),C,C)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,me,D)),C,D)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,them,C)),C,C)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,them,C)),C,D)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,them,D)),C,C)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,them,D)),C,D)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,^C,C)),C,C)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,^C,C)),C,D)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,^C,D)),C,C)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,^C,D)),C,D)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,^D,C)),C,C)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,^D,C)),C,D)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,^D,D)),C,C)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(them,^D,D)),C,D)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(me,me,C)),C,C)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(me,me,C)),C,D)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(me,me,D)),C,C)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(me,me,D)),C,D)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(me,them,C)),C,C)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(me,them,C)),C,D)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ],
+   [
+    "if(CHK(them,them,C),C,D)",
+    "if(or(CHK(them,them,D),CHK(me,them,D)),C,C)",
+    [
+     "EvR*; ChkR[EvR*; Ax \u00b7 Run]"
+    ]
+   ]
+  ],
+  "cross_recipients": [
+   "if(CHK(me,^C,C),C,if(CHK(me,^D,D),D,C))",
+   "if(CHK(me,^C,C),C,if(CHK(me,them,D),D,C))",
+   "if(CHK(me,^C,C),C,if(CHK(them,^C,D),D,C))",
+   "if(CHK(me,^C,C),C,if(CHK(them,^D,D),D,C))",
+   "if(CHK(me,^C,C),C,if(CHK(them,me,D),D,C))",
+   "if(CHK(me,^C,C),C,if(CHK(them,them,C),D,C))",
+   "if(CHK(me,^C,C),D,if(CHK(them,^C,D),C,C))",
+   "if(CHK(me,^C,C),D,if(CHK(them,^D,D),C,C))",
+   "if(CHK(me,^C,C),D,if(CHK(them,me,D),C,C))",
+   "if(CHK(me,^C,C),D,if(CHK(them,them,C),C,C))",
+   "if(CHK(me,^C,C),D,if(CHK(them,them,D),C,C))",
+   "if(CHK(me,^C,C),D,if(CHK(them,them,D),C,D))",
+   "if(CHK(me,^C,D),C,if(CHK(me,^D,D),D,C))",
+   "if(CHK(me,^C,D),C,if(CHK(me,them,D),D,C))",
+   "if(CHK(me,^C,D),C,if(CHK(them,^C,D),D,C))",
+   "if(CHK(me,^C,D),C,if(CHK(them,^D,D),D,C))",
+   "if(CHK(me,^C,D),C,if(CHK(them,me,D),D,C))",
+   "if(CHK(me,^C,D),C,if(CHK(them,them,C),D,C))",
+   "if(CHK(me,^C,D),D,if(CHK(them,^C,D),C,C))",
+   "if(CHK(me,^C,D),D,if(CHK(them,^D,D),C,C))",
+   "if(CHK(me,^C,D),D,if(CHK(them,me,D),C,C))",
+   "if(CHK(me,^C,D),D,if(CHK(them,them,C),C,C))",
+   "if(CHK(me,^C,D),D,if(CHK(them,them,D),C,C))",
+   "if(CHK(me,^C,D),D,if(CHK(them,them,D),C,D))",
+   "if(CHK(me,^D,C),C,if(CHK(me,^D,D),D,C))",
+   "if(CHK(me,^D,C),C,if(CHK(me,them,D),D,C))",
+   "if(CHK(me,^D,C),C,if(CHK(them,^C,D),D,C))",
+   "if(CHK(me,^D,C),C,if(CHK(them,^D,D),D,C))",
+   "if(CHK(me,^D,C),C,if(CHK(them,me,D),D,C))",
+   "if(CHK(me,^D,C),C,if(CHK(them,them,C),D,C))",
+   "if(CHK(me,^D,C),D,if(CHK(them,^C,D),C,C))",
+   "if(CHK(me,^D,C),D,if(CHK(them,^D,D),C,C))",
+   "if(CHK(me,^D,C),D,if(CHK(them,me,D),C,C))",
+   "if(CHK(me,^D,C),D,if(CHK(them,them,C),C,C))",
+   "if(CHK(me,^D,C),D,if(CHK(them,them,D),C,C))",
+   "if(CHK(me,^D,C),D,if(CHK(them,them,D),C,D))",
+   "if(CHK(me,^D,D),C,if(CHK(them,^C,D),D,C))",
+   "if(CHK(me,^D,D),C,if(CHK(them,^D,D),D,C))",
+   "if(CHK(me,^D,D),C,if(CHK(them,me,D),D,C))",
+   "if(CHK(me,^D,D),C,if(CHK(them,them,C),D,C))",
+   "if(CHK(me,^D,D),D,C)",
+   "if(CHK(me,^D,D),D,if(CHK(me,^C,C),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(me,^C,D),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(me,^D,C),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(me,^D,D),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(me,me,C),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(me,me,D),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(me,them,C),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(me,them,C),C,D))",
+   "if(CHK(me,^D,D),D,if(CHK(me,them,D),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(them,^C,C),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(them,^C,D),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(them,^C,D),C,D))",
+   "if(CHK(me,^D,D),D,if(CHK(them,^D,C),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(them,^D,D),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(them,^D,D),C,D))",
+   "if(CHK(me,^D,D),D,if(CHK(them,me,C),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(them,me,C),C,D))",
+   "if(CHK(me,^D,D),D,if(CHK(them,me,D),C,C))",
+   "if(CHK(me,^D,D),D,if(CHK(them,me,D),C,D))"
+  ],
+  "est_pairs_HH_coop_already_at_enc1": 68657,
+  "est_pairs_HH_coop_on_graph": 1554,
+  "est_pairs_HH_coop_off_graph": 11173,
+  "violations_on_graph_no_coop": 18,
+  "violations_off_graph_coop": 14,
+  "viol_on_examples": [
+   [
+    "if(CHK(them,me,C),if(CHK(them,^C,C),C,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^C,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(them,^C,C),C,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^D,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(them,^C,C),D,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^C,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(them,^C,C),D,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^D,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(them,^D,C),C,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^C,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(them,^D,C),C,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^D,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(them,^D,C),D,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^C,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(them,^D,C),D,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^D,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(me,^C,C),C,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^C,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(me,^C,C),C,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^D,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(me,^C,C),D,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^C,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(me,^C,C),D,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^D,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(me,^D,C),C,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^C,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(me,^D,C),C,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^D,D),C,C),D)"
+   ],
+   [
+    "if(CHK(them,me,C),if(CHK(me,^D,C),D,C),D)",
+    "if(CHK(them,me,C),if(CHK(me,^C,D),C,C),D)"
+   ]
+  ],
+  "viol_off_examples": [
+   [
+    "if(CHK(them,^C,D),if(CHK(them,me,D),D,C),D)",
+    "if(CHK(them,^C,D),if(CHK(them,them,D),D,C),D)"
+   ],
+   [
+    "if(CHK(them,^C,D),if(CHK(them,me,D),D,C),D)",
+    "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)"
+   ],
+   [
+    "if(CHK(them,^C,D),if(CHK(them,me,D),D,C),D)",
+    "if(CHK(them,^D,D),if(CHK(them,them,D),D,C),D)"
+   ],
+   [
+    "if(CHK(them,^C,D),if(CHK(them,them,D),D,C),D)",
+    "if(and(CHK(them,^C,D),CHK(them,me,C)),C,D)"
+   ],
+   [
+    "if(CHK(them,^C,D),if(CHK(them,them,D),D,C),D)",
+    "if(and(CHK(them,^D,D),CHK(them,me,C)),C,D)"
+   ],
+   [
+    "if(CHK(them,^C,D),if(CHK(them,them,D),D,C),D)",
+    "if(CHK(them,^C,D),if(CHK(them,me,D),D,C),D)"
+   ],
+   [
+    "if(CHK(them,^C,D),if(CHK(them,them,D),D,C),D)",
+    "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)"
+   ],
+   [
+    "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+    "if(CHK(them,^C,D),if(CHK(them,me,D),D,C),D)"
+   ],
+   [
+    "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+    "if(CHK(them,^C,D),if(CHK(them,them,D),D,C),D)"
+   ],
+   [
+    "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)",
+    "if(CHK(them,^D,D),if(CHK(them,them,D),D,C),D)"
+   ],
+   [
+    "if(CHK(them,^D,D),if(CHK(them,them,D),D,C),D)",
+    "if(and(CHK(them,^C,D),CHK(them,me,C)),C,D)"
+   ],
+   [
+    "if(CHK(them,^D,D),if(CHK(them,them,D),D,C),D)",
+    "if(and(CHK(them,^D,D),CHK(them,me,C)),C,D)"
+   ],
+   [
+    "if(CHK(them,^D,D),if(CHK(them,them,D),D,C),D)",
+    "if(CHK(them,^C,D),if(CHK(them,me,D),D,C),D)"
+   ],
+   [
+    "if(CHK(them,^D,D),if(CHK(them,them,D),D,C),D)",
+    "if(CHK(them,^D,D),if(CHK(them,me,D),D,C),D)"
+   ]
+  ],
+  "est_C_indegree": {
+   "zero": 18,
+   "median": 28.0,
+   "max": 37
+  },
+  "est_components": [
+   [
+    128,
+    0.02334024896265561
+   ],
+   [
+    117,
+    0.019515041493775934
+   ],
+   [
+    35,
+    0.006224066390041493
+   ],
+   [
+    22,
+    0.004019709543568466
+   ],
+   [
+    16,
+    0.0023340248962655605
+   ],
+   [
+    6,
+    0.0009725103734439834
+   ],
+   [
+    6,
+    0.0009725103734439834
+   ],
+   [
+    1,
+    0.00025933609958506224
+   ],
+   [
+    1,
+    0.00025933609958506224
+   ],
+   [
+    1,
+    0.00025933609958506224
+   ],
+   [
+    1,
+    0.00025933609958506224
+   ],
+   [
+    1,
+    0.00025933609958506224
+   ],
+   [
+    1,
+    0.00025933609958506224
+   ],
+   [
+    1,
+    0.00025933609958506224
+   ],
+   [
+    1,
+    0.00025933609958506224
+   ]
+  ],
+  "n_est_components": 22,
+  "blocks": {
+   "EvR*; Ax": {
+    "recipients": 1,
+    "recip_mass": 0.004149377593360996,
+    "donors": 1
+   },
+   "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]": {
+    "recipients": 132,
+    "recip_mass": 0.032935684647302906,
+    "donors": 132
+   },
+   "EvR*; ChkR[EvR*; Ax \u00b7 Run]": {
+    "recipients": 330,
+    "recip_mass": 0.08233921161825726,
+    "donors": 264
+   },
+   "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]": {
+    "recipients": 924,
+    "recip_mass": 0.23054979253112032,
+    "donors": 604
+   },
+   "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Ax] \u00b7 Hyp]": {
+    "recipients": 8,
+    "recip_mass": 0.0018153526970954357,
+    "donors": 8
+   },
+   "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Hyp]": {
+    "recipients": 32,
+    "recip_mass": 0.007261410788381743,
+    "donors": 48
+   },
+   "EvR*; ChkR[EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax] \u00b7 Hyp]": {
+    "recipients": 112,
+    "recip_mass": 0.0254149377593361,
+    "donors": 64
+   },
+   "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Hyp]": {
+    "recipients": 16,
+    "recip_mass": 0.0036307053941908715,
+    "donors": 8
+   },
+   "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Hyp] \u00b7 Run]": {
+    "recipients": 28,
+    "recip_mass": 0.006353734439834025,
+    "donors": 40
+   },
+   "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Ax] \u00b7 Run]": {
+    "recipients": 20,
+    "recip_mass": 0.00453838174273859,
+    "donors": 16
+   },
+   "EvR*; ChkR[EvR*; ChkR[EvR*; Ax \u00b7 Run] \u00b7 Run]": {
+    "recipients": 92,
+    "recip_mass": 0.020876556016597506,
+    "donors": 68
+   },
+   "EvR*; ChkR[EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax] \u00b7 Run]": {
+    "recipients": 272,
+    "recip_mass": 0.0617219917012448,
+    "donors": 146
+   },
+   "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[EvR*; Ax \u00b7 Hyp]]": {
+    "recipients": 112,
+    "recip_mass": 0.0254149377593361,
+    "donors": 72
+   },
+   "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[EvR*; Ax \u00b7 Run]]": {
+    "recipients": 236,
+    "recip_mass": 0.05355290456431536,
+    "donors": 144
+   },
+   "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[Ax \u00b7 EvR*; Ax]]": {
+    "recipients": 56,
+    "recip_mass": 0.01270746887966805,
+    "donors": 36
+   },
+   "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[RunNeg \u00b7 EvR*@1; Ax]]": {
+    "recipients": 720,
+    "recip_mass": 0.16338174273858921,
+    "donors": 292
+   }
+  },
+  "d_dense": {
+   "frac_recipients_of_delta": 0.45242671792407496
+  },
+  "time_s": 7.319890022277832
+ },
+ "costs": {
+  "ac": 19443.0,
+  "gate": 15815.0,
+  "gate0": 101.0,
+  "prodC": 13743.0,
+  "prodD": 9058.0,
+  "surgery": 56.0,
+  "ac_q90": 38564.10000000002,
+  "gate_q90": 41403.8,
+  "n": {
+   "ac": 400,
+   "gate": 400,
+   "gate0": 100
+  }
+ },
+ "pairs": {
+  "main_table": "| x, y | HH | CH | SH | CSH | CC | CC+ | SS | CSCS |\n|---|---|---|---|---|---|---|---|---|\n| CB, CB | CC\u2192CC (st 1, 9.5k) | DD\u2192CC (st 2, 19.0k) | DD\u2192CC (st 2, 19.0k) | DD\u2192CC (st 2, 19.0k) | DD\u2192DD | DD\u2192CC (st 2, 9.5k) | DD\u2192CC (st 2, 9.5k) | DD\u2192CC (st 2, 9.5k) |\n| CB, CBlet | CC\u2192CC (st 1, 19.7k) | DD\u2192CC (st 2, 19.7k) | DD\u2192CC (st 2, 19.7k) | DD\u2192CC (st 2, 19.7k) | DD\u2192DD | DD\u2192CC (st 2, 19.7k) | DD\u2192CC (st 2, 19.7k) | DD\u2192CC (st 2, 19.7k) |\n| CB, MC1 | CC\u2192CC (st 1, 19.8k) | DD\u2192CC (st 2, 19.8k) | DD\u2192CC (st 2, 19.8k) | DD\u2192CC (st 2, 19.8k) | DD\u2192DD | DD\u2192CC (st 2, 19.8k) | DD\u2192CC (st 2, 19.8k) | DD\u2192CC (st 2, 19.8k) |\n| CB1, CB1r | CC\u2192CC (st 1, 55.5k) | DD\u2192CC (st 2, 55.5k) | DD\u2192CC (st 2, 55.5k) | DD\u2192CC (st 2, 55.5k) | DD\u2192DD | DD\u2192CC (st 2, 55.5k) | DD\u2192CC (st 2, 55.5k) | DD\u2192CC (st 2, 55.5k) |\n| CBP, CBPh | CC\u2192CC (st 1, 69.3k) | DD\u2192DD (st 3, 69.3k) | DD\u2192CC (st 2, 69.3k) | DD\u2192CC (st 2, 69.3k) | DD\u2192DD | DD\u2192DD (st 3, 69.3k) | DD\u2192DD (st 3, 69.3k) | DD\u2192DD (st 3, 69.3k) |\n| CB, CB1 | CC\u2192CC (st 1, 23.4k) | DD\u2192DD | DD\u2192CC (st 2, 23.4k) | DD\u2192CC (st 2, 23.4k) | DD\u2192DD | DD\u2192DD | DD\u2192CC (st 2, 23.4k) | DD\u2192CC (st 2, 23.4k) |\n| CB1, CB | CC\u2192CC (st 1, 46.7k) | DD\u2192DD | DD\u2192CC (st 2, 46.7k) | DD\u2192CC (st 2, 46.7k) | DD\u2192DD | DD\u2192DD | DD\u2192CC (st 2, 46.7k) | DD\u2192CC (st 2, 46.7k) |\n| CB, CBP | CC\u2192CC (st 1, 33.0k) | DD\u2192DD | DD\u2192CC (st 2, 33.0k) | DD\u2192CC (st 2, 33.0k) | DD\u2192DD | DD\u2192DD | DD\u2192DD (st 3, 33.0k) | DD\u2192DD (st 3, 33.0k) |\n| CBP, CB | CC\u2192CC (st 1, 42.7k) | DD\u2192DD | DD\u2192CC (st 2, 42.7k) | DD\u2192CC (st 2, 42.7k) | DD\u2192DD | DD\u2192DD | DD\u2192DD (st 3, 42.7k) | DD\u2192DD (st 3, 42.7k) |\n| CB1, CBP | CC\u2192CC (st 1, 80.9k) | DD\u2192DD | DD\u2192CC (st 2, 80.9k) | DD\u2192CC (st 2, 80.9k) | DD\u2192DD | DD\u2192DD | DD\u2192DD (st 3, 80.9k) | DD\u2192DD (st 3, 80.9k) |\n| CBP, CBPr | CC\u2192CC (st 1, 65.9k) | DD\u2192DD | DD\u2192CC (st 2, 65.9k) | DD\u2192CC (st 2, 65.9k) | DD\u2192DD | DD\u2192DD | DD\u2192DD (st 3, 65.9k) | DD\u2192DD (st 3, 65.9k) |\n| LobC, CB | CC\u2192CC (st 1, 9.5k) | DD\u2192CC (st 2, 25.6k) | DD\u2192CC (st 2, 27.4k) | DD\u2192CC (st 2, 46.3k) | DD\u2192DD | DD\u2192CC (st 2, 25.6k) | DD\u2192CC (st 2, 27.4k) | DD\u2192CC (st 2, 46.3k) |\n| Cc, CB | CC\u2192CC (st 1, 0.0k) | CD\u2192CD | CD\u2192CC (st 2, 2.4k) | CD\u2192CC (st 2, 7.6k) | CD\u2192CD | CD\u2192CD | CD\u2192CC (st 2, 2.4k) | CD\u2192CC (st 2, 7.6k) |\n| Dc, CB | DD\u2192DD | DD\u2192DD | DD\u2192DD | DD\u2192DD | DD\u2192DD | DD\u2192DD | DD\u2192DD | DD\u2192DD |\n| CBdef, CB | CD\u2192CD | CD\u2192CD | CD\u2192CD | CD\u2192CD | CD\u2192CD | CD\u2192CD | CD\u2192CD | CD\u2192CD |\n| SFc, CB | CC\u2192CC (st 1, 17.9k) | DD\u2192CC (st 2, 26.0k) | DD\u2192CC (st 2, 17.9k) | DD\u2192CC (st 2, 17.9k) | DD\u2192DD | DD\u2192CC (st 2, 26.0k) | DD\u2192CC (st 2, 17.9k) | DD\u2192CC (st 2, 17.9k) |\n| CB, SFc | CC\u2192CC (st 1, 17.8k) | CC\u2192CC (st 2, 22.4k) | CC\u2192CC (st 2, 17.8k) | CC\u2192CC (st 2, 17.8k) | DD\u2192DD | CC\u2192CC (st 2, 22.4k) | DD\u2192CC (st 2, 17.8k) | DD\u2192CC (st 2, 17.8k) |",
+  "re1_named": {
+   "on_graph": 25,
+   "on_graph_coop_enc2": 25,
+   "off_graph": 69,
+   "off_graph_coop_enc2": 0,
+   "on_fail": [],
+   "off_coop_examples": [],
+   "steady_cost_ratio": {
+    "max": 2.6961000735835174,
+    "min": 1.0,
+    "examples": [
+     [
+      "LobC",
+      "CB",
+      2.6961000735835174
+     ],
+     [
+      "LobC",
+      "CBlet",
+      2.6961000735835174
+     ],
+     [
+      "LobC",
+      "CBwrap",
+      2.6961000735835174
+     ],
+     [
+      "LobC",
+      "MC1",
+      2.6961000735835174
+     ],
+     [
+      "SFc",
+      "CB",
+      1.4589144681566124
+     ],
+     [
+      "LobC",
+      "SFc",
+      1.4505413644486491
+     ],
+     [
+      "SFc",
+      "CBlet",
+      1.4364479011293416
+     ],
+     [
+      "SFc",
+      "MC1",
+      1.4339282876966262
+     ]
+    ]
+   }
+  },
+  "restoration": {
+   "SH": {
+    "pairs": 124,
+    "by_enc2": 124,
+    "by_enc3": 124,
+    "never": 0,
+    "first_cc": {
+     "2": 104,
+     "1": 20
+    }
+   },
+   "SS": {
+    "pairs": 124,
+    "by_enc2": 79,
+    "by_enc3": 124,
+    "never": 0,
+    "first_cc": {
+     "3": 45,
+     "2": 73,
+     "1": 6
+    }
+   },
+   "CSH": {
+    "pairs": 124,
+    "by_enc2": 124,
+    "by_enc3": 124,
+    "never": 0,
+    "first_cc": {
+     "2": 104,
+     "1": 20
+    }
+   },
+   "CSCS": {
+    "pairs": 124,
+    "by_enc2": 79,
+    "by_enc3": 124,
+    "never": 0,
+    "first_cc": {
+     "2": 73,
+     "3": 45,
+     "1": 6
+    }
+   },
+   "CC": {
+    "pairs": 124,
+    "by_enc2": 6,
+    "by_enc3": 6,
+    "never": 118,
+    "first_cc": {
+     "null": 118,
+     "1": 6
+    }
+   },
+   "CC+": {
+    "pairs": 124,
+    "by_enc2": 50,
+    "by_enc3": 55,
+    "never": 69,
+    "first_cc": {
+     "null": 69,
+     "3": 5,
+     "2": 30,
+     "1": 20
+    }
+   }
+  },
+  "act_costs": {
+   "ac:F": {
+    "n": 3762,
+    "median": 6742.0,
+    "max": 250006,
+    "min": 228
+   },
+   "ac:T": {
+    "n": 488,
+    "median": 8727.0,
+    "max": 57794,
+    "min": 2410
+   },
+   "prodC:found": {
+    "n": 592,
+    "median": 7043.0,
+    "max": 116877,
+    "min": 1220
+   },
+   "prodD:found": {
+    "n": 564,
+    "median": 7514.0,
+    "max": 32410,
+    "min": 1222
+   },
+   "prodD:none": {
+    "n": 870,
+    "median": 5077.0,
+    "max": 20644,
+    "min": 2366
+   },
+   "prodC:none": {
+    "n": 1131,
+    "median": 4632.0,
+    "max": 68412,
+    "min": 1303
+   },
+   "prodC:capTO": {
+    "n": 15,
+    "median": 250005.0,
+    "max": 250005,
+    "min": 250005
+   },
+   "prodC:fuelTO": {
+    "n": 5,
+    "median": 249934.0,
+    "max": 249934,
+    "min": 244904
+   }
+  },
+  "caps": {
+   "SH K=1e+06 P=250000": {
+    "seqs": 196,
+    "capTO": 5,
+    "found": 305,
+    "coop_by3": 125
+   },
+   "CSH K=1e+06 P=250000": {
+    "seqs": 270,
+    "capTO": 0,
+    "found": 241,
+    "coop_by3": 146
+   },
+   "SS K=1e+06 P=250000": {
+    "seqs": 196,
+    "capTO": 5,
+    "found": 305,
+    "coop_by3": 126
+   },
+   "SH K=100000 P=12500": {
+    "seqs": 49,
+    "capTO": 125,
+    "found": 64,
+    "coop_by3": 20
+   },
+   "CSH K=100000 P=12500": {
+    "seqs": 49,
+    "capTO": 105,
+    "found": 34,
+    "coop_by3": 21
+   },
+   "SS K=100000 P=12500": {
+    "seqs": 49,
+    "capTO": 93,
+    "found": 66,
+    "coop_by3": 22
+   },
+   "SH K=100000 P=25000": {
+    "seqs": 49,
+    "capTO": 64,
+    "found": 67,
+    "coop_by3": 21
+   },
+   "CSH K=100000 P=25000": {
+    "seqs": 49,
+    "capTO": 59,
+    "found": 36,
+    "coop_by3": 21
+   },
+   "SS K=100000 P=25000": {
+    "seqs": 49,
+    "capTO": 45,
+    "found": 67,
+    "coop_by3": 22
+   },
+   "SH K=100000 P=50000": {
+    "seqs": 49,
+    "capTO": 25,
+    "found": 72,
+    "coop_by3": 21
+   },
+   "CSH K=100000 P=50000": {
+    "seqs": 49,
+    "capTO": 20,
+    "found": 42,
+    "coop_by3": 21
+   },
+   "SS K=100000 P=50000": {
+    "seqs": 49,
+    "capTO": 4,
+    "found": 74,
+    "coop_by3": 22
+   },
+   "SH K=1e+06 P=125000": {
+    "seqs": 49,
+    "capTO": 5,
+    "found": 76,
+    "coop_by3": 34
+   },
+   "CSH K=1e+06 P=125000": {
+    "seqs": 49,
+    "capTO": 5,
+    "found": 44,
+    "coop_by3": 34
+   },
+   "SS K=1e+06 P=125000": {
+    "seqs": 49,
+    "capTO": 5,
+    "found": 76,
+    "coop_by3": 34
+   },
+   "SH K=1e+06 P=500000": {
+    "seqs": 49,
+    "capTO": 0,
+    "found": 75,
+    "coop_by3": 34
+   },
+   "CSH K=1e+06 P=500000": {
+    "seqs": 49,
+    "capTO": 0,
+    "found": 44,
+    "coop_by3": 34
+   },
+   "SS K=1e+06 P=500000": {
+    "seqs": 49,
+    "capTO": 0,
+    "found": 75,
+    "coop_by3": 34
+   }
+  },
+  "reserved": {
+   "SH Kplay=50000 R=50000": {
+    "seqs": 49,
+    "coop_last": 12,
+    "bot": 0
+   },
+   "SS Kplay=50000 R=50000": {
+    "seqs": 49,
+    "coop_last": 13,
+    "bot": 0
+   },
+   "HH Kplay=50000 R=50000": {
+    "seqs": 49,
+    "coop_last": 13,
+    "bot": 0
+   },
+   "SH Kplay=500000 R=500000": {
+    "seqs": 49,
+    "coop_last": 34,
+    "bot": 0
+   },
+   "SS Kplay=500000 R=500000": {
+    "seqs": 49,
+    "coop_last": 34,
+    "bot": 0
+   },
+   "HH Kplay=500000 R=500000": {
+    "seqs": 49,
+    "coop_last": 34,
+    "bot": 0
+   }
+  },
+  "CF": {
+   "CBPh CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 9559,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CB1r CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 9559,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBwrap CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "LobC CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DC",
+     "DC",
+     "DC",
+     "DC",
+     "DC"
+    ]
+   },
+   "CBPr CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 9559,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "MC1 CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "Dc CH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 2434,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBmut CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 12082,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "Cc CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 2441,
+    "acts": [
+     "DC",
+     "DC",
+     "DC",
+     "DC",
+     "DC"
+    ]
+   },
+   "CBfake CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 10527,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBdef CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 0,
+    "acts": [
+     "DC",
+     "DC",
+     "DC",
+     "DC",
+     "DC"
+    ]
+   },
+   "Dcert CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 8935,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CB CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 10527,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "SFc CH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 6434,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBsloppy CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 10527,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CB1 CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 12084,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBP CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 12084,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBlet CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 10527,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBwrap CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 10527,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CB1r CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 12084,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBfake CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBPh CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 12084,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBmut CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 9557,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBPr CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 12084,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "Dcert CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 6410,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "MC1 CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 10527,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBsloppy CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "LobC CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 10527,
+    "acts": [
+     "DC",
+     "DC",
+     "DC",
+     "DC",
+     "DC"
+    ]
+   },
+   "CB CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "Cc CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 4966,
+    "acts": [
+     "DC",
+     "DC",
+     "DC",
+     "DC",
+     "DC"
+    ]
+   },
+   "CB1 CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 9559,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "Dc CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 4802,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBlet CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "SFc CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 8802,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBP CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 9559,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBdef CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 2525,
+    "acts": [
+     "DC",
+     "DC",
+     "DC",
+     "DC",
+     "DC"
+    ]
+   }
+  },
+  "CF_C_adoptions": 0,
+  "negcache": {
+   "n": 252,
+   "mean_uncached": 10186.960317460318,
+   "mean_cached": 0.0,
+   "examples": [
+    [
+     "SFc",
+     "SFc",
+     250058,
+     0
+    ],
+    [
+     "SFc",
+     "CBPh",
+     29722,
+     0
+    ],
+    [
+     "SFc",
+     "CBP",
+     28330,
+     0
+    ],
+    [
+     "SFc",
+     "CBPr",
+     28330,
+     0
+    ],
+    [
+     "SFc",
+     "CB1",
+     28321,
+     0
+    ],
+    [
+     "SFc",
+     "CB1r",
+     28321,
+     0
+    ],
+    [
+     "CBPh",
+     "CBmut",
+     22930,
+     0
+    ],
+    [
+     "SFc",
+     "Dcert",
+     22312,
+     0
+    ]
+   ]
+  }
+ },
+ "pairs_gate": {
+  "main_table": "| x, y | HH | CH | SH | CSH | CC | CC+ | SS | CSCS |\n|---|---|---|---|---|---|---|---|---|\n| CB, CB | CC\u2192CC (st 1, 9.5k) | DD\u2192CC (st 2, 19.0k) | DD\u2192CC (st 2, 38.0k) | DD\u2192CC (st 2, 38.0k) | DD\u2192DD | DD\u2192CC (st 2, 9.5k) | DD\u2192CC (st 2, 19.0k) | DD\u2192CC (st 2, 19.0k) |\n| CB, CBlet | CC\u2192CC (st 1, 19.7k) | DD\u2192CC (st 2, 19.7k) | DD\u2192CC (st 2, 39.4k) | DD\u2192CC (st 2, 39.4k) | DD\u2192DD | DD\u2192CC (st 2, 19.7k) | DD\u2192CC (st 2, 39.4k) | DD\u2192CC (st 2, 39.4k) |\n| CB, MC1 | CC\u2192CC (st 1, 19.8k) | DD\u2192CC (st 2, 19.8k) | DD\u2192CC (st 2, 39.6k) | DD\u2192CC (st 2, 39.6k) | DD\u2192DD | DD\u2192CC (st 2, 19.8k) | DD\u2192CC (st 2, 39.6k) | DD\u2192CC (st 2, 39.6k) |\n| CB1, CB1r | CC\u2192CC (st 1, 55.5k) | DD\u2192CC (st 2, 55.5k) | DD\u2192CC (st 2, 83.2k) | DD\u2192CC (st 2, 83.2k) | DD\u2192DD | DD\u2192CC (st 2, 55.5k) | DD\u2192CC (st 2, 83.2k) | DD\u2192CC (st 2, 83.2k) |\n| CBP, CBPh | CC\u2192CC (st 1, 69.3k) | DD\u2192DD (st 3, 69.3k) | DD\u2192CC (st 2, 124.8k) | DD\u2192CC (st 2, 124.8k) | DD\u2192DD | DD\u2192DD (st 3, 69.3k) | DD\u2192DD (st 3, 124.8k) | DD\u2192DD (st 3, 124.8k) |\n| CB, CB1 | CC\u2192CC (st 1, 23.4k) | DD\u2192DD | DD\u2192CC (st 2, 46.7k) | DD\u2192CC (st 3, 55.3k) | DD\u2192DD | DD\u2192DD | DD\u2192CC (st 2, 46.7k) | DD\u2192CC (st 3, 60.8k) |\n| CB1, CB | CC\u2192CC (st 1, 46.7k) | DD\u2192DD | DD\u2192CC (st 2, 70.1k) | DD\u2192CC (st 3, 78.3k) | DD\u2192DD | DD\u2192DD | DD\u2192CC (st 2, 70.1k) | DD\u2192CC (st 3, 91.1k) |\n| CB, CBP | CC\u2192CC (st 1, 33.0k) | DD\u2192DD | DD\u2192CC (st 2, 66.1k) | DD\u2192CC (st 3, 83.2k) | DD\u2192DD | DD\u2192DD | DD\u2192DD (st 3, 66.1k) | DD\u2192DD (st 4, 88.7k) |\n| CBP, CB | CC\u2192CC (st 1, 42.7k) | DD\u2192DD | DD\u2192CC (st 2, 75.7k) | DD\u2192CC (st 3, 81.2k) | DD\u2192DD | DD\u2192DD | DD\u2192DD (st 3, 75.7k) | DD\u2192DD (st 4, 102.6k) |\n| CB1, CBP | CC\u2192CC (st 1, 80.9k) | DD\u2192DD | DD\u2192CC (st 2, 121.3k) | DD\u2192CC (st 3, 147.0k) | DD\u2192DD | DD\u2192DD | DD\u2192DD (st 3, 121.3k) | DD\u2192DD (st 4, 159.8k) |\n| CBP, CBPr | CC\u2192CC (st 1, 65.9k) | DD\u2192DD | DD\u2192CC (st 2, 119.0k) | DD\u2192CC (st 3, 136.2k) | DD\u2192DD | DD\u2192DD | DD\u2192DD (st 3, 119.0k) | DD\u2192DD (st 4, 157.6k) |\n| LobC, CB | CC\u2192CC (st 1, 9.5k) | DD\u2192CC (st 2, 25.6k) | DD\u2192CC (st 2, 34.2k) | DD\u2192CC (st 2, 53.1k) | DD\u2192DD | DD\u2192CC (st 2, 25.6k) | DD\u2192CC (st 2, 34.2k) | DD\u2192CC (st 2, 53.1k) |\n| Cc, CB | CC\u2192CC (st 1, 0.0k) | CD\u2192CD | CD\u2192CC (st 2, 4.8k) | CD\u2192CC (st 3, 18.0k) | CD\u2192CD | CD\u2192CD | CD\u2192CC (st 2, 4.8k) | CD\u2192CC (st 3, 18.0k) |\n| Dc, CB | DD\u2192DD | DD\u2192DD | DD\u2192DD | DD\u2192DD | DD\u2192DD | DD\u2192DD | DD\u2192DD | DD\u2192DD |\n| CBdef, CB | CD\u2192CD | CD\u2192CD | CD\u2192CD | CD\u2192CD | CD\u2192CD | CD\u2192CD | CD\u2192CD | CD\u2192CD |\n| SFc, CB | CC\u2192CC (st 1, 17.9k) | DD\u2192CC (st 2, 26.0k) | DD\u2192CC (st 2, 35.7k) | DD\u2192CC (st 3, 41.2k) | DD\u2192DD | DD\u2192CC (st 2, 26.0k) | DD\u2192CC (st 2, 35.7k) | DD\u2192CC (st 3, 43.3k) |\n| CB, SFc | CC\u2192CC (st 1, 17.8k) | CC\u2192CC (st 2, 22.4k) | CC\u2192CC (st 2, 45.2k) | CC\u2192CC (st 3, 48.5k) | DD\u2192DD | CC\u2192CC (st 2, 22.4k) | DD\u2192CC (st 2, 45.2k) | DD\u2192CC (st 3, 54.0k) |",
+  "re1_named": {
+   "on_graph": 25,
+   "on_graph_coop_enc2": 25,
+   "off_graph": 69,
+   "off_graph_coop_enc2": 0,
+   "on_fail": [],
+   "off_coop_examples": [],
+   "steady_cost_ratio": {
+    "max": 2.6961000735835174,
+    "min": 1.0,
+    "examples": [
+     [
+      "LobC",
+      "CB",
+      2.6961000735835174
+     ],
+     [
+      "LobC",
+      "CBlet",
+      2.6961000735835174
+     ],
+     [
+      "LobC",
+      "CBwrap",
+      2.6961000735835174
+     ],
+     [
+      "LobC",
+      "MC1",
+      2.6961000735835174
+     ],
+     [
+      "SFc",
+      "CB",
+      1.4589144681566124
+     ],
+     [
+      "LobC",
+      "SFc",
+      1.4505413644486491
+     ],
+     [
+      "SFc",
+      "CBlet",
+      1.4364479011293416
+     ],
+     [
+      "SFc",
+      "MC1",
+      1.4339282876966262
+     ]
+    ]
+   }
+  },
+  "restoration": {
+   "SH": {
+    "pairs": 124,
+    "by_enc2": 124,
+    "by_enc3": 124,
+    "never": 0,
+    "first_cc": {
+     "1": 20,
+     "2": 104
+    }
+   },
+   "SS": {
+    "pairs": 124,
+    "by_enc2": 79,
+    "by_enc3": 124,
+    "never": 0,
+    "first_cc": {
+     "3": 45,
+     "2": 73,
+     "1": 6
+    }
+   },
+   "CSH": {
+    "pairs": 124,
+    "by_enc2": 124,
+    "by_enc3": 124,
+    "never": 0,
+    "first_cc": {
+     "1": 20,
+     "2": 104
+    }
+   },
+   "CSCS": {
+    "pairs": 124,
+    "by_enc2": 79,
+    "by_enc3": 124,
+    "never": 0,
+    "first_cc": {
+     "2": 73,
+     "3": 45,
+     "1": 6
+    }
+   },
+   "CC": {
+    "pairs": 124,
+    "by_enc2": 6,
+    "by_enc3": 6,
+    "never": 118,
+    "first_cc": {
+     "null": 118,
+     "1": 6
+    }
+   },
+   "CC+": {
+    "pairs": 124,
+    "by_enc2": 50,
+    "by_enc3": 55,
+    "never": 69,
+    "first_cc": {
+     "null": 69,
+     "1": 20,
+     "2": 30,
+     "3": 5
+    }
+   }
+  },
+  "act_costs": {
+   "ac:F": {
+    "n": 3886,
+    "median": 6902.0,
+    "max": 250006,
+    "min": 228
+   },
+   "ac:T": {
+    "n": 771,
+    "median": 9635.0,
+    "max": 68293,
+    "min": 2410
+   },
+   "gate:F": {
+    "n": 2135,
+    "median": 240.0,
+    "max": 47137,
+    "min": 95
+   },
+   "prodC:found": {
+    "n": 984,
+    "median": 10179.0,
+    "max": 116877,
+    "min": 1220
+   },
+   "prodD:found": {
+    "n": 564,
+    "median": 7514.0,
+    "max": 32410,
+    "min": 1222
+   },
+   "gate:T": {
+    "n": 2155,
+    "median": 23367.0,
+    "max": 72604,
+    "min": 2410
+   },
+   "prodC:none": {
+    "n": 1131,
+    "median": 4810.0,
+    "max": 68412,
+    "min": 1303
+   },
+   "prodD:none": {
+    "n": 870,
+    "median": 5077.0,
+    "max": 34472,
+    "min": 2366
+   },
+   "prodC:capTO": {
+    "n": 15,
+    "median": 250005.0,
+    "max": 250005,
+    "min": 250005
+   },
+   "prodC:fuelTO": {
+    "n": 5,
+    "median": 249694.0,
+    "max": 249694,
+    "min": 244664
+   }
+  },
+  "caps": {
+   "SH K=1e+06 P=250000": {
+    "seqs": 196,
+    "capTO": 5,
+    "found": 385,
+    "coop_by3": 125
+   },
+   "CSH K=1e+06 P=250000": {
+    "seqs": 270,
+    "capTO": 0,
+    "found": 369,
+    "coop_by3": 146
+   },
+   "SS K=1e+06 P=250000": {
+    "seqs": 196,
+    "capTO": 5,
+    "found": 397,
+    "coop_by3": 126
+   },
+   "SH K=100000 P=12500": {
+    "seqs": 49,
+    "capTO": 141,
+    "found": 76,
+    "coop_by3": 20
+   },
+   "CSH K=100000 P=12500": {
+    "seqs": 49,
+    "capTO": 122,
+    "found": 46,
+    "coop_by3": 21
+   },
+   "SS K=100000 P=12500": {
+    "seqs": 49,
+    "capTO": 105,
+    "found": 78,
+    "coop_by3": 22
+   },
+   "SH K=100000 P=25000": {
+    "seqs": 49,
+    "capTO": 68,
+    "found": 99,
+    "coop_by3": 21
+   },
+   "CSH K=100000 P=25000": {
+    "seqs": 49,
+    "capTO": 62,
+    "found": 68,
+    "coop_by3": 21
+   },
+   "SS K=100000 P=25000": {
+    "seqs": 49,
+    "capTO": 45,
+    "found": 94,
+    "coop_by3": 22
+   },
+   "SH K=100000 P=50000": {
+    "seqs": 49,
+    "capTO": 25,
+    "found": 128,
+    "coop_by3": 21
+   },
+   "CSH K=100000 P=50000": {
+    "seqs": 49,
+    "capTO": 20,
+    "found": 78,
+    "coop_by3": 21
+   },
+   "SS K=100000 P=50000": {
+    "seqs": 49,
+    "capTO": 4,
+    "found": 116,
+    "coop_by3": 22
+   },
+   "SH K=1e+06 P=125000": {
+    "seqs": 49,
+    "capTO": 5,
+    "found": 88,
+    "coop_by3": 34
+   },
+   "CSH K=1e+06 P=125000": {
+    "seqs": 49,
+    "capTO": 5,
+    "found": 56,
+    "coop_by3": 34
+   },
+   "SS K=1e+06 P=125000": {
+    "seqs": 49,
+    "capTO": 5,
+    "found": 90,
+    "coop_by3": 34
+   },
+   "SH K=1e+06 P=500000": {
+    "seqs": 49,
+    "capTO": 0,
+    "found": 87,
+    "coop_by3": 34
+   },
+   "CSH K=1e+06 P=500000": {
+    "seqs": 49,
+    "capTO": 0,
+    "found": 56,
+    "coop_by3": 34
+   },
+   "SS K=1e+06 P=500000": {
+    "seqs": 49,
+    "capTO": 0,
+    "found": 89,
+    "coop_by3": 34
+   }
+  },
+  "reserved": {
+   "SH Kplay=50000 R=50000": {
+    "seqs": 49,
+    "coop_last": 12,
+    "bot": 0
+   },
+   "SS Kplay=50000 R=50000": {
+    "seqs": 49,
+    "coop_last": 13,
+    "bot": 0
+   },
+   "HH Kplay=50000 R=50000": {
+    "seqs": 49,
+    "coop_last": 13,
+    "bot": 0
+   },
+   "SH Kplay=500000 R=500000": {
+    "seqs": 49,
+    "coop_last": 34,
+    "bot": 0
+   },
+   "SS Kplay=500000 R=500000": {
+    "seqs": 49,
+    "coop_last": 34,
+    "bot": 0
+   },
+   "HH Kplay=500000 R=500000": {
+    "seqs": 49,
+    "coop_last": 34,
+    "bot": 0
+   }
+  },
+  "CF": {
+   "CB1 CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 9559,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "Dc CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 5042,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CB CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "Cc CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 5061,
+    "acts": [
+     "DC",
+     "DC",
+     "DC",
+     "DC",
+     "DC"
+    ]
+   },
+   "CBsloppy CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "LobC CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 10622,
+    "acts": [
+     "DC",
+     "DC",
+     "DC",
+     "DC",
+     "DC"
+    ]
+   },
+   "CBwrap CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBP CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 9559,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBdef CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 2620,
+    "acts": [
+     "DC",
+     "DC",
+     "DC",
+     "DC",
+     "DC"
+    ]
+   },
+   "CBlet CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "SFc CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 9042,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBPh CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 9559,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CB1r CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 9559,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBPr CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 9559,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "LobC CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DC",
+     "DC",
+     "DC",
+     "DC",
+     "DC"
+    ]
+   },
+   "MC1 CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "Cc CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 2441,
+    "acts": [
+     "DC",
+     "DC",
+     "DC",
+     "DC",
+     "DC"
+    ]
+   },
+   "CBfake CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 10622,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "Dc CH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 2434,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBmut CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 12177,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBdef CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 0,
+    "acts": [
+     "DC",
+     "DC",
+     "DC",
+     "DC",
+     "DC"
+    ]
+   },
+   "Dcert CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ]
+    ],
+    "refusal_steps_enc1": 9030,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "SFc CH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 6434,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBsloppy CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 10622,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CB CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 10622,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CB1 CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 12179,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBP CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 12179,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBlet CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 10622,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBwrap CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 10622,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CB1r CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 12179,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBfake CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 8002,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBPh CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 12179,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "Dcert CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 6410,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "MC1 CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 10622,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBmut CH": {
+    "adopted": [],
+    "refusal_steps_enc1": 9557,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   },
+   "CBPr CSH": {
+    "adopted": [
+     [
+      "D",
+      "EvR*; Ax",
+      "search"
+     ],
+     [
+      "D",
+      "EvR*; ChkR[RunNeg \u00b7 EvR*@1; Ax]",
+      "copy"
+     ]
+    ],
+    "refusal_steps_enc1": 12179,
+    "acts": [
+     "DD",
+     "DD",
+     "DD",
+     "DD",
+     "DD"
+    ]
+   }
+  },
+  "CF_C_adoptions": 0,
+  "negcache": {
+   "n": 252,
+   "mean_uncached": 10186.960317460318,
+   "mean_cached": 0.0,
+   "examples": [
+    [
+     "SFc",
+     "SFc",
+     250058,
+     0
+    ],
+    [
+     "SFc",
+     "CBPh",
+     29722,
+     0
+    ],
+    [
+     "SFc",
+     "CBP",
+     28330,
+     0
+    ],
+    [
+     "SFc",
+     "CBPr",
+     28330,
+     0
+    ],
+    [
+     "SFc",
+     "CB1",
+     28321,
+     0
+    ],
+    [
+     "SFc",
+     "CB1r",
+     28321,
+     0
+    ],
+    [
+     "CBPh",
+     "CBmut",
+     22930,
+     0
+    ],
+    [
+     "SFc",
+     "Dcert",
+     22312,
+     0
+    ]
+   ]
+  }
+ },
+ "lottery": {
+  "H": {
+   "runs": 40,
+   "established": 40,
+   "est_ci": [
+    0.9123754607496077,
+    1.0
+   ],
+   "est_median": 30,
+   "est_q25": 30,
+   "est_mean_established": 30.5,
+   "E3_gen_median": 260.0,
+   "E3_success": 40,
+   "E3_fail": 0,
+   "E3_ci": [
+    0.9123754607496077,
+    1.0
+   ],
+   "outcomes": {
+    "universal": 26,
+    "patchwork": 14
+   },
+   "universal_open": 25,
+   "uo_ci": [
+    0.47032160054531913,
+    0.7577722646420829
+   ],
+   "pcc": 0.9940370107323233,
+   "held": 64.0,
+   "identity_islands": 0.063671875,
+   "open_islands": 0.930859375,
+   "cross_pcc": 0.9246179327876984,
+   "persistence": 0.985546875,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "runs": 6
+    },
+    "50": {
+     "mean": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "runs": 40
+    },
+    "200": {
+     "mean": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "runs": 40
+    },
+    "1000": {
+     "mean": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "runs": 40
+    },
+    "2000": {
+     "mean": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "runs": 40
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "counters": {
+    "enc": [
+     47520000000,
+     0,
+     0,
+     0
+    ],
+    "gate": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "gate_T": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     475200000,
+     0,
+     0,
+     0
+    ],
+    "changes": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "scripts_held": {
+    "mean": 4.175,
+    "max": 7
+   },
+   "inst_search_frac": 0.0,
+   "hostfree_distinct": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "n_types": 3183.775,
+   "time_s": 179.14111225008963
+  },
+  "C25": {
+   "runs": 40,
+   "established": 37,
+   "est_ci": [
+    0.8013546984090248,
+    0.9741644432281419
+   ],
+   "est_median": 30,
+   "est_q25": 30,
+   "est_mean_established": 35.945945945945944,
+   "E3_gen_median": 275.0,
+   "E3_success": 34,
+   "E3_fail": 6,
+   "E3_ci": [
+    0.7092737396097997,
+    0.9293890829149256
+   ],
+   "outcomes": {
+    "patchwork": 14,
+    "unheld": 6,
+    "universal": 20
+   },
+   "universal_open": 19,
+   "uo_ci": [
+    0.32935229550181694,
+    0.6250289314607027
+   ],
+   "pcc": 0.8377711489898989,
+   "held": 54.4,
+   "identity_islands": 0.133203125,
+   "open_islands": 0.688671875,
+   "cross_pcc": 0.7161310503472221,
+   "persistence": 0.8817567567567568,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 9
+    },
+    "50": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 37
+    },
+    "200": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 34
+    },
+    "1000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 34
+    },
+    "2000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 34
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    0.0,
+    770.8481743261932,
+    0.0
+   ],
+   "counters": {
+    "enc": [
+     0,
+     0,
+     46899200000,
+     0
+    ],
+    "gate": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "gate_T": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac": [
+     0,
+     0,
+     1854052141,
+     0
+    ],
+    "ac_ok": [
+     0,
+     0,
+     166757,
+     0
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     1824874485,
+     0
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     0,
+     0,
+     468992000,
+     0
+    ],
+    "changes": [
+     0,
+     0,
+     166535,
+     0
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "scripts_held": {
+    "mean": 3.35,
+    "max": 6
+   },
+   "inst_search_frac": 0.0,
+   "hostfree_distinct": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "n_types": 5558.8,
+   "time_s": 210.2368423819542
+  },
+  "mixed": {
+   "runs": 40,
+   "established": 40,
+   "est_ci": [
+    0.9123754607496077,
+    1.0
+   ],
+   "est_median": 30,
+   "est_q25": 20,
+   "est_mean_established": 28.75,
+   "E3_gen_median": 260.0,
+   "E3_success": 40,
+   "E3_fail": 0,
+   "E3_ci": [
+    0.9123754607496077,
+    1.0
+   ],
+   "outcomes": {
+    "universal": 23,
+    "patchwork": 16,
+    "unheld": 1
+   },
+   "universal_open": 22,
+   "uo_ci": [
+    0.39828829888440775,
+    0.6929492471905531
+   ],
+   "pcc": 0.9876870265151515,
+   "held": 63.975,
+   "identity_islands": 0.12890625,
+   "open_islands": 0.82734375,
+   "cross_pcc": 0.8566916778273811,
+   "persistence": 0.966796875,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.11392821408327906,
+      0.44135742671475975,
+      0.18119055318504276,
+      0.2635238060169184
+     ],
+     "runs": 13
+    },
+    "50": {
+     "mean": [
+      0.19538687773053698,
+      0.27658101409085745,
+      0.16142057639385227,
+      0.3666115317847533
+     ],
+     "runs": 40
+    },
+    "200": {
+     "mean": [
+      0.20557953080079955,
+      0.2836666687593233,
+      0.12301100023536256,
+      0.38774280020451474
+     ],
+     "runs": 40
+    },
+    "1000": {
+     "mean": [
+      0.20921484375000002,
+      0.30159846230158727,
+      0.12207812500000001,
+      0.36710856894841276
+     ],
+     "runs": 40
+    },
+    "2000": {
+     "mean": [
+      0.20379687500000002,
+      0.2930190972222222,
+      0.12140277777777778,
+      0.3817812499999999
+     ],
+     "runs": 40
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    792.7139108245074,
+    1271.9659192095742,
+    1735.2142760292497
+   ],
+   "counters": {
+    "enc": [
+     10597471402,
+     15001438620,
+     6542055076,
+     15526234902
+    ],
+    "gate": [
+     0,
+     15001438620,
+     0,
+     15526234902
+    ],
+    "gate_T": [
+     0,
+     14388704758,
+     0,
+     14880445665
+    ],
+    "prodC": [
+     0,
+     612733862,
+     0,
+     645789237
+    ],
+    "prodC_ok": [
+     0,
+     40941,
+     0,
+     38696
+    ],
+    "prodD": [
+     0,
+     285307911,
+     0,
+     1160461719
+    ],
+    "prodD_ok": [
+     0,
+     31676,
+     0,
+     29085
+    ],
+    "ac": [
+     0,
+     0,
+     426753736,
+     345125085
+    ],
+    "ac_ok": [
+     0,
+     0,
+     59611,
+     4079
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     420564047,
+     343857069
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     105960459,
+     150029191,
+     65380810,
+     155301540
+    ],
+    "changes": [
+     0,
+     67758,
+     59429,
+     67143
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     3751865,
+     0,
+     3491563
+    ]
+   },
+   "scripts_held": {
+    "mean": 4.225,
+    "max": 7
+   },
+   "inst_search_frac": 0.7465004981461775,
+   "hostfree_distinct": [
+    6400,
+    1679,
+    0,
+    170,
+    0,
+    5608,
+    3974,
+    4474,
+    4850,
+    0,
+    0,
+    5075,
+    6003,
+    0,
+    3811,
+    0,
+    0,
+    5553,
+    4548,
+    0,
+    5510,
+    0,
+    6400,
+    6400,
+    6400,
+    3479,
+    3775,
+    228,
+    6400,
+    0,
+    6400,
+    3965,
+    4562,
+    6400,
+    6400,
+    3223,
+    0,
+    0,
+    5255,
+    6185
+   ],
+   "n_types": 9000.225,
+   "time_s": 219.99673359394075
+  },
+  "S": {
+   "runs": 40,
+   "established": 40,
+   "est_ci": [
+    0.9123754607496077,
+    1.0
+   ],
+   "est_median": 30,
+   "est_q25": 20,
+   "est_mean_established": 27.75,
+   "E3_gen_median": 270.0,
+   "E3_success": 40,
+   "E3_fail": 0,
+   "E3_ci": [
+    0.9123754607496077,
+    1.0
+   ],
+   "outcomes": {
+    "universal": 16,
+    "patchwork": 24
+   },
+   "universal_open": 13,
+   "uo_ci": [
+    0.20084316962661725,
+    0.4798254191110201
+   ],
+   "pcc": 0.9843890467171719,
+   "held": 64.0,
+   "identity_islands": 0.22578125,
+   "open_islands": 0.743359375,
+   "cross_pcc": 0.8216592125496032,
+   "persistence": 0.95703125,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     "runs": 9
+    },
+    "50": {
+     "mean": [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     "runs": 40
+    },
+    "200": {
+     "mean": [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     "runs": 40
+    },
+    "1000": {
+     "mean": [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     "runs": 40
+    },
+    "2000": {
+     "mean": [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     "runs": 40
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    1411.6795387994969,
+    0.0,
+    0.0
+   ],
+   "counters": {
+    "enc": [
+     0,
+     47942400000,
+     0,
+     0
+    ],
+    "gate": [
+     0,
+     47942400000,
+     0,
+     0
+    ],
+    "gate_T": [
+     0,
+     45262424755,
+     0,
+     0
+    ],
+    "prodC": [
+     0,
+     2679975245,
+     0,
+     0
+    ],
+    "prodC_ok": [
+     0,
+     162955,
+     0,
+     0
+    ],
+    "prodD": [
+     0,
+     2654420833,
+     0,
+     0
+    ],
+    "prodD_ok": [
+     0,
+     125257,
+     0,
+     0
+    ],
+    "ac": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     0,
+     479424000,
+     0,
+     0
+    ],
+    "changes": [
+     0,
+     268998,
+     0,
+     0
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     28796376,
+     0,
+     0
+    ]
+   },
+   "scripts_held": {
+    "mean": 4.925,
+    "max": 8
+   },
+   "inst_search_frac": 1.0,
+   "hostfree_distinct": [
+    6400,
+    0,
+    6400,
+    0,
+    6400,
+    6297,
+    6400,
+    6117,
+    4708,
+    0,
+    6400,
+    6400,
+    6105,
+    4600,
+    889,
+    5051,
+    5687,
+    6400,
+    4021,
+    6400,
+    6400,
+    6400,
+    5880,
+    6400,
+    5188,
+    3914,
+    2430,
+    6400,
+    5605,
+    0,
+    0,
+    5205,
+    4992,
+    6196,
+    6400,
+    991,
+    5785,
+    0,
+    1078,
+    4910
+   ],
+   "n_types": 6671.025,
+   "time_s": 226.51714326739312
+  },
+  "Cdonor": {
+   "runs": 40,
+   "established": 40,
+   "est_ci": [
+    0.9123754607496077,
+    1.0
+   ],
+   "est_median": 30,
+   "est_q25": 20,
+   "est_mean_established": 28.5,
+   "E3_gen_median": 250.0,
+   "E3_success": 40,
+   "E3_fail": 0,
+   "E3_ci": [
+    0.9123754607496077,
+    1.0
+   ],
+   "outcomes": {
+    "universal": 34,
+    "patchwork": 6
+   },
+   "universal_open": 33,
+   "uo_ci": [
+    0.6804970794560755,
+    0.9125469700311694
+   ],
+   "pcc": 0.9994479955808082,
+   "held": 64.0,
+   "identity_islands": 0.0015625,
+   "open_islands": 0.994140625,
+   "cross_pcc": 0.991629908234127,
+   "persistence": 0.998828125,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.8149509803921569,
+      0.0,
+      0.18504901960784315,
+      0.0
+     ],
+     "runs": 3
+    },
+    "50": {
+     "mean": [
+      0.6361692401511122,
+      0.0,
+      0.3638307598488878,
+      0.0
+     ],
+     "runs": 40
+    },
+    "200": {
+     "mean": [
+      0.6597004371997891,
+      0.0,
+      0.3402995628002111,
+      0.0
+     ],
+     "runs": 40
+    },
+    "1000": {
+     "mean": [
+      0.6905625000000001,
+      0.0,
+      0.3094374999999999,
+      0.0
+     ],
+     "runs": 40
+    },
+    "2000": {
+     "mean": [
+      0.6793046875000002,
+      0.0,
+      0.32069531250000005,
+      0.0
+     ],
+     "runs": 40
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    0.0,
+    1826.4138382201031,
+    0.0
+   ],
+   "counters": {
+    "enc": [
+     29522723783,
+     0,
+     18035676217,
+     0
+    ],
+    "gate": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "gate_T": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac": [
+     0,
+     0,
+     1689348614,
+     0
+    ],
+    "ac_ok": [
+     0,
+     0,
+     166657,
+     0
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     1667910932,
+     0
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     295383433,
+     0,
+     180200567,
+     0
+    ],
+    "changes": [
+     0,
+     0,
+     166578,
+     0
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "scripts_held": {
+    "mean": 3.675,
+    "max": 7
+   },
+   "inst_search_frac": 0.0,
+   "hostfree_distinct": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "n_types": 4145.7,
+   "time_s": 192.45730859041214
+  },
+  "C05": {
+   "runs": 40,
+   "established": 34,
+   "est_ci": [
+    0.7092737396097997,
+    0.9293890829149256
+   ],
+   "est_median": 40,
+   "est_q25": 40,
+   "est_mean_established": 44.411764705882355,
+   "E3_gen_median": 280.0,
+   "E3_success": 23,
+   "E3_fail": 17,
+   "E3_ci": [
+    0.42194800436059987,
+    0.7149083147518411
+   ],
+   "outcomes": {
+    "unheld": 17,
+    "universal": 22,
+    "patchwork": 1
+   },
+   "universal_open": 20,
+   "uo_ci": [
+    0.35199278797099753,
+    0.6480072120290025
+   ],
+   "pcc": 0.574938446969697,
+   "held": 36.8,
+   "identity_islands": 0.000390625,
+   "open_islands": 0.524609375,
+   "cross_pcc": 0.5741736309523809,
+   "persistence": 0.6764705882352942,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 2
+    },
+    "50": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 29
+    },
+    "200": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 24
+    },
+    "1000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 23
+    },
+    "2000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 23
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    0.0,
+    1300.645921819627,
+    0.0
+   ],
+   "counters": {
+    "enc": [
+     0,
+     0,
+     38502400000,
+     0
+    ],
+    "gate": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "gate_T": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac": [
+     0,
+     0,
+     2568233732,
+     0
+    ],
+    "ac_ok": [
+     0,
+     0,
+     174557,
+     0
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     2499774016,
+     0
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     0,
+     0,
+     385024000,
+     0
+    ],
+    "changes": [
+     0,
+     0,
+     174462,
+     0
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "scripts_held": {
+    "mean": 2.525,
+    "max": 5
+   },
+   "inst_search_frac": 0.0,
+   "hostfree_distinct": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "n_types": 4818.075,
+   "time_s": 174.02883111834527
+  },
+  "CS": {
+   "runs": 40,
+   "established": 40,
+   "est_ci": [
+    0.9123754607496077,
+    1.0
+   ],
+   "est_median": 30,
+   "est_q25": 20,
+   "est_mean_established": 29.0,
+   "E3_gen_median": 275.0,
+   "E3_success": 40,
+   "E3_fail": 0,
+   "E3_ci": [
+    0.9123754607496077,
+    1.0
+   ],
+   "outcomes": {
+    "universal": 15,
+    "unheld": 1,
+    "patchwork": 24
+   },
+   "universal_open": 13,
+   "uo_ci": [
+    0.20084316962661725,
+    0.4798254191110201
+   ],
+   "pcc": 0.9820532670454547,
+   "held": 63.975,
+   "identity_islands": 0.20703125,
+   "open_islands": 0.76953125,
+   "cross_pcc": 0.7993491877480159,
+   "persistence": 0.95546875,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "runs": 8
+    },
+    "50": {
+     "mean": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "runs": 40
+    },
+    "200": {
+     "mean": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "runs": 40
+    },
+    "1000": {
+     "mean": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "runs": 40
+    },
+    "2000": {
+     "mean": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "runs": 40
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    0.0,
+    0.0,
+    2046.0408692449373
+   ],
+   "counters": {
+    "enc": [
+     0,
+     0,
+     0,
+     48038400000
+    ],
+    "gate": [
+     0,
+     0,
+     0,
+     48038400000
+    ],
+    "gate_T": [
+     0,
+     0,
+     0,
+     45367107216
+    ],
+    "prodC": [
+     0,
+     0,
+     0,
+     2671292784
+    ],
+    "prodC_ok": [
+     0,
+     0,
+     0,
+     154058
+    ],
+    "prodD": [
+     0,
+     0,
+     0,
+     3846701114
+    ],
+    "prodD_ok": [
+     0,
+     0,
+     0,
+     117046
+    ],
+    "ac": [
+     0,
+     0,
+     0,
+     1117010874
+    ],
+    "ac_ok": [
+     0,
+     0,
+     0,
+     17208
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     0,
+     1108491210
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     0,
+     0,
+     0,
+     480384000
+    ],
+    "changes": [
+     0,
+     0,
+     0,
+     268952
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     0,
+     0,
+     20958238
+    ]
+   },
+   "scripts_held": {
+    "mean": 4.475,
+    "max": 8
+   },
+   "inst_search_frac": 1.0,
+   "hostfree_distinct": [
+    6400,
+    0,
+    5185,
+    0,
+    1380,
+    6400,
+    4308,
+    6041,
+    5525,
+    0,
+    5721,
+    6400,
+    5907,
+    0,
+    0,
+    0,
+    4512,
+    6400,
+    6400,
+    0,
+    5691,
+    0,
+    6296,
+    6400,
+    2408,
+    5909,
+    5424,
+    6400,
+    6400,
+    6400,
+    0,
+    4618,
+    5306,
+    6197,
+    6400,
+    0,
+    5608,
+    6400,
+    3597,
+    6400
+   ],
+   "n_types": 6675.95,
+   "time_s": 249.62741400003432
+  },
+  "C0": {
+   "runs": 40,
+   "established": 0,
+   "est_ci": [
+    0.0,
+    0.08762453925039232
+   ],
+   "est_median": null,
+   "est_q25": null,
+   "est_mean_established": null,
+   "E3_gen_median": null,
+   "E3_success": 0,
+   "E3_fail": 40,
+   "E3_ci": [
+    0.0,
+    0.08762453925039232
+   ],
+   "outcomes": {
+    "unheld": 40
+   },
+   "universal_open": 0,
+   "uo_ci": [
+    0.0,
+    0.08762453925039232
+   ],
+   "pcc": 0.0,
+   "held": 0.0,
+   "identity_islands": 0.0,
+   "open_islands": 0.0,
+   "cross_pcc": 0.0,
+   "persistence": null,
+   "modes_coop": {},
+   "per_match_prod_steps": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "counters": {
+    "enc": [
+     0,
+     0,
+     51200000000,
+     0
+    ],
+    "gate": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "gate_T": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     0,
+     0,
+     512000000,
+     0
+    ],
+    "changes": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "scripts_held": {
+    "mean": 0.0,
+    "max": 0
+   },
+   "inst_search_frac": 0.0,
+   "hostfree_distinct": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "n_types": 3183.775,
+   "time_s": 230.55225788354875
+  },
+  "C25_N200": {
+   "runs": 6,
+   "established": 6,
+   "est_ci": [
+    0.6096569663469354,
+    0.9999999999999999
+   ],
+   "est_median": 40,
+   "est_q25": 30,
+   "est_mean_established": 36.666666666666664,
+   "E3_gen_median": 340.0,
+   "E3_success": 6,
+   "E3_fail": 0,
+   "E3_ci": [
+    0.6096569663469354,
+    0.9999999999999999
+   ],
+   "outcomes": {
+    "universal": 3,
+    "patchwork": 3
+   },
+   "universal_open": 3,
+   "uo_ci": [
+    0.18761280689940868,
+    0.8123871931005913
+   ],
+   "pcc": 0.9960674466080403,
+   "held": 64.0,
+   "identity_islands": 0.0546875,
+   "open_islands": 0.9453125,
+   "cross_pcc": 0.9031714699074075,
+   "persistence": 0.9921875,
+   "modes_coop": {
+    "50": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 6
+    },
+    "200": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 6
+    },
+    "1000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 6
+    },
+    "2000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 6
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    0.0,
+    293.58714796888023,
+    0.0
+   ],
+   "counters": {
+    "enc": [
+     0,
+     0,
+     30720000000,
+     0
+    ],
+    "gate": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "gate_T": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac": [
+     0,
+     0,
+     462536396,
+     0
+    ],
+    "ac_ok": [
+     0,
+     0,
+     53890,
+     0
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     453923418,
+     0
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     0,
+     0,
+     153600000,
+     0
+    ],
+    "changes": [
+     0,
+     0,
+     53825,
+     0
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "scripts_held": {
+    "mean": 4.666666666666667,
+    "max": 6
+   },
+   "inst_search_frac": 0.0,
+   "hostfree_distinct": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "n_types": 8128.333333333333,
+   "time_s": 910.0199251174927
+  },
+  "mixed_N200": {
+   "runs": 6,
+   "established": 6,
+   "est_ci": [
+    0.6096569663469354,
+    0.9999999999999999
+   ],
+   "est_median": 30,
+   "est_q25": 30,
+   "est_mean_established": 30.0,
+   "E3_gen_median": 325.0,
+   "E3_success": 6,
+   "E3_fail": 0,
+   "E3_ci": [
+    0.6096569663469354,
+    0.9999999999999999
+   ],
+   "outcomes": {
+    "universal": 1,
+    "patchwork": 5
+   },
+   "universal_open": 1,
+   "uo_ci": [
+    0.03005258587173032,
+    0.563509436563646
+   ],
+   "pcc": 0.9890808207705192,
+   "held": 64.0,
+   "identity_islands": 0.15104166666666666,
+   "open_islands": 0.8359375,
+   "cross_pcc": 0.7493969535383598,
+   "persistence": 0.9869791666666666,
+   "modes_coop": {
+    "50": {
+     "mean": [
+      0.33822919479722807,
+      0.2539578403522092,
+      0.1321057842919028,
+      0.27570718055865984
+     ],
+     "runs": 6
+    },
+    "200": {
+     "mean": [
+      0.33200938857100826,
+      0.24266809496080274,
+      0.13763389765200565,
+      0.2876886188161834
+     ],
+     "runs": 6
+    },
+    "1000": {
+     "mean": [
+      0.32819010416666666,
+      0.29174479166666667,
+      0.13260416666666666,
+      0.2474609375
+     ],
+     "runs": 6
+    },
+    "2000": {
+     "mean": [
+      0.30829427083333333,
+      0.24572916666666664,
+      0.17555989583333334,
+      0.2704166666666667
+     ],
+     "runs": 6
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    1036.3150902041284,
+    2346.3983431007778,
+    4406.491447494497
+   ],
+   "counters": {
+    "enc": [
+     9795037560,
+     7846780381,
+     4659767774,
+     8418414285
+    ],
+    "gate": [
+     0,
+     7846780381,
+     0,
+     8418414285
+    ],
+    "gate_T": [
+     0,
+     7355333376,
+     0,
+     7926111227
+    ],
+    "prodC": [
+     0,
+     491447005,
+     0,
+     492303058
+    ],
+    "prodC_ok": [
+     0,
+     12039,
+     0,
+     11475
+    ],
+    "prodD": [
+     0,
+     117190580,
+     0,
+     2128627183
+    ],
+    "prodD_ok": [
+     0,
+     9501,
+     0,
+     8695
+    ],
+    "ac": [
+     0,
+     0,
+     560729852,
+     546369661
+    ],
+    "ac_ok": [
+     0,
+     0,
+     18867,
+     1289
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     554172907,
+     545139726
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     48982466,
+     39233828,
+     23294099,
+     42089607
+    ],
+    "changes": [
+     0,
+     20083,
+     18825,
+     20016
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     1338099,
+     0,
+     1671988
+    ]
+   },
+   "scripts_held": {
+    "mean": 6.666666666666667,
+    "max": 8
+   },
+   "inst_search_frac": 0.6044992904850705,
+   "hostfree_distinct": [
+    12800,
+    7197,
+    2511,
+    5770,
+    541,
+    6557
+   ],
+   "n_types": 15502.666666666666,
+   "time_s": 918.3092730045319
+  },
+  "mixed_r1": {
+   "runs": 11,
+   "established": 11,
+   "est_ci": [
+    0.7411599827511859,
+    1.0
+   ],
+   "est_median": 30,
+   "est_q25": 20,
+   "est_mean_established": 26.363636363636363,
+   "E3_gen_median": 260.0,
+   "E3_success": 11,
+   "E3_fail": 0,
+   "E3_ci": [
+    0.7411599827511859,
+    1.0
+   ],
+   "outcomes": {
+    "universal": 8,
+    "patchwork": 3
+   },
+   "universal_open": 8,
+   "uo_ci": [
+    0.4343497069897537,
+    0.9025411942607853
+   ],
+   "pcc": 0.9952508034894397,
+   "held": 64.0,
+   "identity_islands": 0.026988636363636364,
+   "open_islands": 0.9673295454545454,
+   "cross_pcc": 0.948075045093795,
+   "persistence": 0.9886363636363636,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.07333333333333333,
+      0.7666666666666666,
+      0.16,
+      0.0
+     ],
+     "runs": 2
+    },
+    "50": {
+     "mean": [
+      0.2454200897886887,
+      0.4767587488684768,
+      0.0572050243004949,
+      0.2206161370423395
+     ],
+     "runs": 11
+    },
+    "200": {
+     "mean": [
+      0.31059046279122887,
+      0.40421693961273814,
+      0.031653065708297026,
+      0.2535395318877359
+     ],
+     "runs": 11
+    },
+    "1000": {
+     "mean": [
+      0.25205965909090905,
+      0.4214346590909091,
+      0.03012784090909091,
+      0.2963778409090909
+     ],
+     "runs": 11
+    },
+    "2000": {
+     "mean": [
+      0.279375,
+      0.42446022727272725,
+      0.005809659090909091,
+      0.2903551136363636
+     ],
+     "runs": 11
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    533.5051630414298,
+    1891.9432889005052,
+    3227.6184986187445
+   ],
+   "counters": {
+    "enc": [
+     73132802,
+     115009633,
+     11233286,
+     77872279
+    ],
+    "gate": [
+     0,
+     115009633,
+     0,
+     77872279
+    ],
+    "gate_T": [
+     0,
+     111434707,
+     0,
+     74434236
+    ],
+    "prodC": [
+     0,
+     3574926,
+     0,
+     3438043
+    ],
+    "prodC_ok": [
+     0,
+     10864,
+     0,
+     10692
+    ],
+    "prodD": [
+     0,
+     1121750,
+     0,
+     15815573
+    ],
+    "prodD_ok": [
+     0,
+     8918,
+     0,
+     8151
+    ],
+    "ac": [
+     0,
+     0,
+     1089940,
+     3007988
+    ],
+    "ac_ok": [
+     0,
+     0,
+     13320,
+     1201
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     1062735,
+     2999936
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     36559984,
+     57509059,
+     5602478,
+     38952479
+    ],
+    "changes": [
+     0,
+     18531,
+     13286,
+     18770
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     8741,
+     0,
+     9235
+    ]
+   },
+   "scripts_held": {
+    "mean": 4.7272727272727275,
+    "max": 7
+   },
+   "inst_search_frac": 0.711474515413143,
+   "hostfree_distinct": [
+    6400,
+    4015,
+    2066,
+    3881,
+    0,
+    6400,
+    5899,
+    6311,
+    1691,
+    5051,
+    543
+   ],
+   "n_types": 7621.181818181818,
+   "time_s": 10.015569426796652
+  },
+  "C25_r1": {
+   "runs": 11,
+   "established": 11,
+   "est_ci": [
+    0.7411599827511859,
+    1.0
+   ],
+   "est_median": 30,
+   "est_q25": 30,
+   "est_mean_established": 36.36363636363637,
+   "E3_gen_median": 285.0,
+   "E3_success": 10,
+   "E3_fail": 1,
+   "E3_ci": [
+    0.6226353745137962,
+    0.9837682477371741
+   ],
+   "outcomes": {
+    "unheld": 1,
+    "universal": 9,
+    "patchwork": 1
+   },
+   "universal_open": 8,
+   "uo_ci": [
+    0.4343497069897537,
+    0.9025411942607853
+   ],
+   "pcc": 0.9077941345270891,
+   "held": 58.18181818181818,
+   "identity_islands": 0.008522727272727272,
+   "open_islands": 0.8096590909090909,
+   "cross_pcc": 0.8933483405483407,
+   "persistence": 0.9048295454545454,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 2
+    },
+    "50": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 10
+    },
+    "200": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 10
+    },
+    "1000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 10
+    },
+    "2000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 10
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    0.0,
+    896.3359236166401,
+    0.0
+   ],
+   "counters": {
+    "enc": [
+     0,
+     0,
+     200960000,
+     0
+    ],
+    "gate": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "gate_T": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac": [
+     0,
+     0,
+     9237790,
+     0
+    ],
+    "ac_ok": [
+     0,
+     0,
+     37051,
+     0
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     9138632,
+     0
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     0,
+     0,
+     100480000,
+     0
+    ],
+    "changes": [
+     0,
+     0,
+     36994,
+     0
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "scripts_held": {
+    "mean": 2.909090909090909,
+    "max": 6
+   },
+   "inst_search_frac": 0.0,
+   "hostfree_distinct": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "n_types": 4413.727272727273,
+   "time_s": 7.170508839867332
+  },
+  "Cdonor_r1": {
+   "runs": 11,
+   "established": 11,
+   "est_ci": [
+    0.7411599827511859,
+    1.0
+   ],
+   "est_median": 30,
+   "est_q25": 20,
+   "est_mean_established": 30.90909090909091,
+   "E3_gen_median": 250.0,
+   "E3_success": 11,
+   "E3_fail": 0,
+   "E3_ci": [
+    0.7411599827511859,
+    1.0
+   ],
+   "outcomes": {
+    "universal": 10,
+    "patchwork": 1
+   },
+   "universal_open": 10,
+   "uo_ci": [
+    0.6226353745137962,
+    0.9837682477371741
+   ],
+   "pcc": 0.9965946395775941,
+   "held": 64.0,
+   "identity_islands": 0.0,
+   "open_islands": 1.0,
+   "cross_pcc": 0.9549645923520923,
+   "persistence": 0.9914772727272727,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.9135802469135802,
+      0.0,
+      0.08641975308641975,
+      0.0
+     ],
+     "runs": 1
+    },
+    "50": {
+     "mean": [
+      0.8836880447646069,
+      0.0,
+      0.11631195523539312,
+      0.0
+     ],
+     "runs": 11
+    },
+    "200": {
+     "mean": [
+      0.9261419207623308,
+      0.0,
+      0.07385807923766907,
+      0.0
+     ],
+     "runs": 11
+    },
+    "1000": {
+     "mean": [
+      0.9601988636363636,
+      0.0,
+      0.03980113636363636,
+      0.0
+     ],
+     "runs": 11
+    },
+    "2000": {
+     "mean": [
+      0.9658664772727273,
+      0.0,
+      0.03413352272727273,
+      0.0
+     ],
+     "runs": 11
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    0.0,
+    2172.8408100491706,
+    0.0
+   ],
+   "counters": {
+    "enc": [
+     241387600,
+     0,
+     29204400,
+     0
+    ],
+    "gate": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "gate_T": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac": [
+     0,
+     0,
+     3254347,
+     0
+    ],
+    "ac_ok": [
+     0,
+     0,
+     44880,
+     0
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     3194350,
+     0
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     120759640,
+     0,
+     14536360,
+     0
+    ],
+    "changes": [
+     0,
+     0,
+     44821,
+     0
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "scripts_held": {
+    "mean": 3.6363636363636362,
+    "max": 5
+   },
+   "inst_search_frac": 0.0,
+   "hostfree_distinct": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "n_types": 3432.5454545454545,
+   "time_s": 8.911155874078924
+  },
+  "C25pub0": {
+   "runs": 10,
+   "established": 9,
+   "est_ci": [
+    0.5958436145024278,
+    0.9821242504842788
+   ],
+   "est_median": 40,
+   "est_q25": 30,
+   "est_mean_established": 35.55555555555556,
+   "E3_gen_median": 300.0,
+   "E3_success": 9,
+   "E3_fail": 1,
+   "E3_ci": [
+    0.5958436145024278,
+    0.9821242504842788
+   ],
+   "outcomes": {
+    "universal": 8,
+    "unheld": 1,
+    "patchwork": 1
+   },
+   "universal_open": 8,
+   "uo_ci": [
+    0.49015684672072335,
+    0.9433190520193067
+   ],
+   "pcc": 0.8998756313131313,
+   "held": 57.6,
+   "identity_islands": 0.0015625,
+   "open_islands": 0.8984375,
+   "cross_pcc": 0.8968769543650794,
+   "persistence": 1.0,
+   "modes_coop": {
+    "50": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 9
+    },
+    "200": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 9
+    },
+    "1000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 9
+    },
+    "2000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 9
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "counters": {
+    "enc": [
+     0,
+     0,
+     9734400000,
+     0
+    ],
+    "gate": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "gate_T": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     0,
+     0,
+     97344000,
+     0
+    ],
+    "changes": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "scripts_held": {
+    "mean": 3.0,
+    "max": 6
+   },
+   "inst_search_frac": 0.0,
+   "hostfree_distinct": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "n_types": 3936.2,
+   "time_s": 155.78386540412902
+  },
+  "C25inh0": {
+   "runs": 10,
+   "established": 6,
+   "est_ci": [
+    0.3126695474501864,
+    0.8318224187964902
+   ],
+   "est_median": 70,
+   "est_q25": 60,
+   "est_mean_established": 55.0,
+   "E3_gen_median": null,
+   "E3_success": 0,
+   "E3_fail": 5,
+   "E3_ci": [
+    0.0,
+    0.2775401687666166
+   ],
+   "outcomes": {
+    "unheld": 10
+   },
+   "universal_open": 0,
+   "uo_ci": [
+    0.0,
+    0.2775401687666166
+   ],
+   "pcc": 0.011525883838383839,
+   "held": 0.8,
+   "identity_islands": 0.0015625,
+   "open_islands": 0.0109375,
+   "cross_pcc": 9.101686507936507e-05,
+   "persistence": 0.6388888888888888,
+   "modes_coop": {
+    "50": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 5
+    },
+    "200": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 5
+    },
+    "1000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 5
+    },
+    "2000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 5
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    0.0,
+    495.2136762885156,
+    0.0
+   ],
+   "counters": {
+    "enc": [
+     0,
+     0,
+     12800000000,
+     0
+    ],
+    "gate": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "gate_T": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac": [
+     0,
+     0,
+     325080007,
+     0
+    ],
+    "ac_ok": [
+     0,
+     0,
+     17071130,
+     0
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     306532764,
+     0
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     0,
+     0,
+     128000000,
+     0
+    ],
+    "changes": [
+     0,
+     0,
+     15732610,
+     0
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "scripts_held": {
+    "mean": 1.6,
+    "max": 4
+   },
+   "inst_search_frac": 0.0,
+   "hostfree_distinct": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "n_types": 5828.7,
+   "time_s": 232.0101826906204
+  },
+  "mixedH": {
+   "runs": 10,
+   "established": 10,
+   "est_ci": [
+    0.7224598312333834,
+    1.0
+   ],
+   "est_median": 30,
+   "est_q25": 20,
+   "est_mean_established": 32.0,
+   "E3_gen_median": 260.0,
+   "E3_success": 9,
+   "E3_fail": 1,
+   "E3_ci": [
+    0.5958436145024278,
+    0.9821242504842788
+   ],
+   "outcomes": {
+    "universal": 4,
+    "patchwork": 5,
+    "unheld": 1
+   },
+   "universal_open": 4,
+   "uo_ci": [
+    0.16817758120350967,
+    0.6873304525498135
+   ],
+   "pcc": 0.8841698232323232,
+   "held": 57.6,
+   "identity_islands": 0.1578125,
+   "open_islands": 0.675,
+   "cross_pcc": 0.7088585763888889,
+   "persistence": 0.85625,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.20528756957328387,
+      0.4429128014842301,
+      0.16663574520717378,
+      0.18516388373531228
+     ],
+     "runs": 5
+    },
+    "50": {
+     "mean": [
+      0.23949611837818485,
+      0.3040787910092865,
+      0.1125198895123187,
+      0.34390520110020995
+     ],
+     "runs": 9
+    },
+    "200": {
+     "mean": [
+      0.20370807715102923,
+      0.3266172607266555,
+      0.11656958335965692,
+      0.35310507876265834
+     ],
+     "runs": 9
+    },
+    "1000": {
+     "mean": [
+      0.22536458333333334,
+      0.3237152777777778,
+      0.11612847222222222,
+      0.33479166666666665
+     ],
+     "runs": 9
+    },
+    "2000": {
+     "mean": [
+      0.2244965277777778,
+      0.3535590277777778,
+      0.16671875,
+      0.25522569444444443
+     ],
+     "runs": 9
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    3448.871106717458,
+    605.2572937780831,
+    2389.1422123360085
+   ],
+   "counters": {
+    "enc": [
+     3212501547,
+     4039149665,
+     1785521420,
+     3762827368
+    ],
+    "gate": [
+     0,
+     4039149665,
+     0,
+     3762827368
+    ],
+    "gate_T": [
+     0,
+     3764291407,
+     0,
+     3436354814
+    ],
+    "prodC": [
+     0,
+     274858258,
+     0,
+     326472554
+    ],
+    "prodC_ok": [
+     0,
+     2145,
+     0,
+     1978
+    ],
+    "prodD": [
+     0,
+     93734553,
+     0,
+     27260097
+    ],
+    "prodD_ok": [
+     0,
+     46,
+     0,
+     52
+    ],
+    "ac": [
+     0,
+     0,
+     55423348,
+     47862656
+    ],
+    "ac_ok": [
+     0,
+     0,
+     911,
+     126
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     54548001,
+     47152804
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     32127252,
+     40396751,
+     17849755,
+     37626242
+    ],
+    "changes": [
+     0,
+     2186,
+     911,
+     2148
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     39380074,
+     0,
+     14064715
+    ]
+   },
+   "scripts_held": {
+    "mean": 4.8,
+    "max": 8
+   },
+   "inst_search_frac": 0.11164336771248147,
+   "hostfree_distinct": [
+    0,
+    0,
+    362,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "n_types": 5511.9,
+   "time_s": 234.4198972463608
+  },
+  "price001": {
+   "runs": 10,
+   "established": 10,
+   "est_ci": [
+    0.7224598312333834,
+    1.0
+   ],
+   "est_median": 30,
+   "est_q25": 20,
+   "est_mean_established": 27.0,
+   "E3_gen_median": 240.0,
+   "E3_success": 10,
+   "E3_fail": 0,
+   "E3_ci": [
+    0.7224598312333834,
+    1.0
+   ],
+   "outcomes": {
+    "universal": 4,
+    "patchwork": 6
+   },
+   "universal_open": 4,
+   "uo_ci": [
+    0.16817758120350967,
+    0.6873304525498135
+   ],
+   "pcc": 0.9811208964646465,
+   "held": 64.0,
+   "identity_islands": 0.1953125,
+   "open_islands": 0.79375,
+   "cross_pcc": 0.7839120684523809,
+   "persistence": 0.9484375,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.11180329983038255,
+      0.3453499883429504,
+      0.2537908069592586,
+      0.28905590486740845
+     ],
+     "runs": 5
+    },
+    "50": {
+     "mean": [
+      0.29801668784959195,
+      0.20978920490834244,
+      0.08804710119401646,
+      0.4041470060480492
+     ],
+     "runs": 10
+    },
+    "200": {
+     "mean": [
+      0.3392970768609854,
+      0.22665661799237133,
+      0.057422557590970646,
+      0.3766237475556725
+     ],
+     "runs": 10
+    },
+    "1000": {
+     "mean": [
+      0.321890625,
+      0.24851562499999996,
+      0.05245312499999999,
+      0.377140625
+     ],
+     "runs": 10
+    },
+    "2000": {
+     "mean": [
+      0.2699375,
+      0.2476875,
+      0.056203125,
+      0.426171875
+     ],
+     "runs": 10
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    1336.1986647736046,
+    2884.808654733937,
+    2267.9367642350435
+   ],
+   "counters": {
+    "enc": [
+     3896648955,
+     3158582106,
+     845744289,
+     4425424650
+    ],
+    "gate": [
+     0,
+     3158582106,
+     0,
+     4425424650
+    ],
+    "gate_T": [
+     0,
+     2996078455,
+     0,
+     4266763742
+    ],
+    "prodC": [
+     0,
+     162503651,
+     0,
+     158660908
+    ],
+    "prodC_ok": [
+     0,
+     10200,
+     0,
+     9788
+    ],
+    "prodD": [
+     0,
+     161788707,
+     0,
+     668743697
+    ],
+    "prodD_ok": [
+     0,
+     7805,
+     0,
+     7295
+    ],
+    "ac": [
+     0,
+     0,
+     125124901,
+     80146687
+    ],
+    "ac_ok": [
+     0,
+     0,
+     14677,
+     1022
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     124096993,
+     79758428
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     38971222,
+     31585302,
+     8446586,
+     44260890
+    ],
+    "changes": [
+     0,
+     16787,
+     14637,
+     16921
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     2207888,
+     0,
+     997922
+    ]
+   },
+   "scripts_held": {
+    "mean": 4.4,
+    "max": 7
+   },
+   "inst_search_frac": 0.6846685970343545,
+   "hostfree_distinct": [
+    6400,
+    2016,
+    1835,
+    2404,
+    1001,
+    5489,
+    3075,
+    969,
+    0,
+    979
+   ],
+   "n_types": 8948.2,
+   "time_s": 232.33679459095
+  },
+  "mixed_N50": {
+   "runs": 10,
+   "established": 10,
+   "est_ci": [
+    0.7224598312333834,
+    1.0
+   ],
+   "est_median": 30,
+   "est_q25": 20,
+   "est_mean_established": 27.0,
+   "E3_gen_median": 210.0,
+   "E3_success": 9,
+   "E3_fail": 1,
+   "E3_ci": [
+    0.5958436145024278,
+    0.9821242504842788
+   ],
+   "outcomes": {
+    "universal": 9,
+    "unheld": 1
+   },
+   "universal_open": 8,
+   "uo_ci": [
+    0.49015684672072335,
+    0.9433190520193067
+   ],
+   "pcc": 0.9,
+   "held": 57.6,
+   "identity_islands": 0.0,
+   "open_islands": 0.8,
+   "cross_pcc": 0.9,
+   "persistence": 0.9,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.4312830564838941,
+      0.2083452075615085,
+      0.08941241685144125,
+      0.2709593191031562
+     ],
+     "runs": 8
+    },
+    "50": {
+     "mean": [
+      0.26688840116603174,
+      0.2509557981064946,
+      0.1939308466545118,
+      0.2882249540729619
+     ],
+     "runs": 10
+    },
+    "200": {
+     "mean": [
+      0.3144021012576357,
+      0.29819444444444443,
+      0.10870505588737248,
+      0.27869839841054744
+     ],
+     "runs": 9
+    },
+    "1000": {
+     "mean": [
+      0.22689263668430332,
+      0.30225694444444445,
+      0.05548611111111111,
+      0.4153643077601411
+     ],
+     "runs": 9
+    },
+    "2000": {
+     "mean": [
+      0.2152777777777778,
+      0.2873263888888889,
+      0.042361111111111106,
+      0.45503472222222224
+     ],
+     "runs": 9
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    2264.2696085193643,
+    2983.1424551508476,
+    943.3040935225471
+   ],
+   "counters": {
+    "enc": [
+     760899151,
+     392075919,
+     450320607,
+     849504323
+    ],
+    "gate": [
+     0,
+     392075919,
+     0,
+     849504323
+    ],
+    "gate_T": [
+     0,
+     336397082,
+     0,
+     811047069
+    ],
+    "prodC": [
+     0,
+     55678837,
+     0,
+     38457254
+    ],
+    "prodC_ok": [
+     0,
+     5113,
+     0,
+     4834
+    ],
+    "prodD": [
+     0,
+     7674940,
+     0,
+     9577569
+    ],
+    "prodD_ok": [
+     0,
+     3955,
+     0,
+     3702
+    ],
+    "ac": [
+     0,
+     0,
+     68894329,
+     7966995
+    ],
+    "ac_ok": [
+     0,
+     0,
+     7021,
+     527
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     67804470,
+     7880840
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     15220990,
+     7841666,
+     8999473,
+     16993871
+    ],
+    "changes": [
+     0,
+     8474,
+     7003,
+     8439
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     224469,
+     0,
+     129931
+    ]
+   },
+   "scripts_held": {
+    "mean": 2.4,
+    "max": 4
+   },
+   "inst_search_frac": 0.7488681309433645,
+   "hostfree_distinct": [
+    3200,
+    0,
+    0,
+    0,
+    1402,
+    3200,
+    1998,
+    0,
+    0,
+    0
+   ],
+   "n_types": 4844.5,
+   "time_s": 45.534185433387755
+  },
+  "C25_N50": {
+   "runs": 10,
+   "established": 8,
+   "est_ci": [
+    0.49015684672072335,
+    0.9433190520193067
+   ],
+   "est_median": 40,
+   "est_q25": 30,
+   "est_mean_established": 35.0,
+   "E3_gen_median": 215.0,
+   "E3_success": 8,
+   "E3_fail": 2,
+   "E3_ci": [
+    0.49015684672072335,
+    0.9433190520193067
+   ],
+   "outcomes": {
+    "universal": 8,
+    "unheld": 2
+   },
+   "universal_open": 7,
+   "uo_ci": [
+    0.39677321997956516,
+    0.892210712513788
+   ],
+   "pcc": 0.8,
+   "held": 51.2,
+   "identity_islands": 0.0,
+   "open_islands": 0.7328125,
+   "cross_pcc": 0.8,
+   "persistence": 1.0,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 6
+    },
+    "50": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 8
+    },
+    "200": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 8
+    },
+    "1000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 8
+    },
+    "2000": {
+     "mean": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     "runs": 8
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    0.0,
+    757.4148372205748,
+    0.0
+   ],
+   "counters": {
+    "enc": [
+     0,
+     0,
+     2630400000,
+     0
+    ],
+    "gate": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "gate_T": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodC_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prodD_ok": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "ac": [
+     0,
+     0,
+     102174675,
+     0
+    ],
+    "ac_ok": [
+     0,
+     0,
+     19147,
+     0
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     101545468,
+     0
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     0,
+     0,
+     52608000,
+     0
+    ],
+    "changes": [
+     0,
+     0,
+     19117,
+     0
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "scripts_held": {
+    "mean": 2.9,
+    "max": 5
+   },
+   "inst_search_frac": 0.0,
+   "hostfree_distinct": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "n_types": 3270.9,
+   "time_s": 48.262698316574095
+  },
+  "price01": {
+   "runs": 10,
+   "established": 10,
+   "est_ci": [
+    0.7224598312333834,
+    1.0
+   ],
+   "est_median": 30,
+   "est_q25": 20,
+   "est_mean_established": 28.0,
+   "E3_gen_median": 265.0,
+   "E3_success": 10,
+   "E3_fail": 0,
+   "E3_ci": [
+    0.7224598312333834,
+    1.0
+   ],
+   "outcomes": {
+    "universal": 3,
+    "patchwork": 7
+   },
+   "universal_open": 3,
+   "uo_ci": [
+    0.10778928748621183,
+    0.6032267800204347
+   ],
+   "pcc": 0.9783368055555556,
+   "held": 64.0,
+   "identity_islands": 0.24375,
+   "open_islands": 0.703125,
+   "cross_pcc": 0.7466637748015874,
+   "persistence": 0.946875,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.0882170542635659,
+      0.333062015503876,
+      0.07290697674418606,
+      0.5058139534883721
+     ],
+     "runs": 4
+    },
+    "50": {
+     "mean": [
+      0.324669832336631,
+      0.28965740139579516,
+      0.09159393248826803,
+      0.2940788337793057
+     ],
+     "runs": 10
+    },
+    "200": {
+     "mean": [
+      0.3499829949869694,
+      0.27379841963357093,
+      0.07823299180049795,
+      0.2979855935789617
+     ],
+     "runs": 10
+    },
+    "1000": {
+     "mean": [
+      0.380890625,
+      0.26596875,
+      0.070484375,
+      0.28265625
+     ],
+     "runs": 10
+    },
+    "2000": {
+     "mean": [
+      0.32428124999999997,
+      0.306375,
+      0.074578125,
+      0.294765625
+     ],
+     "runs": 10
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    2047.312658841579,
+    1485.3100326575116,
+    1541.0769007582728
+   ],
+   "counters": {
+    "enc": [
+     4627864182,
+     3356254017,
+     1032191320,
+     3655690481
+    ],
+    "gate": [
+     0,
+     3356254017,
+     0,
+     3655690481
+    ],
+    "gate_T": [
+     0,
+     3186319647,
+     0,
+     3487826434
+    ],
+    "prodC": [
+     0,
+     169934370,
+     0,
+     167864047
+    ],
+    "prodC_ok": [
+     0,
+     10189,
+     0,
+     9771
+    ],
+    "prodD": [
+     0,
+     492931420,
+     0,
+     227595398
+    ],
+    "prodD_ok": [
+     0,
+     7805,
+     0,
+     7295
+    ],
+    "ac": [
+     0,
+     0,
+     78625782,
+     58195295
+    ],
+    "ac_ok": [
+     0,
+     0,
+     14298,
+     1022
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     77349800,
+     57928026
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     46286800,
+     33567323,
+     10309929,
+     36555948
+    ],
+    "changes": [
+     0,
+     16776,
+     14258,
+     16904
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     299866,
+     0,
+     551748
+    ]
+   },
+   "scripts_held": {
+    "mean": 4.5,
+    "max": 7
+   },
+   "inst_search_frac": 0.6244492230291719,
+   "hostfree_distinct": [
+    3243,
+    3922,
+    1205,
+    874,
+    153,
+    0,
+    1178,
+    0,
+    4773,
+    2578
+   ],
+   "n_types": 8947.0,
+   "time_s": 232.59317784309388
+  },
+  "price1": {
+   "runs": 10,
+   "established": 10,
+   "est_ci": [
+    0.7224598312333834,
+    1.0
+   ],
+   "est_median": 30,
+   "est_q25": 20,
+   "est_mean_established": 29.0,
+   "E3_gen_median": 240.0,
+   "E3_success": 10,
+   "E3_fail": 0,
+   "E3_ci": [
+    0.7224598312333834,
+    1.0
+   ],
+   "outcomes": {
+    "patchwork": 6,
+    "universal": 4
+   },
+   "universal_open": 4,
+   "uo_ci": [
+    0.16817758120350967,
+    0.6873304525498135
+   ],
+   "pcc": 0.9883497474747476,
+   "held": 64.0,
+   "identity_islands": 0.1328125,
+   "open_islands": 0.8640625,
+   "cross_pcc": 0.8561550595238095,
+   "persistence": 0.9765625,
+   "modes_coop": {
+    "10": {
+     "mean": [
+      0.1071796553016111,
+      0.32032778610382584,
+      0.09618536905207942,
+      0.47630718954248363
+     ],
+     "runs": 4
+    },
+    "50": {
+     "mean": [
+      0.2854032656180028,
+      0.42258669673425964,
+      0.14113440469609173,
+      0.15087563295164583
+     ],
+     "runs": 10
+    },
+    "200": {
+     "mean": [
+      0.2469444923314176,
+      0.427894430925923,
+      0.12854202043610286,
+      0.19661905630655657
+     ],
+     "runs": 10
+    },
+    "1000": {
+     "mean": [
+      0.282046875,
+      0.409390625,
+      0.12876562500000002,
+      0.17979687500000002
+     ],
+     "runs": 10
+    },
+    "2000": {
+     "mean": [
+      0.302421875,
+      0.36196874999999995,
+      0.14148437500000002,
+      0.194125
+     ],
+     "runs": 10
+    }
+   },
+   "per_match_prod_steps": [
+    0.0,
+    748.9879244679264,
+    497.2831841242675,
+    1944.8118629452174
+   ],
+   "counters": {
+    "enc": [
+     3518045137,
+     3897319614,
+     1837673190,
+     2433362059
+    ],
+    "gate": [
+     0,
+     3897319614,
+     0,
+     2433362059
+    ],
+    "gate_T": [
+     0,
+     3759263536,
+     0,
+     2286871758
+    ],
+    "prodC": [
+     0,
+     138056078,
+     0,
+     146490301
+    ],
+    "prodC_ok": [
+     0,
+     10198,
+     0,
+     9743
+    ],
+    "prodD": [
+     0,
+     104954918,
+     0,
+     145377766
+    ],
+    "prodD_ok": [
+     0,
+     7806,
+     0,
+     7294
+    ],
+    "ac": [
+     0,
+     0,
+     46866197,
+     65323911
+    ],
+    "ac_ok": [
+     0,
+     0,
+     14318,
+     1022
+    ],
+    "ac_screen0": [
+     0,
+     0,
+     45523243,
+     64717447
+    ],
+    "transfer_fail": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "births": [
+     35186539,
+     38980791,
+     18366950,
+     24329720
+    ],
+    "changes": [
+     0,
+     16786,
+     14278,
+     16876
+    ],
+    "transfer_unknown": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "prod_timeouts": [
+     0,
+     300210,
+     0,
+     544252
+    ]
+   },
+   "scripts_held": {
+    "mean": 4.2,
+    "max": 6
+   },
+   "inst_search_frac": 0.605274435732199,
+   "hostfree_distinct": [
+    6300,
+    0,
+    2610,
+    528,
+    0,
+    2789,
+    2416,
+    3567,
+    4609,
+    0
+   ],
+   "n_types": 8948.2,
+   "time_s": 216.36141195297242
+  }
+ }
+}
