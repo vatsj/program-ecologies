@@ -1,0 +1,3492 @@
+{
+ "programs": 68,
+ "filter": {
+  "0": {
+   "name": "(BOX(THEM=St) -> Straight)",
+   "fired": 520,
+   "failed": 520,
+   "admitted": false,
+   "vacuous": false,
+   "witness_fail": [
+    "(St,0)+(BOX(THEM=St) -> Straight)",
+    "(St,0)",
+    0,
+    0
+   ],
+   "witness_pass": null
+  },
+  "1": {
+   "name": "(BOX(THEM=St) -> Swerve)",
+   "fired": 552,
+   "failed": 0,
+   "admitted": true,
+   "vacuous": false,
+   "witness_fail": null,
+   "witness_pass": [
+    "(St,0)+(BOX(THEM=St) -> Swerve)",
+    "(St,0)",
+    1,
+    0
+   ]
+  },
+  "2": {
+   "name": "(BOX(THEM=Sw) -> Straight)",
+   "fired": 644,
+   "failed": 0,
+   "admitted": true,
+   "vacuous": false,
+   "witness_fail": null,
+   "witness_pass": [
+    "(St,0)+(BOX(THEM=Sw) -> Straight)",
+    "(Sw,0)",
+    0,
+    1
+   ]
+  },
+  "3": {
+   "name": "(BOX(THEM=Sw) -> Swerve)",
+   "fired": 584,
+   "failed": 584,
+   "admitted": false,
+   "vacuous": false,
+   "witness_fail": [
+    "(St,0)+(BOX(THEM=Sw) -> Swerve)",
+    "(Sw,0)",
+    1,
+    1
+   ],
+   "witness_pass": null
+  }
+ },
+ "named_states": {
+  "R1 (St,0)|(Sw,0)": {
+   "G-all": {
+    "gene_stable": true,
+    "witness": [],
+    "play": [
+     0,
+     1
+    ]
+   },
+   "G-cred": {
+    "gene_stable": true,
+    "witness": [],
+    "play": [
+     0,
+     1
+    ]
+   }
+  },
+  "R1' (St,1)|(Sw,0)": {
+   "G-all": {
+    "gene_stable": false,
+    "witness": [
+     [
+      2,
+      "(BOX(THEM=Sw) -> Straight)",
+      3.0
+     ]
+    ],
+    "play": [
+     0,
+     1
+    ]
+   },
+   "G-cred": {
+    "gene_stable": false,
+    "witness": [
+     [
+      2,
+      "(BOX(THEM=Sw) -> Straight)",
+      3.0
+     ]
+    ],
+    "play": [
+     0,
+     1
+    ]
+   }
+  },
+  "crash": {
+   "G-all": {
+    "gene_stable": false,
+    "witness": [
+     [
+      1,
+      "(BOX(THEM=St) -> Swerve)",
+      9.0
+     ],
+     [
+      2,
+      "(BOX(THEM=St) -> Swerve)",
+      9.0
+     ]
+    ],
+    "play": [
+     0,
+     0
+    ]
+   },
+   "G-cred": {
+    "gene_stable": false,
+    "witness": [
+     [
+      1,
+      "(BOX(THEM=St) -> Swerve)",
+      9.0
+     ],
+     [
+      2,
+      "(BOX(THEM=St) -> Swerve)",
+      9.0
+     ]
+    ],
+    "play": [
+     0,
+     0
+    ]
+   }
+  },
+  "dove": {
+   "G-all": {
+    "gene_stable": false,
+    "witness": [
+     [
+      1,
+      "(BOX(THEM=Sw) -> Straight)",
+      2.0
+     ],
+     [
+      2,
+      "(BOX(THEM=Sw) -> Straight)",
+      2.0
+     ]
+    ],
+    "play": [
+     1,
+     1
+    ]
+   },
+   "G-cred": {
+    "gene_stable": false,
+    "witness": [
+     [
+      1,
+      "(BOX(THEM=Sw) -> Straight)",
+      2.0
+     ],
+     [
+      2,
+      "(BOX(THEM=Sw) -> Straight)",
+      2.0
+     ]
+    ],
+    "play": [
+     1,
+     1
+    ]
+   }
+  }
+ },
+ "encoding_firm": {
+  "play_identical": true
+ },
+ "cells": {
+  "const/prior/length/1000": {
+   "K": 2,
+   "summary": {
+    "R1": 0.5,
+    "R2": 0.5,
+    "crash": 0.0,
+    "dove": 2.414668693859865e-261
+   },
+   "support": [
+    {
+     "pi": 0.5,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.5,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 2.414668693859865e-261,
+     "state": "(Sw,0) | (Sw,0)",
+     "label": "dove"
+    },
+    {
+     "pi": 0.0,
+     "state": "(St,0) | (St,0)",
+     "label": "crash"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 5.44735208678782e-262,
+     "to": "(Sw,0) | (Sw,0)",
+     "label": "dove",
+     "delta": -2.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(St,0) | (St,0)",
+     "label": "crash",
+     "delta": -9.0
+    }
+   ],
+   "exit_total_top": 5.44735208678782e-262,
+   "time_s": 0.5293939113616943
+  },
+  "const/prior/length/10000": {
+   "K": 2,
+   "summary": {
+    "R1": 0.5,
+    "R2": 0.5,
+    "crash": 0.0,
+    "dove": 0.0
+   },
+   "support": [
+    {
+     "pi": 0.5,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.5,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0,
+     "state": "(St,0) | (St,0)",
+     "label": "crash"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0) | (Sw,0)",
+     "label": "dove"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 0.0,
+     "to": "(Sw,0) | (Sw,0)",
+     "label": "dove",
+     "delta": -2.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(St,0) | (St,0)",
+     "label": "crash",
+     "delta": -9.0
+    }
+   ],
+   "exit_total_top": 0.0,
+   "time_s": 0.0001881122589111328
+  },
+  "lottery/const/mN0": {
+   "mN": 0,
+   "runs": 40,
+   "per_island_establishment": 1.0,
+   "est_run_sd": 0.0,
+   "role1_share": 0.5109375,
+   "patchwork_runs": 1.0
+  },
+  "lottery/const/mN1": {
+   "mN": 1,
+   "runs": 40,
+   "per_island_establishment": 0.9625,
+   "est_run_sd": 0.01808724516060973,
+   "role1_share": 0.4886225888670824,
+   "patchwork_runs": 1.0
+  },
+  "const/prior/uniform/1000": {
+   "K": 2,
+   "summary": {
+    "R1": 0.5,
+    "R2": 0.5,
+    "crash": 0.0,
+    "dove": 2.414668693859865e-261
+   },
+   "support": [
+    {
+     "pi": 0.5,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.5,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 2.414668693859865e-261,
+     "state": "(Sw,0) | (Sw,0)",
+     "label": "dove"
+    },
+    {
+     "pi": 0.0,
+     "state": "(St,0) | (St,0)",
+     "label": "crash"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 5.44735208678782e-262,
+     "to": "(Sw,0) | (Sw,0)",
+     "label": "dove",
+     "delta": -2.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(St,0) | (St,0)",
+     "label": "crash",
+     "delta": -9.0
+    }
+   ],
+   "exit_total_top": 5.44735208678782e-262,
+   "time_s": 0.00022792816162109375
+  },
+  "const/prior/uniform/10000": {
+   "K": 2,
+   "summary": {
+    "R1": 0.5,
+    "R2": 0.5,
+    "crash": 0.0,
+    "dove": 0.0
+   },
+   "support": [
+    {
+     "pi": 0.5,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.5,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0,
+     "state": "(St,0) | (St,0)",
+     "label": "crash"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0) | (Sw,0)",
+     "label": "dove"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 0.0,
+     "to": "(Sw,0) | (Sw,0)",
+     "label": "dove",
+     "delta": -2.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(St,0) | (St,0)",
+     "label": "crash",
+     "delta": -9.0
+    }
+   ],
+   "exit_total_top": 0.0,
+   "time_s": 0.00012993812561035156
+  },
+  "base/prior/length/1000": {
+   "K": 3,
+   "summary": {
+    "R1": 0.4999999999999999,
+    "R2": 0.4999999999999999,
+    "crash": 0.0,
+    "dove": 2.2909438361628184e-261
+   },
+   "support": [
+    {
+     "pi": 0.4743584059793179,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.4743584059793179,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.025619427214084313,
+     "state": "(St,0) | (St,1)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.025619427214084313,
+     "state": "(St,1) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 2.216680659766512e-05,
+     "state": "(Sw,0) | (St,1)",
+     "label": "R2"
+    },
+    {
+     "pi": 2.216680659766512e-05,
+     "state": "(St,1) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 2.2909438361628184e-261,
+     "state": "(Sw,0) | (Sw,0)",
+     "label": "dove"
+    },
+    {
+     "pi": 0.0,
+     "state": "(St,0) | (St,0)",
+     "label": "crash"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 6.756756756756761e-06,
+     "to": "(St,0) | (St,1)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.756756756756761e-06,
+     "to": "(St,1) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 5.44735208678782e-262,
+     "to": "(Sw,0) | (Sw,0)",
+     "label": "dove",
+     "delta": -2.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(St,0) | (St,0)",
+     "label": "crash",
+     "delta": -9.0
+    }
+   ],
+   "exit_total_top": 1.3513513513513524e-05,
+   "time_s": 0.00021600723266601562
+  },
+  "base/prior/length/10000": {
+   "K": 3,
+   "summary": {
+    "R1": 0.49999999999999983,
+    "R2": 0.49999999999999983,
+    "crash": 0.0,
+    "dove": 0.0
+   },
+   "support": [
+    {
+     "pi": 0.4743589174347609,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.4743589174347609,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.02563886252092078,
+     "state": "(St,0) | (St,1)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.02563886252092078,
+     "state": "(St,1) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 2.220044318147447e-06,
+     "state": "(Sw,0) | (St,1)",
+     "label": "R2"
+    },
+    {
+     "pi": 2.220044318147447e-06,
+     "state": "(St,1) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0,
+     "state": "(St,0) | (St,0)",
+     "label": "crash"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0) | (Sw,0)",
+     "label": "dove"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 6.756756756756753e-07,
+     "to": "(St,0) | (St,1)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.756756756756753e-07,
+     "to": "(St,1) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(Sw,0) | (Sw,0)",
+     "label": "dove",
+     "delta": -2.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(St,0) | (St,0)",
+     "label": "crash",
+     "delta": -9.0
+    }
+   ],
+   "exit_total_top": 1.3513513513513509e-06,
+   "time_s": 0.00019598007202148438
+  },
+  "lottery/base/mN0": {
+   "mN": 0,
+   "runs": 40,
+   "per_island_establishment": 1.0,
+   "est_run_sd": 0.0,
+   "role1_share": 0.484765625,
+   "patchwork_runs": 1.0
+  },
+  "lottery/base/mN1": {
+   "mN": 1,
+   "runs": 40,
+   "per_island_establishment": 0.998046875,
+   "est_run_sd": 0.006237781024480981,
+   "role1_share": 0.4650265616999488,
+   "patchwork_runs": 0.525
+  },
+  "base/prior/uniform/1000": {
+   "K": 3,
+   "summary": {
+    "R1": 0.5,
+    "R2": 0.5,
+    "crash": 0.0,
+    "dove": 1.2088570149900488e-261
+   },
+   "support": [
+    {
+     "pi": 0.24989490151974306,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.24989490151974306,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.2496847045592288,
+     "state": "(St,0) | (St,1)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.2496847045592288,
+     "state": "(St,1) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0004203939210281436,
+     "state": "(Sw,0) | (St,1)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0004203939210281436,
+     "state": "(St,1) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 1.2088570149900488e-261,
+     "state": "(Sw,0) | (Sw,0)",
+     "label": "dove"
+    },
+    {
+     "pi": 0.0,
+     "state": "(St,0) | (St,0)",
+     "label": "crash"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 0.000125,
+     "to": "(St,0) | (St,1)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 0.000125,
+     "to": "(St,1) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 5.44735208678782e-262,
+     "to": "(Sw,0) | (Sw,0)",
+     "label": "dove",
+     "delta": -2.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(St,0) | (St,0)",
+     "label": "crash",
+     "delta": -9.0
+    }
+   ],
+   "exit_total_top": 0.00025,
+   "time_s": 0.0002982616424560547
+  },
+  "base/prior/uniform/10000": {
+   "K": 3,
+   "summary": {
+    "R1": 0.5000000000000002,
+    "R2": 0.5000000000000001,
+    "crash": 0.0,
+    "dove": 0.0
+   },
+   "support": [
+    {
+     "pi": 0.24998947023204743,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.24998947023204743,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.24996841069614203,
+     "state": "(St,0) | (St,1)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.24996841069614203,
+     "state": "(St,1) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 4.2119071810682815e-05,
+     "state": "(Sw,0) | (St,1)",
+     "label": "R2"
+    },
+    {
+     "pi": 4.2119071810682815e-05,
+     "state": "(St,1) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0,
+     "state": "(St,0) | (St,0)",
+     "label": "crash"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0) | (Sw,0)",
+     "label": "dove"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 1.2499999999999985e-05,
+     "to": "(St,0) | (St,1)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.2499999999999985e-05,
+     "to": "(St,1) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(Sw,0) | (Sw,0)",
+     "label": "dove",
+     "delta": -2.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(St,0) | (St,0)",
+     "label": "crash",
+     "delta": -9.0
+    }
+   ],
+   "exit_total_top": 2.4999999999999974e-05,
+   "time_s": 0.00021195411682128906
+  },
+  "G-all/prior/length/1000": {
+   "K": 12,
+   "summary": {
+    "R1": 0.49999483584271603,
+    "R2": 0.4999948358427161,
+    "crash": 0.0,
+    "dove": 1.0328314567109516e-05
+   },
+   "support": [
+    {
+     "pi": 0.47649701471023065,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.47649701471023065,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.012242185802710446,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.01224218580271038,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0074715967540498205,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.007471596754049781,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0017167679331264885,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0017167679331264885,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 3.2000958881902283e-06,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 3.2000958881902283e-06,
+     "to": "(Sw,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.8645596559062636e-06,
+     "to": "(Sw,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.8645596559062636e-06,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.072774997326856e-07,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Swerve) | (St,0)",
+     "label": "R2",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 1.2355995253879506e-05,
+   "time_s": 0.014968156814575195
+  },
+  "G-all/SG/length/1000": {
+   "K": 36,
+   "summary": {
+    "R1": 0.4999935115993151,
+    "R2": 0.4999935115993136,
+    "crash": 0.0,
+    "dove": 1.2976801374242236e-05
+   },
+   "support": [
+    {
+     "pi": 0.20793644120463822,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.20793644120463636,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.10571432437704638,
+     "state": "(Sw,0) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.10571432437704582,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.10083133038736024,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.10083133038736006,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.051768190694747696,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.05176819069474742,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 0.00012019826090555705,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 0.00012019826090555705,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.919398732758241e-07,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.919398732758241e-07,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.919398732758241e-07,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 0.00024928631420283447,
+   "time_s": 5.217719793319702
+  },
+  "G-all/local/length/1000": {
+   "K": 36,
+   "summary": {
+    "R1": 0.4998764073499397,
+    "R2": 0.4998764073499368,
+    "crash": 0.0,
+    "dove": 0.00024718530012344695
+   },
+   "support": [
+    {
+     "pi": 0.09083319929802369,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.09083319929802337,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.05223041873300555,
+     "state": "(St,0)+(BOX(THEM=St) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.05223041873300518,
+     "state": "(Sw,0) | (St,0)+(BOX(THEM=St) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.03924505067074746,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.03924505067074707,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.03524892466332851,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.03524892466332838,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 6.329193987327577e-05,
+     "to": "(St,0)+(BOX(THEM=St) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.329193987327577e-05,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.329193987327577e-05,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.329193987327577e-05,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.329193987327577e-05,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 0.0003854736721382723,
+   "time_s": 5.7896997928619385
+  },
+  "G-all/prior/length/10000": {
+   "K": 12,
+   "summary": {
+    "R1": 0.49999775984030487,
+    "R2": 0.49999775984030664,
+    "crash": 0.0,
+    "dove": 4.480319388920126e-06
+   },
+   "support": [
+    {
+     "pi": 0.47655336628827216,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.47655336628827044,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.012252056333105363,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.012252056333105298,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.007501367107136153,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0075013671071361265,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0017306982530662166,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0017306982530661858,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 3.2000958881902247e-07,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 3.2000958881902247e-07,
+     "to": "(Sw,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.8645596559062617e-07,
+     "to": "(Sw,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.8645596559062617e-07,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.072774997326849e-08,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Swerve) | (St,0)",
+     "label": "R2",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 1.235599525387949e-06,
+   "time_s": 0.015212059020996094
+  },
+  "G-all/SG/length/10000": {
+   "K": 36,
+   "summary": {
+    "R1": 0.49999760349550787,
+    "R2": 0.49999760349550326,
+    "crash": 0.0,
+    "dove": 4.793008989757848e-06
+   },
+   "support": [
+    {
+     "pi": 0.20797039528242572,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.20797039528242423,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.10574230916456807,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.1057423091645675,
+     "state": "(Sw,0) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.10083763963618379,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.10083763963618254,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.05179066741365694,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.051790667413656025,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 1.2019826090555692e-05,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.2019826090555692e-05,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.919398732758232e-08,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.919398732758232e-08,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.919398732758232e-08,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 2.4928631420283422e-05,
+   "time_s": 4.907550811767578
+  },
+  "G-all/local/length/10000": {
+   "K": 36,
+   "summary": {
+    "R1": 0.4999438248661691,
+    "R2": 0.49994382486616856,
+    "crash": 0.0,
+    "dove": 0.0001123502676604772
+   },
+   "support": [
+    {
+     "pi": 0.09094303090602336,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.09094303090602247,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.052306909943894565,
+     "state": "(St,0)+(BOX(THEM=St) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.05230690994389442,
+     "state": "(Sw,0) | (St,0)+(BOX(THEM=St) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.039233270690034086,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.03923327069003398,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.03529127655678914,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.03529127655678908,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 6.3291939873275695e-06,
+     "to": "(St,0)+(BOX(THEM=St) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.3291939873275695e-06,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.3291939873275695e-06,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.3291939873275695e-06,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.3291939873275695e-06,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 3.854736721382715e-05,
+   "time_s": 5.2916810512542725
+  },
+  "lottery/G-all/mN0": {
+   "mN": 0,
+   "runs": 40,
+   "per_island_establishment": 1.0,
+   "est_run_sd": 0.0,
+   "role1_share": 0.5046875,
+   "patchwork_runs": 1.0
+  },
+  "lottery/G-all/mN1": {
+   "mN": 1,
+   "runs": 40,
+   "per_island_establishment": 0.99609375,
+   "est_run_sd": 0.010334966058846057,
+   "role1_share": 0.41533806032438536,
+   "patchwork_runs": 0.275
+  },
+  "G-all/prior/uniform/1000": {
+   "K": 12,
+   "summary": {
+    "R1": 0.49336165314357416,
+    "R2": 0.4933616531435744,
+    "crash": 0.0,
+    "dove": 0.01327669371285292
+   },
+   "support": [
+    {
+     "pi": 0.12305529408326078,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.12305529408326024,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.12056335663102868,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.12056335663102868,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.09086714280020375,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.09086714280020358,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.07962105252623225,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.07962105252623211,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 5.147058823529417e-05,
+     "to": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 5.147058823529417e-05,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 4.411764705882354e-05,
+     "to": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 4.411764705882354e-05,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 4.411764705882354e-05,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 0.00035294117647058875,
+   "time_s": 0.01575016975402832
+  },
+  "G-all/SG/uniform/1000": {
+   "K": 36,
+   "summary": {
+    "R1": 0.4953834252834427,
+    "R2": 0.4953834252834405,
+    "crash": 0.0,
+    "dove": 0.009233149433120412
+   },
+   "support": [
+    {
+     "pi": 0.03232687607033315,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.032326876070332924,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.02868232183758209,
+     "state": "(St,1)+(BOX(THEM=St) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.028682321837581987,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=St) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.027452967415962797,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=St) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.027452967415962797,
+     "state": "(St,0)+(BOX(THEM=St) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.015584551384375454,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.01558455138437537,
+     "state": "(St,1)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 1.1029411764705883e-05,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.1029411764705883e-05,
+     "to": "(St,1)+(BOX(THEM=St) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.1029411764705883e-05,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.1029411764705883e-05,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.1029411764705883e-05,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 0.00016911764705882366,
+   "time_s": 5.737589120864868
+  },
+  "G-all/local/uniform/1000": {
+   "K": 36,
+   "summary": {
+    "R1": 0.49629826473184824,
+    "R2": 0.49629826473184924,
+    "crash": 0.0,
+    "dove": 0.007403470536297134
+   },
+   "support": [
+    {
+     "pi": 0.02935103719039247,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.029351037190392365,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.024180135811323375,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=St) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.024180135811323247,
+     "state": "(St,0)+(BOX(THEM=St) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.023091870973582864,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=St) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.023091870973582826,
+     "state": "(St,1)+(BOX(THEM=St) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.015761994104249496,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.01576199410424944,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 1.1029411764705883e-05,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.1029411764705883e-05,
+     "to": "(Sw,1)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.1029411764705883e-05,
+     "to": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=St) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.1029411764705883e-05,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.1029411764705883e-05,
+     "to": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 0.00016911764705882396,
+   "time_s": 5.9044718742370605
+  },
+  "G-all/prior/uniform/10000": {
+   "K": 12,
+   "summary": {
+    "R1": 0.4936342631814037,
+    "R2": 0.49363426318140285,
+    "crash": 0.0,
+    "dove": 0.012731473637193276
+   },
+   "support": [
+    {
+     "pi": 0.12345820248154843,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.123458202481548,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.12110332266733133,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.1211033226673311,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.09113783092257383,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.09113783092257383,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.07987895742930452,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.07987895742930423,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 5.1470588235294105e-06,
+     "to": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 5.1470588235294105e-06,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 4.411764705882349e-06,
+     "to": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 4.411764705882349e-06,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 4.411764705882349e-06,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 3.529411764705887e-05,
+   "time_s": 0.01416921615600586
+  },
+  "G-all/SG/uniform/10000": {
+   "K": 36,
+   "summary": {
+    "R1": 0.4956447884622315,
+    "R2": 0.49564478846223264,
+    "crash": 0.0,
+    "dove": 0.008710423075533729
+   },
+   "support": [
+    {
+     "pi": 0.032471538187120626,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0324715381871204,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.028718304383193567,
+     "state": "(St,1)+(BOX(THEM=St) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.028718304383193515,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=St) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.02748531301061144,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=St) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.02748531301061134,
+     "state": "(St,0)+(BOX(THEM=St) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.015625998972969242,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.015625998972969214,
+     "state": "(St,1)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 1.102941176470587e-06,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.102941176470587e-06,
+     "to": "(Sw,1)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.102941176470587e-06,
+     "to": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=St) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.102941176470587e-06,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.102941176470587e-06,
+     "to": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 1.691176470588238e-05,
+   "time_s": 5.6092588901519775
+  },
+  "G-all/local/uniform/10000": {
+   "K": 36,
+   "summary": {
+    "R1": 0.49663934184369274,
+    "R2": 0.4966393418436923,
+    "crash": 0.0,
+    "dove": 0.006721316312612825
+   },
+   "support": [
+    {
+     "pi": 0.029540375956850905,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0295403759568508,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.024217483427469443,
+     "state": "(St,0)+(BOX(THEM=St) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.024217483427469357,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=St) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.023125839921050446,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=St) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.023125839921050405,
+     "state": "(St,1)+(BOX(THEM=St) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.01591195064065813,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.01591195064065799,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 1.102941176470587e-06,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.102941176470587e-06,
+     "to": "(Sw,1)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.102941176470587e-06,
+     "to": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=St) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.102941176470587e-06,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.102941176470587e-06,
+     "to": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 1.691176470588238e-05,
+   "time_s": 5.738487958908081
+  },
+  "G-cred/prior/length/1000": {
+   "K": 6,
+   "summary": {
+    "R1": 0.4999999885254762,
+    "R2": 0.4999999885254763,
+    "crash": 0.0,
+    "dove": 2.2949047815236976e-08
+   },
+   "support": [
+    {
+     "pi": 0.4795364542003831,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.4795364542003831,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.01168549136193299,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.011685491361932969,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0066615190213378484,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.006661519021337824,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0013247645633978238,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0013247645633978238,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 2.9976700549460017e-06,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 2.9976700549460017e-06,
+     "to": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.6621338226620367e-06,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.6621338226620367e-06,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 3.265975903780685e-07,
+     "to": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 1.0377654602460684e-05,
+   "time_s": 0.0010759830474853516
+  },
+  "G-cred/SG/length/1000": {
+   "K": 15,
+   "summary": {
+    "R1": 0.4999999885256826,
+    "R2": 0.4999999885256835,
+    "crash": 0.0,
+    "dove": 2.2948633342823206e-08
+   },
+   "support": [
+    {
+     "pi": 0.2143776229392197,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.21437762293921914,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.10744164485701023,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.10744164485701004,
+     "state": "(Sw,0) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.10309488814301933,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.10309488814301897,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.05205992022041814,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.05205992022041814,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 0.00012019826090555705,
+     "to": "(Sw,0) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 0.00012019826090555705,
+     "to": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.298539947089031e-07,
+     "to": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.298539947089031e-07,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.298539947089031e-07,
+     "to": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 0.0002463152031070529,
+   "time_s": 0.03493905067443848
+  },
+  "G-cred/local/length/1000": {
+   "K": 15,
+   "summary": {
+    "R1": 0.4999995515727357,
+    "R2": 0.4999995515727379,
+    "crash": 0.0,
+    "dove": 8.968545260671132e-07
+   },
+   "support": [
+    {
+     "pi": 0.09101298427995935,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.09101298427995846,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.07517960578509174,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.07517960578509121,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.06977992379404502,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.06977992379404477,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.04994635222163024,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.04994635222163015,
+     "state": "(Sw,0) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 0.00012566776811614194,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 0.00012019826090555705,
+     "to": "(Sw,0) | (St,0)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.298539947089031e-07,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.298539947089031e-07,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.677681161419835e-07,
+     "to": "(St,1) | (St,0)",
+     "label": "R2",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 0.000249795978904598,
+   "time_s": 0.040390968322753906
+  },
+  "G-cred/prior/length/10000": {
+   "K": 6,
+   "summary": {
+    "R1": 0.49999999885077356,
+    "R2": 0.4999999988507718,
+    "crash": 0.0,
+    "dove": 2.2984551900350826e-09
+   },
+   "support": [
+    {
+     "pi": 0.47953681664917963,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.47953681664917797,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.011694058097166265,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.011694058097166244,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.006666743577595812,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.006666743577595776,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0013258360656815084,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0013258360656815062,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 2.9976700549459983e-07,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 2.9976700549459983e-07,
+     "to": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.662133822662035e-07,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.662133822662035e-07,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 3.2659759037806815e-08,
+     "to": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 1.0377654602460674e-06,
+   "time_s": 0.0010781288146972656
+  },
+  "G-cred/SG/length/10000": {
+   "K": 15,
+   "summary": {
+    "R1": 0.49999999885075924,
+    "R2": 0.4999999988507571,
+    "crash": 0.0,
+    "dove": 2.298482861498234e-09
+   },
+   "support": [
+    {
+     "pi": 0.21437714951762266,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.2143771495176215,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.10744436703489761,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.10744436703489714,
+     "state": "(Sw,0) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.1030919128005341,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.10309191280053383,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.052060492511028476,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.05206049251102815,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 1.2019826090555692e-05,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.2019826090555692e-05,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.298539947089024e-08,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.298539947089024e-08,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.298539947089024e-08,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 2.4631520310705306e-05,
+   "time_s": 0.03328514099121094
+  },
+  "G-cred/local/length/10000": {
+   "K": 15,
+   "summary": {
+    "R1": 0.49999995707194195,
+    "R2": 0.49999995707194056,
+    "crash": 0.0,
+    "dove": 8.585611660222655e-08
+   },
+   "support": [
+    {
+     "pi": 0.09127381335144542,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.09127381335144526,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.07520747809538593,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.07520747809538565,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.06980975574237076,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.06980975574237076,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.04995653891362349,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.04995653891362345,
+     "state": "(Sw,0) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 1.256677681161418e-05,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.2019826090555692e-05,
+     "to": "(St,0) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.298539947089024e-08,
+     "to": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.298539947089024e-08,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 6.677681161419829e-08,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 2.497959789045977e-05,
+   "time_s": 0.036737680435180664
+  },
+  "lottery/G-cred/mN0": {
+   "mN": 0,
+   "runs": 40,
+   "per_island_establishment": 1.0,
+   "est_run_sd": 0.0,
+   "role1_share": 0.51015625,
+   "patchwork_runs": 1.0
+  },
+  "lottery/G-cred/mN1": {
+   "mN": 1,
+   "runs": 40,
+   "per_island_establishment": 0.996484375,
+   "est_run_sd": 0.012831302895044408,
+   "role1_share": 0.40118079884981495,
+   "patchwork_runs": 0.275
+  },
+  "G-cred/prior/uniform/1000": {
+   "K": 6,
+   "summary": {
+    "R1": 0.4999378815871596,
+    "R2": 0.4999378815871598,
+    "crash": 0.0,
+    "dove": 0.00012423682568037263
+   },
+   "support": [
+    {
+     "pi": 0.18226401306828258,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.18226401306828224,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.11537056659563939,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.11537056659563898,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.1043316148837157,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.10433161488371552,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.06227488951314427,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.06227488951314427,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 3.6764705882352945e-05,
+     "to": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 2.941176470588233e-05,
+     "to": "(St,0) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 2.941176470588233e-05,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.4705882352941189e-05,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R2",
+     "delta": -3.0
+    }
+   ],
+   "exit_total_top": 0.00011029411764705896,
+   "time_s": 0.0010459423065185547
+  },
+  "G-cred/SG/uniform/1000": {
+   "K": 15,
+   "summary": {
+    "R1": 0.49993685564996887,
+    "R2": 0.4999368556499699,
+    "crash": 0.0,
+    "dove": 0.00012628870005915757
+   },
+   "support": [
+    {
+     "pi": 0.11363870139837393,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.11363870139837352,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.055903686474094376,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.055903686474094376,
+     "state": "(Sw,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.05590368647409427,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.05590368647409427,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.05571807744329027,
+     "state": "(St,1)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.05571807744329017,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 7.352941176470581e-06,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470581e-06,
+     "to": "(Sw,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470581e-06,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470581e-06,
+     "to": "(St,1)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 3.6764705882352968e-06,
+     "to": "(Sw,0) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 6.249999999999999e-05,
+   "time_s": 0.0328829288482666
+  },
+  "G-cred/local/uniform/1000": {
+   "K": 15,
+   "summary": {
+    "R1": 0.4999630924811607,
+    "R2": 0.49996309248116033,
+    "crash": 0.0,
+    "dove": 7.381503768078548e-05
+   },
+   "support": [
+    {
+     "pi": 0.2143364084096864,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.214336408409686,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.08662770373436492,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.08662770373436492,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0448142983592884,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.044814298359288324,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.021100586734143754,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.02110058673414372,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 7.352941176470581e-06,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470581e-06,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470581e-06,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470581e-06,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470581e-06,
+     "to": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 6.617647058823527e-05,
+   "time_s": 0.03741788864135742
+  },
+  "G-cred/prior/uniform/10000": {
+   "K": 6,
+   "summary": {
+    "R1": 0.4999937778730806,
+    "R2": 0.49999377787308,
+    "crash": 0.0,
+    "dove": 1.2444253839086759e-05
+   },
+   "support": [
+    {
+     "pi": 0.18309539542140638,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.18309539542140604,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.11566752935757936,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.11566752935757917,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.10464726962200042,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.10464726962200024,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.06247737300602807,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.06247737300602796,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 3.67647058823529e-06,
+     "to": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 2.9411764705882295e-06,
+     "to": "(St,0) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 2.9411764705882295e-06,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.4705882352941173e-06,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R2",
+     "delta": -3.0
+    }
+   ],
+   "exit_total_top": 1.1029411764705883e-05,
+   "time_s": 0.0010027885437011719
+  },
+  "G-cred/SG/uniform/10000": {
+   "K": 15,
+   "summary": {
+    "R1": 0.49999368602587047,
+    "R2": 0.4999936860258715,
+    "crash": 0.0,
+    "dove": 1.2627948259611071e-05
+   },
+   "support": [
+    {
+     "pi": 0.11393201644334323,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.11393201644334283,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.05679314392574201,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.056793143925741904,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.05570745342875721,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.05570745342875721,
+     "state": "(St,1)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.055654482868769936,
+     "state": "(Sw,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.05565448286876983,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 7.352941176470573e-07,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470573e-07,
+     "to": "(Sw,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470573e-07,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470573e-07,
+     "to": "(St,1)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 3.676470588235293e-07,
+     "to": "(Sw,0) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 6.249999999999993e-06,
+   "time_s": 0.033090829849243164
+  },
+  "G-cred/local/uniform/10000": {
+   "K": 15,
+   "summary": {
+    "R1": 0.4999963929923609,
+    "R2": 0.4999963929923609,
+    "crash": 0.0,
+    "dove": 7.214015280228107e-06
+   },
+   "support": [
+    {
+     "pi": 0.21860300825231127,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.21860300825231088,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.08641815029037211,
+     "state": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.08641815029037196,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (St,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0457614443397811,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.04576144433978085,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.02081291013190979,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.020812910131909716,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight) | (Sw,1)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 7.352941176470573e-07,
+     "to": "(St,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470573e-07,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470573e-07,
+     "to": "(Sw,1)+(BOX(THEM=Sw) -> Straight) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470573e-07,
+     "to": "(St,1)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    },
+    {
+     "rate": 7.352941176470573e-07,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 6.6176470588235195e-06,
+   "time_s": 0.03735208511352539
+  },
+  "G-cred-ctl/prior/length/1000": {
+   "K": 3,
+   "summary": {
+    "R1": 1.0178232912063823e-128,
+    "R2": 1.0178232912063823e-128,
+    "crash": 0.0,
+    "dove": 1.0
+   },
+   "support": [
+    {
+     "pi": 1.0,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "dove"
+    },
+    {
+     "pi": 1.0164744895683459e-128,
+     "state": "(Sw,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 1.0164744895683459e-128,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 1.151047581352604e-131,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 1.151047581352604e-131,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 1.97754056683706e-132,
+     "state": "(Sw,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 1.97754056683706e-132,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 1.3834769449716771e-133,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "dove"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 4.380231934913319e-132,
+     "to": "(Sw,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": -1.0
+    },
+    {
+     "rate": 4.380231934913319e-132,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": -1.0
+    },
+    {
+     "rate": 3.6459791122539155e-135,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": -1.0
+    },
+    {
+     "rate": 3.6459791122539155e-135,
+     "to": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": -1.0
+    }
+   ],
+   "exit_total_top": 8.76775582805121e-132,
+   "time_s": 0.0002689361572265625
+  },
+  "G-cred-ctl/prior/length/10000": {
+   "K": 3,
+   "summary": {
+    "R1": 0.0,
+    "R2": 0.0,
+    "crash": 0.0,
+    "dove": 1.0
+   },
+   "support": [
+    {
+     "pi": 1.0,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "dove"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0) | (Sw,0)",
+     "label": "dove"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 0.0,
+     "to": "(Sw,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": -1.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": -1.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": -1.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": -1.0
+    }
+   ],
+   "exit_total_top": 0.0,
+   "time_s": 0.00021982192993164062
+  },
+  "lottery/G-cred-ctl/mN0": {
+   "mN": 0,
+   "runs": 40,
+   "per_island_establishment": 0.43125,
+   "est_run_sd": 0.06889189901577689,
+   "role1_share": 0.5212748735574354,
+   "patchwork_runs": 1.0
+  },
+  "lottery/G-cred-ctl/mN1": {
+   "mN": 1,
+   "runs": 40,
+   "per_island_establishment": 0.0,
+   "est_run_sd": 0.0,
+   "role1_share": 0.0,
+   "patchwork_runs": 0.0
+  },
+  "G-cred-ctl/prior/uniform/1000": {
+   "K": 3,
+   "summary": {
+    "R1": 1.0428805074997978e-130,
+    "R2": 1.0428805074997978e-130,
+    "crash": 0.0,
+    "dove": 1.0
+   },
+   "support": [
+    {
+     "pi": 1.0,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "dove"
+    },
+    {
+     "pi": 6.936058100143828e-131,
+     "state": "(Sw,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 6.936058100143828e-131,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 3.4879570199374096e-131,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 3.4879570199374096e-131,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 4.789954916739435e-134,
+     "state": "(Sw,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 4.789954916739435e-134,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 1.3757768788930918e-134,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "dove"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 5.2974799734574425e-133,
+     "to": "(Sw,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": -1.0
+    },
+    {
+     "rate": 5.2974799734574425e-133,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": -1.0
+    },
+    {
+     "rate": 2.6487399867287165e-133,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": -1.0
+    },
+    {
+     "rate": 2.6487399867287165e-133,
+     "to": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": -1.0
+    }
+   ],
+   "exit_total_top": 1.589243992037229e-132,
+   "time_s": 0.0003459453582763672
+  },
+  "G-cred-ctl/prior/uniform/10000": {
+   "K": 3,
+   "summary": {
+    "R1": 0.0,
+    "R2": 0.0,
+    "crash": 0.0,
+    "dove": 1.0
+   },
+   "support": [
+    {
+     "pi": 1.0,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "dove"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0) | (Sw,0)",
+     "label": "dove"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0,
+     "state": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 0.0,
+     "to": "(Sw,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": -1.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": -1.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": -1.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R2",
+     "delta": -1.0
+    }
+   ],
+   "exit_total_top": 0.0,
+   "time_s": 0.0002472400665283203
+  },
+  "random/prior/length/1000": {
+   "K": 6,
+   "summary": {
+    "R1": 0.4999999885254762,
+    "R2": 0.4999999885254763,
+    "crash": 0.0,
+    "dove": 2.2949047815236976e-08
+   },
+   "support": [
+    {
+     "pi": 0.4795364542003831,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.4795364542003831,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.01168549136193299,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.011685491361932969,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0066615190213378484,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.006661519021337824,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0013247645633978238,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0013247645633978238,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 2.9976700549460017e-06,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 2.9976700549460017e-06,
+     "to": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.6621338226620367e-06,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.6621338226620367e-06,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 3.265975903780685e-07,
+     "to": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 1.0377654602460684e-05,
+   "time_s": 0.0011179447174072266
+  },
+  "random/prior/length/10000": {
+   "K": 6,
+   "summary": {
+    "R1": 0.49999999885077356,
+    "R2": 0.4999999988507718,
+    "crash": 0.0,
+    "dove": 2.2984551900350826e-09
+   },
+   "support": [
+    {
+     "pi": 0.47953681664917963,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.47953681664917797,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.011694058097166265,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.011694058097166244,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.006666743577595812,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.006666743577595776,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.0013258360656815084,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.0013258360656815062,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 2.9976700549459983e-07,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 2.9976700549459983e-07,
+     "to": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.662133822662035e-07,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.662133822662035e-07,
+     "to": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 3.2659759037806815e-08,
+     "to": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    }
+   ],
+   "exit_total_top": 1.0377654602460674e-06,
+   "time_s": 0.001088857650756836
+  },
+  "lottery/random/mN0": {
+   "mN": 0,
+   "runs": 40,
+   "per_island_establishment": 1.0,
+   "est_run_sd": 0.0,
+   "role1_share": 0.4953125,
+   "patchwork_runs": 1.0
+  },
+  "lottery/random/mN1": {
+   "mN": 1,
+   "runs": 40,
+   "per_island_establishment": 1.0,
+   "est_run_sd": 0.0,
+   "role1_share": 0.53125,
+   "patchwork_runs": 0.3
+  },
+  "random/prior/uniform/1000": {
+   "K": 6,
+   "summary": {
+    "R1": 0.4999378815871596,
+    "R2": 0.4999378815871598,
+    "crash": 0.0,
+    "dove": 0.00012423682568037263
+   },
+   "support": [
+    {
+     "pi": 0.18226401306828258,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.18226401306828224,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.11537056659563939,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.11537056659563898,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.1043316148837157,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.10433161488371552,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.06227488951314427,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.06227488951314427,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 3.6764705882352945e-05,
+     "to": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 2.941176470588233e-05,
+     "to": "(St,0) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 2.941176470588233e-05,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.4705882352941189e-05,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R2",
+     "delta": -3.0
+    }
+   ],
+   "exit_total_top": 0.00011029411764705896,
+   "time_s": 0.0010790824890136719
+  },
+  "random/prior/uniform/10000": {
+   "K": 6,
+   "summary": {
+    "R1": 0.4999937778730806,
+    "R2": 0.49999377787308,
+    "crash": 0.0,
+    "dove": 1.2444253839086759e-05
+   },
+   "support": [
+    {
+     "pi": 0.18309539542140638,
+     "state": "(St,0) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.18309539542140604,
+     "state": "(St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.11566752935757936,
+     "state": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.11566752935757917,
+     "state": "(Sw,0)+(BOX(THEM=Sw) -> Straight) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.10464726962200042,
+     "state": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1"
+    },
+    {
+     "pi": 0.10464726962200024,
+     "state": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.06247737300602807,
+     "state": "(Sw,0) | (St,0)",
+     "label": "R2"
+    },
+    {
+     "pi": 0.06247737300602796,
+     "state": "(St,0) | (Sw,0)",
+     "label": "R1"
+    }
+   ],
+   "top_exits": [
+    {
+     "rate": 3.67647058823529e-06,
+     "to": "(St,0) | (St,0)+(BOX(THEM=St) -> Swerve)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 2.9411764705882295e-06,
+     "to": "(St,0) | (Sw,0)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 2.9411764705882295e-06,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 1.4705882352941173e-06,
+     "to": "(St,0) | (Sw,0)+(BOX(THEM=St) -> Swerve)+(BOX(THEM=Sw) -> Straight)",
+     "label": "R1",
+     "delta": 0.0
+    },
+    {
+     "rate": 0.0,
+     "to": "(St,0)+(BOX(THEM=St) -> Swerve) | (St,0)+(BOX(THEM=Sw) -> Straight)+(BOX(THEM=St) -> Swerve)",
+     "label": "R2",
+     "delta": -3.0
+    }
+   ],
+   "exit_total_top": 1.1029411764705883e-05,
+   "time_s": 0.0010411739349365234
+  }
+ }
+}

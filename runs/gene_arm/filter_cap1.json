@@ -1,0 +1,1790 @@
+{
+ "worker": {
+  "0": {
+   "name": "(BOX(s=0) -> work)",
+   "fired": 208512,
+   "failed": 0,
+   "fired_mass": 0.0007310742956340522,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)",
+    "W1": "scab+(BOX(s=0) -> work)",
+    "W2": "scab",
+    "play": "(0,none) W W",
+    "u_override": 0.0,
+    "u_alt": 0.0
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "1": {
+   "name": "(BOX(s=0) -> strike)",
+   "fired": 220288,
+   "failed": 73664,
+   "fired_mass": 0.0007322860073486303,
+   "failed_mass": 0.0002440959678931221,
+   "witness_fail": {
+    "boss": "(0,strike,0)",
+    "W1": "scab+(BOX(s=0) -> strike)",
+    "W2": "scab",
+    "play": "(0,strike) S W",
+    "u_override": -1.0,
+    "u_alt": 0.0
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)",
+    "W1": "scab+(BOX(s=0) -> strike)",
+    "W2": "scab",
+    "play": "(0,none) S W",
+    "u_override": 0.0,
+    "u_alt": 0.0
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "2": {
+   "name": "(BOX(s<=1/4) -> work)",
+   "fired": 524832,
+   "failed": 0,
+   "fired_mass": 0.0014679908057689888,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)",
+    "W1": "scab+(BOX(s<=1/4) -> work)",
+    "W2": "scab",
+    "play": "(0,none) W W",
+    "u_override": 0.0,
+    "u_alt": 0.0
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "3": {
+   "name": "(BOX(s<=1/4) -> strike)",
+   "fired": 482632,
+   "failed": 321320,
+   "fired_mass": 0.0014681961021334438,
+   "failed_mass": 0.0009787962090537423,
+   "witness_fail": {
+    "boss": "(0,strike,0)",
+    "W1": "scab+(BOX(s<=1/4) -> strike)",
+    "W2": "scab",
+    "play": "(0,strike) S W",
+    "u_override": -1.0,
+    "u_alt": 0.0
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)",
+    "W1": "scab+(BOX(s<=1/4) -> strike)",
+    "W2": "scab",
+    "play": "(0,none) S W",
+    "u_override": 0.0,
+    "u_alt": 0.0
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "4": {
+   "name": "(BOX(s=1/2) -> work)",
+   "fired": 369732,
+   "failed": 0,
+   "fired_mass": 0.0007358629759293041,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(1/2,none,0)",
+    "W1": "scab+(BOX(s=1/2) -> work)",
+    "W2": "scab",
+    "play": "(1/2,none) W W",
+    "u_override": 0.5,
+    "u_alt": 0.0
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "5": {
+   "name": "(BOX(s=1/2) -> strike)",
+   "fired": 664902,
+   "failed": 664902,
+   "fired_mass": 0.0007438551674664916,
+   "failed_mass": 0.0007438551674664916,
+   "witness_fail": {
+    "boss": "(1/2,none,0)",
+    "W1": "scab+(BOX(s=1/2) -> strike)",
+    "W2": "scab",
+    "play": "(1/2,none) S W",
+    "u_override": 0.0,
+    "u_alt": 0.5
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "6": {
+   "name": "(BOX(h=strike) -> work)",
+   "fired": 369828,
+   "failed": 0,
+   "fired_mass": 0.0007358683538902732,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,strike,0)",
+    "W1": "scab+(BOX(h=strike) -> work)",
+    "W2": "scab",
+    "play": "(0,strike) W W",
+    "u_override": 0.0,
+    "u_alt": -1.0
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "7": {
+   "name": "(BOX(h=strike) -> strike)",
+   "fired": 401464,
+   "failed": 401464,
+   "fired_mass": 0.0007372777761367114,
+   "failed_mass": 0.0007372777761367114,
+   "witness_fail": {
+    "boss": "(0,strike,0)",
+    "W1": "scab+(BOX(h=strike) -> strike)",
+    "W2": "scab",
+    "play": "(0,strike) S W",
+    "u_override": -1.0,
+    "u_alt": 0.0
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "8": {
+   "name": "(BOX(h=source) -> work)",
+   "fired": 369828,
+   "failed": 0,
+   "fired_mass": 0.0007358683538902733,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,source,0)",
+    "W1": "scab+(BOX(h=source) -> work)",
+    "W2": "scab",
+    "play": "(0,source) W W",
+    "u_override": 0.0,
+    "u_alt": 0.0
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "9": {
+   "name": "(BOX(h=source) -> strike)",
+   "fired": 401464,
+   "failed": 316764,
+   "fired_mass": 0.0007372777761367117,
+   "failed_mass": 0.0004926596276326625,
+   "witness_fail": {
+    "boss": "(1/4,source,0)",
+    "W1": "scab+(BOX(h=source) -> strike)",
+    "W2": "scab",
+    "play": "(1/4,source) S W",
+    "u_override": 0.0,
+    "u_alt": 0.25
+   },
+   "witness_pass": {
+    "boss": "(0,source,0)",
+    "W1": "scab+(BOX(h=source) -> strike)",
+    "W2": "scab",
+    "play": "(0,source) S W",
+    "u_override": 0.0,
+    "u_alt": 0.0
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "10": {
+   "name": "(BOX(OTHER=work) -> work)",
+   "fired": 499080,
+   "failed": 0,
+   "fired_mass": 0.0010865095939756222,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)",
+    "W1": "scab+(BOX(OTHER=work) -> work)",
+    "W2": "scab",
+    "play": "(0,none) W W",
+    "u_override": 0.0,
+    "u_alt": 0.0
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "11": {
+   "name": "(BOX(OTHER=work) -> strike)",
+   "fired": 495496,
+   "failed": 443546,
+   "fired_mass": 0.0010872228771394538,
+   "failed_mass": 0.0008479021863070632,
+   "witness_fail": {
+    "boss": "(0,strike,0)",
+    "W1": "scab+(BOX(OTHER=work) -> strike)",
+    "W2": "scab",
+    "play": "(0,strike) S W",
+    "u_override": -1.0,
+    "u_alt": 0.0
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)",
+    "W1": "scab+(BOX(OTHER=work) -> strike)",
+    "W2": "scab",
+    "play": "(0,none) S W",
+    "u_override": 0.0,
+    "u_alt": 0.0
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "12": {
+   "name": "(BOX(OTHER=strike) -> work)",
+   "fired": 405136,
+   "failed": 0,
+   "fired_mass": 0.00109979612293561,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)",
+    "W1": "scab+(BOX(OTHER=strike) -> work)",
+    "W2": "striker",
+    "play": "(0,none) W S",
+    "u_override": 0.0,
+    "u_alt": 0.0
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "13": {
+   "name": "(BOX(OTHER=strike) -> strike)",
+   "fired": 468572,
+   "failed": 379680,
+   "fired_mass": 0.0011069876820196996,
+   "failed_mass": 0.0008599241943314201,
+   "witness_fail": {
+    "boss": "(0,strike,0)",
+    "W1": "scab+(BOX(OTHER=strike) -> strike)",
+    "W2": "striker",
+    "play": "(0,strike) S S",
+    "u_override": -1.0,
+    "u_alt": 0.0
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)",
+    "W1": "scab+(BOX(OTHER=strike) -> strike)",
+    "W2": "striker",
+    "play": "(0,none) S S",
+    "u_override": 0.0,
+    "u_alt": 0.0
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "14": {
+   "name": "(Q* -> work)",
+   "fired": 212320,
+   "failed": 0,
+   "fired_mass": 0.0007315024661252775,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)",
+    "W1": "scab+(Q* -> work)",
+    "W2": "striker",
+    "play": "(0,none) W S",
+    "u_override": 0.0,
+    "u_alt": 0.0
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "15": {
+   "name": "(Q* -> strike)",
+   "fired": 253584,
+   "failed": 165698,
+   "fired_mass": 0.000739115238204146,
+   "failed_mass": 0.000492314344448393,
+   "witness_fail": {
+    "boss": "(0,strike,0)",
+    "W1": "scab+(Q* -> strike)",
+    "W2": "striker",
+    "play": "(0,strike) S S",
+    "u_override": -1.0,
+    "u_alt": 0.0
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)",
+    "W1": "scab+(Q* -> strike)",
+    "W2": "striker",
+    "play": "(0,none) S S",
+    "u_override": 0.0,
+    "u_alt": 0.0
+   },
+   "admitted": false,
+   "vacuous": false
+  }
+ },
+ "boss": {
+  "0": {
+   "name": "(BOX(W1=strike) -> wage 0)",
+   "fired": 235341,
+   "failed": 149661,
+   "fired_mass": 0.0003949615744501087,
+   "failed_mass": 1.8711779366828796e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W1=strike) -> wage 0)",
+    "W1": "striker",
+    "W2": "T0-union",
+    "play": "(0,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W1=strike) -> wage 0)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,none) S W",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "1": {
+   "name": "(BOX(W1=strike) -> wage 1/4)",
+   "fired": 191772,
+   "failed": 153900,
+   "fired_mass": 0.00039114681855268834,
+   "failed_mass": 0.00020365066533617704,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W1=strike) -> wage 1/4)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(1/4,none) S W",
+    "u_override": 0.75,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W1=strike) -> wage 1/4)",
+    "W1": "striker",
+    "W2": "striker",
+    "play": "(1/4,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "2": {
+   "name": "(BOX(W1=strike) -> wage 1/2)",
+   "fired": 117126,
+   "failed": 55242,
+   "fired_mass": 0.0003827055945289634,
+   "failed_mass": 0.00018927753691318382,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W1=strike) -> wage 1/2)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(1/2,none) S W",
+    "u_override": 0.5,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W1=strike) -> wage 1/2)",
+    "W1": "striker",
+    "W2": "striker",
+    "play": "(1/2,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "3": {
+   "name": "(BOX(W1=strike) -> whack strike)",
+   "fired": 141408,
+   "failed": 141408,
+   "fired_mass": 0.00038765686564467953,
+   "failed_mass": 0.00038765686564467953,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W1=strike) -> whack strike)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,strike) S W",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "4": {
+   "name": "(BOX(W1=strike) -> whack none)",
+   "fired": 121131,
+   "failed": 0,
+   "fired_mass": 0.00038675246887804243,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W1=strike) -> whack none)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,none) S W",
+    "u_override": 1.0,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "5": {
+   "name": "(BOX(W1=strike) -> whack source)",
+   "fired": 141408,
+   "failed": 113388,
+   "fired_mass": 0.00038765686564467953,
+   "failed_mass": 1.5337305584016925e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W1=strike) -> whack source)",
+    "W1": "striker",
+    "W2": "T0-union",
+    "play": "(0,source) S S",
+    "u_override": -0.5,
+    "u_alts": [
+     -1.0,
+     0.0,
+     -0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W1=strike) -> whack source)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,source) S W",
+    "u_override": 1.0,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "6": {
+   "name": "(BOX(W2=strike) -> wage 0)",
+   "fired": 235341,
+   "failed": 149661,
+   "fired_mass": 0.0003949615744501087,
+   "failed_mass": 1.8711779366828792e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W2=strike) -> wage 0)",
+    "W1": "scab",
+    "W2": "T0-union",
+    "play": "(0,none) W S",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     1.5,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W2=strike) -> wage 0)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,none) W S",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "7": {
+   "name": "(BOX(W2=strike) -> wage 1/4)",
+   "fired": 191772,
+   "failed": 153900,
+   "fired_mass": 0.0003911468185526884,
+   "failed_mass": 0.00020365066533617704,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W2=strike) -> wage 1/4)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(1/4,none) W S",
+    "u_override": 0.75,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W2=strike) -> wage 1/4)",
+    "W1": "striker",
+    "W2": "striker",
+    "play": "(1/4,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "8": {
+   "name": "(BOX(W2=strike) -> wage 1/2)",
+   "fired": 117126,
+   "failed": 55242,
+   "fired_mass": 0.0003827055945289634,
+   "failed_mass": 0.00018927753691318387,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W2=strike) -> wage 1/2)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(1/2,none) W S",
+    "u_override": 0.5,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W2=strike) -> wage 1/2)",
+    "W1": "striker",
+    "W2": "striker",
+    "play": "(1/2,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "9": {
+   "name": "(BOX(W2=strike) -> whack strike)",
+   "fired": 139548,
+   "failed": 139548,
+   "fired_mass": 0.00038768446574742957,
+   "failed_mass": 0.00038768446574742957,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W2=strike) -> whack strike)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,strike) W S",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "10": {
+   "name": "(BOX(W2=strike) -> whack none)",
+   "fired": 119271,
+   "failed": 0,
+   "fired_mass": 0.0003867800689807922,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W2=strike) -> whack none)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,none) W S",
+    "u_override": 1.0,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "11": {
+   "name": "(BOX(W2=strike) -> whack source)",
+   "fired": 139548,
+   "failed": 111834,
+   "fired_mass": 0.00038768446574742957,
+   "failed_mass": 1.53209559639255e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W2=strike) -> whack source)",
+    "W1": "scab",
+    "W2": "T0-union",
+    "play": "(0,source) W S",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W2=strike) -> whack source)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,source) W S",
+    "u_override": 1.0,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "12": {
+   "name": "(BOX(W1=work) -> wage 0)",
+   "fired": 140976,
+   "failed": 27360,
+   "fired_mass": 0.0003835933856366154,
+   "failed_mass": 4.605851971627734e-06,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W1=work) -> wage 0)",
+    "W1": "scab",
+    "W2": "T0-union",
+    "play": "(0,none) W S",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     1.5,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W1=work) -> wage 0)",
+    "W1": "scab",
+    "W2": "scab",
+    "play": "(0,none) W W",
+    "u_override": 2.0,
+    "u_alts": [
+     2.0,
+     1.5,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "13": {
+   "name": "(BOX(W1=work) -> wage 1/4)",
+   "fired": 143838,
+   "failed": 106992,
+   "fired_mass": 0.00038319920455930437,
+   "failed_mass": 0.0003792483243840624,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W1=work) -> wage 1/4)",
+    "W1": "scab",
+    "W2": "scab",
+    "play": "(1/4,none) W W",
+    "u_override": 1.5,
+    "u_alts": [
+     2.0,
+     1.5,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W1=work) -> wage 1/4)",
+    "W1": "scab",
+    "W2": "T0-union",
+    "play": "(1/4,none) W W",
+    "u_override": 1.5,
+    "u_alts": [
+     1.0,
+     1.5,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "14": {
+   "name": "(BOX(W1=work) -> wage 1/2)",
+   "fired": 196938,
+   "failed": 123714,
+   "fired_mass": 0.00038427592505242426,
+   "failed_mass": 0.0003787129699480372,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W1=work) -> wage 1/2)",
+    "W1": "scab",
+    "W2": "scab",
+    "play": "(1/2,none) W W",
+    "u_override": 1.0,
+    "u_alts": [
+     2.0,
+     1.5,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W1=work) -> wage 1/2)",
+    "W1": "scab",
+    "W2": "tagged militant",
+    "play": "(1/2,none) W W",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     0.75,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "15": {
+   "name": "(BOX(W1=work) -> whack strike)",
+   "fired": 185061,
+   "failed": 68082,
+   "fired_mass": 0.00038401447038009275,
+   "failed_mass": 0.0001910284951572332,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W1=work) -> whack strike)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,strike) W S",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W1=work) -> whack strike)",
+    "W1": "scab",
+    "W2": "scab",
+    "play": "(0,strike) W W",
+    "u_override": 2.0,
+    "u_alts": [
+     2.0,
+     2.0,
+     2.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "16": {
+   "name": "(BOX(W1=work) -> whack none)",
+   "fired": 173970,
+   "failed": 0,
+   "fired_mass": 0.00038316479506045136,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W1=work) -> whack none)",
+    "W1": "scab",
+    "W2": "scab",
+    "play": "(0,none) W W",
+    "u_override": 2.0,
+    "u_alts": [
+     2.0,
+     2.0,
+     2.0
+    ]
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "17": {
+   "name": "(BOX(W1=work) -> whack source)",
+   "fired": 185061,
+   "failed": 147537,
+   "fired_mass": 0.00038401447038009275,
+   "failed_mass": 1.1804606792121575e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W1=work) -> whack source)",
+    "W1": "scab",
+    "W2": "T0-union",
+    "play": "(0,source) W S",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W1=work) -> whack source)",
+    "W1": "scab",
+    "W2": "scab",
+    "play": "(0,source) W W",
+    "u_override": 2.0,
+    "u_alts": [
+     2.0,
+     2.0,
+     2.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "18": {
+   "name": "(BOX(W2=work) -> wage 0)",
+   "fired": 140976,
+   "failed": 27360,
+   "fired_mass": 0.00038359338563661547,
+   "failed_mass": 4.605851971627734e-06,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W2=work) -> wage 0)",
+    "W1": "T0-union",
+    "W2": "scab",
+    "play": "(0,none) S W",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     1.5,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W2=work) -> wage 0)",
+    "W1": "scab",
+    "W2": "scab",
+    "play": "(0,none) W W",
+    "u_override": 2.0,
+    "u_alts": [
+     2.0,
+     1.5,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "19": {
+   "name": "(BOX(W2=work) -> wage 1/4)",
+   "fired": 143838,
+   "failed": 106992,
+   "fired_mass": 0.00038319920455930437,
+   "failed_mass": 0.0003792483243840624,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W2=work) -> wage 1/4)",
+    "W1": "scab",
+    "W2": "scab",
+    "play": "(1/4,none) W W",
+    "u_override": 1.5,
+    "u_alts": [
+     2.0,
+     1.5,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W2=work) -> wage 1/4)",
+    "W1": "T0-union",
+    "W2": "scab",
+    "play": "(1/4,none) W W",
+    "u_override": 1.5,
+    "u_alts": [
+     1.0,
+     1.5,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "20": {
+   "name": "(BOX(W2=work) -> wage 1/2)",
+   "fired": 196938,
+   "failed": 123714,
+   "fired_mass": 0.0003842759250524243,
+   "failed_mass": 0.00037871296994803727,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W2=work) -> wage 1/2)",
+    "W1": "scab",
+    "W2": "scab",
+    "play": "(1/2,none) W W",
+    "u_override": 1.0,
+    "u_alts": [
+     2.0,
+     1.5,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W2=work) -> wage 1/2)",
+    "W1": "tagged militant",
+    "W2": "scab",
+    "play": "(1/2,none) W W",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     0.75,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "21": {
+   "name": "(BOX(W2=work) -> whack strike)",
+   "fired": 186309,
+   "failed": 70638,
+   "fired_mass": 0.0003840829339949785,
+   "failed_mass": 0.00019112859588130693,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W2=work) -> whack strike)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,strike) S W",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W2=work) -> whack strike)",
+    "W1": "scab",
+    "W2": "scab",
+    "play": "(0,strike) W W",
+    "u_override": 2.0,
+    "u_alts": [
+     2.0,
+     2.0,
+     2.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "22": {
+   "name": "(BOX(W2=work) -> whack none)",
+   "fired": 175218,
+   "failed": 0,
+   "fired_mass": 0.00038323325867533725,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W2=work) -> whack none)",
+    "W1": "scab",
+    "W2": "scab",
+    "play": "(0,none) W W",
+    "u_override": 2.0,
+    "u_alts": [
+     2.0,
+     2.0,
+     2.0
+    ]
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "23": {
+   "name": "(BOX(W2=work) -> whack source)",
+   "fired": 186309,
+   "failed": 148503,
+   "fired_mass": 0.0003840829339949785,
+   "failed_mass": 1.1815937216637376e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W2=work) -> whack source)",
+    "W1": "T0-union",
+    "W2": "scab",
+    "play": "(0,source) S W",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W2=work) -> whack source)",
+    "W1": "scab",
+    "W2": "scab",
+    "play": "(0,source) W W",
+    "u_override": 2.0,
+    "u_alts": [
+     2.0,
+     2.0,
+     2.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "24": {
+   "name": "(P1(0) -> wage 0)",
+   "fired": 231255,
+   "failed": 148347,
+   "fired_mass": 0.0003945431734408361,
+   "failed_mass": 1.8703212059349115e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P1(0) -> wage 0)",
+    "W1": "striker",
+    "W2": "T0-union",
+    "play": "(0,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P1(0) -> wage 0)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,none) S W",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "25": {
+   "name": "(P1(0) -> wage 1/4)",
+   "fired": 231255,
+   "failed": 161550,
+   "fired_mass": 0.0003945431734408361,
+   "failed_mass": 0.00020346471633849058,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P1(0) -> wage 1/4)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(1/4,none) S W",
+    "u_override": 0.75,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P1(0) -> wage 1/4)",
+    "W1": "striker",
+    "W2": "striker",
+    "play": "(1/4,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "26": {
+   "name": "(P1(0) -> wage 1/2)",
+   "fired": 231255,
+   "failed": 80487,
+   "fired_mass": 0.0003945431734408361,
+   "failed_mass": 0.00019209534183138024,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P1(0) -> wage 1/2)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(1/2,none) S W",
+    "u_override": 0.5,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P1(0) -> wage 1/2)",
+    "W1": "striker",
+    "W2": "striker",
+    "play": "(1/2,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "27": {
+   "name": "(P1(0) -> whack strike)",
+   "fired": 231255,
+   "failed": 163710,
+   "fired_mass": 0.0003945431734408361,
+   "failed_mass": 0.00039055172701185376,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P1(0) -> whack strike)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,strike) S W",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(1/4,none,0)+(P1(0) -> whack strike)",
+    "W1": "T0-union",
+    "W2": "scab",
+    "play": "(1/4,strike) W W",
+    "u_override": 1.5,
+    "u_alts": [
+     1.5,
+     1.5,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "28": {
+   "name": "(P1(0) -> whack none)",
+   "fired": 231255,
+   "failed": 0,
+   "fired_mass": 0.0003945431734408361,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)+(P1(0) -> whack none)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,none) S W",
+    "u_override": 1.0,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "29": {
+   "name": "(P1(0) -> whack source)",
+   "fired": 231255,
+   "failed": 187947,
+   "fired_mass": 0.0003945431734408361,
+   "failed_mass": 2.10014858018122e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P1(0) -> whack source)",
+    "W1": "striker",
+    "W2": "T0-union",
+    "play": "(0,source) S S",
+    "u_override": -0.5,
+    "u_alts": [
+     -1.0,
+     0.0,
+     -0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P1(0) -> whack source)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,source) S W",
+    "u_override": 1.0,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "30": {
+   "name": "(P2(0) -> wage 0)",
+   "fired": 231255,
+   "failed": 148347,
+   "fired_mass": 0.00039454317344083615,
+   "failed_mass": 1.8703212059349115e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P2(0) -> wage 0)",
+    "W1": "scab",
+    "W2": "T0-union",
+    "play": "(0,none) W S",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     1.5,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P2(0) -> wage 0)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,none) W S",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "31": {
+   "name": "(P2(0) -> wage 1/4)",
+   "fired": 231255,
+   "failed": 161550,
+   "fired_mass": 0.00039454317344083615,
+   "failed_mass": 0.00020346471633849068,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P2(0) -> wage 1/4)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(1/4,none) W S",
+    "u_override": 0.75,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P2(0) -> wage 1/4)",
+    "W1": "striker",
+    "W2": "striker",
+    "play": "(1/4,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "32": {
+   "name": "(P2(0) -> wage 1/2)",
+   "fired": 231255,
+   "failed": 80487,
+   "fired_mass": 0.00039454317344083615,
+   "failed_mass": 0.0001920953418313802,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P2(0) -> wage 1/2)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(1/2,none) W S",
+    "u_override": 0.5,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P2(0) -> wage 1/2)",
+    "W1": "striker",
+    "W2": "striker",
+    "play": "(1/2,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "33": {
+   "name": "(P2(0) -> whack strike)",
+   "fired": 231255,
+   "failed": 161994,
+   "fired_mass": 0.00039454317344083615,
+   "failed_mass": 0.00039051837513615827,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P2(0) -> whack strike)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,strike) W S",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(1/4,none,0)+(P2(0) -> whack strike)",
+    "W1": "scab",
+    "W2": "T0-union",
+    "play": "(1/4,strike) W W",
+    "u_override": 1.5,
+    "u_alts": [
+     1.5,
+     1.5,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "34": {
+   "name": "(P2(0) -> whack none)",
+   "fired": 231255,
+   "failed": 0,
+   "fired_mass": 0.00039454317344083615,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)+(P2(0) -> whack none)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,none) W S",
+    "u_override": 1.0,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "35": {
+   "name": "(P2(0) -> whack source)",
+   "fired": 231255,
+   "failed": 187947,
+   "fired_mass": 0.00039454317344083615,
+   "failed_mass": 2.1001485801812197e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P2(0) -> whack source)",
+    "W1": "scab",
+    "W2": "T0-union",
+    "play": "(0,source) W S",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P2(0) -> whack source)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,source) W S",
+    "u_override": 1.0,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "36": {
+   "name": "(P1(1/4) -> wage 0)",
+   "fired": 183060,
+   "failed": 107352,
+   "fired_mass": 0.00039062640169070705,
+   "failed_mass": 1.4903554691580599e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P1(1/4) -> wage 0)",
+    "W1": "striker",
+    "W2": "T0-union",
+    "play": "(0,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P1(1/4) -> wage 0)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,none) S W",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "37": {
+   "name": "(P1(1/4) -> wage 1/4)",
+   "fired": 183060,
+   "failed": 147636,
+   "fired_mass": 0.00039062640169070705,
+   "failed_mass": 0.00020335193457542947,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P1(1/4) -> wage 1/4)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(1/4,none) S W",
+    "u_override": 0.75,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P1(1/4) -> wage 1/4)",
+    "W1": "striker",
+    "W2": "striker",
+    "play": "(1/4,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "38": {
+   "name": "(P1(1/4) -> wage 1/2)",
+   "fired": 183060,
+   "failed": 42354,
+   "fired_mass": 0.00039062640169070705,
+   "failed_mass": 0.00018824098919377325,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P1(1/4) -> wage 1/2)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(1/2,none) S W",
+    "u_override": 0.5,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P1(1/4) -> wage 1/2)",
+    "W1": "striker",
+    "W2": "striker",
+    "play": "(1/2,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "39": {
+   "name": "(P1(1/4) -> whack strike)",
+   "fired": 183060,
+   "failed": 139086,
+   "fired_mass": 0.00039062640169070705,
+   "failed_mass": 0.0003888732628582095,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P1(1/4) -> whack strike)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,strike) S W",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(1/2,none,0)+(P1(1/4) -> whack strike)",
+    "W1": "tagged militant",
+    "W2": "scab",
+    "play": "(1/2,strike) W W",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     1.0,
+     0.5
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "40": {
+   "name": "(P1(1/4) -> whack none)",
+   "fired": 183060,
+   "failed": 0,
+   "fired_mass": 0.00039062640169070705,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)+(P1(1/4) -> whack none)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,none) S W",
+    "u_override": 1.0,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "41": {
+   "name": "(P1(1/4) -> whack source)",
+   "fired": 183060,
+   "failed": 151794,
+   "fired_mass": 0.00039062640169070705,
+   "failed_mass": 1.868690081647085e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P1(1/4) -> whack source)",
+    "W1": "striker",
+    "W2": "T0-union",
+    "play": "(0,source) S S",
+    "u_override": -0.5,
+    "u_alts": [
+     -1.0,
+     0.0,
+     -0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P1(1/4) -> whack source)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,source) S W",
+    "u_override": 1.0,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "42": {
+   "name": "(P2(1/4) -> wage 0)",
+   "fired": 183060,
+   "failed": 107352,
+   "fired_mass": 0.00039062640169070726,
+   "failed_mass": 1.4903554691580597e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P2(1/4) -> wage 0)",
+    "W1": "striker",
+    "W2": "T0-union",
+    "play": "(0,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P2(1/4) -> wage 0)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,none) W S",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "43": {
+   "name": "(P2(1/4) -> wage 1/4)",
+   "fired": 183060,
+   "failed": 147636,
+   "fired_mass": 0.00039062640169070726,
+   "failed_mass": 0.0002033519345754294,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P2(1/4) -> wage 1/4)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(1/4,none) W S",
+    "u_override": 0.75,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P2(1/4) -> wage 1/4)",
+    "W1": "striker",
+    "W2": "striker",
+    "play": "(1/4,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "44": {
+   "name": "(P2(1/4) -> wage 1/2)",
+   "fired": 183060,
+   "failed": 42354,
+   "fired_mass": 0.00039062640169070726,
+   "failed_mass": 0.00018824098919377323,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P2(1/4) -> wage 1/2)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(1/2,none) W S",
+    "u_override": 0.5,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P2(1/4) -> wage 1/2)",
+    "W1": "striker",
+    "W2": "striker",
+    "play": "(1/2,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "45": {
+   "name": "(P2(1/4) -> whack strike)",
+   "fired": 183060,
+   "failed": 137778,
+   "fired_mass": 0.00039062640169070726,
+   "failed_mass": 0.0003888532715238351,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P2(1/4) -> whack strike)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,strike) W S",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "witness_pass": {
+    "boss": "(1/2,none,0)+(P2(1/4) -> whack strike)",
+    "W1": "scab",
+    "W2": "tagged militant",
+    "play": "(1/2,strike) W W",
+    "u_override": 1.0,
+    "u_alts": [
+     1.0,
+     1.0,
+     0.5
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  },
+  "46": {
+   "name": "(P2(1/4) -> whack none)",
+   "fired": 183060,
+   "failed": 0,
+   "fired_mass": 0.00039062640169070726,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)+(P2(1/4) -> whack none)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,none) W S",
+    "u_override": 1.0,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": true,
+   "vacuous": false
+  },
+  "47": {
+   "name": "(P2(1/4) -> whack source)",
+   "fired": 183060,
+   "failed": 151794,
+   "fired_mass": 0.00039062640169070726,
+   "failed_mass": 1.8686900816470842e-05,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P2(1/4) -> whack source)",
+    "W1": "scab",
+    "W2": "tagged militant",
+    "play": "(0,source) W S",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P2(1/4) -> whack source)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,source) W S",
+    "u_override": 1.0,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false
+  }
+ }
+}

@@ -1,0 +1,4769 @@
+{
+ "cap": 1,
+ "programs": {
+  "workers": 136,
+  "bosses": 1323
+ },
+ "filter": {
+  "worker": {
+   "0": {
+    "name": "(BOX(s=0) -> work)",
+    "fired": 208512,
+    "failed": 0,
+    "fired_mass": 0.0007310742956340522,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,none,0)",
+     "W1": "scab+(BOX(s=0) -> work)",
+     "W2": "scab",
+     "play": "(0,none) W W",
+     "u_override": 0.0,
+     "u_alt": 0.0
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "1": {
+    "name": "(BOX(s=0) -> strike)",
+    "fired": 220288,
+    "failed": 73664,
+    "fired_mass": 0.0007322860073486303,
+    "failed_mass": 0.0002440959678931221,
+    "witness_fail": {
+     "boss": "(0,strike,0)",
+     "W1": "scab+(BOX(s=0) -> strike)",
+     "W2": "scab",
+     "play": "(0,strike) S W",
+     "u_override": -1.0,
+     "u_alt": 0.0
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)",
+     "W1": "scab+(BOX(s=0) -> strike)",
+     "W2": "scab",
+     "play": "(0,none) S W",
+     "u_override": 0.0,
+     "u_alt": 0.0
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "2": {
+    "name": "(BOX(s<=1/4) -> work)",
+    "fired": 524832,
+    "failed": 0,
+    "fired_mass": 0.0014679908057689888,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,none,0)",
+     "W1": "scab+(BOX(s<=1/4) -> work)",
+     "W2": "scab",
+     "play": "(0,none) W W",
+     "u_override": 0.0,
+     "u_alt": 0.0
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "3": {
+    "name": "(BOX(s<=1/4) -> strike)",
+    "fired": 482632,
+    "failed": 321320,
+    "fired_mass": 0.0014681961021334438,
+    "failed_mass": 0.0009787962090537423,
+    "witness_fail": {
+     "boss": "(0,strike,0)",
+     "W1": "scab+(BOX(s<=1/4) -> strike)",
+     "W2": "scab",
+     "play": "(0,strike) S W",
+     "u_override": -1.0,
+     "u_alt": 0.0
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)",
+     "W1": "scab+(BOX(s<=1/4) -> strike)",
+     "W2": "scab",
+     "play": "(0,none) S W",
+     "u_override": 0.0,
+     "u_alt": 0.0
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "4": {
+    "name": "(BOX(s=1/2) -> work)",
+    "fired": 369732,
+    "failed": 0,
+    "fired_mass": 0.0007358629759293041,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(1/2,none,0)",
+     "W1": "scab+(BOX(s=1/2) -> work)",
+     "W2": "scab",
+     "play": "(1/2,none) W W",
+     "u_override": 0.5,
+     "u_alt": 0.0
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "5": {
+    "name": "(BOX(s=1/2) -> strike)",
+    "fired": 664902,
+    "failed": 664902,
+    "fired_mass": 0.0007438551674664916,
+    "failed_mass": 0.0007438551674664916,
+    "witness_fail": {
+     "boss": "(1/2,none,0)",
+     "W1": "scab+(BOX(s=1/2) -> strike)",
+     "W2": "scab",
+     "play": "(1/2,none) S W",
+     "u_override": 0.0,
+     "u_alt": 0.5
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "6": {
+    "name": "(BOX(h=strike) -> work)",
+    "fired": 369828,
+    "failed": 0,
+    "fired_mass": 0.0007358683538902732,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,strike,0)",
+     "W1": "scab+(BOX(h=strike) -> work)",
+     "W2": "scab",
+     "play": "(0,strike) W W",
+     "u_override": 0.0,
+     "u_alt": -1.0
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "7": {
+    "name": "(BOX(h=strike) -> strike)",
+    "fired": 401464,
+    "failed": 401464,
+    "fired_mass": 0.0007372777761367114,
+    "failed_mass": 0.0007372777761367114,
+    "witness_fail": {
+     "boss": "(0,strike,0)",
+     "W1": "scab+(BOX(h=strike) -> strike)",
+     "W2": "scab",
+     "play": "(0,strike) S W",
+     "u_override": -1.0,
+     "u_alt": 0.0
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "8": {
+    "name": "(BOX(h=source) -> work)",
+    "fired": 369828,
+    "failed": 0,
+    "fired_mass": 0.0007358683538902733,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,source,0)",
+     "W1": "scab+(BOX(h=source) -> work)",
+     "W2": "scab",
+     "play": "(0,source) W W",
+     "u_override": 0.0,
+     "u_alt": 0.0
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "9": {
+    "name": "(BOX(h=source) -> strike)",
+    "fired": 401464,
+    "failed": 316764,
+    "fired_mass": 0.0007372777761367117,
+    "failed_mass": 0.0004926596276326625,
+    "witness_fail": {
+     "boss": "(1/4,source,0)",
+     "W1": "scab+(BOX(h=source) -> strike)",
+     "W2": "scab",
+     "play": "(1/4,source) S W",
+     "u_override": 0.0,
+     "u_alt": 0.25
+    },
+    "witness_pass": {
+     "boss": "(0,source,0)",
+     "W1": "scab+(BOX(h=source) -> strike)",
+     "W2": "scab",
+     "play": "(0,source) S W",
+     "u_override": 0.0,
+     "u_alt": 0.0
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "10": {
+    "name": "(BOX(OTHER=work) -> work)",
+    "fired": 499080,
+    "failed": 0,
+    "fired_mass": 0.0010865095939756222,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,none,0)",
+     "W1": "scab+(BOX(OTHER=work) -> work)",
+     "W2": "scab",
+     "play": "(0,none) W W",
+     "u_override": 0.0,
+     "u_alt": 0.0
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "11": {
+    "name": "(BOX(OTHER=work) -> strike)",
+    "fired": 495496,
+    "failed": 443546,
+    "fired_mass": 0.0010872228771394538,
+    "failed_mass": 0.0008479021863070632,
+    "witness_fail": {
+     "boss": "(0,strike,0)",
+     "W1": "scab+(BOX(OTHER=work) -> strike)",
+     "W2": "scab",
+     "play": "(0,strike) S W",
+     "u_override": -1.0,
+     "u_alt": 0.0
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)",
+     "W1": "scab+(BOX(OTHER=work) -> strike)",
+     "W2": "scab",
+     "play": "(0,none) S W",
+     "u_override": 0.0,
+     "u_alt": 0.0
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "12": {
+    "name": "(BOX(OTHER=strike) -> work)",
+    "fired": 405136,
+    "failed": 0,
+    "fired_mass": 0.00109979612293561,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,none,0)",
+     "W1": "scab+(BOX(OTHER=strike) -> work)",
+     "W2": "striker",
+     "play": "(0,none) W S",
+     "u_override": 0.0,
+     "u_alt": 0.0
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "13": {
+    "name": "(BOX(OTHER=strike) -> strike)",
+    "fired": 468572,
+    "failed": 379680,
+    "fired_mass": 0.0011069876820196996,
+    "failed_mass": 0.0008599241943314201,
+    "witness_fail": {
+     "boss": "(0,strike,0)",
+     "W1": "scab+(BOX(OTHER=strike) -> strike)",
+     "W2": "striker",
+     "play": "(0,strike) S S",
+     "u_override": -1.0,
+     "u_alt": 0.0
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)",
+     "W1": "scab+(BOX(OTHER=strike) -> strike)",
+     "W2": "striker",
+     "play": "(0,none) S S",
+     "u_override": 0.0,
+     "u_alt": 0.0
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "14": {
+    "name": "(Q* -> work)",
+    "fired": 212320,
+    "failed": 0,
+    "fired_mass": 0.0007315024661252775,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,none,0)",
+     "W1": "scab+(Q* -> work)",
+     "W2": "striker",
+     "play": "(0,none) W S",
+     "u_override": 0.0,
+     "u_alt": 0.0
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "15": {
+    "name": "(Q* -> strike)",
+    "fired": 253584,
+    "failed": 165698,
+    "fired_mass": 0.000739115238204146,
+    "failed_mass": 0.000492314344448393,
+    "witness_fail": {
+     "boss": "(0,strike,0)",
+     "W1": "scab+(Q* -> strike)",
+     "W2": "striker",
+     "play": "(0,strike) S S",
+     "u_override": -1.0,
+     "u_alt": 0.0
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)",
+     "W1": "scab+(Q* -> strike)",
+     "W2": "striker",
+     "play": "(0,none) S S",
+     "u_override": 0.0,
+     "u_alt": 0.0
+    },
+    "admitted": false,
+    "vacuous": false
+   }
+  },
+  "boss": {
+   "0": {
+    "name": "(BOX(W1=strike) -> wage 0)",
+    "fired": 235341,
+    "failed": 149661,
+    "fired_mass": 0.0003949615744501087,
+    "failed_mass": 1.8711779366828796e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W1=strike) -> wage 0)",
+     "W1": "striker",
+     "W2": "T0-union",
+     "play": "(0,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W1=strike) -> wage 0)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(0,none) S W",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "1": {
+    "name": "(BOX(W1=strike) -> wage 1/4)",
+    "fired": 191772,
+    "failed": 153900,
+    "fired_mass": 0.00039114681855268834,
+    "failed_mass": 0.00020365066533617704,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W1=strike) -> wage 1/4)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(1/4,none) S W",
+     "u_override": 0.75,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W1=strike) -> wage 1/4)",
+     "W1": "striker",
+     "W2": "striker",
+     "play": "(1/4,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "2": {
+    "name": "(BOX(W1=strike) -> wage 1/2)",
+    "fired": 117126,
+    "failed": 55242,
+    "fired_mass": 0.0003827055945289634,
+    "failed_mass": 0.00018927753691318382,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W1=strike) -> wage 1/2)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(1/2,none) S W",
+     "u_override": 0.5,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W1=strike) -> wage 1/2)",
+     "W1": "striker",
+     "W2": "striker",
+     "play": "(1/2,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "3": {
+    "name": "(BOX(W1=strike) -> whack strike)",
+    "fired": 141408,
+    "failed": 141408,
+    "fired_mass": 0.00038765686564467953,
+    "failed_mass": 0.00038765686564467953,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W1=strike) -> whack strike)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(0,strike) S W",
+     "u_override": 0.5,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "4": {
+    "name": "(BOX(W1=strike) -> whack none)",
+    "fired": 121131,
+    "failed": 0,
+    "fired_mass": 0.00038675246887804243,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W1=strike) -> whack none)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(0,none) S W",
+     "u_override": 1.0,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "5": {
+    "name": "(BOX(W1=strike) -> whack source)",
+    "fired": 141408,
+    "failed": 113388,
+    "fired_mass": 0.00038765686564467953,
+    "failed_mass": 1.5337305584016925e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W1=strike) -> whack source)",
+     "W1": "striker",
+     "W2": "T0-union",
+     "play": "(0,source) S S",
+     "u_override": -0.5,
+     "u_alts": [
+      -1.0,
+      0.0,
+      -0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W1=strike) -> whack source)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(0,source) S W",
+     "u_override": 1.0,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "6": {
+    "name": "(BOX(W2=strike) -> wage 0)",
+    "fired": 235341,
+    "failed": 149661,
+    "fired_mass": 0.0003949615744501087,
+    "failed_mass": 1.8711779366828792e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W2=strike) -> wage 0)",
+     "W1": "scab",
+     "W2": "T0-union",
+     "play": "(0,none) W S",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      1.5,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W2=strike) -> wage 0)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(0,none) W S",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "7": {
+    "name": "(BOX(W2=strike) -> wage 1/4)",
+    "fired": 191772,
+    "failed": 153900,
+    "fired_mass": 0.0003911468185526884,
+    "failed_mass": 0.00020365066533617704,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W2=strike) -> wage 1/4)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(1/4,none) W S",
+     "u_override": 0.75,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W2=strike) -> wage 1/4)",
+     "W1": "striker",
+     "W2": "striker",
+     "play": "(1/4,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "8": {
+    "name": "(BOX(W2=strike) -> wage 1/2)",
+    "fired": 117126,
+    "failed": 55242,
+    "fired_mass": 0.0003827055945289634,
+    "failed_mass": 0.00018927753691318387,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W2=strike) -> wage 1/2)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(1/2,none) W S",
+     "u_override": 0.5,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W2=strike) -> wage 1/2)",
+     "W1": "striker",
+     "W2": "striker",
+     "play": "(1/2,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "9": {
+    "name": "(BOX(W2=strike) -> whack strike)",
+    "fired": 139548,
+    "failed": 139548,
+    "fired_mass": 0.00038768446574742957,
+    "failed_mass": 0.00038768446574742957,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W2=strike) -> whack strike)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(0,strike) W S",
+     "u_override": 0.5,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "10": {
+    "name": "(BOX(W2=strike) -> whack none)",
+    "fired": 119271,
+    "failed": 0,
+    "fired_mass": 0.0003867800689807922,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W2=strike) -> whack none)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(0,none) W S",
+     "u_override": 1.0,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "11": {
+    "name": "(BOX(W2=strike) -> whack source)",
+    "fired": 139548,
+    "failed": 111834,
+    "fired_mass": 0.00038768446574742957,
+    "failed_mass": 1.53209559639255e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W2=strike) -> whack source)",
+     "W1": "scab",
+     "W2": "T0-union",
+     "play": "(0,source) W S",
+     "u_override": 0.5,
+     "u_alts": [
+      0.5,
+      1.0,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W2=strike) -> whack source)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(0,source) W S",
+     "u_override": 1.0,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "12": {
+    "name": "(BOX(W1=work) -> wage 0)",
+    "fired": 140976,
+    "failed": 27360,
+    "fired_mass": 0.0003835933856366154,
+    "failed_mass": 4.605851971627734e-06,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W1=work) -> wage 0)",
+     "W1": "scab",
+     "W2": "T0-union",
+     "play": "(0,none) W S",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      1.5,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W1=work) -> wage 0)",
+     "W1": "scab",
+     "W2": "scab",
+     "play": "(0,none) W W",
+     "u_override": 2.0,
+     "u_alts": [
+      2.0,
+      1.5,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "13": {
+    "name": "(BOX(W1=work) -> wage 1/4)",
+    "fired": 143838,
+    "failed": 106992,
+    "fired_mass": 0.00038319920455930437,
+    "failed_mass": 0.0003792483243840624,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W1=work) -> wage 1/4)",
+     "W1": "scab",
+     "W2": "scab",
+     "play": "(1/4,none) W W",
+     "u_override": 1.5,
+     "u_alts": [
+      2.0,
+      1.5,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W1=work) -> wage 1/4)",
+     "W1": "scab",
+     "W2": "T0-union",
+     "play": "(1/4,none) W W",
+     "u_override": 1.5,
+     "u_alts": [
+      1.0,
+      1.5,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "14": {
+    "name": "(BOX(W1=work) -> wage 1/2)",
+    "fired": 196938,
+    "failed": 123714,
+    "fired_mass": 0.00038427592505242426,
+    "failed_mass": 0.0003787129699480372,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W1=work) -> wage 1/2)",
+     "W1": "scab",
+     "W2": "scab",
+     "play": "(1/2,none) W W",
+     "u_override": 1.0,
+     "u_alts": [
+      2.0,
+      1.5,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W1=work) -> wage 1/2)",
+     "W1": "scab",
+     "W2": "tagged militant",
+     "play": "(1/2,none) W W",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      0.75,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "15": {
+    "name": "(BOX(W1=work) -> whack strike)",
+    "fired": 185061,
+    "failed": 68082,
+    "fired_mass": 0.00038401447038009275,
+    "failed_mass": 0.0001910284951572332,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W1=work) -> whack strike)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(0,strike) W S",
+     "u_override": 0.5,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W1=work) -> whack strike)",
+     "W1": "scab",
+     "W2": "scab",
+     "play": "(0,strike) W W",
+     "u_override": 2.0,
+     "u_alts": [
+      2.0,
+      2.0,
+      2.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "16": {
+    "name": "(BOX(W1=work) -> whack none)",
+    "fired": 173970,
+    "failed": 0,
+    "fired_mass": 0.00038316479506045136,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W1=work) -> whack none)",
+     "W1": "scab",
+     "W2": "scab",
+     "play": "(0,none) W W",
+     "u_override": 2.0,
+     "u_alts": [
+      2.0,
+      2.0,
+      2.0
+     ]
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "17": {
+    "name": "(BOX(W1=work) -> whack source)",
+    "fired": 185061,
+    "failed": 147537,
+    "fired_mass": 0.00038401447038009275,
+    "failed_mass": 1.1804606792121575e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W1=work) -> whack source)",
+     "W1": "scab",
+     "W2": "T0-union",
+     "play": "(0,source) W S",
+     "u_override": 0.5,
+     "u_alts": [
+      0.5,
+      1.0,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W1=work) -> whack source)",
+     "W1": "scab",
+     "W2": "scab",
+     "play": "(0,source) W W",
+     "u_override": 2.0,
+     "u_alts": [
+      2.0,
+      2.0,
+      2.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "18": {
+    "name": "(BOX(W2=work) -> wage 0)",
+    "fired": 140976,
+    "failed": 27360,
+    "fired_mass": 0.00038359338563661547,
+    "failed_mass": 4.605851971627734e-06,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W2=work) -> wage 0)",
+     "W1": "T0-union",
+     "W2": "scab",
+     "play": "(0,none) S W",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      1.5,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W2=work) -> wage 0)",
+     "W1": "scab",
+     "W2": "scab",
+     "play": "(0,none) W W",
+     "u_override": 2.0,
+     "u_alts": [
+      2.0,
+      1.5,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "19": {
+    "name": "(BOX(W2=work) -> wage 1/4)",
+    "fired": 143838,
+    "failed": 106992,
+    "fired_mass": 0.00038319920455930437,
+    "failed_mass": 0.0003792483243840624,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W2=work) -> wage 1/4)",
+     "W1": "scab",
+     "W2": "scab",
+     "play": "(1/4,none) W W",
+     "u_override": 1.5,
+     "u_alts": [
+      2.0,
+      1.5,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W2=work) -> wage 1/4)",
+     "W1": "T0-union",
+     "W2": "scab",
+     "play": "(1/4,none) W W",
+     "u_override": 1.5,
+     "u_alts": [
+      1.0,
+      1.5,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "20": {
+    "name": "(BOX(W2=work) -> wage 1/2)",
+    "fired": 196938,
+    "failed": 123714,
+    "fired_mass": 0.0003842759250524243,
+    "failed_mass": 0.00037871296994803727,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W2=work) -> wage 1/2)",
+     "W1": "scab",
+     "W2": "scab",
+     "play": "(1/2,none) W W",
+     "u_override": 1.0,
+     "u_alts": [
+      2.0,
+      1.5,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W2=work) -> wage 1/2)",
+     "W1": "tagged militant",
+     "W2": "scab",
+     "play": "(1/2,none) W W",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      0.75,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "21": {
+    "name": "(BOX(W2=work) -> whack strike)",
+    "fired": 186309,
+    "failed": 70638,
+    "fired_mass": 0.0003840829339949785,
+    "failed_mass": 0.00019112859588130693,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W2=work) -> whack strike)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(0,strike) S W",
+     "u_override": 0.5,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W2=work) -> whack strike)",
+     "W1": "scab",
+     "W2": "scab",
+     "play": "(0,strike) W W",
+     "u_override": 2.0,
+     "u_alts": [
+      2.0,
+      2.0,
+      2.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "22": {
+    "name": "(BOX(W2=work) -> whack none)",
+    "fired": 175218,
+    "failed": 0,
+    "fired_mass": 0.00038323325867533725,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W2=work) -> whack none)",
+     "W1": "scab",
+     "W2": "scab",
+     "play": "(0,none) W W",
+     "u_override": 2.0,
+     "u_alts": [
+      2.0,
+      2.0,
+      2.0
+     ]
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "23": {
+    "name": "(BOX(W2=work) -> whack source)",
+    "fired": 186309,
+    "failed": 148503,
+    "fired_mass": 0.0003840829339949785,
+    "failed_mass": 1.1815937216637376e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(BOX(W2=work) -> whack source)",
+     "W1": "T0-union",
+     "W2": "scab",
+     "play": "(0,source) S W",
+     "u_override": 0.5,
+     "u_alts": [
+      0.5,
+      1.0,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(BOX(W2=work) -> whack source)",
+     "W1": "scab",
+     "W2": "scab",
+     "play": "(0,source) W W",
+     "u_override": 2.0,
+     "u_alts": [
+      2.0,
+      2.0,
+      2.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "24": {
+    "name": "(P1(0) -> wage 0)",
+    "fired": 231255,
+    "failed": 148347,
+    "fired_mass": 0.0003945431734408361,
+    "failed_mass": 1.8703212059349115e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P1(0) -> wage 0)",
+     "W1": "striker",
+     "W2": "T0-union",
+     "play": "(0,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P1(0) -> wage 0)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(0,none) S W",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "25": {
+    "name": "(P1(0) -> wage 1/4)",
+    "fired": 231255,
+    "failed": 161550,
+    "fired_mass": 0.0003945431734408361,
+    "failed_mass": 0.00020346471633849058,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P1(0) -> wage 1/4)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(1/4,none) S W",
+     "u_override": 0.75,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P1(0) -> wage 1/4)",
+     "W1": "striker",
+     "W2": "striker",
+     "play": "(1/4,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "26": {
+    "name": "(P1(0) -> wage 1/2)",
+    "fired": 231255,
+    "failed": 80487,
+    "fired_mass": 0.0003945431734408361,
+    "failed_mass": 0.00019209534183138024,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P1(0) -> wage 1/2)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(1/2,none) S W",
+     "u_override": 0.5,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P1(0) -> wage 1/2)",
+     "W1": "striker",
+     "W2": "striker",
+     "play": "(1/2,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "27": {
+    "name": "(P1(0) -> whack strike)",
+    "fired": 231255,
+    "failed": 163710,
+    "fired_mass": 0.0003945431734408361,
+    "failed_mass": 0.00039055172701185376,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P1(0) -> whack strike)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(0,strike) S W",
+     "u_override": 0.5,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(1/4,none,0)+(P1(0) -> whack strike)",
+     "W1": "T0-union",
+     "W2": "scab",
+     "play": "(1/4,strike) W W",
+     "u_override": 1.5,
+     "u_alts": [
+      1.5,
+      1.5,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "28": {
+    "name": "(P1(0) -> whack none)",
+    "fired": 231255,
+    "failed": 0,
+    "fired_mass": 0.0003945431734408361,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,none,0)+(P1(0) -> whack none)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(0,none) S W",
+     "u_override": 1.0,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "29": {
+    "name": "(P1(0) -> whack source)",
+    "fired": 231255,
+    "failed": 187947,
+    "fired_mass": 0.0003945431734408361,
+    "failed_mass": 2.10014858018122e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P1(0) -> whack source)",
+     "W1": "striker",
+     "W2": "T0-union",
+     "play": "(0,source) S S",
+     "u_override": -0.5,
+     "u_alts": [
+      -1.0,
+      0.0,
+      -0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P1(0) -> whack source)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(0,source) S W",
+     "u_override": 1.0,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "30": {
+    "name": "(P2(0) -> wage 0)",
+    "fired": 231255,
+    "failed": 148347,
+    "fired_mass": 0.00039454317344083615,
+    "failed_mass": 1.8703212059349115e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P2(0) -> wage 0)",
+     "W1": "scab",
+     "W2": "T0-union",
+     "play": "(0,none) W S",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      1.5,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P2(0) -> wage 0)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(0,none) W S",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "31": {
+    "name": "(P2(0) -> wage 1/4)",
+    "fired": 231255,
+    "failed": 161550,
+    "fired_mass": 0.00039454317344083615,
+    "failed_mass": 0.00020346471633849068,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P2(0) -> wage 1/4)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(1/4,none) W S",
+     "u_override": 0.75,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P2(0) -> wage 1/4)",
+     "W1": "striker",
+     "W2": "striker",
+     "play": "(1/4,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "32": {
+    "name": "(P2(0) -> wage 1/2)",
+    "fired": 231255,
+    "failed": 80487,
+    "fired_mass": 0.00039454317344083615,
+    "failed_mass": 0.0001920953418313802,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P2(0) -> wage 1/2)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(1/2,none) W S",
+     "u_override": 0.5,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P2(0) -> wage 1/2)",
+     "W1": "striker",
+     "W2": "striker",
+     "play": "(1/2,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "33": {
+    "name": "(P2(0) -> whack strike)",
+    "fired": 231255,
+    "failed": 161994,
+    "fired_mass": 0.00039454317344083615,
+    "failed_mass": 0.00039051837513615827,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P2(0) -> whack strike)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(0,strike) W S",
+     "u_override": 0.5,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(1/4,none,0)+(P2(0) -> whack strike)",
+     "W1": "scab",
+     "W2": "T0-union",
+     "play": "(1/4,strike) W W",
+     "u_override": 1.5,
+     "u_alts": [
+      1.5,
+      1.5,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "34": {
+    "name": "(P2(0) -> whack none)",
+    "fired": 231255,
+    "failed": 0,
+    "fired_mass": 0.00039454317344083615,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,none,0)+(P2(0) -> whack none)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(0,none) W S",
+     "u_override": 1.0,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "35": {
+    "name": "(P2(0) -> whack source)",
+    "fired": 231255,
+    "failed": 187947,
+    "fired_mass": 0.00039454317344083615,
+    "failed_mass": 2.1001485801812197e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P2(0) -> whack source)",
+     "W1": "scab",
+     "W2": "T0-union",
+     "play": "(0,source) W S",
+     "u_override": 0.5,
+     "u_alts": [
+      0.5,
+      1.0,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P2(0) -> whack source)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(0,source) W S",
+     "u_override": 1.0,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "36": {
+    "name": "(P1(1/4) -> wage 0)",
+    "fired": 183060,
+    "failed": 107352,
+    "fired_mass": 0.00039062640169070705,
+    "failed_mass": 1.4903554691580599e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P1(1/4) -> wage 0)",
+     "W1": "striker",
+     "W2": "T0-union",
+     "play": "(0,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P1(1/4) -> wage 0)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(0,none) S W",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "37": {
+    "name": "(P1(1/4) -> wage 1/4)",
+    "fired": 183060,
+    "failed": 147636,
+    "fired_mass": 0.00039062640169070705,
+    "failed_mass": 0.00020335193457542947,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P1(1/4) -> wage 1/4)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(1/4,none) S W",
+     "u_override": 0.75,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P1(1/4) -> wage 1/4)",
+     "W1": "striker",
+     "W2": "striker",
+     "play": "(1/4,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "38": {
+    "name": "(P1(1/4) -> wage 1/2)",
+    "fired": 183060,
+    "failed": 42354,
+    "fired_mass": 0.00039062640169070705,
+    "failed_mass": 0.00018824098919377325,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P1(1/4) -> wage 1/2)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(1/2,none) S W",
+     "u_override": 0.5,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P1(1/4) -> wage 1/2)",
+     "W1": "striker",
+     "W2": "striker",
+     "play": "(1/2,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "39": {
+    "name": "(P1(1/4) -> whack strike)",
+    "fired": 183060,
+    "failed": 139086,
+    "fired_mass": 0.00039062640169070705,
+    "failed_mass": 0.0003888732628582095,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P1(1/4) -> whack strike)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(0,strike) S W",
+     "u_override": 0.5,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(1/2,none,0)+(P1(1/4) -> whack strike)",
+     "W1": "tagged militant",
+     "W2": "scab",
+     "play": "(1/2,strike) W W",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      1.0,
+      0.5
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "40": {
+    "name": "(P1(1/4) -> whack none)",
+    "fired": 183060,
+    "failed": 0,
+    "fired_mass": 0.00039062640169070705,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,none,0)+(P1(1/4) -> whack none)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(0,none) S W",
+     "u_override": 1.0,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "41": {
+    "name": "(P1(1/4) -> whack source)",
+    "fired": 183060,
+    "failed": 151794,
+    "fired_mass": 0.00039062640169070705,
+    "failed_mass": 1.868690081647085e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P1(1/4) -> whack source)",
+     "W1": "striker",
+     "W2": "T0-union",
+     "play": "(0,source) S S",
+     "u_override": -0.5,
+     "u_alts": [
+      -1.0,
+      0.0,
+      -0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P1(1/4) -> whack source)",
+     "W1": "striker",
+     "W2": "scab",
+     "play": "(0,source) S W",
+     "u_override": 1.0,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "42": {
+    "name": "(P2(1/4) -> wage 0)",
+    "fired": 183060,
+    "failed": 107352,
+    "fired_mass": 0.00039062640169070726,
+    "failed_mass": 1.4903554691580597e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P2(1/4) -> wage 0)",
+     "W1": "striker",
+     "W2": "T0-union",
+     "play": "(0,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P2(1/4) -> wage 0)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(0,none) W S",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "43": {
+    "name": "(P2(1/4) -> wage 1/4)",
+    "fired": 183060,
+    "failed": 147636,
+    "fired_mass": 0.00039062640169070726,
+    "failed_mass": 0.0002033519345754294,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P2(1/4) -> wage 1/4)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(1/4,none) W S",
+     "u_override": 0.75,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P2(1/4) -> wage 1/4)",
+     "W1": "striker",
+     "W2": "striker",
+     "play": "(1/4,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "44": {
+    "name": "(P2(1/4) -> wage 1/2)",
+    "fired": 183060,
+    "failed": 42354,
+    "fired_mass": 0.00039062640169070726,
+    "failed_mass": 0.00018824098919377323,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P2(1/4) -> wage 1/2)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(1/2,none) W S",
+     "u_override": 0.5,
+     "u_alts": [
+      1.0,
+      0.75,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P2(1/4) -> wage 1/2)",
+     "W1": "striker",
+     "W2": "striker",
+     "play": "(1/2,none) S S",
+     "u_override": 0.0,
+     "u_alts": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "45": {
+    "name": "(P2(1/4) -> whack strike)",
+    "fired": 183060,
+    "failed": 137778,
+    "fired_mass": 0.00039062640169070726,
+    "failed_mass": 0.0003888532715238351,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P2(1/4) -> whack strike)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(0,strike) W S",
+     "u_override": 0.5,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "witness_pass": {
+     "boss": "(1/2,none,0)+(P2(1/4) -> whack strike)",
+     "W1": "scab",
+     "W2": "tagged militant",
+     "play": "(1/2,strike) W W",
+     "u_override": 1.0,
+     "u_alts": [
+      1.0,
+      1.0,
+      0.5
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   },
+   "46": {
+    "name": "(P2(1/4) -> whack none)",
+    "fired": 183060,
+    "failed": 0,
+    "fired_mass": 0.00039062640169070726,
+    "failed_mass": 0.0,
+    "witness_pass": {
+     "boss": "(0,none,0)+(P2(1/4) -> whack none)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(0,none) W S",
+     "u_override": 1.0,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": true,
+    "vacuous": false
+   },
+   "47": {
+    "name": "(P2(1/4) -> whack source)",
+    "fired": 183060,
+    "failed": 151794,
+    "fired_mass": 0.00039062640169070726,
+    "failed_mass": 1.8686900816470842e-05,
+    "witness_fail": {
+     "boss": "(0,none,0)+(P2(1/4) -> whack source)",
+     "W1": "scab",
+     "W2": "tagged militant",
+     "play": "(0,source) W S",
+     "u_override": 0.5,
+     "u_alts": [
+      0.5,
+      1.0,
+      0.5
+     ]
+    },
+    "witness_pass": {
+     "boss": "(0,none,0)+(P2(1/4) -> whack source)",
+     "W1": "scab",
+     "W2": "striker",
+     "play": "(0,source) W S",
+     "u_override": 1.0,
+     "u_alts": [
+      0.5,
+      1.0,
+      1.0
+     ]
+    },
+    "admitted": false,
+    "vacuous": false
+   }
+  }
+ },
+ "filter_summary": {
+  "worker_admitted": [
+   "(BOX(s=0) -> work)",
+   "(BOX(s<=1/4) -> work)",
+   "(BOX(s=1/2) -> work)",
+   "(BOX(h=strike) -> work)",
+   "(BOX(h=source) -> work)",
+   "(BOX(OTHER=work) -> work)",
+   "(BOX(OTHER=strike) -> work)",
+   "(Q* -> work)"
+  ],
+  "boss_admitted": [
+   "(BOX(W1=strike) -> whack none)",
+   "(BOX(W2=strike) -> whack none)",
+   "(BOX(W1=work) -> whack none)",
+   "(BOX(W2=work) -> whack none)",
+   "(P1(0) -> whack none)",
+   "(P2(0) -> whack none)",
+   "(P1(1/4) -> whack none)",
+   "(P2(1/4) -> whack none)"
+  ],
+  "vacuous": []
+ },
+ "named_gene_verdicts": {
+  "whack w1": {
+   "name": "(BOX(W1=strike) -> whack strike)",
+   "fired": 141408,
+   "failed": 141408,
+   "fired_mass": 0.00038765686564467953,
+   "failed_mass": 0.00038765686564467953,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W1=strike) -> whack strike)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,strike) S W",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false,
+   "role": "boss"
+  },
+  "whack w2": {
+   "name": "(BOX(W2=strike) -> whack strike)",
+   "fired": 139548,
+   "failed": 139548,
+   "fired_mass": 0.00038768446574742957,
+   "failed_mass": 0.00038768446574742957,
+   "witness_fail": {
+    "boss": "(0,none,0)+(BOX(W2=strike) -> whack strike)",
+    "W1": "scab",
+    "W2": "striker",
+    "play": "(0,strike) W S",
+    "u_override": 0.5,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false,
+   "role": "boss"
+  },
+  "quorum q": {
+   "name": "(Q* -> strike)",
+   "fired": 253584,
+   "failed": 165698,
+   "fired_mass": 0.000739115238204146,
+   "failed_mass": 0.000492314344448393,
+   "witness_fail": {
+    "boss": "(0,strike,0)",
+    "W1": "scab+(Q* -> strike)",
+    "W2": "striker",
+    "play": "(0,strike) S S",
+    "u_override": -1.0,
+    "u_alt": 0.0
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)",
+    "W1": "scab+(Q* -> strike)",
+    "W2": "striker",
+    "play": "(0,none) S S",
+    "u_override": 0.0,
+    "u_alt": 0.0
+   },
+   "admitted": false,
+   "vacuous": false,
+   "role": "worker"
+  },
+  "probe concession pi": {
+   "name": "(P1(0) -> wage 1/2)",
+   "fired": 231255,
+   "failed": 80487,
+   "fired_mass": 0.0003945431734408361,
+   "failed_mass": 0.00019209534183138024,
+   "witness_fail": {
+    "boss": "(0,none,0)+(P1(0) -> wage 1/2)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(1/2,none) S W",
+    "u_override": 0.5,
+    "u_alts": [
+     1.0,
+     0.75,
+     0.5
+    ]
+   },
+   "witness_pass": {
+    "boss": "(0,none,0)+(P1(0) -> wage 1/2)",
+    "W1": "striker",
+    "W2": "striker",
+    "play": "(1/2,none) S S",
+    "u_override": 0.0,
+    "u_alts": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "admitted": false,
+   "vacuous": false,
+   "role": "boss"
+  },
+  "de-escalation": {
+   "name": "(BOX(W1=strike) -> whack none)",
+   "fired": 121131,
+   "failed": 0,
+   "fired_mass": 0.00038675246887804243,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,none,0)+(BOX(W1=strike) -> whack none)",
+    "W1": "striker",
+    "W2": "scab",
+    "play": "(0,none) S W",
+    "u_override": 1.0,
+    "u_alts": [
+     0.5,
+     1.0,
+     1.0
+    ]
+   },
+   "admitted": true,
+   "vacuous": false,
+   "role": "boss"
+  },
+  "threat accommodation": {
+   "name": "(BOX(h=strike) -> work)",
+   "fired": 369828,
+   "failed": 0,
+   "fired_mass": 0.0007358683538902732,
+   "failed_mass": 0.0,
+   "witness_pass": {
+    "boss": "(0,strike,0)",
+    "W1": "scab+(BOX(h=strike) -> work)",
+    "W2": "scab",
+    "play": "(0,strike) W W",
+    "u_override": 0.0,
+    "u_alt": -1.0
+   },
+   "admitted": true,
+   "vacuous": false,
+   "role": "worker"
+  }
+ },
+ "admitted_only": {
+  "status": "converged",
+  "history": [
+   [
+    8,
+    8
+   ],
+   [
+    8,
+    8
+   ]
+  ],
+  "changed_vs_frozen": []
+ },
+ "arms": {
+  "base-CC": {
+   "rule": "CC",
+   "genes_w": 0,
+   "genes_b": 0,
+   "programs_b": 27,
+   "programs_w": 8,
+   "classes_b": 21,
+   "classes_w": 8,
+   "refined_b": 27,
+   "refined_w": 8,
+   "mass_kept_length": {
+    "boss": 0.9999999999999998,
+    "worker": 1.0
+   },
+   "mass_kept_uniform": {
+    "boss": 0.9999999999999998,
+    "worker": 1.0
+   }
+  },
+  "base-RC": {
+   "rule": "RC",
+   "genes_w": 0,
+   "genes_b": 0,
+   "programs_b": 27,
+   "programs_w": 8,
+   "classes_b": 7,
+   "classes_w": 8,
+   "refined_b": 27,
+   "refined_w": 8,
+   "mass_kept_length": {
+    "boss": 0.9999999999999998,
+    "worker": 1.0
+   },
+   "mass_kept_uniform": {
+    "boss": 0.9999999999999998,
+    "worker": 1.0
+   }
+  },
+  "base-RR": {
+   "rule": "RR",
+   "genes_w": 0,
+   "genes_b": 0,
+   "programs_b": 27,
+   "programs_w": 8,
+   "classes_b": 6,
+   "classes_w": 6,
+   "refined_b": 27,
+   "refined_w": 8,
+   "mass_kept_length": {
+    "boss": 0.9999999999999998,
+    "worker": 1.0
+   },
+   "mass_kept_uniform": {
+    "boss": 0.9999999999999998,
+    "worker": 1.0
+   }
+  },
+  "G-all": {
+   "rule": "CC",
+   "genes_w": 16,
+   "genes_b": 48,
+   "programs_b": 1323,
+   "programs_w": 136,
+   "classes_b": 706,
+   "classes_w": 80,
+   "refined_b": 931,
+   "refined_w": 99,
+   "mass_kept_length": {
+    "boss": 1.0000000000000002,
+    "worker": 1.0000000000000002
+   },
+   "mass_kept_uniform": {
+    "boss": 1.0000000000000002,
+    "worker": 1.0
+   }
+  },
+  "G-all-RC": {
+   "rule": "RC",
+   "genes_w": 16,
+   "genes_b": 48,
+   "programs_b": 1323,
+   "programs_w": 136,
+   "classes_b": 112,
+   "classes_w": 57,
+   "refined_b": 447,
+   "refined_w": 76,
+   "mass_kept_length": {
+    "boss": 1.0000000000000002,
+    "worker": 1.0000000000000002
+   },
+   "mass_kept_uniform": {
+    "boss": 1.0000000000000002,
+    "worker": 1.0
+   }
+  },
+  "G-cred": {
+   "rule": "CC",
+   "genes_w": 8,
+   "genes_b": 8,
+   "programs_b": 243,
+   "programs_w": 72,
+   "classes_b": 125,
+   "classes_w": 50,
+   "refined_b": 163,
+   "refined_w": 59,
+   "mass_kept_length": {
+    "boss": 0.9685778229945682,
+    "worker": 0.9821986009856429
+   },
+   "mass_kept_uniform": {
+    "boss": 0.18367346938775517,
+    "worker": 0.5294117647058824
+   }
+  },
+  "G-cred-ctl": {
+   "rule": "CC",
+   "genes_w": 8,
+   "genes_b": 8,
+   "programs_b": 81,
+   "programs_w": 72,
+   "classes_b": 7,
+   "classes_w": 38,
+   "refined_b": 9,
+   "refined_w": 47,
+   "mass_kept_length": {
+    "boss": 0.3228592743315228,
+    "worker": 0.9821986009856429
+   },
+   "mass_kept_uniform": {
+    "boss": 0.06122448979591837,
+    "worker": 0.5294117647058824
+   }
+  },
+  "G-cred-whole": {
+   "rule": "RR",
+   "genes_w": 16,
+   "genes_b": 48,
+   "programs_b": 1323,
+   "programs_w": 136,
+   "classes_b": 38,
+   "classes_w": 48,
+   "refined_b": 240,
+   "refined_w": 66,
+   "mass_kept_length": {
+    "boss": 1.0000000000000002,
+    "worker": 1.0000000000000002
+   },
+   "mass_kept_uniform": {
+    "boss": 1.0000000000000002,
+    "worker": 1.0
+   }
+  },
+  "G-cred-whole-ctl": {
+   "rule": "RR",
+   "genes_w": 16,
+   "genes_b": 48,
+   "programs_b": 441,
+   "programs_w": 136,
+   "classes_b": 38,
+   "classes_w": 48,
+   "refined_b": 80,
+   "refined_w": 66,
+   "mass_kept_length": {
+    "boss": 0.3333333333333334,
+    "worker": 1.0000000000000002
+   },
+   "mass_kept_uniform": {
+    "boss": 0.3333333333333334,
+    "worker": 1.0
+   }
+  },
+  "G-asym": {
+   "rule": "CC",
+   "genes_w": 16,
+   "genes_b": 32,
+   "programs_b": 891,
+   "programs_w": 136,
+   "classes_b": 482,
+   "classes_w": 80,
+   "refined_b": 643,
+   "refined_w": 99,
+   "mass_kept_length": {
+    "boss": 0.9874311291978275,
+    "worker": 1.0000000000000002
+   },
+   "mass_kept_uniform": {
+    "boss": 0.6734693877551022,
+    "worker": 1.0
+   }
+  },
+  "G-asym-ctl": {
+   "rule": "CC",
+   "genes_w": 16,
+   "genes_b": 32,
+   "programs_b": 297,
+   "programs_w": 136,
+   "classes_b": 112,
+   "classes_w": 57,
+   "refined_b": 149,
+   "refined_w": 76,
+   "mass_kept_length": {
+    "boss": 0.3291437097326092,
+    "worker": 1.0000000000000002
+   },
+   "mass_kept_uniform": {
+    "boss": 0.22448979591836737,
+    "worker": 1.0
+   }
+  },
+  "G-recip": {
+   "rule": "CC",
+   "genes_w": 6,
+   "genes_b": 4,
+   "programs_b": 135,
+   "programs_w": 56,
+   "classes_b": 77,
+   "classes_w": 36,
+   "refined_b": 99,
+   "refined_w": 45,
+   "mass_kept_length": {
+    "boss": 0.9654356052940251,
+    "worker": 0.9777482512320536
+   },
+   "mass_kept_uniform": {
+    "boss": 0.10204081632653059,
+    "worker": 0.411764705882353
+   }
+  },
+  "G-recip-ctl": {
+   "rule": "CC",
+   "genes_w": 6,
+   "genes_b": 4,
+   "programs_b": 45,
+   "programs_w": 56,
+   "classes_b": 7,
+   "classes_w": 36,
+   "refined_b": 9,
+   "refined_w": 45,
+   "mass_kept_length": {
+    "boss": 0.3218118684313418,
+    "worker": 0.9777482512320536
+   },
+   "mass_kept_uniform": {
+    "boss": 0.03401360544217686,
+    "worker": 0.411764705882353
+   }
+  },
+  "random": {
+   "rule": "CC",
+   "genes_w": 8,
+   "genes_b": 8,
+   "programs_b": 243,
+   "programs_w": 72,
+   "classes_b": 134,
+   "classes_w": 55,
+   "refined_b": 171,
+   "refined_w": 61,
+   "mass_kept_length": {
+    "boss": 0.9685778229945682,
+    "worker": 0.9821986009856429
+   },
+   "mass_kept_uniform": {
+    "boss": 0.18367346938775517,
+    "worker": 0.5294117647058824
+   }
+  }
+ },
+ "random_removal": {
+  "worker": [
+   "(BOX(s=0) -> work)",
+   "(BOX(s=1/2) -> work)",
+   "(BOX(s=1/2) -> strike)",
+   "(BOX(h=strike) -> work)",
+   "(BOX(h=source) -> strike)",
+   "(BOX(OTHER=work) -> strike)",
+   "(BOX(OTHER=strike) -> strike)",
+   "(Q* -> work)"
+  ],
+  "boss": [
+   "(BOX(W1=strike) -> wage 1/2)",
+   "(BOX(W2=strike) -> whack source)",
+   "(P1(0) -> wage 0)",
+   "(P1(0) -> whack source)",
+   "(P2(0) -> whack strike)",
+   "(P1(1/4) -> wage 1/2)",
+   "(P2(1/4) -> wage 1/2)",
+   "(P2(1/4) -> whack strike)"
+  ]
+ },
+ "encoding_invariance": {
+  "quorum q on scab vs union base": {
+   "CC": {
+    "diff_mass_W1": 0.0,
+    "diff_mass_W2": 0.0,
+    "tag_equal": true
+   },
+   "RR": {
+    "diff_mass_W1": 0.0,
+    "diff_mass_W2": 0.0,
+    "tag_equal": true
+   }
+  },
+  "probe concession on (0,none,0) vs D0": {
+   "CC": {
+    "diff_mass": 0.0
+   },
+   "RR": {
+    "diff_mass": 0.0
+   }
+  },
+  "whack w1 on (0,none,0) vs (0,strike,0)": {
+   "CC": {
+    "diff_mass": 0.4969530279376479
+   },
+   "RR": {
+    "diff_mass": 0.0
+   }
+  },
+  "whack w1 on (1/2,none,0) vs (1/2,strike,0)": {
+   "CC": {
+    "diff_mass": 0.5123641079048393
+   },
+   "RR": {
+    "diff_mass": 0.0
+   }
+  }
+ },
+ "named_states": {
+  "Z": {
+   "state": "(0,none,0) | scab | scab",
+   "arms": {
+    "G-all": {
+     "play": "(0,none) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-cred": {
+     "play": "(0,none) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-cred-whole": {
+     "play": "(0,none) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-asym": {
+     "play": "(0,none) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-recip": {
+     "play": "(0,none) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    }
+   }
+  },
+  "Z_w": {
+   "state": "(0,strike,0) | scab | scab",
+   "arms": {
+    "G-all": {
+     "play": "(0,strike) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-cred": {
+     "play": "(0,strike) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-cred-whole": {
+     "play": "(0,none) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-asym": {
+     "play": "(0,strike) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-recip": {
+     "play": "(0,strike) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    }
+   }
+  },
+  "S": {
+   "state": "(0,none,0) | striker | striker",
+   "arms": {
+    "G-all": {
+     "play": "(0,none) S S",
+     "pay": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": true,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "W1",
+      "gene": "(BOX(s=0) -> work)",
+      "mutant": 52,
+      "du": 0.0,
+      "u": [
+       1.0,
+       0.0,
+       0.0
+      ],
+      "play": "(0,none) W S"
+     }
+    },
+    "G-cred": {
+     "play": "(0,none) S S",
+     "pay": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": true,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "W1",
+      "gene": "(BOX(s=0) -> work)",
+      "mutant": 52,
+      "du": 0.0,
+      "u": [
+       1.0,
+       0.0,
+       0.0
+      ],
+      "play": "(0,none) W S"
+     }
+    },
+    "G-cred-whole": {
+     "play": "(0,none) S S",
+     "pay": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": true,
+     "gene_stable": false,
+     "witness": {
+      "slot": "B",
+      "gene": "(BOX(W1=work) -> wage 1/4)",
+      "mutant": 14,
+      "du": 1.5,
+      "u": [
+       1.5,
+       0.25,
+       0.25
+      ],
+      "play": "(1/4,none) W W"
+     },
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "B",
+      "gene": "(BOX(W1=work) -> wage 1/4)",
+      "mutant": 14,
+      "du": 1.5,
+      "u": [
+       1.5,
+       0.25,
+       0.25
+      ],
+      "play": "(1/4,none) W W"
+     }
+    },
+    "G-asym": {
+     "play": "(0,none) S S",
+     "pay": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": true,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "W1",
+      "gene": "(BOX(s=0) -> work)",
+      "mutant": 52,
+      "du": 0.0,
+      "u": [
+       1.0,
+       0.0,
+       0.0
+      ],
+      "play": "(0,none) W S"
+     }
+    },
+    "G-recip": {
+     "play": "(0,none) S S",
+     "pay": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": true,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "W1",
+      "gene": "(BOX(s=0) -> work)",
+      "mutant": 52,
+      "du": 0.0,
+      "u": [
+       1.0,
+       0.0,
+       0.0
+      ],
+      "play": "(0,none) W S"
+     }
+    }
+   }
+  },
+  "split": {
+   "state": "(0,none,0) | scab | striker",
+   "arms": {
+    "G-all": {
+     "play": "(0,none) W S",
+     "pay": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": true,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "W2",
+      "gene": "(BOX(s=0) -> work)",
+      "mutant": 52,
+      "du": 0.0,
+      "u": [
+       2.0,
+       0.0,
+       0.0
+      ],
+      "play": "(0,none) W W"
+     }
+    },
+    "G-cred": {
+     "play": "(0,none) W S",
+     "pay": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": true,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "W2",
+      "gene": "(BOX(s=0) -> work)",
+      "mutant": 52,
+      "du": 0.0,
+      "u": [
+       2.0,
+       0.0,
+       0.0
+      ],
+      "play": "(0,none) W W"
+     }
+    },
+    "G-cred-whole": {
+     "play": "(0,none) W S",
+     "pay": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": true,
+     "gene_stable": false,
+     "witness": {
+      "slot": "B",
+      "gene": "(BOX(W1=work) -> wage 1/4)",
+      "mutant": 14,
+      "du": 0.5,
+      "u": [
+       1.5,
+       0.25,
+       0.25
+      ],
+      "play": "(1/4,none) W W"
+     },
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "B",
+      "gene": "(BOX(W1=work) -> wage 1/4)",
+      "mutant": 14,
+      "du": 0.5,
+      "u": [
+       1.5,
+       0.25,
+       0.25
+      ],
+      "play": "(1/4,none) W W"
+     }
+    },
+    "G-asym": {
+     "play": "(0,none) W S",
+     "pay": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": true,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "W2",
+      "gene": "(BOX(s=0) -> work)",
+      "mutant": 52,
+      "du": 0.0,
+      "u": [
+       2.0,
+       0.0,
+       0.0
+      ],
+      "play": "(0,none) W W"
+     }
+    },
+    "G-recip": {
+     "play": "(0,none) W S",
+     "pay": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": true,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "W2",
+      "gene": "(BOX(s=0) -> work)",
+      "mutant": 52,
+      "du": 0.0,
+      "u": [
+       2.0,
+       0.0,
+       0.0
+      ],
+      "play": "(0,none) W W"
+     }
+    }
+   }
+  },
+  "F": {
+   "state": "(1/2,none,0) | militant | militant",
+   "arms": {
+    "G-all": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-cred": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-cred-whole": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": false,
+     "witness": {
+      "slot": "B",
+      "gene": "(BOX(W1=work) -> wage 1/4)",
+      "mutant": 308,
+      "du": 0.5,
+      "u": [
+       1.5,
+       0.25,
+       0.25
+      ],
+      "play": "(1/4,none) W W"
+     },
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "B",
+      "gene": "(BOX(W1=work) -> wage 1/4)",
+      "mutant": 308,
+      "du": 0.5,
+      "u": [
+       1.5,
+       0.25,
+       0.25
+      ],
+      "play": "(1/4,none) W W"
+     }
+    },
+    "G-asym": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-recip": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    }
+   }
+  },
+  "F_u": {
+   "state": "(1/2,none,0) | union | union",
+   "arms": {
+    "G-all": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-cred": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-cred-whole": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": false,
+     "witness": {
+      "slot": "B",
+      "gene": "(BOX(W1=work) -> wage 1/4)",
+      "mutant": 308,
+      "du": 0.5,
+      "u": [
+       1.5,
+       0.25,
+       0.25
+      ],
+      "play": "(1/4,none) W W"
+     },
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "B",
+      "gene": "(BOX(W1=work) -> wage 1/4)",
+      "mutant": 308,
+      "du": 0.5,
+      "u": [
+       1.5,
+       0.25,
+       0.25
+      ],
+      "play": "(1/4,none) W W"
+     }
+    },
+    "G-asym": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-recip": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    }
+   }
+  },
+  "I": {
+   "state": "(1/4,none,0) | T0 | T0",
+   "arms": {
+    "G-all": {
+     "play": "(1/4,none) W W",
+     "pay": [
+      1.5,
+      0.25,
+      0.25
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-cred": {
+     "play": "(1/4,none) W W",
+     "pay": [
+      1.5,
+      0.25,
+      0.25
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-cred-whole": {
+     "play": "(1/4,none) W W",
+     "pay": [
+      1.5,
+      0.25,
+      0.25
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-asym": {
+     "play": "(1/4,none) W W",
+     "pay": [
+      1.5,
+      0.25,
+      0.25
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-recip": {
+     "play": "(1/4,none) W W",
+     "pay": [
+      1.5,
+      0.25,
+      0.25
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    }
+   }
+  },
+  "F*": {
+   "state": "(0,none,2) | militant | militant",
+   "arms": {
+    "G-all": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-cred": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-cred-whole": {
+     "play": "(1/4,none) W W",
+     "pay": [
+      1.5,
+      0.25,
+      0.25
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-asym": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-recip": {
+     "play": "(1/2,none) W W",
+     "pay": [
+      1.0,
+      0.5,
+      0.5
+     ],
+     "nash": false,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    }
+   }
+  },
+  "Z_D0": {
+   "state": "(0,none,1) | scab | scab",
+   "arms": {
+    "G-all": {
+     "play": "(0,none) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": false,
+     "witness": {
+      "slot": "W1",
+      "gene": "(BOX(s=0) -> strike)",
+      "mutant": 2,
+      "du": 0.5,
+      "u": [
+       1.0,
+       0.5,
+       0.5
+      ],
+      "play": "(1/2,none) W W"
+     },
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "W1",
+      "gene": "(BOX(s=0) -> strike)",
+      "mutant": 2,
+      "du": 0.5,
+      "u": [
+       1.0,
+       0.5,
+       0.5
+      ],
+      "play": "(1/2,none) W W"
+     }
+    },
+    "G-cred": {
+     "play": "(0,none) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    },
+    "G-cred-whole": {
+     "play": "(0,none) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": false,
+     "witness": {
+      "slot": "W1",
+      "gene": "(BOX(s=0) -> strike)",
+      "mutant": 2,
+      "du": 0.5,
+      "u": [
+       1.0,
+       0.5,
+       0.5
+      ],
+      "play": "(1/2,none) W W"
+     },
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "W1",
+      "gene": "(BOX(s=0) -> strike)",
+      "mutant": 2,
+      "du": 0.5,
+      "u": [
+       1.0,
+       0.5,
+       0.5
+      ],
+      "play": "(1/2,none) W W"
+     }
+    },
+    "G-asym": {
+     "play": "(0,none) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": false,
+     "witness": {
+      "slot": "W1",
+      "gene": "(BOX(s=0) -> strike)",
+      "mutant": 2,
+      "du": 0.5,
+      "u": [
+       1.0,
+       0.5,
+       0.5
+      ],
+      "play": "(1/2,none) W W"
+     },
+     "weak_gene_stable": false,
+     "weak_witness": {
+      "slot": "W1",
+      "gene": "(BOX(s=0) -> strike)",
+      "mutant": 2,
+      "du": 0.5,
+      "u": [
+       1.0,
+       0.5,
+       0.5
+      ],
+      "play": "(1/2,none) W W"
+     }
+    },
+    "G-recip": {
+     "play": "(0,none) W W",
+     "pay": [
+      2.0,
+      0.0,
+      0.0
+     ],
+     "nash": true,
+     "pareto_dominated": false,
+     "gene_stable": true,
+     "witness": null,
+     "weak_gene_stable": true,
+     "weak_witness": null
+    }
+   }
+  }
+ },
+ "gene_stable_scan": {
+  "G-all": {
+   "strict": {
+    "triples": 24470208,
+    "stable": 3886919,
+    "stable_mass": 0.23860169851887864,
+    "stable_nash": 709994,
+    "stable_not_nash": 3176925,
+    "nash_not_stable": 2419016,
+    "stable_dominated": 759149,
+    "stable_dominated_mass": 0.15493516221158254,
+    "stable_by_wage": {
+     "0": 794403,
+     "1/4": 435842,
+     "1/2": 2656674
+    },
+    "dominated_examples": [
+     {
+      "state": "(0,source,0) | striker | striker",
+      "play": "(0,source) S S",
+      "mass": 0.024204970973762764,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,source) W S"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,source) W S"
+       ],
+       [
+        "W1",
+        "(BOX(h=source) -> work)",
+        0.0,
+        "(0,source) W S"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=strike) -> work)",
+        0.0,
+        "(0,source) W S"
+       ]
+      ]
+     },
+     {
+      "state": "(0,source,0) | scab | striker",
+      "play": "(0,source) W S",
+      "mass": 0.024204970973762764,
+      "leaving_genes": [
+       [
+        "W2",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W2",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W2",
+        "(BOX(h=source) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W2",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,source) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,source,0) | striker | scab",
+      "play": "(0,source) S W",
+      "mass": 0.024204970973762764,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W1",
+        "(BOX(h=source) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,source) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | scab | striker",
+      "play": "(0,none) W S",
+      "mass": 0.024204970973762764,
+      "leaving_genes": [
+       [
+        "W2",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W2",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W2",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,none) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | striker | striker",
+      "play": "(0,none) S S",
+      "mass": 0.024204970973762764,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=strike) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(Q* -> work)",
+        0.0,
+        "(0,none) W S"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | striker | scab",
+      "play": "(0,none) S W",
+      "mass": 0.024204970973762764,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,none) W W"
+       ]
+      ]
+     }
+    ]
+   },
+   "weak": {
+    "triples": 24470208,
+    "stable": 3302375,
+    "stable_mass": 0.08410540937733124,
+    "stable_nash": 372450,
+    "stable_not_nash": 2929925,
+    "nash_not_stable": 2756560,
+    "stable_dominated": 225530,
+    "stable_dominated_mass": 0.0006184804658238339,
+    "stable_by_wage": {
+     "0": 392553,
+     "1/4": 412176,
+     "1/2": 2497646
+    },
+    "dominated_examples": [
+     {
+      "state": "(0,source,0) | striker | striker+(BOX(OTHER=strike) -> work)",
+      "play": "(0,source) S W",
+      "mass": 3.735335026815242e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,source,0) | striker | scab+(BOX(OTHER=work) -> strike)",
+      "play": "(0,source) S W",
+      "mass": 3.735335026815242e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker+(BOX(OTHER=strike) -> work) | striker",
+      "play": "(0,none) W S",
+      "mass": 3.735335026815242e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker+(Q* -> work) | striker",
+      "play": "(0,none) W S",
+      "mass": 3.735335026815242e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker | striker+(Q* -> work)",
+      "play": "(0,none) S W",
+      "mass": 3.735335026815242e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker | striker+(BOX(OTHER=strike) -> work)",
+      "play": "(0,none) S W",
+      "mass": 3.735335026815242e-05,
+      "leaving_genes": []
+     }
+    ]
+   }
+  },
+  "G-cred": {
+   "strict": {
+    "triples": 1259712,
+    "stable": 686830,
+    "stable_mass": 0.41463014637146145,
+    "stable_nash": 248897,
+    "stable_not_nash": 437933,
+    "nash_not_stable": 0,
+    "stable_dominated": 132839,
+    "stable_dominated_mass": 0.16426340988300087,
+    "stable_by_wage": {
+     "0": 263468,
+     "1/4": 185074,
+     "1/2": 238288
+    },
+    "dominated_examples": [
+     {
+      "state": "(0,none,0) | striker | scab",
+      "play": "(0,none) S W",
+      "mass": 0.025904273857949536,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,none) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,source,0) | scab | striker",
+      "play": "(0,source) W S",
+      "mass": 0.025904273857949536,
+      "leaving_genes": [
+       [
+        "W2",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W2",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W2",
+        "(BOX(h=source) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W2",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,source) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,source,0) | striker | striker",
+      "play": "(0,source) S S",
+      "mass": 0.025904273857949536,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,source) W S"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,source) W S"
+       ],
+       [
+        "W1",
+        "(BOX(h=source) -> work)",
+        0.0,
+        "(0,source) W S"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=strike) -> work)",
+        0.0,
+        "(0,source) W S"
+       ]
+      ]
+     },
+     {
+      "state": "(0,source,0) | striker | scab",
+      "play": "(0,source) S W",
+      "mass": 0.025904273857949536,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W1",
+        "(BOX(h=source) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,source) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | striker | striker",
+      "play": "(0,none) S S",
+      "mass": 0.025904273857949536,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=strike) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(Q* -> work)",
+        0.0,
+        "(0,none) W S"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | scab | striker",
+      "play": "(0,none) W S",
+      "mass": 0.025904273857949536,
+      "leaving_genes": [
+       [
+        "W2",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W2",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W2",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,none) W W"
+       ]
+      ]
+     }
+    ]
+   },
+   "weak": {
+    "triples": 1259712,
+    "stable": 587142,
+    "stable_mass": 0.25086366498476126,
+    "stable_nash": 161952,
+    "stable_not_nash": 425190,
+    "nash_not_stable": 86945,
+    "stable_dominated": 33151,
+    "stable_dominated_mass": 0.0004969284963009827,
+    "stable_by_wage": {
+     "0": 168507,
+     "1/4": 184579,
+     "1/2": 234056
+    },
+    "dominated_examples": [
+     {
+      "state": "(0,source,0) | striker+(BOX(OTHER=strike) -> work) | striker",
+      "play": "(0,source) W S",
+      "mass": 3.997573126226781e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker+(BOX(OTHER=strike) -> work) | striker",
+      "play": "(0,none) W S",
+      "mass": 3.997573126226781e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker+(Q* -> work) | striker",
+      "play": "(0,none) W S",
+      "mass": 3.997573126226781e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,source,0) | striker | striker+(BOX(OTHER=strike) -> work)",
+      "play": "(0,source) S W",
+      "mass": 3.997573126226781e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker | striker+(BOX(OTHER=strike) -> work)",
+      "play": "(0,none) S W",
+      "mass": 3.997573126226781e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker | striker+(Q* -> work)",
+      "play": "(0,none) S W",
+      "mass": 3.997573126226781e-05,
+      "leaving_genes": []
+     }
+    ]
+   }
+  },
+  "G-cred-whole": {
+   "strict": {
+    "triples": 24470208,
+    "stable": 6474441,
+    "stable_mass": 0.330532272332882,
+    "stable_nash": 399129,
+    "stable_not_nash": 6075312,
+    "nash_not_stable": 5579397,
+    "stable_dominated": 0,
+    "stable_dominated_mass": 0.0,
+    "stable_by_wage": {
+     "0": 399129,
+     "1/4": 6075312,
+     "1/2": 0
+    },
+    "dominated_examples": []
+   },
+   "weak": {
+    "triples": 24470208,
+    "stable": 6474441,
+    "stable_mass": 0.330532272332882,
+    "stable_nash": 399129,
+    "stable_not_nash": 6075312,
+    "nash_not_stable": 5579397,
+    "stable_dominated": 0,
+    "stable_dominated_mass": 0.0,
+    "stable_by_wage": {
+     "0": 399129,
+     "1/4": 6075312,
+     "1/2": 0
+    },
+    "dominated_examples": []
+   }
+  },
+  "G-asym": {
+   "strict": {
+    "triples": 16479936,
+    "stable": 2727008,
+    "stable_mass": 0.24017424769557158,
+    "stable_nash": 545598,
+    "stable_not_nash": 2181410,
+    "nash_not_stable": 1789450,
+    "stable_dominated": 655432,
+    "stable_dominated_mass": 0.15621446605961975,
+    "stable_by_wage": {
+     "0": 614730,
+     "1/4": 308412,
+     "1/2": 1803866
+    },
+    "dominated_examples": [
+     {
+      "state": "(0,source,0) | striker | scab",
+      "play": "(0,source) S W",
+      "mass": 0.024513072616443157,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W1",
+        "(BOX(h=source) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,source) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,source,0) | striker | striker",
+      "play": "(0,source) S S",
+      "mass": 0.024513072616443157,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,source) W S"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,source) W S"
+       ],
+       [
+        "W1",
+        "(BOX(h=source) -> work)",
+        0.0,
+        "(0,source) W S"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=strike) -> work)",
+        0.0,
+        "(0,source) W S"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | scab | striker",
+      "play": "(0,none) W S",
+      "mass": 0.024513072616443157,
+      "leaving_genes": [
+       [
+        "W2",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W2",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W2",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,none) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,source,0) | scab | striker",
+      "play": "(0,source) W S",
+      "mass": 0.024513072616443157,
+      "leaving_genes": [
+       [
+        "W2",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W2",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W2",
+        "(BOX(h=source) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W2",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,source) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | striker | scab",
+      "play": "(0,none) S W",
+      "mass": 0.024513072616443157,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,none) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | striker | striker",
+      "play": "(0,none) S S",
+      "mass": 0.024513072616443157,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=strike) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(Q* -> work)",
+        0.0,
+        "(0,none) W S"
+       ]
+      ]
+     }
+    ]
+   },
+   "weak": {
+    "triples": 16479936,
+    "stable": 2220448,
+    "stable_mass": 0.08439892611073563,
+    "stable_nash": 248011,
+    "stable_not_nash": 1972437,
+    "nash_not_stable": 2087037,
+    "stable_dominated": 196305,
+    "stable_dominated_mass": 0.0006206292654679773,
+    "stable_by_wage": {
+     "0": 261868,
+     "1/4": 285042,
+     "1/2": 1673538
+    },
+    "dominated_examples": [
+     {
+      "state": "(0,source,0) | striker+(BOX(OTHER=strike) -> work) | striker",
+      "play": "(0,source) W S",
+      "mass": 3.782881576611599e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker | striker+(Q* -> work)",
+      "play": "(0,none) S W",
+      "mass": 3.782881576611599e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker | scab+(BOX(OTHER=work) -> strike)",
+      "play": "(0,none) S W",
+      "mass": 3.782881576611599e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,source,0) | striker | scab+(BOX(OTHER=work) -> strike)",
+      "play": "(0,source) S W",
+      "mass": 3.782881576611599e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker+(BOX(OTHER=strike) -> work) | striker",
+      "play": "(0,none) W S",
+      "mass": 3.782881576611599e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker | striker+(BOX(OTHER=strike) -> work)",
+      "play": "(0,none) S W",
+      "mass": 3.782881576611599e-05,
+      "leaving_genes": []
+     }
+    ]
+   }
+  },
+  "G-recip": {
+   "strict": {
+    "triples": 423360,
+    "stable": 246623,
+    "stable_mass": 0.4140710571686627,
+    "stable_nash": 87807,
+    "stable_not_nash": 158816,
+    "nash_not_stable": 0,
+    "stable_dominated": 45014,
+    "stable_dominated_mass": 0.16420691057514655,
+    "stable_by_wage": {
+     "0": 92126,
+     "1/4": 67094,
+     "1/2": 87403
+    },
+    "dominated_examples": [
+     {
+      "state": "(0,source,0) | striker | striker",
+      "play": "(0,source) S S",
+      "mass": 0.026225704223977072,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,source) W S"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,source) W S"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=strike) -> work)",
+        0.0,
+        "(0,source) W S"
+       ],
+       [
+        "W2",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,source) S W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,source,0) | scab | striker",
+      "play": "(0,source) W S",
+      "mass": 0.026225704223977072,
+      "leaving_genes": [
+       [
+        "W2",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W2",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W2",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,source) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | striker | scab",
+      "play": "(0,none) S W",
+      "mass": 0.026225704223977072,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,none) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | scab | striker",
+      "play": "(0,none) W S",
+      "mass": 0.026225704223977072,
+      "leaving_genes": [
+       [
+        "W2",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W2",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W2",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,none) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | striker | striker",
+      "play": "(0,none) S S",
+      "mass": 0.026225704223977072,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=strike) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(Q* -> work)",
+        0.0,
+        "(0,none) W S"
+       ]
+      ]
+     },
+     {
+      "state": "(0,source,0) | striker | scab",
+      "play": "(0,source) S W",
+      "mass": 0.026225704223977072,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,source) W W"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,source) W W"
+       ]
+      ]
+     }
+    ]
+   },
+   "weak": {
+    "triples": 423360,
+    "stable": 214349,
+    "stable_mass": 0.2503038287015467,
+    "stable_nash": 59619,
+    "stable_not_nash": 154730,
+    "nash_not_stable": 28188,
+    "stable_dominated": 12740,
+    "stable_dominated_mass": 0.0004396821080306217,
+    "stable_by_wage": {
+     "0": 62129,
+     "1/4": 66523,
+     "1/2": 85697
+    },
+    "dominated_examples": [
+     {
+      "state": "(0,none,0) | striker | striker+(BOX(OTHER=strike) -> work)",
+      "play": "(0,none) S W",
+      "mass": 4.0471765777742405e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker | striker+(Q* -> work)",
+      "play": "(0,none) S W",
+      "mass": 4.0471765777742405e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker+(Q* -> work) | striker",
+      "play": "(0,none) W S",
+      "mass": 4.0471765777742405e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,source,0) | striker+(BOX(OTHER=strike) -> work) | striker",
+      "play": "(0,source) W S",
+      "mass": 4.0471765777742405e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,source,0) | striker | striker+(BOX(OTHER=strike) -> work)",
+      "play": "(0,source) S W",
+      "mass": 4.0471765777742405e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker+(BOX(OTHER=strike) -> work) | striker",
+      "play": "(0,none) W S",
+      "mass": 4.0471765777742405e-05,
+      "leaving_genes": []
+     }
+    ]
+   }
+  },
+  "G-recip-ctl": {
+   "strict": {
+    "triples": 141120,
+    "stable": 105580,
+    "stable_mass": 0.5036117276183765,
+    "stable_nash": 43610,
+    "stable_not_nash": 61970,
+    "nash_not_stable": 0,
+    "stable_dominated": 24305,
+    "stable_dominated_mass": 0.25085176325056346,
+    "stable_by_wage": {
+     "0": 43610,
+     "1/4": 26600,
+     "1/2": 35370
+    },
+    "dominated_examples": [
+     {
+      "state": "(0,none,0) | striker | striker",
+      "play": "(0,none) S S",
+      "mass": 0.0786771126719312,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=strike) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(Q* -> work)",
+        0.0,
+        "(0,none) W S"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | striker | scab",
+      "play": "(0,none) S W",
+      "mass": 0.0786771126719312,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,none) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | scab | striker",
+      "play": "(0,none) W S",
+      "mass": 0.0786771126719312,
+      "leaving_genes": [
+       [
+        "W2",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W2",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W2",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,none) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | T0-union | scab",
+      "play": "(0,none) S W",
+      "mass": 0.0007867711267193128,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,none) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | tagged militant | scab",
+      "play": "(0,none) S W",
+      "mass": 0.0007867711267193128,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W W"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=work) -> work)",
+        0.0,
+        "(0,none) W W"
+       ]
+      ]
+     },
+     {
+      "state": "(0,none,0) | T0-union | striker",
+      "play": "(0,none) S S",
+      "mass": 0.0007867711267193128,
+      "leaving_genes": [
+       [
+        "W1",
+        "(BOX(s=0) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(BOX(s<=1/4) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(BOX(OTHER=strike) -> work)",
+        0.0,
+        "(0,none) W S"
+       ],
+       [
+        "W1",
+        "(Q* -> work)",
+        0.0,
+        "(0,none) W S"
+       ]
+      ]
+     }
+    ]
+   },
+   "weak": {
+    "triples": 141120,
+    "stable": 85675,
+    "stable_mass": 0.2536903661387239,
+    "stable_nash": 24845,
+    "stable_not_nash": 60830,
+    "nash_not_stable": 18765,
+    "stable_dominated": 4400,
+    "stable_dominated_mass": 0.0009304017709109891,
+    "stable_by_wage": {
+     "0": 24845,
+     "1/4": 26460,
+     "1/2": 34370
+    },
+    "dominated_examples": [
+     {
+      "state": "(0,none,0) | striker+(Q* -> work) | striker",
+      "play": "(0,none) W S",
+      "mass": 0.00012141529733322717,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker | striker+(Q* -> work)",
+      "play": "(0,none) S W",
+      "mass": 0.00012141529733322717,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker | striker+(BOX(OTHER=strike) -> work)",
+      "play": "(0,none) S W",
+      "mass": 0.00012141529733322717,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker+(BOX(OTHER=strike) -> work) | striker",
+      "play": "(0,none) W S",
+      "mass": 0.00012141529733322717,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker | tagged militant+(BOX(OTHER=strike) -> work)",
+      "play": "(0,none) S W",
+      "mass": 2.1854753519980883e-05,
+      "leaving_genes": []
+     },
+     {
+      "state": "(0,none,0) | striker | tagged militant+(Q* -> work)",
+      "play": "(0,none) S W",
+      "mass": 2.1854753519980883e-05,
+      "leaving_genes": []
+     }
+    ]
+   }
+  }
+ },
+ "sg_hand": {
+  "Z_D0": {
+   "B": [
+    {
+     "gene": "(BOX(W1=work) -> wage 0)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(W2=work) -> wage 0)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    }
+   ],
+   "W1": [
+    {
+     "gene": "(BOX(s=0) -> strike)",
+     "du": 0.5,
+     "kind": "strict",
+     "play": "(1/2,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(s<=1/4) -> strike)",
+     "du": 0.5,
+     "kind": "strict",
+     "play": "(1/2,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(OTHER=work) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    }
+   ],
+   "W2": [
+    {
+     "gene": "(BOX(s=0) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(s<=1/4) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(OTHER=work) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    }
+   ]
+  },
+  "Z": {
+   "B": [
+    {
+     "gene": "(BOX(W1=work) -> wage 0)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(W2=work) -> wage 0)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    }
+   ],
+   "W1": [
+    {
+     "gene": "(BOX(s=0) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(s<=1/4) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(OTHER=work) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    }
+   ],
+   "W2": [
+    {
+     "gene": "(BOX(s=0) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(s<=1/4) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(OTHER=work) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) W W",
+     "whack": false
+    }
+   ]
+  },
+  "S": {
+   "B": [
+    {
+     "gene": "(BOX(W1=strike) -> wage 0)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(W2=strike) -> wage 0)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    },
+    {
+     "gene": "(P1(0) -> wage 0)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    },
+    {
+     "gene": "(P2(0) -> wage 0)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    },
+    {
+     "gene": "(P1(1/4) -> wage 0)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    },
+    {
+     "gene": "(P2(1/4) -> wage 0)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    }
+   ],
+   "W1": [
+    {
+     "gene": "(BOX(s=0) -> strike)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(s<=1/4) -> strike)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(OTHER=strike) -> strike)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    },
+    {
+     "gene": "(Q* -> strike)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    }
+   ],
+   "W2": [
+    {
+     "gene": "(BOX(s=0) -> strike)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(s<=1/4) -> strike)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(OTHER=strike) -> strike)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    },
+    {
+     "gene": "(Q* -> strike)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(0,none) S S",
+     "whack": false
+    }
+   ]
+  },
+  "F": {
+   "B": [
+    {
+     "gene": "(BOX(W1=work) -> wage 1/4)",
+     "du": 0.5,
+     "kind": "strict",
+     "play": "(1/4,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(W2=work) -> wage 1/4)",
+     "du": 0.5,
+     "kind": "strict",
+     "play": "(1/4,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(P1(0) -> wage 1/4)",
+     "du": 0.5,
+     "kind": "strict",
+     "play": "(1/4,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(P2(0) -> wage 1/4)",
+     "du": 0.5,
+     "kind": "strict",
+     "play": "(1/4,none) W W",
+     "whack": false
+    }
+   ],
+   "W1": [
+    {
+     "gene": "(BOX(s=1/2) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(1/2,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(OTHER=work) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(1/2,none) W W",
+     "whack": false
+    }
+   ],
+   "W2": [
+    {
+     "gene": "(BOX(s=1/2) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(1/2,none) W W",
+     "whack": false
+    },
+    {
+     "gene": "(BOX(OTHER=work) -> work)",
+     "du": 0.0,
+     "kind": "conservative",
+     "play": "(1/2,none) W W",
+     "whack": false
+    }
+   ]
+  }
+ }
+}
