@@ -517,3 +517,8 @@ script. The wildcard screen (§1.11) still uses the single-entry unit (it ignore
 so it is an upper bound for x' as well). The single-pair tables are rerun with the revised check; the first table is
 reported beside them. Tests: `test_full_quote_check_lets_a_prudent_copier_adopt` (CBP copies CBPh's script from
 encounter 2, (C, C) at encounter 3) and the LöbC instance, where the revised check refuses δ.
+
+*Validation rerun under §1.15 (before any population cell):* static build 17,391 units (11,362 reachable), 29 scripts,
+25.5 M host checks, 1,027 s; plays 1,300/1,300 and encounters **750/750** equal to the tables (the earlier single
+disagreement was resolved by the TO-aware signatures); productions 23,840 representatives, 0 disagreements where the
+term finishes, 3,898 cap timeouts; executable = ideal on 500 compared checks; adoption check median 19,443 steps.
