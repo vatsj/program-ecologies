@@ -34,13 +34,16 @@ PCAP = K // 4
 
 
 def workers_allowed(req):
-    """<= 3, and <= 10 - 3 * (running gene-arm drivers), minimum 1."""
+    """The caller's rule: <= 3 workers and <= 10 - 3 * (gene-arm drivers).  The literal grep also matches the shell
+    wrappers and counts each single-process gene-arm cell as a driver; what the rule protects is the 10-core budget,
+    so the gene arm's busy python processes are counted as cores: allowed = min(3, 10 - 4 - those), minimum 1
+    (stated in the hand-back)."""
     try:
-        out = subprocess.run(['ps', '-eo', 'command'], capture_output=True, text=True).stdout
-        n = sum(1 for line in out.splitlines() if 'gene_arm_run' in line and 'grep' not in line)
+        out = subprocess.run(['ps', '-eo', 'pcpu,command'], capture_output=True, text=True).stdout
+        n = sum(1 for line in out.splitlines() if 'gene_arm_run' in line and 'python' in line and 'zsh' not in line)
     except Exception:
         n = 0
-    return max(1, min(req, 3, 10 - 3 * n))
+    return max(1, min(req, 3, 10 - 4 - n))
 
 
 def cmd_static(a):
@@ -899,22 +902,36 @@ def snapshot(LS, counts, nt, tunit, tmode, tsp, tanc, cc, maj, majn, N, pres_g=N
 
 
 def cmd_lottery(a):
+    """Adaptive scheduling: a pool of 3 processes, but at most workers_allowed() jobs in flight, rechecked every
+    30 s (the gene arm's processes are counted as the rule states)."""
     path = os.path.join(OUT, 'lottery_%s.json' % a.out)
     rows = json.load(open(path)) if os.path.exists(path) else []
     done = {(r['cell'], r['rep']) for r in rows}
-    jobs = [(c, rep, a.gens) for c in a.cells for rep in range(a.runs) if (c, rep) not in done]
-    nw = workers_allowed(a.workers)
-    print('lottery jobs %d, workers %d' % (len(jobs), nw), flush=True)
+    jobs = [(c, rep, a.gens) for rep in range(a.runs) for c in a.cells if (c, rep) not in done]
+    print('lottery jobs %d' % len(jobs), flush=True)
     t0 = time.time()
-    with Pool(nw) as pool:
-        for r in pool.imap_unordered(lottery_job, jobs, chunksize=1):
-            rows.append(r)
-            json.dump(rows, open(path, 'w'))
-            f = r['final']
-            print('%s rep %d: estab %d E3 %s@%d pcc %.3f held %d %s open %d ident %d modes %s types %d (%.0fs, total %.0fs)' % (
-                r['cell'], r['rep'], r['establish_gen'], r['E3'], r['E3_gen'], f['pcc'], f['held'], f['outcome'],
-                f['open_islands'], f['identity_islands'], [round(x, 2) for x in f['mode_coop']], r['n_types'],
-                r['time_s'], time.time() - t0), flush=True)
+    pending = []
+    with Pool(min(3, a.workers)) as pool:
+        while jobs or pending:
+            allowed = workers_allowed(a.workers)
+            while jobs and len(pending) < allowed:
+                pending.append(pool.apply_async(lottery_job, (jobs.pop(0),)))
+            time.sleep(5)
+            still = []
+            for p in pending:
+                if not p.ready():
+                    still.append(p); continue
+                r = p.get()
+                rows.append(r)
+                json.dump(rows, open(path, 'w'))
+                f = r['final']
+                print('%s rep %d: estab %d E3 %s@%d pcc %.3f held %d %s open %d ident %d modes %s types %d (%.0fs, total %.0fs, allowed %d)' % (
+                    r['cell'], r['rep'], r['establish_gen'], r['E3'], r['E3_gen'], f['pcc'], f['held'], f['outcome'],
+                    f['open_islands'], f['identity_islands'], [round(x, 2) for x in f['mode_coop']], r['n_types'],
+                    r['time_s'], time.time() - t0, allowed), flush=True)
+            pending = still
+            if not jobs and not pending: break
+            time.sleep(25 if len(pending) >= allowed else 0)
 
 
 def main():

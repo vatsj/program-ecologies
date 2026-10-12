@@ -59,8 +59,10 @@ def pairs_tables(rows, rule='lack'):
         if st != 'CH' or x == y: continue
         hh = idx.get((x, y, 'HH'))
         if hh is None or hh['encs'][0]['act'] != 'CC': continue
-        edge = any(a == 'C' and how == 'copy' for a, s_, how in r['encs'][0]['adx'])
-        coop2 = r['encs'][1]['act'] == 'CC'
+        edge = any(a == 'C' and how == 'copy' for e in r['encs'][:2] for a, s_, how in e['adx'])
+        coop2 = any(e['act'] == 'CC' for e in r['encs'][1:3])
+        if r['encs'][0]['act'] == 'CC':
+            continue                       # cooperating without any certificate transfer
         if edge:
             on += 1; on_ok += coop2
             if not coop2: ex_on.append((x, y))
@@ -164,15 +166,19 @@ def lottery_tables(rows):
         oc = defaultdict(int)
         for f in fin: oc[f['outcome']] += 1
         uo = sum(1 for f in fin if f['universal_open'])
-        modes = {s: np.mean([r['snaps'][str(s)]['mode_coop'] for r in rs if str(s) in r['snaps']], axis=0).tolist()
-                 for s in (10, 50, 200, 1000, 2000) if any(str(s) in r['snaps'] for r in rs)}
+        modes = {}
+        for s_ in (10, 50, 200, 1000, 2000):
+            ms = [r['snaps'][str(s_)]['mode_coop'] for r in rs if str(s_) in r['snaps'] and sum(r['snaps'][str(s_)]['mode_coop']) > 0]
+            if ms: modes[s_] = dict(mean=np.mean(ms, axis=0).tolist(), runs=len(ms))
+        times = [e for e in est if e >= 0]
         ctr = np.sum([r['ctr'] for r in rs], axis=0)
         steps = np.sum([r['steps_mode'] for r in rs], axis=0)
         enc = ctr[:, 0]
         per_match = (steps / np.maximum(enc, 1)).tolist()
         pers = [r['persistence'] for r in rs if r.get('persistence') is not None]
         out[c] = dict(
-            runs=n, established=ne, est_ci=wilson(ne, n), est_median=med, est_q25=q25,
+            runs=n, established=ne, est_ci=wilson(ne, n), est_median=med, est_q25=q25, est_mean_established=float(np.mean(times)) if times else None,
+            E3_gen_median=float(np.median([r['E3_gen'] for r in rs if r['E3'] == 'success'])) if e3 else None,
             E3_success=e3, E3_fail=e3f, E3_ci=wilson(e3, n),
             outcomes=dict(oc), universal_open=uo, uo_ci=wilson(uo, n),
             pcc=float(np.mean([f['pcc'] for f in fin])), held=float(np.mean([f['held'] for f in fin])),
