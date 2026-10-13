@@ -2363,6 +2363,117 @@
    "seeded_only_self_per_run": 230.55,
    "time_s_mean": 15.30590078830719,
    "extended_runs": 5
+  },
+  "Sgate": {
+   "censored": 0,
+   "runs": 40,
+   "established": 40,
+   "E3": {
+    "success": 40,
+    "fail": 0,
+    "censored": 0
+   },
+   "outcome": {
+    "universal": 24,
+    "patchwork": 16,
+    "unheld": 0
+   },
+   "universal_open": 24,
+   "universal_open_wilson": [
+    0.445956198273935,
+    0.7365188938759863
+   ],
+   "pcc": 0.9878955176767675,
+   "identity_islands": 0.171875,
+   "spo_islands": 0.00234375,
+   "open_islands": 0.8,
+   "cross_pcc": 0.860189582093254,
+   "runs_with_identity_island": 12,
+   "persistence": 0.96953125,
+   "establish_median": 30,
+   "establish_mean_established": 26.75,
+   "spo_fraction_held": 0.2900706941713217,
+   "search_fraction_held": 1.0,
+   "spo_instances_by_rule": {
+    "S-gate+cache": 111073
+   },
+   "spo_produced": 21995,
+   "spo_copied": 0,
+   "spo_by_nonself_production": 0,
+   "ident_entries": 400,
+   "spo_unit_entries": 3578,
+   "n_quotes": 3.9,
+   "n_spellings": 3.875,
+   "rule_coop": {
+    "S-gate+cache": 1.0
+   },
+   "rule_all": {
+    "S-gate+cache": 1.0
+   },
+   "group_ever_held": [
+    12,
+    1,
+    40
+   ],
+   "seeded_Q_per_run": 4.525,
+   "seeded_only_self_per_run": 22.575,
+   "time_s_mean": 739.466640907526
+  },
+  "Sgate@10000": {
+   "censored": 6,
+   "runs": 34,
+   "established": 34,
+   "E3": {
+    "success": 34,
+    "fail": 0,
+    "censored": 0
+   },
+   "outcome": {
+    "universal": 24,
+    "patchwork": 10,
+    "unheld": 0
+   },
+   "universal_open": 24,
+   "universal_open_wilson": [
+    0.5383077411853625,
+    0.8316554739006805
+   ],
+   "pcc": 0.9916722370766489,
+   "identity_islands": 0.12270220588235294,
+   "spo_islands": 0.0027573529411764708,
+   "open_islands": 0.8671875,
+   "cross_pcc": 0.9039799136321195,
+   "runs_with_identity_island": 8,
+   "persistence": 0.9765625,
+   "establish_median": 30,
+   "establish_mean_established": 26.470588235294116,
+   "spo_fraction_held": 0.27774384543471486,
+   "search_fraction_held": 1.0,
+   "spo_instances_by_rule": {
+    "S-gate+cache": 89128
+   },
+   "spo_produced": 18482,
+   "spo_copied": 0,
+   "spo_by_nonself_production": 0,
+   "ident_entries": 337,
+   "spo_unit_entries": 3040,
+   "n_quotes": 3.9705882352941178,
+   "n_spellings": 3.9411764705882355,
+   "rule_coop": {
+    "S-gate+cache": 1.0
+   },
+   "rule_all": {
+    "S-gate+cache": 1.0
+   },
+   "group_ever_held": [
+    8,
+    1,
+    34
+   ],
+   "seeded_Q_per_run": 4.264705882352941,
+   "seeded_only_self_per_run": 22.205882352941178,
+   "time_s_mean": 552.1016527344199,
+   "extended_runs": 6
   }
  },
  "costs": {
@@ -6887,6 +6998,206 @@
      0
     ]
    }
+  },
+  "Sgate": {
+   "S-gate+cache": {
+    "per_match_steps": 15363.10547301338,
+    "enc_exp": 67398400000.0,
+    "futile_enc": 0.0,
+    "futile_share": 0.0,
+    "C_attempts": 308476684,
+    "C_ok": 247064,
+    "C_capTO": 7002827,
+    "C_none": 232227331,
+    "capTO_share": 0.02270131703049557,
+    "D_attempts": 2648148417,
+    "AC": 0,
+    "AC_ok": 0,
+    "skip_self": 0,
+    "delay_skip": 0,
+    "windows": {
+     "closed_k": 0,
+     "closed_deadline": 0,
+     "safeguard": 0,
+     "fallback": 0,
+     "strict_cleared": 0,
+     "cleared_no_admissible": 0,
+     "candidates": 0,
+     "spo_kept_safeguard": 0,
+     "spo_kept_fallback": 0
+    },
+    "gate": {
+     "lookups": 67398400000,
+     "hits": 3705397677,
+     "misses": 63693002323,
+     "gate_T": 63384525639,
+     "gate_TO": 5620964,
+     "stores": 308041545,
+     "hit_timeout": 137740920,
+     "hit_rejected": 3567656757,
+     "invalidations": 353758,
+     "overflow": 188075,
+     "appends": 247064
+    },
+    "producers": {
+     "incapable": {
+      "producers": 11274908,
+      "acquired": 0,
+      "censored_death": 11274803,
+      "never_by_horizon": 105,
+      "never_by_horizon_share": 9.312714569378305e-06,
+      "wait_ge20": 0,
+      "wait_ge20_share": 0.0,
+      "near_monoclonal": 981561,
+      "wait_ge20_mono": 0,
+      "wait_ge20_mono_share": 0.0,
+      "acq_enc_median_bin": null,
+      "acq_enc_hist": [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      "wait_hist": [
+       11164157,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     },
+     "capable": {
+      "producers": 11403194,
+      "acquired": 162661,
+      "censored_death": 11240533,
+      "never_by_horizon": 0,
+      "never_by_horizon_share": 0.0,
+      "wait_ge20": 0,
+      "wait_ge20_share": 0.0,
+      "near_monoclonal": 936932,
+      "wait_ge20_mono": 0,
+      "wait_ge20_mono_share": 0.0,
+      "acq_enc_median_bin": [
+       1,
+       2
+      ],
+      "acq_enc_hist": [
+       0,
+       127761,
+       10480,
+       10377,
+       7830,
+       2334,
+       1948,
+       1141,
+       631,
+       156,
+       3,
+       0,
+       0,
+       0
+      ],
+      "wait_hist": [
+       11291549,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     }
+    },
+    "acq_steps_median": 22387.21138568338,
+    "acq_steps_hist": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     345,
+     0,
+     127041,
+     288,
+     5976,
+     4160,
+     4145,
+     6912,
+     2623,
+     2504,
+     1326,
+     1247,
+     821,
+     1586,
+     1053,
+     741,
+     638,
+     544,
+     400,
+     146,
+     88,
+     39,
+     17,
+     9,
+     10,
+     2,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
   }
  },
  "stages": {
@@ -7571,6 +7882,37 @@
    },
    "seeded_Q_per_run": 0.0,
    "seeded_only_self_per_run": 230.55
+  },
+  "Sgate": {
+   "identity": {
+    "entries": 400,
+    "runs_ever_held": 12,
+    "runs_held_at_end": 12,
+    "islands_at_end": 440,
+    "islands_per_entry": 1.1,
+    "first_gen_median": 30.0,
+    "max_islands_mean": 11.55
+   },
+   "spo": {
+    "entries": 3578,
+    "runs_ever_held": 1,
+    "runs_held_at_end": 1,
+    "islands_at_end": 6,
+    "islands_per_entry": 0.0016769144773616546,
+    "first_gen_median": 20.0,
+    "max_islands_mean": 0.15
+   },
+   "open": {
+    "entries": null,
+    "runs_ever_held": 40,
+    "runs_held_at_end": 40,
+    "islands_at_end": 2048,
+    "islands_per_entry": null,
+    "first_gen_median": 30.0,
+    "max_islands_mean": 52.65
+   },
+   "seeded_Q_per_run": 4.525,
+   "seeded_only_self_per_run": 22.575
   }
  },
  "holders": {
@@ -8497,6 +8839,48 @@
     "if(or(not(CHK(them,me,C)),CHK(me,^D,C)),D,C)",
     76
    ]
+  ],
+  "Sgate": [
+   [
+    "if(or(CHK(me,me,D),CHK(me,them,D)),D,C)",
+    159
+   ],
+   [
+    "if(and(CHK(them,^D,D),CHK(them,me,C)),C,D)",
+    130
+   ],
+   [
+    "if(and(CHK(them,them,C),CHK(them,me,C)),C,D)",
+    129
+   ],
+   [
+    "if(not(or(CHK(me,me,D),CHK(me,them,D))),C,D)",
+    100
+   ],
+   [
+    "if(CHK(them,them,C),if(CHK(them,^C,D),C,D),D)",
+    88
+   ],
+   [
+    "if(or(CHK(me,^C,C),not(CHK(them,me,C))),D,C)",
+    73
+   ],
+   [
+    "if(and(CHK(them,me,C),CHK(them,^C,D)),C,D)",
+    64
+   ],
+   [
+    "if(CHK(them,me,C),C,D)",
+    63
+   ],
+   [
+    "if(and(not(CHK(me,me,D)),CHK(me,them,D)),D,C)",
+    57
+   ],
+   [
+    "if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)",
+    56
+   ]
   ]
  },
  "contrasts": {
@@ -8764,6 +9148,44 @@
    "ident_diff_ci": [
     -0.01875,
     0.1296875
+   ]
+  },
+  "Sgate - Sself": {
+   "n": 40,
+   "A_univ": 24,
+   "B_univ": 22,
+   "discordant_A_only": 9,
+   "discordant_B_only": 7,
+   "mcnemar_p": 0.803619384765625,
+   "univ_diff_runs": 2,
+   "univ_diff_mean": 0.05,
+   "univ_diff_ci": [
+    -0.15,
+    0.25
+   ],
+   "ident_diff_mean": 0.036328125,
+   "ident_diff_ci": [
+    -0.069921875,
+    0.145703125
+   ]
+  },
+  "Sgate - Snon": {
+   "n": 40,
+   "A_univ": 24,
+   "B_univ": 28,
+   "discordant_A_only": 4,
+   "discordant_B_only": 8,
+   "mcnemar_p": 0.3876953125,
+   "univ_diff_runs": -4,
+   "univ_diff_mean": -0.1,
+   "univ_diff_ci": [
+    -0.275,
+    0.075
+   ],
+   "ident_diff_mean": 0.1234375,
+   "ident_diff_ci": [
+    0.0265625,
+    0.223828125
    ]
   },
   "H - Snon": {
