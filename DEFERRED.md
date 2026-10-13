@@ -510,3 +510,35 @@ REJECTED.md the ones we dropped.
   that the social organization game's existence turns on strike credibility; whether it reads the gene arm's
   finding (credibility filters act only on stage-1 wage fakers) as the renegotiation-proofness point; whether the
   prudent open core is the extensional-side remedy it would propose for the shadow.
+- *Corrections from the claude.ai session (2026-10-13, after talking with the RS), logged at its request:* RETRACT (iv):
+  the shadow is a mutation phenomenon (ALLC is neutral in a reciprocator world and needs a regenerating source); a
+  static f specifies off-path responses explicitly (f(D) = D vs f(D) = C), so reciprocation and ALLC are different
+  objects and nothing drifts; the notion's clique shelter is real (identity is inexpressible) and the question is
+  only what that costs against the realizable language with `eq`. NARROW (i): the folk-theorem worry holds only for
+  a weak credibility clause; the RS's old "attempt 2" (a deviation must weakly Pareto-improve the deviators both
+  before and after the complement responds) beat it ordinally (PD survives, chicken dies) and broke only when
+  deviations became programs (a program-deviator can rig the pre-response reference point); in action-land that
+  loophole is closed. On (ii): circular-in-f is the right reading (a threat is credible iff carrying it out is what f
+  prescribes at the subprofile the deviation creates), a fixed point in f of the same shape as vNM internal/external
+  stability, which ties (ii) to (iii); the RS is open to stable sets as a candidate notion for defining contracts:
+  the static notion as the menu, the ecology as the selector where they are multiple.
+- *Its answers to the RE's questions:* Q1 chicken: no equilibrium; characterization: leader value v(S) = max over
+  commitments of S's payoff given the complement's f-response, recursively; an equilibrium exists iff some
+  Pareto-efficient profile gives every coalition ≥ v(S) (the core of the leader-value game is nonempty); chicken
+  empty, PD contains (C, C); with individual best-reply responses this is the γ-core (Chander–Tulkens 1997), with
+  coalitional credible responses closer to Ray–Vohra; `ROLE` does not rescue chicken; SOG existence turns on whether
+  v(union) under a credible strike exceeds its fair-wage payoff. Q2: the gene arm contains three facts to keep
+  separate: (a) untested threats deter = on-path invisibility, the shadow's root, not renegotiation-proofness; (b)
+  the filter removing wage fakers but not threats = the RP point; (c) ex-post rationality on both sides shrinking
+  the set to the smallest positive wage = credibility binding, like Farrell–Maskin weak RP. Q3: the prudent open
+  core is the remedy it would propose (PrudentBot as drift-plug, anticipated by REJECTED's non-exclusivity entry;
+  it tests the threat on the shadow itself), with two caveats: its advantage is a finite subsidy at ε = 0 (seeded
+  suckers carry deadweight loss, to be stated in efficiency evaluations), and the sucker test is a third-party
+  probe, fakeable unless certificate-based; the alternative is a standing defector fringe (the modal arm's 0.99 at
+  finite εN): prudence when the shadow is the exit, the fringe when the faker is.
+- *RE (2026-10-13):* the leader-value core computed over the catalogue in `notes/leader-value-core.md`: exists and
+  unique in the PD ((C, C)); empty in chicken, hawk–dove, two-player divide-the-dollar and three-player majority
+  division; in the social organization game's one-shot normal form it exists only at the boss's leader wage (0, or
+  ¼ with ties against the leader), because a one-shot strike has no leader value: the fair wage needs a contingent
+  commitment, which is a gene, not an action. Operating hypothesis unchanged: the static notion is the menu, the
+  ecology the selector. The three gene-arm facts are kept separate in the write-up from here on.
