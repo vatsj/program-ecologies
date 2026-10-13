@@ -1100,10 +1100,21 @@ def summarize(run, ev_sham=None, horizon=2000, rng=None):
     RS = RunStats(run)
     I = run.I
     out = {}
-    fairany = RS.fair.any(axis=1)
-    est = int(np.argmax(fairany)) if fairany.any() else -1
+    # establishment (notes §1.8): the first check (every 10 generations; snapshot 0, the founders, is not a check) at
+    # which some island is fair; also the realizable run's definition (the end of the first 10-check fair window)
+    fairany = RS.fair[1:].any(axis=1)
+    est = int(np.argmax(fairany)) + 1 if fairany.any() else -1
     out['established'] = bool(fairany.any())
     out['est_gen'] = est * CHECK_EVERY if est >= 0 else None
+    out['fair_at_founding'] = int(RS.fair[0].sum())
+    wend = None
+    for c in range(10, RS.nck):
+        w = RS.fair[c - 9:c + 1].all(axis=0)
+        if w.any():
+            wend = c; break
+    out['established_window'] = wend is not None
+    out['est_gen_window'] = wend * CHECK_EVERY if wend is not None else None
+    out['fair_mask'] = [int(sum(1 << i for i in range(I) if RS.fair[c, i])) for c in range(RS.nck)]
     for tag, g in (('h', horizon), ('end', (RS.nck - 1) * CHECK_EVERY)):
         ci = RS.at_gen(g)
         out[tag] = dict(gen=ci * CHECK_EVERY, persistence=float(RS.fair[ci].mean()),

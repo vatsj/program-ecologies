@@ -67,6 +67,10 @@ def cell_stats(name, reps, rng):
     prod = [s['h']['prodeff'] for s in S]
     out = dict(n=n, established=sum(est), established_ci=wilson(sum(est), n),
                est_gen_median=float(np.median(eg)) if eg else None, est_gen_by_200=sum(1 for g in eg if g <= 200),
+               established_window=sum(1 for s in S if s.get('established_window')),
+               est_gen_window_median=float(np.median([s['est_gen_window'] for s in S if s.get('est_gen_window') is not None]))
+               if any(s.get('est_gen_window') is not None for s in S) else None,
+               fair_at_founding=float(np.mean([s.get('fair_at_founding', 0) for s in S])),
                persistence=float(np.mean(pers)), persistence_ci=boot(pers, rng),
                persistence_runs_ge_half=sum(1 for p in pers if p >= 0.5), persistence_runs_zero=sum(1 for p in pers if p == 0),
                wage_shares=wages.mean(0).tolist(), zero_wage=float(wages[:, 0].mean()), zero_wage_ci=boot(wages[:, 0], rng),
@@ -217,13 +221,14 @@ def main():
          'w = 0.3, horizon 2,000 (the 10,000 extension a separate column), 40 runs per main cell; ε = 0 evidence at finite '
          '(N, I, horizon). Intervals: Wilson (runs), bootstrap over runs (island fractions).', '',
          '## Cells', '',
-         '| cell | runs | established | median est. gen | persistence (2,000) | runs ≥ ½ / = 0 | zero wage | ¼ wage | plurality 0/¼/½ | prod. eff. | persistence (10,000) |',
-         '|---|---|---|---|---|---|---|---|---|---|---|']
+         '| cell | runs | established (first fair check) | median est. gen | established (10-check window) | median window end | persistence (2,000) | runs ≥ ½ / = 0 | zero wage | ¼ wage | plurality 0/¼/½ | prod. eff. | persistence (10,000) |',
+         '|---|---|---|---|---|---|---|---|---|---|---|---|---|']
     for c in CELLS:
         s = cells.get(c)
         if not s: continue
-        L.append('| %s | %d | %d %s | %s | %s %s | %d / %d | %s | %s | %d/%d/%d | %s | %s |' % (
-            c, s['n'], s['established'], fmt(s['established_ci']), fmt(s['est_gen_median'], 0), fmt(s['persistence']),
+        L.append('| %s | %d | %d %s | %s | %d | %s | %s %s | %d / %d | %s | %s | %d/%d/%d | %s | %s |' % (
+            c, s['n'], s['established'], fmt(s['established_ci']), fmt(s['est_gen_median'], 0), s['established_window'],
+            fmt(s['est_gen_window_median'], 0), fmt(s['persistence']),
             fmt(s['persistence_ci']), s['persistence_runs_ge_half'], s['persistence_runs_zero'], fmt(s['zero_wage']),
             fmt(s['quarter_wage']), s['plurality']['0'], s['plurality']['1/4'], s['plurality']['1/2'], fmt(s['prodeff']),
             fmt(s['ext']['persistence']) + ' (n=%d)' % s['ext']['n'] if 'ext' in s else '–'))

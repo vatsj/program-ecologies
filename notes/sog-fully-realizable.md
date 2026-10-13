@@ -519,6 +519,13 @@ the run driver, statistics, cells, assays), `src/sog_full_report.py`, `tests/tes
    compositions and counters).
 6. **Production rows are not prefilled**; the kernel fills them on demand (a miss costs a fill and a resume).
 7. **Correction to §1.3:** U_eq has 7 nodes (mass 3.99·10⁻⁴ in the eq grammar), not 6; XM has 6 (7.99·10⁻⁴).
+8. **Establishment, clarified after the first two counted runs (both discarded and rerun).** The founders' snapshot
+   (generation 0) is not a check: §1.8's "first check (every 10 generations)" starts at generation 10. The two first
+   S-nonself₃ + eq runs showed that a seeded island's *modal* play is often fair at founding (3 of 4 islands in a
+   smoke run; the plurality of a diverse island's encounters is frequently (½; W, W)), so the first-fair-check
+   definition is nearly trivial. It is kept as the scored definition (it is the spec's), and the realizable run's
+   definition (the end of the first window of 10 consecutive fair checks on one island) is reported beside it, with
+   the per-check island fair masks, so that RE 1 and the RS's clause (i) are read on both.
 
 **Static tables** (`runs/sog-full-static.json`; ideal semantics, K = 10¹², H inventories unless stated).
 - *Counts.* no-eq: 1,282 worker spellings, 422 run trees (423 row classes with the ⌜T₁⌝ bit); 137,385 boss spellings,
