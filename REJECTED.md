@@ -935,3 +935,16 @@ No RE prediction failed outright (RE 4 and RE 5 inconclusive). **Design choices 
 **Subagent:** S3 (a 116,877-step production and 16% cap timeouts), S4's S clause, S6 (scripts are not tied to codes), S13's inheritance clause (transient establishment in 6/10), S15 (CS cost 943 → 4,406 steps per match between N = 50 and 200); S5, S8, S9, S11, S14 missed numbers.
 
 **Design choices dropped:** the gate rule in populations; the single-entry adoption check; an exact per-pair term cost model; exact per-opponent cap timeouts; the no-clique frozen chain (unfinished); 40 runs for the secondary cells. **Process:** a duplicated secondary batch ran 6 workers for ≈ 3.5 h (a queued shell believed dead); the worker formula in the prompt counted shell wrappers and single-process cells.
+
+
+## Added 2026-10-12: provenance (RESULTS.md, "Provenance: who writes the first certificate, and against whom")
+
+**"The majority rule depends on coverage, not on an ordering; S-3 within 6 of S-nonself; S-2 ties near S-self" (Fable, RE 3; falsifier fired).** S-3 is 15/40 against S-nonself's 28 and S-2 13/40, both below S-self (22): the fallback keeps the identity script ι for the only-self class, S-2 does not tie (σCB1 also validates at the self root), and the window's timing costs universality by itself (post hoc 12/40 and 18/40).
+
+**RE 5's clauses (Fable):** S-2 is not enriched at establishment (0.229), frequencies do not drift back (S-2 rises to 0.301), and the mixture is below both pure rules (17/40). **RE 4's clause "≥ 1% never acquiring by the horizon":** no producer is still lacking at the horizon; 99% of capable producers die unacquired. **RE 2's premise "≈ 57 copies":** that figure is the identity grammar's; here 4.6 TwinD copies; the number held.
+
+**The hand claim "the gate cannot repair the only-self class" (notes §1.4; subagent S12's reasoning).** Once a holder has ι its self-box is true and its production then succeeds at distinct roots; only 14 of 97 run trees remain only-self in the gate universe.
+
+**Subagent:** S12 (cache ≥ 2×; 1.1×), S6 (S-k within 6 of S-self; 7–9 below), S8 (safeguard ≥ 0.8; 0.78), S9's mechanism clause, S11 and S14 universality clauses (C-donor 20/20 at N = 200), S13 (island P(C,C) 0.947 pulled down by two all-D runs).
+
+**Design choices dropped:** full validity for the S-k safeguard (Lemma V: a window never fills from empty founders; own-side validity instead); "every candidate scores ≥ 1" (false for 468 of 19,102 signatures, F1); the mode marker in the quote; processing settled and futile encounters one by one (an exact skip instead); E3 at every checkpoint in extensions; extensions of all-defect runs; the gate cell's extensions after 15 replicates. **Process:** the main batch launched twice (18 runs set aside) and resumed once; the gate closure on 1 worker before 3; three post-hoc diagnostics added after seeing S-k.

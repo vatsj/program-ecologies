@@ -409,3 +409,14 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   ancestry** — whether a held script descends from an H-produced one; **CF** — the copied-script faker (D code in
   mode C); **self-play-only script** — `EvR*; ChkR[EvR*; ChkR[EvR*; Ax · Ax] · Hyp]`, valid only at R = S, minted
   when a producer's first partner is its own copy.
+- **Provenance:** **provenance rule** — which partners a program may write its first C certificate against and how
+  it chooses among candidates; metadata, not part of the quote; **S-nonself** — produce the first C certificate only
+  against another spelling; **S-self-delayed** — produce against the actual partner, self included, at encounters
+  where an independent shadow draw is non-self (the timing control); **S-k / S-3 strict** — a window of k
+  source-distinct partners, keeping the earliest candidate own-side valid against two, else the earliest admissible
+  (the fallback); strict has no fallback; **own-side validity (OSV)** — the candidate's derivation closes at the root
+  with the partner's side assumed; **self-play-only (SPO)** — a (run tree, C script) pair valid at a self-play root
+  and at no distinct-quote root; **ι** — `EvR*; ChkR[EvR*; ChkR[EvR*; Ax · Ax] · Hyp]`, the identity script;
+  **only-self class** — the 97 run trees (mass 0.018) whose only producible C script is the self-root one; **TwinD
+  family** — the seed's self-reading identity cliques (μ = 7.1·10⁻⁴, 4.6 copies per run at (100, 64)); **settled /
+  futile individual** — one whose encounters cannot change it, skipped exactly by the kernel.
