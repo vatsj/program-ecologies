@@ -1163,6 +1163,28 @@ def summarize(run, ev_sham=None, horizon=2000, rng=None):
     out['holders'] = dict(holders)
     out['holders_detail'] = dict(holders_detail)
     out['fair_modal'] = fair_modal
+    # every island's modal triple at the horizon, and low-wage work classified (the realizable run's classification):
+    # a worker working below 1/2 'accepts' if its run on the truth (the boss's actual action, the other worker's actual
+    # action) also works, else it works by an 'uncertified default' (a check it needed was not certified)
+    modal_all = []; lw = defaultdict(int)
+    for i in range(I):
+        bt, xt, yt = (modal_type(run, ci, i, s) for s in range(3))
+        if min(bt, xt, yt) < 0: continue
+        bp, xp, yp = run.btypes[bt], run.wtypes[xt], run.wtypes[yt]
+        tr = ev.triple(bp, xp, yp)
+        modal_all.append((ev.reg[bp].sp, ev.reg[bp].inv, ev.reg[xp].sp, ev.reg[xp].inv, ev.reg[yp].sp, ev.reg[yp].inv,
+                          tr['boss'], tr['a1'], tr['a2']))
+        if tr['boss'] // 3 < 2:
+            rel = ev.reg[xp].sp == ev.reg[yp].sp
+            for wp, a, oa in ((xp, tr['a1'], tr['a2']), (yp, tr['a2'], tr['a1'])):
+                if a != 'C': continue
+                t = ev.g.roles['W']['dts'][ev.reg[wp].tk]
+                act = tr['boss']
+                tv = F.LEAFVAL[F.dt_eval(t, lambda at: (act in at[1]) if at[0] == 'B' else
+                                         ((oa in at[1]) if at[0] == 'O' else (rel and 'EQ' in ev.live)))]
+                lw['uncertified default' if tv == 'D' else 'accepts'] += 1
+    out['modal_all'] = modal_all
+    out['low_wage_work'] = dict(lw)
     out['greenbeard_bosses'] = dict(gb_boss)
     # self-play-only scripts held at the horizon (S modes): worker inventories with a script not producible at a
     # non-self root (notes §1.2, Claim N3)
