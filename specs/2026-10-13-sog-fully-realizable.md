@@ -80,6 +80,19 @@ lineage. [after review] **Local transition assays:** unread-slot substitution, b
 at the fair state, each as a forced one-step transition with the causal sequence classified, beside the final-exit
 classification.
 
+[after review by gemini-4-argon] **Support and gate.** The executable reduced support includes the union of all
+initial founders across the 40 paired seeds plus at least one distinct-source copy or synonym of each named militant
+and concession class, so that non-self production is always syntactically possible when seeded. Production
+"starved by play/verification" (K − play steps < production steps ≤ P) is logged separately from "exceeded P". The
+S-nonself₃ gate refuses production whenever w1 = w2, which penalizes homogeneous worker slots after fixation (a
+post-fixation certificate deadlock: an uncertified militant entering an island fixed on its own spelling can never
+produce); a diagnostic arm **S-nonself-opp** requires non-self only against the opponent (b ≠ w1 for a worker;
+either worker for the boss), the static analysis says which gate blocks which named triples, and a forced assay of
+one uncertified T₁ entering a fixed-T₁ island runs under both gates. Gemini's counter-prediction to RE 2 is scored:
+"U_eq holds < 0.05 of fair islands even in H + eq, because both worker slots must co-fix the same spelling"; RE 6's
+conditioning may then be vacuous, so B_eq's invasion fitness on resident compositions is reported unconditionally
+as well.
+
 **Scale guard.** Report class counts, the executable support's cost and the production universe's size before any
 cell; if the `eq` grammar exceeds 2,000 classes per role, drop the named-militant quote and report it as a
 different experiment. ≤ 3 workers; kill pool children by pid before any driver.
