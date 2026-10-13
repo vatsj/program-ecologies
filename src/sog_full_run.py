@@ -1351,6 +1351,8 @@ def evaluator_k(arm, mode, K):
 
 def cell_job(args):
     name, rep, extend = args
+    if os.path.exists(os.path.join(OUT, 'cell_' + name, 'rep_%03d.json' % rep)):
+        return name, rep, dict(skipped=0.0)
     cfg = cell_cfg(name)
     load_costc()
     K = cfg.get('K', F.K_MAIN)
