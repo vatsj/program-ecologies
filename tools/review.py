@@ -1,7 +1,9 @@
-"""Send an experiment brief to an external reviewer model (OpenAI API) and
-save the review.  Reads OPENAI_API_KEY from .env (gitignored).
+"""Send an experiment brief to an external reviewer model and save the review.
+OpenAI models read OPENAI_API_KEY, Gemini models (name starting with "gemini") read GEMINI_API_KEY,
+both from .env (gitignored).
 
-    python3 tools/review.py predictions/2026-09-30-modal-arm.md --context CLAUDE.md --model gpt-6-astra
+    python3 tools/review.py specs/<file>.md --context CLAUDE.md --model gpt-6.1-sol
+    python3 tools/review.py specs/<file>.md --context CLAUDE.md --model gemini-4-argon
 Writes reviews/<brief-stem>-<model>.md.
 """
 import argparse, json, os, sys, urllib.request
@@ -49,6 +51,17 @@ def call(model, system, user, key, poll=15, max_wait=3600):
     return "\n".join(out).strip() or json.dumps(d)[:2000]
 
 
+def call_gemini(model, system, user, key, max_wait=3600):
+    """Gemini backend (google-genai): one synchronous generate call with a long timeout."""
+    from google import genai
+    from google.genai import types
+    client = genai.Client(api_key=key, http_options=types.HttpOptions(timeout=max_wait * 1000))
+    r = client.models.generate_content(model=model, contents=user,
+                                       config=types.GenerateContentConfig(system_instruction=system))
+    text = (r.text or "").strip()
+    return text or "REVIEW FAILED: empty response %s" % str(r)[:500]
+
+
 def load_env():
     p = os.path.join(ROOT, ".env")
     if os.path.exists(p):
@@ -60,13 +73,15 @@ def load_env():
 
 def main(a):
     load_env()
-    key = os.environ.get("OPENAI_API_KEY")
+    gemini = a.model.startswith("gemini")
+    key = os.environ.get("GEMINI_API_KEY" if gemini else "OPENAI_API_KEY")
     if not key:
-        sys.exit("OPENAI_API_KEY not set")
+        sys.exit(("GEMINI_API_KEY" if gemini else "OPENAI_API_KEY") + " not set")
     brief = open(a.brief).read()
     ctx = "".join("\n\n--- context: %s ---\n%s" % (c, open(c).read()) for c in a.context)
     note = ("\n\nNOTE: " + a.note) if a.note else ""
-    text = call(a.model, SYSTEM, "Experiment brief:\n\n" + brief + note + ctx, key)
+    user = "Experiment brief:\n\n" + brief + note + ctx
+    text = call_gemini(a.model, SYSTEM, user, key) if gemini else call(a.model, SYSTEM, user, key)
     stem = os.path.splitext(os.path.basename(a.brief))[0]
     out = os.path.join(ROOT, "reviews", "%s-%s.md" % (stem, a.model))
     open(out, "w").write("# Review of `%s` by %s\n\n%s\n" % (a.brief, a.model, text))

@@ -440,3 +440,40 @@ REJECTED.md the ones we dropped.
 - *Evidence (2026-10-11, the gene arm):* a Pareto restriction on genes (G-recip) cannot implement a wage, because
   zero wage with everyone working is Pareto-efficient; a threat-independence axiom would have to bind on stage-1
   commitments (the world-0 wage faker), which is where the credibility filter actually acted.
+
+## 15. The RS's equilibrium notion: response functions over action subprofiles (RS, 2026-10-13)
+- *RS's statement (verbatim):* "assume a normal-form game, with perfect complete information for simplicity. Call an
+  *action subprofile* a subset of an action profile - some players get actions, others get blanks. Write a>=b if
+  action profile a contains all actions of action profile b, plus perhaps some others. Call two action profiles
+  *complementary* if each player is assigned an action in either one or the other (but not both). An equilibrium is
+  a function f from action profiles to complementary action profiles, with some conditions: consistency: a>=b ->
+  f(a)<=f(b) (note the equality case is trivial); credibility: no coalition can (weakly?) pareto-improve by
+  simultaneously deviating in actions, *given the opponent coalition gets a chance to respond*. observe that f(the
+  null profile) gives equilibrium actions, and they're automagically pareto-efficient, else the grand coalition
+  deviates. note the weak extensionality - I'm hoping it offers some shelter against eq-based cliques."
+- *Context (RS):* the notion carries a mirror image in contracts (genes); a separate Claude chat session (via
+  Claude in Chrome) has gripes with it and will send cross-session messages; its gripes are why the program works
+  with dynamic equilibria of ecologies. The RS wants the two Claudes to compare notes.
+- *RE's first reading (2026-10-13):* (i) read literally over all a ≥ b, consistency forces f(a) = f(∅) restricted to
+  a's complement (take b = ∅), so responders never react to what the committers did and the notion collapses to
+  **strong Nash equilibrium** (Aumann 1959), which does not exist in the PD; (ii) the intended reading is
+  consistency along f's own prescriptions (a extends b by actions f(b) prescribes), under which f(a) is the
+  complement coalition's *credible* response to the commitment a (itself required to be a coalition best reply,
+  else the response is a non-credible threat), and credibility says no coalition's commitment weakly
+  Pareto-improves it given that response; (iii) under (ii) the PD's unique equilibrium is (C, C) (a unilateral
+  defector is met by credible defection; (D, D) is dominated by the grand coalition's move), chicken has **no**
+  equilibrium (each player's Stackelberg commitment to Straight is met by Swerve, and both cannot have it: the
+  commitment race), and in the social organization game existence turns on whether a strike is a credible
+  response, i.e. on who commits first, which is exactly what the ecology's dynamics decide (arriving in numbers =
+  committing first); (iv) the weak extensionality shelters against identity cliques only by not modelling them: a
+  clique's "cooperate with exact copies" is not an action-profile object; the ecology sees it. *Literature:* strong
+  Nash (Aumann), the α- and β-cores (Aumann; Scarf), coalition-proof Nash (Bernheim–Peleg–Whinston 1987),
+  equilibrium binding agreements (Ray–Vohra 1997), farsighted stability (Chwe 1994; Ray–Vohra 2015), Greenberg's
+  theory of social situations (1990), leadership/Stackelberg and commitment races (Schelling; the program-equilibrium
+  folk theorem), the variable-threat bargaining problem (Nash 1953).
+- *Operating hypothesis:* the notion under reading (ii) is a static diagnosis of which games have a commitment-stable
+  efficient outcome (PD yes, chicken no, the social organization game conditional on strike credibility), and the
+  ecology is the object that decides the cases the notion leaves open. *Would settle it:* a computation of the
+  notion's equilibria under both readings for the repo's game catalogue (PD, Chicken, hawk–dove, the social
+  organization game under CC/RC/RR, divide-the-dollar) against the lottery's and the chain's outcomes; the other
+  Claude's gripes.
