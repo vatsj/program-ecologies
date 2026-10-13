@@ -471,3 +471,108 @@ the code's evaluation layer existed and before any counted cell).
 4. **Gemini's counter-prediction** (U_eq < 0.05 of fair islands even in H + eq) is scored beside RE 2 (predictions
    addendum); B_eq's invasion fitness on the horizon's resident compositions is reported unconditionally, beside RE 6's
    conditional form.
+
+### 1.13 The code, its validation, deviations, and the static tables (after the code, before any counted cell)
+
+Code: `src/sog_full.py` (library K₃′, templates, host replay, symbolic layer, measurement, cost model, abstract
+evaluator, `Evaluator`), `src/sog_full_kern.py` (numba: composition of an encounter from class-level rows, the
+worker-pair evaluator, productions, the island kernel), `src/sog_full_run.py` (calibration, validation, static tables,
+the run driver, statistics, cells, assays), `src/sog_full_report.py`, `tests/test_sog_full.py`.
+
+**Validation by code.**
+- `tests/test_sog_full.py` (26 tests): the 17 hand plays of §1.3.1 (column H) by whole runs of the term and by the
+  evaluator (identity atoms in both roles: `EQ`, `N1`, `EQW`); the sham's term has the `eq` term's step counts on
+  distinct sources and reads false on copies; `EQ` is spelling equality on random pairs (by the term); the gate on the
+  named triples (workers refused beside a copy, bosses never; T₁ writes its strike script beside a scab) and the
+  evaluator's productions equal PROD3 run by the term; Claim N₃ (U_eq's strike script exists only on its `EQ`-true
+  path); lumping (T₁ and T₁′ are distinct classes and B_eq separates them; a respelling of U_eq shares its class;
+  identical sources with different inventories are distinct classes; the evaluator equals whole runs in each case);
+  the cost model on replayed encounters; the kernel's composed encounter (pair rows, boss rows, worker rows,
+  productions) equals the evaluator on every present triple of small runs (eq S, eq H, sham S).
+- Calibration and earlier checks (`runs/sog-full-costc.json`, `runs/sog-full-validate.json`): the closure bookkeeping
+  is exact on 2,116/2,116 closures; the numba pair evaluator equals the Python evaluator on 4,800/4,800 rows; PROD3 by
+  the term equals the symbolic producer on every named case.
+- **Whole replays** (§1.9 (4)): 400 encounters (four arms, 70% S-mode with random inventories, 30% named triples), each
+  replayed by the term (three plays, then every participant's PROD3 attempts in its residual fuel): plays 400/400,
+  production outcomes 1,005/1,005 (found script, NONE, cap timeout, fuel timeout). Step counts are approximate (next
+  item): play steps differ by a median of 1 step (0.07%), 6% at the 90th percentile, at most 10,017 steps; production
+  attempts by at most 7,623 steps. The approximation can matter only within that margin of a cap (V = P = 2.5·10⁵,
+  K = 10⁶); no value or outcome differed in the sample.
+
+**Deviations from §1.0–1.12, stated.**
+1. **The sham** is `SHAMS(p) = if eq(srcof(fst p), srcof(snd p)) then F else F` (the `EQS` term with both branches
+   false), not `EQS` against a fixed quote Z (§1.0 item 4): the same term shape and the same steps as `EQS` on every
+   pair (tested), always false.
+2. **Costs are per row class, not per spelling** (§1.4 said per-spelling step tables): every class's own steps are
+   measured on its canonical spelling. Respellings differ by a few percent (the step errors above). Values and
+   outcomes are unaffected in the replays.
+3. **Fitted own-step models.** A play's own steps (c₀ + c₁·calls + c₂·identity atoms per role) and PROD3's own steps
+   (a linear model on the symbolic trace's features) are fitted to term measurements; check costs are exact
+   compositions of measured validation steps and the exact bookkeeping.
+4. **Encounters on quiet islands are skipped.** An island is quiet when no present triple produces a new type; it is
+   re-checked after every change while it has ≤ 4,000 present triples (islands above that are treated as not quiet).
+   Skipping is exact for the dynamics (an encounter there changes nothing) but the kernel's production counters omit
+   the futile attempts made there; production *rates* are reported from encounters sampled from the population at
+   fixed generations (0, 50, 200, 2,000; unbiased), *totals* from the counters with this caveat.
+5. **Tables are shared by the runs of one worker process.** Type numbering then depends on the order of runs; the
+   dynamics do not (presence order is founder order; one seed run with and without shared tables gives identical
+   compositions and counters).
+6. **Production rows are not prefilled**; the kernel fills them on demand (a miss costs a fill and a resume).
+7. **Correction to §1.3:** U_eq has 7 nodes (mass 3.99·10⁻⁴ in the eq grammar), not 6; XM has 6 (7.99·10⁻⁴).
+
+**Static tables** (`runs/sog-full-static.json`; ideal semantics, K = 10¹², H inventories unless stated).
+- *Counts.* no-eq: 1,282 worker spellings, 422 run trees (423 row classes with the ⌜T₁⌝ bit); 137,385 boss spellings,
+  93,969 run trees. eq grammar (shared by eq, sham, eq-without-⌜T₁⌝): 1,826 / 602 (603); 258,399 / 177,318. **Scale
+  guard:** 603 worker classes < 2,000, so the named quote is kept (§1.0 item 10). Production universe (lack rule, at
+  most one script per set): 2,994 worker (run tree, inventory) classes; ≈ 2.5·10⁶ boss classes (14.1 inventories per
+  run tree, from 3,000 sampled run trees). Realized per run at (100, 64): ≈ 5,400 worker and ≈ 18,000 boss types
+  (S-nonself₃), all tabled exactly on demand; a run costs ≈ 4 minutes (H) and ≈ 12 minutes (S-nonself₃) on one core.
+- *Named masses* (eq grammar; no-eq in brackets): scab, striker 0.0256 [0.0350]; T₁ 3.19·10⁻³ [4.38·10⁻³]; T₁′
+  1.60·10⁻³; U_eq 3.99·10⁻⁴; XM 7.99·10⁻⁴; a constant boss 2.22·10⁻⁴ [4.12·10⁻⁴]; D\* 3.47·10⁻⁶ [6.43·10⁻⁶]; B_eq, B_id
+  2.77·10⁻⁵.
+- *Worker families* (holder classification of §1.8 on every spelling): open militants 0.500 in every arm; greenbeards
+  0.078 (eq) against 0.040 (sham) and 0.046 (no-eq): **the definition of §1.8 also counts strike pacts** (Q-like
+  workers that strike beside a copy because the copy's certificate says it strikes, with no identity atom); the
+  identity greenbeards are the difference, 0.038. Holders are therefore reported split into *identity* (the greenbeard
+  reads `EQ`) and *pact* greenbeards beside the fixed classification.
+- *Boss families:* concession-like bosses (pay ½ to the T₁ pair, less to the scab pair) 0.184 (no-eq; the realizable
+  run's 0.184), 0.176 (eq), 0.155 (sham, eq-without-⌜T₁⌝); closed shops (pay ½ to the T₁ pair, less to the T₁′ pair)
+  0.049 (eq), 0 elsewhere.
+- **Identity-blindness of the length prior (exact, by computation).** For every assignment of the identity atoms
+  (worker `EQ` true or false; any of the 8 assignments of `N1`, `N2`, `EQW`), the prior law of a program's behaviour
+  as a function of its other atoms is the same (maximum difference 0 over 262 worker and 77,769 boss behaviour
+  classes). The run-tree masses themselves are not flip-invariant (80 of 602 worker run trees change under exchanging
+  `EQ`'s branches); the equality holds in law, through equal-size spellings that behave on `EQ` = T as others do on
+  `EQ` = F (e.g. `if(and(B½, EQ), work, strike)` and `if(or(B½, EQ), work, strike)`). **Consequence:** every
+  seeding-level quantity that depends only on behaviour is identical in the eq, sham and eq-without-⌜T₁⌝ arms; in
+  particular the founding-coalition masses agree to 10⁻¹³ on the same samples. Identity can act only through descent
+  (copies meet copies more often than the prior's copy rate Σμ² = 0.0020) and through which spellings carry a behaviour.
+- **Founding-coalition masses** (§1.5; distinct worker spellings by Monte Carlo over 3,000 pairs, copies exact; a
+  coalition is a triple whose play is fair with no constant boss earning the boss more than 1): (c) no-eq 0.0200 ±
+  0.0013 (the realizable run's 0.0171 within 2.3 s.e.; copies 3.0·10⁻⁵); (a) eq 0.0160 ± 0.0011 (copies 1.7·10⁻⁵);
+  (b) identity-free triples 0.0051 ± 0.0005; sham and eq-without-⌜T₁⌝ equal to (a) (identity-blindness); (d) with the
+  S-nonself₃-producible inventories 0.0162 ± 0.0011, **slightly above (a), not below** as §1.5 expected (on paired
+  samples: 203 vs 200 coalition pairs; removing the `EQ`-true scripts changes who is certified, in both directions).
+  The shortcut "a boss's play equals its action's constant's play" holds on 292–293 of 300 sampled triples per arm
+  (the misses are worker–worker certificates under conditional bosses), so these masses are approximations at that
+  level.
+- *Costs* (§2).
+
+## 2. Costs
+
+### 2.1 Static (before any counted cell; `runs/sog-full-static.json` "costs", rows in `runs/sog_full/static_cost_rows.json`)
+
+2,000 triples drawn from L³ (eq grammar, H inventories), required (uncensored) step counts from the K = 10¹² evaluator;
+the production cost of a participant is what PROD3 spends writing each of its sets from an empty list at that
+encounter (others as they are; a worker beside a copy is refused and spends nothing).
+- **Regress:** 208 triples (10.4%) contain a check whose ideal value is a regress (non-termination: Hyp and RunNeg on
+  one box, as in the realizable run); they time out at every K and play the default. The figures below exclude them.
+- **Per participant:** play median 4.9·10⁴ steps, 90th percentile 2.5·10⁵, 99th 6.9·10⁵, maximum 2.1·10⁶;
+  production median 1.5·10⁵, 99th 1.0·10⁶, maximum 2.4·10⁶.
+- **Per encounter** (three participants): play median 1.91·10⁵; play + production 6.69·10⁵; **ratio 3.5** (with
+  regress triples 3.4). RE 5's ≤ 2× clause fails statically; its falsifier (≥ 4×) does not fire. The realized ratio
+  (production happens once per set per lineage, not at every encounter) is reported from the cells.
+- **Fraction of triples with some participant's required cost above K**, K = 3·10⁵ / 10⁶ / 3·10⁶: play 0.15 / 0.008 /
+  0; play + production 0.61 / 0.10 / 0.003 (with regress triples add 0.10 at every K).
+- **Executable play ≠ ideal play** (the same triples, executable evaluators): 0.325 / 0.058 / 0.006 (the realizable
+  run: 0.22 / 0.03 / 0.005). Any check above V: 0.96 / 0.50 / 0.16 (most do not change the play).

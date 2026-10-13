@@ -1,0 +1,1133 @@
+{
+ "replays": {
+  "encounters": 200,
+  "play_match": 200,
+  "steps_match": 9,
+  "attempts": 489,
+  "attempt_match": 489,
+  "attempt_steps_absdiff_max": 4970,
+  "time_s": 11.08146619796753
+ },
+ "replay_failures": [
+  {
+   "kind": "play",
+   "arm": "eq",
+   "mode": "S",
+   "pred": [
+    1,
+    "C",
+    "C"
+   ],
+   "term": [
+    1,
+    "C",
+    "C"
+   ],
+   "psteps": [
+    291,
+    7,
+    294
+   ],
+   "tsteps": [
+    290,
+    5,
+    294
+   ],
+   "b": "if(P1^1/4:S,pay(1/2,none),pay(0,none))",
+   "x": "work",
+   "y": "if(O:S,strike,work)"
+  },
+  {
+   "kind": "play",
+   "arm": "sham",
+   "mode": "H",
+   "pred": [
+    3,
+    "C",
+    "D"
+   ],
+   "term": [
+    3,
+    "C",
+    "D"
+   ],
+   "psteps": [
+    206929,
+    151101,
+    250017
+   ],
+   "tsteps": [
+    206929,
+    151100,
+    250014
+   ],
+   "b": "if(P2^0:W,pay(1/2,source),if(P2^1/4:W,pay(0,none),pay(1/4,strike)))",
+   "x": "if(and(B=1/2,EQ),strike,work)",
+   "y": "if(B<=1/4,if(O:W,strike,work),strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "eqnoT",
+   "mode": "S",
+   "pred": [
+    7,
+    "D",
+    "D"
+   ],
+   "term": [
+    7,
+    "D",
+    "D"
+   ],
+   "psteps": [
+    149,
+    26,
+    26
+   ],
+   "tsteps": [
+    149,
+    25,
+    25
+   ],
+   "b": "if(N2,pay(0,strike),if(P1^1/4:S,pay(1/2,source),pay(1/2,none)))",
+   "x": "if(EQ,strike,strike)",
+   "y": "if(EQ,strike,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "eq",
+   "mode": "S",
+   "pred": [
+    3,
+    "D",
+    "C"
+   ],
+   "term": [
+    3,
+    "D",
+    "C"
+   ],
+   "psteps": [
+    149,
+    25706,
+    133
+   ],
+   "tsteps": [
+    149,
+    25704,
+    134
+   ],
+   "b": "if(P1^0:S,pay(1/2,strike),if(EQW,pay(0,none),pay(1/4,strike)))",
+   "x": "if(B>=1/4,if(B<=1/4,strike,strike),strike)",
+   "y": "if(and(O:S,O:S),strike,work)"
+  },
+  {
+   "kind": "play",
+   "arm": "sham",
+   "mode": "H",
+   "pred": [
+    0,
+    "C",
+    "D"
+   ],
+   "term": [
+    0,
+    "C",
+    "D"
+   ],
+   "psteps": [
+    26,
+    157193,
+    121070
+   ],
+   "tsteps": [
+    27,
+    164603,
+    127349
+   ],
+   "b": "if(not(and(N2,P1^0:W)),pay(0,strike),pay(1/4,source))",
+   "x": "if(or(O:S,not(O:S)),work,work)",
+   "y": "if(not(or(B<=1/4,O:S)),work,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "eqnoT",
+   "mode": "H",
+   "pred": [
+    5,
+    "D",
+    "C"
+   ],
+   "term": [
+    5,
+    "D",
+    "C"
+   ],
+   "psteps": [
+    26,
+    108863,
+    258673
+   ],
+   "tsteps": [
+    25,
+    108861,
+    258675
+   ],
+   "b": "if(N1,if(P1^0:W,pay(0,none),pay(0,strike)),pay(1/4,source))",
+   "x": "if(B<=1/4,strike,work)",
+   "y": "if(O:S,if(O:W,work,work),strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "noeq",
+   "mode": "S",
+   "pred": [
+    3,
+    "D",
+    "D"
+   ],
+   "term": [
+    3,
+    "D",
+    "D"
+   ],
+   "psteps": [
+    903,
+    29224,
+    29224
+   ],
+   "tsteps": [
+    903,
+    29222,
+    29222
+   ],
+   "b": "if(P1^0:W,pay(1/2,strike),if(P1^0:W,pay(0,source),pay(1/4,strike)))",
+   "x": "if(B>=1/4,strike,work)",
+   "y": "if(B>=1/4,strike,work)"
+  },
+  {
+   "kind": "play",
+   "arm": "eq",
+   "mode": "S",
+   "pred": [
+    5,
+    "C",
+    "C"
+   ],
+   "term": [
+    5,
+    "C",
+    "C"
+   ],
+   "psteps": [
+    899,
+    250017,
+    250017
+   ],
+   "tsteps": [
+    899,
+    250018,
+    250018
+   ],
+   "b": "if(P2^1/4:S,pay(0,none),if(P1^1/4:S,pay(0,strike),pay(1/4,source)))",
+   "x": "if(not(and(O:W,B>=1/4)),work,work)",
+   "y": "if(not(and(O:W,B>=1/4)),work,work)"
+  },
+  {
+   "kind": "play",
+   "arm": "sham",
+   "mode": "S",
+   "pred": [
+    1,
+    "C",
+    "D"
+   ],
+   "term": [
+    1,
+    "C",
+    "D"
+   ],
+   "psteps": [
+    28606,
+    26,
+    46790
+   ],
+   "tsteps": [
+    28605,
+    25,
+    46789
+   ],
+   "b": "if(P1^1/4:S,pay(1/2,none),pay(0,none))",
+   "x": "if(EQ,if(B=1/2,work,strike),work)",
+   "y": "if(not(B=1/2),strike,work)"
+  },
+  {
+   "kind": "play",
+   "arm": "eqnoT",
+   "mode": "S",
+   "pred": [
+    0,
+    "D",
+    "D"
+   ],
+   "term": [
+    0,
+    "D",
+    "D"
+   ],
+   "psteps": [
+    28260,
+    698,
+    698
+   ],
+   "tsteps": [
+    29391,
+    698,
+    698
+   ],
+   "b": "if(and(not(P1^0:S),P2^1/4:W),pay(1/4,none),pay(0,strike))",
+   "x": "if(or(not(B=1/2),O:W),strike,strike)",
+   "y": "if(or(not(B=1/2),O:W),strike,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "eq",
+   "mode": "S",
+   "pred": [
+    0,
+    "C",
+    "C"
+   ],
+   "term": [
+    0,
+    "C",
+    "C"
+   ],
+   "psteps": [
+    615,
+    18414,
+    555
+   ],
+   "tsteps": [
+    614,
+    18804,
+    555
+   ],
+   "b": "if(P1^1/4:S,if(N2,pay(1/4,strike),pay(0,none)),pay(0,strike))",
+   "x": "if(or(B<=1/4,O:W),work,work)",
+   "y": "if(or(B<=1/4,not(EQ)),work,work)"
+  },
+  {
+   "kind": "play",
+   "arm": "sham",
+   "mode": "H",
+   "pred": [
+    3,
+    "C",
+    "D"
+   ],
+   "term": [
+    3,
+    "C",
+    "D"
+   ],
+   "psteps": [
+    45,
+    152435,
+    34923
+   ],
+   "tsteps": [
+    45,
+    151297,
+    34923
+   ],
+   "b": "if(N1,pay(0,source),if(N2,pay(1/4,source),pay(1/4,strike)))",
+   "x": "if(O:W,work,if(O:W,work,work))",
+   "y": "if(B<=1/4,if(O:S,work,strike),strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "eqnoT",
+   "mode": "S",
+   "pred": [
+    1,
+    "C",
+    "C"
+   ],
+   "term": [
+    1,
+    "C",
+    "C"
+   ],
+   "psteps": [
+    291,
+    7,
+    26
+   ],
+   "tsteps": [
+    290,
+    5,
+    25
+   ],
+   "b": "if(P1^1/4:S,pay(1/2,none),pay(0,none))",
+   "x": "work",
+   "y": "if(EQ,if(B=1/2,work,strike),work)"
+  },
+  {
+   "kind": "play",
+   "arm": "noeq",
+   "mode": "S",
+   "pred": [
+    1,
+    "D",
+    "C"
+   ],
+   "term": [
+    1,
+    "D",
+    "C"
+   ],
+   "psteps": [
+    28578,
+    1229,
+    1232
+   ],
+   "tsteps": [
+    30350,
+    1232,
+    1233
+   ],
+   "b": "if(P2^1/4:W,if(P1^0:W,pay(0,strike),pay(0,none)),pay(1/4,strike))",
+   "x": "if(not(or(O:S,O:S)),strike,work)",
+   "y": "if(not(or(B=1/2,O:W)),work,work)"
+  },
+  {
+   "kind": "play",
+   "arm": "eq",
+   "mode": "H",
+   "pred": [
+    8,
+    "D",
+    "C"
+   ],
+   "term": [
+    8,
+    "D",
+    "C"
+   ],
+   "psteps": [
+    250014,
+    253072,
+    500027
+   ],
+   "tsteps": [
+    250013,
+    253071,
+    500026
+   ],
+   "b": "if(and(P2^0:W,not(P2^1/4:W)),pay(1/2,strike),pay(1/2,source))",
+   "x": "if(or(O:S,B<=1/4),strike,strike)",
+   "y": "if(not(or(O:S,B=1/2)),work,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "sham",
+   "mode": "S",
+   "pred": [
+    1,
+    "C",
+    "C"
+   ],
+   "term": [
+    1,
+    "C",
+    "C"
+   ],
+   "psteps": [
+    65771,
+    56860,
+    7
+   ],
+   "tsteps": [
+    65771,
+    56860,
+    5
+   ],
+   "b": "if(P1^1/4:S,pay(1/2,none),if(P1^0:S,pay(1/4,none),pay(0,none)))",
+   "x": "if(B=1/2,work,if(O:S,strike,work))",
+   "y": "work"
+  },
+  {
+   "kind": "play",
+   "arm": "eqnoT",
+   "mode": "H",
+   "pred": [
+    0,
+    "C",
+    "D"
+   ],
+   "term": [
+    0,
+    "C",
+    "D"
+   ],
+   "psteps": [
+    53937,
+    1695,
+    2448
+   ],
+   "tsteps": [
+    57655,
+    1695,
+    2449
+   ],
+   "b": "if(or(P1^1/4:W,not(P1^1/4:S)),pay(0,strike),pay(0,none))",
+   "x": "if(not(or(B=1/2,EQ)),work,work)",
+   "y": "if(and(not(B=1/2),O:S),work,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "noeq",
+   "mode": "H",
+   "pred": [
+    1,
+    "D",
+    "D"
+   ],
+   "term": [
+    1,
+    "D",
+    "D"
+   ],
+   "psteps": [
+    83023,
+    168926,
+    276494
+   ],
+   "tsteps": [
+    83022,
+    168926,
+    276494
+   ],
+   "b": "if(P1^0:W,pay(1/2,none),pay(0,none))",
+   "x": "if(O:S,strike,work)",
+   "y": "if(B=1/2,work,if(O:S,strike,work))"
+  },
+  {
+   "kind": "play",
+   "arm": "eq",
+   "mode": "H",
+   "pred": [
+    4,
+    "C",
+    "C"
+   ],
+   "term": [
+    4,
+    "C",
+    "C"
+   ],
+   "psteps": [
+    26,
+    85251,
+    87088
+   ],
+   "tsteps": [
+    25,
+    85250,
+    87087
+   ],
+   "b": "if(EQW,if(P1^1/4:W,pay(1/4,none),pay(0,source)),pay(1/4,none))",
+   "x": "if(or(B>=1/4,not(B>=1/4)),work,strike)",
+   "y": "if(not(and(B>=1/4,B=1/2)),work,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "sham",
+   "mode": "S",
+   "pred": [
+    8,
+    "D",
+    "C"
+   ],
+   "term": [
+    8,
+    "D",
+    "C"
+   ],
+   "psteps": [
+    27779,
+    698,
+    717
+   ],
+   "tsteps": [
+    27778,
+    697,
+    716
+   ],
+   "b": "if(P2^1/4:S,if(P2^1/4:S,pay(1/2,none),pay(0,strike)),pay(1/2,source))",
+   "x": "if(and(B=1/2,O:S),strike,strike)",
+   "y": "if(EQ,strike,if(B=1/2,work,work))"
+  },
+  {
+   "kind": "play",
+   "arm": "eqnoT",
+   "mode": "H",
+   "pred": [
+    1,
+    "D",
+    "D"
+   ],
+   "term": [
+    1,
+    "D",
+    "D"
+   ],
+   "psteps": [
+    26,
+    24635,
+    24635
+   ],
+   "tsteps": [
+    25,
+    24633,
+    24633
+   ],
+   "b": "if(N1,pay(1/2,none),pay(0,none))",
+   "x": "if(B>=1/4,work,strike)",
+   "y": "if(B>=1/4,work,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "noeq",
+   "mode": "H",
+   "pred": [
+    5,
+    "D",
+    "C"
+   ],
+   "term": [
+    5,
+    "D",
+    "C"
+   ],
+   "psteps": [
+    1713,
+    4183,
+    7
+   ],
+   "tsteps": [
+    1713,
+    4183,
+    5
+   ],
+   "b": "if(P2^0:S,pay(1/4,source),if(P1^1/4:W,pay(0,strike),pay(1/4,source)))",
+   "x": "if(O:W,strike,if(B=1/2,strike,strike))",
+   "y": "work"
+  },
+  {
+   "kind": "play",
+   "arm": "eq",
+   "mode": "S",
+   "pred": [
+    7,
+    "C",
+    "C"
+   ],
+   "term": [
+    7,
+    "C",
+    "C"
+   ],
+   "psteps": [
+    4180,
+    7,
+    28734
+   ],
+   "tsteps": [
+    4179,
+    5,
+    28733
+   ],
+   "b": "if(P1^0:W,pay(1/2,none),pay(0,none))",
+   "x": "work",
+   "y": "if(not(B=1/2),strike,work)"
+  },
+  {
+   "kind": "play",
+   "arm": "sham",
+   "mode": "S",
+   "pred": [
+    5,
+    "D",
+    "C"
+   ],
+   "term": [
+    5,
+    "D",
+    "C"
+   ],
+   "psteps": [
+    26,
+    536,
+    133
+   ],
+   "tsteps": [
+    25,
+    534,
+    133
+   ],
+   "b": "if(N1,if(P2^1/4:S,pay(1/4,none),pay(1/4,none)),pay(1/4,source))",
+   "x": "if(B=1/2,if(B>=1/4,work,work),strike)",
+   "y": "if(O:S,work,work)"
+  },
+  {
+   "kind": "play",
+   "arm": "eqnoT",
+   "mode": "S",
+   "pred": [
+    0,
+    "D",
+    "D"
+   ],
+   "term": [
+    0,
+    "D",
+    "D"
+   ],
+   "psteps": [
+    130,
+    133,
+    36838
+   ],
+   "tsteps": [
+    131,
+    134,
+    38220
+   ],
+   "b": "if(or(not(P2^1/4:W),P1^0:S),pay(0,strike),pay(1/2,none))",
+   "x": "if(not(O:S),strike,strike)",
+   "y": "if(or(not(B<=1/4),B>=1/4),strike,work)"
+  },
+  {
+   "kind": "play",
+   "arm": "noeq",
+   "mode": "H",
+   "pred": [
+    2,
+    "D",
+    "D"
+   ],
+   "term": [
+    2,
+    "D",
+    "D"
+   ],
+   "psteps": [
+    500021,
+    250017,
+    1676
+   ],
+   "tsteps": [
+    500019,
+    250017,
+    1674
+   ],
+   "b": "if(P2^0:W,pay(0,source),if(P1^0:S,pay(0,none),pay(0,source)))",
+   "x": "if(not(O:W),strike,strike)",
+   "y": "if(B=1/2,if(O:S,work,work),strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "eq",
+   "mode": "S",
+   "pred": [
+    0,
+    "D",
+    "D"
+   ],
+   "term": [
+    0,
+    "D",
+    "D"
+   ],
+   "psteps": [
+    615,
+    26171,
+    26171
+   ],
+   "tsteps": [
+    614,
+    26169,
+    26169
+   ],
+   "b": "if(P2^1/4:S,if(P2^0:S,pay(1/4,none),pay(1/4,source)),pay(0,strike))",
+   "x": "if(and(B<=1/4,B=1/2),work,strike)",
+   "y": "if(and(B<=1/4,B=1/2),work,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "sham",
+   "mode": "S",
+   "pred": [
+    4,
+    "C",
+    "C"
+   ],
+   "term": [
+    4,
+    "C",
+    "C"
+   ],
+   "psteps": [
+    23143,
+    456,
+    456
+   ],
+   "tsteps": [
+    23143,
+    457,
+    457
+   ],
+   "b": "if(or(P1^1/4:S,P2^0:W),pay(1/4,none),pay(1/4,strike))",
+   "x": "if(and(O:S,O:W),work,work)",
+   "y": "if(and(O:S,O:W),work,work)"
+  },
+  {
+   "kind": "play",
+   "arm": "eqnoT",
+   "mode": "S",
+   "pred": [
+    8,
+    "C",
+    "D"
+   ],
+   "term": [
+    8,
+    "C",
+    "D"
+   ],
+   "psteps": [
+    26,
+    280455,
+    250900
+   ],
+   "tsteps": [
+    25,
+    278834,
+    250900
+   ],
+   "b": "if(EQW,if(P2^1/4:W,pay(1/2,none),pay(1/2,source)),pay(1/2,source))",
+   "x": "if(or(B>=1/4,not(O:S)),work,strike)",
+   "y": "if(and(not(O:S),B<=1/4),work,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "noeq",
+   "mode": "H",
+   "pred": [
+    7,
+    "C",
+    "C"
+   ],
+   "term": [
+    7,
+    "C",
+    "C"
+   ],
+   "psteps": [
+    20114,
+    67977,
+    67977
+   ],
+   "tsteps": [
+    20113,
+    67975,
+    67975
+   ],
+   "b": "if(P1^1/4:S,pay(1/2,none),if(P1^0:S,pay(1/4,none),pay(0,none)))",
+   "x": "if(B=1/2,work,strike)",
+   "y": "if(B=1/2,work,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "eq",
+   "mode": "S",
+   "pred": [
+    4,
+    "D",
+    "C"
+   ],
+   "term": [
+    4,
+    "D",
+    "C"
+   ],
+   "psteps": [
+    45,
+    31722,
+    393
+   ],
+   "tsteps": [
+    45,
+    30191,
+    393
+   ],
+   "b": "if(N1,pay(1/4,strike),if(EQW,pay(1/4,strike),pay(1/4,none)))",
+   "x": "if(or(B>=1/4,not(O:S)),strike,strike)",
+   "y": "if(and(not(B<=1/4),EQ),strike,work)"
+  },
+  {
+   "kind": "play",
+   "arm": "sham",
+   "mode": "S",
+   "pred": [
+    1,
+    "D",
+    "D"
+   ],
+   "term": [
+    1,
+    "D",
+    "D"
+   ],
+   "psteps": [
+    26,
+    65427,
+    24594
+   ],
+   "tsteps": [
+    25,
+    65427,
+    24593
+   ],
+   "b": "if(EQW,pay(1/2,none),pay(0,none))",
+   "x": "if(B=1/2,work,if(O:S,strike,work))",
+   "y": "if(and(B=1/2,EQ),work,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "eqnoT",
+   "mode": "H",
+   "pred": [
+    2,
+    "D",
+    "D"
+   ],
+   "term": [
+    2,
+    "D",
+    "D"
+   ],
+   "psteps": [
+    1429,
+    110245,
+    110245
+   ],
+   "tsteps": [
+    1428,
+    110243,
+    110243
+   ],
+   "b": "if(P1^0:W,if(P2^1/4:W,pay(1/4,none),pay(1/4,none)),pay(0,source))",
+   "x": "if(or(B=1/2,B>=1/4),strike,strike)",
+   "y": "if(or(B=1/2,B>=1/4),strike,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "noeq",
+   "mode": "S",
+   "pred": [
+    1,
+    "D",
+    "D"
+   ],
+   "term": [
+    1,
+    "D",
+    "D"
+   ],
+   "psteps": [
+    899,
+    21413,
+    21413
+   ],
+   "tsteps": [
+    899,
+    21411,
+    21411
+   ],
+   "b": "if(P1^1/4:S,pay(1/2,none),if(P1^0:S,pay(1/4,none),pay(0,none)))",
+   "x": "if(B=1/2,work,strike)",
+   "y": "if(B=1/2,work,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "eq",
+   "mode": "S",
+   "pred": [
+    3,
+    "C",
+    "D"
+   ],
+   "term": [
+    3,
+    "C",
+    "D"
+   ],
+   "psteps": [
+    23881,
+    104421,
+    26
+   ],
+   "tsteps": [
+    24271,
+    104387,
+    26
+   ],
+   "b": "if(P2^0:W,pay(1/4,strike),if(P2^0:S,pay(1/4,strike),pay(1/2,strike)))",
+   "x": "if(B<=1/4,if(B<=1/4,work,work),work)",
+   "y": "if(and(EQ,not(B>=1/4)),strike,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "sham",
+   "mode": "S",
+   "pred": [
+    7,
+    "C",
+    "C"
+   ],
+   "term": [
+    7,
+    "C",
+    "C"
+   ],
+   "psteps": [
+    39417,
+    128544,
+    890
+   ],
+   "tsteps": [
+    39418,
+    131389,
+    888
+   ],
+   "b": "if(or(not(P1^0:W),EQW),pay(1/2,none),pay(1/4,strike))",
+   "x": "if(and(B=1/2,B<=1/4),strike,work)",
+   "y": "if(B>=1/4,strike,work)"
+  },
+  {
+   "kind": "play",
+   "arm": "eqnoT",
+   "mode": "H",
+   "pred": [
+    1,
+    "C",
+    "D"
+   ],
+   "term": [
+    1,
+    "C",
+    "D"
+   ],
+   "psteps": [
+    35036,
+    945,
+    77890
+   ],
+   "tsteps": [
+    36170,
+    946,
+    78531
+   ],
+   "b": "if(P2^0:S,pay(0,none),if(P1^0:W,pay(0,none),pay(1/4,none)))",
+   "x": "if(and(O:W,not(B>=1/4)),work,work)",
+   "y": "if(and(not(B<=1/4),B<=1/4),strike,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "noeq",
+   "mode": "S",
+   "pred": [
+    7,
+    "C",
+    "D"
+   ],
+   "term": [
+    7,
+    "C",
+    "D"
+   ],
+   "psteps": [
+    6,
+    7,
+    128
+   ],
+   "tsteps": [
+    5,
+    5,
+    126
+   ],
+   "b": "pay(1/2,none)",
+   "x": "work",
+   "y": "if(B=1/2,work,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "eq",
+   "mode": "S",
+   "pred": [
+    1,
+    "C",
+    "D"
+   ],
+   "term": [
+    1,
+    "C",
+    "D"
+   ],
+   "psteps": [
+    6,
+    7,
+    374
+   ],
+   "tsteps": [
+    5,
+    5,
+    372
+   ],
+   "b": "pay(0,none)",
+   "x": "work",
+   "y": "if(B=1/2,work,strike)"
+  },
+  {
+   "kind": "play",
+   "arm": "sham",
+   "mode": "S",
+   "pred": [
+    5,
+    "D",
+    "D"
+   ],
+   "term": [
+    5,
+    "D",
+    "D"
+   ],
+   "psteps": [
+    33162,
+    16452,
+    26
+   ],
+   "tsteps": [
+    34365,
+    16453,
+    25
+   ],
+   "b": "if(or(not(P1^0:S),N1),pay(0,none),pay(1/4,source))",
+   "x": "if(not(O:W),strike,work)",
+   "y": "if(EQ,work,strike)"
+  }
+ ]
+}
