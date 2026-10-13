@@ -91,6 +91,12 @@ REJECTED.md the ones we dropped.
   14–16/20 at (100, 128); S-nonself alone 28/40, 11/20, 6/20; one H donor per island 37/40, 20/20, 18/20 (RESULTS
   "Provenance"). The remaining identity mass under endogenous production is the seed's own self-reading cliques,
   which is exactly this entry's open question.
+- *Decision (RS, 2026-10-13):* **the non-extensional (realizable) arm admits `eq`.** Identity is part of the
+  ecology, and the checker's root-box channel puts it into any quoting language at FairBot's price anyway. The
+  seed lottery remains the object ("seeds over cliques"). *Defended claim for the realizable arm:* island-level
+  efficiency with probability → 1 along the seed path; universality relative to identity's seeded abundance and the
+  (N, I) geometry, with the measured threshold (≈ 8 seeded clique copies per run at (100, 64)) and the two measured
+  remedies (refuse self-play production; the prudent open core). This entry's identity question is closed.
 - *Evidence (2026-10-06k, mixed budgets):* with budgets mixed in {4, 8, 16}, natural horizon separation is 0.683
   under a cheap-heavy prior, 0.002 above the copy thresholds and 0/300 at homogeneous b = 16; `BOX1(THEM(ME))`@4
   is in 0.94 of the separations and FairBot is compatible with itself at every budget pair; a living bridge resolves
@@ -341,8 +347,10 @@ REJECTED.md the ones we dropped.
   (0.136 → 0.048; 22 → 28/40); the timing control shows the gain is the choice of partner; coverage windows with a
   fallback are worse than self-play (13–15/40); the gate with a negative cache repairs ι but amplifies TwinD (0.172)
   and its cache saves 1.1×; the single donor stays best (37/40; 20/20 at N = 200) (RESULTS "Provenance").
-  *Operating hypothesis (revised, RE decision taken):* endogenous production is S-nonself. *Open (RE → RS, entry 1):*
-  whether the TwinD family (identity by self-reading, as available as `eq`) belongs in the prior.
+  *Operating hypothesis (revised, RE decision taken):* endogenous production is S-nonself. *Decided (RS, 2026-10-13,
+  entry 1):* `eq` is admitted in the realizable grammar; the TwinD family and the explicit identity clique belong in
+  the prior. *Next:* the social organization game fully realizable (`eq` in both roles, S-nonself production, no
+  host service).
 
 ## 12. Genes: certificates and contracts as behaviour-modifying genes (RS, 2026-10-11)
 - *RS's statement:* certificates and contracts are to be construed more broadly than proofs about a program: as
