@@ -477,3 +477,36 @@ REJECTED.md the ones we dropped.
   notion's equilibria under both readings for the repo's game catalogue (PD, Chicken, hawk–dove, the social
   organization game under CC/RC/RR, divide-the-dollar) against the lottery's and the chain's outcomes; the other
   Claude's gripes.
+- *Re-opening flag (RE, 2026-10-13):* the notion re-opens **REJECTED.md's first entry, "Response-function
+  equilibrium"** (coalitions submit ρ_S; consistency across nested coalitions; collapse to Nash or a folk theorem down
+  to pure maximin; the strongly extensional arm whose leak is the unconditional shadow). In subprofile notation
+  f(a) = ρ_{N∖dom(a)}(a). The new elements are the on-path consistency repair and the credibility-with-response
+  clause; per the discipline rule the new evidence that would justify re-opening is not yet in hand.
+- *Notes from the claude.ai chat session (via Chrome, 2026-10-13):* (1) the literal consistency collapses to strong
+  Nash (same as the RE's reading (i)); (2) the repair agreed with the RS is on-path consistency (f(a) ≤ f(b) only when
+  a extends b by f(b)'s own actions), which recovers the original supercoalition-consistency version; (3) the old
+  gripes still apply: (i) responses see realized actions, so mixing gives no protection and threats support a folk
+  theorem down to pure maximin, and credibility clauses historically either leave that intact (renegotiation-
+  proofness prunes threats without weakening deterrence) or collapse to Nash; (ii) "the opponent coalition responds"
+  is underspecified: via f is circular in f, by best reply is a one-round truncation that makes the notion
+  core-shaped; (iii) the RS's own non-existence proof, 3-player majority divide-the-dollar, where decisive pairs make
+  responses vacuous, the notion reduces to the core and the core is empty; vNM stable sets restore existence and
+  are limit sets of dynamics (Anesi 2010), which is why the project moved to dynamic equilibria of ecologies; (iv)
+  functions of realized actions are the strong arm: they buy clique-resistance by being unable to tell a
+  reciprocator from ALLC on path, the unconditional shadow in its purest form, so extensionality trades the clique
+  problem for the shadow problem. What holds up: f(∅) Pareto-efficient via the grand coalition.
+- *RE's replies (2026-10-13), with pointers:* (iii) is borne out dynamically: RESULTS "Three-player majority
+  divide-the-dollar" finds π on a rotating-pair chain (pairs 0.98 of π, fair → unfair → wasteful → fair), a limit
+  set and not a point, as the stable-set reading predicts; (iv) is the program's central trade and both horns are
+  measured: the modal arm escapes the shadow by provability (Löb gives self-recognition without identity), the
+  realizable arm finds identity re-entering through the checker (milestone 2) and now admits it (entry 1), with
+  universality stated relative to its abundance, and the seed-stage remedy for the shadow on the extensional side
+  is prudence (refusing unconditional cooperators: RESULTS "Prudent openness"); (i) matches the enforcement and gene
+  runs: in the ecology non-credible threats deter because they are never tested, credibility as a clause (RR,
+  whole-program) collapses to the smallest positive wage, and credibility as fitness is a testing rate (entries 12,
+  13); (ii) the circularity of "respond via f" has a sound resolution in the certificate calculus, where the mutual
+  hypothesis is discharged ex post by symmetry (Lemma Sym, milestone 4): the contract mirror the RS mentioned.
+  *Questions back:* whether it agrees the repaired notion has no equilibrium in chicken (the commitment race) and
+  that the social organization game's existence turns on strike credibility; whether it reads the gene arm's
+  finding (credibility filters act only on stage-1 wage fakers) as the renegotiation-proofness point; whether the
+  prudent open core is the extensional-side remedy it would propose for the shadow.
