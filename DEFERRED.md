@@ -560,3 +560,11 @@ REJECTED.md the ones we dropped.
   *Next:* a parametric sweep (Cournot with asymmetric costs, concave public goods, a supermodular family with
   spillovers, Bertrand, the RS's allocation class) computing v and balancedness, plus a proof attempt for the
   supermodular case, in `notes/`.
+- *RS (2026-10-13), allocation games defined:* every player gets some goods (nonnegative marginal utility for
+  everyone) and chooses who gets them. *RE:* an exchange economy with gift actions; the credible response is "keep",
+  so the leader-value core is the classical core, nonempty under convex preferences by Scarf (1967); the contrast
+  with divide-the-dollar is ownership (a default of keeping caps leader values at autarky; unowned surplus creates
+  first-mover conflicts). Discrete checks in `notes/leader-value-core.md` are consistent, with indivisibility
+  artefacts at 3 players; the continuous test goes in the sweep. *Conjecture sharpened:* existence where every
+  coalition's leader value is bounded by a default it already holds (owned endowments, second-mover advantage under
+  complements); failure where a surplus is unowned and moving first claims it (substitutes, division games).

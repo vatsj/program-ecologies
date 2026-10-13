@@ -35,3 +35,23 @@ table uses the reading in which play is simultaneous on path and only off-path r
 exactly the γ-core, and it is part of the definition, not an implicit choice. Ties in the SOG are the whole difference between wage 0 and ¼ (a strike is free at zero wage); with
 coalitional rather than individual responses the two-player tables do not change (the complement is one player);
 `ROLE`-symmetrized games were not recomputed since each realization is the same game.
+
+## Allocation games (the RS's definition, 2026-10-13)
+
+*Definition (RS):* every player gets some goods, from which everyone has nonnegative marginal utility, and chooses who
+gets those goods. *Reading:* an exchange economy with gift actions and own-bundle utilities; the only credible
+response of an outsider to anything is to keep its own goods (giving away never raises own utility), so the
+complement's response is trivial and a coalition's leader value is what it can reach by reallocating its own
+endowments internally. The leader-value core is then **the classical core of the exchange economy** (a coalition
+blocks with its own endowment). *Existence:* for concave (more generally, convex-preference) utilities the economy
+is a balanced NTU game and the core is nonempty by Scarf (1967); the trade needed to beat autarky is mutual gifts,
+and a unilateral withdrawal is met by the credible "keep", so individually rational trades are not undone by
+commitment. *Why this class differs from divide-the-dollar:* the goods have owners, so "keep" is a default that
+caps every leader value at autarky; the dollar has no owner, and the largest demand is a first-mover commitment on
+unowned surplus. (The social organization game's output is likewise unowned before the wage is set.)
+
+*Preliminary discrete check* (`python3`, integer units, square-root utilities with random weights): 2 players × 2
+goods, 0/30 empty cores; 3 players × 2 goods, 3/20, 7/20 and 2/20 empty at 2, 3 and 4 units per good, non-monotone
+in the grid and consistent with indivisibility artefacts rather than a continuum failure (Scarf's theorem needs
+divisible goods); nonconcave (square) utilities with 2 players, 0/30 (two-player cores are rarely empty). A proper
+continuous test (a convex program for the core) belongs to the sweep.
