@@ -27,6 +27,11 @@ program-deviator can rig the pre-response reference point). So the fair wage liv
 construction, which is consistent with the enforcement result that credibility imposed as a clause gives the
 smallest positive wage, and with the lottery result that it takes strikers arriving in numbers (committing first).
 
-**Caveats.** Ties in the SOG are the whole difference between wage 0 and ¼ (a strike is free at zero wage); with
+**Caveats.** *Credibility applies to responses to deviations only, not to the prescribed play* (claude.ai
+session, 2026-10-13): under on-path consistency f({1: C}) must be player 2's prescribed C, and C is not a best reply
+to C, so if "f(a) is the complement's credible response" were imposed at every a, including on-path extensions, the
+equilibrium would have to be Nash and the notion would collapse to Nash ∩ Pareto, which is empty in the PD. The
+table uses the reading in which play is simultaneous on path and only off-path responses must be credible; that is
+exactly the γ-core, and it is part of the definition, not an implicit choice. Ties in the SOG are the whole difference between wage 0 and ¼ (a strike is free at zero wage); with
 coalitional rather than individual responses the two-player tables do not change (the complement is one player);
 `ROLE`-symmetrized games were not recomputed since each realization is the same game.

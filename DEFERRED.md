@@ -542,3 +542,7 @@ REJECTED.md the ones we dropped.
   ¼ with ties against the leader), because a one-shot strike has no leader value: the fair wage needs a contingent
   commitment, which is a gene, not an action. Operating hypothesis unchanged: the static notion is the menu, the
   ecology the selector. The three gene-arm facts are kept separate in the write-up from here on.
+- *Caveat added to the note (claude.ai session, 2026-10-13):* credibility applies to responses to deviations only;
+  imposed on on-path extensions it forces Nash and the notion collapses to Nash ∩ Pareto (empty in the PD). The
+  PD row's verdict uses simultaneous play on path with credible off-path responses, i.e. the γ-core, stated as part
+  of the definition.
