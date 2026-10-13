@@ -546,3 +546,17 @@ REJECTED.md the ones we dropped.
   imposed on on-path extensions it forces Nash and the notion collapses to Nash ∩ Pareto (empty in the PD). The
   PD row's verdict uses simultaneous play on path with credible off-path responses, i.e. the γ-core, stated as part
   of the definition.
+- *RS (2026-10-13), existence characterizations:* given non-existence in natural cases, establish classes where the
+  notion exists: convex games (vector-valued actions, everyone's payoffs jointly concave in everyone's actions);
+  "allocation games". *RE's reading:* existence ⇔ balancedness of the leader-value function v (Bondareva–Shapley);
+  chicken fails superadditivity of v outright. Concavity alone is not enough: linear Cournot's two Stackelberg
+  profits sum exactly to the monopoly profit (a single-point core, a knife edge), while a concave public-goods game
+  has free-rider leader values whose sum exceeds any efficient profile (empty). *Conjecture:* existence under
+  strategic complements with positive spillovers (supermodular games, Milgrom–Roberts; second-mover advantage,
+  Gal-Or 1985) and failure under strategic substitutes except knife edges; Shapley-convex games (supermodular
+  coalitional worth) have nonempty cores and the question is when v inherits it; the γ-core existence results
+  (Chander–Tulkens 1997; Helm 2001) are the closest literature. "Allocation games" to be defined by the RS (a fixed
+  resource divided = divide-the-dollar, empty; own-endowment allocation = contribution games, substitutes).
+  *Next:* a parametric sweep (Cournot with asymmetric costs, concave public goods, a supermodular family with
+  spillovers, Bertrand, the RS's allocation class) computing v and balancedness, plus a proof attempt for the
+  supermodular case, in `notes/`.
