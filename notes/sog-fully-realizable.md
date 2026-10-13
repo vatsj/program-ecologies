@@ -440,3 +440,34 @@ spelling bijection; the no-eq grammar shares the stream only):
 Statistics per cell: everything of §1.8 at 2,000 and (separately) at 10,000; the static tables; the cost model
 realized. The lottery is ε = 0 evidence at finite (N, I, horizon); island-level efficiency, productive efficiency and
 wage fairness are reported separately.
+
+### 1.12 Addendum: the second review (gemini-4-argon), folded in before any counted cell
+
+`reviews/2026-10-13-sog-fully-realizable-gemini-4-argon.md`; four material points, each resolved here (written after
+the code's evaluation layer existed and before any counted cell).
+1. **Support.** There is no support reduction (§1.0 item 11): every spelling of the catalogue can be seeded, so the
+   union of all founders of the 40 paired seeds is in the dynamics, and every named militant and concession class has
+   distinct-source synonyms in the catalogue (T₁′ = `if(not(B½), strike, work)` for T₁; respellings of D\*); non-self
+   production is syntactically possible whenever a non-copy partner is present.
+2. **Starved vs capped production.** The production counters separate *cap timeouts* (PROD3's own total > P + 1) from
+   *starved* attempts (the residual K − play steps is below the attempt's cost while the cost is ≤ P, or the residual is
+   exhausted); both are reported per cell and per cost decile.
+3. **The gate's worker-homogeneity deadlock.** As specified, S-nonself₃ refuses a worker's production whenever the
+   other worker is its source, so on an island where one spelling has fixed in both worker slots a newcomer of that
+   spelling without certificates (a migrant from a lineage that never acquired, or a founder lineage that grew while
+   uncertified) can never produce. **Diagnostic arm S-nonself-opp:** non-self is required only against the opponent
+   (the boss), which no worker ever shares, so in this game the arm is production with no worker gate (it writes beside
+   copies; a script written there may need `EQ` = T, so the greenbeard union's strike certificate becomes producible).
+   *Static (by hand), which gate blocks which named triple:* under S-nonself₃ the gate blocks every worker production in
+   (·, T₁, T₁), (·, U_eq, U_eq), (·, XM, XM), (·, Q, Q) and in every copies-only triple; it never blocks a boss and never
+   blocks a worker beside a non-copy (T₁ beside T₁′ or a scab is free). Under S-nonself-opp nothing is blocked.
+   **Forced assay:** one uncertified T₁ (empty list) entering an island fixed on (D\*, T₁, T₁) with valid preloaded
+   certificates, in slot 1 and in slot 2, under both gates (no migration, 200 replicates each, followed to loss or
+   fixation of the entrant's lineage and 500 generations). Hand prediction: under S-nonself₃ the slot-1 entrant is
+   never certified to strike, D\* pays it 0 (its probe about w1 is false), it earns 0 against the residents' ½ and its
+   lineage is lost (deleterious, not a deadlock of the island); a slot-2 entrant is unread and neutral (it works at ½
+   on D\*'s certificate) and needs no certificate. Under S-nonself-opp the slot-1 entrant writes its strike certificate
+   at its first encounter (the boss is not certified ½ against it) and is neutral thereafter.
+4. **Gemini's counter-prediction** (U_eq < 0.05 of fair islands even in H + eq) is scored beside RE 2 (predictions
+   addendum); B_eq's invasion fitness on the horizon's resident compositions is reported unconditionally, beside RE 6's
+   conditional form.

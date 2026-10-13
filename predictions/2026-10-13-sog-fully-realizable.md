@@ -135,3 +135,23 @@ S17. **Productive efficiency ≥ 0.9** at 2,000 in every natural cell. *Falsifie
 - Production: T₁'s [D] costs one boss =½ check (348 steps against a constant) plus PROD3's own steps (guess
   1–3·10⁴); D\*'s =½ production one probe check (≈ 14,000) plus own (guess 3–5·10⁴). The heavy cases are workers with
   two or three wage atoms producing against probe bosses (nested boss checks of 10⁵ each), which approach P = 2.5·10⁵.
+
+## Addendum (2026-10-13, before any counted cell): the second review (gemini-4-argon)
+
+Committed after the code's evaluation layer existed and before any lottery cell or static table was computed.
+Design changes in notes §1.12: starved and capped production counted separately; a diagnostic arm **S-nonself-opp**
+(no worker gate: non-self required only against the boss); a forced assay of one uncertified T₁ entering a fixed
+(D\*, T₁, T₁) island under both gates.
+
+**G (Gemini's counter-prediction, verbatim in substance):** "U_eq holds < 0.05 of fair islands even in H + eq, because
+both worker slots must co-fix the same spelling." *Falsifier:* ≥ 0.05 in H + eq. Scored beside RE 2. If G holds, RE 6's
+condition (greenbeard unions ≥ 0.2 of fair islands) is vacuous in every cell; B_eq's invasion fitness on resident
+compositions is reported unconditionally.
+
+S18 (mine). **The gate deadlock is a slot-1 loss, not an island failure:** in the forced assay, under S-nonself₃ the
+uncertified slot-1 entrant's lineage is lost in ≥ 0.95 of replicates and never fixes; under S-nonself-opp it fixes at
+about the neutral rate (1/N ± a factor 2). A slot-2 entrant is neutral under both gates. *Falsifier:* a slot-1 entrant
+fixing under S-nonself₃, or the fair state lost in ≥ 0.05 of S-nonself₃ replicates.
+S19 (mine). **S-nonself-opp vs S-nonself₃ in the lottery:** persistence within ±0.10 (open militants need no copy
+production), greenbeard holders higher under S-nonself-opp (its strike certificate is producible). *Falsifier:*
+|Δ persistence| > 0.2.
