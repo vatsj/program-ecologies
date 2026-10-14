@@ -174,11 +174,11 @@ def paired(a_reps, b_reps, key, rng):
                 a_mean=float(np.mean([A[k]['h'][key] for k in common])), b_mean=float(np.mean([Bm[k]['h'][key] for k in common])))
 
 
-CELLS = ['H_noeq', 'H_eq', 'H_sham', 'H_eqnoT', 'H_noeq_ideal', 'S_noeq', 'S_eq', 'S_sham', 'S_opp', 'S_eq_N200',
-         'S_eq_forced_empty', 'S_eq_forced_pre']
+CELLS = ['H_noeq', 'H_eq', 'H_sham', 'H_eqnoT', 'H_noeq_ideal', 'H_noeq_K3e6', 'S_noeq', 'S_eq', 'S_sham', 'S_opp',
+         'S_eq_N200', 'S_eq_forced_empty', 'S_eq_forced_pre', 'S_eq_ideal']
 PAIRS = [('H_noeq', 'H_eq'), ('H_sham', 'H_eq'), ('H_eqnoT', 'H_eq'), ('S_noeq', 'S_eq'), ('S_sham', 'S_eq'),
          ('H_eq', 'S_eq'), ('H_noeq', 'H_noeq_ideal'), ('S_eq', 'S_opp'), ('S_eq_forced_empty', 'S_eq_forced_pre'),
-         ('H_noeq', 'S_noeq')]
+         ('H_noeq', 'S_noeq'), ('H_noeq', 'H_noeq_K3e6'), ('S_eq', 'S_eq_ideal')]
 
 
 def fmt(x, d=3):

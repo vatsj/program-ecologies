@@ -155,3 +155,16 @@ fixing under S-nonself₃, or the fair state lost in ≥ 0.05 of S-nonself₃ re
 S19 (mine). **S-nonself-opp vs S-nonself₃ in the lottery:** persistence within ±0.10 (open militants need no copy
 production), greenbeard holders higher under S-nonself-opp (its strike certificate is producible). *Falsifier:*
 |Δ persistence| > 0.2.
+
+## Addendum 2 (2026-10-13, after the H + no-eq executable and ideal cells, before the two diagnostic cells it scores)
+
+Observed so far (not scored here): H + no eq at K = 10⁶ persists on 0.025 of islands, the same seeds on the ideal
+table on 0.500 (the realizable run's 0.53); 87% of the ideal run's fair horizon islands stay fair when their modal
+triple is executed at K = 10⁶ and all at 3·10⁶ (median check cost of those triples 2.0·10⁵ against V = 2.5·10⁵). Two
+labelled diagnostic cells follow, 20 runs each on the same seeds: H + no eq at K = 3·10⁶, and S-nonself₃ + eq on the
+ideal table.
+
+S20. **The fuel threshold:** H + no eq at K = 3·10⁶ persists on ≥ 0.35 of islands (near the ideal table: the fair
+     network's checks fit under V = 7.5·10⁵). *Falsifier:* ≤ 0.15.
+S21. **Under S-nonself₃ the failure is not cost:** S-nonself₃ + eq on the ideal table persists on ≤ 0.15 of islands
+     (S inventories are short and timeouts rare, 0.3% of encounters at 2,000). *Falsifier:* ≥ 0.30.

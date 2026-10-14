@@ -1326,6 +1326,9 @@ CELLS = {
     'S_eq_forced_empty': dict(arm='eq', mode='S', forced='empty', runs=20),
     'S_eq_forced_pre': dict(arm='eq', mode='S', forced='pre', runs=20),
     'H_noeq_ideal': dict(arm='noeq', mode='H', K=10 ** 12, runs=20),
+    # labelled diagnostics added after H_noeq vs H_noeq_ideal (persistence 0.025 vs 0.500): the fuel threshold
+    'H_noeq_K3e6': dict(arm='noeq', mode='H', K=3 * 10 ** 6, runs=20),
+    'S_eq_ideal': dict(arm='eq', mode='S', K=10 ** 12, runs=20),
 }
 
 
@@ -2015,6 +2018,44 @@ def assay_local(args):
         out['lottery fair islands ' + cell] = dict(n=min(30, len(fm)), **{k: dict(v) for k, v in agg.items()})
         print(cell, json.dumps(out['lottery fair islands ' + cell]), flush=True)
     json.dump(out, open(os.path.join(RUNS, 'sog_full', 'assay_local.json'), 'w'), indent=1, default=str)
+
+
+def posthoc(args):
+    """Post-hoc statistics on the horizon's modal triples of every island (summary 'modal_all'): executable vs ideal
+    play (timeout-changed islands), the holders' militancy polarity, and the modal boss/worker spellings."""
+    out = {}
+    tot = lambda inv: tuple(tuple(z) for z in inv)
+    for cell in (args.cells.split(',') if args.cells else list(CELLS)):
+        d = os.path.join(OUT, 'cell_' + cell)
+        if not os.path.isdir(d): continue
+        cfg = cell_cfg(cell)
+        ev = evaluator_k(cfg['arm'], cfg['mode'], cfg.get('K', F.K_MAIN))
+        g = ev.g
+        n = 0; todiff = 0; wage_ideal = defaultdict(int); wage_exec = defaultdict(int)
+        wclass = defaultdict(int); bspell = defaultdict(int); wspell = defaultdict(int)
+        hc = {}
+        for f in sorted(os.listdir(d)):
+            s = json.load(open(os.path.join(d, f)))['summary']
+            for m in s.get('modal_all', []):
+                b = ev.reg.get('B', m[0], tot(m[1])); x = ev.reg.get('W', m[2], tot(m[3])); y = ev.reg.get('W', m[4], tot(m[5]))
+                tr = ev.triple(b, x, y)
+                n += 1
+                todiff += (tr['boss'], tr['a1'], tr['a2']) != tr['ideal']
+                wage_exec[tr['boss'] // 3] += 1; wage_ideal[tr['ideal'][0] // 3] += 1
+                for w in (x, y):
+                    wclass[holder_class(None, ev, w, hc)] += 1
+                    wspell[F.show(g.roles['W']['spellings'][ev.reg[w].sp])] += 1
+                bspell[F.show(g.roles['B']['spellings'][ev.reg[b].sp])] += 1
+            ev.maybe_clear()
+        out[cell] = dict(islands=n, timeout_changed=todiff / max(n, 1), wage_exec=dict(wage_exec), wage_ideal=dict(wage_ideal),
+                         worker_classes={k: v / max(2 * n, 1) for k, v in wclass.items()},
+                         top_bosses=sorted(bspell.items(), key=lambda z: -z[1])[:6],
+                         top_workers=sorted(wspell.items(), key=lambda z: -z[1])[:8])
+        print(cell, json.dumps(out[cell]), flush=True)
+    f = os.path.join(OUT, 'posthoc.json')
+    old = json.load(open(f)) if os.path.exists(f) else {}
+    old.update(out)
+    json.dump(old, open(f, 'w'), indent=1, default=str)
 
 
 def main():
