@@ -4413,6 +4413,56 @@ Member occupancy without migration q = 0.17 / 0.28 / 0.41 at N = 50 / 100 / 200.
 - **Internal stability is not dynamic separation.** Members switch into each other by neutral drift through member-mixed states, so they need not pass through an outsider; external-stability arrows carry fewer than half of the exits from outsiders.
 - **Source reading adds nothing:** the modal arm equals the weak arm at mN = 0, and constants reproduce everything.
 - *Caveats:* finite (N, I, horizon), 20–40 runs per cell, the N trend on 20-run cells; the 1/8 grid ran only as a constants extension (`dollar3` hard-codes nine actions); the discriminatory question is answered statically, since nothing realizable exists to select.
+## Dominance contracts and refusal on islands: contracts give the generator's 1/3, refusal recovers the set (`runs/dominance-contracts.md`, `runs/dominance-contracts.json`, `runs/dominance_contracts/`, `runs/dominance-contracts-static.json`, `runs/dominance-contracts-validate.json`, `notes/dominance-contracts.md`; spec `specs/2026-10-14-dominance-contracts.md`, predictions in `predictions/2026-10-14-dominance-contracts.md`)
+
+The RS registered the prediction (DEFERRED 15) and released the test on 2026-10-14. The RE designed it, gpt-6.1-sol and gemini-4-argon reviewed it, and an Opus subagent ran it (`src/dominance_contracts.py`, `_run.py`, `_report.py`, `_refusal.py`; `tests/test_dominance_contracts.py`, 7 tests passing on main; the stable-sets kernel imported, not edited). Order of commits: notes §1 by hand; predictions with the RS's first; code with validation before any counted cell (ν = 0 reproduces `stable_sets.kern` draw for draw, and the baseline rerun matches the stored L runs in 160/160); the cells. **Deviations, disclosed:** R1-blind read as "no veto, r ignored at installation" (an inert marker, the drift baseline); the N panel's D1 and R1-public ran to 10,000 generations; a modal-play occupancy column (argmax of the encounter distribution, the operationalization's own wording) was added after the D1 mN = 1 cell and no prediction was re-scored on it; the refusal-bit decomposition is post hoc. RE check: the generator's stationary V\* mass of 1/3 recomputed independently from the 27 contracts.
+
+**Static** (the 20 realizable outcomes R; 27 pair contracts). The exact proposal generator moves y to a uniformly drawn pair-dominator with probability n(y)/27, where n is 2 at a fair pair, 3 at an unequal pair and 4 or 7 at a wasteful pair. Every recurrent outsider has exactly one contract into V\*. **Stationary mass on V\* = 1/3 exactly** (unequal 1/2, wasteful 1/6); the uniform-successor anchor 4/17 = 0.235 reproduced. With refusal at V\* the hitting time is 27 draws from every outsider. Coordination threshold for a member exit: 0.76 for both installed halves to be immediately fitter, 0.40 for the kernel's selection flow to reach the contract's outcome (the excluded slot's offerers grow at once); D3′ ran at β = 0.5. Forced assays (N = 100, mN = 0), fixation by installed fraction β = 0.25 / 0.5 / 0.75: member → unequal 0.13 / 0.51 / 0.93; unequal → member 0.21 / 0.74 / 0.98; disagreement → pair 0.47–0.59 / 0.89–0.96 / ≈ 1.
+
+**Lottery** (ε = 0; I = 64; N = 100; L founders paired with the stable-sets run; 40 runs; occupancy = islands classified ≥ 0.95 on a member, with modal-play occupancy beside it at mN = 1; generation 2,000, 10,000 in parentheses):
+
+| cell | mN = 0 occupancy | mN = 0 support ⊆ V\* | mN = 1 occupancy | mN = 1 modal | mN = 1 support ⊆ V\* |
+|---|---|---|---|---|---|
+| baseline (ν = 0) | 0.281 | 0/40 | 0.739 (0.805) | 0.843 | 0.82 |
+| **D1** (all 27, β = 1, ν = 0.1) | **0.338 [0.318, 0.359] (0.315)** | 0/40 | **0.091 (0.084)** | 0.338 (0.324) | 0/40 |
+| D2 (ν = 0.01) | 0.345 | 0/40 | 0.261 | 0.679 | 0.23 |
+| D3 (β = 0.25) | 0.398 (modal 0.515) | 0/40 | 0.134 | 0.764 | 0.85 |
+| D3′ (β = 0.5) | 0.277 | 0/40 | 0.025 | 0.402 | 0.45 |
+| D4 (seeded menus) | 0.220 | 0/40 | 0.399 | 0.470 | 0.42 |
+| R1-public (bit at ½, veto) | **0.845 (0.915)** | 0/40 | 0.257 (0.312) | 0.862 (0.990) | 0.38 (0.95) |
+| R1-private (refusers keep their demand) | 0.675 | 0/40 | 0.284 | 0.961 | 0.70 |
+| R1-blind (inert bit) | 0.332 | 0/40 | 0.091 | 0.329 | 0 |
+| **R2** (universal refusal) | **1.000** | 0.97 (1.00) | 0.331 (0.316) | **0.996 (0.998)** | 0.95 (1.00) |
+
+Efficiency: D1 +0.087 over the paired baseline at mN = 0 (traps broken), R2 +0.11. N panel: D1 at mN = 0 gives 0.352 / 0.355 at N = 50 / 200, so the walk is N-free; R1-public at mN = 1, N = 200 gives 0.459 (modal 0.963) against a baseline that collapses onto unequal pairs.
+
+**Transition structure.** In D1 at mN = 0 contract jumps follow the generator row by row (member → unequal in 62,791 of 62,791 jumps) with a net directed circulation member → unequal → wasteful → member (≈ +14,000 on each edge): an irreversible stochastic walk with a stationary distribution, not a deterministic cycle; same-member returns 0.33, near-independent turnover. At mN = 1, 0.986 of entries into V\* are by contract; contracts spread islands over many outcomes, so most migrants are mismatched and the standing migration load keeps 0.5–0.95 of islands below the 0.95 test while their modal play is unchanged. R2 at mN = 1 escapes at 3.8·10⁻⁵ per member-island-generation, reaches consensus in 0/40 runs, and covers all three members in every run. In R1-public at mN = 0 a member is protected iff the excluded slot refuses or both members do; protected islands hold their member 1.000 of the time, unprotected 0.36.
+
+**The refusal bit.** Neutral at mN = 0 in both variants (public −0.007 [−0.017, 0.003], private −0.011). **At mN = 1 it rises in 40/40 runs in both:** public 0.50 → 0.67 by 2,000 and 0.80 by 10,000, private 0.50 → 0.96 by 2,000; the inert bit does not move (−0.008). Post hoc decomposition: the gain sits on moving islands in windows with an unguarded installation (+0.275 per island-run against −0.096 on member islands). An atomic contract overwrites immigrants' play and keeps their bit, while islands locked on a member kill mismatched immigrants, so the bit flows from locked islands into moving ones (immigrant rescue).
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| **RS** | dominance contracts recover the vNM stable set (D1: occupancy ≥ 0.8 and support ⊆ V\* in ≥ 0.5 of runs, at either mN) | **failed at both mN on every definition** (0.338 / 0.091, modal 0.338; support 0/40) |
+| RE 1 | D1 near the walk; the RS's prediction fails | **held** (1/3 exactly) |
+| RE 2 | D1 at mN = 1 below 0.74 | **held** (0.091; consensus 0 vs 26/40) |
+| RE 3 | D2 between the baseline and D1 | **held** |
+| RE 4 | refusal lost where private, neutral where public | **failed**: neutral at mN = 0, rises in 40/40 runs at mN = 1 in both variants |
+| RE 5 | universal refusal reaches ≥ 0.9 with support ⊆ V\* in ≥ 0.8 | **held at mN = 0** (1.000); **fired at mN = 1 on the classifier** (0.33) through migration load among islands on different members, not escape (modal 0.998) |
+| RE 6 | D4 within 0.1 of the baseline | **held** (−0.061; menus 18 → 0.3 contracts by generation 250) |
+| RE 7 (revised) | β\* > 0.5; fixation ≤ 0.05 at β = 0.25; D3 = baseline | **failed in two clauses** (flow threshold 0.40; fixation 0.13; D3 +0.117); falsifier not fired |
+| Gemini (vs RE 7) | fixation < 0.05, D3 = baseline | **failed** |
+| RE 8 (Gemini's alternative) | D1(mN = 1) > D1(mN = 0) by drift into V\* | **premise false** |
+| S1–S13 | subagent's own | S1, S3, S7, S10–S13 held; S2, S4 one clause failed; S5, S6, S8, S9 fired |
+
+**Reading.**
+- **Dominance moves alone give the generator's walk, not the set.** Members are dominated only by unequal pairs and every outsider has one move into V\*, so contracts circulate islands through the set and spend exactly 1/3 of the time in it at any N. Contracts buy efficiency, not the set.
+- **The set is recovered by a veto that encodes internal stability.** With universal refusal of exits from V\* every island sits on a member (1.000 at mN = 0; modal 0.998 at mN = 1 with all three members in every run): the stable set as a whole across the archipelago, both forms of the RS's earlier claim, because the guard hard-codes the set.
+- **The veto is not driven out; under migration it spreads.** It is neutral within islands, and between islands contracts rescue immigrant refusers on moving islands while locked islands reject immigrants.
+- **Migration under contracts is a load, not a consensus builder;** at mN = 1 the 0.95 classifier and modal play part by 0.25–0.7, so mN = 1 claims in contract cells need both.
+- *Caveats:* finite (N, I, horizon); 20–40 runs per cell; the refusal decomposition is correlational and post hoc; the guard is written by hand, and whether a source-reading program derives it (refuse κ iff accepting leads provably to one's own exclusion) is open.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

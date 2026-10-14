@@ -959,3 +959,12 @@ No RE prediction failed outright (RE 4 and RE 5 inconclusive). **Design choices 
 **Subagent:** S4 (fair ∈ [0.2, 0.45] at mN = 1; 0.74), S6 (member → unequal flips drift-prepared; 0.07, concurrent polymorphisms instead), S11's grand clause, S13's consensus clause, S15's "RE 6 void".
 
 **Design choices dropped:** the literal uniform-over-demands control (duplicates L; uniform over programs instead); the 1/8 grid in the main grammar (`dollar3` hard-codes nine actions; a constants extension instead); the first forced-residence exit rule as the only measure (it counts migrant dips; a second measure reported beside it); the selection statistic "which stable set" (vacuous with one stable set).
+
+
+## Added 2026-10-14: dominance contracts and refusal (RESULTS.md, "Dominance contracts and refusal on islands")
+
+**The RS's prediction, "contracts deviating to dominating actions will recover the vNM stable set."** Failed at both migration rates on every definition (occupancy 0.338 / 0.091, modal 0.338 at mN = 1; support ⊆ V\* 0/40). Contracts reproduce the proposal generator's walk (V\* exactly 1/3); recovery needs a refusal guard on exits from V\*.
+
+**"Refusal is lost where private and a martingale where public" (Fable, RE 4; failed).** Neutral at mN = 0 in both variants; at mN = 1 the bit rises in 40/40 runs in both (public 0.50 → 0.80, private 0.50 → 0.96) by immigrant rescue. **RE 5 at mN = 1** (fired on the 0.95 classifier, 0.33, by migration load, not escape). **RE 7 revised** (flow threshold 0.40, not > 0.5; fixation 0.13 at β = 0.25; D3 +0.12) and **Gemini's counter** (fixation < 0.05, D3 identical): both failed. **RE 7 as first drafted** (joint entry at β = 0.25 fixes in ≥ 0.5 of events) was withdrawn before the run after Gemini's coordination argument; the run confirms it would have failed (0.13). **RE 8's premise** (D1 higher at mN = 1) false.
+
+**Subagent:** S2's mN = 1 interval (the hand chain ignored migration load), S4's same-member return clause, S5 (entries not by contract 0.014, not ≥ 0.4), S6 (member-exit fixation ≤ 0.05), S8 (the private bit rose), S9's mN = 1 interval. **Dropped:** the hand interleaving of the contract walk with measured relation-P rates at mN = 1 (ignores the migration load contracts create); the static coordination threshold as the operative one (the flow threshold is); the 0.95 classifier alone for mN = 1 contract cells.

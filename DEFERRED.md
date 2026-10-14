@@ -601,3 +601,10 @@ REJECTED.md the ones we dropped.
 - *Launched 2026-10-14 on the RS's go:* `specs/2026-10-14-dominance-contracts.md` (reviewed; refusal split into public
   and private variants; the RE's joint-entry prediction withdrawn before the run after Gemini's coordination
   argument).
+- *Evidence (2026-10-14, dominance contracts):* the RS's prediction failed at both migration rates (contracts give
+  the generator's walk, V\* exactly 1/3; 0.09 classified at mN = 1); universal refusal of exits from V\* recovers the
+  set (every island on a member, all three members in every run), and a refusal bit seeded at ½ is not driven out
+  and spreads under migration in 40/40 runs (RESULTS "Dominance contracts and refusal on islands"). *Operating
+  hypothesis:* stable-set behaviour needs a refusal guard; the guard is hand-written. *Open:* whether a source-reading
+  program derives it (refuse κ iff accepting leads provably to one's own exclusion; Gemini's farsighted refusal), a
+  candidate follow-up in the modal or realizable arm.
