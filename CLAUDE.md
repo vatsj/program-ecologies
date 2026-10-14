@@ -112,6 +112,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 31. ~~Stable sets on islands~~ (done; RESULTS "Stable sets on islands": the symmetric vNM set is the unique stable set on every grid (no discriminatory set exists on a finite grid); the RS's claim fails in both forms where tested, 0.72 of islands sit on dominated outcomes without migration and migration picks one element (a fair pair at N ≤ 150, an unequal pair at N ≥ 200); members switch by drift, not dominance; Anesi is a farsighted result).
 
+32. Dominance contracts and refusal on islands: the RS's prediction that contracts deviating to dominating outcomes recover the vNM stable set, against the RE's bet that they cycle unless refusal holds; atomic and joint-entry pair contracts, seeded contract genes, public and private refusal, a universal-refusal control (running: `specs/2026-10-14-dominance-contracts.md`).
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).

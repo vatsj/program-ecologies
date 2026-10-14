@@ -598,3 +598,6 @@ REJECTED.md the ones we dropped.
   two-slot gene judged by both payoffs; the dynamics become relation M) and a refusal gene; RE predictions: the
   rotating cycle with occupancy by residence, and the refusal gene deleterious; the RS's prediction registered
   against both. Launch only when the RS says go.
+- *Launched 2026-10-14 on the RS's go:* `specs/2026-10-14-dominance-contracts.md` (reviewed; refusal split into public
+  and private variants; the RE's joint-entry prediction withdrawn before the run after Gemini's coordination
+  argument).
