@@ -578,3 +578,12 @@ REJECTED.md the ones we dropped.
   (symmetric vs the infinitely many discriminatory ones). The matching notion is the *myopic* stable set (Anesi 2010),
   since our dynamics judge one mutant or migrant by immediate payoff; the farsighted set (Chwe; Ray–Vohra) is the
   contrast. *Next:* `specs/2026-10-13-stable-sets-on-islands.md`.
+- *Evidence (2026-10-13, stable sets on islands):* the RS's claim fails in both forms where tested (weak form only
+  without migration, by role symmetry; strong form 0/40 without migration, consensus on one member with migration at
+  N ≤ 150, one unequal pair at N ≥ 200); V\* is the only stable set on every grid (no discriminatory set exists on
+  any finite grid, Lemma G); members switch by drift, not dominance; **Anesi (2010) is a farsighted result**, so
+  "myopic" was our hypothesis, not his theorem; farsighted sets (TU) are every efficient singleton, and the unequal
+  pairs the ecology tends to at larger N are farsightedly stable (RESULTS "Stable sets on islands"). *Operating
+  hypothesis (unchanged, with a new fact):* the static notion is the menu, the ecology the selector; the selector
+  chooses a single element or leaves the menu. *Would re-open it:* a game whose stable sets differ under
+  single-slot dynamics (relation P) and are tested on islands.

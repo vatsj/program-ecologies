@@ -420,3 +420,13 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   **only-self class** — the 97 run trees (mass 0.018) whose only producible C script is the self-root one; **TwinD
   family** — the seed's self-reading identity cliques (μ = 7.1·10⁻⁴, 4.6 copies per run at (100, 64)); **settled /
   futile individual** — one whose encounters cannot change it, skipped exactly by the kernel.
+- **Stable sets on islands:** **R** — the 20 realizable payoff vectors of `dollar3`; **V\*** — the symmetric stable set
+  (the three fair pairs); **M / C / P** — strict majority dominance / commitment with credible every-best-reply
+  response / the ecology's programmed single-slot response; **G6, G8 (=)** — classical grids of step 1/6 and 1/8 (the
+  efficient subsets); **R6x, R8x** — the constants extensions with unequal grand coalitions; **Lemma G** — exact
+  discriminatory lines are never externally stable on a grid; **Lemma I** — C is outcome-invariant; **member
+  occupancy q** — the fraction of islands on V\*; **coverage** — all three members held somewhere; **strong / weak
+  form** of the RS's claim — island support ⊆ a stable set / coverage; **member-mixed / other-mixed** — an island
+  below the 0.95 tolerance with ≥ 0.95 of encounters on V\* / otherwise; **held class** — ≥ 25 consecutive
+  generations; **flip triggers** — pure drift, drift-prepared, two-slot coincidence, conditional, single-slot strict;
+  **TU vs game effectiveness** — the two effectiveness notions for farsighted sets.

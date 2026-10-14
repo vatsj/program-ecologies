@@ -4363,6 +4363,56 @@ Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/prove
 - **What remains under S-nonself is the seed's own self-reading cliques** (the TwinD family, 4.6 copies per run), which no provenance rule touches. Moving their mass to the prudent open core makes the realizable lottery universal on every run by 10,000 generations at (100, 64), and on 17–18/20 at (200, 64).
 - **The single donor stays best** (37/40) and is the only design that holds at N = 200 (20/20). Endogenous production loses universality with N and I.
 - *Caveats:* finite (N, I, horizon); production costs modelled from term medians with futile retries accounted in expectation; the S-k diagnostics are post hoc; the gate cell's extensions partial; the ablation's receiving set is this grammar's analogue of the prudent core; the paired primary gain is within noise at 40 runs.
+## Stable sets on islands: the symmetric set is the only stable set; islands do not sit on it, and migration picks one member (`runs/stable-sets-on-islands.md`, `runs/stable-sets-on-islands.json`, `runs/stable_sets/`, `runs/stable-sets-static.json`, `runs/stable-sets-validate.json`, `notes/stable-sets-on-islands.md`; spec `specs/2026-10-13-stable-sets-on-islands.md`, predictions in `predictions/2026-10-13-stable-sets-on-islands.md`)
+
+Requested by the RS (DEFERRED 15), designed by the RE, reviewed by gpt-6.1-sol and gemini-4-argon, run by an Opus subagent (`src/stable_sets.py`, `src/stable_sets_run.py`, `src/stable_sets_report.py`, `tests/test_stable_sets.py`; 11 tests, passing on main). Order of commits: the notes' §1 by hand; the predictions with the RS's claim first; the code with its validation before any counted cell; the cells. **Deviations, disclosed:** the spec's uniform-over-demands control duplicates L (the length prior is already uniform over demands among constants) and was replaced, before any cell, by a uniform prior over a per-run catalogue of 160 programs; three N-trend cells (N = 150, 300, 400 at mN = 1, 20 runs) were added after the first pass and no prediction is scored on them. The RS's registered claim: "each element of the stable set shows up on an island." RE check: the occupancy (0.281) and the 0/40 within-run containment at mN = 0 are in the run report; the uniqueness of the symmetric set is by exhaustive enumeration checked against the full 2²⁰ scan.
+
+**The game as implemented.** `dollar3` demands lie in {1/3, 1/2, 2/3} and the grand coalition forms only at thirds, so the realizable payoff vectors R (in sixths) are 20: disagreement (0, 0, 0); the grand coalition (2, 2, 2); 18 pair outcomes, fair (3, 3), unequal (4, 2) and (2, 4), and wasteful (2, 2), (2, 3), (3, 2) per pair. Apart from (2, 2, 2) no realizable outcome gives three positive payoffs, so **no discriminatory element is realizable in this game** and the tilted-seed cell tests the tilt alone.
+
+**Relations.** **M**, strict majority dominance (the classical relation; under weak improvement the fair pairs are not internally stable). **C**, commitment with credible response (the complement answers with its pure best replies or the pure Nash equilibria of the two-player remainder; every best reply must leave every committer strictly better off); C equals M exactly on R, singleton commitments dominate nothing, and C is outcome-invariant by construction (Lemma I: responses are recomputed, not read from the status quo's programs). **P**, the ecology's own moves: single-slot changes judged against the resident programs; P contains neither M nor C.
+
+**Static** (exhaustive enumeration on R and on the classical grids G6, G6=, G8, G8= and the constants extensions R6x, R8x). **V\* = {(3,3,0), (3,0,3), (0,3,3)} is the unique stable set** on every grid computed (its 1/8 analogue on G8); with single-slot moves only it becomes V\* ∪ {(2,2,2)}. **No discriminatory set exists on any grid:** Lemma G, on a grid of step 1/g the exact line x_k = c is never externally stable (the point with x_k = c + 1 needs a dominator whose other two payoffs exceed what the line allows by one unit), and Gemini's even-remainder grid does not change this. Unequal pairs, wasteful pairs, (2, 2, 2) and (0, 0, 0) are in no stable set and every outcome is dominated; the core is empty; a member is dominated by an outsider ((4, 0, 2) ≻ (3, 3, 0)). *Farsighted contrast:* with TU (Harsanyi/Chwe) effectiveness every efficient outcome is a singleton farsighted stable set and the largest consistent set is all of R; with game effectiveness the farsighted sets are V\* plus three held-player pairs such as {(4,2,0), (0,2,4)}. Chicken under C: exactly {R1} and {R2}. **Anesi (2010) is a farsighted result** (limit sets of equilibria with patient voters); the "myopic" attribution in the spec and in DEFERRED 15 was ours.
+
+**Kernel.** Reproduces `sog_lottery.kern` draw for draw on four configurations; each run costs seconds.
+
+**Lottery** (ε = 0; L seeds; N = 100 per slot; I = 64; 40 runs; fraction of islands at generation 2,000, mN = 0 runs closed by ≈ 300):
+
+| cell | fair (V\*) | unequal | wasteful | disagreement | coverage (runs) | support ⊆ V\* (runs) | consensus |
+|---|---|---|---|---|---|---|---|
+| L, mN = 0 | **0.281 [0.263, 0.300]** | 0.417 | 0.23 | 0.070 | 40/40 | **0/40** | 0 |
+| constants, mN = 0 | 0.286 | 0.409 | 0.23 | 0.071 | 40/40 | 0/40 | 0 |
+| modalPA (paired seeds), mN = 0 | 0.283 | 0.413 | 0.23 | 0.072 | 40/40 | 0/40 | 0 |
+| L, mN = 1 | 0.74 (0.81 at 10,000) | 0.14 (0.18) | 0 | 0 | 0/40 | 0.82 | 0.65 (0.95) |
+| constants, mN = 1 | 0.66 (0.77) | 0.20 | 0 | 0 | 0/40 | 0.78 (0.80) | 0.62 (0.90) |
+| modalPA, mN = 1 | 0.64 (0.69) | 0.23 (0.29) | 0 | 0 | 0/40 | 0.70 | 0.72 (0.95) |
+| tilted slot 3, mN = 0 | 0.173 | 0.499 | 0.28 | 0.047 | 39/40 | 0/40 | 0 |
+| uniform over programs, mN = 0 | 0.005 | 0.014 | 0.01 | 0.971 | 0/40 | 0/40 | – |
+
+Member occupancy without migration q = 0.17 / 0.28 / 0.41 at N = 50 / 100 / 200. Extended constants grids (mN = 0; 1/6 and 1/8): fair pairs 0.15 / 0.09 of islands, unequal 0.37 / 0.31, wasteful 0.32 / 0.40, discriminatory-line elements 0.006 / 0.004; at mN = 1 and 10,000 generations fair 0.65 / 0.50. Forced entry (β = 0.25 of the target slots seeded): island rate 0.60 (fair pair), 0.51 (unequal), 0.07 (wasteful), 0.13 (grand coalition). Forced residence (mN = 1; first departure ≥ 25 generations): KM medians fair 776 (0.40 censored), unequal 121, grand 41, wasteful 26; fair islands leave only to unequal pairs; unequal islands leave to a member in 416 of 640 exits. **The N trend at mN = 1** (10,000 generations; 20-run cells): fair pairs hold 0.83 / 0.81 / 0.67 / 0.15 / 0.24 / 0.37 of islands at N = 50 / 100 / 150 / 200 / 300 / 400, with consensus runs splitting fair/unequal 16/3, 31/7, 11/5, 2/15, 3/10, 1/4 (15 of 20 unresolved at 400). **Flips under migration** (L, mN = 1; 49 per run): 1,350 member → member flips, only 8 through an outsider class, the rest through member-mixed states, 0.90 of them by pure drift (the excluded slot drifts to an offer of 1/2, then the pivot drifts across a 3-against-3 tie); member → unequal flips run on concurrent two-slot polymorphisms (0.61) or single-slot strict moves (0.24), rarely sequential drift (0.07); of the steps out of a non-member class 0.45 follow an M arrow; consensus needs no conditional program (constants alone reach it in 0.90 of runs). **Chain** (weak arm, N = 100, rerun on the same grammar, a separate object): fair 0.373, unfair 0.590, wasteful 0.026, grand 0.010, matching the published numbers to four decimals; 0.627 of π sits on outcomes in no stable set.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RS | each element of the stable set shows up on an island | **failed in both forms where tested:** weak form 40/40 without migration (a role-symmetry fact that constants reproduce; the independence baseline gives 0.995) and 0/40 with migration; strong form 0/40 without migration, 0.82 with migration at N = 100 (one member everywhere) and 0.25 at N = 200 |
+| RE 1 | coverage ≥ 0.9; member occupancy ≥ 0.6 | coverage held; **occupancy falsifier fired** (0.28) |
+| RE 2 | symmetry across runs; support ⊆ V\* in ≥ 0.5 of runs; the tilted seed populates a discriminatory line | symmetry held; the within-run clause failed at mN = 0 (0/40) and held at mN = 1; **the tilted falsifier fired** (impossible on R) |
+| RE 3 | non-members transient; ≤ 0.1 of islands on them | grand visits last ≈ 2 generations; **falsifier fired** at mN = 0 (unequal 0.42; wasteful islands absorbing at ε = 0) and at N = 200 with migration (0.75) |
+| RE 4 | member flips via an outsider; ≥ 0.8 arrow steps; consensus ≤ 0.3 | **both falsifier clauses fired** (8 of 1,350 via an outsider; 0.45; consensus 0.95 with no bridges needed) |
+| RE 5 | modal = weak within 0.1 | held at mN = 0; the band missed narrowly at mN = 1 (0.70 vs 0.82, not significant) |
+| RE 6 | islands sit on myopic, not farsighted-only, outcomes | **falsifier fired** at mN = 0 (0.42 on unequal pairs and (2,2,2)) and at N = 200 (0.75); not at mN = 1, N = 100 |
+| RE 7 (Gemini) | V\* < 0.4; all pairs > 0.7; a sweep at mN = 1 | **held** (0.28; 0.93; consensus 0.95) and **wins against RE 1**; its greed mechanism is not what happens (constants reproduce the result; the unequal share of efficient pair islands, 0.60, is below the two-orientation count 2/3; the sweep goes to a fair pair at N ≤ 150) |
+| S1–S3, S5, S7–S10, S12, S14 | subagent's own | held |
+| S4, S6 | subagent's own | falsifiers fired |
+| S11, S13, S15 | subagent's own | one clause each failed |
+
+**Reading.**
+- **The menu has one item.** On this game and on every grid computed the symmetric set is the only myopic stable set; discriminatory sets are a continuum phenomenon that discreteness removes (Lemma G), so there is no selection among stable sets to observe.
+- **Without migration, islands sit off the stable set.** 0.72 of islands hold dominated outcomes (unequal pairs at the orientation count, frozen wasteful pairs, disagreement); all three fair pairs appear somewhere only because 64 islands and role symmetry guarantee it, and coverage tests nothing that pairwise coordination does not.
+- **With migration, the archipelago chooses one element, not the set.** At N ≤ 150 one fair pair takes every island in most runs; from N = 200 one unequal pair takes over, the chain's direction (unfair 0.59). The fair-pair consensus is a small-island effect.
+- **Internal stability is not dynamic separation.** Members switch into each other by neutral drift through member-mixed states, so they need not pass through an outsider; external-stability arrows carry fewer than half of the exits from outsiders.
+- **Source reading adds nothing:** the modal arm equals the weak arm at mN = 0, and constants reproduce everything.
+- *Caveats:* finite (N, I, horizon), 20–40 runs per cell, the N trend on 20-run cells; the 1/8 grid ran only as a constants extension (`dollar3` hard-codes nine actions); the discriminatory question is answered statically, since nothing realizable exists to select.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
