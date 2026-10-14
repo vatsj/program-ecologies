@@ -1,0 +1,46 @@
+{
+ "1000000": {
+  "counts": {
+   "fair": 559,
+   "not fair": 81
+  },
+  "distinct": 63,
+  "examples": [
+   [
+    46,
+    "('if(P1^0:W,pay(0,none),if(P2^1/4:W,pay(1/4,source),pay(1/2,strike)))', 'if(B>=1/4,if(B=1/2,work,work),strike)', 'if(not(or(B<=1/4,B<=1/4)),work,strike)', 6, 'D', 'C', ('TO', 'T', 'TO'), ('TO', 'TO', 'TO', 'TO'), (331672, 167205, 291569))"
+   ],
+   [
+    16,
+    "('if(P1^0:W,pay(0,none),if(P2^1/4:W,pay(1/4,source),pay(1/2,strike)))', 'if(B>=1/4,if(B=1/2,work,work),strike)', 'if(and(not(B=1/2),B>=1/4),strike,work)', 6, 'D', 'C', ('TO', 'T', 'TO'), ('TO', 'TO', 'T', 'F'), (420050, 211394, 335758))"
+   ],
+   [
+    9,
+    "('if(P1^1/4:S,if(P1^0:S,pay(1/2,none),pay(0,none)),pay(1/4,source))', 'if(B=1/2,work,if(O:W,strike,strike))', 'if(B>=1/4,work,if(B>=1/4,work,strike))', 7, 'D', 'D', ('TO', 'TO', 'TO'), ('TO', 'TO', 'TO', 'TO'), (275467, 275467, 320081))"
+   ],
+   [
+    3,
+    "('if(P1^1/4:S,if(P1^0:S,pay(1/2,none),pay(0,none)),pay(1/4,source))', 'if(B=1/2,work,if(O:W,strike,strike))', 'if(B>=1/4,work,if(B=1/2,work,strike))', 7, 'D', 'D', ('TO', 'TO', 'TO'), ('TO', 'TO', 'TO', 'TO'), (333799, 333799, 378413))"
+   ],
+   [
+    3,
+    "('if(P1^1/4:S,if(P1^0:S,pay(1/2,none),pay(0,none)),pay(1/4,source))', 'if(B=1/2,work,if(O:W,strike,strike))', 'if(or(B>=1/4,B=1/2),work,strike)', 7, 'D', 'D', ('TO', 'TO', 'TO'), ('TO', 'TO', 'TO', 'TO'), (333799, 333799, 378413))"
+   ],
+   [
+    2,
+    "('if(P1^1/4:S,if(P1^0:S,pay(1/2,none),pay(0,none)),pay(1/4,source))', 'if(B=1/2,work,if(O:W,strike,strike))', 'if(B>=1/4,if(B>=1/4,work,strike),strike)', 7, 'D', 'D', ('TO', 'TO', 'TO'), ('TO', 'TO', 'TO', 'TO'), (285472, 285472, 330086))"
+   ],
+   [
+    2,
+    "('if(P1^0:W,pay(0,none),if(P2^1/4:W,pay(1/4,source),pay(1/2,strike)))', 'if(B>=1/4,if(B=1/2,work,work),strike)', 'if(not(B=1/2),strike,work)', 6, 'D', 'C', ('TO', 'T', 'TO'), ('TO', 'TO', 'T', 'F'), (297174, 149956, 274320))"
+   ]
+  ]
+ },
+ "3000000": {
+  "counts": {
+   "fair": 640
+  },
+  "distinct": 63,
+  "examples": []
+ }
+}
