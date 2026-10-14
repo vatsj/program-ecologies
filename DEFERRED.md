@@ -587,3 +587,14 @@ REJECTED.md the ones we dropped.
   hypothesis (unchanged, with a new fact):* the static notion is the menu, the ecology the selector; the selector
   chooses a single element or leaves the menu. *Would re-open it:* a game whose stable sets differ under
   single-slot dynamics (relation P) and are tested on islands.
+- *RS (2026-10-14), pointed prediction, on hold at his request:* "contracts deviating to dominating actions will
+  recover the vNM stable set." *RE's bet against it:* stable sets are not closed under dominance (outsiders dominate
+  members: (4, 0, 2) ≻ (3, 3, 0)), so a dominance-following contract dynamic cycles through the set rather than
+  settling on it, which is the chain's and the islands' cycle; the ecology already has these contracts in sequential
+  form (416 of 640 exits from unequal pairs go to a member); occupancy is a residence-time question (fair 776 vs
+  unequal 121 generations at N = 100, the ratio turning by N = 200); recovery needs refusal of dominating offers,
+  which is myopically deleterious in majority division and unenforceable against the excluded player (the farsighted
+  solutions are the formal version). *Test, held:* two cells on the stable-sets machinery, atomic pair contracts (a
+  two-slot gene judged by both payoffs; the dynamics become relation M) and a refusal gene; RE predictions: the
+  rotating cycle with occupancy by residence, and the refusal gene deleterious; the RS's prediction registered
+  against both. Launch only when the RS says go.
