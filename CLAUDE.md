@@ -110,6 +110,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 30. The social organization game, fully realizable: `eq` in both roles, S-nonself₃ production, no host service, executable dynamics on a reduced support; the greenbeard union and the closed shop; a matched-prior identity-disabled control and an eq-without-named-quote arm; forced coalitions empty vs preloaded; local transition assays; the three-player cost model (running: `specs/2026-10-13-sog-fully-realizable.md`).
 
+31. Stable sets on islands: the RS's claim (each element of the vNM stable set shows up on an island) on three-player majority division; the strict majority and commitment dominance relations with all stable sets enumerated on the grid; coverage vs member occupancy; selection among stable sets; flips at mN = 1 logged by trigger; constants-only and forced-seed controls; Gemini's counter-prediction (the ecology sits on dominated unequal pairs) scored against it (running: `specs/2026-10-13-stable-sets-on-islands.md`).
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).
