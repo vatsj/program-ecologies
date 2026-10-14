@@ -568,3 +568,13 @@ REJECTED.md the ones we dropped.
   artefacts at 3 players; the continuous test goes in the sweep. *Conjecture sharpened:* existence where every
   coalition's leader value is bounded by a default it already holds (owned endowments, second-mover advantage under
   complements); failure where a surplus is unowned and moving first claims it (substitutes, division games).
+- *RS (2026-10-13), stable sets on islands:* "vNM stable sets lend themselves to a very natural claim on our island
+  model: each element of the stable set shows up on an island." *RE:* under the commitment-with-credible-response
+  dominance relation chicken has exactly two singleton stable sets (the two one-sided norms dominate each other, each
+  is externally stable), so the claim reads "every island lands in one stable set, a coin flip" and is the fixed-role
+  chicken result; three-player majority division is the test: the symmetric vNM solution (the three 50–50 pairs)
+  appeared in the rare-mutation chain as the rotating-pair chain with dominated interlopers as transients, and the
+  island model asks (i) coverage (all three pairs across one run's islands) and (ii) selection among vNM solutions
+  (symmetric vs the infinitely many discriminatory ones). The matching notion is the *myopic* stable set (Anesi 2010),
+  since our dynamics judge one mutant or migrant by immediate payoff; the farsighted set (Chwe; Ray–Vohra) is the
+  contrast. *Next:* `specs/2026-10-13-stable-sets-on-islands.md`.
