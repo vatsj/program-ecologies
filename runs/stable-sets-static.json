@@ -1,0 +1,794 @@
+{
+ "R": {
+  "outcomes": [
+   "X",
+   "G(2,2,2)",
+   "P12:4|2",
+   "P12:3|3",
+   "P12:3|2",
+   "P12:2|4",
+   "P12:2|3",
+   "P12:2|2",
+   "P13:4|2",
+   "P13:3|3",
+   "P13:3|2",
+   "P13:2|4",
+   "P13:2|3",
+   "P13:2|2",
+   "P23:4|2",
+   "P23:3|3",
+   "P23:3|2",
+   "P23:2|4",
+   "P23:2|3",
+   "P23:2|2"
+  ],
+  "n": 20,
+  "C_equals_M": true,
+  "singleton_C": false,
+  "M_stable": [
+   [
+    "P12:3|3",
+    "P13:3|3",
+    "P23:3|3"
+   ]
+  ],
+  "M_complete": true,
+  "M_brute": [
+   [
+    "P12:3|3",
+    "P13:3|3",
+    "P23:3|3"
+   ]
+  ],
+  "C_stable": [
+   [
+    "P12:3|3",
+    "P13:3|3",
+    "P23:3|3"
+   ]
+  ],
+  "undominated": [],
+  "game_eff_myopic_all": [
+   [
+    "P12:3|3",
+    "P13:3|3",
+    "P23:3|3"
+   ]
+  ],
+  "game_eff_myopic_singletons": [
+   [
+    "G(2,2,2)",
+    "P12:3|3",
+    "P13:3|3",
+    "P23:3|3"
+   ]
+  ],
+  "farsighted_tu": [
+   [
+    "G(2,2,2)"
+   ],
+   [
+    "P12:4|2"
+   ],
+   [
+    "P12:3|3"
+   ],
+   [
+    "P12:2|4"
+   ],
+   [
+    "P13:4|2"
+   ],
+   [
+    "P13:3|3"
+   ],
+   [
+    "P13:2|4"
+   ],
+   [
+    "P23:4|2"
+   ],
+   [
+    "P23:3|3"
+   ],
+   [
+    "P23:2|4"
+   ]
+  ],
+  "lcs_tu": [
+   "X",
+   "G(2,2,2)",
+   "P12:4|2",
+   "P12:3|3",
+   "P12:3|2",
+   "P12:2|4",
+   "P12:2|3",
+   "P12:2|2",
+   "P13:4|2",
+   "P13:3|3",
+   "P13:3|2",
+   "P13:2|4",
+   "P13:2|3",
+   "P13:2|2",
+   "P23:4|2",
+   "P23:3|3",
+   "P23:3|2",
+   "P23:2|4",
+   "P23:2|3",
+   "P23:2|2"
+  ],
+  "farsighted_game": [
+   [
+    "P12:4|2",
+    "P23:2|4"
+   ],
+   [
+    "P12:3|3",
+    "P13:3|3",
+    "P23:3|3"
+   ],
+   [
+    "P12:2|4",
+    "P13:2|4"
+   ],
+   [
+    "P13:4|2",
+    "P23:4|2"
+   ]
+  ],
+  "lcs_game": [
+   "G(2,2,2)",
+   "P12:4|2",
+   "P12:3|3",
+   "P12:3|2",
+   "P12:2|4",
+   "P12:2|3",
+   "P12:2|2",
+   "P13:4|2",
+   "P13:3|3",
+   "P13:3|2",
+   "P13:2|4",
+   "P13:2|3",
+   "P13:2|2",
+   "P23:4|2",
+   "P23:3|3",
+   "P23:3|2",
+   "P23:2|4",
+   "P23:2|3",
+   "P23:2|2"
+  ],
+  "membership": [
+   {
+    "outcome": "X",
+    "category": "disagreement",
+    "dominated_M": true,
+    "dominators": [
+     "G(2,2,2)",
+     "P12:4|2",
+     "P12:3|3",
+     "P12:3|2",
+     "P12:2|4",
+     "P12:2|3",
+     "P12:2|2",
+     "P13:4|2",
+     "P13:3|3",
+     "P13:3|2",
+     "P13:2|4",
+     "P13:2|3",
+     "P13:2|2",
+     "P23:4|2",
+     "P23:3|3",
+     "P23:3|2",
+     "P23:2|4",
+     "P23:2|3",
+     "P23:2|2"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [],
+    "in_far_game": [],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "G(2,2,2)",
+    "category": "grand-equal",
+    "dominated_M": true,
+    "dominators": [
+     "P12:3|3",
+     "P13:3|3",
+     "P23:3|3"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [
+     0
+    ],
+    "in_far_game": [],
+    "in_game_singleton_set": [
+     0
+    ]
+   },
+   {
+    "outcome": "P12:4|2",
+    "category": "unequal",
+    "dominated_M": true,
+    "dominators": [
+     "P23:4|2",
+     "P23:3|3",
+     "P23:3|2"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [
+     1
+    ],
+    "in_far_game": [
+     0
+    ],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P12:3|3",
+    "category": "fair",
+    "dominated_M": true,
+    "dominators": [
+     "P13:4|2",
+     "P23:4|2"
+    ],
+    "in_M_sets": [
+     0
+    ],
+    "in_far_tu": [
+     2
+    ],
+    "in_far_game": [
+     1
+    ],
+    "in_game_singleton_set": [
+     0
+    ]
+   },
+   {
+    "outcome": "P12:3|2",
+    "category": "wasteful",
+    "dominated_M": true,
+    "dominators": [
+     "P13:4|2",
+     "P23:4|2",
+     "P23:3|3",
+     "P23:3|2"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [],
+    "in_far_game": [],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P12:2|4",
+    "category": "unequal",
+    "dominated_M": true,
+    "dominators": [
+     "P13:4|2",
+     "P13:3|3",
+     "P13:3|2"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [
+     3
+    ],
+    "in_far_game": [
+     2
+    ],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P12:2|3",
+    "category": "wasteful",
+    "dominated_M": true,
+    "dominators": [
+     "P13:4|2",
+     "P13:3|3",
+     "P13:3|2",
+     "P23:4|2"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [],
+    "in_far_game": [],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P12:2|2",
+    "category": "wasteful",
+    "dominated_M": true,
+    "dominators": [
+     "P12:3|3",
+     "P13:4|2",
+     "P13:3|3",
+     "P13:3|2",
+     "P23:4|2",
+     "P23:3|3",
+     "P23:3|2"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [],
+    "in_far_game": [],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P13:4|2",
+    "category": "unequal",
+    "dominated_M": true,
+    "dominators": [
+     "P23:3|3",
+     "P23:2|4",
+     "P23:2|3"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [
+     4
+    ],
+    "in_far_game": [
+     3
+    ],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P13:3|3",
+    "category": "fair",
+    "dominated_M": true,
+    "dominators": [
+     "P12:4|2",
+     "P23:2|4"
+    ],
+    "in_M_sets": [
+     0
+    ],
+    "in_far_tu": [
+     5
+    ],
+    "in_far_game": [
+     1
+    ],
+    "in_game_singleton_set": [
+     0
+    ]
+   },
+   {
+    "outcome": "P13:3|2",
+    "category": "wasteful",
+    "dominated_M": true,
+    "dominators": [
+     "P12:4|2",
+     "P23:3|3",
+     "P23:2|4",
+     "P23:2|3"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [],
+    "in_far_game": [],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P13:2|4",
+    "category": "unequal",
+    "dominated_M": true,
+    "dominators": [
+     "P12:4|2",
+     "P12:3|3",
+     "P12:3|2"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [
+     6
+    ],
+    "in_far_game": [
+     2
+    ],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P13:2|3",
+    "category": "wasteful",
+    "dominated_M": true,
+    "dominators": [
+     "P12:4|2",
+     "P12:3|3",
+     "P12:3|2",
+     "P23:2|4"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [],
+    "in_far_game": [],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P13:2|2",
+    "category": "wasteful",
+    "dominated_M": true,
+    "dominators": [
+     "P12:4|2",
+     "P12:3|3",
+     "P12:3|2",
+     "P13:3|3",
+     "P23:3|3",
+     "P23:2|4",
+     "P23:2|3"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [],
+    "in_far_game": [],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P23:4|2",
+    "category": "unequal",
+    "dominated_M": true,
+    "dominators": [
+     "P13:3|3",
+     "P13:2|4",
+     "P13:2|3"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [
+     7
+    ],
+    "in_far_game": [
+     3
+    ],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P23:3|3",
+    "category": "fair",
+    "dominated_M": true,
+    "dominators": [
+     "P12:2|4",
+     "P13:2|4"
+    ],
+    "in_M_sets": [
+     0
+    ],
+    "in_far_tu": [
+     8
+    ],
+    "in_far_game": [
+     1
+    ],
+    "in_game_singleton_set": [
+     0
+    ]
+   },
+   {
+    "outcome": "P23:3|2",
+    "category": "wasteful",
+    "dominated_M": true,
+    "dominators": [
+     "P12:2|4",
+     "P13:3|3",
+     "P13:2|4",
+     "P13:2|3"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [],
+    "in_far_game": [],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P23:2|4",
+    "category": "unequal",
+    "dominated_M": true,
+    "dominators": [
+     "P12:3|3",
+     "P12:2|4",
+     "P12:2|3"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [
+     9
+    ],
+    "in_far_game": [
+     0
+    ],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P23:2|3",
+    "category": "wasteful",
+    "dominated_M": true,
+    "dominators": [
+     "P12:3|3",
+     "P12:2|4",
+     "P12:2|3",
+     "P13:2|4"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [],
+    "in_far_game": [],
+    "in_game_singleton_set": []
+   },
+   {
+    "outcome": "P23:2|2",
+    "category": "wasteful",
+    "dominated_M": true,
+    "dominators": [
+     "P12:3|3",
+     "P12:2|4",
+     "P12:2|3",
+     "P13:3|3",
+     "P13:2|4",
+     "P13:2|3",
+     "P23:3|3"
+    ],
+    "in_M_sets": [],
+    "in_far_tu": [],
+    "in_far_game": [],
+    "in_game_singleton_set": []
+   }
+  ]
+ },
+ "G6=": {
+  "n": 28,
+  "stable": [
+   [
+    "P12:3|3",
+    "P13:3|3",
+    "P23:3|3"
+   ]
+  ],
+  "complete": true,
+  "symmetric_stable": true,
+  "exact_lines_stable": 0,
+  "discriminatory_sets": 0
+ },
+ "G6": {
+  "n": 84,
+  "stable": [
+   [
+    "P12:3|3",
+    "P13:3|3",
+    "P23:3|3"
+   ]
+  ],
+  "complete": true,
+  "symmetric_stable": true,
+  "exact_lines_stable": 0,
+  "discriminatory_sets": 0
+ },
+ "G8=": {
+  "n": 45,
+  "stable": [
+   [
+    "P12:4|4",
+    "P13:4|4",
+    "P23:4|4"
+   ]
+  ],
+  "complete": true,
+  "symmetric_stable": true,
+  "exact_lines_stable": 0,
+  "discriminatory_sets": 0
+ },
+ "G8": {
+  "n": 165,
+  "stable": [
+   [
+    "P12:4|4",
+    "P13:4|4",
+    "P23:4|4"
+   ]
+  ],
+  "complete": true,
+  "symmetric_stable": true,
+  "exact_lines_stable": 0,
+  "discriminatory_sets": 0
+ },
+ "R6x": {
+  "n": 66,
+  "C_subset_M": true,
+  "M_minus_C": 150,
+  "M_stable": [
+   [
+    "P12:3|3",
+    "P13:3|3",
+    "P23:3|3"
+   ]
+  ],
+  "C_stable": [
+   [
+    "P12:3|3",
+    "P13:3|3",
+    "P23:3|3"
+   ]
+  ],
+  "farsighted_tu_count": 25,
+  "farsighted_tu_complete": true,
+  "farsighted_tu_examples": [
+   [
+    "G(4,1,1)"
+   ],
+   [
+    "G(3,2,1)"
+   ],
+   [
+    "G(3,1,2)"
+   ],
+   [
+    "G(2,3,1)"
+   ],
+   [
+    "G(2,2,2)"
+   ],
+   [
+    "G(2,1,3)"
+   ],
+   [
+    "G(1,4,1)"
+   ],
+   [
+    "G(1,3,2)"
+   ],
+   [
+    "G(1,2,3)"
+   ],
+   [
+    "G(1,1,4)"
+   ],
+   [
+    "P12:5|1"
+   ],
+   [
+    "P12:4|2"
+   ]
+  ],
+  "farsighted_game_count": 7,
+  "farsighted_game_complete": true,
+  "farsighted_game_examples": [
+   [
+    "P12:5|1",
+    "P23:1|5"
+   ],
+   [
+    "P12:4|2",
+    "P23:2|4"
+   ],
+   [
+    "P12:3|3",
+    "P13:3|3",
+    "P23:3|3"
+   ],
+   [
+    "P12:2|4",
+    "P13:2|4"
+   ],
+   [
+    "P12:1|5",
+    "P13:1|5"
+   ],
+   [
+    "P13:5|1",
+    "P23:5|1"
+   ],
+   [
+    "P13:4|2",
+    "P23:4|2"
+   ]
+  ]
+ },
+ "R8x": {
+  "n": 141,
+  "C_subset_M": true,
+  "M_minus_C": 1533,
+  "M_stable": [
+   [
+    "P12:4|4",
+    "P13:4|4",
+    "P23:4|4"
+   ]
+  ],
+  "C_stable": [
+   [
+    "P12:4|4",
+    "P13:4|4",
+    "P23:4|4"
+   ]
+  ],
+  "farsighted_tu_count": 42,
+  "farsighted_tu_complete": true,
+  "farsighted_tu_examples": [
+   [
+    "G(6,1,1)"
+   ],
+   [
+    "G(5,2,1)"
+   ],
+   [
+    "G(5,1,2)"
+   ],
+   [
+    "G(4,3,1)"
+   ],
+   [
+    "G(4,2,2)"
+   ],
+   [
+    "G(4,1,3)"
+   ],
+   [
+    "G(3,4,1)"
+   ],
+   [
+    "G(3,3,2)"
+   ],
+   [
+    "G(3,2,3)"
+   ],
+   [
+    "G(3,1,4)"
+   ],
+   [
+    "G(2,5,1)"
+   ],
+   [
+    "G(2,4,2)"
+   ]
+  ],
+  "farsighted_game_count": 10,
+  "farsighted_game_complete": true,
+  "farsighted_game_examples": [
+   [
+    "P12:7|1",
+    "P23:1|7"
+   ],
+   [
+    "P12:6|2",
+    "P23:2|6"
+   ],
+   [
+    "P12:5|3",
+    "P23:3|5"
+   ],
+   [
+    "P12:4|4",
+    "P13:4|4",
+    "P23:4|4"
+   ],
+   [
+    "P12:3|5",
+    "P13:3|5"
+   ],
+   [
+    "P12:2|6",
+    "P13:2|6"
+   ],
+   [
+    "P12:1|7",
+    "P13:1|7"
+   ],
+   [
+    "P13:7|1",
+    "P23:7|1"
+   ],
+   [
+    "P13:6|2",
+    "P23:6|2"
+   ],
+   [
+    "P13:5|3",
+    "P23:5|3"
+   ]
+  ]
+ },
+ "chicken": {
+  "outcomes": [
+   "crash",
+   "R1",
+   "R2",
+   "swerve"
+  ],
+  "C_stable": [
+   [
+    "R1"
+   ],
+   [
+    "R2"
+   ]
+  ]
+ }
+}

@@ -312,3 +312,71 @@ the myopic stable set is therefore a hypothesis of ours, not Anesi's theorem; pr
   (conditional-rich: more mixed and conditional-mediated outcomes); A: slot 3 at demand 1/3 is the *accommodating*
   partner, so pairs containing slot 3 shift toward the other member's 2/3 (unequal pairs with slot 3 at 2/6), not
   toward any discriminatory element.
+
+### 1.14 Code validation of §1 (before any counted cell)
+
+Code: `src/stable_sets.py` (relations, enumeration, kernel, seed laws, analysis helpers), `src/stable_sets_run.py`
+(cells, static report, validation), `tests/test_stable_sets.py` (11 tests, passing). Static numbers in
+`runs/stable-sets-static.json`; kernel identity and costs in `runs/stable-sets-validate.json`.
+
+- **(M1)–(M4) hold** (tests): (2, 2, 2) dominates only (0, 0, 0); no outcome of R is undominated (the core is empty);
+  (4, 0, 2) ≻ (3, 3, 0) via {1, 3}.
+- **(C1) holds:** on R, C = M exactly (all 400 ordered pairs), and singleton commitments dominate nothing. Lemma I is
+  structural (the response is recomputed); the code computes C from actions only, so it is invariant by construction.
+- **(M5) / the enumeration: V\* is the unique stable set on R** under M (= C): the backtracking enumerator returns
+  exactly {V\*} and the exhaustive 2²⁰ scan agrees. Unequal pairs, wasteful pairs, (2, 2, 2) and (0, 0, 0) are in no
+  stable set (and every one of them is dominated). The enumerator agrees with brute force on 40 random digraphs.
+- Two further myopic relations, added because the ecology moves by single-slot changes (§1.3, relation P):
+  with **game effectiveness** (a coalition may move from a realization of y to any outcome reachable by changing only
+  its own actions) and all coalitions, V\* is again the unique stable set; with **single-slot moves only** (the
+  ecology's strict moves), the unique stable set is **V\* ∪ {(2, 2, 2)}** (the grand coalition has no strictly
+  improving unilateral exit: any single deviation from (ALL, 1/3)³ gives everyone 0).
+- **Classical grids:** on G6=, G6, G8=, G8 the unique stable set is the symmetric one ({(3,3,0), …}; on the 1/8 grid
+  {(4,4,0), …}); **no discriminatory set exists on any of the four grids**, and no exact line D_k(c) is stable (Lemma
+  G, every k and c). So on a grid the discriminatory family is not merely broken at its edges: nothing replaces it.
+  The spec's selection question among stable sets is empty on every grid computed: **the symmetric set is the only
+  myopic stable set.**
+- **Extended realizable sets** (constants games with unequal grand coalitions, §1.10): R6x (66 outcomes) and R8x
+  (141): C ⊆ M (M has 150 / 1,533 more arrows, every one with an inefficient grand outcome as
+  the dominator, as claimed), and under both the unique stable set is again V\*.
+- **Farsighted contrast** (§1.6). With TU (Harsanyi/Chwe) effectiveness every *efficient* outcome is a singleton
+  farsighted stable set: on R the ten sets {(2,2,2)}, {each fair pair}, {each unequal pair}; on R6x 25, on R8x 42; the
+  largest consistent set is all of R. With game effectiveness the farsighted stable sets on R are V\* and three
+  two-element "held-player" sets {(4,2,0), (0,2,4)}, {(2,4,0), (2,0,4)}, {(4,0,2), (0,4,2)} (one player at 2/6 paired
+  with either of the others at 4/6); on R6x and R8x the analogous family for every c. **Farsightedly stable but not
+  myopically stable outcomes on R: the six unequal pairs (both conventions) and (2, 2, 2) (TU only).** So RE 6 is not
+  void, and S15's "void" clause is wrong (its first clause, a singleton fair pair is farsighted stable, holds).
+- **Chicken (C2):** the C-stable sets are exactly {R1} and {R2}.
+- **Kernel identity:** `stable_sets.kern` reproduces `sog_lottery.kern` draw for draw (same final counts, stop
+  generation and status, and the same number of migrant births) on four configurations (L and U at mN = 0, L and K at
+  mN = 1, I = 6–8, N = 20–30, horizons 150–300), with the joint-code table, zero tags and the code as play key passed
+  to the latter.
+- **Classifier** (tests): a fair pair with an arbitrary excluded slot is P12:3|3 with efficiency 1; a 50/50 split of
+  a pivot between two fair pairs is member-mixed; a 50/50 fair/unequal mixture is other-mixed; 96% on one vector is
+  that vector at tolerance 0.95.
+- **Seed laws** (tests): L's constants 0.976 at 0.1084 each; K uniform over the nine; A multiplies slot 3's
+  only-demand-1/3 programs by 4 (the (·, 1/3) constants go from 1/3 to 2/3 of the constant mass), slots 1–2 = L; U
+  uniform over a 160-program catalogue; multinomial means match.
+- **Flip logger** (test): one island with a pivot split 60/40 between two fair pairs drifts to P13:3|3 through
+  member-mixed states only, never an outsider; the dominance change is logged as neutral (payoff difference 0) and the
+  taxonomy returns *pure drift*; synthetic event lists give drift-prepared, two-slot coincidence, conditional and
+  single-slot strict as defined in §1.11.
+- *Implementation note fixed before any cell:* the event log records a change of a slot's last majority class (a slot
+  passing through no majority is not an event), with the payoff difference against the class it displaced; the
+  trigger taxonomy ignores events whose predecessor is undefined (the slot had no majority since the seed).
+
+## 2. Costs and the scale guard
+
+- Per-run joint table (≈ 150 classes per slot under L, 160 under U): 3.4·10⁶ encounters, ≈ 1 s. Kernel: an L run at
+  mN = 0 closes (every island locally closed) by generation ≈ 350 in 0.3 s; at mN = 1 an L run closed *globally* at
+  generation 2,540 in 2.3 s; the extended 1/8-grid constants game at mN = 1 closed at 2,000 in 3 s. **The three-slot
+  island kernel is cheap: the whole cell list (≈ 800 runs to 10,000 generations at most) is minutes of CPU.**
+- **The 1/8 grid in the main cell's grammar is not cheaply available:** `src/dollar3.py` hard-codes the nine
+  (partner, demand ∈ {1/3, 1/2, 2/3}) actions in its grammar, atoms and evaluators. What is available is the
+  constants-only extension of §1.10 (demands 1/8 … 7/8, unequal grand coalitions realizable), run as the cells X8-0 /
+  X8-1 beside X6-0 / X6-1, a different experiment from the main cell.
+- Workers: two pool workers for the lottery plus one for the chain rerun (`src/dollar3_run.py --arm weak --N 100`,
+  ≈ 12 minutes), within the 3-worker cap (the fully realizable social organization run shows 5 matching processes,
+  so the cap formula gives min(3, 10 − 5) = 3).
+- *Observation from the cost runs (not a counted cell; disclosed because it bears on S13):* the single L mN = 1 cost
+  run reached global closure at generation 2,540.
