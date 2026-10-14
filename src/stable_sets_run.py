@@ -36,9 +36,13 @@ for mN in (0, 1):
 for tg in ('fair', 'unequal', 'wasteful', 'grand'):
     CELLS['Fe-' + tg] = dict(law='Fe', target=tg, mN=0, arm='weak', runs=20)
     CELLS['Fr-' + tg] = dict(law='Fr', target=tg, mN=1, arm='weak', runs=20)
+# addendum after the first counted pass (disclosed; no prediction scored on them): the N trend at mN = 1
+for Nn in (150, 300, 400):
+    CELLS['L1-N%d' % Nn] = dict(law='L', mN=1, arm='weak', N=Nn, runs=20)
 ORDER = ['L0', 'L1', 'M0', 'M1', 'K0', 'K1', 'U0', 'U1', 'A0', 'A1',
          'Fe-fair', 'Fe-unequal', 'Fe-wasteful', 'Fe-grand', 'Fr-fair', 'Fr-unequal', 'Fr-wasteful', 'Fr-grand',
-         'L0-N50', 'L1-N50', 'L0-N200', 'L1-N200', 'X6-0', 'X6-1', 'X8-0', 'X8-1']
+         'L0-N50', 'L1-N50', 'L0-N200', 'L1-N200', 'X6-0', 'X6-1', 'X8-0', 'X8-1',
+         'L1-N150', 'L1-N300', 'L1-N400']
 
 
 def run_seed(base, r):
