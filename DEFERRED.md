@@ -236,6 +236,9 @@ REJECTED.md the ones we dropped.
   Θ(1/n) as a stochastically stable state or time-averaged (the three-player rotating dictatorship already gives the
   latter by symmetry); decided (RS, 2026-10-06): the state; the time-average is free by symmetry in the symmetric games and is
   reported only as a fallback.
+- *Evidence (2026-10-14, fully realizable):* the fair state in 3 of 40 runs (zero wage 0.45) under S-nonself with `eq`;
+  0.60–0.70 when the coalition is seeded in numbers; with free certificates 0.03 at K = 10⁶ against 0.50 on the ideal
+  table and 0.65 at 3·10⁶ (RESULTS "The social organization game, fully realizable").
 
 ## 7. Rates
 - *RS:* no normative opinion. *RE's opinion:* the relevant quantity is the cost of a given confidence; in the seeds run
@@ -293,6 +296,8 @@ REJECTED.md the ones we dropped.
   prior give 0/40 (RESULTS "The social organization game over the realizable language"). *Operating hypothesis
   (amended):* the prior is set by the library; the transferable quantity is the mass of compatible executable
   founding coalitions; the discipline test is that the library's primitives are general purpose.
+- *Evidence (2026-10-14):* the length prior over the library grammar is identity-blind in law, so identity atoms
+  change no seeding-level quantity (coalition mass 0.016 with `eq`, 0.020 without).
 - *Pause (RS, 2026-10-06):* no new experiments before Thursday morning 2026-10-08 (passed).
 
 ## 11. The realizable language: how to leave the modal fragment
@@ -351,6 +356,13 @@ REJECTED.md the ones we dropped.
   entry 1):* `eq` is admitted in the realizable grammar; the TwinD family and the explicit identity clique belong in
   the prior. *Next:* the social organization game fully realizable (`eq` in both roles, S-nonself production, no
   host service).
+- *Evidence (2026-10-14, the social organization game fully realizable):* three-player executable verification has a
+  fuel threshold for the fair network between K = 10⁶ (0.03) and 3·10⁶ (0.65) under free certificates; under S-nonself
+  the fair state is a seeding threshold (natural 3/40 runs, forced 0.70, ideal table 0/20); production overhead is
+  futile lack-rule retries (≈ 4× the median encounter), cap timeouts 0.14%. *Operating hypothesis (RE):* K stays 10⁶
+  as the reported cell, with 3·10⁶ beside it; a "cannot produce" mark belongs in the tactic. *Open:* whether
+  S-nonself's legibility cost at founding belongs to the language or to empty founders (founders carrying the
+  scripts they could write against non-self partners).
 
 ## 12. Genes: certificates and contracts as behaviour-modifying genes (RS, 2026-10-11)
 - *RS's statement:* certificates and contracts are to be construed more broadly than proofs about a program: as

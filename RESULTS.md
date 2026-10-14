@@ -4463,6 +4463,108 @@ Efficiency: D1 +0.087 over the paired baseline at mN = 0 (traps broken), R2 +0.1
 - **Migration under contracts is a load, not a consensus builder;** at mN = 1 the 0.95 classifier and modal play part by 0.25–0.7, so mN = 1 claims in contract cells need both.
 - *Caveats:* finite (N, I, horizon); 20–40 runs per cell; the refusal decomposition is correlational and post hoc; the guard is written by hand, and whether a source-reading program derives it (refuse κ iff accepting leads provably to one's own exclusion) is open.
 
+## The social organization game, fully realizable: the fair wage is a fuel threshold under free certificates and a seeding threshold under endogenous production; identity fills a few islands and decides nothing (`runs/sog-fully-realizable.md`, `runs/sog-fully-realizable.json`, `runs/sog_full/`, `runs/sog-full-{static,validate,costc}.json`, `notes/sog-fully-realizable.md`; spec `specs/2026-10-13-sog-fully-realizable.md`, predictions in `predictions/2026-10-13-sog-fully-realizable.md` with the RS's prediction first, the gemini-4-argon addendum, and a second addendum before two diagnostic cells)
+
+The RE designed it, gpt-6.1-sol and gemini-4-argon reviewed it, and an Opus subagent ran it (`src/sog_full.py`, `src/sog_full_kern.py`, `src/sog_full_run.py`, `src/sog_full_report.py`, `tests/test_sog_full.py`; 26 tests, passing on main). Order of commits: notes §1 and the predictions before any code; the Gemini addendum before any static table; code, validation, static tables and static costs before any counted cell; addendum 2 (S20, S21) before the two diagnostic cells. **Deviations, disclosed (notes §1.13):**
+- Costs are per row class, not per spelling. Values and production outcomes are exact on 400 whole replays; steps are exact to a median of 1 step.
+- The sham is the `EQS` term with both branches false.
+- Encounters on quiet islands are skipped. This is exact for the dynamics, so production rates come from sampled encounters.
+- Establishment is read from generation 10, with the realizable run's 10-check window beside it. Two counted runs were discarded and rerun after the first-fair-check definition proved nearly trivial; five more were rerun to change the summary. The runs are deterministic.
+- S₃ + eq at (200, 64) ran on 12 of 20 runs, at 86 minutes per run.
+- Two labelled diagnostic cells were added after the H results: H + no eq at K = 3·10⁶, and S₃ + eq on the ideal table.
+
+RE check: the persistence column below matches `runs/sog-fully-realizable.json` cell by cell. **Persistence is all-or-nothing by run** (migration makes play global), so a persistence of 0.084 means 3 fair runs of 40 with 34 never fair; the paired contrasts are differences in a handful of runs.
+
+**What ran.** The realizable social organization game (K₃, c = 0.5, probes as library atoms) with source identity in both roles: `EQ` for workers; `N1`, `N2` and `EQW` for bosses; one node each. Three identity controls ran beside it: the matched sham (equal nodes and steps, always false), eq-without-⌜T₁⌝, and no-eq. Production was either H (the free public path tactic) or **S-nonself₃**: the tactic as code, run after the play in the residual fuel, with the lack rule and inheritance, founders empty, and a worker refused beside a copy of its own source. Every encounter was executed at K = 10⁶ (V = 2.5·10⁵). Lottery: (100, 64), mN = 1, w = 0.3, horizon 2,000 with a 10,000 extension, 40 runs per main cell on paired founder streams.
+
+**Static.** **The length prior is identity-blind in law.** For every assignment of the identity atoms, the prior law of a program's behaviour on its other atoms is the same: the maximum difference is 0 over 262 worker and 77,769 boss behaviour classes. Every seeding-level quantity is therefore equal across the eq, sham and eq-without-⌜T₁⌝ arms:
+
+| quantity | eq / sham / eq-without-⌜T₁⌝ | no-eq |
+|---|---|---|
+| founding-coalition mass | 0.0160 ± 0.0011 | 0.0200 ± 0.0013 (realizable run 0.0171) |
+| concession-like bosses | – | 0.184 |
+| closed shops | 0.049 of the eq prior | – |
+| greenbeards | 0.078 with `EQ`, of which 0.040 are strike pacts | – |
+
+Coalition masses do not change between K = 3·10⁵ and the ideal. Per-encounter cost: play has a median of 1.9·10⁵ steps, and play plus production 6.7·10⁵ (3.5×). Executable play differs from ideal play on 0.325 / 0.058 / 0.006 of triples at K = 3·10⁵ / 10⁶ / 3·10⁶.
+
+**Lottery.** Persistence is the fraction of islands fair at generation 2,000. Scored establishment was 40/40 in every 40-run cell and is uninformative. The window column is the realizable run's definition. Cells marked (20) or (12) ran 20 or 12 runs.
+
+| cell | window-established | persistence [95%] | runs ≥ ½ fair | zero wage | ¼ wage | at 10,000 |
+|---|---|---|---|---|---|---|
+| H + no eq, executable | 34/40 | **0.025** [0.00, 0.07] | 1 | 0.13 | 0.85 | 0.000 |
+| **H + no eq, ideal table** (20) | 20/20 | **0.500** [0.30, 0.70] | 10 | 0 | 0.50 | 0.500 |
+| H + no eq, K = 3·10⁶ (20, diagnostic) | 20/20 | **0.652** [0.45, 0.85] | 13 | 0 | 0.35 | 0.650 |
+| H + eq | 37/40 | 0.077 | 3 | 0.15 | 0.77 | 0.075 |
+| H + sham | 32/40 | 0.099 | 4 | 0.26 | 0.64 | 0.077 |
+| H + eq without ⌜T₁⌝ | 35/40 | 0.075 | 3 | 0.10 | 0.82 | 0.075 |
+| S₃ + no eq | 29/40 | **0.000** | 0 | 0.52 | 0.48 | 0.000 |
+| **S₃ + eq (fully realizable)** | 28/40 | **0.084** [0.02, 0.17] | 3 | **0.45** | 0.47 | 0.077 |
+| S₃ + sham (20) | 10/20 | 0.002 | 0 | 0.45 | 0.55 | 0.000 |
+| S-opp + eq (20, no worker gate) | 11/20 | 0.000 | 0 | 0.59 | 0.41 | 0.000 |
+| S₃ + eq, ideal table (20, diagnostic) | 11/20 | 0.000 | 0 | 0.55 | 0.45 | 0.000 |
+| **S₃ + eq, forced coalition, empty lists** (20) | 20/20 | **0.702** [0.50, 0.90] | 14 | 0.16 | 0.14 | 0.700 |
+| S₃ + eq, forced coalition, preloaded (20) | 20/20 | 0.597 | 12 | 0.25 | 0.15 | 0.595 |
+| S₃ + eq at (200, 64) (12) | 7/12 | 0.000 | 0 | 0.10 | 0.90 | 0.000 |
+
+Paired contrasts in persistence:
+
+| contrast | difference [95%] |
+|---|---|
+| H no-eq: executable → ideal | +0.500 [0.30, 0.70] |
+| H no-eq: executable → K = 3·10⁶ | +0.652 |
+| H: sham → eq | −0.022 [−0.15, 0.11] |
+| S: no-eq → eq | +0.084 [0.01, 0.17] |
+| S: sham → eq | +0.071 |
+| S + eq: forced empty → forced preloaded | −0.105 |
+
+**Holders and identity.**
+- Fair islands are held by open militants (0.83–1.00 of fair islands). **No island in any cell is held by a greenbeard union.**
+- Identity mixtures hold 0.01–0.06 of fair islands.
+- The closed shop tracks its prior mass. It is neutral, never strictly fit, on islands held by T₁ pairs.
+- The greenbeard state is followed by a strict cut after 0.46 of its unread-slot substitutions, because a greenbeard cannot strike alone.
+
+**Assays.**
+- The isolated pure coalition with empty lists is never fair (0/40): the gate refuses every T₁ production, as Claim N₃ says. Preloaded, it is fair 40/40.
+- An uncertified T₁ entering a preloaded fair island is lost in slot 1 (200/200) and neutral in slot 2.
+
+**Costs realized.**
+- **Under H, executable checks time out often.** 0.31–0.66 of sampled encounters carry an executable timeout; on the ideal table the share falls from 0.15 to 0.
+- **Some ideal-fair islands lose the fair wage when executed.** Of the ideal run's 640 fair horizon islands, 81 are not fair at K = 10⁶, and none at 3·10⁶. Their median maximal check cost is 2.0·10⁵ steps, against V = 2.5·10⁵.
+- **Under S₃, timeouts are rare.** Cap and fuel timeouts are 0.14% of production attempts.
+- **Production overhead is futile retries.** After generation 50, 0.97–0.99 of attempts return NONE: programs retry, at every encounter, scripts that do not exist on their path. This multiplies the median per-encounter cost by about 4.
+- **No self-play-only script is held in any S cell**, S-opp included.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RS | identity-based contracts can at best fill more islands, not go from 0 to 1: (i) establishment ≥ 0.9 everywhere; (ii) never 0 ↔ positive; falsifier ≥ 0.2 ↔ ≤ 0.05 | **held on the falsifier**; (i) held; (ii) failed narrowly in the S arm (0 → 3 of 40 runs fair) |
+| RE 1 | S₃ feasible (establishment ≥ 0.8, delay ≤ 2×, timeouts ≤ 10%) | held on the scored definition; window 0.70 |
+| RE 2 | greenbeards ≤ 0.05 under S, ≥ 0.2 under H | S clause held; **H clause fired** (0.005) |
+| G (Gemini) | greenbeard unions < 0.05 even under H | **held** |
+| RE 3 | identity's effect ≤ 0.1 against the sham; no strict closed-shop cut | **held** |
+| RE 4 | S₃ + eq persistence ≥ 0.3, zero wage ≤ 0.2 | **failed, falsifier fired** (0.084; zero wage 0.45) |
+| RE 5 | production ≤ 2× the median encounter; failures in the tail | **failed, falsifier fired** (4.0×, futile retries); failures bimodal |
+| RE 6 | closed shops conditionally fit | **failed, falsifier fired** (neutral; tracks prior mass) |
+| S1–S21 | subagent's own | S3, S5, S8, S9, S13, S17, S18, S20, S21 held; S2, S4, S7, S12, S14, S16 fired (S4: executable 0.025 vs ideal 0.500); S1, S6, S10, S11, S19 one clause failed; S15 missed its number |
+
+**Reading.**
+- **Under free certificates the fair wage is a fuel threshold.** H reproduces the realizable run on the ideal table (0.50 against 0.53), loses it at K = 10⁶ (0.03) and recovers at 3·10⁶ (0.65). Coalition masses do not move with K. What moves is the scramble: the fair network's nested probe checks sit just under the verification cap, and timeouts on mixed islands tilt the race to the ¼ network. The realizable run's "verification cost is the bind" is now a threshold between 10⁶ and 3·10⁶ steps.
+- **Under endogenous production the fair wage is a seeding threshold.** The fully realizable cell is fair in 3 of 40 runs, with zero wage on 0.45 of islands.
+  - The ideal table does no better (0/20 runs).
+  - Twenty coalition founders per island give 0.70 from empty lists and 0.60 preloaded, so S₃ bootstraps and sustains the fair state once the coalition arrives in numbers.
+  - The reading, consistent with the forced cells but not isolated by a cell, is legibility at founding. Founders start uncertified, militants strike uncertified bosses while scabs work, and unconditional workers win the scramble.
+  - At (200, 64) no run is fair.
+- **Identity fills a few islands and decides nothing.** The prior is identity-blind in law, so identity cannot change seeding. In the dynamics it moves persistence by ≤ 0.1 in every paired arm, no greenbeard union holds an island, and closed shops track their prior mass. The RS's prediction holds on its falsifier.
+- **The production overhead is a fixable artefact of the lack rule.** A "cannot produce" mark or a negative cache would remove the futile retries.
+- *Caveats:*
+  - Finite (N, I, horizon), ε = 0.
+  - Step costs per row class.
+  - Run-level all-or-nothing outcomes, so most contrasts rest on a few runs.
+  - The ideal comparisons are on 20 runs, and (200, 64) on 12.
+  - The diagnostic cells are post hoc and labelled, with predictions committed before they ran.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
