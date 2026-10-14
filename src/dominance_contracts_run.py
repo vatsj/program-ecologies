@@ -251,7 +251,8 @@ def analyse(p, st, T, out, I, N, H):
         rec['r_traj'] = [round(float(v), 4) for v in traj]
         rec['r_change'] = float(rfreq[min(H // 10, rfreq.shape[0] - 1)].mean() - rfreq[0].mean())
         isl = []
-        for h in hs:
+        hs_isl = [h for h in hs if h in (2000, 10000)]
+        for h in hs_isl:
             rr = rfreq[min(h // 10, rfreq.shape[0] - 1)]
             win = cls[max(0, h - 249):h + 1]
             share = np.isin(win, list(V)).mean(0)
@@ -269,7 +270,7 @@ def analyse(p, st, T, out, I, N, H):
                 rows_.append(dict(bits=[round(v, 3) for v in b], share=float(share[i]), cls=c, prot_pub=prot_pub,
                                   prot_priv=prot_priv))
             isl.append(rows_)
-        rec['islands'] = {str(h): v for h, v in zip(hs, isl)}
+        rec['islands'] = {str(h): v for h, v in zip(hs_isl, isl)}
     # menus
     if p.get('menu') == 'G':
         pc_ = np.vectorize(lambda v: bin(int(v)).count('1'))
