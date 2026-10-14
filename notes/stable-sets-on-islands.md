@@ -238,8 +238,8 @@ dominance arrow of M, and the **trigger** (§1.11); consensus (every island on o
 
 **Coverage baseline.** If islands independently hold a member with probability q, uniformly over the three members,
 P(coverage) = 1 − 3(1 − q/3)^I + 3(1 − 2q/3)^I − (1 − q)^I (inclusion–exclusion over the missing members). At I = 64:
-q = 0.1 → 0.70; q = 0.15 → 0.91; q = 0.2 → 0.97; q = 0.3 → 0.996; q = 0.6 → 1 − 1.6·10⁻⁶. **Coverage is a weak test
-above q ≈ 0.15; member occupancy q is the informative number.**
+q = 0.1 → 0.69; q = 0.15 → 0.89; q = 0.2 → 0.96; q = 0.3 → 0.996; q = 0.6 → 1 − 1.9·10⁻⁶. **Coverage is a weak test
+above q ≈ 0.2; member occupancy q is the informative number.**
 
 ### 1.10 The extended grids (cheap; a different experiment)
 
