@@ -236,3 +236,63 @@ stocked, **0.55–0.75**.
 - **Escape hazards** (R2): exits from V\* per member-island-generation, by trigger.
 - Efficiency (expected total payoff) reported, never used to select. Paired differences against the baseline use the
   shared founders.
+
+### 1.10 Code validation of §1 and the forced-island simulation (before any counted cell)
+
+Code: `src/dominance_contracts.py` (contracts, static walks and thresholds, the kernel `dkern`, run setup),
+`src/dominance_contracts_run.py` (cells, analysis, static report, validation, forced assays),
+`tests/test_dominance_contracts.py` (7 tests, passing). Static numbers in `runs/dominance-contracts-static.json`;
+identity and costs in `runs/dominance-contracts-validate.json`; assays in `runs/dominance_contracts/assays.json`.
+
+- **Erratum to §1.1:** the infeasible contracts are three *per pair*, nine of the 27 (d sum > 1); nothing else in §1
+  depends on the count (the generator counts proposed contracts only, and an infeasible draw is a null draw).
+- **§1.2–§1.3 reproduced by code:** the generator's stationary V\* mass is 1/3 exactly (unequal 1/2, wasteful 1/6),
+  the uniform-successor walk's 4/17 = 0.2353, multiplicities all 1, |λ₂| = 0.934 (relaxation 15.2 draws), hitting
+  time to V\* 27 draws from every unequal and (3, 2)-type wasteful outcome (19.3 from (2, 2), 9 from (2, 2, 2), 22.7
+  from (0, 0, 0)), and the probability that the next member after a member exit is the same member is 0.319.
+- **§1.6 reproduced:** β\*_flow over member exits max 0.399 (min 0), β\*_static 0.76 (one realization in nine a tie);
+  the full per-edge table is in the static file.
+- **Kernel identity (ν = 0):** `dkern` reproduces `stable_sets.kern` draw for draw (status, stop generation, final
+  counts, every generation's island classes, migrant births) on the four stable-sets validation configurations, and
+  the full-size baseline runs B0 / B1 reproduce the stored stable-sets L0 / L1 runs (stop generation, status, migrant
+  births and every horizon's class labels) on the 6 runs checked per cell; every B run is compared again in the
+  report.
+- **Tests:** the proposal rule on hand cases (members left only for unequal pairs; 3, 4, 7, 3, 18 proposals from
+  unequal, (3, 2), (2, 2), (2, 2, 2), (0, 0, 0)); every recurrent outsider has exactly one contract into V\*; β = 1
+  jumps exactly to x on homogeneous islands (every installation, the proposal holding at the pre-event state); the
+  public guard with universal refusal keeps every member island on its member (every proposal out of V\* refused)
+  while the same islands without the bit leave; under private consent the refusers keep their demand and the rest
+  are overwritten; installed overrides are inherited by births with their bits; menu G only shrinks without
+  migration.
+- **Forced-island simulation** (every dominating edge out of a P12 outcome, (2, 2, 2) and (0, 0, 0); the excluded
+  slot at each of its nine constants, 25 islands each (200 for (2, 2, 2) and (0, 0, 0)); N = 100, mN = 0, Moran to
+  closure; joint = the island ends on x):
+
+| edge | β = 0.25 | 0.4 | 0.5 | 0.6 | 0.75 |
+|---|---|---|---|---|---|
+| member → unequal (two edges) | **0.12, 0.15** | 0.34, 0.30 | 0.53, 0.49 | 0.70, 0.74 | 0.93, 0.92 |
+| unequal → member | 0.19, 0.23 | 0.52, 0.50 | 0.73, 0.75 | 0.86, 0.87 | 0.99, 0.96 |
+| unequal → unequal | 0.29, 0.30 | 0.58, 0.59 | 0.78, 0.78 | 0.92 | 1.00 |
+| unequal → wasteful | 0.21, 0.16 | 0.41, 0.39 | 0.61, 0.58 | 0.76, 0.69 | 0.90, 0.89 |
+| (3, 2) → member | 0.24 | 0.54 | 0.71 | 0.88 | 0.95 |
+| (2, 2) → own fair pair | 0.52 (0.43 other) | 0.76 | 0.90 | 0.92 | 0.95 |
+| (2, 2, 2) → member | 0.09–0.12 | 0.46–0.51 | 0.73–0.77 | 0.90–0.94 | 0.99 |
+| (0, 0, 0) → pair outcome | 0.47–0.59 | 0.80–0.90 | 0.89–0.96 | 0.96–1.00 | 0.99–1.00 |
+
+  At β = 0.25 the member exit fixes in 0.13 of attempts averaged over the excluded constant, made of ≈ 0.07 when the
+  excluded constant is neutral and ≈ 0.7 when it already offers the buyer 1/3 (the buyer alone completes the move).
+  **This is above my hand bound (≤ 0.05) and above RE 7's and Gemini's ≤ 0.05, and below RE 7's falsifier (0.2).**
+  Entries into members fix at 0.19–0.24 at β = 0.25: 1.6 times the exit rate, not ≥ 3 (S6's second clause fails).
+  With these acceptance probabilities in the generator the class-level stationary mass on V\* is ≈ 0.45 (rates
+  slowed ≈ 5×, relaxation ≈ 750 generations); D3′ (β = 0.5) accepts member exits half the time.
+
+## 2. Costs and the scale guard
+
+- One run at N = 100 to 10,000 generations: 0.4 s at mN = 0 (islands are monomorphic between contract events, so
+  exact event skipping jumps generation to generation) and 26–30 s at mN = 1 (migrants keep units active); D3 and D4
+  at mN = 1 to 2,000: 6–8 s. Type tables stay small (≈ 230 genotypes per slot without the bit, ≈ 370 with it, ≈ 530
+  under menu G; no capacity overflow).
+- **The whole design is about 1.5 CPU-hours: nothing is dropped.** The N panel's D1 and R1-public cells also run to
+  10,000 (an addition over the spec's 2,000 for the panel, disclosed before the cells; R1-private stays at 2,000).
+  At most 3 workers (the fully realizable social organization run holds 3 workers plus its driver).
+- Forced assays: 18 s on 3 workers.
