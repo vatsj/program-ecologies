@@ -1,0 +1,865 @@
+{
+ "S_eq": {
+  "islands": 2560,
+  "timeout_changed": 0.0,
+  "wage_exec": {
+   "0": 1151,
+   "1": 1193,
+   "2": 216
+  },
+  "wage_ideal": {
+   "0": 1151,
+   "1": 1193,
+   "2": 216
+  },
+  "worker_classes": {
+   "unconditional": 0.5162109375,
+   "open": 0.4564453125,
+   "greenbeard": 0.02734375
+  },
+  "top_bosses": [
+   [
+    "if(P1^1/4:W,if(N1,pay(0,none),pay(0,none)),pay(1/4,strike))",
+    64
+   ],
+   [
+    "if(N1,pay(1/4,strike),if(P1^0:S,pay(1/4,source),pay(0,strike)))",
+    64
+   ],
+   [
+    "if(P1^0:S,if(P1^0:W,pay(1/2,none),pay(1/4,none)),pay(0,source))",
+    64
+   ],
+   [
+    "if(and(P2^0:S,N2),pay(0,source),pay(0,strike))",
+    64
+   ],
+   [
+    "if(EQW,pay(0,source),if(P2^0:S,pay(1/4,strike),pay(0,none)))",
+    64
+   ],
+   [
+    "if(P1^1/4:W,if(P1^0:S,pay(1/4,none),pay(0,none)),pay(0,none))",
+    64
+   ]
+  ],
+  "top_workers": [
+   [
+    "work",
+    503
+   ],
+   [
+    "if(B>=1/4,work,strike)",
+    233
+   ],
+   [
+    "if(not(B>=1/4),strike,work)",
+    189
+   ],
+   [
+    "if(B=1/2,work,strike)",
+    182
+   ],
+   [
+    "if(or(not(B<=1/4),B>=1/4),work,strike)",
+    109
+   ],
+   [
+    "if(or(B>=1/4,B=1/2),work,strike)",
+    107
+   ],
+   [
+    "if(and(B>=1/4,B>=1/4),work,strike)",
+    102
+   ],
+   [
+    "if(B=1/2,work,if(B>=1/4,work,strike))",
+    101
+   ]
+  ]
+ },
+ "H_noeq": {
+  "islands": 2560,
+  "timeout_changed": 0.12421875,
+  "wage_exec": {
+   "1": 2176,
+   "0": 321,
+   "2": 63
+  },
+  "wage_ideal": {
+   "1": 2176,
+   "0": 321,
+   "2": 63
+  },
+  "worker_classes": {
+   "unconditional": 0.3533203125,
+   "open": 0.6390625,
+   "greenbeard": 0.0076171875
+  },
+  "top_bosses": [
+   [
+    "if(P2^0:W,pay(0,strike),if(P2^1/4:W,pay(1/4,strike),pay(0,strike)))",
+    64
+   ],
+   [
+    "if(P1^1/4:W,if(P2^0:W,pay(0,strike),pay(1/4,none)),pay(1/4,none))",
+    64
+   ],
+   [
+    "if(P2^0:S,pay(1/4,none),if(P1^0:S,pay(1/4,strike),pay(0,source)))",
+    64
+   ],
+   [
+    "if(or(P1^1/4:S,P1^0:W),pay(0,none),pay(1/4,none))",
+    64
+   ],
+   [
+    "if(P2^1/4:W,if(P2^0:W,pay(0,none),pay(1/4,none)),pay(0,none))",
+    64
+   ],
+   [
+    "if(or(P2^0:W,P1^0:W),pay(0,strike),pay(0,none))",
+    64
+   ]
+  ],
+  "top_workers": [
+   [
+    "if(B>=1/4,work,strike)",
+    925
+   ],
+   [
+    "work",
+    515
+   ],
+   [
+    "if(not(B>=1/4),strike,work)",
+    240
+   ],
+   [
+    "if(and(B>=1/4,B>=1/4),work,strike)",
+    147
+   ],
+   [
+    "if(not(or(B>=1/4,B>=1/4)),strike,work)",
+    138
+   ],
+   [
+    "if(B>=1/4,work,if(B>=1/4,strike,strike))",
+    95
+   ],
+   [
+    "if(not(or(B>=1/4,B=1/2)),strike,work)",
+    92
+   ],
+   [
+    "if(B=1/2,work,work)",
+    92
+   ]
+  ]
+ },
+ "H_eq": {
+  "islands": 2560,
+  "timeout_changed": 0.138671875,
+  "wage_exec": {
+   "1": 1975,
+   "0": 388,
+   "2": 197
+  },
+  "wage_ideal": {
+   "1": 1975,
+   "0": 388,
+   "2": 197
+  },
+  "worker_classes": {
+   "open": 0.601953125,
+   "unconditional": 0.369921875,
+   "greenbeard": 0.028125
+  },
+  "top_bosses": [
+   [
+    "if(P2^0:W,pay(0,strike),if(P2^0:S,pay(1/4,strike),pay(0,none)))",
+    64
+   ],
+   [
+    "if(P1^0:S,pay(1/4,none),if(P2^0:W,pay(0,strike),pay(0,none)))",
+    64
+   ],
+   [
+    "if(P1^0:S,pay(1/2,none),if(P1^0:S,pay(1/2,none),pay(0,none)))",
+    64
+   ],
+   [
+    "if(P1^0:W,pay(0,source),if(P1^1/4:W,pay(1/4,none),pay(0,none)))",
+    64
+   ],
+   [
+    "if(EQW,pay(1/4,source),if(P1^0:S,pay(1/4,strike),pay(0,none)))",
+    64
+   ],
+   [
+    "if(P1^0:W,pay(0,none),if(P1^1/4:W,pay(1/4,none),pay(1/4,strike)))",
+    64
+   ]
+  ],
+  "top_workers": [
+   [
+    "work",
+    410
+   ],
+   [
+    "if(not(B>=1/4),strike,work)",
+    344
+   ],
+   [
+    "if(B>=1/4,work,strike)",
+    328
+   ],
+   [
+    "if(B=1/2,work,strike)",
+    290
+   ],
+   [
+    "if(B>=1/4,work,if(B>=1/4,strike,strike))",
+    176
+   ],
+   [
+    "if(or(B>=1/4,B>=1/4),work,strike)",
+    149
+   ],
+   [
+    "if(or(B>=1/4,B=1/2),work,strike)",
+    139
+   ],
+   [
+    "if(not(not(B>=1/4)),work,strike)",
+    127
+   ]
+  ]
+ },
+ "H_sham": {
+  "islands": 2560,
+  "timeout_changed": 0.1515625,
+  "wage_exec": {
+   "1": 1646,
+   "0": 662,
+   "2": 252
+  },
+  "wage_ideal": {
+   "1": 1646,
+   "0": 662,
+   "2": 252
+  },
+  "worker_classes": {
+   "unconditional": 0.3955078125,
+   "open": 0.590625,
+   "greenbeard": 0.0138671875
+  },
+  "top_bosses": [
+   [
+    "if(P2^0:W,pay(0,none),if(P1^1/4:S,pay(1/4,none),pay(1/4,none)))",
+    64
+   ],
+   [
+    "if(P1^0:W,if(P1^1/4:W,pay(0,none),pay(0,none)),pay(0,strike))",
+    64
+   ],
+   [
+    "if(P2^0:W,pay(0,source),if(P2^1/4:S,pay(0,none),pay(1/4,strike)))",
+    64
+   ],
+   [
+    "if(P1^1/4:W,if(P2^1/4:W,pay(0,strike),pay(0,strike)),pay(0,none))",
+    64
+   ],
+   [
+    "if(P2^0:W,pay(0,none),if(P2^1/4:S,pay(0,strike),pay(0,strike)))",
+    64
+   ],
+   [
+    "if(P1^0:S,pay(1/4,none),if(N1,pay(0,source),pay(0,none)))",
+    64
+   ]
+  ],
+  "top_workers": [
+   [
+    "if(B>=1/4,work,strike)",
+    440
+   ],
+   [
+    "work",
+    418
+   ],
+   [
+    "if(not(B>=1/4),strike,work)",
+    343
+   ],
+   [
+    "if(or(B=1/2,B>=1/4),work,strike)",
+    181
+   ],
+   [
+    "if(and(B>=1/4,B>=1/4),work,strike)",
+    174
+   ],
+   [
+    "if(or(B>=1/4,B>=1/4),work,strike)",
+    153
+   ],
+   [
+    "if(not(or(B>=1/4,B=1/2)),strike,work)",
+    145
+   ],
+   [
+    "if(or(B>=1/4,B=1/2),work,strike)",
+    139
+   ]
+  ]
+ },
+ "H_eqnoT": {
+  "islands": 2560,
+  "timeout_changed": 0.13359375,
+  "wage_exec": {
+   "1": 2102,
+   "2": 192,
+   "0": 266
+  },
+  "wage_ideal": {
+   "1": 2102,
+   "2": 192,
+   "0": 266
+  },
+  "worker_classes": {
+   "unconditional": 0.312890625,
+   "open": 0.671484375,
+   "greenbeard": 0.015625
+  },
+  "top_bosses": [
+   [
+    "if(P2^0:S,if(P2^1/4:S,pay(1/2,strike),pay(1/4,none)),pay(0,none))",
+    64
+   ],
+   [
+    "if(not(and(P2^1/4:W,P1^1/4:W)),pay(0,none),pay(0,none))",
+    64
+   ],
+   [
+    "if(P1^0:W,if(P1^0:S,pay(1/2,strike),pay(0,none)),pay(1/4,none))",
+    64
+   ],
+   [
+    "if(P2^0:S,pay(1/4,none),if(P1^0:S,pay(1/4,strike),pay(0,strike)))",
+    64
+   ],
+   [
+    "if(not(or(N1,P2^0:W)),pay(1/4,strike),pay(0,none))",
+    64
+   ],
+   [
+    "if(not(or(P2^0:S,EQW)),pay(0,none),pay(1/4,strike))",
+    64
+   ]
+  ],
+  "top_workers": [
+   [
+    "if(B>=1/4,work,strike)",
+    455
+   ],
+   [
+    "work",
+    368
+   ],
+   [
+    "if(B>=1/4,work,if(B>=1/4,strike,strike))",
+    235
+   ],
+   [
+    "if(and(B>=1/4,B>=1/4),work,strike)",
+    201
+   ],
+   [
+    "if(not(B>=1/4),strike,work)",
+    187
+   ],
+   [
+    "if(or(B>=1/4,B>=1/4),work,strike)",
+    158
+   ],
+   [
+    "if(or(B>=1/4,B=1/2),work,strike)",
+    150
+   ],
+   [
+    "if(not(B<=1/4),work,strike)",
+    121
+   ]
+  ]
+ },
+ "H_noeq_ideal": {
+  "islands": 1280,
+  "timeout_changed": 0.0,
+  "wage_exec": {
+   "1": 640,
+   "2": 640
+  },
+  "wage_ideal": {
+   "1": 640,
+   "2": 640
+  },
+  "worker_classes": {
+   "unconditional": 0.13515625,
+   "open": 0.86484375
+  },
+  "top_bosses": [
+   [
+    "if(P1^0:S,if(P2^1/4:S,pay(1/2,strike),pay(1/4,strike)),pay(0,none))",
+    80
+   ],
+   [
+    "if(P1^1/4:S,if(P1^0:S,pay(1/2,none),pay(0,none)),pay(1/4,source))",
+    64
+   ],
+   [
+    "if(P1^1/4:S,if(P1^0:W,pay(1/2,none),pay(1/2,none)),pay(1/4,none))",
+    64
+   ],
+   [
+    "if(P1^0:W,pay(0,none),if(P2^1/4:W,pay(1/4,source),pay(1/2,strike)))",
+    64
+   ],
+   [
+    "if(P1^0:W,pay(0,none),if(P2^1/4:S,pay(1/2,strike),pay(1/4,none)))",
+    64
+   ],
+   [
+    "if(P2^1/4:S,pay(1/2,none),if(P1^0:W,pay(0,none),pay(1/4,strike)))",
+    64
+   ]
+  ],
+  "top_workers": [
+   [
+    "if(B>=1/4,work,strike)",
+    441
+   ],
+   [
+    "if(not(not(B>=1/4)),work,strike)",
+    171
+   ],
+   [
+    "if(B=1/2,work,strike)",
+    144
+   ],
+   [
+    "if(not(B>=1/4),strike,work)",
+    142
+   ],
+   [
+    "if(and(B>=1/4,B>=1/4),work,strike)",
+    76
+   ],
+   [
+    "if(or(B>=1/4,B=1/2),work,strike)",
+    76
+   ],
+   [
+    "if(B>=1/4,if(B=1/2,work,work),strike)",
+    74
+   ],
+   [
+    "if(or(B>=1/4,B>=1/4),work,strike)",
+    68
+   ]
+  ]
+ },
+ "S_noeq": {
+  "islands": 2560,
+  "timeout_changed": 0.0,
+  "wage_exec": {
+   "1": 1218,
+   "0": 1341,
+   "2": 1
+  },
+  "wage_ideal": {
+   "1": 1218,
+   "0": 1341,
+   "2": 1
+  },
+  "worker_classes": {
+   "open": 0.48671875,
+   "unconditional": 0.51328125
+  },
+  "top_bosses": [
+   [
+    "if(P1^1/4:S,if(P2^0:S,pay(1/4,source),pay(0,source)),pay(0,none))",
+    64
+   ],
+   [
+    "if(P1^0:S,if(P1^0:S,pay(1/4,none),pay(0,strike)),pay(0,source))",
+    64
+   ],
+   [
+    "if(or(P1^1/4:S,not(P1^0:S)),pay(0,source),pay(1/4,source))",
+    64
+   ],
+   [
+    "if(P2^1/4:W,if(P1^0:S,pay(0,strike),pay(0,none)),pay(0,none))",
+    64
+   ],
+   [
+    "if(not(and(P1^0:S,P1^1/4:W)),pay(0,none),pay(1/4,none))",
+    64
+   ],
+   [
+    "if(and(P2^1/4:W,P2^0:S),pay(1/4,strike),pay(0,strike))",
+    64
+   ]
+  ],
+  "top_workers": [
+   [
+    "work",
+    820
+   ],
+   [
+    "if(B>=1/4,work,strike)",
+    615
+   ],
+   [
+    "if(B<=1/4,strike,work)",
+    235
+   ],
+   [
+    "if(not(B>=1/4),strike,work)",
+    208
+   ],
+   [
+    "if(or(not(B<=1/4),B>=1/4),work,strike)",
+    190
+   ],
+   [
+    "if(not(B<=1/4),work,strike)",
+    134
+   ],
+   [
+    "if(B>=1/4,if(B<=1/4,strike,work),strike)",
+    119
+   ],
+   [
+    "if(and(B<=1/4,not(B>=1/4)),strike,work)",
+    107
+   ]
+  ]
+ },
+ "S_sham": {
+  "islands": 1280,
+  "timeout_changed": 0.0,
+  "wage_exec": {
+   "0": 578,
+   "1": 700,
+   "2": 2
+  },
+  "wage_ideal": {
+   "0": 578,
+   "1": 700,
+   "2": 2
+  },
+  "worker_classes": {
+   "unconditional": 0.643359375,
+   "open": 0.328125,
+   "greenbeard": 0.028515625
+  },
+  "top_bosses": [
+   [
+    "if(P2^0:S,if(N2,pay(1/2,none),pay(1/4,strike)),pay(0,none))",
+    64
+   ],
+   [
+    "if(P2^0:S,if(P2^1/4:W,pay(0,source),pay(1/4,strike)),pay(0,strike))",
+    64
+   ],
+   [
+    "if(not(P2^0:S),pay(0,none),pay(1/4,source))",
+    64
+   ],
+   [
+    "if(and(P1^0:S,P1^0:S),pay(1/4,none),pay(0,none))",
+    64
+   ],
+   [
+    "if(and(P2^0:S,P2^1/4:S),pay(0,none),pay(0,none))",
+    64
+   ],
+   [
+    "if(or(P1^0:S,N2),pay(1/4,strike),pay(0,none))",
+    64
+   ]
+  ],
+  "top_workers": [
+   [
+    "work",
+    319
+   ],
+   [
+    "if(B>=1/4,work,strike)",
+    312
+   ],
+   [
+    "if(B>=1/4,work,work)",
+    71
+   ],
+   [
+    "if(B>=1/4,if(B<=1/4,work,work),strike)",
+    64
+   ],
+   [
+    "if(B>=1/4,work,if(B=1/2,work,strike))",
+    64
+   ],
+   [
+    "if(B=1/2,work,if(B>=1/4,work,strike))",
+    64
+   ],
+   [
+    "if(or(B>=1/4,B=1/2),work,strike)",
+    64
+   ],
+   [
+    "if(O:S,if(B>=1/4,work,strike),work)",
+    64
+   ]
+  ]
+ },
+ "S_opp": {
+  "islands": 1280,
+  "timeout_changed": 0.0,
+  "wage_exec": {
+   "1": 529,
+   "0": 751
+  },
+  "wage_ideal": {
+   "1": 529,
+   "0": 751
+  },
+  "worker_classes": {
+   "open": 0.3234375,
+   "unconditional": 0.6453125,
+   "greenbeard": 0.03125
+  },
+  "top_bosses": [
+   [
+    "if(P2^0:S,pay(1/4,none),if(P1^0:S,pay(0,strike),pay(0,none)))",
+    64
+   ],
+   [
+    "if(or(P2^1/4:S,P1^0:S),pay(0,strike),pay(0,strike))",
+    64
+   ],
+   [
+    "if(P1^0:S,pay(1/4,none),if(P1^0:S,pay(1/4,source),pay(0,none)))",
+    63
+   ],
+   [
+    "if(P2^0:S,if(N2,pay(1/2,source),pay(1/4,strike)),pay(0,none))",
+    62
+   ],
+   [
+    "if(and(P1^0:S,N2),pay(1/2,strike),pay(0,none))",
+    60
+   ],
+   [
+    "if(and(P2^0:S,P2^1/4:W),pay(0,none),pay(0,none))",
+    56
+   ]
+  ],
+  "top_workers": [
+   [
+    "work",
+    318
+   ],
+   [
+    "if(B>=1/4,work,if(B=1/2,work,strike))",
+    117
+   ],
+   [
+    "if(or(B=1/2,B>=1/4),work,strike)",
+    102
+   ],
+   [
+    "if(B=1/2,work,work)",
+    79
+   ],
+   [
+    "if(and(B<=1/4,B=1/2),work,work)",
+    70
+   ],
+   [
+    "if(not(and(B<=1/4,B<=1/4)),work,strike)",
+    64
+   ],
+   [
+    "if(B>=1/4,if(B<=1/4,work,work),strike)",
+    64
+   ],
+   [
+    "if(and(B>=1/4,not(B<=1/4)),work,strike)",
+    64
+   ]
+  ]
+ },
+ "S_eq_forced_empty": {
+  "islands": 1280,
+  "timeout_changed": 0.0,
+  "wage_exec": {
+   "2": 898,
+   "1": 179,
+   "0": 203
+  },
+  "wage_ideal": {
+   "2": 898,
+   "1": 179,
+   "0": 203
+  },
+  "worker_classes": {
+   "open": 0.77421875,
+   "unconditional": 0.217578125,
+   "greenbeard": 0.008203125
+  },
+  "top_bosses": [
+   [
+    "if(P1^1/4:S,pay(1/2,none),if(P1^0:S,pay(1/4,none),pay(0,none)))",
+    681
+   ],
+   [
+    "if(N1,if(P1^1/4:S,pay(1/4,strike),pay(0,none)),pay(0,none))",
+    64
+   ],
+   [
+    "if(P2^0:W,pay(1/4,none),if(P1^0:S,pay(1/4,strike),pay(0,strike)))",
+    64
+   ],
+   [
+    "if(not(or(P1^0:S,P2^0:S)),pay(1/4,strike),pay(1/4,none))",
+    64
+   ],
+   [
+    "if(P1^0:S,pay(0,strike),if(N1,pay(0,none),pay(0,strike)))",
+    64
+   ],
+   [
+    "if(and(P2^0:S,not(P2^0:W)),pay(0,none),pay(0,none))",
+    59
+   ]
+  ],
+  "top_workers": [
+   [
+    "if(B=1/2,work,strike)",
+    1498
+   ],
+   [
+    "work",
+    114
+   ],
+   [
+    "if(B=1/2,work,if(B<=1/4,strike,work))",
+    76
+   ],
+   [
+    "if(and(B<=1/4,not(B=1/2)),strike,work)",
+    75
+   ],
+   [
+    "if(B<=1/4,strike,work)",
+    68
+   ],
+   [
+    "if(B<=1/4,if(B=1/2,strike,strike),work)",
+    61
+   ],
+   [
+    "if(not(B<=1/4),work,strike)",
+    46
+   ],
+   [
+    "if(and(B<=1/4,B>=1/4),strike,work)",
+    40
+   ]
+  ]
+ },
+ "S_eq_forced_pre": {
+  "islands": 1280,
+  "timeout_changed": 0.0,
+  "wage_exec": {
+   "1": 192,
+   "0": 324,
+   "2": 764
+  },
+  "wage_ideal": {
+   "1": 192,
+   "0": 324,
+   "2": 764
+  },
+  "worker_classes": {
+   "open": 0.723046875,
+   "unconditional": 0.258984375,
+   "greenbeard": 0.01796875
+  },
+  "top_bosses": [
+   [
+    "if(P1^1/4:S,pay(1/2,none),if(P1^0:S,pay(1/4,none),pay(0,none)))",
+    662
+   ],
+   [
+    "if(and(not(P1^0:W),P1^0:S),pay(1/4,strike),pay(0,none))",
+    64
+   ],
+   [
+    "if(and(P2^0:S,N1),pay(1/4,strike),pay(0,none))",
+    64
+   ],
+   [
+    "if(P1^1/4:S,pay(0,strike),pay(0,none))",
+    64
+   ],
+   [
+    "if(P2^1/4:S,pay(0,none),if(P2^0:S,pay(1/4,none),pay(0,none)))",
+    64
+   ],
+   [
+    "if(P1^0:S,pay(0,strike),if(P1^0:S,pay(1/4,strike),pay(0,none)))",
+    64
+   ]
+  ],
+  "top_workers": [
+   [
+    "if(B=1/2,work,strike)",
+    1184
+   ],
+   [
+    "if(or(EQ,B<=1/4),strike,work)",
+    109
+   ],
+   [
+    "if(not(not(B<=1/4)),strike,work)",
+    84
+   ],
+   [
+    "if(or(B<=1/4,B<=1/4),strike,work)",
+    65
+   ],
+   [
+    "if(and(not(EQ),B<=1/4),strike,work)",
+    64
+   ],
+   [
+    "if(or(B>=1/4,EQ),work,strike)",
+    63
+   ],
+   [
+    "if(not(B<=1/4),work,strike)",
+    61
+   ],
+   [
+    "if(and(B=1/2,B>=1/4),work,work)",
+    54
+   ]
+  ]
+ }
+}

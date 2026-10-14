@@ -583,3 +583,28 @@ encounter (others as they are; a worker beside a copy is refused and spends noth
   0; play + production 0.61 / 0.10 / 0.003 (with regress triples add 0.10 at every K).
 - **Executable play ≠ ideal play** (the same triples, executable evaluators): 0.325 / 0.058 / 0.006 (the realizable
   run: 0.22 / 0.03 / 0.005). Any check above V: 0.96 / 0.50 / 0.16 (most do not change the play).
+
+### 2.2 Realized (from the cells; `runs/sog-fully-realizable.json`, "encounters", "counters", "realized_cost")
+
+- **H cells (executable, K = 10⁶):** a sampled encounter carries an executable-TO check whose ideal value is T or F in
+  0.50–0.66 of encounters at generation 0 and 0.31–0.43 at 2,000 (ideal table 0.15 → 0, the regressing checks);
+  12–15% of horizon islands play differently than their modal triple on the ideal table. Median play steps per
+  encounter at generation 0: 2.2–3.8·10⁵. Of the ideal run's 640 fair horizon islands, 81 (13%) are not fair when
+  executed at K = 10⁶ and none at 3·10⁶ (median maximal check cost 2.0·10⁵, maximum 1.1·10⁶; `ideal_fair_under_exec.json`).
+  The coalition masses are the same at every K from 3·10⁵ to the ideal (`coalition_by_K.json`): timeouts do not remove
+  coalitions, they decide the scramble.
+- **S cells:** executable-TO ≤ 0.02 of encounters early, ≤ 0.009 late (S + sham 0.05 at 2,000). Production: at
+  generation 0, 0.57 of attempts find a script and 0.43 return NONE; after generation 50, 0.97–0.99 return NONE
+  (futile retries: a program lacking a set whose script does not exist on its path retries at every encounter), cap
+  and fuel timeouts 0.14% of sampled attempts (in-kernel counters on non-quiet islands: cap timeouts 2.0% of boss and
+  2.1% of worker attempts; starved workers 0, starved bosses 0.07%). Median per-encounter cost play / play +
+  production: 3.5·10⁴ / 1.43·10⁵ (S + eq, ratio 4.0), 2.6 (S + no eq), 4.9 (sham), 4.8 (S-opp), 1.0–1.1 (forced cells,
+  where gate refusals replace most retries). Failures by required-cost decile: 0.21–0.43 of failures in the top
+  decile (natural), 0.50–0.72 (forced), with the plurality of natural-cell failures (0.50–0.68) in the third
+  decile: failures are bimodal, not concentrated in the tail.
+- **Amortized production per lineage:** not computed (lineages are not tracked in the kernel); the per-encounter
+  expenditure above is dominated by retries, so the expenditure per acquisition is the retry rate times the waiting
+  time.
+- **Row classes reached** (`runs/sog_full/row_classes_reached.json`, one fresh run each): S + eq 2,254 worker and
+  25,176 boss row classes (S-opp 2,267 / 25,154), against 603 grammar worker classes. The scale guard was read on
+  grammar classes (§1.0 item 10); read on row classes it would have fired (prediction S1's dynamic clause failed).

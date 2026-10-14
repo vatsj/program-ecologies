@@ -277,6 +277,25 @@ def main():
             L += ['', '## ' + nm, '']
             for k, v in out[nm].items():
                 L.append('- %s: %s' % (k, json.dumps(v)))
+    st = out.get('sog-full-static')
+    if st:
+        L += ['', '## Static tables (`runs/sog-full-static.json`; ideal semantics, H inventories)', '']
+        for g_, c_ in st['counts'].items():
+            L.append('- counts %s: %s' % (g_, json.dumps(c_)))
+        for a_, f_ in st['families'].items():
+            L.append('- families %s: workers %s; bosses %s' % (a_, json.dumps(f_['workers']['mass']), json.dumps(f_['bosses'])))
+        for a_, c_ in st['coalitions'].items():
+            L.append('- founding-coalition mass %s: %.4f ± %.4f (copies %.1e; identity-free %.4f)' % (
+                a_, c_['total'], c_['se'], c_['copies'], c_['identity_free']))
+        L.append('- costs: %s' % json.dumps({k: v for k, v in st['costs'].items() if k in ('no_regress', 'ideal_regress_triples', 'median_ratio')}))
+    for nm, f in (('coalition masses by K', 'coalition_by_K.json'), ('ideal-run fair islands executed', 'ideal_fair_under_exec.json'),
+                  ('posthoc (horizon modal triples)', 'posthoc.json'), ('local transition assays', 'assay_local.json')):
+        fp = os.path.join(OUT, f)
+        if os.path.exists(fp):
+            L += ['', '## ' + nm + ' (`runs/sog_full/%s`)' % f, '', '```', json.dumps(json.load(open(fp)), default=str)[:6000], '```']
+    vf = os.path.join(OUT, 'verdicts.md')
+    if os.path.exists(vf):
+        L += ['', open(vf).read()]
     open(os.path.join(RUNS, 'sog-fully-realizable.md'), 'w').write('\n'.join(L) + '\n')
     print('\n'.join(L))
 
