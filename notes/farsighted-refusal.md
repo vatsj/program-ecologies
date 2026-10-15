@@ -221,3 +221,76 @@ the size of the integers (bits), and behaviour when fuel runs out (the call retu
 refuses by a convention stated with the result). Prediction 8 is scored on this benchmark only. Hand: one solve ≈
 10⁵ steps (≈ 20 × 20 × 21 entry updates at 10–20 steps each, plus list traversal), a reader decision 1–3·10⁵, the
 derivation ≈ 10⁶–10⁷ (several best-response rounds × 3 players).
+
+### 1.9 Code, validation and the static computations (appended after the code, before any counted cell)
+
+Code: `src/farsighted_refusal.py` (process, exact solvers, certified search, guard tables, the kernel `fkern`),
+`src/farsighted_refusal_run.py` (static driver, cells, analysis, forced starts, validation),
+`src/farsighted_refusal_cost.py` (executable benchmark), `src/farsighted_refusal_report.py`,
+`tests/test_farsighted_refusal.py`.
+
+**Deviation in the certification method (disclosed before any cell).** The branch and bound of §1.4 as written
+terminates at δ ≤ 0.9 (δ = 0.5: 1 node; 0.8: 15; 0.9: 1,801) but not at δ = 0.95 or 0.99 (more than 10⁶ nodes
+without a leaf: at high patience the per-state value intervals over completions stay wide until most of the table is
+fixed). Two changes, both preserving exactness:
+1. **Decomposition.** No contract enters (0, 0, 0) or (2, 2, 2), and a (2, 2)-type pair is entered only from
+   (0, 0, 0); so the values of the 15 *core* outcomes (fair, unequal and (3, 2)-type pairs; 48 proposed pairs) do not
+   depend on the other 42 entries. The core is searched first; each core fixed point is then completed state by
+   state (the (2, 2)-type pairs and (2, 2, 2) given the core, then (0, 0, 0) given all), by exhaustive enumeration of
+   each state's decision subsets (2⁷, 2³, 2¹⁸) in exact arithmetic. Validated against the plain search at
+   δ = 0.5, 0.8, 0.9 (identical strict and weak lists).
+2. **Core search.** Failed-literal probing (a free entry whose 1- or 0-branch dies under propagation is forced to the
+   other value) and fail-first branching, split at the root on the six member-exit bits by their 13 S₃
+   representatives, with a node cap of 10⁵ per subtree. **A subtree that hits the cap is reported as not certified.**
+   Alongside: exhaustive enumeration of every S₃-invariant (2⁸) and Z₃-invariant (2¹⁶) core table, and 1,500 random
+   asynchronous best-response restarts per δ, every fixed point found verified exactly and merged into the list.
+Also: on a polymorphic island the BLAS-threaded `numpy.linalg.solve` stalled under the sibling runs' load (200 ms
+per 20 × 20 solve); every solve in this experiment uses a hand-written Gaussian elimination in numba instead.
+
+**Static results** (`runs/farsighted-refusal-static.json`; 872 s on 3 workers).
+
+| δ | certified complete | pure fixed points (S₃ orbits) | weak (exact ties) | default (frozen rule) | default's absorbing set | V\*-absorbing fixed point | unequal-absorbing |
+|---|---|---|---|---|---|---|---|
+| 0.5 | yes | 1 (1) | 0 | myopic, 0 iterations | 15 recurrent pair outcomes (V\* mass 1/3) | no | no |
+| 0.8 | yes | 8 (4) | 0 | myopic, 0 iterations | the same walk (1/3) | **yes** (84 accepted) | no |
+| 0.9 | yes | 5 (3) | 21 | simultaneous, 1 iteration | 9 outcomes: fair and unequal pairs (1/3) | yes (72 accepted; min margin 0, a tie on a refused pair) | no |
+| 0.95 | **no** (2 of 13 subtrees capped) | ≥ 5 (≥ 2) | 0 found | asynchronous, 50 flips (simultaneous cycles) | **V\*** (56 accepted) | yes (default) | a rotating triad (P12:4\|2, P13:2\|4, P23:4\|2) |
+| 0.99 | **no** (12 of 13 capped) | ≥ 4 (≥ 3) | 0 found | simultaneous, 3 iterations | **V\*** (36 accepted) | yes (default) | both rotating triads, or one |
+
+- Every listed fixed point verified exactly on all 90 pairs; every default is in the list; the plain search and the
+  decomposition agree at δ ≤ 0.9; the 1,500 restarts per δ found nothing outside the list at any δ (the one table at
+  0.9 that the float screen reported and the list lacks is an exact-tie weak fixed point).
+- **Hand predictions:** H1 failed in its second clause (a V\*-absorbing fixed point exists already at δ = 0.8: the
+  buyer's value of the exit (4, 0, 2) is 2.94 < 3, my rough 3.1 overestimated the continuation); H2 held (unique and
+  myopic at 0.5; myopic is a fixed point at 0.8); H3 held (default myopic at ≤ 0.8, the walk-like orbit at 0.9, V\* at
+  0.99, and also at 0.95 through the asynchronous rule); H4 held in its first clause (3 orbits at 0.9, ≥ 2 at 0.95,
+  ≥ 3 at 0.99) and **failed in kind** in its second: the unequal-absorbing fixed points are not held-player pairs but a
+  *rotating triad* (4,2,0) → (0,4,2) → (2,0,4) → (4,2,0), a recurrent class of three unequal outcomes in which each
+  player cycles through 4, 2, 0 (each member exit accepted, V\* transient); H5 held for the defaults (margins 0.076,
+  0.0051, 0.051 at 0.9, 0.95, 0.99; no ties at the defaults) but a non-default orbit at 0.9 has a tie.
+- **The farsighted sets of the stable-sets run** (V\* and the three held-player pairs) correspond to: V\* yes (an
+  absorbing set of KR fixed points from δ = 0.8 up); the held-player pairs no (no listed fixed point absorbs on one);
+  the rotating triads are a new object, outside the game-effectiveness farsighted sets.
+- **Program choices (frozen by §1.4 and the static driver's rule):** gKR(0.99) = the V\*-absorbing default (refuses
+  every member exit, accepts 36 of 90); gKR(0.9) = the walk-like default (accepts 84, every member exit accepted, the
+  six (3, 2)-type → wasteful moves refused); gKRu (for M-gKR-unequal) = the δ = 0.99 orbit whose absorbing set is both
+  rotating triads (78 accepted).
+- **Forced starts** (U-gKR(0.99), mN = 0, 2,000 generations, 27 islands per pair outcome): every member island stays
+  (persistence 1.000), every outsider island reaches V\* (recovery 1.000, median first entry 59–375 generations),
+  matching the static chain (≥ 0.999). Recovery and persistence both hold on constant islands.
+
+**Validation** (`runs/farsighted-refusal-validate.json`; 7 tests passing): universal g0 reproduces the stored D1 runs
+and universal gV the stored R2 runs draw for draw (6 of 6 runs per cell at both mN: stop generation, migrant births,
+contract counts, every horizon's labels); universal gKR-read reproduces universal gKR draw for draw (6 of 6 at both
+mN) and its plug-in values equal the default fixed point's on any composition of gKR-like copies (1e-9).
+
+## 2. Costs and the scale guard
+
+- One run to 10,000 generations: 0.4 s at mN = 0, 16–26 s at mN = 1 (C3-read: 11,000 reader solves per run, 16 s).
+  The design is ≈ 2.5 CPU-hours: nothing dropped. N panel at 2,000 generations as specified.
+- **Executable benchmark** (`runs/farsighted-refusal-cost.json`): a gKR-read decision in the realizable evaluator
+  (build the plug-in system from the composition, Bareiss solve, compare) costs **2.4–2.6·10⁵ steps** on every
+  composition tried (10 compositions × 2 decisions; all agree with the host); deriving the default table as code costs
+  6.7·10⁵ (δ = 0.9, 1 round), 1.3·10⁶ (0.99, 3 rounds) and 1.8·10⁷ steps (0.95, 50 asynchronous flips); the
+  determinant has 386–438 bits at N = 100 (the evaluator charges one step per arithmetic operation whatever the size,
+  an idealization); a reader capped below its need returns ⊥ (fail-closed by convention: refuse).
