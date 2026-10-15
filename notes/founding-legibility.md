@@ -234,3 +234,74 @@ not add within a generation.
   pilot (bit-identical where no mark-sensitive encounter occurs); the mark brings the executed-encounter median cost
   to ≤ 1.5× play.
 - H + eq ideal ≥ 0.3.
+
+### 1.x Code, validation, the L2 pilot and its decision (after the code, before any counted cell)
+
+Code: `src/founding_legibility.py` (the founding pass, `FLRun`, the withheld delivery, the statistics),
+`src/founding_legibility_kern.py` (the mark kernel: the parent's kernel source with `prod_boss`, `prod_worker`,
+`productions` replaced and one clock line added in `run_kernel`, generated into a cache file outside the repository),
+`src/founding_legibility_run.py` (driver: lottery, compare, static, replay, assay), `src/founding_legibility_report.py`,
+`tests/test_founding_legibility.py` (9 tests passing and one strict xfail).
+
+**Tests.** The founding pass never draws a copy as a worker founder's co-worker, its partners are empty founders, and
+its result equals the Python evaluator's `productions` on 300 sampled triples; the founding lists enter the run exactly;
+the (D\*, T₁, T₁) trace of §1.2 (every T₁ founder without a triple, D\* with ≤¼ only); **"production reads sources
+only" fails as §1.0 item 4 predicted** (strict xfail: T₁ holding [D] beside the scab gets NONE for [C] against an empty
+D\* and a script against the same D\* source holding its =½ script); the mark kernel in mode 0 reproduces the parent's
+kernel exactly (snapshots and every counter except ctr[14], which counts quiet checks including retries after table
+misses and so depends on table history); every recorded mark is an attempt whose production row has no script; the
+withheld surgery keeps the incremental fitness equal to a full recomputation (error < 10⁻⁶) and only adds scripts to
+lacking sets; natural founding through `make_run` reproduces a plain parent `Run`.
+
+**Bit-identical reproduction (5 of 5).** Replicates 0–4 of the parent's `S_eq` rerun through this run's driver
+(`N6`) are identical to the stored runs in every summary field at 2,000 and at 10,000 (fair masks, plays, holders,
+exits, sampled encounters, all counters except ctr[14]); persistence 0, 0, 0, 0, 0.172 as stored.
+
+**The L2 pilot (replicates 0–4, safe key, mark active).** Every run's dynamics are identical to the stored `S_eq` run:
+fair masks, wage trajectories, holders, exits and sampled encounters agree in every field; the only differences are
+the production counters (attempts, NONE results, cap timeouts and steps charged), which the mark is meant to change.
+**Mark-sensitive productions: 0 in 5 runs**, and the Lemma M bound (every completed NONE skipped) is also 0 in
+3.4·10⁷ examined productions, so on these seeds the safe mark is a pure cost fix. It records ≈ 81,000 marks per run,
+skips ≈ 7.2·10⁶ attempts per run (≈ 3.7·10¹¹ steps) and cuts the charged production steps of executed encounters
+≈ 8–13×; what remains is cap timeouts (not cached by design: 6.5·10⁴ boss and 6.6·10⁴ worker cap timeouts per run, each
+charging P). Cost, median (play + production) / median play: on the kernel's stride sample of executed encounters
+2.18 without the mark and 1.015 with it (means 1.74 and 1.07); on population-sampled encounters (generations 0, 50, 200,
+2,000) 3.1–4.5 for S₃ and 1.25–2.3 at the mark's steady state, 1.0 after generation 50. **Decision:** the pilot matches
+S₃ + eq, so by the amendment L2 would become the base of the 3·10⁶ cells for speed; it saves no wall time here
+(L2 runs took 12–13 minutes, as S₃'s), so as fixed in §1.0 item 4 it is not made the base, the pilot stands as the L2
+cell, and L1 + L2 is not run (first in the drop order, and by Lemma M with 0 sensitive productions it would equal L1 up
+to counters).
+
+**Deviation found in the code:** none of the definitions of §1.0 changed. The bare-source replay was first written to
+look for later partners on the producer's own island only and found 6 replays in a whole run; it now searches the later
+checks of every island for partners of the same spellings with other lists (still with the producer's own type
+unchanged), before any number from it is used.
+
+## 2. Costs
+
+### 2.1 Projection (before any counted cell)
+
+Measured on the validation batch with 3 workers (and sibling runs on the machine): a natural S₃ + eq run at (100, 64)
+takes 13.0–13.6 minutes including the 10,000 extension and this run's statistics (setup 2.6–3.0, run 8.8–9.0, summary
+0.7, extension 1.0); an L1 run adds the founding pass (≈ 1.5–2 minutes, single process, from the static run); an H run
+≈ 4 minutes; (200, 64) ≈ 90 minutes (the parent). At 3 workers ≈ 13 runs per hour at (100, 64).
+
+| cell | runs | hours on 3 workers |
+|---|---|---|
+| Nᵢ (rerun of the stored 20, for the composition statistics) | 20 | 1.6 |
+| L1ᵢ (paired with the stored 20) | 20 | 1.7 |
+| H + eq ideal (diagnostic) | 20 | 0.5 |
+| N₃ | 40 | 3.1 |
+| L3 = L1₃ | 40 | 3.3 |
+| L1₆ (paired with the stored `S_eq` replicates 0–19) | 20 | 1.7 |
+| L1W₃ (paired with L3 replicates 0–19) | 20 | 1.7 |
+| static, replay, the isolated assay | – | 0.5 (1–2 processes) |
+| **subtotal** | | **≈ 14.1** |
+| L1 + L2 (40) | dropped first | (3.3) |
+| N panel, L1₃ at (200, 64) (12) | dropped second | (6.0) |
+| L1-sham₃ (20) | dropped third | (1.7) |
+
+The projection exceeds ~12 hours before any drop, so the spec's drop order is applied in full: **L1 + L2, the N panel
+and the sham cell are not run** (RE 4 and RE 5 and S14 are unscored). Run counts were already cut to 20 for L1₆, L1ᵢ,
+Nᵢ and the withheld cell to keep the remaining design near 12–14 hours; the 40-run cells are the 3·10⁶ pair, where the
+reviewers expected the effect. If the cells finish early the sham cell is run next (20 runs), labelled.
