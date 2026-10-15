@@ -119,6 +119,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 35. ~~The leader-value core existence sweep~~ (done; RESULTS "The leader-value core: where it exists": exists for owned endowments and aligned complements; fails by timing on unowned surplus, by coalition size under mixed-sign externalities, and by incompatible claims with no timing; without transfers it is usually empty in substitutes games).
 36. The realizable lottery along paths in (N, I, mN): island efficiency, universality, a crossed TwinD-count panel, calibrated migration (running: `specs/2026-10-14-realizable-scaling.md`).
 
+37. Coverage components: which part of the full certificate lists (untravelled paths, second paths, `EQ`-true scripts, gate copies) carries the fair wage's regrowth under endogenous production (running: `specs/2026-10-15-coverage-components.md`).
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).
