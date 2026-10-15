@@ -4565,6 +4565,98 @@ Paired contrasts in persistence:
   - The ideal comparisons are on 20 runs, and (200, 64) on 12.
   - The diagnostic cells are post hoc and labelled, with predictions committed before they ran.
 
+## Farsighted refusal: the derived guard recovers the members on every island but not the set, and refusal spreads whether or not it protects the set (`runs/farsighted-refusal.md`, `runs/farsighted-refusal.json`, `runs/farsighted_refusal/`, `runs/farsighted-refusal-{static,validate,cost}.json`, `notes/farsighted-refusal.md`; spec `specs/2026-10-14-farsighted-refusal.md`, predictions in `predictions/2026-10-14-farsighted-refusal.md`)
+
+Gemini suggested this test in "Dominance contracts and refusal on islands". The RE designed it, gpt-6.1-sol and gemini-4-argon reviewed it, and an Opus subagent ran it (`src/farsighted_refusal.py`, `_run.py`, `_report.py`, `_cost.py`; `tests/test_farsighted_refusal.py`, 7 tests passing on main). Order of commits: notes §1 by hand; predictions; code, static computations and validation before any counted cell; the cells.
+
+**Validation.** Universal g0 reproduces the stored D1 runs draw for draw, and universal gV the stored R2 runs (40/40 at both mN). Universal gKR-read reproduces universal gKR draw for draw.
+
+**Deviations, disclosed before the cells:**
+- The plain branch and bound did not terminate at δ ≥ 0.95. It was replaced by an exact decomposition with probing search, capped at 10⁵ nodes per subtree.
+- The list of fixed points is certified complete only at δ ≤ 0.9. At 0.95 and 0.99 it is the union of finished subtrees, the symmetric tables and 1,500 restarts, each member verified exactly.
+- Forced starts ran at mN = 0 only.
+- M-gKR-unequal uses a rotating-triad fixed point, since no held-player-pair fixed point was found.
+
+**RE check:** the reported V\*-absorbing fixed points at δ = 0.8 and the default at δ = 0.99 were re-verified with an independent value solve. Neither has a single deviation from strict best response, and both chains' stationary support is exactly V\*. The simple "refuse only exits from V\*" table is not a KR fixed point at any δ tested, so the derived guard also refuses other moves.
+
+**Guards.** Each guard is a heritable consent trait; play is unchanged.
+- **g0:** accepts every dominating contract.
+- **gV:** R2's veto on exits from V\*.
+- **g1:** refuses an offer if, after it, some dominating contract excluding the program would leave it below its status-quo payoff (one-step exposure).
+- **gKR(δ):** consents iff W_i(x) > W_i(y), where W is the discounted value of the contract process. The clock advances on every event, and the flow payoff is the status quo's. The guard uses the fixed point reached from the myopic policy by a frozen rule.
+- **gKR-read:** a plug-in, lagged reader that re-solves the 20-state system under the island's current guard composition.
+
+The lottery cells use ε = 0, L seeds, N = 100, I = 64, ν = 0.1, β = 1, public consent and 40 runs.
+
+**Static KR fixed points** (exact):
+
+| δ | list certified complete | fixed points (orbits) | default's absorbing set | a V\*-absorbing fixed point | other absorbing sets |
+|---|---|---|---|---|---|
+| 0.5 | yes | 1 (1) | the walk (V\* mass 1/3) | no | – |
+| 0.8 | yes | 8 (4) | the walk | **yes** | one or two members |
+| 0.9 | yes | 5 (3) | fair + unequal pairs | yes | two members |
+| 0.95 | no | ≥ 5 (≥ 2) | **V\*** | yes (the default) | rotating unequal triad |
+| 0.99 | no | ≥ 4 (≥ 3) | **V\*** (accepts 36 of 90 proposals) | yes (the default) | one or both rotating triads |
+
+- **No fixed point absorbs on the held-player pairs** of the stable-sets run. This is certified at δ ≤ 0.9; none was found above.
+- **The unequal-absorbing fixed points absorb on a rotating triad** (4,2,0) → (0,4,2) → (2,0,4) and its mirror.
+- **The guard's margins are not thin.** Minimum consent margins at the defaults are 0.076, 0.0051 and 0.051 sixths at δ = 0.9, 0.95 and 0.99.
+- **g1 freezes every outcome except disagreement.**
+- **Forced starts recover the set exactly.** Under U-gKR(0.99) at mN = 0, persistence is 1.000 from every member and recovery 1.000 from every outsider.
+
+**Lottery** (occupancy = islands classified ≥ 0.95 on a member; modal = argmax outcome a member; generation 2,000, 10,000 in parentheses):
+
+| cell | mN = 0 occupancy | mN = 1 occupancy | mN = 1 modal | mN = 1 coverage / consensus |
+|---|---|---|---|---|
+| g0 (= D1) | 0.338 | 0.091 | 0.338 | 0.60 / 0 |
+| gV (= R2) | 1.000 | 0.331 | 0.996 | 0.97 / 0 (1.00 / 0) |
+| U-g1 | **0.188** | 0.395 (0.425) | 0.425 | 0 / 0.20 (0 / 0.78) |
+| U-gKR(0.9) | 0.333 | 0.082 | 0.345 | 0.38 / 0 |
+| **U-gKR(0.99)** | **1.000** | 0.629 (0.932) | **1.000** | **0 / 0.28 (0 / 0.85)** |
+| U-gKR-read(0.99) | = U-gKR | = | = | = |
+| M-gKR (½ vs g0) | 0.720 | 0.463 (0.969) | 0.812 (1.000) | 0.45 / 0.07 |
+| C3 (gV, gKR, g0) | – | 0.379 (0.783) | 0.905 (0.994) | 0.55 / 0 |
+| C3-read (reader, gKR, g0) | – | 0.704 (0.973) | 0.964 (1.000) | 0.17 / 0.23 |
+| M-g1 (½ vs g0) | 0.100 | 0.061 | 0.285 | – |
+| M-gKRu (triad guard, ½ vs g0) | – | 0.037 | 0.166 | – |
+| U-gKR(0.99), N = 50 / 200 | 0.998 / 1.000 | 0.700 / 0.441 | 1.000 / 1.000 | – |
+
+**Guard frequencies** (mean change by generation 2,000):
+- **M-gKR:** neutral at mN = 0. At mN = 1 it rises +0.27 [0.22, 0.32] in 37/40 runs, reaching 0.89 by 10,000 and rising in 40/40.
+- **C3:** g0 falls 0.33 → 0.13; gV is flat (0.32) and falls to 0.24 by 10,000; gKR rises to 0.55, then 0.72.
+- **C3-read:** the reader ends below gKR in 24/40 runs.
+- **M-read:** neutral.
+- **Generic refusers also spread under migration:** g1 +0.15 (32/40 runs), the triad guard +0.18 (36/40), rare gKR 0.05 → 0.09 (27/40).
+
+**Mechanics.**
+- **gKR rarely lets contracts through.** U-gKR(0.99) at mN = 1 installs 96 contracts per run against R2's 6,644, because gKR also refuses most moves between outsiders. Drift and migration then build a one-member consensus, as in the no-contract baseline.
+- **Protection needs both member slots.** gKR sits in member slots (0.82) more than in the excluded slot (0.17), because the excluded player rationally accepts exits.
+
+**Executable cost** (realizable evaluator, exact naturals): a reader's decision costs 2.4–2.6·10⁵ steps, all agreeing with the host. Deriving the default table as code costs 6.7·10⁵ steps at δ = 0.9, 1.3·10⁶ at 0.99 and 1.8·10⁷ at 0.95. Integers reach about 400 bits at unit cost per operation, an idealization.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | g1 singles out nothing; occupancy within 0.05 of baseline + converted disagreement (0.292) | **occupancy clause failed** (0.188: early jumps out of disagreement land on V\* only 0.16 of the time); freezing and "far below gV" held |
+| RE 2 | a V\*-absorbing fixed point at δ ≥ 0.9; others on held-player pairs | first clause **held** (from δ = 0.8); second **failed in kind** (rotating triads) |
+| RE 3 | the default at 0.9 is not the V\* one; U-gKR(0.9) between D1 and gV | first **held**; second **failed** (= D1) |
+| RE 4 | the universal guard recovers the set where the fixed point absorbs on V\* | **held** (1.000; modal 1.000) |
+| RE 5 | gKR neutral at mN = 0, rises at mN = 1 | **held** |
+| RE 6 | C3: both refusers rise, g0 lost | held as scored, but only gKR rises; gV flat, then falls |
+| RE 7 (revised) | the reader rises against gKR in C3-read | **falsifier fired** (below in 24/40) |
+| Gemini | M-read neutral | **held** |
+| RE 8 | a reader's decision ≤ 10⁵ steps | **failed** (2.6·10⁵); falsifier (> 10⁶) not fired |
+| S1–S19 | subagent's own | S3, S14 fired; S5 failed; S13, S16, S19 one clause each; the rest held |
+
+**Reading.**
+- **Programs can derive the veto from farsighted consent, given patience.** A V\*-absorbing KR fixed point exists from δ = 0.8, and the myopic-start default reaches it from δ = 0.95. At δ = 0.9 the derived guard is the walk, and the one-step exposure guard is worse than no guard at mN = 0.
+- **The derived guard recovers the members, not the set.** Every island sits on a member. Under migration it settles on one member as the baseline does (consensus 0.85, coverage 0), while the hand-written veto keeps all three.
+- **Refusal spreads under migration whatever it protects.** g1 and the triad guard spread too, while their islands sit off the set. Spreading is the immigrant-rescue channel, not selection for the set; gKR spreads fastest and displaces gV.
+- **Reading sources does not pay here.** The plug-in reader is neutral against gKR and lags it when g0 is present.
+- **Cost is not the bind at the decision** (2.6·10⁵ steps). The mutual fixed point of a mixed composition, the reader's regress, is not computed.
+- *Caveats:* finite (N, I, horizon); 20–40 runs per cell; the fixed-point list is uncertified at δ ≥ 0.95; the guards run host-side, with the executable benchmark separate; the decompositions are post hoc.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

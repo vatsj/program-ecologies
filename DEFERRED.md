@@ -620,3 +620,10 @@ REJECTED.md the ones we dropped.
   hypothesis:* stable-set behaviour needs a refusal guard; the guard is hand-written. *Open:* whether a source-reading
   program derives it (refuse κ iff accepting leads provably to one's own exclusion; Gemini's farsighted refusal), a
   candidate follow-up in the modal or realizable arm.
+- *Evidence (2026-10-14, farsighted refusal):* V\* is an absorbing set of Konishi–Ray equilibria under the contract
+  protocol from δ = 0.8 (the default reaches it from 0.95), the farsighted analogue of Anesi; the held-player
+  farsighted pairs are not absorbing sets, and rotating unequal triads are an extra absorbing class at δ ≥ 0.95. The
+  derived guard holds every island on a member and, under migration, one member everywhere (RESULTS "Farsighted
+  refusal"). *Operating hypothesis:* the stable set is recovered as island support by patient consent, not as an
+  archipelago-wide set. *Open (sol):* the plug-in reader is a best reply to the current composition, not a mutual fixed
+  point of a mixed composition; that regress is what a source-reading program faces.
