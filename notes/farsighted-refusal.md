@@ -240,7 +240,7 @@ fixed). Two changes, both preserving exactness:
    each state's decision subsets (2⁷, 2³, 2¹⁸) in exact arithmetic. Validated against the plain search at
    δ = 0.5, 0.8, 0.9 (identical strict and weak lists).
 2. **Core search.** Failed-literal probing (a free entry whose 1- or 0-branch dies under propagation is forced to the
-   other value) and fail-first branching, split at the root on the six member-exit bits by their 13 S₃
+   other value) and fail-first branching, split at the root on the six member-exit bits by their 16 S₃
    representatives, with a node cap of 10⁵ per subtree. **A subtree that hits the cap is reported as not certified.**
    Alongside: exhaustive enumeration of every S₃-invariant (2⁸) and Z₃-invariant (2¹⁶) core table, and 1,500 random
    asynchronous best-response restarts per δ, every fixed point found verified exactly and merged into the list.
@@ -254,8 +254,8 @@ per 20 × 20 solve); every solve in this experiment uses a hand-written Gaussian
 | 0.5 | yes | 1 (1) | 0 | myopic, 0 iterations | 15 recurrent pair outcomes (V\* mass 1/3) | no | no |
 | 0.8 | yes | 8 (4) | 0 | myopic, 0 iterations | the same walk (1/3) | **yes** (84 accepted) | no |
 | 0.9 | yes | 5 (3) | 21 | simultaneous, 1 iteration | 9 outcomes: fair and unequal pairs (1/3) | yes (72 accepted; min margin 0, a tie on a refused pair) | no |
-| 0.95 | **no** (2 of 13 subtrees capped) | ≥ 5 (≥ 2) | 0 found | asynchronous, 50 flips (simultaneous cycles) | **V\*** (56 accepted) | yes (default) | a rotating triad (P12:4\|2, P13:2\|4, P23:4\|2) |
-| 0.99 | **no** (12 of 13 capped) | ≥ 4 (≥ 3) | 0 found | simultaneous, 3 iterations | **V\*** (36 accepted) | yes (default) | both rotating triads, or one |
+| 0.95 | **no** (2 of 16 subtrees capped) | ≥ 5 (≥ 2) | 0 found | asynchronous, 50 flips (simultaneous cycles) | **V\*** (56 accepted) | yes (default) | a rotating triad (P12:4\|2, P13:2\|4, P23:4\|2) |
+| 0.99 | **no** (12 of 16 capped) | ≥ 4 (≥ 3) | 0 found | simultaneous, 3 iterations | **V\*** (36 accepted) | yes (default) | both rotating triads, or one |
 
 - Every listed fixed point verified exactly on all 90 pairs; every default is in the list; the plain search and the
   decomposition agree at δ ≤ 0.9; the 1,500 restarts per δ found nothing outside the list at any δ (the one table at
@@ -272,8 +272,8 @@ per 20 × 20 solve); every solve in this experiment uses a hand-written Gaussian
   absorbing set of KR fixed points from δ = 0.8 up); the held-player pairs no (no listed fixed point absorbs on one);
   the rotating triads are a new object, outside the game-effectiveness farsighted sets.
 - **Program choices (frozen by §1.4 and the static driver's rule):** gKR(0.99) = the V\*-absorbing default (refuses
-  every member exit, accepts 36 of 90); gKR(0.9) = the walk-like default (accepts 84, every member exit accepted, the
-  six (3, 2)-type → wasteful moves refused); gKRu (for M-gKR-unequal) = the δ = 0.99 orbit whose absorbing set is both
+  every member exit and 48 outsider moves, accepts 36 of 90; at (0, 0, 0) it accepts 6 of 18: the three fair pairs and three wasteful pairs); gKR(0.9) = the walk-like default (accepts 84, every member exit accepted; it
+  refuses only the six unequal → wasteful moves, so wasteful pairs are transient); gKRu (for M-gKR-unequal) = the δ = 0.99 orbit whose absorbing set is both
   rotating triads (78 accepted).
 - **Forced starts** (U-gKR(0.99), mN = 0, 2,000 generations, 27 islands per pair outcome): every member island stays
   (persistence 1.000), every outsider island reaches V\* (recovery 1.000, median first entry 59–375 generations),

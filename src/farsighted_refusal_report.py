@@ -218,6 +218,27 @@ def main():
         for k, v in Vd['identity'].items():
             A('- %s: %s identical' % (k, v))
         A('')
+    # full-cell identity checks
+    ids = []
+    for mine, theirs in (('D1r-0', 'D1-0'), ('D1r-1', 'D1-1'), ('R2r-0', 'R2-0'), ('R2r-1', 'R2-1')):
+        c = load(mine)
+        f = os.path.join(ROOT, 'runs', 'dominance_contracts', theirs + '.json')
+        if c is None or not os.path.exists(f):
+            continue
+        st = json.load(open(f))['runs']
+        ok = sum(R.same_as_stored(r, st[r['run']], consent=mine.startswith('R2')) for r in c['runs'])
+        ids.append('%s = stored %s in %d / %d runs' % (mine, theirs, ok, len(c['runs'])))
+    for mN in (0, 1):
+        a = load('UKR99-%d' % mN); b = load('Uread99-%d' % mN)
+        if a and b:
+            ok = sum(x['stop_gen'] == y['stop_gen'] and x['nmig'] == y['nmig'] and x['counts'] == y['counts'] and
+                     all(x['horizons'][h]['labels'] == y['horizons'][h]['labels'] for h in x['horizons'])
+                     for x, y in zip(a['runs'], b['runs']))
+            ids.append('Uread99-%d = UKR99-%d draw for draw in %d / %d runs' % (mN, mN, ok, len(a['runs'])))
+    if ids:
+        A('Full-cell identity: ' + '; '.join(ids) + '.')
+        A('')
+        agg['identity'] = ids
     # cells
     A('## Cells')
     A('')

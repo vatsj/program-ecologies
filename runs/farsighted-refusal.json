@@ -1,0 +1,5760 @@
+{
+ "static": {
+  "0.5": {
+   "complete": true,
+   "n": 1,
+   "orbits": 1,
+   "weak": 0,
+   "default_absorbing": [
+    "P12:4|2",
+    "P12:3|3",
+    "P12:3|2",
+    "P12:2|4",
+    "P12:2|3",
+    "P13:4|2",
+    "P13:3|3",
+    "P13:3|2",
+    "P13:2|4",
+    "P13:2|3",
+    "P23:4|2",
+    "P23:3|3",
+    "P23:3|2",
+    "P23:2|4",
+    "P23:2|3"
+   ],
+   "default_is_V": false,
+   "default_statV": 0.3333333333333342
+  },
+  "0.8": {
+   "complete": true,
+   "n": 8,
+   "orbits": 4,
+   "weak": 0,
+   "default_absorbing": [
+    "P12:4|2",
+    "P12:3|3",
+    "P12:3|2",
+    "P12:2|4",
+    "P12:2|3",
+    "P13:4|2",
+    "P13:3|3",
+    "P13:3|2",
+    "P13:2|4",
+    "P13:2|3",
+    "P23:4|2",
+    "P23:3|3",
+    "P23:3|2",
+    "P23:2|4",
+    "P23:2|3"
+   ],
+   "default_is_V": false,
+   "default_statV": 0.3333333333333342
+  },
+  "0.9": {
+   "complete": true,
+   "n": 5,
+   "orbits": 3,
+   "weak": 21,
+   "default_absorbing": [
+    "P12:4|2",
+    "P12:3|3",
+    "P12:2|4",
+    "P13:4|2",
+    "P13:3|3",
+    "P13:2|4",
+    "P23:4|2",
+    "P23:3|3",
+    "P23:2|4"
+   ],
+   "default_is_V": false,
+   "default_statV": 0.3333333333333325
+  },
+  "0.95": {
+   "complete": false,
+   "n": 5,
+   "orbits": 2,
+   "weak": 0,
+   "default_absorbing": [
+    "P12:3|3",
+    "P13:3|3",
+    "P23:3|3"
+   ],
+   "default_is_V": true,
+   "default_statV": 1.0000000000000009
+  },
+  "0.99": {
+   "complete": false,
+   "n": 4,
+   "orbits": 3,
+   "weak": 0,
+   "default_absorbing": [
+    "P12:3|3",
+    "P13:3|3",
+    "P23:3|3"
+   ],
+   "default_is_V": true,
+   "default_statV": 1.0000000000000007
+  }
+ },
+ "cells": {
+  "D1r-0": {
+   "params": {
+    "guards": [
+     "g0"
+    ],
+    "assign": null,
+    "mN": 0,
+    "H": 10000,
+    "seedbase": "L0",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.337890625,
+      0.318359375,
+      0.35859375
+     ],
+     "modal_occupancy": [
+      0.337890625,
+      0.318359375,
+      0.35859375
+     ],
+     "member": 0.337890625,
+     "unequal": 0.505078125,
+     "wasteful": 0.15703125,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 0.973828125,
+     "window_occupancy": 0.3398,
+     "guard_mean": {
+      "g0": 1.0
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      0.31484375,
+      0.298828125,
+      0.33046875
+     ],
+     "modal_occupancy": [
+      0.31484375,
+      0.298828125,
+      0.33046875
+     ],
+     "member": 0.31484375,
+     "unequal": 0.516796875,
+     "wasteful": 0.168359375,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 0.9719401041666668,
+     "window_occupancy": 0.33761874999999997,
+     "guard_mean": {
+      "g0": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 64033.3,
+    "null": 57270.825,
+    "consulted": 0.0,
+    "refused": 0.0,
+    "installed": 6762.475,
+    "infeasible": 21334.625,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 1179,
+     "other-mixed>unequal": 763,
+     "other-mixed>member": 399,
+     "wasteful>member": 16082,
+     "unequal>member": 47052,
+     "member>unequal": 62786,
+     "wasteful>unequal": 31874,
+     "disagreement>wasteful": 31,
+     "unequal>unequal": 47230,
+     "unequal>wasteful": 47152,
+     "wasteful>wasteful": 15916,
+     "disagreement>unequal": 19,
+     "disagreement>member": 9,
+     "member>wasteful": 3,
+     "member>member": 2,
+     "member-mixed>unequal": 2
+    },
+    "triggers": {
+     "contract": 255899,
+     "strict P": 1
+    },
+    "entries": {
+     "contract": 60292,
+     "strict P": 1
+    },
+    "exits": {
+     "contract": 59952
+    },
+    "decisions": {
+     "disagreement|installed": 2119,
+     "wasteful|installed": 63996,
+     "unequal|installed": 141525,
+     "member|installed": 62859
+    },
+    "refused_by": {
+     "g0": 0
+    }
+   }
+  },
+  "R2r-0": {
+   "params": {
+    "guards": [
+     "g0",
+     "gV"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 0,
+    "H": 10000,
+    "seedbase": "L0",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.999609375,
+      0.998828125,
+      1.0
+     ],
+     "modal_occupancy": [
+      0.999609375,
+      0.998828125,
+      1.0
+     ],
+     "member": 0.999609375,
+     "unequal": 0.0,
+     "wasteful": 0.000390625,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 0.975,
+     "support_ss": 0.975,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 0.9999348958333332,
+     "window_occupancy": 0.999496875,
+     "guard_mean": {
+      "g0": 0.0,
+      "gV": 1.0
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 1.0,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 1.0,
+     "window_occupancy": 1.0,
+     "guard_mean": {
+      "g0": 0.0,
+      "gV": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 63991.15,
+    "null": 59117.975,
+    "consulted": 4640.425,
+    "refused": 4640.425,
+    "installed": 232.75,
+    "infeasible": 21330.325,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 1159,
+     "other-mixed>unequal": 745,
+     "other-mixed>member": 412,
+     "wasteful>member": 864,
+     "unequal>member": 1184,
+     "wasteful>unequal": 1581,
+     "disagreement>wasteful": 30,
+     "unequal>unequal": 1205,
+     "unequal>wasteful": 1233,
+     "disagreement>unequal": 19,
+     "wasteful>wasteful": 865,
+     "member-mixed>member": 1,
+     "disagreement>member": 8,
+     "member>member": 4
+    },
+    "triggers": {
+     "contract": 6576,
+     "strict P": 1
+    },
+    "entries": {
+     "contract": 2007
+    },
+    "exits": {},
+    "decisions": {
+     "disagreement|installed": 2124,
+     "wasteful|installed": 3426,
+     "unequal|installed": 3723,
+     "member|refused": 185617,
+     "member|installed": 37
+    },
+    "refused_by": {
+     "g0": 0,
+     "gV": 371234
+    }
+   }
+  },
+  "Ug1-0": {
+   "params": {
+    "guards": [
+     "g0",
+     "g1"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 0,
+    "H": 10000,
+    "seedbase": "L0",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.18828125,
+      0.17421875,
+      0.202734375
+     ],
+     "modal_occupancy": [
+      0.18828125,
+      0.17421875,
+      0.202734375
+     ],
+     "member": 0.18828125,
+     "unequal": 0.35390625,
+     "wasteful": 0.4578125,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 0.8994791666666668,
+     "window_occupancy": 0.18828125,
+     "guard_mean": {
+      "g0": 0.0,
+      "g1": 1.0
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      0.18828125,
+      0.17421875,
+      0.202734375
+     ],
+     "modal_occupancy": [
+      0.18828125,
+      0.17421875,
+      0.202734375
+     ],
+     "member": 0.18828125,
+     "unequal": 0.35390625,
+     "wasteful": 0.4578125,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 0.8994791666666668,
+     "window_occupancy": 0.18828125,
+     "guard_mean": {
+      "g0": 0.0,
+      "g1": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 63987.55,
+    "null": 55185.775,
+    "consulted": 8747.8,
+    "refused": 8747.8,
+    "installed": 53.975,
+    "infeasible": 21303.35,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 1060,
+     "other-mixed>unequal": 713,
+     "other-mixed>member": 332,
+     "disagreement>wasteful": 30,
+     "disagreement>unequal": 16,
+     "disagreement>member": 6,
+     "wasteful>unequal": 1,
+     "unequal>unequal": 1
+    },
+    "triggers": {
+     "contract": 48,
+     "strict P": 2
+    },
+    "entries": {
+     "contract": 8,
+     "strict P": 1
+    },
+    "exits": {},
+    "decisions": {
+     "disagreement|installed": 2114,
+     "wasteful|refused": 213939,
+     "member|refused": 35776,
+     "unequal|refused": 100197,
+     "unequal|installed": 21,
+     "wasteful|installed": 18,
+     "member|installed": 6
+    },
+    "refused_by": {
+     "g0": 0,
+     "g1": 363708
+    }
+   }
+  },
+  "Ug1x-0": {
+   "params": {
+    "guards": [
+     "g0",
+     "g1x"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 0,
+    "H": 2000,
+    "seedbase": "L0",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.28046875,
+      0.262880859375,
+      0.3
+     ],
+     "modal_occupancy": [
+      0.28046875,
+      0.262880859375,
+      0.3
+     ],
+     "member": 0.28046875,
+     "unequal": 0.41953125,
+     "wasteful": 0.233984375,
+     "grand": 0.001171875,
+     "disagreement": 0.06484375,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 0.890625,
+     "window_occupancy": 0.28046875,
+     "guard_mean": {
+      "g0": 0.0,
+      "g1x": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 12819.925,
+    "null": 10747.025,
+    "consulted": 2072.9,
+    "refused": 2072.9,
+    "installed": 0.0,
+    "infeasible": 4264.475,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {},
+    "triggers": {
+     "strict P": 33,
+     "drift": 2
+    },
+    "entries": {
+     "strict P": 12
+    },
+    "exits": {},
+    "decisions": {
+     "disagreement|refused": 27011,
+     "member|refused": 10983,
+     "unequal|refused": 24393,
+     "wasteful|refused": 20463,
+     "grand-equal|refused": 66
+    },
+    "refused_by": {
+     "g0": 0,
+     "g1x": 128932
+    }
+   }
+  },
+  "UKR90-0": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKR0.9"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 0,
+    "H": 10000,
+    "seedbase": "L0",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.3328125,
+      0.313271484375,
+      0.352734375
+     ],
+     "modal_occupancy": [
+      0.3328125,
+      0.313271484375,
+      0.352734375
+     ],
+     "member": 0.3328125,
+     "unequal": 0.6671875,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 1.0,
+     "window_occupancy": 0.33151875000000003,
+     "guard_mean": {
+      "g0": 0.0,
+      "gKR0.9": 1.0
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      0.326953125,
+      0.308203125,
+      0.346875
+     ],
+     "modal_occupancy": [
+      0.326953125,
+      0.308203125,
+      0.346875
+     ],
+     "member": 0.326953125,
+     "unequal": 0.673046875,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 1.0,
+     "window_occupancy": 0.32180937499999995,
+     "guard_mean": {
+      "g0": 0.0,
+      "gKR0.9": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 64011.85,
+    "null": 57597.9,
+    "consulted": 1583.3,
+    "refused": 1583.3,
+    "installed": 4830.65,
+    "infeasible": 21319.75,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 1098,
+     "other-mixed>unequal": 769,
+     "other-mixed>member": 388,
+     "wasteful>member": 449,
+     "unequal>member": 62991,
+     "member>unequal": 63094,
+     "wasteful>unequal": 721,
+     "disagreement>wasteful": 35,
+     "unequal>unequal": 63281,
+     "wasteful>wasteful": 375,
+     "disagreement>unequal": 16,
+     "disagreement>member": 9
+    },
+    "triggers": {
+     "contract": 185073
+    },
+    "entries": {
+     "contract": 60611
+    },
+    "exits": {
+     "contract": 60259
+    },
+    "decisions": {
+     "disagreement|installed": 2125,
+     "wasteful|installed": 1650,
+     "unequal|installed": 126321,
+     "member|installed": 63130,
+     "unequal|refused": 63221,
+     "wasteful|refused": 40,
+     "member|refused": 71
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKR0.9": 63368
+    }
+   }
+  },
+  "UKR99-0": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKR0.99"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 0,
+    "H": 10000,
+    "seedbase": "L0",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 1.0,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 1.0,
+     "window_occupancy": 0.9999500000000001,
+     "guard_mean": {
+      "g0": 0.0,
+      "gKR0.99": 1.0
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 1.0,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 1.0,
+     "window_occupancy": 1.0,
+     "guard_mean": {
+      "g0": 0.0,
+      "gKR0.99": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 64053.625,
+    "null": 59153.275,
+    "consulted": 4824.175,
+    "refused": 4824.175,
+    "installed": 76.175,
+    "infeasible": 21339.175,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 601,
+     "other-mixed>member": 828,
+     "wasteful>member": 751,
+     "disagreement>member": 53,
+     "unequal>member": 606,
+     "wasteful>unequal": 70,
+     "other-mixed>unequal": 69,
+     "disagreement>wasteful": 62,
+     "grand>member": 1,
+     "member>member": 5,
+     "unequal>unequal": 1
+    },
+    "triggers": {
+     "contract": 1490,
+     "strict P": 6
+    },
+    "entries": {
+     "contract": 1371,
+     "strict P": 2
+    },
+    "exits": {},
+    "decisions": {
+     "disagreement|refused": 2611,
+     "disagreement|installed": 1274,
+     "wasteful|installed": 1012,
+     "member|installed": 27,
+     "unequal|installed": 733,
+     "unequal|refused": 1578,
+     "member|refused": 187295,
+     "wasteful|refused": 1482,
+     "grand-equal|refused": 1,
+     "grand-equal|installed": 1
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKR0.99": 193337
+    }
+   }
+  },
+  "Uread99-0": {
+   "params": {
+    "guards": [
+     "g0",
+     "read0.99"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 0,
+    "H": 10000,
+    "seedbase": "L0",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 1.0,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 1.0,
+     "window_occupancy": 0.9999500000000001,
+     "guard_mean": {
+      "g0": 0.0,
+      "read0.99": 1.0
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 1.0,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 1.0,
+     "window_occupancy": 1.0,
+     "guard_mean": {
+      "g0": 0.0,
+      "read0.99": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 64053.625,
+    "null": 59153.275,
+    "consulted": 4824.175,
+    "refused": 4824.175,
+    "installed": 76.175,
+    "infeasible": 21339.175,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 601,
+     "other-mixed>member": 828,
+     "wasteful>member": 751,
+     "disagreement>member": 53,
+     "unequal>member": 606,
+     "wasteful>unequal": 70,
+     "other-mixed>unequal": 69,
+     "disagreement>wasteful": 62,
+     "grand>member": 1,
+     "member>member": 5,
+     "unequal>unequal": 1
+    },
+    "triggers": {
+     "contract": 1490,
+     "strict P": 6
+    },
+    "entries": {
+     "contract": 1371,
+     "strict P": 2
+    },
+    "exits": {},
+    "decisions": {
+     "disagreement|refused": 2611,
+     "disagreement|installed": 1274,
+     "wasteful|installed": 1012,
+     "member|installed": 27,
+     "unequal|installed": 733,
+     "unequal|refused": 1578,
+     "member|refused": 187295,
+     "wasteful|refused": 1482,
+     "grand-equal|refused": 1,
+     "grand-equal|installed": 1
+    },
+    "refused_by": {
+     "g0": 0,
+     "read0.99": 193337
+    }
+   }
+  },
+  "MKR-0": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKR0.99"
+    ],
+    "assign": [
+     "bit",
+     0.5,
+     1
+    ],
+    "mN": 0,
+    "H": 10000,
+    "seedbase": "L0",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.7203125,
+      0.704287109375,
+      0.736328125
+     ],
+     "modal_occupancy": [
+      0.7203125,
+      0.704287109375,
+      0.736328125
+     ],
+     "member": 0.7203125,
+     "unequal": 0.216796875,
+     "wasteful": 0.062890625,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 0.9895182291666667,
+     "window_occupancy": 0.7171875,
+     "guard_mean": {
+      "g0": 0.5007812477648258,
+      "gKR0.99": 0.49921874776482583
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      0.73515625,
+      0.721484375,
+      0.749609375
+     ],
+     "modal_occupancy": [
+      0.73515625,
+      0.721484375,
+      0.749609375
+     ],
+     "member": 0.73515625,
+     "unequal": 0.2046875,
+     "wasteful": 0.06015625,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 0.9899739583333333,
+     "window_occupancy": 0.7229328125000001,
+     "guard_mean": {
+      "g0": 0.5007812477648258,
+      "gKR0.99": 0.49921874776482583
+     }
+    }
+   },
+   "guards": {
+    "2000": {
+     "gKR0.99": {
+      "start": 0.4987475,
+      "end": 0.4992325,
+      "change": [
+       0.00048500000000000485,
+       -0.009322125,
+       0.010254062500000004
+      ],
+      "rises": 14,
+      "falls": 26,
+      "runs": 40,
+      "traj": [
+       0.4987,
+       0.4981,
+       0.4993,
+       0.4992,
+       0.4992,
+       0.4992,
+       0.4992,
+       0.4992,
+       0.4992,
+       0.4992,
+       0.4992
+      ]
+     }
+    },
+    "10000": {
+     "gKR0.99": {
+      "start": 0.4987475,
+      "end": 0.4992325,
+      "change": [
+       0.00048500000000000485,
+       -0.009322125,
+       0.010254062500000004
+      ],
+      "rises": 14,
+      "falls": 26,
+      "runs": 40,
+      "traj": [
+       0.4987,
+       0.4992,
+       0.4992,
+       0.4992,
+       0.4992,
+       0.4992,
+       0.4992,
+       0.4992,
+       0.4992,
+       0.4992,
+       0.4992
+      ]
+     }
+    }
+   },
+   "rescue": {
+    "gKR0.99": {
+     "member|consulted-through": {
+      "sum_per_island_run": -0.0004087500000000001,
+      "windows": 83
+     },
+     "member|none": {
+      "sum_per_island_run": -0.0004392499999999997,
+      "windows": 251276
+     },
+     "member|refused": {
+      "sum_per_island_run": 0.0024574999999999996,
+      "windows": 92008
+     },
+     "member|unconsulted-install": {
+      "sum_per_island_run": -0.0012004999999999997,
+      "windows": 21138
+     },
+     "non-member|consulted-through": {
+      "sum_per_island_run": -0.015590499999999998,
+      "windows": 1281
+     },
+     "non-member|none": {
+      "sum_per_island_run": 0.002914,
+      "windows": 79911
+     },
+     "non-member|refused": {
+      "sum_per_island_run": 0.017591749999999996,
+      "windows": 21796
+     },
+     "non-member|unconsulted-install": {
+      "sum_per_island_run": -0.004847249999999999,
+      "windows": 44507
+     }
+    }
+   },
+   "assoc": {
+    "gKR0.99": {
+     "0": [
+      0.0342475,
+      40
+     ],
+     "250": [
+      0.38293,
+      40
+     ],
+     "500": [
+      0.47464499999999993,
+      40
+     ],
+     "750": [
+      0.5509850000000001,
+      40
+     ],
+     "1000": [
+      0.606095,
+      40
+     ],
+     "1250": [
+      0.6438349999999999,
+      40
+     ],
+     "1500": [
+      0.66059,
+      40
+     ],
+     "1750": [
+      0.6645525,
+      40
+     ],
+     "2000": [
+      0.6619400000000001,
+      40
+     ],
+     "2250": [
+      0.6694150000000001,
+      40
+     ],
+     "2500": [
+      0.6518675,
+      40
+     ],
+     "2750": [
+      0.6551475,
+      40
+     ],
+     "3000": [
+      0.6672100000000001,
+      40
+     ],
+     "3250": [
+      0.6665425,
+      40
+     ],
+     "3500": [
+      0.6652825,
+      40
+     ],
+     "3750": [
+      0.6570199999999999,
+      40
+     ],
+     "4000": [
+      0.659595,
+      40
+     ],
+     "4250": [
+      0.6635025000000001,
+      40
+     ],
+     "4500": [
+      0.6646599999999999,
+      40
+     ],
+     "4750": [
+      0.6635525,
+      40
+     ],
+     "5000": [
+      0.674105,
+      40
+     ],
+     "5250": [
+      0.675465,
+      40
+     ],
+     "5500": [
+      0.65614,
+      40
+     ],
+     "5750": [
+      0.66848,
+      40
+     ],
+     "6000": [
+      0.6576850000000001,
+      40
+     ],
+     "6250": [
+      0.6617475,
+      40
+     ],
+     "6500": [
+      0.6545725,
+      40
+     ],
+     "6750": [
+      0.677065,
+      40
+     ],
+     "7000": [
+      0.6685,
+      40
+     ],
+     "7250": [
+      0.6648,
+      40
+     ],
+     "7500": [
+      0.6658075,
+      40
+     ],
+     "7750": [
+      0.6536375000000001,
+      40
+     ],
+     "8000": [
+      0.6651100000000001,
+      40
+     ],
+     "8250": [
+      0.65125,
+      40
+     ],
+     "8500": [
+      0.670625,
+      40
+     ],
+     "8750": [
+      0.6702299999999999,
+      40
+     ],
+     "9000": [
+      0.6619550000000001,
+      40
+     ],
+     "9250": [
+      0.68001,
+      40
+     ],
+     "9500": [
+      0.66812,
+      40
+     ],
+     "9750": [
+      0.6825025,
+      40
+     ]
+    }
+   },
+   "counts": {
+    "draws": 63997.125,
+    "null": 58354.95,
+    "consulted": 3399.325,
+    "refused": 3362.45,
+    "installed": 2279.725,
+    "infeasible": 21307.95,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>unequal": 496,
+     "other-mixed>wasteful": 1037,
+     "other-mixed>member": 592,
+     "wasteful>member": 5933,
+     "member>unequal": 25926,
+     "unequal>member": 21155,
+     "wasteful>wasteful": 2176,
+     "wasteful>unequal": 7989,
+     "disagreement>wasteful": 41,
+     "unequal>wasteful": 12939,
+     "unequal>unequal": 12864,
+     "disagreement>unequal": 17,
+     "disagreement>member": 19,
+     "member>member": 3,
+     "member>wasteful": 1,
+     "member-mixed>wasteful": 1
+    },
+    "triggers": {
+     "contract": 85905,
+     "strict P": 1
+    },
+    "entries": {
+     "contract": 26171,
+     "strict P": 1
+    },
+    "exits": {
+     "contract": 25029
+    },
+    "decisions": {
+     "disagreement|refused": 972,
+     "disagreement|installed": 1834,
+     "wasteful|installed": 16262,
+     "member|installed": 26010,
+     "unequal|installed": 47083,
+     "unequal|refused": 16292,
+     "member|refused": 109473,
+     "wasteful|refused": 7761
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKR0.99": 134547
+    }
+   }
+  },
+  "Mg1-0": {
+   "params": {
+    "guards": [
+     "g0",
+     "g1"
+    ],
+    "assign": [
+     "bit",
+     0.5,
+     1
+    ],
+    "mN": 0,
+    "H": 2000,
+    "seedbase": "L0",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.1,
+      0.08984375,
+      0.109765625
+     ],
+     "modal_occupancy": [
+      0.1,
+      0.08984375,
+      0.109765625
+     ],
+     "member": 0.1,
+     "unequal": 0.765234375,
+     "wasteful": 0.134765625,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 0.675,
+     "consensus": 0.0,
+     "efficiency": 0.9739583333333334,
+     "window_occupancy": 0.11096249999999999,
+     "guard_mean": {
+      "g0": 0.49869791567325594,
+      "g1": 0.5013020813465119
+     }
+    }
+   },
+   "guards": {
+    "2000": {
+     "g1": {
+      "start": 0.4987475,
+      "end": 0.5013,
+      "change": [
+       0.002552499999999999,
+       -0.008333750000000001,
+       0.013310375000000006
+      ],
+      "rises": 24,
+      "falls": 16,
+      "runs": 40,
+      "traj": [
+       0.4987,
+       0.5013,
+       0.5013,
+       0.5013,
+       0.5013,
+       0.5013,
+       0.5013,
+       0.5013,
+       0.5013,
+       0.5013,
+       0.5013
+      ]
+     }
+    }
+   },
+   "rescue": {
+    "g1": {
+     "member|consulted-through": {
+      "sum_per_island_run": -0.00037125,
+      "windows": 55
+     },
+     "member|none": {
+      "sum_per_island_run": -0.0011590000000000003,
+      "windows": 10045
+     },
+     "member|refused": {
+      "sum_per_island_run": 0.0008419999999999996,
+      "windows": 2462
+     },
+     "member|unconsulted-install": {
+      "sum_per_island_run": 0.0008827500000000001,
+      "windows": 2045
+     },
+     "non-member|consulted-through": {
+      "sum_per_island_run": -0.009353749999999997,
+      "windows": 834
+     },
+     "non-member|none": {
+      "sum_per_island_run": 0.003947249999999999,
+      "windows": 46698
+     },
+     "non-member|refused": {
+      "sum_per_island_run": 0.023044,
+      "windows": 33351
+     },
+     "non-member|unconsulted-install": {
+      "sum_per_island_run": -0.015276500000000002,
+      "windows": 6910
+     }
+    }
+   },
+   "assoc": {
+    "g1": {
+     "0": [
+      -0.012867499999999999,
+      40
+     ],
+     "250": [
+      -0.091415,
+      40
+     ],
+     "500": [
+      -0.10833499999999999,
+      40
+     ],
+     "750": [
+      -0.11459000000000001,
+      40
+     ],
+     "1000": [
+      -0.10285000000000002,
+      40
+     ],
+     "1250": [
+      -0.1308825,
+      40
+     ],
+     "1500": [
+      -0.12145500000000001,
+      40
+     ],
+     "1750": [
+      -0.1025925,
+      40
+     ]
+    }
+   },
+   "counts": {
+    "draws": 12811.65,
+    "null": 11290.7,
+    "consulted": 1210.375,
+    "refused": 1186.725,
+    "installed": 334.225,
+    "infeasible": 4253.6,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 1135,
+     "other-mixed>unequal": 747,
+     "other-mixed>member": 382,
+     "wasteful>member": 678,
+     "wasteful>unequal": 1931,
+     "member>unequal": 2577,
+     "wasteful>wasteful": 669,
+     "unequal>wasteful": 1729,
+     "unequal>unequal": 1768,
+     "unequal>member": 1685,
+     "disagreement>wasteful": 37,
+     "disagreement>unequal": 13,
+     "disagreement>member": 12,
+     "member>member": 5,
+     "member-mixed>member": 1
+    },
+    "triggers": {
+     "contract": 10607,
+     "strict P": 1
+    },
+    "entries": {
+     "contract": 2261
+    },
+    "exits": {
+     "contract": 2483
+    },
+    "decisions": {
+     "disagreement|installed": 2156,
+     "wasteful|refused": 11230,
+     "member|refused": 2944,
+     "wasteful|installed": 3345,
+     "unequal|refused": 33295,
+     "member|installed": 2619,
+     "unequal|installed": 5249
+    },
+    "refused_by": {
+     "g0": 0,
+     "g1": 47938
+    }
+   }
+  },
+  "D1r-1": {
+   "params": {
+    "guards": [
+     "g0"
+    ],
+    "assign": null,
+    "mN": 1,
+    "H": 10000,
+    "seedbase": "L1",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.091015625,
+      0.077333984375,
+      0.10469726562499995
+     ],
+     "modal_occupancy": [
+      0.337890625,
+      0.31484375,
+      0.359765625
+     ],
+     "member": 0.091015625,
+     "unequal": 0.103125,
+     "wasteful": 0.073828125,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.012109375,
+     "MO": 0.719921875,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 0.6,
+     "consensus": 0.0,
+     "efficiency": 0.8797911979166667,
+     "window_occupancy": 0.09052656249999999,
+     "guard_mean": {
+      "g0": 1.0
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      0.08359375,
+      0.07421875,
+      0.093359375
+     ],
+     "modal_occupancy": [
+      0.323828125,
+      0.303125,
+      0.3453125
+     ],
+     "member": 0.08359375,
+     "unequal": 0.0953125,
+     "wasteful": 0.07578125,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0109375,
+     "MO": 0.734375,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 0.5,
+     "consensus": 0.0,
+     "efficiency": 0.8779080859375,
+     "window_occupancy": 0.0868171875,
+     "guard_mean": {
+      "g0": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 63929.175,
+    "null": 43655.65,
+    "consulted": 0.0,
+    "refused": 0.0,
+    "installed": 20273.525,
+    "infeasible": 21317.325,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 223199,
+     "other-mixed>unequal": 223956,
+     "other-mixed>other-mixed": 21166,
+     "other-mixed>member": 150198,
+     "unequal>wasteful": 23642,
+     "wasteful>wasteful": 26507,
+     "unequal>unequal": 31631,
+     "wasteful>unequal": 22496,
+     "wasteful>member": 16737,
+     "wasteful>other-mixed": 2369,
+     "member>unequal": 16096,
+     "disagreement>wasteful": 10,
+     "unequal>member": 9093,
+     "member>member": 19502,
+     "member>wasteful": 13246,
+     "unequal>other-mixed": 2441,
+     "member>other-mixed": 1606,
+     "member-mixed>unequal": 1779,
+     "member-mixed>member": 2425,
+     "member-mixed>wasteful": 1765,
+     "member>member-mixed": 128,
+     "other-mixed>member-mixed": 667,
+     "member-mixed>other-mixed": 182,
+     "wasteful>member-mixed": 66,
+     "member-mixed>member-mixed": 21,
+     "disagreement>member": 8,
+     "disagreement>unequal": 5
+    },
+    "triggers": {
+     "contract": 352466,
+     "contract residue": 503,
+     "migration": 1095
+    },
+    "entries": {
+     "contract": 72296,
+     "contract residue": 342,
+     "migration": 657
+    },
+    "exits": {
+     "contract": 73044,
+     "migration": 63,
+     "contract residue": 17
+    },
+    "decisions": {
+     "disagreement|installed": 9251,
+     "unequal|installed": 308228,
+     "wasteful|installed": 272878,
+     "member|installed": 220584
+    },
+    "refused_by": {
+     "g0": 0
+    }
+   }
+  },
+  "R2r-1": {
+   "params": {
+    "guards": [
+     "g0",
+     "gV"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 1,
+    "H": 10000,
+    "seedbase": "L1",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.33125,
+      0.31328125,
+      0.349609375
+     ],
+     "modal_occupancy": [
+      0.99609375,
+      0.99375,
+      0.9984375
+     ],
+     "member": 0.33125,
+     "unequal": 0.000390625,
+     "wasteful": 0.000390625,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.337109375,
+     "MO": 0.330859375,
+     "support_strict": 0.0,
+     "support_ss": 0.95,
+     "coverage": 0.975,
+     "consensus": 0.0,
+     "efficiency": 0.9533444205729167,
+     "window_occupancy": 0.3285234375,
+     "guard_mean": {
+      "g0": 0.0,
+      "gV": 1.0
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      0.315625,
+      0.294921875,
+      0.3359375
+     ],
+     "modal_occupancy": [
+      0.99765625,
+      0.99609375,
+      0.99921875
+     ],
+     "member": 0.315625,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.345703125,
+     "MO": 0.338671875,
+     "support_strict": 0.0,
+     "support_ss": 1.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 0.95281220703125,
+     "window_occupancy": 0.32640156249999996,
+     "guard_mean": {
+      "g0": 0.0,
+      "gV": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 64006.7,
+    "null": 46642.675,
+    "consulted": 10720.45,
+    "refused": 10720.45,
+    "installed": 6643.575,
+    "infeasible": 21323.775,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 4901,
+     "other-mixed>unequal": 4386,
+     "other-mixed>other-mixed": 704,
+     "other-mixed>member": 93408,
+     "unequal>wasteful": 407,
+     "wasteful>wasteful": 543,
+     "unequal>unequal": 494,
+     "wasteful>unequal": 472,
+     "wasteful>member": 323,
+     "wasteful>other-mixed": 44,
+     "member-mixed>member": 89533,
+     "disagreement>unequal": 7,
+     "member>member": 67306,
+     "unequal>member": 130,
+     "member>member-mixed": 711,
+     "member-mixed>member-mixed": 996,
+     "member-mixed>other-mixed": 211,
+     "other-mixed>member-mixed": 974,
+     "member>other-mixed": 137,
+     "unequal>other-mixed": 42,
+     "disagreement>wasteful": 7,
+     "disagreement>member": 6,
+     "wasteful>member-mixed": 1
+    },
+    "triggers": {
+     "contract": 146073,
+     "migration": 14135,
+     "contract residue": 2941
+    },
+    "entries": {
+     "contract": 2056,
+     "contract residue": 61,
+     "migration": 82
+    },
+    "exits": {
+     "contract": 622,
+     "migration": 4,
+     "contract residue": 1
+    },
+    "decisions": {
+     "disagreement|installed": 3273,
+     "unequal|installed": 5496,
+     "wasteful|installed": 5868,
+     "member|refused": 428818,
+     "member|installed": 251106
+    },
+    "refused_by": {
+     "g0": 0,
+     "gV": 857636
+    }
+   }
+  },
+  "Ug1-1": {
+   "params": {
+    "guards": [
+     "g0",
+     "g1"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 1,
+    "H": 10000,
+    "seedbase": "L1",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.394921875,
+      0.254287109375,
+      0.533203125
+     ],
+     "modal_occupancy": [
+      0.424609375,
+      0.28280273437500003,
+      0.565244140625
+     ],
+     "member": 0.394921875,
+     "unequal": 0.1828125,
+     "wasteful": 0.000390625,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.001171875,
+     "MO": 0.420703125,
+     "support_strict": 0.2,
+     "support_ss": 0.35,
+     "coverage": 0.0,
+     "consensus": 0.2,
+     "efficiency": 0.9836669401041668,
+     "window_occupancy": 0.3889234375,
+     "guard_mean": {
+      "g0": 0.0,
+      "g1": 1.0
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      0.425,
+      0.275,
+      0.575
+     ],
+     "modal_occupancy": [
+      0.425,
+      0.275,
+      0.575
+     ],
+     "member": 0.425,
+     "unequal": 0.468359375,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.106640625,
+     "support_strict": 0.425,
+     "support_ss": 0.425,
+     "coverage": 0.0,
+     "consensus": 0.775,
+     "efficiency": 1.0,
+     "window_occupancy": 0.425,
+     "guard_mean": {
+      "g0": 0.0,
+      "g1": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 63978.725,
+    "null": 54412.625,
+    "consulted": 9205.25,
+    "refused": 9205.25,
+    "installed": 360.85,
+    "infeasible": 21326.225,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 2014,
+     "other-mixed>unequal": 9778,
+     "other-mixed>other-mixed": 446,
+     "other-mixed>member": 703,
+     "wasteful>unequal": 65,
+     "unequal>unequal": 1320,
+     "unequal>other-mixed": 33,
+     "other-mixed>member-mixed": 2,
+     "member-mixed>unequal": 55,
+     "disagreement>member": 2,
+     "disagreement>wasteful": 8,
+     "wasteful>other-mixed": 1,
+     "disagreement>unequal": 5,
+     "member-mixed>other-mixed": 1,
+     "disagreement>other-mixed": 1
+    },
+    "triggers": {
+     "contract": 8289,
+     "migration": 16251,
+     "contract residue": 1521
+    },
+    "entries": {
+     "contract": 609,
+     "contract residue": 639,
+     "migration": 942
+    },
+    "exits": {
+     "contract": 882,
+     "migration": 748,
+     "contract residue": 109
+    },
+    "decisions": {
+     "disagreement|installed": 4330,
+     "unequal|refused": 249581,
+     "wasteful|refused": 10664,
+     "wasteful|installed": 934,
+     "unequal|installed": 8464,
+     "member|refused": 107965,
+     "member|installed": 706
+    },
+    "refused_by": {
+     "g0": 0,
+     "g1": 387530
+    }
+   }
+  },
+  "UKR90-1": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKR0.9"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 1,
+    "H": 10000,
+    "seedbase": "L1",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.082421875,
+      0.071484375,
+      0.094140625
+     ],
+     "modal_occupancy": [
+      0.344921875,
+      0.32578125,
+      0.36484375
+     ],
+     "member": 0.082421875,
+     "unequal": 0.1203125,
+     "wasteful": 0.00390625,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.002734375,
+     "MO": 0.790625,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 0.375,
+     "consensus": 0.0,
+     "efficiency": 0.8919693164062499,
+     "window_occupancy": 0.07044687499999999,
+     "guard_mean": {
+      "g0": 0.0,
+      "gKR0.9": 1.0
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      0.075,
+      0.065615234375,
+      0.084765625
+     ],
+     "modal_occupancy": [
+      0.3578125,
+      0.340625,
+      0.374609375
+     ],
+     "member": 0.075,
+     "unequal": 0.115625,
+     "wasteful": 0.00546875,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.001953125,
+     "MO": 0.801953125,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 0.35,
+     "consensus": 0.0,
+     "efficiency": 0.8913245442708334,
+     "window_occupancy": 0.0729546875,
+     "guard_mean": {
+      "g0": 0.0,
+      "gKR0.9": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 63961.825,
+    "null": 44419.575,
+    "consulted": 13279.95,
+    "refused": 13279.95,
+    "installed": 6262.3,
+    "infeasible": 21299.7,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 12648,
+     "other-mixed>unequal": 127949,
+     "other-mixed>other-mixed": 6965,
+     "other-mixed>member": 60089,
+     "wasteful>other-mixed": 88,
+     "wasteful>member": 812,
+     "member>other-mixed": 502,
+     "wasteful>wasteful": 606,
+     "member>unequal": 13027,
+     "wasteful>unequal": 1138,
+     "unequal>member": 10531,
+     "member>member": 913,
+     "unequal>unequal": 13548,
+     "member-mixed>unequal": 649,
+     "unequal>other-mixed": 845,
+     "member-mixed>member": 68,
+     "disagreement>wasteful": 12,
+     "other-mixed>member-mixed": 59,
+     "member-mixed>other-mixed": 21,
+     "disagreement>unequal": 12,
+     "disagreement>member": 2,
+     "wasteful>member-mixed": 3,
+     "member>member-mixed": 4,
+     "member-mixed>member-mixed": 1
+    },
+    "triggers": {
+     "contract": 161138,
+     "migration": 3653,
+     "contract residue": 2370
+    },
+    "entries": {
+     "contract": 43275,
+     "migration": 1553,
+     "contract residue": 1048
+    },
+    "exits": {
+     "contract": 44633,
+     "migration": 660,
+     "contract residue": 365
+    },
+    "decisions": {
+     "disagreement|installed": 17759,
+     "unequal|refused": 349826,
+     "wasteful|installed": 24021,
+     "wasteful|refused": 7926,
+     "unequal|installed": 136144,
+     "member|refused": 173446,
+     "member|installed": 72568
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKR0.9": 632734
+    }
+   }
+  },
+  "UKR99-1": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKR0.99"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 1,
+    "H": 10000,
+    "seedbase": "L1",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.629296875,
+      0.542939453125,
+      0.7137109374999997
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 0.629296875,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.370703125,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 0.0,
+     "consensus": 0.275,
+     "efficiency": 1.0,
+     "window_occupancy": 0.6230249999999999,
+     "guard_mean": {
+      "g0": 0.0,
+      "gKR0.99": 1.0
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      0.93203125,
+      0.87265625,
+      0.9796875
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 0.93203125,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.06796875,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 0.0,
+     "consensus": 0.85,
+     "efficiency": 1.0,
+     "window_occupancy": 0.92758125,
+     "guard_mean": {
+      "g0": 0.0,
+      "gKR0.99": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 63969.55,
+    "null": 56669.775,
+    "consulted": 7203.75,
+    "refused": 7203.75,
+    "installed": 96.025,
+    "infeasible": 21338.7,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 754,
+     "other-mixed>member": 2390,
+     "other-mixed>unequal": 258,
+     "other-mixed>other-mixed": 103,
+     "member>member": 103,
+     "wasteful>member": 71,
+     "unequal>other-mixed": 1,
+     "other-mixed>member-mixed": 11,
+     "member-mixed>member": 81,
+     "disagreement>wasteful": 10,
+     "disagreement>member": 14,
+     "unequal>member": 29,
+     "unequal>unequal": 3,
+     "wasteful>unequal": 3,
+     "wasteful>wasteful": 3,
+     "disagreement>other-mixed": 2,
+     "wasteful>other-mixed": 3,
+     "member-mixed>other-mixed": 1,
+     "member>other-mixed": 1
+    },
+    "triggers": {
+     "migration": 14019,
+     "contract": 1079,
+     "contract residue": 851
+    },
+    "entries": {
+     "contract": 458,
+     "contract residue": 60,
+     "migration": 95
+    },
+    "exits": {
+     "contract": 30,
+     "migration": 10,
+     "contract residue": 5
+    },
+    "decisions": {
+     "disagreement|refused": 2845,
+     "disagreement|installed": 1493,
+     "wasteful|installed": 1051,
+     "wasteful|refused": 2222,
+     "member|refused": 280632,
+     "member|installed": 747,
+     "unequal|refused": 2448,
+     "unequal|installed": 548,
+     "grand-equal|installed": 2,
+     "grand-equal|refused": 3
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKR0.99": 300252
+    }
+   }
+  },
+  "Uread99-1": {
+   "params": {
+    "guards": [
+     "g0",
+     "read0.99"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 1,
+    "H": 10000,
+    "seedbase": "L1",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.629296875,
+      0.542939453125,
+      0.7137109374999997
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 0.629296875,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.370703125,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 0.0,
+     "consensus": 0.275,
+     "efficiency": 1.0,
+     "window_occupancy": 0.6230249999999999,
+     "guard_mean": {
+      "g0": 0.0,
+      "read0.99": 1.0
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      0.93203125,
+      0.87265625,
+      0.9796875
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 0.93203125,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.06796875,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 0.0,
+     "consensus": 0.85,
+     "efficiency": 1.0,
+     "window_occupancy": 0.92758125,
+     "guard_mean": {
+      "g0": 0.0,
+      "read0.99": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 63969.55,
+    "null": 56669.775,
+    "consulted": 7203.75,
+    "refused": 7203.75,
+    "installed": 96.025,
+    "infeasible": 21338.7,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 754,
+     "other-mixed>member": 2390,
+     "other-mixed>unequal": 258,
+     "other-mixed>other-mixed": 103,
+     "member>member": 103,
+     "wasteful>member": 71,
+     "unequal>other-mixed": 1,
+     "other-mixed>member-mixed": 11,
+     "member-mixed>member": 81,
+     "disagreement>wasteful": 10,
+     "disagreement>member": 14,
+     "unequal>member": 29,
+     "unequal>unequal": 3,
+     "wasteful>unequal": 3,
+     "wasteful>wasteful": 3,
+     "disagreement>other-mixed": 2,
+     "wasteful>other-mixed": 3,
+     "member-mixed>other-mixed": 1,
+     "member>other-mixed": 1
+    },
+    "triggers": {
+     "migration": 14019,
+     "contract": 1079,
+     "contract residue": 851
+    },
+    "entries": {
+     "contract": 458,
+     "contract residue": 60,
+     "migration": 95
+    },
+    "exits": {
+     "contract": 30,
+     "migration": 10,
+     "contract residue": 5
+    },
+    "decisions": {
+     "disagreement|refused": 2845,
+     "disagreement|installed": 1493,
+     "wasteful|installed": 1051,
+     "wasteful|refused": 2222,
+     "member|refused": 280632,
+     "member|installed": 747,
+     "unequal|refused": 2448,
+     "unequal|installed": 548,
+     "grand-equal|installed": 2,
+     "grand-equal|refused": 3
+    },
+    "refused_by": {
+     "g0": 0,
+     "read0.99": 300252
+    }
+   }
+  },
+  "MKR-1": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKR0.99"
+    ],
+    "assign": [
+     "bit",
+     0.5,
+     1
+    ],
+    "mN": 1,
+    "H": 10000,
+    "seedbase": "L1",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.462890625,
+      0.36677734375000004,
+      0.5586132812499999
+     ],
+     "modal_occupancy": [
+      0.8125,
+      0.76328125,
+      0.8578125
+     ],
+     "member": 0.462890625,
+     "unequal": 0.01640625,
+     "wasteful": 0.01015625,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.09921875,
+     "MO": 0.411328125,
+     "support_strict": 0.075,
+     "support_ss": 0.325,
+     "coverage": 0.45,
+     "consensus": 0.075,
+     "efficiency": 0.9491018033854166,
+     "window_occupancy": 0.43139531249999996,
+     "guard_mean": {
+      "g0": 0.22801562329987063,
+      "gKR0.99": 0.7719843812286854
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      0.969140625,
+      0.925263671875,
+      1.0
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 0.969140625,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.030859375,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 0.0,
+     "consensus": 0.95,
+     "efficiency": 1.0,
+     "window_occupancy": 0.9689656249999998,
+     "guard_mean": {
+      "g0": 0.10626172020565719,
+      "gKR0.99": 0.8937382891774177
+     }
+    }
+   },
+   "guards": {
+    "2000": {
+     "gKR0.99": {
+      "start": 0.49943,
+      "end": 0.7719825,
+      "change": [
+       0.27255250000000003,
+       0.22177018750000002,
+       0.31868893749999994
+      ],
+      "rises": 37,
+      "falls": 3,
+      "runs": 40,
+      "traj": [
+       0.4994,
+       0.5098,
+       0.5362,
+       0.5646,
+       0.5926,
+       0.6276,
+       0.6613,
+       0.6946,
+       0.7205,
+       0.7488,
+       0.772
+      ]
+     }
+    },
+    "10000": {
+     "gKR0.99": {
+      "start": 0.49943,
+      "end": 0.8937474999999999,
+      "change": [
+       0.3943175,
+       0.34874106250000003,
+       0.438453625
+      ],
+      "rises": 40,
+      "falls": 0,
+      "runs": 40,
+      "traj": [
+       0.4994,
+       0.6276,
+       0.772,
+       0.8287,
+       0.8614,
+       0.8772,
+       0.8843,
+       0.8831,
+       0.8875,
+       0.8898,
+       0.8937
+      ]
+     }
+    }
+   },
+   "rescue": {
+    "gKR0.99": {
+     "member|consulted-through": {
+      "sum_per_island_run": -0.0024685,
+      "windows": 5905
+     },
+     "member|none": {
+      "sum_per_island_run": 0.01873749999999999,
+      "windows": 256438
+     },
+     "member|refused": {
+      "sum_per_island_run": -0.007393250000000002,
+      "windows": 144318
+     },
+     "member|unconsulted-install": {
+      "sum_per_island_run": 0.0019667499999999997,
+      "windows": 786
+     },
+     "non-member|consulted-through": {
+      "sum_per_island_run": 0.056978499999999974,
+      "windows": 24759
+     },
+     "non-member|none": {
+      "sum_per_island_run": 0.07638425,
+      "windows": 23288
+     },
+     "non-member|refused": {
+      "sum_per_island_run": 0.2105845,
+      "windows": 48345
+     },
+     "non-member|unconsulted-install": {
+      "sum_per_island_run": 0.039513,
+      "windows": 8161
+     }
+    }
+   },
+   "assoc": {
+    "gKR0.99": {
+     "0": [
+      0.006782499999999999,
+      40
+     ],
+     "250": [
+      0.09672750000000001,
+      40
+     ],
+     "500": [
+      0.13529,
+      40
+     ],
+     "750": [
+      0.09633,
+      40
+     ],
+     "1000": [
+      0.0866825,
+      40
+     ],
+     "1250": [
+      0.12584749999999997,
+      40
+     ],
+     "1500": [
+      0.14874,
+      40
+     ],
+     "1750": [
+      0.11521842105263158,
+      38
+     ],
+     "2000": [
+      0.09928918918918918,
+      37
+     ],
+     "2250": [
+      0.08077142857142858,
+      35
+     ],
+     "2500": [
+      0.08385666666666668,
+      30
+     ],
+     "2750": [
+      0.12537931034482758,
+      29
+     ],
+     "3000": [
+      0.09454999999999998,
+      24
+     ],
+     "3250": [
+      0.1043608695652174,
+      23
+     ],
+     "3500": [
+      0.06666842105263159,
+      19
+     ],
+     "3750": [
+      0.06594444444444443,
+      18
+     ],
+     "4000": [
+      0.1255133333333333,
+      15
+     ],
+     "4250": [
+      0.0859,
+      10
+     ],
+     "4500": [
+      0.13974999999999999,
+      10
+     ],
+     "4750": [
+      0.07363333333333333,
+      6
+     ],
+     "5000": [
+      0.13319999999999999,
+      6
+     ],
+     "5250": [
+      0.1642,
+      5
+     ],
+     "5500": [
+      0.0798,
+      3
+     ],
+     "5750": [
+      -0.15689999999999998,
+      2
+     ],
+     "6000": [
+      0.2615,
+      1
+     ],
+     "6250": [
+      0.1191,
+      1
+     ],
+     "6500": [
+      0.1417,
+      1
+     ],
+     "6750": [
+      0.0538,
+      1
+     ]
+    }
+   },
+   "counts": {
+    "draws": 63960.725,
+    "null": 55033.4,
+    "consulted": 8082.475,
+    "refused": 7154.95,
+    "installed": 1772.375,
+    "infeasible": 21321.325,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>unequal": 18410,
+     "other-mixed>wasteful": 14203,
+     "other-mixed>member": 21263,
+     "wasteful>wasteful": 769,
+     "other-mixed>other-mixed": 1710,
+     "unequal>wasteful": 600,
+     "wasteful>member": 1131,
+     "wasteful>unequal": 1089,
+     "member>member": 2364,
+     "unequal>member": 1032,
+     "member>wasteful": 1599,
+     "unequal>unequal": 1451,
+     "member>unequal": 2301,
+     "member>other-mixed": 190,
+     "other-mixed>member-mixed": 122,
+     "unequal>other-mixed": 104,
+     "member-mixed>unequal": 655,
+     "member-mixed>member": 960,
+     "member-mixed>wasteful": 709,
+     "member-mixed>other-mixed": 69,
+     "wasteful>other-mixed": 101,
+     "member>member-mixed": 31,
+     "disagreement>wasteful": 9,
+     "disagreement>member": 6,
+     "member-mixed>member-mixed": 8,
+     "disagreement>unequal": 5,
+     "wasteful>member-mixed": 4
+    },
+    "triggers": {
+     "contract": 37547,
+     "migration": 4309,
+     "contract residue": 1525
+    },
+    "entries": {
+     "contract": 10091,
+     "migration": 791,
+     "contract residue": 854
+    },
+    "exits": {
+     "contract": 10073,
+     "migration": 160,
+     "contract residue": 20
+    },
+    "decisions": {
+     "disagreement|refused": 1691,
+     "disagreement|installed": 3106,
+     "wasteful|installed": 16990,
+     "wasteful|refused": 9518,
+     "unequal|installed": 22066,
+     "member|refused": 243941,
+     "unequal|refused": 31048,
+     "member|installed": 28733
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKR0.99": 308581
+    }
+   }
+  },
+  "C3-1": {
+   "params": {
+    "guards": [
+     "g0",
+     "gV",
+     "gKR0.99"
+    ],
+    "assign": [
+     "mix",
+     [
+      0,
+      1,
+      2
+     ],
+     [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+     ]
+    ],
+    "mN": 1,
+    "H": 10000,
+    "seedbase": "L1",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.37890625,
+      0.32109375,
+      0.4453125
+     ],
+     "modal_occupancy": [
+      0.90546875,
+      0.873828125,
+      0.933212890625
+     ],
+     "member": 0.37890625,
+     "unequal": 0.009375,
+     "wasteful": 0.00546875,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.242578125,
+     "MO": 0.363671875,
+     "support_strict": 0.0,
+     "support_ss": 0.6,
+     "coverage": 0.55,
+     "consensus": 0.0,
+     "efficiency": 0.9548556315104166,
+     "window_occupancy": 0.365684375,
+     "guard_mean": {
+      "g0": 0.1295182283502072,
+      "gV": 0.3212968699634075,
+      "gKR0.99": 0.5491848923265934
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      0.7828125,
+      0.683193359375,
+      0.869541015625
+     ],
+     "modal_occupancy": [
+      0.994140625,
+      0.982421875,
+      1.0
+     ],
+     "member": 0.7828125,
+     "unequal": 0.0015625,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.17109375,
+     "MO": 0.04453125,
+     "support_strict": 0.825,
+     "support_ss": 0.975,
+     "coverage": 0.05,
+     "consensus": 0.625,
+     "efficiency": 0.99349583984375,
+     "window_occupancy": 0.7923625,
+     "guard_mean": {
+      "g0": 0.04059505362529307,
+      "gV": 0.23837630483030808,
+      "gKR0.99": 0.7210286542773247
+     }
+    }
+   },
+   "guards": {
+    "2000": {
+     "g0": {
+      "start": 0.33318000000000003,
+      "end": 0.1295175,
+      "change": [
+       -0.2036625,
+       -0.232547,
+       -0.17411475
+      ],
+      "rises": 2,
+      "falls": 38,
+      "runs": 40,
+      "traj": [
+       0.3332,
+       0.3341,
+       0.3209,
+       0.293,
+       0.2651,
+       0.2392,
+       0.2178,
+       0.1894,
+       0.1687,
+       0.1548,
+       0.1295
+      ]
+     },
+     "gV": {
+      "start": 0.33258,
+      "end": 0.32129250000000004,
+      "change": [
+       -0.011287500000000002,
+       -0.050670124999999996,
+       0.03165787499999995
+      ],
+      "rises": 15,
+      "falls": 25,
+      "runs": 40,
+      "traj": [
+       0.3326,
+       0.3303,
+       0.3263,
+       0.3276,
+       0.3441,
+       0.3472,
+       0.3456,
+       0.3525,
+       0.3379,
+       0.3237,
+       0.3213
+      ]
+     },
+     "gKR0.99": {
+      "start": 0.33422999999999997,
+      "end": 0.5491825,
+      "change": [
+       0.21495250000000002,
+       0.1647536875,
+       0.267740125
+      ],
+      "rises": 34,
+      "falls": 6,
+      "runs": 40,
+      "traj": [
+       0.3342,
+       0.3356,
+       0.3528,
+       0.3794,
+       0.3908,
+       0.4137,
+       0.4366,
+       0.4581,
+       0.4934,
+       0.5215,
+       0.5492
+      ]
+     }
+    },
+    "10000": {
+     "g0": {
+      "start": 0.33318000000000003,
+      "end": 0.040589999999999994,
+      "change": [
+       -0.29259,
+       -0.3227255625,
+       -0.25920443750000005
+      ],
+      "rises": 1,
+      "falls": 39,
+      "runs": 40,
+      "traj": [
+       0.3332,
+       0.2392,
+       0.1295,
+       0.0951,
+       0.068,
+       0.0491,
+       0.0357,
+       0.0414,
+       0.0457,
+       0.0433,
+       0.0406
+      ]
+     },
+     "gV": {
+      "start": 0.33258,
+      "end": 0.238375,
+      "change": [
+       -0.09420500000000001,
+       -0.15794556250000003,
+       -0.03023231250000007
+      ],
+      "rises": 12,
+      "falls": 28,
+      "runs": 40,
+      "traj": [
+       0.3326,
+       0.3472,
+       0.3213,
+       0.293,
+       0.287,
+       0.2813,
+       0.2795,
+       0.2634,
+       0.2497,
+       0.2473,
+       0.2384
+      ]
+     },
+     "gKR0.99": {
+      "start": 0.33422999999999997,
+      "end": 0.7210325,
+      "change": [
+       0.38680249999999994,
+       0.32571393750000005,
+       0.4471048124999999
+      ],
+      "rises": 38,
+      "falls": 2,
+      "runs": 40,
+      "traj": [
+       0.3342,
+       0.4137,
+       0.5492,
+       0.6119,
+       0.6451,
+       0.6696,
+       0.6848,
+       0.6952,
+       0.7046,
+       0.7094,
+       0.721
+      ]
+     }
+    }
+   },
+   "rescue": {
+    "gV": {
+     "member|consulted-through": {
+      "sum_per_island_run": -0.03394724999999999,
+      "windows": 15373
+     },
+     "member|none": {
+      "sum_per_island_run": -0.04408125,
+      "windows": 213556
+     },
+     "member|refused": {
+      "sum_per_island_run": -0.083149,
+      "windows": 171835
+     },
+     "member|unconsulted-install": {
+      "sum_per_island_run": -0.00853975,
+      "windows": 5034
+     },
+     "non-member|consulted-through": {
+      "sum_per_island_run": 0.02289775,
+      "windows": 24007
+     },
+     "non-member|none": {
+      "sum_per_island_run": 0.027471249999999992,
+      "windows": 23631
+     },
+     "non-member|refused": {
+      "sum_per_island_run": 0.006543749999999998,
+      "windows": 50577
+     },
+     "non-member|unconsulted-install": {
+      "sum_per_island_run": 0.01860125,
+      "windows": 7987
+     }
+    },
+    "gKR0.99": {
+     "member|consulted-through": {
+      "sum_per_island_run": 0.03049549999999999,
+      "windows": 15373
+     },
+     "member|none": {
+      "sum_per_island_run": 0.04745024999999999,
+      "windows": 213556
+     },
+     "member|refused": {
+      "sum_per_island_run": 0.08278274999999999,
+      "windows": 171835
+     },
+     "member|unconsulted-install": {
+      "sum_per_island_run": 0.009222499999999998,
+      "windows": 5034
+     },
+     "non-member|consulted-through": {
+      "sum_per_island_run": 0.032650000000000005,
+      "windows": 24007
+     },
+     "non-member|none": {
+      "sum_per_island_run": 0.02196625,
+      "windows": 23631
+     },
+     "non-member|refused": {
+      "sum_per_island_run": 0.14119150000000003,
+      "windows": 50577
+     },
+     "non-member|unconsulted-install": {
+      "sum_per_island_run": 0.0210335,
+      "windows": 7987
+     }
+    }
+   },
+   "assoc": {
+    "gV": {
+     "0": [
+      -0.00421,
+      40
+     ],
+     "250": [
+      0.08143750000000001,
+      40
+     ],
+     "500": [
+      0.11357500000000001,
+      40
+     ],
+     "750": [
+      0.1017725,
+      40
+     ],
+     "1000": [
+      0.05273500000000001,
+      40
+     ],
+     "1250": [
+      0.020675000000000006,
+      40
+     ],
+     "1500": [
+      0.08265750000000001,
+      40
+     ],
+     "1750": [
+      0.031167500000000004,
+      40
+     ],
+     "2000": [
+      0.019694999999999997,
+      40
+     ],
+     "2250": [
+      -0.0039324999999999985,
+      40
+     ],
+     "2500": [
+      -0.010394871794871793,
+      39
+     ],
+     "2750": [
+      0.0009540540540540577,
+      37
+     ],
+     "3000": [
+      0.01536111111111111,
+      36
+     ],
+     "3250": [
+      0.0006911764705882335,
+      34
+     ],
+     "3500": [
+      -0.01429666666666667,
+      30
+     ],
+     "3750": [
+      0.013335714285714288,
+      28
+     ],
+     "4000": [
+      -0.02279642857142857,
+      28
+     ],
+     "4250": [
+      0.054576923076923085,
+      26
+     ],
+     "4500": [
+      0.07176249999999999,
+      24
+     ],
+     "4750": [
+      NaN,
+      24
+     ],
+     "5000": [
+      NaN,
+      21
+     ],
+     "5250": [
+      NaN,
+      21
+     ],
+     "5500": [
+      NaN,
+      21
+     ],
+     "5750": [
+      NaN,
+      20
+     ],
+     "6000": [
+      NaN,
+      19
+     ],
+     "6250": [
+      NaN,
+      17
+     ],
+     "6500": [
+      NaN,
+      17
+     ],
+     "6750": [
+      NaN,
+      17
+     ],
+     "7000": [
+      NaN,
+      15
+     ],
+     "7250": [
+      NaN,
+      15
+     ],
+     "7500": [
+      NaN,
+      15
+     ],
+     "7750": [
+      NaN,
+      15
+     ],
+     "8000": [
+      NaN,
+      15
+     ],
+     "8250": [
+      NaN,
+      15
+     ],
+     "8500": [
+      NaN,
+      14
+     ],
+     "8750": [
+      NaN,
+      14
+     ],
+     "9000": [
+      NaN,
+      14
+     ],
+     "9250": [
+      NaN,
+      14
+     ],
+     "9500": [
+      NaN,
+      14
+     ],
+     "9750": [
+      NaN,
+      14
+     ]
+    },
+    "gKR0.99": {
+     "0": [
+      0.015759999999999996,
+      40
+     ],
+     "250": [
+      0.026735,
+      40
+     ],
+     "500": [
+      0.012625,
+      40
+     ],
+     "750": [
+      0.016340000000000004,
+      40
+     ],
+     "1000": [
+      0.050775,
+      40
+     ],
+     "1250": [
+      0.044562500000000005,
+      40
+     ],
+     "1500": [
+      -0.011434999999999996,
+      40
+     ],
+     "1750": [
+      0.0251775,
+      40
+     ],
+     "2000": [
+      0.022969999999999997,
+      40
+     ],
+     "2250": [
+      0.016265,
+      40
+     ],
+     "2500": [
+      0.019082051282051277,
+      39
+     ],
+     "2750": [
+      0.018905405405405404,
+      37
+     ],
+     "3000": [
+      0.015361111111111112,
+      36
+     ],
+     "3250": [
+      0.013229411764705882,
+      34
+     ],
+     "3500": [
+      0.015896666666666667,
+      30
+     ],
+     "3750": [
+      -0.0018678571428571464,
+      28
+     ],
+     "4000": [
+      0.06121785714285715,
+      28
+     ],
+     "4250": [
+      -0.011146153846153849,
+      26
+     ],
+     "4500": [
+      -0.06595,
+      24
+     ],
+     "4750": [
+      NaN,
+      24
+     ],
+     "5000": [
+      NaN,
+      21
+     ],
+     "5250": [
+      NaN,
+      21
+     ],
+     "5500": [
+      NaN,
+      21
+     ],
+     "5750": [
+      NaN,
+      20
+     ],
+     "6000": [
+      NaN,
+      19
+     ],
+     "6250": [
+      NaN,
+      17
+     ],
+     "6500": [
+      NaN,
+      17
+     ],
+     "6750": [
+      NaN,
+      17
+     ],
+     "7000": [
+      NaN,
+      15
+     ],
+     "7250": [
+      NaN,
+      15
+     ],
+     "7500": [
+      NaN,
+      15
+     ],
+     "7750": [
+      NaN,
+      15
+     ],
+     "8000": [
+      NaN,
+      15
+     ],
+     "8250": [
+      NaN,
+      15
+     ],
+     "8500": [
+      NaN,
+      14
+     ],
+     "8750": [
+      NaN,
+      14
+     ],
+     "9000": [
+      NaN,
+      14
+     ],
+     "9250": [
+      NaN,
+      14
+     ],
+     "9500": [
+      NaN,
+      14
+     ],
+     "9750": [
+      NaN,
+      14
+     ]
+    }
+   },
+   "counts": {
+    "draws": 63984.175,
+    "null": 52849.025,
+    "consulted": 10025.5,
+    "refused": 8858.775,
+    "installed": 2276.375,
+    "infeasible": 21343.725,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 11123,
+     "other-mixed>unequal": 13107,
+     "other-mixed>member": 30232,
+     "wasteful>wasteful": 759,
+     "other-mixed>other-mixed": 1309,
+     "wasteful>unequal": 909,
+     "disagreement>unequal": 3,
+     "wasteful>member": 898,
+     "unequal>unequal": 1014,
+     "member>member": 11851,
+     "unequal>member": 583,
+     "unequal>wasteful": 603,
+     "member>unequal": 1347,
+     "member>wasteful": 1042,
+     "member-mixed>member": 13311,
+     "member-mixed>wasteful": 956,
+     "other-mixed>member-mixed": 264,
+     "member-mixed>unequal": 907,
+     "unequal>other-mixed": 91,
+     "member-mixed>other-mixed": 126,
+     "member-mixed>member-mixed": 184,
+     "member>member-mixed": 163,
+     "wasteful>other-mixed": 89,
+     "member>other-mixed": 168,
+     "disagreement>other-mixed": 1,
+     "disagreement>wasteful": 7,
+     "wasteful>member-mixed": 5,
+     "disagreement>member": 3
+    },
+    "triggers": {
+     "contract": 50311,
+     "migration": 12487,
+     "contract residue": 2411
+    },
+    "entries": {
+     "contract": 7209,
+     "migration": 526,
+     "contract residue": 587
+    },
+    "exits": {
+     "contract": 6825,
+     "migration": 24,
+     "contract residue": 6
+    },
+    "decisions": {
+     "disagreement|installed": 3067,
+     "disagreement|refused": 971,
+     "wasteful|installed": 13984,
+     "unequal|refused": 14506,
+     "wasteful|refused": 5232,
+     "member|refused": 333642,
+     "unequal|installed": 15692,
+     "member|installed": 58312
+    },
+    "refused_by": {
+     "g0": 0,
+     "gV": 176747,
+     "gKR0.99": 271950
+    }
+   }
+  },
+  "C3read-1": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKR0.99",
+     "read0.99"
+    ],
+    "assign": [
+     "mix",
+     [
+      0,
+      1,
+      2
+     ],
+     [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+     ]
+    ],
+    "mN": 1,
+    "H": 10000,
+    "seedbase": "L1",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.704296875,
+      0.621083984375,
+      0.7863476562499999
+     ],
+     "modal_occupancy": [
+      0.963671875,
+      0.94609375,
+      0.9796875
+     ],
+     "member": 0.704296875,
+     "unequal": 0.00390625,
+     "wasteful": 0.002734375,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.135546875,
+     "MO": 0.153515625,
+     "support_strict": 0.25,
+     "support_ss": 0.7,
+     "coverage": 0.175,
+     "consensus": 0.225,
+     "efficiency": 0.98159103515625,
+     "window_occupancy": 0.640796875,
+     "guard_mean": {
+      "g0": 0.07004296912928112,
+      "gKR0.99": 0.5008723869919777,
+      "read0.99": 0.42908463198691604
+     }
+    },
+    "10000": {
+     "n": 40,
+     "occupancy": [
+      0.9734375,
+      0.940625,
+      0.9984375
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 0.9734375,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0265625,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 0.0,
+     "consensus": 0.9,
+     "efficiency": 1.0,
+     "window_occupancy": 0.972815625,
+     "guard_mean": {
+      "g0": 0.04952864676015452,
+      "gKR0.99": 0.5172734430059791,
+      "read0.99": 0.4331979201175272
+     }
+    }
+   },
+   "guards": {
+    "2000": {
+     "g0": {
+      "start": 0.33318000000000003,
+      "end": 0.0700375,
+      "change": [
+       -0.2631425,
+       -0.28272024999999995,
+       -0.24309375000000003
+      ],
+      "rises": 0,
+      "falls": 40,
+      "runs": 40,
+      "traj": [
+       0.3332,
+       0.3319,
+       0.2852,
+       0.2553,
+       0.22,
+       0.1865,
+       0.1578,
+       0.1312,
+       0.1039,
+       0.0821,
+       0.07
+      ]
+     },
+     "gKR0.99": {
+      "start": 0.33258,
+      "end": 0.5008699999999999,
+      "change": [
+       0.16829,
+       0.1126058125,
+       0.2253542499999999
+      ],
+      "rises": 30,
+      "falls": 10,
+      "runs": 40,
+      "traj": [
+       0.3326,
+       0.3243,
+       0.3614,
+       0.3676,
+       0.4001,
+       0.4279,
+       0.4491,
+       0.4726,
+       0.4798,
+       0.4937,
+       0.5009
+      ]
+     },
+     "read0.99": {
+      "start": 0.33422999999999997,
+      "end": 0.4290775,
+      "change": [
+       0.0948475,
+       0.04216362500000001,
+       0.1469285625
+      ],
+      "rises": 27,
+      "falls": 13,
+      "runs": 40,
+      "traj": [
+       0.3342,
+       0.3437,
+       0.3534,
+       0.3771,
+       0.3799,
+       0.3856,
+       0.3931,
+       0.3962,
+       0.4163,
+       0.4243,
+       0.4291
+      ]
+     }
+    },
+    "10000": {
+     "g0": {
+      "start": 0.33318000000000003,
+      "end": 0.049525000000000007,
+      "change": [
+       -0.283655,
+       -0.31687575,
+       -0.24918493750000004
+      ],
+      "rises": 1,
+      "falls": 39,
+      "runs": 40,
+      "traj": [
+       0.3332,
+       0.1865,
+       0.07,
+       0.0518,
+       0.0475,
+       0.0515,
+       0.0482,
+       0.0519,
+       0.048,
+       0.0528,
+       0.0495
+      ]
+     },
+     "gKR0.99": {
+      "start": 0.33258,
+      "end": 0.5172700000000001,
+      "change": [
+       0.18469,
+       0.10162231249999999,
+       0.27212143749999995
+      ],
+      "rises": 27,
+      "falls": 13,
+      "runs": 40,
+      "traj": [
+       0.3326,
+       0.4279,
+       0.5009,
+       0.5139,
+       0.5176,
+       0.5027,
+       0.5098,
+       0.5074,
+       0.5033,
+       0.5084,
+       0.5173
+      ]
+     },
+     "read0.99": {
+      "start": 0.33422999999999997,
+      "end": 0.43320499999999995,
+      "change": [
+       0.098975,
+       0.008896249999999998,
+       0.1837505625
+      ],
+      "rises": 22,
+      "falls": 18,
+      "runs": 40,
+      "traj": [
+       0.3342,
+       0.3856,
+       0.4291,
+       0.4343,
+       0.4349,
+       0.4459,
+       0.442,
+       0.4407,
+       0.4487,
+       0.4388,
+       0.4332
+      ]
+     }
+    }
+   },
+   "rescue": {
+    "gKR0.99": {
+     "member|consulted-through": {
+      "sum_per_island_run": 0.0020955,
+      "windows": 3981
+     },
+     "member|none": {
+      "sum_per_island_run": 0.026743000000000006,
+      "windows": 280373
+     },
+     "member|refused": {
+      "sum_per_island_run": 0.009745249999999997,
+      "windows": 163461
+     },
+     "member|unconsulted-install": {
+      "sum_per_island_run": 0.0008125000000000001,
+      "windows": 512
+     },
+     "non-member|consulted-through": {
+      "sum_per_island_run": 0.008844500000000002,
+      "windows": 13155
+     },
+     "non-member|none": {
+      "sum_per_island_run": 0.0355115,
+      "windows": 14039
+     },
+     "non-member|refused": {
+      "sum_per_island_run": 0.0942155,
+      "windows": 32936
+     },
+     "non-member|unconsulted-install": {
+      "sum_per_island_run": 0.0067209999999999995,
+      "windows": 3543
+     }
+    },
+    "read0.99": {
+     "member|consulted-through": {
+      "sum_per_island_run": 0.00539325,
+      "windows": 3981
+     },
+     "member|none": {
+      "sum_per_island_run": -0.02228975,
+      "windows": 280373
+     },
+     "member|refused": {
+      "sum_per_island_run": -0.002268249999999993,
+      "windows": 163461
+     },
+     "member|unconsulted-install": {
+      "sum_per_island_run": 0.0004729999999999999,
+      "windows": 512
+     },
+     "non-member|consulted-through": {
+      "sum_per_island_run": 0.015021000000000001,
+      "windows": 13155
+     },
+     "non-member|none": {
+      "sum_per_island_run": 0.01706175,
+      "windows": 14039
+     },
+     "non-member|refused": {
+      "sum_per_island_run": 0.07074974999999997,
+      "windows": 32936
+     },
+     "non-member|unconsulted-install": {
+      "sum_per_island_run": 0.014820249999999998,
+      "windows": 3543
+     }
+    }
+   },
+   "assoc": {
+    "gKR0.99": {
+     "0": [
+      0.0334225,
+      40
+     ],
+     "250": [
+      0.02879,
+      40
+     ],
+     "500": [
+      0.048695,
+      40
+     ],
+     "750": [
+      0.043415,
+      40
+     ],
+     "1000": [
+      0.06565750000000001,
+      40
+     ],
+     "1250": [
+      -0.0118825,
+      40
+     ],
+     "1500": [
+      0.015682051282051284,
+      39
+     ],
+     "1750": [
+      -0.020736842105263154,
+      38
+     ],
+     "2000": [
+      0.012706451612903224,
+      31
+     ],
+     "2250": [
+      0.0258,
+      29
+     ],
+     "2500": [
+      0.027664,
+      25
+     ],
+     "2750": [
+      -0.012666666666666666,
+      18
+     ],
+     "3000": [
+      0.004241176470588236,
+      17
+     ],
+     "3250": [
+      0.06795,
+      12
+     ],
+     "3500": [
+      0.010907692307692306,
+      13
+     ],
+     "3750": [
+      0.0040666666666666655,
+      12
+     ],
+     "4000": [
+      -0.005520000000000002,
+      10
+     ],
+     "4250": [
+      -0.10120000000000001,
+      9
+     ],
+     "4500": [
+      -0.0485,
+      9
+     ],
+     "4750": [
+      -0.1004,
+      8
+     ],
+     "5000": [
+      NaN,
+      8
+     ],
+     "5250": [
+      NaN,
+      8
+     ],
+     "5500": [
+      NaN,
+      8
+     ],
+     "5750": [
+      NaN,
+      8
+     ],
+     "6000": [
+      NaN,
+      7
+     ],
+     "6250": [
+      NaN,
+      7
+     ],
+     "6500": [
+      NaN,
+      7
+     ],
+     "6750": [
+      -0.07106666666666668,
+      6
+     ],
+     "7000": [
+      NaN,
+      5
+     ],
+     "7250": [
+      NaN,
+      5
+     ],
+     "7500": [
+      NaN,
+      4
+     ],
+     "7750": [
+      NaN,
+      4
+     ],
+     "8000": [
+      NaN,
+      4
+     ],
+     "8250": [
+      NaN,
+      4
+     ],
+     "8500": [
+      NaN,
+      4
+     ],
+     "8750": [
+      NaN,
+      4
+     ],
+     "9000": [
+      NaN,
+      4
+     ],
+     "9250": [
+      NaN,
+      4
+     ],
+     "9500": [
+      NaN,
+      4
+     ],
+     "9750": [
+      NaN,
+      4
+     ]
+    },
+    "read0.99": {
+     "0": [
+      -0.0282375,
+      40
+     ],
+     "250": [
+      0.06506,
+      40
+     ],
+     "500": [
+      0.10939499999999999,
+      40
+     ],
+     "750": [
+      0.0655775,
+      40
+     ],
+     "1000": [
+      0.0231625,
+      40
+     ],
+     "1250": [
+      0.0854325,
+      40
+     ],
+     "1500": [
+      0.04942307692307692,
+      39
+     ],
+     "1750": [
+      0.08323947368421053,
+      38
+     ],
+     "2000": [
+      0.013870967741935481,
+      31
+     ],
+     "2250": [
+      0.022386206896551724,
+      29
+     ],
+     "2500": [
+      0.005936000000000008,
+      25
+     ],
+     "2750": [
+      0.04011666666666666,
+      18
+     ],
+     "3000": [
+      0.03716470588235293,
+      17
+     ],
+     "3250": [
+      -0.032975,
+      12
+     ],
+     "3500": [
+      0.05846153846153846,
+      13
+     ],
+     "3750": [
+      0.016175,
+      12
+     ],
+     "4000": [
+      0.032089999999999994,
+      10
+     ],
+     "4250": [
+      0.11144444444444443,
+      9
+     ],
+     "4500": [
+      0.04304444444444445,
+      9
+     ],
+     "4750": [
+      0.1031,
+      8
+     ],
+     "5000": [
+      NaN,
+      8
+     ],
+     "5250": [
+      NaN,
+      8
+     ],
+     "5500": [
+      NaN,
+      8
+     ],
+     "5750": [
+      NaN,
+      8
+     ],
+     "6000": [
+      NaN,
+      7
+     ],
+     "6250": [
+      NaN,
+      7
+     ],
+     "6500": [
+      NaN,
+      7
+     ],
+     "6750": [
+      0.07106666666666668,
+      6
+     ],
+     "7000": [
+      NaN,
+      5
+     ],
+     "7250": [
+      NaN,
+      5
+     ],
+     "7500": [
+      NaN,
+      4
+     ],
+     "7750": [
+      NaN,
+      4
+     ],
+     "8000": [
+      NaN,
+      4
+     ],
+     "8250": [
+      NaN,
+      4
+     ],
+     "8500": [
+      NaN,
+      4
+     ],
+     "8750": [
+      NaN,
+      4
+     ],
+     "9000": [
+      NaN,
+      4
+     ],
+     "9250": [
+      NaN,
+      4
+     ],
+     "9500": [
+      NaN,
+      4
+     ],
+     "9750": [
+      NaN,
+      4
+     ]
+    }
+   },
+   "counts": {
+    "draws": 64049.7,
+    "null": 56054.725,
+    "consulted": 7589.075,
+    "refused": 7079.775,
+    "installed": 915.2,
+    "infeasible": 21381.45,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>unequal": 8517,
+     "other-mixed>wasteful": 6627,
+     "other-mixed>member": 12141,
+     "wasteful>member": 567,
+     "member>member": 1662,
+     "wasteful>unequal": 503,
+     "other-mixed>other-mixed": 781,
+     "unequal>other-mixed": 61,
+     "member>wasteful": 659,
+     "unequal>member": 494,
+     "member>unequal": 1059,
+     "unequal>wasteful": 271,
+     "member-mixed>member": 1197,
+     "member-mixed>wasteful": 386,
+     "unequal>unequal": 574,
+     "wasteful>wasteful": 303,
+     "member-mixed>unequal": 478,
+     "wasteful>other-mixed": 50,
+     "other-mixed>member-mixed": 81,
+     "member-mixed>other-mixed": 50,
+     "member>member-mixed": 23,
+     "member>other-mixed": 90,
+     "disagreement>member": 5,
+     "disagreement>wasteful": 5,
+     "member-mixed>member-mixed": 16,
+     "wasteful>member-mixed": 3,
+     "disagreement>unequal": 4,
+     "disagreement>other-mixed": 1
+    },
+    "triggers": {
+     "contract": 19557,
+     "migration": 6488,
+     "contract residue": 1330
+    },
+    "entries": {
+     "contract": 4970,
+     "contract residue": 543,
+     "migration": 443
+    },
+    "exits": {
+     "contract": 4423,
+     "migration": 57,
+     "contract residue": 11
+    },
+    "decisions": {
+     "disagreement|refused": 1472,
+     "disagreement|installed": 2635,
+     "unequal|refused": 16643,
+     "wasteful|installed": 8173,
+     "unequal|installed": 9777,
+     "wasteful|refused": 5350,
+     "member|installed": 16023,
+     "member|refused": 259726
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKR0.99": 162712,
+     "read0.99": 140549
+    }
+   }
+  },
+  "Mread-1": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKR0.99",
+     "read0.99"
+    ],
+    "assign": [
+     "mix",
+     [
+      1,
+      2
+     ],
+     [
+      0.5,
+      0.5
+     ]
+    ],
+    "mN": 1,
+    "H": 2000,
+    "seedbase": "L1",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.634765625,
+      0.55037109375,
+      0.7164257812499999
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 0.634765625,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.365234375,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 0.0,
+     "consensus": 0.275,
+     "efficiency": 0.9999905859375,
+     "window_occupancy": 0.6317234375,
+     "guard_mean": {
+      "g0": 0.0,
+      "gKR0.99": 0.4975638065487146,
+      "read0.99": 0.5024362038820982
+     }
+    }
+   },
+   "guards": {
+    "2000": {
+     "g0": {
+      "start": 0.0,
+      "end": 0.0,
+      "change": [
+       0.0,
+       0.0,
+       0.0
+      ],
+      "rises": 0,
+      "falls": 0,
+      "runs": 40,
+      "traj": [
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "gKR0.99": {
+      "start": 0.49943,
+      "end": 0.4975625,
+      "change": [
+       -0.0018675000000000067,
+       -0.046840937500000006,
+       0.0448791249999999
+      ],
+      "rises": 20,
+      "falls": 20,
+      "runs": 40,
+      "traj": [
+       0.4994,
+       0.5049,
+       0.5076,
+       0.5136,
+       0.5173,
+       0.51,
+       0.5124,
+       0.5071,
+       0.5037,
+       0.5013,
+       0.4976
+      ]
+     },
+     "read0.99": {
+      "start": 0.50057,
+      "end": 0.50244,
+      "change": [
+       0.0018700000000000036,
+       -0.0448763125,
+       0.04684099999999994
+      ],
+      "rises": 20,
+      "falls": 20,
+      "runs": 40,
+      "traj": [
+       0.5006,
+       0.4951,
+       0.4924,
+       0.4864,
+       0.4827,
+       0.49,
+       0.4876,
+       0.4929,
+       0.4963,
+       0.4987,
+       0.5024
+      ]
+     }
+    }
+   },
+   "rescue": {
+    "gKR0.99": {
+     "member|none": {
+      "sum_per_island_run": -0.0018637500000000021,
+      "windows": 41676
+     },
+     "member|refused": {
+      "sum_per_island_run": -0.004929249999999998,
+      "windows": 44571
+     },
+     "member|unconsulted-install": {
+      "sum_per_island_run": -0.00028900000000000003,
+      "windows": 67
+     },
+     "non-member|none": {
+      "sum_per_island_run": -0.0059110000000000005,
+      "windows": 3260
+     },
+     "non-member|refused": {
+      "sum_per_island_run": 0.009397999999999997,
+      "windows": 12023
+     },
+     "non-member|unconsulted-install": {
+      "sum_per_island_run": 0.0017227499999999997,
+      "windows": 803
+     }
+    },
+    "read0.99": {
+     "member|none": {
+      "sum_per_island_run": 0.0018637500000000021,
+      "windows": 41676
+     },
+     "member|refused": {
+      "sum_per_island_run": 0.004929499999999996,
+      "windows": 44571
+     },
+     "member|unconsulted-install": {
+      "sum_per_island_run": 0.00028900000000000003,
+      "windows": 67
+     },
+     "non-member|none": {
+      "sum_per_island_run": 0.0059110000000000005,
+      "windows": 3260
+     },
+     "non-member|refused": {
+      "sum_per_island_run": -0.009397749999999998,
+      "windows": 12023
+     },
+     "non-member|unconsulted-install": {
+      "sum_per_island_run": -0.001723,
+      "windows": 803
+     }
+    }
+   },
+   "assoc": {
+    "gKR0.99": {
+     "0": [
+      -0.01365,
+      40
+     ],
+     "250": [
+      0.008209999999999999,
+      40
+     ],
+     "500": [
+      0.008402500000000002,
+      40
+     ],
+     "750": [
+      -0.013024999999999998,
+      40
+     ],
+     "1000": [
+      0.02239473684210526,
+      38
+     ],
+     "1250": [
+      0.023008571428571434,
+      35
+     ],
+     "1500": [
+      -0.025169999999999994,
+      30
+     ],
+     "1750": [
+      0.004631034482758623,
+      29
+     ]
+    },
+    "read0.99": {
+     "0": [
+      0.01365,
+      40
+     ],
+     "250": [
+      -0.008209999999999999,
+      40
+     ],
+     "500": [
+      -0.008402500000000002,
+      40
+     ],
+     "750": [
+      0.013024999999999998,
+      40
+     ],
+     "1000": [
+      -0.02239473684210526,
+      38
+     ],
+     "1250": [
+      -0.023008571428571434,
+      35
+     ],
+     "1500": [
+      0.025169999999999994,
+      30
+     ],
+     "1750": [
+      -0.004631034482758623,
+      29
+     ]
+    }
+   },
+   "counts": {
+    "draws": 12794.85,
+    "null": 10469.85,
+    "consulted": 2227.775,
+    "refused": 2227.775,
+    "installed": 97.225,
+    "infeasible": 4245.4,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 769,
+     "other-mixed>member": 2442,
+     "other-mixed>other-mixed": 97,
+     "other-mixed>unequal": 239,
+     "disagreement>member": 20,
+     "wasteful>member": 64,
+     "member>member": 116,
+     "member-mixed>member": 79,
+     "wasteful>wasteful": 4,
+     "unequal>member": 23,
+     "other-mixed>member-mixed": 16,
+     "unequal>unequal": 6,
+     "wasteful>unequal": 4,
+     "wasteful>other-mixed": 1,
+     "disagreement>wasteful": 8,
+     "member>member-mixed": 1
+    },
+    "triggers": {
+     "contract": 1132,
+     "migration": 4943,
+     "contract residue": 845,
+     "conditional/none": 1
+    },
+    "entries": {
+     "contract": 459,
+     "migration": 107,
+     "contract residue": 68
+    },
+    "exits": {
+     "contract": 34,
+     "migration": 6,
+     "contract residue": 1
+    },
+    "decisions": {
+     "disagreement|refused": 2817,
+     "disagreement|installed": 1529,
+     "wasteful|refused": 2288,
+     "wasteful|installed": 1050,
+     "member|refused": 81682,
+     "unequal|refused": 2323,
+     "unequal|installed": 524,
+     "member|installed": 786,
+     "grand-equal|refused": 1
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKR0.99": 49386,
+     "read0.99": 48222
+    }
+   }
+  },
+  "Mg1-1": {
+   "params": {
+    "guards": [
+     "g0",
+     "g1"
+    ],
+    "assign": [
+     "bit",
+     0.5,
+     1
+    ],
+    "mN": 1,
+    "H": 2000,
+    "seedbase": "L1",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.060546875,
+      0.0390625,
+      0.0921875
+     ],
+     "modal_occupancy": [
+      0.28515625,
+      0.241796875,
+      0.33594726562499994
+     ],
+     "member": 0.060546875,
+     "unequal": 0.114453125,
+     "wasteful": 0.020703125,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.00546875,
+     "MO": 0.798828125,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 0.2,
+     "consensus": 0.0,
+     "efficiency": 0.8891232096354166,
+     "window_occupancy": 0.061954687499999994,
+     "guard_mean": {
+      "g0": 0.35492708124220373,
+      "g1": 0.6450729131698608
+     }
+    }
+   },
+   "guards": {
+    "2000": {
+     "g1": {
+      "start": 0.49943,
+      "end": 0.6450750000000001,
+      "change": [
+       0.145645,
+       0.097942375,
+       0.19164062500000004
+      ],
+      "rises": 32,
+      "falls": 8,
+      "runs": 40,
+      "traj": [
+       0.4994,
+       0.5001,
+       0.523,
+       0.5494,
+       0.5615,
+       0.5796,
+       0.5955,
+       0.6022,
+       0.5986,
+       0.6273,
+       0.6451
+      ]
+     }
+    }
+   },
+   "rescue": {
+    "g1": {
+     "member|consulted-through": {
+      "sum_per_island_run": 0.014909500000000001,
+      "windows": 1644
+     },
+     "member|none": {
+      "sum_per_island_run": 0.006033500000000002,
+      "windows": 1500
+     },
+     "member|refused": {
+      "sum_per_island_run": 0.0007450000000000004,
+      "windows": 2201
+     },
+     "member|unconsulted-install": {
+      "sum_per_island_run": 0.002936,
+      "windows": 233
+     },
+     "non-member|consulted-through": {
+      "sum_per_island_run": 0.041133499999999996,
+      "windows": 31168
+     },
+     "non-member|none": {
+      "sum_per_island_run": 0.0035710000000000004,
+      "windows": 18270
+     },
+     "non-member|refused": {
+      "sum_per_island_run": 0.07592600000000002,
+      "windows": 40533
+     },
+     "non-member|unconsulted-install": {
+      "sum_per_island_run": 0.0003800000000000009,
+      "windows": 6851
+     }
+    }
+   },
+   "assoc": {
+    "g1": {
+     "0": [
+      0.008965000000000006,
+      40
+     ],
+     "250": [
+      -0.049855,
+      40
+     ],
+     "500": [
+      -0.012244999999999995,
+      40
+     ],
+     "750": [
+      -0.026355000000000007,
+      40
+     ],
+     "1000": [
+      -0.0845525,
+      40
+     ],
+     "1250": [
+      -0.04863,
+      40
+     ],
+     "1500": [
+      -0.005154999999999997,
+      40
+     ],
+     "1750": [
+      -0.018435,
+      40
+     ]
+    }
+   },
+   "counts": {
+    "draws": 12811.55,
+    "null": 8664.175,
+    "consulted": 3467.625,
+    "refused": 2365.55,
+    "installed": 1781.825,
+    "infeasible": 4275.125,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 17575,
+     "other-mixed>unequal": 29531,
+     "other-mixed>member": 10221,
+     "unequal>wasteful": 1384,
+     "wasteful>unequal": 1359,
+     "wasteful>wasteful": 1206,
+     "unequal>unequal": 3899,
+     "wasteful>member": 638,
+     "disagreement>wasteful": 9,
+     "unequal>member": 509,
+     "member>member": 815,
+     "other-mixed>other-mixed": 1991,
+     "member>unequal": 802,
+     "member>wasteful": 669,
+     "unequal>other-mixed": 213,
+     "member-mixed>wasteful": 66,
+     "member>other-mixed": 80,
+     "wasteful>other-mixed": 103,
+     "member-mixed>unequal": 72,
+     "member-mixed>member": 68,
+     "other-mixed>member-mixed": 37,
+     "member-mixed>other-mixed": 11,
+     "disagreement>unequal": 7,
+     "member>member-mixed": 3,
+     "wasteful>member-mixed": 3,
+     "disagreement>member": 2
+    },
+    "triggers": {
+     "contract": 34090,
+     "contract residue": 583,
+     "migration": 973
+    },
+    "entries": {
+     "contract": 5226,
+     "contract residue": 260,
+     "migration": 392
+    },
+    "exits": {
+     "contract": 5631,
+     "contract residue": 55,
+     "migration": 107
+    },
+    "decisions": {
+     "disagreement|installed": 4916,
+     "unequal|installed": 34935,
+     "wasteful|refused": 18793,
+     "unequal|refused": 52172,
+     "wasteful|installed": 17268,
+     "member|refused": 23657,
+     "member|installed": 14154
+    },
+    "refused_by": {
+     "g0": 0,
+     "g1": 99808
+    }
+   }
+  },
+  "Mu-1": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKRu"
+    ],
+    "assign": [
+     "bit",
+     0.5,
+     1
+    ],
+    "mN": 1,
+    "H": 2000,
+    "seedbase": "L1",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.037109375,
+      0.029296875,
+      0.045703125
+     ],
+     "modal_occupancy": [
+      0.16640625,
+      0.14491210937500001,
+      0.18711914062499993
+     ],
+     "member": 0.037109375,
+     "unequal": 0.1515625,
+     "wasteful": 0.0234375,
+     "grand": 0.0,
+     "disagreement": 0.000390625,
+     "MM": 0.001171875,
+     "MO": 0.786328125,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 0.1,
+     "consensus": 0.0,
+     "efficiency": 0.8875548958333332,
+     "window_occupancy": 0.0331546875,
+     "guard_mean": {
+      "g0": 0.3200546918436885,
+      "gKRu": 0.6799453139305115
+     }
+    }
+   },
+   "guards": {
+    "2000": {
+     "gKRu": {
+      "start": 0.49943,
+      "end": 0.6799375000000001,
+      "change": [
+       0.1805075,
+       0.13964949999999998,
+       0.21868718749999996
+      ],
+      "rises": 36,
+      "falls": 4,
+      "runs": 40,
+      "traj": [
+       0.4994,
+       0.5008,
+       0.5285,
+       0.5451,
+       0.5738,
+       0.5942,
+       0.6124,
+       0.6329,
+       0.6542,
+       0.6677,
+       0.6799
+      ]
+     }
+    }
+   },
+   "rescue": {
+    "gKRu": {
+     "member|consulted-through": {
+      "sum_per_island_run": 0.005145000000000001,
+      "windows": 1087
+     },
+     "member|none": {
+      "sum_per_island_run": 0.005401999999999999,
+      "windows": 1120
+     },
+     "member|refused": {
+      "sum_per_island_run": 0.009622249999999999,
+      "windows": 1348
+     },
+     "member|unconsulted-install": {
+      "sum_per_island_run": 0.006895000000000001,
+      "windows": 874
+     },
+     "non-member|consulted-through": {
+      "sum_per_island_run": 0.019124250000000002,
+      "windows": 23655
+     },
+     "non-member|none": {
+      "sum_per_island_run": 0.010886249999999998,
+      "windows": 18755
+     },
+     "non-member|refused": {
+      "sum_per_island_run": 0.07347025000000001,
+      "windows": 39250
+     },
+     "non-member|unconsulted-install": {
+      "sum_per_island_run": 0.04996275,
+      "windows": 16311
+     }
+    }
+   },
+   "assoc": {
+    "gKRu": {
+     "0": [
+      -0.0002825000000000001,
+      40
+     ],
+     "250": [
+      -0.09971,
+      40
+     ],
+     "500": [
+      -0.12164,
+      40
+     ],
+     "750": [
+      -0.157845,
+      40
+     ],
+     "1000": [
+      -0.1627275,
+      40
+     ],
+     "1250": [
+      -0.1673625,
+      40
+     ],
+     "1500": [
+      -0.12624,
+      40
+     ],
+     "1750": [
+      -0.15531250000000002,
+      40
+     ]
+    }
+   },
+   "counts": {
+    "draws": 12814.525,
+    "null": 8711.825,
+    "consulted": 2587.675,
+    "refused": 1867.175,
+    "installed": 2235.525,
+    "infeasible": 4274.925,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 20660,
+     "other-mixed>unequal": 34961,
+     "other-mixed>member": 13977,
+     "unequal>wasteful": 2152,
+     "wasteful>other-mixed": 200,
+     "wasteful>unequal": 2054,
+     "wasteful>wasteful": 1786,
+     "wasteful>member": 1556,
+     "unequal>unequal": 4829,
+     "other-mixed>other-mixed": 2476,
+     "member>unequal": 1599,
+     "member>member": 990,
+     "member>wasteful": 642,
+     "unequal>member": 827,
+     "member-mixed>unequal": 109,
+     "unequal>other-mixed": 295,
+     "member>other-mixed": 121,
+     "member-mixed>wasteful": 44,
+     "disagreement>wasteful": 10,
+     "member-mixed>member": 75,
+     "member>member-mixed": 11,
+     "other-mixed>member-mixed": 26,
+     "member-mixed>other-mixed": 14,
+     "disagreement>unequal": 4,
+     "wasteful>member-mixed": 3
+    },
+    "triggers": {
+     "contract": 44247,
+     "contract residue": 315,
+     "migration": 591
+    },
+    "entries": {
+     "contract": 7041,
+     "migration": 93,
+     "contract residue": 64
+    },
+    "exits": {
+     "contract": 7318,
+     "migration": 46,
+     "contract residue": 36
+    },
+    "decisions": {
+     "disagreement|installed": 4774,
+     "unequal|installed": 41430,
+     "wasteful|installed": 24941,
+     "wasteful|refused": 3799,
+     "unequal|refused": 60395,
+     "member|refused": 10493,
+     "member|installed": 18276
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKRu": 82723
+    }
+   }
+  },
+  "Rare-1": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKR0.99"
+    ],
+    "assign": [
+     "bit",
+     0.05,
+     1
+    ],
+    "mN": 1,
+    "H": 2000,
+    "seedbase": "L1",
+    "nu": 0.1
+   },
+   "horizons": {
+    "2000": {
+     "n": 40,
+     "occupancy": [
+      0.0890625,
+      0.07734375,
+      0.10078125
+     ],
+     "modal_occupancy": [
+      0.339453125,
+      0.323828125,
+      0.355859375
+     ],
+     "member": 0.0890625,
+     "unequal": 0.091015625,
+     "wasteful": 0.057421875,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.008984375,
+     "MO": 0.753515625,
+     "support_strict": 0.0,
+     "support_ss": 0.0,
+     "coverage": 0.375,
+     "consensus": 0.0,
+     "efficiency": 0.88366181640625,
+     "window_occupancy": 0.08992343750000001,
+     "guard_mean": {
+      "g0": 0.907505202293396,
+      "gKR0.99": 0.09249479090794921
+     }
+    }
+   },
+   "guards": {
+    "2000": {
+     "gKR0.99": {
+      "start": 0.04949749999999999,
+      "end": 0.0925025,
+      "change": [
+       0.043005,
+       0.0199661875,
+       0.0666343125
+      ],
+      "rises": 27,
+      "falls": 13,
+      "runs": 40,
+      "traj": [
+       0.0495,
+       0.0479,
+       0.0488,
+       0.0486,
+       0.0499,
+       0.0527,
+       0.0618,
+       0.0698,
+       0.0781,
+       0.0834,
+       0.0925
+      ]
+     }
+    }
+   },
+   "rescue": {
+    "gKR0.99": {
+     "member|consulted-through": {
+      "sum_per_island_run": 0.00022799999999999982,
+      "windows": 1644
+     },
+     "member|none": {
+      "sum_per_island_run": 0.00037000000000000005,
+      "windows": 2705
+     },
+     "member|refused": {
+      "sum_per_island_run": -0.00202075,
+      "windows": 630
+     },
+     "member|unconsulted-install": {
+      "sum_per_island_run": 0.0016972500000000004,
+      "windows": 5109
+     },
+     "non-member|consulted-through": {
+      "sum_per_island_run": 0.010675,
+      "windows": 17824
+     },
+     "non-member|none": {
+      "sum_per_island_run": 0.01045775,
+      "windows": 17667
+     },
+     "non-member|refused": {
+      "sum_per_island_run": 0.017952750000000003,
+      "windows": 6219
+     },
+     "non-member|unconsulted-install": {
+      "sum_per_island_run": 0.0036434999999999996,
+      "windows": 50602
+     }
+    }
+   },
+   "assoc": {
+    "gKR0.99": {
+     "0": [
+      -0.006280000000000001,
+      40
+     ],
+     "250": [
+      -0.012514999999999998,
+      40
+     ],
+     "500": [
+      0.021832499999999998,
+      40
+     ],
+     "750": [
+      0.0051600000000000005,
+      40
+     ],
+     "1000": [
+      -0.0024945945945945916,
+      37
+     ],
+     "1250": [
+      0.026294117647058825,
+      34
+     ],
+     "1500": [
+      -0.00011515151515151424,
+      33
+     ],
+     "1750": [
+      -0.00729090909090909,
+      33
+     ]
+    }
+   },
+   "counts": {
+    "draws": 12789.075,
+    "null": 8747.875,
+    "consulted": 858.225,
+    "refused": 284.725,
+    "installed": 3756.475,
+    "infeasible": 4282.325,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>wasteful": 40722,
+     "other-mixed>unequal": 41910,
+     "other-mixed>member": 29311,
+     "wasteful>wasteful": 4501,
+     "other-mixed>other-mixed": 3902,
+     "unequal>wasteful": 4053,
+     "wasteful>member": 3093,
+     "unequal>unequal": 5440,
+     "wasteful>unequal": 3918,
+     "member>unequal": 2992,
+     "wasteful>other-mixed": 416,
+     "member>wasteful": 2458,
+     "member>member": 3586,
+     "unequal>other-mixed": 407,
+     "member-mixed>wasteful": 370,
+     "unequal>member": 1871,
+     "member-mixed>member": 468,
+     "other-mixed>member-mixed": 129,
+     "member-mixed>unequal": 342,
+     "member>other-mixed": 298,
+     "member-mixed>other-mixed": 31,
+     "member>member-mixed": 25,
+     "wasteful>member-mixed": 10,
+     "disagreement>unequal": 3,
+     "member-mixed>member-mixed": 1,
+     "disagreement>wasteful": 1,
+     "disagreement>member": 1
+    },
+    "triggers": {
+     "contract": 64433,
+     "contract residue": 124,
+     "migration": 249
+    },
+    "entries": {
+     "contract": 13788,
+     "contract residue": 84,
+     "migration": 146
+    },
+    "exits": {
+     "contract": 13796,
+     "migration": 18,
+     "contract residue": 5
+    },
+    "decisions": {
+     "disagreement|installed": 3588,
+     "disagreement|refused": 123,
+     "wasteful|installed": 48859,
+     "unequal|installed": 55856,
+     "wasteful|refused": 1997,
+     "member|installed": 41956,
+     "member|refused": 3631,
+     "unequal|refused": 5638
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKR0.99": 11561
+    }
+   }
+  },
+  "UKR99-0-N50": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKR0.99"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 0,
+    "H": 2000,
+    "seedbase": "L0-N50",
+    "nu": 0.1,
+    "N": 50,
+    "runs": 20
+   },
+   "horizons": {
+    "2000": {
+     "n": 20,
+     "occupancy": [
+      0.9984375,
+      0.99609375,
+      1.0
+     ],
+     "modal_occupancy": [
+      0.9984375,
+      0.99609375,
+      1.0
+     ],
+     "member": 0.9984375,
+     "unequal": 0.0015625,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 0.9,
+     "support_ss": 0.9,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 1.0,
+     "window_occupancy": 0.9984375,
+     "guard_mean": {
+      "g0": 0.0,
+      "gKR0.99": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 12822.25,
+    "null": 11722.8,
+    "consulted": 1020.95,
+    "refused": 1020.95,
+    "installed": 78.5,
+    "infeasible": 4273.5,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>member": 313,
+     "other-mixed>wasteful": 223,
+     "wasteful>member": 428,
+     "disagreement>wasteful": 108,
+     "disagreement>member": 106,
+     "other-mixed>unequal": 27,
+     "wasteful>unequal": 57,
+     "unequal>member": 305,
+     "grand>member": 2,
+     "wasteful>wasteful": 1
+    },
+    "triggers": {
+     "contract": 961,
+     "strict P": 2,
+     "drift": 1
+    },
+    "entries": {
+     "contract": 812,
+     "drift": 1
+    },
+    "exits": {},
+    "decisions": {
+     "disagreement|refused": 1320,
+     "disagreement|installed": 669,
+     "wasteful|installed": 556,
+     "wasteful|refused": 758,
+     "unequal|refused": 814,
+     "member|installed": 8,
+     "member|refused": 17524,
+     "unequal|installed": 335,
+     "grand-equal|refused": 3,
+     "grand-equal|installed": 2
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKR0.99": 20539
+    }
+   }
+  },
+  "UKR99-0-N200": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKR0.99"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 0,
+    "H": 2000,
+    "seedbase": "L0-N200",
+    "nu": 0.1,
+    "N": 200,
+    "runs": 20
+   },
+   "horizons": {
+    "2000": {
+     "n": 20,
+     "occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 1.0,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.0,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 1.0,
+     "consensus": 0.0,
+     "efficiency": 1.0,
+     "window_occupancy": 1.0,
+     "guard_mean": {
+      "g0": 0.0,
+      "gKR0.99": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 12830.7,
+    "null": 11716.1,
+    "consulted": 1039.3,
+    "refused": 1039.3,
+    "installed": 75.3,
+    "infeasible": 4275.05,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>member": 500,
+     "other-mixed>wasteful": 357,
+     "wasteful>member": 360,
+     "other-mixed>unequal": 43,
+     "member>member": 2,
+     "unequal>member": 233,
+     "wasteful>unequal": 10,
+     "member-mixed>member": 1
+    },
+    "triggers": {
+     "contract": 587
+    },
+    "entries": {
+     "contract": 575
+    },
+    "exits": {},
+    "decisions": {
+     "disagreement|installed": 709,
+     "disagreement|refused": 1390,
+     "member|refused": 18104,
+     "wasteful|refused": 590,
+     "wasteful|installed": 471,
+     "unequal|installed": 306,
+     "unequal|refused": 702,
+     "member|installed": 20
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKR0.99": 20992
+    }
+   }
+  },
+  "UKR99-1-N50": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKR0.99"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 1,
+    "H": 2000,
+    "seedbase": "L1-N50",
+    "nu": 0.1,
+    "N": 50,
+    "runs": 20
+   },
+   "horizons": {
+    "2000": {
+     "n": 20,
+     "occupancy": [
+      0.7,
+      0.5616796875000001,
+      0.83671875
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 0.7,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.3,
+     "MO": 0.0,
+     "support_strict": 1.0,
+     "support_ss": 1.0,
+     "coverage": 0.0,
+     "consensus": 0.5,
+     "efficiency": 1.0,
+     "window_occupancy": 0.7054750000000001,
+     "guard_mean": {
+      "g0": 0.0,
+      "gKR0.99": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 12784.1,
+    "null": 10740.3,
+    "consulted": 1933.6,
+    "refused": 1933.6,
+    "installed": 110.2,
+    "infeasible": 4274.65,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>member": 1087,
+     "other-mixed>wasteful": 374,
+     "other-mixed>other-mixed": 429,
+     "other-mixed>member-mixed": 49,
+     "other-mixed>unequal": 155,
+     "wasteful>member": 17,
+     "member-mixed>member": 18,
+     "unequal>member": 7,
+     "member>member": 23,
+     "disagreement>member": 16,
+     "wasteful>other-mixed": 5,
+     "member>other-mixed": 4,
+     "disagreement>wasteful": 8,
+     "disagreement>other-mixed": 5,
+     "wasteful>unequal": 3,
+     "member-mixed>other-mixed": 1,
+     "member-mixed>member-mixed": 1,
+     "member>member-mixed": 1,
+     "wasteful>wasteful": 1
+    },
+    "triggers": {
+     "migration": 3445,
+     "contract": 345,
+     "contract residue": 191,
+     "conditional/none": 1
+    },
+    "entries": {
+     "contract": 155,
+     "migration": 42,
+     "contract residue": 24
+    },
+    "exits": {
+     "contract residue": 3,
+     "contract": 11,
+     "migration": 2
+    },
+    "decisions": {
+     "disagreement|refused": 1914,
+     "disagreement|installed": 973,
+     "member|refused": 34521,
+     "wasteful|refused": 1403,
+     "wasteful|installed": 699,
+     "unequal|refused": 827,
+     "member|installed": 306,
+     "unequal|installed": 226,
+     "grand-equal|refused": 7
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKR0.99": 41958
+    }
+   }
+  },
+  "UKR99-1-N200": {
+   "params": {
+    "guards": [
+     "g0",
+     "gKR0.99"
+    ],
+    "assign": [
+     "bit",
+     1.0,
+     1
+    ],
+    "mN": 1,
+    "H": 2000,
+    "seedbase": "L1-N200",
+    "nu": 0.1,
+    "N": 200,
+    "runs": 20
+   },
+   "horizons": {
+    "2000": {
+     "n": 20,
+     "occupancy": [
+      0.44140625,
+      0.36013671875000003,
+      0.53359375
+     ],
+     "modal_occupancy": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "member": 0.44140625,
+     "unequal": 0.0,
+     "wasteful": 0.0,
+     "grand": 0.0,
+     "disagreement": 0.0,
+     "MM": 0.5578125,
+     "MO": 0.00078125,
+     "support_strict": 0.95,
+     "support_ss": 1.0,
+     "coverage": 0.0,
+     "consensus": 0.05,
+     "efficiency": 0.999821015625,
+     "window_occupancy": 0.44547499999999995,
+     "guard_mean": {
+      "g0": 0.0,
+      "gKR0.99": 1.0
+     }
+    }
+   },
+   "counts": {
+    "draws": 12768.5,
+    "null": 10043.35,
+    "consulted": 2624.5,
+    "refused": 2624.5,
+    "installed": 100.65,
+    "infeasible": 4260.9,
+    "overflow": 0.0
+   },
+   "transitions": {
+    "jumps": {
+     "other-mixed>member": 1208,
+     "other-mixed>wasteful": 390,
+     "member>member": 136,
+     "other-mixed>unequal": 85,
+     "wasteful>member": 60,
+     "unequal>unequal": 4,
+     "member-mixed>member": 92,
+     "unequal>member": 29,
+     "other-mixed>other-mixed": 3,
+     "wasteful>wasteful": 4,
+     "wasteful>unequal": 1,
+     "unequal>other-mixed": 1
+    },
+    "triggers": {
+     "contract": 857,
+     "migration": 1356,
+     "contract residue": 434
+    },
+    "entries": {
+     "contract residue": 27,
+     "contract": 375,
+     "migration": 51
+    },
+    "exits": {
+     "contract": 13,
+     "migration": 13,
+     "contract residue": 3
+    },
+    "decisions": {
+     "disagreement|installed": 754,
+     "disagreement|refused": 1485,
+     "wasteful|refused": 1024,
+     "member|refused": 48296,
+     "member|installed": 501,
+     "wasteful|installed": 414,
+     "unequal|installed": 344,
+     "unequal|refused": 1685
+    },
+    "refused_by": {
+     "g0": 0,
+     "gKR0.99": 58415
+    }
+   }
+  }
+ },
+ "forced": {
+  "X": {
+   "islands": 36,
+   "in_V": 1.0,
+   "final": {
+    "P23:3|3": 13,
+    "P12:3|3": 14,
+    "P13:3|3": 9
+   },
+   "left_start": 1.0,
+   "first_V_median": 59.0,
+   "static_in_V": 0.999999999802766
+  },
+  "G(2,2,2)": {
+   "islands": 3,
+   "in_V": 1.0,
+   "final": {
+    "P12:3|3": 2,
+    "P13:3|3": 1
+   },
+   "left_start": 1.0,
+   "first_V_median": 134.0,
+   "static_in_V": 0.9999999998027644
+  },
+  "P12:4|2": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P23:3|3": 27
+   },
+   "left_start": 1.0,
+   "first_V_median": 71.0,
+   "static_in_V": 0.9994015447422684
+  },
+  "P12:3|3": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P12:3|3": 27
+   },
+   "left_start": 0.0,
+   "first_V_median": 0.0,
+   "static_in_V": 1.0
+  },
+  "P12:3|2": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P23:3|3": 27
+   },
+   "left_start": 1.0,
+   "first_V_median": 158.0,
+   "static_in_V": 0.9994015447422581
+  },
+  "P12:2|4": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P13:3|3": 27
+   },
+   "left_start": 1.0,
+   "first_V_median": 174.0,
+   "static_in_V": 0.9994015447422684
+  },
+  "P12:2|3": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P13:3|3": 27
+   },
+   "left_start": 1.0,
+   "first_V_median": 161.0,
+   "static_in_V": 0.9994015447422578
+  },
+  "P12:2|2": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P23:3|3": 9,
+    "P13:3|3": 11,
+    "P12:3|3": 7
+   },
+   "left_start": 1.0,
+   "first_V_median": 86.0,
+   "static_in_V": 0.9999999998027644
+  },
+  "P13:4|2": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P23:3|3": 27
+   },
+   "left_start": 1.0,
+   "first_V_median": 200.0,
+   "static_in_V": 0.9994015447422684
+  },
+  "P13:3|3": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P13:3|3": 27
+   },
+   "left_start": 0.0,
+   "first_V_median": 0.0,
+   "static_in_V": 1.0
+  },
+  "P13:3|2": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P23:3|3": 27
+   },
+   "left_start": 1.0,
+   "first_V_median": 90.0,
+   "static_in_V": 0.9994015447422577
+  },
+  "P13:2|4": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P12:3|3": 27
+   },
+   "left_start": 1.0,
+   "first_V_median": 212.0,
+   "static_in_V": 0.9994015447422682
+  },
+  "P13:2|3": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P12:3|3": 27
+   },
+   "left_start": 1.0,
+   "first_V_median": 252.0,
+   "static_in_V": 0.9994015447422578
+  },
+  "P13:2|2": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P23:3|3": 8,
+    "P12:3|3": 12,
+    "P13:3|3": 7
+   },
+   "left_start": 1.0,
+   "first_V_median": 67.0,
+   "static_in_V": 0.9999999998027644
+  },
+  "P23:4|2": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P13:3|3": 27
+   },
+   "left_start": 1.0,
+   "first_V_median": 129.0,
+   "static_in_V": 0.9994015447422682
+  },
+  "P23:3|3": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P23:3|3": 27
+   },
+   "left_start": 0.0,
+   "first_V_median": 0.0,
+   "static_in_V": 1.0
+  },
+  "P23:3|2": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P13:3|3": 27
+   },
+   "left_start": 1.0,
+   "first_V_median": 375.0,
+   "static_in_V": 0.9994015447422578
+  },
+  "P23:2|4": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P12:3|3": 27
+   },
+   "left_start": 1.0,
+   "first_V_median": 149.0,
+   "static_in_V": 0.9994015447422682
+  },
+  "P23:2|3": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P12:3|3": 27
+   },
+   "left_start": 1.0,
+   "first_V_median": 316.0,
+   "static_in_V": 0.9994015447422577
+  },
+  "P23:2|2": {
+   "islands": 27,
+   "in_V": 1.0,
+   "final": {
+    "P12:3|3": 13,
+    "P13:3|3": 5,
+    "P23:3|3": 9
+   },
+   "left_start": 1.0,
+   "first_V_median": 73.0,
+   "static_in_V": 0.9999999998027645
+  }
+ },
+ "identity": [
+  "D1r-0 = stored D1-0 in 40 / 40 runs",
+  "D1r-1 = stored D1-1 in 40 / 40 runs",
+  "R2r-0 = stored R2-0 in 40 / 40 runs",
+  "R2r-1 = stored R2-1 in 40 / 40 runs",
+  "Uread99-0 = UKR99-0 draw for draw in 40 / 40 runs",
+  "Uread99-1 = UKR99-1 draw for draw in 40 / 40 runs"
+ ],
+ "cost": {
+  "reader": {
+   "median": 259147.0,
+   "max": 259183,
+   "min": 241465,
+   "all_agree": true
+  },
+  "derive": {
+   "0.9": 674437,
+   "0.95": 18463849,
+   "0.99": 1275694
+  }
+ }
+}
