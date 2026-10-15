@@ -305,3 +305,26 @@ The projection exceeds ~12 hours before any drop, so the spec's drop order is ap
 and the sham cell are not run** (RE 4 and RE 5 and S14 are unscored). Run counts were already cut to 20 for L1₆, L1ᵢ,
 Nᵢ and the withheld cell to keep the remaining design near 12–14 hours; the 40-run cells are the 3·10⁶ pair, where the
 reviewers expected the effect. If the cells finish early the sham cell is run next (20 runs), labelled.
+
+### 1.y Static numbers (computed after the code; written while the first counted cells ran, before any was read)
+
+`runs/founding_legibility/static_yield_K1e+06.json`, `runs/founding_legibility/replay.json`; disclosed: the H + eq
+ideal cell and plan B were launched before this section was written (the static computation is not an input to
+them), and nothing from them is used here.
+
+- **The founding pass** (founders of replicates 0–4, K = 10⁶): every founder ends with a script (coverage 1.0 in every
+  slot); bosses hold ≥¼ / =½ / ≤¼ in 0.67 / 0.35 / 0.66 of founders, workers [C] / [D] in 0.58 / 0.59. Per run: ≈ 96,000
+  boss attempts (10,700 found) and 121,000 worker attempts (15,000 found), no cap or fuel timeout; **no worker founder
+  acquires anything after its first triple** (S13's second clause holds: 0 in 5 runs); median production steps per
+  founder 3.0·10⁵ (bosses) and 2.3·10⁵ (workers), maximum 6.5·10⁵ (< K); ≈ 150 s per run on one core.
+- **Generation-0 yield** (1,092 naturally founded coalitions among 64,000 sampled founder triples): fair at generation 0
+  under natural founding **0.33** (not 0, as §1.3 claimed: a third of coalitions have members whose all-F path already
+  plays the fair action, e.g. bosses paying ½ unless a W-probe holds and workers working unless B≤¼ is certified), under
+  L1 **0.59**; among coalitions whose boss reads an S-probe (0.59 of them) 0.52, others 0.70. §1.3's claim that no
+  S-probe concession is certified at generation 0 under L1 is wrong at the level of "any S-probe reader" (many such
+  bosses take their ½ branch on a probe that stays F at generation 0).
+- **The bare-source replay** (natural runs of replicates 0 and 1 to generation 200): 5,667 bare-source NONE keys
+  recorded, 269 replayable at later checks against partners of the same spellings with other lists, **27 of 320 replays
+  are successes** (23 keys): mostly bosses whose =½ (set 1) or ≤¼ (set 2) path opens once a worker partner of the same
+  spelling holds a certificate, and two worker cases. A bare-source mark would have suppressed them; the safe key is
+  what was run (§1.0 item 4).

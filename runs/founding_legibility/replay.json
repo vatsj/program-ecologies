@@ -1,0 +1,116 @@
+{
+ "0": {
+  "failures_recorded": 2821,
+  "keys_replayed": 130,
+  "keys_with_success": 14,
+  "replays": 150,
+  "suppressed_successes": 16,
+  "examples": [
+   [
+    10,
+    0,
+    "if(P1^1/4:S,pay(0,source),if(P1^0:W,pay(1/2,none),pay(1/2,strike)))",
+    2
+   ],
+   [
+    10,
+    0,
+    "if(not(or(P2^1/4:S,P2^0:S)),pay(1/2,strike),pay(0,none))",
+    2
+   ],
+   [
+    10,
+    0,
+    "if(P1^1/4:S,pay(1/2,none),if(P2^1/4:S,pay(0,none),pay(1/2,none)))",
+    2
+   ],
+   [
+    10,
+    0,
+    "if(not(not(P2^1/4:S)),pay(1/4,strike),pay(1/2,none))",
+    2
+   ],
+   [
+    10,
+    0,
+    "if(not(not(P2^1/4:S)),pay(1/4,strike),pay(1/2,none))",
+    2
+   ],
+   [
+    10,
+    0,
+    "if(or(EQW,P2^0:W),pay(1/4,source),pay(1/2,source))",
+    2
+   ],
+   [
+    10,
+    0,
+    "if(P2^0:W,if(P1^0:S,pay(1/4,source),pay(0,source)),pay(1/2,none))",
+    2
+   ],
+   [
+    50,
+    0,
+    "if(P2^0:W,if(P1^0:S,pay(1/4,source),pay(0,source)),pay(1/2,none))",
+    2
+   ]
+  ]
+ },
+ "1": {
+  "failures_recorded": 2846,
+  "keys_replayed": 139,
+  "keys_with_success": 9,
+  "replays": 170,
+  "suppressed_successes": 11,
+  "examples": [
+   [
+    10,
+    0,
+    "if(P2^0:S,if(P1^0:S,pay(0,strike),pay(1/4,none)),pay(1/2,none))",
+    2
+   ],
+   [
+    10,
+    1,
+    "if(not(or(B>=1/4,B>=1/4)),strike,work)",
+    0
+   ],
+   [
+    10,
+    0,
+    "if(and(not(P1^1/4:W),P1^0:S),pay(1/4,none),pay(0,source))",
+    0
+   ],
+   [
+    10,
+    0,
+    "if(P2^1/4:S,pay(1/4,strike),pay(0,source))",
+    0
+   ],
+   [
+    10,
+    0,
+    "if(P2^0:S,pay(1/2,strike),if(P2^1/4:W,pay(1/4,none),pay(0,none)))",
+    0
+   ],
+   [
+    10,
+    0,
+    "if(P2^0:S,pay(1/2,strike),if(P2^1/4:W,pay(1/4,none),pay(0,none)))",
+    1
+   ],
+   [
+    10,
+    1,
+    "if(B<=1/4,if(B<=1/4,work,work),strike)",
+    0
+   ],
+   [
+    10,
+    0,
+    "if(or(P2^0:S,not(P2^1/4:W)),pay(0,source),pay(1/4,strike))",
+    0
+   ]
+  ]
+ }
+}

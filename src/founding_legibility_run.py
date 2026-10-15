@@ -24,6 +24,21 @@ OUT = FL.OUT
 PARENT = os.path.join(FL.ROOT, 'runs', 'sog_full')
 
 
+def plan(args):
+    """Sequential segments 'cells:start:runs;...' with one pool, optionally after process --waitpid has exited."""
+    if args.waitpid:
+        while True:
+            try:
+                os.kill(args.waitpid, 0)
+            except OSError:
+                break
+            time.sleep(30)
+    for seg in args.plan.split(';'):
+        cells, start, runs = seg.split(':')
+        args.cells, args.start, args.runs = cells, int(start), int(runs)
+        lottery(args)
+
+
 def lottery(args):
     from multiprocessing import get_context
     names = args.cells.split(',')
@@ -224,6 +239,8 @@ def main():
     ap.add_argument('--maxtasks', type=int, default=None)
     ap.add_argument('--n', type=int, default=200)
     ap.add_argument('--K', type=int, default=0)
+    ap.add_argument('--plan', default='')
+    ap.add_argument('--waitpid', type=int, default=0)
     args = ap.parse_args()
     globals()[args.cmd](args)
 
