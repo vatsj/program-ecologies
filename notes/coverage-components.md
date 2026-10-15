@@ -243,3 +243,81 @@ bosses only (c).
   random-plus cells as S₃ (13–20 minutes).
 
 These are carried into the predictions file with falsifiers.
+
+### 1.x Code, validation, deviations and static numbers (after the code, before any counted cell)
+
+Code: `src/coverage_components.py` (classification, masks, `MaskEvaluator`, `MaskRun`, statistics, the cell job),
+`src/coverage_components_run.py` (driver: static, coalitions, jobs, compare, mediate), `src/coverage_components_report.py`,
+`tests/test_coverage_components.py` (15 tests, passing). The parents' modules are imported unchanged; `MaskRun`
+subclasses `FLRun` (so the mark kernel of `founding_legibility_kern` runs wherever production does) and overrides
+`founder_inv`, the lack bits and the production rows' new-class tables; `MaskEvaluator` overrides `prod_boss`,
+`prod_worker`, `productions` and `produce`.
+
+**Tests.** (1) The partition: on every worker run tree and every boss run tree of the founders of replicates 0–2,
+canon ∪ (a)–(d) = H disjointly, canon ⊆ S₃^static, S₃^static ∪ (a)–(d) = H, no boss (d), every boss (c) dead, and the
+workers' S₃^static equals the parent's `producible_inv`. (2) The named programs' labels are §1.1's table. (3) The
+masks: plus X grants exactly X, minus X grants H \ X and bars X, the random controls are disjoint from X and never
+canonical, full = `full_inv`, empty = `empty_inv`, the pairs grant the union; the controls' inclusion probabilities
+equal their definition. (4) The lack rule under grants (D\* under plus (a) attempts every set; its ½-path results are
+held, its default-path ≤¼ is found; under minus (b) its ¼-path ≤¼ is barred; `produce` takes the union). (5) Draw for
+draw on small runs (I = 4, N = 30, 60 generations, replicates 0 and 1): the empty mask equals the parent's S₃ run
+(compositions and every counter but ctr[14]) without the mark, and the founding-legibility mark run (compositions,
+counters and the mark's counters) with it; the full mask equals the parent's H run in H mode and in S mode with the
+mark on and off, no production ever finding a script; minus (a), minus (b) and rand-minus (b) are identical in H mode
+and S mode (Lemma P); a plus (b) run keeps every grant at every check and adds at most one produced script per set.
+
+**Full-scale validation (before any counted cell).** The empty mask with the mark on reproduces the stored S₃ + eq
+ideal runs `Ni` on replicates 0–4 in every summary field except the production counters (fair masks, plays, holders,
+exits, sampled encounters with their production outcomes and steps, the 10,000 extension); replicate 0 without the
+mark reproduces them with every counter but ctr[14] equal. The full mask (H mode) reproduces the stored H + eq ideal
+runs `Heq_i` replicate by replicate (`runs/coverage-components-validate.json`; 20/20 reported in §2.2).
+
+**Deviations from §1.0, stated before any counted cell.**
+1. **The random controls' stratum (replaces §1.0 item 7's per-program draw).** The per-program complement draw reaches
+   only 0.21–0.56 of the components' volume (many programs that hold X hold little else that is non-canonical; T₁'s
+   only non-canonical script is its (a) [C] script). The control used instead takes, in each run tree, k =
+   ⌊q n⌋ + Bernoulli(q n − ⌊q n⌋) of its n non-canonical non-X scripts uniformly, with q = min(1, V_X / P_X) per role
+   (V_X, P_X the mean numbers of X scripts and of non-canonical non-X scripts per founder of replicates 0–19): workers
+   q = 0.256 (a), 1 (b), 0.013 (c), 0.203 (d); bosses 0.609 (a), 1 (b), 0.003 (c), 0 (d). It matches volume per role,
+   not per program, has no overlap with X, and cannot match (b) (the complement of (b) is smaller than (b)). Achieved
+   volume ratios over the founders of replicates 0–19 (rand-plus / rand-minus): (a) 0.97 / 0.84 workers, 1.00 / 1.00
+   bosses; (b) 0.63 / 0.63 workers, 0.62 / 0.62 bosses; (c) about 1; (d) 0.96 / 0.92 workers. One draw per cell (seed
+   fixed per cell).
+2. **S₃'s reference.** Because the empty mask reproduces `Ni` draw for draw, the S₃ cell is the 5 rerun replicates
+   (which carry this run's statistics) plus the stored `Ni` runs for replicates 5–19 (fair shares and wages only).
+3. **The S-mode check of Lemma P at full scale** is minus (b) replicate 0 run in S mode with the mark, compared with the
+   counted H-mode run of the same replicate when it exists (the small-run tests already establish the equality).
+4. **Generation 5** is replaced by generation 10 in the trajectory (§1.0 item 8).
+
+**Static numbers** (`runs/coverage-components-static.json`; recomputed by code, equal to §1.2's scratch values to the
+fourth decimal). Script shares under the length prior, workers / bosses: canon 0.460 / 0.376, (a) 0.110 / 0.236, (b)
+0.331 / 0.386, (c) 0.0069 / 0.0018, (d) 0.092 / 0; programs holding any: (a) 0.25 / 0.67, (b) 0.65 / 0.83, (c) 0.018 /
+0.007, (d) 0.18 / 0. Joint classes as §1.2. Probe-reachable worker scripts: canon 0.80, (a) 0.61, (b) 0.71, (c) 1.0,
+(d) 0.86. The founders of replicates 0–19 and 20–59 agree with the prior to ±0.001.
+
+## 2. Costs
+
+### 2.1 Projection (before any counted cell)
+
+Measured on the validation batch with 3 workers and a machine load of 11–12 on 10 cores (the sibling scaling run and
+other processes): an S-mode run (production on, the mark on) takes 16–17 minutes including the 10,000 extension and the
+statistics (setup 3.5, run 10.5–11, summary 1, extension 1.2–1.5); an H-mode run 5–6 minutes (setup 3–3.7, run 0.2,
+summary 1, extension 1–1.3); the S-mode minus (b) check 8.5 minutes. Plus, pair and rand-plus cells are assumed to cost
+as S₃.
+
+| block, in launch order | runs | hours on 3 workers |
+|---|---|---|
+| minus (a)–(d), H mode | 80 | 2.5 |
+| plus (a)–(d) | 80 | 7.4 |
+| plus (a)+(b), plus (c)+(d) | 40 | 3.7 |
+| rand-minus (a), (b), (d), H mode | 60 | 1.8 |
+| rand-plus (a), (b), (d) | 60 | 5.6 |
+| **subtotal** | 320 | **≈ 21** |
+| rand-minus (c), rand-plus (c) | 40 | 2.5 (second in the drop order) |
+| mediation replays (≤ 5 per rescuing cell) | ≤ 25 | ≤ 2.5 (beyond two per cell: third) |
+| confirmations, 40 fresh streams + H-full beside | 80 per candidate | 4.9 per candidate (first) |
+
+The budget is about 30 hours of wall time from the first counted cell; blocks past it are dropped in the stated order
+(confirmations, then rand-(c), then mediation beyond two replays per cell), by cost only. A static diagnostic,
+`coalitions` (founding coalitions of replicates 0–2 kept fair under each variant of their lists), runs in one process
+before the cells; its numbers are reported in §2.2 and used for nothing in the cells.
