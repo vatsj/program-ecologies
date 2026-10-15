@@ -4657,6 +4657,92 @@ The lottery cells use ε = 0, L seeds, N = 100, I = 64, ν = 0.1, β = 1, public
 - **Cost is not the bind at the decision** (2.6·10⁵ steps). The mutual fixed point of a mixed composition, the reader's regress, is not computed.
 - *Caveats:* finite (N, I, horizon); 20–40 runs per cell; the fixed-point list is uncertified at δ ≥ 0.95; the guards run host-side, with the executable benchmark separate; the decompositions are post hoc.
 
+## The leader-value core: where it exists (`runs/core-existence-sweep.json`, `runs/core-existence-sweep.md`, `notes/core-existence-sweep.md`; spec `specs/2026-10-14-core-existence-sweep.md`, predictions in `predictions/2026-10-14-core-existence-sweep.md`)
+
+Requested by the RS (DEFERRED 15), designed by the RE, reviewed by gpt-6.1-sol and gemini-4-argon, run by an Opus subagent (`src/core_sweep.py`, `src/core_sweep_report.py`, `tests/test_core_sweep.py`, 12 tests passing on main). A static computation, no ecology. Order of commits: predictions; notes §1–3 (definitions and the analytic symmetric Cournot case); code and tests; the families.
+
+**Deviations, disclosed:**
+- **Added beyond the spec.** n = 2 for public goods.
+- **Restricted.** The Cournot capacity variant is TU only. The NTU core with coordinated followers was not computed for the quadratic games.
+- **Methods.** Allocation-game first-mover advantage is analytic. Exchange-economy coalition values come from a concave program with dual bounds. Helm (2001) is a benchmark only through the emissions-game mapping, without checking its exact hypotheses.
+- **Never needed.** The mixed-response variant (pure responses existed everywhere).
+- **Reruns.** A slow NTU search was replaced before the families were rerun. A first allocation pass reported 19 spurious TU-empty cases because an infeasible solver output was accepted; it was caught by the Shapley–Shubik theorem and fixed before counting.
+
+**RE checks.** Symmetric linear Cournot at n = 3: the equal monopoly split meets every coalition's leader value, with equality for singletons and the grand coalition. For the asymmetric Cournot duopoly at c₂ = 0.05, 0.25 and 0.45, a brute-force search finds no transfer-free profile paying both firms their Stackelberg leader profits.
+
+**Objects.**
+- **Followers** play individual Nash equilibria among themselves by default (the γ-convention), with S moving first. Equilibrium selection is pessimistic or optimistic (pess / opt).
+- **TU verdicts** come from the least-core LP. Every empty case carries a Bondareva–Shapley balanced collection re-checked in exact rationals.
+- **The NTU core** is the set of unblocked action profiles, with no transfers.
+- **Labels:** each case is nonempty, tight (zero slack), empty, or unresolved.
+
+**Cournot** (p = 1 − Q, c₁ = 0). TU and NTU columns are counts of nonempty / tight / empty cases; NTU is on a 0.05 grid.
+
+| n | points | TU | TU empty share | violating collection | γ-core empty | NTU | NTU empty share |
+|---|---|---|---|---|---|---|---|
+| 2 | 21 | 19/2/0 | 0 | – | 0 | 0/2/9 | 0.82 (every 0 < c₂ < ½; proved) |
+| 3 | 231 | 196/28/7 | 0.030 | singletons 7/7 | 0 | 0/6/60 | 0.91 |
+| 4 | 1,771 | 1,423/256/92 | 0.052 | singletons 92/92 | 0 | 0/18/268 | 0.94 |
+
+- Symmetric Cournot is tight at every n (proved).
+- TU emptiness needs two near-efficient firms and a moderately inefficient one, and it is small (≤ 1% of v(N)).
+- The capacity variant has 0 empty cases of 332; homogeneous Bertrand 0 of 363.
+
+**Public goods** (u = θ f(G) − g; TU empty share; NTU is identical point by point; the γ-core is nonempty at all 1,820 points):
+
+| f | n = 2 | 3 | 4 | 5 |
+|---|---|---|---|---|
+| 2√G | 0 | 0 | 0 | 0 |
+| 2(√(1+G) − 1) | 0 | 0 | 0 | 0 |
+| ln(1+G) | 0.238 | 0.125 | 0.032 | 0.004 |
+| 1 − 1/(1+G) | 0.381 | 0.321 | 0.183 | 0.075 |
+
+Every empty point is certified by the singleton partition and involves free riders.
+
+**Linear-quadratic supermodular games** (1,560 points). TU columns are nonempty / tight / empty; NTU columns add unresolved.
+
+| spillover | points | TU | γ-core empty | NTU |
+|---|---|---|---|---|
+| positive | 780 | 780/0/0 | 0 | 780/0/0/0 |
+| negative (uniform sign) | 643 | 641/2/0 | 0 | 641/2/0/0 |
+| mixed sign | 137 | 119/3/15 | 13 | 93/4/0/40 |
+
+**Other families.**
+- **Differentiated Bertrand:** 332/332 nonempty, TU and NTU.
+- **Allocation games under pess:** 800/800 certified nonempty, TU and NTU; the competitive allocation is unblocked.
+- **Allocation games under opt with zero-weight goods:** 84/200 TU-empty and 48 NTU-empty, with 127 NTU cases unresolved.
+- **Factorial panel:** coordinated followers make symmetric Cournot empty (ε\* = −0.042) and every public-goods panel point empty, and leave LQ and Bertrand nonempty. pess and opt coincide at every panel point.
+- **Catalogue:** reproduced exactly.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 (revised) | symmetric Cournot nonempty; NTU empty somewhere at n ≥ 3 | **held**: symmetric tight (proved); NTU empty on 0.91 / 0.94 of the grid and at every asymmetric duopoly |
+| RE 2 | differentiated Bertrand nonempty | **held** (332/332) |
+| RE 3 (revised) | public goods empty on a substantial share, free riders violating | falsifier not fired; **share clause failed** (0.041 pooled; 0 under 2√G and CRRA ½); free-rider clause held (85/85) |
+| RE 4 | positive spillovers nonempty with a proof; negative spillovers empty somewhere | positive **held** (780/780; proof for symmetric games); **negative failed** (0/643); emptiness needs mixed signs |
+| RE 5 | allocation games nonempty | **held** (800/800; proof) |
+| RE 6 | some coalition's first-mover advantage is necessary for emptiness | **falsified**: majority division (pess) and allocation games (opt) are empty with no first-mover advantage |
+| S1–S13 | subagent's own | S2, S4, S7, S11 one clause each failed; the rest held |
+
+**Reading.**
+- **There are three routes to emptiness, and the RE's conjecture covers only the first.**
+  1. *Timing on unowned surplus:* the singleton partition's Stackelberg or free-ride claims exceed the grand surplus while the γ-core stays nonempty (Cournot, curved public goods). This happens only with heterogeneity or curvature: symmetric Cournot is a knife edge, and square-root public goods are never empty.
+  2. *Coalition size under mixed-sign externalities:* pairs or blocks out-claim the grand coalition, and the γ-core is empty too.
+  3. *Incompatible claims with no timing at all:* majority division, or gifts counted twice under opt.
+- **Transfers matter most.** Cournot is TU-empty on 3–5% of the grid but NTU-empty on 82–94%, every asymmetric duopoly included: without transfers the frontier cannot pay an inefficient firm its leader value.
+- **Nonempty classes:**
+  - owned endowments with "keep" (TU by Shapley–Shubik, NTU by competitive equilibrium; proved);
+  - complements with aligned spillovers, whether positive or negative (follower dominance; proved for symmetric games, 0 empty of 1,423 asymmetric points);
+  - homogeneous Bertrand.
+- **The exact criterion is balancedness.** For symmetric games it is v(s)/s ≤ v(n)/n.
+- *Caveats:*
+  - Static compatibility only, with no claim about evolutionary access.
+  - NTU unresolved on 40 mixed-spillover and 127 opt-allocation cases.
+  - Asymmetric supermodular nonemptiness and the public-goods singleton criterion are unproven.
+  - The 14 MB run file is committed as produced.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

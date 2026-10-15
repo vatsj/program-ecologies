@@ -627,3 +627,10 @@ REJECTED.md the ones we dropped.
   refusal"). *Operating hypothesis:* the stable set is recovered as island support by patient consent, not as an
   archipelago-wide set. *Open (sol):* the plug-in reader is a best reply to the current composition, not a mutual fixed
   point of a mixed composition; that regress is what a source-reading program faces.
+- *Evidence (2026-10-14, the existence sweep):* the leader-value core exists for owned endowments and for complements
+  with aligned spillovers; it fails by timing on unowned surplus (with curvature or heterogeneity), by coalition size
+  under mixed-sign externalities, and by incompatible claims with no timing; first-mover advantage is not necessary
+  for emptiness (RE 6 falsified); transfers decide most of it (Cournot NTU-empty 82–94%, TU-empty 3–5%) (RESULTS
+  "The leader-value core: where it exists"). *Operating hypothesis (unchanged):* the static notion is the menu, the
+  ecology the selector; where transfers are absent the menu is usually empty in substitutes games. *Would re-open:* a
+  proof or counterexample for asymmetric supermodular games with aligned spillovers.
