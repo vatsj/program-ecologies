@@ -57,13 +57,20 @@ def tu_core(v, n, tol=TOL):
     scale = max(abs(v[F]), 1.0)
     A = [[-1.0 if m >> i & 1 else 0.0 for i in range(n)] + [1.0] for m in Ss]
     b = [-v[m] for m in Ss]
-    r = linprog(c=[0.0] * n + [-1.0], A_ub=A, b_ub=b, A_eq=[[1.0] * n + [0.0]], b_eq=[v[F]],
-                bounds=[(None, None)] * (n + 1), method='highs')
+    assert all(np.isfinite(v[m]) for m in v), 'non-finite coalition value'
+    for meth in ('highs', 'highs-ds', 'highs-ipm'):
+        r = linprog(c=[0.0] * n + [-1.0], A_ub=A, b_ub=b, A_eq=[[1.0] * n + [0.0]], b_eq=[v[F]],
+                    bounds=[(None, None)] * (n + 1), method=meth)
+        if r.status == 0:
+            break
     assert r.status == 0, r.message
     x = r.x[:n]
     eps = r.x[-1]
-    r2 = linprog(c=[-v[m] for m in Ss], A_eq=[[1.0 if m >> i & 1 else 0.0 for m in Ss] for i in range(n)],
-                 b_eq=[1.0] * n, bounds=[(0, None)] * len(Ss), method='highs')
+    for meth in ('highs', 'highs-ds', 'highs-ipm'):
+        r2 = linprog(c=[-v[m] for m in Ss], A_eq=[[1.0 if m >> i & 1 else 0.0 for m in Ss] for i in range(n)],
+                     b_eq=[1.0] * n, bounds=[(0, None)] * len(Ss), method=meth)
+        if r2.status == 0:
+            break
     assert r2.status == 0, r2.message
     beta = -r2.fun
     gap = beta - v[F]
@@ -976,6 +983,225 @@ class QuadGame:
                 best = max(best, u_of(xs).min())
         return float(best)
 
+    @staticmethod
+    def qp_max(Q, q, c0, lb):
+        """max x'Qx/2 + q'x + c0 over x >= lb (active-set enumeration); +inf if Q is not negative definite."""
+        Q = 0.5 * (Q + Q.T)
+        if np.max(np.linalg.eigvalsh(Q)) >= -1e-12:
+            return np.inf, None
+        k = len(q)
+        bnd = [a for a in range(k) if np.isfinite(lb[a])]
+        best, bx = -np.inf, None
+        for r in range(len(bnd) + 1):
+            for A in itertools.combinations(bnd, r):
+                fr = [a for a in range(k) if a not in A]
+                x = np.zeros(k)
+                for a in A:
+                    x[a] = lb[a]
+                if fr:
+                    x[fr] = np.linalg.solve(Q[np.ix_(fr, fr)], -(q[fr] + Q[np.ix_(fr, list(A))] @ x[list(A)]))
+                if np.any(x < lb - 1e-10):
+                    continue
+                gr = Q @ x + q
+                if any(gr[a] > 1e-10 for a in A):
+                    continue
+                val = 0.5 * x @ Q @ x + q @ x + c0
+                if val > best:
+                    best, bx = val, x
+        return best, bx
+
+    def weighted_value(self, S, lam, mode='ind'):
+        """V_lam(S) = max over x_S of sum_i lam_i u_i under the affine follower response."""
+        Sm = members(S, self.n)
+        if not hasattr(self, '_aff'):
+            self._aff = {}
+        if (S, mode) not in self._aff:
+            self._aff[(S, mode)] = self.affine_response(S, mode)
+        P, p0 = self._aff[(S, mode)]
+        Hl = np.tensordot(lam, self.H[Sm], axes=1)
+        gl = lam @ self.g[Sm]
+        Q = P.T @ Hl @ P
+        q = P.T @ (Hl @ p0 + gl)
+        c0 = 0.5 * p0 @ Hl @ p0 + gl @ p0 + lam @ self.k[Sm]
+        return self.qp_max(Q, q, c0, self.lb[Sm])[0]
+
+    def btilde(self, S, z, mode='ind', res=20):
+        """min over weights lam on S of V_lam(S) - lam.z_S.  <= 0 implies S cannot block z (a weighted TU
+        bound); equals the sign of B_S when S's leader payoff set is convex."""
+        Sm = members(S, self.n)
+        k = len(Sm)
+        zS = np.asarray(z, float)[Sm]
+        pts = [np.array(c, float) / res for c in itertools.product(range(res + 1), repeat=k) if sum(c) == res]
+        vals = [self.weighted_value(S, lam, mode) - lam @ zS for lam in pts]
+        j = int(np.argmin(vals))
+        best = vals[j]
+        if best > 0 and np.isfinite(best):
+            def f(y):
+                lam = np.exp(y - y.max()); lam = lam / lam.sum()
+                return self.weighted_value(S, lam, mode) - lam @ zS
+            y0 = np.log(np.maximum(pts[j], 1e-6))
+            r = minimize(f, y0, method='Nelder-Mead', options=dict(xatol=1e-10, fatol=1e-13, maxiter=400))
+            best = min(best, r.fun)
+        return float(best)
+
+    def ntu_weighted_search(self, v, mode='ind', res=10):
+        """Candidates: weighted-utilitarian profiles x(w) = argmax sum w_i u_i (w on a simplex grid, refined);
+        a candidate is certified unblocked when every coalition's weighted bound btilde <= 0."""
+        n = self.n
+        coal = sorted([S for S in proper(n) if popcount(S) >= 2], key=popcount)
+        def cand(w):
+            Hw = np.tensordot(w, self.H, axes=1)
+            gw = w @ self.g
+            val, x = self.qp_max(Hw, gw, w @ self.k, self.lb)
+            return x
+        def phi(w):
+            x = cand(w)
+            if x is None:
+                return 1e9, None
+            z = self.payoffs(x)
+            m = max(v[1 << i] - z[i] for i in range(n))
+            if m > 1e-3:
+                return m, x
+            for S in coal:
+                m = max(m, self.btilde(S, z, mode))
+                if m > 1e-3:
+                    break
+            return m, x
+        grid = [np.array(c, float) / res for c in itertools.product(range(1, res), repeat=n) if sum(c) == res]
+        scored = sorted(((phi(w)[0], tuple(w)) for w in grid))
+        best = (scored[0][0], np.array(scored[0][1]))
+        for s0, w0 in scored[:3]:
+            if best[0] <= 0:
+                break
+            def f(y):
+                w = np.exp(y - y.max()); w = w / w.sum()
+                return phi(w)[0]
+            r = minimize(f, np.log(np.array(w0)), method='Nelder-Mead', options=dict(xatol=1e-9, fatol=1e-12, maxiter=300))
+            if r.fun < best[0]:
+                w = np.exp(r.x - r.x.max())
+                best = (r.fun, w / w.sum())
+        m, x = phi(best[1])
+        return float(m), x
+
+    def box_upper(self, lo, hi):
+        """Interval upper bounds of every u_i over the box [lo, hi] (exact interval arithmetic on the quadratic)."""
+        n = self.n
+        P = np.stack([lo[:, None] * lo[None, :], lo[:, None] * hi[None, :], hi[:, None] * lo[None, :],
+                      hi[:, None] * hi[None, :]])
+        pmin, pmax = P.min(axis=0), P.max(axis=0)
+        sq_lo = np.where((lo <= 0) & (hi >= 0), 0.0, np.minimum(lo ** 2, hi ** 2))
+        sq_hi = np.maximum(lo ** 2, hi ** 2)
+        idx = np.arange(n)
+        pmin[idx, idx], pmax[idx, idx] = sq_lo, sq_hi
+        out = np.zeros(n)
+        for i in range(n):
+            Hh = 0.5 * self.H[i]
+            quad = np.where(Hh >= 0, Hh * pmax, Hh * pmin).sum()
+            lin = np.where(self.g[i] >= 0, self.g[i] * hi, self.g[i] * lo).sum()
+            out[i] = quad + lin + self.k[i]
+        return out
+
+    def menus(self, mode='ind', res=40):
+        """Payoff vectors that each coalition S (|S| >= 2) can secure as leader: the weighted-leader optima
+        for weights on a simplex grid (exact QPs under the affine response)."""
+        out = {}
+        for S in proper(self.n):
+            Sm = members(S, self.n)
+            if len(Sm) < 2:
+                continue
+            P, p0 = self.affine_response(S, mode)
+            W = []
+            for c in itertools.product(range(res + 1), repeat=len(Sm)):
+                if sum(c) != res:
+                    continue
+                lam = np.array(c, float) / res
+                Hl = np.tensordot(lam, self.H[Sm], axes=1)
+                gl = lam @ self.g[Sm]
+                val, xs = self.qp_max(P.T @ Hl @ P, P.T @ (Hl @ p0 + gl), 0.0, self.lb[Sm])
+                if xs is not None:
+                    W.append(self.payoffs(P @ xs + p0)[Sm])
+            if W:
+                out[S] = (Sm, np.array(W))
+        return out
+
+    def ntu_bnb(self, vs, menus=None, max_boxes=100000):
+        """Certify emptiness: every box of profiles is blocked by a singleton (upper bound below its leader
+        value) or by a coalition with a menu vector strictly above the box's upper bounds.  The box provably
+        contains every candidate: welfare >= sum of singleton values defines an ellipsoid around the optimum."""
+        n = self.n
+        L = self.vN()
+        xs = L['x']
+        Hw = 0.5 * (self.H.sum(axis=0) + self.H.sum(axis=0).T)
+        lam = -np.max(np.linalg.eigvalsh(Hw))
+        slackW = L['v'] - vs.sum()
+        if slackW < 0:
+            return dict(certified_empty=True, boxes=0, reason='welfare')
+        rad = math.sqrt(2 * slackW / lam)
+        lo = np.maximum(xs - rad, np.where(np.isfinite(self.lb), self.lb, -np.inf))
+        hi = xs + rad
+        menus = menus or {}
+        def killed(U):
+            if np.any(U < vs):
+                return True
+            for S, (Sm, W) in menus.items():
+                if np.any(np.all(W > U[Sm][None, :], axis=1)):
+                    return True
+            return False
+        stack = [(lo, hi)]
+        cnt = 0
+        best_lower = -np.inf
+        while stack:
+            lo, hi = stack.pop()
+            cnt += 1
+            if cnt > max_boxes:
+                return dict(certified_empty=False, boxes=cnt, unfinished=True, best_singleton_lower=best_lower)
+            U = self.box_upper(lo, hi)
+            if killed(U):
+                continue
+            c = 0.5 * (lo + hi)
+            best_lower = max(best_lower, float(np.min(self.payoffs(c) - vs)))
+            j = int(np.argmax(hi - lo))
+            for a, b in ((lo[j], c[j]), (c[j], hi[j])):
+                l2, h2 = lo.copy(), hi.copy()
+                l2[j], h2[j] = a, b
+                stack.append((l2, h2))
+        return dict(certified_empty=True, boxes=cnt)
+
+    def ntu_full_search(self, v, mode='ind', starts=3, seed=0):
+        """Last resort: maximize min over coalitions of -btilde along Nelder-Mead from singleton-feasible
+        starting points (found by SLSQP on the singleton constraints)."""
+        n = self.n
+        vs = np.array([v[1 << i] for i in range(n)])
+        lb = np.where(np.isfinite(self.lb), self.lb, -1e9)
+        rng = np.random.default_rng(seed)
+        xN = self.vN()['x']
+        starts_x = []
+        for s in range(starts * 4):
+            x0 = xN * rng.uniform(0.5, 1.5, n) if s else xN
+            r = minimize(lambda y: -y[-1], np.r_[x0, -1.0], method='SLSQP',
+                         bounds=[(self.lb[i] if np.isfinite(self.lb[i]) else None, None) for i in range(n)] + [(None, None)],
+                         constraints=[dict(type='ineq', fun=lambda y: self.payoffs(y[:n]) - vs - y[-1])],
+                         options=dict(ftol=1e-14, maxiter=500))
+            starts_x.append((r.x[-1], r.x[:n]))
+        starts_x.sort(key=lambda t: -t[0])
+        sing_best = float(starts_x[0][0])
+        coal = [S for S in proper(n) if popcount(S) >= 2]
+        def worst(x):
+            x = np.maximum(x, lb)
+            z = self.payoffs(x)
+            m = np.max(vs - z)
+            for S in coal:
+                m = max(m, self.btilde(S, z, mode, res=10))
+            return m
+        best = (np.inf, None)
+        for _, x0 in starts_x[:starts]:
+            r = minimize(worst, x0, method='Nelder-Mead', options=dict(maxiter=300, xatol=1e-11, fatol=1e-13))
+            if r.fun < best[0]:
+                best = (r.fun, np.maximum(r.x, lb))
+            if best[0] <= 0:
+                break
+        return float(best[0]), best[1], sing_best
+
     def tu_profile(self, v, starts=12, seed=0):
         """Search x with u_S(x) >= v(S) for every proper S (implies the NTU core is nonempty)."""
         n = self.n
@@ -1083,16 +1309,72 @@ class Exchange:
         for s in range(starts):
             w = rng.dirichlet(np.ones(k)) if s else np.full(k, 1.0 / k)
             y0 = (w[:, None] * R[None, :])[:-1].ravel()
+            if best[1] is None:
+                best = (f(y0), unpack(y0))            # a feasible fallback
             r = minimize(f, y0, method='SLSQP', bounds=[(1e-12, None)] * len(y0), constraints=cons,
                          options=dict(ftol=1e-14, maxiter=2000))
-            if r.fun < best[0]:
-                best = (r.fun, unpack(r.x))
+            Y = unpack(r.x)
+            if np.any(Y < -1e-10):                    # reject infeasible solver output
+                continue
+            Y = np.maximum(Y, 0.0)
+            val = -sum(self.u(i, Y[a]) for a, i in enumerate(idx))
+            if val < best[0]:
+                best = (val, Y)
         return -best[0], best[1]
+
+    def unit_cost(self, i, lam):
+        a = self.alpha[i]
+        pos = a > 0
+        if self.util == 'cd':
+            return float(np.prod((lam[pos] / a[pos]) ** a[pos]))
+        sig = 1.0 / (1.0 - self.r)
+        return float(np.sum(a[pos] ** sig * lam[pos] ** (1 - sig)) ** (1.0 / (1 - sig)))
+
+    def best_sum_dual(self, idx, R):
+        """Upper bound (exact at the optimum) on max sum_i u_i over allocations of R: utilities are concave and
+        homogeneous of degree 1, so the dual is min lam.R s.t. unit cost c_i(lam) >= 1 for i in idx."""
+        if self.util == 'cd':
+            # in mu = log lam the constraints are linear and the objective convex
+            A = -self.alpha[idx]
+            b = -np.array([np.sum(np.where(self.alpha[i] > 0, self.alpha[i] * np.log(np.where(self.alpha[i] > 0, self.alpha[i], 1.0)), 0.0)) for i in idx])
+            cons = [dict(type='ineq', fun=lambda mu: b - A @ mu, jac=lambda mu: -A)]
+            r = minimize(lambda mu: R @ np.exp(mu), np.zeros(self.m), jac=lambda mu: R * np.exp(mu),
+                         method='SLSQP', constraints=cons, options=dict(ftol=1e-15, maxiter=2000))
+            lam = np.exp(r.x)
+        else:
+            cons = [dict(type='ineq', fun=lambda l, i=i: self.unit_cost(i, np.maximum(l, 1e-14)) - 1.0) for i in idx]
+            best = None
+            for x0 in (np.ones(self.m), self.equilibrium()[0] * self.m):
+                r = minimize(lambda l: R @ l, x0, method='SLSQP', bounds=[(1e-14, None)] * self.m, constraints=cons,
+                             options=dict(ftol=1e-15, maxiter=2000))
+                if best is None or r.fun < best.fun:
+                    best = r
+            lam = np.maximum(best.x, 1e-14)
+        # make the dual point feasible exactly by scaling (unit cost is homogeneous of degree 1 in lam)
+        cmin = min(self.unit_cost(i, lam) for i in idx)
+        bound = float(R @ (lam / cmin))
+        # second valid bound: lam_k = max_i du_i/dy_ik at the primal optimum (c_i(grad u_i) = 1 by Euler)
+        v, Y = self.best_sum(idx, R)
+        Gr = np.array([self.grad(i, np.maximum(Y[a], 1e-12)) for a, i in enumerate(idx)])
+        lam2 = Gr.max(axis=0)
+        c2 = min(self.unit_cost(i, lam2) for i in idx)
+        if c2 > 0 and np.all(np.isfinite(lam2)):
+            bound = min(bound, float(R @ (lam2 / c2)))
+        return bound
+
+    def grad(self, i, x):
+        a = self.alpha[i]
+        u = self.u(i, x)
+        if self.util == 'cd':
+            return np.where(a > 0, a * u / x, 0.0)
+        return np.where(a > 0, u ** (1 - self.r) * a * x ** (self.r - 1), 0.0)
 
     def leader(self, S, mode='ind', sel='pess'):
         Sm = members(S, self.n)
-        v, Y = self.best_sum(Sm, self.resources(S, sel))
-        return dict(v=float(v), alloc=Y)
+        R = self.resources(S, sel)
+        v, Y = self.best_sum(Sm, R)
+        vhi = self.best_sum_dual(Sm, R) if len(Sm) > 1 else v
+        return dict(v=float(v), v_hi=float(vhi), alloc=Y)
 
     def vN(self):
         return self.leader(full(self.n))
@@ -1277,8 +1559,22 @@ def ntu_dispatch(G, rec, v, L, mode='ind', sel='pess', search=True):
         lb = np.zeros(n)
         x0s = [L[full(n)]['x']] + [L[S]['x'] for S in proper(n)][:6]
     elif isinstance(G, QuadGame):
-        lb = np.where(np.isfinite(G.lb), G.lb, -1e9)
-        x0s = [L[full(n)]['x']] + [L[S]['x'] for S in proper(n)][:4]
+        if mode != 'ind':
+            return dict(verdict='unresolved', method='none (coordinated followers)')
+        w, x = G.ntu_weighted_search(v, mode)
+        if w <= 1e-9:
+            return dict(verdict='nonempty' if w < -1e-9 else 'tight', method='weighted-utilitarian search',
+                        max_bound=w, x=[float(t) for t in x])
+        vs = np.array([v[1 << i] for i in range(n)])
+        bb = G.ntu_bnb(vs, G.menus(mode))
+        if bb['certified_empty']:
+            return dict(verdict='empty', method='branch-and-bound with coalition menus', boxes=bb['boxes'])
+        w2, x2, sing = G.ntu_full_search(v, mode)
+        if w2 <= 1e-9:
+            return dict(verdict='nonempty' if w2 < -1e-9 else 'tight', method='full search', max_bound=w2,
+                        x=[float(t) for t in x2])
+        return dict(verdict='unresolved', method='weighted + full search', best_max_bound=min(w, w2),
+                    singleton_slack=sing, bnb=bb)
     else:
         return dict(verdict='unresolved', method='none')
     w, x = ntu_search(G, v, mode, x0s, lb)
@@ -1377,6 +1673,21 @@ def job(args):
     if fam == 'hombertrand':
         rec['unattained'] = [str(members(S, n)) for S in proper(n) if not L[S]['attained']]
     if fam == 'exchange':
+        vlo = {S: L[S]['v'] for S in L}
+        vhi = {S: L[S]['v_hi'] for S in L}
+        a = dict(vhi); a[full(n)] = vlo[full(n)]          # hardest for nonemptiness
+        b_ = dict(vlo); b_[full(n)] = vhi[full(n)]        # hardest for emptiness
+        ta, tb = tu_core(a, n), tu_core(b_, n)
+        rec['solver_gap'] = float(max(vhi[S] - vlo[S] for S in L))
+        if ta['verdict'] in ('nonempty', 'tight'):
+            rec['tu_certified'] = 'nonempty'
+        elif tb['verdict'] == 'empty':
+            rec['tu_certified'] = 'empty'
+            rec['tu'] = tb
+        else:
+            rec['tu_certified'] = 'unresolved (solver gap)'
+        if rec['tu_certified'] == 'nonempty':
+            rec['tu'] = ta if ta['verdict'] == rec['tu']['verdict'] or rec['tu']['verdict'] == 'empty' else rec['tu']
         rec['scarf'] = dict(concave=True, positive_endowments=bool(np.all(G.omega.sum(axis=1) > 0)),
                             all_goods_present=bool(np.all(G.omega.sum(axis=0) > 0)),
                             zero_weights=bool(np.any(G.alpha == 0)))
