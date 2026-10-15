@@ -1,0 +1,4786 @@
+{
+ "cells": {
+  "S_eq*": {
+   "n": 40,
+   "established": 40,
+   "established_ci": [
+    0.9123754607496077,
+    1.0
+   ],
+   "est_gen_median": 10.0,
+   "est_gen_by_200": 40,
+   "established_window": 28,
+   "est_gen_window_median": 150.0,
+   "fair_at_founding": 18.35,
+   "persistence": 0.083984375,
+   "persistence_ci": [
+    0.009765625,
+    0.17037109374999967
+   ],
+   "persistence_runs_ge_half": 3,
+   "persistence_runs_zero": 34,
+   "wage_shares": [
+    0.449609375,
+    0.46640625,
+    0.083984375
+   ],
+   "zero_wage": 0.449609375,
+   "zero_wage_ci": [
+    0.308583984375,
+    0.604697265625
+   ],
+   "quarter_wage": 0.46640625,
+   "plurality": {
+    "0": 18,
+    "1/4": 19,
+    "1/2": 3
+   },
+   "prodeff": 0.963329584375,
+   "prodeff_ci": [
+    0.9232745604980469,
+    0.9919647176953126
+   ],
+   "strike_any": 0.030078125,
+   "ext": {
+    "n": 40,
+    "gen": 10000,
+    "persistence": 0.07734375,
+    "persistence_ci": [
+     0.005078125,
+     0.1618847656249991
+    ],
+    "zero_wage": 0.47109375,
+    "prodeff": 0.9709278125
+   },
+   "holders": {
+    "mixture": 0.046511627906976744,
+    "open militants": 0.9534883720930233
+   },
+   "holders_detail": {
+    "mixture (pact)": 0.046511627906976744,
+    "open militants": 0.9534883720930233
+   },
+   "fair_islands_counted": 215,
+   "greenbeard_share": 0.023255813953488372,
+   "greenbeard_identity_share": 0.0,
+   "greenbeard_bosses": {
+    "mixture: boss reads probes": 10
+   },
+   "holder_spellings_top": {
+    "if(B>=1/4,work,if(B<=1/4,strike,work)) | if(B=1/2,work,strike)": 61,
+    "if(and(B>=1/4,B>=1/4),work,strike) | if(B=1/2,work,strike)": 34,
+    "if(B=1/2,work,strike) | if(or(B>=1/4,B>=1/4),work,strike)": 29,
+    "if(and(B>=1/4,B>=1/4),work,work) | if(B=1/2,work,strike)": 17,
+    "if(B=1/2,work,strike) | if(and(B=1/2,not(B=1/2)),strike,work)": 12,
+    "if(not(O:S),work,strike) | if(B=1/2,if(B<=1/4,work,work),strike)": 9,
+    "if(B=1/2,work,strike) | work": 9,
+    "work | if(B=1/2,if(B>=1/4,work,work),strike)": 6
+   },
+   "closed_shop_share": 0.08744921874999999,
+   "identity_islands": 0.069140625,
+   "beq_invasion": {
+    "zero": 796,
+    "pos": 6,
+    "neg": 1758
+   },
+   "beq_invasion_T1T1": {},
+   "exits": {
+    "boss cut": 0.7266828872668288,
+    "unread-slot drift then boss cut": 0.137875101378751,
+    "worker drift": 0.07380373073803731,
+    "composition (non-modal)": 0.06163828061638281
+   },
+   "exits_n": 1233,
+   "cross_fair": 0.07791666666666666,
+   "union_compat": 0.9870000000000001,
+   "encounters": {
+    "0": {
+     "todiff": 0.0,
+     "play_median": 424.0,
+     "prod_median": 117063.25,
+     "total_median": 117504.0,
+     "production_outcomes": {
+      "found": 0.5705523664340328,
+      "none": 0.42904270776266584,
+      "refused": 0.00040492580330133625
+     }
+    },
+    "50": {
+     "todiff": 0.019083333333333334,
+     "play_median": 53711.0,
+     "prod_median": 98500.75,
+     "total_median": 157143.5,
+     "production_outcomes": {
+      "none": 0.9857426741948712,
+      "refused": 0.009715168911459484,
+      "capTO": 0.004447528625051257,
+      "fuelTO": 9.462826861811185e-05
+     }
+    },
+    "200": {
+     "todiff": 0.00775,
+     "play_median": 50158.25,
+     "prod_median": 101829.75,
+     "total_median": 159049.75,
+     "production_outcomes": {
+      "none": 0.9853896581121204,
+      "capTO": 0.0024105594261692683,
+      "refused": 0.01199400299850075,
+      "fuelTO": 8.819119851838787e-05,
+      "found": 0.00011758826469118382
+     }
+    },
+    "2000": {
+     "todiff": 0.0030833333333333333,
+     "play_median": 112578.5,
+     "prod_median": 115990.75,
+     "total_median": 242921.0,
+     "production_outcomes": {
+      "none": 0.9723691070231623,
+      "refused": 0.026737171371117897,
+      "capTO": 0.0008937216057198183
+     }
+    }
+   },
+   "failures_by_cost_decile": [
+    {
+     "decile": 1,
+     "failures": 7.0,
+     "attempts": 7.0,
+     "share_of_failures": 0.02766798418972332
+    },
+    {
+     "decile": 2,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 3,
+     "failures": 141.0,
+     "attempts": 92629.0,
+     "share_of_failures": 0.5573122529644269
+    },
+    {
+     "decile": 4,
+     "failures": 8.0,
+     "attempts": 17808.0,
+     "share_of_failures": 0.03162055335968379
+    },
+    {
+     "decile": 5,
+     "failures": 4.0,
+     "attempts": 15443.0,
+     "share_of_failures": 0.015810276679841896
+    },
+    {
+     "decile": 6,
+     "failures": 4.0,
+     "attempts": 13479.0,
+     "share_of_failures": 0.015810276679841896
+    },
+    {
+     "decile": 7,
+     "failures": 0.0,
+     "attempts": 12055.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 8,
+     "failures": 1.0,
+     "attempts": 9942.0,
+     "share_of_failures": 0.003952569169960474
+    },
+    {
+     "decile": 9,
+     "failures": 4.0,
+     "attempts": 8028.0,
+     "share_of_failures": 0.015810276679841896
+    },
+    {
+     "decile": 10,
+     "failures": 84.0,
+     "attempts": 5681.0,
+     "share_of_failures": 0.33201581027667987
+    }
+   ],
+   "realized_cost": {
+    "median_play": 35279.5,
+    "median_play_plus_prod": 142650.0,
+    "ratio": 4.043424651709916,
+    "mean_play": 74740.32139583334,
+    "mean_prod": 113042.0221875,
+    "frac_encounter_with_attempt": 0.9714166666666667,
+    "failures": 253.0,
+    "attempts": 175072.0
+   },
+   "counters": {
+    "encounters": 151628312.0,
+    "boss_attempts": 118537627.0,
+    "boss_found": 599228.0,
+    "boss_none": 115445481.0,
+    "boss_capTO": 2408683.0,
+    "boss_starved": 84235.0,
+    "worker_attempts": 181369632.0,
+    "worker_found": 723378.0,
+    "worker_none": 176823350.0,
+    "worker_capTO": 3822904.0,
+    "worker_starved": 0.0,
+    "gate_refusals": 817382.0,
+    "boss_replacements": 400443.0,
+    "worker_replacements": 649735.0,
+    "quiet_checks": 11848159.0,
+    "migrations": 10201204.0,
+    "moran_events": 1266854667.0,
+    "boss_prod_steps": 5685612774033.0,
+    "worker_prod_steps": 10910007395985.0
+   },
+   "spo_held": {
+    "individuals": 0,
+    "of": 512000
+   },
+   "time_s": {
+    "mean": 792.4633610069752
+   }
+  },
+  "N6": {
+   "n": 5,
+   "established": 5,
+   "established_ci": [
+    0.565508505247919,
+    1.0000000000000002
+   ],
+   "est_gen_median": 10.0,
+   "est_gen_by_200": 5,
+   "established_window": 4,
+   "est_gen_window_median": 160.0,
+   "fair_at_founding": 17.2,
+   "persistence": 0.034375,
+   "persistence_ci": [
+    0.0,
+    0.103125
+   ],
+   "persistence_runs_ge_half": 0,
+   "persistence_runs_zero": 4,
+   "wage_shares": [
+    0.565625,
+    0.4,
+    0.034375
+   ],
+   "zero_wage": 0.565625,
+   "zero_wage_ci": [
+    0.165625,
+    0.965625
+   ],
+   "quarter_wage": 0.4,
+   "plurality": {
+    "0": 3,
+    "1/4": 2,
+    "1/2": 0
+   },
+   "prodeff": 0.9320169,
+   "prodeff_ci": [
+    0.7981637750000001,
+    1.0
+   ],
+   "strike_any": 0.059375,
+   "ext": {
+    "n": 5,
+    "gen": 10000,
+    "persistence": 0.034375,
+    "persistence_ci": [
+     0.0,
+     0.103125
+    ],
+    "zero_wage": 0.565625,
+    "prodeff": 0.9720493749999999
+   },
+   "holders": {
+    "mixture": 0.9090909090909091,
+    "open militants": 0.09090909090909091
+   },
+   "holders_detail": {
+    "mixture (pact)": 0.9090909090909091,
+    "open militants": 0.09090909090909091
+   },
+   "fair_islands_counted": 11,
+   "greenbeard_share": 0.45454545454545453,
+   "greenbeard_identity_share": 0.0,
+   "greenbeard_bosses": {
+    "mixture: boss reads probes": 10
+   },
+   "holder_spellings_top": {
+    "if(not(O:S),work,strike) | if(B=1/2,if(B<=1/4,work,work),strike)": 9,
+    "if(not(O:S),work,strike) | if(and(B<=1/4,not(B=1/2)),strike,work)": 1,
+    "if(B<=1/4,if(B<=1/4,strike,strike),work) | if(B=1/2,if(B<=1/4,work,work),strike)": 1
+   },
+   "closed_shop_share": 0.0,
+   "identity_islands": 0.0,
+   "beq_invasion": {
+    "zero": 134,
+    "pos": 6,
+    "neg": 180
+   },
+   "beq_invasion_T1T1": {},
+   "exits": {
+    "boss cut": 0.5964912280701754,
+    "unread-slot drift then boss cut": 0.21052631578947367,
+    "worker drift": 0.13450292397660818,
+    "composition (non-modal)": 0.05847953216374269
+   },
+   "exits_n": 171,
+   "cross_fair": 0.030333333333333334,
+   "union_compat": 1.0,
+   "encounters": {
+    "0": {
+     "todiff": 0.0,
+     "play_median": 425.0,
+     "prod_median": 116188.5,
+     "total_median": 116700.0,
+     "production_outcomes": {
+      "found": 0.5662983425414365,
+      "none": 0.4335111449799962,
+      "refused": 0.00019051247856734617
+     }
+    },
+    "50": {
+     "todiff": 0.022,
+     "play_median": 55717.0,
+     "prod_median": 99187.5,
+     "total_median": 164349.0,
+     "production_outcomes": {
+      "none": 0.9821122273952463,
+      "refused": 0.014212202891448174,
+      "capTO": 0.0036755697133055622
+     }
+    },
+    "200": {
+     "todiff": 0.012,
+     "play_median": 40564.5,
+     "prod_median": 107070.5,
+     "total_median": 157215.5,
+     "production_outcomes": {
+      "none": 0.9823747680890538,
+      "capTO": 0.00487012987012987,
+      "refused": 0.012523191094619666,
+      "fuelTO": 0.00023191094619666049
+     }
+    },
+    "2000": {
+     "todiff": 0.0,
+     "play_median": 126695.0,
+     "prod_median": 138290.0,
+     "total_median": 276851.0,
+     "production_outcomes": {
+      "none": 1.0
+     }
+    }
+   },
+   "failures_by_cost_decile": [
+    {
+     "decile": 1,
+     "failures": 4.0,
+     "attempts": 4.0,
+     "share_of_failures": 0.10810810810810811
+    },
+    {
+     "decile": 2,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 3,
+     "failures": 15.0,
+     "attempts": 11566.0,
+     "share_of_failures": 0.40540540540540543
+    },
+    {
+     "decile": 4,
+     "failures": 0.0,
+     "attempts": 2293.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 5,
+     "failures": 0.0,
+     "attempts": 2034.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 6,
+     "failures": 0.0,
+     "attempts": 1923.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 7,
+     "failures": 0.0,
+     "attempts": 1610.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 8,
+     "failures": 0.0,
+     "attempts": 1326.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 9,
+     "failures": 0.0,
+     "attempts": 1185.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 10,
+     "failures": 18.0,
+     "attempts": 810.0,
+     "share_of_failures": 0.4864864864864865
+    }
+   ],
+   "realized_cost": {
+    "median_play": 41464.0,
+    "median_play_plus_prod": 150236.5,
+    "ratio": 3.6232997298861664,
+    "mean_play": 71233.723,
+    "mean_prod": 122083.0115,
+    "frac_encounter_with_attempt": 0.9736666666666667,
+    "failures": 37.0,
+    "attempts": 22751.0
+   },
+   "counters": {
+    "encounters": 18814946.0,
+    "boss_attempts": 14974266.0,
+    "boss_found": 74406.0,
+    "boss_none": 14578268.0,
+    "boss_capTO": 310656.0,
+    "boss_starved": 10936.0,
+    "worker_attempts": 22429033.0,
+    "worker_found": 90450.0,
+    "worker_none": 21844577.0,
+    "worker_capTO": 494006.0,
+    "worker_starved": 0.0,
+    "gate_refusals": 114209.0,
+    "boss_replacements": 49838.0,
+    "worker_replacements": 81125.0,
+    "quiet_checks": 1564534.0,
+    "migrations": 1322824.0,
+    "moran_events": 162030884.0,
+    "boss_prod_steps": 720272580717.0,
+    "worker_prod_steps": 1359365145208.0
+   },
+   "spo_held": {
+    "individuals": 0,
+    "of": 64000
+   },
+   "time_s": {
+    "mean": 801.400996017456
+   }
+  },
+  "L2_6": {
+   "n": 5,
+   "established": 5,
+   "established_ci": [
+    0.565508505247919,
+    1.0000000000000002
+   ],
+   "est_gen_median": 10.0,
+   "est_gen_by_200": 5,
+   "established_window": 4,
+   "est_gen_window_median": 160.0,
+   "fair_at_founding": 17.2,
+   "persistence": 0.034375,
+   "persistence_ci": [
+    0.0,
+    0.103125
+   ],
+   "persistence_runs_ge_half": 0,
+   "persistence_runs_zero": 4,
+   "wage_shares": [
+    0.565625,
+    0.4,
+    0.034375
+   ],
+   "zero_wage": 0.565625,
+   "zero_wage_ci": [
+    0.165625,
+    0.965625
+   ],
+   "quarter_wage": 0.4,
+   "plurality": {
+    "0": 3,
+    "1/4": 2,
+    "1/2": 0
+   },
+   "prodeff": 0.9320169,
+   "prodeff_ci": [
+    0.7981637750000001,
+    1.0
+   ],
+   "strike_any": 0.059375,
+   "ext": {
+    "n": 5,
+    "gen": 10000,
+    "persistence": 0.034375,
+    "persistence_ci": [
+     0.0,
+     0.103125
+    ],
+    "zero_wage": 0.565625,
+    "prodeff": 0.9720493749999999
+   },
+   "holders": {
+    "mixture": 0.9090909090909091,
+    "open militants": 0.09090909090909091
+   },
+   "holders_detail": {
+    "mixture (pact)": 0.9090909090909091,
+    "open militants": 0.09090909090909091
+   },
+   "fair_islands_counted": 11,
+   "greenbeard_share": 0.45454545454545453,
+   "greenbeard_identity_share": 0.0,
+   "greenbeard_bosses": {
+    "mixture: boss reads probes": 10
+   },
+   "holder_spellings_top": {
+    "if(not(O:S),work,strike) | if(B=1/2,if(B<=1/4,work,work),strike)": 9,
+    "if(not(O:S),work,strike) | if(and(B<=1/4,not(B=1/2)),strike,work)": 1,
+    "if(B<=1/4,if(B<=1/4,strike,strike),work) | if(B=1/2,if(B<=1/4,work,work),strike)": 1
+   },
+   "closed_shop_share": 0.0,
+   "identity_islands": 0.0,
+   "beq_invasion": {
+    "zero": 134,
+    "pos": 6,
+    "neg": 180
+   },
+   "beq_invasion_T1T1": {},
+   "exits": {
+    "boss cut": 0.5964912280701754,
+    "unread-slot drift then boss cut": 0.21052631578947367,
+    "worker drift": 0.13450292397660818,
+    "composition (non-modal)": 0.05847953216374269
+   },
+   "exits_n": 171,
+   "cross_fair": 0.030333333333333334,
+   "union_compat": 1.0,
+   "encounters": {
+    "0": {
+     "todiff": 0.0,
+     "play_median": 425.0,
+     "prod_median": 116188.5,
+     "total_median": 116700.0,
+     "production_outcomes": {
+      "found": 0.5662983425414365,
+      "none": 0.4335111449799962,
+      "refused": 0.00019051247856734617
+     }
+    },
+    "50": {
+     "todiff": 0.022,
+     "play_median": 55717.0,
+     "prod_median": 99187.5,
+     "total_median": 164349.0,
+     "production_outcomes": {
+      "none": 0.9821122273952463,
+      "refused": 0.014212202891448174,
+      "capTO": 0.0036755697133055622
+     }
+    },
+    "200": {
+     "todiff": 0.012,
+     "play_median": 40564.5,
+     "prod_median": 107070.5,
+     "total_median": 157215.5,
+     "production_outcomes": {
+      "none": 0.9823747680890538,
+      "capTO": 0.00487012987012987,
+      "refused": 0.012523191094619666,
+      "fuelTO": 0.00023191094619666049
+     }
+    },
+    "2000": {
+     "todiff": 0.0,
+     "play_median": 126695.0,
+     "prod_median": 138290.0,
+     "total_median": 276851.0,
+     "production_outcomes": {
+      "none": 1.0
+     }
+    }
+   },
+   "failures_by_cost_decile": [
+    {
+     "decile": 1,
+     "failures": 4.0,
+     "attempts": 4.0,
+     "share_of_failures": 0.10810810810810811
+    },
+    {
+     "decile": 2,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 3,
+     "failures": 15.0,
+     "attempts": 11566.0,
+     "share_of_failures": 0.40540540540540543
+    },
+    {
+     "decile": 4,
+     "failures": 0.0,
+     "attempts": 2293.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 5,
+     "failures": 0.0,
+     "attempts": 2034.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 6,
+     "failures": 0.0,
+     "attempts": 1923.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 7,
+     "failures": 0.0,
+     "attempts": 1610.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 8,
+     "failures": 0.0,
+     "attempts": 1326.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 9,
+     "failures": 0.0,
+     "attempts": 1185.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 10,
+     "failures": 18.0,
+     "attempts": 810.0,
+     "share_of_failures": 0.4864864864864865
+    }
+   ],
+   "realized_cost": {
+    "median_play": 41464.0,
+    "median_play_plus_prod": 150236.5,
+    "ratio": 3.6232997298861664,
+    "mean_play": 71233.723,
+    "mean_prod": 122083.0115,
+    "frac_encounter_with_attempt": 0.9736666666666667,
+    "failures": 37.0,
+    "attempts": 22751.0
+   },
+   "counters": {
+    "encounters": 18814946.0,
+    "boss_attempts": 523836.0,
+    "boss_found": 74406.0,
+    "boss_none": 128785.0,
+    "boss_capTO": 309709.0,
+    "boss_starved": 10936.0,
+    "worker_attempts": 691947.0,
+    "worker_found": 90450.0,
+    "worker_none": 275231.0,
+    "worker_capTO": 326266.0,
+    "worker_starved": 0.0,
+    "gate_refusals": 114209.0,
+    "boss_replacements": 49838.0,
+    "worker_replacements": 81125.0,
+    "quiet_checks": 1563596.0,
+    "migrations": 1322824.0,
+    "moran_events": 162030884.0,
+    "boss_prod_steps": 84899863229.0,
+    "worker_prod_steps": 102906974864.0
+   },
+   "spo_held": {
+    "individuals": 0,
+    "of": 64000
+   },
+   "time_s": {
+    "mean": 767.5875925540925
+   }
+  },
+  "L1_6": {
+   "n": 20,
+   "established": 20,
+   "established_ci": [
+    0.8388698745050667,
+    0.9999999999999998
+   ],
+   "est_gen_median": 10.0,
+   "est_gen_by_200": 20,
+   "established_window": 13,
+   "est_gen_window_median": 210.0,
+   "fair_at_founding": 18.85,
+   "persistence": 0.0140625,
+   "persistence_ci": [
+    0.0,
+    0.0421875
+   ],
+   "persistence_runs_ge_half": 0,
+   "persistence_runs_zero": 19,
+   "wage_shares": [
+    0.5125,
+    0.4734375,
+    0.0140625
+   ],
+   "zero_wage": 0.5125,
+   "zero_wage_ci": [
+    0.30703125,
+    0.7101757812499999
+   ],
+   "quarter_wage": 0.4734375,
+   "plurality": {
+    "0": 11,
+    "1/4": 9,
+    "1/2": 0
+   },
+   "prodeff": 0.92406351015625,
+   "prodeff_ci": [
+    0.8435484278124998,
+    0.9833184695703125
+   ],
+   "strike_any": 0.06328125,
+   "ext": {
+    "n": 20,
+    "gen": 10000,
+    "persistence": 0.0,
+    "persistence_ci": [
+     0.0,
+     0.0
+    ],
+    "zero_wage": 0.4578125,
+    "prodeff": 0.8971103125
+   },
+   "holders": {
+    "open militants": 1.0
+   },
+   "holders_detail": {
+    "open militants": 1.0
+   },
+   "fair_islands_counted": 18,
+   "greenbeard_share": 0.0,
+   "greenbeard_identity_share": 0.0,
+   "greenbeard_bosses": {},
+   "holder_spellings_top": {
+    "if(not(or(B=1/2,B=1/2)),work,work) | if(B=1/2,work,strike)": 9,
+    "work | if(B=1/2,work,strike)": 8,
+    "if(not(or(B>=1/4,B<=1/4)),strike,work) | if(B=1/2,work,strike)": 1
+   },
+   "closed_shop_share": 0.056125,
+   "identity_islands": 0.0,
+   "beq_invasion": {
+    "zero": 352,
+    "neg": 927,
+    "pos": 1
+   },
+   "beq_invasion_T1T1": {},
+   "exits": {
+    "boss cut": 0.7857142857142857,
+    "unread-slot drift then boss cut": 0.1054421768707483,
+    "worker drift": 0.06802721088435375,
+    "composition (non-modal)": 0.04081632653061224
+   },
+   "exits_n": 588,
+   "cross_fair": 0.016833333333333332,
+   "union_compat": 1.0,
+   "encounters": {
+    "0": {
+     "todiff": 0.041833333333333333,
+     "play_median": 58037.5,
+     "prod_median": 123343.25,
+     "total_median": 179954.25,
+     "production_outcomes": {
+      "none": 0.8647186750683098,
+      "found": 0.11420286622427926,
+      "capTO": 0.01923827580438298,
+      "fuelTO": 0.0009479730106507556,
+      "refused": 0.0008922098923771817
+     }
+    },
+    "50": {
+     "todiff": 0.021166666666666667,
+     "play_median": 53699.5,
+     "prod_median": 98974.0,
+     "total_median": 154798.25,
+     "production_outcomes": {
+      "none": 0.9821892628509856,
+      "capTO": 0.0068454078722190535,
+      "refused": 0.010775179058122584,
+      "found": 0.00012676681244850097,
+      "fuelTO": 6.338340622425049e-05
+     }
+    },
+    "200": {
+     "todiff": 0.011,
+     "play_median": 40361.5,
+     "prod_median": 98396.5,
+     "total_median": 147263.0,
+     "production_outcomes": {
+      "none": 0.9796266855090384,
+      "refused": 0.017429193899782137,
+      "capTO": 0.0028852381793558262,
+      "fuelTO": 5.8882411823588296e-05
+     }
+    },
+    "2000": {
+     "todiff": 0.0,
+     "play_median": 85079.0,
+     "prod_median": 92802.0,
+     "total_median": 199566.5,
+     "production_outcomes": {
+      "none": 0.9666410775350688,
+      "refused": 0.03335892246493126
+     }
+    }
+   },
+   "failures_by_cost_decile": [
+    {
+     "decile": 1,
+     "failures": 440.0,
+     "attempts": 8014.0,
+     "share_of_failures": 0.8445297504798465
+    },
+    {
+     "decile": 2,
+     "failures": 6.0,
+     "attempts": 8884.0,
+     "share_of_failures": 0.011516314779270634
+    },
+    {
+     "decile": 3,
+     "failures": 6.0,
+     "attempts": 8057.0,
+     "share_of_failures": 0.011516314779270634
+    },
+    {
+     "decile": 4,
+     "failures": 6.0,
+     "attempts": 7354.0,
+     "share_of_failures": 0.011516314779270634
+    },
+    {
+     "decile": 5,
+     "failures": 2.0,
+     "attempts": 6840.0,
+     "share_of_failures": 0.003838771593090211
+    },
+    {
+     "decile": 6,
+     "failures": 1.0,
+     "attempts": 6408.0,
+     "share_of_failures": 0.0019193857965451055
+    },
+    {
+     "decile": 7,
+     "failures": 0.0,
+     "attempts": 5887.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 8,
+     "failures": 1.0,
+     "attempts": 4864.0,
+     "share_of_failures": 0.0019193857965451055
+    },
+    {
+     "decile": 9,
+     "failures": 3.0,
+     "attempts": 4566.0,
+     "share_of_failures": 0.005758157389635317
+    },
+    {
+     "decile": 10,
+     "failures": 56.0,
+     "attempts": 3188.0,
+     "share_of_failures": 0.10748560460652591
+    }
+   ],
+   "realized_cost": {
+    "median_play": 65101.0,
+    "median_play_plus_prod": 170475.0,
+    "ratio": 2.618623369840709,
+    "mean_play": 94357.97179166667,
+    "mean_prod": 117453.06120833334,
+    "frac_encounter_with_attempt": 0.9891666666666666,
+    "failures": 521.0,
+    "attempts": 64062.0
+   },
+   "counters": {
+    "encounters": 76144548.0,
+    "boss_attempts": 58954424.0,
+    "boss_found": 85648.0,
+    "boss_none": 57608968.0,
+    "boss_capTO": 1214129.0,
+    "boss_starved": 45679.0,
+    "worker_attempts": 90641281.0,
+    "worker_found": 62545.0,
+    "worker_none": 88643870.0,
+    "worker_capTO": 1934866.0,
+    "worker_starved": 0.0,
+    "gate_refusals": 447165.0,
+    "boss_replacements": 71489.0,
+    "worker_replacements": 62545.0,
+    "quiet_checks": 5763993.0,
+    "migrations": 5238230.0,
+    "moran_events": 663024063.0,
+    "boss_prod_steps": 2844714340272.0,
+    "worker_prod_steps": 5487412943923.0
+   },
+   "spo_held": {
+    "individuals": 0,
+    "of": 256000
+   },
+   "time_s": {
+    "mean": 579.924267923832
+   }
+  },
+  "N3": {
+   "n": 40,
+   "established": 40,
+   "established_ci": [
+    0.9123754607496077,
+    1.0
+   ],
+   "est_gen_median": 10.0,
+   "est_gen_by_200": 40,
+   "established_window": 25,
+   "est_gen_window_median": 150.0,
+   "fair_at_founding": 18.35,
+   "persistence": 0.034375,
+   "persistence_ci": [
+    0.001171875,
+    0.075
+   ],
+   "persistence_runs_ge_half": 1,
+   "persistence_runs_zero": 35,
+   "wage_shares": [
+    0.56875,
+    0.396875,
+    0.034375
+   ],
+   "zero_wage": 0.56875,
+   "zero_wage_ci": [
+    0.421845703125,
+    0.7058789062499998
+   ],
+   "quarter_wage": 0.396875,
+   "plurality": {
+    "0": 23,
+    "1/4": 16,
+    "1/2": 1
+   },
+   "prodeff": 0.9423063765624999,
+   "prodeff_ci": [
+    0.8926917209570312,
+    0.9820924570117188
+   ],
+   "strike_any": 0.053515625,
+   "ext": {
+    "n": 40,
+    "gen": 10000,
+    "persistence": 0.0140625,
+    "persistence_ci": [
+     0.0,
+     0.041796875
+    ],
+    "zero_wage": 0.6109375,
+    "prodeff": 0.9400234375000001
+   },
+   "holders": {
+    "open militants": 0.9886363636363636,
+    "mixture": 0.011363636363636364
+   },
+   "holders_detail": {
+    "open militants": 0.9886363636363636,
+    "mixture (pact)": 0.011363636363636364
+   },
+   "fair_islands_counted": 88,
+   "greenbeard_share": 0.005681818181818182,
+   "greenbeard_identity_share": 0.0,
+   "greenbeard_bosses": {
+    "mixture: boss reads probes": 1
+   },
+   "holder_spellings_top": {
+    "if(or(B=1/2,B<=1/4),work,work) | if(B>=1/4,if(EQ,strike,work),strike)": 31,
+    "if(B=1/2,work,strike) | if(or(B>=1/4,not(B=1/2)),work,strike)": 24,
+    "if(B<=1/4,strike,if(B<=1/4,work,work)) | if(or(B=1/2,B=1/2),work,strike)": 14,
+    "if(B<=1/4,work,if(B<=1/4,strike,work)) | if(B>=1/4,if(EQ,strike,work),strike)": 8,
+    "if(B=1/2,work,strike) | if(and(not(B<=1/4),B=1/2),work,work)": 4,
+    "if(not(and(B<=1/4,B>=1/4)),work,work) | if(B>=1/4,if(EQ,strike,work),strike)": 2,
+    "if(or(not(B<=1/4),B>=1/4),work,strike) | if(or(B=1/2,B=1/2),work,strike)": 2,
+    "if(B<=1/4,strike,if(B<=1/4,work,work)) | if(B>=1/4,work,strike)": 1
+   },
+   "closed_shop_share": 0.094484375,
+   "identity_islands": 0.007421875,
+   "beq_invasion": {
+    "zero": 1004,
+    "neg": 1556
+   },
+   "beq_invasion_T1T1": {},
+   "exits": {
+    "boss cut": 0.76010101010101,
+    "unread-slot drift then boss cut": 0.11952861952861953,
+    "worker drift": 0.0765993265993266,
+    "composition (non-modal)": 0.04377104377104377
+   },
+   "exits_n": 1188,
+   "cross_fair": 0.03529166666666667,
+   "union_compat": 1.0,
+   "encounters": {
+    "0": {
+     "todiff": 0.0,
+     "play_median": 423.0,
+     "prod_median": 116293.5,
+     "total_median": 116803.25,
+     "production_outcomes": {
+      "found": 0.570936852385603,
+      "none": 0.42861056192086894,
+      "refused": 0.0004525856935280246
+     }
+    },
+    "50": {
+     "todiff": 0.0068333333333333345,
+     "play_median": 49488.0,
+     "prod_median": 97687.75,
+     "total_median": 149796.75,
+     "production_outcomes": {
+      "none": 0.9883422124725791,
+      "capTO": 0.0028831087433406457,
+      "refused": 0.008649326230021936,
+      "found": 3.133813851457223e-05,
+      "fuelTO": 9.40144155437167e-05
+     }
+    },
+    "200": {
+     "todiff": 0.0016666666666666666,
+     "play_median": 42041.0,
+     "prod_median": 100245.5,
+     "total_median": 150053.5,
+     "production_outcomes": {
+      "none": 0.986040276280127,
+      "capTO": 0.0008743041995745053,
+      "refused": 0.013056276046979278,
+      "found": 2.9143473319150176e-05
+     }
+    },
+    "2000": {
+     "todiff": 0.0,
+     "play_median": 108672.5,
+     "prod_median": 93569.0,
+     "total_median": 201840.0,
+     "production_outcomes": {
+      "none": 0.970029764959458,
+      "refused": 0.02997023504054193
+     }
+    }
+   },
+   "failures_by_cost_decile": [
+    {
+     "decile": 1,
+     "failures": 1.0,
+     "attempts": 1.0,
+     "share_of_failures": 0.008
+    },
+    {
+     "decile": 2,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 3,
+     "failures": 118.0,
+     "attempts": 92581.0,
+     "share_of_failures": 0.944
+    },
+    {
+     "decile": 4,
+     "failures": 2.0,
+     "attempts": 18090.0,
+     "share_of_failures": 0.016
+    },
+    {
+     "decile": 5,
+     "failures": 0.0,
+     "attempts": 15872.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 6,
+     "failures": 3.0,
+     "attempts": 14201.0,
+     "share_of_failures": 0.024
+    },
+    {
+     "decile": 7,
+     "failures": 1.0,
+     "attempts": 12180.0,
+     "share_of_failures": 0.008
+    },
+    {
+     "decile": 8,
+     "failures": 0.0,
+     "attempts": 10443.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 9,
+     "failures": 0.0,
+     "attempts": 8577.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 10,
+     "failures": 0.0,
+     "attempts": 5831.0,
+     "share_of_failures": 0.0
+    }
+   ],
+   "realized_cost": {
+    "median_play": 30425.0,
+    "median_play_plus_prod": 138415.5,
+    "ratio": 4.549400164338538,
+    "mean_play": 68563.07529166667,
+    "mean_prod": 110718.524125,
+    "frac_encounter_with_attempt": 0.9825416666666666,
+    "failures": 125.0,
+    "attempts": 177776.0
+   },
+   "counters": {
+    "encounters": 155398145.0,
+    "boss_attempts": 124289143.0,
+    "boss_found": 610319.0,
+    "boss_none": 121190341.0,
+    "boss_capTO": 2400014.0,
+    "boss_starved": 88469.0,
+    "worker_attempts": 186246596.0,
+    "worker_found": 723384.0,
+    "worker_none": 183300699.0,
+    "worker_capTO": 2222513.0,
+    "worker_starved": 0.0,
+    "gate_refusals": 973561.0,
+    "boss_replacements": 407041.0,
+    "worker_replacements": 649731.0,
+    "quiet_checks": 12010609.0,
+    "migrations": 10281733.0,
+    "moran_events": 1266860554.0,
+    "boss_prod_steps": 7082561128055.0,
+    "worker_prod_steps": 12272262779780.0
+   },
+   "spo_held": {
+    "individuals": 0,
+    "of": 512000
+   },
+   "time_s": {
+    "mean": 974.1234739720821
+   }
+  },
+  "L1_3": {
+   "n": 40,
+   "established": 40,
+   "established_ci": [
+    0.9123754607496077,
+    1.0
+   ],
+   "est_gen_median": 10.0,
+   "est_gen_by_200": 40,
+   "established_window": 29,
+   "est_gen_window_median": 140.0,
+   "fair_at_founding": 18.875,
+   "persistence": 0.00234375,
+   "persistence_ci": [
+    0.0,
+    0.005859375
+   ],
+   "persistence_runs_ge_half": 0,
+   "persistence_runs_zero": 38,
+   "wage_shares": [
+    0.4078125,
+    0.58984375,
+    0.00234375
+   ],
+   "zero_wage": 0.4078125,
+   "zero_wage_ci": [
+    0.26171875,
+    0.558212890625
+   ],
+   "quarter_wage": 0.58984375,
+   "plurality": {
+    "0": 16,
+    "1/4": 24,
+    "1/2": 0
+   },
+   "prodeff": 0.9386693359375,
+   "prodeff_ci": [
+    0.8648830341796875,
+    0.9907002900390625
+   ],
+   "strike_any": 0.055859375,
+   "ext": {
+    "n": 40,
+    "gen": 10000,
+    "persistence": 0.0,
+    "persistence_ci": [
+     0.0,
+     0.0
+    ],
+    "zero_wage": 0.4,
+    "prodeff": 0.9291237109375
+   },
+   "holders": {
+    "open militants": 1.0
+   },
+   "holders_detail": {
+    "open militants": 1.0
+   },
+   "fair_islands_counted": 6,
+   "greenbeard_share": 0.0,
+   "greenbeard_identity_share": 0.0,
+   "greenbeard_bosses": {},
+   "holder_spellings_top": {
+    "if(B<=1/4,if(B=1/2,strike,strike),work) | if(B=1/2,work,strike)": 3,
+    "if(and(B<=1/4,B>=1/4),work,work) | if(B=1/2,work,strike)": 2,
+    "if(or(B<=1/4,not(B<=1/4)),work,strike) | if(B=1/2,work,strike)": 1
+   },
+   "closed_shop_share": 0.024019531250000004,
+   "identity_islands": 0.00234375,
+   "beq_invasion": {
+    "neg": 2065,
+    "zero": 495
+   },
+   "beq_invasion_T1T1": {},
+   "exits": {
+    "boss cut": 0.7769296013570822,
+    "unread-slot drift then boss cut": 0.0899067005937235,
+    "worker drift": 0.08057675996607294,
+    "composition (non-modal)": 0.05258693808312129
+   },
+   "exits_n": 1179,
+   "cross_fair": 0.004166666666666667,
+   "union_compat": 1.0,
+   "encounters": {
+    "0": {
+     "todiff": 0.03816666666666667,
+     "play_median": 58019.5,
+     "prod_median": 123266.25,
+     "total_median": 179954.25,
+     "production_outcomes": {
+      "none": 0.8673523280055594,
+      "found": 0.11432939541348158,
+      "capTO": 0.016511466296038915,
+      "fuelTO": 0.0008061153578874218,
+      "refused": 0.0010006949270326617
+     }
+    },
+    "50": {
+     "todiff": 0.009666666666666667,
+     "play_median": 50523.0,
+     "prod_median": 99325.25,
+     "total_median": 155774.25,
+     "production_outcomes": {
+      "none": 0.9868763932058648,
+      "capTO": 0.0028256569652444193,
+      "refused": 0.010109572697874478,
+      "found": 0.0001255847540108631,
+      "fuelTO": 6.279237700543154e-05
+     }
+    },
+    "200": {
+     "todiff": 0.0034166666666666664,
+     "play_median": 42040.0,
+     "prod_median": 98532.0,
+     "total_median": 148347.0,
+     "production_outcomes": {
+      "none": 0.982695270830864,
+      "refused": 0.01558610880644779,
+      "capTO": 0.0014519378926158588,
+      "fuelTO": 8.889415669076685e-05,
+      "found": 0.0001777883133815337
+     }
+    },
+    "2000": {
+     "todiff": 0.0,
+     "play_median": 118724.0,
+     "prod_median": 110684.5,
+     "total_median": 205247.0,
+     "production_outcomes": {
+      "none": 0.9913702536395017,
+      "refused": 0.008629746360498274
+     }
+    }
+   },
+   "failures_by_cost_decile": [
+    {
+     "decile": 1,
+     "failures": 731.0,
+     "attempts": 16859.0,
+     "share_of_failures": 0.9530638852672751
+    },
+    {
+     "decile": 2,
+     "failures": 10.0,
+     "attempts": 17691.0,
+     "share_of_failures": 0.01303780964797914
+    },
+    {
+     "decile": 3,
+     "failures": 9.0,
+     "attempts": 15804.0,
+     "share_of_failures": 0.011734028683181226
+    },
+    {
+     "decile": 4,
+     "failures": 7.0,
+     "attempts": 14699.0,
+     "share_of_failures": 0.009126466753585397
+    },
+    {
+     "decile": 5,
+     "failures": 6.0,
+     "attempts": 13491.0,
+     "share_of_failures": 0.007822685788787484
+    },
+    {
+     "decile": 6,
+     "failures": 1.0,
+     "attempts": 12420.0,
+     "share_of_failures": 0.001303780964797914
+    },
+    {
+     "decile": 7,
+     "failures": 0.0,
+     "attempts": 11310.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 8,
+     "failures": 3.0,
+     "attempts": 10020.0,
+     "share_of_failures": 0.003911342894393742
+    },
+    {
+     "decile": 9,
+     "failures": 0.0,
+     "attempts": 8330.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 10,
+     "failures": 0.0,
+     "attempts": 6488.0,
+     "share_of_failures": 0.0
+    }
+   ],
+   "realized_cost": {
+    "median_play": 70178.5,
+    "median_play_plus_prod": 178441.0,
+    "ratio": 2.5426733258761587,
+    "mean_play": 122533.7278125,
+    "mean_prod": 127553.38758333333,
+    "frac_encounter_with_attempt": 0.986875,
+    "failures": 767.0,
+    "attempts": 127112.0
+   },
+   "counters": {
+    "encounters": 154089939.0,
+    "boss_attempts": 120863676.0,
+    "boss_found": 179080.0,
+    "boss_none": 118162756.0,
+    "boss_capTO": 2430537.0,
+    "boss_starved": 91303.0,
+    "worker_attempts": 183024783.0,
+    "worker_found": 125585.0,
+    "worker_none": 180672371.0,
+    "worker_capTO": 2226827.0,
+    "worker_starved": 0.0,
+    "gate_refusals": 931480.0,
+    "boss_replacements": 148359.0,
+    "worker_replacements": 125585.0,
+    "quiet_checks": 11349761.0,
+    "migrations": 10006019.0,
+    "moran_events": 1253811876.0,
+    "boss_prod_steps": 7005954747559.0,
+    "worker_prod_steps": 12212256412858.0
+   },
+   "spo_held": {
+    "individuals": 0,
+    "of": 512000
+   },
+   "time_s": {
+    "mean": 647.5486527979374
+   }
+  },
+  "L1W_3": {
+   "n": 5,
+   "established": 5,
+   "established_ci": [
+    0.565508505247919,
+    1.0000000000000002
+   ],
+   "est_gen_median": 10.0,
+   "est_gen_by_200": 5,
+   "established_window": 1,
+   "est_gen_window_median": 190.0,
+   "fair_at_founding": 17.2,
+   "persistence": 0.0,
+   "persistence_ci": [
+    0.0,
+    0.0
+   ],
+   "persistence_runs_ge_half": 0,
+   "persistence_runs_zero": 5,
+   "wage_shares": [
+    0.25625,
+    0.74375,
+    0.0
+   ],
+   "zero_wage": 0.25625,
+   "zero_wage_ci": [
+    0.0,
+    0.65625
+   ],
+   "quarter_wage": 0.74375,
+   "plurality": {
+    "0": 1,
+    "1/4": 4,
+    "1/2": 0
+   },
+   "prodeff": 0.9862478124999999,
+   "prodeff_ci": [
+    0.9587434375000001,
+    1.0
+   ],
+   "strike_any": 0.009375,
+   "ext": {
+    "n": 5,
+    "gen": 10000,
+    "persistence": 0.0,
+    "persistence_ci": [
+     0.0,
+     0.0
+    ],
+    "zero_wage": 0.4,
+    "prodeff": 1.0
+   },
+   "holders": {},
+   "holders_detail": {},
+   "fair_islands_counted": 0,
+   "greenbeard_share": 0.0,
+   "greenbeard_identity_share": 0.0,
+   "greenbeard_bosses": {},
+   "holder_spellings_top": {},
+   "closed_shop_share": 0.0,
+   "identity_islands": 0.0,
+   "beq_invasion": {
+    "zero": 67,
+    "neg": 253
+   },
+   "beq_invasion_T1T1": {},
+   "exits": {
+    "boss cut": 0.7704918032786885,
+    "unread-slot drift then boss cut": 0.09836065573770492,
+    "worker drift": 0.07377049180327869,
+    "composition (non-modal)": 0.05737704918032787
+   },
+   "exits_n": 122,
+   "cross_fair": 0.0,
+   "union_compat": null,
+   "encounters": {
+    "0": {
+     "todiff": 0.0,
+     "play_median": 425.0,
+     "prod_median": 116178.0,
+     "total_median": 116594.5,
+     "production_outcomes": {
+      "found": 0.5686797485235283,
+      "none": 0.43112973899790435,
+      "refused": 0.00019051247856734617
+     }
+    },
+    "50": {
+     "todiff": 0.005333333333333334,
+     "play_median": 40676.0,
+     "prod_median": 98897.0,
+     "total_median": 141709.0,
+     "production_outcomes": {
+      "none": 0.9925605951523878,
+      "capTO": 0.0007199424046076314,
+      "refused": 0.00671946244300456
+     }
+    },
+    "200": {
+     "todiff": 0.004666666666666667,
+     "play_median": 32393.0,
+     "prod_median": 104802.0,
+     "total_median": 147342.0,
+     "production_outcomes": {
+      "none": 0.9855958096900916,
+      "capTO": 0.0028371890004364906,
+      "refused": 0.011348756001745963,
+      "fuelTO": 0.00021824530772588389
+     }
+    },
+    "2000": {
+     "todiff": 0.0,
+     "play_median": 148445.0,
+     "prod_median": 80055.0,
+     "total_median": 207884.0,
+     "production_outcomes": {
+      "none": 0.994122832794593,
+      "refused": 0.0058771672054069935
+     }
+    }
+   },
+   "failures_by_cost_decile": [
+    {
+     "decile": 1,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 2,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 3,
+     "failures": 15.0,
+     "attempts": 11600.0,
+     "share_of_failures": 0.8823529411764706
+    },
+    {
+     "decile": 4,
+     "failures": 1.0,
+     "attempts": 2322.0,
+     "share_of_failures": 0.058823529411764705
+    },
+    {
+     "decile": 5,
+     "failures": 0.0,
+     "attempts": 2051.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 6,
+     "failures": 1.0,
+     "attempts": 1805.0,
+     "share_of_failures": 0.058823529411764705
+    },
+    {
+     "decile": 7,
+     "failures": 0.0,
+     "attempts": 1544.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 8,
+     "failures": 0.0,
+     "attempts": 1207.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 9,
+     "failures": 0.0,
+     "attempts": 1127.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 10,
+     "failures": 0.0,
+     "attempts": 892.0,
+     "share_of_failures": 0.0
+    }
+   ],
+   "realized_cost": {
+    "median_play": 29812.0,
+    "median_play_plus_prod": 140537.5,
+    "ratio": 4.714125184489467,
+    "mean_play": 72725.57983333334,
+    "mean_prod": 112410.0285,
+    "frac_encounter_with_attempt": 0.995,
+    "failures": 17.0,
+    "attempts": 22548.0
+   },
+   "counters": {
+    "encounters": 19209218.0,
+    "boss_attempts": 15567254.0,
+    "boss_found": 76059.0,
+    "boss_none": 15170520.0,
+    "boss_capTO": 308307.0,
+    "boss_starved": 12368.0,
+    "worker_attempts": 23015018.0,
+    "worker_found": 90453.0,
+    "worker_none": 22639715.0,
+    "worker_capTO": 284850.0,
+    "worker_starved": 0.0,
+    "gate_refusals": 115358.0,
+    "boss_replacements": 50568.0,
+    "worker_replacements": 81125.0,
+    "quiet_checks": 1504092.0,
+    "migrations": 1314233.0,
+    "moran_events": 161504140.0,
+    "boss_prod_steps": 895287781719.0,
+    "worker_prod_steps": 1533890739781.0
+   },
+   "spo_held": {
+    "individuals": 0,
+    "of": 64000
+   },
+   "time_s": {
+    "mean": 1150.0754621982574
+   }
+  },
+  "L1sham_3": {
+   "n": 20,
+   "established": 20,
+   "established_ci": [
+    0.8388698745050667,
+    0.9999999999999998
+   ],
+   "est_gen_median": 10.0,
+   "est_gen_by_200": 20,
+   "established_window": 11,
+   "est_gen_window_median": 130.0,
+   "fair_at_founding": 19.15,
+   "persistence": 0.05078125,
+   "persistence_ci": [
+    0.0,
+    0.1515625
+   ],
+   "persistence_runs_ge_half": 1,
+   "persistence_runs_zero": 18,
+   "wage_shares": [
+    0.44765625,
+    0.5015625,
+    0.05078125
+   ],
+   "zero_wage": 0.44765625,
+   "zero_wage_ci": [
+    0.24765625,
+    0.65
+   ],
+   "quarter_wage": 0.5015625,
+   "plurality": {
+    "0": 9,
+    "1/4": 10,
+    "1/2": 1
+   },
+   "prodeff": 0.9876800781250001,
+   "prodeff_ci": [
+    0.96747328125,
+    1.0
+   ],
+   "strike_any": 0.00703125,
+   "ext": {
+    "n": 20,
+    "gen": 10000,
+    "persistence": 0.05,
+    "persistence_ci": [
+     0.0,
+     0.15
+    ],
+    "zero_wage": 0.45,
+    "prodeff": 0.9767187500000001
+   },
+   "holders": {
+    "open militants": 1.0
+   },
+   "holders_detail": {
+    "open militants": 1.0
+   },
+   "fair_islands_counted": 65,
+   "greenbeard_share": 0.0,
+   "greenbeard_identity_share": 0.0,
+   "greenbeard_bosses": {},
+   "holder_spellings_top": {
+    "if(B>=1/4,work,work) | if(or(B=1/2,B=1/2),work,strike)": 39,
+    "if(not(and(B=1/2,B=1/2)),work,work) | if(or(B=1/2,B=1/2),work,strike)": 12,
+    "if(or(B>=1/4,B=1/2),work,work) | if(or(B=1/2,B=1/2),work,strike)": 9,
+    "if(not(not(not(B=1/2))),work,work) | if(or(B=1/2,B=1/2),work,strike)": 4,
+    "if(not(and(B=1/2,B=1/2)),strike,work) | if(B>=1/4,work,strike)": 1
+   },
+   "closed_shop_share": 0.0,
+   "identity_islands": null,
+   "beq_invasion": {
+    "neg": 874,
+    "zero": 406
+   },
+   "beq_invasion_T1T1": {},
+   "exits": {
+    "boss cut": 0.767097966728281,
+    "unread-slot drift then boss cut": 0.12939001848428835,
+    "worker drift": 0.07024029574861368,
+    "composition (non-modal)": 0.033271719038817
+   },
+   "exits_n": 541,
+   "cross_fair": 0.05,
+   "union_compat": 1.0,
+   "encounters": {
+    "0": {
+     "todiff": 0.03866666666666667,
+     "play_median": 57598.0,
+     "prod_median": 123721.0,
+     "total_median": 179954.25,
+     "production_outcomes": {
+      "none": 0.8689034551716476,
+      "found": 0.11204310632151983,
+      "capTO": 0.017220308854571716,
+      "fuelTO": 0.0010554382846350405,
+      "refused": 0.0007776913676258194
+     }
+    },
+    "50": {
+     "todiff": 0.010833333333333334,
+     "play_median": 46078.0,
+     "prod_median": 99194.5,
+     "total_median": 149091.75,
+     "production_outcomes": {
+      "none": 0.9824497919305228,
+      "refused": 0.01326819854049816,
+      "capTO": 0.00410107954888125,
+      "fuelTO": 0.0001809299800977022
+     }
+    },
+    "200": {
+     "todiff": 0.004666666666666666,
+     "play_median": 40883.0,
+     "prod_median": 97927.75,
+     "total_median": 145573.25,
+     "production_outcomes": {
+      "none": 0.9874907179985148,
+      "refused": 0.010395841663334666,
+      "capTO": 0.0020563203290112526,
+      "fuelTO": 5.712000913920146e-05
+     }
+    },
+    "2000": {
+     "todiff": 0.0,
+     "play_median": 140128.5,
+     "prod_median": 108746.0,
+     "total_median": 256971.5,
+     "production_outcomes": {
+      "none": 0.997088368030281,
+      "refused": 0.0029116319697190273
+     }
+    }
+   },
+   "failures_by_cost_decile": [
+    {
+     "decile": 1,
+     "failures": 417.0,
+     "attempts": 8551.0,
+     "share_of_failures": 0.954233409610984
+    },
+    {
+     "decile": 2,
+     "failures": 10.0,
+     "attempts": 9040.0,
+     "share_of_failures": 0.02288329519450801
+    },
+    {
+     "decile": 3,
+     "failures": 1.0,
+     "attempts": 8240.0,
+     "share_of_failures": 0.002288329519450801
+    },
+    {
+     "decile": 4,
+     "failures": 2.0,
+     "attempts": 7565.0,
+     "share_of_failures": 0.004576659038901602
+    },
+    {
+     "decile": 5,
+     "failures": 2.0,
+     "attempts": 7103.0,
+     "share_of_failures": 0.004576659038901602
+    },
+    {
+     "decile": 6,
+     "failures": 1.0,
+     "attempts": 6477.0,
+     "share_of_failures": 0.002288329519450801
+    },
+    {
+     "decile": 7,
+     "failures": 1.0,
+     "attempts": 5938.0,
+     "share_of_failures": 0.002288329519450801
+    },
+    {
+     "decile": 8,
+     "failures": 0.0,
+     "attempts": 5145.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 9,
+     "failures": 3.0,
+     "attempts": 4114.0,
+     "share_of_failures": 0.006864988558352402
+    },
+    {
+     "decile": 10,
+     "failures": 0.0,
+     "attempts": 3199.0,
+     "share_of_failures": 0.0
+    }
+   ],
+   "realized_cost": {
+    "median_play": 66266.0,
+    "median_play_plus_prod": 180844.0,
+    "ratio": 2.7290616605800864,
+    "mean_play": 123576.6605,
+    "mean_prod": 129560.21045833333,
+    "frac_encounter_with_attempt": 0.9904583333333333,
+    "failures": 437.0,
+    "attempts": 65372.0
+   },
+   "counters": {
+    "encounters": 73622872.0,
+    "boss_attempts": 59701784.0,
+    "boss_found": 75767.0,
+    "boss_none": 58403142.0,
+    "boss_capTO": 1181841.0,
+    "boss_starved": 41034.0,
+    "worker_attempts": 87700015.0,
+    "worker_found": 62527.0,
+    "worker_none": 86545814.0,
+    "worker_capTO": 1091674.0,
+    "worker_starved": 0.0,
+    "gate_refusals": 383811.0,
+    "boss_replacements": 63527.0,
+    "worker_replacements": 62527.0,
+    "quiet_checks": 5949951.0,
+    "migrations": 5155474.0,
+    "moran_events": 639818070.0,
+    "boss_prod_steps": 3427016640289.0,
+    "worker_prod_steps": 5874847101702.0
+   },
+   "spo_held": {
+    "individuals": 0,
+    "of": 256000
+   },
+   "time_s": {
+    "mean": 597.4833926081658
+   }
+  },
+  "S_eq_ideal*": {
+   "n": 20,
+   "established": 20,
+   "established_ci": [
+    0.8388698745050667,
+    0.9999999999999998
+   ],
+   "est_gen_median": 10.0,
+   "est_gen_by_200": 20,
+   "established_window": 11,
+   "est_gen_window_median": 150.0,
+   "fair_at_founding": 18.5,
+   "persistence": 0.0,
+   "persistence_ci": [
+    0.0,
+    0.0
+   ],
+   "persistence_runs_ge_half": 0,
+   "persistence_runs_zero": 20,
+   "wage_shares": [
+    0.55,
+    0.45,
+    0.0
+   ],
+   "zero_wage": 0.55,
+   "zero_wage_ci": [
+    0.35,
+    0.75
+   ],
+   "quarter_wage": 0.45,
+   "plurality": {
+    "0": 11,
+    "1/4": 9,
+    "1/2": 0
+   },
+   "prodeff": 0.9857531250000001,
+   "prodeff_ci": [
+    0.9587642187500001,
+    1.0
+   ],
+   "strike_any": 0.01015625,
+   "ext": {
+    "n": 20,
+    "gen": 10000,
+    "persistence": 0.0,
+    "persistence_ci": [
+     0.0,
+     0.0
+    ],
+    "zero_wage": 0.55,
+    "prodeff": 1.0
+   },
+   "holders": {},
+   "holders_detail": {},
+   "fair_islands_counted": 0,
+   "greenbeard_share": 0.0,
+   "greenbeard_identity_share": 0.0,
+   "greenbeard_bosses": {},
+   "holder_spellings_top": {},
+   "closed_shop_share": 0.012656249999999999,
+   "identity_islands": 0.0,
+   "beq_invasion": {
+    "neg": 892,
+    "zero": 388
+   },
+   "beq_invasion_T1T1": {},
+   "exits": {
+    "boss cut": 0.8189134808853119,
+    "unread-slot drift then boss cut": 0.1006036217303823,
+    "worker drift": 0.060362173038229376,
+    "composition (non-modal)": 0.02012072434607646
+   },
+   "exits_n": 497,
+   "cross_fair": 0.0,
+   "union_compat": null,
+   "encounters": {
+    "0": {
+     "todiff": 0.0,
+     "play_median": 423.0,
+     "prod_median": 116234.25,
+     "total_median": 116688.75,
+     "production_outcomes": {
+      "found": 0.5714047539656076,
+      "none": 0.42826180155289856,
+      "refused": 0.00033344448149383126
+     }
+    },
+    "50": {
+     "todiff": 0.0068333333333333345,
+     "play_median": 50456.0,
+     "prod_median": 98140.5,
+     "total_median": 151447.75,
+     "production_outcomes": {
+      "none": 0.9831744251261918,
+      "refused": 0.014582164890633763,
+      "capTO": 0.0021187760952202906,
+      "fuelTO": 0.00012463388795413472
+     }
+    },
+    "200": {
+     "todiff": 0.004333333333333333,
+     "play_median": 34150.5,
+     "prod_median": 101969.5,
+     "total_median": 146832.75,
+     "production_outcomes": {
+      "none": 0.9821469183534228,
+      "refused": 0.016147373209006142,
+      "capTO": 0.0016488514896520355,
+      "fuelTO": 5.6856947919035704e-05
+     }
+    },
+    "2000": {
+     "todiff": 0.004166666666666667,
+     "play_median": 131763.0,
+     "prod_median": 117050.0,
+     "total_median": 251096.0,
+     "production_outcomes": {
+      "none": 0.983705405211399,
+      "refused": 0.013638647620414902,
+      "capTO": 0.0026559471681860598
+     }
+    }
+   },
+   "failures_by_cost_decile": [
+    {
+     "decile": 1,
+     "failures": 2.0,
+     "attempts": 2.0,
+     "share_of_failures": 0.019417475728155338
+    },
+    {
+     "decile": 2,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 3,
+     "failures": 93.0,
+     "attempts": 46247.0,
+     "share_of_failures": 0.9029126213592233
+    },
+    {
+     "decile": 4,
+     "failures": 5.0,
+     "attempts": 8903.0,
+     "share_of_failures": 0.04854368932038835
+    },
+    {
+     "decile": 5,
+     "failures": 2.0,
+     "attempts": 7803.0,
+     "share_of_failures": 0.019417475728155338
+    },
+    {
+     "decile": 6,
+     "failures": 1.0,
+     "attempts": 6869.0,
+     "share_of_failures": 0.009708737864077669
+    },
+    {
+     "decile": 7,
+     "failures": 0.0,
+     "attempts": 6006.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 8,
+     "failures": 0.0,
+     "attempts": 5250.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 9,
+     "failures": 0.0,
+     "attempts": 4267.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 10,
+     "failures": 0.0,
+     "attempts": 3483.0,
+     "share_of_failures": 0.0
+    }
+   ],
+   "realized_cost": {
+    "median_play": 33047.0,
+    "median_play_plus_prod": 144712.0,
+    "ratio": 4.378975398674615,
+    "mean_play": 2510490733.37875,
+    "mean_prod": 1073032954.3617916,
+    "frac_encounter_with_attempt": 0.9875,
+    "failures": 103.0,
+    "attempts": 88830.0
+   },
+   "counters": {
+    "encounters": 75734547.0,
+    "boss_attempts": 59719999.0,
+    "boss_found": 300528.0,
+    "boss_none": 59419471.0,
+    "boss_capTO": 0.0,
+    "boss_starved": 0.0,
+    "worker_attempts": 90738724.0,
+    "worker_found": 361378.0,
+    "worker_none": 89276422.0,
+    "worker_capTO": 1100924.0,
+    "worker_starved": 0.0,
+    "gate_refusals": 435229.0,
+    "boss_replacements": 201016.0,
+    "worker_replacements": 324442.0,
+    "quiet_checks": 6014141.0,
+    "migrations": 5189015.0,
+    "moran_events": 638613507.0,
+    "boss_prod_steps": 1264376517749075.0,
+    "worker_prod_steps": 2.7523621155370752e+17
+   },
+   "spo_held": {
+    "individuals": 0,
+    "of": 256000
+   },
+   "time_s": {
+    "mean": 740.4196358442307
+   }
+  },
+  "Ni": {
+   "n": 20,
+   "established": 20,
+   "established_ci": [
+    0.8388698745050667,
+    0.9999999999999998
+   ],
+   "est_gen_median": 10.0,
+   "est_gen_by_200": 20,
+   "established_window": 11,
+   "est_gen_window_median": 150.0,
+   "fair_at_founding": 18.5,
+   "persistence": 0.0,
+   "persistence_ci": [
+    0.0,
+    0.0
+   ],
+   "persistence_runs_ge_half": 0,
+   "persistence_runs_zero": 20,
+   "wage_shares": [
+    0.55,
+    0.45,
+    0.0
+   ],
+   "zero_wage": 0.55,
+   "zero_wage_ci": [
+    0.35,
+    0.75
+   ],
+   "quarter_wage": 0.45,
+   "plurality": {
+    "0": 11,
+    "1/4": 9,
+    "1/2": 0
+   },
+   "prodeff": 0.9857531250000001,
+   "prodeff_ci": [
+    0.9567243437499999,
+    1.0
+   ],
+   "strike_any": 0.01015625,
+   "ext": {
+    "n": 20,
+    "gen": 10000,
+    "persistence": 0.0,
+    "persistence_ci": [
+     0.0,
+     0.0
+    ],
+    "zero_wage": 0.55,
+    "prodeff": 1.0
+   },
+   "holders": {},
+   "holders_detail": {},
+   "fair_islands_counted": 0,
+   "greenbeard_share": 0.0,
+   "greenbeard_identity_share": 0.0,
+   "greenbeard_bosses": {},
+   "holder_spellings_top": {},
+   "closed_shop_share": 0.012656249999999999,
+   "identity_islands": 0.0,
+   "beq_invasion": {
+    "neg": 892,
+    "zero": 388
+   },
+   "beq_invasion_T1T1": {},
+   "exits": {
+    "boss cut": 0.8189134808853119,
+    "unread-slot drift then boss cut": 0.1006036217303823,
+    "worker drift": 0.060362173038229376,
+    "composition (non-modal)": 0.02012072434607646
+   },
+   "exits_n": 497,
+   "cross_fair": 0.0,
+   "union_compat": null,
+   "encounters": {
+    "0": {
+     "todiff": 0.0,
+     "play_median": 423.0,
+     "prod_median": 116234.25,
+     "total_median": 116688.75,
+     "production_outcomes": {
+      "found": 0.5714047539656076,
+      "none": 0.42826180155289856,
+      "refused": 0.00033344448149383126
+     }
+    },
+    "50": {
+     "todiff": 0.0068333333333333345,
+     "play_median": 50456.0,
+     "prod_median": 98140.5,
+     "total_median": 151447.75,
+     "production_outcomes": {
+      "none": 0.9831744251261918,
+      "refused": 0.014582164890633763,
+      "capTO": 0.0021187760952202906,
+      "fuelTO": 0.00012463388795413472
+     }
+    },
+    "200": {
+     "todiff": 0.004333333333333333,
+     "play_median": 34150.5,
+     "prod_median": 101969.5,
+     "total_median": 146832.75,
+     "production_outcomes": {
+      "none": 0.9821469183534228,
+      "refused": 0.016147373209006142,
+      "capTO": 0.0016488514896520355,
+      "fuelTO": 5.6856947919035704e-05
+     }
+    },
+    "2000": {
+     "todiff": 0.004166666666666667,
+     "play_median": 131763.0,
+     "prod_median": 117050.0,
+     "total_median": 251096.0,
+     "production_outcomes": {
+      "none": 0.983705405211399,
+      "refused": 0.013638647620414902,
+      "capTO": 0.0026559471681860598
+     }
+    }
+   },
+   "failures_by_cost_decile": [
+    {
+     "decile": 1,
+     "failures": 2.0,
+     "attempts": 2.0,
+     "share_of_failures": 0.019417475728155338
+    },
+    {
+     "decile": 2,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 3,
+     "failures": 93.0,
+     "attempts": 46247.0,
+     "share_of_failures": 0.9029126213592233
+    },
+    {
+     "decile": 4,
+     "failures": 5.0,
+     "attempts": 8903.0,
+     "share_of_failures": 0.04854368932038835
+    },
+    {
+     "decile": 5,
+     "failures": 2.0,
+     "attempts": 7803.0,
+     "share_of_failures": 0.019417475728155338
+    },
+    {
+     "decile": 6,
+     "failures": 1.0,
+     "attempts": 6869.0,
+     "share_of_failures": 0.009708737864077669
+    },
+    {
+     "decile": 7,
+     "failures": 0.0,
+     "attempts": 6006.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 8,
+     "failures": 0.0,
+     "attempts": 5250.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 9,
+     "failures": 0.0,
+     "attempts": 4267.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 10,
+     "failures": 0.0,
+     "attempts": 3483.0,
+     "share_of_failures": 0.0
+    }
+   ],
+   "realized_cost": {
+    "median_play": 33047.0,
+    "median_play_plus_prod": 144712.0,
+    "ratio": 4.378975398674615,
+    "mean_play": 2510490733.37875,
+    "mean_prod": 1073032954.3617916,
+    "frac_encounter_with_attempt": 0.9875,
+    "failures": 103.0,
+    "attempts": 88830.0
+   },
+   "counters": {
+    "encounters": 75734547.0,
+    "boss_attempts": 59719999.0,
+    "boss_found": 300528.0,
+    "boss_none": 59419471.0,
+    "boss_capTO": 0.0,
+    "boss_starved": 0.0,
+    "worker_attempts": 90738724.0,
+    "worker_found": 361378.0,
+    "worker_none": 89276422.0,
+    "worker_capTO": 1100924.0,
+    "worker_starved": 0.0,
+    "gate_refusals": 435229.0,
+    "boss_replacements": 201016.0,
+    "worker_replacements": 324442.0,
+    "quiet_checks": 6013373.0,
+    "migrations": 5189015.0,
+    "moran_events": 638613507.0,
+    "boss_prod_steps": 1264376517749075.0,
+    "worker_prod_steps": 2.7523621155370752e+17
+   },
+   "spo_held": {
+    "individuals": 0,
+    "of": 256000
+   },
+   "time_s": {
+    "mean": 917.4922854423523
+   }
+  },
+  "L1_i": {
+   "n": 20,
+   "established": 20,
+   "established_ci": [
+    0.8388698745050667,
+    0.9999999999999998
+   ],
+   "est_gen_median": 10.0,
+   "est_gen_by_200": 20,
+   "established_window": 13,
+   "est_gen_window_median": 140.0,
+   "fair_at_founding": 18.8,
+   "persistence": 0.00078125,
+   "persistence_ci": [
+    0.0,
+    0.00234375
+   ],
+   "persistence_runs_ge_half": 0,
+   "persistence_runs_zero": 19,
+   "wage_shares": [
+    0.4859375,
+    0.51328125,
+    0.00078125
+   ],
+   "zero_wage": 0.4859375,
+   "zero_wage_ci": [
+    0.284375,
+    0.6890820312499999
+   ],
+   "quarter_wage": 0.51328125,
+   "plurality": {
+    "0": 9,
+    "1/4": 11,
+    "1/2": 0
+   },
+   "prodeff": 0.988188515625,
+   "prodeff_ci": [
+    0.9736450015625,
+    0.998388359375
+   ],
+   "strike_any": 0.00625,
+   "ext": {
+    "n": 20,
+    "gen": 10000,
+    "persistence": 0.0,
+    "persistence_ci": [
+     0.0,
+     0.0
+    ],
+    "zero_wage": 0.6,
+    "prodeff": 0.9941640625
+   },
+   "holders": {
+    "open militants": 1.0
+   },
+   "holders_detail": {
+    "open militants": 1.0
+   },
+   "fair_islands_counted": 1,
+   "greenbeard_share": 0.0,
+   "greenbeard_identity_share": 0.0,
+   "greenbeard_bosses": {},
+   "holder_spellings_top": {
+    "if(B>=1/4,work,strike) | if(not(B=1/2),strike,work)": 1
+   },
+   "closed_shop_share": 0.0385390625,
+   "identity_islands": 0.0,
+   "beq_invasion": {
+    "zero": 414,
+    "neg": 866
+   },
+   "beq_invasion_T1T1": {},
+   "exits": {
+    "boss cut": 0.789279112754159,
+    "unread-slot drift then boss cut": 0.08687615526802218,
+    "worker drift": 0.08317929759704251,
+    "composition (non-modal)": 0.04066543438077634
+   },
+   "exits_n": 541,
+   "cross_fair": 0.0,
+   "union_compat": null,
+   "encounters": {
+    "0": {
+     "todiff": 0.03949999999999999,
+     "play_median": 58019.5,
+     "prod_median": 123343.25,
+     "total_median": 179954.25,
+     "production_outcomes": {
+      "none": 0.8685119180218311,
+      "found": 0.11216306527066161,
+      "capTO": 0.017598574292715528,
+      "fuelTO": 0.0009467587435954555,
+      "refused": 0.0007796836711962575
+     }
+    },
+    "50": {
+     "todiff": 0.011166666666666667,
+     "play_median": 47015.75,
+     "prod_median": 96484.25,
+     "total_median": 156804.0,
+     "production_outcomes": {
+      "none": 0.9838870846864851,
+      "refused": 0.011616287784161879,
+      "capTO": 0.00437172120909318,
+      "fuelTO": 6.245316012990258e-05,
+      "found": 6.245316012990258e-05
+     }
+    },
+    "200": {
+     "todiff": 0.0025,
+     "play_median": 43313.0,
+     "prod_median": 102083.25,
+     "total_median": 156436.0,
+     "production_outcomes": {
+      "none": 0.9859826844926085,
+      "refused": 0.012132634430767418,
+      "capTO": 0.001649095942046057,
+      "found": 0.00023558513457800812
+     }
+    },
+    "2000": {
+     "todiff": 0.0,
+     "play_median": 133499.5,
+     "prod_median": 97479.75,
+     "total_median": 212338.0,
+     "production_outcomes": {
+      "none": 0.9706658844235846,
+      "refused": 0.02933411557641537
+     }
+    }
+   },
+   "failures_by_cost_decile": [
+    {
+     "decile": 1,
+     "failures": 410.0,
+     "attempts": 8377.0,
+     "share_of_failures": 0.9490740740740741
+    },
+    {
+     "decile": 2,
+     "failures": 5.0,
+     "attempts": 8783.0,
+     "share_of_failures": 0.011574074074074073
+    },
+    {
+     "decile": 3,
+     "failures": 6.0,
+     "attempts": 8022.0,
+     "share_of_failures": 0.013888888888888888
+    },
+    {
+     "decile": 4,
+     "failures": 4.0,
+     "attempts": 7401.0,
+     "share_of_failures": 0.009259259259259259
+    },
+    {
+     "decile": 5,
+     "failures": 3.0,
+     "attempts": 6878.0,
+     "share_of_failures": 0.006944444444444444
+    },
+    {
+     "decile": 6,
+     "failures": 2.0,
+     "attempts": 6417.0,
+     "share_of_failures": 0.004629629629629629
+    },
+    {
+     "decile": 7,
+     "failures": 0.0,
+     "attempts": 5981.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 8,
+     "failures": 2.0,
+     "attempts": 4898.0,
+     "share_of_failures": 0.004629629629629629
+    },
+    {
+     "decile": 9,
+     "failures": 0.0,
+     "attempts": 4308.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 10,
+     "failures": 0.0,
+     "attempts": 2712.0,
+     "share_of_failures": 0.0
+    }
+   ],
+   "realized_cost": {
+    "median_play": 66664.0,
+    "median_play_plus_prod": 177688.5,
+    "ratio": 2.6654341173646947,
+    "mean_play": 10562589408.393291,
+    "mean_prod": 4500114309.565375,
+    "frac_encounter_with_attempt": 0.9795416666666666,
+    "failures": 432.0,
+    "attempts": 63777.0
+   },
+   "counters": {
+    "encounters": 77735553.0,
+    "boss_attempts": 60582887.0,
+    "boss_found": 87362.0,
+    "boss_none": 60495525.0,
+    "boss_capTO": 0.0,
+    "boss_starved": 0.0,
+    "worker_attempts": 91893675.0,
+    "worker_found": 62589.0,
+    "worker_none": 90720480.0,
+    "worker_capTO": 1110606.0,
+    "worker_starved": 0.0,
+    "gate_refusals": 466218.0,
+    "boss_replacements": 73400.0,
+    "worker_replacements": 62589.0,
+    "quiet_checks": 5703263.0,
+    "migrations": 5052951.0,
+    "moran_events": 637111994.0,
+    "boss_prod_steps": 1298168558684594.0,
+    "worker_prod_steps": 2.7765683714527267e+17
+   },
+   "spo_held": {
+    "individuals": 0,
+    "of": 256000
+   },
+   "time_s": {
+    "mean": 587.1937180519104
+   }
+  },
+  "Heq_i": {
+   "n": 20,
+   "established": 20,
+   "established_ci": [
+    0.8388698745050667,
+    0.9999999999999998
+   ],
+   "est_gen_median": 10.0,
+   "est_gen_by_200": 20,
+   "established_window": 20,
+   "est_gen_window_median": 120.0,
+   "fair_at_founding": 18.9,
+   "persistence": 0.3015625,
+   "persistence_ci": [
+    0.103125,
+    0.5015625
+   ],
+   "persistence_runs_ge_half": 6,
+   "persistence_runs_zero": 12,
+   "wage_shares": [
+    0.0,
+    0.6984375,
+    0.3015625
+   ],
+   "zero_wage": 0.0,
+   "zero_wage_ci": [
+    0.0,
+    0.0
+   ],
+   "quarter_wage": 0.6984375,
+   "plurality": {
+    "0": 0,
+    "1/4": 14,
+    "1/2": 6
+   },
+   "prodeff": 0.999131796875,
+   "prodeff_ci": [
+    0.9974716406249999,
+    1.0
+   ],
+   "strike_any": 0.00078125,
+   "ext": {
+    "n": 20,
+    "gen": 10000,
+    "persistence": 0.3,
+    "persistence_ci": [
+     0.1,
+     0.5
+    ],
+    "zero_wage": 0.0,
+    "prodeff": 1.0
+   },
+   "holders": {
+    "open militants": 0.927461139896373,
+    "mixture": 0.07253886010362694
+   },
+   "holders_detail": {
+    "open militants": 0.927461139896373,
+    "mixture (identity)": 0.018134715025906734,
+    "mixture (pact)": 0.054404145077720206
+   },
+   "fair_islands_counted": 386,
+   "greenbeard_share": 0.03626943005181347,
+   "greenbeard_identity_share": 0.009067357512953367,
+   "greenbeard_bosses": {
+    "mixture: boss reads probes": 28
+   },
+   "holder_spellings_top": {
+    "if(B>=1/4,work,if(O:S,strike,strike)) | if(or(B<=1/4,not(B>=1/4)),strike,work)": 64,
+    "if(or(B=1/2,B=1/2),work,strike) | if(not(not(B>=1/4)),work,strike)": 59,
+    "if(B<=1/4,strike,work) | if(not(and(B=1/2,B>=1/4)),strike,work)": 59,
+    "if(B=1/2,work,strike) | if(and(B<=1/4,not(B>=1/4)),strike,work)": 37,
+    "if(B>=1/4,work,strike) | if(B<=1/4,if(B<=1/4,strike,work),work)": 36,
+    "if(B>=1/4,if(B=1/2,work,work),strike) | if(B<=1/4,if(B<=1/4,strike,work),work)": 28,
+    "if(B=1/2,work,strike) | if(B<=1/4,if(B<=1/4,strike,strike),work)": 27,
+    "if(B=1/2,work,strike) | if(B>=1/4,work,if(B<=1/4,strike,strike))": 25
+   },
+   "closed_shop_share": 0.03409375,
+   "identity_islands": 0.0375,
+   "beq_invasion": {
+    "neg": 1151,
+    "zero": 129
+   },
+   "beq_invasion_T1T1": {},
+   "exits": {
+    "boss cut": 0.6111111111111112,
+    "unread-slot drift then boss cut": 0.1910569105691057,
+    "worker drift": 0.13008130081300814,
+    "composition (non-modal)": 0.06775067750677506
+   },
+   "exits_n": 738,
+   "cross_fair": 0.3,
+   "union_compat": 1.0,
+   "encounters": {
+    "0": {
+     "todiff": 0.11183333333333334,
+     "play_median": 225840.75,
+     "prod_median": 0.0,
+     "total_median": 225840.75,
+     "production_outcomes": {}
+    },
+    "50": {
+     "todiff": 0.027999999999999997,
+     "play_median": 129858.5,
+     "prod_median": 0.0,
+     "total_median": 129858.5,
+     "production_outcomes": {}
+    },
+    "200": {
+     "todiff": 0.013500000000000002,
+     "play_median": 134572.0,
+     "prod_median": 0.0,
+     "total_median": 134572.0,
+     "production_outcomes": {}
+    },
+    "2000": {
+     "todiff": 0.0,
+     "play_median": 268153.5,
+     "prod_median": 0.0,
+     "total_median": 268153.5,
+     "production_outcomes": {}
+    }
+   },
+   "failures_by_cost_decile": [
+    {
+     "decile": 1,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 2,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 3,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 4,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 5,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 6,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 7,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 8,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 9,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 10,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    }
+   ],
+   "realized_cost": {
+    "median_play": 190709.5,
+    "median_play_plus_prod": 190709.5,
+    "ratio": 1.0,
+    "mean_play": 27989832816.07775,
+    "mean_prod": 0.0,
+    "frac_encounter_with_attempt": 0.0,
+    "failures": 0.0,
+    "attempts": 0.0
+   },
+   "counters": {
+    "encounters": 0.0,
+    "boss_attempts": 0.0,
+    "boss_found": 0.0,
+    "boss_none": 0.0,
+    "boss_capTO": 0.0,
+    "boss_starved": 0.0,
+    "worker_attempts": 0.0,
+    "worker_found": 0.0,
+    "worker_none": 0.0,
+    "worker_capTO": 0.0,
+    "worker_starved": 0.0,
+    "gate_refusals": 0.0,
+    "boss_replacements": 0.0,
+    "worker_replacements": 0.0,
+    "quiet_checks": 0.0,
+    "migrations": 4608691.0,
+    "moran_events": 602540411.0,
+    "boss_prod_steps": 0.0,
+    "worker_prod_steps": 0.0
+   },
+   "time_s": {
+    "mean": 319.10614544153214
+   }
+  },
+  "H_noeq_ideal*": {
+   "n": 20,
+   "established": 20,
+   "established_ci": [
+    0.8388698745050667,
+    0.9999999999999998
+   ],
+   "est_gen_median": 10.0,
+   "est_gen_by_200": 20,
+   "established_window": 20,
+   "est_gen_window_median": 110.0,
+   "fair_at_founding": 19.25,
+   "persistence": 0.5,
+   "persistence_ci": [
+    0.3,
+    0.75
+   ],
+   "persistence_runs_ge_half": 10,
+   "persistence_runs_zero": 10,
+   "wage_shares": [
+    0.0,
+    0.5,
+    0.5
+   ],
+   "zero_wage": 0.0,
+   "zero_wage_ci": [
+    0.0,
+    0.0
+   ],
+   "quarter_wage": 0.5,
+   "plurality": {
+    "0": 0,
+    "1/4": 10,
+    "1/2": 10
+   },
+   "prodeff": 0.9999841406249999,
+   "prodeff_ci": [
+    0.999952421875,
+    1.0
+   ],
+   "strike_any": 0.0,
+   "ext": {
+    "n": 20,
+    "gen": 10000,
+    "persistence": 0.5,
+    "persistence_ci": [
+     0.3,
+     0.75
+    ],
+    "zero_wage": 0.0,
+    "prodeff": 1.0
+   },
+   "holders": {
+    "open militants": 1.0
+   },
+   "holders_detail": {
+    "open militants": 1.0
+   },
+   "fair_islands_counted": 640,
+   "greenbeard_share": 0.0,
+   "greenbeard_identity_share": 0.0,
+   "greenbeard_bosses": {},
+   "holder_spellings_top": {
+    "if(B>=1/4,work,strike) | if(not(not(B<=1/4)),strike,work)": 62,
+    "if(B>=1/4,if(B=1/2,work,work),strike) | if(not(or(B<=1/4,B<=1/4)),work,strike)": 46,
+    "if(B>=1/4,work,if(B=1/2,strike,strike)) | if(B=1/2,work,strike)": 45,
+    "if(B=1/2,work,strike) | if(or(not(B<=1/4),B>=1/4),work,strike)": 43,
+    "if(and(B=1/2,B=1/2),work,strike) | if(B>=1/4,work,strike)": 39,
+    "if(B>=1/4,work,strike) | if(not(B<=1/4),work,strike)": 37,
+    "if(B<=1/4,strike,work) | if(not(or(B=1/2,B>=1/4)),strike,work)": 32,
+    "if(B>=1/4,work,if(B>=1/4,strike,strike)) | if(not(or(B=1/2,B=1/2)),strike,work)": 26
+   },
+   "closed_shop_share": 0.0,
+   "identity_islands": null,
+   "beq_invasion": {},
+   "beq_invasion_T1T1": {},
+   "exits": {
+    "boss cut": 0.5655339805825242,
+    "unread-slot drift then boss cut": 0.18810679611650485,
+    "worker drift": 0.1796116504854369,
+    "composition (non-modal)": 0.06674757281553398
+   },
+   "exits_n": 824,
+   "cross_fair": 0.5,
+   "union_compat": 1.0,
+   "encounters": {
+    "0": {
+     "todiff": 0.14783333333333334,
+     "play_median": 400346.25,
+     "prod_median": 0.0,
+     "total_median": 400346.25,
+     "production_outcomes": {}
+    },
+    "50": {
+     "todiff": 0.021333333333333336,
+     "play_median": 237093.0,
+     "prod_median": 0.0,
+     "total_median": 237093.0,
+     "production_outcomes": {}
+    },
+    "200": {
+     "todiff": 0.0085,
+     "play_median": 226321.0,
+     "prod_median": 0.0,
+     "total_median": 226321.0,
+     "production_outcomes": {}
+    },
+    "2000": {
+     "todiff": 0.0,
+     "play_median": 311495.0,
+     "prod_median": 0.0,
+     "total_median": 311495.0,
+     "production_outcomes": {}
+    }
+   },
+   "failures_by_cost_decile": [
+    {
+     "decile": 1,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 2,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 3,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 4,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 5,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 6,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 7,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 8,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 9,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    },
+    {
+     "decile": 10,
+     "failures": 0.0,
+     "attempts": 0.0,
+     "share_of_failures": 0.0
+    }
+   ],
+   "realized_cost": {
+    "median_play": 285818.0,
+    "median_play_plus_prod": 285818.0,
+    "ratio": 1.0,
+    "mean_play": 38583668753.85646,
+    "mean_prod": 0.0,
+    "frac_encounter_with_attempt": 0.0,
+    "failures": 0.0,
+    "attempts": 0.0
+   },
+   "counters": {
+    "encounters": 0.0,
+    "boss_attempts": 0.0,
+    "boss_found": 0.0,
+    "boss_none": 0.0,
+    "boss_capTO": 0.0,
+    "boss_starved": 0.0,
+    "worker_attempts": 0.0,
+    "worker_found": 0.0,
+    "worker_none": 0.0,
+    "worker_capTO": 0.0,
+    "worker_starved": 0.0,
+    "gate_refusals": 0.0,
+    "boss_replacements": 0.0,
+    "worker_replacements": 0.0,
+    "quiet_checks": 0.0,
+    "migrations": 4632696.0,
+    "moran_events": 605689764.0,
+    "boss_prod_steps": 0.0,
+    "worker_prod_steps": 0.0
+   },
+   "time_s": {
+    "mean": 230.58225322961806
+   }
+  }
+ },
+ "fl": {
+  "S_eq*": null,
+  "N6": {
+   "comp_0": {
+    "unconditional": 0.4225625,
+    "open": 0.5010312499999999,
+    "greenbeard": 0.07640625
+   },
+   "comp_0_sd": {
+    "unconditional": 0.00286683623529494,
+    "open": 0.0027132667407112716
+   },
+   "comp_10": {
+    "unconditional": 0.628125,
+    "open": 0.30340625,
+    "greenbeard": 0.06846875
+   },
+   "comp_10_sd": {
+    "unconditional": 0.018092306181599672,
+    "open": 0.01639200274238172
+   },
+   "comp_50": {
+    "unconditional": 0.767140625,
+    "open": 0.167765625,
+    "greenbeard": 0.06509374999999999
+   },
+   "comp_50_sd": {
+    "unconditional": 0.024734261489000417,
+    "open": 0.024482565145297792
+   },
+   "comp_200": {
+    "unconditional": 0.798875,
+    "open": 0.12956250000000002,
+    "greenbeard": 0.0715625
+   },
+   "comp_200_sd": {
+    "unconditional": 0.06279752620028116,
+    "open": 0.0419261173542966
+   },
+   "militant_survival_10": 0.07711232661095531,
+   "militant_survival_50": 0.009414828168516142,
+   "gen0": {
+    "militant_strike_p": 0.8421915977824799,
+    "worker_strike_p": 0.5027693750000001,
+    "coverage": {
+     "slot0": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "slot1": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0
+      ]
+     },
+     "slot2": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0
+      ]
+     }
+    },
+    "retention": [
+     [
+      null,
+      null,
+      null
+     ],
+     [
+      null,
+      null,
+      null
+     ],
+     [
+      null,
+      null,
+      null
+     ]
+    ]
+   },
+   "mark_cost": {
+    "all": {
+     "ratio_s3": 3.844074059617211,
+     "ratio_mark_steady": 1.7889847378898474
+    },
+    "late": {
+     "ratio_s3": 2.781757728508978,
+     "ratio_mark_steady": 1.0
+    }
+   },
+   "replay": {
+    "failures_recorded": 14114,
+    "replays": 8,
+    "suppressed_successes": 0,
+    "examples": []
+   }
+  },
+  "L2_6": {
+   "comp_0": {
+    "unconditional": 0.4225625,
+    "open": 0.5010312499999999,
+    "greenbeard": 0.07640625
+   },
+   "comp_0_sd": {
+    "unconditional": 0.00286683623529494,
+    "open": 0.0027132667407112716
+   },
+   "comp_10": {
+    "unconditional": 0.628125,
+    "open": 0.30340625,
+    "greenbeard": 0.06846875
+   },
+   "comp_10_sd": {
+    "unconditional": 0.018092306181599672,
+    "open": 0.01639200274238172
+   },
+   "comp_50": {
+    "unconditional": 0.767140625,
+    "open": 0.167765625,
+    "greenbeard": 0.06509374999999999
+   },
+   "comp_50_sd": {
+    "unconditional": 0.024734261489000417,
+    "open": 0.024482565145297792
+   },
+   "comp_200": {
+    "unconditional": 0.798875,
+    "open": 0.12956250000000002,
+    "greenbeard": 0.0715625
+   },
+   "comp_200_sd": {
+    "unconditional": 0.06279752620028116,
+    "open": 0.0419261173542966
+   },
+   "militant_survival_10": 0.07711232661095531,
+   "militant_survival_50": 0.009414828168516142,
+   "gen0": {
+    "militant_strike_p": 0.8421915977824799,
+    "worker_strike_p": 0.5027693750000001,
+    "coverage": {
+     "slot0": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "slot1": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0
+      ]
+     },
+     "slot2": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0
+      ]
+     }
+    },
+    "retention": [
+     [
+      null,
+      null,
+      null
+     ],
+     [
+      null,
+      null,
+      null
+     ],
+     [
+      null,
+      null,
+      null
+     ]
+    ]
+   },
+   "mark": {
+    "executed_productions": 33816000,
+    "skipped": 36187516,
+    "skipped_steps": 1899178109298,
+    "sensitive": 0,
+    "sensitive_bound": 0,
+    "marks": 404016,
+    "sensitive_rate": 0.0,
+    "bound_rate": 0.0,
+    "executed_encounters": 18814946,
+    "executed_cost": {
+     "median_play": 90497.5,
+     "ratio_nomark": 2.1942595099312134,
+     "ratio_mark": 1.0149948706257836,
+     "mean_ratio_nomark": 1.7385544969895683,
+     "mean_ratio_mark": 1.0695350375167738
+    }
+   },
+   "mark_cost": {
+    "all": {
+     "ratio_s3": 3.844074059617211,
+     "ratio_mark_steady": 1.7889847378898474
+    },
+    "late": {
+     "ratio_s3": 2.781757728508978,
+     "ratio_mark_steady": 1.0
+    }
+   }
+  },
+  "L1_6": {
+   "comp_0": {
+    "unconditional": 0.42241015625000006,
+    "open": 0.5003749999999999,
+    "greenbeard": 0.07721484375000001
+   },
+   "comp_0_sd": {
+    "unconditional": 0.004484216773667642,
+    "open": 0.004132701735283156
+   },
+   "comp_10": {
+    "unconditional": 0.6322578124999999,
+    "open": 0.29596484375000004,
+    "greenbeard": 0.07177734375
+   },
+   "comp_10_sd": {
+    "unconditional": 0.02203507142168125,
+    "open": 0.021786305611154386
+   },
+   "comp_50": {
+    "unconditional": 0.7679960937499999,
+    "open": 0.16390234374999996,
+    "greenbeard": 0.06810156250000002
+   },
+   "comp_50_sd": {
+    "unconditional": 0.03979452592786152,
+    "open": 0.03285779495539916
+   },
+   "comp_200": {
+    "unconditional": 0.7993203125,
+    "open": 0.14002734374999998,
+    "greenbeard": 0.060652343750000004
+   },
+   "comp_200_sd": {
+    "unconditional": 0.06005295565507293,
+    "open": 0.053974211433590484
+   },
+   "militant_survival_10": 0.07603384678233222,
+   "militant_survival_50": 0.009342901606772947,
+   "gen0": {
+    "militant_strike_p": 0.8460989032297282,
+    "worker_strike_p": 0.5003758160156252,
+    "coverage": {
+     "slot0": {
+      "any": 1.0,
+      "per_set": [
+       0.6672109375,
+       0.3357578125000001,
+       0.6681640625
+      ]
+     },
+     "slot1": {
+      "any": 1.0,
+      "per_set": [
+       0.583,
+       0.5856718750000001
+      ]
+     },
+     "slot2": {
+      "any": 1.0,
+      "per_set": [
+       0.5837343749999999,
+       0.58328125
+      ]
+     }
+    },
+    "retention": [
+     [
+      0.721101781370164,
+      0.7186361875242154,
+      0.7217608297266737
+     ],
+     [
+      0.4691097122302158,
+      0.4760278529294363,
+      null
+     ],
+     [
+      0.47501230370005815,
+      0.4742024594546427,
+      null
+     ]
+    ]
+   },
+   "founding": {
+    "time_s": 144.3830214858055,
+    "steps_median": {
+     "0": 303556.0,
+     "1": 231066.0,
+     "2": 231121.0
+    },
+    "steps_mean": {
+     "0": 315843.7525859375,
+     "1": 212894.488125,
+     "2": 212993.5071796875
+    },
+    "steps_max": 651236,
+    "steps_per_island": 74173174.7890625,
+    "late_worker_acquisitions": 0,
+    "no_triple_workers": 0,
+    "ctr": [
+     0,
+     1918092,
+     213905,
+     1704187,
+     0,
+     0,
+     2429288,
+     298968,
+     2130320,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     40428000331,
+     54513663399
+    ]
+   }
+  },
+  "N3": {
+   "comp_0": {
+    "unconditional": 0.42147070312500007,
+    "open": 0.500568359375,
+    "greenbeard": 0.0779609375
+   },
+   "comp_0_sd": {
+    "unconditional": 0.003976166771044963,
+    "open": 0.004042203939586541
+   },
+   "comp_10": {
+    "unconditional": 0.624080078125,
+    "open": 0.29701757812499996,
+    "greenbeard": 0.07890234375
+   },
+   "comp_10_sd": {
+    "unconditional": 0.01689864236017034,
+    "open": 0.014234311619773479
+   },
+   "comp_50": {
+    "unconditional": 0.774255859375,
+    "open": 0.160529296875,
+    "greenbeard": 0.06521484375
+   },
+   "comp_50_sd": {
+    "unconditional": 0.03492794789329692,
+    "open": 0.02753180582305967
+   },
+   "comp_200": {
+    "unconditional": 0.8154082031250001,
+    "open": 0.134396484375,
+    "greenbeard": 0.0501953125
+   },
+   "comp_200_sd": {
+    "unconditional": 0.05490260288064736,
+    "open": 0.04889928248684506
+   },
+   "militant_survival_10": 0.07635178702030566,
+   "militant_survival_50": 0.009406457726629357,
+   "gen0": {
+    "militant_strike_p": 0.8416494875560645,
+    "worker_strike_p": 0.5007314453125,
+    "coverage": {
+     "slot0": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "slot1": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0
+      ]
+     },
+     "slot2": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0
+      ]
+     }
+    },
+    "retention": [
+     [
+      null,
+      null,
+      null
+     ],
+     [
+      null,
+      null,
+      null
+     ],
+     [
+      null,
+      null,
+      null
+     ]
+    ]
+   }
+  },
+  "L1_3": {
+   "comp_0": {
+    "unconditional": 0.42147070312500007,
+    "open": 0.500568359375,
+    "greenbeard": 0.0779609375
+   },
+   "comp_0_sd": {
+    "unconditional": 0.003976166771044963,
+    "open": 0.004042203939586541
+   },
+   "comp_10": {
+    "unconditional": 0.62571484375,
+    "open": 0.29870312499999996,
+    "greenbeard": 0.07558203125
+   },
+   "comp_10_sd": {
+    "unconditional": 0.0184243742175309,
+    "open": 0.01650747973516949
+   },
+   "comp_50": {
+    "unconditional": 0.771533203125,
+    "open": 0.1626328125,
+    "greenbeard": 0.065833984375
+   },
+   "comp_50_sd": {
+    "unconditional": 0.03451468285189571,
+    "open": 0.032618676051362816
+   },
+   "comp_200": {
+    "unconditional": 0.7980996093749999,
+    "open": 0.149947265625,
+    "greenbeard": 0.051953125
+   },
+   "comp_200_sd": {
+    "unconditional": 0.06922844966670577,
+    "open": 0.0716022090368638
+   },
+   "militant_survival_10": 0.07679127954243276,
+   "militant_survival_50": 0.009407142149472771,
+   "gen0": {
+    "militant_strike_p": 0.8456174975639976,
+    "worker_strike_p": 0.5003262490234376,
+    "coverage": {
+     "slot0": {
+      "any": 1.0,
+      "per_set": [
+       0.6679296874999998,
+       0.33534765625000007,
+       0.6687734375000002
+      ]
+     },
+     "slot1": {
+      "any": 1.0,
+      "per_set": [
+       0.5825703124999999,
+       0.5849960937500002
+      ]
+     },
+     "slot2": {
+      "any": 1.0,
+      "per_set": [
+       0.5837148437499999,
+       0.58381640625
+      ]
+     }
+    },
+    "retention": [
+     [
+      0.7233468286099866,
+      0.721196368996819,
+      0.7226442288964201
+     ],
+     [
+      0.4709778825642753,
+      0.4746037024720098,
+      null
+     ],
+     [
+      0.4722352678072235,
+      0.47279487065319026,
+      null
+     ]
+    ]
+   },
+   "founding": {
+    "time_s": 120.95881876945495,
+    "steps_median": {
+     "0": 303556.0,
+     "1": 231066.0,
+     "2": 231121.0
+    },
+    "steps_mean": {
+     "0": 315619.22575,
+     "1": 212956.14573828122,
+     "2": 212918.9355546875
+    },
+    "steps_max": 651236,
+    "steps_per_island": 74149430.70429687,
+    "late_worker_acquisitions": 0,
+    "no_triple_workers": 0,
+    "ctr": [
+     0,
+     3834572,
+     428045,
+     3406527,
+     0,
+     0,
+     4859935,
+     597785,
+     4262150,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     80798521792,
+     109024020811
+    ]
+   }
+  },
+  "L1W_3": {
+   "comp_0": {
+    "unconditional": 0.4225625,
+    "open": 0.5010312499999999,
+    "greenbeard": 0.07640625
+   },
+   "comp_0_sd": {
+    "unconditional": 0.00286683623529494,
+    "open": 0.0027132667407112716
+   },
+   "comp_10": {
+    "unconditional": 0.6225781250000001,
+    "open": 0.305328125,
+    "greenbeard": 0.07209375
+   },
+   "comp_10_sd": {
+    "unconditional": 0.009799628301305617,
+    "open": 0.015357268739102013
+   },
+   "comp_50": {
+    "unconditional": 0.7868124999999999,
+    "open": 0.15231250000000002,
+    "greenbeard": 0.060875
+   },
+   "comp_50_sd": {
+    "unconditional": 0.03589462115867779,
+    "open": 0.030922565839933136
+   },
+   "comp_200": {
+    "unconditional": 0.8335000000000001,
+    "open": 0.13128125,
+    "greenbeard": 0.03521875000000001
+   },
+   "comp_200_sd": {
+    "unconditional": 0.050094451804191836,
+    "open": 0.0490652517142351
+   },
+   "militant_survival_10": 0.07655537421293321,
+   "militant_survival_50": 0.008407259743996967,
+   "gen0": {
+    "militant_strike_p": 0.8421915977824799,
+    "worker_strike_p": 0.5027693750000001,
+    "coverage": {
+     "slot0": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "slot1": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0
+      ]
+     },
+     "slot2": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0
+      ]
+     }
+    },
+    "retention": [
+     [
+      null,
+      null,
+      null
+     ],
+     [
+      null,
+      null,
+      null
+     ],
+     [
+      null,
+      null,
+      null
+     ]
+    ]
+   },
+   "founding": {
+    "time_s": 197.97305359840394,
+    "steps_median": {
+     "0": 303564.0,
+     "1": 231066.0,
+     "2": 231121.0
+    },
+    "steps_mean": {
+     "0": 316039.78553125,
+     "1": 213085.8055625,
+     "2": 212804.187125
+    },
+    "steps_max": 651236,
+    "steps_per_island": 74192977.821875,
+    "late_worker_acquisitions": 0,
+    "no_triple_workers": 0,
+    "ctr": [
+     0,
+     479543,
+     53489,
+     426054,
+     0,
+     0,
+     606998,
+     74778,
+     532220,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     10113273137,
+     13628479766
+    ]
+   },
+   "withheld": {
+    "moved": 11,
+    "examined": 96000,
+    "runs_with_moves": 1,
+    "max_fitness_err": 0.0
+   }
+  },
+  "L1sham_3": {
+   "comp_0": {
+    "unconditional": 0.45924609375000003,
+    "open": 0.5003749999999999,
+    "greenbeard": 0.04037890625
+   },
+   "comp_0_sd": {
+    "unconditional": 0.004388043822578254,
+    "open": 0.004132701735283156
+   },
+   "comp_10": {
+    "unconditional": 0.66751171875,
+    "open": 0.29896484375,
+    "greenbeard": 0.03352343749999999
+   },
+   "comp_10_sd": {
+    "unconditional": 0.014579750943457228,
+    "open": 0.01548111238568606
+   },
+   "comp_50": {
+    "unconditional": 0.8134960937499999,
+    "open": 0.16191796875,
+    "greenbeard": 0.0245859375
+   },
+   "comp_50_sd": {
+    "unconditional": 0.03353093577839432,
+    "open": 0.03549520175367623
+   },
+   "comp_200": {
+    "unconditional": 0.83320703125,
+    "open": 0.14333203125,
+    "greenbeard": 0.023460937500000004
+   },
+   "comp_200_sd": {
+    "unconditional": 0.06729370001997163,
+    "open": 0.06334033832292267
+   },
+   "militant_survival_10": 0.07723449641777964,
+   "militant_survival_50": 0.009504421975519288,
+   "gen0": {
+    "militant_strike_p": 0.8459834558552728,
+    "worker_strike_p": 0.5002937882812499,
+    "coverage": {
+     "slot0": {
+      "any": 1.0,
+      "per_set": [
+       0.6654140624999999,
+       0.33387500000000003,
+       0.666125
+      ]
+     },
+     "slot1": {
+      "any": 1.0,
+      "per_set": [
+       0.583,
+       0.5856718750000001
+      ]
+     },
+     "slot2": {
+      "any": 1.0,
+      "per_set": [
+       0.5837343749999999,
+       0.58328125
+      ]
+     }
+    },
+    "retention": [
+     [
+      0.7238529944125285,
+      0.7236596009975063,
+      0.7246949311639549
+     ],
+     [
+      0.4695143884892086,
+      0.4761609083248326,
+      null
+     ],
+     [
+      0.4752360073374793,
+      0.47411334877918376,
+      null
+     ]
+    ]
+   },
+   "founding": {
+    "time_s": 151.88228417634963,
+    "steps_median": {
+     "0": 303564.0,
+     "1": 231066.0,
+     "2": 231121.0
+    },
+    "steps_mean": {
+     "0": 316525.4308828125,
+     "1": 212894.488125,
+     "2": 212993.5071796875
+    },
+    "steps_max": 651236,
+    "steps_per_island": 74241342.61875,
+    "late_worker_acquisitions": 0,
+    "no_triple_workers": 0,
+    "ctr": [
+     0,
+     1921443,
+     213173,
+     1708270,
+     0,
+     0,
+     2429288,
+     298968,
+     2130320,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     40515255153,
+     54513663399
+    ]
+   }
+  },
+  "S_eq_ideal*": null,
+  "Ni": {
+   "comp_0": {
+    "unconditional": 0.42241015625000006,
+    "open": 0.5003749999999999,
+    "greenbeard": 0.07721484375000001
+   },
+   "comp_0_sd": {
+    "unconditional": 0.004484216773667642,
+    "open": 0.004132701735283156
+   },
+   "comp_10": {
+    "unconditional": 0.62757421875,
+    "open": 0.29609765625,
+    "greenbeard": 0.076328125
+   },
+   "comp_10_sd": {
+    "unconditional": 0.019989506448184056,
+    "open": 0.014456787437149713
+   },
+   "comp_50": {
+    "unconditional": 0.7822968749999999,
+    "open": 0.1541953125,
+    "greenbeard": 0.0635078125
+   },
+   "comp_50_sd": {
+    "unconditional": 0.028107051564620747,
+    "open": 0.022745045552119012
+   },
+   "comp_200": {
+    "unconditional": 0.81275,
+    "open": 0.13277734375,
+    "greenbeard": 0.054472656249999994
+   },
+   "comp_200_sd": {
+    "unconditional": 0.0664065744477368,
+    "open": 0.05646184865370204
+   },
+   "militant_survival_10": 0.07626732047512848,
+   "militant_survival_50": 0.009010915476915416,
+   "gen0": {
+    "militant_strike_p": 0.841967731165493,
+    "worker_strike_p": 0.5007939843750001,
+    "coverage": {
+     "slot0": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     "slot1": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0
+      ]
+     },
+     "slot2": {
+      "any": 0.0,
+      "per_set": [
+       0.0,
+       0.0
+      ]
+     }
+    },
+    "retention": [
+     [
+      null,
+      null,
+      null
+     ],
+     [
+      null,
+      null,
+      null
+     ],
+     [
+      null,
+      null,
+      null
+     ]
+    ]
+   }
+  },
+  "L1_i": {
+   "comp_0": {
+    "unconditional": 0.42241015625000006,
+    "open": 0.5003749999999999,
+    "greenbeard": 0.07721484375000001
+   },
+   "comp_0_sd": {
+    "unconditional": 0.004484216773667642,
+    "open": 0.004132701735283156
+   },
+   "comp_10": {
+    "unconditional": 0.631078125,
+    "open": 0.29444921875,
+    "greenbeard": 0.07447265625
+   },
+   "comp_10_sd": {
+    "unconditional": 0.018434596566942754,
+    "open": 0.016924794065949652
+   },
+   "comp_50": {
+    "unconditional": 0.7860976562500002,
+    "open": 0.15010937500000002,
+    "greenbeard": 0.06379296875
+   },
+   "comp_50_sd": {
+    "unconditional": 0.03324182005341867,
+    "open": 0.02897400631587195
+   },
+   "comp_200": {
+    "unconditional": 0.7979375000000001,
+    "open": 0.14041796874999998,
+    "greenbeard": 0.06164453125000001
+   },
+   "comp_200_sd": {
+    "unconditional": 0.07083803341100783,
+    "open": 0.07703652791170192
+   },
+   "militant_survival_10": 0.07658086261178854,
+   "militant_survival_50": 0.008554645997768635,
+   "gen0": {
+    "militant_strike_p": 0.8460946735516325,
+    "worker_strike_p": 0.5003738125000001,
+    "coverage": {
+     "slot0": {
+      "any": 1.0,
+      "per_set": [
+       0.6672109375,
+       0.3357578125000001,
+       0.6681640625
+      ]
+     },
+     "slot1": {
+      "any": 1.0,
+      "per_set": [
+       0.583,
+       0.5856718750000001
+      ]
+     },
+     "slot2": {
+      "any": 1.0,
+      "per_set": [
+       0.5837343749999999,
+       0.58328125
+      ]
+     }
+    },
+    "retention": [
+     [
+      0.721101781370164,
+      0.7186361875242154,
+      0.7217608297266737
+     ],
+     [
+      0.4695593525179856,
+      0.4764713709140906,
+      null
+     ],
+     [
+      0.4752807480649635,
+      0.47455890215647833,
+      null
+     ]
+    ]
+   },
+   "founding": {
+    "time_s": 104.39198869466782,
+    "steps_median": {
+     "0": 303556.0,
+     "1": 231066.0,
+     "2": 231121.0
+    },
+    "steps_mean": {
+     "0": 315843.7525859375,
+     "1": 212894.488125,
+     "2": 212993.5071796875
+    },
+    "steps_max": 651236,
+    "steps_per_island": 74173174.7890625,
+    "late_worker_acquisitions": 0,
+    "no_triple_workers": 0,
+    "ctr": [
+     0,
+     1918092,
+     213905,
+     1704187,
+     0,
+     0,
+     2429288,
+     298968,
+     2130320,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     40428000331,
+     54513663399
+    ]
+   }
+  },
+  "Heq_i": {
+   "comp_0": {
+    "unconditional": 0.42241015625000006,
+    "open": 0.5003749999999999,
+    "greenbeard": 0.07721484375000001
+   },
+   "comp_0_sd": {
+    "unconditional": 0.004484216773667642,
+    "open": 0.004132701735283156
+   },
+   "comp_10": {
+    "unconditional": 0.6229609375,
+    "open": 0.2996171875,
+    "greenbeard": 0.077421875
+   },
+   "comp_10_sd": {
+    "unconditional": 0.01651296949737065,
+    "open": 0.015086843738963636
+   },
+   "comp_50": {
+    "unconditional": 0.7614140624999999,
+    "open": 0.16961328125,
+    "greenbeard": 0.06897265625000001
+   },
+   "comp_50_sd": {
+    "unconditional": 0.035944427830886985,
+    "open": 0.034797286101003876
+   },
+   "comp_200": {
+    "unconditional": 0.73496875,
+    "open": 0.21232421875000002,
+    "greenbeard": 0.05270703125
+   },
+   "comp_200_sd": {
+    "unconditional": 0.07720067021370548,
+    "open": 0.08115087430980099
+   },
+   "militant_survival_10": 0.07635370971547327,
+   "militant_survival_50": 0.009407865946486942
+  },
+  "H_noeq_ideal*": null
+ },
+ "pairs": {
+  "S_eq* -> L1_6": {
+   "n": 20,
+   "mean_a": 0.07265625,
+   "mean_b": 0.0140625,
+   "delta": -0.05859375,
+   "ci": [
+    -0.165625,
+    0.01875
+   ],
+   "mcnemar_half": 1.0,
+   "runs_half": [
+    1,
+    0
+   ],
+   "runs_pos": [
+    4,
+    1
+   ],
+   "identical_runs": 15,
+   "delta_10000": -0.05546875,
+   "ci_10000": [
+    -0.15546875,
+    0.0
+   ]
+  },
+  "S_eq* -> L2_6": {
+   "n": 5,
+   "mean_a": 0.034375,
+   "mean_b": 0.034375,
+   "delta": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "mcnemar_half": 1.0,
+   "runs_half": [
+    0,
+    0
+   ],
+   "runs_pos": [
+    1,
+    1
+   ],
+   "identical_runs": 5,
+   "delta_10000": 0.0,
+   "ci_10000": [
+    0.0,
+    0.0
+   ]
+  },
+  "N3 -> L1_3": {
+   "n": 40,
+   "mean_a": 0.034375,
+   "mean_b": 0.00234375,
+   "delta": -0.03203125,
+   "ci": [
+    -0.07890625,
+    0.00078125
+   ],
+   "mcnemar_half": 1.0,
+   "runs_half": [
+    1,
+    0
+   ],
+   "runs_pos": [
+    5,
+    2
+   ],
+   "identical_runs": 33,
+   "delta_10000": -0.0140625,
+   "ci_10000": [
+    -0.041796875,
+    0.0
+   ]
+  },
+  "L1_3 -> L1W_3": {
+   "n": 5,
+   "mean_a": 0.0,
+   "mean_b": 0.0,
+   "delta": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "mcnemar_half": 1.0,
+   "runs_half": [
+    0,
+    0
+   ],
+   "runs_pos": [
+    0,
+    0
+   ],
+   "identical_runs": 5,
+   "delta_10000": 0.0,
+   "ci_10000": [
+    0.0,
+    0.0
+   ]
+  },
+  "L1_3 -> L1sham_3": {
+   "n": 20,
+   "mean_a": 0.0,
+   "mean_b": 0.05078125,
+   "delta": 0.05078125,
+   "ci": [
+    0.0,
+    0.1515625
+   ],
+   "mcnemar_half": 1.0,
+   "runs_half": [
+    0,
+    1
+   ],
+   "runs_pos": [
+    0,
+    2
+   ],
+   "identical_runs": 18,
+   "delta_10000": 0.05,
+   "ci_10000": [
+    0.0,
+    0.15
+   ]
+  },
+  "S_eq_ideal* -> L1_i": {
+   "n": 20,
+   "mean_a": 0.0,
+   "mean_b": 0.00078125,
+   "delta": 0.00078125,
+   "ci": [
+    0.0,
+    0.00234375
+   ],
+   "mcnemar_half": 1.0,
+   "runs_half": [
+    0,
+    0
+   ],
+   "runs_pos": [
+    0,
+    1
+   ],
+   "identical_runs": 19,
+   "delta_10000": 0.0,
+   "ci_10000": [
+    0.0,
+    0.0
+   ]
+  },
+  "S_eq_ideal* -> Heq_i": {
+   "n": 20,
+   "mean_a": 0.0,
+   "mean_b": 0.3015625,
+   "delta": 0.3015625,
+   "ci": [
+    0.10234375,
+    0.5015625
+   ],
+   "mcnemar_half": 0.03125,
+   "runs_half": [
+    0,
+    6
+   ],
+   "runs_pos": [
+    0,
+    8
+   ],
+   "identical_runs": 12,
+   "delta_10000": 0.3,
+   "ci_10000": [
+    0.1,
+    0.5
+   ]
+  },
+  "S_eq* -> N3": {
+   "n": 40,
+   "mean_a": 0.083984375,
+   "mean_b": 0.034375,
+   "delta": -0.049609375,
+   "ci": [
+    -0.14375,
+    0.030087890624999947
+   ],
+   "mcnemar_half": 0.625,
+   "runs_half": [
+    3,
+    1
+   ],
+   "runs_pos": [
+    6,
+    5
+   ],
+   "identical_runs": 29,
+   "delta_10000": -0.06328125,
+   "ci_10000": [
+    -0.15782226562499999,
+    0.012509765624999947
+   ]
+  },
+  "S_eq_ideal* -> Ni": {
+   "n": 20,
+   "mean_a": 0.0,
+   "mean_b": 0.0,
+   "delta": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "mcnemar_half": 1.0,
+   "runs_half": [
+    0,
+    0
+   ],
+   "runs_pos": [
+    0,
+    0
+   ],
+   "identical_runs": 20,
+   "delta_10000": 0.0,
+   "ci_10000": [
+    0.0,
+    0.0
+   ]
+  },
+  "Ni -> L1_i": {
+   "n": 20,
+   "mean_a": 0.0,
+   "mean_b": 0.00078125,
+   "delta": 0.00078125,
+   "ci": [
+    0.0,
+    0.00234375
+   ],
+   "mcnemar_half": 1.0,
+   "runs_half": [
+    0,
+    0
+   ],
+   "runs_pos": [
+    0,
+    1
+   ],
+   "identical_runs": 19,
+   "delta_10000": 0.0,
+   "ci_10000": [
+    0.0,
+    0.0
+   ]
+  },
+  "N6 -> L1_6": {
+   "n": 5,
+   "mean_a": 0.034375,
+   "mean_b": 0.05625,
+   "delta": 0.021875,
+   "ci": [
+    -0.103125,
+    0.16875
+   ],
+   "mcnemar_half": 1.0,
+   "runs_half": [
+    0,
+    0
+   ],
+   "runs_pos": [
+    1,
+    1
+   ],
+   "identical_runs": 3,
+   "delta_10000": -0.034375,
+   "ci_10000": [
+    -0.103125,
+    0.0
+   ]
+  }
+ },
+ "static_yield_K1e+06": {
+  "K": 1000000,
+  "total": {
+   "H_fair": 3927,
+   "coalitions": 1092,
+   "coalitions_sprobe": 648,
+   "fair_natural": 363,
+   "fair_L1": 649,
+   "fair_L1_sprobe": 336
+  },
+  "yield": {
+   "natural": 0.3324175824175824,
+   "L1": 0.5943223443223443,
+   "L1_sprobe": 0.5185185185185185,
+   "L1_other": 0.704954954954955,
+   "sprobe_share": 0.5934065934065934,
+   "coalitions": 1092
+  }
+ },
+ "assay_isolated_L1": {
+  "n": 40,
+  "fair_end": 0,
+  "ever_fair": 0,
+  "plays_end": {
+   "12": 40
+  },
+  "time_s": 18.6008939743042
+ },
+ "compare": {
+  "N6_vs_S_eq": [
+   {
+    "rep": 0,
+    "identical": true,
+    "n_diff": 0,
+    "first": [],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": null
+   },
+   {
+    "rep": 1,
+    "identical": true,
+    "n_diff": 0,
+    "first": [],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": null
+   },
+   {
+    "rep": 2,
+    "identical": true,
+    "n_diff": 0,
+    "first": [],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": null
+   },
+   {
+    "rep": 3,
+    "identical": true,
+    "n_diff": 0,
+    "first": [],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": null
+   },
+   {
+    "rep": 4,
+    "identical": true,
+    "n_diff": 0,
+    "first": [],
+    "persistence": [
+     0.171875,
+     0.171875
+    ],
+    "fair_mask_equal": true,
+    "mark": null
+   }
+  ],
+  "L2_6_vs_S_eq": [
+   {
+    "rep": 0,
+    "identical": false,
+    "n_diff": 16,
+    "first": [
+     "/ctr[1]",
+     "/ctr[3]",
+     "/ctr[4]",
+     "/ctr[6]",
+     "/ctr[8]",
+     "/ctr[9]"
+    ],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": [
+     1,
+     121214,
+     3651270,
+     200,
+     18256,
+     6899574,
+     370573744312,
+     0,
+     0,
+     81073,
+     6533445,
+     236313,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "rep": 1,
+    "identical": false,
+    "n_diff": 16,
+    "first": [
+     "/ctr[1]",
+     "/ctr[3]",
+     "/ctr[4]",
+     "/ctr[6]",
+     "/ctr[8]",
+     "/ctr[9]"
+    ],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": [
+     1,
+     8733949,
+     3963269,
+     200,
+     19816,
+     7718907,
+     380457028132,
+     0,
+     0,
+     80243,
+     7121361,
+     90336,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "rep": 2,
+    "identical": false,
+    "n_diff": 16,
+    "first": [
+     "/ctr[1]",
+     "/ctr[3]",
+     "/ctr[4]",
+     "/ctr[6]",
+     "/ctr[8]",
+     "/ctr[9]"
+    ],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": [
+     1,
+     676171,
+     3736892,
+     200,
+     18684,
+     7202625,
+     376525479877,
+     0,
+     0,
+     81140,
+     6746813,
+     165937,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "rep": 3,
+    "identical": false,
+    "n_diff": 16,
+    "first": [
+     "/ctr[1]",
+     "/ctr[3]",
+     "/ctr[4]",
+     "/ctr[6]",
+     "/ctr[8]",
+     "/ctr[9]"
+    ],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": [
+     1,
+     124854,
+     3783803,
+     200,
+     18919,
+     7132415,
+     382444952000,
+     0,
+     0,
+     81088,
+     6663984,
+     140995,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "rep": 4,
+    "identical": false,
+    "n_diff": 16,
+    "first": [
+     "/ctr[1]",
+     "/ctr[3]",
+     "/ctr[4]",
+     "/ctr[6]",
+     "/ctr[8]",
+     "/ctr[9]"
+    ],
+    "persistence": [
+     0.171875,
+     0.171875
+    ],
+    "fair_mask_equal": true,
+    "mark": [
+     1,
+     122882,
+     3679712,
+     200,
+     18398,
+     7233995,
+     389176904977,
+     0,
+     0,
+     80472,
+     6750397,
+     46838,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  ],
+  "Ni_vs_S_eq_ideal": [
+   {
+    "rep": 0,
+    "identical": true,
+    "n_diff": 0,
+    "first": [],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": null
+   },
+   {
+    "rep": 1,
+    "identical": true,
+    "n_diff": 0,
+    "first": [],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": null
+   },
+   {
+    "rep": 2,
+    "identical": true,
+    "n_diff": 0,
+    "first": [],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": null
+   },
+   {
+    "rep": 3,
+    "identical": true,
+    "n_diff": 0,
+    "first": [],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": null
+   },
+   {
+    "rep": 4,
+    "identical": true,
+    "n_diff": 0,
+    "first": [],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": null
+   },
+   {
+    "rep": 5,
+    "identical": true,
+    "n_diff": 0,
+    "first": [],
+    "persistence": [
+     0.0,
+     0.0
+    ],
+    "fair_mask_equal": true,
+    "mark": null
+   }
+  ]
+ },
+ "replay": {
+  "0": {
+   "failures_recorded": 2821,
+   "keys_replayed": 130,
+   "keys_with_success": 14,
+   "replays": 150,
+   "suppressed_successes": 16,
+   "examples": [
+    [
+     10,
+     0,
+     "if(P1^1/4:S,pay(0,source),if(P1^0:W,pay(1/2,none),pay(1/2,strike)))",
+     2
+    ],
+    [
+     10,
+     0,
+     "if(not(or(P2^1/4:S,P2^0:S)),pay(1/2,strike),pay(0,none))",
+     2
+    ],
+    [
+     10,
+     0,
+     "if(P1^1/4:S,pay(1/2,none),if(P2^1/4:S,pay(0,none),pay(1/2,none)))",
+     2
+    ],
+    [
+     10,
+     0,
+     "if(not(not(P2^1/4:S)),pay(1/4,strike),pay(1/2,none))",
+     2
+    ],
+    [
+     10,
+     0,
+     "if(not(not(P2^1/4:S)),pay(1/4,strike),pay(1/2,none))",
+     2
+    ],
+    [
+     10,
+     0,
+     "if(or(EQW,P2^0:W),pay(1/4,source),pay(1/2,source))",
+     2
+    ],
+    [
+     10,
+     0,
+     "if(P2^0:W,if(P1^0:S,pay(1/4,source),pay(0,source)),pay(1/2,none))",
+     2
+    ],
+    [
+     50,
+     0,
+     "if(P2^0:W,if(P1^0:S,pay(1/4,source),pay(0,source)),pay(1/2,none))",
+     2
+    ]
+   ]
+  },
+  "1": {
+   "failures_recorded": 2846,
+   "keys_replayed": 139,
+   "keys_with_success": 9,
+   "replays": 170,
+   "suppressed_successes": 11,
+   "examples": [
+    [
+     10,
+     0,
+     "if(P2^0:S,if(P1^0:S,pay(0,strike),pay(1/4,none)),pay(1/2,none))",
+     2
+    ],
+    [
+     10,
+     1,
+     "if(not(or(B>=1/4,B>=1/4)),strike,work)",
+     0
+    ],
+    [
+     10,
+     0,
+     "if(and(not(P1^1/4:W),P1^0:S),pay(1/4,none),pay(0,source))",
+     0
+    ],
+    [
+     10,
+     0,
+     "if(P2^1/4:S,pay(1/4,strike),pay(0,source))",
+     0
+    ],
+    [
+     10,
+     0,
+     "if(P2^0:S,pay(1/2,strike),if(P2^1/4:W,pay(1/4,none),pay(0,none)))",
+     0
+    ],
+    [
+     10,
+     0,
+     "if(P2^0:S,pay(1/2,strike),if(P2^1/4:W,pay(1/4,none),pay(0,none)))",
+     1
+    ],
+    [
+     10,
+     1,
+     "if(B<=1/4,if(B<=1/4,work,work),strike)",
+     0
+    ],
+    [
+     10,
+     0,
+     "if(or(P2^0:S,not(P2^1/4:W)),pay(0,source),pay(1/4,strike))",
+     0
+    ]
+   ]
+  }
+ }
+}
