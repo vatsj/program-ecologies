@@ -117,7 +117,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 33. ~~Farsighted refusal~~ (done; RESULTS "Farsighted refusal": a Konishi–Ray consent guard is V\*-absorbing from δ = 0.8 and the default reaches it from 0.95; it puts every island on a member but migration settles one member everywhere; any refusing guard spreads under migration; reading the island's composition does not pay; decisions cost 2.6·10⁵ steps).
 34. Legibility at founding in the fully realizable social organization game: founders carrying their non-self certificates, at 10⁶, 3·10⁶ and ideal fuel, plus a safe "cannot produce" mark (running: `specs/2026-10-14-founding-legibility.md`).
 35. The leader-value core existence sweep: TU and NTU cores over Cournot, Bertrand, public goods, supermodular and allocation families, with proof attempts (running: `specs/2026-10-14-core-existence-sweep.md`).
-36. Next candidate (not specced): an (N, I) scaling path for the realizable arm, since the realizable results so far degrade from N = 100 to 200.
+36. The realizable lottery along paths in (N, I, mN): island efficiency, universality, a crossed TwinD-count panel, calibrated migration (running: `specs/2026-10-14-realizable-scaling.md`).
 
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
