@@ -328,3 +328,23 @@ them), and nothing from them is used here.
   are successes** (23 keys): mostly bosses whose =½ (set 1) or ≤¼ (set 2) path opens once a worker partner of the same
   spelling holds a certificate, and two worker cases. A bare-source mark would have suppressed them; the safe key is
   what was run (§1.0 item 4).
+
+### 2.2 Realized (after the cells)
+
+**Deviations from §2.1, disclosed.**
+1. **The withheld cell was cut to 5 runs** (replicates 0–4) once its delivery proved nearly empty: at generation 10 the
+   founding lists added a script to 0, 11, 0, 0, 0 of 19,200 individuals (every lineage already held every set its
+   founding pass covers). Runs with no delivery are bit-identical to N₃; the one with 11 deliveries diverged (N₃ 0.44 →
+   0 at 2,000), a reminder that run-level outcomes are reshuffled by any perturbation. Its worker slot ran the sham cell
+   instead (20 runs, labelled: the third cell of the drop order).
+2. The machine was shared with two sibling runs (load 8–11 on 10 cores): natural S₃ runs took 13–20 minutes, L1 runs
+   9–12 (the kernel part 2.5 minutes against 9–15: islands go quiet sooner, below). Wall time 20:55 → 10:23, 13.5 hours
+   for 195 runs, the assay, the static numbers and the replay.
+3. Not run: L1 + L2, the N panel (dropped, §2.1).
+
+**Costs.** The founding pass charges 7.4·10⁷ production steps per island (≈ 74 encounters' fuel at K = 10⁶, spread over
+300 founders: median 3.0·10⁵ per boss, 2.3·10⁵ per worker, maximum 6.5·10⁵ < K) and takes ≈ 2 minutes per run on one
+core. It moves production out of the run: in-run production acquisitions fall from 16,200 worker and 10,000 boss
+replacements per run (natural) to 3,100 and 3,600 (L1), and the median kernel time from 530–700 s to 140–170 s. With L1
+the generation-0 sampled attempts are 0.87 NONE (natural 0.43), and the pooled median cost ratio falls from 3.6–4.5 to
+2.5–2.7 (the founding pass's attempts are not in it). The mark (L2): §1.x.

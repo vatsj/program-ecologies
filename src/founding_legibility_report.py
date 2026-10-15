@@ -150,7 +150,7 @@ def main():
     for a, b in PAIRS:
         if reps.get(a) and reps.get(b):
             res['pairs']['%s -> %s' % (a, b)] = paired(reps[a], reps[b], rng)
-    for f in ('static_yield_K1e+06.json', 'assay_isolated_L1.json', 'compare.json'):
+    for f in ('static_yield_K1e+06.json', 'assay_isolated_L1.json', 'compare.json', 'replay.json'):
         p = os.path.join(OUT, f)
         if os.path.exists(p):
             d = json.load(open(p))
@@ -167,17 +167,17 @@ def main():
          'extended to 10,000; S-nonself₃ + eq unless stated; ε = 0 evidence at finite (N, I, horizon). Intervals: Wilson '
          '(runs), bootstrap over runs (island fractions). Persistence is all-or-nothing by run.', '',
          '## Cells', '',
-         '| cell | runs | established (first check / window) | persistence (2,000) | runs ≥ ½ / > 0 | zero wage | ¼ wage | prod. eff. | persistence (10,000) |',
-         '|---|---|---|---|---|---|---|---|---|']
+         '| cell | runs | established (first check / window) | persistence (2,000) | runs ≥ ½ / > 0 | zero wage | ¼ wage | prod. eff. | persistence (10,000) | prod. eff. (10,000) |',
+         '|---|---|---|---|---|---|---|---|---|---|']
     for nm in ORDER:
         c = res['cells'].get(nm)
         if not c: continue
         S = [r['summary'] for r in reps[nm]]
         npos = sum(1 for s in S if s['h']['persistence'] > 0)
-        L.append('| %s | %d | %d / %d | %s %s | %d / %d | %s | %s | %s | %s |' % (
+        L.append('| %s | %d | %d / %d | %s %s | %d / %d | %s | %s | %s | %s | %s |' % (
             LABEL[nm], c['n'], c['established'], c['established_window'], fmt(c['persistence']),
             fmt(c['persistence_ci']), c['persistence_runs_ge_half'], npos, fmt(c['zero_wage']), fmt(c['quarter_wage']),
-            fmt(c['prodeff']), fmt(c.get('ext', {}).get('persistence'))))
+            fmt(c['prodeff']), fmt(c.get('ext', {}).get('persistence')), fmt(c.get('ext', {}).get('prodeff'))))
     L += ['', '## Paired contrasts (persistence at 2,000, b − a, same founder streams)', '',
           '| a → b | n | mean a | mean b | Δ [95%] | Δ at 10,000 | runs ≥ ½ (a, b) | runs > 0 (a, b) | McNemar p (≥ ½) | identical runs |',
           '|---|---|---|---|---|---|---|---|---|---|']
@@ -221,7 +221,8 @@ def main():
             L.append('- **%s** cost on population-sampled encounters (median (play + production) / median play): %s'
                      % (LABEL[nm], json.dumps(f['mark_cost'])))
         if f.get('replay'):
-            L.append('- **%s** bare-source replay: %s' % (LABEL[nm], json.dumps(f['replay'])))
+            L.append('- **%s** in-cell bare-source replay (first version, own island only; superseded by `replay.json`, '
+                     'notes §1.x): %s' % (LABEL[nm], json.dumps({k: v for k, v in f['replay'].items() if k != 'examples'})))
     L += ['', '## Production and costs (the parent\'s sampled-encounter estimator)', '',
           '| cell | TO-changed 0 / 50 / 200 / 2,000 | production outcomes (gen 0) | outcomes (gen 50) | ratio (pooled) |',
           '|---|---|---|---|---|']
@@ -240,7 +241,7 @@ def main():
         L.append('- **%s**: fair islands %d; holders %s; exits (n = %d) %s' % (
             LABEL[nm], c['fair_islands_counted'], json.dumps({k: round(v, 3) for k, v in c['holders'].items()}),
             c['exits_n'], json.dumps({k: round(v, 3) for k, v in list(c['exits'].items())[:5]})))
-    for key in ('static_yield_K1e+06', 'assay_isolated_L1', 'compare'):
+    for key in ('static_yield_K1e+06', 'replay', 'assay_isolated_L1', 'compare'):
         if key in res:
             L += ['', '## %s' % key, '', '```', json.dumps(res[key], default=str)[:6000], '```']
     vf = os.path.join(OUT, 'verdicts.md')
