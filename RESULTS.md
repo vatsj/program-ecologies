@@ -4743,6 +4743,100 @@ Every empty point is certified by the singleton partition and involves free ride
   - Asymmetric supermodular nonemptiness and the public-goods singleton criterion are unproven.
   - The 14 MB run file is committed as produced.
 
+## Legibility at founding: founding lists change nothing, timely or late; full lists recover the fair wage on the ideal table, so the gap is what production never writes (`runs/founding-legibility.md`, `runs/founding-legibility.json`, `runs/founding_legibility/`, `notes/founding-legibility.md`; spec `specs/2026-10-14-founding-legibility.md`, predictions in `predictions/2026-10-14-founding-legibility.md` with Gemini's counter-prediction and gpt-6.1-sol's review predictions registered)
+
+**Provenance.** The RE designed this, gpt-6.1-sol and gemini-4-argon reviewed it, and an Opus subagent ran it.
+- **Code:** `src/founding_legibility.py`, `_kern.py`, `_run.py`, `_report.py`; `tests/test_founding_legibility.py` (9 tests passing on main, one strict xfail). The parent's `src/sog_full*.py` is imported unchanged; the mark kernel is generated from the parent's kernel source with three functions replaced.
+- **Order of commits:** notes §1 by hand; the predictions; code with a bit-identical reproduction of 5/5 stored S₃ + eq replicates, the L2 pilot and the cost projection; the cells.
+- **RE check:** the persistence column matches the run file cell by cell.
+
+**Deviations, disclosed before the cells:**
+- **The mark's key.** The amendment's bare-source key is unsafe: production calls checks, and checks read partners' lists. A replay found 27 of 320 successes that a bare-source mark would have suppressed. The mark that ran is keyed on everything production reads.
+- **L2 is not the base of the 3·10⁶ cells.** It saves no wall time in this kernel.
+- **"Withheld" means delivered at generation 10.** The first selection event comes about 1/300 of a generation in.
+- **Drops.** The projection was about 14 hours, so L1 + L2 and the N panel were dropped. The withheld cell was cut to 5 runs once its delivery proved nearly empty.
+- **One labelled diagnostic was added:** H + eq on the ideal table, which is S₃ with the maximal founding list.
+
+**What ran.** The parent's S-nonself₃ + eq lottery at (100, 64), with every run extended to 10,000 and paired by founder stream with the stored cells.
+- **L1:** from one frozen empty-list snapshot, each founder runs S-nonself₃ production on 10 random non-self cross-role triples of its island's founders, under the ordinary cap and fuel.
+
+**Static.**
+- **Founding lists are what a founder's first encounter would write:** its all-F path.
+- **Every founder holds a script after the pass.** Bosses hold ≥¼ or =½ scripts at 0.67 / 0.34; workers hold [C] or [D] at 0.58 / 0.59.
+- **No worker founder acquires anything after its first triple.**
+- **More coalitions are fair at generation 0.** Of 1,092 sampled coalitions, 0.33 are fair under natural founding and 0.59 under L1; 0.52 of the L1 ones have a boss that reads a strike probe.
+
+**Lottery** (persistence = fraction of islands fair at 2,000):
+
+| cell | runs | persistence [95%] | runs > 0 | zero wage | at 10,000 |
+|---|---|---|---|---|---|
+| natural, 10⁶ (parent) | 40 | 0.084 [0.01, 0.17] | 6 | 0.45 | 0.077 |
+| L1, 10⁶ | 20 | 0.014 [0.00, 0.04] | 1 | 0.51 | 0.000 |
+| L2 (the mark), 10⁶ | 5 | 0.034 (identical to stored) | 1 | 0.57 | 0.034 |
+| natural, 3·10⁶ | 40 | 0.034 [0.00, 0.07] | 5 | 0.57 | 0.014 |
+| **L3 = L1, 3·10⁶** | 40 | **0.002** [0.00, 0.01] | 2 | 0.41 | 0.000 |
+| L1-withheld, 3·10⁶ | 5 | 0.000 | 0 | 0.26 | 0.000 |
+| L1 + sham, 3·10⁶ | 20 | 0.051 [0.00, 0.15] | 2 | 0.45 | 0.050 |
+| natural, ideal (stored = rerun) | 20 | 0.000 | 0 | 0.55 | 0.000 |
+| **L1, ideal** | 20 | **0.001** | 1 | 0.49 | 0.000 |
+| **H + eq, ideal (diagnostic)** | 20 | **0.302** [0.10, 0.50] | 8 | 0 | 0.300 |
+| H + no eq, ideal (parent) | 20 | 0.500 | 10 | 0 | 0.500 |
+
+Paired contrasts, L1 − natural:
+
+| K | Δ persistence [95%] | identical runs |
+|---|---|---|
+| 10⁶ | −0.059 [−0.17, 0.02] | 15/20 |
+| 3·10⁶ | −0.032 [−0.08, 0.00] | 33/40 |
+| ideal | +0.001 | 19/20 |
+
+Other contrasts: H + eq ideal − natural ideal is +0.302 [0.10, 0.50] (McNemar p = 0.031), and sham − L3 is +0.051.
+
+**Manipulation checks.** Each is unchanged by L1:
+- **Unconditional workers at generation 50:** 0.77–0.79 under both founding rules, |Δ| ≤ 0.01.
+- **Open militants at generation 10:** 0.30 under both.
+- **Militant spellings present:** 0.076 at generation 10 and 0.009 at 50 under both.
+- **First-encounter strike probability:** 0.84 under both.
+
+Withheld delivery at generation 10 reached 0, 11, 0, 0 and 0 of 19,200 individuals.
+
+**Costs.** The mark on the safe key changed no production in 3.4·10⁷ examined: the dynamics were identical in 5/5 runs, and the median cost per executed encounter fell from 2.2× play to 1.015×. L1 moves production out of the run: in-run worker acquisitions fall from 16,200 to 3,100 per run.
+
+**Assay.** The isolated coalition (D\*, T₁, T₁) with L1 lists is fair in 0/40 runs. No T₁ founder has a non-self triple, so the gate binds.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | L1 ideal and L3 ≥ 0.3, with a smaller unconditional share | **failed, falsifier fired** (0.001, 0.002; the share unchanged) |
+| Gemini | L1 at 10⁶ ≤ 0.1, L3 ≥ 0.3 | **failed** (L3 0.002) |
+| Sol | L1 improves early militant survival | **failed** (unchanged) |
+| Sol | only an invariant cache is neutral | **held** |
+| RE 2 | the mark is a cost fix | **held** on the safe key |
+| RE 3 | L3 ≥ natural at 3·10⁶ + 0.2 | **failed, falsifier fired** |
+| RE 4 | sham within 0.1 of L1 | **held** (+0.051) |
+| RE 5 | size still hurts | not run (dropped) |
+| RE 6 (revised) | the gate binds; assay 0/40 | **held** |
+| S1–S14 | subagent's own | S5 failed (natural yield 0.33, not 0); S1 and S12 missed a number, falsifiers not fired; the rest held |
+
+**Reading.**
+- **Legibility at founding is not the bind.** Founding lists equal what each founder writes at its first encounter, about 0.01 generation in, where selection cannot act. Giving them up front leaves the scramble and persistence unchanged at every fuel level and on the ideal table.
+- **Fuel is not the bind for endogenous production either:** 0.034 at 3·10⁶, against 0.084 at 10⁶ and 0 on the ideal table.
+- **Full lists recover the fair wage on the same seeds and grammar.** H + eq on the ideal table gives 0.30 where S₃ gives 0/20. Under H every founder lacks nothing, so the deficit is *what endogenous production never writes*, not when it writes it. Candidates are:
+  - scripts on paths never travelled;
+  - a second path per set under the lack rule;
+  - `EQ`-true scripts;
+  - copies under the gate.
+  
+  Every cell collapses to about 0.03–0.08 fair by generation 20, H included, and only H regrows. The bind acts in the regrowth phase.
+- **The negative cache keyed on what production reads is a pure cost fix** (4× → 1.0×); a bare-source key would block real productions.
+- **Run outcomes are fragile.** Delivering scripts to 11 of 19,200 individuals turned a 0.44-fair run into a 0 run, so paired contrasts measure the reshuffling of a few runs.
+- *Caveats:*
+  - Finite (N, I, horizon); ε = 0.
+  - 20-run cells at 10⁶ and ideal; 5-run withheld and mark cells.
+  - The H + eq diagnostic is labelled.
+  - The N panel and L1 + L2 were not run.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

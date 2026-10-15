@@ -363,6 +363,12 @@ REJECTED.md the ones we dropped.
   as the reported cell, with 3·10⁶ beside it; a "cannot produce" mark belongs in the tactic. *Open:* whether
   S-nonself's legibility cost at founding belongs to the language or to empty founders (founders carrying the
   scripts they could write against non-self partners).
+- *Evidence (2026-10-14, legibility at founding):* founding lists change nothing (L1 0.001 on the ideal table, 0.002 at
+  3·10⁶); fuel does not help produced lists (0.034 at 3·10⁶); full lists recover 0.30 on the ideal table where produced
+  lists give 0/20 (RESULTS "Legibility at founding"). *Operating hypothesis:* the realizable claim on distribution is
+  bound by production coverage plus seeded mass; the cost model for S₃ includes the invariant-key mark (overhead
+  4× → 1.0×), never a bare-source key. *Open:* which part of the full lists carries regrowth (multi-path lists,
+  `EQ`-true scripts, the gate): S₃ with founders given full lists minus one component.
 
 ## 12. Genes: certificates and contracts as behaviour-modifying genes (RS, 2026-10-11)
 - *RS's statement:* certificates and contracts are to be construed more broadly than proofs about a program: as
