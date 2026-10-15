@@ -314,6 +314,15 @@ rebuilt cache and skip without it).
   every match), so a 400-generation C-donor run at N = 400 cost more than 10 minutes and the first launch was stopped
   with no row saved; the C-donor calibration uses a 150-generation horizon (the S-nonself nucleation times have 95th
   percentiles 45–105 and 0.2% above 200 at N = 400, so the median is unaffected) and 10 replicates at N = 400.
+- **C-donor calibration (addendum, written after it finished and before any C-donor cell had reported; the S cells
+  had run).** Nucleating islands 114 / 68 / 76 / 41 of 1,280 / 1,280 / 1,280 / 640 (p = 0.09 / 0.05 / 0.06 / 0.06),
+  T_nuc = 25 / 30 / 40 / 50 at N = 50 / 100 / 200 / 400 (∝ N^0.34), run-level first 15 / 22.5 / 25 / 37.5; x on the
+  calibrated arm 0.31 / 0.30 / 0.32 / 0.33, at mN = 1 0.50 / 0.30 / 0.20 / 0.12. The calibration holds for C-donor
+  too. Worker time 3.4 h (7,210 s for the ten N = 400 runs alone). The N ≤ 200 C-donor calibration ran between the
+  code commit and the first counted cell; the N = 400 part ran after the S cells (batch order, `batches.sh`).
+- **Report detail (found while reading the first cells, no dynamics affected):** T_ext is not a multiple of the
+  10-generation step, so main-cell runs end at T_ext rounded up (≤ 9 generations later) and their final state is read
+  as T_ext's.
 
 ## 2. Costs
 
@@ -335,3 +344,15 @@ moved 37 → 37 and 18 → 19 between 2,000 and 10,000). N = 400, I = 256 and C-
 the order main S-nonself cells and the panel → the other S cells → C-donor → dense donors, so that if the total
 overruns the next drop step (C-donor off P3, then dense donors last in line) falls on the cheapest-to-lose cells.
 Measured costs are reported per cell in the run report.
+
+**Addendum (drop-order step 2, applied after the S cells and the C-donor calibration, before any C-donor or dense
+cell had reported except one replicate).** Measured: the S cells took 20.6 worker-h (projected 21); the C-donor
+calibration 3.4 worker-h; the first C-donor (400, 64) replicate 1,847 s, twice the probe. Re-projected, the C-donor and
+dense blocks would take ≈ 65 worker-h (≈ 22 h on 3 workers) against ≈ 14 h left in the budget. The spec's next step
+drops N = 400; the S cells at N = 400 had already run and are kept. For the copying rules, **C-donor (400, 64) at
+mN = 1 and dense donors at (400, 64) on both arms are dropped**; **C-donor (400, 64) calibrated is kept** (20 runs,
+last in line) because RE 6 and Gemini's G2 are scored only there, so G2 is scored on that one arm. The one finished
+replicate of the dropped C-donor cell (replicate 1: not universal, a bridge-less rival, 1,847 s) is kept in the rows
+and not reported in the cell tables. The three runs in flight were stopped (pool children killed by pid before the
+driver). Remaining order: C-donor (all other cells) → dense (200, 64) both arms → C-donor (400, 64) calibrated.
+

@@ -46,6 +46,8 @@ def at(r, g, key='snaps'):
     if s is not None: return s
     fin = r['final'] if key == 'snaps' else r['final_isl']
     if r.get('frozen_at', -1) > 0 and g >= r['last_gen']: return fin
+    # T_ext is not a multiple of the 10-generation step: the run ends at T_ext rounded up and its final state is T_ext's
+    if g == r.get('T_ext') and r['horizon'] == g and r['last_gen'] - g < 10 and r.get('ext_cut', -1) < 0: return fin
     if g > r['gens'] and r['horizon'] <= r['gens']:
         if r.get('noext'): return None                  # not extended by the drop order: censored after 2,000
         return r[key].get(str(r['gens'])) or fin
@@ -81,6 +83,16 @@ def cell_stats(rows, g):
     alle = sum(1 for r, s, i in ok if i['eff'] == I)
     out['all_eff'] = alle; out['all_eff_wilson'] = wilson(alle, n)
     out['pcc'] = float(np.mean([s['pcc'] for r, s, i in ok]))
+    out['eff90_mean'] = float(np.mean([np.mean(np.asarray(i['cc']) >= 0.9) for r, s, i in ok]))
+    out['held_mean'] = float(np.mean([np.mean(i['held']) for r, s, i in ok]))
+    # inefficient islands (P(C,C) < 0.95) by their label: on a failing (rival / identity) island, or held by the main
+    # network next to one (migrant load), or in a universal run
+    lab = Counter()
+    for r, s, i in ok:
+        for c_, f_ in zip(i['cc'], i['fail']):
+            if c_ < 0.95:
+                lab[(f_ or 'main') + ('' if not i['universal_open'] else '/universal')] += 1
+    out['ineff_by_label'] = dict(lab)
     out['ident_islands'] = float(np.mean([s['identity_islands'] / I for r, s, i in ok]))
     out['runs_with_ident'] = sum(1 for r, s, i in ok if s['identity_islands'] > 0)
     out['cause'] = dict(Counter(i['cause'] for r, s, i in ok if not i['universal_open']))
@@ -146,8 +158,9 @@ def logit_ll(x, y):
     return float((y * np.log(p) + (1 - y) * np.log(1 - p)).sum()), b.tolist()
 
 
-def paired(A, B, g):
-    """A - B on universal-open, paired by replicate."""
+def paired(A, B, g=None):
+    """A - B on universal-open, paired by replicate, at the earlier of the two cells' scoring horizons (or g)."""
+    if g is None: g = min(score_g(A[0]), score_g(B[0]))
     a = {r['rep']: at(r, g) for r in A}; b = {r['rep']: at(r, g) for r in B}
     reps = sorted(k for k in a if k in b and a[k] is not None and b[k] is not None)
     if not reps: return None
@@ -222,6 +235,9 @@ def fw(k, n, w):
     return '%d/%d [%.2f, %.2f]' % (k, n, w[0], w[1])
 
 
+# drop-order step 2 (notes §2 addendum): cells dropped after launch; their finished replicates are not reported
+DROPPED = {'rs_Cdon_400_64_m1', 'rs_Cdense_400_64_m1', 'rs_Cdense_400_64_cal'}
+
 PATHS = {'P1': [(50, 64), (100, 64), (200, 64), (400, 64)], 'P2': [(100, 32), (100, 64), (100, 128), (100, 256)],
          'P3': [(50, 32), (100, 64), (200, 128)]}
 
@@ -230,7 +246,8 @@ def main():
     names = [f[len('lottery_'):-5] for f in os.listdir(OUT) if f.startswith('lottery_') and f.endswith('.json')]
     rows = load_rows(names)
     by = defaultdict(list)
-    for r in rows: by[r['cell']].append(r)
+    for r in rows:
+        if r['cell'] not in DROPPED: by[r['cell']].append(r)
     J = dict(calib=calib_summary(), cells={}, paths={}, panel={}, contrasts={}, clustering={}, costs={})
     vp = os.path.join(ROOT, 'runs', 'realizable-scaling-validate.json')
     J['validate'] = {k: v for k, v in json.load(open(vp)).items() if k != 'rows'} if os.path.exists(vp) else None
@@ -304,8 +321,8 @@ def main():
                 md.append('| %s | %s | %s |' % (rule, arm, ' | '.join(ent)))
         md.append('')
     md += ['## Crossed panel (S-nonself, calibrated mN; c = TwinD copies per run; c = 0 is the proportional control)', '',
-           '| geometry | f(0) | f(4) | f(8) | f(16) | f at 2,000 | q_c fit | 50% crossing (copies) | establishment per seeded copy (c = 4 / 8 / 16) |',
-           '|---|---|---|---|---|---|---|---|---|']
+           '| geometry | f(0) | f(4) | f(8) | f(16) | f at 2,000 | q_c fit | 50% crossing (copies) | islands ever identity-held per seeded copy, incl. colonized (c = 4 / 8 / 16) | own-island establishment per copy (c = 4 / 8 / 16) |',
+           '|---|---|---|---|---|---|---|---|---|---|']
     for (N, I) in RS.PANEL_GEOMS:
         cs = [RS.cell_name('prop', N, I, 'cal')] + [RS.cell_name('cross%d' % c, N, I, 'cal') for c in RS.PANEL_C[1:]]
         if not all(c in by for c in cs): continue
@@ -316,18 +333,25 @@ def main():
         q = fit_qc(list(RS.PANEL_C[1:]), fs[1:], f0)
         cr = crossing(list(RS.PANEL_C), fs) if f0 >= 0.5 else None
         est = [clustering(by[c])['establishment_per_seeded_copy'] for c in cs[1:]]
+        own = []
+        for c in cs[1:]:
+            cl_ = clustering(by[c]); n1 = cl_.get('1', {}); n2 = cl_.get('2', {})
+            ev = n1.get('ever_identity', 0) + n2.get('ever_identity', 0)
+            cp = sum(min(q, 99) for r in by[c] for q in r['clus']['q_isl'] if q > 0)
+            own.append(ev / max(1, cp))
         f2 = [cell_stats(by[c], 2000)['uo_frac'] for c in cs]
-        J['panel']['%d_%d' % (N, I)] = dict(f=fs, uo=ns, q_c=q, crossing=cr, est_per_copy=est, f2000=f2)
-        md.append('| (%d, %d) | %s | %s | %.4f | %s | %s |' % (
+        J['panel']['%d_%d' % (N, I)] = dict(f=fs, uo=ns, q_c=q, crossing=cr, est_per_copy=est, own_island_per_copy=own, f2000=f2)
+        md.append('| (%d, %d) | %s | %s | %.4f | %s | %s | %s |' % (
             N, I, ' | '.join('%.2f' % x for x in fs), ' / '.join('%.2f' % x for x in f2), q,
-            fmt(cr, 1) if cr else ('none (f₀ < 0.5)' if f0 < 0.5 else 'none'), ' / '.join('%.3f' % x for x in est)))
+            fmt(cr, 1) if cr else ('none (f₀ < 0.5)' if f0 < 0.5 else 'none'), ' / '.join('%.3f' % x for x in est),
+            ' / '.join('%.3f' % x for x in own)))
     md.append('')
-    md += ['## Paired contrasts (universal-open at the scoring horizon of the first cell)', '',
+    md += ['## Paired contrasts (universal-open at the earlier of the two cells\' scoring horizons)', '',
            '| contrast | n | diff [95%] | up / down | McNemar p |', '|---|---|---|---|---|']
 
     def add(lbl, a, b):
         if a in by and b in by:
-            p = paired(by[a], by[b], score_g(by[a][0]))
+            p = paired(by[a], by[b])
             if p:
                 J['contrasts'][lbl] = p
                 md.append('| %s | %d | %+.2f [%+.2f, %+.2f] | %d / %d | %.3f |' % (lbl, p['n'], p['diff'], p['ci'][0], p['ci'][1],
