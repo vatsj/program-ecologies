@@ -1,0 +1,19 @@
+# Review of `specs/2026-10-14-founding-legibility.md` by gemini-4-argon
+
+1. **Design flaws or confounds**
+- **L1 founding pass underspecified for $k=3$:** In a 3-player fixed-role game, S-nonself$_3$ production runs on triples $(B, W_1, W_2)$. On an island of size $N=100$ (e.g., $\sim 33$ per role), there are $\sim 3.6 \times 10^4$ cross-role triples. Running "one production pass against the island's other founders" cannot mean all triples (exhaustive search would cost $\sim 10^{10}$ steps per island at $t=0$ and grant an omniscience advantage over later mutants). If it means *one random encounter* per founder, a militant founder still only has a small probability ($\sim \text{coalition share}^2$) of drawing compatible partners on that single pass. **Fix:** Specify the exact $t=0$ pairing protocol in L1 (e.g., $M$ random non-self triples per founder before play starts, or exhaustive cross-role pairs) and compute its expected certificate yield in `notes/founding-legibility.md` §1 before running.
+- **L2 negative-cache key granularity:** If "failed production for a set" caches the exact opponent source tuple $(s_j, s_k)$, inherited negative marks will rarely hit after migration or if opponents carry different certificate lists (if state is part of the key), and if keyed on *source ASTs* alone, a failure against $(A, B)$ when $B$ lacked a certificate might permanently suppress production with $(A, B)$ *after* $B$ acquires its certificate. **Fix:** Key the negative cache strictly on the tuple of bare source ASTs (ignoring carried certificates, since production only reads sources), and verify in `test_founding_legibility.py` that production depends only on sources, not partner certificate lists.
+- **Scale-guard drop order:** L2 is the remedy for the $4\times$ futile-retry cost. Dropping `L1 + L2` first while running L1, L3, and the N-panel at $4\times$ overhead risks blowing the time budget. **Fix:** Run L2 (or a 5-run timing pilot of L2) *first*; if it confirms the cost fix without altering dynamics, use L2 as the base for L3 and the N-panel, or invert the drop order to keep `L1 + L2`.
+
+2. **Predictions I think are wrong**
+- **Prediction 1 (L1 persistence $\ge 0.3$):** Likely **wrong** (unless L1's founding pass is exhaustive over all island triples). Under RESULTS #30, even with *free certificates* at $K = 10^6$, fair-wage persistence was only $0.03$ (vs $0.65$ at $K = 3\cdot 10^6$). Making certificates present at $t=0$ via $K = 10^6$ production cannot beat the free-certificate ceiling at $K = 10^6$ unless the free-certificate cell in #30 lacked something else. **My prediction:** L1 at $K = 10^6$ stays $\le 0.10$; **L3 ($K = 3\cdot 10^6$ + L1)** is the cell that jumps to $\ge 0.30$.
+
+3. **Missing controls or cheap additions**
+- **S$_3$ + eq at $K = 3\cdot 10^6$ (without L1):** If L1 fails at $K = 10^6$ and L3 succeeds at $K = 3\cdot 10^6$, you cannot tell whether legibility at founding mattered or if $K = 3\cdot 10^6$ alone fixes S$_3$ + eq (just as it fixed free certificates in #30). Add a cell: natural S$_3$ + eq (+ L2 for speed) at $K = 3\cdot 10^6$.
+
+4. **Alternative explanations not ruled out**
+- **Fuel threshold vs. founding legibility:** RESULTS #30 showed $K = 10^6 \to 3\cdot 10^6$ took free certificates from $0.03$ to $0.65$. The $3/40$ baseline in S$_3$ + eq at $K = 10^6$ may simply be verification/production fuel starvation on complex concession bosses, not the $t=0$ empty-list scramble.
+- **Demographic mass vs. legibility:** Seeding 20 coalition founders gave $0.70$ in #30. That changes initial *frequencies* (preventing drift/scramble loss of rare concessions and militants), whereas L1 keeps natural frequencies ($\sim 1/5$ bosses, rare militants) and only changes $t=0$ state. If L1 fails even at $K = 3\cdot 10^6$, the bind is initial demographic mass of the 3-role tuple, not $t=0$ certificates.
+
+5. **Ideas that matter for the research program**
+- Nothing material.
