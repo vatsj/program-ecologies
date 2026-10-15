@@ -114,6 +114,11 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 32. ~~Dominance contracts and refusal on islands~~ (done; RESULTS "Dominance contracts and refusal on islands": the RS's prediction failed, atomic pair contracts give the generator's walk with exactly 1/3 on the set at any N; a veto on exits from members recovers it, every island on a member with all three members covered; the veto is neutral within islands and spreads under migration in every run).
 
+33. Farsighted refusal: whether a Konishi–Ray value guard, derived rather than hand-written, recovers the stable set and spreads (running: `specs/2026-10-14-farsighted-refusal.md`).
+34. Legibility at founding in the fully realizable social organization game: founders carrying their non-self certificates, at 10⁶, 3·10⁶ and ideal fuel, plus a safe "cannot produce" mark (running: `specs/2026-10-14-founding-legibility.md`).
+35. The leader-value core existence sweep: TU and NTU cores over Cournot, Bertrand, public goods, supermodular and allocation families, with proof attempts (running: `specs/2026-10-14-core-existence-sweep.md`).
+36. Next candidate (not specced): an (N, I) scaling path for the realizable arm, since the realizable results so far degrade from N = 100 to 200.
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).
