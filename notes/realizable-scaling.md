@@ -356,3 +356,11 @@ replicate of the dropped C-donor cell (replicate 1: not universal, a bridge-less
 and not reported in the cell tables. The three runs in flight were stopped (pool children killed by pid before the
 driver). Remaining order: C-donor (all other cells) → dense (200, 64) both arms → C-donor (400, 64) calibrated.
 
+
+**Second addendum (budget; written while the C-donor block ran, before any dense or C-donor (400, 64) run).** The
+C-donor runs at (200, 128) cost 350–3,200 s each (median ≈ 900 s, about twice the stored (200, 64) figure; the machine
+is shared and swapping), so the remaining copying-rule work re-projects to ≈ 12 h against ≈ 9 h left. Two further
+reductions, disclosed now: **dense donors are run on the calibrated arm only** (rs_Cdense_200_64_cal; the mN = 1 arm
+is dropped, so donor density is compared on one arm), and **C-donor (400, 64) calibrated is run with 10 replicates**
+(0–9) instead of 20. These are not in the spec's drop order (which would drop the N = 400 cell outright); they keep
+one test of RE 6 / G2 at (400, 64) at reduced power. The rest of the C-donor block is unchanged.

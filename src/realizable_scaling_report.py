@@ -236,7 +236,7 @@ def fw(k, n, w):
 
 
 # drop-order step 2 (notes §2 addendum): cells dropped after launch; their finished replicates are not reported
-DROPPED = {'rs_Cdon_400_64_m1', 'rs_Cdense_400_64_m1', 'rs_Cdense_400_64_cal'}
+DROPPED = {'rs_Cdon_400_64_m1', 'rs_Cdense_400_64_m1', 'rs_Cdense_400_64_cal', 'rs_Cdense_200_64_m1'}
 
 PATHS = {'P1': [(50, 64), (100, 64), (200, 64), (400, 64)], 'P2': [(100, 32), (100, 64), (100, 128), (100, 256)],
          'P3': [(50, 32), (100, 64), (200, 128)]}
