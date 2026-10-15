@@ -267,8 +267,71 @@ N ≥ 200.**
 
 ### 1.9 Code validation and the calibration (appended after the code, before any counted cell)
 
-(to be written)
+Code: `src/realizable_scaling.py` (founders, cells, `RSRun` with mN, `rho_fix`, `classify`, `static_check`),
+`src/realizable_scaling_run.py` (calibration, validation, lottery job with per-island records, clustering logs and the
+static check), `src/realizable_scaling_report.py`; `tests/test_realizable_scaling.py` (7 tests, passing; 3 need the
+rebuilt cache and skip without it).
+
+- **Rebuilt tables.** `lt_genes_run.py static` (17,391 units, 29 scripts, 14,160,981 closure checks and 25,522,223 in
+  all, identical counts to the stored log; 1,169 s on 3 workers), then provenance's `static` (17,394 units, +3 S-k
+  units, 24,489 checks), `osv` (28,283 values, 468 tactic outputs not own-side valid at their own code) and `sets`
+  (Q = 10 spellings, μ(Q) = 7.13·10⁻⁴, R = 33 spellings): every tracked summary field equal to the stored one except
+  wall times and the OSV sampling check, which the stored file ran with a larger sample (4,014 pairs, 9 mismatches;
+  here 404, 1). `runs/realizable_scaling/rebuild_compare.json`. The tracked files were restored.
+- **Draw for draw.** 36 stored provenance runs (S-nonself, ablation, C-donor; replicates 0–5 at (100, 64) and at
+  (200, 64) with mN = 1) rerun with this run's job: **0 differences** over 2,743 common trace points (P(C,C), islands
+  ≥ 0.9, held, identity, open, SPO islands, type counts), the 2,000 and 10,000 snapshots and establishment times; the
+  classifier's universal-open equals provenance's at every snapshot (0 mismatches). `runs/realizable-scaling-validate.json`.
+  The pytest reproduction of replicate 1 passes as well.
+- **Classifier and ρ:** constructed archipelagos (all-CB, CB with a TwinD island, with a non-open rival, with an
+  all-D island, a clique-only metapopulation) give the hand labels; ρ = 1/N for a neutral pair, 1.85·10⁻⁵ for the
+  TwinD barrier at N = 100, and a direct simulation of the birth–death step at N = 12 agrees within 4σ.
+- **Founders:** the proportional control redraws exactly the Q founders and nothing else; the panel's counts are exact
+  and its non-Q founders are the proportional control's; placement is uniform over islands (χ² over 300 draws);
+  dense donors are ⌈N/100⌉ per island.
+- **Correction to §1.1 (found in validation, before any cell).** "C-donor removes the identity mechanism by
+  construction" is wrong as worded: one of the six validation C-donor runs at (100, 64) ends with TwinD-family
+  identity islands (four islands, holder `if(or(not(CHK(me,them,D)),CHK(me,me,D)),C,D)`, a Q spelling, founded as a
+  copier); no donor is ever in Q (the donor law gives Q zero mass, since TwinD's H unit is not a donor-eligible
+  establisher). So a TwinD copier can reach its identity unit by copying, rarely (provenance's C-donor had 0.004 of
+  islands). R4 stands as written and is scored as written.
+- **Calibration (§1.2 rule; `runs/realizable_scaling/calib_rows.json`).** Per-island nucleation at m = 0, I = 64, 20
+  replicates per N:
+
+| rule | N | nucleating islands (p) | T_nuc [95%] | run-level first | x at mN = 1 | x calibrated |
+|---|---|---|---|---|---|---|
+| S-nonself | 50 | 133 / 1,280 (0.10) | 25 [20, 25] | 15 | 0.50 | 0.31 |
+| S-nonself | 100 | 159 / 1,280 (0.12) | 35 [30, 35] | 20 | 0.35 | 0.35 |
+| S-nonself | 200 | 204 / 1,280 (0.16) | 45 [45, 50] | 30 | 0.23 | 0.37 |
+| S-nonself | 400 | 244 / 1,280 (0.19) | 55 [55, 60] | 35 | 0.14 | 0.36 |
+| ablation | 50–400 | 0.10 / 0.12 / 0.16 / 0.19 | 25 / 35 / 45 / 55 | 15 / 20 / 30 / 35 | as S-nonself | as S-nonself |
+
+  T_nuc ∝ N^0.38 (S-nonself and ablation). **The calibrated arm sits at x = 0.31–0.37 at every N** (flat, as the
+  formula intends), slightly above the 0.3 boundary; the decision rule (x > 0.6) is not triggered and the spec's
+  formula is kept. Under mN = 1, x falls from 0.50 (N = 50) to 0.14 (N = 400). Per-island nucleation at m = 0 is rare
+  (p = 0.10–0.19): most islands are colonized, not nucleated, in every cell of this run. C-donor: see the addendum below.
+  *Deviation (C-donor calibration):* at m = 0 an island whose donor lineage dies is never settled (copiers retry at
+  every match), so a 400-generation C-donor run at N = 400 cost more than 10 minutes and the first launch was stopped
+  with no row saved; the C-donor calibration uses a 150-generation horizon (the S-nonself nucleation times have 95th
+  percentiles 45–105 and 0.2% above 200 at N = 400, so the median is unaffected) and 10 replicates at N = 400.
 
 ## 2. Costs
 
-(to be written)
+**Probes** (one discarded replicate, 990, per cell; `runs/realizable_scaling/smoke_rows.json`): S-nonself
+calibrated (400, 64) to T_ext 211 s (frozen at 13,320), S-nonself (100, 256) to 40,000 277 s, C-donor calibrated
+(400, 64) to 2,000 875 s, C-donor (100, 256) to 2,000 319 s. The stored provenance cells give 8–17 s per S-nonself run
+at (100, 64), 30 s at (200, 64), 200–380 s per C-donor run at (100, 64) / (200, 64) with a tail to 10× the mean.
+
+**Projection** (worker-seconds, mean-based): S-nonself 24,500; ablation 12,000; proportional 11,500; panel 26,600
+(S rules ≈ 75,000, 21 worker-h); C-donor without extensions ≈ 101,000 (28 worker-h; (400, 64) both arms 36,000,
+(200, 128) both arms 26,000); dense donors ≈ 50,000 (14 worker-h). Total ≈ 226,000 worker-s ≈ 21 h on 3 workers
+without C-donor extensions, ≈ 23–25 h with them and well over 24 h if C-donor's tail repeats at N = 400.
+
+**Drop order applied (disclosed before any cell):** step 1, the 10,000-generation extensions outside the main cells,
+is applied **to the C-donor and dense-donor cells only**, where it buys the margin; the S rules' extensions to 10,000
+are kept (they cost under 5% of the total and RE 4, R10 and the resolution statistics need them). C-donor and dense
+cells are therefore scored at 2,000 (runs universal-open at 2,000 are mostly frozen or settled; provenance's C-donor
+moved 37 → 37 and 18 → 19 between 2,000 and 10,000). N = 400, I = 256 and C-donor off P3 are kept; the batches run in
+the order main S-nonself cells and the panel → the other S cells → C-donor → dense donors, so that if the total
+overruns the next drop step (C-donor off P3, then dense donors last in line) falls on the cheapest-to-lose cells.
+Measured costs are reported per cell in the run report.
