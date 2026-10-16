@@ -121,6 +121,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 37. Coverage components: which part of the full certificate lists (untravelled paths, second paths, `EQ`-true scripts, gate copies) carries the fair wage's regrowth under endogenous production (running: `specs/2026-10-15-coverage-components.md`).
 
+38. Removing rival networks: a sponsored PrudentBot donor (prevention of cliques) and seed rain as a finite-ε diagnostic (cure of exploitable rivals through predators), with matched ε = 0 branches and an empty-list donor control (running: `specs/2026-10-15-removing-rivals.md`).
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).
