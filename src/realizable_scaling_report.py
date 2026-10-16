@@ -66,6 +66,9 @@ def load_rows(names):
     for n in names:
         p = os.path.join(OUT, 'lottery_%s.json' % n)
         if os.path.exists(p): rows += json.load(open(p))
+        elif os.path.exists(p + '.gz'):
+            import gzip
+            rows += json.load(gzip.open(p + '.gz'))
     return rows
 
 
@@ -104,8 +107,16 @@ def cell_stats(rows, g):
     return out
 
 
+def static_label(r):
+    """The static check's label; a non-universal run with no failing island (every holder open and mutual with the
+    plurality holder, two holders not mutual with each other) is a non-transitive main network, bridged by construction."""
+    lab = r['static']['label']
+    if lab == 'universal' and not r['final']['universal_open']: return 'bridged (non-transitive)'
+    return lab
+
+
 def static_stats(rows):
-    lab = Counter(r['static']['label'] for r in rows)
+    lab = Counter(static_label(r) for r in rows)
     per = Counter((p['fail'], p['kind']) for r in rows for p in r['static']['per'])
     dead = sum(1 for r in rows for p in r['static']['per'] if p['kind'] == 'absorbing' and p['dead_prior_bridges'] > 0)
     return dict(labels=dict(lab), per_island={'%s/%s' % k: v for k, v in per.items()}, absorbing_with_dead_prior_bridge=dead)
@@ -243,7 +254,8 @@ PATHS = {'P1': [(50, 64), (100, 64), (200, 64), (400, 64)], 'P2': [(100, 32), (1
 
 
 def main():
-    names = [f[len('lottery_'):-5] for f in os.listdir(OUT) if f.startswith('lottery_') and f.endswith('.json')]
+    names = sorted(set(f[len('lottery_'):].split('.json')[0] for f in os.listdir(OUT)
+                       if f.startswith('lottery_') and (f.endswith('.json') or f.endswith('.json.gz'))))
     rows = load_rows(names)
     by = defaultdict(list)
     for r in rows:
@@ -289,9 +301,9 @@ def main():
         rs = by.get(c)
         if not rs: continue
         inf = RS.CELL_INFO[c]
-        s2 = cell_stats(rs, 2000); s10 = cell_stats(rs, 10000)
+        s2 = cell_stats(rs, 2000); s10 = cell_stats(rs, 10000) if not rs[0].get('noext') else None
         sT = cell_stats(rs, inf['T_ext']) if inf['main'] else None
-        sg = sT if inf['main'] else s10
+        sg = cell_stats(rs, score_g(rs[0]))
         st = static_stats(rs)
         J['cells'][c] = dict(info=inf, s2000=s2, s10000=s10, sT=sT, static=st, resolution=resolution(rs, score_g(rs[0])),
                              costs=costs(rs), clustering=clustering(rs))
