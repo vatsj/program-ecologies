@@ -137,7 +137,7 @@ REJECTED.md the ones we dropped.
   island over the horizon while selected arrivals do; per island the ratio of selected cures to drift colonizations is
   ≈ 2·s·N·μ_pred, so the window widens with N and exists only if the useful entrants are common in the prior
   (`specs/2026-10-15-removing-rivals.md`, measured there).
-- *RS (2026-10-15), the deviation–equilibrium duality again:* "the mutation model forces the program to be inexploitable
+- *RS (2026-10-15), the deviation–equilibrium correspondence again:* "the mutation model forces the program to be inexploitable
   against arbitrary programs". *RE mapping:* the re-entry model is the deviation set. Rare mutation admits every
   program, neutral ones included, so it asks for closure against neutral entrants (ESS-like; the shadow is the
   neutral step), which no modal class meets (sibling theorem) and only identity cliques met in the realizable language;
