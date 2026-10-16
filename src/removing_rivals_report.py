@@ -430,12 +430,73 @@ def a_compare(cells):
     return out
 
 
+def b1_endstate(rows):
+    """Island fractions at the end of each branch, pooled, by rate; losses by kind and median length."""
+    S = RR.static(PR.lot_static())
+    agg = defaultdict(Counter); lens = defaultdict(list)
+    for r in rows:
+        for b in r['branches']:
+            e = b['epsN']; sn = b['snaps'][str(b['g_end'])]
+            agg[e]['I'] += len(sn['labels'])
+            for k in ('target', 'identity', 'exploitable', 'closed_open', 'unheld', 'eff'): agg[e][k] += sn[k]
+            for l in b['losses']:
+                kind = 'unheld' if l[3] == 0 else 'identity' if S['ident'][l[4]] else 'open' if S['openu'][l[4]] else 'other'
+                lens['%g|%s' % (e, kind)].append(l[2])
+    out = {str(e): {k: a[k] / a['I'] for k in ('target', 'identity', 'exploitable', 'closed_open', 'unheld', 'eff')}
+           for e, a in sorted(agg.items())}
+    return dict(fractions=out, losses={k: dict(n=len(v), median_len=float(np.median(v))) for k, v in sorted(lens.items())})
+
+
+def assays():
+    ir = load('inject_rows.json'); tr = load('triples_rows.json')
+    d = defaultdict(list)
+    for r in ir: d['%s|%d|%s' % (r['cell'], r['rep'], r['kind'])].append(r)
+    inj = {k: dict(n=len(v), colonized=sum(r['colonized'] for r in v),
+                   resolved_after_col=sum(1 for r in v if r['colonized'] and r['path']['resolved']),
+                   elsewhere_after_col=sum(1 for r in v if r['colonized'] and not r['path']['resolved']),
+                   resolved_any=sum(r['path']['resolved'] for r in v)) for k, v in sorted(d.items())}
+    t = defaultdict(list)
+    for r in tr: t[r['name']].append(r)
+    tri = {k: dict(n=len(v), colonized_own=sum(1 for r in v if 0 in r['colonized']),
+                   x_islands_to_target=sum(r['x_to_target'] for r in v), x_islands=4 * len(v),
+                   z_lost=sum(r['z_lost'] for r in v)) for k, v in sorted(t.items())}
+    return dict(inject=inj, inject_meta=load('inject_meta.json'), triples=tri, triples_meta=load('triples_meta.json'))
+
+
+def final():
+    out = dict(part0=json.load(open(os.path.join(ROOT, 'runs', 'removing-rivals-part0.json'))))
+    br = load('branch_main.json')
+    out['B1'] = b1(br)
+    out['B1'].pop('colonizations', None)
+    out['B1_endstate'] = b1_endstate(br)
+    rows = load('lottery_A.json') + load('lottery_B.json') + load('lottery_base.json')
+    cs = cell_stats(rows)
+    for c in cs.values():
+        for h in ('2000', '10000'):
+            if h in c: c[h].pop('uot_list', None); c[h].pop('reps', None)
+        if c.get('drift'): c['drift'].pop('by_class', None)
+    out['cells'] = cs
+    out['A_compare'] = a_compare([c for c in cs if c.startswith('rr_')])
+    out['cdonor_bounds'] = json.load(open(os.path.join(OUT, 'cdonor_bounds.json')))
+    out['assays'] = assays()
+    for f in ('removing-rivals-drift.json', 'removing-rivals-shadow.json'):
+        p = os.path.join(ROOT, 'runs', f)
+        if os.path.exists(p): out[f.replace('removing-rivals-', '').replace('.json', '')] = json.load(open(p))
+    json.dump(out, open(os.path.join(ROOT, 'runs', 'removing-rivals.json'), 'w'), indent=1, default=str)
+    print('wrote runs/removing-rivals.json')
+    print(json.dumps(out['B1_endstate'], indent=1))
+    print(json.dumps(out['assays']['inject'], indent=0))
+    print(json.dumps(out['assays']['triples'], indent=0))
+
+
 if __name__ == '__main__':
     what = sys.argv[1] if len(sys.argv) > 1 else 'all'
     if what == 'part0':
         p = part0()
         json.dump(p, open(os.path.join(ROOT, 'runs', 'removing-rivals-part0.json'), 'w'), indent=1, default=str)
         print(md_part0(p))
+    if what == 'final':
+        final()
     if what in ('all', 'b1'):
         rows = load('branch_main.json')
         b = b1(rows)
