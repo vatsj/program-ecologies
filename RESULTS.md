@@ -4927,6 +4927,110 @@ Withheld delivery at generation 10 reached 0, 11, 0, 0 and 0 of 19,200 individua
   - The static check treats islands as monomorphic.
   - The panel ran on the calibrated arm only, and not at N = 400.
 
+## Removing rival networks: one PrudentBot founder per island removes the open rivals, rain cures the exploitable ones, and rain's shadows let identity cliques into the network (`runs/removing-rivals.md`, `runs/removing-rivals.json`, `runs/removing-rivals-{part0,drift,shadow}.json`, `runs/removing_rivals/`, `notes/removing-rivals.md`; spec `specs/2026-10-15-removing-rivals.md`, predictions in `predictions/2026-10-15-removing-rivals.md` with the RS's criterion first)
+
+**Provenance.** Follow-up to the RS's decision of 2026-10-15 (the PrudentBot network is the target). The RE designed it, gpt-6.1-sol and gemini-4-argon reviewed it, and an Opus subagent ran it (`src/removing_rivals{,_kern,_run,_report,_drift,_probe,_cdonor,_diag,_shadow}.py`; `tests/test_removing_rivals.py`, 5 tests needing the untracked cache and skipping on main). The kernel is a copy of provenance's segment with fresh-founder rain at the birth step and lineage tracking; at ε = 0 it reproduces the scaling kernel draw for draw.
+
+**Validation.** 300 stored runs at N ≥ 200 reconstruct to generation 2,000 with 0 differences, and the ε = 0 branches match the stored traces beyond it. The RE's static predator counts (2,870 / 2,222) are reproduced.
+
+**Target (frozen before the cells).** Holders mutual with PrudentBot's H unit and pairwise mutual: 235 units, all open.
+
+**Disclosures.**
+- B1 ran on the calibrated arm (86 checkpoints) plus 6 checkpoints at mN = 1.
+- Injection replicates at N = 400 were cut from 20 to 10.
+- C-donor was bounded from stored spellings, not rerun.
+- One B3 replay and a static shadow check are post hoc.
+- About 36 worker-hours.
+
+**RE check:** drift colonizations per island-generation, from the run file:
+
+| εN | N = 200 | N = 400 |
+|---|---|---|
+| 0.01 | 1.07·10⁻⁵ | 4.7·10⁻⁶ |
+| 0.1 | 6.2·10⁻⁵ | 3.0·10⁻⁵ |
+| 1 | 1.5·10⁻⁴ | 8.0·10⁻⁵ |
+
+Doubling N halves the drift rate at every εN.
+
+**Part 0 (the stored runs at generation 2,000).** The target is stricter than the open network: 132 of 185 universal-open runs are universal on target (uot). In the other 168 runs, rival islands split three ways:
+
+| rival class | islands |
+|---|---|
+| closed-open | 1,492 |
+| identity | 770 |
+| exploitable | 260 |
+
+- **Closed-open holders** are open, S-guarded programs that cannot certify their own defection against DefectBot, e.g. `if(or(CHK(them,me,C),CHK(me,them,D)),C,D)`. FairBot is mutual with both them and PrudentBot, so their islands trade holders with target islands by neutral drift.
+- **Predators exist, and no constant is one.** Two families: anti-punishers (accessible prior mass ≈ 0.075) and certified-defection detectors (≈ 0.0056).
+
+**Part A, the sponsored founder** (ε = 0; uot out of 20 runs):
+
+| cell | sponsored, 2,000 | sponsored, 10,000 | S-nonself, 10,000 | identity islands, sponsored (S-nonself) |
+|---|---|---|---|---|
+| (200, 64) | 15 | 15 | 11 | 0.020 (0.056) |
+| (400, 64) | 10 | 11 | 8 | 0.036 (0.043) |
+| (200, 128) | 2 | 2 | 3 | 0.026 (0.075) |
+| (100, 256) | 2 | 11 | 6 | 0.002 (0.010) |
+| (200, 64), empty-list PrudentBot | 12 | 12 | 11 | 0.021 |
+| (200, 128), empty-list PrudentBot | 6 | 6 | 3 | 0.025 |
+
+Every closed-open rival disappears in every A cell, with or without certificates. C-donor's uot at 2,000 is at most 9, 4 (of 10), 6 and 5.
+
+**Part B1, rain as cure** (matched ε = 0 and rain branches from generation 2,000, run 10,000 generations; 92 checkpoints):
+
+| εN | exploitable cure [95%] | by predator step | identity cure | uot runs (ε = 0: 20 of 92) | identity islands at end (ε = 0: 0.038) |
+|---|---|---|---|---|---|
+| 0.01 | +0.70 [0.46, 0.85] | 41/89 | 0 | 22 | 0.059 |
+| 0.1 | +0.92 [0.80, 0.99] | 85/117 | 0 | 26 | 0.142 |
+| 1 | +0.94 [0.85, 0.99] | 79/119 | 0 | 40 | 0.218 |
+
+- **The target-island fraction does not rise** (0.82 / 0.80 / 0.79 / 0.78 at εN = 0 / 0.01 / 0.1 / 1).
+- **Permanent identity takeovers of target islands** run 0 / 0.006 / 0.029 / 0.050 per island.
+- **Injection assays:** an injected predator colonizes 27/110 rival islands (ρ ≈ 0.26) and 22 of those end on target; a non-predator colonizes 1/110.
+
+**Part B2, rain from generation 0** (uot at 10,000; S-nonself without rain in brackets):
+- (200, 64): 7 / 7 / 7 at εN = 0.01 / 0.1 / 1 [11].
+- (200, 128): 3 / 4 / 2 [3].
+- Identity islands rise to 0.09–0.38.
+
+**Part B3, sponsor plus rain at εN = 0.1:** uot 10 and 4, against 15 and 2 for the sponsor alone; identity islands 0.11.
+
+**The shadow mechanism.**
+- **Most of the target is exploitable by identity.** 165 of the 235 target units are exploited by one of the 4 identity holders.
+- **Rain keeps supplying those units.** Fresh founders that become such a unit in a target island weigh 0.027 of the prior, e.g. `if(CHK(them,^D,D),C,D)`.
+- **Identity enters through them.** These units drift in neutrally, and identity migrants then invade through them; the replay shows this directly.
+- **Most drift colonizations are shadows.** 85–95% are neutral shadows on target islands (CooperateBot, FairBot spellings).
+- **Neutral arrivals behave like drift.** At N = 200 a neutral arrival colonizes with probability 0.0029 / 0.0020 / 0.0012 at εN = 0.01 / 0.1 / 1 (1/N = 0.005).
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RS | "drift should never colonize an island, only reintroduce fit programs" | **failed at every rate tested** (6.8 / 40 / 99 drift colonizations per 64 islands per 10⁴ generations at N = 200; 3.0 / 19 / 51 at N = 400) |
+| RE 1 | ≥ 0.8 of non-identity rivals exploitable | **falsifier fired** (0.15 on the target definition; 1.00 on the scaling classifier's rivals) |
+| RE 2 | rain at εN = 0.1 cures ≥ 0.8 of exploitable rivals | **held** (0.92, mostly predators) |
+| RE 3 | rain does not cure cliques | **held** (0) |
+| RE 4 | rain does not break the network (losses ≤ 0.01) | **falsifier fired** (0.20 non-flip losses at εN = 0.1) |
+| RE 5 | sponsor: uot ≥ 0.85, identity ≤ 0.01 | **falsifier fired** |
+| RE 6 | sponsor plus rain ≥ 0.95 | **falsifier fired** |
+| RE 8 | an admissible window exists at εN ≤ 0.1 | **falsifier fired** |
+| Sol | cure tracks predator mass; 5 and 6 too high; cliques resist | held, except "many exploitable rivals unresolved" (0.07 at εN = 0.1) |
+| Gemini | cure < 0.4 unless a constant is a predator | **failed** |
+| M1–M11 | subagent's own | M2, M11 held; M3, M4, M10 partly; M1, M5–M9 failed |
+
+**Reading.**
+- **The crowned target is narrower than the open network.** Most target failures at N ≥ 200 were open S-guarded programs that PrudentBot defects against. One prudent founder per island removes them, with or without its certificates.
+- **Prevention does not touch identity.** The sponsor cuts identity islands 2–3× but leaves 0.02–0.04. uot is 0.55–0.75 at three cells and 0.10 at (200, 128).
+- **Rain cures exactly as designed, but it is worse overall.** Exploitable rivals fall through predators, at about 1 − exp(−0.26·εN·μ·t). Rain also reintroduces exploitable shadows of the target, which identity cliques use to enter target islands. So the target fraction does not improve, and rain lowers the sponsor's uot at (200, 64) from 15 to 10.
+- **The RS's divide fails at these sizes, but it scales the right way.** Drift colonizations per island halve from N = 200 to 400 at every rate, as the 1/N neutral fixation predicts, while a predator's per-arrival cure stays near 0.26. So the admissible window is a large-N property, not one available at N ≤ 400: below one drift colonization per 64 islands per 10⁴ generations at εN = 0.01 needs N on the order of 10³–10⁴ by extrapolation from two points.
+- **The binding problem is identity-exploitable members of the target**, 165 of 235 units. A target restricted to units that identity holders cannot exploit removes the shadow channel.
+- **Island efficiency stays high at ε = 0** (≥ 0.96). It falls under rain (0.92 at εN = 0.1, 0.74 at εN = 1).
+- *Caveats:*
+  - 20 runs per cell; B1 on the calibrated arm only.
+  - C-donor bounded, not rerun.
+  - Colonizations measured on 5-generation checkpoints; selected vs drift classified against the island's majority at arrival.
+  - The large-N window is an extrapolation from two N.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

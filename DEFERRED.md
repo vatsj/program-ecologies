@@ -153,6 +153,14 @@ REJECTED.md the ones we dropped.
   with N). The heavy early phase enlarges the effective seed, adding clique copies. *Next:* a spec reusing the
   removing-rivals rain kernel and drift classifier once that run lands. *RS's Pangaea prediction:* "they'll fail on a
   Pangaea, where universality pays off" (`specs/2026-10-16-pangaea.md`).
+- *Evidence (2026-10-16, removing rival networks):* one PrudentBot founder per island removes the open non-prudent
+  rivals (with or without certificates) but not identity (uot 0.55–0.75 at three cells, 0.10 at (200, 128)); seed rain
+  cures exploitable rivals through predators (0.92 at εN = 0.1) but reintroduces identity-exploitable target shadows,
+  so identity islands triple and the target does not grow; the RS's window fails at N = 200–400 at every rate, with
+  drift colonization ∝ 1/N and per-arrival predator cure ≈ 0.26 (RESULTS "Removing rival networks"). *Operating
+  hypothesis:* finite rain is a diagnostic, not a design; the annealed object is the large-N scaling limit. *Next:*
+  an identity-resistant target (restrict the target to the 70 units identity holders cannot exploit; does a prudent
+  majority then starve the shadow channel?), and the annealed schedule in the scaling limit.
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
