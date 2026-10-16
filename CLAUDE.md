@@ -124,7 +124,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 38. ~~Removing rival networks~~ (done; RESULTS "Removing rival networks": one PrudentBot founder per island removes the open rivals, not identity; rain cures exploitable rivals through predators but feeds identity through exploitable target shadows; the RS's drift window fails at N ≤ 400, drift ∝ 1/N).
 
 39. Cliques on a Pangaea: the continuum from many islands to one at fixed N·I under constant production per program, a free-certificate Pangaea and a fission–fusion cell, with the RS's prediction (running: `specs/2026-10-16-pangaea.md`).
-40. Annealed mutation (RS): a decaying re-injection schedule in the scaling limit Λ_N → 0, N·Λ_N → ∞; to spec after the removing-rivals run (DEFERRED 1).
+40. Annealed mutation (RS): re-injection after establishment with cure exposure held fixed so drift falls as 1/N, N = 200–1,600 at I = 8, alone and with the sponsored PrudentBot founder, against constant rain (running: `specs/2026-10-16-annealed-mutation.md`).
 
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
