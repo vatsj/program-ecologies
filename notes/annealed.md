@@ -196,3 +196,78 @@ with a run-bootstrap interval.
   migrant supply is small, so the increase is ≤ 0.03 per island and takeovers of target islands are a few per cell,
   too few to separate the schedules.
 - **uot at I = 8** is higher than at 64 islands (fewer islands to fail): S-nonself ε = 0 ≈ 0.5–0.8, sponsored ≈ 0.6–0.9.
+
+## 2. Code validation, single-arrival assays, costs (appended after the code, before any counted cell)
+
+Code: `src/annealed_kern.py` (removing-rivals' rain kernel copied, with a per-generation rate array and per-island
+paired founder streams), `src/annealed.py` (schedules, cells, the run object with r = 100, Part F founders),
+`src/annealed_run.py` (cells, assays, validation, probes), `src/annealed_report.py`; `tests/test_annealed.py`
+(5 tests, passing; 4 need the cached tables and skip without them). Validation output in
+`runs/annealed-validate.json`.
+
+### 2.1 Validation
+
+- **The schedule** integrates to A·T/(T + t₀) exactly (154.6 / 153.1 / 150.1 / 144.4 arrivals per island by 10,000 at
+  N = 200 / 400 / 800 / 1,600; 0 before 200); the constant arm delivers the same total (test). Probe runs realized
+  1,210 arrivals on 8 islands at N = 200 by generation 4,000 (expected 1,197) and 985 at N = 1,600 (expected 975).
+- **ε = 0 is the scaling kernel and removing-rivals' kernel.** States identical after 150 generations at (200, 8) and
+  at (400, 8) with r = 100 in all three kernels (test). Four stored scaling runs (S-nonself, (200, 64), calibrated,
+  replicates 0–3) reconstruct to generation 2,000 with **0 differences over 160 trace points**: since r = 100 is the
+  native r = N/2 at N = 200, this is the "r = 100 against native r at N = 200" check, an identity.
+- **Removing-rivals' rain is reproduced draw for draw** in the event-indexed mode: arrival records, lineages and states
+  identical to `RRRun` at εN = 0.1 after 250 generations (test); two stored B2 runs (rr_rain01_200_64, replicates 0
+  and 1) rerun to generation 2,000 give identical snapshots at 500 / 1,000 / 2,000 and **the same 6 + 6 colonizations
+  with the same arrival generation, colonization generation, class, status at arrival and spelling** (the drift
+  classifier's agreement on stored lineages).
+- **Paired founder streams:** the annealed and constant-rain runs of one replicate see the same spelling sequence on
+  every island (prefix-equal), and are identical up to the onset (test).
+- **Founders:** Part F islands as specified (island 0 all X, islands 1–7 FairBot unit 3); the sponsored arm differs
+  from S-nonself in at most one slot per island, PrudentBot's H unit 123 at C-donor's donor slot (test).
+
+### 2.2 Single-arrival assays (amendment 5; `runs/annealed/assay_*.json`)
+
+Neutral arrivals into one all-FairBot island (I = 1, ε = 0), colonization = lineage ≥ 0.5 at a 5-generation
+checkpoint:
+
+| N | `C`: reps | colonize (÷ 2/N) | fix (÷ 1/N) | median fixation time | shadow `if(CHK(them,^D,D),C,D)`: reps | colonize (÷ 2/N) | fix (÷ 1/N) |
+|---|---|---|---|---|---|---|---|
+| 200 | 10,000 | 0.0091 (0.91) | 0.0050 (1.00) | 175 | 5,000 | 0.0092 (0.92) | 0.0050 (1.00) |
+| 400 | 10,000 | 0.0044 (0.88) | 0.0019 (0.76) | 347 | 5,000 | 0.0044 (0.88) | 0.0020 (0.80) |
+| 800 | 20,000 | 0.0023 (0.92) | 0.0011 (0.88) | 701 | 10,000 | 0.0017 (0.68) | 0.0006 (0.48) |
+| 1,600 | 40,000 | 0.0016 (1.24) | 0.0009 (1.36) | 1,237 | 20,000 | 0.0017 (1.32) | 0.0009 (1.44) |
+
+A neutral single arrival colonizes at 2/N and fixes at 1/N within sampling error at every N (none censored; fixation
+takes ≈ 0.8 N generations). The shadow is as neutral as `C` (the N = 800 dip is 17 events).
+
+Predator arrivals into island 0 of the Part F archipelago (1 X + 7 FairBot, calibrated mN, ε = 0), 400 replicates per
+cell, independent seeds per class; the top accessible predators are `if(CHK(them,me,D),C,D)` (AP, μ = 5.2·10⁻⁴) and
+`if(and(CHK(them,me,C),CHK(them,me,D)),C,D)` (DET, μ = 1.3·10⁻⁴):
+
+| N | AP establish [Wilson] | DET establish | completed (island 0 target ≥ 25 gen) given establishment | median / 90% completion time |
+|---|---|---|---|---|
+| 200 | 0.22 [0.18, 0.27] | 0.26 [0.22, 0.31] | 1.00 / 1.00 | 75 / 98–105 |
+| 400 | 0.26 [0.22, 0.30] | 0.28 [0.24, 0.32] | 1.00 / 1.00 | 85 / 105 |
+| 800 | 0.26 [0.22, 0.31] | 0.25 [0.21, 0.30] | 1.00 / 1.00 | 90 / 104–110 |
+| 1,600 | 0.23 [0.19, 0.27] | 0.23 [0.19, 0.27] | 1.00 / 1.00 | 95 / 105–110 |
+
+Per-arrival predator cure = 0.22–0.28 at every N (exact ρ 0.26), every establishment completes within ≈ 110
+generations, and the two classes are the same process (identical payoff structure; with common seeds the trajectories
+coincide, so the classes were given independent seeds). **The single-arrival quantities behind the path are as
+assumed: ρ is N-independent and neutral colonization is 2/N.** The classes differ only in predator mass.
+
+### 2.3 Costs and an extension (declared before any cell)
+
+Probe costs per run of 4,000 generations (one worker, while two sibling runs used 6 cores): arm (i) 3 / 18 / 57 s at
+N = 200 / 800 / 1,600; arm (iv) 3 / – / 56 s; arm (iii) 23 s at 1,600; Part F DET 39 s at 1,600. Projected for the
+full design (12,000 generations): natural cells ≈ 13,000 worker-s, Part F ≈ 7,000, K = 1 ≈ 5,000: about 7 worker-h,
+2.5 h on 3 workers, far below the 24-hour line. **No drop-order step is applied**, and two additions are made because
+the drift and cure statistics are count-limited (≈ 2–4 drift colonizations expected per 20-run cell at N = 1,600):
+
+- **40 replicates (0–39)** in arms (i), (iii)-S-nonself and (iv) at every N and in the Part F K = 3 cells; 20
+  replicates (0–19) elsewhere. Verdicts use all replicates; the 0–19 subset is reported beside the arm-(i) drift
+  numbers.
+- **The native-r control** (`an_iiiSnat_400`: S-nonself, (400, 8), r = 200, ε = 0, 20 replicates) runs beside (iii).
+
+Projected total with the extension ≈ 16 worker-h, ≈ 5.5 h on 3 workers. Order: arms (i), (iv), (iii)-S (40 runs) →
+Part F K = 3 (40) → arms (ii), (iii)-sponsored (20) → K = 1 cells and the native-r control (20)
+(`runs/annealed/cells.sh`, resumable).
