@@ -374,6 +374,27 @@ def cmd_smoke(a):
     json.dump(old, open(path, 'w'), indent=1)
 
 
+def cmd_cachecheck(a):
+    """The copier no-change cache is exact: C-donor runs with and without it agree state for state."""
+    out = []
+    for cell, gens in (('pg_Cdon_6400_1_r100', a.gens), ('pg_Cdon6_6400_1_r100', a.gens)):
+        for rep in (990, 991):
+            A_ = PG.PGRun(cell, rep); B_ = PG.PGRun(cell, rep)
+            B_.use_nochg = False
+            assert A_.use_nochg
+            t0 = time.time(); A_.advance(gens); ta = time.time() - t0
+            t0 = time.time(); B_.advance(gens); tb = time.time() - t0
+            same = bool(np.array_equal(A_.slots, B_.slots) and np.array_equal(A_.counts, B_.counts) and
+                        np.array_equal(A_.ctr[:, PV.C_BIRTH], B_.ctr[:, PV.C_BIRTH]) and
+                        np.array_equal(A_.ctr[:, PV.C_ACOK], B_.ctr[:, PV.C_ACOK]) and int(A_.ntv[0]) == int(B_.ntv[0]))
+            out.append(dict(cell=cell, rep=rep, gens=gens, identical=same, t_cache=ta, t_plain=tb,
+                            skipped_sides=int(A_.nskip[0]), cache_size=len(A_.nochg)))
+            log(out[-1])
+    json.dump(out, open(os.path.join(ROOT, 'runs', 'pangaea-cachecheck.json'), 'w'), indent=1)
+    if not all(o['identical'] for o in out):
+        sys.exit(1)
+
+
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest='cmd')
@@ -385,9 +406,10 @@ def main():
     s = sub.add_parser('kernelcheck')
     s = sub.add_parser('determ'); s.add_argument('--gens', type=int, default=2000); s.add_argument('--dt', type=float, default=0.1)
     s = sub.add_parser('smoke'); s.add_argument('--cells', nargs='+'); s.add_argument('--gens', type=int, default=200)
+    s = sub.add_parser('cachecheck'); s.add_argument('--gens', type=int, default=80)
     a = ap.parse_args()
     {'lottery': cmd_lottery, 'validate': cmd_validate, 'kernelcheck': cmd_kernelcheck, 'determ': cmd_determ,
-     'smoke': cmd_smoke}[a.cmd](a)
+     'smoke': cmd_smoke, 'cachecheck': cmd_cachecheck}[a.cmd](a)
 
 
 if __name__ == '__main__':

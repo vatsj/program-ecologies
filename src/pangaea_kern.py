@@ -33,8 +33,12 @@ def block_seed(seed, blk):
 def segment(g0, gens, seed, N, w, m, r, slots, counts, paysum, pres, npres, pos, spcount, d, tunit, trule, tsp, tanc,
             ntv, utau, BLC, BLD, SINGLE, APP, PRODC, PD, KIND, NAT, CHC, CHD, UVt, A, selfa, OSV, SPO, capable, COSTS,
             ctr, steps_rule, wn, wenc, wsp, wcode, wsid, ckey, cval, ncache, plog, hist_wait, hist_acq, hist_steps,
-            hist_cens, nprod, identu, spou, tset, uns, rulecount, enc_exp, skip, FUT, fcount, enc_futile, err):
-    """Provenance's segment (same signature) with overlap-free encounter draws above r = 100."""
+            hist_cens, nprod, identu, spou, tset, uns, rulecount, enc_exp, skip, FUT, fcount, enc_futile, err,
+            nochg, use_nochg, nskip):
+    """Provenance's segment (same signature plus the copier no-change cache) with overlap-free encounter draws
+    above r = 100.  use_nochg: an encounter side of a copier (rule C) whose (unit, partner unit, same quote) is known
+    to leave it unchanged is not evaluated (exact: the copy step is a deterministic function of those three; only the
+    per-encounter cost counters of skipped sides are not incremented; nskip[0] counts them)."""
     I = slots.shape[0]
     KCAP = tunit.shape[0]
     fs = np.empty(N)
@@ -81,14 +85,27 @@ def segment(g0, gens, seed, N, w, m, r, slots, counts, paysum, pres, npres, pos,
                     plog[i, f, 4] = 1 if (spcount[i, tsp[kf]] - 1) >= 0.9 * (N - 1) else 0
                 if plog[i, p, 0] >= 0 and plog[i, p, 4] < 0:
                     plog[i, p, 4] = 1 if (spcount[i, tsp[kp]] - 1) >= 0.9 * (N - 1) else 0
-                nf = PV.side(i, f, kf, kp, rel, shf, d, tunit, trule, tsp, tanc, ntv, KCAP, utau, BLC, BLD, SINGLE,
-                             APP, PRODC, PD, KIND, NAT, CHC, CHD, UVt, OSV, SPO, COSTS, ctr, steps_rule, wn, wenc,
-                             wsp, wcode, wsid, ckey, cval, ncache, plog, stv, err)
-                if err[0] != 0: return g
-                np_ = PV.side(i, p, kp, kf, rel, shp, d, tunit, trule, tsp, tanc, ntv, KCAP, utau, BLC, BLD, SINGLE,
-                              APP, PRODC, PD, KIND, NAT, CHC, CHD, UVt, OSV, SPO, COSTS, ctr, steps_rule, wn, wenc,
-                              wsp, wcode, wsid, ckey, cval, ncache, plog, stv, err)
-                if err[0] != 0: return g
+                keyf = -1; keyp = -1
+                if use_nochg and trule[kf] == PV.R_C:
+                    keyf = (tunit[kf] * 65536 + tunit[kp]) * 2 + (1 if rel == 2 else 0)
+                if use_nochg and trule[kp] == PV.R_C:
+                    keyp = (tunit[kp] * 65536 + tunit[kf]) * 2 + (1 if rel == 2 else 0)
+                if keyf >= 0 and keyf in nochg:
+                    nf = kf; nskip[0] += 1
+                else:
+                    nf = PV.side(i, f, kf, kp, rel, shf, d, tunit, trule, tsp, tanc, ntv, KCAP, utau, BLC, BLD, SINGLE,
+                                 APP, PRODC, PD, KIND, NAT, CHC, CHD, UVt, OSV, SPO, COSTS, ctr, steps_rule, wn, wenc,
+                                 wsp, wcode, wsid, ckey, cval, ncache, plog, stv, err)
+                    if err[0] != 0: return g
+                    if keyf >= 0 and nf == kf: nochg[keyf] = 1
+                if keyp >= 0 and keyp in nochg:
+                    np_ = kp; nskip[0] += 1
+                else:
+                    np_ = PV.side(i, p, kp, kf, rel, shp, d, tunit, trule, tsp, tanc, ntv, KCAP, utau, BLC, BLD, SINGLE,
+                                  APP, PRODC, PD, KIND, NAT, CHC, CHD, UVt, OSV, SPO, COSTS, ctr, steps_rule, wn, wenc,
+                                  wsp, wcode, wsid, ckey, cval, ncache, plog, stv, err)
+                    if err[0] != 0: return g
+                    if keyp >= 0 and np_ == kp: nochg[keyp] = 1
                 if nf != kf:
                     slots[i, f] = nf; ctr[trule[kf], PV.C_CHANGE] += 1
                     if BLC[tunit[nf], 0] >= 0 and BLC[tunit[kf], 0] < 0:

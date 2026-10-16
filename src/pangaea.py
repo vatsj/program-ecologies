@@ -158,6 +158,11 @@ class PGRun(PR.Run):
 
     def __init__(self, cell, rep, legacy=False):
         super().__init__(cell, rep)
+        from numba.typed import Dict
+        from numba import types
+        self.nochg = Dict.empty(key_type=types.int64, value_type=types.int8)
+        self.use_nochg = bool(cell in PG and PG[cell]['prior'].startswith('Cdon'))
+        self.nskip = np.zeros(1, np.int64)
         if legacy or cell not in PG:
             self.mN = RS.CELL_MN.get(cell, 1.0)
             self.r = self.N // 2
@@ -177,7 +182,7 @@ class PGRun(PR.Run):
                             self.wn, self.wenc, self.wsp, self.wcode, self.wsid, self.ckey, self.cval, self.ncache,
                             self.plog, self.hist_wait, self.hist_acq, self.hist_steps, self.hist_cens, self.nprod,
                             LS['ident'], LS['spo_unit'], self.tset, self.uns, self.rulecount, self.enc_exp, self.skip,
-                            LS['FUT'], self.fcount, self.enc_futile, self.err)
+                            LS['FUT'], self.fcount, self.enc_futile, self.err, self.nochg, self.use_nochg, self.nskip)
         if self.err[0] != 0:
             raise RuntimeError('kernel error %d in %s rep %d at generation %d' % (self.err[0], self.cell, self.rep,
                                                                                  self.g))

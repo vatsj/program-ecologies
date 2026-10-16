@@ -322,3 +322,18 @@ scored at 2,000 and not extended (the spec's "10,000 if unresolved" would cost �
 scaling run's treatment of copying rules. Batches run in the order S cells (A, B, C, E, F) → C-donor one donor →
 dilution; if the measured total overruns, the dilution control is the next cut (spec drop order), then the
 10,000-generation extensions outside the Pangaea cells.
+
+**Addendum (process and C-donor cost; written while batch A ran, before any C-donor cell).**
+- Batch A crashed once on a frozen-island snapshot (a keyword passed twice); the 40 Pangaea rows already written were
+  kept and the batch resumed from them (fix in `src/pangaea_run.py`, tested by forcing the frozen branch). No counted
+  number changed.
+- After the two S-nonself Pangaea cells reported, predictions addendum 1 registered a post-hoc Pangaea size panel
+  (3,200 and 25,600) before any of its runs.
+- **Copier no-change cache (C-donor only).** A copier's encounter side is a deterministic function of its unit, the
+  partner's unit and whether they are the same quote; draws are event-indexed. The kernel therefore skips a copier side
+  already known to change nothing (`use_nochg`, on only in C-donor cells). The dynamics are unchanged; only the
+  per-encounter cost counters of skipped sides are not incremented (the skip count is recorded). It is validated state
+  for state (slots, counts, births, accepted copies, type count) against the uncached kernel on four discarded C-donor
+  replicates before any C-donor cell (`runs/pangaea-cachecheck.json`), and the test suite is rerun. Batches after A are
+  queued in `runs/pangaea/batches2.sh` (the original queue was stopped at its parent shell; the batch A pool was not
+  touched).
