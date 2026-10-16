@@ -207,6 +207,12 @@ class Mask:
             pass
         elif self.kind == 'plus':
             for si, ls in enumerate(labs): G[si] = {i for i, l in enumerate(ls) if l in self.comps}
+        elif self.kind in ('plusS3', 'plusN'):
+            # diagnostic split of a component by S3-static membership (notes §2.2, predictions addendum)
+            want = self.kind == 'plusS3'
+            rows = classify(self.g, role, tk)
+            for si, A in enumerate(F.FAM[role]):
+                G[si] = {r['i'] for r in rows[A] if r['label'] in self.comps and r['S3'] == want}
         elif self.kind == 'minus':
             for si, ls in enumerate(labs):
                 X[si] = {i for i, l in enumerate(ls) if l in self.comps}
@@ -241,6 +247,8 @@ def mask_for(cell):
     if cell == 'Hfull': return Mask(cell, 'full')
     if cell == 'S3': return Mask(cell, 'empty')
     if cell.startswith('minus_'): return Mask(cell, 'minus', cell[6:])
+    if cell.startswith('plusS3_'): return Mask(cell, 'plusS3', cell[7:])
+    if cell.startswith('plusN_'): return Mask(cell, 'plusN', cell[6:])
     if cell.startswith('plus_'): return Mask(cell, 'plus', cell[5:])
     if cell.startswith('rplus_'): return Mask(cell, 'randplus', cell[6:], seed=1000 + ord(cell[6]))
     if cell.startswith('rminus_'): return Mask(cell, 'randminus', cell[7:], seed=2000 + ord(cell[7]))
@@ -249,7 +257,7 @@ def mask_for(cell):
 
 def production_on(mask):
     """Minus and full cells are pure grants (Lemma P) and run with production off (H mode)."""
-    return mask.kind in ('empty', 'plus', 'randplus')
+    return mask.kind in ('empty', 'plus', 'randplus', 'plusS3', 'plusN')
 
 
 # ----------------------------------------------------------------------------------------------------------------

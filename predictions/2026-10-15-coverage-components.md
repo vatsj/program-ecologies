@@ -92,3 +92,19 @@ moves by ≥ 0.1.
 
 **S13. Costs.** Minus and full cells take ≤ 8 minutes per run (median, including the extension); plus, pair and
 rand-plus cells 8–25 minutes. *Falsifier:* a plus-type median above 30 minutes.
+
+## Addendum (2026-10-15, 22:30), before two labelled diagnostic cells
+
+Written after these counted cells were complete and read: H-full 0.300, minus (a) 0.050, minus (b) 0.000, minus (c)
+0.350, minus (d) 0.400, plus (a) 0.000, plus (b) 0.300, plus (c) 0.050, plus (d) 0.000 (fair share at 10,000, 20 runs
+each). The pairs and the random controls had not run. Two diagnostic cells are added, labelled post hoc, 20 runs each
+on the same streams, run after the pre-registered cells and the mediation replays and beside the confirmation:
+**plus (b)∩S₃^static** (the second scripts PROD3 can write on some path, which the lack rule keeps out of an S₃ list
+once another script for the set is held: every boss (b) script and 0.20 of 0.33 worker scripts) and **plus (b)\S₃^static**
+(the workers' second scripts PROD3 never writes, the Hyp-first tactic's shadowed F-branch alternatives: 0.13 of worker
+scripts). They separate the two production-rule fixes, dropping the lack rule (one script per path) from writing the
+shadowed alternatives.
+
+**D1.** plus (b)∩S₃^static ≥ 0.2 (bosses' (b) is all producible, 0.83 of bosses hold some, and a concession boss's
+second paths are what certify it on the path its partners send it down). *Falsifier:* ≤ 0.05.
+**D2.** plus (b)\S₃^static ≤ 0.05. *Falsifier:* ≥ 0.2.

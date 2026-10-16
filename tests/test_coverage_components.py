@@ -262,3 +262,15 @@ def test_control_q():
     for role in ('W', 'B'):
         for X in CC.COMPS:
             assert abs(q[role][X]['q'] - CC.CONTROL_Q[role][X]) < 1e-5
+
+
+def test_split_masks():
+    """The diagnostic split of (b) by S3-static membership partitions plus (b)."""
+    mb, ms, mn = (CC.mask_for(c).bind(G) for c in ('plus_b', 'plusS3_b', 'plusN_b'))
+    for role in ('W', 'B'):
+        for tk in support_trees(role, reps=[0])[:300]:
+            for si in range(len(F.FAM[role])):
+                b, s3, n = mb.sets(role, tk)[0][si], ms.sets(role, tk)[0][si], mn.sets(role, tk)[0][si]
+                assert s3 | n == b and not (s3 & n)
+            if role == 'B':
+                assert not any(mn.sets(role, tk)[0])
