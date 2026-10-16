@@ -217,3 +217,10 @@ Stage 4 in the old plan (Edmonds over $|S|^2$ edges) is gone; the attractor chai
 - **Indeterminate is a result.** If replicator doesn't converge, say so, keep the trajectory, move on.
 - **Bits, not nodes.** For $\mu$. Every time.
 - **`eq` is the only non-extensional primitive.** If a program's behavior depends on the opponent's source in any other way, that's a bug.
+
+**Counter-RNG overlap for r > 100 (found 2026-10-16, RESULTS "Cliques on a Pangaea").** Provenance's event-indexed
+draws reuse the next event's draws for encounters q ≥ 101 per Moran event. Cells with r = N/2 > 100, i.e. the stored
+N = 400 cells of "The realizable lottery along paths in (N, I, mN)" and "Removing rival networks", carry correlated
+encounter draws (297 of 300 coincide with next-event draws). The Pangaea kernel (`src/pangaea_kern.py`) is identical for
+r ≤ 100 and overlap-free above. No stored verdict is expected to move, but the N = 400 cells have not been rerun. The
+Pangaea run also adds an exact no-change cache for copier encounters (C-donor) and the nested founder partition.

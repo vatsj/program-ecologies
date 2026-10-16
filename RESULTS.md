@@ -5031,6 +5031,99 @@ Every closed-open rival disappears in every A cell, with or without certificates
   - Colonizations measured on 5-generation checkpoints; selected vs drift classified against the island's majority at arrival.
   - The large-N window is an extrapolation from two N.
 
+## Cliques on a Pangaea: the clique loses on mass, a Pangaea has one lottery ticket, and fission–fusion gets both (`runs/pangaea.md`, `runs/pangaea.json`, `runs/pangaea-verdicts.md`, `runs/pangaea/`, `runs/pangaea-{validate,kernelcheck,determ,cachecheck}.json`, `notes/pangaea.md`; spec `specs/2026-10-16-pangaea.md`, predictions in `predictions/2026-10-16-pangaea.md` with the RS's prediction first and one post-hoc addendum before its cells)
+
+**Provenance.** The RS predicted it, the RE designed it, gpt-6.1-sol and gemini-4-argon reviewed it, and an Opus subagent ran it (`src/pangaea.py`, `_kern.py`, `_run.py`, `_report.py`; `tests/test_pangaea.py`, 6 tests, 4 needing the cache and skipping on main). Order of commits: notes §1 by hand; predictions; code with validation and the deterministic control; the cells.
+
+**Design.**
+- Machinery: S-nonself, ε = 0, w = 0.3, calibrated mN where I > 1.
+- **Production held constant per program:** r = 100 encounters per Moran event at every size.
+- **Identical founders across geometries:** one list of N·I founders per replicate, cut by a nested uniform partition.
+
+**Validation.** 12 stored scaling rows reproduce draw for draw.
+
+**Disclosures.**
+- **A stored-kernel flaw.** Provenance's counter-based RNG reuses the next event's draws for encounters q ≥ 101. This affects the stored N = 400 cells (r = 200) of the scaling and removing-rivals runs (IMPLEMENTATION). The new kernel is identical for r ≤ 100 and overlap-free above.
+- **One crash, resumed** with the rows already written.
+- **An exact no-change cache for C-donor**, validated state for state before any C-donor cell; C-donor cells are scored at 2,000.
+- **A post-hoc size panel** (3,200 and 25,600), registered before its runs.
+- 13.3 worker-hours; nothing dropped.
+
+**RE check:** the run file reads 15/20 universal-open and 5 lost at (6,400, 1). The size panel's lost runs (10 / 5 / 1 / 0 failed of 20 at 3,200 / 6,400 / 12,800 / 25,600) match e^(−N/4,500) (0.49 / 0.24 / 0.06 / 0.003).
+
+**Deterministic control** (certificates saturated, infinite well-mixed population). Suckers are gone by generation 20. The anti-punisher-like AP network (`if(CHK(them,^D,D),D,C)`) is parasitized by illegible defectors and gone by 50. The PrudentBot network takes over by generation 140 and holds 0.996 at 2,000. TwinD doubles while suckers last, then vanishes.
+
+**The continuum** (universal-open runs of 20 at 2,000 / 10,000; clique islands per run at 2,000; all-defect runs; proportional control at 2,000):
+
+| total | (N, I) | S-nonself | identity islands | lost | proportional |
+|---|---|---|---|---|---|
+| 12,800 | (100, 128) | 5 / 11 | 5.6 | 0 | 10 |
+| | (200, 64) | 8 / 8 | 8.5 | 0 | 17 |
+| | (800, 16) | 13 / 13 | 1.45 | 0 | 20 |
+| | (3,200, 4) | 17 / 17 | 0.30 | 1 | 20 |
+| | **(12,800, 1)** | **19 / 19** | – | 1 | 18 |
+| 6,400 | (100, 64) | 10 / 12 | 6.5 | 0 | 19 |
+| | (400, 16) | 13 / 13 | 1.35 | 1 | 19 |
+| | (1,600, 4) | 15 / 15 | 0.25 | 3 | 13 |
+| | **(6,400, 1)** | **15 / 15** | – | 5 | 18 |
+
+- **Clique islands fall about as 1/N** through two channels. Local establishment per seeded copy is about 0.19 / 0.10 / 0.02 at N = 200 / 800 / 3,200. Cliques are also exported by migration: at (200, 64), 42 seeded clique islands became 170.
+- **The clique's cost vanishes on the Pangaea.** The proportional control's gain over S-nonself falls toward it: +0.45 / +0.35 / +0.15 / −0.05 along the 12,800 path.
+
+**Pangaea endpoints** at 2,000 (runs of 20):
+
+| cell | universal-open | all-defect | target ≥ 0.9 | max identity share |
+|---|---|---|---|---|
+| S-nonself 12,800 | 19 | 1 | 16 | 0.026 |
+| S-nonself 6,400 | 15 | 5 | 14 | 0.017 |
+| proportional 12,800 / 6,400 | 18 / 18 | 2 / 2 | 14 / 16 | 0 |
+| free certificates (H) 12,800 | 16 | 4 | 13 | 0.041 |
+| C-donor, one donor, 12,800 / 6,400 | 5 / 7 | 15 / 13 | 2 / 4 | 0 |
+| C-donor at 0.1% (13 / 6 donors) | 18 / 13 | 2 / 7 | 14 / 8 | 0.002 |
+| **fission–fusion, merge at 200 / 1,000** | **20 / 20** | **0** | 18 / 16 | 0.25 / 0.30 before the merge |
+
+- **Every surviving run is efficient and dominated by one network.** Every non-lost run has P(C,C) ≥ 0.95 and one network holding ≥ 0.99 of certified carriers. Neutral remnants are 0 by 2,000.
+- **The target share is about 1 or about 0, never in between.** It is about 0 when the winning open network is one PrudentBot would not certify, which happened in 4 runs after PrudentBot-shaped programs drifted out.
+- **Merging erases cliques fast.** After either merge, cliques holding up to 0.30 of the population and up to 39 rival islands are gone within 10–50 generations.
+
+**Size panel** (S-nonself Pangaeas, 20 runs):
+
+| N | all-defect | clique-held | universal-open |
+|---|---|---|---|
+| 3,200 | 9 | 1 | 10 |
+| 6,400 | 5 | 0 | 15 |
+| 12,800 | 1 | 0 | 19 |
+| 25,600 | 0 | 1 | 19 |
+
+- **Establishment fails with probability ≈ e^(−N/4,500).** This is e^(−w·μ_net²·N) with μ_net ≈ 0.028, the FairBot network's prior mass. The network's edge over defectors is w·x, so its ≈ μ_net·N founders form a barely supercritical branching process.
+- **When the network nearly fails, a clique lineage of comparable share can win the race.** This happened once at 3,200 and once at 25,600.
+
+**Production is not the explanation.** Native r = N/2 changes no outcome significantly (McNemar p ≥ 0.18). Certificate productions per program are identical across geometries.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| **RS** | the cliques fail on a Pangaea, where universality pays off | **held as scored** (no clique ≥ 0.05 of a 12,800 or 6,400 Pangaea; each Pangaea ≥ every island geometry of its total, tied at 6,400); mechanism: mass, not universality as such; a clique held a whole Pangaea in 1/20 at 3,200 and at 25,600 (post hoc) |
+| RE 1 | TwinD ≤ 10⁻³; one network in ≥ 0.9 | held at 12,800; failed at 6,400 (15/20, by all-defect); falsifier not fired |
+| RE 2 | ≤ 1/20 all-defect; none under free certificates | **falsifier fired** (5/20 at 6,400; 4/20 under H) |
+| RE 3 | monotone; crossing between (200, 64) and (800, 16) | **held** |
+| RE 4 | proportional universal ≥ 0.9 on Pangaeas | held at the threshold (18/20) |
+| RE 5 | PrudentBot network ≥ 0.9 in ≥ 0.8 of runs | held at 12,800 (16/20); inconclusive at 6,400 |
+| RE 6 | fission–fusion ≥ Pangaea and ≥ 0.9 | **held** (20/20 both) |
+| Sol | falls; not monotone; all-defect possible; winner need not be the target | (i) held; (ii) failed; (iii), (iv) observed |
+| Gemini | target share in [0.75, 0.90] in ≥ ¼ of runs | **failed** (0 runs) |
+| S1–S15, A1–A2 | subagent's own | S1, S2, S10, S11, S12, S15 fired; S3–S6, S9 one clause; S7, S8, S13, S14, A1, A2 held |
+
+**Reading.**
+- **On a Pangaea the clique loses on mass.** A TwinD identity is a defector with a bonus proportional to its own quote's frequency. The open network is the same kind of frequency-dependent self-cooperator, starting with about 300× the mass, so it wins whenever it establishes. When it barely does, the clique can win the same race.
+- **A Pangaea has one lottery ticket.** The network fails to establish with probability ≈ e^(−N/4,500), so all-defect replaces the clique as the failure mode. Free certificates do not remove it: the loss is demographic.
+- **Islands are many tickets that also breed cliques.** Islands buy establishment, but they also buy clique establishment (≈ 1/N per copy) and export.
+- **Fission–fusion removes both failure modes.** Establish on 128 islands of 100, then merge: 40/40 universal-open. Local establishment never failed, and merging leaves every clique and rival a minority in one population.
+- **One donor cannot seed a Pangaea** (5/20, 7/20): its scripts reach too few programs. Donors at 0.1% give 18/20 at 12,800.
+- **The target is the usual winner but is not protected.** Once PrudentBot-shaped programs drift out, FairBot variants PrudentBot would not certify can fix neutrally (4 of 34 non-lost runs).
+- *Caveats:* finite sizes to 25,600; 20 runs per cell; the size panel post hoc and run to 2,000; C-donor scored at 2,000.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

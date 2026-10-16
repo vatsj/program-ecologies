@@ -161,6 +161,13 @@ REJECTED.md the ones we dropped.
   hypothesis:* finite rain is a diagnostic, not a design; the annealed object is the large-N scaling limit. *Next:*
   an identity-resistant target (restrict the target to the 70 units identity holders cannot exploit; does a prudent
   majority then starve the shadow channel?), and the annealed schedule in the scaling limit.
+- *Evidence (2026-10-16, cliques on a Pangaea):* the RS's Pangaea prediction held as scored (no clique ≥ 0.05 of a
+  12,800 or 6,400 Pangaea), by mass rather than universality as such; a Pangaea fails to establish with probability
+  ≈ e^(−N/4,500), so all-defect replaces the clique as the failure; fission–fusion (128 islands of 100 for 200 or
+  1,000 generations, then merged) was universal-open in 40/40 (RESULTS "Cliques on a Pangaea"). *Operating
+  hypothesis (amended):* the universality path is fission–fusion, or a Pangaea with N ≫ 1/(w·μ_net²) ≈ 4,500. The
+  PrudentBot target is not protected against neutral drift to FairBot variants it would not certify once
+  PrudentBot-shaped programs drift out (4/34 runs).
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
