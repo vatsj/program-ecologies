@@ -145,6 +145,14 @@ REJECTED.md the ones we dropped.
   admits strictly profitable entrants only (Nash-like over the prior's program space), which the PrudentBot network
   and identity cliques pass and exploitable rivals fail. *Test in flight:* inside the window, no selected takeover of a
   target island, exploitable rivals cured, cliques not.
+- *RS (2026-10-16), annealed mutation:* "a model where mutation rate decreases over time. It starts at infinity, which
+  generates the random seed, but the tail is light enough that islands can't drift (but heavy enough to prey on
+  inefficiencies)." *RE:* with Λ the integrated post-seed re-injection per island, drift colonizations ≈ Λ and cures
+  of exploitable rivals ≈ 1 − e^(−2sNμ_pred·Λ), both linear in Λ, so no schedule shape gets both with certainty at
+  fixed N; the clean object is the scaling limit Λ_N → 0 with N·Λ_N → ∞ (e.g. ε(t) ∝ t^(−α), α > 1, its tail scaled
+  with N). The heavy early phase enlarges the effective seed, adding clique copies. *Next:* a spec reusing the
+  removing-rivals rain kernel and drift classifier once that run lands. *RS's Pangaea prediction:* "they'll fail on a
+  Pangaea, where universality pays off" (`specs/2026-10-16-pangaea.md`).
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
