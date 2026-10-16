@@ -370,3 +370,20 @@ checkpoint at (200, 128) for 2,000 generations costs 26 / 31 / 36 / 64 s at εN 
 worker-s**, A ≈ 15,000, B2 ≈ 17,000, B3 ≈ 4,500, S-nonself (100, 256) baseline ≈ 3,000, assays ≈ 9,500: about
 163,000 worker-s ≈ 45 worker-h ≈ 15 h on 3 workers, under the 20-hour line: **no drop-order step is applied.** Order of
 batches: A and the baseline → B3 → injection assays and triples → B1 → B2 (εN = 1 last).
+
+### 2.5 Addenda while the cells ran (each written before the cells it affects)
+
+- **Injection assays at N = 400** (written after 86 of the injection jobs had finished): the two (400, 64) checkpoints
+  chosen by mass (rs_Snon_400_64_m1 8, rs_abl_400_64_cal 9) are among the slowest stored runs (≈ 220 s per
+  2,000-generation injection), so their replicates are cut from 20 to 10 per arm (rows already finished beyond 10 are
+  kept). The four (200, 128) checkpoints keep 20.
+- **A diagnostic before B1** (post hoc, not predicted): B3 showed more identity islands than A (0.11 vs 0.02 per
+  island). To find out why, the batch was stopped after B3 (the injection driver restarted with 2 workers) and one B3
+  run was replayed (`src/removing_rivals_diag.py`); a static check followed (`src/removing_rivals_shadow.py`,
+  `runs/removing-rivals-shadow.json`). Reported with the results; no cell's design changed.
+- **Budget step for B1** (written after 17 of 168 checkpoints, all at (400, 64)): B1 ran at ≈ 1 checkpoint per
+  6–7 minutes, projecting ≈ 17 h for B1 alone. B1 is restricted to the **calibrated arm** (87 checkpoints); the
+  17 finished checkpoints (11 calibrated, 6 at mN = 1) are kept, the 6 mN = 1 ones reported as extra rows. The slowest
+  calibrated checkpoint (rs_prop_400_64_cal 9, stored cost ≈ 5,200 s per 10,000 generations at ε = 0) is moved to the
+  end, after B2, on one worker, and is dropped if the total runs past the budget. The three branches in flight when
+  the driver was stopped were discarded (no row written).

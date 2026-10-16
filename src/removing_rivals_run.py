@@ -370,6 +370,7 @@ def cmd_branch(a):
     for r in ck:
         if not r['saved']: continue
         if a.cells and r['cell'] not in a.cells: continue
+        if '%s:%d' % (r['cell'], r['rep']) in (a.skip or []): continue
         rival0 = {i: (lab, r['holder_unit'][i]) for i, lab in enumerate(r['labels']) if lab not in ('', 'unheld')}
         jobs.append((r['cell'], r['rep'], tuple(a.rates), a.gens, rival0,
                      [tuple(t) for t in st[(r['cell'], r['rep'])]['trace']]))
@@ -499,7 +500,8 @@ def cmd_inject(a):
         meta.append(dict(cell=cell, rep=rep, island=i, x=x, holder=LS['names'][sx], pred=LS['names'][s],
                          pred_mu=float(LS['mu'][s]), nonpred=LS['names'][c] if c is not None else None,
                          nonpred_mu=float(LS['mu'][c]) if c is not None else None, mass=pt['mass']))
-        for k in range(a.reps):
+        nrep = a.reps400 if RS.CELL_INFO[cell]['N'] >= 400 else a.reps
+        for k in range(nrep):
             jobs.append((cell, rep, i, s, 'pred', k, a.gens))
             if c is not None: jobs.append((cell, rep, i, c, 'nonpred', k, a.gens))
     json.dump(meta, open(os.path.join(OUT, 'inject_meta.json'), 'w'), indent=1)
@@ -573,12 +575,13 @@ def main():
     s = sub.add_parser('branch'); s.add_argument('--workers', type=int, default=3)
     s.add_argument('--rates', nargs='+', type=float, default=[0.0, 0.01, 0.1, 1.0])
     s.add_argument('--gens', type=int, default=10000); s.add_argument('--out', default='main')
-    s.add_argument('--cells', nargs='*', default=None)
+    s.add_argument('--cells', nargs='*', default=None); s.add_argument('--skip', nargs='*', default=None)
     s = sub.add_parser('lottery'); s.add_argument('--cells', nargs='+'); s.add_argument('--runs', type=int, default=20)
     s.add_argument('--rep0', type=int, default=0); s.add_argument('--gens', type=int, default=10000)
     s.add_argument('--workers', type=int, default=3); s.add_argument('--out', default='main')
     s = sub.add_parser('inject'); s.add_argument('--workers', type=int, default=3); s.add_argument('--n', type=int, default=6)
     s.add_argument('--reps', type=int, default=20); s.add_argument('--gens', type=int, default=2000)
+    s.add_argument('--reps400', type=int, default=20)
     s = sub.add_parser('triples'); s.add_argument('--workers', type=int, default=3); s.add_argument('--n', type=int, default=3)
     s.add_argument('--reps', type=int, default=50); s.add_argument('--gens', type=int, default=2000)
     a = ap.parse_args()
