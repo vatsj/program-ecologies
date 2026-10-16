@@ -162,7 +162,11 @@ def lottery_job(job):
             frozen_at = g
             for gs in SNAPS:
                 if g < gs <= horizon and gs not in snaps:
-                    snaps[gs] = dict(snaps.get(g, dict(dec, uo=bool(uo), **ip)), g=gs, frozen_from=g)
+                    base = snaps.get(g)
+                    if base is None:
+                        base = dict(dec); base.update(ip); base['uo'] = bool(uo)
+                        if R.I > 1: base['isl'] = RSR.island_record(R, cc, det)
+                    snaps[gs] = dict(base, g=gs, frozen_from=g)
             break
     R.final_logs()
     cc = R.island_stats()
