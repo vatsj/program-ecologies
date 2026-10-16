@@ -179,6 +179,21 @@ def md_part0(p):
     return '\n'.join(L)
 
 
+def loss_kinds(L, after=0):
+    """Loss records (island, start, length, code, unit, sp) by the new holder: identity / open (a closed-open or other
+    open non-target holder, the FairBot-bridged flip) / unheld / other; only episodes starting at or after `after`."""
+    S = RR.static(PR.lot_static())
+    c = Counter()
+    for l in L:
+        if l[1] < after: continue
+        code, u = l[3], l[4]
+        if code == 0: c['unheld'] += 1
+        elif S['ident'][u]: c['identity'] += 1
+        elif S['openu'][u]: c['open'] += 1
+        else: c['other'] += 1
+    return dict(c)
+
+
 # ------------------------------------------------------------------------------------------------ B1
 def b1(rows):
     """Matched branches: per rival island, resolution in the rain branch and in the eps = 0 branch."""
@@ -186,6 +201,7 @@ def b1(rows):
     per = defaultdict(lambda: defaultdict(list))      # rate -> label -> [(run, resolved, resolved0, path, t, mass)]
     runs = defaultdict(list)                           # rate -> [(uot_end, uot_end0, uo_end)]
     loss = defaultdict(lambda: [0, 0, 0])              # rate -> [losses, target islands at ckpt, transient]
+    lk = defaultdict(Counter)
     arr = defaultdict(lambda: defaultdict(lambda: [0, 0]))
     colev = defaultdict(list)
     val = [0, 0]
@@ -209,6 +225,8 @@ def b1(rows):
             sn = b['snaps'][str(b['g_end'])]; sn0 = b0['snaps'][str(b0['g_end'])]
             runs[e].append((sn['uot'], sn0['uot'], sn['uo'], r['cell']))
             loss[e][0] += len(b['losses']); loss[e][1] += ntgt; loss[e][2] += b['n_transient']
+            for k_, v_ in loss_kinds(b['losses']).items():
+                lk[e][k_] += v_
             a = b['arrivals']
             if a.get('n'):
                 for k, v in a['by_class'].items():
@@ -249,7 +267,7 @@ def b1(rows):
                           by_cell={c: [sum(z[0] for z in rr if z[3] == c), sum(z[1] for z in rr if z[3] == c),
                                        sum(1 for z in rr if z[3] == c)] for c in sorted(set(z[3] for z in rr))})
         t['_losses'] = dict(losses=loss[e][0], target_islands=loss[e][1], per_island=loss[e][0] / max(1, loss[e][1]),
-                            transient=loss[e][2])
+                            transient=loss[e][2], kinds=dict(lk[e]))
         t['_arrivals'] = {k: v for k, v in arr[e].items()}
         tabs[str(e)] = t
     out['tabs'] = tabs
@@ -298,6 +316,7 @@ def cell_stats(rows, horizons=(2000, 10000)):
                              runs_with_exploitable=sum(1 for x in sn if x['exploitable'] > 0),
                              uot_list=[int(x['uot']) for x in sn], reps=[r['rep'] for r in rs if str(h) in r['snaps']])
         d['losses'] = sum(len(r['losses']) for r in rs)
+        d['loss_kinds_after2000'] = loss_kinds([l for r in rs for l in r['losses']], 2000)
         d['transient'] = sum(r['n_transient'] for r in rs)
         ig = sum(r['I'] * r['last_gen'] for r in rs)
         d['island_gens'] = ig
@@ -362,6 +381,55 @@ def md_cells(cs):
     return '\n'.join(L)
 
 
+def snon_baseline():
+    """S-nonself calibrated universal-on-target per replicate at 2,000 (checkpoints) and 10,000 (the B1 eps = 0
+    branch's snapshot at generation 10,000; runs on target at 2,000 taken as unchanged); identity islands too."""
+    ck = load('ckpt_rows.json')
+    br = {(r['cell'], r['rep']): r for r in load('branch_main.json')}
+    out = {}
+    for r in ck:
+        if not r['cell'].startswith('rs_Snon_') or not r['cell'].endswith('_cal'): continue
+        N, I = r['N'], r['I']
+        key = 'rr_snon_%d_%d' % (N, I)
+        d = out.setdefault(key, {})
+        ident2 = sum(1 for l in r['labels'] if l == 'identity')
+        u10 = None; ident10 = None
+        if r['uot']:
+            u10 = True; ident10 = 0
+        elif (r['cell'], r['rep']) in br:
+            b0 = [b for b in br[(r['cell'], r['rep'])]['branches'] if b['epsN'] == 0][0]
+            sn = b0['snaps'].get('10000')
+            if sn: u10 = sn['uot']; ident10 = sn['identity']
+        d[r['rep']] = dict(uot2=r['uot'], uot10=u10, ident2=ident2, ident10=ident10, I=I)
+    return out
+
+
+def a_compare(cells):
+    """Sponsored and empty-control cells against S-nonself (paired by replicate) and C-donor bounds."""
+    base = snon_baseline()
+    rows = load('lottery_A.json') + load('lottery_B.json')
+    by = defaultdict(dict)
+    for r in rows: by[r['cell']][r['rep']] = r
+    cb = json.load(open(os.path.join(OUT, 'cdonor_bounds.json')))
+    out = {}
+    for c in cells:
+        if c not in by: continue
+        N, I = by[c][min(by[c])]['N'], by[c][min(by[c])]['I']
+        b = base.get('rr_snon_%d_%d' % (N, I), {})
+        res = {}
+        for h, k in ((2000, 'uot2'), (10000, 'uot10')):
+            pairs = [(int(by[c][rep]['snaps'][str(h)]['uot']), int(b[rep][k])) for rep in by[c]
+                     if rep in b and b[rep][k] is not None and str(h) in by[c][rep]['snaps']]
+            res[str(h)] = dict(n=len(pairs), cell=sum(p[0] for p in pairs), snon=sum(p[1] for p in pairs),
+                               cell_only=sum(1 for p in pairs if p[0] and not p[1]),
+                               snon_only=sum(1 for p in pairs if p[1] and not p[0]))
+        cbk = 'rs_Cdon_%d_%d_cal' % (N, I)
+        res['cdonor_2000'] = cb.get(cbk)
+        res['snon_identity_2000'] = sum(v['ident2'] for v in b.values()) / max(1, sum(v['I'] for v in b.values()))
+        out[c] = res
+    return out
+
+
 if __name__ == '__main__':
     what = sys.argv[1] if len(sys.argv) > 1 else 'all'
     if what == 'part0':
@@ -380,3 +448,6 @@ if __name__ == '__main__':
         cs = cell_stats(rows)
         json.dump(cs, open(os.path.join(OUT, 'cells_summary.json'), 'w'), indent=1, default=str)
         print(md_cells(cs))
+        ac = a_compare([c for c in cs if c.startswith('rr_')])
+        json.dump(ac, open(os.path.join(OUT, 'a_compare.json'), 'w'), indent=1, default=str)
+        for c, v in ac.items(): print(c, v)

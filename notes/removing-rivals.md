@@ -387,3 +387,6 @@ batches: A and the baseline → B3 → injection assays and triples → B1 → B
   calibrated checkpoint (rs_prop_400_64_cal 9, stored cost ≈ 5,200 s per 10,000 generations at ε = 0) is moved to the
   end, after B2, on one worker, and is dropped if the total runs past the budget. The three branches in flight when
   the driver was stopped were discarded (no row written).
+- **Second budget step** (written while B2 at εN ≤ 0.1 ran, before any B2 εN = 1 run): the slow calibrated
+  checkpoint rs_prop_400_64_cal 9 (projected ≈ 6 h on one worker) is **dropped** from B1, which therefore has 86
+  calibrated checkpoints plus 6 extra mN = 1 ones (92 in all). B2 at εN = 1 is kept and runs last.
