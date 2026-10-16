@@ -139,7 +139,7 @@ def main():
     L.append('| cell | runs | (a) P(C,C) ≥ 0.95 | (b) M ≥ 0.99 of certified | universal (M ≥ 0.95) | open | uo 10,000 | M share min / median | target ≥ 0.9 | target min / median | Gemini band [0.75, 0.90] | remnants: sucker / uncertified coop (median) | max identity | max Q | max AP | lost | resolved / unresolved (final) | estab. median [range] | first resolved median |')
     L.append('|' + '---|' * 20)
     pang = {}
-    pcells = ['pg_L_12800_1_r100', 'pg_L_6400_1_r100', 'pg_prop_12800_1_r100', 'pg_prop_6400_1_r100',
+    pcells = ['pg_L_3200_1_r100', 'pg_L_6400_1_r100', 'pg_L_12800_1_r100', 'pg_L_25600_1_r100', 'pg_prop_12800_1_r100', 'pg_prop_6400_1_r100',
               'pg_Cdon_12800_1_r100', 'pg_Cdon_6400_1_r100', 'pg_Cdon13_12800_1_r100', 'pg_Cdon6_6400_1_r100',
               'pg_H_12800_1_r100', 'pg_L_100_128_r100_ff200', 'pg_L_100_128_r100_ff1000']
     for c in pcells:
@@ -166,6 +166,23 @@ def main():
             max(pang[c]['max_Q']), max(pang[c]['max_AP']), pang[c]['lost'], st.count('resolved'), st.count('unresolved'),
             med(est), min(est), max(est), med(pang[c]['first_resolved'])))
     J['pangaea'] = pang
+
+    # size panel (post hoc, predictions addendum 1)
+    L.append('\n## Pangaea size panel (S-nonself, r = 100; 3,200 and 25,600 post hoc, addendum 1)\n')
+    L.append('| N | runs | all-defect | clique-held (identity ≥ 0.5 at 2,000) | open network ≥ 0.95 | establishment failures (all-defect + clique) | −ln(failure rate)/N |')
+    L.append('|---|---|---|---|---|---|---|')
+    sp = {}
+    for N in (3200, 6400, 12800, 25600):
+        rs = by.get('pg_L_%d_1_r100' % N, [])
+        if not rs: continue
+        nl = sum(1 for r in rs if lost(r))
+        nc = sum(1 for r in rs if (at(r, 2000) or r['final'])['ident'] >= 0.5)
+        no = sum(1 for r in rs if (at(r, 2000) or r['final'])['universal_open'])
+        f = (nl + nc) / len(rs)
+        rate = (-np.log(f) / N) if 0 < f < 1 else None
+        sp[N] = dict(n=len(rs), lost=nl, clique=nc, uo=no, fail=nl + nc, rate=rate)
+        L.append('| %d | %d | %d | %d | %d | %d | %s |' % (N, len(rs), nl, nc, no, nl + nc, '–' if rate is None else '%.2e' % rate))
+    J['size_panel'] = sp
 
     # trajectories (median over runs) for the S-nonself Pangaeas
     L.append('\n## Pangaea trajectories (S-nonself, median over runs; class shares by founder spelling class)\n')

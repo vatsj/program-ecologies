@@ -337,3 +337,9 @@ dilution; if the measured total overruns, the dilution control is the next cut (
   replicates before any C-donor cell (`runs/pangaea-cachecheck.json`), and the test suite is rerun. Batches after A are
   queued in `runs/pangaea/batches2.sh` (the original queue was stopped at its parent shell; the batch A pool was not
   touched).
+
+**Measured (after the cells).** 13.3 worker-hours for all 620 counted and post-hoc runs (projected ≈ 52; the C-donor
+projection was made before the exact no-change cache, which cut C-donor cost about 4×, and the S cells settled faster
+than projected). Nothing was dropped: every cell of §1.4 ran with 20 replicates, the C-donor cells to 2,000 as
+disclosed. One (400, 16) native-r run took 5,462 s: six of its islands are held by a cooperating S-nonself producer
+that never settles (it does not produce against its own spelling), so every encounter there is evaluated.
