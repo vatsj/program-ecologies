@@ -131,6 +131,12 @@ REJECTED.md the ones we dropped.
   the PrudentBot network (FairBot-family and PrudentBot holders mutually certified); identity cliques and
   certificate-reading rivals (e.g. the anti-punisher `if(or(CHK(me,^C,C),CHK(them,^D,D)),D,C)`, which defects against
   anyone certified to punish DefectBot and is logically unbridgeable against PrudentBot) are failures of the target.
+- *RS (2026-10-15), re-injection:* "trickle and drift are distinguished only by scale - a small trickle over infinite
+  time brings back the shadow. The divide I wanna draw is that drift should never colonize an island, only reintroduce
+  fit programs." *Operating hypothesis:* re-injection is admissible in the regime where neutral arrivals never take an
+  island over the horizon while selected arrivals do; per island the ratio of selected cures to drift colonizations is
+  ≈ 2·s·N·μ_pred, so the window widens with N and exists only if the useful entrants are common in the prior
+  (`specs/2026-10-15-removing-rivals.md`, measured there).
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
