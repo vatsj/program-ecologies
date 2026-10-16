@@ -263,3 +263,110 @@ programs." Operationalized:
   colonization) needs μ_pred·0.26 ≫ μ(neutral)/N, and over a fixed horizon it shrinks as εN grows; I expect drift
   colonizations of target islands by FairBot-family shadows at every rate with εN ≥ 0.1 over 64–128 islands, hence no
   strict window at εN = 0.1 or 1, and a window at εN = 0.01 only if μ_pred is ≳ 10⁻².
+
+## 2. Code validation, Part 0 static results, costs (appended after the code, before any counted cell)
+
+Code: `src/removing_rivals_kern.py` (provenance's `segment` copied and extended at the birth step: rain, lineages,
+arrival records), `src/removing_rivals.py` (target, founders, `RRRun` with checkpoint save / restore and injection, the
+predator classifier, island status), `src/removing_rivals_run.py` (checkpoints, B1 branches, lottery cells, assays),
+`src/removing_rivals_report.py`, `src/removing_rivals_probe.py` (cost probes); `tests/test_removing_rivals.py`
+(5 tests, passing; all need the cached tables and skip without them).
+
+*Correction to §1.3 (wording only).* The parenthesis under the triple table is garbled; it should read: Z defects
+against P by definition, so Z's payoff against P is −1 if P defects against Z and +1 if P cooperates with Z (P then
+gets −2). The table's P-row entry against Z is −1 or −2 accordingly (not "+1"). The conclusions below the table are
+unchanged.
+
+### 2.1 Validation
+
+- **ε = 0 is the scaling kernel.** The rain kernel with ε = 0 (lineage tracking on or off) gives identical slots,
+  presence lists and type tables to the scaling kernel after 150 generations (test); lineage tracking leaves the
+  dynamics unchanged.
+- **Stored runs reproduce draw for draw.** All 300 stored S-rule runs at N ≥ 200 (S-nonself, proportional,
+  ablation; both mN arms) were reconstructed to generation 2,000: **0 differences over 11,934 trace points**
+  (P(C,C), islands ≥ 0.9, held, identity, open, SPO islands, type counts, universal-open, efficient islands).
+- **Checkpoints are exact.** A saved and restored state continues identically to the uninterrupted run (slots,
+  presence order and the payoff sums of present types bit for bit, test). The B1 ε = 0 branch is additionally compared
+  with the stored trace every 500 generations beyond 2,000.
+- **Rain.** At εN = 20 for 40 generations on (200, 64) the realized rate is εN within sampling error and the
+  spellings of the top 15 prior spellings pass χ² against L (test); at εN = 1 on (200, 64) the rate was 0.998 per
+  island-generation. The type table saturates under rain (≈ 27,000 types at εN = 1 after 1,500 generations on
+  (200, 64); cap 150,000).
+- **Sponsored founder.** One founder per island differs from S-nonself's founders, at C-donor's donor position, with
+  PrudentBot's spelling, rule H and unit 123 = (τ 123, C (9,), D (3,)); the empty control differs from it only in rule
+  (S-nonself) and unit (the empty unit 4268) (test).
+- **Predator classifier.** On the RE's example (anti-punisher, unit 9430) the certified-table counts are exactly the
+  RE's: 2,870 units it cooperates with that defect against it, 2,222 of them non-self-cooperating and defected against
+  by every target holder. Identity holders have 0 accessible predator mass (test).
+
+### 2.2 Part 0 (static, generation 2,000 of the 300 reconstructed runs)
+
+`runs/removing-rivals-part0.json`; per-island rows in `runs/removing_rivals/ckpt_rows.json.gz`.
+
+- **The target is strict.** 𝒯 has 235 units (PrudentBot's two trees included; all open; 2,232 of its 27,495 pairs
+  not mutual). Of the 185 runs universal-open at generation 2,000, **132 are universal-on-target**, which is every universal-on-target run (𝒯 is open), so 132 of 300 runs
+  are universal-on-target in all (5 more have only target holders with a non-mutual pair, *split*).
+- **Rival islands at generation 2,000** (non-universal-on-target runs, pooled): **closed-open 1,492**, identity 770,
+  exploitable 260, closed-non-open 0, unheld 0.
+  - *The stored classifier's rivals are exactly the exploitable ones:* all 260 islands it called non-identity rivals
+    are exploitable (1.00), and its identity islands are my identity islands (770, none with a predator).
+  - *The closed-open class is new to the target definition:* 1,492 islands the stored classifier counted inside the
+    main network (mutual with the plurality open holder) are held by open S-guarded holders that PrudentBot defects
+    against because they cannot certify their own defection against DefectBot: e.g.
+    `if(or(CHK(them,me,C),CHK(me,them,D)),C,D)` (unit 159, 297 islands + 111 under its `not` spelling),
+    `if(or(CHK(them,me,C),CHK(me,^D,D)),C,D)` (unit 191), `if(or(CHK(me,them,D),CHK(them,me,C)),C,D)` (unit 1479),
+    `if(or(CHK(me,^D,D),CHK(them,me,C)),C,D)` (unit 1991). They are closed (cooperate only with certified
+    cooperators) and **bridged to the target by FairBot** (unit 3, a target unit that holds the most target islands
+    and is mutual with both), so their islands exchange holders with target islands by neutral drift of the bridge,
+    at ε = 0 as under rain. 171 of the 300 runs have different holder spellings at the stored final snapshot than at
+    2,000, consistent with this drift.
+  - **RE 1 on the target definition: 260 / 1,752 = 0.15 exploitable** among non-identity rival islands (run-clustered
+    95% interval [0.10, 0.21]): the falsifier (≤ 0.5) fires. On the stored-classifier rivals it is 1.00. Identity
+    islands with a predator: 0 of 770.
+- **Predators.** 29 distinct exploitable holders, in two families:
+  - *the anti-punisher family* (`if(or(CHK(me,^C,C),CHK(them,^D,D)),D,C)`, `if(CHK(them,them,C),D,if(CHK(them,^D,D),D,C))`,
+    …: defect against anyone certified to defect against DefectBot): μ(Pred) = 0.073–0.077, about 950 predator
+    spellings, top three `if(CHK(me,^D,D),C,D)`, `if(CHK(them,me,D),C,D)`, `if(CHK(me,them,D),C,D)` (5.2·10⁻⁴ each);
+    certified counts ≈ 2,850–2,940 / 2,100–2,230; reaction-fragile mass 0.003–0.005;
+  - *the certified-defection detectors* (`if(or(CHK(them,them,D),CHK(me,them,D)),D,C)` and its spellings: defect
+    against anyone certified to defect against itself, or against whom I am certified to defect): μ(Pred) =
+    0.0054–0.0058, about 70 predator spellings of 1.3·10⁻⁴ each (e.g. `if(and(CHK(me,them,C),CHK(me,^C,D)),C,D)`),
+    certified ≈ 115 / 100, no fragile mass. This family holds 117 of the 260 exploitable islands.
+  - **No constant is a predator** (DefectBot certifies its own defection at its first D step, and every exploitable
+    rival defects against certified punishers); Gemini's condition for a cure is therefore not met.
+  - Over the 260 exploitable islands μ(Pred) has median 0.073, quartiles 0.0058 / 0.074, minimum 0.0054.
+- **Expected arrivals and cures** (§1.4 formula, mean over exploitable islands): εN·μ = 4.1·10⁻⁴ / 4.1·10⁻³ / 0.041
+  predator arrivals per island-generation at εN = 0.01 / 0.1 / 1, and P(cure within 10,000 generations) ≈ 0.51 /
+  0.89 / 1.00 (anti-punishers ≈ 0.86 / 1.00 / 1.00; detectors ≈ 0.14 / 0.77 / 1.00).
+- **Exploitable target members:** none among the 25 most common target holders (0 accessible predator mass against
+  each, with every other target holder defecting): the target network has no predators of its own under §1.2's
+  definition. (The RE-example probe at εN = 1 nevertheless showed target islands turning unheld for 30–65 generations
+  under junk arrivals; losses are measured, not assumed.)
+
+### 2.3 Deviations and scoring consequences (declared before any cell)
+
+- **B1's population.** "The stored failing runs at N ≥ 200" is read on the target definition: every reconstructed run
+  not universal-on-target at generation 2,000 (168 checkpoints, including runs whose only failures are closed-open
+  rivals or a split target). Rival-island statistics are reported per label, so the RE's exploitable rivals are read
+  off their own rows.
+- **Baselines.** S-nonself calibrated at (200, 64), (400, 64), (200, 128): generation 2,000 from the checkpoints;
+  generation 10,000 from the B1 ε = 0 branch's snapshot at absolute generation 10,000 (runs universal-on-target at
+  2,000 are taken as unchanged at ε = 0). S-nonself (100, 256) calibrated is rerun with this run's job (cell
+  `rs_Snon_100_256_cal`, the stored replicates, to 10,000). **C-donor is not rerun** (its stored runs cost
+  350–3,200 s each): its universal-on-target at 2,000 is bounded from the stored holder spellings (a universal-open
+  run is on target iff every holder's unit is in 𝒯; a spelling whose tree has no self-cooperating unit in 𝒯 decides
+  "off", one whose tree has only target units decides "on", others are ambiguous); RE 5's "at least C-donor's" is
+  scored against the upper bound, and called undecided if the sponsored value falls inside the bounds.
+- **Injection assays** use the 6 checkpoints with the largest exploitable predator mass, at most two per cell; the
+  forced triples the 3 exploitable holders with the largest mass, each against the most common target holder of its
+  checkpoint, 50 predator and 25 matched non-predator replicates.
+
+### 2.4 Costs
+
+Part 0 (300 reconstructions) took 13,086 worker-seconds. Probes (`runs/removing_rivals/probes.json`): one B1
+checkpoint at (200, 128) for 2,000 generations costs 26 / 31 / 36 / 64 s at εN = 0 / 0.01 / 0.1 / 1; a sponsored
+(200, 128) run to 2,000 generations 36 s; a rain εN = 1 (200, 128) run to 2,000 generations 77 s. Projection
+(linear in generations, (400, 64) as (200, 128), (200, 64) and (100, 256) at half and equal cost): **B1 ≈ 114,000
+worker-s**, A ≈ 15,000, B2 ≈ 17,000, B3 ≈ 4,500, S-nonself (100, 256) baseline ≈ 3,000, assays ≈ 9,500: about
+163,000 worker-s ≈ 45 worker-h ≈ 15 h on 3 workers, under the 20-hour line: **no drop-order step is applied.** Order of
+batches: A and the baseline → B3 → injection assays and triples → B1 → B2 (εN = 1 last).
