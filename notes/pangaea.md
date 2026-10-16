@@ -262,3 +262,63 @@ At every checkpoint (every 10 generations to 500, then every 50; full snapshots 
 5. **Fission–fusion merge**: counts, payoff sums and settled counts after the merge equal a fresh initialization from
    the merged slots.
 6. **Deterministic family dynamics** written before the cells and reported in §1.8.
+
+### 1.8 Code validation and the deterministic control (appended after the code, before any counted cell)
+
+Code: `src/pangaea_kern.py` (provenance's segment with overlap-free encounter draws above r = 100; the mutual matrix and
+the dominant-network greedy clique), `src/pangaea.py` (founders, cells, `PGRun`, the merge, the decomposition, the
+closure status, the deterministic dynamics), `src/pangaea_run.py`, `src/pangaea_report.py`; `tests/test_pangaea.py`
+(6 tests, passing; 4 need the cached tables and skip without them).
+
+- **Draw for draw** (`runs/pangaea-validate.json`): the scaling run's own lottery job with the kernel swapped for the
+  new one (legacy conventions: r = N/2, provenance's seed) reproduces 12 stored scaling rows (S-nonself (200, 64)
+  calibrated, S-nonself (100, 64), proportional (200, 64), S-nonself (50, 64) mN = 1; replicates 0–2) with **0
+  differences over 456 trace points**, the 2,000 snapshot and establishment. A pytest compares the new kernel with
+  provenance's segment state for state at r = 100 and reproduces a stored row.
+- **Draws** (`runs/pangaea-kernelcheck.json`): the 1,500 encounter draws of q = 100–399 at one event collide with none
+  of the 1,024 base-seed draws of that event and the next; under provenance's indexing 297 of the 300 draws of
+  encounters 100–199 equal draws of the next event (the stored N = 400 overlap, §1.3, confirmed).
+- **Founders:** for two replicates per total, every geometry's founder multiset has the same hash (identical), the
+  partitions are nested, the proportional control changes exactly the Q entries and leaves no Q spelling; C-donor
+  cells have 1 / 13 / 6 donors.
+- **Merge:** counts and payoff sums after merging (100, 128) at generation 30 equal a fresh initialization from the
+  merged slots; the merged run advances.
+- **Deterministic family dynamics** (H units, certificates saturated, infinite well-mixed population, Moran mean field;
+  4,162 unit types plus identity spellings; `runs/pangaea-determ.json`):
+
+| g | P(C,C) | target | open | AP net | identity | D | Dill | S | PBn | CBo | BR | APn |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0 | 0.240 | 0.040 | 0.383 | 0.102 | 0.0007 | 0.379 | 0.072 | 0.429 | 0.013 | 0.001 | 0.014 | 0.032 |
+| 10 | 0.016 | 0.026 | 0.081 | 0.029 | 0.0014 | 0.746 | 0.117 | 0.069 | 0.015 | 0.002 | 0.006 | 0.019 |
+| 50 | 0.003 | 0.027 | 0.031 | 0.002 | 0.0016 | 0.825 | 0.139 | 0 | 0.027 | 0.004 | 0 | 0.002 |
+| 100 | 0.033 | 0.116 | 0.132 | 0 | 0.0014 | 0.741 | 0.126 | 0 | 0.116 | 0.015 | 0 | 0 |
+| 150 | 0.981 | 0.885 | 0.935 | 0 | 0 | 0.064 | 0.001 | 0 | 0.885 | 0.050 | 0 | 0 |
+| 200 | 0.996 | 0.948 | 0.976 | 0 | 0 | 0.024 | 0 | 0 | 0.948 | 0.028 | 0 | 0 |
+| 2,000 | 1.000 | 0.996 | 0.998 | 0 | 0 | 0.002 | 0 | 0 | 0.996 | 0.002 | 0 | 0 |
+
+  The suckers are gone by generation 20, the AP network by 50 (it is eaten with the suckers and by Dill, which grows
+  from 0.072 to 0.139), bridges vanish with the accommodators, and the PrudentBot network (PBn) takes over between
+  generations 100 and 150 (P(C,C) ≥ 0.9 between 140 and 150). The TwinD identity share doubles while suckers last
+  (0.0007 → 0.0016, it exploits them like D) and is gone by 150. The proportional prior gives the same trajectory to
+  three decimals. The leading types at 2,000 are FairBot and FairBot-with-guards (all open and target). **S14 is
+  scored on this: the control ends on the open target network; the hand estimate of the takeover (≈ 170) was a little
+  slow (≈ 140).**
+
+## 2. Costs
+
+**Probes** (replicate 990, discarded; `runs/pangaea/smoke*.log`, plus three 200–260-generation end-to-end jobs):
+S-nonself Pangaea 12,800 to 600 generations 27 s, settling to 0.01 s per generation (6 types alive by 600: selection
+removes the seed's variety within a few hundred generations, so the Moran step is cheap); (800, 16) native r = 400 to
+300 generations 30 s; (3,200, 4) 11 s; **C-donor Pangaea 12,800: 1.15 s per generation in steady state** (copiers that
+cannot use any living donor script are never settled and retry their copy step at every one of the 1.28·10⁶
+encounters per generation), 486 s for 400 generations. *Disclosure:* the (800, 16) end-to-end probe (replicate 990,
+discarded, after the predictions were committed) ended all-defect at generation 110; it is not a counted run.
+
+**Projection** (worker-hours): S-nonself and proportional continua with 10,000-generation extensions ≈ 8; native r
+≈ 2; free certificates and fission–fusion ≈ 2; **C-donor one donor at 2,000 ≈ 20** (12,800: 20 × 40 min; 6,400:
+20 × 20 min); C-donor dilution ≈ 20. Total ≈ 52 worker-hours ≈ 17 hours on 3 workers, under the 20-hour line, so no
+drop is applied up front. **Deviation (disclosed before any cell):** the C-donor cells (one donor and dilution) are
+scored at 2,000 and not extended (the spec's "10,000 if unresolved" would cost ≈ 3 hours per run); this follows the
+scaling run's treatment of copying rules. Batches run in the order S cells (A, B, C, E, F) → C-donor one donor →
+dilution; if the measured total overruns, the dilution control is the next cut (spec drop order), then the
+10,000-generation extensions outside the Pangaea cells.
