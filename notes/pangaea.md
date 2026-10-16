@@ -298,7 +298,7 @@ closure status, the deterministic dynamics), `src/pangaea_run.py`, `src/pangaea_
 
   The suckers are gone by generation 20, the AP network by 50 (it is eaten with the suckers and by Dill, which grows
   from 0.072 to 0.139), bridges vanish with the accommodators, and the PrudentBot network (PBn) takes over between
-  generations 100 and 150 (P(C,C) ≥ 0.9 between 140 and 150). The TwinD identity share doubles while suckers last
+  generations 100 and 150 (P(C,C) 0.83 at 130, 0.96 at 140). The TwinD identity share doubles while suckers last
   (0.0007 → 0.0016, it exploits them like D) and is gone by 150. The proportional prior gives the same trajectory to
   three decimals. The leading types at 2,000 are FairBot and FairBot-with-guards (all open and target). **S14 is
   scored on this: the control ends on the open target network; the hand estimate of the takeover (≈ 170) was a little
