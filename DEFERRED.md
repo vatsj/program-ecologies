@@ -115,6 +115,17 @@ REJECTED.md the ones we dropped.
   single island (RESULTS "The demographic lemma").
 - *Would settle it:* whether any question the program cares about needs π rather than the lottery; the between-island
   tension of the open item above.
+- *Evidence (2026-10-15, the realizable lottery along paths in (N, I, mN)):* island-level efficiency holds on every path;
+  the only island loss is a whole-run scramble failure, vanishing with N·I. The seed's TwinD cliques are transient at
+  N = 100 (absorbed by coordination within about 10⁴ generations) and permanent from N = 200; there universality under
+  S-nonself is f₀·e^(−0.07 c) in the seeded copies c (crossing near 6, blind to clustering), so it goes to 0 along any
+  path growing N·I at a fixed length prior. Without cliques 5–20% of runs at N ≥ 200 end in bridge-less non-identity
+  rivals, which calibrated migration (mN = (N/100)^0.7, x held at 0.31–0.37) does not resolve. One donor per island is
+  universal on every path (0.80–1.00). *Operating hypothesis (amended):* the defended claim (island-level efficiency
+  along the seed path) stands; universality holds at N ≤ 100 given long horizons, at N ≥ 200 iff seeded clique copies
+  are few (about 6 for 50%), or with one donor per island. Island failures are one correlated event per run, so the
+  path condition is on runs. *Open:* the panel at N = 400; the bridge-less non-identity rival family and whether a
+  prior or rule bridges it.
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
@@ -369,6 +380,9 @@ REJECTED.md the ones we dropped.
   bound by production coverage plus seeded mass; the cost model for S₃ includes the invariant-key mark (overhead
   4× → 1.0×), never a bare-source key. *Open:* which part of the full lists carries regrowth (multi-path lists,
   `EQ`-true scripts, the gate): S₃ with founders given full lists minus one component.
+- *Evidence (2026-10-15, scaling):* C-donor 0.80–1.00 on every (N, I) path (identity ≤ 0.004; dense donors add
+  nothing); S-nonself loses universality with N·I only through the seed's TwinD copies (proportional control
+  0.80–0.95); the remaining endogenous gap is bridge-less non-identity rivals.
 
 ## 12. Genes: certificates and contracts as behaviour-modifying genes (RS, 2026-10-11)
 - *RS's statement:* certificates and contracts are to be construed more broadly than proofs about a program: as

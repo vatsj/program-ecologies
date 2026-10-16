@@ -4837,6 +4837,96 @@ Withheld delivery at generation 10 reached 0, 11, 0, 0 and 0 of 19,200 individua
   - The H + eq diagnostic is labelled.
   - The N panel and L1 + L2 were not run.
 
+## The realizable lottery along paths in (N, I, mN): islands stay held on every path; identity cliques are transient at N = 100 and permanent from N = 200, where universality is a count (`runs/realizable-scaling.md`, `runs/realizable-scaling.json`, `runs/realizable-scaling-verdicts.md`, `runs/realizable_scaling/`, `runs/realizable-scaling-validate.json`, `notes/realizable-scaling.md`; spec `specs/2026-10-14-realizable-scaling.md`, predictions in `predictions/2026-10-14-realizable-scaling.md`)
+
+**Provenance.** The RE designed this, gpt-6.1-sol and gemini-4-argon reviewed it (amendments folded), and an Opus subagent ran it (`src/realizable_scaling.py`, `_run.py`, `_report.py`; `tests/test_realizable_scaling.py`, 7 tests, 3 needing the rebuilt cache and skipping on main). Order of commits: notes §1 by hand; the predictions; code, validation, T_nuc calibration and cost projection; two budget disclosures, each before the cells it affected; the cells.
+
+**Base.** Provenance's language, grammar, lack rule, kernel and endpoints, imported unchanged; ε = 0, w = 0.3. The grammar has no `eq` atom: its identity channel is the checker's R = S coincidence that makes the TwinD family, so the spec's "`eq` admitted" is nominal here.
+
+**Disclosures.**
+- The untracked cached tables were absent and were rebuilt with the stored commands (counts identical to the stored logs).
+- Copying-rule cells (C-donor, dense donors) are scored at 2,000.
+- C-donor (400, 64) at mN = 1 and dense donors at N = 400 were dropped. C-donor (400, 64) calibrated was cut to 10 runs, and dense donors ran on the calibrated arm only.
+- About 60 worker-hours in all.
+
+**RE check:** S-nonself at (100, 256), calibrated, reads 2 / 6 / 20 of 20 universal at 2,000 / 10,000 / 40,000 in the run file, with 0 identity islands at the end.
+
+**Validation.** 36 stored provenance runs reproduce draw for draw (0 differences over 2,743 trace points), and the failure classifier agrees with provenance's at every snapshot. The exact barrier for open migrants invading a TwinD island is ρ = 1.1·10⁻³ / 1.9·10⁻⁵ / 7.2·10⁻⁹ / 1.6·10⁻¹⁵ at N = 50 / 100 / 200 / 400.
+
+**Calibration.** T_nuc = 25 / 35 / 45 / 55 generations at N = 50 / 100 / 200 / 400 (∝ N^0.38). The calibrated arm, mN = (N/100)^0.7, holds x = mN·T_nuc/N at 0.31–0.37 for every N and rule, while at mN = 1 x falls from 0.50 to 0.14.
+
+**Main table.** Universal-open runs out of 20 (40 at (100, 64)). The S-nonself calibrated column reads 2,000 / 10,000 / T_ext, where T_ext = 10,000·I·N^0.3/(64·100^0.3), capped at 40,000. Proportional and ablation columns are at 10,000, and C-donor at 2,000. Seeded TwinD copies per run are in brackets.
+
+| (N, I) | S-nonself mN = 1 | S-nonself calibrated | proportional control | ablation mN = 1 / cal | C-donor mN = 1 / cal | S-nonself failure causes (identity / rival / inefficient) |
+|---|---|---|---|---|---|---|
+| (50, 32) [1.4] | 13 / 13 | 14 / 15 | 17 | 15 / 19 | 18 / 16 | 5 / 0 / 0 |
+| (50, 64) [2.8] | 16 / 16 | 15 / 17 | 19 | 19 / 19 | 20 / 18 | 2 / 0 / 1 |
+| (100, 32) [2.0] | – | 13 / 14 | 15 | – / 16 | – / 17 | 1 / 1 / 4 |
+| (100, 64) [4.5] | – | 28 / 31 / 31 (of 40) | 37 | – / 40 | – / 37 | 7 / 1 / 1 |
+| (100, 128) [9.2] | – | 6 / 11 / **17** | 19 | – / 17 | – / 18 | 3 / 0 / 0 |
+| (100, 256) [18.7] | – | 2 / 6 / **20** | 15 | – / 15 | – / 16 | 0 / 0 / 0 |
+| (200, 64) [9.7] | 11 / 11 | 11 / 11 / 11 | 16 | 18 / 19 | 20 / 18 | 7 / 2 / 0 |
+| (400, 64) [19.1] | 7 / 9 | 11 / 11 / 11 | 19 | 20 / 19 | dropped / 10 of 10 | 8 / 1 / 0 |
+| (200, 128) [18.1] | 2 / 2 | 4 / 4 / 4 | 16 | 12 / 15 | 20 / 19 | 15 / 1 / 0 |
+
+**Island efficiency.** Every island is held in every run except whole-run scramble failures: all-defect metapopulations in which no establisher survived.
+- **Scramble failures vanish with N·I.** They hit 10–15% of runs at N·I = 1,600–3,200 under every rule, and 1–2 of 40 runs at 6,400. Above that, no S-rule run fails this way.
+- **Islands are near-fully cooperative.** Excluding scramble failures, mean island P(C,C) is ≥ 0.986 in every S cell.
+- **Islands below the 0.95 threshold at N ≥ 200 are clique islands or their open neighbours** carrying cross-network migrants.
+- **The failure rate q** (calibrated) runs 0.050 / 0.038 / 0.038 / 0.017 along the size path, 0.21 / 0.04 / 0.001 / 0 along the island-count path, and 0 / 0.038 / 0.061 along the diagonal, where it rises through clique-border load.
+
+**Island size decides whether identity is permanent.**
+- **At N = 100 open migrants absorb clique islands** within about 10⁴ generations (ρ ≈ 2·10⁻⁵ per migrant). (100, 256) goes 2 → 6 → 20/20 universal, with every run universal by generation 25,750; (100, 128) goes 6 → 11 → 17.
+- **At N ≥ 200 every identity island is absorbing.** All 1,192 identity islands are absorbing by the static check, none bridged, with expected resolution times above 8·10⁷ generations. No S-nonself run at N ≥ 200 on the calibrated arm changed status after 2,000 generations (0 of 34).
+
+**At N ≥ 200 universality is a count of copies.** In the crossed panel (calibrated arm, TwinD copies held at c, the rest drawn from the non-identity prior), universality fits f = f₀·e^(−q_c·c):
+
+| geometry | f(0) | f(4) | f(8) | f(16) | q_c | 50% crossing |
+|---|---|---|---|---|---|---|
+| (100, 64) | 0.93 | 0.75 | 0.50 | 0.30 | 0.070 | 8.0 |
+| (200, 64) | 0.80 | 0.60 | 0.40 | 0.35 | 0.066 | 6.0 |
+| (100, 128) | 0.95 | 1.00 | 0.70 | 0.75 | 0.018 | none (≈ 3 at 2,000) |
+| (200, 128) | 0.80 | 0.55 | 0.45 | 0.25 | 0.076 | 6.0 |
+
+- **Each seeded copy costs about 7% of universality** wherever cliques are permanent, with the 50% point near 6 copies at N = 200.
+- **Clustering of copies on one island does not matter.** Islands seeded with ≥ 2 copies were clique-held at 0.127 per island against 0.131 for single-copy islands.
+- **Establishment per copy halves with island size,** from about 0.08 at N = 100 to about 0.04 at N = 200–400. That is why (400, 64) with 19 copies matches (200, 64) with 10 (both 0.55).
+
+**Removing the cliques restores 0.80–0.95 at N ≥ 200.**
+- **The proportional control removes the TwinD family.** It reallocates the family's mass across non-identity types in proportion to the prior. Paired against S-nonself it gains +0.25 / +0.40 / +0.60 at (200, 64) / (400, 64) / (200, 128) (p = 0.18 / 0.021 / 0.002), and +0.45 at (100, 256) at 10,000.
+- **The ablation's extra prudent-core mass adds nothing significant** (0.00–0.15).
+- **The residue is bridge-less non-identity rivals.** 5–20% of runs at N ≥ 200 without cliques end in rivalries that are absorbing in every case. None of 378 rival islands had a living or reachable bridge, and 120 had a bridge in the prior that died: the realizable language's own P\*-type obstruction.
+- **Calibrated migration changes which rivals establish, not whether they resolve.** Where rivals are bridged, it resolves them faster (ablation (400, 64): 19/20 at 2,000 calibrated against 12/20 at mN = 1).
+
+**C-donor is universal on every path.** It reaches 0.80–1.00 in every cell at 2,000, including 10/10 at (400, 64) calibrated. Its identity islands are ≤ 0.004, because the seed's TwinD founders are copiers. Its failures are non-identity rivals and scramble failures, and dense donors add nothing (+0.05).
+
+**Verdicts** (main cells at T_ext, other S cells at 10,000, copying rules at 2,000):
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | q falls with N along P1 and P3, ≥ 0.95 efficient at the largest cell; P2 plateaus | **held on P1**; **failed on P3** (q rises to 0.061 by clique-border load); P2 did not plateau (q → 0) |
+| RE 2 | S-nonself ≤ 0.2 at (100, 256) and (200, 128) | **falsifier fired at (100, 256)** (1.00 at T_ext); held at (200, 128) (0.20) |
+| RE 3 | ablation ≥ 0.7 along P1 calibrated, failures non-identity | **held** (0.95–1.00) |
+| RE 4 | calibrated mN rescues bridged failures, no bridge-less ones | untestable as worded (no bridged failures); the bridge-less clause failed in paired form |
+| RE 5 | collapse onto one copy curve, crossings within 2× of 8 | **held at N = 200 and (100, 64)** (6–8); failed at (100, 128) (no crossing); falsifier not fired |
+| RE 6 | C-donor ≥ 0.85 along P1; fails along P2 by identity | P1 **held**; **P2 clause fired** (0.80, failures mostly non-identity) |
+| Gemini G1 | matched copies: P1 more universal than P2 (clustering) | **failed** at T_ext (0.55 vs 1.00); clustering mechanism failed outright |
+| Gemini G2 | C-donor (400, 64) < 0.75 | **failed** (10/10) |
+| Sol S1 | no collapse on raw copies; per-copy establishment varies | **held** |
+| R1–R10 | subagent's own | R1, R6, R7, R10 fired; R2–R5 one clause missed; R8, R9 held |
+
+**Reading.**
+- **Island-level efficiency holds along every path** (DEFERRED 1's defended claim). The only island loss is a whole-run scramble failure, one event per run, which vanishes with N·I. Island failures are therefore correlated within a run, so sol's I(N)·q(N) framing applies to runs, not islands.
+- **Island size, not the copy count, decides whether identity is a permanent rival.** At N = 100 cliques are absorbed by coordination, so a fixed-N = 100 path is universal given a long enough horizon. From N = 200 they are permanent.
+- **At N ≥ 200 universality is f₀·e^(−0.07·c),** with c = μ·N·I seeded TwinD copies and the crossing near 6 copies, blind to clustering. Per-copy cost falls with N, but more slowly than c grows. So universality → 0 along any path growing N·I at a fixed length prior, and more slowly along the size path.
+- **Without cliques, 5–20% of runs at N ≥ 200 end in bridge-less non-identity rivals.** The realizable language has its own P\*.
+- **The single donor is the only design universal on every path tested.**
+- *Caveats:*
+  - Finite (N, I, horizon); 20 runs per cell.
+  - C-donor scored at 2,000, and at (400, 64) on one arm with 10 runs.
+  - The static check treats islands as monomorphic.
+  - The panel ran on the calibrated arm only, and not at N = 400.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
