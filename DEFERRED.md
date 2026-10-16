@@ -126,6 +126,11 @@ REJECTED.md the ones we dropped.
   are few (about 6 for 50%), or with one donor per island. Island failures are one correlated event per run, so the
   path condition is on runs. *Open:* the panel at N = 400; the bridge-less non-identity rival family and whether a
   prior or rule bridges it.
+- *RS (2026-10-15), the target network:* "I'm happy crowning the prudentbot network as the official state sponsored
+  solution"; rival networks are worth trying to remove. *Operating hypothesis:* the target is universal cooperation on
+  the PrudentBot network (FairBot-family and PrudentBot holders mutually certified); identity cliques and
+  certificate-reading rivals (e.g. the anti-punisher `if(or(CHK(me,^C,C),CHK(them,^D,D)),D,C)`, which defects against
+  anyone certified to punish DefectBot and is logically unbridgeable against PrudentBot) are failures of the target.
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
