@@ -123,6 +123,8 @@ def all_cells():
     out['D2'] = [register('Cdon13', 12800, 1), register('Cdon6', 6400, 1)]
     out['E'] = [register('H', 12800, 1)]
     out['F'] = [register('L', 100, 128, merge_at=200), register('L', 100, 128, merge_at=1000)]
+    # post-hoc diagnostic (predictions addendum 1): Pangaea size panel for the scramble-failure rate
+    out['G'] = [register('L', 3200, 1), register('L', 25600, 1)]
     return out
 
 
