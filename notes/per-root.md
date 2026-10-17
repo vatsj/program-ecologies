@@ -253,3 +253,139 @@ per-run success probability up to 0.16 (Wilson upper bound), 0/40 up to 0.09.
   the surviving ½-paying bosses' lineages at that time.
 
 These are carried into the predictions file with falsifiers and outcome regions.
+
+### 1.x Code, validation, the realizability trace, fixed traces and static numbers (after the code, before any counted cell)
+
+**Code.** `src/per_root.py` (PROD3A symbolically; `PREvaluator`: root validation with its charge, the attempt, the new
+program after use, production and eviction, lackable bits, the Python encounter path; the dispatch checker;
+`PRRun` on the generated kernel; statistics; the cell job; PROD3A and SELFVAL as code for the audit),
+`src/per_root_kern.py` (the kernel generated from the parent's source with `prod_boss`, `prod_worker` and
+`productions` replaced and the encounter clock added, as `founding_legibility_kern` did), `src/per_root_run.py`
+(driver: jobs, compare, static, traces, audit, audit_encounters, replays), `src/per_root_report.py`. The parents'
+modules are imported unchanged.
+
+**Tests** (`tests/test_per_root.py`, 14 passing): PROD3A's primary is PROD3's script at every root of every worker run
+tree, its visit log is PROD3's step for step when no Hyp choice closes, and every alternative is an H script valid
+where a co-worker box is false; the named alternative of O:W ? W : (B½ ? W : S) is H's "O:W false, B½ true" script;
+R1 never attempts a set with a script valid at the root (300 random lists and roots); R2 writes [alternative,
+primary], R1 the primary alone, R0 + alternatives the bundle once; return to an earlier root validates and writes
+nothing, the cap holds at k = 2 under CLOCK and FIFO; the attempt's result does not depend on the program's own list
+(the mark's key); R0 in the new kernel equals the founding-legibility mark run (compositions at every check, executed
+encounters, found counts) and, with the mark off, the parent's own S₃ run in every counter but ctr[14]; R2 with the
+mark on and off has identical dynamics and 0 mark-sensitive productions; the kernel's new type equals the Python
+encounter path's on 150 sampled triples per rule (R1, R2, R3k2); a set with lackable bit 0 is attempted at no root.
+
+**Validation against the stored S₃ + eq ideal runs.** R0 (the new kernel, the list-free mark on) reproduces `Ni`
+replicates 0–3 in every summary field (fair masks, plays, holders, exits, sampled encounters with their production
+outcomes and steps, the 10,000 extension) on all five validation replicates 0–4 (`runs/per-root-validate.json`).
+Only the mark's counters differ.
+
+**Static numbers** (`runs/per-root-static.json`; workers over every run tree weighted by the length prior, bosses over
+the 80,198 run trees of the founders of replicates 0–19 weighted by founder counts). Reach (share of each component's
+H mass a rule can ever hold): R1 holds canon, (a) ∩ S₃^static and (b) ∩ S₃^static entirely, nothing else; R2 adds
+(a) \ S₃^static (1.00), **(b) \ S₃^static 0.94** and (d) 0.03; every boss script is reachable by R1 (bosses have no
+alternatives). *A classification note:* for bosses, the CC labels put 0.008 scripts per program in (c) ("valid at no
+root"), but they are written by PROD3 at roots where N1 and N2 are both true in run trees that do not read EQW
+(EQW is then true but unread; CC's feasibility test read the unread EQW as false). The volume is negligible and CC's
+(c) cells are unaffected in substance. **Validity covers** (fewest scripts that together cover every root at which some
+script the rule can write is valid; share of (program, set) mass): workers, effective validity (a Hyp counts only
+where its box is true at the root) with R2's candidates: none coverable 0.29, 1 script 0.37, 2 0.26, 3 0.09, so ≤ 2
+for 0.88 of coverable mass; by *bundles* (what one attempt writes) ≤ 2 for 0.96. Bosses: none 0.17, 1 0.34, 2 0.33,
+3 0.16, so ≤ 2 for 0.81 of coverable mass. A two-bundle cap is therefore expected to bind on about a fifth of boss
+sets and a few percent of worker sets.
+
+**Realizability audit** (`runs/per-root-audit.json`; PROD3A and SELFVAL appended to K₃′ in the audit process; the
+run's library untouched; every existing library index checked unchanged):
+- (a) **PROD3A as code** returns PROD3's primary and the symbolic alternative on 400/400 sampled worker contexts (82
+  with an alternative; trees with co-worker boxes oversampled), nested boxes forced, no host-supplied branch
+  information (the term reads only the boxes it calls; the alternative branch never calls the hypothesised box).
+- (b) **Its steps.** PROD3A costs 1.0002× PROD3 without an alternative and 1.034× with one (median). The parent's PROD3
+  model applied to PROD3A's full visit log has median relative error 0.22% (p99 1.5%), against 0.18% (p99 0.8%) on
+  PROD3 itself; a refit lowers the p99 to 0.6% on held-out samples. No correction is applied (`ALT_CORR` = 0).
+- (c) **Validation as code** (`SELFVAL` = `vone4` on the program's own box): the value matches the model on 200/200
+  random acquisition-ordered lists and roots, the own steps match the model exactly (error 0), and the call costs 2
+  steps more.
+- (d) **Whole encounters by the term** (90 short histories of five encounters among a boss and three workers under R2,
+  R3k2 and R1, lists growing and, under R3, evicting; concessions and co-worker readers oversampled; K = 10⁶, the
+  programs' compile fuel): plays 450/450; play steps exact to a median of 1 step (the parent's per-row-class
+  approximation; maximum 11,469 on one timed-out call); every attempt's primary and alternative equal the Python
+  path's, 1,882/1,882; attempt steps within 0.7% (median; p99 19%, nested-call charges of cached clean runs).
+- (e) **Soundness across list changes:** of 3,150 term checks (856 T), 0 certify a set the subject does not play into.
+- **Located and checked:** O:W ? W : (B½ ? W : S) beside a striker and a certified pay(½): with its R2 list
+  [alternative, primary] the term's [C] check is T (40,827 steps; the alternative validates, its RunNeg on the
+  striker's box passing); with the order reversed it is F (the Hyp primary shadows the alternative and its closure
+  fails). The evaluator agrees in both orders.
+
+**Fixed encounter traces** (`runs/per-root-traces.json`; replicates 0–2, islands 0–3, the founders frozen, 2,000
+encounters per island drawn uniformly, lists evolving, no selection; *deviation:* islands 0–3 and 2,000 encounters
+instead of 0–7 and 3,000, for cost). Coverage of H per individual (mean), ideal table:
+
+| rule | W canon | W (b) ∩ S₃ | W (b) \ S₃ (alternatives) | B (b) | scripts per program W / B |
+|---|---|---|---|---|---|
+| R0 | 0.90 | 0.23 | 0 | 0.09 | 1.42 / 2.25 |
+| R0 + alternatives | 0.91 | 0.27 | 0.74 | 0.12 | 1.68 / 2.26 |
+| R1 | 0.99 | 0.95 | 0 | 0.75 | 1.91 / 3.58 |
+| R2 | 0.99 | 0.95 | 0.86 | 0.75 | 2.17 / 3.58 |
+| R3 k = 2 (CLOCK / FIFO) | 0.97 | 0.93 | 0.86 | 0.67 | 2.13 / 3.33 |
+
+Over 24,000 encounters per rule, R2 makes 62,600 worker validations (0.72 valid, 0.21 invalid, 0.07 validation
+timeouts, which are regress timeouts of nested boxes, deviation 1; 0.3% stopped by fuel) and 48,900 boss validations
+(0.68, 0.26, 0.04, 1.2%); it writes 4,530
+worker primaries (792 with an alternative) and 4,299 boss scripts; older primaries shadowing a later valid
+Hyp-free entry: 83 validations (R1: 283). At 3·10⁶ the counts move by a few percent (more cap timeouts); R0's are
+unchanged (fresh lists are cheap to check). The cap at k = 2 changes little in 2,000 encounters per island.
+
+**Pilots** (streams 100 and 101, outside the counted sets; outputs kept as `runs/per_root/pilot_*.json`, not
+counted): R2 on the ideal table, 17 minutes per run (R0: 13); R2 at 3·10⁶, 17 minutes, median encounter cost 4.05×
+play (validation 0.88 of non-play steps), 3.9·10⁶ executed encounters, 0.017% mark-sensitive productions; R3 (k = 2
+CLOCK) on the ideal table: see §2.1.
+
+**Deviations, stated before any counted cell.**
+1. **The ideal table is not free of fuel for validation.** A nested box whose check regresses times out and is charged
+   V + 2 = 2.5·10¹¹ at K = 10¹² (the parent's semantics), so a validation that calls it times out at that charge and a
+   participant can exhaust K: in the R2 pilot 6.7·10⁵ worker validation timeouts and 2.7·10⁵ fuel-exhausted attempts per
+   run. R0 never validates and does not pay this. The Lemma-M bound is therefore nonzero even at K = 10¹² (a NONE can
+   starve a later attempt), while mark-sensitive productions stay 0 in the tests; both are reported per cell.
+2. **Lackable bits are almost always set.** A program almost always has an empty set (a constant holds no [D]
+   script), so the bits skip little; under per-root rules at executed fuel and under CLOCK they are all ones.
+3. **The audit runs at K = 10⁶**, the fuel the programs are compiled for (the term's boxes carry V = K/4 = 2.5·10⁵; at
+   3·10⁶ a compiled program's boxes would not be Hyp-able against the producer's own box). The cost model is
+   K-parametric and validated there.
+4. **Replays** (replacing §1.0 item 11's per-script replays for cost): for up to five regrowing development runs per
+   rescuing rule, one replay barring every second-path pivotal script ('per-root' or 'alternative') of the run's first
+   nucleus; per-script replays only if the budget allows.
+5. **The cost log** samples every 500th executed encounter (up to 60,000 rows), so quantiles after generation 50 rest on
+   tens to hundreds of rows per run; the kernel's cumulative counters cover every encounter.
+6. **Fair bosses** are counted at generations 0, 10, 20, 30, 50, 100, 200, 500, 1,000, 2,000, 5,000, 10,000; the
+   extinction time is the first listed generation ≥ 10 with none.
+
+## 2. Costs
+
+### 2.1 Projection (before any counted cell)
+
+Measured with my 2–3 processes beside the sibling run's 2 (machine load 4–7 on 10 cores): an S-mode run takes 13
+minutes under R0 and 17 under R2, on the ideal table and at 3·10⁶ alike (setup 2.6, run 9–13, summary 0.6, extension
+1); an H-mode run about 6 (CC). The R3 pilot (k = 2 CLOCK, ideal) had run 45 minutes and not finished when this was
+written: the cap makes islands non-quiet (thrash: a full set evicts, the evicted root returns and re-produces), so R3
+cells cost several times R2. Its timing is appended below before any R3 cell is launched.
+
+| block, in launch order | runs | worker-hours (17 min S, 6 min H) |
+|---|---|---|
+| A. ideal, development: R1, R2, R0 + alternatives (R0: 5 reruns + stored) | 60 | 17 |
+| B. ideal, development: R3 k = 2 CLOCK, R3 k = 2 FIFO | 40 | ≥ 30 (pilot) |
+| C. ideal, confirmation 20–59: R2, R1, R0, R0 + alternatives, best R3 | 200 | 57 + R3 |
+| D. 3·10⁶, development: R2, R0, best R3, H-full (H mode); R2 with dispatch | 60 S + 20 H + 20 S | 25 + R3 |
+| E. 10⁶, development: R2, R0, best R3 | 60 | 17 + R3 |
+| F. replays (≤ 5 per rescuing rule), 20,000 extensions (5 + 5) | ≤ 20 | ≤ 6 |
+| G. R3 k = 3 (development), (200, 64) panel | 20 + 12 | ≥ 25 |
+
+The total is about 180 worker-hours, 60 hours of wall time on 3 processes, far above the ~24 hours of the scale guard.
+**Drops, by cost only, in the spec's order:** the (200, 64) panel, then R3 at k = 3, then K = 10⁶ (blocks G and E,
+about 45 worker-hours). What remains (A–D, F) is still about 130 worker-hours. **Further reductions, stated now:**
+(i) the confirmation block C runs on streams 20–39 (20 runs per cell) instead of 20–59, all cells on the same streams,
+the stored H-full beside them, so the confirmation set is 20 runs (paired) rather than 40; streams 40–59 are run for
+R2 and R0 only if time remains after D and F; (ii) R3's confirmation and executed cells run only if its development
+cells come within 0.1 of R2 (the "best R3" otherwise has nothing to confirm: Sol's and RE 3's question is then
+answered on the development streams); (iii) the dispatch cell and the 20,000 extensions are last. With these, A + B +
+C (20 streams, 4 cells + R3 if run) + D ≈ 17 + 30 + 23 + 25 ≈ 95 worker-hours, about 32 hours of wall time; the order
+puts every scored comparison of the RE's predictions before the optional blocks.
