@@ -180,6 +180,14 @@ REJECTED.md the ones we dropped.
   holders cannot exploit (those whose cooperation requires certified cooperation with themselves), tested by a
   prior that moves identity-exploitable target mass to resistant members and by fission–fusion
   (`specs/2026-10-17-identity-resistant-target.md`). Either moves without ceremony if the RS decides otherwise.
+- *Evidence (2026-10-17, an identity-resistant target):* the prey channel is real (a TwinD arrival takes an
+  exploitable holder's island at ≈ 0.25 per arrival, a resistant one's never) but fired once in 160 length-prior rain
+  runs; closing it gains nothing; moving exploitable mass to resistant members raises uot by 0.25–0.33 under rain at
+  N ≥ 800, all through the seed, does nothing at (200, 64), and hurts the sponsored PrudentBot, which feeds on the
+  exploitable members in the scramble (RESULTS "An identity-resistant target"). *Operating hypothesis (amended):*
+  the target stays the full PrudentBot network; narrowing it is not a remedy. The bridge to the RS's prior question is
+  the seeded mass of resistant establishers. Fission–fusion fails only when a clique is already a majority at the
+  merge (1 of 120 runs).
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,

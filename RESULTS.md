@@ -5282,6 +5282,81 @@ At K = 1 the AP cure stays at 0.90–0.95 while DET falls to 0.05–0.20. On the
 - **The schedule's shape matters only for rescuing scramble failures** (13 against 7 runs).
 - *Caveats:* I = 8 only; 20–40 runs per cell; drift counts at N ≥ 800 are single digits; Part F uses one holder per class and FairBot targets; the identity-prey diagnostic is post hoc.
 
+## An identity-resistant target: the prey channel is real and narrow, closing it buys nothing, and the gains of moving prior mass are seed-level (`runs/identity-resistant.md`, `runs/identity-resistant.json`, `runs/identity-resistant-{static,exec,validate}.json`, `runs/identity_resistant/`, `notes/identity-resistant.md`; spec `specs/2026-10-17-identity-resistant-target.md`, predictions in `predictions/2026-10-17-identity-resistant-target.md` with the registered counter-predictions)
+
+**Provenance.** The RE designed this under DEFERRED 1's operating hypothesis after the 15-minute window. gpt-6.1-sol and gemini-4-argon reviewed it, and an Opus subagent ran it (`src/identity_resistant{,_kern,_run,_report}.py`; `tests/test_identity_resistant.py`, 6 tests needing the untracked cache and skipping on main).
+
+**The two diagnostic priors.** These are surgery on the mutation prior, not designs:
+- **R-move (Rm)** moves the exploitable target members' prior mass onto resistant members.
+- **R-proportional (Rp)** removes the same mass and spreads it over all non-identity units.
+
+Each slot's uniform draw is mapped through intervals that coincide with L's except on exploitable spellings, so the arms differ only at about 2.8% of slots.
+
+**Validation.** Every L arm reproduces the stored runs: fission–fusion with 0 differences, and all 160 L rain runs equal to the stored annealed rows. 18.9 worker-hours; nothing dropped.
+
+**RE check:** the rain table's uot values match the run file cell by cell.
+
+**Static.**
+- **The 235 target units split into 165 exploitable and 70 resistant.** The split is the same on the ideal table and on 28,120 executed plays at fuel 10⁶, and for every challenge set up to all 21 identity units. μ_L(exploitable) = 0.028, almost all of it suckers to certified defectors; μ_L(resistant) = 0.012.
+- **The guard implies unexploitability, but resistance doesn't require it.** 50 of the 70 resistant units carry the guard (cooperation requires `CHK(them,me,C)`), and every guarded unit is unexploitable by any unit of the universe. The 20 unguarded resistant units are disjunctions that no identity unit satisfies.
+- **Exploitable members hold 0.015 of target islands** in the stored runs: they are shadows and prey, not holders.
+
+**Forced TwinD challenges** (one island, 500 replicates per holder × TwinD tree × N). A TwinD arrival takes an island held by `if(CHK(them,^D,D),C,D)` at 0.25 per arrival. It takes one held by `if(CHK(them,me,C),C,if(CHK(them,them,C),C,D))` at about 0.10. It never takes an island held by FairBot, PrudentBot or another resistant holder: 0 of 12,000.
+
+**Fission–fusion** ((100, 128), merged at 200, horizon 2,200; universal-open / uot₂₃₅ out of 20):
+
+| prior | unsponsored | sponsored |
+|---|---|---|
+| L | 20 / 18 | 20 / 20 |
+| Rm | 20 / 19 | 20 / 20 |
+| Rp | 19 / 18 | 20 / 20 |
+
+uot₇₀ equals uot₂₃₅ in every run. In one Rp run a TwinD quote held 0.59 of the population at the merge and took the whole merged population by generation 250.
+
+**Islands (200, 64), ε = 0** (uot₂₃₅ at 10,000):
+
+| prior | unsponsored | sponsored |
+|---|---|---|
+| L | 11 | 15 |
+| Rm | 11 | 9 |
+| Rp | 10 | 7 (8 losses, 0 gains against L, p = 0.008) |
+
+- **R-move cuts rival and identity islands but not uot.** Unsponsored, rival islands fall from 125 to 24 and identity islands from 72 to 14. Clique establishment per copy is unchanged, so runs with any clique don't fall.
+- **With the sponsor, removing the sucker mass hurts.** PrudentBot's run tree holds 725 islands under L, 314 under Rm and 565 under Rp. The exploitable members are what the sponsor eats in the scramble.
+
+**Rain at I = 8** (40 runs per cell; uot₂₃₅ at 12,000):
+
+| N | schedule | L | Rm | Rp | identity islands at onset (L / Rm) |
+|---|---|---|---|---|---|
+| 800 | annealed | 21 | 34 | 26 | 30 / 7 |
+| 800 | constant | 22 | 33 | 20 | 30 / 7 |
+| 1,600 | annealed | 30 | 40 | – | 11 / 0 |
+| 1,600 | constant | 28 | 39 | – | 11 / 0 |
+
+- **Rm gains +0.25 to +0.33 (p = 0.002–0.027), all of it in the seed.** It shows up before any arrival: fewer identity islands at onset, and all-defect runs at 800 fall from 5 to 0. Rp removes the same exploitable mass without boosting resistant founders and gains nothing significant.
+- **The prey channel fired once in 160 L rain runs.** That was the annealed run's whole-run loss, reproduced. Per identity arrival, L had 8 identity takeovers and Rm 0.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | ≥ 0.9 of resistant units guarded | **inconclusive** (0.714; no guarded unit exploitable) |
+| RE 2 | fission–fusion universal-open ≥ 0.95 under every prior; sponsored-L uot ≥ 0.9 | **supported** |
+| RE 3 | R-move alone on islands within 0.1 of L | **supported** (0.00) |
+| RE 4 | R-move closes the prey channel under rain | supported on the assay composite; counts inconclusive (L 1 event) |
+| RE 5 | the control does not close it | **contradicted** (removing the members closes it either way) |
+| Sol | syntax ≠ semantics; prey declines but bounds fail; sponsor matters | syntax and sponsor clauses held; the bounds clause failed (Rm +0.25 to +0.33) |
+| Gemini | > 10% of resistant units unguarded; R-move works by founder boosting | both held (29%; the gain is in the seed) |
+| S1–S13 | subagent's own | S1–S4, S8, S10 held; S12 partly; S5–S7, S9, S11, S13 fired |
+
+**Reading.**
+- **The prey channel is real and narrow.** A TwinD arrival takes an exploitable holder's island at the predator's ρ and never a resistant one. Under L at these sizes it fired once in 160 runs.
+- **Closing the channel buys nothing measurable.** The control closes it as completely as R-move and gains nothing. Narrowing the target is not the remedy.
+- **What moves universality is the seeded mass of resistant establishers.** At N ≥ 800 it cuts clique establishment and scramble losses; at (200, 64) clique establishment per copy is unchanged, so uot is too. This reinforces "universality is a count of seeded copies".
+- **The exploitable members are scramble fuel for the sponsor**, so removing them costs the sponsored PrudentBot 0.30–0.40 of uot.
+- **Fission–fusion fails when a clique is already a majority at the merge** (1 of 120 runs).
+- *Caveats:* 20–40 runs per cell; rain at I = 8; the assay composite rests on 6 holders; Rm and Rp change founders and rain together.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
