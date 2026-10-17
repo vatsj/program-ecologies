@@ -5124,6 +5124,82 @@ Every closed-open rival disappears in every A cell, with or without certificates
 - **The target is the usual winner but is not protected.** Once PrudentBot-shaped programs drift out, FairBot variants PrudentBot would not certify can fix neutrally (4 of 34 non-lost runs).
 - *Caveats:* finite sizes to 25,600; 20 runs per cell; the size panel post hoc and run to 2,000; C-donor scored at 2,000.
 
+## Coverage components: the lack rule's second paths carry the fair wage's regrowth; untravelled paths are necessary but production writes them itself; identity's scripts decide nothing (`runs/coverage-components.md`, `runs/coverage-components.json`, `runs/coverage_components/`, `runs/coverage-components-{static,validate,coalitions}.json`, `notes/coverage-components.md`; spec `specs/2026-10-15-coverage-components.md`, predictions in `predictions/2026-10-15-coverage-components.md` with the registered counter-predictions and an addendum before two diagnostic cells)
+
+**Provenance.** The RE designed this, gpt-6.1-sol and gemini-4-argon reviewed it, and an Opus subagent ran it (`src/coverage_components.py`, `_run.py`, `_report.py`; `tests/test_coverage_components.py`, 16 tests passing on main). The parents' code is imported unchanged, with the invariant-key mark on wherever production runs. Order of commits: notes §1 by hand; predictions; code with full-scale validation (empty mask reproduces stored S₃ + eq ideal on 5/5 runs, full mask reproduces stored H + eq ideal on 20/20); the cells; an addendum before two labelled diagnostic cells.
+
+**RE check:** the fair-share column below matches the run file cell by cell.
+
+**Deviations, disclosed before the cells.**
+- **The amended partition was inconsistent.** With S₃^static path-free, (a) is empty, so the components partition H minus *canon*: the script production writes at the default root, where every box and identity atom reads false. Priority runs (d) > (c) > {(a), (b)}. S₃^static ∪ (a)–(d) = H holds as amended.
+- **Grants never suppress production.** Under the lack rule a program attempts a set until it has itself *produced* a script for it, so "plus X" means S₃ with X added. Minus cells bar X and run as pure grants, checked draw for draw.
+- **Random controls are count-matched complements.** Stratified draws coincided with the component (overlap 0.97–1.00). The complement for (b) reaches only 0.62 of its volume.
+- **Process.** A memory leak forced one job per process. The runs are deterministic, so outputs are unaffected.
+
+**What ran.** S-nonself₃ + eq on the ideal table at (100, 64), mN = 1, with 20 paired replicates to generation 10,000. Every individual holds the granted part of its H list from generation 0, and production runs on top of it.
+
+**Components** (share of H scripts under the length prior, workers / bosses):
+- **(a) untravelled:** 0.110 / 0.236. Every script of a set the default root does not cover.
+- **(b) second paths:** 0.331 / 0.386. Every further script of a set the default root does cover.
+- **(c) identity-true:** 0.007 / 0.002.
+- **(d) gate copies:** 0.092 / 0.
+- **Canon:** 0.460 / 0.376.
+
+Of 881 founding coalitions, 0.63 are fair with canonical scripts alone; adding (a) gives 0.80, (b) 0.76, both 1.00, and (c) or (d) nothing.
+
+**Lottery** (fraction of islands fair at 10,000; runs with any fair island in brackets; outcomes are all-or-nothing by run):
+
+| cell | fair | cell | fair |
+|---|---|---|---|
+| **H-full** | **0.300** (6/20) | **S₃** | **0.000** (0/20) |
+| minus (a) | 0.050 (1) | plus (a) | 0.000 (0) |
+| **minus (b)** | **0.000** (0) | **plus (b)** | **0.300** (6), zero wage 0.00 |
+| minus (c) | 0.350 (7) | plus (c) | 0.050 (1) |
+| minus (d) | 0.400 (8) | plus (d) | 0.000 (0) |
+| plus (a)+(b) | 0.100 (2) | plus (c)+(d) | 0.100 (2) |
+| random minus (a) / (b) / (c) / (d) | 0.000 / 0.050 / 0.095 / 0.300 | random plus (a) / (b) / (c) / (d) | 0.051 / 0.050 / 0.050 / 0.100 |
+| plus (b) ∩ S₃^static (diagnostic) | 0.101 (3) | plus (b) \ S₃^static (diagnostic) | 0.048 (1) |
+| **confirmation, 40 fresh streams: plus (b)** | **0.237** (10/40) | **confirmation: H-full** | **0.299** (13/40) |
+
+**Paired contrasts:**
+
+| contrast | Δ | McNemar p |
+|---|---|---|
+| minus (a) − H-full | −0.25 | 0.062 |
+| minus (b) − H-full | −0.30 | 0.031 |
+| plus (b) − S₃ | +0.30 | 0.031 |
+| plus (b) − random plus (b) | +0.25 | 0.062 |
+| plus (b) − H-full on fresh streams | −0.06 [−0.25, +0.13] | 0.63 |
+
+**Nuclei and mediation.**
+- **No identity script is ever pivotal.** At every regrowth nucleus, the pivotal scripts are ones S₃ could write there.
+- **Pivotal granted scripts are (b) scripts the lack rule blocked.** The holder already had its own script for the same set, written on another path. Two examples:
+  - A militant certified to strike against an uncertified boss is not certified to strike at a ¼ probe.
+  - A concession certified ≥¼ on its ¼ path is not certified on its ½ path.
+- **The grant works as a whole.** Three replays withholding those scripts all still regrew, from other nuclei.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | untravelled paths carry regrowth (minus (a) ≤ 0.05, plus (a) ≥ 0.2) | **failed, falsifier fired** (plus (a) 0/20); the minus clause held |
+| RE 2 | minus (b) and minus (d) within 0.1 of H-full | **failed, falsifier fired** (minus (b) 0); the (d) clause held |
+| RE 3 | minus (c) within 0.1 of H-full | **held** |
+| RE 4 | only (a) sufficient | **failed, falsifier fired** (plus (b) 0.30, 0.24 on fresh streams) |
+| Gemini | plus (a) ≤ 0.10; plus (a)+(b) ≥ 0.25 | **failed** (the pair 0.10) |
+| Sol | plus (a) < 0.2; some pair beats every singleton | **failed** (both pairs 0.10 < plus (b)) |
+| S1–S13, D1–D2 | subagent's own | S1–S6, S8, S9, S13, D2 held; S7, D1 failed without the falsifier; S11, S12 fired; S10 split |
+
+**Reading.**
+- **The fully realizable deficit is path-specific certification under the lack rule.** S₃ keeps one script per outcome set, written on whatever path the program meets first, so it is uncertified on the paths its partners later send it down. Granting the further scripts per set (b) recovers the free-certificate fair wage, 0.30, and 0.24 on 40 fresh streams against 0.30. It also removes zero-wage islands.
+- **Untravelled paths (a) are necessary but not sufficient.** Barring them removes the probe concessions' fair certificates. Granting them adds nothing, because S₃ writes them itself at the first encounter that takes the path.
+- **Identity and provenance scripts decide nothing.** Removing them keeps the fair wage, and granting them leaves S₃'s zero.
+- **The fix is a production rule, not a provenance rule.** Read "lacks a set" per root: attempt a set whenever no held script for it is valid at the current root, and write the shadowed F-branch alternative too. Both halves of (b) are needed (0.10 and 0.05 alone, 0.30 together).
+- *Caveats:*
+  - Ideal table only; finite (N, I, horizon); ε = 0.
+  - 20-run cells with all-or-nothing outcomes; one random draw per control and pair; mediation on 3 runs.
+  - The partition is a stated reading of an inconsistent amendment.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

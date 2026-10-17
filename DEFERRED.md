@@ -422,6 +422,11 @@ REJECTED.md the ones we dropped.
   bound by production coverage plus seeded mass; the cost model for S₃ includes the invariant-key mark (overhead
   4× → 1.0×), never a bare-source key. *Open:* which part of the full lists carries regrowth (multi-path lists,
   `EQ`-true scripts, the gate): S₃ with founders given full lists minus one component.
+- *Evidence (2026-10-16, coverage components):* second-path scripts (b) carry regrowth (plus (b) 0.30, 0.24 on fresh
+  streams; minus (b) 0); untravelled paths are necessary but written by S₃ itself; identity and gate scripts decide
+  nothing (RESULTS "Coverage components"). *Operating hypothesis:* a per-root production rule (attempt a set whenever
+  no held script for it is valid at the current root, and write the shadowed F-branch alternative) recovers the
+  free-certificate fair wage on the ideal table. *Next:* S₃ with that rule, on the ideal table and at 3·10⁶.
 - *Evidence (2026-10-15, scaling):* C-donor 0.80–1.00 on every (N, I) path (identity ≤ 0.004; dense donors add
   nothing); S-nonself loses universality with N·I only through the seed's TwinD copies (proportional control
   0.80–0.95); the remaining endogenous gap is bridge-less non-identity rivals.
