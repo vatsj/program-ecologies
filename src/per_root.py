@@ -43,6 +43,9 @@ RULES = {
     'R3k2': dict(perroot=True, alt=True, cap=2, evict='clock'),
     'R3k3': dict(perroot=True, alt=True, cap=3, evict='clock'),
     'R3k2f': dict(perroot=True, alt=True, cap=2, evict='fifo'),
+    # labelled mechanism diagnostics (predictions addendum): one role under R2, the other under R0's lack rule
+    'R2w': dict(perroot=True, alt=True, cap=None, evict=None, r0role='B'),
+    'R2b': dict(perroot=True, alt=False, cap=None, evict=None, r0role='W'),
 }
 
 
@@ -53,6 +56,7 @@ class Rule:
         self.perroot, self.alt, self.cap, self.evict = d['perroot'], d['alt'], d['cap'], d['evict']
         self.usebits = self.cap is not None and self.evict == 'clock'
         self.dispatch = dispatch
+        self.r0role = d.get('r0role')
 
     def key(self):
         return (self.name, self.dispatch)
@@ -333,6 +337,13 @@ class PREvaluator(F.Evaluator):
 
     def _set_ctx(self, pr, t, role, A, idv, bv, cid, tab, dlist, per):
         rule = self.rule
+        if rule.r0role == role:
+            # this role keeps R0's lack rule: a held set is never attempted and costs nothing (read as valid, uncharged)
+            has = any(A2 == A for A2, _ in pr.entries)
+            if has:
+                return (1, 0, 0, -1, -1, -1, 0, 0)
+            idx, ai, own, mask = self.attempt(t, role, A, idv, bv, cid, tab, dlist, per)
+            return (-1, 0, 0, -1, idx, ai, own, mask)
         if rule.perroot:
             val, vown, vmask, vpos = self.validate(pr, t, role, A, idv, bv, cid, tab, dlist)
         else:
@@ -1113,6 +1124,7 @@ CELLS = {
     'R3k2_3': dict(rule='R3k2', K=K3), 'R3k2_6': dict(rule='R3k2', K=K6),
     'R3k3_3': dict(rule='R3k3', K=K3), 'R3k3_6': dict(rule='R3k3', K=K6),
     'R3k2f_3': dict(rule='R3k2f', K=K3), 'R3k2f_6': dict(rule='R3k2f', K=K6),
+    'R2w_i': dict(rule='R2w', K=KI), 'R2b_i': dict(rule='R2b', K=KI),
     'Hfull_3': dict(rule='H', K=K3), 'Hfull_6': dict(rule='H', K=K6), 'Hfull_i': dict(rule='H', K=KI),
     # the (200, 64) panel
     'R2_i_N200': dict(rule='R2', K=KI, N=200),

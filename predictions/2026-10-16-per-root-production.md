@@ -107,3 +107,18 @@ evictions. *Falsifier:* a primary or alternative mismatch, a soundness violation
 
 **S14. The mark is a cost fix.** At the ideal table mark-sensitive productions are 0 (Lemma M); at 3·10⁶ they are
 < 1% of examined productions in every cell. *Falsifier:* any at the ideal table, or ≥ 5% at 3·10⁶.
+
+## Addendum (2026-10-17 11:40, before the two diagnostic cells it scores; after the ideal development and confirmation cells and R2 at 3·10⁶ were read)
+
+Read so far: R2 0.34 / 0.40 (development / confirmation 20–39) against H-full 0.30 / 0.40 on the same streams, zero
+wage 0; R1 0.20 / 0.20; R0 + alternatives 0.05 / 0.05; R2 at 3·10⁶ 0.30. At the nuclei the pivotal scripts are mostly
+first scripts (a per-root script in 1 of 7 and 1 of 8 R2 nuclei), while ½-paying bosses never vanish under R1/R2
+(about 10 islands at their minimum near generation 100) and do under R0 at 3·10⁶ in 5/18 runs. Two **labelled
+diagnostic cells** ask which side's second paths carry the rescue, on the seven development streams where R2 was fair
+(3, 5, 9, 14, 15, 16, 18; selected on R2's outcome, so they measure necessity, not a rate): **R2w** (workers under R2,
+bosses under R0's lack rule) and **R2b** (bosses under R1 = R2 for bosses, workers under R0's lack rule).
+
+**D1.** Boss second paths are necessary: R2w is fair (≥ ½ at 10,000) on at most 2 of the 7 streams. *Falsifier:* R2w
+fair on ≥ 5.
+**D2.** Worker second paths are not sufficient alone and boss ones are not either: R2b is fair on 2–5 of the 7.
+*Falsifier:* R2b fair on 7 of 7 or on 0.

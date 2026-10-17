@@ -19,7 +19,7 @@ ROOT = PR.ROOT
 FLD = os.path.join(ROOT, 'runs', 'founding_legibility')
 CCD = os.path.join(ROOT, 'runs', 'coverage_components')
 SFD = os.path.join(ROOT, 'runs', 'sog_full')
-DEV, CONF = list(range(20)), list(range(20, 60))
+DEV, CONF, CONF2 = list(range(20)), list(range(20, 40)), list(range(40, 60))
 
 
 def load(cell, root=OUT):
@@ -214,7 +214,7 @@ def main():
     runs = {c: cell_runs(c) for c in REPORT_CELLS}
     runs = {c: v for c, v in runs.items() if v}
     for c, rr in runs.items():
-        for tag, reps in (('dev', DEV), ('conf', CONF), ('all', DEV + CONF)):
+        for tag, reps in (('dev', DEV), ('conf', CONF), ('conf40-59', CONF2), ('all', DEV + CONF + CONF2)):
             s = summarize_cell(rr, reps)
             if s: out['cells']['%s|%s' % (c, tag)] = s
         for tag, reps in (('dev', DEV), ('conf', CONF)):
@@ -230,7 +230,7 @@ def main():
              ('R2_6', 'R0_6'), ('R2_6', 'Hfull_6'), ('R2_3', 'R2_i'), ('Hfull_3', 'Hfull_i')]
     for a, b in pairs:
         if a in runs and b in runs:
-            for tag, reps in (('dev', DEV), ('conf', CONF)):
+            for tag, reps in (('dev', DEV), ('conf', CONF), ('conf40-59', CONF2)):
                 c = contrast(runs[a], runs[b], reps)
                 if c and c['n']: out['contrasts']['%s - %s|%s' % (a, b, tag)] = c
     # interaction of the factorial (per run): (R2 - R1) - (R0alt - R0)
@@ -267,7 +267,7 @@ def fmt(x, nd=3):
 def write_md(out):
     L = ['# Per-root production: run summary (`src/per_root_report.py`)', '',
          'Fair share = fraction of islands fair at generation 10,000 (terminal); runs = runs with any fair island; '
-         'development = streams 0–19, confirmation = 20–59. ε = 0 lottery at (100, 64), mN = 1, finite horizon.', '',
+         'development = streams 0–19, confirmation = 20–39 (and 40–59 where run). ε = 0 lottery at (100, 64), mN = 1, finite horizon.', '',
          '| cell | streams | n | fair (10,000) [95%] | runs > 0 | runs ≥ ½ | fair (2,000) | mean 2,000–10,000 | zero wage | ¼ wage |',
          '|---|---|---|---|---|---|---|---|---|---|']
     for k, s in out['cells'].items():
