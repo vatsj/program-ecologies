@@ -389,3 +389,21 @@ cells come within 0.1 of R2 (the "best R3" otherwise has nothing to confirm: Sol
 answered on the development streams); (iii) the dispatch cell and the 20,000 extensions are last. With these, A + B +
 C (20 streams, 4 cells + R3 if run) + D ≈ 17 + 30 + 23 + 25 ≈ 95 worker-hours, about 32 hours of wall time; the order
 puts every scored comparison of the RE's predictions before the optional blocks.
+
+**Addendum (2026-10-16 20:55, before any R3, confirmation or executed cell; block A was running): R3 is not run.**
+The R3 pilot (k = 2 CLOCK, ideal, stream 101) was stopped after 1 h 44 min without finishing generation 2,000 (R2: 13
+minutes for the same phase). A profiled diagnostic on stream 101 at (100, 8) for generations 0–10
+(`runs/per_root/r3_thrash_diag.txt`, script `runs/per_root/r3diag_script.py`) shows why: the cap **thrashes**. Boss
+class changes per run-slice are 1,835 under R2, 29,906 under FIFO k = 2 and 88,967 under CLOCK k = 2 (worker: 2,819,
+13,105, 31,712); executed encounters 4.8·10⁵, 8.0·10⁵, 7.8·10⁵; kernel wall time 121, 285, 508 s. A boss whose set
+needs three root classes (a sixth of boss set mass, §1.x) re-produces the evicted script whenever the evicted root
+returns, every such encounter is a type change, its island is never quiet, and under CLOCK the use bits add a further
+change per cleared bit. At full scale this is tens of hours per run. **R3 (both evictions, both k) is dropped as
+computationally infeasible in this kernel**, ahead of the spec's drop order (which drops only k = 3 at this point);
+RE 3's and Sol's (b) / Gemini's (d) cap clauses are scored from this diagnostic (the cap is not cheap: 16–48× R2's
+class churn at founding) and the fixed traces, not from lottery cells. "Best R3" cells are not run.
+**Revised projection.** Without R3: A (R2, R1, R0 + alternatives, development) 60 runs; C (confirmation, streams
+20–39: R2, R1, R0, R0 + alternatives) 80; D (3·10⁶, development: R2, R0, H-full in H mode, R2 with dispatch) 60 S + 20
+H; E (10⁶, development: R2, R0) 40; F (replays, extensions) ≤ 15. About 72 worker-hours, 24 hours of wall time. Hence
+K = 10⁶ is kept (the spec's third drop is not needed), the (200, 64) panel stays dropped, and streams 40–59 for R2 and
+R0 run only if time remains after F.
