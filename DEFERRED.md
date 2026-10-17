@@ -175,6 +175,11 @@ REJECTED.md the ones we dropped.
   is admissible as a large-N limit, with exposure set by the rarest predator class counted as an inefficiency, and it
   needs a target restricted to units identity cannot exploit. *RS's call (open):* whether the detector class
   (μ_pred ≈ 0.006, needing about 13× the exposure) is an inefficiency the tail must prey on.
+- *Asked 2026-10-17, no answer within the 15-minute window; operating hypotheses (RE):* (i) curing the detector class
+  is optional, so the tail is set by the anti-punishers and stays light; (ii) the target is narrowed to members identity
+  holders cannot exploit (those whose cooperation requires certified cooperation with themselves), tested by a
+  prior that moves identity-exploitable target mass to resistant members and by fission–fusion
+  (`specs/2026-10-17-identity-resistant-target.md`). Either moves without ceremony if the RS decides otherwise.
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
