@@ -1,0 +1,169 @@
+== M1 composite {"ex_31|200": 0.25127272727272726, "ex_31|800": 0.2474545454545454, "ex_87|200": 0.09745454545454546, "ex_87|800": 0.09127272727272726, "ex_top|200": 0.09745454545454546, "ex_top|800": 0.09127272727272726, "res_183|200": 0.0, "res_183|800": 0.0, "res_FB|200": 0.0, "res_FB|800": 0.0, "res_PB|200": 0.0, "res_PB|800": 0.0} {"ex|200": 0.14872727272727274, "res|200": 0.0, "ex|800": 0.1433333333333333, "res|800": 0.0}
+M1 ex_31|C|200 n 1000 est 0.000 take 0.0000 (0.0, 0.004) fix 0.0000 t None
+M1 ex_31|if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))|200 n 500 est 0.212 take 0.2120 (0.177, 0.25) fix 0.2120 t 22.0
+M1 ex_31|if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))|800 n 500 est 0.250 take 0.2500 (0.213, 0.29) fix 0.2500 t 30.0
+M1 ex_31|if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)|200 n 500 est 0.268 take 0.2680 (0.23, 0.309) fix 0.2680 t 23.0
+M1 ex_31|if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)|800 n 500 est 0.254 take 0.2540 (0.216, 0.295) fix 0.2540 t 30.0
+M1 ex_31|if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)|200 n 500 est 0.268 take 0.2680 (0.23, 0.309) fix 0.2680 t 24.0
+M1 ex_31|if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)|800 n 500 est 0.242 take 0.2420 (0.205, 0.282) fix 0.2420 t 29.0
+M1 ex_31|if(or(CHK(me,me,D),CHK(me,them,D)),D,C)|200 n 500 est 0.264 take 0.2640 (0.226, 0.305) fix 0.2640 t 22.0
+M1 ex_31|if(or(CHK(me,me,D),CHK(me,them,D)),D,C)|800 n 500 est 0.242 take 0.2420 (0.205, 0.282) fix 0.2420 t 30.0
+M1 ex_87|C|200 n 1000 est 0.011 take 0.0070 (0.003, 0.014) fix 0.0030 t 115.0
+M1 ex_87|if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 ex_87|if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 ex_87|if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)|200 n 500 est 0.268 take 0.2680 (0.23, 0.309) fix 0.2680 t 23.0
+M1 ex_87|if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)|800 n 500 est 0.254 take 0.2540 (0.216, 0.295) fix 0.2540 t 30.0
+M1 ex_87|if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)|200 n 500 est 0.268 take 0.2680 (0.23, 0.309) fix 0.2680 t 24.0
+M1 ex_87|if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)|800 n 500 est 0.242 take 0.2420 (0.205, 0.282) fix 0.2420 t 29.0
+M1 ex_87|if(or(CHK(me,me,D),CHK(me,them,D)),D,C)|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 ex_87|if(or(CHK(me,me,D),CHK(me,them,D)),D,C)|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 ex_top|C|200 n 1000 est 0.011 take 0.0070 (0.003, 0.014) fix 0.0030 t 115.0
+M1 ex_top|if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 ex_top|if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 ex_top|if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)|200 n 500 est 0.268 take 0.2680 (0.23, 0.309) fix 0.2680 t 23.0
+M1 ex_top|if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)|800 n 500 est 0.254 take 0.2540 (0.216, 0.295) fix 0.2540 t 30.0
+M1 ex_top|if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)|200 n 500 est 0.268 take 0.2680 (0.23, 0.309) fix 0.2680 t 24.0
+M1 ex_top|if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)|800 n 500 est 0.242 take 0.2420 (0.205, 0.282) fix 0.2420 t 29.0
+M1 ex_top|if(or(CHK(me,me,D),CHK(me,them,D)),D,C)|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 ex_top|if(or(CHK(me,me,D),CHK(me,them,D)),D,C)|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_183|C|200 n 1000 est 0.011 take 0.0070 (0.003, 0.014) fix 0.0030 t 115.0
+M1 res_183|if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_183|if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_183|if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_183|if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_183|if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_183|if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_183|if(or(CHK(me,me,D),CHK(me,them,D)),D,C)|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_183|if(or(CHK(me,me,D),CHK(me,them,D)),D,C)|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_FB|C|200 n 1000 est 0.011 take 0.0070 (0.003, 0.014) fix 0.0030 t 115.0
+M1 res_FB|if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_FB|if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_FB|if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_FB|if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_FB|if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_FB|if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_FB|if(or(CHK(me,me,D),CHK(me,them,D)),D,C)|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_FB|if(or(CHK(me,me,D),CHK(me,them,D)),D,C)|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_PB|C|200 n 1000 est 0.000 take 0.0000 (0.0, 0.004) fix 0.0000 t None
+M1 res_PB|if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_PB|if(CHK(me,me,D),C,if(CHK(me,them,D),D,C))|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_PB|if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_PB|if(CHK(me,them,D),if(CHK(me,me,D),C,D),C)|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_PB|if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_PB|if(CHK(me,them,D),if(CHK(me,me,D),D,D),C)|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_PB|if(or(CHK(me,me,D),CHK(me,them,D)),D,C)|200 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+M1 res_PB|if(or(CHK(me,me,D),CHK(me,them,D)),D,C)|800 n 500 est 0.000 take 0.0000 (0.0, 0.007) fix 0.0000 t None
+== Part I
+L|snon {'n': 20, 'uo': 20, 'uot235': 18, 'uot70': 18, 'lost': 0, 'univ': 20, 'uot_neq': 0, 'ex_share_max': 0.0, 'ex_share_mean': 0.0, 'res_share_mean': 0.94803125, 'T_share_mean': 0.94803125, 'ident_final_max': 0.0, 'max_ident_after': 0.254921875, 'pre_identity': 135, 'pre_tgt_res': 1961, 'pre_tgt_ex': 11, 'pre_closed_open': 166, 'pre_exploitable': 49, 'pre_unheld': 238, 'pre_islands': 2560, 'seeded': {'Q': 10.85, 'E': 356.5, 'Res': 164.1, 'UC': 5113.3, 'other': 7155.25}}
+   est {'Res': (3282, 144, 0.0439), 'E': (7130, 1, 0.0001), 'Q': (217, 16, 0.0737), 'FB': (244, 31, 0.127)}
+   drift away [{'rep': 4, 'h_sp': 'if(not(or(CHK(them,me,C),CHK(me,them,D))),D,C)', 'T': 0.564296875}, {'rep': 5, 'h_sp': 'if(not(or(CHK(them,me,C),CHK(me,them,D))),D,C)', 'T': 0.455703125}]
+L|spon {'n': 20, 'uo': 20, 'uot235': 20, 'uot70': 20, 'lost': 0, 'univ': 20, 'uot_neq': 0, 'ex_share_max': 0.0, 'ex_share_mean': 0.0, 'res_share_mean': 1.0, 'T_share_mean': 1.0, 'ident_final_max': 0.0, 'max_ident_after': 0.086640625, 'pre_identity': 54, 'pre_tgt_res': 2366, 'pre_tgt_ex': 16, 'pre_closed_open': 48, 'pre_exploitable': 38, 'pre_unheld': 38, 'pre_islands': 2560, 'seeded': {'Q': 10.55, 'E': 352.75, 'Res': 290.4, 'UC': 5062.2, 'other': 7084.1}}
+   est {'Res': (5808, 1447, 0.2491), 'E': (7055, 1, 0.0001), 'Q': (211, 15, 0.0711), 'FB': (240, 9, 0.0375)}
+   drift away []
+Rm|snon {'n': 20, 'uo': 20, 'uot235': 19, 'uot70': 19, 'lost': 0, 'univ': 20, 'uot_neq': 0, 'ex_share_max': 0.0, 'ex_share_mean': 0.0, 'res_share_mean': 0.99559765625, 'T_share_mean': 0.99559765625, 'ident_final_max': 0.0, 'max_ident_after': 0.23546875, 'pre_identity': 76, 'pre_tgt_res': 2409, 'pre_tgt_ex': 0, 'pre_closed_open': 17, 'pre_exploitable': 32, 'pre_unheld': 26, 'pre_islands': 2560, 'seeded': {'Q': 10.85, 'E': 0.0, 'Res': 520.6, 'UC': 5113.3, 'other': 7155.25}}
+   est {'Res': (10412, 347, 0.0333), 'E': (0, 0, None), 'Q': (217, 17, 0.0783), 'FB': (844, 54, 0.064)}
+   drift away [{'rep': 13, 'h_sp': 'if(CHK(them,me,C),C,if(CHK(them,^D,C),D,D))', 'T': 0.911953125}]
+Rm|spon {'n': 20, 'uo': 20, 'uot235': 20, 'uot70': 20, 'lost': 0, 'univ': 20, 'uot_neq': 0, 'ex_share_max': 0.0, 'ex_share_mean': 0.0, 'res_share_mean': 1.0, 'T_share_mean': 1.0, 'ident_final_max': 0.0, 'max_ident_after': 0.054375, 'pre_identity': 33, 'pre_tgt_res': 2440, 'pre_tgt_ex': 0, 'pre_closed_open': 52, 'pre_exploitable': 21, 'pre_unheld': 14, 'pre_islands': 2560, 'seeded': {'Q': 10.55, 'E': 0.0, 'Res': 643.15, 'UC': 5062.2, 'other': 7084.1}}
+   est {'Res': (12863, 1085, 0.0844), 'E': (0, 0, None), 'Q': (211, 12, 0.0569), 'FB': (836, 36, 0.0431)}
+   drift away []
+Rp|snon {'n': 20, 'uo': 19, 'uot235': 18, 'uot70': 18, 'lost': 0, 'univ': 20, 'uot_neq': 0, 'ex_share_max': 0.0, 'ex_share_mean': 0.0, 'res_share_mean': 0.9389062499999999, 'T_share_mean': 0.9389062499999999, 'ident_final_max': 1.0, 'max_ident_after': 1.0, 'pre_identity': 146, 'pre_tgt_res': 1976, 'pre_tgt_ex': 0, 'pre_closed_open': 67, 'pre_exploitable': 16, 'pre_unheld': 355, 'pre_islands': 2560, 'seeded': {'Q': 10.85, 'E': 0.0, 'Res': 168.45, 'UC': 5264.05, 'other': 7356.65}}
+   est {'Res': (3369, 117, 0.0347), 'E': (0, 0, None), 'Q': (217, 19, 0.0876), 'FB': (248, 23, 0.0927)}
+   drift away [{'rep': 19, 'h_sp': 'if(CHK(them,me,C),C,if(CHK(me,^C,D),D,D))', 'T': 0.797109375}]
+Rp|spon {'n': 20, 'uo': 20, 'uot235': 20, 'uot70': 20, 'lost': 0, 'univ': 20, 'uot_neq': 0, 'ex_share_max': 0.0, 'ex_share_mean': 0.0, 'res_share_mean': 1.0, 'T_share_mean': 1.0, 'ident_final_max': 0.0, 'max_ident_after': 0.16140625, 'pre_identity': 98, 'pre_tgt_res': 2389, 'pre_tgt_ex': 0, 'pre_closed_open': 26, 'pre_exploitable': 17, 'pre_unheld': 30, 'pre_islands': 2560, 'seeded': {'Q': 10.55, 'E': 0.0, 'Res': 294.7, 'UC': 5211.35, 'other': 7283.4}}
+   est {'Res': (5894, 1520, 0.2579), 'E': (0, 0, None), 'Q': (211, 18, 0.0853), 'FB': (244, 5, 0.0205)}
+   drift away []
+== Part II
+L|snon 200 {'uot': 0, 'uot70': 0, 'uo': 0, 'identity': 69, 'closed_open': 102, 'exploitable': 16, 'unheld': 146, 'tgt_res': 934, 'tgt_ex': 13, 'eff': 991, 'runs_with_identity': 7}
+   est {'Res': (3118, 107, 0.0343), 'E': (7069, 2, 0.0003), 'Q': (194, 9, 0.0464), 'FB': (252, 12, 0.0476)}
+L|snon 2000 {'uot': 11, 'uot70': 10, 'uo': 11, 'identity': 72, 'closed_open': 125, 'exploitable': 14, 'unheld': 0, 'tgt_res': 1056, 'tgt_ex': 13, 'eff': 1236, 'runs_with_identity': 7}
+   est {'Res': (3118, 65, 0.0208), 'E': (7069, 1, 0.0001), 'Q': (194, 9, 0.0464), 'FB': (252, 11, 0.0437)}
+L|snon 10000 {'uot': 11, 'uot70': 11, 'uo': 11, 'identity': 72, 'closed_open': 202, 'exploitable': 14, 'unheld': 0, 'tgt_res': 992, 'tgt_ex': 0, 'eff': 1225, 'runs_with_identity': 7}
+   L|snon idt 2 drift away []
+L|spon 200 {'uot': 5, 'uot70': 2, 'uo': 5, 'identity': 26, 'closed_open': 9, 'exploitable': 0, 'unheld': 95, 'tgt_res': 1096, 'tgt_ex': 54, 'eff': 1124, 'runs_with_identity': 5}
+   est {'Res': (4381, 676, 0.1543), 'E': (7032, 5, 0.0007), 'Q': (192, 8, 0.0417), 'FB': (252, 10, 0.0397)}
+L|spon 2000 {'uot': 15, 'uot70': 11, 'uo': 15, 'identity': 26, 'closed_open': 0, 'exploitable': 0, 'unheld': 0, 'tgt_res': 1194, 'tgt_ex': 60, 'eff': 1272, 'runs_with_identity': 5}
+   est {'Res': (4381, 749, 0.171), 'E': (7032, 3, 0.0004), 'Q': (192, 8, 0.0417), 'FB': (252, 4, 0.0159)}
+L|spon 10000 {'uot': 15, 'uot70': 13, 'uo': 15, 'identity': 25, 'closed_open': 0, 'exploitable': 0, 'unheld': 0, 'tgt_res': 1216, 'tgt_ex': 39, 'eff': 1263, 'runs_with_identity': 5}
+   L|spon idt 0 drift away []
+Rm|snon 200 {'uot': 4, 'uot70': 4, 'uo': 5, 'identity': 14, 'closed_open': 27, 'exploitable': 5, 'unheld': 3, 'tgt_res': 1231, 'tgt_ex': 0, 'eff': 1247, 'runs_with_identity': 9}
+   est {'Res': (10187, 304, 0.0298), 'E': (0, 0, None), 'Q': (194, 10, 0.0515), 'FB': (810, 68, 0.084)}
+Rm|snon 2000 {'uot': 11, 'uot70': 11, 'uo': 11, 'identity': 14, 'closed_open': 24, 'exploitable': 6, 'unheld': 0, 'tgt_res': 1236, 'tgt_ex': 0, 'eff': 1265, 'runs_with_identity': 9}
+   est {'Res': (10187, 262, 0.0257), 'E': (0, 0, None), 'Q': (194, 10, 0.0515), 'FB': (810, 140, 0.1728)}
+Rm|snon 10000 {'uot': 11, 'uot70': 11, 'uo': 11, 'identity': 14, 'closed_open': 0, 'exploitable': 6, 'unheld': 0, 'tgt_res': 1260, 'tgt_ex': 0, 'eff': 1266, 'runs_with_identity': 9}
+   Rm|snon idt 0 drift away []
+Rm|spon 200 {'uot': 3, 'uot70': 3, 'uo': 3, 'identity': 11, 'closed_open': 15, 'exploitable': 15, 'unheld': 4, 'tgt_res': 1235, 'tgt_ex': 0, 'eff': 1245, 'runs_with_identity': 4}
+   est {'Res': (11413, 525, 0.046), 'E': (0, 0, None), 'Q': (192, 4, 0.0208), 'FB': (806, 64, 0.0794)}
+Rm|spon 2000 {'uot': 8, 'uot70': 8, 'uo': 9, 'identity': 11, 'closed_open': 0, 'exploitable': 39, 'unheld': 0, 'tgt_res': 1230, 'tgt_ex': 0, 'eff': 1255, 'runs_with_identity': 4}
+   est {'Res': (11413, 467, 0.0409), 'E': (0, 0, None), 'Q': (192, 4, 0.0208), 'FB': (806, 42, 0.0521)}
+Rm|spon 10000 {'uot': 9, 'uot70': 9, 'uo': 9, 'identity': 11, 'closed_open': 0, 'exploitable': 29, 'unheld': 0, 'tgt_res': 1240, 'tgt_ex': 0, 'eff': 1252, 'runs_with_identity': 4}
+   Rm|spon idt 0 drift away []
+Rp|snon 200 {'uot': 2, 'uot70': 2, 'uo': 3, 'identity': 37, 'closed_open': 101, 'exploitable': 11, 'unheld': 70, 'tgt_res': 1061, 'tgt_ex': 0, 'eff': 1112, 'runs_with_identity': 8}
+   est {'Res': (3211, 136, 0.0424), 'E': (0, 0, None), 'Q': (194, 9, 0.0464), 'FB': (256, 32, 0.125)}
+Rp|snon 2000 {'uot': 10, 'uot70': 10, 'uo': 12, 'identity': 38, 'closed_open': 63, 'exploitable': 9, 'unheld': 0, 'tgt_res': 1170, 'tgt_ex': 0, 'eff': 1250, 'runs_with_identity': 8}
+   est {'Res': (3211, 108, 0.0336), 'E': (0, 0, None), 'Q': (194, 10, 0.0515), 'FB': (256, 42, 0.1641)}
+Rp|snon 10000 {'uot': 10, 'uot70': 10, 'uo': 12, 'identity': 38, 'closed_open': 174, 'exploitable': 9, 'unheld': 0, 'tgt_res': 1059, 'tgt_ex': 0, 'eff': 1239, 'runs_with_identity': 8}
+   Rp|snon idt 0 drift away [{'rep': 15, 'holders': [3, 1607]}, {'rep': 19, 'holders': [3651, 5573, 10883, 11011]}]
+Rp|spon 200 {'uot': 1, 'uot70': 1, 'uo': 1, 'identity': 117, 'closed_open': 28, 'exploitable': 25, 'unheld': 32, 'tgt_res': 1078, 'tgt_ex': 0, 'eff': 1126, 'runs_with_identity': 11}
+   est {'Res': (4474, 669, 0.1495), 'E': (0, 0, None), 'Q': (192, 13, 0.0677), 'FB': (256, 11, 0.043)}
+Rp|spon 2000 {'uot': 7, 'uot70': 7, 'uo': 7, 'identity': 122, 'closed_open': 0, 'exploitable': 24, 'unheld': 0, 'tgt_res': 1134, 'tgt_ex': 0, 'eff': 1193, 'runs_with_identity': 11}
+   est {'Res': (4474, 603, 0.1348), 'E': (0, 0, None), 'Q': (192, 13, 0.0677), 'FB': (256, 5, 0.0195)}
+Rp|spon 10000 {'uot': 7, 'uot70': 7, 'uo': 7, 'identity': 120, 'closed_open': 0, 'exploitable': 23, 'unheld': 0, 'tgt_res': 1137, 'tgt_ex': 0, 'eff': 1196, 'runs_with_identity': 11}
+   Rp|spon idt 1 drift away []
+== Part III
+ann|L|800 {'n': 40, 'arrivals': 47706, 'exposure': {'UC': 19161, 'other': 26579, 'E': 1338, 'Res': 592, 'Q': 36}, 'identity_arrivals': 36, 'identity_arrivals_by': {'2||deleterious': 9, '0||neutral': 7, '1|res|deleterious': 19, '1|ex|selected': 1}, 'identity_takeovers': 0, 'idt_by': {}, 'prey': 0, 'idt_permanent': 0, 'tgt_island_gens': {'res': 2504170, 'ex': 34535}, 'drift_split': {'res>UC': 6, 'res>other': 1}, 'drift': 11, 'drift_tgt': 7, 'uot': 21, 'uot70': 21, 'uo': 26, 'identity_end': 39, 'identity_onset': 30, 'tgt_res_end': 205, 'tgt_ex_end': 0, 'unheld_end': 40, 'eff_end': 276, 'islands': 320, 'secondary': 6, 'kappa': 0.1433333333333333}
+ann|L|1600 {'n': 40, 'arrivals': 46012, 'exposure': {'UC': 18496, 'other': 25588, 'E': 1339, 'Res': 550, 'Q': 39}, 'identity_arrivals': 39, 'identity_arrivals_by': {'1|res|deleterious': 35, '1|ex|selected': 1, '2||deleterious': 2, '0||deleterious': 1}, 'identity_takeovers': 0, 'idt_by': {}, 'prey': 0, 'idt_permanent': 0, 'tgt_island_gens': {'res': 3117685, 'ex': 101260}, 'drift_split': {'res>UC': 4, 'res>other': 1}, 'drift': 7, 'drift_tgt': 5, 'uot': 30, 'uot70': 29, 'uo': 34, 'identity_end': 12, 'identity_onset': 11, 'tgt_res_end': 265, 'tgt_ex_end': 8, 'unheld_end': 0, 'eff_end': 320, 'islands': 320, 'secondary': 3, 'kappa': 0.1433333333333333}
+ann|Rm|800 {'n': 40, 'arrivals': 47706, 'exposure': {'UC': 19161, 'other': 26579, 'Res': 1930, 'Q': 36}, 'identity_arrivals': 36, 'identity_arrivals_by': {'1|res|deleterious': 36}, 'identity_takeovers': 0, 'idt_by': {}, 'prey': 0, 'idt_permanent': 0, 'tgt_island_gens': {'res': 3697975, 'ex': 0}, 'drift_split': {'res>UC': 3, 'res>Res': 1}, 'drift': 5, 'drift_tgt': 4, 'uot': 34, 'uot70': 34, 'uo': 34, 'identity_end': 7, 'identity_onset': 7, 'tgt_res_end': 312, 'tgt_ex_end': 0, 'unheld_end': 0, 'eff_end': 320, 'islands': 320, 'secondary': 1, 'kappa': 0.0}
+ann|Rm|1600 {'n': 40, 'arrivals': 46012, 'exposure': {'UC': 18496, 'other': 25588, 'Res': 1889, 'Q': 39}, 'identity_arrivals': 39, 'identity_arrivals_by': {'2||deleterious': 2, '1|res|deleterious': 37}, 'identity_takeovers': 0, 'idt_by': {}, 'prey': 0, 'idt_permanent': 0, 'tgt_island_gens': {'res': 3811875, 'ex': 0}, 'drift_split': {'res>Res': 1}, 'drift': 1, 'drift_tgt': 1, 'uot': 40, 'uot70': 40, 'uo': 40, 'identity_end': 0, 'identity_onset': 0, 'tgt_res_end': 320, 'tgt_ex_end': 0, 'unheld_end': 0, 'eff_end': 320, 'islands': 320, 'secondary': 0, 'kappa': 0.0}
+ann|Rp|800 {'n': 40, 'arrivals': 47706, 'exposure': {'UC': 19732, 'other': 27322, 'Res': 616, 'Q': 36}, 'identity_arrivals': 36, 'identity_arrivals_by': {'2||deleterious': 9, '0||neutral': 4, '1|res|deleterious': 23}, 'identity_takeovers': 4, 'idt_by': {'migrant|res': 4}, 'prey': 0, 'idt_permanent': 4, 'tgt_island_gens': {'res': 2597240, 'ex': 0}, 'drift_split': {'res>UC': 2, 'res>other': 1}, 'drift': 11, 'drift_tgt': 3, 'uot': 26, 'uot70': 26, 'uo': 30, 'identity_end': 24, 'identity_onset': 19, 'tgt_res_end': 222, 'tgt_ex_end': 0, 'unheld_end': 32, 'eff_end': 287, 'islands': 320, 'secondary': 1, 'kappa': 0.0}
+const|L|800 {'n': 40, 'arrivals': 47407, 'exposure': {'UC': 19020, 'other': 26445, 'E': 1321, 'Res': 587, 'Q': 34}, 'identity_arrivals': 34, 'identity_arrivals_by': {'0||neutral': 9, '1|res|deleterious': 17, '1|ex|selected': 1, '2||deleterious': 7}, 'identity_takeovers': 0, 'idt_by': {}, 'prey': 0, 'idt_permanent': 0, 'tgt_island_gens': {'res': 2556245, 'ex': 61075}, 'drift_split': {'res>UC': 7, 'ex>UC': 1, 'res>other': 1}, 'drift': 19, 'drift_tgt': 9, 'uot': 22, 'uot70': 22, 'uo': 26, 'identity_end': 40, 'identity_onset': 30, 'tgt_res_end': 210, 'tgt_ex_end': 1, 'unheld_end': 40, 'eff_end': 276, 'islands': 320, 'secondary': 7, 'kappa': 0.1433333333333333}
+const|L|1600 {'n': 40, 'arrivals': 46430, 'exposure': {'UC': 18645, 'other': 25840, 'Res': 563, 'E': 1343, 'Q': 39}, 'identity_arrivals': 39, 'identity_arrivals_by': {'1|res|deleterious': 34, '1|ex|selected': 1, '2||deleterious': 3, '0||neutral': 1}, 'identity_takeovers': 8, 'idt_by': {'migrant|ex': 7, 'prey|ex': 1}, 'prey': 1, 'idt_permanent': 8, 'tgt_island_gens': {'res': 3051215, 'ex': 46035}, 'drift_split': {'res>UC': 3, 'res>other': 1}, 'drift': 4, 'drift_tgt': 4, 'uot': 28, 'uot70': 28, 'uo': 32, 'identity_end': 20, 'identity_onset': 11, 'tgt_res_end': 259, 'tgt_ex_end': 0, 'unheld_end': 8, 'eff_end': 312, 'islands': 320, 'secondary': 2, 'kappa': 0.1433333333333333}
+const|Rm|800 {'n': 40, 'arrivals': 47407, 'exposure': {'UC': 19020, 'other': 26445, 'Res': 1908, 'Q': 34}, 'identity_arrivals': 34, 'identity_arrivals_by': {'2||selected': 2, '1|res|deleterious': 30, '2||deleterious': 2}, 'identity_takeovers': 0, 'idt_by': {}, 'prey': 0, 'idt_permanent': 0, 'tgt_island_gens': {'res': 3636220, 'ex': 0}, 'drift_split': {'res>UC': 2, 'res>other': 1}, 'drift': 3, 'drift_tgt': 3, 'uot': 33, 'uot70': 33, 'uo': 34, 'identity_end': 7, 'identity_onset': 7, 'tgt_res_end': 304, 'tgt_ex_end': 0, 'unheld_end': 0, 'eff_end': 320, 'islands': 320, 'secondary': 2, 'kappa': 0.0}
+const|Rm|1600 {'n': 40, 'arrivals': 46430, 'exposure': {'UC': 18645, 'other': 25840, 'Res': 1906, 'Q': 39}, 'identity_arrivals': 39, 'identity_arrivals_by': {'1|res|deleterious': 38, '2||deleterious': 1}, 'identity_takeovers': 0, 'idt_by': {}, 'prey': 0, 'idt_permanent': 0, 'tgt_island_gens': {'res': 3763580, 'ex': 0}, 'drift_split': {'res>other': 1}, 'drift': 1, 'drift_tgt': 1, 'uot': 39, 'uot70': 39, 'uo': 40, 'identity_end': 0, 'identity_onset': 0, 'tgt_res_end': 317, 'tgt_ex_end': 0, 'unheld_end': 0, 'eff_end': 320, 'islands': 320, 'secondary': 1, 'kappa': 0.0}
+const|Rp|800 {'n': 40, 'arrivals': 47407, 'exposure': {'UC': 19580, 'other': 27183, 'Res': 610, 'Q': 34}, 'identity_arrivals': 34, 'identity_arrivals_by': {'2||deleterious': 9, '1|res|deleterious': 22, '0||neutral': 3}, 'identity_takeovers': 0, 'idt_by': {}, 'prey': 0, 'idt_permanent': 0, 'tgt_island_gens': {'res': 2278500, 'ex': 0}, 'drift_split': {'res>UC': 4, 'res>Res': 1}, 'drift': 13, 'drift_tgt': 5, 'uot': 20, 'uot70': 20, 'uo': 26, 'identity_end': 20, 'identity_onset': 19, 'tgt_res_end': 186, 'tgt_ex_end': 0, 'unheld_end': 64, 'eff_end': 255, 'islands': 320, 'secondary': 2, 'kappa': 0.0}
+== paired
+I|uot_list|snon|Rm {'n': 20, 'a': 18, 'b': 19, 'diff': 0.05, 'gains': 2, 'losses': 1, 'p': 1.0, 'ci': (-0.122, 0.148)}
+I|uot_list|snon|Rp {'n': 20, 'a': 18, 'b': 18, 'diff': 0.0, 'gains': 2, 'losses': 2, 'p': 1.0, 'ci': (-0.173, 0.173)}
+I|uot_list|spon|Rm {'n': 20, 'a': 20, 'b': 20, 'diff': 0.0, 'gains': 0, 'losses': 0, 'p': 1.0, 'ci': (0.0, 0.0)}
+I|uot_list|spon|Rp {'n': 20, 'a': 20, 'b': 20, 'diff': 0.0, 'gains': 0, 'losses': 0, 'p': 1.0, 'ci': (0.0, 0.0)}
+I|uot_list|spon-vs-snon|L {'n': 20, 'a': 18, 'b': 20, 'diff': 0.1, 'gains': 2, 'losses': 0, 'p': 0.5, 'ci': (-0.068, 0.1)}
+I|uot_list|spon-vs-snon|Rm {'n': 20, 'a': 19, 'b': 20, 'diff': 0.05, 'gains': 1, 'losses': 0, 'p': 1.0, 'ci': (-0.048, 0.05)}
+I|uot_list|spon-vs-snon|Rp {'n': 20, 'a': 18, 'b': 20, 'diff': 0.1, 'gains': 2, 'losses': 0, 'p': 0.5, 'ci': (-0.068, 0.1)}
+I|uo_list|snon|Rm {'n': 20, 'a': 20, 'b': 20, 'diff': 0.0, 'gains': 0, 'losses': 0, 'p': 1.0, 'ci': (0.0, 0.0)}
+I|uo_list|snon|Rp {'n': 20, 'a': 20, 'b': 19, 'diff': -0.05, 'gains': 0, 'losses': 1, 'p': 1.0, 'ci': (-0.05, 0.048)}
+I|uo_list|spon|Rm {'n': 20, 'a': 20, 'b': 20, 'diff': 0.0, 'gains': 0, 'losses': 0, 'p': 1.0, 'ci': (0.0, 0.0)}
+I|uo_list|spon|Rp {'n': 20, 'a': 20, 'b': 20, 'diff': 0.0, 'gains': 0, 'losses': 0, 'p': 1.0, 'ci': (0.0, 0.0)}
+I|uo_list|spon-vs-snon|L {'n': 20, 'a': 20, 'b': 20, 'diff': 0.0, 'gains': 0, 'losses': 0, 'p': 1.0, 'ci': (0.0, 0.0)}
+I|uo_list|spon-vs-snon|Rm {'n': 20, 'a': 20, 'b': 20, 'diff': 0.0, 'gains': 0, 'losses': 0, 'p': 1.0, 'ci': (0.0, 0.0)}
+I|uo_list|spon-vs-snon|Rp {'n': 20, 'a': 19, 'b': 20, 'diff': 0.05, 'gains': 1, 'losses': 0, 'p': 1.0, 'ci': (-0.048, 0.05)}
+I|uot70_list|snon|Rm {'n': 20, 'a': 18, 'b': 19, 'diff': 0.05, 'gains': 2, 'losses': 1, 'p': 1.0, 'ci': (-0.122, 0.148)}
+I|uot70_list|snon|Rp {'n': 20, 'a': 18, 'b': 18, 'diff': 0.0, 'gains': 2, 'losses': 2, 'p': 1.0, 'ci': (-0.173, 0.173)}
+I|uot70_list|spon|Rm {'n': 20, 'a': 20, 'b': 20, 'diff': 0.0, 'gains': 0, 'losses': 0, 'p': 1.0, 'ci': (0.0, 0.0)}
+I|uot70_list|spon|Rp {'n': 20, 'a': 20, 'b': 20, 'diff': 0.0, 'gains': 0, 'losses': 0, 'p': 1.0, 'ci': (0.0, 0.0)}
+I|uot70_list|spon-vs-snon|L {'n': 20, 'a': 18, 'b': 20, 'diff': 0.1, 'gains': 2, 'losses': 0, 'p': 0.5, 'ci': (-0.068, 0.1)}
+I|uot70_list|spon-vs-snon|Rm {'n': 20, 'a': 19, 'b': 20, 'diff': 0.05, 'gains': 1, 'losses': 0, 'p': 1.0, 'ci': (-0.048, 0.05)}
+I|uot70_list|spon-vs-snon|Rp {'n': 20, 'a': 18, 'b': 20, 'diff': 0.1, 'gains': 2, 'losses': 0, 'p': 0.5, 'ci': (-0.068, 0.1)}
+II|uot2000|snon|Rm {'n': 20, 'a': 11, 'b': 11, 'diff': 0.0, 'gains': 5, 'losses': 5, 'p': 1.0, 'ci': (-0.313, 0.313)}
+II|uot2000|snon|Rp {'n': 20, 'a': 11, 'b': 10, 'diff': -0.05, 'gains': 4, 'losses': 5, 'p': 1.0, 'ci': (-0.327, 0.259)}
+II|uot2000|spon|Rm {'n': 20, 'a': 15, 'b': 8, 'diff': -0.35, 'gains': 3, 'losses': 10, 'p': 0.0923, 'ci': (-0.585, 0.049)}
+II|uot2000|spon|Rp {'n': 20, 'a': 15, 'b': 7, 'diff': -0.4, 'gains': 0, 'losses': 8, 'p': 0.0078, 'ci': (-0.4, -0.105)}
+II|uot2000|spon-vs-snon|L {'n': 20, 'a': 11, 'b': 15, 'diff': 0.2, 'gains': 8, 'losses': 4, 'p': 0.3877, 'ci': (-0.181, 0.481)}
+II|uot2000|spon-vs-snon|Rm {'n': 20, 'a': 11, 'b': 8, 'diff': -0.15, 'gains': 3, 'losses': 6, 'p': 0.5078, 'ci': (-0.382, 0.181)}
+II|uot2000|spon-vs-snon|Rp {'n': 20, 'a': 10, 'b': 7, 'diff': -0.15, 'gains': 4, 'losses': 7, 'p': 0.5488, 'ci': (-0.43, 0.211)}
+II|uot10000|snon|Rm {'n': 20, 'a': 11, 'b': 11, 'diff': 0.0, 'gains': 5, 'losses': 5, 'p': 1.0, 'ci': (-0.313, 0.313)}
+II|uot10000|snon|Rp {'n': 20, 'a': 11, 'b': 10, 'diff': -0.05, 'gains': 4, 'losses': 5, 'p': 1.0, 'ci': (-0.327, 0.259)}
+II|uot10000|spon|Rm {'n': 20, 'a': 15, 'b': 9, 'diff': -0.3, 'gains': 3, 'losses': 9, 'p': 0.146, 'ci': (-0.534, 0.086)}
+II|uot10000|spon|Rp {'n': 20, 'a': 15, 'b': 7, 'diff': -0.4, 'gains': 0, 'losses': 8, 'p': 0.0078, 'ci': (-0.4, -0.105)}
+II|uot10000|spon-vs-snon|L {'n': 20, 'a': 11, 'b': 15, 'diff': 0.2, 'gains': 8, 'losses': 4, 'p': 0.3877, 'ci': (-0.181, 0.481)}
+II|uot10000|spon-vs-snon|Rm {'n': 20, 'a': 11, 'b': 9, 'diff': -0.1, 'gains': 3, 'losses': 5, 'p': 0.7266, 'ci': (-0.332, 0.204)}
+II|uot10000|spon-vs-snon|Rp {'n': 20, 'a': 10, 'b': 7, 'diff': -0.15, 'gains': 4, 'losses': 7, 'p': 0.5488, 'ci': (-0.43, 0.211)}
+III|uot|ann|800|Rm {'n': 40, 'a': 21, 'b': 34, 'diff': 0.325, 'gains': 16, 'losses': 3, 'p': 0.0044, 'ci': (0.099, 0.443)}
+III|uot|ann|800|Rp {'n': 40, 'a': 21, 'b': 26, 'diff': 0.125, 'gains': 14, 'losses': 9, 'p': 0.4049, 'ci': (-0.132, 0.348)}
+III|uot|ann|1600|Rm {'n': 40, 'a': 30, 'b': 40, 'diff': 0.25, 'gains': 10, 'losses': 0, 'p': 0.002, 'ci': (0.096, 0.25)}
+III|uot|const|800|Rm {'n': 40, 'a': 22, 'b': 33, 'diff': 0.275, 'gains': 16, 'losses': 5, 'p': 0.0266, 'ci': (0.029, 0.439)}
+III|uot|const|800|Rp {'n': 40, 'a': 22, 'b': 20, 'diff': -0.05, 'gains': 9, 'losses': 11, 'p': 0.8238, 'ci': (-0.269, 0.185)}
+III|uot|const|1600|Rm {'n': 40, 'a': 28, 'b': 39, 'diff': 0.275, 'gains': 12, 'losses': 1, 'p': 0.0034, 'ci': (0.091, 0.324)}
+== rates
+both|Rm {"prey_per_arrival": {"rate_a": 0.006756756756756757, "rate_b": 0.0, "ratio": 0.0, "ci": [0.0, 0.0]}, "idt_per_arrival": {"rate_a": 0.05405405405405406, "rate_b": 0.0, "ratio": 0.0, "ci": [0.0, 0.0]}, "idt_total": {"L": 8, "X": 0}, "prey_total": {"L": 1, "X": 0}, "kappa": {"rate_a": 0.0038738738738738733, "rate_b": 0.0, "ratio": 0.0, "ci": [0.0, 0.0]}, "drift_tgt_per_tig": {"rate_a": 2.1791771775645864e-06, "rate_b": 6.036359002391068e-07, "ratio": 0.2770017538976435, "ci": [0.116, 0.553]}, "uc_drift_per_tig": {"rate_a": 1.8305088291542526e-06, "rate_b": 3.353532779106149e-07, "ratio": 0.18320221818627214, "ci": [0.042, 0.429]}, "ident_end": {"L": 111, "X": 14}, "q_arrivals": {"L": 148, "X": 148}}
+800|Rm {"prey_per_arrival": {"rate_a": 0.0, "rate_b": 0.0, "ratio": null, "ci": [null, null]}, "idt_per_arrival": {"rate_a": 0.0, "rate_b": 0.0, "ratio": null, "ci": [null, null]}, "idt_total": {"L": 0, "X": 0}, "prey_total": {"L": 0, "X": 0}, "kappa": {"rate_a": 0.0040952380952380945, "rate_b": 0.0, "ratio": 0.0, "ci": [0.0, 0.0]}, "drift_tgt_per_tig": {"rate_a": 3.1031657138978187e-06, "rate_b": 9.544333086316903e-07, "ratio": 0.3075676250086069, "ci": [0.113, 0.703]}, "uc_drift_per_tig": {"rate_a": 2.7152699996605915e-06, "rate_b": 6.817380775940645e-07, "ratio": 0.251075612251924, "ci": [0.064, 0.646]}, "ident_end": {"L": 79, "X": 14}, "q_arrivals": {"L": 70, "X": 70}}
+800|Rp {"prey_per_arrival": {"rate_a": 0.0, "rate_b": 0.0, "ratio": null, "ci": [null, null]}, "idt_per_arrival": {"rate_a": 0.0, "rate_b": 0.05714285714285714, "ratio": null, "ci": [null, null]}, "idt_total": {"L": 0, "X": 4}, "prey_total": {"L": 0, "X": 0}, "kappa": {"rate_a": 0.0040952380952380945, "rate_b": 0.0, "ratio": 0.0, "ci": [0.0, 0.0]}, "drift_tgt_per_tig": {"rate_a": 3.1031657138978187e-06, "rate_b": 1.6407765795551033e-06, "ratio": 0.5287428164750376, "ci": [0.186, 1.155]}, "uc_drift_per_tig": {"rate_a": 2.7152699996605915e-06, "rate_b": 1.2305824346663275e-06, "ratio": 0.45320812840717506, "ci": [0.139, 1.041]}, "ident_end": {"L": 79, "X": 44}, "q_arrivals": {"L": 70, "X": 70}}
+1600|Rm {"prey_per_arrival": {"rate_a": 0.01282051282051282, "rate_b": 0.0, "ratio": 0.0, "ci": [0.0, 0.0]}, "idt_per_arrival": {"rate_a": 0.10256410256410256, "rate_b": 0.0, "ratio": 0.0, "ci": [0.0, 0.0]}, "idt_total": {"L": 8, "X": 0}, "prey_total": {"L": 1, "X": 0}, "kappa": {"rate_a": 0.0036752136752136746, "rate_b": 0.0, "ratio": 0.0, "ci": [0.0, 0.0]}, "drift_tgt_per_tig": {"rate_a": 1.4249085089994847e-06, "rate_b": 2.640105445811506e-07, "ratio": 0.1852824535145267, "ci": [0.0, 0.6]}, "uc_drift_per_tig": {"rate_a": 1.1082621736662659e-06, "rate_b": 0.0, "ratio": 0.0, "ci": [0.0, 0.0]}, "ident_end": {"L": 32, "X": 0}, "q_arrivals": {"L": 78, "X": 78}}
