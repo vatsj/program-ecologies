@@ -198,6 +198,11 @@ REJECTED.md the ones we dropped.
   the first two count toward it; selection by abundance (majority at a merge, a Pangaea's coordination) is reported but
   is not a good reason. *RE reading of "certificates that predators detect":* certificates that let detectors detect
   predators (a grudge rule; `specs/2026-10-17-legitimate-detectors.md`).
+- *RS (2026-10-17), the prudence premium:* "I'd call prudence a good reason, proportionate to the presence of suckers,
+  which is itself a live modeling decision by way of mutation rate / schedule". *Decided:* removals by prudence premium
+  count toward the target, reported per unit of sucker exposure; the sucker supply is set by the re-injection schedule,
+  so the schedule is a modelling knob on how much prudence is rewarded (at ε = 0 the premium is spent once the seed's
+  suckers are eaten).
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,

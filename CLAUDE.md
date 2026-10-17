@@ -136,6 +136,6 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).
 
-**Target network (RS, 2026-10-15):** the PrudentBot network is the official solution; rival networks are failures to remove (DEFERRED 1). **Amended (RS, 2026-10-17):** no state sponsorship in the object; the target is efficient networks that survive for good reasons (predation and inefficiency remove networks; abundance alone is not a good reason); detectors are a legitimate rival (DEFERRED 1).
+**Target network (RS, 2026-10-15):** the PrudentBot network is the official solution; rival networks are failures to remove (DEFERRED 1). **Amended (RS, 2026-10-17):** no state sponsorship in the object; the target is efficient networks that survive for good reasons (predation, inefficiency and the prudence premium, the last in proportion to the sucker supply that the mutation schedule sets, remove networks for good reasons; abundance alone does not); detectors are a legitimate rival (DEFERRED 1).
 
 No paper draft (RS, 2026-10-04).
