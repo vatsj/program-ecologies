@@ -36,9 +36,12 @@ def boot_ci(vals, f=np.mean, B=2000, seed=0):
 
 
 def load_rows():
+    import gzip
     rows = []
-    for p in sorted(glob.glob(os.path.join(OUT, 'cells_*.json'))):
-        rows += json.load(open(p))
+    files = sorted(glob.glob(os.path.join(OUT, 'cells_*.json')))
+    files += [f for f in sorted(glob.glob(os.path.join(OUT, 'cells_*.json.gz'))) if f[:-3] not in files]
+    for p in files:
+        rows += json.load(gzip.open(p) if p.endswith('.gz') else open(p))
     seen = {}
     for r in rows:
         seen[(r['cell'], r['rep'])] = r
@@ -87,6 +90,8 @@ def per_run(r):
         idt_perm=sum(1 for z in idt if z['permanent']) / I,
         secondary=len(r['secondary']) / I,
         secondary_identity=sum(1 for z in r['secondary'] if z['kind'] == 'identity') / I,
+        scramble=bool(s.get('held', 0) == 0), held=s.get('held', 0) / I,
+        eff_excl=(s.get('eff', 0) / I) if s.get('held', 0) > 0 else None,
         arrivals=r['arrivals_total'] / I, arrivals10=r['arrivals_by_10k'] / I,
         cures=r['cures'], time_s=r['time_s'])
 
@@ -156,6 +161,13 @@ def summarize_cells(rows):
                   'idt_late', 'idt_perm', 'secondary', 'secondary_identity', 'arrivals', 'arrivals10'):
             d[k] = round(float(np.mean([p[k] for p in ps])), 4)
         d['identity_ci'] = boot_ci([p['identity'] for p in ps])
+        d['scramble_runs'] = int(sum(p['scramble'] for p in ps))
+        ex = [p['eff_excl'] for p in ps if p['eff_excl'] is not None]
+        d['eff_excl_scramble'] = round(float(np.mean(ex)), 4) if ex else None
+        nd = [p for p in ps if not p['scramble']]
+        d['drift_per_island_excl_scramble'] = (sum(p['drift'] for p in nd) / (len(nd) * I)) if nd else None
+        d['drift_free_excl_scramble'] = (sum(1 for p in nd if p['drift'] == 0), len(nd))
+        d['uot_excl_scramble'] = (sum(1 for p in nd if p['uot']), len(nd))
         cures = [c for p in ps for c in p['cures']]
         lab = defaultdict(lambda: [0, 0])
         via = defaultdict(int)
@@ -209,6 +221,29 @@ def assays():
                             t_done_median=float(np.median([z[2] for z in done])) if done else None,
                             t_done_q90=float(np.percentile([z[2] for z in done], 90)) if done else None,
                             censored=cens, time_s=round(v['time_s'], 1))
+    return out
+
+
+def rate_bins(rows):
+    """Drift colonizations on arrival islands per arrival, binned by the scheduled eps N at the arrival generation
+    (natural rain cells, K = 3, pooled over arms (i), (ii), (iv)); expected arrivals per bin from the schedule."""
+    import annealed as AN
+    edges = [0, 0.03, 0.1, 0.3, 10]
+    out = {}
+    for N in NS:
+        ex = np.zeros(4); dr = np.zeros(4); ar = np.zeros(4)
+        for r in rows:
+            if r['N'] != N or r['arm'] not in ('i', 'ii', 'iv') or r['K'] != 3: continue
+            en = AN.eps_n_annealed(N, AN.arrivals_A(3)) if r['sched'] == 'ann' else AN.eps_n_constant(N, AN.arrivals_A(3))
+            b = np.digitize(en, edges) - 1
+            for k in range(4):
+                ex[k] += en[b == k].sum() * r['I']
+            for c in r['colonizations']:
+                if c['cls'] == 'selected': continue
+                k = int(np.digitize([en[min(c['g_arr'], len(en) - 1)]], edges)[0] - 1)
+                dr[k] += 1
+        out[N] = [dict(bin='%g-%g' % (edges[k], edges[k + 1]), arrivals=round(float(ex[k]), 1), drift=int(dr[k]),
+                       per_arrival_times_N=(float(dr[k] / ex[k] * N) if ex[k] > 0 else None)) for k in range(4)]
     return out
 
 
@@ -273,8 +308,14 @@ def main():
         cs = [cc for p in d['_runs'] for cc in p['cures'] if cc['island'] == 0]
         res = sum(1 for cc in cs if cc['resolved'])
         via = defaultdict(int)
-        for cc in cs:
-            if cc['resolved']: via[cc.get('via', '?')] += 1
+        for p_, r_ in zip(d['_runs'], sorted([r for r in rows if r['cell'] == c], key=lambda r: r['rep'])):
+            for cc in p_['cures']:
+                if cc['island'] != 0 or not cc['resolved']: continue
+                v = cc.get('via', '?')
+                if v == 'no-predator' and any(e['island'] == 0 and e['cls'] == 'selected' and e['g_col'] <= cc['g']
+                                              for e in r_['colonizations']):
+                    v = 'direct-selected-nonpredator'
+                via[v] += 1
         tm = [cc['g'] - 200 for cc in cs if cc['resolved']]
         fc[c] = dict(N=d['N'], cls=d['cls'], K=d['K'], eligible=len(cs), cured=res, cure=res / len(cs) if cs else None,
                      wilson=wilson(res, len(cs)), via=dict(via), t_median=float(np.median(tm)) if tm else None,
@@ -313,6 +354,11 @@ def main():
             for lab, v in d['rivals_onset'].items():
                 nat0[lab][0] += v['n']; nat0[lab][1] += v['resolved']
     out['natural_rivals_onset_pooled_eps0'] = {k: dict(n=v[0], resolved=v[1]) for k, v in nat0.items()}
+    out['rate_bins'] = rate_bins(rows)
+    out['subset_0_19'] = {c: dict(drift=sum(p['drift'] for r_, p in zip(d['reps'], d['_runs']) if r_ < 20),
+                                  runs=sum(1 for r_ in d['reps'] if r_ < 20),
+                                  drift_free=sum(1 for r_, p in zip(d['reps'], d['_runs']) if r_ < 20 and p['drift'] == 0))
+                          for c, d in cells.items() if d['arm'] in ('i', 'iv')}
     out['assays'] = assays()
     vp = os.path.join(ROOT, 'runs', 'annealed-validate.json')
     if os.path.exists(vp): out['validate'] = json.load(open(vp))
