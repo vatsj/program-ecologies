@@ -168,6 +168,13 @@ REJECTED.md the ones we dropped.
   hypothesis (amended):* the universality path is fission–fusion, or a Pangaea with N ≫ 1/(w·μ_net²) ≈ 4,500. The
   PrudentBot target is not protected against neutral drift to FairBot variants it would not certify once
   PrudentBot-shaped programs drift out (4/34 runs).
+- *Evidence (2026-10-17, annealed mutation):* along the fixed-exposure path drift per island falls as about N^(−1.3)
+  (drift-free runs 0.10 → 0.875 from N = 200 to 1,600), cures are N-independent per predator class (anti-punishers
+  0.95–1.00, detectors 0.33–0.40), identity is unchanged, and one selected TwinD arrival took a whole run by preying on
+  an identity-exploitable target holder (RESULTS "Annealed mutation"). *Operating hypothesis:* the annealed object
+  is admissible as a large-N limit, with exposure set by the rarest predator class counted as an inefficiency, and it
+  needs a target restricted to units identity cannot exploit. *RS's call (open):* whether the detector class
+  (μ_pred ≈ 0.006, needing about 13× the exposure) is an inefficiency the tail must prey on.
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,

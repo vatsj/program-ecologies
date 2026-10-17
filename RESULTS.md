@@ -5200,6 +5200,88 @@ Of 881 founding coalitions, 0.63 are fair with canonical scripts alone; adding (
   - 20-run cells with all-or-nothing outcomes; one random draw per control and pair; mediation on 3 runs.
   - The partition is a stated reading of an inconsistent amendment.
 
+## Annealed mutation: drift falls faster than 1/N and cures stay N-independent, but drift never stops at a finite size and one fit identity arrival can take a whole run (`runs/annealed.md`, `runs/annealed.json`, `runs/annealed-validate.json`, `runs/annealed-idprey.json`, `runs/annealed/`, `notes/annealed.md`; spec `specs/2026-10-16-annealed-mutation.md`, predictions in `predictions/2026-10-16-annealed-mutation.md` with the RS's statements first)
+
+**Provenance.** The RS proposed this (DEFERRED 1). The RE designed it, gpt-6.1-sol and gemini-4-argon reviewed it, and an Opus subagent ran it (`src/annealed{,_kern,_run,_report,_idprey}.py`; `tests/test_annealed.py`, 5 tests, 4 needing the untracked cache). The kernel is the removing-rivals rain kernel with a per-generation rate and per-island paired founder streams.
+
+**Validation.**
+- ε = 0 reproduces the scaling and removing-rivals kernels draw for draw.
+- The rain mode reproduces two stored rain runs colonization for colonization.
+- Native r at (400, 8) is within noise of r = 100.
+
+**Design.**
+- I = 8, calibrated mN, r = 100 per Moran event at every N.
+- Seed at generation 0; no arrivals before 200, then εN(t) = a·(1 + (t − 200)/t₀)^(−2) with t₀ = N/2, cut at 10,000, followed by a 2,000-generation mutation-free chase.
+- Arrivals per island A = N·Λ_N = 3/(ρ·μ_AP) = 156, with ρ = 0.26 and μ_AP = 0.074; 0.93–0.99 of them are delivered by 10,000.
+- Arms:
+  - (i) S-nonself + annealing;
+  - (ii) the sponsored PrudentBot founder + annealing;
+  - (iii) both at ε = 0;
+  - (iv) constant rain with the same total, S-nonself only.
+
+**Disclosures.**
+- **Forced archipelagos (Part F).** Natural exploitable rivals at I = 8 were too rare to measure cures (12 eligible in all), so Part F was added: one rival island and seven FairBot islands, one cell per predator class. The classes are the anti-punisher AP (μ_pred 0.074) and the certified-defection detector DET (μ_pred 0.0057).
+- **Run counts.** 20–40 runs per cell.
+- **Post hoc.** The identity-prey diagnostic.
+- **Compute.** About 30 worker-hours.
+
+**RE check:** arm (i)'s drift per island reads 0.290625 at N = 200 and 0.021875 at N = 1,600, with drift-free runs 0.10 and 0.875, in the run file. Only 1 of the 7 drift colonizations at N = 1,600 fixed and was still held at the end.
+
+**Single-arrival assays.** A neutral cooperator on a FairBot island fixes at 0.76–1.36 × 1/N for N = 200–1,600. The top predator of either class establishes at 0.22–0.28 at every N.
+
+**Drift along the path** (drift colonizations per island; fraction of runs with none):
+
+| N | (i) annealed | drift-free (i) | (iv) constant | (ii) sponsored + annealed |
+|---|---|---|---|---|
+| 200 | 0.29 [0.23, 0.36] | 0.10 | 0.32 | 0.16 |
+| 400 | 0.16 | 0.35 | 0.14 | 0.05 |
+| 800 | 0.034 | 0.75 | 0.059 | 0.025 |
+| 1,600 | 0.022 | 0.875 [0.74, 0.95] | 0.013 | 0.013 |
+
+- **Drift falls steeply with N.** The log-log slope is −1.28 [−1.61, −1.02].
+- **Only the number of arrivals matters, not the schedule's shape.** Per-arrival drift does not depend on the rate.
+- **Most drift is neutral and transient.** 93% of drift colonizations are neutral, and 71–92% of those lineages are lost by 12,000.
+- **Lower exposure is drift-free.** At K = 1 (52 arrivals) and N = 800, 40/40 runs are drift-free.
+
+**Cures** (Part F, K = 3; fraction of rival islands cured):
+
+| N | AP | DET | natural mix |
+|---|---|---|---|
+| 200 | 1.00 | 0.33 | 0.68 |
+| 400 | 1.00 | 0.35 | 0.69 |
+| 800 | 1.00 | 0.40 | 0.71 |
+| 1,600 | 0.95 | 0.33 | 0.65 |
+
+At K = 1 the AP cure stays at 0.90–0.95 while DET falls to 0.05–0.20. On the spec's original path (12 arrivals per island) the extrapolated cure is 0.17.
+
+**Network outcomes.**
+- **Annealing leaves identity where the seed put it.** The paired difference (i) − (iii) is ≈ 0 per island, and none of 170 identity islands present at onset resolved. Universal-on-target under (ii) is 0.70–0.80 at every N.
+- **Rain rescues whole-run scramble failures.** Of 32 failures at ε = 0, 13 recover under annealing, 12 of them on target; 7 recover under constant rain.
+- **One whole-run identity takeover** (constant rain, N = 1,600). A single TwinD founder arrived on an island held by `if(CHK(them,me,C),C,if(CHK(them,them,C),C,D))`. That target unit cooperates with anyone certified to cooperate with itself. The founder was *selected*, fixed in 19 generations and took all 8 islands within 45 generations. Post hoc, 0–9% of target islands are held by such identity prey.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RS | "drift should never colonize an island, only reintroduce fit programs" | **fails as a statement about any finite cell**; drift-free runs rise 0.10 → 0.875; holds at K = 1, N = 800; the worst event was a *selected* arrival |
+| RS | "the tail is light enough that islands can't drift (but heavy enough to prey on inefficiencies)" | **inconclusive at N = 1,600** (0.875 drift-free; mixed cure 0.65); nearly holds for AP, fails for DET |
+| RE 1 | slope in [−1.3, −0.7], drift-free rising | **supported** (−1.28) |
+| RE 2 | cure ≥ 0.8 at every N | AP **supported**; DET **falsifier fired**; the mix inconclusive |
+| RE 3 | ≥ 0.5 drift-free at 1,600 with cure ≥ 0.8 | drift clause **held**; cure clause **failed** |
+| RE 4 | annealing does not remove identity; (ii) uot < 0.85 | uot **supported**; identity inconclusive (≈ 0 change) |
+| RE 5 | shape matters for identity; drift equal within ±30% | **falsifier fired** (drift ratios 1.16 / 0.58 / 1.75; late identity takeovers 0 / 0 / 0.025) |
+| Gemini | constant rain gives more secondary and identity takeovers; original-path cure < 0.5 | first clause **failed**; second held by extrapolation (0.17) |
+| Sol | schedule-dependent outcomes; heterogeneous identity effects | **not supported** |
+| A1–A11 | subagent's own | A5, A6, A8, A11 held; A1, A2, A3, A7, A10 failed; A4, A9 fired |
+
+**Reading.**
+- **The RS's divide is a large-N limit, not a property of any cell.** Along the path drift per island falls as about N^(−1.3) while cure exposure stays fixed. Drift-free runs approach 1, reaching 0.875 at N = 1,600.
+- **The cure is N-independent per predator class but split by predator mass.** A tail tuned to the anti-punishers cures detectors at only about 0.35. "Heavy enough to prey" has to be set by the rarest class the RS counts as an inefficiency.
+- **Re-injection along this path neither adds nor removes identity.** Identity is set by the seed.
+- **"Only fit programs" is not a sufficient guard.** The one whole-run loss came from a selected identity arrival preying on an identity-exploitable target holder, so the target must exclude units identity can exploit, for fit arrivals as well as for drifting shadows.
+- **The schedule's shape matters only for rescuing scramble failures** (13 against 7 runs).
+- *Caveats:* I = 8 only; 20–40 runs per cell; drift counts at N ≥ 800 are single digits; Part F uses one holder per class and FairBot targets; the identity-prey diagnostic is post hoc.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
