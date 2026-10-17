@@ -128,6 +128,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 41. Per-root production: re-produce whenever no held script is valid at the current root, plus the shadowed alternatives, with a bundled LRU cap; ideal table first, then executed fuels (running: `specs/2026-10-16-per-root-production.md`).
 
+42. Identity-resistant target: fission–fusion with and without the sponsored founder under the length prior, plus a diagnostic prior moving identity-exploitable target mass to resistant members, at ε = 0 and under rain (running: `specs/2026-10-17-identity-resistant-target.md`).
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).
