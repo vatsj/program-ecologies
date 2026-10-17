@@ -188,6 +188,16 @@ REJECTED.md the ones we dropped.
   the target stays the full PrudentBot network; narrowing it is not a remedy. The bridge to the RS's prior question is
   the seeded mass of resistant establishers. Fission–fusion fails only when a clique is already a majority at the
   merge (1 of 120 runs).
+- *RS (2026-10-17), rivals:* "Detectors seem like a perfectly legitimate network in and of themselves- in fact, they're
+  even gentler than prudentbot! They're exploitable, so if we wanted to keep em around we'd need em to evolve
+  certificates that predators detect. Worth an experiment imo" and "'Outnumbered networks die' makes me worry we're
+  rigging the odds - 'good reasons' to kill off network factor thru dynamics in robust ways. With that in mind,
+  proposal to remove prudentbot's state sponsorship? Detectors feel like a legitimate rival". *Decided:* the sponsored
+  PrudentBot founder leaves the object (kept only as a reference arm); the target becomes efficient networks that
+  survive for good reasons, so network removals are labelled by cause (predation, inefficiency, abundance) and only
+  the first two count toward it; selection by abundance (majority at a merge, a Pangaea's coordination) is reported but
+  is not a good reason. *RE reading of "certificates that predators detect":* certificates that let detectors detect
+  predators (a grudge rule; `specs/2026-10-17-legitimate-detectors.md`).
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
