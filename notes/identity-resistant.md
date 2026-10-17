@@ -231,3 +231,86 @@ three-prior comparison is never dropped.
   and its copies cooperate with each other): takeover ≥ 0.26 per arrival (the predator's ρ, plus self-cooperation) at
   both N. Into a resistant holder it is deleterious (mutual defection against residents that cooperate among
   themselves): takeover ≤ 1/1,000 at both N, guarded and unguarded alike.
+
+## 2. Code validation, the executed check, mechanism assays, costs (appended after the code, before any counted cell)
+
+Code: `src/identity_resistant.py` (partition, guard parser, priors and piece tables, founders, cells, `IRAnnRun`),
+`src/identity_resistant_kern.py` (the annealed kernel with one change: the rain draw's piece is mapped through
+`pmap`), `src/identity_resistant_run.py` (executed check, static, validation, M1 assays, the three parts' jobs),
+`src/identity_resistant_report.py`; `tests/test_identity_resistant.py` (6 tests, passing; all but the parser need the
+cached tables and skip without them).
+
+### 2.1 Validation (`runs/identity-resistant-validate.json`, tests)
+
+- **Coupling.** Under L the piece tables are the base cumulative sums with the identity map: the Pangaea 12,800 lists
+  (replicates 0, 3) and the stored founders of `an_i_800`, `rr_spon_200_64`, `rs_Snon_200_64_cal` and
+  `pg_L_100_128_r100_ff200` are reproduced exactly (test). Rm and Rp tables give each spelling its prior mass to
+  1.8·10⁻¹⁵ (12,698 and 24,728 pieces), totals are preserved, and on 200,000 uniforms a draw changes between L and Rm
+  (or Rp) **iff** its L spelling is exploitable-target (test).
+- **Kernel copy.** With the L table it equals the annealed kernel state for state after 150 generations of rain at
+  (200, 8) (slots, type count, every arrival record); under Rm the first arrivals have the same times and spellings
+  except where the L draw was exploitable-target (tests).
+- **Reproduction of stored runs:** Part I-L-unsponsored against `pg_L_100_128_r100_ff200`, replicates 0–2, **0
+  differences over 132 decomposition points** to 2,200 (P(C,C), M, target share, identity share); Part II-L against
+  the scaling traces, replicates 0–2, **0 differences over 120 trace points** to 2,000, and the sponsored arm equals
+  `rr_spon_200_64` at 2,000 (replicates 0–1: uot, target, identity, exploitable, closed-open, every holder spelling);
+  Part III-L equals `an_i_800` at 2,000 (replicates 0–1: every snapshot field and holder unit, and the colonization
+  records).
+
+### 2.2 The executed check of the partition (`runs/identity-resistant-exec.json`)
+
+14,060 (target unit, challenge unit, spelling pair) combinations, 28,120 plays by the term evaluator at fuel K = 10⁶
+(spellings 0 and 1 of each run tree): **0 disagreements with the ideal table**, 165 exploitable on executed outcomes,
+no class change. **S1 holds.** The partition is frozen at 165 / 70.
+
+### 2.3 Static results (`runs/identity-resistant-static.json`)
+
+As in §1: 50 of 70 resistant units guarded, 0 of 165 exploitable; every guarded unit universally unexploitable; 13
+unguarded resistant units universally unexploitable, 7 exploitable by non-identity units (the disjunctions with
+`CHK(them,them,D)`, `CHK(them,^C,C)`, `CHK(them,^D,C)` in either order, and
+`if(CHK(them,me,C),C,if(CHK(me,them,D),D,C))`; 211–1,289 exploiters each). Prior masses: L E 0.0279, Res 0.0123;
+Rm E 0, Res 0.0402, FairBot's run tree 0.00097 → 0.00317; Rp E 0, Res 0.01267, unconditional cooperators 0.401 →
+0.413; Q 7.13·10⁻⁴ in all.
+
+### 2.4 M1, forced TwinD challenges (`runs/identity_resistant/assay_m1_{200,800}.json.gz`)
+
+*Deviation (disclosed before any cell).* The static relations showed that exploitation is TwinD-tree specific: against
+unit 87 (`if(CHK(them,me,C),C,if(CHK(them,them,C),C,D))`) and the second exploitable holder (unit 3851,
+`if(or(not(CHK(me,them,D)),CHK(them,them,C)),C,D)`, the most-held exploitable target holder other than 31 and 87;
+the first choice by occupancy was unit 87 itself) the heaviest TwinD spelling (tree 1312) and tree 2712 are
+*deleterious*, while trees 3879 and 3881 (whose phenotypes carry a C script) are *selected*. So M1 injects the heaviest
+spelling of **each of the four Q trees** (500 replicates per holder, tree and N) instead of one spelling at 1,000, and
+the per-holder takeover probability is the Q-mass-weighted average over trees (weights 0.364 / 0.273 / 0.273 / 0.091).
+Takeover = the lineage holds ≥ 0.5 of the island for > 25 generations or fixes (every establishment here fixed).
+
+| holder | class | Q tree 1312 | 2712 | 3879 | 3881 | weighted, N = 200 | weighted, N = 800 | `C` arrival, N = 200 |
+|---|---|---|---|---|---|---|---|---|
+| 31 `if(CHK(them,^D,D),C,D)` | exploitable | 0.264 / 0.242 | 0.212 / 0.250 | 0.268 / 0.254 | 0.268 / 0.242 | **0.251** | **0.247** | 0 (deleterious) |
+| 87 | exploitable | 0 / 0 | 0 / 0 | 0.268 / 0.254 | 0.268 / 0.242 | 0.097 | 0.091 | 0.003 |
+| 3851 | exploitable | 0 / 0 | 0 / 0 | 0.268 / 0.254 | 0.268 / 0.242 | 0.097 | 0.091 | 0.003 |
+| FairBot (3) | resistant, guarded | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 [0, 0.002] | 0 | 0.003 |
+| PrudentBot (u_PB) | resistant, guarded | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 | 0 | 0 (deleterious) |
+| 183 `if(or(CHK(them,me,C),CHK(me,^D,C)),C,D)` | resistant, unguarded | 0 / 0 | 0 / 0 | 0 / 0 | 0 / 0 | 0 | 0 | 0.003 |
+
+(Cells: takeover per arrival at N = 200 / 800, 500 replicates each; a zero has Clopper–Pearson upper bound 0.007.)
+A selected TwinD arrival takes the island with the predator's ρ (0.21–0.27, exact constant-selection 0.26) in a median
+of 22–30 generations; a deleterious one never did (0 of 15,000 replicates on resistant holders and 0 of 4,000 on the
+deleterious exploitable pairs). The channel is per (holder, TwinD tree): **resistant holders are closed to every TwinD
+tree; exploitable holders are open to some.** Pooled composite for RE 4 / RE 5 (mean over the three exploitable
+holders): **0.149 at N = 200, 0.143 at N = 800**; resistant 0. The `C` baseline (1,000 replicates) fixes at 0.003
+(1/N = 0.005) on holders that cooperate with a certified `C`, 0 where it is deleterious.
+
+*S9 is scored here:* its falsifier ("an exploitable holder < 0.1") **fires** for holders 87 and 3851 at the
+Q-weighted rate (0.097 / 0.091), and with the heaviest TwinD spelling alone those two holders are not preyed on at
+all; it holds for 31 and for every resistant holder. What I missed: exploitability is a property of the (holder,
+TwinD tree) pair, and only the C-listed TwinD trees satisfy the `CHK(them,them,C)` disjunct.
+
+### 2.5 Costs and the drop order
+
+Projection from the stored timings of the cells these reproduce (worker-seconds per run, mean; heavy tails noted):
+Part I to 2,200 ≈ 60 (stored fission–fusion to freezing: 66) → 6 × 20 × 60 ≈ 7,200; Part II to 10,000 ≈ 40–80
+(`rr_spon_200_64` 39; ε = 0 (200, 64) S-nonself ≈ 65 from removing-rivals' probes) → 120 × 70 ≈ 8,400; Part III
+(800, 8): annealed 232 (max 6,978), constant 62 → 120 × 232 + 120 × 62 ≈ 35,300; (1,600, 8): annealed 244, constant
+495 (max 10,618) → 80 × 244 + 80 × 495 ≈ 59,100. Total ≈ 110,000 worker-s ≈ 31 worker-hours ≈ **10–11 hours on 3
+workers**, under the 24-hour line: **no drop-order step is applied.** Order: Parts I and II (one batch), then
+Part III (800, 8), then Part III (1,600, 8). Assays and validation took ≈ 0.2 worker-hours.
