@@ -255,3 +255,136 @@ coexistence.
   suckers (the prudence premium favours PBN in proportion to the sucker supply).
 - Natural seeds: K is more universal than L (it removes a 0.03-mass family of near-cliques); grudges change little at
   ε = 0 (predators die in the scramble whatever the detectors do).
+
+## 2. The executed gate, world K's tables, validation, controls and costs (appended after the code, before any counted cell)
+
+Code: `src/detectors.py` (the Key rule in the checker term and the host replay, world K's reading, grudge certificates,
+the gate, the K and grudge table builders, the run object), `src/detectors_kern.py` (the grudge kernel),
+`src/detectors_run.py` (gate, static, ext, grudge, statics, validate, audit, cells), `src/detectors_report.py`;
+`tests/test_detectors.py` (6 tests, passing; 3 need the cached tables).
+
+### 2.1 The soundness gate: GO (`runs/detectors-gate.json`)
+
+- **(g1) Conservative:** 240 sampled stored checks (126 T, 103 F, 11 TO; median 12,582 inner steps) give the same value
+  and the same step count before and after the Key clause: **0 differences**.
+- **The L detector by execution:** with its D-step script δ (stored script 10, reproduced by the tactic) it plays D
+  against CooperateBot, FairBot-H and PrudentBot-H and C against its own quote (§1.1 confirmed by execution).
+- **(g2–g4):** with Key_P[δ] (P = `if(CHK(them,me,C),D,C)`, empty list, not a certified self-defector) the check is T
+  (25,485 steps), the detector plays D against P and the atom is true; against the respelling
+  `if(not(CHK(them,me,C)),C,D)` and against CooperateBot the grudge is skipped (F) and it plays C; against P carrying a
+  certificate it still plays D (bare-source key). Its C certificate against P fails once the grudge is held (RunNeg on
+  its own D box).
+- **The K detector is legible:** σ_C = `EvR*; ChkR[RunNeg · EvR*@1; ChkR[RunNeg · EvR*@1; Ax]]` (produced by the tactic
+  against FairBot-H) validates against FairBot-H (35,883 steps) and PrudentBot-H (57,280); it plays (C, C) with both,
+  and Key_⌜D⌝[δ] answers PrudentBot's ⌜D⌝ guard (T).
+- **(g5) Forged grudges are rejected:** CooperateBot with Key_P[δ]; FairBot with Key_P[δ] (F, though FairBot plays D
+  anyway); the negated reader `if(CHK(me,them,D),C,D)` with five forged keyed scripts (δ, `EvR*; ChkR[EvR*; Ax · Hyp]`,
+  `Hyp`, `EvR*; ChkR[Hyp · Hyp]`, `EvR*; ChkR[Ax · Hyp]`): all F, plays unchanged.
+- **(g6) Mutual grudges** between the detector and `if(CHK(me,them,D),D,C)`: both T, both play D, both atoms true.
+- **(g7) Host replay = term** on all 26 gate checks. **Accepted false atoms: 0.**
+- **(g8) Cost of grudges** (verification steps of the detector's checks; keyed grudges ahead of a matching one):
+
+| grudges held | CHK(det, P, D) | CHK(det, C, C) (its C certificate) | play vs CooperateBot |
+|---|---|---|---|
+| 0 | F 1,202 | T 17,176 | 1,307 |
+| 1 | T 25,485 | T 27,659 | 2,384 |
+| 3 | T 44,457 | T 48,625 | 4,538 |
+| 16 | T 166,735 | T 184,904 | 18,539 |
+
+  Each grudge adds about 10⁴ steps to every check of the holder's list (the list is converted to data and every key is
+  compared): at the cap of 3 the detector's C certificate costs 2.8× and its play 3.5×; at about 22 grudges its C check
+  would exceed the cap V = 250,000 and FairBot-shaped readers would stop cooperating with it. The ideal-table
+  populations below do not charge these costs; they are reported, not selected on.
+
+### 2.2 World K's tables
+
+- **Closure** (`runs/detectors/K/static.log`): milestone 5's closure with every check under the keyed reading converged
+  in 2 rounds: 17,375 units (L: 17,391), 11,260 reachable (L: 11,365), 29 scripts, 25.1 M host checks, 874 s on 3
+  workers.
+- **Executed production** (`ext.json`): 23,130 production memo keys, 22,958 shared with L (their stored executed
+  outcomes reused; 60 re-executed in K, 60 agree), 172 new (120 cap timeouts, all at signatures containing a TO box, in
+  trees reading `CHK(them,^D,C)`-type atoms, none in an own-D reader). OSV and SPO are placeholders (used only by S-k
+  windows and counters, which this run does not use).
+- **Grudge tables** (`grudge.json`): 155 own-D-reader run trees, **275 writer units** (reachable, D block a
+  hypothesis script). W (Key_v[δ_w] valid at (w, v)) is true for 2,425,149 of 3,096,500 writer × unit pairs, and the
+  grudge changes the pair's play in 2,155,985 of them. AG1 and AG2 fully determined; the sham audit (1,000 pairs, key
+  matching no quote) reproduces the base table exactly.
+- **The two-bit reduction against explicit terms** (`audit.json`): 54 live pairs from a B1 and a C fission–fusion run
+  at generation 250 (individuals' own spelling bodies, full grudge lists of up to 3 keys, host replay): **54/54 agree**
+  with the kernel.
+
+### 2.3 Statics (`runs/detectors-static.json`; natural unit = E unit after the C and D steps against FairBot-H)
+
+| | L | K |
+|---|---|---|
+| the detector's natural unit | (σ_C, δ) | (σ_C, Key_⌜D⌝[δ]) |
+| cooperates with (reachable units) | 187 of 11,365 (all check timeouts) | 10,186 of 11,260 |
+| (det, them) vs CooperateBot-H / DefectBot-H / FairBot-H / PrudentBot-H / anti-punisher-H | D,C / D,D / D,D / D,D / D,D | C,C / D,D / C,C / C,C / C,D |
+| in 𝒯 (mutual with PrudentBot-H) | no | **yes** |
+| accessible predator mass (removing-rivals classifier) | 0.0058 (74 spellings) | **0.260** (3,319) |
+| exploiter mass (self-cooperators included) | 0.0063 | 0.318 |
+| DET (gentle own-D-reader establishers) | 11 spellings, μ 0.0007 | 21 spellings, μ 0.0018 |
+| PBN | 484, μ 0.039 | 619, μ 0.049 |
+| 𝒯 units | 235 | 298 |
+| S-nonself identity units / the TwinD family Q | 8 / 10 spellings, μ 7.1·10⁻⁴ | **0 / none** |
+
+- **K dissolves the seed's identity cliques.** The TwinD family of every earlier S-nonself run
+  (`if(or(CHK(me,me,D),CHK(me,them,D)),D,C)` and its 9 relatives) is a set of own-D readers whose clique property *is* the
+  generic self-hypothesis δ (D against every distinct quote, C at the self root where the RunNeg would hit R). Keyed,
+  they become gentle readers; no identity unit is reachable under S-nonself in K. This is a consequence of deviation 1,
+  not a design aim, and it changes Part C's baseline.
+- **K's predators.** Keying removes the self-certification of defectors whose D certificate was hypothesis-closed, so
+  they become predators of every gentle reader: the top three are `if(CHK(them,them,D),D,D)`, `if(CHK(me,^D,D),D,D)`,
+  `if(CHK(me,^D,D),D,C)` (5.2·10⁻⁴ each). The anti-punisher exploits the K detector (the detector is certified to defect
+  against ⌜D⌝) but self-cooperates, so it is an exploiter, not a classifier predator.
+- **DET is two families.** 9 of the 21 DET spellings (μ 0.0007) are mutual with PrudentBot-H and FairBot-H (the
+  canonical detector's tree and those whose other atom is `CHK(them,them,D)` or a `CHK(them,me,C)` guard); 12 (μ 0.0010)
+  read `CHK(them,me,D)` or `CHK(them,^C,D)` as the other disjunct and defect against FairBot and PrudentBot, whose
+  generic D certificates satisfy it: a rival sub-family.
+- **PBN contains anti-gentle members.** 144 of 619 PBN spellings (μ 0.011 of 0.049) defect against the K detector,
+  e.g. `if(CHK(them,^C,D),C,D)`: cooperate only with those certified to defect against CooperateBot. Mutual with
+  PrudentBot, they punish gentleness; they are the detector's predators inside the PrudentBot network.
+
+### 2.4 Validation
+
+- **ε = 0, no grudge rule, world L reproduces stored runs draw for draw** (`validate.json`): the realizable-scaling
+  (200, 64) S-nonself runs, replicates 0 and 1, to generation 1,000 (21 checkpoints each, P(C,C) and type counts); the
+  Pangaea fission–fusion cell (100, 128) merged at 200, replicates 0 and 1, to 1,000 (60 checkpoints each, P(C,C) and
+  present types); the annealed rain cell (200, 8) at K = 3, replicates 0 and 1 (generations 200 and 1,000: type counts
+  and every island's holder). **0 differences.**
+- **Grudge types are recycled** (a free list); the merge orders types by base type, so recycling cannot change a
+  trajectory (the first version ordered by id and diverged after the merge in the validation; fixed before any cell).
+  Consistency (counts, dictionary, free list) is a test.
+- Tests: the grudge is sound, self-fulfilling and keyed to the bare source; inert for non-readers and negated readers;
+  every logged write followed (writer C, target D) in that encounter's play and never targets the writer's own spelling;
+  lists never exceed the cap; gmode 0 holds only the empty list; sham lists never change a play.
+
+### 2.5 Deviations and conventions (declared before any cell)
+
+1. World K (§1.3) for every grudge arm; L is the reference.
+2. The write trigger is "cooperated and was defected against in the encounter's (pre-production) play"; mutual
+   defections write nothing (§1.4).
+3. The cap is 3 keys, FIFO (oldest evicted), not LRU; the cap-16 diagnostic of §1.6 is dropped (the kernel interns
+   lists of at most 4 keys), and the prewritten oracle is the perfect-memory bound.
+4. Checkpoints every 10 generations to 1,000 and every 50 after (not 5): "stays out ≥ 25 generations" is evaluated on
+   them; window statistics use the checkpoints inside the 500-generation window.
+5. Network removal in a merged population = extinction (the predictions' convention). Before the merge a network's share
+   is the mean over islands (islands are equal-sized).
+6. The post-merge tail is defined for the merged population as a whole (N = 12,800, t₀ = 6,400, A = 52 or 156
+   arrivals); on (200, 64) islands per island as in the annealed run (A = 52, t₀ = 100). Arrivals carry no grudges.
+7. Part A residents sit at the detector's K natural unit with empty lists; the predator arrives as an E unit under the
+   arm's rule; the island is closed (I = 1); a run stops at establishment (≥ N/2), loss, or 1,000 generations.
+   Predators: the top three K predators above.
+8. The matched counterfactual replays of §1.5 run after the cells, on samples, from a rerun of the same seed to the
+   window's start (the kernel is deterministic); they are labelled as such.
+9. *Probes before the counted cells:* rep 0 of B1_KG_e0, B1_K0_t3, B2_KG_t1, Cff_KG_e0, Cff_KG_t1, Cis_KG_e0, Cis_KG_t1
+   and Cff_L_e0 ran as timing probes (to 2,000 or 10,000 generations); Part A was probed on 7 single runs. The runs are
+   deterministic, so the counted rep 0 equals the probe; I saw, for example, that B1_KG_e0 rep 0 ended with DET at 1.000
+   and B1_K0_t3 rep 0 with DET extinct by 2,000. Nothing in the design or predictions was changed after the probes.
+
+### 2.6 Costs and the drop order
+
+Probes: a Part A run takes 0.01–0.1 s (N ≤ 3,200); a fission–fusion run to 10,000 takes 1.5–3 min (B1_KG_e0 187 s,
+Cff_KG_t1 114 s), an island run (200, 64) about 1.7 min. Projected: A ≈ 3,700 runs ≈ 0.3 worker-h; B 200 runs ≈ 8
+worker-h; C 240 runs ≈ 7 worker-h; reference 20 runs ≈ 0.7 worker-h; replays ≈ 1 worker-h: **≈ 17 worker-h, about 6 h on
+3 workers, under the 24-hour line: nothing is dropped.**

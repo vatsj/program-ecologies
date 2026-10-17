@@ -1,0 +1,347 @@
+{
+ "checks": [
+  {
+   "tag": "L det [\u03b4] vs CooperateBot (generic self-hypothesis D)",
+   "a": "D",
+   "value": "T",
+   "host": "T",
+   "steps": 10622,
+   "atom_true": true,
+   "expect": "T",
+   "as_expected": true
+  },
+  {
+   "tag": "K det vs \u231cD\u231d: Key_\u231cD\u231d[\u03b4] matches",
+   "a": "D",
+   "value": "T",
+   "host": "T",
+   "steps": 15960,
+   "atom_true": true,
+   "expect": "T",
+   "as_expected": true
+  },
+  {
+   "tag": "K det vs P, no grudge",
+   "a": "D",
+   "value": "F",
+   "host": "F",
+   "steps": 1202,
+   "atom_true": null,
+   "expect": "F",
+   "as_expected": true
+  },
+  {
+   "tag": "g2 det+Key_P[\u03b4] vs P",
+   "a": "D",
+   "value": "T",
+   "host": "T",
+   "steps": 25485,
+   "atom_true": true,
+   "expect": "T",
+   "as_expected": true
+  },
+  {
+   "tag": "g3 det+Key_P[\u03b4] vs respelled P",
+   "a": "D",
+   "value": "F",
+   "host": "F",
+   "steps": 2279,
+   "atom_true": null,
+   "expect": "F",
+   "as_expected": true
+  },
+  {
+   "tag": "g3 det+Key_P[\u03b4] vs CooperateBot",
+   "a": "D",
+   "value": "F",
+   "host": "F",
+   "steps": 2279,
+   "atom_true": null,
+   "expect": "F",
+   "as_expected": true
+  },
+  {
+   "tag": "g3 det+Key_P[\u03b4] C-cert vs CooperateBot",
+   "a": "C",
+   "value": "T",
+   "host": "T",
+   "steps": 27659,
+   "atom_true": true,
+   "expect": "T",
+   "as_expected": true
+  },
+  {
+   "tag": "g3 det+Key_P[\u03b4] C-cert vs P (RunNeg on own D box fails)",
+   "a": "C",
+   "value": "F",
+   "host": "F",
+   "steps": 50588,
+   "atom_true": null,
+   "expect": "F",
+   "as_expected": true
+  },
+  {
+   "tag": "g4 det+Key_P[\u03b4] vs P carrying a certificate",
+   "a": "D",
+   "value": "T",
+   "host": "T",
+   "steps": 25628,
+   "atom_true": true,
+   "expect": "T",
+   "as_expected": true
+  },
+  {
+   "tag": "K det C-cert vs FairBot-H",
+   "a": "C",
+   "value": "T",
+   "host": "T",
+   "steps": 35883,
+   "atom_true": true,
+   "expect": "T",
+   "as_expected": true
+  },
+  {
+   "tag": "K det C-cert vs PrudentBot-H",
+   "a": "C",
+   "value": "T",
+   "host": "T",
+   "steps": 57280,
+   "atom_true": true,
+   "expect": "T",
+   "as_expected": true
+  },
+  {
+   "tag": "g5 CooperateBot + Key_P[\u03b4] vs P",
+   "a": "D",
+   "value": "F",
+   "host": "F",
+   "steps": 10351,
+   "atom_true": null,
+   "expect": "F",
+   "as_expected": true
+  },
+  {
+   "tag": "g5 FairBot + Key_P[\u03b4] vs P (FairBot plays D anyway)",
+   "a": "D",
+   "value": "F",
+   "host": "F",
+   "steps": 12937,
+   "atom_true": null,
+   "expect": null,
+   "as_expected": null
+  },
+  {
+   "tag": "g5 negated reader + Key_P[\u03b4] vs P",
+   "a": "D",
+   "value": "F",
+   "host": "F",
+   "steps": 12536,
+   "atom_true": null,
+   "expect": "F",
+   "as_expected": true
+  },
+  {
+   "tag": "g5 negated reader + Key_P[EvR*; ChkR[EvR*; Ax \u00b7 Hyp]] vs P",
+   "a": "D",
+   "value": "F",
+   "host": "F",
+   "steps": 11214,
+   "atom_true": null,
+   "expect": "F",
+   "as_expected": true
+  },
+  {
+   "tag": "g5 negated reader + Key_P[Hyp] vs P",
+   "a": "D",
+   "value": "F",
+   "host": "F",
+   "steps": 832,
+   "atom_true": null,
+   "expect": "F",
+   "as_expected": true
+  },
+  {
+   "tag": "g5 negated reader + Key_P[EvR*; ChkR[Hyp \u00b7 Hyp]] vs P",
+   "a": "D",
+   "value": "F",
+   "host": "F",
+   "steps": 10485,
+   "atom_true": null,
+   "expect": "F",
+   "as_expected": true
+  },
+  {
+   "tag": "g5 negated reader + Key_P[EvR*; ChkR[Ax \u00b7 Hyp]] vs P",
+   "a": "D",
+   "value": "F",
+   "host": "F",
+   "steps": 10518,
+   "atom_true": null,
+   "expect": "F",
+   "as_expected": true
+  },
+  {
+   "tag": "g6 det(grudge vs eff) vs eff(grudge vs det)",
+   "a": "D",
+   "value": "T",
+   "host": "T",
+   "steps": 27351,
+   "atom_true": true,
+   "expect": "T",
+   "as_expected": true
+  },
+  {
+   "tag": "g6 eff(grudge vs det) vs det(grudge vs eff)",
+   "a": "D",
+   "value": "T",
+   "host": "T",
+   "steps": 19536,
+   "atom_true": true,
+   "expect": "T",
+   "as_expected": true
+  },
+  {
+   "tag": "K if(CHK(me,them,D),D,C) (keyed \u03b4) vs CooperateBot: sucker without grudges",
+   "a": "D",
+   "value": "F",
+   "host": "F",
+   "steps": 573,
+   "atom_true": null,
+   "expect": "F",
+   "as_expected": true
+  }
+ ],
+ "g1": {
+  "n": 240,
+  "differences": 0,
+  "T": 126,
+  "F": 103,
+  "TO": 11,
+  "median_steps": 12581.5
+ },
+ "delta": "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[EvR*; Ax \u00b7 Hyp]]",
+ "delta_is_stored_script_10": true,
+ "sigma_C": "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[RunNeg \u00b7 EvR*@1; Ax]]",
+ "P": "if(CHK(them,me,C),D,C) (empty list)",
+ "P_syn": "if(not(CHK(them,me,C)),C,D)",
+ "L_detector": {
+  "vs_C": "D",
+  "vs_self": "C",
+  "vs_FB": "D",
+  "vs_PB": "D"
+ },
+ "K_det_vs_P_nogrudge": [
+  "C",
+  "D"
+ ],
+ "g2_play": [
+  "D",
+  "C"
+ ],
+ "g3_play_syn": "C",
+ "g3_play_C": "C",
+ "g4_play": "D",
+ "K_det_vs_FairBot-H": [
+  "C",
+  "C"
+ ],
+ "K_det_vs_PrudentBot-H": [
+  "C",
+  "C"
+ ],
+ "g5_fb": {
+  "value": "F",
+  "play": "D"
+ },
+ "g5_neg_play": [
+  "D",
+  "D",
+  "D",
+  "D",
+  "D"
+ ],
+ "delta_eff1": "EvR*; ChkR[EvR*; Ax \u00b7 Hyp]",
+ "g6_plays": [
+  "D",
+  "D"
+ ],
+ "K_eff1_vs_C": "C",
+ "g8": {
+  "0": {
+   "chkD_vs_C": [
+    "F",
+    1202
+   ],
+   "chkD_vs_P": [
+    "F",
+    1202
+   ],
+   "chkC_vs_C": [
+    "T",
+    17176
+   ],
+   "play_vs_C": [
+    "C",
+    1307
+   ]
+  },
+  "1": {
+   "chkD_vs_C": [
+    "F",
+    2279
+   ],
+   "chkD_vs_P": [
+    "T",
+    25485
+   ],
+   "chkC_vs_C": [
+    "T",
+    27659
+   ],
+   "play_vs_C": [
+    "C",
+    2384
+   ]
+  },
+  "3": {
+   "chkD_vs_C": [
+    "F",
+    4433
+   ],
+   "chkD_vs_P": [
+    "T",
+    44457
+   ],
+   "chkC_vs_C": [
+    "T",
+    48625
+   ],
+   "play_vs_C": [
+    "C",
+    4538
+   ]
+  },
+  "16": {
+   "chkD_vs_C": [
+    "F",
+    18434
+   ],
+   "chkD_vs_P": [
+    "T",
+    166735
+   ],
+   "chkC_vs_C": [
+    "T",
+    184904
+   ],
+   "play_vs_C": [
+    "C",
+    18539
+   ]
+  }
+ },
+ "bad": [],
+ "go": true,
+ "unexpected": [],
+ "time_s": 11.881587982177734
+}
