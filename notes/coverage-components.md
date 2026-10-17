@@ -321,3 +321,43 @@ The budget is about 30 hours of wall time from the first counted cell; blocks pa
 (confirmations, then rand-(c), then mediation beyond two replays per cell), by cost only. A static diagnostic,
 `coalitions` (founding coalitions of replicates 0–2 kept fair under each variant of their lists), runs in one process
 before the cells; its numbers are reported in §2.2 and used for nothing in the cells.
+
+### 2.2 Realized (after the cells)
+
+**Deviations, disclosed.**
+1. **A memory leak, and one job per process.** Worker processes that ran many cells kept growing (14–15 GB each after
+   eight hours, the machine's swap nearly full: tables and caches of earlier masks' evaluators were not released). At
+   00:20 on 2026-10-16 the batch was killed by pid with three jobs in flight (plus (c)+(d) replicates 3–5, rerun) and
+   every later batch ran one job per process (`maxtasksperchild = 1`). Outputs do not depend on table sharing (the
+   parent's check; runs are deterministic), so nothing else changed.
+2. **Batch layout.** The minus cells ran first on two workers beside a one-worker plus batch; when they finished the
+   plus batch was stopped by pid at a job boundary and one three-worker batch took the rest, in the order of §2.1.
+3. **Lemma P at full scale.** Minus (b) replicate 0 in S mode with the mark equals the counted H-mode run in every
+   summary field except the sampled encounters' production steps (which exist only in S mode); no production found
+   a script.
+4. **Two labelled diagnostic cells** (predictions addendum, committed before they ran, after nine cells were read):
+   plus (b)∩S₃^static and plus (b)\S₃^static.
+5. **The timing log, refined post hoc in the report.** The pre-registered log asks whether S₃ would write a pivotal
+   granted script at that encounter with the member's list for the set emptied. In the plus (b) nuclei every such
+   script is "pre-populated, here" in that sense, yet each member already held a script of its own for the set, so the
+   lack rule would not have let it write the pivotal one. The report adds that tag; the verdict on S11 is scored on the
+   pre-registered log.
+6. **Drops.** None. The rand-(c) controls ran last (the confirmation fitted the budget before them).
+7. **S₃ reference.** The 5 rerun replicates and the stored `Ni` runs (replicates 5–19) as planned. S₃ was not rerun on
+   the confirmation streams (20–59).
+
+**Wall time and costs.** First counted cell 2026-10-15 12:27; last 2026-10-16 17:24 (29 hours). Median minutes
+per run: H-mode cells 4.7–6.5, S-mode cells 11.9–17.6 (load 8–12 on 10 cores). On the ideal table production costs
+nothing in the dynamics; the mark recorded about 8·10⁴ marks per S₃ run (as in the founding-legibility pilot).
+
+**The static coalition diagnostic** (`runs/coverage-components-coalitions.json`; 881 founding coalitions of
+replicates 0–2, ideal table, each member holding only the named classes): fair with canon alone 0.63; canon + (a) 0.80;
+canon + (b) 0.76; canon + (a) + (b) 1.00; canon + (c) or + (d) 0.63; H − (a) 0.77, H − (b) 0.80, H − (c) 1.00, H − (d)
+1.00. At founding (a) and (b) each certify about a sixth of the coalitions the canonical scripts leave uncertified, and
+together all of them; (c) and (d) certify none.
+
+**Fragility.** The rand-minus (c) control removes about 1% of workers' and 0.3% of bosses' non-canonical scripts and
+gave 0.095 (2 of 20 runs) against H-full's 6: a minute perturbation reshuffles which runs succeed, as in the
+founding-legibility run. The minus cells' contrasts therefore rest on 0–1 runs (minus (a), (b)) against 2–8 (every other
+removal), and the plus cells' on 6 runs (plus (b)) against 0–2 (every other grant), confirmed on 40 fresh streams for
+plus (b).

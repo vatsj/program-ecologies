@@ -18,7 +18,7 @@ ROOT = CC.ROOT
 STORED = os.path.join(ROOT, 'runs', 'founding_legibility')
 ORDER = ['Hfull', 'S3', 'minus_a', 'minus_b', 'minus_c', 'minus_d', 'plus_a', 'plus_b', 'plus_c', 'plus_d',
          'plus_ab', 'plus_cd', 'rminus_a', 'rminus_b', 'rminus_d', 'rminus_c', 'rplus_a', 'rplus_b', 'rplus_d',
-         'rplus_c']
+         'rplus_c', 'plusS3_b', 'plusN_b']
 
 
 def load(cell, root=OUT):
@@ -128,7 +128,10 @@ def cell_stats(runs):
         for p in nu['pivotal']:
             piv['%s:%s:%s' % ('B' if p['slot'] == 0 else 'W', p['label'], p['prov'])] += 1
             if p['prov'] == 'granted':
-                tim['%s:%s' % (p['label'], p['timing'])] += 1
+                # post hoc refinement (notes §2.2): the member already holds a script of its own for the set, so the
+                # S3 lack rule would not have let it write this one there
+                own = any(e[2] == 'produced' for e in nu['members'][p['slot']]['inv'][p['set']])
+                tim['%s:%s%s' % (p['label'], p['timing'], ' (lack rule blocks: own script held)' if own else '')] += 1
         nuclei.append(dict(rep=r, gen=nu['gen'], members=[(m['spelling'], m['holder']) for m in nu['members']],
                            pivotal=[(p['slot'], p['set'], p['label'], p['prov'], p.get('timing'), p['S3'])
                                     for p in nu['pivotal']]))
@@ -158,23 +161,28 @@ def main():
     cells = {}
     for c in ORDER:
         r = load(c)
-        if r: cells[c] = r
+        main_ = {k: v for k, v in r.items() if k < 20}
+        conf = {k: v for k, v in r.items() if k >= 20}
+        if main_: cells[c] = main_
+        if conf: cells[c + '@confirm'] = conf
     s3ref = {r: v[1] for r, v in reference_S3().items()}
     res = dict(cells={}, contrasts={}, mediation={})
     for c, runs in cells.items():
         res['cells'][c] = cell_stats(runs)
     res['cells']['S3_reference'] = cell_stats({r: v for r, v in s3ref.items() if r < 20})
-    H = cells.get('Hfull', {})
+    H = dict(cells.get('Hfull', {})); H.update(cells.get('Hfull@confirm', {}))
     for c, runs in cells.items():
-        if c != 'Hfull' and H: res['contrasts'][c + ' - Hfull'] = paired(runs, H)
-        if c != 'S3': res['contrasts'][c + ' - S3'] = paired(runs, s3ref)
+        if not c.startswith('Hfull') and H: res['contrasts'][c + ' - Hfull'] = paired(runs, H)
+        if c != 'S3' and not c.endswith('@confirm'): res['contrasts'][c + ' - S3'] = paired(runs, s3ref)
     for x in ('a', 'b', 'c', 'd'):
         for kind, rk in (('plus_', 'rplus_'), ('minus_', 'rminus_')):
             if kind + x in cells and rk + x in cells:
                 res['contrasts'][kind + x + ' - ' + rk + x] = paired(cells[kind + x], cells[rk + x])
-    if 'plus_a' in cells and 'plus_b' in cells:
-        res['contrasts']['plus_b - plus_a'] = paired(cells['plus_b'], cells['plus_a'])
-    for c in list(cells):
+    for x, y in (('plus_b', 'plus_a'), ('plus_ab', 'plus_b'), ('plusS3_b', 'plus_b'), ('plusN_b', 'plus_b'),
+                 ('plus_cd', 'plus_b')):
+        if x in cells and y in cells:
+            res['contrasts'][x + ' - ' + y] = paired(cells[x], cells[y])
+    for c in [z for z in cells if not z.endswith('@confirm')]:
         med = load(c + '_med')
         if med:
             res['mediation'][c] = [dict(rep=r, original=fair(cells[c][r]), replay=fair(med[r]),
@@ -194,7 +202,7 @@ def main():
           'at (100, 64), mN = 1, ideal table; finite (N, I, horizon).', '',
           '| cell | runs | fair 10,000 [95%] | fair 2,000 | runs any fair (10,000) | runs ≥ ½ | zero wage | ¼ wage | '
           'fair at 0 / 10 / 20 / 200 | min/run |', '|---|---|---|---|---|---|---|---|---|---|']
-    for c in ORDER + ['S3_reference']:
+    for c in [z for c0 in ORDER for z in (c0, c0 + '@confirm')] + ['S3_reference']:
         s = res['cells'].get(c)
         if not s: continue
         ci = s['fair_10000_ci']

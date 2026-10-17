@@ -50,6 +50,8 @@ def jobs(args):
         for rep in range(lo, hi + 1):
             if not os.path.exists(os.path.join(OUT, 'cell_' + nm, 'rep_%03d.json' % rep)):
                 jl.append((nm, rep, bool(args.extend)))
+    if args.mediate:
+        jl = mediation_jobs(args.mediate, 5) + jl
     print('jobs', len(jl), [j[:2] for j in jl][:120], time.strftime('%H:%M:%S'), flush=True)
     if not jl: return
     with get_context('fork').Pool(min(args.procs, 3), maxtasksperchild=args.maxtasks) as pool:
@@ -295,6 +297,29 @@ def coalitions(args):
 # ----------------------------------------------------------------------------------------------------------------
 # mediation replays (notes §1.0 item 8)
 # ----------------------------------------------------------------------------------------------------------------
+def mediation_jobs(cells, nmax):
+    jobs = []
+    for nm in cells.split(','):
+        if not nm: continue
+        d = os.path.join(OUT, 'cell_' + nm)
+        cand = []
+        for f in sorted(os.listdir(d)):
+            if not f.endswith('.json') or '.tmp' in f: continue
+            a = json.load(open(os.path.join(d, f)))
+            if a['rep'] >= 20: continue
+            rg = a['cc'].get('regrowth', {})
+            if not rg.get('regrows') or not rg.get('nuclei'): continue
+            nuc = rg['nuclei'][0]
+            wh = sorted(set((p['role'], p['tk'], p['set'], p['idx']) for p in nuc.get('pivotal', [])
+                            if p['prov'] == 'granted'))
+            if not wh: continue
+            cand.append((a['rep'], wh))
+        for rep, wh in cand[:nmax]:
+            if os.path.exists(os.path.join(OUT, 'cell_%s_med' % nm, 'rep_%03d.json' % rep)): continue
+            jobs.append((nm, rep, True, [list(w) for w in wh], nm + '_med'))
+    return jobs
+
+
 def mediate(args):
     from multiprocessing import get_context
     jobs = []
@@ -336,6 +361,7 @@ def main():
     ap.add_argument('--plan', default='')
     ap.add_argument('--jobs', default='')
     ap.add_argument('--n', type=int, default=200)
+    ap.add_argument('--mediate', default='')
     args = ap.parse_args()
     globals()[args.cmd](args)
 

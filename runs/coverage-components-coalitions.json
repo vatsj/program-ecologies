@@ -1,0 +1,248 @@
+{
+ "coalitions": 881,
+ "fair_share": {
+  "canon": 0.626560726447219,
+  "canon+a": 0.7956867196367764,
+  "canon+b": 0.7639046538024972,
+  "canon+c": 0.626560726447219,
+  "canon+d": 0.6276958002270148,
+  "canon+ab": 0.9988649262202043,
+  "canon+cd": 0.6276958002270148,
+  "H-a": 0.7650397275822929,
+  "H-b": 0.7968217934165721,
+  "H-c": 1.0,
+  "H-d": 0.9988649262202043
+ },
+ "examples": {
+  "canon": [
+   [
+    "if(N1,pay(1/4,none),if(P2^0:S,pay(1/2,source),pay(0,none)))",
+    "if(or(B<=1/4,O:W),work,work)",
+    "if(and(not(O:S),B<=1/4),strike,work)"
+   ],
+   [
+    "if(P1^0:W,pay(1/2,strike),if(P2^0:W,pay(1/2,strike),pay(1/2,none)))",
+    "if(or(not(B=1/2),B<=1/4),strike,work)",
+    "if(not(not(O:W)),work,strike)"
+   ],
+   [
+    "if(and(P2^1/4:S,P1^0:W),pay(1/2,none),pay(1/4,strike))",
+    "work",
+    "if(B=1/2,if(B=1/2,work,work),strike)"
+   ],
+   [
+    "if(P1^1/4:S,pay(1/2,source),if(N1,pay(1/2,none),pay(0,none)))",
+    "if(B=1/2,work,if(B<=1/4,strike,strike))",
+    "if(O:S,if(B=1/2,strike,work),work)"
+   ],
+   [
+    "if(P2^1/4:S,if(P1^1/4:S,pay(1/2,source),pay(1/2,none)),pay(1/4,none))",
+    "if(O:W,if(O:W,work,work),strike)",
+    "if(B=1/2,if(B=1/2,work,work),strike)"
+   ]
+  ],
+  "canon+b": [
+   [
+    "if(N1,pay(1/4,none),if(P2^0:S,pay(1/2,source),pay(0,none)))",
+    "if(or(B<=1/4,O:W),work,work)",
+    "if(and(not(O:S),B<=1/4),strike,work)"
+   ],
+   [
+    "if(P1^0:W,pay(1/2,strike),if(P2^0:W,pay(1/2,strike),pay(1/2,none)))",
+    "if(or(not(B=1/2),B<=1/4),strike,work)",
+    "if(not(not(O:W)),work,strike)"
+   ],
+   [
+    "if(and(P2^1/4:S,P1^0:W),pay(1/2,none),pay(1/4,strike))",
+    "work",
+    "if(B=1/2,if(B=1/2,work,work),strike)"
+   ],
+   [
+    "if(P1^1/4:S,pay(1/2,source),if(N1,pay(1/2,none),pay(0,none)))",
+    "if(B=1/2,work,if(B<=1/4,strike,strike))",
+    "if(O:S,if(B=1/2,strike,work),work)"
+   ],
+   [
+    "if(P2^1/4:S,if(P1^1/4:S,pay(1/2,source),pay(1/2,none)),pay(1/4,none))",
+    "if(O:W,if(O:W,work,work),strike)",
+    "if(B=1/2,if(B=1/2,work,work),strike)"
+   ]
+  ],
+  "canon+c": [
+   [
+    "if(N1,pay(1/4,none),if(P2^0:S,pay(1/2,source),pay(0,none)))",
+    "if(or(B<=1/4,O:W),work,work)",
+    "if(and(not(O:S),B<=1/4),strike,work)"
+   ],
+   [
+    "if(P1^0:W,pay(1/2,strike),if(P2^0:W,pay(1/2,strike),pay(1/2,none)))",
+    "if(or(not(B=1/2),B<=1/4),strike,work)",
+    "if(not(not(O:W)),work,strike)"
+   ],
+   [
+    "if(and(P2^1/4:S,P1^0:W),pay(1/2,none),pay(1/4,strike))",
+    "work",
+    "if(B=1/2,if(B=1/2,work,work),strike)"
+   ],
+   [
+    "if(P1^1/4:S,pay(1/2,source),if(N1,pay(1/2,none),pay(0,none)))",
+    "if(B=1/2,work,if(B<=1/4,strike,strike))",
+    "if(O:S,if(B=1/2,strike,work),work)"
+   ],
+   [
+    "if(P2^1/4:S,if(P1^1/4:S,pay(1/2,source),pay(1/2,none)),pay(1/4,none))",
+    "if(O:W,if(O:W,work,work),strike)",
+    "if(B=1/2,if(B=1/2,work,work),strike)"
+   ]
+  ],
+  "canon+d": [
+   [
+    "if(N1,pay(1/4,none),if(P2^0:S,pay(1/2,source),pay(0,none)))",
+    "if(or(B<=1/4,O:W),work,work)",
+    "if(and(not(O:S),B<=1/4),strike,work)"
+   ],
+   [
+    "if(P1^0:W,pay(1/2,strike),if(P2^0:W,pay(1/2,strike),pay(1/2,none)))",
+    "if(or(not(B=1/2),B<=1/4),strike,work)",
+    "if(not(not(O:W)),work,strike)"
+   ],
+   [
+    "if(and(P2^1/4:S,P1^0:W),pay(1/2,none),pay(1/4,strike))",
+    "work",
+    "if(B=1/2,if(B=1/2,work,work),strike)"
+   ],
+   [
+    "if(P1^1/4:S,pay(1/2,source),if(N1,pay(1/2,none),pay(0,none)))",
+    "if(B=1/2,work,if(B<=1/4,strike,strike))",
+    "if(O:S,if(B=1/2,strike,work),work)"
+   ],
+   [
+    "if(P2^1/4:S,if(P1^1/4:S,pay(1/2,source),pay(1/2,none)),pay(1/4,none))",
+    "if(O:W,if(O:W,work,work),strike)",
+    "if(B=1/2,if(B=1/2,work,work),strike)"
+   ]
+  ],
+  "canon+cd": [
+   [
+    "if(N1,pay(1/4,none),if(P2^0:S,pay(1/2,source),pay(0,none)))",
+    "if(or(B<=1/4,O:W),work,work)",
+    "if(and(not(O:S),B<=1/4),strike,work)"
+   ],
+   [
+    "if(P1^0:W,pay(1/2,strike),if(P2^0:W,pay(1/2,strike),pay(1/2,none)))",
+    "if(or(not(B=1/2),B<=1/4),strike,work)",
+    "if(not(not(O:W)),work,strike)"
+   ],
+   [
+    "if(and(P2^1/4:S,P1^0:W),pay(1/2,none),pay(1/4,strike))",
+    "work",
+    "if(B=1/2,if(B=1/2,work,work),strike)"
+   ],
+   [
+    "if(P1^1/4:S,pay(1/2,source),if(N1,pay(1/2,none),pay(0,none)))",
+    "if(B=1/2,work,if(B<=1/4,strike,strike))",
+    "if(O:S,if(B=1/2,strike,work),work)"
+   ],
+   [
+    "if(P2^1/4:S,if(P1^1/4:S,pay(1/2,source),pay(1/2,none)),pay(1/4,none))",
+    "if(O:W,if(O:W,work,work),strike)",
+    "if(B=1/2,if(B=1/2,work,work),strike)"
+   ]
+  ],
+  "H-a": [
+   [
+    "if(N1,pay(1/4,none),if(P2^0:S,pay(1/2,source),pay(0,none)))",
+    "if(or(B<=1/4,O:W),work,work)",
+    "if(and(not(O:S),B<=1/4),strike,work)"
+   ],
+   [
+    "if(P1^0:W,pay(1/2,strike),if(P2^0:W,pay(1/2,strike),pay(1/2,none)))",
+    "if(or(not(B=1/2),B<=1/4),strike,work)",
+    "if(not(not(O:W)),work,strike)"
+   ],
+   [
+    "if(and(P2^1/4:S,P1^0:W),pay(1/2,none),pay(1/4,strike))",
+    "work",
+    "if(B=1/2,if(B=1/2,work,work),strike)"
+   ],
+   [
+    "if(P1^1/4:S,pay(1/2,source),if(N1,pay(1/2,none),pay(0,none)))",
+    "if(B=1/2,work,if(B<=1/4,strike,strike))",
+    "if(O:S,if(B=1/2,strike,work),work)"
+   ],
+   [
+    "if(P2^1/4:S,if(P1^1/4:S,pay(1/2,source),pay(1/2,none)),pay(1/4,none))",
+    "if(O:W,if(O:W,work,work),strike)",
+    "if(B=1/2,if(B=1/2,work,work),strike)"
+   ]
+  ],
+  "canon+a": [
+   [
+    "if(P1^1/4:S,pay(1/2,source),if(N1,pay(1/2,none),pay(0,none)))",
+    "if(B=1/2,work,if(B<=1/4,strike,strike))",
+    "if(O:S,if(B=1/2,strike,work),work)"
+   ],
+   [
+    "if(or(P1^0:S,not(P2^1/4:S)),pay(1/2,none),pay(1/4,none))",
+    "if(and(B=1/2,not(O:S)),work,strike)",
+    "if(EQ,if(EQ,strike,work),work)"
+   ],
+   [
+    "if(P2^1/4:S,pay(1/4,none),if(P1^0:S,pay(1/2,source),pay(1/2,none)))",
+    "if(or(not(B=1/2),EQ),strike,work)",
+    "work"
+   ],
+   [
+    "if(not(and(P1^0:W,P1^0:W)),pay(1/4,strike),pay(1/2,strike))",
+    "if(or(B>=1/4,not(EQ)),work,strike)",
+    "if(and(B>=1/4,B=1/2),work,strike)"
+   ],
+   [
+    "if(N1,pay(0,strike),if(P1^1/4:S,pay(1/2,strike),pay(1/2,strike)))",
+    "if(B=1/2,if(EQ,strike,work),strike)",
+    "if(and(EQ,O:S),strike,work)"
+   ]
+  ],
+  "H-b": [
+   [
+    "if(P1^1/4:S,pay(1/2,source),if(N1,pay(1/2,none),pay(0,none)))",
+    "if(B=1/2,work,if(B<=1/4,strike,strike))",
+    "if(O:S,if(B=1/2,strike,work),work)"
+   ],
+   [
+    "if(or(P1^0:S,not(P2^1/4:S)),pay(1/2,none),pay(1/4,none))",
+    "if(and(B=1/2,not(O:S)),work,strike)",
+    "if(EQ,if(EQ,strike,work),work)"
+   ],
+   [
+    "if(P2^1/4:S,pay(1/4,none),if(P1^0:S,pay(1/2,source),pay(1/2,none)))",
+    "if(or(not(B=1/2),EQ),strike,work)",
+    "work"
+   ],
+   [
+    "if(not(and(P1^0:W,P1^0:W)),pay(1/4,strike),pay(1/2,strike))",
+    "if(or(B>=1/4,not(EQ)),work,strike)",
+    "if(and(B>=1/4,B=1/2),work,strike)"
+   ],
+   [
+    "if(N1,pay(0,strike),if(P1^1/4:S,pay(1/2,strike),pay(1/2,strike)))",
+    "if(B=1/2,if(EQ,strike,work),strike)",
+    "if(and(EQ,O:S),strike,work)"
+   ]
+  ],
+  "canon+ab": [
+   [
+    "if(P2^0:W,if(P2^1/4:S,pay(1/4,strike),pay(1/2,source)),pay(1/4,strike))",
+    "if(B<=1/4,if(B>=1/4,strike,strike),work)",
+    "if(not(and(O:W,EQ)),work,strike)"
+   ]
+  ],
+  "H-d": [
+   [
+    "if(P2^0:W,if(P2^1/4:S,pay(1/4,strike),pay(1/2,source)),pay(1/4,strike))",
+    "if(B<=1/4,if(B>=1/4,strike,strike),work)",
+    "if(not(and(O:W,EQ)),work,strike)"
+   ]
+  ]
+ }
+}
