@@ -1,0 +1,21 @@
+# Review of `specs/2026-10-16-per-root-production.md` by gemini-4-argon
+
+### 1. Design flaws or confounds
+* **Double-write vs. FIFO eviction confound in R3(k=2):** Under R2, a single production attempt passing through a Hyp-first branch writes *two* scripts simultaneously (the main path and the shadowed F-branch alternative). If a program already holds 1 script for set $A$ from an earlier encounter, a second encounter triggering R2 will append 2 scripts, pushing the list size to 3 and immediately evicting the first encounter's script under FIFO ($k=2$). If the first encounter was the ¼ path and the second was the ½ path (or vice versa), the program loses certification on the first path.
+  * *Fix:* Either (a) key the cap $k$ per *attempt* (storing the primary + shadowed alternative as a single bundled entry, or raising the minimum cap to $k=3$ for unbundled scripts), or (b) use LRU eviction (updating usage timestamps when a held script validates at the current root) rather than FIFO ("oldest evicted").
+* **Verification cost scaling with list length under executed fuel ($K = 10^6, 3\cdot 10^6$):** When a program holds multiple scripts for outcome set $A$ (under R1/R2/R3), partners checking that program's certificate for $A$ must iterate through the held list until a valid script is found (or check all of them). In the executed cells, checking a failing script before finding the valid second-path script burns verification fuel $K$. In a 3-player game with nested probes, a $2\times$ list length can easily multiply verification steps past $10^6$ or $3\cdot 10^6$.
+  * *Fix:* Specify in `per_root.py` whether held scripts are indexed/dispatched by root (so the checker only runs the script matching the current root) or checked linearly. If checked linearly, record fuel-exhaustion failures separately from uncertified failures in the $K=10^6, 3\cdot 10^6$ cells.
+
+### 2. Predictions you think are wrong
+* **Prediction 3 (R3 at $k=2$ within 0.05 of R2):** Likely **wrong** if FIFO eviction is used on unbundled scripts. Because R2 writes two scripts at once on Hyp-first branches, $k=2$ cannot simultaneously hold an initial path script and a subsequent R2 double-write. Concessions or militants cycling between ¼ probes and ½ play will thrash their script lists. *My prediction:* Unbundled FIFO $k=2$ will drop ≥ 0.10 below R2 (closer to R1); $k=3$ or LRU $k=2$ is required to stay within 0.05 of R2.
+* **Prediction 4 (R2 at $3\cdot 10^6 \ge 0.4$):** **Over-optimistic** unless scripts are root-indexed during verification. Under H-full, extra scripts were present, and $3\cdot 10^6$ gave 0.65 (under free certificates) or lower with full lists. If R2's dynamically ordered lists place the unverified script first, linear checking will push several borderline $3\cdot 10^6$ runs over the fuel cap. *My prediction:* 0.25–0.35 at $3\cdot 10^6$ under linear scan; ≥ 0.4 holds only if checker dispatch is root-keyed.
+
+### 3. Missing controls or cheap additions
+* **Shadowed-only control (R0 + shadowed alternatives, without per-root trigger):** In "Coverage components", the two halves were tested as static grants (0.10 and 0.05). Running R0 + shadowed alternatives (writing the F-branch alternative on the *first* production attempt, while keeping the standard lack rule) is nearly free on the ideal table and tests whether writing both branches at first contact already covers the second root without needing the per-root trigger R1.
+* **LRU vs. FIFO at $k=2$:** A tiny code branch on the ideal table that directly isolates list-thrashing in R3.
+
+### 4. Alternative explanations the brief does not rule out
+* **Encounter-order dependence vs. static coverage:** The brief equates R2's dynamic production with the static H-full grant. However, R1/R2 only writes the second-path script *after* meeting a partner that sends it down that root. If fair bosses die by demography (~25 generations) before concessions/militants experience the specific encounter sequence needed to populate both scripts, R2 will underperform H-full due to *arrival timing*, not rule expressivity. Logging the generation at which the second script is acquired relative to fair-boss extinction will separate timing from coverage.
+
+### 5. Ideas that matter for the research program beyond this experiment
+* Nothing material.
