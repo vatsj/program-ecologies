@@ -261,3 +261,84 @@ What I expect the hooks to do, by mechanism:
   boss is not hurt by a striker it does not pay), with contracts lifting the intermediate wage.
 
 These are qualitative; the numbered predictions with falsifiers are in `predictions/2026-10-18-hooks-w.md`.
+
+## 2. Built, validated, costed (PD wing; appended after the code and before any counted cell)
+
+The social-organization half of §2 is appended separately, after its code and before its cells (§2.6).
+
+### 2.1 The language as built
+
+- `src/hooks_w.py`: the hooked grammar subclasses `modal.ModalLanguage` (HOOK leaves as boolean functions of the
+  derived atoms A_t, V_t; quoted programs restricted to A_t = 0), fills and the conflict rule (`spec_of`: one 32-bit
+  spec per holder and context, an applies mask and a value mask over the 8 classes per tag), the closed-node evaluator
+  `eval_match` (10 probe nodes plus the two instances; it returns both actions and the class each instance read).
+- Sizes at n = 6: 13,684 spellings over 490 base types, a(s) = 6, 6, 86, 254, 2,414, 10,918 (plain: 1,020 over 66,
+  a(s) = 2, 2, 18, 42, 202, 754). Hook-carrying base types hold 0.651 of the prior (both tags: 0.032). Masses: C and
+  D 0.167 each (plain 0.469), each hook leaf 0.123, `not(HOOK(t, ·))` 0.031, FairBot 0.00093 (plain 0.0049).
+- `src/hooks_w_kern.py`: the island kernel over types (base, fill list, lineage). Each island keeps the match codes of
+  its present types in a dense antisymmetric slot matrix, so fitness bookkeeping is array arithmetic; a new type
+  costs one match per present slot, except a *history variant* of the writer's old type (same base, lineage, spec
+  without lineage and spec against its own lineage), which copies the old row and recomputes only the slots whose
+  lineage's fills changed (exact: such types play identically against every other lineage). Type ids are recycled
+  when a type's count reaches zero. The parent sampler is the stored one (each slot's weight computed once and reused,
+  bit-identical); the merged fission–fusion population uses an exact rejection sampler (uniform proposal, acceptance
+  exp(w (f − 1)), 1 the largest PD payoff), the same law.
+- `src/hooks_w_run.py`: cells, founders, runs and the post-run statistics of §1.10 (`state_stats`).
+
+### 2.2 Validation
+
+- The evaluator reproduces `modal.evaluate` on all 4,356 plain pairs; with every fill inert each hooked pair plays as
+  its default-resolved pair (checked on 3,000 random pairs in the tests and on 490 × 70 pairs by hand before them).
+- **The baseline reproduces stored runs:** with the plain grammar, one type per stored behavioural class, the stored
+  founders and seeds and no encounters, the kernel reproduces all 20 stored modal (100, 64), mN = 1 rows of
+  `runs/almost-all-seeds-islands.json` draw for draw (final class counts equal at each stored stop generation;
+  `runs/hooks-w-validate.json`).
+- `tests/test_hooks_w.py` (11 tests, all pass): plain grammar and evaluator equal the modal arm's; hook defaults and
+  none-scope overrides; a fill on an uncarried tag never applies; behaviour keys read the partner's class (DefectBot
+  β = 0, ALLC β = 7); history keys apply only to that lineage (mutual history C fills make two `HOOK(0, D)` programs
+  cooperate, as strangers they defect); the conflict rule (behaviour > history > role > none, ties by recency) and the
+  recency-only ablation; in-place writes and FIFO eviction; equal node cost (a(1) = 6, the four hook leaves have
+  equal mass, no scope enters the prior); inert = default-resolved; **soundness:** over 4,000 random filled programs
+  (1–4 fills, every scope) none gets (D, C) against FairBot or `BOX1(THEM(ME))`; the stored-row reproduction.
+
+### 2.3 Deviations from §1, declared before any counted cell
+
+1. **Horizons.** Every PD island cell runs 1,000 generations in one segment and is compared at generation 1,000;
+   the baseline, inert and maximal cells continue in a second segment (seed + 1) to 2,000 for persistence. (§1.9 said
+   2,000 for every cell; cost, §2.5.)
+2. **Fission–fusion geometry.** 32 islands of 100 merged into one population of 3,200 at generation 200, horizon 600,
+   20 runs (§1.9 said 128 × 100 to 2,000). Reason: with active writes nearly every program in the merged population is
+   its own type (per-founder lineage times a churning fill list), so exact mean-field fitness costs O(N) per birth and
+   a cell of 12,800 cost more than 1 s per generation in a timing probe (several minutes per merged generation-hundred
+   at 12,800 slots). The reduced geometry keeps the design (islands, then one merged population with the same law).
+3. **Contract acceptance in cells where contract fills are inert** (inert, −history, −contract, seeding-only, both
+   −history cells): the acceptance test evaluates the encounter with contract-origin history fills active, so the
+   supply of contracts is written as under the maximal semantics and then held inert (the inert discipline). Other
+   contract fills the two parties already hold are also active inside that test.
+4. **Common random numbers.** Every cell of a geometry uses the same kernel seed per run index (founders were already
+   coupled), so paired differences share their random stream until the dynamics diverge.
+5. **Commit split.** Step 3 is committed in two parts: the PD code (this commit) before the PD cells, and the social
+   organization code with §2.6 before its cells.
+6. Cell names are `no-behaviour`, `no-role`, `no-history`, `no-behaviour-renorm`, `no-history-renorm`, `no-seed`,
+   `no-writes` (the history-disabled control), `no-copy`, `no-contract`, `seeding-only`, `hist-shuffled`,
+   `hist-noinherit`, `recency`, `grudge-only`, and `ff-{baseline, inert, maximal, grudge-only}`.
+
+*Disclosure.* Timing probes ran on run indices 1000+ (never counted) for maximal, inert, seeding-only, no-contract,
+recency and ff-maximal, at 100–1,000 generations. I saw their outcomes while timing them (maximal: islands held by
+churning `HOOK(t, D)` lineages with island efficiency near 0.1; seeding-only: all-defect by generation 50; inert:
+FairBot spreading to 0.97 of islands by 300). The predictions file was committed before any of them (32e43d9) and is
+not changed.
+
+### 2.4 Timing (one process, after the optimizations)
+
+maximal 0.086 s per generation at (100, 64) (recency 0.075, no-contract 0.031, seeding-only 0.024, inert 0.020);
+ff-maximal about 1 s per merged generation at 3,200, 0.04 s per island generation; plain baselines under 0.01.
+
+### 2.5 Projected cost and the drop order
+
+PD islands: baseline, inert, maximal to 2,000 and thirteen cells to 1,000, 40 runs each: about 13.5 worker-hours.
+Fission–fusion (four cells, 20 runs, horizon 600): about 5 worker-hours. Social organization: projected in §2.6.
+With three workers the PD part is about 6 hours of wall time; the total is projected below 20 hours, so nothing is
+dropped now. If the social organization projection pushes the total over about 20 hours, the spec's order applies:
+the conflict-rule ablation (`recency`) first, then fission–fusion (`ff-grudge-only`, then the rest), keeping
+seeding-only.
