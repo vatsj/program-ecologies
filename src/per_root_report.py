@@ -206,7 +206,7 @@ def nuclei_stats(runs, reps):
 
 REPORT_CELLS = ['R0_i', 'R0alt_i', 'R1_i', 'R2_i', 'R3k2_i', 'R3k3_i', 'R3k2f_i', 'Hfull_i',
                 'R0_3', 'R2_3', 'R2d_3', 'R3k2_3', 'R3k3_3', 'R3k2f_3', 'Hfull_3',
-                'R0_6', 'R2_6', 'R3k2_6', 'R3k3_6', 'R3k2f_6', 'Hfull_6', 'R2_i_N200']
+                'R0_6', 'R2_6', 'R3k2_6', 'R3k3_6', 'R3k2f_6', 'Hfull_6', 'R2_i_N200', 'R2b_i', 'R2w_i']
 
 
 def main():
@@ -214,7 +214,7 @@ def main():
     runs = {c: cell_runs(c) for c in REPORT_CELLS}
     runs = {c: v for c, v in runs.items() if v}
     for c, rr in runs.items():
-        for tag, reps in (('dev', DEV), ('conf', CONF), ('conf40-59', CONF2), ('all', DEV + CONF + CONF2)):
+        for tag, reps in (('dev', DEV), ('conf', CONF), ('conf40-59', CONF2), ('conf20-59', CONF + CONF2), ('all', DEV + CONF + CONF2)):
             s = summarize_cell(rr, reps)
             if s: out['cells']['%s|%s' % (c, tag)] = s
         for tag, reps in (('dev', DEV), ('conf', CONF)):
@@ -230,7 +230,7 @@ def main():
              ('R2_6', 'R0_6'), ('R2_6', 'Hfull_6'), ('R2_3', 'R2_i'), ('Hfull_3', 'Hfull_i')]
     for a, b in pairs:
         if a in runs and b in runs:
-            for tag, reps in (('dev', DEV), ('conf', CONF), ('conf40-59', CONF2)):
+            for tag, reps in (('dev', DEV), ('conf', CONF), ('conf40-59', CONF2), ('conf20-59', CONF + CONF2)):
                 c = contrast(runs[a], runs[b], reps)
                 if c and c['n']: out['contrasts']['%s - %s|%s' % (a, b, tag)] = c
     # interaction of the factorial (per run): (R2 - R1) - (R0alt - R0)
@@ -241,6 +241,18 @@ def main():
                 d = [fair(runs['R2_i'][r]) - fair(runs['R1_i'][r]) - fair(runs['R0alt_i'][r]) + fair(runs['R0_i'][r])
                      for r in rs]
                 out['contrasts']['interaction|' + tag] = dict(n=len(rs), diff=float(np.mean(d)), ci=boot(d))
+    # role-split diagnostics on the seven streams where R2 was fair, against R2 on the same streams
+    diag = (3, 5, 9, 14, 15, 16, 18)
+    for c in ('R2b_i', 'R2w_i', 'R2_i', 'R1_i', 'Hfull_i'):
+        if c in runs:
+            v = {r: fair(runs[c][r]) for r in diag if r in runs[c]}
+            out.setdefault('diagnostics', {})[c] = dict(fair=v, n_half=sum(1 for x in v.values() if x >= 0.5))
+    # 20,000-generation extensions
+    for c in ('R2_i_ext20k', 'Hfull_i_ext20k'):
+        rr = load(c)
+        out.setdefault('extensions', {})[c] = {r: dict(at_10000=a['summary_ext']['at_10000']['persistence'],
+                                                       at_20000=a['summary_ext']['end']['persistence'])
+                                              for r, a in rr.items()}
     # replays
     for d in sorted(glob.glob(os.path.join(OUT, 'cell_*_bar_*'))):
         tag = os.path.basename(d)[5:]
@@ -308,6 +320,14 @@ def write_md(out):
         L += ['', '## Replays', '']
         for k, v in out['replays'].items():
             L.append('- **%s**: %s' % (k, [(x['rep'], x['orig_fair_end'], x['fair_end'], x['regrows']) for x in v]))
+    if out.get('diagnostics'):
+        L += ['', '## Role-split diagnostics (streams 3, 5, 9, 14, 15, 16, 18)', '']
+        for c, d in out['diagnostics'].items():
+            L.append('- **%s**: runs ≥ ½ fair %d/7; %s' % (c, d['n_half'], {k: round(v, 2) for k, v in d['fair'].items()}))
+    if out.get('extensions'):
+        L += ['', '## Extensions to 20,000', '']
+        for c, d in out['extensions'].items():
+            L.append('- **%s**: %s' % (c, {k: (round(v['at_10000'], 2), round(v['at_20000'], 2)) for k, v in d.items()}))
     open(os.path.join(ROOT, 'runs', 'per-root.md'), 'w').write('\n'.join(L) + '\n')
 
 

@@ -407,3 +407,27 @@ class churn at founding) and the fixed traces, not from lottery cells. "Best R3"
 H; E (10⁶, development: R2, R0) 40; F (replays, extensions) ≤ 15. About 72 worker-hours, 24 hours of wall time. Hence
 K = 10⁶ is kept (the spec's third drop is not needed), the (200, 64) panel stays dropped, and streams 40–59 for R2 and
 R0 run only if time remains after F.
+
+### 2.2 Realized (after the cells)
+
+**Wall time.** First counted cell 2026-10-16 19:22, last 2026-10-17 about 23:30 (about 28 hours, ≤ 3 processes of
+mine throughout beside the sibling run's 2). Median minutes per run: R0, R0 + alternatives 13.5; R1, R2 17 (ideal and
+3·10⁶ alike); H mode 4. Blocks in launch order: A (development ideal), C (confirmation 20–39), D (3·10⁶), E (10⁶ and
+dispatch), F (diagnostics, replays, extensions), G (confirmation 40–59 for R2 and R0, run because time remained).
+
+**Deviations, disclosed.**
+1. **R3 not run** (addendum above): the cap thrashes; scored from the diagnostic and the fixed traces.
+2. **Confirmation streams.** Every confirmation cell ran on streams 20–39; R2 and R0 also on 40–59 (block G). H-full is
+   the stored cell on every stream. Statistics on 20–39 are paired across all four rules; 20–59 for R2, R0, H-full.
+3. **Two labelled diagnostic cells** (R2w, R2b; predictions addendum, committed before they ran) on the seven
+   development streams where R2 was fair.
+4. **Replays.** Only two regrowing R2 runs (development 3, confirmation 22) had a second-path pivotal script at their
+   nucleus; one replay each barred it (§1.x deviation 4). No R1 nucleus had one, so R1 has no replay.
+5. **Extensions to 20,000:** R2 and H-full (H mode under this implementation) on streams 3, 5, 9, 14, 15; every run's
+   state at 20,000 equals its state at 10,000 within 0.02.
+6. **The ideal-table cost statistics** are dominated by regress-timeout charges (V ≈ 2.5·10¹¹ per timed-out nested
+   box) and are reported only beside the 3·10⁶ ones, which are the ones scored.
+7. **A process slip.** Two of my wait loops briefly ran beside three workers (shell loops, no computation); one pilot
+   was started with a trailing `&` and was later stopped by pid. No batch was launched twice; one later batch
+   (`batchG3`) took the last four R0 confirmation jobs of `batchG1`'s queue onto free workers, after checking that
+   `batchG1` would reach them only after they finish (it skips finished files).
