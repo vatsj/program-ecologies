@@ -138,4 +138,6 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 **Target network (RS, 2026-10-15):** the PrudentBot network is the official solution; rival networks are failures to remove (DEFERRED 1). **Amended (RS, 2026-10-17):** no state sponsorship in the object; the target is efficient networks that survive for good reasons (predation, inefficiency and the prudence premium, the last in proportion to the sucker supply that the mutation schedule sets, remove networks for good reasons; abundance alone does not); detectors are a legitimate rival (DEFERRED 1).
 
+**Certificate convention (RS, 2026-10-18, provisional):** world K is the default: hypothesis-closed D certificates are keyed to the bare source of the partner they were produced against; world L is the reference arm; a broader conversation about certificates is pending (DEFERRED 1).
+
 No paper draft (RS, 2026-10-04).

@@ -212,6 +212,11 @@ REJECTED.md the ones we dropped.
   detectors"). *Decision for the RS:* whether world K (keyed self-hypothesis defection) becomes the realizable arm's
   default production convention; if so, the identity-related cells are rerun under K. *Operating hypothesis:* K is a
   diagnostic until he decides.
+- *RS (2026-10-18), world K:* "I'd say adopt it for now and we'll have a broader conversation about certificates soon".
+  *Decided (provisional):* world K (hypothesis-closed D certificates keyed to the bare source of their production
+  partner) is the realizable arm's default production convention; world L is kept as the reference arm; the
+  identity-dependent results are rerun under K (`specs/2026-10-18-world-k-reruns.md`) and receive addenda; a broader
+  conversation about certificates is pending.
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
