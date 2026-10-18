@@ -132,7 +132,8 @@ def island_cell_summary(rows):
                 rrc2.update({k: v for k, v in x['counts'].items() if k}); uot2 += int(x['uot'])
         estab = [min([e for e in r['establish'] if e >= 0], default=-1) for r in rs]
         q = [sum(r['seeded']['Q']) for r in rs]
-        out['%s|%s' % (cell, w)] = dict(cell=cell, world=w, N=N, I=I, n=n, uo2000=u2, uo10000=u10,
+        ex = extra_island(rs, w)
+        out['%s|%s' % (cell, w)] = dict(cell=cell, world=w, N=N, I=I, n=n, uo2000=u2, uo10000=u10, extra=ex,
                                        uo10000_ci=cp(u10, n), ident2000=round(float(id2), 4),
                                        ident10000=round(float(id10), 4), causes=dict(causes), scramble=scramble,
                                        mean_isl_pcc_excl_scramble=round(float(np.mean(eff)), 4) if eff else None,
@@ -142,6 +143,74 @@ def island_cell_summary(rows):
                                        first_estab_median=float(np.median([e for e in estab if e >= 0])) if any(e >= 0 for e in estab) else None,
                                        Q_seeded_mean=float(np.mean(q)), time_h=round(sum(r['time_s'] for r in rs) / 3600, 2))
     return out
+
+
+_UC = {}
+
+
+def uclass(w, u):
+    """The actual holder unit's class: APnet (self-cooperating, mutual with AP-H, not open), open, other."""
+    if u is None: return 'unknown'
+    if w not in _UC:
+        import world_k as WK
+        LS = WK.world_ls(w)
+        A = np.asarray(LS['st']['A']); sa = np.asarray(LS['st']['selfa'])
+        names, tau, Hu = LS['names'], LS['tau'], LS['Hu']
+        apH = int(Hu[tau[names.index('if(CHK(them,^D,D),D,C)')]])
+        pbH = int(Hu[tau[names.index('if(and(CHK(them,me,C),CHK(them,^D,D)),C,D)')]])
+        _UC[w] = (A, sa, np.asarray(LS['openu']), apH, pbH, np.asarray(LS['ident']))
+    A, sa, openu, apH, pbH, ident = _UC[w]
+    if ident[u]: return 'identity'
+    if openu[u]: return 'open-closed' if not (A[u, pbH] == 1 and A[pbH, u] == 1) else 'open-T'
+    if A[u, apH] == 1 and A[apH, u] == 1: return 'APnet'
+    return 'other'
+
+
+def extra_island(rs, w):
+    """Identity holders by class (minted C-identity trees / former Q / other), rival holders' H classes, exposure,
+    S-self budget, minting counts, the former TwinD share at 200."""
+    import world_k as WK
+    import provenance as PV
+    ST = WK.static_sets()
+    hc = hclass(w)
+    idh = Counter(); rvh = Counter(); rvh2 = Counter()
+    for r in rs:
+        for g, C_ in (('2000', idh), ):
+            s = snap(r, int(g))
+            for c_, h in zip(s['cls'], s['holders']):
+                if c_ == 'i':
+                    C_['mint' if ST['mint'][h] else ('Q' if ST['Q'][h] else 'other')] += 1
+        f = r['final']
+        lastu = {}
+        for c in r['changes']:
+            lastu[c[1]] = c[3]
+        for i, (c_, h) in enumerate(zip(f['cls'], f['holders'])):
+            if c_ == 'r':
+                rvh[hc[h]] += 1
+                rvh2[uclass(w, lastu.get(i))] += 1
+        runs_ap = sum(1 for r in rs if any(c_ == 'r' and hc[h] in ('APn', 'BR') for c_, h in zip(r['final']['cls'], r['final']['holders'])))
+    fail_runs = [r for r in rs if not r['final']['universal_open']]
+    ap_fail = sum(1 for r in fail_runs if any(c_ == 'r' and hc[h] in ('APn', 'BR') for c_, h in zip(r['final']['cls'], r['final']['holders'])))
+    rival_isl_per_run = float(np.mean([sum(1 for c_ in r['final']['cls'] if c_ == 'r') for r in rs]))
+    expo = {}
+    for g in ('200', '2000', '10000'):
+        v = [r['expo'][g] for r in rs if r['expo'].get(g) and r['expo'][g][0] is not None]
+        if v:
+            tot = sum(x[1] for x in v)
+            if tot:
+                expo[g] = dict(n_ind=tot, frac=[round(sum(np.array(x[0]) * x[1] for x in v)[j] / tot, 4) for j in range(4)])
+    sb = {}
+    for g in ('0', '10', '50', '200', '2000'):
+        v = [r['selfb'][g] for r in rs if r['selfb'].get(g) and r['selfb'][g]['lacking']]
+        if v:
+            sb[g] = dict(lacking_mean=float(np.mean([x['lacking'] for x in v])),
+                         self_share=round(float(np.average([x['self_share'] for x in v], weights=[x['lacking'] for x in v])), 5))
+    mint = [int(np.asarray(r['ctr'])[:, PV.C_IDENT_ENTRY].sum()) for r in rs]
+    q200 = [t[6] for r in rs for t in r['trace'] if t[0] == 200]
+    return dict(ident_holders_2000=dict(idh), rival_holder_classes_end=dict(rvh), rival_holder_unit_classes_end=dict(rvh2), fail_runs=len(fail_runs),
+                fail_runs_with_AP_rival=ap_fail, rival_isl_per_run=round(rival_isl_per_run, 3), expo=expo, selfb=sb,
+                ident_entries_mean=float(np.mean(mint)), Q_share_200_max=max(q200) if q200 else None,
+                Q_share_200_mean=float(np.mean(q200)) if q200 else None)
 
 
 def paired(rows, cellK, cellL, wK, wL, g):

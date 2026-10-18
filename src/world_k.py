@@ -332,8 +332,8 @@ def island_job(job):
             if N >= 200 and g in (2000, 10000):
                 sn['rr'] = rival_labels(R, cc, rcache)
             snaps[str(g)] = sn
-        if g >= 50 and R.frozen():
-            frozen_at = g
+        if g >= 50 and (not c['rain_K'] or g >= AN.HORIZON) and R.frozen():
+            frozen_at = g          # under rain the stop waits for the schedule's end (arrivals continue)
             break
     R.final_logs()
     cc = R.island_stats()

@@ -356,3 +356,12 @@ what the cells measure.
 0.2–2 worker-hours per 20-run cell. Projected: A (24 cells, 520 runs) ≈ 16 worker-h with the rival classification; B
 (4 cells, 120 runs) ≈ 1; C (14 cells, 280 runs) ≈ 5; C′ (6 cells, 120 runs) ≈ 8; D (2 cells, 40 runs) ≈ 1.5:
 **≈ 32 worker-hours, about 11 hours on 3 workers, under the 24-hour line: nothing is dropped.**
+
+### 2.6 Addenda while the cells ran (each written before the cells it affects)
+
+- **The rain cell's frozen stop (found reading the D log, before any D number was tabulated).** The island job stopped a
+  run once the metapopulation was one type whose own encounters change nothing. That stop is exact at ε = 0 but not
+  under rain, where arrivals continue to generation 10,000 (the annealed run applied it only without rain). The first
+  D batch (40 runs) stopped 5 K and 4 L runs early (between 3,250 and 9,800). Those rows are set aside unscored
+  (`runs/world_k/discarded/cells_D_frozenstop.json.gz`); the stop now waits for the schedule's end under rain (a
+  change reached only by rain cells; no ε = 0 cell is affected), and the D cell is rerun in full after the main batch.
