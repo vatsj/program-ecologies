@@ -365,3 +365,7 @@ what the cells measure.
   D batch (40 runs) stopped 5 K and 4 L runs early (between 3,250 and 9,800). Those rows are set aside unscored
   (`runs/world_k/discarded/cells_D_frozenstop.json.gz`); the stop now waits for the schedule's end under rain (a
   change reached only by rain cells; no ε = 0 cell is affected), and the D cell is rerun in full after the main batch.
+- **One r = N/2 run capped** (written when it had run about 3.7 hours, before the rain rerun started): K (6,400, 1)
+  r = N/2 replicate 1 had not finished while all other 119 r = N/2 runs took ≤ 18 minutes. Its worker is killed and the
+  cell is scored on 19 K runs (paired comparisons on the 19 common replicates); the one finished row the kill would
+  discard (not yet flushed) is rerun alone. No outcome of this run was seen.
