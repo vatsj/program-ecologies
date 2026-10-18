@@ -182,3 +182,73 @@ def test_baseline_reproduces_stored_rows():
     import hooks_w_run as R
     out = R.validate(2)
     assert all(r['equal'] for r in out)
+
+
+# ------------------------------------------------------------------ the social organization wing
+@pytest.fixture(scope='module')
+def sog():
+    import hooks_w_sog_run as SR
+    return SR, SR.lang(True), SR.lang(False)
+
+
+def test_sog_evaluator_matches_union_on_plain_programs(sog):
+    import union as U
+    import hooks_w_sog as S
+    SR, Lh, Lp = sog
+    J = U.tensor(*Lp.P.arrays(), U.TT, Lp.KB, Lp.KW)
+    R = -np.ones((3, S.RSZ), np.int8)
+    rng = np.random.default_rng(5)
+    for _ in range(3000):
+        b, x, y = rng.integers(Lp.KB), rng.integers(Lp.KW), rng.integers(Lp.KW)
+        assert (S.eval_triple(*Lp.arrays(), U.TT, b, x, y, Lp.wtag[x], Lp.wtag[y], R) & 63) == J[b, x, y]
+
+
+def test_sog_fast_resolution_equals_the_conflict_rule(sog):
+    """The kernel's structure tables reproduce the generic conflict rule (both rules), and the cache key determines
+    the table."""
+    import hooks_w_sog as S
+    import hooks_w_sog_kern as SK
+    SR, Lh, Lp = sog
+    rng = np.random.default_rng(3)
+    seen = {}
+    for rec in (0, 1):
+        for _ in range(400):
+            active = rng.random((4, 4)) < 0.7
+            T, tdict, ev = SR.new_tables(50)
+            s = int(rng.integers(3)); role = 0 if s == 0 else 1
+            cands = [x for x in range(Lh.KB if s == 0 else Lh.KW) if Lh.htags[role, x]]
+            base = cands[rng.integers(len(cands))]
+            tg = int(Lh.htags[role, base]); tags = [t for t in (0, 1) if (tg >> t) & 1]
+            nact = 9 if s == 0 else 2
+            fl = []
+            for _k in range(int(rng.integers(1, 5))):
+                sc = int(rng.integers(4))
+                key = {0: 0, 1: int(rng.integers(3)), 2: int(rng.choice([5, 6, 7])), 3: int(rng.integers(16))}[sc]
+                fl.append(S.fcode(int(rng.integers(nact)), tags[rng.integers(len(tags))], sc, int(rng.integers(4)), key))
+            f = np.zeros(4, np.int64); f[:len(fl)] = fl
+            t = SK.get_type(T, tdict, Lh.htags, Lh.wtag, active, rec, s, base, 9, f, len(fl))
+            for l0, l1 in ((5, 6), (6, 5), (7, -1), (-1, -1), (5, 5)):
+                Rf = np.zeros(S.RSZ, np.int8); Rg = np.zeros(S.RSZ, np.int8)
+                SK.rbuild(T, active, rec, t, l0, l1, Rf)
+                S.resolve(f, len(fl), tg, s, active, rec, l0, l1, Rg)
+                assert np.array_equal(Rf, Rg)
+                h = (int(SK.rkey(T, active, rec, t, l0, l1)), rec)
+                assert seen.setdefault(h, Rf.tobytes()) == Rf.tobytes()
+
+
+def test_sog_conflict_rule_and_scopes():
+    import hooks_w_sog as S
+    R = np.zeros(S.RSZ, np.int8)
+    act = np.ones((4, 4), np.bool_)
+    # worker in slot 1, tag 0: none -> strike, role (W1) -> work, history keyed on the boss (lineage 9) -> strike,
+    # behaviour on partner 0 (the boss) class 5 -> work
+    f = np.array([S.fcode(1, 0, S.NONE, 0, 0), S.fcode(0, 0, S.ROLE, 0, 1), S.fcode(1, 0, S.HIST, 1, 9),
+                  S.fcode(0, 0, S.BEH, 0, 5)], np.int64)
+    S.resolve(f, 4, 1, 1, act, 0, 9, 4, R)
+    idx = lambda ctx, b0, b1, t: ctx * 128 + b0 * 16 + b1 * 2 + t
+    assert R[idx(3, 5, 0, 0)] == 0            # behaviour wins
+    assert R[idx(3, 2, 0, 0)] == 1            # history (boss lineage 9, the boss actual) beats role
+    assert R[idx(2, 2, 0, 0)] == 0            # boss not actual (a probe): role beats none
+    f2 = np.array([S.fcode(1, 0, S.NONE, 0, 0), S.fcode(0, 0, S.ROLE, 0, 2)], np.int64)
+    S.resolve(f2, 2, 1, 1, act, 0, -1, -1, R)
+    assert R[idx(0, 0, 0, 0)] == 1            # a role fill keyed W2 does not apply to a W1 holder

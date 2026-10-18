@@ -447,6 +447,40 @@ def run_cell(cell, reps, procs):
             json.dump(sorted(rows, key=lambda r: r['rep']), open(path, 'w'))
 
 
+ORDER_PD = ['baseline', 'inert', 'maximal', 'seeding-only', 'grudge-only', 'no-contract', 'no-history', 'no-writes',
+            'no-copy', 'no-seed', 'no-behaviour', 'no-role', 'hist-shuffled', 'hist-noinherit', 'no-behaviour-renorm',
+            'no-history-renorm', 'recency']
+ORDER_FF = ['ff-baseline', 'ff-inert', 'ff-maximal', 'ff-grudge-only']
+
+
+def run_batch(cells, procs):
+    """All runs of the listed cells through one pool (40 runs per island cell, 20 per fission-fusion cell),
+    resumable: runs already in runs/hooks_w/CELL.json are skipped."""
+    from multiprocessing import Pool
+    os.makedirs(OUT, exist_ok=True)
+    rows = {}
+    jobs = []
+    for cell in cells:
+        path = os.path.join(OUT, '%s.json' % cell)
+        rows[cell] = [r for r in (json.load(open(path)) if os.path.exists(path) else []) if 'error' not in r]
+        done = {r['rep'] for r in rows[cell]}
+        nrep = 20 if CELLS[cell].get('ff') else 40
+        jobs += [(cell, r) for r in range(nrep) if r not in done]
+    print('%d jobs' % len(jobs), flush=True)
+    lang(True); lang(False)
+    with Pool(procs, maxtasksperchild=8) as pool:
+        for row in pool.imap_unordered(_job, jobs):
+            cell = row['cell']
+            if 'error' in row:
+                print('ERROR', cell, row['rep'], row['error'], flush=True)
+                continue
+            rows[cell].append(row)
+            print('%s rep %d: eff %.3f univ-open %s current %s lin-closed %.3f live %d (%.0fs)' % (
+                cell, row['rep'], row['eff_islands'], row['universal_open'], row['universal_current'],
+                row['lineage_closed'], row['live_types'], row['wall']), flush=True)
+            json.dump(sorted(rows[cell], key=lambda r: r['rep']), open(os.path.join(OUT, '%s.json' % cell), 'w'))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('cmd')
@@ -466,6 +500,9 @@ def main():
                   'eff', row['eff_islands'], 'lin-closed', row['lineage_closed'], 'counters', row['counters'][:11], flush=True)
     elif a.cmd == 'run':
         run_cell(a.cell, a.reps, a.procs)
+    elif a.cmd == 'batch':
+        cells = {'pd': ORDER_PD, 'ff': ORDER_FF}.get(a.cell) or a.cell.split(',')
+        run_batch(cells, a.procs)
 
 
 if __name__ == '__main__':

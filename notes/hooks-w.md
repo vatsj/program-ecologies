@@ -342,3 +342,39 @@ With three workers the PD part is about 6 hours of wall time; the total is proje
 dropped now. If the social organization projection pushes the total over about 20 hours, the spec's order applies:
 the conflict-rule ablation (`recency`) first, then fission–fusion (`ff-grudge-only`, then the rest), keeping
 seeding-only.
+
+### 2.6 The social organization wing (appended after its code and before its cells)
+
+**Built.** `src/hooks_w_sog.py` (the hooked union grammar via `union.RoleLang` with 27 boss leaves and 6 worker leaves,
+fill codes, the generic conflict rule `resolve`, and `eval_triple`: the GL evaluation of one encounter on the closure
+of slot substitutions, restricted to the nodes reachable from the actual encounter through hooked holders), 
+`src/hooks_w_sog_kern.py` (types (slot, base, lineage, fills); per-type resolution structure from which a resolution
+table and its cache key are built in O(fills); the island kernel with a dense per-island tensor of joint codes;
+history-variant slice reuse; amendment-4 triggers; worker copying; boss–worker contracts; on-path threat statistics)
+and `src/hooks_w_sog_run.py` (founders, cells, the stored baseline, validation). Sizes: 2,835 boss canons (plain 297)
+and 6,756 worker canons (plain 452); hook-carrying programs hold 0.67 of the boss prior and 0.68 of the worker prior;
+the constant scab and striker fall from 0.48 each to 0.156 each.
+
+**Validated** (`runs/hooks-w-sog-validate.json`, tests 12–14):
+- the stored kernel run through this module reproduces the stored CC-mN1 rows (runs 0 and 1: stop generations 4,775
+  and 591 and every island label equal);
+- `eval_triple` equals `union.tensor` on 30,000 random plain triples; hooked triples with every fill inert equal their
+  default-resolved triples on 5,000 random triples;
+- the kernel's structure-table resolution equals the generic conflict rule on 18,000 random tables under both rules,
+  and its cache key never maps two different tables to one key; the scope order and the role key are unit-tested.
+
+**Deviations, declared before any social-organization cell.**
+1. **Geometry (30, 16), mN = 1, horizon 1,000, 40 runs** (§1.9 said (100, 16) to 2,000). With lineage-keyed writes
+   nearly every program is its own type, and the three-slot mean field costs O(N²) per type change: a timing probe ran
+   at about 3.6 s per generation at N = 100 after every exact optimization, and 0.07 s at N = 30. The no-hook baseline
+   is the stored kernel (sog_lottery.kern with CC-mN1's class tables and seeds) run at the same (30, 16), not the stored
+   N = 100 rows, which serve only as the kernel's reproduction check. A `plain` cell (the plain grammar through this
+   kernel, no encounters) checks that the two kernels share the law at (30, 16).
+2. Contract candidates are restricted to wage-for-work fill pairs (§1.7), and contract acceptance resolves the parties'
+   fills with the generic conflict rule under the candidate-active matrix.
+3. A boss's trigger: a grudge (action (0, strike)) against a striking worker takes priority over a thanks.
+
+**Cells:** baseline, plain, inert, maximal, seeding-only, grudge-only, no-contract, no-history, no-behaviour, no-role.
+**Projected cost:** maximal-like cells about 70 s per run (1,000 generations), so about 6–7 worker-hours for the ten
+cells. Total projection with the PD part and fission–fusion: about 25 worker-hours on three workers (about 9 hours of
+wall time), within the ~20-hour wall budget; nothing is dropped.
