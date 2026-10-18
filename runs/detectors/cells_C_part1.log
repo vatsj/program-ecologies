@@ -1,0 +1,48 @@
+cells_C.json.gz: 240 jobs, 0 done, 240 to run on 3 workers
+  Cff_K0_e0 rep 0: last 10000, final islands 1, det 0.000 pbn 1.000 writes 0 types 9526 (80s; total 85s)
+  Cff_L_e0 rep 0: last 10000, final islands 1, det 0.000 pbn 1.000 writes 0 types 9535 (98s; total 103s)
+  Cff_KG_e0 rep 0: last 10000, final islands 1, det 0.000 pbn 1.000 writes 272199 types 9544 (113s; total 118s)
+  Cff_K0_t1 rep 0: last 10000, final islands 1, det 0.000 pbn 1.000 writes 0 types 9526 (87s; total 172s)
+  Cff_KG_t1 rep 0: last 10000, final islands 1, det 0.000 pbn 1.000 writes 272199 types 9544 (114s; total 216s)
+  Cff_KGs_e0 rep 0: last 10000, final islands 1, det 0.000 pbn 1.000 writes 77873 types 9544 (105s; total 277s)
+  Cis_L_e0 rep 0: last 10000, final islands 64, det 0.000 pbn 1.000 writes 0 types 9561 (89s; total 306s)
+  Cis_K0_e0 rep 0: last 10000, final islands 64, det 0.000 pbn 1.000 writes 0 types 9557 (75s; total 353s)
+  Cis_KG_e0 rep 0: last 10000, final islands 64, det 0.000 pbn 1.000 writes 94771 types 9578 (89s; total 395s)
+  Cis_K0_t1 rep 0: last 10000, final islands 64, det 0.000 pbn 0.968 writes 0 types 9557 (86s; total 438s)
+  Cis_KG_t1 rep 0: last 10000, final islands 64, det 0.000 pbn 1.000 writes 95348 types 9578 (94s; total 489s)
+  Cff_KGh_e0 rep 0: last 10000, final islands 1, det 0.000 pbn 1.000 writes 10127125 types 9544 (375s; total 493s)
+  Cff_L_e0 rep 1: last 10000, final islands 1, det 0.000 pbn 1.000 writes 0 types 9551 (78s; total 517s)
+  Cff_K0_e0 rep 1: last 10000, final islands 1, det 0.000 pbn 1.000 writes 0 types 9545 (76s; total 565s)
+  Cff_K0_t1 rep 1: last 10000, final islands 1, det 0.000 pbn 1.000 writes 0 types 9545 (76s; total 593s)
+  Cff_KG_e0 rep 1: last 10000, final islands 1, det 0.000 pbn 1.000 writes 125508 types 9565 (99s; total 593s)
+  Cff_KG_t1 rep 1: last 10000, final islands 1, det 0.000 pbn 1.000 writes 125508 types 9565 (101s; total 666s)
+  Cff_KGs_e0 rep 1: last 10000, final islands 1, det 0.000 pbn 1.000 writes 91895 types 9565 (79s; total 672s)
+  Cis_L_e0 rep 1: last 10000, final islands 64, det 0.000 pbn 0.004 writes 0 types 9564 (83s; total 750s)
+  Cis_K0_e0 rep 1: last 10000, final islands 64, det 0.000 pbn 1.000 writes 0 types 9560 (83s; total 755s)
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/Users/jstav/anaconda3/lib/python3.11/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/Users/jstav/code/program-ecologies/.claude/worktrees/agent-a896af328ecd32dc2/src/detectors_run.py", line 369, in ff_job
+    R.advance(every)
+  File "/Users/jstav/code/program-ecologies/.claude/worktrees/agent-a896af328ecd32dc2/src/detectors.py", line 756, in advance
+    raise RuntimeError('kernel error %d at generation %d (base types %d, grudge types %d, lists %d)' % (
+RuntimeError: kernel error 32 at generation 97 (base types 15814, grudge types 9565, lists 4000000)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/jstav/code/program-ecologies/.claude/worktrees/agent-a896af328ecd32dc2/src/detectors_run.py", line 788, in <module>
+    main()
+  File "/Users/jstav/code/program-ecologies/.claude/worktrees/agent-a896af328ecd32dc2/src/detectors_run.py", line 783, in main
+    {'gate': cmd_gate, 'static': cmd_static, 'ext': cmd_ext, 'grudge': cmd_grudge, 'validate': cmd_validate,
+  File "/Users/jstav/code/program-ecologies/.claude/worktrees/agent-a896af328ecd32dc2/src/detectors_run.py", line 645, in cmd_cells
+    run_pool(ff_job, jobs, os.path.join(OUT, 'cells_%s%s.json.gz' % (a.part, a.tag)), nw)
+  File "/Users/jstav/code/program-ecologies/.claude/worktrees/agent-a896af328ecd32dc2/src/detectors_run.py", line 497, in run_pool
+    for r in pool.imap_unordered(fn, todo):
+  File "/Users/jstav/anaconda3/lib/python3.11/multiprocessing/pool.py", line 873, in next
+    raise value
+RuntimeError: kernel error 32 at generation 97 (base types 15814, grudge types 9565, lists 4000000)

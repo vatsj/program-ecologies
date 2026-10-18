@@ -1,0 +1,258 @@
+{
+ "L": {
+  "detector": {
+   "unit": 12431,
+   "C": [
+    "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[RunNeg \u00b7 EvR*@1; Ax]]"
+   ],
+   "D": [
+    "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[EvR*; Ax \u00b7 Hyp]]"
+   ],
+   "self": 1,
+   "twin": 0,
+   "coop_with": 187,
+   "of": 11365,
+   "vs": {
+    "C": [
+     0,
+     1
+    ],
+    "D": [
+     0,
+     0
+    ],
+    "FairBot": [
+     0,
+     0
+    ],
+    "PrudentBot": [
+     0,
+     0
+    ],
+    "anti-punisher": [
+     0,
+     0
+    ]
+   },
+   "in_T": false,
+   "pred_mass": 0.0057702282157676334,
+   "pred_n": 74,
+   "pred_top": [
+    [
+     "if(and(CHK(me,them,C),CHK(me,^C,D)),C,D)",
+     0.00012966804979253112,
+     1451
+    ],
+    [
+     "if(or(CHK(them,^D,D),CHK(me,me,D)),D,D)",
+     0.00012966804979253112,
+     1041
+    ],
+    [
+     "if(and(CHK(me,^D,D),CHK(me,them,C)),C,D)",
+     0.00012966804979253112,
+     2067
+    ]
+   ],
+   "pred_constants": [],
+   "exploiter_mass": 0.006288900414937758
+  },
+  "DET": {
+   "n": 11,
+   "mass": 0.0007131742738589211,
+   "top": [
+    [
+     "if(and(CHK(me,them,D),not(CHK(them,them,C))),D,C)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(or(not(CHK(me,them,D)),CHK(them,them,C)),C,D)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(CHK(them,me,C),C,if(CHK(me,them,D),D,C))",
+     6.483402489626556e-05
+    ],
+    [
+     "if(CHK(me,them,D),if(CHK(them,me,C),D,D),C)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(and(not(CHK(them,me,C)),CHK(me,them,D)),D,C)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(CHK(me,them,D),if(CHK(them,me,C),C,D),C)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(or(not(CHK(me,them,D)),CHK(them,me,C)),C,D)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(or(CHK(them,me,C),not(CHK(me,them,D))),C,D)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(and(CHK(me,them,D),not(CHK(them,me,C))),D,C)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(CHK(me,them,D),if(CHK(them,them,C),C,D),C)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(CHK(me,them,D),if(CHK(them,them,C),D,D),C)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(not(and(CHK(me,^D,D),CHK(them,^C,D))),C,C)",
+     6.483402489626556e-05
+    ]
+   ]
+  },
+  "PBN": {
+   "n": 484,
+   "mass": 0.03870591286307054
+  },
+  "effsp": {
+   "n": 402,
+   "mass": 0.03079616182572614
+  },
+  "T_units": 235,
+  "units": 17394,
+  "reachable": 11365,
+  "sucker_mass": 0.49014522821576756,
+  "writers": 0,
+  "DET_mutual_PB": 0.6363636363636364,
+  "DET_mutual_FB": 0.6363636363636364
+ },
+ "K": {
+  "detector": {
+   "unit": 12431,
+   "C": [
+    "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[RunNeg \u00b7 EvR*@1; Ax]]"
+   ],
+   "D": [
+    "EvR*; ChkR[RunNeg \u00b7 EvR*@1; ChkR[EvR*; Ax \u00b7 Hyp]]"
+   ],
+   "self": 1,
+   "twin": 1,
+   "coop_with": 10186,
+   "of": 11260,
+   "vs": {
+    "C": [
+     1,
+     1
+    ],
+    "D": [
+     0,
+     0
+    ],
+    "FairBot": [
+     1,
+     1
+    ],
+    "PrudentBot": [
+     1,
+     1
+    ],
+    "anti-punisher": [
+     1,
+     0
+    ]
+   },
+   "in_T": true,
+   "pred_mass": 0.2599196058091286,
+   "pred_n": 3319,
+   "pred_top": [
+    [
+     "if(CHK(them,them,D),D,D)",
+     0.0005186721991701245,
+     17
+    ],
+    [
+     "if(CHK(me,^D,D),D,D)",
+     0.0005186721991701245,
+     65
+    ],
+    [
+     "if(CHK(me,^D,D),D,C)",
+     0.0005186721991701245,
+     12361
+    ]
+   ],
+   "pred_constants": [],
+   "exploiter_mass": 0.3180757261410788
+  },
+  "DET": {
+   "n": 21,
+   "mass": 0.0017505186721991702,
+   "top": [
+    [
+     "if(or(CHK(them,them,D),CHK(me,them,D)),D,C)",
+     0.00012966804979253112
+    ],
+    [
+     "if(or(CHK(me,them,D),CHK(them,me,D)),D,C)",
+     0.00012966804979253112
+    ],
+    [
+     "if(or(CHK(them,^C,D),CHK(me,them,D)),D,C)",
+     0.00012966804979253112
+    ],
+    [
+     "if(or(CHK(them,me,D),CHK(me,them,D)),D,C)",
+     0.00012966804979253112
+    ],
+    [
+     "if(or(CHK(me,them,D),CHK(them,them,D)),D,C)",
+     0.00012966804979253112
+    ],
+    [
+     "if(or(CHK(me,them,D),CHK(them,^C,D)),D,C)",
+     0.00012966804979253112
+    ],
+    [
+     "if(not(or(CHK(them,them,D),CHK(me,them,D))),C,D)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(CHK(me,them,D),D,if(CHK(them,me,D),D,C))",
+     6.483402489626556e-05
+    ],
+    [
+     "if(not(or(CHK(me,them,D),CHK(them,me,D))),C,D)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(not(or(CHK(them,^C,D),CHK(me,them,D))),C,D)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(and(not(CHK(me,them,D)),CHK(them,me,C)),C,D)",
+     6.483402489626556e-05
+    ],
+    [
+     "if(not(or(CHK(me,them,D),CHK(them,them,D))),C,D)",
+     6.483402489626556e-05
+    ]
+   ]
+  },
+  "PBN": {
+   "n": 619,
+   "mass": 0.04920902489626555
+  },
+  "effsp": {
+   "n": 402,
+   "mass": 0.03079616182572614
+  },
+  "T_units": 298,
+  "units": 17375,
+  "reachable": 11260,
+  "sucker_mass": 0.5033713692946058,
+  "writers": 275,
+  "DET_mutual_PB": 0.42857142857142855,
+  "DET_mutual_FB": 0.42857142857142855
+ }
+}

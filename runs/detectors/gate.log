@@ -1,0 +1,34 @@
+g1: 240 sampled stored checks (T 126, F 103, TO 11), 0 differences in value or steps
+δ = EvR*; ChkR[RunNeg · EvR*@1; ChkR[EvR*; Ax · Hyp]] (stored script 10: True); σ_C (det, empty list, vs FairBot-H) = EvR*; ChkR[RunNeg · EvR*@1; ChkR[RunNeg · EvR*@1; Ax]]
+L detector [δ] plays: vs CooperateBot D, own quote C, FairBot-H D, PrudentBot-H D
+  L det [δ] vs CooperateBot (generic self-hypothesis D)          D T  host T  steps   10622 atom True
+K detector and grudges (g2-g4)
+  K det vs ⌜D⌝: Key_⌜D⌝[δ] matches                               D T  host T  steps   15960 atom True
+  K det vs P, no grudge                                          D F  host F  steps    1202 atom None
+  g2 det+Key_P[δ] vs P                                           D T  host T  steps   25485 atom True
+  g3 det+Key_P[δ] vs respelled P                                 D F  host F  steps    2279 atom None
+  g3 det+Key_P[δ] vs CooperateBot                                D F  host F  steps    2279 atom None
+  g3 det+Key_P[δ] C-cert vs CooperateBot                         C T  host T  steps   27659 atom True
+  g3 det+Key_P[δ] C-cert vs P (RunNeg on own D box fails)        C F  host F  steps   50588 atom None
+  g4 det+Key_P[δ] vs P carrying a certificate                    D T  host T  steps   25628 atom True
+  K det C-cert vs FairBot-H                                      C T  host T  steps   35883 atom True
+    plays K det vs FairBot-H: C / C
+  K det C-cert vs PrudentBot-H                                   C T  host T  steps   57280 atom True
+    plays K det vs PrudentBot-H: C / C
+g5: forged grudges
+  g5 CooperateBot + Key_P[δ] vs P                                D F  host F  steps   10351 atom None
+  g5 FairBot + Key_P[δ] vs P (FairBot plays D anyway)            D F  host F  steps   12937 atom None
+  g5 negated reader + Key_P[δ] vs P                              D F  host F  steps   12536 atom None
+  g5 negated reader + Key_P[EvR*; ChkR[EvR*; Ax · Hyp]] vs P     D F  host F  steps   11214 atom None
+  g5 negated reader + Key_P[Hyp] vs P                            D F  host F  steps     832 atom None
+  g5 negated reader + Key_P[EvR*; ChkR[Hyp · Hyp]] vs P          D F  host F  steps   10485 atom None
+  g5 negated reader + Key_P[EvR*; ChkR[Ax · Hyp]] vs P           D F  host F  steps   10518 atom None
+g6: mutual grudges (the detector and if(CHK(me,them,D),D,C))
+  g6 det(grudge vs eff) vs eff(grudge vs det)                    D T  host T  steps   27351 atom True
+  g6 eff(grudge vs det) vs det(grudge vs eff)                    D T  host T  steps   19536 atom True
+  K if(CHK(me,them,D),D,C) (keyed δ) vs CooperateBot: sucker without grudges D F  host F  steps     573 atom None
+g8:  0 grudges: CHK(det,C,D) F   1202; CHK(det,P,D) F   1202; CHK(det,C,C) T  17176; play vs C C   1307 steps
+g8:  1 grudges: CHK(det,C,D) F   2279; CHK(det,P,D) T  25485; CHK(det,C,C) T  27659; play vs C C   2384 steps
+g8:  3 grudges: CHK(det,C,D) F   4433; CHK(det,P,D) T  44457; CHK(det,C,C) T  48625; play vs C C   4538 steps
+g8: 16 grudges: CHK(det,C,D) F  18434; CHK(det,P,D) T 166735; CHK(det,C,C) T 184904; play vs C C  18539 steps
+GATE: GO (bad: []; unexpected: []; 12s)
