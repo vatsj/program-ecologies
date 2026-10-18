@@ -258,6 +258,25 @@ def transitions(rows, cell):
             fo = [c for c in ch[i] if c[4] == 'o']
             if fo:
                 first.append((fo[0][0], fo[0][5]))
+    # baseline: every island's first open record, by world (local lineage share at that record)
+    for w_, src in (('K', b), ('L', a)):
+        allf = []
+        for k in reps:
+            seen = set()
+            for c in src[k]['changes']:
+                if c[4] == 'o' and c[1] not in seen:
+                    seen.add(c[1]); allf.append((c[0], c[5]))
+        if allf:
+            out['first_open_all_' + w_] = dict(n=len(allf), median_gen=float(np.median([f[0] for f in allf])),
+                                              local_at_first=float(np.mean([(f[1] or 0) >= 0.5 for f in allf])))
+    li = []; lo = []
+    for k in reps:
+        sl = snap(a[k], 2000)
+        if sl.get('local'):
+            li += [sl['local'][i] for i, x in enumerate(sl['cls']) if x == 'i' and sl['local'][i] is not None]
+            lo += [sl['local'][i] for i, x in enumerate(sl['cls']) if x == 'o' and sl['local'][i] is not None]
+    if li: out['L_identity_holders_local_2000'] = dict(n=len(li), local_frac=float(np.mean(np.array(li) >= 0.5)), mean=float(np.mean(li)))
+    if lo: out['L_open_holders_local_2000'] = dict(n=len(lo), local_frac=float(np.mean(np.array(lo) >= 0.5)), mean=float(np.mean(lo)))
     out['L_identity_at_2000_K_counterpart'] = dict(att)
     if first:
         out['K_first_open'] = dict(n=len(first), median_gen=float(np.median([f[0] for f in first])),
@@ -312,6 +331,45 @@ def pg_paired_uo(rows, cell, g=2000):
     return mcnemar([at(a[k]) for k in reps], [at(b[k]) for k in reps]) if reps else None
 
 
+def derived(isl, pg):
+    """Rain against its paired eps = 0 branch; pooled Pangaea losses; the copy-count regression (sol 8)."""
+    out = {}
+    e0 = {(r['rep'], r['world']): r for r in isl if r['cell'] == 'wk_Snon_200_64'}
+    for w in ('L', 'K'):
+        rr = [r for r in isl if r['cell'] == 'wk_rain_200_64' and r['world'] == w]
+        lab = lambda r, l: sum(1 for x in r['final']['rr']['labels'] if x == l)
+        out['rain_' + w] = dict(
+            n=len(rr), arrivals_mean=float(np.mean([r['arrivals'] for r in rr])),
+            exploitable_rain=sum(lab(r, 'exploitable') for r in rr), exploitable_e0=sum(lab(e0[(r['rep'], w)], 'exploitable') for r in rr),
+            identity_rain=sum(lab(r, 'identity') for r in rr), identity_e0=sum(lab(e0[(r['rep'], w)], 'identity') for r in rr),
+            closed_open_rain=sum(lab(r, 'closed-open') for r in rr), closed_open_e0=sum(lab(e0[(r['rep'], w)], 'closed-open') for r in rr),
+            uot_rain=sum(int(r['final']['rr']['uot']) for r in rr), uot_e0=sum(int(e0[(r['rep'], w)]['final']['rr']['uot']) for r in rr),
+            ident_isl_rain=float(np.mean([r['final']['identity_islands'] / r['I'] for r in rr])),
+            ident_isl_e0=float(np.mean([e0[(r['rep'], w)]['final']['identity_islands'] / r['I'] for r in rr])),
+            ident_isl_paired_diff_per_island=float(np.mean([(r['final']['identity_islands'] - e0[(r['rep'], w)]['final']['identity_islands']) / r['I'] for r in rr])))
+    lostf = lambda r: r['first_lost'] >= 0 or r['final'].get('status') == 'lost'
+    xs, ys = [], []
+    for c in ('pg_L_3200_1_r100', 'pg_L_6400_1_r100', 'pg_L_12800_1_r100'):
+        a = {r['rep']: r for r in pg if r['cell'] == c and r['world'] == 'K'}
+        b = {r['rep']: r for r in pg if r['cell'] == c and r['world'] == 'L'}
+        for k in sorted(set(a) & set(b)):
+            xs.append(lostf(a[k])); ys.append(lostf(b[k]))
+    out['pangaea_lost_pooled_K_minus_L'] = dict(K=int(sum(xs)), L=int(sum(ys)), **mcnemar(xs, ys))
+    try:
+        import statsmodels.api as sm
+        X, y, cells = [], [], []
+        for r in isl:
+            if r['world'] == 'K' and r['tag'] == 'Snon' and r['N'] >= 200:
+                X.append(sum(r['seeded']['Q'])); y.append(int(r['final']['universal_open'])); cells.append(r['cell'])
+        cs = sorted(set(cells))
+        D = np.array([[1.0 if c == cc else 0.0 for cc in cs] for c in cells])
+        m = sm.Logit(np.array(y), np.column_stack([np.array(X, float), D])).fit(disp=0)
+        out['copy_count_logit_K_Snon_N200'] = dict(n=len(y), slope=float(m.params[0]), p_two_sided=float(m.pvalues[0]))
+    except Exception as ex:
+        out['copy_count_logit_K_Snon_N200'] = dict(error=str(ex))
+    return out
+
+
 def main():
     A = load('A'); B = load('B'); D = load('D'); C = load('C'); Nn = load('N')
     isl = A + B + D
@@ -333,6 +391,7 @@ def main():
     rep['pairs'] = pairs
     rep['transitions'] = {c: transitions(isl, c) for c in sorted(set(r['cell'] for r in isl))}
     rep['pg_pairs'] = {c: dict(lost=pg_paired_lost(C + Nn, c), uo2000=pg_paired_uo(C + Nn, c)) for c in sorted(set(r['cell'] for r in C + Nn))}
+    rep['derived'] = derived(isl, C + Nn)
     json.dump(rep, open(os.path.join(ROOT, 'runs', 'world-k.json'), 'w'), indent=1, default=str)
     print(json.dumps(rep, indent=1, default=str)[:20000])
 
