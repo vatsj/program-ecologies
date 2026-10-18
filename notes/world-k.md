@@ -275,3 +275,84 @@ Paired L / K everywhere; ε = 0 unless stated; calibrated mN = (N/100)^0.7 for I
 - Rain in K adds no identity (theorem: arrivals are S-nonself) and cures exploitable rivals; in L it adds identity
   islands relative to the paired ε = 0 branch.
 - r = N/2 changes nothing beyond ±3 runs per cell in either world.
+
+## 2. Code, validation, mechanism checks and costs (appended after the code, before any counted cell)
+
+Code: `src/world_k.py` (world switch, cells, founders, the island run object with lineages, per-island statistics,
+the island and Pangaea jobs), `src/world_k_run.py` (validate, statics, probe, cells), `src/world_k_report.py`;
+`tests/test_world_k.py` (6 tests, passing; 3 term-level, 3 needing the cached tables). No existing `src/` file was
+edited; every module is imported and its caches are re-pointed per job by `use_world`.
+
+### 2.1 Validation (`runs/world-k-validate.json`)
+
+- **World L reproduces stored runs draw for draw.** S-nonself (200, 64) calibrated, reps 0–2, to 2,000 against the
+  stored scaling rows (r = N/2 = 100 there): 41 trace points each (P(C,C), held, identity islands, universal-open,
+  type count), 0 differences, and the 2,000 snapshot's universal-open and identity counts equal. The proportional
+  control (200, 64), reps 0–1: 41 and 40 points, 0 differences. The Pangaea (200, 64) cell rep 0 and fission–fusion
+  rep 0 through the Pangaea job under the L switch: 80 points each against the stored Pangaea rows, 0 differences.
+- **World K reproduces the detectors run's K0 island cell draw for draw.** S-nonself (200, 64) under K, reps 0–2, to
+  10,000 against `Cis_K0_e0` (same founders, seed, r and mN): 281 / 281 / 206 checkpoints of mean P(C,C), the final
+  per-island P(C,C) and universal-open, 0 differences (rep 2 froze, as stored).
+- **Lineage tracking is inert:** (100, 64) under K, reps 0–1, to 500 with tracking on and off: identical traces (31 and
+  38 points).
+- **K tables are the detectors run's:** 17,375 units, 11 identity units in the universe, 0 S-nonself identity
+  spellings, 2,335 open units (the tracked `sets.json`); DET 21 spellings (μ 0.00175), PBN 619, 298 target units (the
+  tracked `detectors-static.json`).
+- N = 100 and N = 400 stored scaling rows ran at r = N/2 (50 and 200); this run's r = 100 differs there by design, so
+  only the N = 200 cells and the Pangaea cells (r = 100 when stored) are reproduction checks.
+
+### 2.2 Mechanism checks (amendment 2.5; tests, term level, K = 10⁶, the Key library)
+
+The TwinD reader's D-step script δ (produced against ⌜D⌝, hypothesis-closed), keyed to ⌜D⌝:
+- accepted at its production partner's root (TwinD, ⌜D⌝): T;
+- rejected against a population DefectBot, CooperateBot and `if(CHK(them,me,C),D,C)`, and at the self-play root: F;
+- the keyed reader *plays C against the population DefectBot* and CooperateBot; the same δ unkeyed (world L) validates
+  against the population DefectBot and the reader defects;
+- after copying onto a synonym spelling (same run tree): still T at ⌜D⌝ and F against the population DefectBot and
+  against TwinD; with the entry removed: F at ⌜D⌝. **Eviction** does not arise in K0 (no list cap; every keyed
+  certificate carries the one key ⌜D⌝, §1.1), so the eviction check is the removal check;
+- `key_of(population DefectBot) ≠ KEY_D = key_of(⌜D⌝)`.
+
+Identity is classified on reachable certificate inventories (the units of each world's closure), never on templates;
+P(C,C), target membership and the static transition labels are reported separately from the "open" label.
+
+### 2.3 Deterministic family dynamics, L and K (`runs/world-k-static.json`; certificates saturated, infinite
+well-mixed population, prior L)
+
+Almost identical: the AP network starts at 0.102 (L) and 0.116 (K) and is gone by generation 50 in both; the former
+TwinD family (identity in L, suckers in K) is gone by generation 20 in K and by 150 in L; the target holds 0.9476 (L)
+and 0.9506 (K) at 200, 0.9964 and 0.9980 at 2,000; the top holders are the same FairBot-family spellings. The AP
+network's 40% mass gain does not survive the sucker phase in the mean field; whether it matters on finite islands is
+what the cells measure.
+
+### 2.4 Deviations and conventions (declared before any cell)
+
+1. **K's static set carries L's Q** as `Q` (the former TwinD family), K's own empty set as `Q_K`; this is a labelling
+   device for tracking and for the proportional control's founders (identical slots in both worlds); every identity
+   statistic uses the world's own identity units.
+2. **Island cells run on the annealed kernel with lineage tracking** (provenance's draws at r = 100; draw 7 for the
+   parent individual); Pangaea, fission–fusion and r = N/2 cells on the Pangaea run's job. Pangaea-continuum island
+   cells ((200, 64), (800, 16), (3,200, 4)) therefore have no lineage log; migrant ancestry is reported for the
+   scaling, provenance and rain cells.
+3. **Horizons:** scaling, provenance and rain cells 10,000 (T_ext not used; the spec says 2,000 and 10,000), with the
+   stored scaling run's frozen stop; Pangaea cells 2,000 extended to 10,000 for every run not frozen (the Pangaea
+   run's convention for its continuum); r = N/2 cells 2,000.
+4. **Runs:** 20 per cell, 40 for S-nonself and S-self at (100, 64) (the stored provenance and scaling counts), 20 for
+   the proportional control there.
+5. **Rain:** the annealed K = 3 schedule (onset 200, t₀ = N/2, 156 arrivals per island, cut at 10,000), paired
+   founder streams per island, paired with the ε = 0 S-nonself cell (identical to generation 200). Arrivals are
+   S-nonself fresh founders from L with empty lists.
+6. **Removing-rivals classes** at 2,000 and at the end for every island cell with N ≥ 200 (the scaling cells, the
+   S-self (200, 64) cell and the rain cell), with the target set of each run (its target holders plus PrudentBot-H).
+7. **S-self production budget** is the expected self-root share of lacking S-self producers' C attempts (their quote's
+   island frequency among the other N − 1), not a kernel count (the kernel has no self-attempt counter); minting is
+   the kernel's identity-entry counter.
+
+### 2.5 Costs (probes on a discarded replicate, 990; `runs/world_k/probe.json`)
+
+(400, 64) K to 1,000: 43 s (L 40 s); (100, 256) K to 1,000: 22 s; rain (200, 64) to 1,000: 12 s; detectors' K0
+(200, 64) to 10,000: 60–75 s; Pangaea (6,400, 1) to 300: 4 s at r = 100, 54 s at r = N/2; (3,200, 4) r = N/2 to 300:
+118 s; (800, 16) r = N/2 to 260: 45 s. Stored times for the matching Pangaea and scaling cells (r = 100 or N/2):
+0.2–2 worker-hours per 20-run cell. Projected: A (24 cells, 520 runs) ≈ 16 worker-h with the rival classification; B
+(4 cells, 120 runs) ≈ 1; C (14 cells, 280 runs) ≈ 5; C′ (6 cells, 120 runs) ≈ 8; D (2 cells, 40 runs) ≈ 1.5:
+**≈ 32 worker-hours, about 11 hours on 3 workers, under the 24-hour line: nothing is dropped.**
