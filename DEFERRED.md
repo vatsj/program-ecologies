@@ -220,6 +220,16 @@ REJECTED.md the ones we dropped.
   *For that conversation (gemini-4-argon, review of the reruns spec):* source-keying replaces a semantic flaw with a
   combinatorial one (one keyed certificate per distinct defector quote, thrashable under a capped list); keying to the
   canonical sub-tree used in the proof is the structural alternative.
+- *Evidence and a correction (2026-10-18, identity-dependent results under world K):* as implemented, K's only key is
+  the literal ⌜D⌝ (the D step's partner), which no population member carries, so K switches self-certified defection off
+  in play; the RE's description to the RS ("counts only against the opponent it was written about") was operationally
+  wrong in this grammar. Under K identity vanishes under S-nonself (universal-open 0.75–0.95 at every scaling cell, flat
+  in N·I within these cells), self-play production still mints C-identity cliques, the Pangaea's establishment failure
+  is not detectably changed, and the anti-punisher network is the residue; certified unconditional cooperators pass
+  PrudentBot's ⌜D⌝ guard (RESULTS "Identity-dependent results under world K"). *For the certificates conversation:* a
+  variant keyed to population DefectBot sources, or a guard that reads a population defector rather than the literal,
+  is the open design question; the combinatorial concern does not arise in K as implemented. *Operating hypothesis:*
+  K stays the provisional default on its measured effects.
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,

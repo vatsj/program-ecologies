@@ -5515,6 +5515,87 @@ Vertical inheritance suffices: at 200 production encounters per program per gene
 - **Each half alone is partial** (R1 0.20; alternatives alone 0.05).
 - **Root validation is the price,** and the mark cannot remove it because it is a correct check, not a futile retry. In the pilots a list cap was not a cheap fix: it turned coverage into repeated re-production.
 - *Caveats:* ε = 0 at finite (N, I, horizon); outcomes all-or-nothing by run; R1 and R0 + alternatives confirmed on 20 streams, R2, R0 and H-full on 40; executed cells and diagnostics on development streams only, the diagnostics on streams selected by R2's outcome.
+## Identity-dependent results under world K: K removes identity under S-nonself, and with it the detectable copy-count effect and the clique's cost along the continuum; self-play production still mints cliques; no detectable change in Pangaea establishment (`runs/world-k.md`, `runs/world-k.json`, `runs/world_k/`, `runs/world-k-{validate,static}.json`, `notes/world-k.md`; spec `specs/2026-10-18-world-k-reruns.md`, predictions in `predictions/2026-10-18-world-k-reruns.md` with both reviewers' counter-predictions registered)
+
+**Provenance.** The RE designed this after the RS adopted world K provisionally (DEFERRED 1). gemini-4-argon and then gpt-6.1-sol reviewed the spec, and an Opus subagent ran it (`src/world_k{,_run,_report}.py`; `tests/test_world_k.py`, 6 tests, 3 needing the untracked cache). Order of commits: notes §1 by hand; predictions; code with validation and mechanism checks; the cells. This section was audited against the run files by gpt-6.1-sol and then gemini-4-argon before commit.
+
+**What K is in this machinery (statics).**
+- **K's only key is the literal DefectBot quote.** Every hypothesis-closed D certificate comes from the D step, which is produced against the literal ⌜D⌝, so in K it is keyed to ⌜D⌝. No population member has ⌜D⌝ as its bare source: a population DefectBot carries the grammar body, and the key test fails on it.
+- **Self-certified defection is therefore never live in play.** Hypothesis-closed D certificates are live against non-partners in 0.278 of cases in L and 0 in K. The RE's description to the RS ("stamped with whom it was written against") is operationally "switched off" in this grammar.
+- **Identity.** No unit reachable under S-nonself is an identity unit (8 in L). A minted C-identity class survives under S-self: 10 run trees, μ 0.00195, e.g. `if(and(CHK(me,me,C),CHK(me,them,C)),C,D)`.
+- **Network mass is unchanged:** μ_net goes from 0.0280 to 0.0277.
+- **The former TwinD family become certified unconditional cooperators** that pass PrudentBot's ⌜D⌝ guard; DefectBot is their top predator (predator mass 0.44).
+- **0.0126 of prior mass moves from illegible defectors into the anti-punisher (AP) network.**
+
+**Validation.** World L reproduces the stored scaling rows (N = 200) and Pangaea rows draw for draw; world K reproduces the detector run's K cell at (200, 64) to 10,000; lineage tracking is inert; K's tables equal the detector run's.
+
+**Disclosures.** A first rain batch stopped frozen runs before the schedule ended; it was set aside unscored and rerun. One K Pangaea run at r = N/2 was capped at 3.7 h, so that cell is scored on 19 runs. All cells ran at r = 100 (the stored N = 100 cells used r = 50 and the stored N = 400 cells r = 200), and the L comparisons here are this run's own paired L cells. The K proportional control removes L's TwinD founders (Q), not a newly defined K identity family. About 33 worker-hours.
+
+**Scaling path** (S-nonself, universal-open runs at 10,000 of 20, 40 for S-nonself at (100, 64); paired K − L; proportional control beside, of 20 in every row):
+
+| (N, I) | L | K | K − L [95%], p | L prop | K prop |
+|---|---|---|---|---|---|
+| (100, 64) | 29 | 37 | +0.20 [−0.01, 0.32], 0.057 | 20 | 20 |
+| (200, 64) | 11 | 19 | +0.40 [0.06, 0.50], 0.022 | 16 | 18 |
+| (400, 64) | 9 | 18 | +0.45 [0.15, 0.45], 0.004 | 19 | 18 |
+| (100, 128) | 9 | 16 | +0.35, 0.09 | 17 | 19 |
+| (200, 128) | 4 | 19 | **+0.75 [0.42, 0.75], 10⁻⁴** | 16 | 16 |
+| (100, 256) | 6 | 15 | +0.45 [0.10, 0.55], 0.012 | 14 | 16 |
+
+- **Identity islands are 0** at every checkpoint of every K S-nonself, proportional and rain run (L: 0.01–0.14 per island).
+- **The former TwinD lineages are extinct by generation 100 in K;** in L they hold 0.05–0.13 of the population at 200.
+- **K is at the proportional control's level along the size and diagonal paths** (19 / 18 / 19 at (200, 64), (400, 64), (200, 128), against L's 11 / 9 / 4). No copy-count effect is detected (logistic slope on seeded former-TwinD copies +0.12, p = 0.33), so the registered expectation that copy dependence remains failed; this is not proof of independence.
+- **The residue is non-identity rivals,** mostly AP-network readers of the partner's or the literal ⌜D⌝ box, e.g. `if(CHK(them,me,D),D,if(CHK(them,me,C),C,D))`, though not all (the failing (200, 64) run has no AP rival). Universal on target trails universal-open (14 against 18 at (400, 64); 14 against 19 at (200, 128)).
+- **Islands stay efficient:** island P(C,C) ≥ 0.998 in K and 0.990–0.998 in L, excluding one scramble failure in each world.
+
+**Lineages.** At the first open record an island's holder descends from a founder of that island in only 5–13% of islands, in either world, and L's identity islands are themselves mostly migrant colonies (local in 5–21%). The lineage records do not single out a conversion step and are consistent with predominantly migrant establishment: in K the clique founder does not establish, and the open network's migrants take the island.
+
+**Provenance rule** (paired S-nonself − S-self): in K +0.25 at (100, 64) at 2,000 (p = 0.031), +0.275 at 10,000 (p = 0.007), and **+0.50 at (200, 64)** (p = 0.002); in L +0.275, +0.25 and +0.30. K S-self's identity islands (0.090 and 0.032 per island) are all minted C-identity; S-self also mints FairBot-with-self-conjunct near-cliques (1.5 rival islands per run), and one minted clique held all 64 islands of a K run from generation 340.
+
+**Pangaea continuum** (universal-open runs at the end of 20; all-defect runs in brackets):
+
+| cell | L | K | K − L, p |
+|---|---|---|---|
+| (200, 64) | 8 | **20** | +0.60, 0.0005 |
+| (800, 16) | 13 | **20** | +0.35, 0.016 |
+| (3,200, 4) | 17 (1) | 19 (1) | n.s. |
+| (12,800, 1) | 19 (1) | 18 (2) | n.s. |
+| fission–fusion | 20 | 20 | – |
+| Pangaea 6,400 | 15 (5) | 12 (8) | n.s. |
+| Pangaea 3,200 | 10 (9; 1 clique-held) | 10 (10) | – |
+
+Pooled over the three Pangaeas, K lost 20 of 60 runs and L 15 (paired difference +0.08 [−0.07, 0.21], p = 0.36): no detectable difference in establishment, with substantial differences still compatible with the interval. The AP network never exceeds 0.08 of a K Pangaea. Production at r = N/2 moves no count by more than 3 runs, but at 6,400 the sign of K − L reverses between r = 100 and r = N/2 (from −3 to positive; both n.s.; the r = N/2 K arm has 19 runs and a 2,000-generation horizon), so production invariance is not shown.
+
+**Rain** ((200, 64), annealed schedule at K = 3, paired with ε = 0): in L, rain adds identity (+0.018 islands per island) and universal-open stays 11 → 11; in K, rain adds no identity but has no exploitable rival to cure, creates 7 exploitable rival islands held by AP-network arrivals, and universal-open goes 19 → 18 (n.s.). K rain against L rain: 18 against 11.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | identity ≤ 0.005 per island in every K cell | held in every S-nonself, proportional and rain cell (0); **falsifier fired in the S-self cells** (0.090, 0.032) |
+| RE 2 | K within 0.1 of L's proportional control at N ≥ 200 | level held (0.90–0.95); "within 0.1" held at (400, 64) and failed by exceeding it at (200, 64) and (200, 128) (+0.15, n.s.) |
+| RE 3 | the K − L gain larger at (200, 128) than (200, 64) | **held** (+0.75 against +0.40) |
+| RE 4 | the provenance rule stops mattering under K | **falsifier fired** (+0.25 to +0.50) |
+| RE 5 | Pangaea all-defect at 6,400 ≤ 2 under K against 5 | **falsifier fired** (8 against 5); μ_net unchanged |
+| RE 6 | fission–fusion 20/20 under K | **held** |
+| Sol | copy dependence remains; a small Pangaea gain; hidden differences | copy dependence failed; Pangaea clause held; the third untestable as worded |
+| Gemini | S-self makes the TwinD templates self-defectors; Pangaea within 1–2 runs | mechanism failed (impossible: the D step is partner-free); Pangaea clause held at 12,800, failed narrowly at 6,400 |
+| W1–W16 | subagent's own | W1–W3, W7–W9, W11, W12 held; W4, W6, W13–W16 partly; W5, W10 failed (no falsifier fired) |
+
+**Reading.**
+- **In this grammar K removes identity under S-nonself entirely,** and with it the detectable copy-count effect and the clique's cost along the Pangaea continuum: universal-open is 0.75–0.95 in the six scaling cells and 0.90–1.00 in the island cells of the continuum (Pangaeas at 3,200 and 6,400 stay at 0.50 and 0.60 through establishment failures).
+- **It works by switching self-certified defection off in play,** not by keying it to partners: the only key is the literal ⌜D⌝, which no program carries. A side effect is that certified unconditional cooperators pass PrudentBot's ⌜D⌝ guard.
+- **S-nonself still improves universality under K:** self-play production still mints C-identity cliques (K S-self is universal-open in 26/40 and 9/20 runs against S-nonself's 37/40 and 19/20); the gap's larger point estimate at N = 200 (+0.50 against L's +0.30) was not tested for interaction.
+- **No detectable change in the Pangaea's establishment ticket,** so with the cliques gone, islands of 200–800 (20/20) do at least as well as the single population (18/20).
+- **The residue, and what rain now feeds, is the AP network.**
+- *Caveats:* finite (N, I, horizon); 20 runs per cell; N = 100 cells still rising at 10,000; no verification cost charged; results are relative to grammar P and to K's literal key.
+
+**Addenda to earlier sections** (append-only; the earlier verdicts stand for world L):
+- *"The realizable lottery along paths in (N, I, mN)."* Under K, on paired founders at r = 100, universal-open at 10,000 is 37/40, 19, 18, 16, 19, 15 against L's 29/40, 11, 9, 9, 4, 6 at (100, 64), (200, 64), (400, 64), (100, 128), (200, 128), (100, 256); no copy-count effect is detected along these finite paths, so "universality falls along growing paths" is a world-L finding.
+- *"Cliques on a Pangaea."* Under K the continuum at 12,800 reads 20 / 20 / 19 / 18 from (200, 64) to (12,800, 1), so the Pangaea is no longer the best geometry; its establishment failure shows no detectable change (20 against 15 of 60 lost, n.s.); fission–fusion is 20/20 in both worlds; L's clique-held 3,200 Pangaea becomes an all-defect run in K.
+- *"Provenance."* S-nonself's advantage survives K and grows at N = 200 (+0.50, p = 0.002); K removes the TwinD part of S-self's identity but not the minted C-identity class.
+- *"Removing rival networks."* Under K the (200, 64) S-nonself rival islands at 10,000 are 0 identity, 0 exploitable, 64 closed-open and 9 closed-non-open (uot 18/20), against L's 72 / 14 / 202 / 0 (uot 11); rain under K feeds the AP network instead of identity.
+- *"Legitimate detectors."* K's key is the literal ⌜D⌝, which no population member carries, so "keyed to the production partner" means operationally "never live against any program"; the gentle detector defects against DefectBot only through its `CHK(them,them,D)` disjunct. The 11 → 19 result reproduces draw for draw.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
