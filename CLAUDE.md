@@ -134,6 +134,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 44. ~~World K reruns~~ (done; RESULTS "Identity-dependent results under world K": K, which switches self-certified defection off in play, removes identity under S-nonself; universal-open 0.75–0.95 at every scaling cell; S-nonself still helps; Pangaea establishment unchanged; the residue is the anti-punisher network).
 
+45. Hooks (RS): a first-class hook primitive with maximal fills (scopes, fill sources, a fixed conflict rule, equal node cost, inert-hooks control, one-kind ablations), Part W in the weakly extensional wing and Part R in the realizable language, on the PD and the social organization game (running: `specs/2026-10-18-hooks.md`).
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).
