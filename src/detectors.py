@@ -660,7 +660,9 @@ class DRun:
         self.freel = np.zeros(KCAP_G, np.int64); self.nfree = np.zeros(1, np.int64)
         self.gcount = np.zeros(KCAP_G, np.int64)
         tmp = np.zeros(KG.GCAP_MAX + 2, np.int64)
-        g0 = KG.gintern(self.gdict, self.GS, self.GN, self.ngv, tmp, 0)
+        self.GKEY = np.zeros(GMAX, np.int64); self.LFREE = np.zeros(GMAX, np.int64); self.LST = np.zeros(2, np.int64)
+        self.lmark = np.zeros(GMAX, np.bool_)
+        g0 = KG.gintern(self.gdict, self.GS, self.GN, self.ngv, tmp, 0, self.GKEY, self.LFREE, self.LST)
         assert g0 == 0
         nt = 0
         self.slots = np.zeros((I, N), np.int64)
@@ -673,7 +675,8 @@ class DRun:
                 if glists is not None and glists[i][j]:
                     lst = glists[i][j]
                     tmp[:len(lst)] = lst
-                    gid = KG.gintern(self.gdict, self.GS, self.GN, self.ngv, tmp, len(lst))
+                    gid = KG.gintern(self.gdict, self.GS, self.GN, self.ngv, tmp, len(lst), self.GKEY, self.LFREE,
+                                     self.LST)
                 self.slots[i, j] = KG.gmake(self.gdict2, self.gbase, self.gg, self.ngt, kb, gid, self.freel,
                                             self.nfree)
                 bslots[i, j] = kb
@@ -751,7 +754,8 @@ class DRun:
             W['spE'], PV.R_SNON, self.rcount, self.arr, self.narr,
             self.gbase, self.gg, self.gdict2, self.ngt, self.GS, self.GN, self.gdict, self.ngv, self.widx, self.AG1,
             self.AG2, self.PW, self.Wt, self.wdel, W['natu'], W['sucker'], self.gmode, self.gcap, self.gctr,
-            self.glog, self.nglog, self.gdirty, self.glive, self.isl_sucker_gen, self.gcount, self.freel, self.nfree)
+            self.glog, self.nglog, self.gdirty, self.glive, self.isl_sucker_gen, self.gcount, self.freel, self.nfree,
+            self.GKEY, self.LFREE, self.LST, self.lmark)
         if self.err[0] != 0:
             raise RuntimeError('kernel error %d at generation %d (base types %d, grudge types %d, lists %d)' % (
                 self.err[0], self.g, self.ntv[0], self.ngt[0], self.ngv[0]))
@@ -806,6 +810,53 @@ class DRun:
         import detectors_kern as KG
         return KG.acts(k, j, self.gbase, self.gg, self.GS, self.GN, self.tunit, self.tsp, self.A, self.selfa,
                        self.widx, self.AG1, self.AG2, self.PW, self.gmode)
+
+    def replace_where(self, mask_fn, new_type_fn):
+        """Counterfactual surgery (replays): every individual of a present type k with mask_fn(k) True becomes the type
+        new_type_fn(k); island bookkeeping rebuilt (types ordered by base type, as at a merge)."""
+        import detectors_kern as KG
+        import provenance as PV
+        LS, st = self.LS, self.LS['st']
+        I, N = self.I, self.N
+        ks = np.nonzero(self.gcount[:self.ngt[0]])[0]
+        mp = {int(k): int(new_type_fn(int(k))) for k in ks if mask_fn(int(k))}
+        if not mp: return 0
+        n = 0
+        for i in range(I):
+            for j in range(N):
+                k = int(self.slots[i, j])
+                if k in mp:
+                    self.slots[i, j] = mp[k]; n += 1
+        self.gcount[:] = 0
+        np.add.at(self.gcount, self.slots.ravel(), 1)
+        self.counts[:] = 0
+        self.pos[:] = -1
+        for i in range(I):
+            np.add.at(self.counts[i], self.slots[i], 1)
+            ks_ = np.nonzero(self.counts[i])[0]
+            ks_ = ks_[np.lexsort((self.gg[ks_], self.gbase[ks_]))]
+            for tt, k in enumerate(ks_):
+                self.pres[i, tt] = k; self.pos[i, k] = tt
+            self.npres[i] = len(ks_)
+        self.paysum[:] = 0.0
+        KG.ginit_paysum(self.counts, self.paysum, self.pres, self.npres, self.gbase, self.gg, self.GS, self.GN,
+                        self.tunit, self.tsp, self.A, self.selfa, self.widx, self.AG1, self.AG2, self.PW, self.gmode)
+        self.spcount[:] = 0
+        for i in range(I):
+            np.add.at(self.spcount[i], self.tsp[self.gbase[self.slots[i]]], 1)
+        self.rulecount[:] = 0; self.fcount[:] = 0
+        PV.init_uns(self.gbase[self.slots], self.tunit, self.trule, self.tset, st['BLC'], st['BLD'], LS['PD'],
+                    st['utau'], LS['FUT'], self.uns, self.rulecount, self.fcount)
+        self.gdirty[:] = 1; self.glive[:] = 0
+        return n
+
+    def make_type(self, unit, rule, sp, gid=0):
+        import detectors_kern as KG
+        import provenance as PV
+        kb, nt = PV.make_type(self.d, self.tunit, self.trule, self.tsp, self.tanc, int(self.ntv[0]), int(unit),
+                              int(rule), int(sp), 0)
+        self.ntv[0] = nt
+        return KG.gmake(self.gdict2, self.gbase, self.gg, self.ngt, kb, gid, self.freel, self.nfree)
 
     def check_consistency(self):
         """Present types: global counts equal the slot counts, each maps to itself in the type dictionary, no present

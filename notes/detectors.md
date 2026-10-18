@@ -388,3 +388,27 @@ Probes: a Part A run takes 0.01–0.1 s (N ≤ 3,200); a fission–fusion run to
 Cff_KG_t1 114 s), an island run (200, 64) about 1.7 min. Projected: A ≈ 3,700 runs ≈ 0.3 worker-h; B 200 runs ≈ 8
 worker-h; C 240 runs ≈ 7 worker-h; reference 20 runs ≈ 0.7 worker-h; replays ≈ 1 worker-h: **≈ 17 worker-h, about 6 h on
 3 workers, under the 24-hour line: nothing is dropped.**
+
+### 2.7 Addenda while the cells ran (each written before the cells it affects)
+
+- **List garbage collection** (after Part C's first batch crashed): Cff_KGh_e0 rep 1 exhausted the interned
+  grudge-list table (4 M lists by generation 97: horizontal adoption creates a new list at nearly every adoption). The
+  kernel now frees lists referenced by no type at the start of a generation when the table is three-quarters used (the
+  free list is deterministic, so runs stay reproducible). Rows finished before the change are kept: no finished run
+  came near the table's limit, and the collection never triggers below it, so they are what the new kernel computes.
+  The batch resumed with the rows already written (A and B were complete; their logs were overwritten by the resumed
+  batch script, the row files are intact).
+- **KGh capped at 10 replicates** (written while Cff_KGh_e0 reps 3, 5 and 6 ran, before any rep ≥ 7): horizontal runs
+  cost up to an hour each (10⁷–10⁸ adoptions per run), against 1.5–2 min for the other cells, so 20 replicates would
+  add about 15 worker-hours. Cff_KGh_e0 runs replicates 0–9; its verdict clauses (D12) are scored on 10 runs, paired
+  with KG's reps 0–9.
+- **KGh stopped at 4 replicates** (written when reps 3, 5 and 6 had run 54–114 min without finishing and occupied all
+  three workers): the three were killed unfinished and the cell is closed at the 4 finished replicates (0, 1, 2, 4;
+  63, 6, 4 and 3 min). Cff_KGh_e0's clauses are scored on those 4, paired with KG's same replicates, and called
+  inconclusive where 4 runs cannot decide them. The other C cells and the reference continue at 20.
+- *Disclosed after the cells:* the resumed C driver stalled with one job outstanding (Cff_KGs_e0 rep 6; all three
+  workers idle at 0% CPU for 50 minutes, a lost pool task); it was killed and the job rerun alone (99 s). Post-hoc
+  analyses added after the cells and labelled as such in the report: a mechanism decomposition of the DET and PBN
+  members' fitness by partner class (28 runs × 10 times), and the matched replays of §1.5 (201), whose surgery for
+  removals labelled inefficiency is the sucker surgery (no other counterfactual removes "inefficiency"). Runs in which no
+  DET individual is present at generation 10 are reported as "DET gone by 10" rather than coexistence.

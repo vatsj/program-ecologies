@@ -121,7 +121,9 @@ def removals(r):
         out[net] = dict(g=float(gs[tb]), labels=labs, head=head,
                         sucker_share_window=float(np.nanmean(S[t0:tb + 1, 7])))
     det_rm, pbn_rm = out['DET'], out['PBN']
-    if det_rm and not pbn_rm: winner = 'PBN'
+    if S[0, 1] <= 0 and not pbn_rm: winner = 'DET gone by 10'     # never seeded or extinct before the first checkpoint
+    elif S[0, 2] <= 0 and not det_rm: winner = 'PBN gone by 10'
+    elif det_rm and not pbn_rm: winner = 'PBN'
     elif pbn_rm and not det_rm: winner = 'DET'
     elif det_rm and pbn_rm: winner = 'both removed'
     else: winner = 'coexistence'
@@ -209,13 +211,289 @@ def cell_summary(rows):
     return summ
 
 
+def replay_job(job):
+    """Matched counterfactual replay (notes §1.5, §2.5 item 8): rerun (cell, rep) with the same seeds to g0, apply the
+    surgery, continue to g1; returns the network shares at g1 for the replay and the original."""
+    sys.path.insert(0, os.path.join(ROOT, 'src'))
+    import detectors as DTm
+    import detectors_run as DR
+    import provenance as PV
+    import pangaea as PG
+    import annealed as AN
+    import provenance_run as PR
+    import realizable_scaling as RS
+    import time
+    cell, rep, g0, g1, kind = job
+    t0 = time.time()
+    geom, arm, Ksch, w = DR.cell_spec(cell)
+    Wd = DTm.world(w)
+    LS = Wd['LS']
+    if geom == 'Cis':
+        N, I = 200, 64
+        rng = np.random.default_rng([N, I, rep, PR.SALT])
+        sp = rng.choice(len(LS['mu']), size=(I, N), p=LS['mu'])
+        rule = np.full((I, N), PV.R_SNON, np.int64); unit = LS['Eu'][LS['tau'][sp]]
+        seed = PR.kernel_seed(N, I, rep); mN = RS.mN_cal(N)
+        epsg = AN.schedule('ann', N, Ksch) if Ksch else None
+        merge_at = 0
+    else:
+        N, I = 100, 128
+        sp = DR.fission_founders('L' if geom in ('Cff', 'Ref') else geom, rep, Wd)
+        rule = np.full((I, N), PV.R_SNON, np.int64); unit = LS['Eu'][LS['tau'][sp]]
+        if geom == 'Ref':
+            import removing_rivals as RR
+            kPB = Wd['names'].index(RR.PB_SP)
+            pos = RR.donor_positions(N, I, rep)
+            for i in range(I):
+                sp[i, pos[i]] = kPB; rule[i, pos[i]] = PV.R_H; unit[i, pos[i]] = Wd['Hu'][Wd['tau'][kPB]]
+        seed = PG.kernel_seed_pg(N, I, rep); mN = 1.0; merge_at = 200
+        epsg = None
+        if Ksch:
+            en = AN.eps_n_annealed(N * I, AN.arrivals_A(Ksch)); epsg = (en / (N * I)).astype(np.float64)
+    R = DTm.DRun(w, sp, rule, unit, seed, r=100, mN=mN, gmode=DR.GMODE[arm], gcap=3, epsg=epsg, pairmode=1)
+
+    def adv_to(gt):
+        while R.g < gt:
+            R.advance(10)
+            if merge_at and R.g == merge_at:
+                R.merge(PG.kernel_seed_pg(R.N * R.I, 1, rep) ^ 0x5DEECE66D)
+
+    def shares():
+        ks = np.nonzero(R.gcount[:R.ngt[0]])[0]
+        s = R.tsp[R.gbase[ks]]; c = R.gcount[ks]
+        tot = c.sum()
+        return float(c[Wd['DET'][s]].sum() / tot), float(c[Wd['PBN'][s]].sum() / tot)
+    adv_to(g0)
+    before = shares()
+    if kind == 'nosucker':
+        kD = Wd['names'].index('D')
+        newk = R.make_type(Wd['uD'], PV.R_H, kD)
+        n = R.replace_where(lambda k: Wd['sucker'][R.tunit[R.gbase[k]]] == 1, lambda k: newk)
+    else:
+        n = 0
+        for i in range(R.I):
+            R.island_stats()
+        ks = np.nonzero(R.gcount[:R.ngt[0]])[0]
+        modal = int(ks[np.argmax(R.gcount[ks])])
+        n = R.replace_where(lambda k: R.acts(modal, k) == (1, 0), lambda k: modal)
+    adv_to(g1)
+    return dict(cell=cell, rep=rep, g0=g0, g1=g1, kind=kind, replaced=int(n), before=before, after=shares(),
+                time_s=time.time() - t0)
+
+
+def decompose_now(R, Wd):
+    """Post-hoc mechanism decomposition (labelled post hoc): the DET and PBN members' mean fitness split by partner class
+    (DET, PBN, third parties), pooled over islands (each type's fitness against its own island), and the DET-PBN pair
+    relations (who exploits whom, mutual, feud)."""
+    sys.path.insert(0, os.path.join(ROOT, 'src'))
+    import detectors_kern as KG
+    acc = {c: {p: 0.0 for p in ('DET', 'PBN', 'TP')} for c in ('DET', 'PBN')}
+    cnt = {'DET': 0.0, 'PBN': 0.0}
+    pr = dict(P_exploits_D=0.0, D_exploits_P=0.0, mutual=0.0, feud=0.0, n=0.0)
+    for i in range(R.I):
+        n = int(R.npres[i]); N = R.N
+        ks = R.pres[i, :n].copy(); c = R.counts[i, ks].astype(float)
+        s = R.tsp[R.gbase[ks]]
+        M = KG.gacts_matrix(i, R.pres, R.npres, R.gbase, R.gg, R.GS, R.GN, R.tunit, R.tsp, R.A, R.selfa, R.widx, R.AG1,
+                            R.AG2, R.PW, R.gmode).astype(np.int64)
+        pay = KG.PAYM[M, M.T].astype(float)
+        det = Wd['DET'][s]; pbn = Wd['PBN'][s]; tp = ~(det | pbn)
+        for cls, mk in (('DET', det), ('PBN', pbn)):
+            if not mk.any(): continue
+            for pname, pm in (('DET', det), ('PBN', pbn), ('TP', tp)):
+                cc = c * pm
+                v = (pay[:, :] @ cc - np.diag(pay) * pm) / (N - 1)
+                acc[cls][pname] += float((v[mk] * c[mk]).sum())
+            cnt[cls] += float(c[mk].sum())
+        if det.any() and pbn.any():
+            di = np.nonzero(det)[0]; pi = np.nonzero(pbn)[0]
+            for a in di:
+                for b in pi:
+                    w = c[a] * c[b]
+                    x, y = M[a, b], M[b, a]
+                    pr['n'] += w
+                    if x == 1 and y == 0: pr['P_exploits_D'] += w
+                    elif x == 0 and y == 1: pr['D_exploits_P'] += w
+                    elif x == 1 and y == 1: pr['mutual'] += w
+                    else: pr['feud'] += w
+    out = dict(g=int(R.g), det=cnt['DET'] / (R.I * R.N), pbn=cnt['PBN'] / (R.I * R.N))
+    for cls in ('DET', 'PBN'):
+        for p in ('DET', 'PBN', 'TP'):
+            out['%s_from_%s' % (cls, p)] = acc[cls][p] / cnt[cls] if cnt[cls] else None
+    for k in ('P_exploits_D', 'D_exploits_P', 'mutual', 'feud'):
+        out[k] = pr[k] / pr['n'] if pr['n'] else None
+    return out
+
+
+def mech_job(job):
+    """Rerun (cell, rep) and decompose at the listed generations (post hoc)."""
+    sys.path.insert(0, os.path.join(ROOT, 'src'))
+    import detectors as DTm
+    import detectors_run as DR
+    import time
+    cell, rep, gens = job
+    t0 = time.time()
+    R, merge_at, Wd = setup(cell, rep)
+    out = []
+    for gt in gens:
+        while R.g < gt:
+            R.advance(10)
+            if merge_at and R.g == merge_at:
+                import pangaea as PG
+                R.merge(PG.kernel_seed_pg(R.N * R.I, 1, rep) ^ 0x5DEECE66D)
+        out.append(decompose_now(R, Wd))
+    return dict(cell=cell, rep=rep, decomp=out, time_s=time.time() - t0)
+
+
+def setup(cell, rep):
+    """The run object of (cell, rep) exactly as detectors_run.ff_job builds it (same seeds and founders)."""
+    sys.path.insert(0, os.path.join(ROOT, 'src'))
+    import detectors as DTm
+    import detectors_run as DR
+    import provenance as PV
+    import pangaea as PG
+    import annealed as AN
+    import provenance_run as PR
+    import realizable_scaling as RS
+    geom, arm, Ksch, w = DR.cell_spec(cell)
+    Wd = DTm.world(w)
+    LS = Wd['LS']
+    if geom == 'Cis':
+        N, I = 200, 64
+        rng = np.random.default_rng([N, I, rep, PR.SALT])
+        sp = rng.choice(len(LS['mu']), size=(I, N), p=LS['mu'])
+        rule = np.full((I, N), PV.R_SNON, np.int64); unit = LS['Eu'][LS['tau'][sp]]
+        seed = PR.kernel_seed(N, I, rep); mN = RS.mN_cal(N)
+        epsg = AN.schedule('ann', N, Ksch) if Ksch else None
+        merge_at = 0
+    else:
+        N, I = 100, 128
+        sp = DR.fission_founders('L' if geom in ('Cff', 'Ref') else geom, rep, Wd)
+        rule = np.full((I, N), PV.R_SNON, np.int64); unit = LS['Eu'][LS['tau'][sp]]
+        if geom == 'Ref':
+            import removing_rivals as RR
+            kPB = Wd['names'].index(RR.PB_SP)
+            pos = RR.donor_positions(N, I, rep)
+            for i in range(I):
+                sp[i, pos[i]] = kPB; rule[i, pos[i]] = PV.R_H; unit[i, pos[i]] = Wd['Hu'][Wd['tau'][kPB]]
+        seed = PG.kernel_seed_pg(N, I, rep); mN = 1.0; merge_at = 200
+        epsg = None
+        if Ksch:
+            en = AN.eps_n_annealed(N * I, AN.arrivals_A(Ksch)); epsg = (en / (N * I)).astype(np.float64)
+    R = DTm.DRun(w, sp, rule, unit, seed, r=100, mN=mN, gmode=DR.GMODE[arm], gcap=3, epsg=epsg, pairmode=1)
+    return R, merge_at, Wd
+
+
+def all_labels(rows):
+    """Every label (overlap allowed) of every network removal, per cell."""
+    out = {}
+    for r in rows:
+        rm = removals(r)
+        for net, x in rm['removals'].items():
+            if not x: continue
+            for l in x['labels']:
+                k = (r['cell'], net, l)
+                out[k] = out.get(k, 0) + 1
+    return {'%s|%s|%s' % k: v for k, v in sorted(out.items())}
+
+
+def per_run(rows):
+    return [dict(cell=r['cell'], rep=r['rep'], uo=r.get('uo'), **{k: v for k, v in removals(r).items()
+                                                                 if k != 'removals'},
+                 removals=removals(r)['removals'], writes=r['gctr']['write'], boot=r['gctr']['boot'],
+                 sucker_enc=r['gctr']['sucker_enc'], arrivals=r['arrivals'], arrivals_cls=r['arrivals_cls'])
+            for r in rows]
+
+
+def md(rep):
+    L = ['# Legitimate detectors: run tables (generated by src/detectors_report.py)', '']
+    if rep['A']:
+        L += ['## Part A: predator establishment per arrival (pooled over the top three K predators)', '',
+              '| N | arm | established / runs | p [95%] |', '|---|---|---|---|']
+        for k, v in rep['A']['pooled'].items():
+            L.append('| %d | %s | %d / %d | %.3f [%.3f, %.3f] |' % (v['N'], v['arm'], v['est'], v['n'], v['p'], v['ci'][0], v['ci'][1]))
+        L += ['', '| second arrival (N = 200) | first lost | second established / n |', '|---|---|---|']
+        for k, v in sorted(rep['A']['second'].items()):
+            L.append('| %s | %d | %d / %d |' % (k, v['first_lost'], v['second_est'], v['second_n']))
+        L += ['', '| N_arm | mean writes per arrival | marked share at the end | generations |', '|---|---|---|---|']
+        for k, v in sorted(rep['A']['grudges'].items()):
+            L.append('| %s | %.1f | %.2f | %.1f |' % (k, v['writes'], v['marked'], v['t']))
+        L.append('')
+    for part in ('B', 'C'):
+        S = rep[part]
+        if not S: continue
+        L += ['## Part %s' % part, '', '| cell | n | winners | removals (headline) | DET at 200 / 10,000 (median) | universal-open | '
+              'writes (boot share) | sucker enc. | arrivals |', '|---|---|---|---|---|---|---|---|---|']
+        for c, v in sorted(S.items()):
+            L.append('| %s | %d | %s | %s | %.3f / %.3f | %d | %.0f (%.2f) | %.0f | %.0f |' % (
+                c, v['n'], ', '.join('%s %d' % kv for kv in sorted(v['winners'].items())),
+                ', '.join('%s %d' % kv for kv in sorted(v['removals'].items())) or '–', v['det_at_200_median'],
+                v['det_final_median'], v['uo'], v['writes_mean'], v['boot_share'], v['sucker_enc_mean'],
+                v['arrivals_mean']))
+        L.append('')
+        L += ['Island-level holder changes away from DET or PBN (headline label):', '']
+        for c, v in sorted(S.items()):
+            if v['island_events']:
+                L.append('- %s: %s' % (c, ', '.join('%s %d' % kv for kv in sorted(v['island_events'].items()))))
+        L.append('')
+    return '\n'.join(L)
+
+
+def posthoc(workers=3):
+    """After the cells: the mechanism decomposition on samples and the matched replays (both labelled post hoc /
+    as notes §1.5 replays)."""
+    from multiprocessing import Pool
+    B = load('cells_B.json.gz'); Cr = load('cells_C.json.gz') + load('cells_R.json.gz')
+    gens = [10, 50, 100, 190, 210, 300, 500, 1000, 2000, 5000]
+    mjobs = [(c, rep, gens) for c in ('B1_K0_e0', 'B1_KG_e0', 'B2_K0_e0', 'B2_KG_e0', 'Cff_K0_e0', 'Cff_KG_e0',
+                                       'Cff_L_e0') for rep in range(4)]
+    rjobs = []
+    seen = {}
+    for r in B + Cr:
+        rm = removals(r)
+        for net, x in rm['removals'].items():
+            if not x: continue
+            g1 = int(x['g'])
+            g0 = max(10, int(np.floor((g1 - 100) / 10.0) * 10))
+            if g0 >= g1: continue
+            for lab, kind in (('predation', 'nopred'), ('prudence premium', 'nosucker'), ('inefficiency', 'nosucker')):
+                if lab in x['labels']:
+                    k = (r['cell'], net, lab)
+                    if seen.get(k, 0) >= 5: continue
+                    seen[k] = seen.get(k, 0) + 1
+                    rjobs.append((r['cell'], r['rep'], g0, g1 + 50, kind, net, lab))
+    out_m, out_r = [], []
+    with Pool(workers) as pool:
+        for res in pool.imap_unordered(mech_job, mjobs):
+            out_m.append(res); print('mech', res['cell'], res['rep'], round(res['time_s']), flush=True)
+        json.dump(out_m, open(os.path.join(OUT, 'mech.json'), 'w'), default=float)
+        for res in pool.imap_unordered(_replay_wrap, rjobs):
+            out_r.append(res); print('replay', res['cell'], res['rep'], res['kind'], res['before'], res['after'], flush=True)
+        json.dump(out_r, open(os.path.join(OUT, 'replays.json'), 'w'), default=float)
+
+
+def _replay_wrap(job):
+    cell, rep, g0, g1, kind, net, lab = job
+    r = replay_job((cell, rep, g0, g1, kind))
+    r.update(net=net, label=lab)
+    return r
+
+
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] == 'posthoc':
+        posthoc()
+        return
     A = load('cells_A.json.gz')
     B = load('cells_B.json.gz')
     Cr = load('cells_C.json.gz') + load('cells_R.json.gz')
-    rep = dict(A=part_a(A) if A else None, B=cell_summary(B) if B else None, C=cell_summary(Cr) if Cr else None)
+    rep = dict(A=part_a(A) if A else None, B=cell_summary(B) if B else None, C=cell_summary(Cr) if Cr else None,
+               labels_B=all_labels(B), labels_C=all_labels(Cr), runs_B=per_run(B), runs_C=per_run(Cr))
+    for extra in ('mech.json', 'replays.json'):
+        p = os.path.join(OUT, extra)
+        if os.path.exists(p): rep[extra.split('.')[0]] = json.load(open(p))
     json.dump(rep, open(os.path.join(ROOT, 'runs', 'detectors.json'), 'w'), indent=1, default=float)
-    print(json.dumps(rep, indent=1, default=float)[:20000])
+    open(os.path.join(OUT, 'tables.md'), 'w').write(md(rep))
+    print(md(rep))
 
 
 if __name__ == '__main__':

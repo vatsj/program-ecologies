@@ -42,8 +42,8 @@ def gkey(GS, GN, gid):
 
 
 @njit(cache=True)
-def gintern(gdict, GS, GN, ngv, tmp, n):
-    """The gid of the list tmp[:n] (interned).  ngv[0]: lists so far."""
+def gintern(gdict, GS, GN, ngv, tmp, n, GKEY, LFREE, LST):
+    """The gid of the list tmp[:n] (interned; recycled ids from LFREE first, LST[0] of them).  ngv[0]: ids used."""
     h = np.uint64(1469598103934665603)
     for q in range(n):
         h = (h ^ np.uint64(tmp[q] + 1)) * np.uint64(1099511628211)
@@ -59,14 +59,41 @@ def gintern(gdict, GS, GN, ngv, tmp, n):
                     break
         if same: return g
         key += 1
-    g = ngv[0]
-    if g >= GS.shape[0]:
-        return -1
+    if LST[0] > 0:
+        LST[0] -= 1
+        g = LFREE[LST[0]]
+    else:
+        g = ngv[0]
+        if g >= GS.shape[0]:
+            return -1
+        ngv[0] = g + 1
     for q in range(n): GS[g, q] = tmp[q]
     GN[g] = n
     gdict[key] = g
-    ngv[0] = g + 1
+    GKEY[g] = key
     return g
+
+
+@njit(cache=True)
+def lgc(gdict, gdict2, gg, ngv, GKEY, LFREE, LST, mark):
+    """Garbage-collect grudge lists: every list id referenced by no type in the type dictionary (and not the empty
+    list 0) is freed.  Returns the number freed."""
+    for g in range(ngv[0]): mark[g] = False
+    mark[0] = True
+    for k in gdict2.values():
+        mark[gg[k]] = True
+    for q in range(LST[0]):
+        mark[LFREE[q]] = True                 # already free
+    nf = 0
+    for g in range(ngv[0]):
+        if not mark[g]:
+            key = GKEY[g]
+            if key in gdict and gdict[key] == g:
+                gdict.pop(key)
+            LFREE[LST[0]] = g
+            LST[0] += 1
+            nf += 1
+    return nf
 
 
 @njit(cache=True)
@@ -225,7 +252,7 @@ def can_adopt(x, y, gbase, gg, GS, GN, tunit, tsp, widx, Wt, wdel, spE):
 
 
 @njit(cache=True)
-def gappend(gid, s, GS, GN, gdict, ngv, tmp, gcap, gctr):
+def gappend(gid, s, GS, GN, gdict, ngv, tmp, gcap, gctr, GKEY, LFREE, LST):
     n = GN[gid]
     m = 0
     start = 0
@@ -235,18 +262,18 @@ def gappend(gid, s, GS, GN, gdict, ngv, tmp, gcap, gctr):
     for q in range(start, n):
         tmp[m] = GS[gid, q]; m += 1
     tmp[m] = s; m += 1
-    return gintern(gdict, GS, GN, ngv, tmp, m)
+    return gintern(gdict, GS, GN, ngv, tmp, m, GKEY, LFREE, LST)
 
 
 @njit(cache=True)
 def gstep(x, y, ax, ay, gmode, gcap, gbase, gg, GS, GN, gdict, ngv, tmp, tunit, tsp, widx, Wt, wdel, spE, gctr, glog,
-          nglog, g, i, natu, xpre):
+          nglog, g, i, natu, xpre, GKEY, LFREE, LST):
     """x's grudge list after the encounter (x already produced): returns the new gid."""
     gid = gg[x]
     if gmode == G_OFF or gmode == G_PRE: return gid
     xb = gbase[x]; yb = gbase[y]
     if can_write(x, y, ax, ay, gbase, gg, GS, GN, tunit, tsp, widx, Wt):
-        gid = gappend(gid, tsp[yb], GS, GN, gdict, ngv, tmp, gcap, gctr)
+        gid = gappend(gid, tsp[yb], GS, GN, gdict, ngv, tmp, gcap, gctr, GKEY, LFREE, LST)
         if gid < 0: return -1
         gctr[GC_WRITE] += 1
         if natu[xpre] == 0: gctr[GC_BOOT] += 1
@@ -263,7 +290,7 @@ def gstep(x, y, ax, ay, gmode, gcap, gbase, gg, GS, GN, gdict, ngv, tmp, tunit, 
                 s = GS[gg[y], q]
                 if s == sx or gholds(GS, GN, gid, s): continue
                 if Wt[ix, spE[s]] == 1:
-                    gid = gappend(gid, s, GS, GN, gdict, ngv, tmp, gcap, gctr)
+                    gid = gappend(gid, s, GS, GN, gdict, ngv, tmp, gcap, gctr, GKEY, LFREE, LST)
                     if gid < 0: return -1
                     gctr[GC_ADOPT] += 1
     return gid
@@ -303,7 +330,7 @@ def segment_g(g0, gens, seed, N, w, m, r, slots, counts, paysum, pres, npres, po
               hist_acq, hist_steps, hist_cens, nprod, identu, spou, tset, uns, rulecount, enc_exp, skip, FUT, fcount,
               enc_futile, err, epsg, pairmode, fseed, cumL, spE, rain_rule, rcount, arr, narr,
               gbase, gg, gdict2, ngt, GS, GN, gdict, ngv, widx, AG1, AG2, PW, Wt, wdel, natu, sucker, gmode, gcap,
-              gctr, glog, nglog, gdirty, glive, isl_sucker_gen, gcount, freel, nfree):
+              gctr, glog, nglog, gdirty, glive, isl_sucker_gen, gcount, freel, nfree, GKEY, LFREE, LST, lmark):
     """Generations g0 .. g0 + gens - 1.  Slots, counts, pres and paysum are over grudge types; `side` runs on base
     types.  Island skip: no unsettled base type (uns) and no live grudge pair (glive, recomputed when the island's
     composition changed)."""
@@ -316,6 +343,8 @@ def segment_g(g0, gens, seed, N, w, m, r, slots, counts, paysum, pres, npres, po
     neg = epsg.shape[0]
     for g in range(g0, g0 + gens):
         eps = epsg[g] if g < neg else 0.0
+        if (GS.shape[0] - ngv[0]) + LST[0] < GS.shape[0] // 4:
+            gctr[GC_SPARE] += lgc(gdict, gdict2, gg, ngv, GKEY, LFREE, LST, lmark)
         for i in range(I):
             # a live flag may be stale-1 (safe: nothing is skipped); refresh dirty islands once per generation
             if skip and gdirty[i] == 1 and glive[i] == 1:
@@ -395,9 +424,9 @@ def segment_g(g0, gens, seed, N, w, m, r, slots, counts, paysum, pres, npres, po
                     return g
                 if gmode == G_VERT or gmode == G_HORIZ or gmode == G_SHAM:
                     gf = gstep(nf, kp, af, ap, gmode, gcap, gbase, gg, GS, GN, gdict, ngv, tmp, tunit, tsp, widx, Wt,
-                               wdel, spE, gctr, glog, nglog, g, i, natu, tunit[bf])
+                               wdel, spE, gctr, glog, nglog, g, i, natu, tunit[bf], GKEY, LFREE, LST)
                     gp = gstep(np_, kf, ap, af, gmode, gcap, gbase, gg, GS, GN, gdict, ngv, tmp, tunit, tsp, widx, Wt,
-                               wdel, spE, gctr, glog, nglog, g, i, natu, tunit[bp])
+                               wdel, spE, gctr, glog, nglog, g, i, natu, tunit[bp], GKEY, LFREE, LST)
                     if gf < 0 or gp < 0:
                         err[0] = 32
                         return g

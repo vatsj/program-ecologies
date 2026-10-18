@@ -642,6 +642,8 @@ def cmd_cells(a):
         return
     cells = {'B': B_CELLS, 'C': C_CELLS, 'R': REF_CELLS}[a.part] if not a.cells else a.cells
     jobs = [(c, rep, a.horizon) for rep in range(a.rep0, a.rep0 + a.reps) for c in cells]
+    caps = dict((x.split(':')[0], int(x.split(':')[1])) for x in (a.cap or []))
+    jobs = [j for j in jobs if j[1] < caps.get(j[0], 10 ** 9)]
     run_pool(ff_job, jobs, os.path.join(OUT, 'cells_%s%s.json.gz' % (a.part, a.tag)), nw)
 
 
@@ -778,7 +780,7 @@ def main():
     s = sub.add_parser('cells'); s.add_argument('--part', required=True); s.add_argument('--workers', type=int, default=3)
     s.add_argument('--reps', type=int, default=20); s.add_argument('--rep0', type=int, default=0)
     s.add_argument('--horizon', type=int, default=10000); s.add_argument('--cells', nargs='*')
-    s.add_argument('--tag', default=''); s.add_argument('--limit', type=int, default=0)
+    s.add_argument('--tag', default=''); s.add_argument('--limit', type=int, default=0); s.add_argument('--cap', nargs='*')
     a = ap.parse_args()
     {'gate': cmd_gate, 'static': cmd_static, 'ext': cmd_ext, 'grudge': cmd_grudge, 'validate': cmd_validate,
      'cells': cmd_cells, 'statics': cmd_statics, 'audit': cmd_audit}[a.cmd](a)
