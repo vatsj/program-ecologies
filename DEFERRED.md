@@ -576,6 +576,16 @@ REJECTED.md the ones we dropped.
   class that needs horizontal transmission of non-legible special cases, or evidence that hook scarcity in the prior
   makes certificate-mediated special-casing negligible where it matters (then the prior, not the gene type, is the
   lever). To be taken up in the broader conversation about certificates (entry 1).
+- *RS (2026-10-18), hooks:* "I'm excited about the design paradigm of the modal operator leaving 'hooks' in the base
+  program that genes can fill. I'm reluctant to express too much opinion on what kinds of hooks should be expressible -
+  at least in this design phase I'd prefer maximalism." *RE:* a hook has four independent parameters (the decision it
+  governs; its scope or key: none (L), partner source (K), root (per-root), history (grudges), third party or probe; who
+  fills it: self, copying, or both parties via the pair rule; its default). Maximalism with four guardrails that are not
+  opinions about hooks: every fill checked (soundness unconditional); one checker-level conflict rule; equal node cost
+  for every hook kind (so the length prior does not choose among them); results reported per hook kind with one-kind
+  ablations. Expected returns: identity (a fill keyed on one's own source is a clique), self-fulfilling threats
+  (entry 13), and verification cost. *Next (on the RS's go):* a design note and a first experiment with a first-class
+  hook primitive, maximal fills and one-kind ablations, on the PD and the social organization game.
 
 ## 13. Threats: drift versus testing (RS, 2026-10-11)
 - *RS's guess:* inactive threats should drift out quickly enough to disarm them over the long run.
