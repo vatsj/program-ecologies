@@ -5357,6 +5357,91 @@ uot₇₀ equals uot₂₃₅ in every run. In one Rp run a TwinD quote held 0.5
 - **Fission–fusion fails when a clique is already a majority at the merge** (1 of 120 runs).
 - *Caveats:* 20–40 runs per cell; rain at I = 8; the assay composite rests on 6 holders; Rm and Rp change founders and rain together.
 
+## Legitimate detectors: the stored detector is a clique; a keyed world makes it gentle and legible, grudges stop the tested predators and win at equal mass, and it still loses at the prior (`runs/detectors.md`, `runs/detectors.json`, `runs/detectors/`, `runs/detectors-{gate,static}.json`, `notes/detectors.md`; spec `specs/2026-10-17-legitimate-detectors.md`, predictions in `predictions/2026-10-17-legitimate-detectors.md` with the RS's statements and his prudence decision first)
+
+**Provenance.** The RS proposed this (DEFERRED 1). The RE designed it, gpt-6.1-sol and gemini-4-argon reviewed the spec, and an Opus subagent ran it (`src/detectors{,_kern,_run,_report}.py`; `tests/test_detectors.py`, 6 tests, 3 needing the untracked cache). Order of commits: notes §1 by hand; predictions; code, soundness gate, tables and validation; the cells. This section was audited against the run files by gpt-6.1-sol and gemini-4-argon in turn before commit (reviews `reviews/detectors-results-draft-audit-*.md`).
+
+**The soundness gate passed.** Grudges need one new script rule, Key, checked after all existing clauses: a keyed script applies only at roots whose opponent's bare source (certificate list stripped) equals its key, and must otherwise be valid as usual. 240 stored checks keep identical values and step counts. A grudge is a keyed copy of the holder's own D-step script δ, self-fulfilling for readers of `CHK(me,them,D)`. Forged grudges on non-readers and negated readers are rejected, and no false atom was accepted in the gate's checks. Each grudge adds about 10⁴ steps to every check of the holder's list (at 3 grudges, the detector's C certificate costs 2.8× and its play 3.5×).
+
+**The stored detector is a clique (world L).** The detector's first D step, against ⌜D⌝, writes δ = `EvR*; ChkR[RunNeg · EvR*@1; ChkR[EvR*; Ax · Hyp]]`, which validates at every root. So by execution the detector defects against CooperateBot, FairBot and PrudentBot and cooperates only with its own quote. Its "predators" (mass 0.0058) are check-timeout units. The RS's gentle, exploitable detector was a property of the one-encounter state before its first certificate.
+
+**Deviation 1, world K (declared before any code).** Every hypothesis-closed D certificate is keyed to the partner it was produced against. In K:
+- **The detector is gentle and certifiable:** its C certificate RunNegs its own D box, and it is mutual with FairBot and PrudentBot, so it is a member of the target.
+- **Its predator mass is 0.26,** because keying removes self-certification from hypothesis-certified defectors.
+- **The TwinD clique family dissolves:** the S-nonself identity family is exactly own-D readers with a generic δ, and none remain in K.
+- **Two sub-families:** DET (gentle own-D readers, μ 0.0018; 12 of its 21 spellings read `CHK(them,me,D)` or `CHK(them,^C,D)` and feud with FairBot and PrudentBot), and PBN, the PrudentBot network, which contains anti-gentle members (μ 0.011 of 0.049), e.g. `if(CHK(them,^C,D),C,D)`.
+
+**Validation.** World L with the grudge kernel reproduces stored scaling, Pangaea and annealed runs draw for draw; the grudge reduction agrees with explicit-term replay on 54/54 live pairs; the sham audit matches 1,000/1,000 pairs.
+
+**Disclosures.** World K is the design. The grudge trigger is "cooperated and was defected against"; the cap is 3, FIFO. Network removal means extinction. Grudge-list garbage collection was added after a table overflow. The horizontal-transmission cell (KGh) was closed at 4 runs because runs took up to 2 hours. About 25 worker-hours.
+
+**Part A, single predator arrivals** (top three K predators; establishment per arrival):
+
+| N | no grudge | vertical grudges | + horizontal | sham | prewritten |
+|---|---|---|---|---|---|
+| 200 | 0.257 (77/300) | 0/300 | 0/300 | 0.260 | 0/300 |
+| 800 | 0.240 (72/300) | 0/300 | 0/300 | 0.277 | 0/300 |
+| 3,200 | 0.10 (5/50) | 0/50 | 0/50 | – | – |
+
+Vertical inheritance suffices: at 200 production encounters per program per generation, a predator marks its victims faster than it grows. In 400 second-arrival runs at N = 200 (vertical and horizontal, exact source against a synonym), every first arrival was lost and 0/100 second arrivals established in each arm, so the exact-versus-synonym comparison (D5) is trivially 0 = 0.
+
+**Part B, head-to-head** (fission–fusion, 128 × 100 merged at 200, horizon 10,000; DET wins / PBN wins / coexistence / all-defect, of 20):
+
+| founders | arm | ε = 0 | K = 1 tail | K = 3 tail |
+|---|---|---|---|---|
+| 50/50 | no grudge | 0 / 20 / 0 / 0 | 0 / 19 / 0 / 1 | 0 / 20 / 0 / 0 |
+| 50/50 | grudges | **13** / 3 / 4 / 0 | 8 / 6 / 6 / 0 | 12 / 0 / 8 / 0 |
+| natural | no grudge | 0 / 20 / 0 / 0 | 0 / 17 / 0 / 3 | – |
+| natural | grudges | 0 / 20 / 0 / 0 | 1 / 16 / 0 / 3 | – |
+
+- **Without grudges DET loses before the merge** (share 0.50 → 0.23): PBN's anti-gentle members and FairBot-shaped checks exploit DET in 10–27% of DET–PBN pairs and 30–40% of pairs feud.
+- **With grudges the exploitation stops** (0.15 → 0.02 of pairs) and DET reaches 0.62 by the merge; in the post-hoc decomposition of replicates 0–3, every DET–PBN pair is mutual from about generation 300, so PBN's removal there is neutral drift.
+- **No Part B removal is confirmed as prudence premium,** although sucker exposure is substantial even without a tail (the subagent's premise of zero sucker exposure at ε = 0, D8, failed); exposure by schedule is in the run report. Tail cells end all-defect in 1 + 3 + 3 runs (a tail defector taking a population after PBN drifted into DefectBot-cooperating members).
+
+**Part C, natural seeds** (20 runs; universal-open runs; detector family extinct, counting runs where it was gone by generation 10 plus later removals):
+
+| cell | universal-open | DET extinct |
+|---|---|---|
+| fission–fusion, world L | 20 | 20 (7 by gen. 10) |
+| fission–fusion, K, no grudge | 20 | 20 (3 by gen. 10) |
+| fission–fusion, K, grudges | 20 | 20 (4 by gen. 10) |
+| fission–fusion, K, no grudge, K = 1 tail | 20 | 20 (3 by gen. 10) |
+| fission–fusion, K, grudges, K = 1 tail | 20 | 19 (4 by gen. 10; DET wins 1) |
+| fission–fusion, K, sham grudges | 20 | 20 (4 by gen. 10) |
+| fission–fusion, K, horizontal grudges (4 runs) | 3 | 4 (2 by gen. 10) |
+| fission–fusion, K, grudges, sponsored PrudentBot (reference) | 20 | 20 (5 by gen. 10) |
+| (200, 64), world L | **11** | 20 (10 by gen. 10) |
+| (200, 64), K, no grudge | **19** | 19 (5 by gen. 10; 1 coexistence) |
+| (200, 64), K, no grudge, K = 1 tail | 19 | 19 (5 by gen. 10; 1 coexistence) |
+| (200, 64), K, grudges | 16 | 20 (4 by gen. 10) |
+| (200, 64), K, grudges, K = 1 tail | 19 | 20 (4 by gen. 10) |
+
+(The run file's `det_extinct` counts only removals after generation 10.) Cell-level mean final P(C,C) is ≥ 0.99 everywhere.
+
+**Causes.** The frozen window labels assign inefficiency to almost every early removal, because the window starts in the scramble. Replays that remove the exploiters confirm predation in 0 of 84 sampled removals. The sucker surgery confirms the prudence premium in 0/10 fission–fusion and 4/9 island cases, and saves DET in 15/15 equal-mass removals, where the DefectBot-cooperating units are PBN's anti-gentle members. PBN's removals in the equal-mass grudge cells are abundance; elsewhere some PBN removals are unresolved (the 1 + 3 + 3 all-defect tail runs in the no-grudge equal-mass cell and both natural-share cells; one each in four Part C cells) or inefficiency (the horizontal cell).
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RS (1) | detectors are legitimate, gentle and exploitable; certificates would keep them | **premise failed in L** (a near-clique); **held as a mechanism in K** (no establishment observed in 650 tested predator arrivals; equal-mass wins 0/20 → 13/20); **failed at the prior** (DET extinct in 19–20 of 20 natural-seed runs per cell) |
+| RS (2) | removals for good reasons, not numbers | equal-mass DET removal is exploitation by PBN's anti-gentle members; PBN's removal under grudges is minority drift (abundance) |
+| RE 1 | vertical cuts ≤ ½ at 800; horizontal ≤ 0.05 | partly (vertical alone cuts it to 0; horizontal held) |
+| RE 2 | no unjustified grudges | held as worded; 18% of writes transient |
+| RE 3 | equal mass is a coin flip | no-grudge arm: **falsifier fired** (0/20); grudge arm: inside the band (13/20, abundance) |
+| RE 4 | tail: PBN ≥ 0.8 by predation; grudges near a coin flip | outcomes held (19/20; 6/20); cause clause failed |
+| RE 5 | natural shares: PBN by abundance and prudence premium | outcome held; causes failed |
+| Gemini | vertical ≥ 0.15 at 800; PBN ≥ 0.75 by prudence premium | **failed** both |
+| Sol | coverage dependence; path dependence; tail predators (DET removals labelled predation with a PBN exploiter) | partly; held; predation co-labels with PBN exploiters occur but replays confirm none (0 of 84) |
+| D1–D13 | subagent's own | D1–D4, D11, D12 held; D5, D6, D7, D13 fired; D8, D10 partly; D9 failed |
+
+**Reading.**
+- **The stored detector is not a gentle network.** Its own D certificate generalizes to every opponent, so it is a near-identity clique.
+- **Keying self-certified defection to its production partner (world K) makes the detector gentle, legible and a member of the PrudentBot network, and dissolves the TwinD cliques:** universal-open at (200, 64) goes 11 → 19 of 20. This is a candidate production convention for the realizable arm, for the RS to decide.
+- **Grudges work as the RS asked.** After one strike, no tested predator arrival established (0/650; at N = 3,200 the per-predator 95% upper bound is 0.07), and at equal mass they turn the contest from 0/20 to 13/20 for detectors. They are episodic memory carried as a gene, a step toward repeated-game structure.
+- **They do not rescue detectors at the prior:** about 22 founders in 12,800, and the family is extinct in 19–20 of 20 runs in every cell.
+- **What removes detectors at equal mass is gentleness-punishing members of the PrudentBot network,** not third-party prudence; with grudges, the outcome is a scramble-built majority and drift, which is abundance.
+- *Caveats:* the ideal table charges no verification cost; the horizontal cell ran 4 runs; the frozen window labels conflate scramble removals with inefficiency and need mechanism tests before reuse.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

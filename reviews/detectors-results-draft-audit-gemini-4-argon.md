@@ -1,0 +1,13 @@
+# Review of `/private/tmp/claude-501/-Users-jstav-code-program-ecologies/eb8d2660-d0b5-4f2d-a91b-d841b12695c0/scratchpad/detectors-results-draft.md` by gemini-4-argon
+
+1. **Draft:** "...elsewhere some PBN removals are unresolved (B2 grudges with the tail, three; one each in two Part C cells) or inefficiency (the horizontal cell)."
+   **Evidence:** `runs/detectors/tables.md` shows `PBN:unresolved` removals in **six** Part B runs (B1_K0_t1: 1; B2_K0_t1: 3; B2_KG_t1: 3—the 1 + 3 + 3 all-defect tail takeovers where both networks are removed) and in **four** Part C cells (`Cff_KG_e0`: 1, `Cff_KG_t1`: 1, `Cff_KGs_e0`: 1, `Cis_KG_t1`: 1).
+   **Correction:** Replace with "...elsewhere some PBN removals are unresolved (the 1 + 3 + 3 all-defect tail runs in B1 K0, B2 K0, and B2 KG; and one each in four Part C cells: Cff KG at ε = 0 and K = 1, Cff KGs, and Cis KG at K = 1) or inefficiency (the horizontal cell)."
+
+2. **Draft:** **Part C, natural seeds** table and surrounding text.
+   **Evidence:** `runs/detectors.md` and `runs/detectors/tables.md` include six additional Part C / Reference cells totaling 104 runs that the draft table omits without mention: `Cff_K0_t1` (20 uo, 20 DET extinct [3 by gen. 10]), `Cff_KGs_e0` (20 uo, 20 DET extinct [4 by gen. 10]), `Cff_KGh_e0` (4 runs: 3 uo, 4 DET extinct [2 by gen. 10]), `Cis_K0_t1` (19 uo, 19 DET extinct [5 by gen. 10, 1 coexistence]), `Cis_KG_t1` (only parenthetically mentioned for `uo`; 20 DET extinct [4 by gen. 10]), and `Ref_KG_e0` (sponsored PB, 20 uo, 20 DET extinct [5 by gen. 10]). Furthermore, the table omits the "by gen. 10" breakdown for the three rows `fission–fusion, K, grudges, K = 1 tail` (4 by gen. 10), `(200, 64), K, no grudge` (5 by gen. 10), and `(200, 64), K, grudges` (4 by gen. 10 at both ε = 0 and K = 1).
+   **Correction:** Add the missing rows (or summarize them in a sentence beneath the table) and include the "(4 by gen. 10)" / "(5 by gen. 10)" counts on all rows for consistency.
+
+3. **Draft:** **Part A, single predator arrivals** section.
+   **Evidence:** `runs/detectors.md` and `predictions/2026-10-17-legitimate-detectors.md` (D5) report 400 second-arrival assay runs at N = 200 (`KG_exact`, `KG_syn`, `KGh_exact`, `KGh_syn`: 100 runs each, all 100 first arrivals lost and 0/100 second arrivals established). The draft lists D5 as having fired in the Verdicts table without reporting the Part A second-arrival data or why D5 fired trivially (0 = 0 because no first arrival survived).
+   **Correction:** Add a sentence to Part A: "In 400 second-arrival runs at N = 200 (KG and KGh, exact source vs. synonym), every first arrival was lost and 0/100 second arrivals established in each arm (firing D5's `exact ≥ synonym` falsifier trivially at 0 = 0)."

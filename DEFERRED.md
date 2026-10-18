@@ -203,6 +203,15 @@ REJECTED.md the ones we dropped.
   count toward the target, reported per unit of sucker exposure; the sucker supply is set by the re-injection schedule,
   so the schedule is a modelling knob on how much prudence is rewarded (at ε = 0 the premium is spent once the seed's
   suckers are eaten).
+- *Evidence (2026-10-18, legitimate detectors):* the stored detector is a near-identity clique (its first D certificate
+  validates at every root); keying hypothesis-closed D certificates to their production partner (world K) makes it
+  gentle, legible and a PrudentBot-network member, dissolves the TwinD cliques (universal-open 11 → 19 of 20 at
+  (200, 64)), and gives gentle readers predator mass 0.26; grudges stop tested predators (0/650) and win the equal-mass
+  contest 13/20, but detectors are extinct in 19–20 of 20 natural-seed runs; what removes them at equal mass is the
+  PrudentBot network's anti-gentle members; with grudges, PrudentBot's loss is abundance (RESULTS "Legitimate
+  detectors"). *Decision for the RS:* whether world K (keyed self-hypothesis defection) becomes the realizable arm's
+  default production convention; if so, the identity-related cells are rerun under K. *Operating hypothesis:* K is a
+  diagnostic until he decides.
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
