@@ -547,6 +547,25 @@ REJECTED.md the ones we dropped.
 - *Would settle it:* the gene arm (parametric base strategies per role + declared special-case genes + the
   credibility filter) on the social organization game and on fixed-role chicken; whether selection among genes
   recovers RC.
+- *RS (2026-10-18), two kinds of gene:* "I posit there are 2 types 1. Genes as proofs of behavior 2. Genes as
+  overwriting behavior for special cases. How much of 2 can 1 cover by lob's theorem? Is it enough to relegate 2 to a
+  wing rather than the main experimental paradigm? ... Note that some special-casing actively contradicts the program
+  so can't be covered by proofs". *RE's analysis:* (i) at a *hooked* point (the code defers to its own certificate:
+  "if certified to play a against X, play a") every override is a proof gene: the certificate is self-fulfilling by
+  Löb and sound because the code obeys it (grudges were exactly such overrides; the unkeyed detector certificate was an
+  over-general one, which world K keys back to a special case); (ii) without a hook a proof gene can only certify what
+  the code already does (soundness), so a contradicting override is not a gene of type 1 but a different program, the
+  code plus a branch, which the program prior already contains; what the override arm adds is a cost model (a cheap
+  special case instead of nodes) and horizontal transmission of non-legible patches; (iii) proof genes are legible
+  commitments a partner can check, and copying gives them horizontal transmission at hooked points, so within the
+  hooked part of program space they cover both halves of the override arm; (iv) caveats: hooks are rare under the
+  length prior (own-D readers ≈ 0.03 of the realizable PD prior); self-fulfilling certificates encode threats as
+  readily as promises (entry 13 applies unchanged); two-party patches need both parties hooked and the pair rule.
+  *Operating hypothesis:* the main paradigm is programs plus proof genes (keyed as in world K); override genes are a
+  wing, interpreted as code variants with a different cost and horizontal transmission. *Would re-open it:* a behaviour
+  class that needs horizontal transmission of non-legible special cases, or evidence that hook scarcity in the prior
+  makes certificate-mediated special-casing negligible where it matters (then the prior, not the gene type, is the
+  lever). To be taken up in the broader conversation about certificates (entry 1).
 
 ## 13. Threats: drift versus testing (RS, 2026-10-11)
 - *RS's guess:* inactive threats should drift out quickly enough to disarm them over the long run.
