@@ -6,9 +6,11 @@ both from .env (gitignored).
     python3 tools/review.py specs/<file>.md --context CLAUDE.md --model gemini-4-argon
 Writes reviews/<brief-stem>-<model>.md.
 
-Modes (RS, 2026-10-17; sequential: one model, fold, then the other, alternating which goes first):
-    --mode amended   the folded spec, checked for errors and inconsistencies the amendments introduced
-                     -> reviews/<stem>-amended-<model>.md
+Modes (RS, 2026-10-17; two reviews before a run and two after, each pair sequential: one model, fold, then the
+other, alternating which goes first):
+    (default) spec   the first pre-run review of a draft spec -> reviews/<stem>-<model>.md
+    --mode amended   the second pre-run review: a full review of the spec with the first review folded in, which also
+                     checks the folded amendments for errors and inconsistencies -> reviews/<stem>-amended-<model>.md
     --mode audit     a draft RESULTS section (the brief argument) checked against run files passed as --context
                      -> reviews/<stem>-audit-<model>.md
 """
@@ -28,13 +30,18 @@ efficient outcomes in the large-population limit. Be concrete and brief. Report,
 Say "nothing material" for any empty category. Under 600 words. No preamble."""
 
 
-AMENDED = """You are a critical research collaborator checking an experiment brief AFTER reviewer amendments were folded
-into it and BEFORE it is run. The project studies evolutionary dynamics over populations of programs that read or reason
-about each other. Look only for problems the amendments may have introduced or left: contradictions between the
-amendments and the earlier text, definitions that are now empty, inconsistent or impossible, predictions or falsifiers
-that no longer match the design, controls that cannot identify what they are said to identify, and unsafe or unsound
-mechanisms an amendment proposes. Do not re-review the original design. Report each problem with the exact sentences
-that conflict and the fix. If there is nothing material, say "nothing material". Under 400 words. No preamble."""
+AMENDED = """You are a critical research collaborator giving the second review of an experiment brief before it is run.
+The first reviewer's points have been folded in (marked [after review] or in an amendments section). The project studies
+evolutionary dynamics over populations of programs that read or reason about each other (open-source game theory),
+with the goal of characterizing when selection reaches Pareto-efficient outcomes in the large-population limit. Be
+concrete and brief. Report, in order of importance:
+1. Errors, contradictions or unsound mechanisms that the folded amendments introduced or left (quote the conflicting
+   sentences), and the fix.
+2. Design flaws or confounds that would make the result uninterpretable, and the fix.
+3. Predictions you think are wrong, with the reason and your own prediction.
+4. Missing controls or cheap additions that would sharpen the conclusion.
+5. Alternative explanations the brief does not rule out.
+Say "nothing material" for any empty category. Under 600 words. No preamble."""
 
 AUDIT = """You are auditing a draft results section against the run files it summarizes, before it is committed to an
 append-only research record. The project studies evolutionary dynamics over populations of programs that read or reason
