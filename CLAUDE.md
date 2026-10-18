@@ -132,6 +132,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 43. ~~Legitimate detectors (RS)~~ (done; RESULTS "Legitimate detectors": the stored detector is a clique; keyed self-defection (world K) makes it gentle and dissolves the TwinD cliques, 11 → 19 of 20 at (200, 64); grudges stop tested predators and win at equal mass 13/20; detectors still die at the prior; decision for the RS: adopt K?).
 
+44. World K reruns: the identity-dependent results (scaling path, Pangaea continuum and establishment law, provenance rule, rival classification, one rain cell) rerun under keyed self-hypothesis defection with paired world-L references; addenda to the affected sections (running: `specs/2026-10-18-world-k-reruns.md`).
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).

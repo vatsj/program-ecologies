@@ -217,6 +217,9 @@ REJECTED.md the ones we dropped.
   partner) is the realizable arm's default production convention; world L is kept as the reference arm; the
   identity-dependent results are rerun under K (`specs/2026-10-18-world-k-reruns.md`) and receive addenda; a broader
   conversation about certificates is pending.
+  *For that conversation (gemini-4-argon, review of the reruns spec):* source-keying replaces a semantic flaw with a
+  combinatorial one (one keyed certificate per distinct defector quote, thrashable under a capped list); keying to the
+  canonical sub-tree used in the proof is the structural alternative.
 
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
