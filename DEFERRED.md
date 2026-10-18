@@ -479,6 +479,12 @@ REJECTED.md the ones we dropped.
   nothing (RESULTS "Coverage components"). *Operating hypothesis:* a per-root production rule (attempt a set whenever
   no held script for it is valid at the current root, and write the shadowed F-branch alternative) recovers the
   free-certificate fair wage on the ideal table. *Next:* S₃ with that rule, on the ideal table and at 3·10⁶.
+- *Evidence (2026-10-18, per-root production):* R2 (per-root lack plus shadowed alternatives) gives 0.40–0.45 of islands
+  fair on confirmation streams (free full lists 0.30 on the same 40) with no zero wage, and 0.30 at 3·10⁶ executed;
+  median encounter cost 4.1× play from root validation; a capped list thrashed (RESULTS "A per-root production rule").
+  *Operating hypothesis:* endogenous production is S-nonself₃ under R2 (root validation, alternatives written first,
+  list-free mark). *Open:* a cheaper realizable validation (caching validity per root, or validating only the sets a
+  partner reads).
 - *Evidence (2026-10-15, scaling):* C-donor 0.80–1.00 on every (N, I) path (identity ≤ 0.004; dense donors add
   nothing); S-nonself loses universality with N·I only through the seed's TwinD copies (proportional control
   0.80–0.95); the remaining endogenous gap is bridge-less non-identity rivals.

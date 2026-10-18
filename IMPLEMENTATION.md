@@ -224,3 +224,7 @@ N = 400 cells of "The realizable lottery along paths in (N, I, mN)" and "Removin
 encounter draws (297 of 300 coincide with next-event draws). The Pangaea kernel (`src/pangaea_kern.py`) is identical for
 r ≤ 100 and overlap-free above. No stored verdict is expected to move, but the N = 400 cells have not been rerun. The
 Pangaea run also adds an exact no-change cache for copier encounters (C-donor) and the nested founder partition.
+
+**Coverage-components classifier note (found 2026-10-18 by the per-root run).** `coverage_components.classify`
+misreads feasibility for about 0.008 boss "(c)" scripts per program: they are producible at roots where N1 and N2 are
+both true, in run trees that do not read EQW. Immaterial to RESULTS "Coverage components"' conclusions.

@@ -5442,6 +5442,79 @@ Vertical inheritance suffices: at 200 production encounters per program per gene
 - **They do not rescue detectors at the prior:** about 22 founders in 12,800, and the family is extinct in 19–20 of 20 runs in every cell.
 - **What removes detectors at equal mass is gentleness-punishing members of the PrudentBot network,** not third-party prudence; with grudges, the outcome is a scramble-built majority and drift, which is abundance.
 - *Caveats:* the ideal table charges no verification cost; the horizontal cell ran 4 runs; the frozen window labels conflate scramble removals with inefficiency and need mechanism tests before reuse.
+## A per-root production rule: re-producing when no held certificate fits brings endogenous production to the free-certificate fair wage on the ideal table and close to it at 3·10⁶; a list cap thrashed in pilots (`runs/per-root.md`, `runs/per-root.json`, `runs/per_root/`, `runs/per_root/verdicts.md`, `runs/per-root-{static,audit,traces,validate}.json`, `notes/per-root.md`; spec `specs/2026-10-16-per-root-production.md`, predictions in `predictions/2026-10-16-per-root-production.md` with an addendum before two diagnostic cells)
+
+**Provenance.** The RE designed this, gpt-6.1-sol and gemini-4-argon reviewed the spec, and an Opus subagent ran it (`src/per_root{,_kern,_run,_report,_extra}.py`; `tests/test_per_root.py`, 14 tests passing on main). The kernel is generated from the fully realizable kernel with the three production functions replaced. Order of commits: notes §1 by hand; predictions; code with validation, the realizability audit, fixed traces and the cost projection; an addendum dropping R3; the ideal-table cells and R2 at 3·10⁶; a predictions addendum (D1, D2) written after inspecting those results and before the two diagnostic cells it scores; the remaining cells. This section was audited against the run files by gemini-4-argon and gpt-6.1-sol in turn before commit.
+
+**The rules.**
+- **R0 = S₃:** produce a set only while no script for it is held.
+- **R1, per-root lack:** attempt a set whenever no held script for it validates at the current root. The validation is charged with its nested calls and capped at V; the new script is appended.
+- **R2 = R1 + shadowed alternatives:** at the first hypothesis-first choice point that closes, the tactic also runs the F branch and writes that alternative before its primary.
+- **R0 + alternatives** completes the factorial.
+- **The mark** is keyed on (role, spelling, set, root), never on the program's own list.
+
+**Validation and audit.**
+- R0 reproduces the stored S₃ + eq ideal runs on 5/5 replicates.
+- The alternative-writing tactic as λ-code returns the primary and the alternative on 400/400 contexts.
+- Whole encounters executed by the term with R2 lists: plays 450/450 and productions 1,882/1,882 match (steps exact on 442/450 plays, 98.2% against the registered 99%, median difference 1 step; cost-model median error 0.22%), with 0 of 856 accepted checks unsound across appends and evictions.
+
+**Static.** R2 can hold all the producible second paths and 0.94 of the shadowed alternatives. Validity covers of at most two bundles exist for 0.96 of worker and 0.81 of boss set mass.
+
+**Lottery** ((100, 64), mN = 1, ε = 0; fair share at 10,000, runs with any fair island in brackets; development streams 0–19, confirmation streams 20–39 and 40–59):
+
+| cell | dev | conf 20–39 | conf 40–59 | zero wage (conf 20–39) |
+|---|---|---|---|---|
+| R0 = S₃, ideal | 0.000 (0) | 0.050 (1) | 0.050 (1) | 0.40 |
+| R0 + alternatives, ideal | 0.053 (2) | 0.050 (1) | – | 0.50 |
+| R1, ideal | 0.200 (4) | 0.202 (5) | – | 0.00 |
+| **R2, ideal** | **0.339 (7)** | **0.402 (9)** | **0.450 (9)** | **0.00** |
+| free full lists (H-full), ideal | 0.300 (6) | 0.398 (9) | 0.200 (4) | 0.00 |
+| R0, 3·10⁶ | 0.027 (1) | – | – | – |
+| **R2, 3·10⁶** | **0.300 (6)** | – | – | – |
+| H-full, 3·10⁶ | 0.347 (7) | – | – | – |
+| R2 with root-keyed dispatch, 3·10⁶ | 0.199 (4) | – | – | – |
+| R0 / R2 / H-full, 10⁶ | 0.055 / 0.050 / 0.100 | – | – | – |
+
+**Paired contrasts** (runs fair; McNemar):
+
+| contrast | Δ fair share [95%] | p |
+|---|---|---|
+| R2 − R0, streams 20–59 | +0.38 [0.23, 0.53] | 3·10⁻⁵ |
+| R2 − H-full, streams 20–59 | +0.13 [−0.07, 0.31] | 0.36 |
+| R2 − R1, streams 20–39 | +0.20 [−0.00, 0.45] | 0.29 |
+| R2 − R0, 3·10⁶ (dev) | +0.27 [0.10, 0.47] | 0.06 |
+
+**Mechanism.**
+- **Concession bosses persist under R1 and R2.** About 10 islands keep a ½-paying boss through the minimum near generation 100, and no run on the ideal table or at 3·10⁶ loses them by generation 200 (one of 20 does at 10⁶). Under R0 the count falls to 2.5–5.2 islands at generation 200 (to 0 by generation 1,000 in the five monitored development runs), and 2–5 runs per cell lose them by generation 200.
+- **A boss-side contribution, on outcome-selected streams.** On the seven development streams where R2 was fair, R2 for bosses only (workers on R0) is fair in 3/7, R2 for workers only in 0/7, and full R2 in 7/7. The proposed pathway (per-root boss certificates keep concession bosses certified on the paths militants send them down) is consistent with this and with boss persistence, but was not isolated.
+- **Second-path scripts are rarely pivotal at the nucleus itself** (a per-root script in 1 of 7 and 1 of 8 R2 nuclei; an alternative never; nucleus scripts are mostly first scripts). Barring every per-root script and alternative in replays kept the fair wage on stream 3 and lost it on stream 22 (1.0 → 0.0), so the replay evidence is mixed.
+- Per-root scripts and alternatives are held by generation 10 in 20/20 runs, and fair shares at 20,000 match those at 10,000 within 0.02 on the 5 extended streams.
+
+**Cost.**
+- **R2 at 3·10⁶ is expensive.** The median encounter costs 4.10× play (p90 17×, p99 419×, cumulative 3.0×), and root validation is 0.88 of the non-play steps. R0 costs 1.0×.
+- **The mark is behaviour-preserving on the ideal table and approximately so at 3·10⁶.** It skips about 1.2·10⁷ attempts per run; the productions it changes are 0 on the ideal table and 1,838 (0.015%) at 3·10⁶.
+- **R3, a cap of two bundles per set (FIFO or LRU), was dropped as a counted cell after pilots thrashed.** In the pilot and diagnostics a boss whose set needs three root classes re-produced the evicted script each time that root returned; type churn at founding was 16–48× R2's, and a pilot did not finish 2,000 generations in 1 h 44 min.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | R2 within 0.1 of H-full on the confirmation streams, zero wage ≤ 0.05 | **held on 20–39** (0.402 vs 0.398; zero wage 0); on the full 20–59 set R2 exceeds H-full by +0.127 (0.426 vs 0.299), outside the band upward, so inconclusive as scored |
+| RE 2 | R1 between S₃ and R2, near 0.10 | order held, level 0.20; inconclusive |
+| RE 3 | the cap is cheap | not scored (R3 infeasible: it thrashes) |
+| RE 4 | R2 ≤ 0.1 at 10⁶ and ≥ 0.4 at 3·10⁶ | 0.05 / 0.30; inconclusive (falsifier not fired) |
+| RE 5 | median encounter cost ≤ 1.5× play | **failed, falsifier fired** (4.1×) |
+| Sol | low median overhead; R2 well below H-full at 3·10⁶; k = 2 needs a small cover | first two **failed**; third not scored |
+| Gemini | R2 0.25–0.35 at 3·10⁶ with linear checking, ≥ 0.4 only with dispatch; R2 lags H-full by timing; FIFO k = 2 drops ≥ 0.10 | linear clause held (0.30); dispatch clause **failed** (0.20); timing **failed**; FIFO not scored |
+| S1–S14, D1–D2 | subagent's own | S1, S6, S8, S14, D1, D2 held; S3, S4, S7 fired; S9, S11 failed; S2, S5, S12, S13 inconclusive; S10 not run |
+
+**Reading.**
+- **A production rule recovers most of the fully realizable fair-wage deficit, in these finite samples.** Per-root lack plus shadowed alternatives takes S-nonself₃ from 0.05 to 0.40–0.45 of islands fair on the confirmation streams (0.43 over all 40, against free full lists' 0.30 on the same 40; the difference +0.13 [−0.07, 0.31] establishes neither equality nor superiority), with no zero-wage islands. It is endogenous, checked production, sound as code.
+- **It largely survives execution at 3·10⁶ despite a 4× encounter cost** (0.30 against free lists' 0.35; difference −0.05 [−0.30, 0.20]; the registered ≥ 0.4 was missed). At 10⁶ every rule fails, so fuel still sets the floor.
+- **The rescue appears to run through bosses:** concession bosses persist under R1 and R2 where they die under R0, and the boss-only ablation recovers part of the effect; the exact certification pathway is a hypothesis.
+- **Each half alone is partial** (R1 0.20; alternatives alone 0.05).
+- **Root validation is the price,** and the mark cannot remove it because it is a correct check, not a futile retry. In the pilots a list cap was not a cheap fix: it turned coverage into repeated re-production.
+- *Caveats:* ε = 0 at finite (N, I, horizon); outcomes all-or-nothing by run; R1 and R0 + alternatives confirmed on 20 streams, R2, R0 and H-full on 40; executed cells and diagnostics on development streams only, the diagnostics on streams selected by R2's outcome.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
