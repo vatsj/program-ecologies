@@ -15,10 +15,13 @@ OG = H.ORIGINS
 
 
 def load(cell, prefix=''):
+    import gzip
     p = os.path.join(OUT, '%s%s.json' % (prefix, cell))
-    if not os.path.exists(p):
-        return []
-    return [r for r in json.load(open(p)) if 'error' not in r]
+    if os.path.exists(p):
+        return [r for r in json.load(open(p)) if 'error' not in r]
+    if os.path.exists(p + '.gz'):
+        return [r for r in json.load(gzip.open(p + '.gz')) if 'error' not in r]
+    return []
 
 
 def wilson(k, n, z=1.96):
@@ -214,7 +217,7 @@ def main():
             pd[c]['at2000'] = pd_cell(rows, '2000')
     sog = {}
     for c in ['baseline', 'plain', 'inert', 'maximal', 'seeding-only', 'grudge-only', 'no-contract', 'no-history',
-              'no-behaviour', 'no-role']:
+              'no-behaviour', 'no-role', 'no-contract-strict', 'no-writes-strict']:
         rows = load(c, 'sog-')
         if rows:
             sog[c] = sog_cell(rows)
