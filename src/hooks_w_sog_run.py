@@ -36,7 +36,7 @@ def _act(scope=(), origin=()):
     return a
 
 
-BASECFG = dict(recency=0, grudge=1, thanks=1, contract=1, copy=1, shuffle=0, noinherit=0, enc=1)
+BASECFG = dict(recency=0, grudge=1, thanks=1, contract=1, copy=1, shuffle=0, noinherit=0, enc=1, keep_origin=0)
 CELLS = {
     'baseline':     dict(stored=True),
     'plain':        dict(plain=True),                       # validation: plain grammar through this kernel
@@ -48,6 +48,9 @@ CELLS = {
     'no-history':   dict(active=_act(scope=[S.HIST])),
     'no-contract':  dict(active=_act(origin=[S.CONTRACT])),
     'seeding-only': dict(active=_act(origin=[S.WRITTEN, S.COPIED, S.CONTRACT])),
+    # strict source ablation (added during the run, notes §2.7): copies keep the copied fill's origin
+    'no-contract-strict': dict(active=_act(origin=[S.CONTRACT]), keep_origin=1),
+    'no-writes-strict':   dict(active=_act(origin=[S.WRITTEN]), keep_origin=1),
 }
 ORDER = ['baseline', 'plain', 'inert', 'maximal', 'seeding-only', 'grudge-only', 'no-contract', 'no-history',
          'no-behaviour', 'no-role']
@@ -74,7 +77,7 @@ def tables():
 def cfg_of(c):
     d = dict(BASECFG); d.update({k: v for k, v in c.items() if k in BASECFG})
     return np.array([d['recency'], d['grudge'], d['thanks'], d['contract'], d['copy'], d['shuffle'], d['noinherit'],
-                     d['enc'], 1], np.int64)
+                     d['enc'], 1, d['keep_origin']], np.int64)
 
 
 def new_tables(cap=TCAP):

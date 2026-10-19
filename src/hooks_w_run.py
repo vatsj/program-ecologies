@@ -37,7 +37,7 @@ def _act(**off):
 
 
 # cfg defaults: recency 0, grudge 1, thanks 1, contracts 1, copying 1, shuffle 0, noinherit 0, encounters 1
-BASECFG = dict(recency=0, grudge=1, thanks=1, contract=1, copy=1, shuffle=0, noinherit=0, enc=1)
+BASECFG = dict(recency=0, grudge=1, thanks=1, contract=1, copy=1, shuffle=0, noinherit=0, enc=1, keep_origin=0)
 CELLS = {
     # the no-hook baseline: plain grammar, the stored lottery's founders (multinomial over the 51 behavioural classes)
     # and kernel seeds, no encounters; reps 0-19 reproduce runs/almost-all-seeds-islands.json draw for draw
@@ -58,6 +58,11 @@ CELLS = {
     'hist-shuffled':  dict(active=_ALL, shuffle=1),
     'hist-noinherit': dict(active=_ALL, noinherit=1),
     'recency':      dict(active=_ALL, recency=1),
+    # strict source ablations (added during the run, notes §2.7): copies keep the copied fill's origin, so a disabled
+    # source's content cannot re-enter as an active 'copied' fill
+    'no-contract-strict': dict(active=_act(origin=[H.CONTRACT]), keep_origin=1),
+    'no-writes-strict':   dict(active=_act(origin=[H.WRITTEN]), keep_origin=1),
+    'no-seed-strict':     dict(active=_act(origin=[H.SEEDED]), keep_origin=1),
     # fission-fusion (128 x 100, merged into one population at generation 200)
     'ff-baseline':  dict(plain=True, ff=True, gens=600),
     'ff-inert':     dict(active=np.zeros((4, 4), np.bool_), ff=True, gens=600),
@@ -80,7 +85,7 @@ def lang(hooks=True):
 def cell_cfg(c):
     d = dict(BASECFG); d.update({k: v for k, v in c.items() if k in BASECFG})
     cfg = np.array([d['recency'], d['grudge'], d['thanks'], d['contract'], d['copy'], d['shuffle'], d['noinherit'],
-                    d['enc'], 1, 0], np.int64)
+                    d['enc'], 1, 0, d['keep_origin']], np.int64)
     return cfg
 
 
@@ -398,7 +403,7 @@ def validate(nrep=20):
                 if init[i, k] > 0:
                     pres[i, npres[i]] = k; cnt[i, npres[i]] = init[i, k]; npres[i] += 1
                     T[9][k] += init[i, k]
-        cfg = np.zeros(10, np.int64); cfg[8] = 1
+        cfg = np.zeros(11, np.int64); cfg[8] = 1
         seed = 100003 * rep + 7 * N + I + int(mN * 1000)
         es = np.zeros((4, 4, 4)); ctr = np.zeros(12, np.int64)
         K.kernel(LA, Lp.b_tags, Lp.iC, Lp.iD, Lp.bD, T, tdict, ev, active, cfg, 0.0, H.PDPAY, pres, cnt, ps, npres, Cl,
@@ -449,7 +454,7 @@ def run_cell(cell, reps, procs):
 
 ORDER_PD = ['baseline', 'inert', 'maximal', 'seeding-only', 'grudge-only', 'no-contract', 'no-history', 'no-writes',
             'no-copy', 'no-seed', 'no-behaviour', 'no-role', 'hist-shuffled', 'hist-noinherit', 'no-behaviour-renorm',
-            'no-history-renorm', 'recency']
+            'no-history-renorm', 'recency', 'no-contract-strict', 'no-writes-strict', 'no-seed-strict']
 ORDER_FF = ['ff-baseline', 'ff-inert', 'ff-maximal', 'ff-grudge-only']
 
 

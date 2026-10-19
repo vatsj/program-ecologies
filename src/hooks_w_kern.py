@@ -10,7 +10,8 @@ With cfg[7] = 0 and one type per class the random stream and the arithmetic are 
 
 cfg: 0 recency-only conflict rule, 1 grudge writes, 2 thanks writes, 3 contracts, 4 copying, 5 shuffled trigger keys,
 6 written fills not inherited, 7 encounters on, 8 compute initial matrices and paysums, 9 rejection parent sampler
-(used for the merged fission-fusion population; the same law as the stored sampler).
+(used for the merged fission-fusion population; the same law as the stored sampler), 10 copies keep the copied
+fill's origin (provenance-preserving copying, the strict source ablations; 0 = a copy has origin 'copied').
 counters: 0 encounters, 1 grudge writes, 2 thanks writes, 3 in-place updates, 4 evictions, 5 copies, 6 contract
 attempts, 7 contracts, 8 type-capacity or slot-capacity overflow, 9 encounters whose outcome a selected fill changed,
 10 writes that changed nothing.
@@ -286,7 +287,7 @@ def _trigger(T, tdict, b_tags, active, recency, cfg, pres, cnt, npres, N, i, x, 
 
 
 @njit(cache=True)
-def _copy(T, tdict, b_tags, active, recency, x, y, counters):
+def _copy(T, tdict, b_tags, active, recency, x, y, counters, keep_origin):
     Tb, Tl, Tf, Tn, Tg, Ts0, Tss, Th, Tgent, gcount, meta, freel = T
     tg = Tg[x]
     if tg == 0:
@@ -304,7 +305,7 @@ def _copy(T, tdict, b_tags, active, recency, x, y, counters):
                 g = Tf[y, j]
                 break
             r -= 1
-    newf = (((g - 1) & ~np.int64(3 << 4)) | (2 << 4)) + 1
+    newf = g if keep_origin == 1 else (((g - 1) & ~np.int64(3 << 4)) | (2 << 4)) + 1
     out = np.zeros(4, np.int64)
     nf, evc, inpl = write_fill(Tf[x], Tn[x], newf, out)
     counters[4] += evc; counters[3] += inpl
@@ -514,9 +515,9 @@ def kernel(LA, b_tags, iC, iD, bD, T, tdict, ev, active, cfg, copy_q, PAY, pres,
             if nb < 0:
                 nb = _trigger(T, tdict, b_tags, active, recency, cfg, pres, cnt, npres, N, i, b, a, xb, xa, counters)
             if na < 0 and cfg[4] == 1 and np.random.random() < copy_q:
-                na = _copy(T, tdict, b_tags, active, recency, a, b, counters)
+                na = _copy(T, tdict, b_tags, active, recency, a, b, counters, cfg[10])
             if nb < 0 and cfg[4] == 1 and np.random.random() < copy_q:
-                nb = _copy(T, tdict, b_tags, active, recency, b, a, counters)
+                nb = _copy(T, tdict, b_tags, active, recency, b, a, counters, cfg[10])
             if na >= 0:
                 if not _replace(T, tdict, LA, ev, iC, iD, active, recency, PAY, pres, cnt, ps, npres, Cl, vpay, rowb, i, a, na):
                     counters[8] += 1

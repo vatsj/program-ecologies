@@ -378,3 +378,18 @@ the constant scab and striker fall from 0.48 each to 0.156 each.
 **Projected cost:** maximal-like cells about 70 s per run (1,000 generations), so about 6–7 worker-hours for the ten
 cells. Total projection with the PD part and fission–fusion: about 25 worker-hours on three workers (about 9 hours of
 wall time), within the ~20-hour wall budget; nothing is dropped.
+
+
+### 2.7 Addendum during the run: provenance-preserving copies (registered before the cells it adds)
+
+While the declared cells ran I found that the fill-source ablations leak through copying: a copy is written with
+origin "copied", so the content of an inert source (a written grudge or thanks, a contract fill, a seeded fill) that a
+partner copies becomes active in the copier. The declared cells `no-writes`, `no-contract`, `no-seed` (and the social
+organization's `no-contract`) therefore remove a source's direct effect but not its spread by copying. They are kept
+and reported as declared. Three PD cells and two social-organization cells are added, with copying that keeps the
+copied fill's origin (a cfg flag, default off, so every declared cell's law is unchanged):
+`no-contract-strict`, `no-writes-strict`, `no-seed-strict` (PD, 40 runs, generation 1,000) and `no-contract-strict`,
+`no-writes-strict` (social organization, 40 runs). These are post-hoc diagnostics, not scored against any prediction.
+Hand expectation, written now: each strict cell is at least as close to its no-source counterpart as the leaky cell
+(PD: `no-contract-strict` island efficiency at least `no-contract`'s 0.63; social organization: the strict cells'
+intermediate share at most the leaky cells').

@@ -13,7 +13,7 @@ carried history fills, Tbb (cap, 128) and Trn (cap, 2) the resolution structure 
 its signature, gcount, meta, freel).  A resolution table for given partner lineages is built from the structure and
 the matching history fills in O(fills); its hash (the eval-cache key) needs no table at all.
 cfg: 0 recency, 1 grudge writes, 2 thanks writes, 3 contracts, 4 copying, 5 shuffled keys, 6 written fills not
-inherited, 7 encounters, 8 initialize.
+inherited, 7 encounters, 8 initialize, 9 copies keep the copied fill's origin.
 counters: 0 encounters, 1 grudge writes, 2 thanks writes, 3 in-place updates, 4 evictions, 5 copies, 6 contract
 attempts, 7 contracts, 8 overflow, 9 encounters changed by a fill, 10 writes that changed nothing.
 thr[s, q]: per slot s, threat fills: 0 held (fill-encounters), 1 held and active, 2 challenged (selected on path),
@@ -842,7 +842,7 @@ def kernel(LA, TT, htags, wtag, PAY, SUMT, T, tdict, ev, active, cfg, copy_q, pr
                                 gsel = Tf[ot, j]
                                 break
                             rr -= 1
-                    newf = (((gsel - 1) & ~np.int64(3 << 7)) | (2 << 7)) + 1
+                    newf = gsel if cfg[9] == 1 else (((gsel - 1) & ~np.int64(3 << 7)) | (2 << 7)) + 1
                     q = _write(T, tdict, htags, wtag, active, recency, me, newf, counters)
                     if q >= 0:
                         counters[5] += 1
