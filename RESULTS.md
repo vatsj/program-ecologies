@@ -5596,6 +5596,99 @@ Pooled over the three Pangaeas, K lost 20 of 60 runs and L 15 (paired difference
 - *"Provenance."* S-nonself's advantage survives K and grows at N = 200 (+0.50, p = 0.002); K removes the TwinD part of S-self's identity but not the minted C-identity class.
 - *"Removing rival networks."* Under K the (200, 64) S-nonself rival islands at 10,000 are 0 identity, 0 exploitable, 64 closed-open and 9 closed-non-open (uot 18/20), against L's 72 / 14 / 202 / 0 (uot 11); rain under K feeds the AP network instead of identity.
 - *"Legitimate detectors."* K's key is the literal ⌜D⌝, which no population member carries, so "keyed to the production partner" means operationally "never live against any program"; the gentle detector defects against DefectBot only through its `CHK(them,them,D)` disjunct. The 11 → 19 result reproduces draw for draw.
+## Hooks in the weakly extensional wing: maximal hooks break the PD lottery through lineage contracts; in the union game, history-keyed worker threats are tested and lift the wage to ¼; maximal hooks produce no fair islands (`runs/hooks-w.md`, `runs/hooks-w.json`, `runs/hooks-w-verdicts.md`, `runs/hooks_w/`, `runs/hooks-w-validate.json`, `runs/hooks-w-sog-validate.json`, `notes/hooks-w.md`; spec `specs/2026-10-18-hooks.md`, predictions in `predictions/2026-10-18-hooks-w.md` with the RS's statements first)
+
+**Provenance.** The RS proposed the paradigm (DEFERRED 12). The RE designed it, gpt-6.1-sol and then gemini-4-argon reviewed the spec, and an Opus subagent ran Part W (`src/hooks_w{,_kern,_run,_report}.py`, `src/hooks_w_sog{,_kern,_run}.py`; `tests/test_hooks_w.py`, 14 tests passing on main). Order of commits: notes §1 by hand; predictions; PD code with validation; union-game code with validation; an addendum registering strict ablation cells; the cells. Part R is reported separately. This section was audited against the run files by gemini-4-argon and then gpt-6.1-sol before commit.
+
+**Design.**
+- **The primitive.** `HOOK(t, a₀)` is a one-node leaf with tag t ∈ {0, 1} and default action a₀. A fill (tag, scope, key, action) overrides the hook where it applies.
+- **Scopes.** None; role; history, keyed on the partner's founder lineage; behaviour, keyed on the partner's class under three PA boxes (does it play C against ⌜C⌝, against ⌜D⌝, against me).
+- **Conflict rule.** The most specific scope wins (behaviour, history, role, none); ties go to recency. At most 4 fills, FIFO; a matching write updates in place.
+- **Fill sources.** Seeding, from a Poisson(1) gene prior truncated at 4; history-triggered grudges and thanks; copying at 0.1 per encounter; and pair contracts, joint history fills accepted only if they are a Pareto improvement for the pair.
+- **Semantics.** Quoted programs carry no fills, and matches are evaluated on a closed node set. Across 4,000 random filled programs, none gets (D, C) against FairBot.
+- **The inert discipline.** Disabled fills are held, inherited and written but never applied; founders, fill draws and kernel seeds are shared across cells.
+
+**Objects.**
+- **PD:** the modal n = 6 lottery at (100, 64), mN = 1, ε = 0, 40 runs, with one sampled encounter per birth.
+- **Fission–fusion:** 32 × 100 merged at generation 200, horizon 600, 20 runs.
+- **Union game:** CC, c = 0.5, at (30, 16), mN = 1, horizon 1,000, 40 runs.
+
+**Validation.**
+- With the plain grammar the PD kernel reproduces all 20 stored modal (100, 64) rows draw for draw.
+- The union-game module reproduces the stored rows, and its evaluator equals the stored tensor on 30,000 random triples.
+- Inert hooked play equals default-resolved play, and the fast fill tables equal the generic conflict rule on 18,000 random tables.
+
+**Disclosures.**
+- **Reduced geometries, for cost.** Fission–fusion ran at 32 × 100 (not 128 × 100), and the union game at (30, 16), where its no-hook baseline is the stored kernel run at the same geometry. PD ablation cells are compared at generation 1,000; only baseline, inert and maximal ran to 2,000.
+- **Leaky source ablations.** The declared ablations of writes, contracts and seeds leak: a copy of a disabled fill comes back as an active "copied" fill. Strict, provenance-preserving variants were registered before they ran and are post hoc, not scored.
+- **Contract acceptance in contract-inert cells** judges the candidate as if active.
+- About 16 worker-hours.
+
+**RE check:** every PD and union-game cell number below matches the run file's cell summaries. The mechanistic detail (majority bases, P(C,C) quartiles, type counts, post-merge trajectories, execution rates) is quoted from the subagent's hand-back report; it is not in the committed run files and was not re-derived.
+
+**PD islands** (generation 1,000; 40 runs; fraction of runs efficient and universal-open; mean island efficiency, island P(C,C), lineage-closed islands):
+
+| cell | efficient runs | universal-open | island efficiency | P(C,C) | lineage-closed |
+|---|---|---|---|---|---|
+| baseline (plain grammar) | 1.00 | 1.00 | 1.00 | 1.00 | 0 |
+| inert hooks | 0.65 | 0.65 | 0.65 | 0.65 | 0 |
+| **maximal** | **0.075** | **0.00** | 0.22 | 0.54 | 0.18 |
+| seeding-only | 0.775 | 0.775 | 0.78 | 0.78 | 0 |
+| no history | 0.85 | 0.85 | 0.85 | 0.85 | 0 |
+| no contracts, leaky / strict | 0.20 / **0.675** | 0.175 / 0.675 | 0.63 / 0.68 | 0.67 / 0.69 | 0.04 / 0 |
+| no writes, leaky / strict | 0.075 / 0.125 | 0.075 / 0.125 | 0.25 / 0.21 | 0.37 / 0.34 | 0 |
+| no seeds, leaky / strict | 0.05 / 0.10 | 0 / 0 | 0.22 / 0.25 | 0.57 / 0.56 | 0.16 |
+| no copying | 0.025 | 0.025 | 0.06 | 0.27 | 0.02 |
+| grudge-only | 0.075 | 0.075 | 0.14 | 0.36 | 0.05 |
+| no behaviour / no role | 0.075 / 0.025 | 0 / 0 | 0.26 / 0.19 | 0.58 / 0.53 | 0.21 / 0.15 |
+| history shuffled / not inherited | 0.35 / 0.025 | 0.25 / 0.025 | 0.37 / 0.12 | 0.44 / 0.34 | 0.05 / 0 |
+| recency-only conflict rule | 0.10 | 0 | 0.28 | 0.58 | 0.21 |
+
+At generation 2,000 the maximal cell reads 0.10 efficient runs, 0.025 universal-open and P(C,C) 0.49. The prior-renormalized scope ablations match the unrenormalized ones (no behaviour 0.00 universal-open; no history 0.825).
+
+- **Hook leaves alone dilute the provers** (baseline 1.00 → inert 0.65): hook carriers take 0.65 of the prior, and the FairBot-like founder mass falls from 0.0226 to 0.0057.
+- **Maximal hooks collapse the lottery.** Hook carriers hold 98.7% of island majorities, almost all bare `HOOK(t, D)` lineages. These cooperate inside and across lineages through contract fills, thanks to their own lineage, and copied C fills keyed on other lineages; self-grudges and copied grudges break that cooperation up again, so island P(C,C) is bimodal (quartiles 0.22, 0.36, 0.94) and about 2,700 program types are present. The hypothesis consistent with these endpoints (no trajectory intervention was run) is that the provers lose the early mixing phase to this contract network of default defectors.
+- **Contracts carry a large part of the effect** (exploratory: the strict cells are post hoc). The strict contract ablation brings universal-open to 0.675, close to inert's 0.65 (difference +0.025 [−0.15, 0.20], not a demonstrated equivalence), and removing history gives 0.85. Behaviour, role, seeds and the conflict rule change little among the maximal-type cells. Removing copying lowers island efficiency and P(C,C) further (universal-open 0.025), so copying's contribution is not excluded; copied C fills appear to hold the kin networks together. Shuffling the keys of triggered writes helps (+0.25), so the writes' reciprocity is part of the harm.
+- **Behaviour fills die with their carriers:** at generation 1,000 history fills are at least 98% of held fills in every hooked cell (100% in maximal), and behaviour fills are executed at most 0.001 per encounter (0 in maximal). Gentle holders are at most about 0.015 in every cell (0.0153 in grudge-only).
+
+**Fission–fusion** (20 runs): universal-open 0.85 (baseline), 0.60 (inert), **0.05** (maximal), 0.05 (grudge-only). Before the merge, maximal islands are `HOOK(t, D)` kin islands and no prover island exists; after it P(C,C) falls to about 0.2 in 17 of 20 runs, consistent with four history fills being unable to track the merged lineages (a hypothesis, not tested).
+
+**Union game** ((30, 16), generation 1,000, 40 runs; shares of islands; the remainder of each row, 0.01–0.05 where present, is the strike outcome):
+
+| cell | fair | ¼ wage | zero wage | scab split | worker payoff |
+|---|---|---|---|---|---|
+| baseline (stored kernel) | 0 | 0 | 0.77 | 0.23 | – |
+| plain grammar, new kernel (law check) | 0 | 0 | 0.82 | 0.13 | 0 |
+| inert | 0 | 0 | 0.73 | 0.22 | 0 |
+| **maximal** | **0** | **0.85** [0.73, 0.95] | 0.15 | 0 | 0.21 |
+| seeding-only / no history | 0 / 0 | 0 / 0 | 0.80 / 0.85 | 0.19 / 0.13 | 0 / 0 |
+| grudge-only | 0 | 0.425 | 0.575 | 0 | 0.11 |
+| no contracts, leaky / strict | 0 | 0.55 / 0.50 | 0.43 / 0.50 | 0.02 / 0 | 0.14 / 0.13 |
+| no writes, strict | 0.003 | 0.03 | 0.50 | 0.47 | 0.04 |
+| no behaviour / no role | 0 | 0.90 / 0.925 | 0.075 / 0.075 | 0.025 / 0 | 0.23 |
+
+- **Worker threats are tested.** In the maximal cell, workers' history-keyed strike fills execute at 0.06–0.08 of held fill-encounters (every challenge is an execution); bosses' whack fills execute at 0.0033 and realize a whack in 1.5% of challenges. Without history the rates fall to about 10⁻⁴.
+- **The lever is history; the mechanism is the triggered writes, with contracts adding part.** A worker's strike-grudge keyed on the boss's lineage fires whenever that lineage recurs, so zero-wage bosses lose output and bosses paying ¼ are thanked.
+- **The wage stops at ¼ in the maximal cell:** a plausible reading is that contracts may offer ½ but the boss pays both workers and selection keeps the cheaper wage. Fair islands appear only in the strict no-writes cell (0.003), and ½ wages appear in some other cells' paid-wage distributions; no asymptotic ceiling was tested.
+
+**Verdicts.**
+
+| # | prediction | outcome |
+|---|---|---|
+| RS | stance and question | answered descriptively: maximal hooks are not neutral in the weak wing |
+| RE 1 | P(C,C) ≥ baseline, universal-open within 0.1, behaviour fills most held | **failed, falsifier fired** (universal-open 0.00 against 1.00; behaviour fills held 0) |
+| RE 2 | disabling history lowers gentle holders where partners recur | **failed in the PD** (zero contrasts across repeat-encounter tertiles; no gentle holders to protect); not measured in the union game; the cross-wing falsifier awaits Part R |
+| RE 4 | threat execution ≤ 10⁻²; fair share within 0.1 | worker execution **failed** (0.06–0.08); boss execution held (0.0033); fair share held (0 → 0) |
+| RE 5 | fission–fusion universal-open ≥ 0.9 | **failed, falsifier fired** (0.05) |
+| RE 7 | sol's counter-predictions | the history-conditionality and prior-sensitivity clauses are consistent with Part W; residual wing differences and retention sensitivity are not tested here |
+| W1–W13 | subagent's own | W1, W4, W5, W7–W9, W11, W13 held; W2 fired; W3 failed on the declared cell, met on the strict cell; W6 partly; W10 failed except its low universal-open bound for maximal (baseline and inert below their bounds at 32 islands; maximal fission–fusion not efficient-and-lineage-closed: efficiency 0.15, lineage-closed 0.10); W12's fair clause failed |
+
+**Reading.**
+- **The weak wing is not robust to maximal hooks.** A one-node hook plus a fill makes lineage-keyed cooperation free; inherited, contracts between default defectors act as a tag by descent, and the resulting kin networks outweigh the provers in the early mixing phase. No fill exploits a prover (Lemma 0 holds), but that does not make provers establish.
+- **History dominates the active-fill effects tested here.** Behaviour-keyed fills are nearly a dead letter; lineage-keyed history and the sources that write it dominate the held fills and the fill effects in both games (grammar dilution acts separately, even with fills inert).
+- **In the union game, hooks reach the smallest positive wage without assuming rationality,** through tested worker threats (RESULTS "Incentive-compatible enforcement" reached ¼ by assuming ex-post rational enforcement). The fair wage is never reached.
+- **History-keyed overrides look like an identity channel by descent** (the weak wing's analogue of identity cliques); whether Part R's history and source scopes behave alike is for Part R.
+- *Caveats:* finite (N, I, horizon); reduced fission–fusion and union-game geometries; one encounter per birth; strict cells post hoc.
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

@@ -586,6 +586,13 @@ REJECTED.md the ones we dropped.
   ablations. Expected returns: identity (a fill keyed on one's own source is a clique), self-fulfilling threats
   (entry 13), and verification cost. *Next (on the RS's go):* a design note and a first experiment with a first-class
   hook primitive, maximal fills and one-kind ablations, on the PD and the social organization game.
+- *Evidence (2026-10-18, hooks, Part W):* maximal scopes are not neutral in the weak wing: history scope plus pair
+  contracts decides outcomes in both games (PD universal-open 1.00 → 0.00 through lineage contracts among default
+  defectors; union-game wage ¼ on 0.85 of islands through tested worker grudges); behaviour fills are nearly inert;
+  hook leaves alone dilute the provers (RESULTS "Hooks in the weakly extensional wing"). *Decision for the RS:* are
+  lineage- or history-keyed overrides and pair contracts admissible in the object? They are the weak wing's analogue of
+  identity (entry 1). *Operating hypothesis until he decides:* admissible, reported per kind with strict ablations;
+  source ablations use provenance-preserving copies. Part R is still running.
 
 ## 13. Threats: drift versus testing (RS, 2026-10-11)
 - *RS's guess:* inactive threats should drift out quickly enough to disarm them over the long run.

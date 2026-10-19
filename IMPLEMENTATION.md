@@ -228,3 +228,7 @@ Pangaea run also adds an exact no-change cache for copier encounters (C-donor) a
 **Coverage-components classifier note (found 2026-10-18 by the per-root run).** `coverage_components.classify`
 misreads feasibility for about 0.008 boss "(c)" scripts per program: they are producible at roots where N1 and N2 are
 both true, in run trees that do not read EQW. Immaterial to RESULTS "Coverage components"' conclusions.
+
+**Source ablations need provenance-preserving copies (found 2026-10-18, hooks Part W).** Relabelling a copied fill's
+origin as "copied" lets a disabled source (writes, contracts, seeds) leak back in through copying; a copy must keep
+its source's origin so that disabling a source disables its copies too.
