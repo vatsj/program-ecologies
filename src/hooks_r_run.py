@@ -77,7 +77,15 @@ def snapshot(R, full=True, net=True):
 
 
 def run_job(job):
-    """job = (cell, rep, horizon) -> row."""
+    """job = (cell, rep, horizon) -> row, or an error record (the batch continues)."""
+    import traceback
+    try:
+        return run_job_(job)
+    except Exception as e:
+        return dict(cell=job[0], rep=job[1], horizon=job[2], error=repr(e), tb=traceback.format_exc()[-2000:])
+
+
+def run_job_(job):
     import hooks_r as H
     cell, rep, horizon = job
     sys.setrecursionlimit(1000000)
@@ -163,6 +171,9 @@ def cmd_cells(a):
     t0 = time.time()
     with Pool(min(3, a.workers), maxtasksperchild=1) as pool:
         for r in pool.imap_unordered(run_job, jobs):
+            if 'error' in r:
+                log('  ERROR %s rep %d: %s' % (r['cell'], r['rep'], r['error']))
+                continue
             rows = load_rows(r['cell'])
             rows = [x for x in rows if not (x['rep'] == r['rep'] and x['horizon'] == r['horizon'])] + [r]
             save_rows(r['cell'], rows)
@@ -233,6 +244,57 @@ def cmd_audit(a):
     json.dump(js(old + out), open(p, 'w'), indent=1)
 
 
+def cmd_idaudit(a):
+    """Post-hoc (labelled): rerun a counted run to a snapshot (the kernel is deterministic; the snapshot's classes are
+    checked to reproduce) and test every island the classifier labelled identity or rival: its majority type against
+    a reference of 300 self-cooperating universe units (world K's H blocks on their representative spellings), the
+    panel, and every living type of another spelling; also whether the island holds a single spelling."""
+    import hooks_r as H
+    import hooks_r_kern as HK
+    S_ = H.statics()
+    LS, U = S_['LS'], S_['U']
+    sa = S_['selfa']; inO = S_['inO']
+    rng = np.random.default_rng(12345)
+    cand = np.nonzero(inO & (sa == 1))[0]
+    ref_units = rng.choice(cand, 300, replace=False)
+    out = []
+    for spec in a.runs:
+        cell, rep, g = spec.split(':'); rep = int(rep); g = int(g)
+        R = H.HRun(cell, rep)
+        R.advance(g)
+        ref = []
+        for u in ref_units:
+            t, cs, ds = U.units[int(u)]
+            spn = int(LS['cat'].members[int(t)][0])
+            b = HK.block_of(R.st, H.pack_block(cs), H.pack_block(ds))
+            k = HK.make_type(R.st, spn, b, 0)
+            R.tgc[k] += 10 ** 12
+            ref.append(k)
+        cc = R.island_stats()
+        ns = R.net_stats(cc)
+        stored = [r for r in load_rows(cell) if r['rep'] == rep]
+        st_cls = stored[0]['snaps'].get(str(g), {}).get('cls') if stored else None
+        K, cnt = R.living()
+        isl = []
+        for i, c in enumerate(ns['cls']):
+            if c not in ('i', 'r'): continue
+            ks = R.pres[i, :R.npres[i]]
+            x = int(ks[np.argmax(R.counts[i, ks])])
+            n_ref = sum(1 for k in ref if R.mutual(x, k))
+            n_pan = sum(1 for k in R.panel.values() if R.mutual(x, k))
+            n_liv = sum(1 for j in K if R.tsp[j] != R.tsp[x] and R.mutual(x, int(j)))
+            n_sp = len(set(R.tsp[ks].tolist()))
+            isl.append(dict(island=i, label=c, holder=H.statics()['gh'].name(int(R.tsp[x])),
+                            ref_mutual=n_ref, panel_mutual=n_pan, living_other_mutual=n_liv, spellings=n_sp,
+                            own_share=ns['own_share'][i], open_share=ns['open_share'][i]))
+        out.append(dict(cell=cell, rep=rep, g=g, reproduced=(st_cls == ns['cls']), cls=ns['cls'], islands=isl))
+        log('%s rep %d at %d: reproduced %s; %s' % (cell, rep, g, st_cls == ns['cls'],
+                                                     [(d['label'], d['ref_mutual'], d['panel_mutual']) for d in isl]))
+    p = os.path.join(ROOT, 'runs', 'hooks-r-idaudit.json')
+    old = json.load(open(p)) if os.path.exists(p) else []
+    json.dump(js(old + out), open(p, 'w'), indent=1)
+
+
 def cmd_statics(a):
     """Static numbers of grammar H and of the seeded fills over the replicates' founders (notes §2)."""
     import hooks_r as H
@@ -283,11 +345,12 @@ def main():
     s = sub.add_parser('audit'); s.add_argument('--cells', nargs='+', default=['M']); s.add_argument('--rep', type=int,
                                                                                                  default=991)
     s.add_argument('--gens', type=int, nargs='+', default=[0, 30, 200]); s.add_argument('--pairs', type=int, default=150)
+    s = sub.add_parser('idaudit'); s.add_argument('--runs', nargs='+')
     s = sub.add_parser('validate'); s.add_argument('--reps', type=int, nargs='+', default=[0, 1])
     s.add_argument('--gens', type=int, default=500)
     a = ap.parse_args()
     {'cells': cmd_cells, 'one': cmd_one, 'gate': cmd_gate, 'statics': cmd_statics, 'audit': cmd_audit,
-     'validate': cmd_validate}[a.cmd](a)
+     'validate': cmd_validate, 'idaudit': cmd_idaudit}[a.cmd](a)
 
 
 if __name__ == '__main__':

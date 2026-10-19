@@ -68,7 +68,7 @@ SPEC = [
     # blocks and fill lists
     ('BKC', i64_2), ('BKD', i64_2), ('nbk', i64_1), ('FN', i64_1), ('FP', i64_2), ('nfl', i64_1),
     ('LFREE', i64_1), ('LST', i64_1), ('tmp', i64_1), ('ctr', i64_1),
-    ('tstamp', i64_1), ('PCK', i64_1), ('PCS', i64_1), ('PCV', i64_1),
+    ('tstamp', i64_1), ('PCK', i64_1), ('PCS', i64_1), ('PCV', i64_1), ('mark', b_1), ('ngc', i64_1),
 ]
 
 
@@ -924,9 +924,15 @@ def segment(st, g0, gens, seed, fseed, N, w, m, r, rf, slots, counts, paysum, pr
     I = slots.shape[0]
     fs = np.empty(N)
     hooks_on = P[5] > 0.5
+    tcap = st.tsp.shape[0]; fcap = st.FN.shape[0]
     for g in range(g0, g0 + gens):
         for e in range(I * N):
             ev = g * I * N + e
+            # garbage collection between Moran events (no transient type is referenced here)
+            if st.ntv[0] - st.TST[0] > 0.85 * tcap or st.nfl[0] - st.LST[0] > 0.85 * fcap:
+                gc_types(st)
+                gc_lists(st, st.mark)
+                st.ngc[0] += 1
             for q in range(r):
                 b0 = 8 + 5 * q
                 fenc = hooks_on and q < rf

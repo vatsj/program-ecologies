@@ -991,6 +991,7 @@ class HRun:
         st.tmp = np.zeros(8, np.int64); st.ctr = self.ctr
         st.tstamp = np.zeros(kcap, np.int64); st.PCK = -np.ones(1 << 21, np.int64)
         st.PCV = np.zeros(1 << 21, np.int64); st.PCS = np.zeros(1 << 21, np.int64)
+        st.mark = np.zeros(FCAP, np.bool_); st.ngc = np.zeros(1, np.int64)
         self.st = st
         HK.block_of(st, 0, 0)
         HK.fl_of(st, 0, np.zeros(8, np.int64))
