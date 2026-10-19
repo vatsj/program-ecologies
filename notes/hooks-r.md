@@ -283,3 +283,106 @@ fills (worker fills with action strike, boss fills with a whack) held, applicabl
 number of challenges. If the factorized tables of the SOG run (Lemmas B and F₃, which assume probe-only bosses) cannot
 carry source-keyed boss fills within the budget, the reduction used is stated before any SOG cell, and anything not
 run is disclosed.
+
+## 2. The executed gate, validation, statics, deviations and costs (appended after the code, before any counted cell)
+
+Code: `src/hooks_r.py` (grammar H, fills and the conflict rule, the CHKH library and its host replay, Lemma H's
+baked carriers and host values, founders and the gene prior, the run object with the mass-based classifier),
+`src/hooks_r_kern.py` (the island kernel over hooked types; one jitclass state), `src/hooks_r_gate.py` (the gate and
+the Lemma H audit), `src/hooks_r_run.py` (gate, statics, validate, audit, one, cells), `src/hooks_r_report.py`;
+`tests/test_hooks_r.py` (6 tests, passing; 2 need the untracked world-K tables). Probes ran on the discarded replicate
+990 (and 991 for the audit); no counted cell has run.
+
+### 2.1 The gate: GO (`runs/hooks-r-gate.json`)
+
+- **(g1) Conservative.** 60 sampled stored world-K checks give the same value and the same step count under the hook
+  library (iswrap/callcheck extended in place, CHKH appended) as under world K's library; all 60 equal the stored
+  table.
+- **(g2) The primitive.** 21 fill lists (every scope; conflicting overlapping keys: none-D with source-C, behaviour-C
+  with history-D in both orders, two none fills, SELF with an own-source key, root keys for ⌜C⌝/⌜D⌝/self/other,
+  two-tag programs, a fill for a tag the program lacks, a key that holds nowhere) on six hooked programs against 12
+  opponents: **598 gene-site checks, the term's CHKH, the host replay's CHKH and the host-side conflict rule agree on
+  every one.**
+- **(g3) Soundness.** With production lists (D step, C scripts against FairBot and PrudentBot), **223 certificates
+  accepted at partner, probe and self roots, 0 false atoms** against the executed play. Re-checking after a write: a
+  hooked FairBot's production C script (`EvR*; ChkR[EvR*; ChkR[RunNeg · EvR*@1; Ax] · Hyp]`, the hook refuted)
+  validates against FairBot (T, play (C, C)); after a history D fill keyed to FairBot it stops validating (F, play
+  (D, D)) and still validates against PrudentBot. Forged entries (a bare Hyp, a Fill for a missing tag, a Fill in
+  FairBot's list) are inert.
+- **(g4) Costs of a gene-site check (term steps):** empty 71; none/role/root fills 340 / 564 / 1,012 for 1 / 2 / 4
+  fills; history/source 1,406 / 2,745 / 5,420; **behaviour 28,982 / 57,848 / 115,580** (three certified-play probe
+  checks per behaviour fill). These are the cost model's inputs (R15); the ideal table charges nothing.
+
+### 2.2 Lemma H audit (`runs/hooks-r-audit.json`)
+
+On live runs (8 islands of 200, the maximal, clone-fill and recency-only rules, replicate 991) at generations 0, 30
+and 200, 200 sampled pairs each of distinct co-resident types (one at least hooked): the kernel's plays against the
+**true hooked carriers** (fills as Fill entries; the kernel's baked scripts translated by inserting the gene-site
+ChkR with Run or RunNeg) evaluated on the ideal table: **1,800 / 1,800 pairs agree; behaviour classes 900 / 900.**
+The executed plays (the term at fuel K with V = K/4) differ from the ideal ones in 2 of 360 sampled pairs: nested
+gene-site checks can exhaust the cap. The ideal-table reduction is exact; executability is a cost question.
+
+### 2.3 Validation (`runs/hooks-r-validate.json`)
+
+Grammar P founders without hooks (cell B) against world K's annealed kernel (`world_k.IslandRun`), replicates 0 and 1
+to 1,000 generations: **0 generations with any slot difference; island P(C,C) identical.** The mass-based classifier
+(§2.5) and world K's type-level classifier give the same universal-open verdict at all 12 checkpoints and the same
+island label on 755 of 768 island-checkpoints (the 13 others: mass 'open', type 'rival', islands in transition).
+
+### 2.4 Statics (`runs/hooks-r-static.json`; 20 replicates of (200, 64) founders)
+
+Grammar H 99,588 spellings (P 12,546; prior mass P 0.136, one-tag 0.549, two-tag 0.315). Per run: 11,854 distinct
+founder spellings of 12,800; 11,063 hooked founders, 6,982 carrying fills; seeded fills ≈ 1,810 per scope (uniform);
+**seeded SELF fills 0.05 per run**; of 3,629 seeded source and history fills keyed to a founder spelling, **60 (1.7%)
+name a spelling present on the holder's island** (R2's bounds hold by construction of the prior).
+
+### 2.5 Deviations and conventions (declared before any counted cell)
+
+1. **Fill encounters r_f = 2, not 10** (§1.5): at r_f = 10 the scramble cost 30–80 s per generation at (200, 64)
+   (every new fill list is a new type whose payoffs against ~200 co-resident types must be computed). Each individual
+   takes part in about 4 fill encounters per generation.
+2. **The island classifier is mass-based** (`HRun.net_stats`): fills fragment an island into many types of a few
+   spellings (in a probe the majority *type* held 2.5–7.5% of its island), so world K's majority-type classifier labels
+   islands by an arbitrary 3% type. Held: within-island P(C,C) ≥ 0.5; open share: residents mutual with FairBot-H;
+   open: held and open share ≥ 0.5 and in the main network (cross-island mutual-cooperation mass ≥ 0.5 with the hub);
+   identity: held, open share < 0.5, ≥ 0.95 of its residents' mutual cooperation with their own spelling; rival:
+   held otherwise; universal-open: every island open and every pair of islands ≥ 0.5 cross mass; universal on target:
+   also every island's PrudentBot-H share ≥ 0.5. Validated against the type classifier on P runs (§2.3).
+3. **Settledness is exact:** an encounter is skipped only when production cannot change either side: a C entry or no
+   C leaf in any resolution (structural), and a D entry or a D step that writes nothing (the D step is a function of
+   the type). World K's FUT shortcut (no C script at any signature of the P closure) is not used: composite partners
+   can present signatures the P closure never met (a probe using FUT changed the trajectory).
+4. **Composite values on the ideal table** (host replay of baked carriers; Lemma H); composite productions use the host
+   tactic without world K's executed-cap patch (`prod_exec.json`). Executed plays differ from ideal plays in 2/360
+   audited pairs.
+5. **Caches are per job** (no persistence across jobs: iterating multi-million-entry numba dicts from Python cost more
+   than recomputing); a pair-value cache keyed by type and creation stamp inside a job.
+6. **Two types that differ only in their fills' sources** (seed/write/copy/contract, metadata not in the quote) are the
+   same quote but are treated as distinct quotes (twins). Rare (identical fills from two sources on one spelling and
+   block).
+7. **Inert updates:** an inert-source write that matches a held fill's (tag, scope, key) updates it in place (the
+   fill takes the writer's source and becomes inert).
+8. **Horizons and replicates** (cost, §2.6): main cells B, I, M to 2,000 (not 10,000; world K: no S-nonself run at
+   N ≥ 200 changed status after 2,000); ablations to 1,000, paired with M's generation-1,000 snapshot.
+9. **Dropped by the drop order** (projection > 24 h on 3 workers): the conflict-rule ablation (recency only),
+   fission–fusion (and infeasible: a merged population of ~7,000 fragmented types puts every type change against all
+   of them, projected ≥ 10 s per generation), and (400, 64) (infeasible: no generation 10 within 10 minutes in a
+   probe). R10, R13, R14 and RE 5 are therefore not scored.
+10. **The SOG wing is not run** (§3): its factorized tables (Lemmas B and F₃) assume probe-only bosses, which source-
+    and history-keyed boss fills break, and the PD wing alone exhausts the budget. RE 4 is not scored for Part R.
+
+### 2.6 Costs and the plan
+
+Probes (replicate 990): M to 2,000: 2,654 s (host pair values 725 s for 1.96 M composite misses at a low memo cap,
+since raised); the clone-fill diagnostic to 1,000: 1,436 s; I to 2,000: 357 s; B ≈ 0.1 s per generation. M-like runs
+to 1,000 ≈ 20 min. Plan, in this order:
+
+| tier | cells | replicates | horizon | projected worker-h |
+|---|---|---|---|---|
+| main | B, I, M | 20 | 2,000 | 17 |
+| core ablations | seedonly (never dropped), M-source, M-root, M-behaviour, M-history, nowrite, idroutes, clone | 20 | 1,000 | 53 |
+| secondary ablations | M-none, M-role, nocopy, nocontract, shuffle, noinherit, grudgeonly, renorm | 10 | 1,000 | 27 |
+
+Main and core ≈ 70 worker-hours (≈ 23 h on 3 workers). The secondary tier runs after them with 10 replicates and is cut
+(disclosed) if the wall clock requires; it scores no registered prediction except RE 2's and R7's history controls
+(shuffle, not inherited), whose 10-replicate scores will be called inconclusive where 10 runs cannot decide them.
