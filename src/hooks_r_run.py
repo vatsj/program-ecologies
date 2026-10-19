@@ -148,11 +148,16 @@ def save_rows(cell, rows):
 
 def cmd_cells(a):
     jobs = []
-    for cell in a.cells:
+    for spec in a.cells:
+        # 'cell' or 'cell:horizon:reps'
+        parts = spec.split(':')
+        cell = parts[0]
+        hz = int(parts[1]) if len(parts) > 1 else a.horizon
+        nr = int(parts[2]) if len(parts) > 2 else a.reps
         done = {(r['rep'], r['horizon']) for r in load_rows(cell)}
-        for rep in range(a.rep0, a.rep0 + a.reps):
-            if (rep, a.horizon) not in done:
-                jobs.append((cell, rep, a.horizon))
+        for rep in range(a.rep0, a.rep0 + nr):
+            if (rep, hz) not in done:
+                jobs.append((cell, rep, hz))
     log('cells %s: %d jobs to run on %d workers (pid %d)' % (a.cells, len(jobs), a.workers, os.getpid()))
     if not jobs: return
     t0 = time.time()
