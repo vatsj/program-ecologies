@@ -15,7 +15,7 @@ holder, against ^C and against ^D (letters), so every key is evaluated jointly w
 Everything else (the closed node set, the probes, the stabilized fixed point) is hooks_w2's.
 
 Key ids: 0-7 Part W's behaviour classes (beta exact: b0 = box c, b1 = box d, b2 = box a), 8 = not box a, 9 = box a (the
-open keys of hooks_w2), 10.. the family classes (full, then the a-free family).  UNC (1023) marks an unconditional entry.
+open keys of hooks_w2), 10.. the family classes (full, then the a-free family).  UNC (4095) marks an unconditional entry.
 """
 import os, sys, math
 import numpy as np
@@ -28,7 +28,7 @@ import hooks_w2 as H
 
 NODES_MAX = 7
 DEPTH_MAX = 2
-UNC = 1023
+UNC = 4095
 ATOMS = ('a', 'c', 'd')
 LETTER_BIT = {'a': 0, 'c': 1, 'd': 2}            # letter bit of an atom (a: partner vs me, c: vs ^C, d: vs ^D)
 # postfix tokens
@@ -63,6 +63,16 @@ class PointSpace:
             out[offs[n - 1]:offs[n]] = np.repeat(pb & prev, self.nl)
         return out
 
+    def box1(self, f):
+        """Level-1 box (PA + Con): phi at every world m with 1 <= m < n (ignores world 0)."""
+        out = np.ones(self.tot, np.uint8)
+        offs = self.offs
+        for n in range(3, self.L + 1):
+            prev = f[offs[n - 2]:offs[n - 1]]
+            pb = out[offs[n - 2]:offs[n - 1]]
+            out[offs[n - 1]:offs[n]] = np.repeat(pb & prev, self.nl)
+        return out
+
     def tt(self, form, atoms):
         """Truth table of a formula given as nested tuples ('a'|'c'|'d' | ('not', f) | ('and', f, g) | ('or', f, g) |
         ('box', f)); atoms: the atom names in letter-bit order."""
@@ -80,6 +90,8 @@ class PointSpace:
             r = self.tt(form[1], atoms) | self.tt(form[2], atoms)
         elif form[0] == 'box':
             r = self.box(self.tt(form[1], atoms))
+        elif form[0] == 'box1':
+            r = self.box1(self.tt(form[1], atoms))
         else:
             raise ValueError(form)
         self.memo[key] = r
@@ -95,7 +107,7 @@ def fsize(form):
 def fdepth(form):
     if isinstance(form, str):
         return 0
-    if form[0] == 'box':
+    if form[0] in ('box', 'box1'):
         return 1 + fdepth(form[1])
     return max(fdepth(f) for f in form[1:])
 
@@ -107,6 +119,8 @@ def fname(form):
         return '~' + fname(form[1])
     if form[0] == 'box':
         return '[]' + fname(form[1])
+    if form[0] == 'box1':
+        return '[1]' + fname(form[1])
     return '(%s %s %s)' % (fname(form[1]), '&' if form[0] == 'and' else '|', fname(form[2]))
 
 
@@ -114,7 +128,7 @@ def modalized(form, under=False):
     """Every atom under a box."""
     if isinstance(form, str):
         return under
-    if form[0] == 'box':
+    if form[0] in ('box', 'box1'):
         return modalized(form[1], True)
     return all(modalized(f, under) for f in form[1:])
 
@@ -142,8 +156,9 @@ def eval_word(form, word, atoms=ATOMS):
 class Family:
     """The modalized key family over `atoms`: classes (shortest member, size, depth, weight), the spelling counts a(s)."""
 
-    def __init__(self, atoms=ATOMS, L=5, maxsize=NODES_MAX, maxdepth=DEPTH_MAX):
+    def __init__(self, atoms=ATOMS, L=6, maxsize=NODES_MAX, maxdepth=DEPTH_MAX, level1=True):
         self.atoms = tuple(atoms)
+        self.level1 = level1
         ps = PointSpace(len(atoms), L)
         self.ps = ps
         natoms = len(atoms)
@@ -168,9 +183,11 @@ class Family:
             for k, (tt, d, m, f) in list(cls[s - 1].items()):
                 if d + 1 <= maxdepth:
                     add(s, ps.box(tt), d + 1, True, ('box', f))
+                    if level1:
+                        add(s, ps.box1(tt), d + 1, True, ('box1', f))
             for (d, m), c in synt[s - 1].items():
                 if d + 1 <= maxdepth:
-                    synt[s][(d + 1, True)] += c
+                    synt[s][(d + 1, True)] += c * (2 if level1 else 1)
             for i in range(1, s - 1):
                 j = s - 1 - i
                 for k1, (t1, d1, m1, f1) in list(cls[i].items()):
@@ -209,14 +226,15 @@ class Family:
 class KeyTable:
     """All key programs: legacy keys 0-9, the full family, the a-free family; the registry of boxed subformulas."""
 
-    def __init__(self, L_reg=4, fam_full=None, fam_noa=None, verbose=False):
+    def __init__(self, L_reg=5, fam_full=None, fam_noa=None, verbose=False, level1=True):
         self.ps = PointSpace(3, L_reg)
         self.reg = {}                 # truth table bytes of the box -> registry index
         self.reg_form = []            # the boxed formula
         self.reg_body = []            # postfix of the box's body
+        self.reg_level = []           # 0 = box, 1 = box1 (ignores world 0)
         self.keys = []                # dicts: id, name, form, prog, family
-        self.fam_full = fam_full or Family(ATOMS)
-        self.fam_noa = fam_noa or Family(('c', 'd'))
+        self.fam_full = fam_full or Family(ATOMS, level1=level1)
+        self.fam_noa = fam_noa or Family(('c', 'd'), level1=level1)
         beta_form = lambda b: ('and', ('and', ('box', 'c') if b & 1 else ('not', ('box', 'c')), ('box', 'd') if b & 2 else ('not', ('box', 'd'))),
                                ('box', 'a') if b & 4 else ('not', ('box', 'a')))
         for b in range(8):
@@ -250,6 +268,7 @@ class KeyTable:
         body = self._compile(box_form[1])
         j = len(self.reg_form)
         self.reg[tt] = j; self.reg_form.append(box_form); self.reg_body.append(body)
+        self.reg_level.append(1 if box_form[0] == 'box1' else 0)
         return j
 
     def _compile(self, form):
@@ -261,7 +280,7 @@ class KeyTable:
             return self._compile(form[1]) + self._compile(form[2]) + [T_AND]
         if form[0] == 'or':
             return self._compile(form[1]) + self._compile(form[2]) + [T_OR]
-        return [T_REG + self._reg_of(form)]
+        return [T_REG + self._reg_of(form)]            # box or box1
 
     def _add_key(self, name, form, family, info=None):
         prog = self._compile(form)
@@ -276,6 +295,7 @@ class KeyTable:
         self.key_prog = np.zeros((nk + 1, mp), np.int32)        # row UNC unused; indexed by id (<= nk)
         for k in self.keys:
             self.key_prog[k['id'], :len(k['prog'])] = k['prog']
+        self.reg_lvl = np.array(self.reg_level, np.int32)
         self.reg_prog = np.zeros((self.R, mb), np.int32)
         for j, b in enumerate(self.reg_body):
             self.reg_prog[j, :len(b)] = b
@@ -307,7 +327,7 @@ class KeyTable:
                 self.reg_req[j, i] = x
 
     def arrays(self):
-        return (self.key_prog, self.reg_prog, self.key_req)
+        return (self.key_prog, self.reg_prog, self.key_req, self.reg_lvl)
 
     def id_of(self, form, family=None):
         """Key id of the class of `form` (by truth table) within a family ('full', 'noa' or 'legacy'); -1 if absent."""
@@ -332,7 +352,7 @@ def en_key(e): return (e - 1) >> 2
 def en_tag(e): return ((e - 1) >> 1) & 1
 @njit(cache=True)
 def en_act(e): return (e - 1) & 1
-EBITS = 14
+EBITS = 15
 
 
 @njit(cache=True)
@@ -355,7 +375,7 @@ def spec_of_beh(fills, nf, tags, active, recency, ctx):
                 if not active[sc, H.f_origin(f)]:
                     continue
                 if sc == 3:
-                    out |= np.int64(entry(H.f_key(f) & 1023, t, H.f_action(f))) << (EBITS * ne); ne += 1
+                    out |= np.int64(entry(H.f_key(f) & 4095, t, H.f_action(f))) << (EBITS * ne); ne += 1
                     continue
                 if sc == 2 and not (ctx >= 0 and H.f_key(f) == ctx):
                     continue
@@ -366,7 +386,7 @@ def spec_of_beh(fills, nf, tags, active, recency, ctx):
                 f = fills[j]
                 if H.f_tag(f) != t or H.f_scope(f) != 3 or not active[3, H.f_origin(f)]:
                     continue
-                out |= np.int64(entry(H.f_key(f) & 1023, t, H.f_action(f))) << (EBITS * ne); ne += 1
+                out |= np.int64(entry(H.f_key(f) & 4095, t, H.f_action(f))) << (EBITS * ne); ne += 1
             best = -1; bestp = -1
             for j in range(nf - 1, -1, -1):
                 f = fills[j]
@@ -450,7 +470,7 @@ def _mark_need(sp, key_req, need):
 
 @njit(cache=True)
 def eval_match_beh(p_nat, p_kind, p_lev, p_form, p_arg, p_tt, b_nat, b_kind, b_lev, b_form, b_arg, b_tt,
-                   iC, iD, key_prog, reg_prog, key_req, full, bx, sx0, sx1, sx2, by, sy0, sy1, sy2, rs_out):
+                   iC, iD, key_prog, reg_prog, key_req, reg_lvl, full, bx, sx0, sx1, sx2, by, sy0, sy1, sy2, rs_out):
     """hooks_w2.eval_match with behavioural keys.  Specs are packed entry words (spec_of_beh).  Returns (x's action vs y, y's
     action vs x, 0, 0); rs_out[0, :] = the registry state of x reading y at the stabilized world, rs_out[1, :] that of y
     reading x (filled when full, else only the registry entries needed by the specs); (-1, -1, 0, 0) if the chain did not
@@ -534,7 +554,7 @@ def eval_match_beh(p_nat, p_kind, p_lev, p_form, p_arg, p_tt, b_nat, b_kind, b_l
                 letter = val[q, p] | (val[q, iC] << 1) | (val[q, iD] << 2)
                 for i in range(nn):
                     j = nlist[i]
-                    bv[j] = _run_prog(reg_prog[j], reg_prog.shape[1], letter, Bst[pi, q], stack) == 1
+                    bv[j] = True if (reg_lvl[j] == 1 and n == 0) else (_run_prog(reg_prog[j], reg_prog.shape[1], letter, Bst[pi, q], stack) == 1)
                 for i in range(nn):
                     j = nlist[i]
                     if Bst[pi, q, j] and not bv[j]:
@@ -550,9 +570,9 @@ def eval_match_beh(p_nat, p_kind, p_lev, p_form, p_arg, p_tt, b_nat, b_kind, b_l
 class Beh:
     """Lang + KeyTable + convenience evaluators (no kernel)."""
 
-    def __init__(self):
+    def __init__(self, level1=True):
         self.Lx = H.Lang(6)
-        self.KT = KeyTable()
+        self.KT = KeyTable(level1=level1)
         self.LA = self.Lx.arrays()
         self.R = self.KT.R
 
@@ -569,7 +589,7 @@ class Beh:
         """Stabilized plays and registry states of x (base bx, packed spec sx in every context) against y."""
         rs = np.zeros((2, self.R), np.bool_)
         L = self.Lx
-        ax, ay, _, _ = eval_match_beh(*self.LA, L.iC, L.iD, *self.KT.arrays()[:2], self.KT.arrays()[2], full, bx, sx, sx, sx, by, sy, sy, sy, rs)
+        ax, ay, _, _ = eval_match_beh(*self.LA, L.iC, L.iD, *self.KT.arrays(), full, bx, sx, sx, sx, by, sy, sy, sy, rs)
         return int(ax), int(ay), rs
 
 
@@ -579,13 +599,16 @@ def named_programs(B):
     kid = lambda form: KT.id_of(form, 'full')
     box = lambda f: ('box', f)
     ka = box('a'); kna = box(('not', 'a'))
-    kprud = ('and', box('a'), box(('not', 'd')))
+    kprud_pa = ('and', box('a'), box(('not', 'd')))
+    kprud = ('and', box('a'), ('box1', ('not', 'd'))) if B.KT.fam_full.level1 else kprud_pa      # the standard PrudentBot
     fc = lambda tag, key, act: H.fcode(act, tag, H.BEH, H.SEEDED, key)
     out = {}
     hd = B.base('HOOK(0,D)'); hc_ = B.base('HOOK(0,C)')
     out['FairBot'] = (hd, B.spec([fc(0, kid(ka), 1)], 1))
     out['TrustingBot'] = (hc_, B.spec([fc(0, kid(kna), 0)], 1))
     out['PrudentBot'] = (hd, B.spec([fc(0, kid(kprud), 1)], 1))
+    if B.KT.fam_full.level1:
+        out['PrudentBotPA'] = (hd, B.spec([fc(0, kid(kprud_pa), 1)], 1))        # the level-PA reading (the gate's failed entry)
     out['GodelPredator'] = (hc_, B.spec([fc(0, kid(ka), 0)], 1))
     out['CooperateBot'] = (B.Lx.bC, 0)
     out['DefectBot'] = (B.Lx.bD, 0)

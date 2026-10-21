@@ -1,6 +1,7 @@
 """Launch gate of specs/2026-10-21-behavioural-hooks.md: the named members' pairwise outcome table by the generalized solver
 (hooks_beh.eval_match_beh, stabilized evaluation on finite linear GL frames) against an independent pure-Python Kripke
-reference (hooks_beh.ref_match) and against the RE's hand derivation in the spec.  Prints the table and the verdict."""
+reference (hooks_beh.ref_match) and against the RE's hand derivation in the spec.  Prints the table and the verdict.  PrudentBot is the standard one (d-clause under box1); PrudentBotPA is the level-PA reading
+that failed the first gate (kept as a static row)."""
 import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src'))
 import numpy as np
@@ -8,7 +9,8 @@ import hooks_beh as HB
 
 box = lambda f: ('box', f)
 REF = {'FairBot': ('D', [(box('a'), 1)]), 'TrustingBot': ('C', [(box(('not', 'a')), 0)]),
-       'PrudentBot': ('D', [(('and', box('a'), box(('not', 'd'))), 1)]), 'GodelPredator': ('C', [(box('a'), 0)]),
+       'PrudentBot': ('D', [(('and', box('a'), ('box1', ('not', 'd'))), 1)]),
+       'PrudentBotPA': ('D', [(('and', box('a'), box(('not', 'd'))), 1)]), 'GodelPredator': ('C', [(box('a'), 0)]),
        'CooperateBot': ('C', []), 'DefectBot': ('D', [])}
 # the RE's hand derivation (spec "Launch gate"): (x, y) -> (x's action, y's action)
 HAND = {('FairBot', 'TrustingBot'): 'DC', ('GodelPredator', 'GodelPredator'): 'CC', ('FairBot', 'GodelPredator'): 'DC',

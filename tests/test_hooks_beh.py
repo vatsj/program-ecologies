@@ -17,14 +17,15 @@ def B():
 # ------------------------------------------------------------------ key family
 def test_family_counts_and_bounds(B):
     F = B.KT.fam_full
-    assert list(F.a[2:]) == [3, 9, 36, 174, 855, 4437]              # spellings of size s (modalized, depth <= 2)
-    assert len(F.classes) == 600 and len(F.constants) == 2
+    assert list(F.a[2:]) == [6, 24, 90, 528, 2814, 15912]              # spellings of size s (modalized, depth <= 2)
+    assert len(F.classes) == 2095 and len(F.constants) == 2
+    assert len(HB.Family(HB.ATOMS, level1=False).classes) == 600
     for v in F.classes:
         assert HB.modalized(v['form']) and HB.fdepth(v['form']) <= 2 and HB.fsize(v['form']) <= 7
         assert HB.fsize(v['form']) == v['size']
     assert abs(sum(v['weight'] for v in F.classes) - 1) < 1e-12
     G = B.KT.fam_noa
-    assert len(G.classes) == 199
+    assert len(G.classes) == 730
     for v in G.classes:
         assert 'a' not in HB.fname(v['form'])
 
@@ -39,7 +40,8 @@ def test_class_weights_by_shortest_member(B):
     F = B.KT.fam_full
     w = {v['name']: v['weight'] for v in F.classes}
     z = sum(2.0 ** (-v['bits']) for v in F.classes)
-    assert abs(w['[]a'] - 2.0 ** (-(np.log2(3) + 2 * np.log2(2) + 1)) / z) < 1e-12
+    assert abs(w['[]a'] - 2.0 ** (-(np.log2(6) + 2 * np.log2(2) + 1)) / z) < 1e-12
+    assert w['[]a'] == w['[1]a']
     assert w['[]a'] > w['~[]a']
 
 
@@ -95,7 +97,7 @@ def test_registry_programs_match_direct_semantics(B):
                 # value of key k at world m (atoms under boxes: only the past matters)
                 v = HB.key_true(int(k), KT.key_prog, Bst)
                 assert int(v) == HB.eval_word(KT.keys[int(k)]['form'], word[:m] + [0]), (KT.keys[int(k)]['name'], word, m)
-                bv = np.array([HB._run_prog(KT.reg_prog[j], KT.reg_prog.shape[1], word[m], Bst, stack) == 1 for j in range(KT.R)])
+                bv = np.array([True if (KT.reg_lvl[j] == 1 and m == 0) else HB._run_prog(KT.reg_prog[j], KT.reg_prog.shape[1], word[m], Bst, stack) == 1 for j in range(KT.R)])
                 Bst = Bst & bv
 
 
@@ -141,7 +143,7 @@ def test_evaluator_reproduces_stored_solver_on_legacy_keys(B):
                            H.spec_of(gy, len(fy), int(L.b_tags[by]), active, recency, lx),
                            H.spec_of(gy, len(fy), int(L.b_tags[by]), active, recency, ly))
         sp = lambda g, n, b, c: int(HB.spec_of_beh(g, n, int(L.b_tags[b]), active, recency, c))
-        new = HB.eval_match_beh(*L.arrays()[:12], L.iC, L.iD, *B.KT.arrays()[:2], B.KT.arrays()[2], False, bx,
+        new = HB.eval_match_beh(*L.arrays()[:12], L.iC, L.iD, *B.KT.arrays(), False, bx,
                                 sp(gx, len(fx), bx, -1), sp(gx, len(fx), bx, ly), sp(gx, len(fx), bx, lx), by,
                                 sp(gy, len(fy), by, -1), sp(gy, len(fy), by, lx), sp(gy, len(fy), by, ly), rs)
         assert (old[0], old[1]) == (new[0], new[1]), (trial, old, new)
@@ -150,7 +152,8 @@ def test_evaluator_reproduces_stored_solver_on_legacy_keys(B):
 # ------------------------------------------------------------------ the named members (launch gate)
 box = lambda f: ('box', f)
 REF = {'FairBot': ('D', [(box('a'), 1)]), 'TrustingBot': ('C', [(box(('not', 'a')), 0)]),
-       'PrudentBot': ('D', [(('and', box('a'), box(('not', 'd'))), 1)]), 'GodelPredator': ('C', [(box('a'), 0)]),
+       'PrudentBot': ('D', [(('and', box('a'), ('box1', ('not', 'd'))), 1)]),
+       'PrudentBotPA': ('D', [(('and', box('a'), box(('not', 'd'))), 1)]), 'GodelPredator': ('C', [(box('a'), 0)]),
        'CooperateBot': ('C', []), 'DefectBot': ('D', [])}
 
 
@@ -165,7 +168,7 @@ def test_named_table_solver_equals_independent_reference(B):
 
 
 def test_named_table_by_hand(B):
-    """The entries the RE derived by hand agree with the solver, except PrudentBot against FairBot (see the gate)."""
+    """The RE's hand table (PrudentBot read with box1 on d, the standard one) agrees with the solver entry for entry."""
     N = HB.named_programs(B)
     out = lambda x, y: ''.join('CD'[1 - v] for v in B.play(*N[x], *N[y])[:2])
     assert out('FairBot', 'TrustingBot') == 'DC'
@@ -173,27 +176,25 @@ def test_named_table_by_hand(B):
     assert out('FairBot', 'GodelPredator') == 'DC'
     assert out('PrudentBot', 'CooperateBot') == 'DC'
     assert out('PrudentBot', 'TrustingBot') == 'DC'
+    assert out('PrudentBot', 'FairBot') == 'CC'
+    assert out('PrudentBot', 'PrudentBot') == 'CC'
     assert out('FairBot', 'FairBot') == 'CC'
     assert out('FairBot', 'DefectBot') == 'DD'
 
 
-def test_launch_gate_disagreement_prudentbot_fairbot(B):
-    """THE GATE.  The spec's hand derivation says PrudentBot (key box a and box not d, level PA) cooperates with FairBot.  The
-    solver and the independent reference both say mutual defection: FairBot cooperates with DefectBot at world 0 (vacuous
-    box), so d = (C, D, D, ...) for FairBot and box not d fails from world 1.  Recorded as a test so the discrepancy is
-    pinned; it passes while the gate fails."""
+def test_level_pa_reading_fails_the_gate(B):
+    """The first gate: PrudentBot with the d-clause at level PA (box) is mutual defection against FairBot and itself, since
+    FairBot cooperates with DefectBot at world 0.  Pinned; the RE chose box1 (option a) after this."""
     N = HB.named_programs(B)
-    assert B.play(*N['PrudentBot'], *N['FairBot'])[:2] == (0, 0)
-    assert B.play(*N['PrudentBot'], *N['PrudentBot'])[:2] == (0, 0)
-    rx, ry = HB.ref_match(REF['PrudentBot'], REF['FairBot'], 8)
+    assert B.play(*N['PrudentBotPA'], *N['FairBot'])[:2] == (0, 0)
+    assert B.play(*N['PrudentBotPA'], *N['PrudentBotPA'])[:2] == (0, 0)
+    rx, ry = HB.ref_match(REF['PrudentBotPA'], REF['FairBot'], 8)
     assert ''.join('CD'[1 - v] for v in rx) == 'CDDDDDDD' and ''.join('CD'[1 - v] for v in ry) == 'CCDDDDDD'
 
 
 def test_level_one_reading_agrees_with_the_hand_derivation():
-    """With the d-clause one level up (box1, ignoring world 0) PrudentBot cooperates with FairBot and with itself."""
-    pb1 = ('D', [(('and', box('a'), ('box1', ('not', 'd'))), 1)])
-    fb = REF['FairBot']
-    rx, ry = HB.ref_match(pb1, fb)
+    pb1 = REF['PrudentBot']
+    rx, ry = HB.ref_match(pb1, REF['FairBot'])
     assert rx[-1] == 1 and ry[-1] == 1
     rx, ry = HB.ref_match(pb1, pb1)
     assert rx[-1] == 1 and ry[-1] == 1
@@ -201,15 +202,30 @@ def test_level_one_reading_agrees_with_the_hand_derivation():
     assert rx[-1] == 0 and ry[-1] == 1
 
 
-def test_no_one_fill_prudent_program_in_the_level_pa_family(B):
-    """Over every family key (and the legacy open keys) and both defaults, no program HOOK(0, d) + (key -> action) is D against
+def test_no_one_fill_prudent_program_in_the_level_pa_family():
+    """Static (kept): over every key of the level-PA family (box only) and both defaults, no one-fill program is D against
     CooperateBot and DefectBot and C against FairBot and against a copy of itself."""
-    N = HB.named_programs(B)
-    for base, act in ((B.base('HOOK(0,D)'), 1), (B.base('HOOK(0,C)'), 0)):
-        for k in B.KT.keys:
+    B0 = HB.Beh(level1=False)
+    N = HB.named_programs(B0)
+    for base, act in ((B0.base('HOOK(0,D)'), 1), (B0.base('HOOK(0,C)'), 0)):
+        for k in B0.KT.keys:
             if k['family'] == 'legacy' and k['id'] < 8:
                 continue
-            sp = B.spec([H.fcode(act, 0, H.BEH, H.SEEDED, k['id'])], 1)
-            s = ''.join('CD'[1 - B.play(base, sp, *N[q])[0]] for q in ('CooperateBot', 'DefectBot', 'FairBot'))
-            s += 'CD'[1 - B.play(base, sp, base, sp)[0]]
+            sp = B0.spec([H.fcode(act, 0, H.BEH, H.SEEDED, k['id'])], 1)
+            s = ''.join('CD'[1 - B0.play(base, sp, *N[q])[0]] for q in ('CooperateBot', 'DefectBot', 'FairBot'))
+            s += 'CD'[1 - B0.play(base, sp, base, sp)[0]]
             assert s != 'DDCC', k['name']
+
+
+def test_prudent_classes_with_box1(B):
+    """With box1 admitted there are prudent one-fill programs: exactly the two classes of (box a and box1 not d) on HOOK(0,D)."""
+    N = HB.named_programs(B)
+    base = B.base('HOOK(0,D)'); hits = []
+    for k in B.KT.keys:
+        if k['family'] != 'full':
+            continue
+        sp = B.spec([H.fcode(1, 0, H.BEH, H.SEEDED, k['id'])], 1)
+        s = ''.join('CD'[1 - B.play(base, sp, *N[q])[0]] for q in ('CooperateBot', 'DefectBot', 'FairBot')) + 'CD'[1 - B.play(base, sp, base, sp)[0]]
+        if s == 'DDCC':
+            hits.append(k['name'])
+    assert sorted(hits) == ['([]a & [1]~d)', '[](a & [1]~d)']

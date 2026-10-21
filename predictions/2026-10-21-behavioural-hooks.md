@@ -83,3 +83,36 @@ solver gives the behaviour atoms, level PA (`hooks_w.py`: bits of β are `hc[0, 
   the stabilized outcome is (D, D). The same holds for PrudentBot against itself. The standard PrudentBot reads the d-clause
   one level up (BOX1, which ignores world 0). If the solver agrees with this hand check the launch gate fails on this
   entry, the run stops there and the disagreement is handed back without counted cells.
+
+## Addendum (2026-10-21, after the launch gate; appended, nothing above is rewritten)
+
+**Gate at level PA (a static result, kept).** With every box at level PA the spec's PrudentBot (□a ∧ □¬d on HOOK(t, D)) against
+FairBot is mutual defection, not the hand table's mutual cooperation: FairBot cooperates with DefectBot at world 0 (□ is
+vacuous there), so d = (C, D, D, …) for FairBot and □¬d fails from world 1. The solver and an independent pure-Python
+Kripke reference agreed on all 36 entries of the table; five of the six hand entries agreed, this one did not. This matches the
+engineer's hand check above. **No one-fill program is prudent in the level-PA family:** over the 600 full-family classes and the
+199 a-free classes (and the legacy open keys), both defaults (HOOK(0,D) + (key → C), HOOK(0,C) + (key → D)), none is D against
+CooperateBot and DefectBot and C against FairBot and against a copy of itself (0 classes, prior mass 0).
+
+**Decision (RE, 2026-10-21, option (a)).** The hand table's PrudentBot was meant to be the standard one (Barasz et al.; the
+repo's BOX1), whose DefectBot clause is read at PA+1. A level-1 box (□¹, one node, ignores world 0) is added as a key
+connective, usable wherever □ may, with modal depth ≤ 2 counting both kinds and size ≤ 7. The family and the a-free family are
+re-enumerated, re-quotiented on finite linear frames (GL.3, coarser than GL; disclosed), and the prior reassigned by shortest
+member. PrudentBot is the member (□a ∧ □¹¬d) on HOOK(t, D). Predictions 1–11 stand as written, now scored on this family;
+the level-PA finding is recorded in the notes as a static result.
+
+**Gate re-run (box1 reading).** The solver and the reference agree on all 49 entries (seven programs, including the level-PA
+PrudentBot as a static row); the spec's six hand entries all agree with the solver (PrudentBot against FairBot and against
+itself: mutual cooperation).
+
+**New family, static counts.** Full family 2,095 non-constant classes (a(s), s = 2…7: 6, 24, 90, 528, 2,814, 15,912), a-free
+family 730; stable under word length 5 → 6 (and 7, 8 for the a-free). Prudent one-fill classes in the new family (D against
+CooperateBot and DefectBot, C against FairBot and a copy of itself): **2 classes** (□a ∧ □¹¬d and □(a ∧ □¹¬d)) on HOOK(0,D) with
+total prior mass 1.0 × 10⁻⁴ of the full-family key prior; on HOOK(0,C) (key → D) 2 classes (the negations) with mass < 10⁻⁴; 0 in
+the a-free family. FairBot-signature keys: 194 classes, prior mass 0.260. 
+
+**Engineer's expectation, registered before any counted cell.** Under a key prior that gives the shortest prudent class a
+weight of order 10⁻⁴ against 0.02–0.26 for the FairBot-signature keys, seeded and written fills produce far fewer
+PrudentBot-equivalents than FairBot-equivalents unless selection amplifies the prudent class; I expect the counter-prediction
+to prediction 5 (FairBot-equivalents outnumber PrudentBot-equivalents at generation 200) to hold. Prudent-equivalence in play
+can also arise from several fills or from non-one-fill programs; the panel classification in Part M1 counts those.
