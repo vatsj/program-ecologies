@@ -386,3 +386,29 @@ to 1,000 ≈ 20 min. Plan, in this order:
 Main and core ≈ 70 worker-hours (≈ 23 h on 3 workers). The secondary tier runs after them with 10 replicates and is cut
 (disclosed) if the wall clock requires; it scores no registered prediction except RE 2's and R7's history controls
 (shuffle, not inherited), whose 10-replicate scores will be called inconclusive where 10 runs cannot decide them.
+
+### 2.7 Addenda while the cells ran (each written before the cells it affects)
+
+- **Batch 1** (`runs/hooks_r/batch_main.log`) stopped when a seed-only run overflowed the type table within one
+  generation (kernel error 3); the pool died with two maximal runs unfinished. Garbage collection moved into the kernel
+  (between Moran events) and the driver now survives single-job failures (commit "garbage collection inside the
+  kernel"); a rerun of a counted inert run (I rep 1) reproduced its row exactly (classes, P(C,C), fills, trace), so
+  type-id recycling changes no trajectory. Finished rows were kept; the batch resumed.
+- **Batch 2** (`batch_main2.log`) ran main + core; it stalled on 2026-10-20 07:13 with all workers idle (the session
+  stopped on an API spend limit; nothing was computing). The stalled pool was killed by pid. Nine core replicates had
+  no row (seedonly 3; M-source 1, 15; M-root 3, 12, 15, 16; nowrite 19; idroutes 1; clone 17) and are rerun with
+  identical seeds (deterministic kernel).
+- **Batch 3** (`batch_main3.log`, launched 2026-10-21, detached): the nine missing core replicates, then the secondary
+  tier at 10 replicates as planned in §2.6 (projected ≈ 8 h on 3 workers, under the remaining ≈ 12 h budget, so nothing
+  further is dropped). Command:
+  `nohup python3 -u src/hooks_r_run.py cells --workers 3 --cells seedonly:1000:20 M-source:1000:20 M-root:1000:20
+  nowrite:1000:20 idroutes:1000:20 clone:1000:20 M-none:1000:10 M-role:1000:10 nocopy:1000:10 nocontract:1000:10
+  shuffle:1000:10 noinherit:1000:10 grudgeonly:1000:10 renorm:1000:10 > runs/hooks_r/batch_main3.log 2>&1 &`.
+  Expected outputs: `runs/hooks_r/rows_<cell>.json.gz` complete for every cell above.
+- **The identity label is noisy (found in the main cells, before any audit):** the mass-based 'identity' class marks
+  monomorphic rival islands whose spelling would cooperate with absent spellings (in B rep 13 the AP-network reader
+  `if(CHK(them,me,D),D,if(CHK(them,me,C),C,D))`, a known non-identity rival in world K, is 'identity' on islands it
+  holds at 99–100% and 'rival' elsewhere). A labelled post-hoc audit (`hooks_r_run.py idaudit`, written before it
+  runs) reruns runs with identity labels deterministically and tests each such island's majority type against 300
+  self-cooperating world-K units, the panel and every living type of another spelling; identity counts used in the
+  verdicts are the audited ones, the raw labels are reported beside them.

@@ -290,7 +290,7 @@ def cmd_idaudit(a):
         out.append(dict(cell=cell, rep=rep, g=g, reproduced=(st_cls == ns['cls']), cls=ns['cls'], islands=isl))
         log('%s rep %d at %d: reproduced %s; %s' % (cell, rep, g, st_cls == ns['cls'],
                                                      [(d['label'], d['ref_mutual'], d['panel_mutual']) for d in isl]))
-    p = os.path.join(ROOT, 'runs', 'hooks-r-idaudit.json')
+    p = os.path.join(OUT, 'idaudit_%s.json' % a.tag)
     old = json.load(open(p)) if os.path.exists(p) else []
     json.dump(js(old + out), open(p, 'w'), indent=1)
 
@@ -345,7 +345,7 @@ def main():
     s = sub.add_parser('audit'); s.add_argument('--cells', nargs='+', default=['M']); s.add_argument('--rep', type=int,
                                                                                                  default=991)
     s.add_argument('--gens', type=int, nargs='+', default=[0, 30, 200]); s.add_argument('--pairs', type=int, default=150)
-    s = sub.add_parser('idaudit'); s.add_argument('--runs', nargs='+')
+    s = sub.add_parser('idaudit'); s.add_argument('--runs', nargs='+'); s.add_argument('--tag', default='x')
     s = sub.add_parser('validate'); s.add_argument('--reps', type=int, nargs='+', default=[0, 1])
     s.add_argument('--gens', type=int, default=500)
     a = ap.parse_args()
