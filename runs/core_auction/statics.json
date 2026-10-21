@@ -1,0 +1,313 @@
+{
+ "instances": {
+  "threshold": [
+   20,
+   15,
+   15
+  ],
+  "asymmetric": [
+   20,
+   16,
+   12
+  ],
+  "collusion": [
+   20,
+   5,
+   5
+  ]
+ },
+ "nash": {
+  "threshold/unrestricted": {
+   "inst": "threshold",
+   "space": "unrestricted",
+   "n_nash": 45,
+   "n_efficient": 45,
+   "n_in_core_certain": 45,
+   "n_in_core_mean": 45,
+   "min_revenue": 20.0,
+   "wstar": 30,
+   "revenue_min": 20.0,
+   "revenue_max": 28.0,
+   "revenue_hist_efficient": {
+    "20": 9,
+    "21": 8,
+    "22": 7,
+    "23": 6,
+    "24": 5,
+    "25": 4,
+    "26": 3,
+    "27": 2,
+    "28": 1
+   },
+   "n_efficient_below_core": 0,
+   "n_efficient_above_min_plus2": 21,
+   "n_efficient_not_core": 0,
+   "n_inefficient": 0,
+   "violation_tally": {},
+   "edge_equilibria_in_core": 17,
+   "edge_equilibria_within_one_tick_of_VN": 5
+  },
+  "threshold/no-overbid": {
+   "inst": "threshold",
+   "space": "no-overbid",
+   "n_nash": 17,
+   "n_efficient": 17,
+   "n_in_core_certain": 17,
+   "n_in_core_mean": 17,
+   "min_revenue": 20.0,
+   "wstar": 30,
+   "revenue_min": 20.0,
+   "revenue_max": 21.0,
+   "revenue_hist_efficient": {
+    "20": 9,
+    "21": 8
+   },
+   "n_efficient_below_core": 0,
+   "n_efficient_above_min_plus2": 0,
+   "n_efficient_not_core": 0,
+   "n_inefficient": 0,
+   "violation_tally": {},
+   "edge_equilibria_in_core": 17,
+   "edge_equilibria_within_one_tick_of_VN": 5
+  },
+  "asymmetric/unrestricted": {
+   "inst": "asymmetric",
+   "space": "unrestricted",
+   "n_nash": 28,
+   "n_efficient": 28,
+   "n_in_core_certain": 28,
+   "n_in_core_mean": 28,
+   "min_revenue": 20.0,
+   "wstar": 28,
+   "revenue_min": 20.0,
+   "revenue_max": 26.0,
+   "revenue_hist_efficient": {
+    "20": 7,
+    "21": 6,
+    "22": 5,
+    "23": 4,
+    "24": 3,
+    "25": 2,
+    "26": 1
+   },
+   "n_efficient_below_core": 0,
+   "n_efficient_above_min_plus2": 10,
+   "n_efficient_not_core": 0,
+   "n_inefficient": 0,
+   "violation_tally": {},
+   "edge_equilibria_in_core": 13,
+   "edge_equilibria_within_one_tick_of_VN": 5
+  },
+  "asymmetric/no-overbid": {
+   "inst": "asymmetric",
+   "space": "no-overbid",
+   "n_nash": 13,
+   "n_efficient": 13,
+   "n_in_core_certain": 13,
+   "n_in_core_mean": 13,
+   "min_revenue": 20.0,
+   "wstar": 28,
+   "revenue_min": 20.0,
+   "revenue_max": 21.0,
+   "revenue_hist_efficient": {
+    "20": 7,
+    "21": 6
+   },
+   "n_efficient_below_core": 0,
+   "n_efficient_above_min_plus2": 0,
+   "n_efficient_not_core": 0,
+   "n_inefficient": 0,
+   "violation_tally": {},
+   "edge_equilibria_in_core": 13,
+   "edge_equilibria_within_one_tick_of_VN": 5
+  },
+  "collusion/unrestricted": {
+   "inst": "collusion",
+   "space": "unrestricted",
+   "n_nash": 66,
+   "n_efficient": 66,
+   "n_in_core_certain": 65,
+   "n_in_core_mean": 65,
+   "min_revenue": 10.0,
+   "wstar": 20,
+   "revenue_min": 9.0,
+   "revenue_max": 19.0,
+   "revenue_hist_efficient": {
+    "9": 1,
+    "10": 2,
+    "11": 3,
+    "12": 4,
+    "13": 5,
+    "14": 6,
+    "15": 7,
+    "16": 8,
+    "17": 9,
+    "18": 10,
+    "19": 11
+   },
+   "n_efficient_below_core": 1,
+   "n_efficient_above_min_plus2": 56,
+   "n_efficient_not_core": 1,
+   "n_inefficient": 0,
+   "violation_tally": {
+    "S=P": 1
+   }
+  },
+  "collusion/no-overbid": {
+   "inst": "collusion",
+   "space": "no-overbid",
+   "n_nash": 4,
+   "n_efficient": 4,
+   "n_in_core_certain": 3,
+   "n_in_core_mean": 3,
+   "min_revenue": 10.0,
+   "wstar": 20,
+   "revenue_min": 9.0,
+   "revenue_max": 11.0,
+   "revenue_hist_efficient": {
+    "9": 1,
+    "10": 2,
+    "11": 1
+   },
+   "n_efficient_below_core": 1,
+   "n_efficient_above_min_plus2": 0,
+   "n_efficient_not_core": 1,
+   "n_inefficient": 0,
+   "violation_tally": {
+    "S=P": 1
+   }
+  }
+ },
+ "baselines": {
+  "threshold/unrestricted": {
+   "n_edge": 21,
+   "n_near": 5,
+   "baseline": 0.23809523809523808,
+   "vn": {
+    "A": 10.0,
+    "B": 10.0
+   }
+  },
+  "threshold/no-overbid": {
+   "n_edge": 21,
+   "n_near": 5,
+   "baseline": 0.23809523809523808,
+   "vn": {
+    "A": 10.0,
+    "B": 10.0
+   }
+  },
+  "asymmetric/unrestricted": {
+   "n_edge": 17,
+   "n_near": 5,
+   "baseline": 0.29411764705882354,
+   "vn": {
+    "A": 12.0,
+    "B": 8.0
+   }
+  },
+  "asymmetric/no-overbid": {
+   "n_edge": 17,
+   "n_near": 5,
+   "baseline": 0.29411764705882354,
+   "vn": {
+    "A": 12.0,
+    "B": 8.0
+   }
+  },
+  "collusion/unrestricted": {
+   "n_edge": 0,
+   "n_near": 0,
+   "baseline": null,
+   "vn": {
+    "P": 10.0
+   }
+  },
+  "collusion/no-overbid": {
+   "n_edge": 0,
+   "n_near": 0,
+   "baseline": null,
+   "vn": {
+    "P": 10.0
+   }
+  }
+ },
+ "hand": {
+  "threshold": {
+   "v": [
+    20,
+    15,
+    15
+   ],
+   "min_revenue": 20.0,
+   "wstar": 30,
+   "core_bounds": {
+    "P": 0,
+    "A": 10,
+    "PA": 15,
+    "B": 10,
+    "PB": 15,
+    "AB": 10,
+    "PAB": 30
+   },
+   "vcg": {
+    "A": 5.0,
+    "B": 5.0
+   },
+   "vickrey_nearest": {
+    "A": 10.0,
+    "B": 10.0
+   }
+  },
+  "asymmetric": {
+   "v": [
+    20,
+    16,
+    12
+   ],
+   "min_revenue": 20.0,
+   "wstar": 28,
+   "core_bounds": {
+    "P": 0,
+    "A": 8,
+    "PA": 16,
+    "B": 8,
+    "PB": 12,
+    "AB": 8,
+    "PAB": 28
+   },
+   "vcg": {
+    "A": 8.0,
+    "B": 4.0
+   },
+   "vickrey_nearest": {
+    "A": 12.0,
+    "B": 8.0
+   }
+  },
+  "collusion": {
+   "v": [
+    20,
+    5,
+    5
+   ],
+   "min_revenue": 10.0,
+   "wstar": 20,
+   "core_bounds": {
+    "P": 10,
+    "A": 0,
+    "PA": 15,
+    "B": 0,
+    "PB": 15,
+    "AB": 0,
+    "PAB": 20
+   },
+   "vcg": {
+    "P": 10.0
+   },
+   "vickrey_nearest": {
+    "P": 10.0
+   }
+  }
+ }
+}
