@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/jstav/code/program-ecologies/.claude/worktrees/agent-ad03b37f615da20c7/src/hooks_w2_report.py", line 339, in <module>
+    main()
+  File "/Users/jstav/code/program-ecologies/.claude/worktrees/agent-ad03b37f615da20c7/src/hooks_w2_report.py", line 187, in main
+    pd['W:' + c] = pd_cell(rows, '1000')
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jstav/code/program-ecologies/.claude/worktrees/agent-ad03b37f615da20c7/src/hooks_w2_report.py", line 105, in pd_cell
+    candidates=c[11] / enc, accepted=c[7] / enc, open_writes=c[17] / enc,
+                                                             ~^^^^
+IndexError: index 17 is out of bounds for axis 0 with size 12
