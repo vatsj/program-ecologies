@@ -264,3 +264,87 @@ Mechanisms, in the order the numbers will test them.
   changing little.
 
 These are qualitative; the numbered predictions with falsifiers are in `predictions/2026-10-21-hooks-followups-weak.md`.
+
+## 2. Built, validated, costed (appended after the code and before any counted cell)
+
+### 2.1 The code as built
+
+Copies of Part W's modules (no existing file edited), with the changes below.
+- `src/hooks_w2.py`, `src/hooks_w2_kern.py`, `src/hooks_w2_run.py`: the PD. Behaviour-scope keys 8 and 9 are the open
+  keys (`beh_ok`: key 8 + p applies when bit 2 of the class β the holder read equals p; keys 0–7 unchanged). `_trigger`
+  writes open fills when cfg[11] = 1 (key 8 + the predicate read in the encounter); `_contract` writes the pair of open
+  promises (action C, key 9) when cfg[12] = 1; `_variant_keys` gains a strict mode (cfg[13]: two types are history
+  variants only if their non-history fills are identical), used in every open cell, because a behaviour-scope
+  difference can change a type's play against specific lineages without changing its no-lineage spec; `active_c` also
+  activates behaviour-scope contract fills. New counters: candidates evaluated, party-encounters of holders of
+  open and of lineage contract fills and their (C against D) events (the sucker rate), open writes; record fields for
+  the share of individuals holding open fills. Cells: `lineage-max`, `open-max`, `open-contract`, `open-history`,
+  `ff-lineage-max`, `ff-open-max`, `open-max-nocontract-strict` and the diagnostics of §2.4. Founders, fill draws and
+  kernel seeds are Part W's (SALT 20261018).
+- `src/hooks_w2_sog.py`, `src/hooks_w2_sog_kern.py`, `src/hooks_w2_sog_run.py`: the union game. Worker fill actions 2 and 3
+  (demand ¼ / ½) are read in `eval_triple` as BOX(s in {¼, ½}) / BOX(s in {½}) at the node, level 0. `_union` is one
+  attempt per sampled encounter (both workers hooked): candidate demand fills per (s, tag, tag), supersession and the
+  never-downgrade rule (a worker already holding at least s at the key keeps its fill), the (M) and (C) acceptance rules of
+  §1.4 evaluated on the closure with `code_with`, the boss's best reply among its program response and the wage fills
+  (tag × {0, ¼, ½}) with the tie-break of §1.4, uniform draw among accepted candidates, and the writes (workers' demand
+  fills; the boss's response fills keyed on the two lineages or on role). Protection of contract-origin fills against
+  trigger writes and copies (`_prot`, `_evict`: FIFO evicts the oldest unprotected fill). Cells: `myopic-ref`, `union-M`,
+  `union-C`, `union-C-role`, `bw-only-C`. `ustat` logs adoption, predicted and pre-contract wage, raises and tamings,
+  raises against constant bosses, challenges, executions, demand met and realized wages per s.
+- `src/hooks_w2_report.py`: `runs/hooks-w2.md` and `.json` from `runs/hooks_w2/*`, with Part W's stored rows as references
+  and the reproduction counts.
+
+### 2.2 Validation (before any counted cell)
+
+- `tests/test_hooks_w2.py` (54 tests, all pass): the open key's bit rule; the hand equivalences (an open promise on
+  HOOK(t, D) plays as FairBot against DefectBot, ALLC, FairBot, itself and an unfilled hook; on HOOK(t, C) it is idle and
+  the program is ALLC; the open grudge on HOOK(t, C) is FairBot; an open grudge on HOOK(t, D) stays DefectBot); open
+  fills ignore lineage; soundness (no filled program, with open fills among 4,000 random fills, exploits FairBot); the
+  open contract accepts two default-defecting hooks and rejects defector against sucker, the lineage contract is unchanged,
+  the strict variant test; **the union acceptance rules against the hand table of §1.5 on all 36 (mode, boss hook, current
+  wage, strikers) cases and both demands**; the credible response (boss adopts exactly the demanded wage, fills keyed on
+  the two lineages, workers work after); role scope; the demand-fill semantics on the evaluator for every constant wage;
+  R1 and R2 stable plays (R1 (work, ½), R2 (strike, 0), as derived by hand); protection; never-downgrade; and short-run
+  reproductions of Part W's records.
+- **Reproduction of Part W's stored rows** (`runs/hooks-w2-validate.json`, `runs/hooks-w2-sog-validate.json`): with the
+  open and union flags off, `maximal` reproduces Part W's stored maximal rows for runs 0, 1, 2 (island records at every stored
+  generation up to 1,000 and the full state at 1,000: identical); the union-game `maximal` reproduces `sog-maximal` runs 0 and 1
+  (final labels, every record, the 11 counters: identical). `lineage-max` and `myopic-ref` are therefore Part W's maximal
+  cells rerun with the same law; the report counts the runs identical to the stored rows.
+
+### 2.3 Deviations and disclosures, declared before any counted cell
+
+1. **Horizon 1,000 only** (no 2,000-generation persistence), for all PD cells; fission–fusion horizon 600 on the
+   32 × 100 geometry; the union game (30, 16), horizon 1,000 (Part W §2.3, §2.6; the spec's larger geometries were
+   already reduced there).
+2. **Seeded history fills stay lineage-keyed** in all PD cells (the gene prior is identical across cells, for
+   coupling); they are dead letters at (100, 64), so the technologies concern the *sources* (writes, contracts).
+3. **Strict variant test in the open cells** (above); `lineage-max` keeps Part W's test so it reproduces Part W exactly.
+4. **Union fills are protected in every union cell (M and C alike)**; the boss's contract-origin fills are protected only
+   in the (C) cells and in `bw-only-C` (§1.4). The boss's response in the lineage variants is two history fills.
+5. **Role-scope fills are per slot** (key = the holder's slot, Part W's role semantics); a fill copied between the two
+   worker slots does not apply in the other slot (a Part W property).
+6. **`bw-only-C` is my reading** of "judged under the same rule" for boss–worker contracts (§1.4).
+7. **Probes seen before the counted cells.** After the predictions were committed (87b6e8b) I ran timing probes on run
+   indices 1000+ (never counted) and saw their outcomes: PD, one run each at 1,000 generations: `open-max` and
+   `open-history` efficient with universal-open true; `open-contract` island efficiency 0.58 with lineage-closed 0.27 (the
+   lineage-keyed writes remain in that cell); `ff-open-max` efficient and universal-open true at generation 600,
+   `ff-lineage-max` efficiency 0.0; union game, one run: `union-C` and `union-C-role` end with every island at the ¼ wage
+   (no fair island), after demand fills were adopted in the first 100 generations. These bear on A2, A7 (as predicted),
+   on A4 (the single probe has `open-history` efficient, against the prediction) and on B3, B4 (B4's fair share looked
+   false in one probe). The predictions are not changed.
+8. **Post-hoc diagnostics (not scored; registered here, before they run):** `open-max-nocontract-strict` (open-max with
+   contract-origin fills inert and strict copying: is the contract needed in `open-max`?) and, because the probes
+   suggested that open *writes* may carry the effect through the open grudge (a sucker `HOOK(t, C)` that is exploited
+   writes the grudge "defect against partners who do not provably cooperate" and becomes FairBot), `open-writes-only` (open
+   writes, no contracts), `open-grudge-only` and `open-thanks-only` (the same with one write kind). Hand expectation, written
+   now: `open-writes-only` and `open-grudge-only` at or above `open-history`'s universal-open minus 0.1; `open-thanks-only`
+   lower than `open-grudge-only` (thanks follow cooperation that has to exist first).
+
+### 2.4 Projected costs (one process)
+
+PD islands, 1,000 generations: `lineage-max` ≈ 55–105 s per run, `open-max` ≈ 35 s, `open-contract` ≈ 50 s, `open-history`
+≈ 25 s, so about 2 worker-hours for the four cells at 40 runs; fission–fusion `ff-lineage-max` ≈ 255 s per run and
+`ff-open-max` ≈ 11 s (20 runs: ≈ 1.5 worker-hours); union game ≈ 15–45 s per run, five cells ≈ 1.7 worker-hours; the
+diagnostics ≈ 1.5 worker-hours. Total ≈ 7 worker-hours, about 2.5 hours of wall time on three workers. Nothing in the drop
+order is dropped.
