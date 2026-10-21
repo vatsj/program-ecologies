@@ -635,6 +635,12 @@ REJECTED.md the ones we dropped.
   compensation rule has an empty leader-value core (a commitment race) and the repair is ownership (shared ownership:
   Cramton–Gibbons–Klemperer). *Operating hypothesis:* the side-payment answer is the surcharge rule, with the ring
   frontier as the open question the program setting can address (CLAUDE.md queue item 48).
+- *Evidence (2026-10-21, RESULTS "Coalition-proof auctions"):* the surcharge buys core membership w.r.t. reports and
+  nothing more: every winner with a price-setting loser is a ring under both rules (truth robust on 0/3,000 in
+  substitutes), spite deters same-side coalitions only, and in an ecology singleton shading is selected under the
+  surcharge (efficiency 0.48); police are a payoff-neutral shadow (ring suppression is founder share), the reading audit
+  ends enforced losers' rings but is no general remedy; under first-price a responder exploiting underbidders is
+  selected. *RS (2026-10-21):* the relevant program is to rediscover the core in our machinery; stage 1 is queue item 49.
 
 ## 15. The RS's equilibrium notion: response functions over action subprofiles (RS, 2026-10-13)
 - *RS's statement (verbatim):* "assume a normal-form game, with perfect complete information for simplicity. Call an

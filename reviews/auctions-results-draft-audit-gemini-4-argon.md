@@ -1,0 +1,13 @@
+# Review of `/private/tmp/claude-501/-Users-jstav-code-program-ecologies/eb8d2660-d0b5-4f2d-a91b-d841b12695c0/scratchpad/auctions-results-draft.md` by gemini-4-argon
+
+1. **Draft sentence:** "The police are a payoff-neutral shadow of `T` in role P: on 94.5% of the 856 policed islands they were never tested."
+   **Evidence:** `notes/auctions-run.md` §3.11 and `predictions/2026-10-21-coalition-proof-auctions.md` state that "never tested" is defined only *after* `POL` became the sole P program on the island ("after `POL` became the only P program, no generation... had a `PAIR` in both item roles or `PAIRU` in both"). At founding, exposure was 100% (`founding_exposure_share: 1.0`: every island held both `POL` and a deviating pair).
+   **Correction:** Specify that 94.5% were never tested *after `POL` fixed in role P* (all 856 were exposed during the founding transient).
+
+2. **Draft sentence:** "The reading audit, under which programs that read other bidders play their non-reading default, removes both enforced rings and police. In the collusion instance it raises revenue from 7.69 to 10.0 and efficiency from 0.70 to 1.0 (prediction 10 held)." and "The seller's reading audit is what ends rings in a one-shot auction."
+   **Evidence:** `predictions/2026-10-21-coalition-proof-auctions.md` (Prediction 10) required the VCG threshold instance to be reported alongside the collusion instance. In `notes/auctions-run.md` §2.2 and `summary.json` (`p10`), under VCG in the threshold instance, the reading audit leaves the unenforced ring (`PAIRU`) intact (pair share 0.061, items deviating 0.461) and *lowers* seller revenue from 7.68 to 7.39.
+   **Correction:** Report the VCG threshold audit numbers (revenue drops from 7.68 to 7.39; unenforced pair holds 0.061), and qualify the Reading claim to state that the reading audit ends *enforced* rings (or losers' rings that require enforcement), not all rings.
+
+3. **Draft sentence:** "In the threshold instance (20, 15, 15) the free-riding shade takes over: item bidders deviate on 0.787 of islands, mutual shading hands the auction to P, and efficiency is 0.48 against VCG's 1.0 (prediction 9 held). The audit does not help there, since the shade reads no one."
+   **Evidence:** `notes/auctions-run.md` §2.2 (`table_B_cells.csv`) shows that under the surcharge in the threshold instance, the audit actually makes outcomes substantially worse: item deviations rise from 0.787 to 1.000, efficiency drops from 0.480 to 0.275, and revenue drops from 15.6 to 12.75.
+   **Correction:** Note that the audit worsens the surcharge threshold outcome (items deviate on 1.000 of islands, efficiency falls to 0.275, revenue to 12.75).

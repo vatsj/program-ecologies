@@ -1068,3 +1068,21 @@ No RE prediction failed outright (RE 4 and RE 5 inconclusive). **Design choices 
 **"In the weak wing hooks keep efficiency and add commitment; behaviour fills are the most held" (Fable, RE 1; fired).** Universal-open fell 1.00 → 0.00 under maximal hooks, through inherited lineage contracts among default defectors; held fills are all history; behaviour fills die out. **"History fills protect gentle programs where partners recur" (Fable, RE 2), in the PD.** No gentle holders to protect (zero contrasts). **RE 4's execution clause** (worker threats untested, ≤ 10⁻²): history-keyed strikes execute at 0.06–0.08 of held fill-encounters. **"Fission–fusion keeps universality with maximal hooks" (Fable, RE 5; fired).** 0.05. **The RS's maximalism as a neutral default** (recorded as an expectation, not his claim): in the weak wing maximal scopes are not neutral; history scope plus pair contracts decides outcomes in both games.
 
 **Subagent:** W2 (contracts make efficient lineage-closed cliques: efficiency 0.22, lineage-closed 0.18), W3 as scored on the declared leaky cell, W6 partly, W10 except its low maximal bound, W12's fair clause. **Dropped designs:** `ROLE`-keyed fills in the PD (would import a correlating device); fill costs (no runtime price in this wing); the ε→0 chain (write-induced types make the support unbounded); concessions' n = 11 boss grammar (replaced by behaviour-keyed fills); fission–fusion at 128 × 100 and the union game at N = 100 (cost; reduced to 32 × 100 and (30, 16)); horizon 2,000 for ablation cells. **Method:** relabelling copies as "copied" leaks a disabled source back in; source ablations need provenance-preserving copies.
+
+
+## Added 2026-10-21: coalition-proof auctions (RESULTS.md, "Coalition-proof auctions")
+
+**"Substitutes are a control: VCG is in the core, so truth is robust to every proper coalition" (RE 1; failed).** 0/3,000
+robust: the winner and the runner-up on an item form a ring (the loser lowers its report at no cost), which the core does
+not block. **"Spite deters at least 80% of the T-strict breaks" (RE 4; failed).** 0% of instances; spite deters same-side
+coalitions (all of them under the surcharge) but never a mixed one, and under VCG the common report cap lets the pair
+overbid out of reach. The strict-improvement reading of the response graph is not a model of spite (it equals T-strict).
+**"Coalitional responders make first-price leader values exceed joint marginal contributions, so the notion's set is
+mostly empty" (RE 5; failed).** Nonempty 1,000/1,000; leader values never exceed them. **"The one-round notion reproduces
+the bidder-optimal core (Bernheim–Whinston)" (RE 6; failed).** 20.8% within one tick (every vector); the set contains the
+zero-revenue ring profile on 88% of instances, and 0.6% of its vectors are in the true-value core. **"Police drive out a
+co-founded pair on at least 70% of islands" (RE 11, second conjunct; failed).** 7.0% under matched mass: the policing seen
+under the uniform prior is founder share. **The note's framing of the ring wall as the grand bidder coalition** (notes
+§4): understated; any winner with a price-setting loser is a ring. **The note's first draft "VCG is robust to the winners'
+coalition"** (corrected before the run, after gpt-6.1-sol's review: winners can jointly overbid to zero each other's
+prices).

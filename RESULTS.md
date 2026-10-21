@@ -5689,6 +5689,98 @@ At generation 2,000 the maximal cell reads 0.10 efficient runs, 0.025 universal-
 - **In the union game, hooks reach the smallest positive wage without assuming rationality,** through tested worker threats (RESULTS "Incentive-compatible enforcement" reached ¼ by assuming ex-post rational enforcement). The fair wage is never reached.
 - **History-keyed overrides look like an identity channel by descent** (the weak wing's analogue of identity cliques); whether Part R's history and source scopes behave alike is for Part R.
 - *Caveats:* finite (N, I, horizon); reduced fission–fusion and union-game geometries; one encounter per birth; strict cells post hoc.
+## Coalition-proof auctions (2026-10-21)
+
+Spec `specs/2026-10-21-coalition-proof-auctions.md` (theory `notes/coalition-proof-auctions.md`), predictions
+`predictions/2026-10-21-coalition-proof-auctions.md`, verdicts `runs/auctions.md`, run notes `notes/auctions-run.md`
+(14 stated deviations), summary `runs/auctions/summary.json`. The RS's side quest (DEFERRED 14): does the notion suggest a
+refinement of VCG that buys coalitional robustness? The RE's analytic answer is the surcharge rule: VCG plus the
+minimal surcharges that pay no group of bidders more than its joint marginal contribution, the VCG-nearest point of the
+minimum-revenue core. This run tests what that rule buys, with the RS's notion applied to the reporting game, and runs
+an ecology of open-source bidders. Verdicts: 7 held (2, 3, 7, 8, 9, 10, 12), 4 failed (1, 4, 5, 6), 1 partial (11).
+
+**Part A: the notion on reporting games** (one-round truncation; two items, single-minded bidders, integer values
+1..10, reports 0..20; the Ausubel–Milgrom family AM exhaustive at 1,000 instances; AM+, substitutes and two-packages
+on 3,000 fixed-seed instances each).
+- **Rings defeat both rules, including in the control.** In the substitutes family (two bidders on each
+  item; VCG in the core on 3,000/3,000) truth is notion-robust on 0/3,000 under every responder mode and tie rule.
+  The breaking coalition is always a winner with the runner-up on its item: the loser lowers its report at no cost,
+  the winner's price falls, and the pair splits the gain. This is a two-bidder ring (notes §4). Spite cannot deter
+  it, because the loser loses nothing and the complement holds no one who sets that price. Prediction 1 failed: the
+  RE had treated the substitutes family as a control, forgetting that rings are not blocked by the core. Truth is
+  robust on 0 instances in substitutes and AM+ under both rules. Under VCG it is robust on 38.5% of AM and 19.4% of
+  two-packages instances, so the failure is universal in those two families, not everywhere.
+- **The surcharge removes the coalitions that recontract with the seller, as derived.**
+  - VCG fails exactly where v_P > min(v_A, v_B): 0/1,000 mismatches, the winners' joint overbid included
+    (prediction 2 held).
+  - Under the surcharge the item pair never profits, and singleton shading breaks truth on 835/835
+    positive-surcharge instances (prediction 3 held).
+  - Truth is robust to every proper coalition on 38.5% of AM instances under VCG, and on none under the surcharge.
+    There, singleton shading accounts for the positive-surcharge instances, and mixed coalitions break the rest.
+- **Spite deters same-side coalitions only.** With T-weak responses (lateral best-reply moves allowed), every
+  singleton, pure-loser and pure-winner break under the surcharge is deterred in all four families. Under VCG, the
+  common report cap lets the overbidding pair bid out of the responder's reach. No mixed coalition is ever deterred.
+  Prediction 4 failed as scored: 0% of instances deterred, and 0% / 45.5% of breaks under VCG / the surcharge. The
+  literal strict-improvement reading of the response graph equals T-strict, so spite needs lateral moves.
+- **The grand ring takes all the seller's revenue at truth** under both rules on 100% of instances.
+- **Bernheim–Whinston does not reappear through the one-round notion.**
+  - With coalitional responders, first-price leader values never exceed the joint marginal contribution (0/6,000),
+    and the notion's set is nonempty on 1,000/1,000 (prediction 5 failed).
+  - Every vector in the set lies within one tick of the bidder-optimal core edge on only 20.8% of instances, and some
+    vector does on 22.8% (prediction 6 failed). Only 0.6% of the set's vectors are in the true-value core at all.
+  - On 88% of instances it contains a zero-revenue ring profile: mean revenue in the set is 0.34, against 2.64 under
+    VCG.
+  - Restricted to proper bidder coalitions, the notion does not exclude the grand ring. The second review had warned
+    that the two are different objects.
+
+**Part B: rings and police among open-source bidders** (fixed-role seed lottery at ε = 0; the AM roles; N = 100 per
+role, 64 islands, w = 0.3, 2,000 generations, 40 runs; without migration every island fixed; named programs `T`, `SH`, `PAIR` enforced, `PAIRU`
+unenforced, `POL` police).
+- **Rings against police, VCG, collusion instance (20, 5, 5):**
+  - Enforced losers' overbids hold 0.303 of islands (run sd 0.053) and police 0.334 (prediction 7 held).
+  - The police are a payoff-neutral shadow of `T` in role P. Every policed island was exposed to a deviating pair at
+    founding, but on 94.5% of the 856 none was present at any generation boundary after `POL` became P's only
+    program. Without `POL` in the prior the pair takes every island (1.000, and ≥ 0.996 at N = 50 and 200; prediction 8
+    held).
+  - The pair earns +5 against `T` and −15 against `POL`, so it is selected against once police hold more than a
+    quarter of role P (neutral at exactly a quarter). Its driven-out share rises with the police's founding share: 0.56, 0.71 and 0.87 at 0.2–0.3,
+    0.3–0.4 and ≥ 0.4.
+  - Under the matched-mass prior (`POL` mass 1/16) pair islands rise to 0.930 (3.07×), and the pair is driven out of
+    only 7.0% of the 2,557 islands where both were founded, against 69.7% under the uniform prior. So the policing
+    seen under the uniform prior is demographic (prediction 11 partial: the first conjunct held, the second's
+    falsifier was met).
+  - Committed spite is unsafe under trembles: at a 5% failure rate `POL` earns −0.45 against `T`'s 0.025 (prediction
+    12 held).
+- **The reading audit**, under which programs that read other bidders play their non-reading default, removes both
+  enforced rings and police. In the collusion instance it raises revenue from 7.69 to 10.0 and efficiency from 0.70
+  to 1.0 (prediction 10 held, scored on that instance only). It is not a general remedy: in the VCG threshold
+  instance (unscored) unenforced rings remain on 0.061 of islands, items deviate on 0.461, and revenue falls from
+  7.68 to 7.39 with the audit.
+- **The surcharge in the ecology:**
+  - It leaves no losers' ring to win (pair islands 0.000).
+  - In the threshold instance (20, 15, 15) the free-riding shade takes over: item bidders deviate on 0.787 of
+    islands, mutual shading hands the auction to P, and efficiency is 0.48 against VCG's 1.0 (prediction 9 held).
+  - The audit makes it worse there: deviations rise from 0.787 to 1.000, efficiency falls from 0.480 to 0.275, and
+    revenue falls from 15.6 to 12.75. The shade reads no one, so the audit removes only the police and the enforced
+    programs.
+- **First-price, threshold instance:** `POL`, a best reply to the items' intended bids, exploits shaded items and fixes
+  on 99.8% of islands. This is the auction's prudence analogue.
+- **Migration** (mN = 1, secondary): its runs stop at global payoff-freezing or 4,000 generations rather than
+  fixation, and "policed" means `POL` holds a majority of P. The metapopulation polarizes within the finite horizon:
+  the pair share is 0 in 10 of 40 runs, at least 0.95 in 15, and in between in the remaining 15. Migration also raises
+  the police's exposure to deviating pairs to 99%.
+
+**Reading.** The RS's hoped-for side-payment rule exists, and it is the surcharge. Its protection is core membership
+with respect to the reports: no coalition that includes the seller can block. That stops the item pair's overbids in
+these families. It is not coalition-proof reporting: singleton shading and rings still profit, and only the four
+finite families above were tested. It cannot buy robustness against rings, and a ring
+is any winner together with a loser whose report sets the winner's price, not only the grand bidder coalition. In an
+ecology the surcharge's own fragility, singleton shading, is selected and costs efficiency (0.48). Among open-source
+bidders, policing a ring is a founder-share race won by drift, because the police are payoff-neutral. The seller's
+reading audit ends the enforced losers' ring in the collusion instance, but it is no general remedy (the threshold
+counterexamples above). Under first-price, a responder that exploits underbidders is
+selected, which is the direction of the RS's core-rediscovery stage 1 (queue item 49).
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
