@@ -262,3 +262,13 @@ run did the same). Every verdict is reported on 0–19 and on 0–39; where they
 - **"Universal-open" and "lost"** are `decompose`'s M ≥ 0.95 with an open holder, and closure status `lost` or P(C,C) < 0.1.
 - **The tail's end is t = 10,000 (generation 10,200); the chase's end t = 12,000 (12,200).** A run that freezes after
   the tail's end carries its end state forward exactly.
+
+### 2.6 Launch (written before the first counted cell)
+
+`nohup bash runs/prudence/batch.sh &` from the worktree: `cells --reps 20 --out main` (replicates 0–19, 160 runs,
+`runs/prudence/cells_main.json.gz`, log `main.log`) and then `cells --rep0 20 --reps 20 --out ext` (replicates 20–39,
+`cells_ext.json.gz`, `ext.log`); `runs/prudence/batch.done` appears when both finish. Jobs are ordered by arm (A156, A52,
+SD52, A0), then world, then replicate, three workers, one job per process (pool of 3, two jobs per child). The rows are
+resumable (finished keys are skipped on relaunch). Then `python3 src/prudence_report.py --rows
+runs/prudence/cells_main.json.gz` (and with `cells_ext.json.gz` appended for the 40-run tables) writes `runs/prudence.md`
+and `runs/prudence.json`.

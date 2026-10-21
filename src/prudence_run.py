@@ -173,7 +173,7 @@ def run_pool(jobs, path, workers):
 
 
 def cost_key(j):
-    return (-P.ARMS[j[1]][0], j[2], j[0])
+    return (-P.ARMS[j[1]][0], j[1], j[0], j[2])        # arm by cost, then world, then replicate (a worker mostly keeps one world's tables)
 
 
 def cmd_cells(a):
