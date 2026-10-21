@@ -35,7 +35,9 @@ R = 41                       # bids 0..40
 NC = 41                      # constants
 W = 0.3
 TOL = 1e-9
-INSTANCES = {'threshold': (20, 15, 15), 'asymmetric': (20, 16, 12), 'collusion': (20, 5, 5)}
+SPEC_INSTANCES = ('threshold', 'asymmetric', 'collusion')
+# 'skew' is a post-hoc control (not in the spec): the winners' VCG surpluses differ, so the Vickrey-nearest split and the equal-surplus split differ
+INSTANCES = {'threshold': (20, 15, 15), 'asymmetric': (20, 16, 12), 'collusion': (20, 5, 5), 'skew': (14, 16, 8)}
 ROLES = ('P', 'A', 'B')
 # statistics channels of the tensor X (float32); U holds the three payoffs (float64)
 XREV, XEFF, XIR, XCORE, XPRUWIN, XCYC, XBP, XBA, XBB = range(9)
@@ -726,3 +728,22 @@ def island_table(inst, samp_final, counts_final, N):
             row['at_vn'] = bool(row['edge'])
         rows.append(row)
     return rows
+
+
+def flags(inst, S):
+    """vectorized island flags from statistic rows S (..., NS): eroded (revenue more than one tick below the minimum-revenue core), core (the island's
+    mean payoff vector is efficient, individually rational and satisfies every true-value core inequality), edge (core with revenue within one tick of
+    the minimum), at_vn (edge, and each winner's mean payoff within one tick of its Vickrey-nearest payoff; for a single winner, edge)."""
+    v = INSTANCES[inst]
+    ws = wstar(v); mr = min_revenue(v); vn = vickrey_nearest(v)
+    u = [S[..., 0], S[..., 1], S[..., 2]]; rev = S[..., 3]
+    ok = (u[0] + u[1] + u[2] + rev >= ws - 1e-6) & (rev >= -1e-6) & (u[0] >= -1e-6) & (u[1] >= -1e-6) & (u[2] >= -1e-6)
+    for Sset, bound in core_inequalities(v).items():
+        ok &= sum(u[i] for i in Sset) <= bound + 1e-6
+    eroded = rev < mr - 1 - 1e-9
+    edge = ok & (rev <= mr + 1 + 1e-6)
+    if 'A' in vn:
+        at = edge & (np.abs(u[1] - (v[1] - vn['A'])) <= 1 + 1e-6) & (np.abs(u[2] - (v[2] - vn['B'])) <= 1 + 1e-6)
+    else:
+        at = edge
+    return dict(eroded=eroded, core=ok, edge=edge, at_vn=at)

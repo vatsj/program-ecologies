@@ -42,6 +42,19 @@ bids just above the winners' total; the winners are pulled down to just beat P. 
 below, 20 (the pilot: 16–17), with the efficient allocation played in roughly 0.8 of encounters because P wins when
 the winners' total falls below P's bid.
 
+**1.5 The skew control (post hoc, written before the skew cells finished).** After the spec cells showed that runs reaching the
+core under migration all land on one split (threshold (10, 10), asymmetric (12, 8): 20 of 20 and 15 of 15 core-reaching runs
+in the no-overbid space), I noticed that in the AM family with v_P above both item values the two winners' VCG surpluses are
+equal (both are w(N) − v_P), so the Vickrey-nearest split and the equal-surplus (Nash-product) split coincide in the spec's
+instances and the run cannot tell them apart. I added one instance, `skew` = (v_P, v_A, v_B) = (14, 16, 8), where they differ:
+core u_A ≤ 10, u_B ≤ 8, u_A + u_B ≤ 10, min revenue 14; VCG payments (6, 0); Vickrey-nearest payments (10, 4), surpluses
+(6, 4); equal surplus (5, 5), payments (11, 3); equal payments (7, 7), surpluses (9, 1) [not in the core: u_A + u_B = 10, ok;
+(9, 1) is in the core, it is the equal-payment point]. Hand statics: efficient Nash revenue 14..22 unrestricted (b_P = total − 1,
+b_A ≤ 15, b_B ≤ 7), 14..15 no-overbid. My prediction before the skew cells: under migration the core-reaching runs land on
+the **equal-surplus (5, 5)** point (risk-dominance reading of a Nash demand game between A and B, as in the divide-the-dollar
+lottery), not on the Vickrey-nearest (6, 4); probability 0.55 equal surplus, 0.30 Vickrey-nearest, 0.15 other. Not a registered
+prediction; it is outside the spec and scored only as a control.
+
 ## 2. Deviations from the spec and choices, each stated
 
 (Filled in as the run proceeds.)

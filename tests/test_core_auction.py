@@ -36,6 +36,10 @@ def test_vickrey_nearest_points():
     assert C.vcg_payments((20, 16, 12)) == {'A': 8.0, 'B': 4.0}
     assert C.vickrey_nearest((20, 16, 12)) == {'A': 12.0, 'B': 8.0}
     assert C.vickrey_nearest((20, 5, 5)) == {'P': 10.0}
+    # skew (14, 16, 8): VCG (6, 0), min revenue 14, the surcharge 8 split 4 + 4: (10, 4), surpluses (6, 4), not the equal-surplus split (11, 3)
+    assert C.min_revenue((14, 16, 8)) == pytest.approx(14)
+    assert C.vcg_payments((14, 16, 8)) == {'A': 6.0, 'B': 0.0}
+    assert C.vickrey_nearest((14, 16, 8)) == {'A': 10.0, 'B': 4.0}
 
 
 def test_in_core_vectors():
