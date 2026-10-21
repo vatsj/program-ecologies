@@ -47,3 +47,43 @@ POL in P and at least one PAIR or PAIRU in each item role.
     be demographic].
 12. *Tremble (commit before the tremble):* at a 5% failure rate `POL`'s expected payoff against an enforced pair is
     below `T`'s in the VCG collusion instance (committed spite is safe only under certainty) [`POL` ≥ `T`].
+
+## Scoring conventions added by the engineer (before any code or counted cell)
+
+These fix readings the spec leaves open; each is repeated in `notes/auctions-run.md` §3.
+
+- **Response graph.** T-strict uses the best-reply graph with strict-improvement moves only (an indifferent responder
+  stays put), picks the pure Nash equilibrium of the closure closest to the complement's truthful reports in L1
+  (ties by the lexicographically smallest report vector). T-weak ("spite counts") uses the closure of the graph in
+  which a responder may move to *any* best reply, including a payoff-equal one, and takes the equilibrium worst for S.
+  The literal reading (strict graph for both ties; spite reachable only through strict improvements) is reported as an
+  extra row, "T-weak-literal", and is not the scored one for predictions 3 and 4. Under R2 the response set is the
+  set of maximizers of the complement's total payoff for both ties.
+- **Deviations** d_S exclude the truthful report of S (a coalition that reports truthfully has not deviated); the
+  leader value v(S) (Bernheim–Whinston check) maximizes over all d_S including it.
+- **Prediction 2 and 3 "instances".** Over all 1,000 AM instances; "mismatch" = an instance where
+  (truth fails) differs from (v_P > min(v_A, v_B)) under VCG, R1, T-strict. Prediction 3's "positive surcharge" is
+  evaluated at the truthful reports.
+- **Prediction 4.** The share of instances (and of (instance, coalition) breaks) broken under T-strict that are not
+  broken under T-weak, per rule, in AM, R1.
+- **Prediction 5.** "First-price notion core" = the set of reporting profiles with an efficient (true-value)
+  allocation giving every proper S at least v(S) under R2 (T-weak and T-strict reported; the verdict uses the larger
+  nonempty fraction, which favours the prediction's falsifier).
+- **Prediction 6.** "Within one tick" = L-infinity distance on the integer grid between the bidder-payoff vector and the
+  nearest Pareto-maximal integer point of the true-value core; an instance counts if **every** payoff vector of its
+  notion set is within one tick (the "some vector" version is reported alongside); verdict under T-weak, R1,
+  first-price, AM (1,000 instances); instances with an empty set are excluded from the denominator.
+- **Part B percentages** are pooled over (run, island) of absorbed-or-censored islands; censored islands are counted in
+  the denominators and reported separately. `pair` = the probability that the two item bids equal the pair's joint
+  deviation report (enforced or unenforced) is at least 0.5 in the island's end state; `items deviate` = the
+  probability that either item bid differs from truth is at least 0.5; `policed` = `POL` is the only program of role P.
+  Prediction 7's "enforced PAIR" is scored on the `pair` label; the enforced-only share is reported alongside.
+  Prediction 8: "never tested" = after `POL` became the only P program, no generation (sampled each generation)
+  had a `PAIR` in both item roles or `PAIRU` in both; the founding-state exposure is reported separately.
+  Prediction 11: "driven out" = the island is not a `pair` island at the end; the stricter "joint deviation
+  probability = 0" is reported alongside, over islands whose founders included `POL` and a `PAIR` or `PAIRU` in each
+  item role.
+- **Prior M:** the item priors equal U (1/4 each); `POL` mass is set to f(`PAIR`)² = 1/16 and the remaining 15/16 is
+  split equally between `T` and `SH` in role P.
+- **Prediction 12** is computed on the tremble tensor (commit before the trembling member's failure) at 5%, VCG,
+  collusion instance, against an enforced pair, with `T` for comparison.
