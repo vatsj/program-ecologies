@@ -199,3 +199,66 @@ arrival lineages, arrivals are logged once; (e) paired streams: the arrival sequ
 A156's events in spelling and order on a short run; (f) the cost probe on a discarded replicate (990) to 3,000
 generations for A = 156 in both worlds. Drop order if the projected total exceeds ~12 hours on 3 workers
 (amendment 5): A = 156 in L first, then the SD control in L; the chase and the other cells are never dropped.
+
+## 2. Code, validation, probes and costs (appended after the code, before any counted cell)
+
+### 2.1 Code
+
+`src/prudence_kern.py` (the Pangaea island kernel with the annealed run's arrivals and lineage tracking by rejection
+sampling, see its docstring), `src/prudence.py` (schedule, frozen sets, run object, statistics), `src/prudence_run.py`
+(`statics`, `validate`, `probe`, `cells`), `src/prudence_report.py`, `tests/test_prudence.py` (5 tests, 70 s, pass).
+Existing `src/` files are untouched; the Pangaea kernel's copier cache is dropped in the new kernel (C-donor only).
+
+### 2.2 Validation (`runs/prudence-validate.json`; before any counted cell)
+
+- **A = 0 reproduces the stored fission–fusion cells state for state in both worlds.** Replicates 0–2 in L and K
+  (cell `pg_L_100_128_r100_ff200` of `runs/world_k/cells_C.json.gz`): at every stored checkpoint (every 10 generations
+  to 500, every 50 after) P(C,C), the dominant network's share M, the target share and the number of living types agree
+  to the stored 5-decimal precision (192, 240, 97, 192, 233 and the sixth comparisons, 0 differences in 6 of 6 runs),
+  and the frozen stop falls at the stored generation (7,600 / 2,850 / 9,650 / …; rep 0 in L unfrozen at 10,000 as
+  stored). This includes the merge and the post-merge arrival kernel at ε = 0.
+- **Test (`test_arrival_kernel_equals…`):** after the merge, 40 generations of the new kernel at A = 0 equal the Pangaea
+  kernel's slots, counts and type count exactly; at A = 52 and 156 the arrival log is consistent (one record per
+  arrival, lineage ids 1..n unique, arrival-descended individuals ≤ n, counts sum to N), A = 52 delivers about a third
+  of A = 156's arrivals over the same 40 generations, **A = 52's founder sequence is a prefix of A = 156's** (paired
+  streams), and world K's arriving spellings equal world L's.
+- **Statics (`runs/prudence-static.json`).** The schedule's discrete sums are 6,656 and 19,968 exactly (0.5501 of each
+  within the first 1,000 generations; first-generation rate 7.3 and 22.0 arrivals, last 0.06 and 0.18). T has 235 units
+  in L and 298 in K. The SD set is the **same 4,673 spellings, mass 0.3756**, in both worlds; Q is outside it.
+  **The fixed-list edge per arriving uncertified-sucker founder is 0.6828 in both worlds** (0.8255 over the SD set),
+  0.8261 (L) and 0.8244 (K) over H-state certified suckers (relative difference 0.2%), +1 for `C`, and 0 for the former
+  TwinD family in both worlds' H-state; E-state edges are 0 (a fresh founder is uncertified, so neither PrudentBot nor
+  FairBot cooperates with it and the payoffs are equal). This is the looked-at number of §1.5 now computed by the code.
+
+### 2.3 Probes (discarded replicate 990; `runs/prudence/probe*.log`, `probe.json`)
+
+K, A = 156, to the chase's end: 114 s, 19,943 arrivals (expected 19,968), frozen at generation 10,220 (one type) and
+23,571 types created. L, SD52, 107 s, 6,579 arrivals, not frozen (a polymorphism of off-target variants to the end).
+L A = 156 to generation 400: 30 s including compilation. The probes ran beside the sibling weak-wing run's 3 workers.
+Sanity reads of the two kept probe rows (not counted, not scored): in K A156 the certified-sucker share rose to 0.2 within
+the first 2,000 tail generations and a guarded type fixed near t = 7,000, resident-descended (the arrival-descended
+share is 0 at the end), so the prudent winner need not be an arrival; in L SD52 no sucker share built up and the run
+ended on an off-target FairBot variant.
+
+### 2.4 Costs, plan and one declared extension
+
+Per run about 100 s (A0 about 60 s, which stops at the exact frozen stop); 160 runs ≈ 4.5 worker-hours, ≈ 1.5 hours on
+3 workers. Far below the 12-hour line, so **no drop-order step is applied**. Declared before any counted cell: the spec's
+20 runs per cell (replicates 0–19) are the counted cells and carry the verdicts; because the endpoints are all-or-nothing
+by run and the paired contrasts are small, **replicates 20–39 are run afterwards as a precision extension** (the annealed
+run did the same). Every verdict is reported on 0–19 and on 0–39; where they disagree, both are said. The batches are
+`python3 src/prudence_run.py cells --reps 20 --out main` and then `--rep0 20 --reps 20 --out ext`.
+
+### 2.5 Deviations and conventions (declared before any cell)
+
+- **Residences** use the rectangle (trapezoid) rule at the checkpoint spacing (10 generations to t = 600, then 20); after
+  an exact frozen stop the values are carried forward exactly.
+- **Ancestry** is the lineage of the individual (0 resident at the merge, else the arrival id), inherited at birth from a
+  uniformly chosen parent individual of the chosen type; certificate production keeps the lineage. The decomposition into
+  immigration and reproduction is **by lineage** (the change of the arrival-descended part of a class against the
+  change of the resident-descended part), not by victim accounting; the log also stores each arrival's victim type.
+- **Colonization classifier:** an arrival lineage that reaches half of the population; *selected* if the arrival's
+  initial payoff against the population exceeded the mean (strictly), else *drift*.
+- **"Universal-open" and "lost"** are `decompose`'s M ≥ 0.95 with an open holder, and closure status `lost` or P(C,C) < 0.1.
+- **The tail's end is t = 10,000 (generation 10,200); the chase's end t = 12,000 (12,200).** A run that freezes after
+  the tail's end carries its end state forward exactly.
