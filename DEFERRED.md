@@ -623,6 +623,18 @@ REJECTED.md the ones we dropped.
 - *Evidence (2026-10-11, the gene arm):* a Pareto restriction on genes (G-recip) cannot implement a wage, because
   zero wage with everyone working is Pareto-efficient; a threat-independence axiom would have to bind on stage-1
   commitments (the world-0 wage faker), which is where the credibility filter actually acted.
+- *RS (2026-10-21):* coalition-proof auction theory: VCG is not coalition-proof, our equilibria encode social choice,
+  so they might suggest a refinement of VCG, ideally one side-payment rule; the RS's example "2XL" (one toy, two
+  players, the loser inflates its value to be paid more). *RE (notes/coalition-proof-auctions.md):* with the seller
+  as a player the notion gives the core, and the rule is VCG plus the minimal surcharges that pay no group of bidders
+  more than its joint marginal contribution (the core-selecting, VCG-nearest rule already used in spectrum auctions);
+  it removes blocking-by-the-seller collusion (losers' and winners' overbids, shills) and opens singleton shading;
+  rings are beyond any rule (efficiency, dominant-strategy truthfulness and ring-proofness: pick two), and in the
+  notion the seller must be a responding player; on reporting games the verdict turns on whether an indifferent
+  loser's spite counts; in open-source auctions ring enforcement and policing are the same program shape; 2XL's
+  compensation rule has an empty leader-value core (a commitment race) and the repair is ownership (shared ownership:
+  Cramton–Gibbons–Klemperer). *Operating hypothesis:* the side-payment answer is the surcharge rule, with the ring
+  frontier as the open question the program setting can address (CLAUDE.md queue item 48).
 
 ## 15. The RS's equilibrium notion: response functions over action subprofiles (RS, 2026-10-13)
 - *RS's statement (verbatim):* "assume a normal-form game, with perfect complete information for simplicity. Call an
