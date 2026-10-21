@@ -99,7 +99,7 @@ def pd_cell(rows, at='1000'):
         out['win_openc'] = sum(sum(1 for p, o in zip(a['island_pcc'], a['island_openc']) if p >= 0.95 and o) for a in A) / eff_i if eff_i else float('nan')
         out['win_fb'] = sum(sum(1 for p, o in zip(a['island_pcc'], a['island_fb']) if p >= 0.95 and o) for a in A) / eff_i if eff_i else float('nan')
         out['win_open_self'] = sum(sum(1 for p, o in zip(a['island_pcc'], a['island_open_self']) if p >= 0.95 and o) for a in A) / eff_i if eff_i else float('nan')
-    c = np.array([r['counters'] for r in rr], float).sum(0)
+    c = np.array([list(r['counters']) + [0] * (24 - len(r['counters'])) for r in rr], float).sum(0)
     enc = c[0]
     out['per_encounter'] = dict(grudge=c[1] / enc, thanks=c[2] / enc, copies=c[5] / enc, attempts=c[6] / enc,
                                 candidates=c[11] / enc, accepted=c[7] / enc, open_writes=c[17] / enc,
@@ -132,7 +132,7 @@ def sog_cell(rows):
     out['runs_with_fair'] = float(np.mean([r['fair'] > 0 for r in rows]))
     out['worker'] = boot_mean([r['worker'] for r in rows]); out['boss'] = boot_mean([r['boss'] for r in rows])
     out['wage'] = [float(np.mean([r['wage'][w] for r in rows])) for w in range(3)]
-    c = np.array([r['counters'] for r in rows], float).sum(0)
+    c = np.array([list(r['counters']) + [0] * (24 - len(r['counters'])) for r in rows], float).sum(0)
     out['per_encounter'] = dict(grudge=c[1] / c[0], thanks=c[2] / c[0], copies=c[5] / c[0], bw_attempts=c[6] / c[0],
                                 bw_contracts=c[7] / c[0], blocked=c[18] / c[0]) if c[0] else {}
     thr = np.array([r['threat'] for r in rows], float).sum(0)
