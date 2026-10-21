@@ -601,6 +601,11 @@ REJECTED.md the ones we dropped.
   overrides and contracts are admissible and benign in the weak wing; the lineage key is the parochial tag by descent,
   admissible but reported as the identity analogue. *Decision for the RS (narrowed):* admit behaviour-keyed (open)
   fills as a hook scope, given they need only the free sound box?
+- *Decided (RS, 2026-10-21):* behaviour-keyed fills are admitted. The family admits PrudentBot's competitors
+  (TrustingBot, "cooperate unless you provably defect", which FairBot exploits; the Gödel predator, "defect if they
+  provably cooperate", which cooperates with itself and is suckered by FairBot) but no identity, since keys contain no
+  quote-equality atom. *Fallback (RS):* if the maximal behavioural-key run (`specs/2026-10-21-behavioural-hooks.md`)
+  spooks the RS or the RE, the decision is deferred to Fable 5.5 here.
 
 ## 13. Threats: drift versus testing (RS, 2026-10-11)
 - *RS's guess:* inactive threats should drift out quickly enough to disarm them over the long run.
