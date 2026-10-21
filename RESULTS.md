@@ -5887,6 +5887,109 @@ but not always in `union-M` and `union-C`):
   and contracts are harmless or helpful in every PD configuration tested. A behaviour-keyed override needs only the
   free sound box.
 
+## Rediscovering the core (2026-10-21)
+
+Spec `specs/2026-10-21-core-rediscovery.md` (reviewed by gpt-6.1-sol then gemini-4-argon), predictions
+`predictions/2026-10-21-core-rediscovery.md`, verdicts `runs/core-rediscovery.md`, notes `notes/core-rediscovery.md` (§2
+lists the deviations and the post-hoc additions), outputs `runs/core_auction/`. Run by a Sonnet subagent
+(`src/core_auction*.py`, 22 tests). Stage 1 of the RS's program to rediscover the core in our machinery (DEFERRED 14).
+
+**Setup.**
+- First-price package auction with a best-offer seller: Ausubel–Milgrom roles P (package AB), A and B; integer bids
+  0..40; random revenue ties; a zero bid is no bid.
+- Instances: threshold (20, 15, 15), asymmetric (20, 16, 12) and collusion (20, 5, 5). Minimum-revenue core totals
+  20, 20 and 10.
+- Bid spaces: unrestricted, and no-overbid (each role capped at its value).
+- Programs: constant bids and the responder `PRU(c)`, which best-replies in expected payoff to the others' resolved bids
+  when that pays, else plays c.
+- Fixed-role seed lottery at ε = 0: N = 100 per role, 64 islands, w = 0.3, 40 runs, 5,000 generations. Fixation is
+  1.00 in the ε = 0 cells without migration, 0.9996 in the annealed responder cell and 0.95–0.97 in the order-free
+  cells; rain and migration cells fix 28–81%.
+- Core membership is judged on each island's *mean* payoff vector, not encounter by encounter.
+- Re-injection arms: annealed tails, constant rain over 20,000 generations, and per-role migration.
+
+Verdicts: prediction 1 partial, 2 partial, 3 partial (efficiency held; the transfer share, made operational in the
+notes as above 0.5, was 0.48 / 0.27 in the collusion instance), 4 failed, 5 failed (with gemini-4-argon's
+counter-prediction), 6 failed, 7 partial. Every number is a finite-(N, I, horizon) lottery statistic, not π.
+
+**Statics.** In the threshold and asymmetric instances the efficient pure Nash equilibria of the constant game have the
+loser bidding one tick under the winners' total.
+- Threshold instance: revenue 20..28 unrestricted (the top two ticks drop out by tie deviations) and 20..21
+  no-overbid.
+- Collusion instance: one efficient equilibrium sits one tick below the core, since the losers can win only jointly,
+  and there are high-revenue tie equilibria.
+- So Nash spans the core's interior, and the no-overbid space pins it to the bidder-optimal edge, as amended after
+  review.
+
+**The ε = 0 lottery does not rediscover the core.**
+- In the threshold instance, 96% (unrestricted) and 90% (no-overbid) of islands end more than one tick below the
+  minimum-revenue core, and 0.2% / 1.0% end in it. Mean revenue is 15.9 / 17.0 against 20.
+- Efficiency is 0.79 / 0.87, so the shortfall is about half a transfer from the seller and half lost efficiency.
+- The data point away from the RE's prediction (a free threat drifting down) and toward early selection on the loser.
+  This interpretation is supported by founding-payoff calculations, not proven causally:
+  - Against the founding mixture of winners' bids, P's best bid is about 13. It earns 2.68 per encounter, against
+    0.72 at 19 and 0 at P's value of 20, so the high, honest threats die while the winners are still diverse.
+  - The winners then ratchet down to just above P's surviving maximum.
+  - Every island's founders included top-of-range P bids.
+  - The core fraction stays small at N = 50, 100 and 200 (0.2–1.2%). In the no-overbid space, erosion falls from 0.93
+    to 0.84 and efficiency rises from 0.80 to 0.91 across that sweep. The no-overbid space caps P's founders at its
+    value, so its founding mixture starts closer to erosion.
+  - A one-run pilot, seen before the engineer's hand predictions, informed the engineer's expectations; it did not
+    inform the RE's registered predictions.
+- On this reading the losing bidder adapts to exploit the founding scramble, which is the prudence premium, and that
+  adaptation removes the competitive threat that would hold the price at the core.
+
+**Restoring the core, in the arms tested.** Necessity is not tested, and rain and migration are ongoing, unabsorbed
+processes (rain fixes 69–77% of threshold islands, migration 31–52%).
+- Annealed tails restore almost nothing: 0.9–2.7% in the core at A = 1 and 2.4–4.5% at A = 3 (prediction 4 failed).
+- An injected outbidder establishes on 86–94% of eroded islands but restores 0 of 9,744. It wins at the winners'
+  total plus one, efficiency falls to 0.03–0.10, and the constant winners cannot answer.
+- Constant rain over 20,000 generations reaches 45–49% in the core (revenue 19.0–19.2; still 23–25% eroded).
+- Per-role migration (post hoc) reaches 18% / 45% in the core in the threshold instance (revenue 19.1 / 19.5,
+  efficiency 0.995 / 0.997), and 2.5% / 34% in the asymmetric instance (revenue 18.7 / 19.4).
+
+**The responder is an evaluator artefact.**
+- Under the registered order (P, then A, then B) a responder with prior mass 0.2 gives 0.025 in the core, and `PRU`
+  is selected against in P. Prediction 5 failed, and so did the counter-prediction that it would restore the core
+  without holding P.
+- Under the reverse order (B, A, P) the core fraction is 0.71, with `PRU` fixed in P on every island. A post-hoc
+  order-free rule gives 0.023.
+- Triples with two responders change outcome with the order in 85–86% of cases and cycle in 65%: the last mover
+  wins.
+- So in this evaluator the prudent loser restores the core only when it is evaluated after the winners it reads,
+  reaching 0.71 without any re-injection. This resembles the mutual-reading regress of the realizable language's
+  milestone 3. Cycling in 65% of sampled two-responder triples shows the order matters; it does not prove that no
+  fixed point exists. A certificate semantics was not tested.
+
+**The winners' split.**
+- The registered test (prediction 6) failed on its own terms. The chance baseline was 5/17, with failure above 0.588.
+  The primary asymmetric cells give 1/4 (unrestricted) and 8/8 (no-overbid) edge islands at the Vickrey-nearest
+  split, and the post-hoc 400-run cells 17/22 and 69/80.
+- At ε = 0 the split is broad across islands. In the post-hoc skew instance (14, 16, 8) without migration, A's
+  payment is 10 (Vickrey-nearest) on 31–42% of edge islands and 11 (equal surplus) on 29–36%. Under rain both are 24%.
+- Under migration the runs concentrate on one split. These are island means, and migration fixes only 31–52% of
+  islands, so averaging over polymorphic encounters may contribute (migration fixes 28–57% of islands across instances). In skew, A's modal payment is 10 in 29 of 40 runs
+  (no-overbid) and 35 of 39 (unrestricted), and 11 in the rest. In the spec's instances every core-reaching migration
+  run lands on the Vickrey-nearest point (prediction 6 failed).
+- Two caveats:
+  - In the spec's instances the Vickrey-nearest, equal-surplus and middle-of-edge splits coincide, an
+    instance-design flaw.
+  - With two winners, whenever splitting the surcharge equally stays inside the individual-rationality bounds, the
+    Vickrey-nearest point is the midpoint of the core's bidder-optimal edge, the segment between the two VCG bounds.
+    In skew's continuous core A's payment ranges over 6..14, midpoint 10. On the positive-bid grid the range is 6..13,
+    midpoint 9.5, half a tick from the Vickrey-nearest 10. So skew separates Vickrey-nearest from equal surplus but not
+    from the middle. A test needs an instance where the equal split hits a cap, or three winners.
+
+**Reading.** In this first-price stage the lottery finds an efficient-ish allocation, but not the core price.
+- The competitive threat that holds the price at the core is removed by the loser's own adaptation to the founding
+  scramble.
+- Among the constant-program arms tested, only sustained rain or migration brought about half the threshold islands back
+  to the core. The reverse-order responder reached 0.71 with no re-injection.
+- A prudent responder can hold the price when its reading is resolved in its favour. The constant-or-best-reply
+  grammar gives that resolution no principled basis.
+- The natural next stage gives the responder a certificate semantics (the milestone 4 lever) instead of order-dependent
+  best replies.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

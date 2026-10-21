@@ -653,7 +653,7 @@ REJECTED.md the ones we dropped.
   substitutes), spite deters same-side coalitions only, and in an ecology singleton shading is selected under the
   surcharge (efficiency 0.48); police are a payoff-neutral shadow (ring suppression is founder share), the reading audit
   ends enforced losers' rings but is no general remedy; under first-price a responder exploiting underbidders is
-  selected. *RS (2026-10-21):* the relevant program is to rediscover the core in our machinery; stage 1 is queue item 49.
+  selected. *RS (2026-10-21):* the relevant program is to rediscover the core in our machinery; stage 1 is queue item 49. *Stage 1 evidence (RESULTS "Rediscovering the core"):* the ε = 0 first-price lottery stops about 4 ticks short of the core price; the losing bidder's honest threat is selected out early; rain or migration restores about half the islands; a best-reply responder works only as the last mover. *Operating hypothesis:* stage 2 gives the responder a certificate semantics (checked mutual reading, as in milestone 4) before moving to private values.
 
 ## 15. The RS's equilibrium notion: response functions over action subprofiles (RS, 2026-10-13)
 - *RS's statement (verbatim):* "assume a normal-form game, with perfect complete information for simplicity. Call an

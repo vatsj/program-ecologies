@@ -1098,3 +1098,20 @@ key; execution 0.125 at s = ½. **"Role-keyed (C) contracts at least 0.30 fair" 
 3.2×), A5's survival clause, B3's mechanism clauses, B4's execution clause, B5 (`bw-only-C` flat against Part W: it
 locks ¼ on every island), B7's (C) clause. **Dropped design:** the literal reading of "boss–worker contracts judged under
 the same rule" (the boss's best reply to work is its lowest wage, so every positive-wage contract is rejected; not run).
+
+
+## Added 2026-10-21: rediscovering the core (RESULTS.md, "Rediscovering the core")
+
+**"The losing bid is a costless threat that drifts down" (RE, the spec's premise).** Wrong mechanism, by the
+founding-payoff reading: the loser's honest high bids are selected out early, while it exploits the diverse founding
+winners (best bid about 13 against a value of 20), and the winners then ratchet down. **"Efficient Nash revenues cover
+the whole core and nothing below" (RE 1; partial).** The top two ticks drop out by tie deviations; in the collusion
+instance one efficient equilibrium sits one tick below the core. **"The non-eroded islands sit inside the core,
+spread over it" (RE 2; partial).** 6% / 10% in the core, the rest one tick below. **"An annealed tail of three
+founders restores at least 60% of islands" (RE 4).** 2.4–4.5%. **"The responder restores the core at ε = 0" (RE 5),
+and gemini-4-argon's counter-prediction.** 0.025 under the registered order; 0.71 under the reverse order;
+order-dependent, not a program property. **"No preference for the Vickrey-nearest split" (RE 6).** Concentrated, and
+the instances could not separate it from equal surplus or the middle of the edge. **"A single injected outbidder
+restores the core" (RE 7; partial).** Establishes (0.86–0.94) and restores 0 of 9,744. **Engineer's skew guess (equal
+surplus under migration).** 29 of 40 runs on Vickrey-nearest. **Dropped design:** order-dependent best-reply
+responders as a model of mutual reading (cycles in 65% of two-responder triples).
