@@ -5781,6 +5781,112 @@ reading audit ends the enforced losers' ring in the collusion instance, but it i
 counterexamples above). Under first-price, a responder that exploits underbidders is
 selected, which is the direction of the RS's core-rediscovery stage 1 (queue item 49).
 
+## Hooks follow-ups in the weak wing: open keys and union contracts (2026-10-21)
+
+Spec `specs/2026-10-21-hooks-followups-weak.md` (reviewed by gemini-4-argon then gpt-6.1-sol), predictions
+`predictions/2026-10-21-hooks-followups-weak.md`, report `runs/hooks-w2.md` and `.json`, verdicts
+`runs/hooks-w2-verdicts.md`, notes `notes/hooks-w2.md`, rows `runs/hooks_w2/` (gzipped). Run by a Sonnet subagent
+(`src/hooks_w2*.py`, `src/hooks_w2_sog*.py`, 54 tests). Follow-up to "Hooks in the weakly extensional wing" (Part W).
+With the new flags off, the code reproduces Part W's stored maximal rows exactly (PD 40/40, fission–fusion 20/20,
+union game 40/40). Every number is a lottery statistic at finite (N, I, horizon) and ε = 0, not π.
+
+**Design.**
+- *The open key.* A fill keyed on the partner's predicate p = "provably cooperates with me", evaluated by the free
+  sound box with both parties' fills in force. The open promise (cooperate iff p) on a bare `HOOK(t, D)` is FairBot.
+  Open sources are grudges and thanks written on the observed p, and open contracts (a pair of open promises judged
+  jointly by the prover).
+- *PD cells* at (100, 64), mN = 1, 40 runs, generation 1,000:
+  - `lineage-max` (Part W's maximal);
+  - `open-max` (open writes and open contracts);
+  - `open-contract` (open contracts with lineage writes);
+  - `open-history` (open writes with lineage contracts);
+  - four diagnostics, added post hoc after single-run probes and not scored as predictions.
+- *Fission–fusion:* 32 × 100, merged at 200, horizon 600, 20 runs.
+- *Union game* at (30, 16), mN = 1, horizon 1,000, 40 runs. Each worker writes a demand fill, "work iff the boss
+  provably pays at least s" (s ∈ {¼, ½}), as a joint pair keyed on the boss's lineage or on its role. Acceptance:
+  - *(M), myopic:* both workers weakly better off, one strictly;
+  - *(C), credible response:* the same judged under the boss's best reply among its program's response and the single
+    wage fills, with ties toward paying the demand. Under (C) the boss adopts its response as fills.
+  - *Protection:* contract-origin fills are protected from overwrite by triggers and copies.
+- *Disclosures:* reduced geometries and horizon 1,000 only (Part W's); seeded history fills stay lineage-keyed;
+  `bw-only-C` is the agent's reading of "boss–worker contracts judged under the same rule" (Part W's test plus
+  protection of the boss's contracted wage); role-scope fills are keyed per worker slot (Part W's role semantics), so
+  a fill copied between the two worker slots is inert in the other slot; the open cells classify lineage-closed
+  islands with a stricter history-variant test than `lineage-max` (Part W's), so lineage-closed shares are not
+  compared across them; single-run probes were seen before the counted cells, after the
+  predictions were committed.
+
+**PD** (universal-open with Wilson 95%):
+
+| cell | universal-open | island efficiency |
+|---|---|---|
+| Part W inert hooks | 0.65 | 0.65 |
+| `lineage-max` | 0.000 [0.00, 0.09] | 0.22 |
+| `open-max` | 0.875 [0.74, 0.95] | 0.997 |
+| `open-contract` (lineage writes) | 0.000 [0.00, 0.09] | 0.72 |
+| `open-history` (lineage contracts) | 0.975 [0.87, 1.00] | 1.000 |
+| diagnostic: open writes only | 0.95 | 1.000 |
+| diagnostic: open grudges only | 0.50 | 0.98 |
+| diagnostic: open thanks only | 1.00 | 1.000 |
+| diagnostic: `open-max` with contracts inert | 1.00 | 1.000 |
+
+Fission–fusion: `ff-open-max` 1.00 universal-open, against `ff-lineage-max` 0.05 (as in Part W).
+
+**Union game** (shares of the 640 islands; a run's islands end alike in `myopic-ref`, `union-C-role` and `bw-only-C`
+but not always in `union-M` and `union-C`):
+
+| cell | fair | ¼ | zero | scab split |
+|---|---|---|---|---|
+| Part W maximal (`myopic-ref`) | 0 | 0.850 | 0.150 | 0 |
+| `union-M` | 0 | 0.808 | 0.136 | 0.056 |
+| `union-C` (lineage key) | 0 | 0.891 | 0.091 | 0.019 |
+| `union-C-role` | 0.200 (8 of 40 runs) [0.075, 0.325] | 0.775 | 0.025 | 0 |
+| `bw-only-C` | 0 | 1.000 (40 of 40 runs) | 0 | 0 |
+
+**Verdicts** (full table in `runs/hooks-w2-verdicts.md`).
+- *Held:* RE 1 (open maximal ≥ 0.65: 0.875); RE 3 (fission–fusion open maximal ≥ 0.7: 1.00); RE 4's fair clause; RE 6;
+  RE 7's lineage clause; the subagent's A1–A3, A7, B1, B2 and B6.
+- *Failed:*
+  - RE 2, falsifier fired: open contracts 0.000 and open history 0.975, the reverse of the predicted roles.
+  - RE 5, falsifier fired: (C) fair 0.000; strike execution per challenge 0.0009 at s = ¼ and 0.125 at s = ½.
+  - RE 7's role clause: 0.20 against ≥ 0.30.
+  - A4 (wrong mechanism), A6 and B5. The diagnostics' informal hand expectations (grudges-only high, thanks-only lower)
+    were also wrong; those were not registered predictions.
+- *Partial:*
+  - RE 4's "no raise against a constant boss": 680 of 161,864 acceptances (0.42%), untraced.
+  - Mixed verdicts with a falsifier firing on the failing clause:
+    - A5: sucker clause held; contract-origin survival on winning islands 0.000.
+    - B3: fair clause held; the predicted shortfall (≥ 0.3) measured about 0.12 for ½ demands, and pooled strike
+      execution was 0.005, under the 10⁻² falsifier.
+    - B7: (M) clause held; `union-C-role` adoption ratio 0.17×, against ≤ 1.5.
+  - B4: fair 0.20 at the edge of its region; its low-execution clause failed (0.21 and 0.37 against ≤ 0.05).
+  - A8: it predicted acceptance on the same early islands, but the report gives only whole-run aggregates (0.357 vs
+    0.362; fission–fusion 0.245 vs 0.373), so the timing comparison is not demonstrated.
+
+**Reading.**
+- **Open writes rescue the PD lottery in every configuration tested.** With lineage contracts active they give 0.975;
+  open contracts with lineage writes give 0.000.
+  - This does not uniquely attribute Part W's collapse to writes. Part W's strict contract ablation recovered 0.675
+    despite lineage writes, and swapping in open contracts alone raises island efficiency from 0.22 to 0.72. The
+    subagent's registered reading also needed A6, which failed.
+  - Under open keys contracts are rare and unnecessary, though not idle. In `open-max` open contract fills are held by
+    0.001 of individuals but execute in 0.526 of held-fill encounters, and making them inert gives 1.00.
+  - Open keys recover much of the loss to inert hooks (0.875 against 0.65), but not all of the way to the unhooked
+    baseline (1.00). Whether the grammar's dilution is removed was not isolated.
+  - Why open writes work is not isolated. Thanks alone (1.00) beats grudges alone (0.50), so the route is not
+    exploited suckers turning into provers.
+- **Union contracts on a lineage key gave no fair island at generation 1,000 in either cell tested, even with the
+  boss's response implemented.**
+  - A proposed explanation, not traced: the demand binds one boss lineage, which loses to lineages that pay ¼, and
+    the demand becomes a dead letter. Probes saw such dead letters.
+  - On a role key the fair wage holds in 8 of 40 runs, with strike execution of 0.37 per challenge at s = ½: demand
+    holders strike against bosses that have not conceded.
+  - Protecting the boss's contracted wage alone gives ¼ on every island of all 40 runs at that horizon. That is
+    commitment, not credible response; persistence was not tested.
+- **For the RS's open decision (DEFERRED 12):** with the parochial lineage key replaced by a behaviour key, overrides
+  and contracts are harmless or helpful in every PD configuration tested. A behaviour-keyed override needs only the
+  free sound box.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

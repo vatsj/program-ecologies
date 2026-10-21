@@ -593,6 +593,14 @@ REJECTED.md the ones we dropped.
   lineage- or history-keyed overrides and pair contracts admissible in the object? They are the weak wing's analogue of
   identity (entry 1). *Operating hypothesis until he decides:* admissible, reported per kind with strict ablations;
   source ablations use provenance-preserving copies. Part R is still running.
+- *Evidence (2026-10-21, RESULTS "Hooks follow-ups in the weak wing"):* with fills keyed on the behavioural open
+  predicate ("provably cooperates with me") instead of lineage, the PD lottery recovers in every configuration tested
+  (0.875–1.00 universal-open, fission–fusion 1.00); open contracts are rare and unnecessary; in the union game lineage-
+  keyed credible-response contracts give no fair island at generation 1,000 and role-keyed ones 8 of 40 runs, while
+  protecting the boss's contracted wage alone gives ¼ everywhere. *Operating hypothesis (moved):* behaviour-keyed
+  overrides and contracts are admissible and benign in the weak wing; the lineage key is the parochial tag by descent,
+  admissible but reported as the identity analogue. *Decision for the RS (narrowed):* admit behaviour-keyed (open)
+  fills as a hook scope, given they need only the free sound box?
 
 ## 13. Threats: drift versus testing (RS, 2026-10-11)
 - *RS's guess:* inactive threats should drift out quickly enough to disarm them over the long run.

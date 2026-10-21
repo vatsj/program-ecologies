@@ -1086,3 +1086,15 @@ under the uniform prior is founder share. **The note's framing of the ring wall 
 §4): understated; any winner with a price-setting loser is a ring. **The note's first draft "VCG is robust to the winners'
 coalition"** (corrected before the run, after gpt-6.1-sol's review: winners can jointly overbid to zero each other's
 prices).
+
+
+## Added 2026-10-21: hooks follow-ups in the weak wing (RESULTS.md, "Hooks follow-ups in the weak wing")
+
+**"Open contracts carry the PD recovery; open history writes do not" (RE 2; falsifier fired).** The reverse: open
+contracts with lineage writes 0.000, open writes with lineage contracts 0.975. **"Credible-response union contracts
+reach the fair wage on at least 0.2 of islands with strikes ≤ 10⁻²" (RE 5; falsifier fired).** Fair 0.000 on a lineage
+key; execution 0.125 at s = ½. **"Role-keyed (C) contracts at least 0.30 fair" (RE 7, role clause).** 0.20.
+**Subagent:** A4 (contracts convert suckers into FairBot: wrong mechanism), A6 (open contract execution ≥ 5× lineage's:
+3.2×), A5's survival clause, B3's mechanism clauses, B4's execution clause, B5 (`bw-only-C` flat against Part W: it
+locks ¼ on every island), B7's (C) clause. **Dropped design:** the literal reading of "boss–worker contracts judged under
+the same rule" (the boss's best reply to work is its lowest wage, so every positive-wage contract is rejected; not run).
