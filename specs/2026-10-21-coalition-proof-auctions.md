@@ -1,6 +1,6 @@
 # Spec: coalition-proof auctions: the RS's notion on package auctions, and rings versus police among open-source bidders, 2026-10-21
 
-Status: draft by the RE, reviewed by gemini-4-argon and folded [after review]; to be reviewed sequentially by gemini-4-argon then gpt-6.1-sol (`--mode amended`); to be run
+Status: draft by the RE; reviewed by gemini-4-argon, then by gpt-6.1-sol (`--mode amended`), both folded [after review]; to be reviewed sequentially (done); to be run
 by a Sonnet subagent. Run under the RS's 24-hour autonomy window (2026-10-21), on the RS's request ("take a swing at my
 idea for coalition-proof auction theory": VCG is not coalition-proof; our equilibria encode social choice; do they
 suggest a refinement of VCG, ideally a side-payment rule, that buys coalitional robustness?). Theory, literature and
@@ -39,14 +39,17 @@ their bids).
 
 **The notion (one-round truncation).** A proper coalition S of bidders deviates to a joint report d_S. The complement
 responds, in one of two modes: *R1 singletons* [after review: defined as an equilibrium set], where the response set is
-the pure Nash equilibria of the complement's subgame (d_S held fixed) reachable from the complement's truthful reports
-by best-reply dynamics (all best-reply paths up to 50 rounds; record instances with no reachable equilibrium); *R2
+the pure Nash equilibria of the complement's subgame (d_S held fixed) in the closure of the finite best-reply graph from
+the complement's truthful reports (asynchronous single-player moves to a best reply, strict improvements only; computed
+to closure, not by path sampling); instances with no equilibrium in the closure are recorded as unresolved and reported
+separately [after second review]; *R2
 coalition*, where the response set is the complement's joint reports maximizing its total payoff. Over the response
 set, the tie rule is either *T-weak* (the response worst for S's total; spite counts) or *T-strict* (the response
 closest to truthful in L1; spite does not count). S profits if its total payoff after the response exceeds its
 truthful total by more than 1e-9 (TU within S). The truthful profile is *notion-robust* under (rule, mode, tie) if no
-proper coalition profits. The grand bidder coalition is reported separately: its gain equals the seller's revenue at
-truth, under every rule (the ring of §4).
+proper coalition profits. The grand bidder coalition is reported separately, its best joint report optimized explicitly
+(the ring of §4); the seller's revenue at truth is an upper bound on its gain, attained only when the efficient
+allocation survives zero payments [after second review].
 
 **First-price** [after review]: truthful bidding gives winners zero, so truth is trivially not robust; first-price
 enters Part A only through the Bernheim–Whinston check below, never the truth-robustness table.
@@ -57,7 +60,9 @@ T-weak (spite-dependent deterrence) and the spiter's margin (how far below winni
 the core) and the mean surcharge per family; revenue at truth per rule. **The Bernheim–Whinston check:** for
 first-price under R1, compute leader values v(S) (S commits, R1 response, both ties) and the set of reporting
 profiles whose induced allocation is efficient for true values and gives every proper S at least v(S); compare their
-bidder-payoff vectors with the true-value core and its bidder-optimal frontier (distance in grid ticks); report seller revenue and bidder welfare separately for those profiles against VCG at truth
+bidder-payoff vectors with the true-value core and its bidder-optimal frontier (distance in grid ticks). This is a **comparison** between the RS's one-round notion on
+scalar single-minded bids and Bernheim–Whinston's coalition-proof equilibria of menu auctions, which are different
+solution concepts; it is not a replication [after second review]; report seller revenue and bidder welfare separately for those profiles against VCG at truth
 [after review].
 
 ## Part B: rings versus police among open-source bidders (seed lottery, fixed roles)
@@ -69,28 +74,35 @@ Two value instances: *collusion* (P 20, A 5, B 5; P should win; the losers' coll
 
 **Programs** [after review: rewritten; the first draft's bids were undefined in places and its ring could not be
 exploited]. Each conditional program reads only what is stated; resolution order is fixed: **item programs first**
-(conditioned on the partner item program's class), **then P** (conditioned on the items' resolved bids). So the item
-pair is the deviating coalition and P is the RS's responding complement. All deviations are computed per rule and per
+(conditioned on the partner item program's source class), **then P** (reading the item programs' sources and
+committing its bid to their *intended* bids). Trembles, where used, are realized after all commitments, so a response
+committed to a pair's intended deviation can misfire [after second review]. The item pair is the deviating coalition
+and P is the RS's responding complement. All deviations are computed per rule and per
 instance, exhaustively on the grid:
 - A and B roles: `T` (truthful); `SH` (unilateral: the singleton's best reply to truthful others under the rule in
   force: truthful under VCG, a shade under the surcharge and first-price); `PAIR` (enforced: iff the other item
   program is `PAIR`, play this item's half of the pair's best joint report against a truthful P, maximizing the pair's
-  total with ties to the smaller total bid; otherwise truthful; in the collusion instance under VCG this is the
+  total **subject to each member gaining individually** (no transfers in the dynamics), with ties to the smaller total
+  bid [after second review]; otherwise truthful; in the collusion instance under VCG this is the
   losers' overbid, in the threshold instance under the surcharge the winners' joint shade); `PAIRU` (unenforced: plays
   its half of that joint report unconditionally).
-- P role: `T` (truthful); `POL` (police: P's best replies to the items' resolved bids, choosing the reply worst for
-  the items' total, i.e. the T-weak spite response; against truthful items it is truthful); `SH` (P's best reply to
+- P role: `T` (truthful); `POL` (police: reads the item programs and commits to the best reply to their intended bids
+  that is worst for the items' total, i.e. the T-weak spite response; against truthful items it is truthful); `SH` (P's best reply to
   truthful items under the rule).
 Under first-price, `T` is a sucker for every role (zero surplus when winning); first-price is a comparison arm, not a
 test of truthfulness. The payoff tensor over role-program triples is computed and committed before the dynamics.
 **Prior**: uniform over named programs per role (U); a sucker-heavy prior with half the mass on `T` (S); and a
-**matched-mass prior** (M) [after review] in which the founding chance of an enforced pair, P(`PAIR` in A)·P(`PAIR` in
-B), equals P(`POL` in P), separating demography (a pair needs two slots, the police one) from deterrence.
+**matched-mass prior** (M) [after review] in which the expected initial encounter rate of an enforced pair,
+f(`PAIR` in A)·f(`PAIR` in B) over founder frequencies, equals f(`POL` in P), with the remaining mass uniform over the
+other programs of each role (state the masses), separating demography (a pair needs two slots, the police one) from
+deterrence. Also **no-police cells** (`POL` removed, mass spread uniformly), required by prediction 8.
 **Seller rules**: VCG; surcharge; first-price; each with and without the **reading audit** (programs whose bids read
 another bidder's program are replaced by their non-reading default: `PAIR` and `POL` become `T`, while `SH` and
 `PAIRU` are unchanged), the source-reading seller of §6.
 **Dynamics**: the repo's fixed-role island seed lottery at ε = 0 (reuse the fixed-role chicken or SOG island kernel,
-import only), N = 100 per role per island, 64 islands, w = 0.3, random role triples per encounter, 2,000 generations;
+import only), N = 100 per role per island, 64 islands, w = 0.3, random role triples per encounter, 2,000 generations, with
+islands not fixed by then reported as censored (not as outcomes); a small N sweep N ∈ {50, 100, 200} in the primary
+cell (VCG, collusion instance, prior U) [after second review];
 migration off (primary) and the stored mN rule (secondary); 40 runs per cell, paired founders across seller rules.
 
 **Outputs (B).** Island end states classified behaviourally: pair (an enforced or unenforced joint deviation played on
@@ -98,16 +110,19 @@ the island), policed (`POL` fixed in P), truthful, shaded, or mixed, plus the pr
 never selectors); time to fixation; for policed islands, whether the police was ever tested (a deviating pair present
 while `POL` held P); the payoff tensor itself (static), with every pure Nash equilibrium of the three-role game;
 **the tremble control** [after review]: `POL`'s payoff when one `PAIR` member fails to play its half with probability
-0.05 (spite can then make P win at a loss).
+0.05 after P has committed (spite can then make P win at a loss); **constant-bid invasion diagnostics** [after second
+review]: for each resident triple and each role, every constant bid on the grid as a mutant, reporting which residents
+a constant invades and each pair member's individual gain. Labels may overlap (an island can be both policed and
+pair-playing).
 
 ## Predictions (the RE's; falsifiers in brackets)
 
 1. *Substitutes control:* VCG is in the core on 100% of substitutes instances and truth is notion-robust under VCG in
    every mode and tie [any break].
-2. *VCG, AM, R1, T-strict:* truth fails on exactly the instances where the two item bidders can jointly overbid to
-   win at VCG prices below their values. Both bidding at least v_P makes each VCG price zero, so these are exactly the
-   instances where they lose at truth, v_A + v_B < v_P (ties go to more winners): 100% of those, 0% of others
-   [a mismatch on more than 1% of instances].
+2. *VCG, AM, R1, T-strict:* truth fails exactly where v_P > min(v_A, v_B). Both item bidders bidding at least v_P
+   zeroes both VCG prices, whether they lose at truth (losers' collusion) or win (winners' joint overbid; corrected
+   after the second review, which found the first draft's prediction missed winners). With P passive this was checked
+   by the RE at 0/1,000 mismatches; with P's T-strict response the prediction is the same [a mismatch on more than 1%].
 3. *Surcharge, AM, R1, T-strict:* the losers' collusion never profits, and truth fails by singleton shading on every
    instance with a positive surcharge, up to grid granularity [losers' breaks > 0, or singleton breaks on fewer than
    80% of positive-surcharge instances (lowered from 95% after review: one-tick surcharges may admit no profitable tick)].
@@ -131,8 +146,8 @@ while `POL` held P); the payoff tensor itself (static), with every pure Nash equ
 11. *Demography (prior M):* pair islands rise by at least 1.5× against prior U, and wherever `POL` founded with a
     deviating pair, the pair is driven out in at least 70% of islands [below 50%: the policing seen under U would then
     be demographic].
-12. *Tremble:* at a 5% failure rate `POL`'s expected payoff against an enforced pair is below `T`'s in the VCG
-    collusion instance (spite is credible only under certainty) [`POL` ≥ `T`].
+12. *Tremble (commit before the tremble):* at a 5% failure rate `POL`'s expected payoff against an enforced pair is
+    below `T`'s in the VCG collusion instance (committed spite is safe only under certainty) [`POL` ≥ `T`].
 
 ## Required outputs
 
