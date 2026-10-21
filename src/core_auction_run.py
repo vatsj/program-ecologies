@@ -83,6 +83,8 @@ def build_registry():
         for mp, tag in ((0.05, 'm05'), (0.2, 'm20')):
             reg('1b_%s_%s' % (inst, tag), inst, 'no-overbid', m_pru=mp, group='1b')
         reg('1b_%s_m20_rev' % inst, inst, 'no-overbid', m_pru=0.2, order=(2, 1, 0), group='1b_order')
+        reg('1b_%s_m20_sim' % inst, inst, 'no-overbid', m_pru=0.2, order=(-1, -1, -1), group='1b_sim')
+        reg('1b_%s_m05_sim' % inst, inst, 'no-overbid', m_pru=0.05, order=(-1, -1, -1), group='1b_sim')
     for inst in INSTS:                                        # re-injection arms on constants
         for sp in SPACES:
             pri = (inst == 'threshold')

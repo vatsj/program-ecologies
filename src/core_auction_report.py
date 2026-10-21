@@ -156,5 +156,39 @@ def main():
             ('inj ' + json.dumps({k: round(v, 3) for k, v in t['inject'].items()})) if 'inject' in t else ''))
 
 
+def split_by_run():
+    """for the cells with item winners: the winners' split pA on the bidder-optimal edge, pooled and by run (the modal pA of each run's edge islands),
+    for the skew control also the share of islands at the Vickrey-nearest, the equal-surplus and the equal-payment points."""
+    res = {}
+    for name, cell in R.CELLS.items():
+        inst = cell['inst']
+        v = C.INSTANCES[inst]
+        if inst == 'collusion':
+            continue
+        p = os.path.join(OUT, 'rows_%s.csv.gz' % name)
+        if not os.path.exists(p):
+            continue
+        df = pd.read_csv(p)
+        e = df[df['edge'] == 1].copy()
+        if not len(e):
+            res[name] = dict(edge_n=0)
+            continue
+        e['pA'] = (v[1] - e['uA']).round().astype(int)
+        e['pB'] = (v[2] - e['uB']).round().astype(int)
+        g = e.groupby('run').agg(n=('pA', 'size'), pA=('pA', lambda x: x.mode()[0]))
+        vn = C.vickrey_nearest(v)
+        d = dict(edge_n=int(len(e)), pA_hist={int(k): int(c) for k, c in e['pA'].value_counts().sort_index().items()},
+                 runs_with_edge=int(len(g)), run_modal_pA={int(k): int(c) for k, c in g['pA'].value_counts().sort_index().items()},
+                 runs_total=int(df['run'].nunique()), vn_pA=vn['A'])
+        if inst == 'skew':
+            d['share_pA_10_VN'] = float((e['pA'] == 10).mean()); d['share_pA_11_equal_surplus'] = float((e['pA'] == 11).mean())
+            d['share_pA_7_equal_payment'] = float((e['pA'] == 7).mean())
+            d['mean_pA'] = float(e['pA'].mean())
+        res[name] = d
+    json.dump(res, open(os.path.join(OUT, 'split_by_run.json'), 'w'), indent=1)
+    return res
+
+
 if __name__ == '__main__':
     main()
+    split_by_run()

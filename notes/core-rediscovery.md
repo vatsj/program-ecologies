@@ -48,8 +48,7 @@ in the no-overbid space), I noticed that in the AM family with v_P above both it
 equal (both are w(N) − v_P), so the Vickrey-nearest split and the equal-surplus (Nash-product) split coincide in the spec's
 instances and the run cannot tell them apart. I added one instance, `skew` = (v_P, v_A, v_B) = (14, 16, 8), where they differ:
 core u_A ≤ 10, u_B ≤ 8, u_A + u_B ≤ 10, min revenue 14; VCG payments (6, 0); Vickrey-nearest payments (10, 4), surpluses
-(6, 4); equal surplus (5, 5), payments (11, 3); equal payments (7, 7), surpluses (9, 1) [not in the core: u_A + u_B = 10, ok;
-(9, 1) is in the core, it is the equal-payment point]. Hand statics: efficient Nash revenue 14..22 unrestricted (b_P = total − 1,
+(6, 4); equal surplus (5, 5), payments (11, 3); equal payments (7, 7), surpluses (9, 1), also in the core. Hand statics: efficient Nash revenue 14..22 unrestricted (b_P = total − 1,
 b_A ≤ 15, b_B ≤ 7), 14..15 no-overbid. My prediction before the skew cells: under migration the core-reaching runs land on
 the **equal-surplus (5, 5)** point (risk-dominance reading of a Nash demand game between A and B, as in the divide-the-dollar
 lottery), not on the Vickrey-nearest (6, 4); probability 0.55 equal surplus, 0.30 Vickrey-nearest, 0.15 other. Not a registered
@@ -57,4 +56,56 @@ prediction; it is outside the spec and scored only as a control.
 
 ## 2. Deviations from the spec and choices, each stated
 
-(Filled in as the run proceeds.)
+1. **Seller details the spec left open.** A zero bid is "no bid": it cannot win, so allocations {A, B} need both bids at least 1,
+   and an all-zero profile is no sale (zero payoffs). Allocations considered are {P}, {A, B}, {A}, {B}; the singleton item
+   allocations matter only when the other item bid is zero. Ties are uniform over the revenue-maximal allocations, and every
+   payoff and statistic is the expectation over that lottery (the island kernel uses expected payoffs, as `auction_islands.sim3`
+   does).
+2. **A new island kernel.** The spec says to import the repo's fixed-role island kernel. `auction_islands.sim3` has its program count
+   compiled in as K = 4, so `core_auction.sim` re-implements the same conventions (three populations per island; one island
+   and one role per event; child drawn in the own island or, with probability m, a uniformly chosen other island, by exp(w ·
+   expected payoff); uniform victim; 3NI events per generation; expectation over independent draws from the two other
+   roles' island populations), for up to 82 programs per role, with payoffs updated incrementally on present programs and
+   a test that the incremental payoffs equal a recomputation. No file in `src/` was edited.
+3. **The annealed schedule** is the repo's (`eps_n_annealed`, `delivered`, `ONSET` = 200 from `src/annealed.py`), loaded from the
+   source by the AST because importing `annealed.py` runs module-level code that needs run data a fresh worktree lacks
+   (`runs/provenance/static`). Horizon = the run length (5,000), so the tail delivers A·4,800/4,850 founders per role per island;
+   founders are drawn from the cell's prior (uniform over constants, plus PRU mass in the 1b arms) and replace a uniformly chosen
+   program. Constant rain is εN = 0.05 per role per island per generation from generation 0, 20,000 generations (the
+   annealed arms run 5,000).
+4. **Per-role migration**: mN = 1 (m = 0.01 per event, the stored rule at N = 100), each role's child drawn independently in a
+   uniformly chosen other island by that role's own fitness (the kernel's convention); there is no between-island selection
+   on island totals. 5,000 generations, no stopping at global freezing. Migration cells are reported without a prediction.
+5. **PRU**: its bid set in the no-overbid space is 0..value (so it never overbids), its default c is uniform on the same set;
+   mass m per role is split uniformly over defaults; the resolution is as in the spec. 1b is run only in the no-overbid space.
+6. **Island statistics** are encounter-weighted means over the island's present program triples. "In the core" is evaluated on
+   the island's mean payoff vector and mean revenue (the spec's "realized vector"), with the encounter-level core probability
+   also stored (`core_enc`). Polymorphic islands (migration, rain) therefore average over encounters; at ε = 0 without
+   migration every island is fixed at the horizon (`fixed` = 1.00 in every such cell), so the two coincide there.
+7. **Reading of prediction 3's second sentence.** The bracket "[below 60%]" is read as the falsifier for the efficiency share
+   (below 60% of end-state encounters efficient); "mostly a transfer from the seller" is scored separately as the transfer
+   share of the revenue shortfall, (bidders' total payoff above the core maximum)/(minimum revenue − revenue), pooled over eroded
+   islands, with "mostly" read as above 0.5.
+8. **Outbidder injection** is run in the four 1a cells with item winners (threshold and asymmetric, both spaces), after the
+   main run, into every eroded island: 5 uniformly chosen P programs are replaced by the constant (modal A bid + modal B bid +
+   1), capped at P's bid cap; 5,000 further generations at ε = 0; establishment is the injected program holding at least half of P
+   at the end (fixation is reported too); the control continues the same eroded islands without injection. Not run in the
+   collusion instance (no single profitable outbidder: the losers would need a joint deviation).
+9. **Founding states are already eroded in the no-overbid space** (the uniform mixture's revenue is about 16.6 against a core
+   minimum of 20), so "time to first erosion" is generation 0 for every island there; in the unrestricted space the founding mix
+   overpays (mean revenue 41.8, random overbids win) and the time to first erosion is meaningful (median 2 generations after the
+   start among islands that were not eroded at generation 0). Erosion statistics at the end are therefore not a drift away from
+   a core start; they compare the end state with the core.
+10. **Prediction 6 and the numbers behind it**: the baseline is the grid enumeration (5/17 = 0.294 in the asymmetric instance,
+    both spaces); the ε = 0 asymmetric cells have very few islands on the bidder-optimal edge (0.3% of islands), so I added
+    ten-times-the-runs cells (`*_x10`, 400 runs) for a usable count. They are post hoc and reported beside the 40-run cells.
+11. **Post-hoc extras, not in the spec**: the `skew` instance (§1.5), the order-free responder (`1b_*_sim`: every PRU best-replies
+    once, simultaneously, to the profile with the PRU programs at their defaults), re-injection arms on the asymmetric and
+    collusion instances and on the responder prior, migration on every instance, and the x10 cells. Also the static order
+    diagnostic (`order_static.json`: share of triples whose resolved bids differ between P,A,B and B,A,P, and the cycling share).
+12. **The pilot** (§1) is disclosed there. The statics were run before any island cell and committed; hand predictions §1.1–1.3
+    matched them exactly.
+13. **Seeds**: founders per (instance, space, PRU mass, N) and run index, so founders are paired across arms of a prior;
+    dynamics seeds per (cell, run). Cells are deterministic given the seeds.
+14. **Process**: worker count 1 until the `runs/hooks_w2` chain was gone, then at most 3 (2 + 1 in the second and third batches); one
+    process per chunk of runs (a pool with `maxtasksperchild=1` when more than one worker); the tensors are rebuilt in each task.

@@ -12,7 +12,7 @@ Programs: constant c (index c, 0..40) and PRU(c) (index 41 + c, the responder wi
   PRU(c) in role r reads the other roles' programs (here the same as seeing their bids) and plays the bid maximizing its
   expected payoff against the others' current bids over the bid set of the space (0..40 unrestricted; 0..value no-overbid),
   ties toward the lower bid; it plays that bid when its expected payoff is strictly positive and otherwise its default c.
-Evaluator: constants resolve first; PRU programs then best-reply in the role order `order` (default P, A, B) to the bids resolved
+Evaluator (order (-1, -1, -1) is a post-hoc order-free variant: one simultaneous best reply to the defaults): constants resolve first; PRU programs then best-reply in the role order `order` (default P, A, B) to the bids resolved
   so far (unresolved responders at their defaults); a second pass follows; if it changes nothing the profile is resolved,
   otherwise the triple is recorded as cycling and the second-pass bids are used.
 
@@ -291,6 +291,13 @@ def resolve(kP, kA, kB, vP, vA, vB, capP, capA, capB, o0, o1, o2):
             pru[r] = True; b[r] = ks[r] - NC
         else:
             b[r] = ks[r]
+    if o0 < 0:
+        # post-hoc order-free variant (not in the spec): every PRU best-replies once, simultaneously, to the profile with the PRU programs at their defaults
+        b0 = b.copy()
+        for r in range(3):
+            if pru[r]:
+                b[r] = best_reply(r, b0[0], b0[1], b0[2], vP, vA, vB, caps[r], ks[r] - NC)
+        return b[0], b[1], b[2], 0
     order = (o0, o1, o2)
     # pass 1
     for t in range(3):

@@ -140,6 +140,11 @@ def test_evaluator_two_pass_hand_case():
     assert (bP, bA, bB, cyc) == (14, 3, 10, 1)
 
 
+def test_evaluator_simultaneous_variant_is_order_free():
+    # P = PRU(0), A = PRU(0), B = 10: simultaneous replies to the defaults (P 0, A 0, B 10): P needs 11 (u = 9), A needs 1 (total 11 against P's default 0): (11, 1, 10), no cycling flag
+    assert C.resolve(C.NC + 0, C.NC + 0, 10, 20, 15, 15, 20, 15, 15, -1, -1, -1) == (11, 1, 10, 0)
+
+
 def test_evaluator_resolved_profile_and_constants_only():
     # a constant profile is returned unchanged and never cycles
     assert C.resolve(5, 9, 12, 20, 15, 15, 20, 15, 15, 0, 1, 2) == (5, 9, 12, 0)
