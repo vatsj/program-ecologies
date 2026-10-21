@@ -1,69 +1,121 @@
 # Behavioural hooks: notes (2026-10-21)
 
 Spec `specs/2026-10-21-behavioural-hooks.md`; predictions `predictions/2026-10-21-behavioural-hooks.md` (committed 9d3bdb3,
-before any code). **Status: stopped at the launch gate; no counted cell was run.** The gate failed on one entry of the named
-table (below). Every number here is a static computation; nothing is a lottery statistic.
+before any code; addendum after the gate). **Status:** the launch gate failed at level PA, the RE chose option (a) (a level-1 box
+in the grammar) and the gate then passed; the cells follow. Static numbers are static; every cell number is a finite-(N, I,
+horizon) lottery statistic at eps = 0, not pi.
 
 ## 1. Hand predictions (before the solver)
 
 Written in the predictions file (last section) and repeated: the five other hand statics agree with the RE; PrudentBot (key
 box a and box not d, all boxes level PA) against FairBot is mutual defection, not mutual cooperation, because FairBot
-cooperates with DefectBot at world 0.
+cooperates with DefectBot at world 0. Mechanism hand expectations for Part M are the RE's in the spec (H1 contagion plus H2
+inheritance as the leading guess); my own, registered in the predictions addendum: PrudentBot-equivalents are rarer than
+FairBot-equivalents under this prior.
 
-## 2. What was built, and the gate
+## 2. What was built, the gate, and every deviation
 
-Code (new files only; no existing file edited): `src/hooks_beh.py` (the key family, the quotient and prior, the registry
-programs, the generalized evaluator `eval_match_beh`, packed specs `spec_of_beh`, the named programs, an independent
-pure-Python Kripke reference `ref_match`), `tests/test_hooks_beh.py` (14 tests, all pass), `tools/beh_gate*.py`.
-Not built: the kernel, runner and report (`hooks_beh_kern/_run/_report`), which wait on the gate.
+### 2.1 The family (after the RE's option (a): box1 admitted)
 
-**The family.** Atoms a, c, d; connectives not, and, or, box; every atom under a box; depth <= 2, size <= 7 nodes. Spellings
-of size s (modalized, depth <= 2, ordered pairs counted as in `modal.py`): a(2..7) = 3, 9, 36, 174, 855, 4,437. Classes by
-truth on all words of length <= 5 (stable at 4, 5, 6): **600 non-constant classes plus 2 constants (dropped)** for the full
-family (sizes 2: 3, 3: 9, 4: 16, 5: 52, 6: 150, 7: 370), **199 classes** for the a-free family (atoms c, d). Prior: the
-arm's length prior, bits(s) = log2 a(s) + 2 log2 s + 1, each class at its shortest member (box a, box c, box d: 0.2045 each;
-not box a, box not a, box box a and the c, d analogues: 0.0303 each). The registry holds 320 boxed subformulas; a key needs at
-most 3 of them. The evaluator needs only the specs' registry entries per match (all of them only when a stabilized reading is
-wanted for a conditional write).
+Atoms a, c, d; connectives not, and, or, box, box1 (box1: the level-1 box, PA + Con, ignores world 0, one node); every atom under a
+box; modal depth <= 2 counting both kinds; size <= 7 nodes. Spellings a(2..7) = 6, 24, 90, 528, 2,814, 15,912 (ordered pairs
+counted as in `modal.py`). Classes by truth on all words of length <= 6 (stable at 5, 6): **2,095 non-constant classes** for the
+full family (sizes 2..7: 6, 18, 35, 137, 509, 1,390) and **730** for the a-free family (atoms c, d; stable at word lengths 5..8);
+2 constants each, dropped. Prior: the arm's length prior bits(s) = log2 a(s) + 2 log2 s + 1, each class at its shortest member
+(the six size-2 classes box a, box c, box d and their box1 forms carry about two thirds of the family's mass together; FairBot's key
+box a alone about 0.11). The registry holds 1,026 boxed subformulas (identity by truth table at word length 5, checked equal at
+6 and 7: `tools/beh_registry_check.py`); a key needs at most a few of them.
 
-**The gate.** Solver (`eval_match_beh`, stabilized evaluation on finite linear GL frames, box vacuously true at world 0) and
-the independent pure-Python reference agree on all 36 entries of the named table (0 mismatches). Against the RE's hand
-derivation: five of six entries agree (FairBot vs TrustingBot: FairBot D, TrustingBot C; Godel predator vs itself: CC; FairBot
-vs Godel predator: FairBot D, predator C, with the predator (F, F, T, T, ...) as derived; PrudentBot vs CooperateBot: D vs C;
-PrudentBot vs TrustingBot: D vs C). **PrudentBot vs FairBot disagrees: the solver gives (D, D).** The convention is the spec's
-(box vacuously true at world 0), so the disputed static (gemini-4-argon) is settled in the RE's favour on the predator
-(FairBot exploits the predator) and the disagreement is elsewhere.
+**Static finding kept (level PA only).** With box only (600 + 199 classes) the spec's PrudentBot (box a and box not d) is mutual
+defection with FairBot and with itself, and **no one-fill program is prudent** (D against CooperateBot and DefectBot, C against
+FairBot and a copy of itself) for either default, in either family (0 classes; `tools/beh_gate_extra2.py`, a test). **With box1
+admitted:** prudent one-fill classes in the full family = **2** (box a and box1 not d; box (a and box1 not d)) on HOOK(t, D), prior
+mass 1.0e-4 of the full-family key prior, and the two negations on HOOK(t, C) with mass < 1e-4; 0 in the a-free family.
+FairBot-signature keys: 194 classes, prior mass 0.260 (D-default), 53 classes mass 0.030 (C-default).
 
-Why: PrudentBot's key box a and box not d at level PA. FairBot against DefectBot is (C, D, D, ...): it cooperates at world 0
-because its box is vacuous there. So d = (C, D, D, ...) for FairBot, box not d is false from world 1, PrudentBot plays
-(C, D, D, ...), FairBot (C, C, D, D, ...), stabilized (D, D). Likewise PrudentBot against itself is (D, D) and against
-everyone it defects except when the partner is a provable non-cooperator with DefectBot (TrustingBot, which it exploits).
-The standard PrudentBot reads the d-clause one level up (box1, PA + Con, ignoring world 0), the stored modal arm's BOX1.
-With box1 on the d-clause the table matches the RE's hand derivation entry for entry (`tools/beh_gate_level1.py`:
-PrudentBot (box1 d) against FairBot is (C, C) from world 0, and against itself (C, C)).
+**The gate (re-run).** `tools/beh_gate.py`: the solver and the independent pure-Python Kripke reference agree on all 49 entries
+(seven programs); the spec's six hand entries all agree with PrudentBot read with box1 on d (PrudentBot against FairBot and
+against itself: (C, C) from world 0). GATE PASSED.
 
-**A stronger consequence.** Over all 801 keys (the 600 full-family classes, the 199 a-free classes and the legacy open keys) and
-both defaults (HOOK(0,D) + (key -> C), HOOK(0,C) + (key -> D)), no one-fill program is prudent, that is D against both
-CooperateBot and DefectBot and C against FairBot and against a copy of itself (`tools/beh_gate_extra2.py`; a test pins it). So
-in the level-PA grammar as specified there is no PrudentBot-equivalent at all, and predictions 3 (the PrudentBot clause) and 5
-cannot be scored as stated. Under a box1 operator (one node) PrudentBot has six nodes and is in the family. FairBot-signature
-keys (on HOOK(0,D) + (key -> C), signature against CooperateBot, DefectBot, FairBot, TrustingBot, predator, a copy of itself
-= C D C D D C) are 116 of the 801 keys, 0.494 of the full family's prior mass.
+### 2.2 The evaluator and kernel as built
 
-**Choices made on ambiguous points (recorded now, before any run).**
-1. *Quotient.* The spec says GL-equivalence; I quotiented by equivalence on finite *linear* frames (GL.3), which is the
-   semantics the evaluator uses and is coarser than GL (every GL-equivalent pair is merged; the converse can fail on branching
-   frames). Exact GL-equivalence of depth-2 types over three atoms is not enumerable (the type space is doubly exponential);
-   the class count is stable under longer words (600 at word lengths 4, 5, 6).
-2. *Prior.* "Geometric in nodes, the repo's ratio": taken as the arm's length prior (`modal.py`, `hooks-w.md` §1), which is
-   what the repo calls its length prior. Per-spelling weight 1/(2 s^2 a(s)); a class carries its shortest member's weight.
-3. *Hostile constructions* (cell 4) would be identified by (C-default, key = class of box not a, action D) and (C-default,
-   key = box a, action D); C-default read from the base's shortest spelling containing HOOK(t,C) for the tag. Not exercised.
-4. *Contract candidates* (cell 2 etc.): not decided; the design waits on the gate.
+`src/hooks_beh.py` (family, registry, evaluator `eval_match_beh`, packed specs, reference), `src/hooks_beh_kern.py` (kernel),
+`src/hooks_beh_run.py` (cells, founders, runs), `src/hooks_beh_report.py` (verdicts), tests `tests/test_hooks_beh.py` (17) and
+`tests/test_hooks_beh_kern.py` (20). No existing file edited. The kernel is `hooks_w2_kern` rebuilt on the new evaluator; with
+the legacy keys (0-7 the beta classes, 8 and 9 the open keys) it is the same law, checked by **reproduction of the stored
+`open-max` rows at the stored geometry (100, 64, 1,000 generations): runs 0 and 1 identical in island P(C,C), present types, held
+fills at all 10 stored generations and in the final state statistics** (`runs/hooks-beh-validate.json`; a 25-generation version
+is a test); the evaluator reproduces the stored solver's plays on 400 random legacy fill sets, and the registry programs agree
+with direct Kripke semantics and with the reference on all keys of all 49 named pairs. Numba note: the compiled-function cache
+is per file, so after editing `hooks_beh.py` the `hooks_beh*.nb*` cache files were removed (a stale cache would hide an edit).
+Two optimizations that do not change the law (identical counters on a 120-generation probe before and after): only the node pairs
+the two programs' references can reach are evaluated, and the stabilized registry state of a reading pair is folded from its letter
+word (3 bits per world plus 6 repeats of the last letter; the state reaches its fixed point within depth + 1 repeats, a test).
 
-## 3. What the RE needs to decide before a re-launch
+Design points the spec left open, each stated:
+1. **Quotient.** Equivalence on finite linear frames (GL.3), coarser than GL (all GL-equivalent pairs are merged). Disclosed.
+2. **Prior.** "Geometric in nodes, the repo's ratio": the arm's length prior (`modal.py`; `hooks-w.md` §1), per spelling
+   2^-bits(s), a class at its shortest member. Normalized over the family.
+3. **Seeding.** A seeded behaviour-scope fill draws its key from the family prior on a separate random stream (every other draw is
+   the legacy one, so bases, tags, scopes and actions are common across cells). Under the hostile boost the (key, action) pair is
+   drawn jointly with weights prior x 10 on the two hostile triples when the base's tag is C-default.
+4. **C-default / D-default** of a base's tag = which of HOOK(t,C), HOOK(t,D) appears in its shortest spelling (neither or both: no
+   default, never hostile).
+5. **Written fills.** Thanks (mutual cooperation) and grudge (writer cooperated, partner defected) as in the follow-up's kernel;
+   the key is drawn from the prior restricted to the keys true of the partner at the stabilized world of the pair, with the
+   trigger's action; no true key: no write (counted). Tag draw, conflict rule (specific scope wins, ties by recency), capacity
+   four with FIFO, in-place update on (tag, scope, key) as before; copying 0.1 per encounter, verbatim.
+6. **Contracts (behavioural).** In an encounter that is not already (C, C) between two tagged parties, one key per party is drawn
+   independently from the prior (not conditioned), action C, on each pair of carried tags (at most four candidates); accepted iff
+   both parties are weakly better off and one strictly, judged jointly with both fills in force; one accepted candidate drawn
+   uniformly. (The follow-up's open contract is the special case key = box a for both.)
+7. **Sham writes (M5).** The conditioned key is drawn as in the cell above and then replaced by a key drawn uniformly from the full
+   family's keys with the same size and the same applicability count, where the applicability count of a key is the number of the
+   six named programs (FairBot, TrustingBot, PrudentBot, Godel predator, CooperateBot, DefectBot) of which it is true when read by
+   a FairBot (stabilized). My reading of "matched in key length and in its pre-write applicability frequency across the panel".
+8. **Ancestry (M3).** Behaviour fills carry in the key field bits 12-13 (0 seeded, 1 thanks, 2 grudge, 3 contract) and bit 14 (the
+   fill has been copied at least once); the origin field is the latest transmission event. Flags only in the cells that need them
+   (`anc=1`); a flagged fill is the same fill (same spec) but a different type, so flagged cells are statistically equivalent
+   reruns, not draw-for-draw copies, of their unflagged versions. "Inherited-written" cannot be separated from "written" (types
+   are structural: an offspring is the same type); inheritance's contribution is measured by the ablation M3a, as the spec says.
+9. **M3a** strips every non-seeded fill from the child at birth (the stored kernel's `noinherit` stripped written fills only);
+   **M3b** copying off; **M3c** both; **M3d** a write that would evict a fill is rejected (and counted; contract writes and copies
+   likewise); **M3e** the founder-base prior restricted to bases whose truth function depends on each tag's hook atoms through a
+   single leaf (hc-only or hd-only): "one hook node per tag" at the function level.
+10. **M4** the window applies to creating fills (thanks and grudge writes and contracts); copying and inheritance continue outside it.
+11. **M1** classes: FairBot, PrudentBot, CooperateBot-like, DefectBot-like, TrustingBot-like, predator-like, other, ambiguous
+    (matches a named class on the six panel programs but differs on the stranger copy); the response signature is the individual's
+    action against the six named programs and a stranger copy of itself (every context "no lineage"); equivalence is exact
+    equality with the named program's signature. Two extra classes (TrustingBot-like, predator-like) beside the spec's six. The
+    deciding fill of a type: the newest fill whose removal changes the signature; origin none / seeded / thanks / grudge / contract
+    / several jointly, with the copied flag.
+12. **M2** class-changing events logged per kind (thanks write, grudge write, copy, contract, birth: victim class to child class),
+    by evicting or not and by multi-hook base or not, as counts over the whole run.
+13. **Held/applicable/selected/executed statistics** (`enc_stats`) are reduced to "held" (the applicability of a behaviour fill needs
+    the key's truth); the counter of encounters whose outcome a fill changes is kept.
 
-(a) Add a level-1 box (one node, ignoring world 0) to the key grammar, so PrudentBot is a six-node member and the spec's
-hand table stands; the registry evaluator extends by one flag (a box1 entry skips world 0). Or (b) keep level PA and restate
-predictions 1, 3, 5 (no prudent key exists; the prudence premium cannot be tested in this family). I recommend (a): the
-prover arm's prudence is a level-up phenomenon, and the family without it has no prudent program by a computation.
+### 2.3 Scale deviations (cost), declared before any counted cell
+
+The behavioural family makes almost every write a new type (about 1.2 new types per sampled encounter, one per individual in steady
+state), so a new type is matched against every resident type of its island; measured cost 0.4-0.9 ms per sampled encounter at
+N = 100 (versus 5.6 microseconds in the legacy kernel), i.e. about 1.5 hours per run at the spec's (100, 64, 1,000 generations),
+about 40 worker-hours for one cell of 40 runs. I therefore reduced the geometry of the counted cells, **declared and applied to
+every cell alike so that all comparisons are paired at the same geometry**:
+- PD island cells: **(N, I) = (100, 16), horizon 500 generations** (spec: (100, 64), 1,000). The stored rows show efficient-island
+  share 0.95-0.99 by generation 200-500 in the legacy cells; the legacy comparison cells (`open-max`, thanks-only, grudge-only and
+  all M3/M4 variants) are rerun at the same geometry. **The registered thresholds were set for I = 64; with I = 16 a universal-open
+  run needs fewer islands to succeed, so baselines move up; I apply the thresholds literally and report the geometry-matched
+  `open-max` beside every verdict.**
+- Runs: 30 per behavioural cell (`beh-max`, `beh-max-noA`, `beh-max-hostile`, `beh-written-only`, `M5-sham`), 40 per legacy cell.
+- Fission-fusion (`ff-beh-max`): **16 islands of 100 merged into 1,600 at generation 200, horizon 400, 10 runs** (spec: 32 x 100,
+  merged 3,200, horizon 600, 20 runs).
+- Secondary N = 200: **(200, 8), horizon 600, 10 runs** (spec: horizon 2,000, 20 runs; islands unspecified).
+- The reproduction check of the legacy kernel stays at the stored geometry (100, 64, 1,000), 2 runs.
+Drop order if time runs out: `beh-max-N200`, M3 on `open-max` (secondary), `ff-beh-max`, then runs per behavioural cell.
+
+### 2.4 The family's prior (static note for the reader)
+
+The six size-2 keys (box and box1 of a, c, d) hold about two thirds of the family's prior mass; a written key conditioned on being true
+of a cooperating partner is box a or box1 a with high probability, so conditional writes concentrate on FairBot's guard, with a long
+tail; the prudent classes (mass 1e-4) are reachable only through the tail, or through selection acting on seeded and written
+mixtures of several keys.

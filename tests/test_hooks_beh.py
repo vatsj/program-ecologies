@@ -128,7 +128,7 @@ def test_evaluator_reproduces_stored_solver_on_legacy_keys(B):
     rng = np.random.default_rng(3)
     hooked = [i for i in range(len(L.base)) if L.b_tags[i] > 0]
     active = np.ones((4, 4), np.bool_)
-    rs = np.zeros((2, B.R), np.bool_)
+    rs = np.zeros(4, np.int64)
     for trial in range(400):
         bx = int(rng.choice(hooked if rng.random() < 0.8 else len(L.base)))
         by = int(rng.choice(hooked if rng.random() < 0.8 else len(L.base)))
@@ -229,3 +229,40 @@ def test_prudent_classes_with_box1(B):
         if s == 'DDCC':
             hits.append(k['name'])
     assert sorted(hits) == ['([]a & [1]~d)', '[](a & [1]~d)']
+
+
+def test_reading_state_is_the_fixed_point_of_the_letter_word(B):
+    """The registry state of x reading y (folded from the stabilized letter word plus its tail) gives, for every key, the value
+    of the key at a late world of the independent reference: all 36 ordered pairs of the named members, all keys."""
+    N = HB.named_programs(B)
+    REFN = {k: v for k, v in REF.items()}
+    KT = B.KT
+    rng = np.random.default_rng(5)
+    ks = list(range(len(KT.keys)))
+    for x in REFN:
+        for y in REFN:
+            ax, ay, (rowx, rowy) = B.play(*N[x], *N[y], full=True)
+            rx, ry, lx, ly = HB.ref_match(REFN[x], REFN[y], 40, letters=True)
+            for k in rng.choice(ks, size=300, replace=False):
+                form = KT.keys[int(k)]['form']
+                assert int(HB.key_true(int(k), KT.key_prog, rowx)) == HB.eval_word(form, lx + [0]), (x, y, KT.keys[int(k)]['name'])
+                assert int(HB.key_true(int(k), KT.key_prog, rowy)) == HB.eval_word(form, ly + [0]), (y, x, KT.keys[int(k)]['name'])
+
+
+def test_state_fold_reaches_its_fixed_point(B):
+    """Folding the tail one letter longer does not change the state (TAIL is enough)."""
+    N = HB.named_programs(B)
+    L = B.Lx
+    KT = B.KT
+    for x in N:
+        for y in N:
+            rs = np.zeros(4, np.int64)
+            HB.eval_match_beh(*B.LA, L.iC, L.iD, *KT.arrays(), True, N[x][0], N[x][1], N[x][1], N[x][1], N[y][0], N[y][1], N[y][1], N[y][1], rs)
+            n = int(rs[3])
+            wx = int(rs[0]); length = int(rs[2])
+            last = (wx >> (3 * (length - 1))) & 7
+            more = wx | (last << (3 * length))
+            a = HB.fold_state(np.int64(wx), length, KT.reg_prog, KT.reg_lvl)
+            b = HB.fold_state(np.int64(more), length + 1, KT.reg_prog, KT.reg_lvl)
+            assert (a == b).all(), (x, y)
+            assert n <= HB.WMAX

@@ -353,6 +353,8 @@ def en_tag(e): return ((e - 1) >> 1) & 1
 @njit(cache=True)
 def en_act(e): return (e - 1) & 1
 EBITS = 15
+WMAX = 14                    # letters kept per reading word (stabilization by world 14; counted when exceeded)
+TAIL = 6
 
 
 @njit(cache=True)
@@ -438,7 +440,7 @@ def key_true(kid, key_prog, B):
 
 
 @njit(cache=True)
-def _decide(sp, t, key_prog, B):
+def _decide(sp, t, key_prog, B, stack):
     """Hook tag t's (applies, action) for the packed spec sp at the registry state B."""
     for e in range(4):
         w = (sp >> (EBITS * e)) & ((1 << EBITS) - 1)
@@ -447,7 +449,7 @@ def _decide(sp, t, key_prog, B):
         if en_tag(w) != t:
             continue
         k = en_key(w)
-        if k == UNC or key_true(k, key_prog, B):
+        if k == UNC or _run_prog(key_prog[k], key_prog.shape[1], 0, B, stack) == 1:
             return 1, en_act(w)
     return 0, 0
 
@@ -472,9 +474,12 @@ def _mark_need(sp, key_req, need):
 def eval_match_beh(p_nat, p_kind, p_lev, p_form, p_arg, p_tt, b_nat, b_kind, b_lev, b_form, b_arg, b_tt,
                    iC, iD, key_prog, reg_prog, key_req, reg_lvl, full, bx, sx0, sx1, sx2, by, sy0, sy1, sy2, rs_out):
     """hooks_w2.eval_match with behavioural keys.  Specs are packed entry words (spec_of_beh).  Returns (x's action vs y, y's
-    action vs x, 0, 0); rs_out[0, :] = the registry state of x reading y at the stabilized world, rs_out[1, :] that of y
-    reading x (filled when full, else only the registry entries needed by the specs); (-1, -1, 0, 0) if the chain did not
-    stabilize (never observed)."""
+    action vs x, 0, 0); when `full`, rs_out (int64[4]) = the letter words (3 bits per world: the partner's play against the
+    reader, ^C, ^D) of x reading y and of y reading x up to the stabilized world plus TAIL copies of the last letter, the word
+    length, and the stabilization world n (fold_state turns a word into the registry state); (-1, -1, 0, 0) if the chain did
+    not stabilize (never observed).  Only the node pairs the outcome depends on are evaluated (the closure of the references of
+    the two programs' atoms, hook letters included); a pair outside the closure is never read, so the result is the full
+    evaluation's."""
     P = p_nat.shape[0]
     K = P + 2
     X = P; Y = P + 1
@@ -484,86 +489,155 @@ def eval_match_beh(p_nat, p_kind, p_lev, p_form, p_arg, p_tt, b_nat, b_kind, b_l
     val = np.zeros((K, K), np.int8)
     Bst = np.ones((2, K, R), np.bool_)
     need = np.zeros(R, np.bool_)
-    if full:
-        need[:] = True
-    else:
-        _mark_need(sx0, key_req, need); _mark_need(sx1, key_req, need); _mark_need(sx2, key_req, need)
-        _mark_need(sy0, key_req, need); _mark_need(sy1, key_req, need); _mark_need(sy2, key_req, need)
+    _mark_need(sx0, key_req, need); _mark_need(sx1, key_req, need); _mark_need(sx2, key_req, need)
+    _mark_need(sy0, key_req, need); _mark_need(sy1, key_req, need); _mark_need(sy2, key_req, need)
     nlist = np.zeros(R, np.int64); nn = 0
     for j in range(R):
         if need[j]:
             nlist[nn] = j; nn += 1
+    # ---- the closure of needed (p, q) pairs
+    act = np.zeros((K, K), np.bool_)
+    stack_p = np.zeros(K * K, np.int64); stack_q = np.zeros(K * K, np.int64); ns = 0
+    act[X, Y] = True; act[Y, X] = True
+    stack_p[0] = X; stack_q[0] = Y; stack_p[1] = Y; stack_q[1] = X; ns = 2
+    if full:
+        for (a_, b_) in ((X, iC), (X, iD), (Y, iC), (Y, iD)):
+            if not act[a_, b_]:
+                act[a_, b_] = True; stack_p[ns] = a_; stack_q[ns] = b_; ns += 1
+    while ns > 0:
+        ns -= 1
+        p = stack_p[ns]; q = stack_q[ns]
+        if p < P:
+            nat = p_nat[p]
+        else:
+            if p == X:
+                bs = bx; sp = sx0 if q < P else (sx1 if q == Y else sx2)
+            else:
+                bs = by; sp = sy0 if q < P else (sy1 if q == X else sy2)
+            nat = b_nat[bs]
+            if sp != 0:                                     # the registry letters of the pair: q's play against p, ^C, ^D
+                for (a_, b_) in ((q, p), (q, iC), (q, iD)):
+                    if not act[a_, b_]:
+                        act[a_, b_] = True; stack_p[ns] = a_; stack_q[ns] = b_; ns += 1
+        for j in range(nat):
+            if p < P:
+                kd = p_kind[p, j]; f = p_form[p, j]; ar = p_arg[p, j]
+            else:
+                kd = b_kind[bs, j]; f = b_form[bs, j]; ar = b_arg[bs, j]
+            if kd >= 2:
+                continue
+            if f == 0:
+                a_, b_ = q, p
+            elif f == 1:
+                a_, b_ = q, q
+            else:
+                a_, b_ = q, ar
+            if not act[a_, b_]:
+                act[a_, b_] = True; stack_p[ns] = a_; stack_q[ns] = b_; ns += 1
+    np_ = 0
+    pl = np.zeros(K * K, np.int64); ql = np.zeros(K * K, np.int64)
+    for p in range(K):
+        for q in range(K):
+            if act[p, q]:
+                pl[np_] = p; ql[np_] = q; np_ += 1
     bv = np.zeros(R, np.bool_)
     stack = np.zeros(32, np.int64)
+    wx = np.int64(0); wy = np.int64(0)
     for n in range(200):
-        for p in range(K):
-            for q in range(K):
-                if p < P:
-                    idx = 0
-                    for j in range(p_nat[p]):
-                        f = p_form[p, j]
-                        if f == 0:
-                            a, b = q, p
-                        elif f == 1:
-                            a, b = q, q
-                        else:
-                            a, b = q, p_arg[p, j]
-                        L = p_lev[p, j]
-                        bb = hc[L, a, b] if p_kind[p, j] == 0 else hd[L, a, b]
-                        if bb: idx |= 1 << j
-                    val[p, q] = (p_tt[p] >> idx) & 1
-                else:
-                    if p == X:
-                        bs = bx; sp = sx0 if q < P else (sx1 if q == Y else sx2); pi = 0
+        for u in range(np_):
+            p = pl[u]; q = ql[u]
+            if p < P:
+                idx = 0
+                for j in range(p_nat[p]):
+                    f = p_form[p, j]
+                    if f == 0:
+                        a, b = q, p
+                    elif f == 1:
+                        a, b = q, q
                     else:
-                        bs = by; sp = sy0 if q < P else (sy1 if q == X else sy2); pi = 1
-                    idx = 0
-                    for j in range(b_nat[bs]):
-                        kd = b_kind[bs, j]
-                        if kd >= 2:
-                            t = b_lev[bs, j]
-                            ap, av = _decide(sp, t, key_prog, Bst[pi, q])
-                            bb = ap if kd == 2 else av
-                            if bb: idx |= 1 << j
-                            continue
-                        f = b_form[bs, j]
-                        if f == 0:
-                            a, b = q, p
-                        elif f == 1:
-                            a, b = q, q
-                        else:
-                            a, b = q, b_arg[bs, j]
-                        L = b_lev[bs, j]
-                        bb2 = hc[L, a, b] if kd == 0 else hd[L, a, b]
-                        if bb2: idx |= 1 << j
-                    val[p, q] = (b_tt[bs] >> idx) & 1
+                        a, b = q, p_arg[p, j]
+                    L = p_lev[p, j]
+                    bb = hc[L, a, b] if p_kind[p, j] == 0 else hd[L, a, b]
+                    if bb: idx |= 1 << j
+                val[p, q] = (p_tt[p] >> idx) & 1
+            else:
+                if p == X:
+                    bs = bx; sp = sx0 if q < P else (sx1 if q == Y else sx2); pi = 0
+                else:
+                    bs = by; sp = sy0 if q < P else (sy1 if q == X else sy2); pi = 1
+                idx = 0
+                for j in range(b_nat[bs]):
+                    kd = b_kind[bs, j]
+                    if kd >= 2:
+                        t = b_lev[bs, j]
+                        ap, av = _decide(sp, t, key_prog, Bst[pi, q], stack)
+                        bb = ap if kd == 2 else av
+                        if bb: idx |= 1 << j
+                        continue
+                    f = b_form[bs, j]
+                    if f == 0:
+                        a, b = q, p
+                    elif f == 1:
+                        a, b = q, q
+                    else:
+                        a, b = q, b_arg[bs, j]
+                    L = b_lev[bs, j]
+                    bb2 = hc[L, a, b] if kd == 0 else hd[L, a, b]
+                    if bb2: idx |= 1 << j
+                val[p, q] = (b_tt[bs] >> idx) & 1
         changed = False
         for L in range(2):
             if n < L:
                 continue
-            for p in range(K):
-                for q in range(K):
-                    c = val[p, q] == 1
-                    if hc[L, p, q] and not c:
-                        hc[L, p, q] = False; changed = True
-                    if hd[L, p, q] and c:
-                        hd[L, p, q] = False; changed = True
-        for pi in range(2):
-            p = X + pi
-            for q in range(K):
-                letter = val[q, p] | (val[q, iC] << 1) | (val[q, iD] << 2)
-                for i in range(nn):
-                    j = nlist[i]
-                    bv[j] = True if (reg_lvl[j] == 1 and n == 0) else (_run_prog(reg_prog[j], reg_prog.shape[1], letter, Bst[pi, q], stack) == 1)
-                for i in range(nn):
-                    j = nlist[i]
-                    if Bst[pi, q, j] and not bv[j]:
-                        Bst[pi, q, j] = False; changed = True
+            for u in range(np_):
+                p = pl[u]; q = ql[u]
+                c = val[p, q] == 1
+                if hc[L, p, q] and not c:
+                    hc[L, p, q] = False; changed = True
+                if hd[L, p, q] and c:
+                    hd[L, p, q] = False; changed = True
+        for u in range(np_):
+            p = pl[u]; q = ql[u]
+            if p < P:
+                continue
+            pi = p - X
+            letter = val[q, p] | (val[q, iC] << 1) | (val[q, iD] << 2)
+            for i in range(nn):
+                j = nlist[i]
+                bv[j] = True if (reg_lvl[j] == 1 and n == 0) else (_run_prog(reg_prog[j], reg_prog.shape[1], letter, Bst[pi, q], stack) == 1)
+            for i in range(nn):
+                j = nlist[i]
+                if Bst[pi, q, j] and not bv[j]:
+                    Bst[pi, q, j] = False; changed = True
+        if full and n <= WMAX:                                  # the reading pairs' letters: X reads Y, Y reads X
+            wx |= np.int64(val[Y, X] | (val[Y, iC] << 1) | (val[Y, iD] << 2)) << (3 * n)
+            wy |= np.int64(val[X, Y] | (val[X, iC] << 1) | (val[X, iD] << 2)) << (3 * n)
         if not changed and n >= 2:
-            for j in range(R):
-                rs_out[0, j] = Bst[0, Y, j]; rs_out[1, j] = Bst[1, X, j]
+            if full:
+                lx = (wx >> (3 * n)) & 7; ly = (wy >> (3 * n)) & 7
+                for k in range(1, TAIL + 1):                    # the registry reaches its fixed point within depth + 1 constant letters
+                    if n + k <= WMAX + TAIL:
+                        wx |= lx << (3 * (n + k)); wy |= ly << (3 * (n + k))
+                rs_out[0] = wx; rs_out[1] = wy; rs_out[2] = min(n + 1 + TAIL, WMAX + 1 + TAIL); rs_out[3] = n
             return val[X, Y], val[Y, X], 0, 0
     return -1, -1, 0, 0
+
+
+@njit(cache=True)
+def fold_state(word, length, reg_prog, reg_lvl):
+    """Registry state after the letter word (letter m = bits 3m..3m+2): box states are conjunctions over the past."""
+    R = reg_prog.shape[0]
+    B = np.ones(R, np.bool_)
+    bv = np.zeros(R, np.bool_)
+    stack = np.zeros(32, np.int64)
+    for m in range(length):
+        letter = (word >> (3 * m)) & 7
+        for j in range(R):
+            bv[j] = True if (reg_lvl[j] == 1 and m == 0) else (_run_prog(reg_prog[j], reg_prog.shape[1], letter, B, stack) == 1)
+        for j in range(R):
+            if not bv[j]:
+                B[j] = False
+    return B
 
 
 # ------------------------------------------------------------------ named programs, the reference evaluator, the gate
@@ -586,11 +660,15 @@ class Beh:
         return int(spec_of_beh(f, len(fills), tags, act, recency, ctx))
 
     def play(self, bx, sx, by, sy, full=False):
-        """Stabilized plays and registry states of x (base bx, packed spec sx in every context) against y."""
-        rs = np.zeros((2, self.R), np.bool_)
+        """Stabilized plays of x (base bx, packed spec sx in every context) against y; with full, also the registry states
+        (x reading y, y reading x) at the stabilized world."""
+        rs = np.zeros(4, np.int64)
         L = self.Lx
         ax, ay, _, _ = eval_match_beh(*self.LA, L.iC, L.iD, *self.KT.arrays(), full, bx, sx, sx, sx, by, sy, sy, sy, rs)
-        return int(ax), int(ay), rs
+        if not full:
+            return int(ax), int(ay), None
+        KT = self.KT
+        return int(ax), int(ay), (fold_state(rs[0], rs[2], KT.reg_prog, KT.reg_lvl), fold_state(rs[1], rs[2], KT.reg_prog, KT.reg_lvl))
 
 
 def named_programs(B):
@@ -615,7 +693,7 @@ def named_programs(B):
     return out
 
 
-def ref_match(prog_x, prog_y, nworld=40):
+def ref_match(prog_x, prog_y, nworld=40, letters=False):
     """Independent pure-Python Kripke reference (no registry, no numba): programs are (default, [(key form, action)]) with the
     fills newest first; nodes X, Y and the constant probes C, D.  Returns the action sequences (x vs y, y vs x)."""
     nodes = {'X': prog_x, 'Y': prog_y, 'C': ('C', []), 'D': ('D', [])}
@@ -650,4 +728,8 @@ def ref_match(prog_x, prog_y, nworld=40):
                     act[(p, q)].append(1 if nodes[p][0] == 'C' else 0)
                 else:
                     act[(p, q)].append(0)
+    if letters:
+        lx = [act[('Y', 'X')][m] | (act[('Y', 'C')][m] << 1) | (act[('Y', 'D')][m] << 2) for m in range(nworld)]
+        ly = [act[('X', 'Y')][m] | (act[('X', 'C')][m] << 1) | (act[('X', 'D')][m] << 2) for m in range(nworld)]
+        return act[('X', 'Y')], act[('Y', 'X')], lx, ly
     return act[('X', 'Y')], act[('Y', 'X')]
