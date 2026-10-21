@@ -83,6 +83,8 @@ def summarize(fam, rule, auc, res, ti, mask):
                     c = coalition_class(smask[si], int(wm[q]), len(S))
                     cls[c][q] = True; pair_counts[c] += 1
         v['instances_with_break_by_class'] = {c: float(cls[c].mean()) for c in cls}
+        v['robust_excluding_mixed_coalitions'] = float(1 - (cls['singleton'] | cls['losers'] | cls['winners']).mean())
+        v['robust_excluding_mixed_and_singletons'] = float(1 - (cls['losers'] | cls['winners']).mean())
         v['break_events_by_class'] = pair_counts
         v['broken_only_by_singleton'] = float((cls['singleton'] & ~(cls['losers'] | cls['winners'] | cls['mixed'])).mean())
         v['broken_only_by_multi'] = float(((~cls['singleton']) & (cls['losers'] | cls['winners'] | cls['mixed'])).mean())
@@ -272,6 +274,7 @@ def bw_report(fam='AM'):
     for k, name in ((0, 'R1_strict'), (1, 'R1_weak'), (3, 'R2_strict'), (4, 'R2_weak')):
         nonempty = 0; n_all_within1 = 0; n_some_within1 = 0; dists_max = []; dists_min = []; sizes = []
         revs = []; bws = []; vrev = []; vbw = []; n_nonempty_core_bad = 0; n_in_core = 0; n_vec = 0
+        n_zero_rev = 0; excess = []; n_lead_gt_c = 0; n_lead_events = 0
         for q in range(len(insts)):
             v = insts[q]
             tidx = int(v @ auc.base)
@@ -282,12 +285,17 @@ def bw_report(fam='AM'):
             for si, S in enumerate(SS):
                 tot = u[:, list(S)].sum(1)
                 okm &= tot >= res['lead'][k, q, si] - 1e-9
+            for si, S in enumerate(SS):
+                cS = int(auc.W[tidx] - auc.Wex[sum(1 << i for i in S)][tidx])
+                n_lead_events += 1; n_lead_gt_c += int(res['lead'][k, q, si] > cS + 1e-9)
             if not okm.any():
                 continue
             nonempty += 1
             U = np.unique(u[okm].astype(np.int64), axis=0)
             sizes.append(len(U))
             core, par = integer_core(auc, tidx, G)
+            n_zero_rev += int((pay[okm].sum(1) < 1e-9).any())
+            excess.append(float(U.sum(1).max() - core.sum(1).max()))
             dm = np.array([np.abs(par - uu).max(1).min() for uu in U])
             dists_max.append(dm.max()); dists_min.append(dm.min())
             n_all_within1 += int(dm.max() <= 1); n_some_within1 += int(dm.min() <= 1)
@@ -302,6 +310,8 @@ def bw_report(fam='AM'):
                                      mean_max_dist=float(np.mean(dists_max)) if dists_max else None, mean_min_dist=float(np.mean(dists_min)) if dists_min else None,
                                      mean_set_size=float(np.mean(sizes)) if sizes else None,
                                      share_vectors_in_true_core=n_in_core / max(1, n_vec),
+                                     share_with_zero_revenue_profile=n_zero_rev / ne, mean_excess_bidder_total_over_core=float(np.mean(excess)) if excess else None,
+                                     share_leader_value_exceeds_marginal_contribution=n_lead_gt_c / max(1, n_lead_events),
                                      mean_revenue_in_set=float(np.mean(revs)) if revs else None, mean_bidder_welfare_in_set=float(np.mean(bws)) if bws else None,
                                      mean_vcg_revenue_same_instances=float(np.mean(vrev)) if vrev else None,
                                      mean_vcg_bidder_welfare_same_instances=float(np.mean(vbw)) if vbw else None)

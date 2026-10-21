@@ -1,0 +1,627 @@
+{
+ "family": "AM",
+ "packages": [
+  3,
+  1,
+  2
+ ],
+ "G": 10,
+ "R": 21,
+ "Rd": 21,
+ "n_instances_total": 1000,
+ "n_instances_evaluated": 1000,
+ "subsample_seed": null,
+ "rules": {
+  "vcg": {
+   "family": "AM",
+   "rule": "vcg",
+   "n_instances": 1000,
+   "variants": {
+    "R1_strict": {
+     "robust_frac": 0.385,
+     "n_robust": 385,
+     "unresolved_instances": 0.0,
+     "mean_max_gain": 2.64,
+     "instances_with_break_by_class": {
+      "singleton": 0.0,
+      "losers": 0.12,
+      "winners": 0.495,
+      "mixed": 0.615
+     },
+     "robust_excluding_mixed_coalitions": 0.385,
+     "robust_excluding_mixed_and_singletons": 0.385,
+     "break_events_by_class": {
+      "singleton": 0,
+      "losers": 120,
+      "winners": 495,
+      "mixed": 900
+     },
+     "broken_only_by_singleton": 0.0,
+     "broken_only_by_multi": 0.615,
+     "by_coalition": {
+      "1": 0.0,
+      "2": 0.0,
+      "1,2": 0.45,
+      "3": 0.0,
+      "1,3": 0.45,
+      "2,3": 0.615
+     }
+    },
+    "R1_weak": {
+     "robust_frac": 0.385,
+     "n_robust": 385,
+     "unresolved_instances": 0.0,
+     "mean_max_gain": 2.64,
+     "instances_with_break_by_class": {
+      "singleton": 0.0,
+      "losers": 0.12,
+      "winners": 0.495,
+      "mixed": 0.615
+     },
+     "robust_excluding_mixed_coalitions": 0.385,
+     "robust_excluding_mixed_and_singletons": 0.385,
+     "break_events_by_class": {
+      "singleton": 0,
+      "losers": 120,
+      "winners": 495,
+      "mixed": 900
+     },
+     "broken_only_by_singleton": 0.0,
+     "broken_only_by_multi": 0.615,
+     "by_coalition": {
+      "1": 0.0,
+      "2": 0.0,
+      "1,2": 0.45,
+      "3": 0.0,
+      "1,3": 0.45,
+      "2,3": 0.615
+     }
+    },
+    "R1_weak_literal": {
+     "robust_frac": 0.385,
+     "n_robust": 385,
+     "unresolved_instances": 0.0,
+     "mean_max_gain": 2.64,
+     "instances_with_break_by_class": {
+      "singleton": 0.0,
+      "losers": 0.12,
+      "winners": 0.495,
+      "mixed": 0.615
+     },
+     "robust_excluding_mixed_coalitions": 0.385,
+     "robust_excluding_mixed_and_singletons": 0.385,
+     "break_events_by_class": {
+      "singleton": 0,
+      "losers": 120,
+      "winners": 495,
+      "mixed": 900
+     },
+     "broken_only_by_singleton": 0.0,
+     "broken_only_by_multi": 0.615,
+     "by_coalition": {
+      "1": 0.0,
+      "2": 0.0,
+      "1,2": 0.45,
+      "3": 0.0,
+      "1,3": 0.45,
+      "2,3": 0.615
+     }
+    },
+    "R2_strict": {
+     "robust_frac": 0.385,
+     "n_robust": 385,
+     "unresolved_instances": 0.0,
+     "mean_max_gain": 2.64,
+     "instances_with_break_by_class": {
+      "singleton": 0.46,
+      "losers": 0.12,
+      "winners": 0.495,
+      "mixed": 0.615
+     },
+     "robust_excluding_mixed_coalitions": 0.385,
+     "robust_excluding_mixed_and_singletons": 0.385,
+     "break_events_by_class": {
+      "singleton": 604,
+      "losers": 120,
+      "winners": 495,
+      "mixed": 900
+     },
+     "broken_only_by_singleton": 0.0,
+     "broken_only_by_multi": 0.155,
+     "by_coalition": {
+      "1": 0.0,
+      "2": 0.302,
+      "1,2": 0.45,
+      "3": 0.302,
+      "1,3": 0.45,
+      "2,3": 0.615
+     }
+    },
+    "R2_weak": {
+     "robust_frac": 0.385,
+     "n_robust": 385,
+     "unresolved_instances": 0.0,
+     "mean_max_gain": 2.64,
+     "instances_with_break_by_class": {
+      "singleton": 0.0,
+      "losers": 0.12,
+      "winners": 0.495,
+      "mixed": 0.615
+     },
+     "robust_excluding_mixed_coalitions": 0.385,
+     "robust_excluding_mixed_and_singletons": 0.385,
+     "break_events_by_class": {
+      "singleton": 0,
+      "losers": 120,
+      "winners": 495,
+      "mixed": 900
+     },
+     "broken_only_by_singleton": 0.0,
+     "broken_only_by_multi": 0.615,
+     "by_coalition": {
+      "1": 0.0,
+      "2": 0.0,
+      "1,2": 0.45,
+      "3": 0.0,
+      "1,3": 0.45,
+      "2,3": 0.615
+     }
+    }
+   },
+   "spite": {
+    "R1": {
+     "strict_broken_instances": 615,
+     "deterred_only_instances": 0,
+     "share_instances": 0.0,
+     "strict_break_events": 1515,
+     "deterred_only_events": 0,
+     "share_events": 0.0,
+     "weak_not_strict_events": 0
+    },
+    "R1_literal": {
+     "strict_broken_instances": 615,
+     "deterred_only_instances": 0,
+     "share_instances": 0.0,
+     "strict_break_events": 1515,
+     "deterred_only_events": 0,
+     "share_events": 0.0,
+     "weak_not_strict_events": 0
+    },
+    "R2": {
+     "strict_broken_instances": 615,
+     "deterred_only_instances": 0,
+     "share_instances": 0.0,
+     "strict_break_events": 2119,
+     "deterred_only_events": 604,
+     "share_events": 0.28504011326097217,
+     "weak_not_strict_events": 0
+    }
+   },
+   "seconds": 0.6351070404052734,
+   "nmulti_by_coalition": {
+    "1": [
+     0,
+     2100,
+     0,
+     2000,
+     0
+    ],
+    "2": [
+     0,
+     2100,
+     0,
+     2100,
+     0
+    ],
+    "1,2": [
+     0,
+     4410,
+     0,
+     4410,
+     0
+    ],
+    "3": [
+     0,
+     2100,
+     0,
+     2100,
+     0
+    ],
+    "1,3": [
+     0,
+     4410,
+     0,
+     4410,
+     0
+    ],
+    "2,3": [
+     0,
+     4410,
+     0,
+     4410,
+     0
+    ]
+   },
+   "maxset_by_coalition": {
+    "1": [
+     1,
+     441,
+     0,
+     441,
+     0
+    ],
+    "2": [
+     1,
+     441,
+     0,
+     441,
+     0
+    ],
+    "1,2": [
+     1,
+     21,
+     0,
+     21,
+     0
+    ],
+    "3": [
+     1,
+     441,
+     0,
+     441,
+     0
+    ],
+    "1,3": [
+     1,
+     21,
+     0,
+     21,
+     0
+    ],
+    "2,3": [
+     1,
+     21,
+     0,
+     21,
+     0
+    ]
+   },
+   "unresolved_events": {
+    "R1_strict": 0,
+    "R1_weak": 0,
+    "R1_weak_literal": 0,
+    "R2_strict": 0,
+    "R2_weak": 0
+   },
+   "pred2_mismatch": 0,
+   "pred2_fail_only_where_vP_gt_min": true,
+   "spite_margin": {
+    "n_sampled": 0,
+    "n_spiters": 0,
+    "cannot_win": 0,
+    "n_margins": 0,
+    "margin_mean": 0.0,
+    "margin_median": 0.0,
+    "margin_min": 0,
+    "margin_max": 0,
+    "share_margin_le0": null
+   }
+  },
+  "surcharge": {
+   "family": "AM",
+   "rule": "surcharge",
+   "n_instances": 1000,
+   "variants": {
+    "R1_strict": {
+     "robust_frac": 0.0,
+     "n_robust": 0,
+     "unresolved_instances": 0.0,
+     "mean_max_gain": 3.41,
+     "instances_with_break_by_class": {
+      "singleton": 0.835,
+      "losers": 0.0,
+      "winners": 0.0,
+      "mixed": 1.0
+     },
+     "robust_excluding_mixed_coalitions": 0.16500000000000004,
+     "robust_excluding_mixed_and_singletons": 1.0,
+     "break_events_by_class": {
+      "singleton": 1670,
+      "losers": 0,
+      "winners": 0,
+      "mixed": 2000
+     },
+     "broken_only_by_singleton": 0.0,
+     "broken_only_by_multi": 0.165,
+     "by_coalition": {
+      "1": 0.0,
+      "2": 0.835,
+      "1,2": 1.0,
+      "3": 0.835,
+      "1,3": 1.0,
+      "2,3": 0.0
+     }
+    },
+    "R1_weak": {
+     "robust_frac": 0.0,
+     "n_robust": 0,
+     "unresolved_instances": 0.0,
+     "mean_max_gain": 3.41,
+     "instances_with_break_by_class": {
+      "singleton": 0.0,
+      "losers": 0.0,
+      "winners": 0.0,
+      "mixed": 1.0
+     },
+     "robust_excluding_mixed_coalitions": 1.0,
+     "robust_excluding_mixed_and_singletons": 1.0,
+     "break_events_by_class": {
+      "singleton": 0,
+      "losers": 0,
+      "winners": 0,
+      "mixed": 2000
+     },
+     "broken_only_by_singleton": 0.0,
+     "broken_only_by_multi": 1.0,
+     "by_coalition": {
+      "1": 0.0,
+      "2": 0.0,
+      "1,2": 1.0,
+      "3": 0.0,
+      "1,3": 1.0,
+      "2,3": 0.0
+     }
+    },
+    "R1_weak_literal": {
+     "robust_frac": 0.0,
+     "n_robust": 0,
+     "unresolved_instances": 0.0,
+     "mean_max_gain": 3.41,
+     "instances_with_break_by_class": {
+      "singleton": 0.835,
+      "losers": 0.0,
+      "winners": 0.0,
+      "mixed": 1.0
+     },
+     "robust_excluding_mixed_coalitions": 0.16500000000000004,
+     "robust_excluding_mixed_and_singletons": 1.0,
+     "break_events_by_class": {
+      "singleton": 1670,
+      "losers": 0,
+      "winners": 0,
+      "mixed": 2000
+     },
+     "broken_only_by_singleton": 0.0,
+     "broken_only_by_multi": 0.165,
+     "by_coalition": {
+      "1": 0.0,
+      "2": 0.835,
+      "1,2": 1.0,
+      "3": 0.835,
+      "1,3": 1.0,
+      "2,3": 0.0
+     }
+    },
+    "R2_strict": {
+     "robust_frac": 0.0,
+     "n_robust": 0,
+     "unresolved_instances": 0.0,
+     "mean_max_gain": 3.41,
+     "instances_with_break_by_class": {
+      "singleton": 0.88,
+      "losers": 0.0,
+      "winners": 0.0,
+      "mixed": 1.0
+     },
+     "robust_excluding_mixed_coalitions": 0.12,
+     "robust_excluding_mixed_and_singletons": 1.0,
+     "break_events_by_class": {
+      "singleton": 1474,
+      "losers": 0,
+      "winners": 0,
+      "mixed": 2000
+     },
+     "broken_only_by_singleton": 0.0,
+     "broken_only_by_multi": 0.12,
+     "by_coalition": {
+      "1": 0.0,
+      "2": 0.737,
+      "1,2": 1.0,
+      "3": 0.737,
+      "1,3": 1.0,
+      "2,3": 0.0
+     }
+    },
+    "R2_weak": {
+     "robust_frac": 0.0,
+     "n_robust": 0,
+     "unresolved_instances": 0.0,
+     "mean_max_gain": 3.41,
+     "instances_with_break_by_class": {
+      "singleton": 0.735,
+      "losers": 0.0,
+      "winners": 0.0,
+      "mixed": 1.0
+     },
+     "robust_excluding_mixed_coalitions": 0.265,
+     "robust_excluding_mixed_and_singletons": 1.0,
+     "break_events_by_class": {
+      "singleton": 1308,
+      "losers": 0,
+      "winners": 0,
+      "mixed": 2000
+     },
+     "broken_only_by_singleton": 0.0,
+     "broken_only_by_multi": 0.265,
+     "by_coalition": {
+      "1": 0.0,
+      "2": 0.654,
+      "1,2": 1.0,
+      "3": 0.654,
+      "1,3": 1.0,
+      "2,3": 0.0
+     }
+    }
+   },
+   "spite": {
+    "R1": {
+     "strict_broken_instances": 1000,
+     "deterred_only_instances": 0,
+     "share_instances": 0.0,
+     "strict_break_events": 3670,
+     "deterred_only_events": 1670,
+     "share_events": 0.4550408719346049,
+     "weak_not_strict_events": 0
+    },
+    "R1_literal": {
+     "strict_broken_instances": 1000,
+     "deterred_only_instances": 0,
+     "share_instances": 0.0,
+     "strict_break_events": 3670,
+     "deterred_only_events": 0,
+     "share_events": 0.0,
+     "weak_not_strict_events": 0
+    },
+    "R2": {
+     "strict_broken_instances": 1000,
+     "deterred_only_instances": 0,
+     "share_instances": 0.0,
+     "strict_break_events": 3474,
+     "deterred_only_events": 166,
+     "share_events": 0.04778353483016695,
+     "weak_not_strict_events": 0
+    }
+   },
+   "seconds": 0.3490591049194336,
+   "nmulti_by_coalition": {
+    "1": [
+     1000,
+     2100,
+     0,
+     2100,
+     0
+    ],
+    "2": [
+     0,
+     2100,
+     0,
+     2100,
+     0
+    ],
+    "1,2": [
+     0,
+     1575,
+     0,
+     1575,
+     0
+    ],
+    "3": [
+     0,
+     2100,
+     0,
+     2100,
+     0
+    ],
+    "1,3": [
+     0,
+     1575,
+     0,
+     1575,
+     0
+    ],
+    "2,3": [
+     0,
+     4410,
+     0,
+     4410,
+     0
+    ]
+   },
+   "maxset_by_coalition": {
+    "1": [
+     2,
+     441,
+     0,
+     441,
+     0
+    ],
+    "2": [
+     1,
+     241,
+     0,
+     41,
+     0
+    ],
+    "1,2": [
+     1,
+     21,
+     0,
+     21,
+     0
+    ],
+    "3": [
+     1,
+     241,
+     0,
+     41,
+     0
+    ],
+    "1,3": [
+     1,
+     21,
+     0,
+     21,
+     0
+    ],
+    "2,3": [
+     1,
+     21,
+     0,
+     21,
+     0
+    ]
+   },
+   "unresolved_events": {
+    "R1_strict": 0,
+    "R1_weak": 0,
+    "R1_weak_literal": 0,
+    "R2_strict": 0,
+    "R2_weak": 0
+   },
+   "pred3": {
+    "positive_surcharge_instances": 835,
+    "singleton_break_on_positive": 1.0,
+    "pair_AB_break_overall": 0.0,
+    "pair_AB_break_on_positive": 0.0,
+    "truthful_winners_among_AB_when_positive": 1.0
+   },
+   "spite_margin": {
+    "n_sampled": 400,
+    "n_spiters": 601,
+    "cannot_win": 0,
+    "n_margins": 601,
+    "margin_mean": 0.33444259567387685,
+    "margin_median": 0.0,
+    "margin_min": -9,
+    "margin_max": 10,
+    "share_margin_le0": 0.6655574043261231
+   }
+  }
+ },
+ "P_vcg_in_core": 0.165,
+ "mean_surcharge_total": 2.53,
+ "mean_surcharge_when_positive": 3.029940119760479,
+ "share_positive_surcharge": 0.835,
+ "revenue_at_truth": {
+  "vcg": 2.64,
+  "surcharge": 5.17,
+  "fp": 11.33
+ },
+ "bidder_welfare_at_truth": {
+  "vcg": 8.69,
+  "surcharge": 6.16,
+  "fp": 0.0
+ },
+ "efficient_welfare": 11.33,
+ "seconds": 1.153848648071289
+}

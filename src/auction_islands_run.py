@@ -64,6 +64,7 @@ def run_once(rule, inst, prior, audit, N, mN, nopol, run, I=I_DEF):
     init = B.seed_counts(pr, I, N, rng)
     # founder flags on the unaudited founders
     pol_f = init[:, 2, 1] > 0
+    pol_init = init[:, 2, 1].copy(); pairA_init = init[:, 0, 2].copy(); pairB_init = init[:, 1, 2].copy()
     pair_f = (init[:, 0, 2] > 0) & (init[:, 1, 2] > 0)
     pairu_f = (init[:, 0, 3] > 0) & (init[:, 1, 3] > 0)
     if audit:
@@ -82,7 +83,7 @@ def run_once(rule, inst, prior, audit, N, mN, nopol, run, I=I_DEF):
         mono = all((cnt[i, r] > 0).sum() == 1 for r in range(3))
         rows.append(dict(cls=k['cls'], policed=k['policed'], pair_enf=k['pair_enforced'], pair_unenf=k['pair_unenforced'], items_dev=k['items_dev'],
                          fixed=bool(fx[i] >= 0), frozen=bool(fg[i] >= 0), fixed_gen=int(fx[i]), frozen_gen=int(fg[i]), pol_fix=int(pf[i]),
-                         tested=int(te[i]), pol_founded=bool(pol_f[i]), pair_founded=bool(pair_f[i]), pairu_founded=bool(pairu_f[i]),
+                         tested=int(te[i]), pol_init=int(pol_init[i]), pairA_init=int(pairA_init[i]), pairB_init=int(pairB_init[i]), pol_founded=bool(pol_f[i]), pair_founded=bool(pair_f[i]), pairu_founded=bool(pairu_f[i]),
                          joint=float(st['joint']), eff=float(st['eff']), rev=float(st['rev']), uA=float(st['uA']), uB=float(st['uB']), uP=float(st['uP']),
                          triple='%s|%s|%s' % (B.ITEM[triple[0]], B.ITEM[triple[1]], B.PROG_P[triple[2]]) if mono else 'mixed',
                          items_label_dev=bool(mono and (B.ITEM[triple[0]] in ('SH', 'PAIR', 'PAIRU') or B.ITEM[triple[1]] in ('SH', 'PAIR', 'PAIRU')))))
@@ -93,7 +94,12 @@ def summarize_cell(key, params, runs_rows, stops):
     allr = [r for rows in runs_rows for r in rows]
     n = len(allr)
     fx = [r for r in allr if r['fixed']]
-    out = dict(key=key, params=params, n_runs=len(runs_rows), n_islands=n, n_fixed=len(fx), censored_share=1 - len(fx) / n, stop_gen_median=float(np.median(stops)))
+    fz = [r for r in allr if r['frozen']]
+    # without migration the end state is monomorphic islands (censored = not fixed); with migration the run ends at global payoff-freezing
+    # (censored = not payoff-frozen); both shares are reported
+    cens = (1 - len(fx) / n) if params['mN'] == 0 else (1 - len(fz) / n)
+    out = dict(key=key, params=params, n_runs=len(runs_rows), n_islands=n, n_fixed=len(fx), n_frozen=len(fz), frozen_share=len(fz) / n, fixed_share=len(fx) / n,
+               censored_share=cens, stop_gen_median=float(np.median(stops)))
     cls = Counter(r['cls'] for r in allr)
     out['class_share'] = {k: cls.get(k, 0) / n for k in ('pair', 'items_dev', 'p_dev', 'truthful', 'mixed')}
     out['class_share_fixed_only'] = {k: sum(1 for r in fx if r['cls'] == k) / max(1, len(fx)) for k in ('pair', 'items_dev', 'p_dev', 'truthful', 'mixed')}
@@ -111,6 +117,13 @@ def summarize_cell(key, params, runs_rows, stops):
     out['n_pol_and_pair_founded'] = len(founded)
     out['founding_exposure_share'] = len(founded) / n
     out['pair_driven_out_share'] = (sum(r['cls'] != 'pair' for r in founded) / len(founded)) if founded else None
+    bins = [(0, 0.1), (0.1, 0.2), (0.2, 0.3), (0.3, 0.4), (0.4, 1.01)]
+    byb = {}
+    for lo, hi in bins:
+        sub = [r for r in founded if lo <= r['pol_init'] / params['N'] < hi]
+        byb['%.1f-%.1f' % (lo, min(hi, 1.0))] = dict(n=len(sub), driven_out=(sum(r['cls'] != 'pair' for r in sub) / len(sub)) if sub else None,
+                                                     policed=(sum(r['policed'] for r in sub) / len(sub)) if sub else None)
+    out['driven_out_by_pol_init_share'] = byb
     out['pair_joint_zero_share'] = (sum(r['joint'] < 1e-12 for r in founded) / len(founded)) if founded else None
     out['mean_eff'] = float(np.mean([r['eff'] for r in allr])); out['mean_rev'] = float(np.mean([r['rev'] for r in allr]))
     out['mean_uA'] = float(np.mean([r['uA'] for r in allr])); out['mean_uB'] = float(np.mean([r['uB'] for r in allr])); out['mean_uP'] = float(np.mean([r['uP'] for r in allr]))
