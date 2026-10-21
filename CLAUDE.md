@@ -139,6 +139,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 46. Hooks follow-ups, weak wing (RS autonomy window): parochial vs open contracts in the PD; union contracts under the myopic and credible-response rules (running: `specs/2026-10-21-hooks-followups-weak.md`).
 47. Rewarding prudence: fission–fusion with an annealed post-merge tail under worlds K and L, with a sucker-depleted control (running: `specs/2026-10-21-prudence-world-k.md`).
 48. Coalition-proof auctions (RS side quest, DEFERRED 14): the RS's notion on package auctions (surcharge rule vs VCG, tie rule, Bernheim–Whinston comparison) and rings versus police among open-source bidders (running: `specs/2026-10-21-coalition-proof-auctions.md`; theory in `notes/coalition-proof-auctions.md`).
+49. Rediscovering the core (RS, stage 1): first-price package auctions on islands, the losing bid as a costless threat, erosion against re-injection and a responder, the winners' split (specced and reviewed: `specs/2026-10-21-core-rediscovery.md`; launches when a sibling run frees its workers).
 
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
