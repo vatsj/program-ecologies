@@ -214,9 +214,9 @@ Existing `src/` files are untouched; the Pangaea kernel's copier cache is droppe
 - **A = 0 reproduces the stored fission–fusion cells state for state in both worlds.** Replicates 0–2 in L and K
   (cell `pg_L_100_128_r100_ff200` of `runs/world_k/cells_C.json.gz`): at every stored checkpoint (every 10 generations
   to 500, every 50 after) P(C,C), the dominant network's share M, the target share and the number of living types agree
-  to the stored 5-decimal precision (192, 240, 97, 192, 233 and the sixth comparisons, 0 differences in 6 of 6 runs),
-  and the frozen stop falls at the stored generation (7,600 / 2,850 / 9,650 / …; rep 0 in L unfrozen at 10,000 as
-  stored). This includes the merge and the post-merge arrival kernel at ε = 0.
+  to the stored 5-decimal precision (158 / 192 / 240 / 97 / 192 / 233 comparisons in K 0, L 1, L 0, L 2, K 1, K 2: 0
+  differences in 6 of 6 runs), and the frozen stop falls at the stored generation (K 0 5,900; L 1 and K 1 7,600; L 2
+  2,850; K 2 9,650; L 0 unfrozen at 10,000 as stored). This includes the merge and the post-merge arrival kernel at ε = 0.
 - **Test (`test_arrival_kernel_equals…`):** after the merge, 40 generations of the new kernel at A = 0 equal the Pangaea
   kernel's slots, counts and type count exactly; at A = 52 and 156 the arrival log is consistent (one record per
   arrival, lineage ids 1..n unique, arrival-descended individuals ≤ n, counts sum to N), A = 52 delivers about a third
