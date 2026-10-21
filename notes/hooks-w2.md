@@ -348,3 +348,11 @@ PD islands, 1,000 generations: `lineage-max` ≈ 55–105 s per run, `open-max` 
 `ff-open-max` ≈ 11 s (20 runs: ≈ 1.5 worker-hours); union game ≈ 15–45 s per run, five cells ≈ 1.7 worker-hours; the
 diagnostics ≈ 1.5 worker-hours. Total ≈ 7 worker-hours, about 2.5 hours of wall time on three workers. Nothing in the drop
 order is dropped.
+
+### 2.5 Launch record (2026-10-21)
+
+All counted cells and the registered diagnostics run from one detached chain, one batch at a time with three workers:
+`nohup bash runs/hooks_w2/run_all.sh > runs/hooks_w2/run_all.log 2>&1 &` (order: the four PD island cells; the five union
+cells; the two fission–fusion cells; the four diagnostics; the report). Outputs: `runs/hooks_w2/CELL.json`,
+`runs/hooks_w2/sog-CELL.json`, batch logs `runs/hooks_w2/batch_*.log`, `runs/hooks-w2.md` and `runs/hooks-w2.json`. The chain
+is resumable (finished runs are skipped). Expected wall time about 2.5 hours.
