@@ -1,0 +1,31 @@
+# Prudence under world K: verdicts (predictions `predictions/2026-10-21-prudence-world-k.md`)
+
+Scored on replicates 0–19 (the spec's cells) with replicates 0–39 in brackets. Numbers at the tail's end (t = 10,000) unless
+stated; the chase's end (t = 12,000) agrees unless stated. All finite-(N = 12,800, horizon) diagnostics, never π.
+G = mean prudent-target share.
+
+| # | prediction | outcome |
+|---|---|---|
+| RE 1 | PrudentBot's share rises with A (A52 ≥ A0 + 0.1 in L); falsifier: no rise in either world | **failed at A = 52, falsifier fired as worded.** Network T share falls (L −0.153 [−0.065], K −0.101 [−0.073]); PB's own tree −0.011 [−0.039] (L), −0.020 [−0.029] (K); prudent share −0.036 [−0.014] (L), +0.012 [+0.025] (K). At A = 156 the prudent share is higher than at A0, +0.146 [+0.189, bootstrap above 0] (L), +0.169 [+0.110] (K), sign tests p 0.58 [0.13] and 0.42 [0.38]; there is no sucker-depleted control at A = 156, so this rise is not attributable to the premium |
+| RE 2 | off-target residence falls at A52 against A0 (paired); also judged against SD52 | **failed (falsifier fired in K; L mixed).** Paired A52 − A0: K +0.668 [+0.129] share·10³ generations, 16 of 20 pairs up (p 0.012) [32 of 40, p < 0.001]; L +0.245 [−0.001], 17 of 20 up (p 0.003) [33 of 40], the mean difference indistinguishable from 0 because a few A0 runs hold large residences. Against SD52: L −0.405 [−0.189] (p 0.04 [0.15]), K +0.241 [+0.117] (p 0.26 [0.27]) |
+| RE 3 | the premium per sucker encounter is smaller in K than in L | **failed, falsifier fired (tie).** Fixed-list edge per arriving uncertified-sucker founder 0.6855 in both worlds (static 0.6828 in both; 0.8261 L vs 0.8244 K over H-state certified suckers). The encounter-weighted edge is noisy and not ordered: A52 L 2.63 [2.04] vs K 2.11 [3.24]; A156 L 0.81 [0.71] vs K 1.01 [0.81] |
+| RE 4 | universal-open ≥ 0.9 at every A in both worlds; falsifier ≤ 0.75 at A52 | **held.** 19–20 of 20 in every cell [38–40 of 40]; lowest 0.95 |
+| RE 5 | no clique takes the merged population in K (identity share < 0.05 at the end) | **held.** Identity share 0 at the tail's and the chase's end in all 160 K runs; 0 of 160 K runs ever ≥ 0.05 |
+| RE 6 (sol) | terminal off-target failures not zero; PB responds more to sucker exposure than to total A; L stays vulnerable to cliques | (i) **held:** T < 0.95 at the tail's end in 0–4 of 20 per cell (A0: L 2, K 0; arrival arms 1–4) [2–8 of 40]; (ii) **not supported:** SD52 vs A52 differ by −0.015 [−0.011] (L) and +0.062 [+0.078] (K), none significant, and SD52 still carries 0.4–0.7 of A52's certified-sucker residence (the control is partial); (iii) **not observed:** identity after generation 250 ≤ 0.0009 in every run of both worlds |
+| RE 7 (argon) | L at A156: universal-open < 0.85 | **failed.** 20 of 20 [40 of 40] |
+| S1 | fixed-list edge per arriving sucker equal in K and L within 1% | **held** (relative difference 0; certified H-state 0.2%) |
+| S2 | G(A52) ≥ 0.60, G(A156) ≥ 0.70, G(SD52) ≤ G(A0) + 0.15; R-reward in both worlds | **failed, falsifier fired.** G(A0, A52, A156, SD52) = 0.267, 0.231, 0.412, 0.246 (L) and 0.231, 0.243, 0.400, 0.181 (K) [0.241, 0.227, 0.429, 0.238 and 0.192, 0.217, 0.302, 0.139]. The G(A0) clause (within 0.1 of 0.25 / 0.20) held. Region: R-null in K at both times; in L the letter of the rule gives R-harm because G(A52) < G(A0) by 0.036 (within noise); read as R-null |
+| S3 | T share at ceiling at A0; PB own tree rises < 0.10; prudent rises ≥ 0.25 | (a) **held**: T at A0 0.983 (L), 1.000 (K) [0.954, 0.970] and it does not rise; (b) **held**: PB's own tree falls; (c) **failed** (see S2) |
+| S4 | universal-open ≥ 0.90 at A52, in [0.70, 0.95] at A156; coin flip on argon 7 | A52 **held**; A156 **failed** (falsifier ≥ 0.95 in L fired: 20 of 20, K 20 of 20) |
+| S5 | off-target residence up in K at A52 over A0; in L down only if rep 5 is cured | **held in K** (above); L: no decrease in the mean |
+| S6 | ≥ 0.8 of a prudent gain is arrival-descended; immigration credited with ≥ half of the change over 2,000 generations | **failed, falsifier fired.** Arrival-descended fraction of the tail-end prudent share 0.04 (L A52), 0.00 (L A156), 0.07 and 0.13 (K) [0.02–0.09]; over t ≤ 2,000 arrivals give +0.00–0.04 and residents +0.00–0.19 |
+| S7 | realized arrivals within 3% of 128 A; 0.78 ± 0.03 delivered by t = 5,000 | clause 1 **held on 0–19** (max deviation 1.9%), **exceeded on 0–39** (3.25% at A52, one run in 80 draws, ratio 1.0015, no offset); clause 2 **failed by my arithmetic error**: the shape's cumulative share by 5,000 is 1000(1 − 1/6)/909 = 0.917 (measured 0.916); 0.78 was wrong |
+| S8 | no K run ≥ 0.05 identity; at least one non-SD L arrival run ≥ 0.05 at some time | K **held**. L: the clause as worded is true only through the merge composition (15 of 40 L runs hold identity ≥ 0.05 at generation 200, mean 0.0615, in every arm including A0); after the merge identity is ≤ 0.0009 in every run, so no arrival-caused takeover occurred: **failed in intent** |
+| S9 | loss: 0 of 20 at A0, ≤ 2 at A52, 1–6 at A156 per world, more at A156 than A52 | A0 0 [0] **held**; A52 L 1, K 0 [1, 1] **held**; A156 0 and 0 [L 0, K 2] **failed (falsifier: 0 in both worlds at 20)**, and A156 does not exceed A52 at 20. Whole-population losses are 5 of 240 arrival-arm runs against 0 of 80 A0 runs (K reps 22 and 27 at A156, K rep 22 at A52, L rep 2 at A52, L rep 30 at SD52) |
+| S10 | K − L within ±0.15 in every arm on every paired endpoint | **held** (prudent ≤ 0.065, universal-open ≤ 0.05, T ≤ 0.094) |
+| S11 | SD52 not worse than A52 on universal-open; G(SD52) lowest of the arrival arms | universal-open clause **held**; lowest-G clause **held in K, failed in L** (SD52 0.246 vs A52 0.231) |
+| S12 | validation: A0 reproduces the stored cells; kernel equals the Pangaea kernel at ε = 0 | **held** (6 of 6 runs, 0 differences; the test passes) |
+
+**Headline.** The tail does not reward prudence at A = 52 in either world (R-null / noise), and the A = 156 rise in the
+prudent share (+0.11 to +0.19) cannot be separated from resilience because the sucker-depleted control exists only at
+A = 52 and is itself only a partial depletion. World K does not shrink the premium on its primary measure.
