@@ -87,3 +87,19 @@ the item-winning pairs at b_B = 8 and A paying 8..14.
     (TX first, fresh item evaluations). The tensors are bit-identical for all 202,500 triples per instance (statics), so identity of
     the final counts is implied; it is recorded as `order_match` per cell.
 12. **Process.** Worker count 1 (three sibling drivers alive at launch).
+13. **Post-hoc extras (not in the spec, disclosed).** The follower-mass sweep `x_fol*` (item-role follower prior mass 0.01, 0.02, 0.05,
+    0.10, 0.20 with `TX` mass 0.5, threshold, no-overbid, at ε = 0 and under rain; `prior2(..., m_items=)`), added after the
+    primary cells showed followers fixing in about 20 generations, to see the dose response. The code was extended with the `m_items`
+    argument (default unchanged) after batch 1 and while batch 2 was running; the tests (18) pass, and the earlier cells were produced
+    by the earlier code with identical behaviour.
+14. **Reading of prediction 6.** The registered primary cell (skew, migration) has no core islands with followers fixed, so the
+    registered quantity does not exist; the ε = 0 and rain skew cells are reported as the same quantity without migration. A's modal
+    payment and the exact reference classes are both given; the exact classes are rare because the follower grid does not contain
+    the references (statics).
+15. **Reading of the gpt-6.1-sol counter-prediction** (P-only rain at least item-only rain minus 0.05): scored at m = 0.5 (the
+    registered cell) as supported and at m = 0.2 as contradicted; the verdict is partial.
+16. **Reading of prediction 7.** The condition "tested at least once" is evaluated at generation boundaries from the island's
+    current item populations, and the founding mixture tests nearly every `TX` at generation 0, so the condition is permissive; the
+    verdict is the registered ε = 0 cell and the rain numbers are reported beside it.
+17. **Prediction 2 scored partial by the registered convention** (conjunction with one clause held), though the headline claims (core
+    0.2–0.6, shift at least 3) both failed; the verdict file says so.

@@ -130,5 +130,49 @@ def main():
     return tabs, stat
 
 
+def verdicts(tabs, stat):
+    """the numbers behind each registered prediction (printed; the verdict words are written in runs/core-stage2.md)."""
+    g = tabs.get
+    print('\n=== P1 statics')
+    for k, v in stat['prediction1'].items():
+        print(k, 'efficient complementary at t = vP:', v['n_efficient'], 'max offset', v['max_offset_efficient'], 'more than 2 off', v['n_efficient_more_than_2_off'],
+              'ties', v['n_tie'], 'TX wins', v['n_txwin'])
+    print('order check', {k: (v['python_order_mismatch'], v['numba_vs_python_mismatch'], v['tensor_B_equal']) for k, v in stat['order'].items()})
+    print('\n=== P2 primary, threshold no-overbid eps = 0 m = 0.5')
+    t = g('p_threshold_no-overbid_zero_m50'); c = g('vi_threshold_no-overbid_zero')
+    if t and c:
+        print('core_enc %.3f (sd %.3f) island-mean core %.3f ; shift %.2f (prior mean %.2f, end %.2f) ; matched shift %.2f (ratio %.2f)' % (
+            t['core_enc'], t['core_enc_sd'], t['core'], t['threat_shift'], t['prior_mean_threat'], t['threat'], c['threat_shift'], c['threat_shift'] / t['threat_shift']))
+    for n in ('p_threshold_no-overbid_zero_m20', 'p_threshold_unrestricted_zero_m50', 'p_asymmetric_no-overbid_zero_m50', 'p_skew_no-overbid_zero_m50', 'i_threshold_zero', 'ii_threshold_zero'):
+        if g(n):
+            print('  ', n, 'core_enc %.3f core %.3f shift %.2f' % (g(n)['core_enc'], g(n)['core'], g(n)['threat_shift']))
+    print('\n=== P3 shadow (qualifying islands)')
+    for n in [k for k in tabs if tabs[k]['arm'] in ('zero', 'ann3') and tabs[k]['group'] == 'primary' or k.startswith('vii_')]:
+        t = tabs[n]
+        print('  %-36s n_qual %5d txwin_end %s post %s pre %s | comp n %s txwin %s | noncomp n %s txwin %s' % (
+            n, t['n_qual'], t['txwin_qual_end'], t['txwin_qual_post'], t['txwin_qual_pre'], t.get('ff_comp_n'), t.get('ff_comp_txwin'), t.get('ff_noncomp_n'), t.get('ff_noncomp_txwin')))
+    print('\n=== P4 rain')
+    for n in ('p_threshold_no-overbid_rain_m50', 'p_threshold_no-overbid_rain_m20', 'p_threshold_unrestricted_rain_m50', 'iv_threshold_m50', 'ivb_threshold_m50', 'ivp_P_threshold_m50',
+              'ivp_items_threshold_m50', 'iii_threshold_no-overbid_rain', 'vi_threshold_rain', 'i_threshold_rain', 'ii_threshold_rain', 'iv_threshold_m20', 'ivb_threshold_m20',
+              'ivp_P_threshold_m20', 'ivp_items_threshold_m20'):
+        if g(n):
+            t = g(n)
+            print('  %-36s core(island-mean) %.3f core_enc %.3f (sd %.3f) eroded %.3f eff %.3f rev %.2f threat %.2f txP %.2f folA %.2f fixedAll %.2f txwin %.3f' % (
+                n, t['core'], t['core_enc'], t['core_sd'], t['eroded'], t['eff'], t['rev'], t['threat'], t['tx_share_P'], t['fol_share_A'], t['fixed_all'], t['txwin_end']))
+    print('\n=== P5 order-free dynamic check')
+    bad = [n for n, t in tabs.items() if not t['order_match']]
+    print('cells', len(tabs), 'order mismatch in', bad)
+    print('\n=== P6 split (skew)')
+    for n in [k for k in tabs if tabs[k]['inst'] == 'skew' and tabs[k]['group'] in ('primary', 'control_i', 'control_ii', 'control_vi')]:
+        t = tabs[n]; sp = t['split']
+        print('  %-34s n %5d exact %s A payments %s | core n %d exact %s' % (n, sp['n'], sp['exact'], dict(list(sp['A_payment'].items())[:15]), sp['n_core'], sp['exact_core']))
+    print('\n=== P7 bluffs')
+    for n in [k for k in tabs if tabs[k]['space'] == 'unrestricted']:
+        b = tabs[n]['bluff']
+        print('  %-36s tx_pop %.0f tested %.0f tested bluffs %.0f untested bluffs %.0f ; tested bluff share of tested %s ; bluff share of TX %s' % (
+            n, b['tx_pop'], b['tested_pop'], b['tested_bluff'], b['untested_bluff'], b['tested_bluff_share_of_tested'], b['bluff_share_of_tx']))
+
+
 if __name__ == '__main__':
-    main()
+    tabs, stat = main()
+    verdicts(tabs, stat)
