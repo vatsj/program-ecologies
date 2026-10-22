@@ -1,5 +1,12 @@
 # Answer key and grading notes (do not give to agents): prudent modal agents
 
+**Correction 2 (RE, 2026-10-22, after the first run).** Prudence was defined by X's actions only. All seven conditions
+found depth-1 agents meeting that definition as suckers of FairBot (canonical: (□a ∨ □¬a) → □⊥, which FairBot
+defects against). The definition now requires mutual cooperation with FairBot. With it, the repaired depth-1
+conjecture survives an exhaustive check of all 523,264 depth-1 agents with at most two boxes, each over any Boolean
+function of (a, c, d) (3,072 of them are loophole agents, none strictly prudent), and 400,000 random three-box agents
+(`scratchpad/depth1_exhaustive.py`, `depth1_k3.py`).
+
 **Expected answers.**
 1. Yes. The minimal depth is 2, for example PrudentBot with plain boxes: □a ∧ □(¬□⊥ → ¬d). Here □(¬□⊥ → ψ) means
    "PA + Con(PA) proves ψ". Its outcomes: D against CooperateBot, D against DefectBot, C against FairBot, C against

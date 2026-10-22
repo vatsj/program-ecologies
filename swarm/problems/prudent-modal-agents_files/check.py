@@ -7,8 +7,8 @@ Syntax: atoms a, c, d (about the current opponent); constants T, F; ~ (not), & (
 B(...) is the box (PA proves). Every atom must be inside some B(...). Precedence: ~ binds tightest, then &, then |,
 then -> (right-associative); use parentheses freely.
 
-Prints the formula's modal depth and its stabilized actions against CooperateBot (T), DefectBot (F), FairBot (B(a))
-and itself, and whether it is prudent.
+Prints the formula's modal depth, its stabilized actions against CooperateBot (T), DefectBot (F), FairBot (B(a)) and
+itself, FairBot's action against it, and whether it is prudent.
 """
 import sys, re
 from functools import lru_cache
@@ -80,15 +80,16 @@ def outcomes(formula_text, worlds=None):
         if t == "or": return ev(f[1], n, me, opp) or ev(f[2], n, me, opp)
         if t == "box": return all(ev(f[1], m, me, opp) for m in range(n))
     res = {}
-    for y in ("CB", "DB", "FB", "X"):
-        seq = [act("X", y, n) for n in range(W)]
+    for key, (x, y) in {"CB": ("X", "CB"), "DB": ("X", "DB"), "FB": ("X", "FB"), "X": ("X", "X"),
+                        "FB_reply": ("FB", "X")}.items():
+        seq = [act(x, y, n) for n in range(W)]
         tail = seq[W // 2:]
-        if len(set(tail)) != 1: raise RuntimeError(f"no stable value against {y} within {W} worlds")
-        res[y] = "C" if tail[-1] else "D"
+        if len(set(tail)) != 1: raise RuntimeError(f"no stable value for {x} against {y} within {W} worlds")
+        res[key] = "C" if tail[-1] else "D"
     return depth(X), res
 if __name__ == "__main__":
     if len(sys.argv) != 2: print(__doc__); sys.exit(2)
     d, r = outcomes(sys.argv[1])
-    prudent = r["CB"] == "D" and r["DB"] == "D" and r["FB"] == "C" and r["X"] == "C"
-    print(f"depth {d}; vs CooperateBot {r['CB']}, vs DefectBot {r['DB']}, vs FairBot {r['FB']}, vs itself {r['X']}; "
-          f"prudent: {'YES' if prudent else 'no'}")
+    prudent = r["CB"] == "D" and r["DB"] == "D" and r["FB"] == "C" and r["FB_reply"] == "C" and r["X"] == "C"
+    print(f"depth {d}; vs CooperateBot {r['CB']}, vs DefectBot {r['DB']}, vs FairBot {r['FB']} (FairBot replies "
+          f"{r['FB_reply']}), vs itself {r['X']}; prudent: {'YES' if prudent else 'no'}")

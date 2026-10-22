@@ -30,11 +30,11 @@ de Jongh–Sambin fixed-point theorem, this is the unique solution of the system
 - DefectBot: φ = ⊥.
 - FairBot: φ = □a.
 
-**Prudent.** X is prudent if it:
-- defects against CooperateBot;
-- defects against DefectBot;
-- cooperates with FairBot;
-- cooperates with itself.
+**Prudent.** X is prudent if:
+- X defects against CooperateBot;
+- X defects against DefectBot;
+- X and FairBot cooperate with each other (both X's action against FairBot and FairBot's action against X are C);
+- X cooperates with itself.
 
 ## Questions
 
@@ -47,14 +47,16 @@ de Jongh–Sambin fixed-point theorem, this is the unique solution of the system
 
 `/work/check.py` is a reference implementation of exactly the semantics above. Run
 `python3 check.py "<formula>"`; it prints the formula's modal depth, its actions against CooperateBot, DefectBot,
-FairBot and itself, and whether it is prudent. Syntax: atoms `a`, `c`, `d`; constants `T`, `F`; `~`, `&`, `|`, `->`;
+FairBot and itself, FairBot's action against it, and whether it is prudent. Syntax: atoms `a`, `c`, `d`; constants `T`, `F`; `~`, `&`, `|`, `->`;
 `B(...)` for □. For example FairBot is `B(a)`.
 
 ## Evidence
 
-All 801 pairwise-inequivalent fully modalized formulas over a, c and d were enumerated, up to modal depth 2 and 7
-symbols and without constants, each combined with either default (cooperate unless the formula holds, or defect unless
-it holds). None is prudent.
+- All 801 pairwise-inequivalent fully modalized formulas over a, c and d were enumerated, up to modal depth 2 and 7
+  symbols and without constants, each combined with either default. None is prudent.
+- Every depth-1 agent whose formula is a Boolean combination of at most two boxes, each box over any Boolean function
+  of a, c and d (constants included): 523,264 agents, none prudent.
+- A random sample of 400,000 such agents with three boxes: none prudent.
 
 ## Success and stopping
 
