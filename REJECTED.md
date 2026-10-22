@@ -1115,3 +1115,14 @@ the instances could not separate it from equal surplus or the middle of the edge
 restores the core" (RE 7; partial).** Establishes (0.86–0.94) and restores 0 of 9,744. **Engineer's skew guess (equal
 surplus under migration).** 29 of 40 runs on Vickrey-nearest. **Dropped design:** order-dependent best-reply
 responders as a model of mutual reading (cycles in 65% of two-responder triples).
+
+
+## Added 2026-10-21: rediscovering the core, stage 2 (RESULTS.md, "Rediscovering the core, stage 2")
+
+**"Certified threats and followers put 0.2–0.6 of islands in the core, with the threat shifted up at least 3 ticks"
+(RE 2; partial, both headline clauses failed).** 0.082; shift +2.61. The freezing story held (prediction 3), but the
+frozen level, about 13, is too low for the core. **"The sucker supply in rain restores the threat's honesty: at least 0.8
+in the core, with safe-follower rain below 0.6" (RE 4).** Rain 0.117; the depleted controls lie within 0.05 of one
+another and are not ordered as predicted. Dropped as stated. **gemini-4-argon's counter-prediction (follower-only rain
+at least 0.6).** 0.086. **Default grammar:** followers that accommodate a certified threat are not a neutral item-role
+default for core experiments; they spread when seeded in numbers and remove the threat's test.

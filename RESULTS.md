@@ -5990,6 +5990,88 @@ processes (rain fixes 69–77% of threshold islands, migration 31–52%).
 - The natural next stage gives the responder a certificate semantics (the milestone 4 lever) instead of order-dependent
   best replies.
 
+## Rediscovering the core, stage 2: certified threats and followers (2026-10-21)
+
+Spec `specs/2026-10-21-core-stage2.md` (reviewed by gpt-6.1-sol then gemini-4-argon), predictions
+`predictions/2026-10-21-core-stage2.md`, verdicts `runs/core-stage2.md`, notes `notes/core-stage2.md` (§2 lists 17
+deviations, including the post-hoc follower-mass sweep and a timing pilot run after the predictions were committed),
+outputs `runs/core_stage2/`. Run by a Sonnet subagent (`src/core_stage2*.py`, 18 tests), 98 cells × 40 runs. Every
+number is a finite-(N, I, horizon) lottery statistic, not π. Core is the island-mean fraction, with the encounter-level
+fraction (the spec's primary) in brackets where it differs.
+
+**Design.**
+- The losing bidder P may be a certified threat-exploiter `TX(t)`: it bids T + 1 if the winners' total T satisfies
+  T + 1 ≤ t, and t otherwise. The policy is checked against its source.
+- Item bidders may be followers `F(δ)`: they read P's certified threat (or constant), never simulate it, and bid the
+  share δ of what beats it.
+- Resolution is acyclic: items first, then P. The reverse order agrees on all 202,500 triples per instance, and the
+  first three runs of each of the 98 cells reproduce exactly under it.
+- Instances, bid spaces and lottery are stage 1's; prior mass m ∈ {0.2, 0.5} on the new classes.
+
+Verdicts: 1, 3, 5 and 7 held (7 with a permissive "tested" condition, and only at ε = 0: under rain 13–32% of tested
+threats are bluffs); 2 partial, with both headline clauses failed; 4 failed; 6 indeterminate as registered.
+
+**The certified threat fixes stage 1's artefact, if the item roles do not follow.**
+- With constant items (control i), threshold no-overbid gives 0.623 (0.651) in the core at ε = 0, 0.633 (0.699) under
+  rain and 0.701 (0.983) under migration. Stage 1's constants-only cells gave 0.01, 0.46 and 0.45.
+- `TX` pays T + 1 when it wins, not t. So a high, honest threat is not penalized in the scramble: the threat rises to
+  18.6 and stays tested at ties (`TX` wins 11% of end encounters).
+
+**Followers undo it.**
+- With followers in the prior (m = 0.5), core is 0.082 at ε = 0, 0.117 (0.144) under rain and 0.000 under migration,
+  while efficiency is 0.99. Revenue is 14.1 at ε = 0, 12.8 under rain and 7.2 under migration, against a minimum core
+  revenue of 20.
+- The followers coordinate an efficient allocation at a low price: accommodation acts as a soft ring.
+- Followers fix the item roles in a median of 20 generations, and 98% of fixed pairs are δ-complementary.
+- On the 1,764 islands whose end state has P fixed on `TX` and both followers fixed above its threat, `TX` wins none of
+  the end encounters, against 0.145 before the items fix (prediction 3 held). Its time-averaged win rate after item
+  fixation is 1.6·10⁻⁵ there, and about 0.005 across the primary cell. On those islands the threat is effectively
+  untested and its level freezes where the scramble left it. P's overall end mean is 12.86 against a prior mean of 10.25 (shift +2.61; prediction 2 claimed at
+  least 3), and 13.3 on islands where `TX` fixed (74% of them).
+- With followers fixed, the core is reached only when the frozen threat is high: 0.000 for every t ≤ 16, 0.034 at t = 17, 0.42 at
+  t = 18, 0.986 at 19 and 1.000 at 20. Only 13.5% of fixed threats have t ≥ 18.
+- Controls:
+  - matched constants (no exploitation) 0.015;
+  - followers facing constant P (control ii) 0.021 at ε = 0 and 0.000 under migration;
+  - matched constants show a threat shift of +0.83, a third of `TX`'s. That, with `TX`'s measured early payoff edge
+    (1.4 per encounter at generation 0, gone by generation 50), is consistent with an additional advantage from
+    exploitation.
+- N panel at ε = 0: core_enc 0.105, 0.082 and 0.066 at N = 50, 100 and 200.
+- Post-hoc follower-mass sweep at ε = 0: core 0.576 (0.605), 0.532 (0.559), 0.471 (0.487), 0.383 (0.395) and 0.247
+  (0.251) at item follower mass 0.01, 0.02, 0.05, 0.10 and 0.20. Followers spread when seeded in numbers.
+
+**The sucker supply did not do it.**
+- Rain gave 0.117 (0.144), not the predicted 0.8. Follower-only rain gave 0.086 (0.105), safe-follower rain
+  0.102 (0.117), P-only rain 0.098 (0.117) and item-only rain 0.064 (0.068).
+- These are within about 0.05 of one another and not ordered as predicted. Prediction 4 failed, and gemini-4-argon's
+  counter-prediction (follower-only rain at least 0.6) failed as well.
+- gpt-6.1-sol's counter-prediction is supported in the registered cell (P-only 0.098 against item-only 0.064) and
+  contradicted at m = 0.2 (0.099 against 0.191).
+- Post hoc, rain at item follower mass 0.01 reaches 0.621 in the core.
+- Rain does keep some testing alive (`TX`'s end win rate is 0.0042 under full rain, 0.0142 under P-only rain), but not
+  enough to raise the core fraction. The threat's mean moves from 12.9 at generation 100 to 11.8 at 18,500. Under
+  migration with followers it falls to 6.1.
+
+**The split.** The registered quantity is empty: under migration no core island has followers fixed. Post hoc, at
+ε = 0 in skew (183 core islands):
+- A's payment is 11 on 95 islands. By exact split class, 71 are equal-surplus, 46 Vickrey-nearest and 66 other.
+- A's modal payment is the equal-surplus value in 4 of 6 cells; that is a payment coordinate, not the registered class
+  plurality.
+- At t = 14 the skew static map has no pair exactly at the Vickrey-nearest or equal-payment point. Across t = 1..14,
+  outright wins include four exact Vickrey-nearest and seven equal-payment matches.
+- B's value cap fixes B's bid at 8 in 45 of 81 pairs at t = 14, so prior degeneracy is a live explanation.
+
+**Reading.** Certification guarantees that a policy is what it claims. It does not guarantee the policy's level.
+- At ε = 0 no untested bluffs survived. Stricter post-fixation bluff testing and the ε→0 chain were not run.
+- In these cells a certified threat stayed at a core-holding level only while non-following item programs kept testing
+  it.
+- A reader of its certificate, the realizable analogue of reading a commitment, removes the test. The threat's level
+  then becomes a neutral commitment set by the scramble: the unconditional shadow of the PD and the gene arm's
+  "untested threats are fit", in auction form.
+- Accommodating followers spread when seeded in numbers, and no rain composition tested restored a high core fraction.
+- So the core price is held here by non-following, exploitable item programs in numbers, not by the certificate.
+- The follower's rule hard-codes the core arithmetic, so what this tests is selection, not discovery.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
