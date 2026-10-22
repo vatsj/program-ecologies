@@ -1,0 +1,16 @@
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+YOLO mode is enabled. All tool calls will be automatically approved.
+YOLO mode is enabled. All tool calls will be automatically approved.
+[STARTUP] Phase 'cleanup_ops' was started but never ended. Skipping metrics.
+[STARTUP] Cannot measure phase 'cleanup_ops': start mark 'startup:cleanup_ops:start' not found (likely cleared by reset).
+Attempt 1 failed. Retrying with backoff... Error: exception TypeError: fetch failed sending request
+    at file:///usr/lib/node_modules/@google/gemini-cli/bundle/chunk-DKZARV6U.js:267745:13
+    at async Models.generateContentStream (file:///usr/lib/node_modules/@google/gemini-cli/bundle/chunk-DKZARV6U.js:268766:16)
+    at async file:///usr/lib/node_modules/@google/gemini-cli/bundle/chunk-DKZARV6U.js:312686:19
+    at async file:///usr/lib/node_modules/@google/gemini-cli/bundle/chunk-DKZARV6U.js:288953:23
+    at async retryWithBackoff (file:///usr/lib/node_modules/@google/gemini-cli/bundle/chunk-DKZARV6U.js:309072:23)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///usr/lib/node_modules/@google/gemini-cli/bundle/chunk-DKZARV6U.js:334134:28)
+    at async GeminiChat.streamWithRetries (file:///usr/lib/node_modules/@google/gemini-cli/bundle/chunk-DKZARV6U.js:333829:29)
+    at async Turn.run (file:///usr/lib/node_modules/@google/gemini-cli/bundle/chunk-DKZARV6U.js:334873:24)
+    at async GeminiClient.processTurn (file:///usr/lib/node_modules/@google/gemini-cli/bundle/chunk-DKZARV6U.js:348818:22)
+    at async GeminiClient.sendMessageStream (file:///usr/lib/node_modules/@google/gemini-cli/bundle/chunk-DKZARV6U.js:348915:14)

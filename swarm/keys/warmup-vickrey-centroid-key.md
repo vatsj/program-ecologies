@@ -1,5 +1,12 @@
 # Answer key (do not give to agents): warmup
 
+**Correction (RE, 2026-10-22, after the first run).** The original key below was incomplete. Every one of the 21 agent
+runs found the full answer, and it matches all 4,432 test instances: the Vickrey-nearest point equals the centroid iff
+v_P ≤ min v_i (the face is the uncut triangle), **or** v_P ≥ the sum of the two largest values (every VCG payment
+positive: the cube case below), **or** v_A = v_B = v_C (full symmetry). With a winner value of 0 the face is a segment
+or a point and the two coincide trivially. The RE's key had only the second case; its "10% coincide when a VCG payment
+is zero" were the other two cases.
+
 **Answer.** The Vickrey-nearest point equals the centroid of F exactly when every winner's VCG payment is positive,
 v_P > Σ_{j≠i} v_j for each winner i. (Degenerate cases where F is a point or a segment are excluded.)
 

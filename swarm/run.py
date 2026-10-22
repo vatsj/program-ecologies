@@ -22,7 +22,12 @@ def one(problem, cond, rep, minutes, out):
     meta = {"condition": cond, "replicate": rep, "minutes": minutes, "start": time.time()}
     b = None
     try:
-        b = Box(f"swarm-{problem}")
+        for attempt in range(60):
+            try:
+                b = Box(f"swarm-{problem}"); break
+            except Exception as e:
+                if "limit" in str(e).lower() and attempt < 59: time.sleep(60); continue
+                raise
         b.put(os.path.join(HERE, "problems", problem + ".md"), "/work/problem.md")
         b.agent("touch board.md; mkdir -p logs")
         res = {}

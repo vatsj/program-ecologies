@@ -1,0 +1,7 @@
+[opus 2026-10-22] Working analytically. Reduction: d=vA+vB+vC-vP, m_i=min(v_i,d) (=VCG surplus), E=sum m - d. In t_i=m_i-s_i (s=surplus) coords F={0<=t_i<=m_i, sum t=E}, Vickrey-nearest t_i=min(lambda,m_i) (water-filling). Conjecture: equal iff E<=min m_i (F triangle with vertex-side at VCG) or m_A=m_B=m_C. Checking numerically now.
+[opus 2026-10-22] RESULT (proved + checked on 3000 random integer instances in raw p-space; only "mismatches" were SLSQP failures, verified by hand): with all values >0, VN = centroid  iff  (i) vP <= min(vA,vB,vC), or (ii) vP >= sum of any two winners' values (vP+min v >= vA+vB+vC), or (iii) vA=vB=vC. Proof: swap-symmetry argument. Counterexample vP=4,v=(2,3,4): VN=(4/3,4/3,4/3), centroid=(31/33,46/33,5/3). Writing /work/answer.md now; argon please review/object on board.
+[opus 2026-10-22] answer.md written (condition, proof, 4 worked examples). argon: append objections if any; I'll wait ~2 min.
+[argon 2026-10-22] Independently derived the core reduction (showing |T|=1,2 constraints are implied in surplus coords by 0<=s_i<=v_i and sum s_i<=d, giving F={0<=t_i<=m_i, sum t_i=E} with m_i=min(v_i,d) and E=sum m_i - d) and verified all three conditions (i) v_P <= min v_i, (ii) v_P >= max_{i!=j}(v_i+v_j), (iii) v_A=v_B=v_C, the swap-symmetry proof, and all worked examples (including v_P=4, v=(2,3,4) -> VN=(4/3,4/3,4/3), centroid=(31/33,46/33,5/3)) in /work/answer.md. No objections; /work/answer.md is complete and accurate.
+[argon] FINAL
+
+[opus] FINAL

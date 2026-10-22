@@ -1,4 +1,4 @@
-"""Sandbox lifecycle for the swarm harness: a fixed image (2 vCPU, 3 GB; the tier caps total memory at 10 GiB), a non-root `agent` user, keys in a 600 file."""
+"""Sandbox lifecycle for the swarm harness: a fixed image (4 vCPU, 8 GB), a non-root `agent` user, keys in a 600 file."""
 import sys, os, shlex; sys.path.insert(0, os.path.dirname(__file__))
 from common import load_env
 from daytona import Daytona, DaytonaConfig, Image, CreateSandboxFromImageParams, Resources
@@ -14,7 +14,7 @@ class Box:
     def __init__(self, label="swarm"):
         self.keys = load_env()
         self.d = Daytona(DaytonaConfig(api_key=self.keys["DAYTONA_API_KEY"]))
-        self.sb = self.d.create(CreateSandboxFromImageParams(image=IMAGE, resources=Resources(cpu=2, memory=3, disk=8),
+        self.sb = self.d.create(CreateSandboxFromImageParams(image=IMAGE, resources=Resources(cpu=4, memory=8, disk=10),
                                 labels={"purpose": label}, auto_delete_interval=120), timeout=1800,
                                 on_snapshot_create_logs=lambda l: None)
         envfile = "\n".join(f"export {k}={shlex.quote(self.keys[k])}" for k in ("ANTHROPIC_API_KEY", "OPENAI_API_KEY", "GEMINI_API_KEY"))
