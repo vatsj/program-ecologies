@@ -48,4 +48,42 @@ the item-winning pairs at b_B = 8 and A paying 8..14.
 
 ## 2. Deviations from the spec and choices, each stated
 
-(filled in as the run proceeds; see below)
+1. **Pilot.** One run each of four primary cells (threshold, no-overbid ε = 0; the same with the annealed tail and with migration;
+   threshold, unrestricted, rain) was run once to time the kernel and debug the pipeline after §1 and the statics were written and
+   committed; outputs were not kept. Its end-state lines were seen (threat about 13, revenue about 14 in the primary cell). The
+   registered predictions, the scoring conventions and §1 were fixed earlier and none was changed.
+2. **The kernel is a copy, not an import.** `core_auction.sim` has no arrivals schedule, no counts history and no fixation or
+   first-tested records, so `core_stage2.sim2` copies its event loop (same fitness, victim, migration conventions, 3NI events per
+   generation) and takes the arrivals from a precomputed schedule. It calls stage 1's `_stats`, `_payoff_of`, `_fit`, `_tri`,
+   `outcome` and `flags` by import. No existing file was edited.
+3. **Arrivals are drawn from a schedule, not event by event.** For rain and the annealed tail the number of arrivals in a generation
+   is Binomial(3IN, ε_g), each arrival has a uniformly chosen event slot, island and role, a uniform that picks the arriving
+   program through the role's cdf, and a uniform that picks the victim; an arrival replaces the selection event in its slot. This
+   is the same law as stage 1's per-event mutation. The point is pairing: the full rain, (iv), (iv″) and (iv′) share the arrival
+   slots, islands, roles and victim uniforms (the seed is keyed on instance, space, m, N and run, not on the control), and the
+   founding states are paired by the founding prior (full prior for (iv), (iv′), (iv″)). The selection randomness is not paired
+   (it diverges once the states differ). In (iv) and (iv″) the child is the same uniform mapped through a follower-only (δ >= 0.5)
+   cdf in the item roles; the P-role child is identical to the full rain's.
+4. **Follower rounding in integers.** The bid is (dR + 5) // 10 with d = 10δ and R = t + 1 (or c + 1), then raised to 1 and capped at
+   the item's value. This is ⌊δR + ½⌋ without floating point.
+5. **The checker's domain.** A program source is a function of the winners' total T alone; the checker compares it with the stated
+   policy at every T in 0..80, the whole domain (two bids on 0..40), so the check is complete. Followers read the certified threat
+   from this check (cached once per t). False claims are rejected in the tests; the priors contain only true claims, as the spec
+   says, so the checker is exercised by the tests and by the construction of every `TX(t)`, not by an adversary in the population.
+6. **Winners' total with zero bids.** T = bA + bB as submitted; a follower bids at least 1, so T = 0 arises only from two constant 0
+   item programs, and `TX` then bids 1.
+7. **`XPRUWIN` is P(TX wins)** in this module (stage 1: any responder's wins). Stage 1's `pru` share rows therefore read the TX share
+   of P and the follower shares of A and B. P(P wins) is a separate channel.
+8. **Tested.** A P program is *tested* in an island when, at a generation boundary, it wins an encounter against some pair of present
+   item programs with positive probability. It is checked at every generation boundary (every fifth in the rain cells) from the
+   island's current item populations; `first_tested` is the first such generation. A program's flag persists if the program leaves
+   and returns. A win at an interior event that is not visible at a boundary is not counted.
+9. **Item fixation.** `t_fix_items` is the first generation boundary at which A and B are both single-program. Pre and post
+   `txwin` means are averaged over the sampled generations before and after it (the sample grid is coarse after 2,000).
+10. **Qualifying islands (prediction 3)** are decided on the end state of the island (all three roles fixed, P on `TX(t)`, both items
+    on followers, T > t), and the TX win rate is the end-state probability (and its post-fixation time average); at ε = 0 an
+    island that is fixed in all roles is static from then on.
+11. **Reverse-order dynamic check.** The first three runs of every cell are rerun with the tensor built under the reverse order
+    (TX first, fresh item evaluations). The tensors are bit-identical for all 202,500 triples per instance (statics), so identity of
+    the final counts is implied; it is recorded as `order_match` per cell.
+12. **Process.** Worker count 1 (three sibling drivers alive at launch).

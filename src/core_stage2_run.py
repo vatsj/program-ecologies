@@ -188,10 +188,10 @@ def statics():
 CELLS = {}
 
 
-def reg(name, inst, space, arm, m, ptype='tx', itype='fol', rain_kind='same', rain_roles='all', N=100, group='', runs=None):
+def reg(name, inst, space, arm, m, ptype='tx', itype='fol', rain_kind='same', rain_roles='all', N=100, group='', runs=None, m_items=None):
     gens = 20000 if arm == 'rain' else 5000
     CELLS[name] = dict(name=name, inst=inst, space=space, arm=arm, m=m, ptype=ptype, itype=itype, rain_kind=rain_kind, rain_roles=rain_roles, N=N,
-                       I=64, gens=gens, group=group, runs=runs)
+                       I=64, gens=gens, group=group, runs=runs, m_items=m_items)
 
 
 def mtag(m):
@@ -230,6 +230,10 @@ def build_registry():
         reg('vii_threshold_N%d' % N, 'threshold', NO, 'zero', 0.5, N=N, group='npanel')
     for N in (50, 200):
         reg('vii_threshold_unrestricted_N%d' % N, 'threshold', 'unrestricted', 'zero', 0.5, N=N, group='npanel')
+    # post hoc extras (not in the spec): the follower mass in the item roles swept with TX at m = 0.5 (threshold, no-overbid), eps = 0 and rain
+    for mi in (0.01, 0.02, 0.05, 0.1, 0.2):
+        for arm in ('zero', 'rain'):
+            reg('x_fol%02d_%s' % (int(round(mi * 100)), arm), 'threshold', NO, arm, 0.5, m_items=mi, group='extra_fol')
 
 
 build_registry()
@@ -240,7 +244,7 @@ def _crc(*parts):
 
 
 def founder_seed(cell, run):
-    return [_crc('found', cell['inst'], cell['space'], cell['m'], cell['N'], cell['ptype'], cell['itype']), run, cell['I']]
+    return [_crc('found', cell['inst'], cell['space'], cell['m'], cell['N'], cell['ptype'], cell['itype'], *( [cell['m_items']] if cell.get('m_items') is not None else [] )), run, cell['I']]
 
 
 def arrival_seed(cell, run):
@@ -278,7 +282,7 @@ def run_one(cell, run, order=0):
     inst, space, N, I = cell['inst'], cell['space'], cell['N'], cell['I']
     v = C.INSTANCES[inst]; mr = C.min_revenue(v)
     U, X, Bt = tensors(cell, order)
-    pr = S.prior2(inst, space, cell['m'], cell['ptype'], cell['itype'])
+    pr = S.prior2(inst, space, cell['m'], cell['ptype'], cell['itype'], cell.get('m_items'))
     rng = np.random.default_rng(founder_seed(cell, run))
     init = C.seed_counts(pr, I, N, rng)
     arr = make_cell_arrivals(cell, pr, run)
@@ -400,7 +404,7 @@ def summarize_cell(cell, results):
     rows = [row for r in results for row in r['rows']]
     thd = np.mean([r['thd'] for r in results], axis=0).tolist()
     thd_end = np.sum([r['thd_end'] for r in results], axis=0).tolist()
-    pr = S.prior2(cell['inst'], cell['space'], cell['m'], cell['ptype'], cell['itype'])
+    pr = S.prior2(cell['inst'], cell['space'], cell['m'], cell['ptype'], cell['itype'], cell.get('m_items'))
     th_prior = np.zeros(41)
     for k in range(S.K):
         th_prior[int(S.threat_of(k))] += pr[0, k]
@@ -416,8 +420,11 @@ def summarize_cell(cell, results):
 
 def pick(names):
     out = []
+    import re
     for n in names:
-        if n in CELLS:
+        if n.startswith('re:'):
+            out.extend(k for k in CELLS if re.search(n[3:], k))
+        elif n in CELLS:
             out.append(n)
         else:
             m = [k for k, c in CELLS.items() if c['group'] == n or k.startswith(n)]

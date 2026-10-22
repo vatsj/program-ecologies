@@ -239,11 +239,12 @@ def role_caps(inst, space):
     return C.allowed(inst, space)
 
 
-def prior2(inst, space, m, ptype='tx', itype='fol'):
+def prior2(inst, space, m, ptype='tx', itype='fol', m_items=None):
     """per-role founding prior (3, K).  P: ptype 'tx' constants (1 - m) uniform on 0..capP plus TX(t) mass m uniform on t = 1..capP; 'const' constants
     only (uniform); 'matched' constants (1 - m) uniform plus the constants c = t at mass m uniform over t = 1..capP.  Items: itype 'fol'
-    constants (1 - m) uniform on 0..cap plus followers mass m uniform over the nine deltas; 'const' constants only."""
+    constants (1 - m_items) uniform on 0..cap plus followers mass m_items (default m) uniform over the nine deltas; 'const' constants only."""
     caps = role_caps(inst, space)
+    mi = m if m_items is None else m_items
     p = np.zeros((3, K))
     n = caps[0] + 1
     if ptype == 'tx':
@@ -259,8 +260,8 @@ def prior2(inst, space, m, ptype='tx', itype='fol'):
     for r in (1, 2):
         n = caps[r] + 1
         if itype == 'fol':
-            p[r, :n] = (1 - m) / n
-            p[r, F0:F0 + NF] = m / NF
+            p[r, :n] = (1 - mi) / n
+            p[r, F0:F0 + NF] = mi / NF
         elif itype == 'const':
             p[r, :n] = 1.0 / n
         else:
