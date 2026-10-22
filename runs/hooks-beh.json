@@ -1,0 +1,270 @@
+{
+ "open-max": {
+  "n": 40,
+  "universal_open": [
+   37,
+   40
+  ],
+  "eff_islands": 0.9953125,
+  "pcc": 0.99941875
+ },
+ "inert": {
+  "n": 40,
+  "universal_open": [
+   11,
+   40
+  ],
+  "eff_islands": 0.275,
+  "pcc": 0.275
+ },
+ "beh-max": {
+  "n": 30,
+  "universal_open": [
+   21,
+   30
+  ],
+  "eff_islands": 0.8020833333333334,
+  "pcc": 0.9355316666666667
+ },
+ "beh-max-noA": {
+  "n": 20,
+  "universal_open": [
+   2,
+   20
+  ],
+  "eff_islands": 0.1625,
+  "pcc": 0.4600595
+ },
+ "beh-max-hostile": {
+  "n": 20,
+  "universal_open": [
+   16,
+   20
+  ],
+  "eff_islands": 0.834375,
+  "pcc": 0.9146829999999999
+ },
+ "beh-written-only": {
+  "n": 20,
+  "universal_open": [
+   18,
+   20
+  ],
+  "eff_islands": 0.965625,
+  "pcc": 0.993745
+ },
+ "ff-beh-max": {
+  "n": 6,
+  "universal_open": [
+   5,
+   6
+  ],
+  "eff_islands": 0.8333333333333334,
+  "pcc": 0.9697333333333334
+ },
+ "beh-max-N200": {
+  "n": 10,
+  "universal_open": [
+   6,
+   10
+  ],
+  "eff_islands": 0.7375,
+  "pcc": 0.8801559999999998
+ },
+ "M-open-max": {
+  "n": 40,
+  "universal_open": [
+   38,
+   40
+  ],
+  "eff_islands": 0.996875,
+  "pcc": 0.9987232500000001
+ },
+ "M-thanks-only": {
+  "n": 40,
+  "universal_open": [
+   40,
+   40
+  ],
+  "eff_islands": 1.0,
+  "pcc": 1.0
+ },
+ "M-grudge-only": {
+  "n": 40,
+  "universal_open": [
+   23,
+   40
+  ],
+  "eff_islands": 0.959375,
+  "pcc": 0.9935354999999999
+ },
+ "M3a-thanks-noinherit": {
+  "n": 40,
+  "universal_open": [
+   8,
+   40
+  ],
+  "eff_islands": 0.2,
+  "pcc": 0.20896624999999996
+ },
+ "M3b-thanks-nocopy": {
+  "n": 40,
+  "universal_open": [
+   22,
+   40
+  ],
+  "eff_islands": 0.55,
+  "pcc": 0.55
+ },
+ "M3c-thanks-neither": {
+  "n": 40,
+  "universal_open": [
+   18,
+   40
+  ],
+  "eff_islands": 0.45,
+  "pcc": 0.45
+ },
+ "M3d-thanks-noevict": {
+  "n": 40,
+  "universal_open": [
+   40,
+   40
+  ],
+  "eff_islands": 1.0,
+  "pcc": 1.0
+ },
+ "M3e-thanks-single": {
+  "n": 40,
+  "universal_open": [
+   39,
+   40
+  ],
+  "eff_islands": 0.99375,
+  "pcc": 0.99910225
+ },
+ "M3a-max-noinherit": {
+  "n": 40,
+  "universal_open": [
+   12,
+   40
+  ],
+  "eff_islands": 0.3,
+  "pcc": 0.6269467499999999
+ },
+ "M3b-max-nocopy": {
+  "n": 40,
+  "universal_open": [
+   40,
+   40
+  ],
+  "eff_islands": 1.0,
+  "pcc": 1.0
+ },
+ "M3c-max-neither": {
+  "n": 40,
+  "universal_open": [
+   21,
+   40
+  ],
+  "eff_islands": 0.525,
+  "pcc": 0.73753525
+ },
+ "M3d-max-noevict": {
+  "n": 40,
+  "universal_open": [
+   37,
+   40
+  ],
+  "eff_islands": 0.9921875,
+  "pcc": 0.9983722500000001
+ },
+ "M3e-max-single": {
+  "n": 40,
+  "universal_open": [
+   39,
+   40
+  ],
+  "eff_islands": 0.9984375,
+  "pcc": 0.9993887499999999
+ },
+ "M4-early": {
+  "n": 40,
+  "universal_open": [
+   10,
+   40
+  ],
+  "eff_islands": 0.8296875,
+  "pcc": 0.9588080000000001
+ },
+ "M4-late": {
+  "n": 40,
+  "universal_open": [
+   32,
+   40
+  ],
+  "eff_islands": 0.984375,
+  "pcc": 0.9975527499999999
+ },
+ "M5-sham": {
+  "n": 20,
+  "universal_open": [
+   3,
+   20
+  ],
+  "eff_islands": 0.55625,
+  "pcc": 0.810821
+ },
+ "verdicts": {
+  "2": {
+   "verdict": "partial",
+   "text": "beh-max universal-open >= 0.75 [< 0.5]",
+   "number": "21/30 = 0.700; same-geometry references: open-max 37/40 = 0.925 (0.801, 0.974), inert-hooks 11/40 = 0.275 (0.161, 0.428)"
+  },
+  "3": {
+   "verdict": "failed",
+   "text": "FairBot/PrudentBot-equivalent through a fill on winning islands at the end >= 50% [< 30%]",
+   "number": "0.003 through a fill (0.044 counting unhooked FairBot-equivalents)"
+  },
+  "4": {
+   "verdict": "partial",
+   "text": "hostile keys founded on >= 90% of islands and held by < 5% at the end under both priors [>= 20% under the hostile prior]",
+   "number": "beh-max: founded 0.375 of islands, held at end 0.0018 (winning islands 0.0002); beh-max-hostile: founded 0.928 of islands, held at end 0.0105 (winning islands 0.0003)"
+  },
+  "5": {
+   "verdict": "failed",
+   "text": "PrudentBot-equivalents outnumber FairBot-equivalents on winning islands at generation 200, with TrustingBots and CooperateBots still present [fewer]",
+   "number": "winning-island individuals at 200 (summed over runs, 383 islands): FairBot-eq 1876, PrudentBot-eq 0, CooperateBot-like 13884, TrustingBot-like 1; the counter-prediction (FairBot-eq > PrudentBot-eq) held; production events into FairBot-eq 230581, PrudentBot-eq 498; births with a FairBot-eq child 575287, PrudentBot-eq child 574 (births are the reproductive output; class shares by generation are in M1)"
+  },
+  "6": {
+   "verdict": "held",
+   "text": "beh-max-noA <= 0.70 universal-open [>= 0.85]",
+   "number": "2/20 = 0.100 (inert-hooks control at this geometry 11/40 = 0.275 (0.161, 0.428); beh-max 21/30 = 0.700 (0.521, 0.833))"
+  },
+  "7": {
+   "verdict": "partial",
+   "text": "ff-beh-max >= 0.9 [< 0.7]",
+   "number": "5/6 = 0.833 (a cell cut at 6 of 10 planned runs for cost; the stored legacy ff-open-max at the stored geometry was 20/20)"
+  },
+  "8": {
+   "verdict": "failed",
+   "text": "contagion (H1): copying is the carrier; inheritance, eviction and multi-hook programs are not",
+   "number": "copy-ancestry share of FairBot-equivalents carrying a thanks fill at 200: 0.020; M3a-thanks-noinherit 8/40 = 0.200 (0.105, 0.348) (needs >= 0.85); M3b-thanks-nocopy 22/40 = 0.550 (0.398, 0.693) (needs <= 0.70); M3c-thanks-neither 18/40 = 0.450 (0.307, 0.602) (needs <= 0.70); M3d-thanks-noevict 40/40 = 1.000 (0.912, 1.0), difference to M-thanks-only +0.000 (needs within 0.1; falsified by a fall of more than 0.2); M3e-thanks-single 39/40 = 0.975 (0.871, 0.996), difference to M-thanks-only -0.025 (needs within 0.1; falsified by a fall of more than 0.2); stated falsifier (copy share below 25% or M3b >= 0.9) TRIPPED; clauses held: M3b, M3c, M3d, M3e"
+  },
+  "9": {
+   "verdict": "failed",
+   "text": "grudge writes convert CooperateBot-like carriers (suckers); DefectBot-like majorities hold the failed islands [failed islands have no DefectBot-like majority]",
+   "number": "from-class of class-changing grudge writes: CooperateBot-like 0.919, predator-like 0.008, other 0.072; failed-island majority class DefectBot-like on 0.000 of 26 failed island-records (universal-open 23/40 = 0.575 (0.422, 0.715)); first clause (converted carriers are CooperateBot-like): held; DefectBot-like share on failed islands 0.046 against 0.001 on efficient ones"
+  },
+  "10": {
+   "verdict": "failed",
+   "text": "writes in generations 0-50 alone recover >= 80% of open-max universal-open [< 50%]",
+   "number": "M4-early 10/40 = 0.250 (0.142, 0.402) vs M-open-max 38/40 = 0.950 (0.835, 0.986) (ratio 0.263); M4-late 32/40 = 0.800 (0.652, 0.895)"
+  },
+  "11": {
+   "verdict": "held",
+   "text": "sham writes (unconditioned, matched keys) <= 0.70 universal-open [>= 0.85]",
+   "number": "3/20 = 0.150 (beh-max 21/30 = 0.700 (0.521, 0.833))"
+  }
+ }
+}
