@@ -272,3 +272,22 @@ SD52, A0), then world, then replicate, three workers, one job per process (pool 
 resumable (finished keys are skipped on relaunch). Then `python3 src/prudence_report.py --rows
 runs/prudence/cells_main.json.gz` (and with `cells_ext.json.gz` appended for the 40-run tables) writes `runs/prudence.md`
 and `runs/prudence.json`.
+
+### 2.7 What happened to the batch (deviation, recorded after the fact)
+
+The first launch hung at 0% CPU from 12:33 on 21 October (a multiprocessing deadlock in the pool) with 5 of the 160 main
+runs unfinished and was killed by the RE on 22 October; the RE relaunched `runs/prudence/batch.sh`, which reran the 5 missing
+main runs (finished keys are skipped) and then the extension. The runs are deterministic, so the rerun rows are those the
+hung pool would have written. The hung log is `runs/prudence/main.log.hung-2026-10-21`. All 160 main and 160 extension rows
+exist (`cells_main.json.gz`, `cells_ext.json.gz`, `batch.done`).
+
+## 3. Results in one paragraph (details: `runs/prudence.md`, `runs/prudence-verdicts.md`)
+
+At A = 52 the tail does not move the prudent (guarded) share in either world (G 0.267 → 0.231 in L, 0.231 → 0.243 in K,
+within noise; sucker-depleted control 0.246 and 0.181), the network share falls, and universality stays 0.95–1.00. At
+A = 156 the prudent share is higher (0.41 and 0.40; 0.43 and 0.30 on 40 runs) but there is no depleted control at that
+exposure, the gain is resident-descended (arrival-descended 0.02–0.09), the standing sucker share is only a few percent,
+and the realized payoff advantage of guarded over unguarded target members is negative where both are present. The fixed-list
+premium per arriving sucker is identical in the two worlds (0.6855). The depleted control left part of the sucker class and
+is a weak control. Eight of the spec's and my predictions held, ten failed or fired their falsifiers (list in the verdicts);
+one failure is my arithmetic (S7 clause 2). Post hoc: `src/prudence_extra.py` (`runs/prudence-extra.json`).
