@@ -62,6 +62,11 @@ symbols and without constants, each combined with either default. None is pruden
 formula of up to 7 symbols. PrudentBot needs more symbols than that, which is why the enumeration found no
 depth-2 example either.
 
+A random search over 60,000 depth-1 formulas (up to 4 boxes, each box's contents and the outer combination up to 7
+symbols, constants allowed) found no prudent agent either. In that sample about 0.7% of the agents meet the other three
+conditions (defect against CooperateBot and DefectBot, cooperate with FairBot), and every one of those defects against
+itself.
+
 ## What we want
 
 Prove that no depth-1 agent is prudent, of any size and with constants allowed, or find a depth-1 counterexample.
