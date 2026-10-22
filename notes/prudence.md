@@ -289,5 +289,5 @@ A = 156 the prudent share is higher (0.41 and 0.40; 0.43 and 0.30 on 40 runs) bu
 exposure, the gain is resident-descended (arrival-descended 0.02–0.09), the standing sucker share is only a few percent,
 and the realized payoff advantage of guarded over unguarded target members is negative where both are present. The fixed-list
 premium per arriving sucker is identical in the two worlds (0.6855). The depleted control left part of the sucker class and
-is a weak control. Eight of the spec's and my predictions held, ten failed or fired their falsifiers (list in the verdicts);
-one failure is my arithmetic (S7 clause 2). Post hoc: `src/prudence_extra.py` (`runs/prudence-extra.json`).
+is a weak control. The RE's predictions 1, 2, 3 and 7 and my S2, S6 and the A156 clauses of S4 and S9 failed or fired their
+falsifiers; RE 4, RE 5, S1, S10 and S12 held (full list in the verdicts); one failure is my arithmetic (S7 clause 2). Post hoc: `src/prudence_extra.py` (`runs/prudence-extra.json`).
