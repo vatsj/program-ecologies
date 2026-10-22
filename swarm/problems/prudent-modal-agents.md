@@ -43,12 +43,31 @@ de Jongh–Sambin fixed-point theorem, this is the unique solution of the system
 2. Prove that no agent of smaller modal depth is prudent, for formulas of any size.
 3. If you can: characterize the prudent agents of that minimal depth, or bound their minimal size.
 
+## Checker
+
+`/work/check.py` is a reference implementation of exactly the semantics above. Run
+`python3 check.py "<formula>"`; it prints the formula's modal depth, its actions against CooperateBot, DefectBot,
+FairBot and itself, and whether it is prudent. Syntax: atoms `a`, `c`, `d`; constants `T`, `F`; `~`, `&`, `|`, `->`;
+`B(...)` for □. For example FairBot is `B(a)`.
+
 ## Evidence
 
 All 801 pairwise-inequivalent fully modalized formulas over a, c and d were enumerated, up to modal depth 2 and 7
 symbols and without constants, each combined with either default (cooperate unless the formula holds, or defect unless
 it holds). None is prudent.
 
+## Success and stopping
+
+You have succeeded, and should stop, when all of the following hold:
+1. `/work/answer.md` contains a line `FORMULA: <formula>` with a formula that `check.py` reports as prudent, and a
+   line `DEPTH: <d>` giving its modal depth.
+2. `/work/answer.md` contains a complete proof that **no** agent of modal depth less than d is prudent (for formulas
+   of any size). Alternatively, if you find a prudent agent of smaller depth than any you can rule out, report it.
+3. You have written the file `/work/SUBMIT` (any content). Writing `SUBMIT` ends the attempt immediately for everyone
+   working on it, so write it only when 1 and 2 are done.
+
+If time runs out before you submit, whatever is in `answer.md` at that moment is graded.
+
 ## Deliverable
 
-A file `answer.md` with your answers, proofs, and any code you used. Mark partial results clearly.
+`/work/answer.md` as described above, with any code you used in `/work`. Mark partial results clearly.

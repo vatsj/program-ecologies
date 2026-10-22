@@ -34,6 +34,15 @@ class Box:
         except Exception: return None
     def close(self):
         self.sb.delete()
+def cli_resume(model, prompt):
+    q = shlex.quote(prompt)
+    if model == "opus":
+        return f"claude -c -p {q} --model {MODELS['opus']} --permission-mode bypassPermissions --output-format json"
+    if model == "sol":
+        return (f"codex exec resume --last --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox --json "
+                f"-m {MODELS['sol']} {q}")
+    if model == "argon":
+        return f"gemini -m {MODELS['argon']} --skip-trust --yolo --output-format json --resume latest -p {q}"
 def cli(model, prompt, json_out=True):
     q = shlex.quote(prompt)
     if model == "opus":

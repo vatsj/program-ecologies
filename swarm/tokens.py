@@ -1,9 +1,18 @@
 import json, os, re, sys, glob
+def _objs(txt):
+    dec=json.JSONDecoder(); i=0; out=[]
+    while True:
+        k=txt.find('{',i)
+        if k<0: return out
+        try: o,e=dec.raw_decode(txt,k); out.append(o); i=e
+        except Exception: i=k+1
 def claude(p):
-    try:
-        j=json.loads(open(p).read().strip().splitlines()[-1]); u=j.get('usage',{})
-        return dict(inp=u.get('input_tokens',0)+u.get('cache_creation_input_tokens',0)+u.get('cache_read_input_tokens',0), out=u.get('output_tokens',0), usd=j.get('total_cost_usd'))
-    except Exception as e: return dict(err=str(e)[:60])
+    inp=out=0; usd=0.0
+    for j in _objs(open(p).read()):
+        if isinstance(j,dict) and j.get('type')=='result':
+            u=j.get('usage',{}); inp+=u.get('input_tokens',0)+u.get('cache_creation_input_tokens',0)+u.get('cache_read_input_tokens',0)
+            out+=u.get('output_tokens',0); usd+=j.get('total_cost_usd') or 0
+    return dict(inp=inp,out=out,usd=round(usd,4))
 def codex(p):
     inp=out=0
     for l in open(p):
@@ -13,13 +22,12 @@ def codex(p):
             u=j['usage']; inp+=u.get('input_tokens',0); out+=u.get('output_tokens',0)+u.get('reasoning_output_tokens',0)
     return dict(inp=inp,out=out)
 def gemini(p):
-    try:
-        txt=open(p).read(); j=json.loads(txt[txt.index('{'):])
-        inp=out=0
-        for m,s in j.get('stats',{}).get('models',{}).items():
-            t=s.get('tokens',{}); inp+=t.get('prompt',0); out+=t.get('candidates',0)+t.get('thoughts',0)
-        return dict(inp=inp,out=out)
-    except Exception as e: return dict(err=str(e)[:60])
+    inp=out=0
+    for j in _objs(open(p).read()):
+        if isinstance(j,dict) and 'stats' in j:
+            for m,st in j['stats'].get('models',{}).items():
+                t=st.get('tokens',{}); inp+=t.get('prompt',0); out+=t.get('candidates',0)+t.get('thoughts',0)
+    return dict(inp=inp,out=out)
 F={'opus':claude,'sol':codex,'argon':gemini}
 def run_tokens(d):
     r={}
