@@ -15,7 +15,7 @@ three pairs, one trio.
 
   Within a swarm, agents share B however they coordinate. The solo-versus-trio contrast at equal B is the test.
 - **Replicates:** at least 3 per condition for the warmup, 5 for the main problem. Fresh sandbox per replicate.
-- **Order:** the warmup first, to shake out the harness; then `prudence-needs-con`.
+- **Order:** the warmup first, to shake out the harness; then `prudent-modal-agents`.
 
 ## Sandbox (Daytona, or an equivalent)
 
