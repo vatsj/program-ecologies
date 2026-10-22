@@ -1,6 +1,11 @@
-# Grading notes (do not give to agents): prudence needs Con
+# Grading notes (do not give to agents): prudence needs nested boxes
 
-There is no known answer key. The RE's evidence is an exhaustive enumeration: 801 classes, depth ≤ 2, size ≤ 7, both
+**Correction (RE, 2026-10-22).** The first version conjectured that no level-PA agent is prudent. That is false: with
+plain boxes PrudentBot is □a ∧ □(¬□⊥ → ¬d), modal depth 2, prudent (checked on Kripke frames,
+`scratchpad/pb_plain.py`). The literature pass caught this (`prudence-needs-con-literature.md`). The 0/801 enumeration
+was a size cap, not a box-level fact. The problem is now: no depth-1 agent is prudent.
+
+There is no known answer key. The literature pass found no statement of the depth-1 claim. The RE's evidence is an exhaustive enumeration: 801 classes, depth ≤ 2, size ≤ 7, both
 defaults, 0 prudent at level PA. It comes from the behavioural-hooks run (`notes/hooks-beh.md`, `src/hooks_beh.py`,
 `tools/beh_gate*.py`), whose solver was independently checked against a pure-Python Kripke evaluator on all 36 named
 pairings.
