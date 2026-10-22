@@ -119,3 +119,21 @@ The six size-2 keys (box and box1 of a, c, d) hold about two thirds of the famil
 of a cooperating partner is box a or box1 a with high probability, so conditional writes concentrate on FairBot's guard, with a long
 tail; the prudent classes (mass 1e-4) are reachable only through the tail, or through selection acting on seeded and written
 mixtures of several keys.
+
+### 2.5 Run record and changes after the declaration in 2.3 (all declared here, none changed a law)
+
+- Counted cells: `beh-max` 30 runs; `beh-max-noA`, `beh-max-hostile`, `beh-written-only`, `M5-sham` **20 runs each** (cut from 30
+  after seeing 8-10 minutes per run, before those cells started); `ff-beh-max` **6 runs** (10 planned; killed after the sixth, ~50
+  minutes each; `runs/hooks_beh/cut_ff.sh`); `beh-max-N200` 10 runs; all legacy cells 40 runs; `inert` (Part W's inert-hooks control,
+  every fill inert, lineage writes as stored, strict 0) **added** at this geometry after seeing that plain provers win many `beh-max`
+  islands, so that "recovery" has a same-geometry reference (0.275 of 40 runs).
+- Workers: 1 throughout. `runs/prudence/batch.done` never appeared; the prudence driver (pid 221) was alive but sleeping, its main
+  log unchanged since 12:33 on 21 October and no worker children, so I held to the one-worker rule and report it.
+- Diagnostics (not counted cells): `tools/beh_diag.py` re-runs a counted run deterministically to a generation and dumps the response
+  signatures and the commonest types; one run (`beh-max` rep 0, generation 200) finished (`runs/hooks_beh/diag_beh-max_0_200.md`),
+  the rest were stopped when the coordinator asked to finish. `tools/beh_types_from_rows.py` and `tools/beh_failed_islands.py` read
+  the stored rows only. A `post` hook was added to `run_one` (diagnostics only; it does not touch the run).
+- Code changes during the queue were confined to non-numba files (`hooks_beh_run.py`: `nrep`, `inert`, the `post` hook;
+  `hooks_beh_report.py`); the compiled evaluator and kernel did not change after the first counted batch.
+- Not done: the spec's (100, 64, 1,000) geometry for the behavioural cells (cost, 2.3); M1 snapshots are every 10 generations to 200
+  and then 300, 500; the 15-minute RS/RE waiting rule did not arise.

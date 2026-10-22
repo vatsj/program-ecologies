@@ -37,12 +37,14 @@ BASECFG = dict(recency=0, grudge=1, thanks=1, contract=1, copy=1, shuffle=0, noi
 CELLS = {
     # K1: the stored open-max (legacy keys), same law as hooks_w2_run's (reproduction check)
     'open-max':          dict(write_mode=1, contract_mode=1, gens=500),
+    # Part W's inert-hooks control at this geometry (every fill inert; same law otherwise): the reference for 'recovery'
+    'inert':             dict(inert=True, strict=0, gens=500),
     'open-max-stored':   dict(write_mode=1, contract_mode=1, gens=1000, I=64),            # the stored hooks_w2 geometry (reproduction only)
     # K2-K6
     'beh-max':           dict(write_mode=2, contract_mode=2, seed=1, anc=1, log=1, gens=500, nrep=30),
-    'beh-max-noA':       dict(write_mode=3, contract_mode=3, seed=2, anc=1, gens=500, nrep=30),
-    'beh-max-hostile':   dict(write_mode=2, contract_mode=2, seed=1, anc=1, hostile=10, gens=500, nrep=30),
-    'beh-written-only':  dict(write_mode=2, contract_mode=1, seed=0, anc=1, gens=500, nrep=30),
+    'beh-max-noA':       dict(write_mode=3, contract_mode=3, seed=2, anc=1, gens=500, nrep=20),
+    'beh-max-hostile':   dict(write_mode=2, contract_mode=2, seed=1, anc=1, hostile=10, gens=500, nrep=20),
+    'beh-written-only':  dict(write_mode=2, contract_mode=1, seed=0, anc=1, gens=500, nrep=20),
     'ff-beh-max':        dict(write_mode=2, contract_mode=2, seed=1, anc=1, ff=True, gens=400, nrep=10),
     'beh-max-N200':      dict(write_mode=2, contract_mode=2, seed=1, anc=1, gens=600, N=200, I=8, nrep=10),
     # M1 base cells (class logging, ancestry flags)
@@ -64,7 +66,7 @@ CELLS = {
     'M4-early':          dict(write_mode=1, contract_mode=1, anc=1, wlo=0, whi=51, gens=500),
     'M4-late':           dict(write_mode=1, contract_mode=1, anc=1, wlo=51, whi=10 ** 6, gens=500),
     # M5: sham writes (beh-max with unconditioned, size- and applicability-matched keys)
-    'M5-sham':           dict(write_mode=4, contract_mode=2, seed=1, anc=1, gens=500, nrep=30),
+    'M5-sham':           dict(write_mode=4, contract_mode=2, seed=1, anc=1, gens=500, nrep=20),
 }
 ISL = dict(N=100, I=16, mN=1.0)                   # reduced from the spec's I = 64 (cost; notes 2): every cell is paired at this geometry
 FF = dict(N=100, I=16, mN=1.0, merge=200)
@@ -283,7 +285,7 @@ def _place(pres, cnt, npres, tid, I, N, T):
             gcount[t_] += k
 
 
-def run_one(cell, rep, gens=None, tcap=K.TCAP):
+def run_one(cell, rep, gens=None, tcap=K.TCAP, post=None):
     S = setup()
     c = CELLS[cell]
     ff = c.get('ff', False)
@@ -298,7 +300,7 @@ def run_one(cell, rep, gens=None, tcap=K.TCAP):
     NI = N * I
     LA, KA = S.LA, S.KA
     Lx = S.Lx
-    active = _ALL
+    active = np.zeros((4, 4), np.bool_) if c.get('inert') else _ALL
     cfg = cell_cfg(c)
     recency = int(cfg[0])
     T, tdict, ev, ev2, sdict, tv, smeta = K.new_tables(S.KT, tcap)
@@ -368,6 +370,8 @@ def run_one(cell, rep, gens=None, tcap=K.TCAP):
         conc = np.concatenate(concs).mean(0)
     wall = time.time() - t0
     fin = final_stats(S, T, LA, KA, ev, active, recency, last_pres, last_cnt, last_np, last_rec, cfg)
+    if post is not None:                                  # diagnostics hook (tools/beh_diag.py); does not touch the run
+        post(dict(S=S, T=T, ev=ev, active=active, recency=recency, pres=last_pres, cnt=last_cnt, npres=last_np, rec=last_rec, cfg=cfg))
     row = dict(cell=cell, rep=rep, wall=round(wall, 1), gens=gens, N=N, I=I, ntypes=int(T[10][0]), live_types=int(T[10][0] - T[10][1]),
                overflow=int(ctr[8]), ev_size=len(ev), ev2_size=len(ev2), states=int(smeta[0]), state_overflow=int(smeta[1]), max_stab_world=int(smeta[2]), late_stab=int(smeta[3]),
                island_conc=[round(float(x), 4) for x in conc], counters=[int(x) for x in ctr],
