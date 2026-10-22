@@ -6164,6 +6164,92 @@ these runs: the winning majorities are open to strangers at the end, and no riva
   premium was not measurable here.
 - Nothing here meets the RS's fallback condition, which was being spooked by the results. The admission stands.
 
+## Rewarding prudence under world K (2026-10-22)
+
+Spec `specs/2026-10-21-prudence-world-k.md` (reviewed by gpt-6.1-sol then gemini-4-argon), predictions
+`predictions/2026-10-21-prudence-world-k.md` (with both reviewers' counter-predictions), report `runs/prudence.md` and
+`.json`, verdicts `runs/prudence-verdicts.md`, post-hoc table `runs/prudence-extra.json`, notes `notes/prudence.md`,
+rows `runs/prudence/` (160 main and 160 extension runs). Run by a Sonnet subagent (`src/prudence*.py`, 5 tests; 4 of
+them need an untracked provenance cache that only the run's worktree holds). The RS asked that the dynamics reward
+prudence, in proportion to the sucker supply the mutation schedule sets (DEFERRED 1).
+
+**Design.**
+- Fission–fusion: 128 islands of 100, merged at generation 200 into one population of 12,800, in worlds L and K.
+- After the merge, fresh founders arrive on an annealed schedule (t₀ = 1,000) for 10,000 generations, delivering
+  A = 0, 52 or 156 per 100 programs. A further arm, SD52, is A = 52 with 4,673 uncertified unconditional-cooperator
+  spellings (prior mass 0.38) removed. A 2,000-generation chase without arrivals follows.
+- 20 paired runs per cell, sharing founders, merge seed and arrival sequence, plus a declared extension to 40. Verdicts
+  are scored on the first 20, with 40-run values in brackets.
+- The frozen sets include the target network T and the *prudent target* (T members that defect against certified
+  CooperateBot; the subagent's addition, declared before any cell). G is the prudent target's mean share at t = 10,000.
+- Validation: at A = 0 the stored fission–fusion rows are reproduced for replicates 0–2 in each world, on the
+  recorded statistics to five decimals; exact kernel-state equality was checked separately over 40 generations.
+- Disclosures:
+  - The first launch hung (a multiprocessing deadlock at 0% CPU from 12:33 on 21 October) with 5 main runs unfinished.
+    The RE relaunched it on 22 October; the runs are deterministic.
+  - The sucker-depleted control removes only part of the sucker class, and there is none at A = 156.
+  - Realized exposure was within 2% of the schedule on the 20 main runs (6,658 and 19,954 arrivals against 6,656 and
+    19,968) but 3.25% on 40, above S7's registered 3% bound. S7's timing clause was also wrong: 0.916 of arrivals had
+    been delivered by t = 5,000 against the predicted 0.78 ± 0.03 (the correct value is 0.917).
+
+**The premium per sucker is identical in K and L.** On the registered primary measure, PrudentBot's edge over FairBot
+against realized arrivals is 0.6855 at A52 and 0.6854 at A156, the same in both worlds. The static, prior-weighted edge
+in the certified (H) state is 0.6828. A fresh founder in its uncertified (E) state gives no edge. The worlds differ on only 0.0007 of the prior (Q) plus the 0.0126 that K moves (the
+anti-punisher mass). So prediction 3 (K shrinks the premium) failed as a tie.
+
+**At A = 52 the tail does not reward prudence.**
+
+| world | arm | universal-open (of 20) | G |
+|---|---|---|---|
+| L | A0 / A52 / A156 / SD52 | 20 / 19 / 20 / 20 | 0.267 / 0.231 / 0.412 / 0.246 |
+| K | A0 / A52 / A156 / SD52 | 20 / 20 / 20 / 20 | 0.231 / 0.243 / 0.400 / 0.181 |
+
+- S2's thresholds (G ≥ 0.60 at A52 and ≥ 0.70 at A156) failed. Literally, the scoring regions label L as R-harm at both
+  endpoints and K's main runs as R-harm at the chase end; the subagent read these as noise or null, which is a
+  reinterpretation.
+- Paired A52 − A0 in G: −0.036 [−0.014] in L, +0.012 [+0.025] in K. A52 − SD52: −0.015 in L, +0.062 in K. None of the
+  contrasts is significant by a sign test.
+- Prediction 1 (PrudentBot's share rises with A) failed on all three of its measures at A52:
+  - the target network T fell (−0.153 in L, −0.101 in K);
+  - PrudentBot's own tree fell (−0.011, −0.020);
+  - G did not rise by the required 0.1.
+
+  Its falsifier fired on T and on PrudentBot's own tree.
+- From a post-hoc table on 40 runs: standing certified suckers average only 0.010–0.044 of the population in the
+  arrival arms, SD52 included. Where prudent and unguarded target members are both present, the prudent ones earned
+  less on average (−0.01 to −0.04 in every arm, A0 included; no uncertainty estimates).
+- No registered reward was detected at A52, and the run does not establish why.
+
+**At A = 156 the prudent share rises, but not as a premium shown.**
+- G − G(A0) = +0.146 [+0.189] in L and +0.169 [+0.110] in K, not significant by a sign test on 20 runs. On the
+  40-run extension, L's paired bootstrap interval is [0.062, 0.320], and at the chase end the sign test gives p = 0.035.
+- Among runs whose prudent share grew by at least 0.25 from the merge, only 0.00–0.13 [0.02–0.09] of the growth descends
+  from arrivals, and most comes from resident lineages (prediction S6 failed). This is a lineage decomposition:
+  arrival-descended growth includes the arrivals' reproduction, not immigration alone.
+- With no depleted control at this exposure, it cannot be separated from resilience to the arrivals.
+
+**Costs and other outcomes.**
+- Universal-open is 0.95–1.00 in every cell (prediction 4 held).
+- Whole-population losses: 5 of 240 arrival runs against 0 of 80 without arrivals.
+- Off-target FairBot residence rises with the tail (A52 over A0) in 16 of 20 pairs in K (p = 0.012) and 17 of 20 in L
+  (p = 0.003), though L's mean change is +0.245 [−0.001]. Prediction 2 failed. The registered depleted control is mixed:
+  A52 − SD52 residence is −0.405 in L (p = 0.041) and +0.241 in K (p = 0.263).
+- No clique took any run in K, 0 of 160 (prediction 5 held). In L, merge-time identity (mean 0.06; 15 of 40 runs above 0.05 at the merge by the merge table, against 4 of 40 in the
+  endpoint table's "ever" count, which the report does not reconcile) falls to ≤ 0.0009 after generation 250 in every
+  arm.
+- gemini-4-argon's counter-prediction, that repeated identity arrivals break L at A = 156, failed: 40 of 40 universal.
+
+**Reading.**
+- At this schedule the prudence premium exists per encounter against arrivals, but no reward in share was detected at
+  A52. Suckers stand at a few percent of the population, and in mixtures guarded target members earned slightly less
+  than unguarded ones.
+- A heavier supply raises the prudent share, mostly through resident lineages, and there is no control showing that
+  this is a premium.
+- The RS's amended target names three good reasons for a network to win; of these, the prudence premium is not yet
+  produced by the dynamics here.
+- K and L have the same primary premium. Their population effects are uncertain at this horizon: at A156 on 40 runs,
+  K − L in prudent share is −0.128, interval [−0.290, 0.038].
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

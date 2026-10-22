@@ -231,6 +231,13 @@ REJECTED.md the ones we dropped.
   is the open design question; the combinatorial concern does not arise in K as implemented. *Operating hypothesis:*
   K stays the provisional default on its measured effects.
 
+- *Evidence (2026-10-22, RESULTS "Rewarding prudence under world K"):* a light annealed tail after fission–fusion does
+  not deliver the prudence premium as a share at A = 52 per 100 programs (standing suckers 1–4%; guarded members earn
+  slightly less in mixtures); at A = 156 the prudent share rises by 0.11–0.19, mostly through residents, with no control
+  that isolates a premium. World K and L carry the same per-arrival premium. *Operating hypothesis (unchanged, refined):*
+  the premium needs a sucker supply set by the schedule; this schedule's supply is too thin at A ≤ 52. Next levers: a
+  depleted control at A = 156, a complete sucker-depletion control, and an exposure scan above 52.
+
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
   partial-disclosure certificates.

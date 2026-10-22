@@ -1138,3 +1138,16 @@ prudent classes carry 10⁻⁴ of the prior. **"Verbatim copying carries the rec
 inheritance is the main carrier in the legacy cells. **"Grudges leave DefectBot-like majorities on failed islands" (RE 9,
 second clause).** 0 of 26. **"Conversion acts in the founding scramble" (RE 10).** Early writes alone 0.25 against 0.80
 for late writes.
+
+
+## Added 2026-10-22: rewarding prudence under world K (RESULTS.md, "Rewarding prudence under world K")
+
+**"A light annealed tail after fission–fusion rewards prudence at A = 52" (RE 1; subagent S2, S3c).** The target network
+and PrudentBot's own tree fell, and the prudent share did not rise in either world; standing suckers are 1–4% of the
+population and guarded members earned slightly less in mixtures. Not re-opened without a heavier sucker supply and a
+depleted control at the same exposure. **"The tail reduces off-target residence" (RE 2).** It rises (K p = 0.012, L
+p = 0.003 by sign test). **"World K shrinks the premium per sucker encounter" (RE 3).** A tie on the primary measure
+(0.6855 in both). **gemini-4-argon: "repeated identity arrivals break L at A = 156".** 40 of 40 universal. **Subagent
+S4, S6, S9 and S7's timing clause.** Universality stays 1.00 at A156, growth is mostly resident-descended, and 0.917 of
+arrivals land by t = 5,000. **Dropped design:** the SD52 arm as a clean sucker removal; it removes only the unconditional
+cooperators.
