@@ -606,6 +606,11 @@ REJECTED.md the ones we dropped.
   provably cooperate", which cooperates with itself and is suckered by FairBot) but no identity, since keys contain no
   quote-equality atom. *Fallback (RS):* if the maximal behavioural-key run (`specs/2026-10-21-behavioural-hooks.md`)
   spooks the RS or the RE, the decision is deferred to Fable 5.5 here.
+- *Evidence (2026-10-22, RESULTS "Every behavioural predicate as a hook key"):* at reduced geometry the maximal
+  behavioural family gives 0.70 universal-open (inert hooks 0.275, legacy open writes 0.925), no rival network is
+  observed, and the recovery needs the prover's guard to be expressible (a-free 0.10). The winners are generous provers;
+  prudence does not arise. *RE:* nothing here spooks the admission; it stands. The prudence premium needs a family in
+  which prudent keys have prior mass.
 
 ## 13. Threats: drift versus testing (RS, 2026-10-11)
 - *RS's guess:* inactive threats should drift out quickly enough to disarm them over the long run.

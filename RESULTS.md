@@ -6072,6 +6072,98 @@ threats are bluffs); 2 partial, with both headline clauses failed; 4 failed; 6 i
 - So the core price is held here by non-following, exploitable item programs in numbers, not by the certificate.
 - The follower's rule hard-codes the core arithmetic, so what this tests is selection, not discovery.
 
+## Every behavioural predicate as a hook key (2026-10-22)
+
+Spec `specs/2026-10-21-behavioural-hooks.md` (reviewed by gemini-4-argon then gpt-6.1-sol), predictions
+`predictions/2026-10-21-behavioural-hooks.md` (with an addendum on the launch gate), verdicts `runs/hooks-beh.md` and
+`.json`, notes `notes/hooks-beh.md` (§2 lists the deviations; the reduced geometry was declared before the counted cells, while
+the cut replication, the stopped fission–fusion runs and the inert-hooks control were added mid-queue in §2.5, the last
+after plain provers were seen winning, so that comparison is post hoc), rows `runs/hooks_beh/`. Run by a Sonnet
+subagent (`src/hooks_beh*.py`; 37 tests, 17 evaluator and 20 kernel; two stored `open-max` runs reproduced exactly at
+their original geometry). The RS admitted behaviour-keyed fills on 2026-10-21,
+with a fallback to Fable 5.5 through DEFERRED 12 if this run spooked us. Every number is a lottery statistic at finite
+(N, I, horizon) and ε = 0, not π.
+
+**The launch gate.**
+- The first gate failed on the RE's spec: PrudentBot's DefectBot clause was written at level PA. FairBot's vacuous
+  world-0 cooperation then makes PrudentBot and FairBot mutually defect, and no one-fill program in the level-PA family
+  (600 classes plus the a-free family) is prudent.
+- With a level-1 box (`BOX1`, ignoring world 0) added to the key grammar, the family has 2,095 classes (730 a-free).
+  The gate passed: the solver and an independent Kripke reference agree on all 49 entries.
+- The disputed Gödel-predator entry went the RE's way: FairBot defects against it and it cooperates.
+- Two prudent D-default classes exist, with prior mass 10⁻⁴ (two negated C-default classes carry less); FairBot-signature
+  keys carry 0.26.
+
+**Deviations that bound the claims.**
+- Cost forced PD islands to (N, I) = (100, 16) and 500 generations, against the spec's (100, 64) and 1,000. The
+  registered thresholds were applied literally, though fewer islands make universal-open easier to reach, so a held
+  threshold is weaker evidence than at 64 islands. Same-geometry references sit beside the verdicts: Part W's inert
+  hooks give 11 of 40 universal-open (0.275) and legacy open writes (`open-max`) give 37 of 40 (0.925).
+- Runs: `beh-max` 30; the controls 20 each; fission–fusion 6 runs of 16 × 100, merged at 200, horizon 400 (spec: 32
+  islands, horizon 600, 20 runs); N = 200 at (200, 8), horizon 600, 10 runs (spec: horizon 2,000, 20 runs).
+- One worker throughout. Only 1 of 6 planned diagnostic re-runs finished.
+- The key quotient is on linear frames (GL.3), which is coarser than GL.
+
+**Part K (universal-open runs).**
+- The maximal behavioural family (`beh-max`) gives 21 of 30 (0.70), between the inert control and legacy open writes.
+  Prediction 2 (≥ 0.75) is partial: the result falls between its two thresholds.
+- Without the atom a (`beh-max-noA`), so with the prover's guard inexpressible: 2 of 20 (0.10), below the inert
+  control (prediction 6 held).
+- Hostile constructions at 10× prior mass: 16 of 20 (0.80). Behavioural keys in written fills only: 18 of 20 (0.90).
+  Hostile keys are held by 0.0018 and 0.0105 of individuals at the end (length prior and 10×). They are founded on only 0.375 of islands
+  under the length prior, against 0.928 at 10× (prediction 4 partial).
+- Fission–fusion: 5 of 6, the failing run with no efficient island (prediction 7 partial).
+- N = 200: 6 of 10 (unscored).
+- **No rival networks observed.** At the end of the runs, the majority on every winning island cooperates with the
+  panel's FairBot stranger and with its own stranger copy, and the rival-network share is 0 in every cell (M6). This is
+  an endpoint check on winning islands, not on every type or time.
+
+**Who wins.** Not the named programs.
+- On winning islands at generation 200, FairBot-equivalents number 1,876 (most of them unhooked) and
+  PrudentBot-equivalents 0.
+- At the end (generation 500), individuals that are FairBot- or PrudentBot-equivalent *through a fill* are 0.003 of
+  winning-island individuals (0.044 counting unhooked FairBot-equivalents).
+- Across all islands, 59% of individuals at generation 200 and 62% at generation 500 fall in no named panel class.
+- In the one diagnostic re-run that finished, the dominant winning response is a generous prover: it cooperates with CooperateBot,
+  FairBot and TrustingBot, and defects against PrudentBot. Its friendly guards are stacked (box a, box1 a, box c,
+  box1 c).
+- Predictions 3 and 5 failed. The registered counter-prediction (FairBot-equivalents outnumber PrudentBot-equivalents,
+  by prior mass) held: production events 230,581 against 498, births 575,287 against 574. The promised conditional
+  reproductive success of the two classes was not reported, so the comparison is of supply, not of fitness.
+
+**Part M: the mechanism of open writes.**
+- *Conditioning matters.* Replacing the written key by a random key matched in size and in applicability to the six
+  named panel programs drops `beh-max` from 0.70 to 0.15 (3 of 20; prediction 11 held). That is a large reduction, not
+  proof of strict necessity.
+- *Inheritance is the main carrier in the legacy cells; copying is not the sole carrier.* (These ablations ran on the
+  stored thanks-only and `open-max` configurations, not on `beh-max`.)
+  - The leading hypothesis H1 (contagion by verbatim copying as the carrier) failed: only 0.02 of FairBot-equivalents in
+    thanks-only carry a copied thanks fill.
+  - Without inheritance: thanks-only 0.20 (reference 1.00) and `open-max` 0.30 (reference 0.95).
+  - Without copying: 0.55 and 1.00. Without either: 0.45 and 0.525.
+  - Prediction 8 failed with its falsifier. Not explained: copying without inheritance does worse than neither (0.20
+    against 0.45).
+- *Not eviction, not multi-hook programs:* 1.00 and 0.975 for thanks-only; 0.925 and 0.975 for `open-max`.
+- *Timing:* writes in generations 0–50 alone give 0.25, and writes after generation 50 alone give 0.80. Conversion is
+  not confined to the founding scramble (prediction 10 failed).
+- *Thanks beat grudges* (1.00 against 0.575).
+  - 92% of the class-changing grudge writes start from CooperateBot-like carriers (prediction 9's first clause held).
+  - Grudges leave a small DefectBot-like fringe (0.046 of failed islands, against 0.001 on efficient ones).
+  - None of the 26 failed islands has a DefectBot-like majority, so the falsifier of prediction 9 fired.
+  - Copying matters for grudges: 0.94 of FairBot-equivalents in grudge-only carry a copied grudge fill.
+
+**Reading.** In the weak wing, admitting every behavioural predicate as a key brought back no parochial networks in
+these runs: the winning majorities are open to strangers at the end, and no rival network was observed.
+- The lottery recovers to 0.70 at this geometry, and much less when the prover's own guard is inexpressible (a-free
+  0.10).
+- The inferred mechanism combines two tested pieces. In `beh-max`, conditioning the written key on the partner's actual
+  behaviour matters. In the legacy cells, inheritance of written fills carries the recovery: a program that has just
+  been cooperated with writes "cooperate with partners like this one", and its lineage keeps the rule.
+- Prudence does not appear. Prediction 5 failed. The prudent classes carry 10⁻⁴ of the prior (498 production events),
+  and the observed winners are generous provers that cooperate with CooperateBot. With so little supply the prudence
+  premium was not measurable here.
+- Nothing here meets the RS's fallback condition, which was being spooked by the results. The admission stands.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

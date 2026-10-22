@@ -1126,3 +1126,15 @@ in the core, with safe-follower rain below 0.6" (RE 4).** Rain 0.117; the deplet
 another and are not ordered as predicted. Dropped as stated. **gemini-4-argon's counter-prediction (follower-only rain
 at least 0.6).** 0.086. **Default grammar:** followers that accommodate a certified threat are not a neutral item-role
 default for core experiments; they spread when seeded in numbers and remove the threat's test.
+
+
+## Added 2026-10-22: every behavioural predicate as a hook key (RESULTS.md, "Every behavioural predicate as a hook key")
+
+**The spec's level-PA PrudentBot (RE).** At level PA, FairBot's vacuous world-0 cooperation poisons the DefectBot clause,
+so the hand table's PrudentBot defects against FairBot. Replaced by a level-1 box, as in Barasz et al. **"FairBot- or
+PrudentBot-equivalents through a fill are at least 50% of winners" (RE 3).** 0.003 (0.044 with unhooked FairBots); the
+winners are generous provers. **"PrudentBot-equivalents outnumber FairBot-equivalents" (RE 5).** 0 against 1,876; the
+prudent classes carry 10⁻⁴ of the prior. **"Verbatim copying carries the recovery" (RE 8, H1).** Copy-ancestry share 0.02;
+inheritance is the main carrier in the legacy cells. **"Grudges leave DefectBot-like majorities on failed islands" (RE 9,
+second clause).** 0 of 26. **"Conversion acts in the founding scramble" (RE 10).** Early writes alone 0.25 against 0.80
+for late writes.
