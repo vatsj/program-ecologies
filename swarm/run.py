@@ -41,6 +41,8 @@ def one(problem, cond, rep, minutes, out):
             while not stop.is_set() and time.time() < deadline:
                 if submitted():
                     meta["submitted_at"] = round(time.time() - meta["start"]); stop.set()
+                    grace = time.time() + 120          # let agents exit on their own so their usage is logged
+                    while time.time() < grace and any(t.is_alive() for t in ths): time.sleep(10)
                     b.root("pkill -u agent || true", t=60); return
                 time.sleep(20)
         def go(m):
@@ -56,8 +58,8 @@ def one(problem, cond, rep, minutes, out):
                 if r.result.strip().endswith("124"): break
                 if submitted(): break
             res[m] = {"calls": calls, "seconds": round(time.time() - t0)}
-        w = threading.Thread(target=watcher); w.start()
         ths = [threading.Thread(target=go, args=(m,)) for m in cond]
+        w = threading.Thread(target=watcher); w.start()
         [t.start() for t in ths]; [t.join() for t in ths]; stop.set(); w.join()
         meta["agents"] = res; meta["submitted"] = b.get("/work/SUBMIT") is not None
         for f in ["answer.md", "board.md"] + [f"logs/{m}.out" for m in cond] + [f"logs/{m}.err" for m in cond]:

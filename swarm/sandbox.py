@@ -37,17 +37,17 @@ class Box:
 def cli_resume(model, prompt):
     q = shlex.quote(prompt)
     if model == "opus":
-        return f"claude -c -p {q} --model {MODELS['opus']} --permission-mode bypassPermissions --output-format json"
+        return f"claude -c -p {q} --model {MODELS['opus']} --permission-mode bypassPermissions --output-format stream-json --verbose"
     if model == "sol":
         return (f"codex exec resume --last --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox --json "
                 f"-m {MODELS['sol']} {q}")
     if model == "argon":
-        return f"gemini -m {MODELS['argon']} --skip-trust --yolo --output-format json --resume latest -p {q}"
+        return f"gemini -m {MODELS['argon']} --skip-trust --yolo --output-format stream-json --resume latest -p {q}"
 def cli(model, prompt, json_out=True):
     q = shlex.quote(prompt)
     if model == "opus":
-        return f"claude -p {q} --model {MODELS['opus']} --permission-mode bypassPermissions --output-format json"
+        return f"claude -p {q} --model {MODELS['opus']} --permission-mode bypassPermissions --output-format stream-json --verbose"
     if model == "sol":
         return f"codex exec --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox --json -m {MODELS['sol']} {q}"
     if model == "argon":
-        return f"gemini -m {MODELS['argon']} --skip-trust --yolo --output-format json -p {q}"
+        return f"gemini -m {MODELS['argon']} --skip-trust --yolo --output-format stream-json -p {q}"
