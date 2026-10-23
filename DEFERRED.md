@@ -688,6 +688,15 @@ REJECTED.md the ones we dropped.
   ends enforced losers' rings but is no general remedy; under first-price a responder exploiting underbidders is
   selected. *RS (2026-10-21):* the relevant program is to rediscover the core in our machinery; stage 1 is queue item 49. *Stage 1 evidence (RESULTS "Rediscovering the core"):* the ε = 0 first-price lottery stops about 4 ticks short of the core price; the losing bidder's honest threat is selected out early; rain or migration restores about half the islands; a best-reply responder works only as the last mover. *Operating hypothesis:* stage 2 gives the responder a certificate semantics (checked mutual reading, as in milestone 4) before moving to private values. *Stage 2 evidence (RESULTS "Rediscovering the core, stage 2"):* certified threats hold the price against non-following item programs (0.62–0.70), but accommodating followers untest and freeze them (0.08); rain did not restore the test. *Open:* a threat-testing mechanism, or followers that stay exploitable until the threat is tested; the RS's call whether accommodation of a read commitment is a legitimate program behaviour or a ring. *RS (2026-10-22):* the equilibrium notion should recover VCG when VCG is in the core; a secondary thread, with weaker normative weight, recovers optimal auctions with the seller as a player; not to dwell on auctions. *RE:* within the core, VCG is the unique bidder-optimal point when VCG is in the core, so recovering it is the bidder-optimal selection: bidders lead and the seller follows (Bernheim–Whinston's coalition-proof first-price outcomes). Optimal auctions are the same notion with leadership flipped (the seller commits); they need private values and are inefficient by design, so they conflict with the efficiency the grand-coalition clause builds in and stay an evaluation, not a target. Other preferences: hold efficiency, participation and shill-robustness (identity manipulation, the clique problem in auction form); revenue monotonicity comes free from the core; drop truthfulness (incompatible with core selection unless VCG is in the core, and tied to the revelation principle); equal treatment as a tie-break only. *Operating hypothesis:* the auction target is core outcomes with bidder-optimal selection, outcome-level under complete information.
 
+- *RE (2026-10-23), stage 3 parked:* a seller program was the proposed next step, and working it out shows two
+  routes, neither cheap. (a) A seller that follows the bids and may recontract with the loser (offer it the bundle at
+  a price q it accepts up to its value) puts P's acceptance level under test only while winners underbid; once
+  winners read and accommodate the seller's offer, it is untested and drifts, as the threat did in stage 2. (b) A
+  seller that leads by posting a reserve read by followers is selected up to the seller-optimal core point (revenue 30
+  in threshold), the secondary thread, not the bidder-optimal point the RS prefers (20). So the thread hinges on the
+  RS's open call (is accommodation of a read commitment a ring?), not on another run. *Operating hypothesis:* parked
+  until the RS asks; the RS's attention moved to mixed actions (entry 16).
+
 ## 15. The RS's equilibrium notion: response functions over action subprofiles (RS, 2026-10-13)
 - *RS's statement (verbatim):* "assume a normal-form game, with perfect complete information for simplicity. Call an
   *action subprofile* a subset of an action profile - some players get actions, others get blanks. Write a>=b if
@@ -869,3 +878,14 @@ REJECTED.md the ones we dropped.
   "The leader-value core: where it exists"). *Operating hypothesis (unchanged):* the static notion is the menu, the
   ecology the selector; where transfers are absent the menu is usually empty in substitutes games. *Would re-open:* a
   proof or counterexample for asymmetric supermodular games with aligned spillovers.
+
+## 16. Mixed actions and adversarial games (RS, 2026-10-23)
+- *RS:* "I suspect we're gonna need strong notions of mixed actions to recover equilibria in adversarial games. I
+  propose rock paper scissors for starters? We should recover the mixed-strategy equilibrium pretty
+  straightforwardly."
+- *Open (the RS's call):* what a mixed action is in the object: a population mixture of pure programs, a private coin
+  read only by simulation, or a coin whose distribution exact readers see; and what non-termination yields (forfeit or
+  a uniform action, the latter a coin built into the evaluator). *Operating hypothesis:* run all three as arms with
+  forfeit as the main rule (`specs/2026-10-23-rps-mixed.md`); "recovery" means unexploitable individual play, not
+  uniform time-averaged play, which symmetry gives for free.
+
