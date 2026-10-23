@@ -134,3 +134,65 @@ chain by the published lumped-resident fixation (the same solver the counted cel
   gap is 1/2048. The toy chain is therefore also rerun at D = 11, 13, 20: at D = 11, 13 the {GN, GC, X} neutral set loses
   its protection from the pure readers (the readers become exactly neutral to it), so the {GN, GC, X} share at
   N = 10^4 falls below its D = 12 value; this is a statement about the cap, not about the game.
+
+## 2. Choices where the spec is silent, and deviations (written with the code, before any counted cell)
+
+*Disclosure.* Development runs of the chain and of single lottery runs (exact arm, N = 100 and 10^3 .. 10^5; one lottery
+run) were looked at while debugging the code; their output files were deleted or overwritten by the counted cells. They
+showed the structure of the chain (below) but no prediction, scoring rule or cell was changed afterwards; the
+predictions file was committed before any code existed.
+
+1. **Prior.** mu(p) = 2^-bits with bits = log2 a(|p|) + 2 log2 |p| + 1 (the weak arm's length prior, uniform inside a length
+   class), normalised over the n = 6 table. The spec says "2^-nodes over spellings"; IMPLEMENTATION 2 forbids 2^-nodes
+   ("Bits, not nodes. For mu. Every time.") because it is improper for this grammar (the sum over spellings diverges). The
+   spec's text is read as the repo's convention; 2^-nodes (normalised at n = 6) is run as a labelled chain sensitivity.
+2. **Programs and stripping.** A program is its body, hash-consed (a syntactic spelling is one expression id; no behavioural
+   dedup at enumeration). The weak arm's stripping: application is always `THEM(Q)`, Q in {ME, THEM, up(B)}; `ME(..)` and
+   `(up A)(..)` are not enumerated. Size: `THEM(ME)` and `THEM(THEM)` are 3 nodes, `THEM(^B)` is 3 + |B| nodes (the `up` is a
+   node), unary and `coin` one node plus children. The exact grammar has 4, 8, 34, 136, 616, 2,898 expressions at 1..6
+   nodes (3,696), sample 1,258, pure 46, matched 3,696 (checked in tests).
+3. **Evaluator.** G_d(a, b) is the (R, P, S, F) distribution of a's action against b with d application levels left; an
+   application at d = 0 forfeits (uniform in exact-uniform). `coin` evaluates both branches exactly and mixes them 1/2;
+   `cr` reads the conditional distribution given acting, ties within 1e-9 are broken uniformly, forfeit mass propagates
+   (cr forfeits with the forfeit mass of its argument; surely if that is 1). exact-br: the genuine best response is the
+   best response to the conditional distribution (forfeit adds the same +1 to every action, so it cannot change the argmax)
+   and never forfeits; against certain forfeit every action ties and it plays uniform. D = 12 in the main cells; each other
+   cap (11, 13, 20) is a separate evaluation of the full table.
+4. **Classes.** Programs with identical rows and columns of the payoff table (rounded to 6 decimals; 5 decimals gives the same
+   count in every arm) form a class; the class mass is the sum of the members' mu; the representative is the smallest
+   (size, id). Statistics that use action distributions take the representative's. The audit (static.json) found one class
+   whose members differ from the representative in action distribution: the class of `X` also contains the single program
+   `THEM(^THEM(THEM))`, which forfeits against the pure readers (as the readers forfeit against it, payoff 0) and is
+   payoff-identical to X on the 3,696-program table. Reported, not corrected (the spec asks for payoff classes).
+5. **Chain.** `LogChain` with a class-level provider (`rps.ClassProvider`), exploration by `explore_log` seeded with
+   every stable polymorphic candidate found by `solver_audit.enumerate_candidates_fast` and `invasion_closure`
+   (max 6,000 nodes), theta_log = 1e-14 (1e-12 and 1e-16 sensitivities are exact copies when the explored set is the full
+   monomorphic closure, reported as such), twin-expanded and lumped. States, statistics and transition structure follow
+   `solver_audit`/`fixed_role_chicken.onepop_chain`. In this antisymmetric game a single mutant meets a monomorphic
+   resident in a two-type contest, which has no interior attractor, so every state of the chain is monomorphic in the cells
+   run; this is a result of the cells, not a design choice, and the indeterminate (three-type cycle) count is reported.
+   N = 10^5 is added to the spec's N set to show the trend (spec: 10^2, 10^3, 10^4).
+6. **Lottery.** `rps.lottery_kernel` is the kernel of `islands.py` (complete graph, replacement by the offspring of a parent
+   drawn with probability proportional to count * exp(w * mean payoff against the other N - 1), from the same island or
+   with probability m = mN/N from a uniformly chosen other island), without the freeze test (equal-payoff survivors still
+   drift in composition, which the statistics read). A generation is I*N events. Founders: each slot draws a size (length
+   prior) and a uniform position inside that size class in the canonical enumeration order; the same uniforms are used by
+   every arm (common random numbers), and exact and sample-matched share their enumeration order spelling for spelling
+   (`cr` <-> `next2`), so they are paired exactly; pure and sample are paired only through the sizes and quantiles. The
+   dynamics seed is per arm. Runs 0-9 of the primary cell continue to 10,000 generations with the same random stream (the
+   state at 2,000 is the primary run's); checkpoints at 100, 250, 500, 1,000, 1,500, 2,000 (5,000 and 10,000 for the
+   continuation). Window statistics (classes alive, homozygosity) are sampled every 10 generations over 1,500-2,000.
+7. **Statistics.** In-population program exploitability e(x) = max_k (U x)_k over the arm's classes; action exploitability
+   with forfeit counted as a win for the constant, and the version conditional on non-forfeit plays; individual mixing =
+   total variation distance to (1/3, 1/3, 1/3, 0) at most 0.05 of the (R, P, S, F) distribution, against a random
+   population member (mix_pop) and against itself (mix_self); tv_marg = TV of the population's play marginal from uniform
+   (reading (M)); self-play forfeit = sum x_a P(a forfeits against a); plays forfeit = forfeit share of the population's
+   marginal. Run-clustered intervals: bootstrap over runs (4,000 resamples) of the run means; paired differences over runs.
+8. **Toy chain.** The eleven programs R, P, S, X, THEM(ME), next(THEM(ME)), next(next(THEM(ME))), cr(THEM(ME)),
+   coin(X, next(THEM(ME))), coin(X, cr(THEM(ME))), coin(R, P) as eleven classes with a uniform mutation prior, payoffs from
+   the full-table evaluation at the stated D (an eleven-row sub-table of the exact arm), N = 100, 1,000, 10,000.
+9. **Memory.** One arm build (full 3,696 x 3,696 x 4 float64 table, two buffers) peaks at 1.3 GB RSS; the static job with the
+   three extra caps peaks at 2.3 GB; chain and lottery jobs load the cached class table and peak below 0.3 GB. At most 3
+   processes at a time, one job per process, no pools.
+10. **Not done at the time of writing:** n = 7 (the full table would be 17,888 programs, 10 GB per buffer; decided after the
+    n = 6 cells, see below if added).
