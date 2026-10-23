@@ -624,6 +624,12 @@ REJECTED.md the ones we dropped.
   one's own spelling (0.49 strict identity per island in the clone cell). *Decision for the RS:* are self-keyed fills
   admissible? *Operating hypothesis until he decides:* no, by analogy with S-nonself production (provenance); the
   clone cell is reported as a diagnostic.
+- *Decided (RS, 2026-10-23):* self-keyed fills are admissible, like `eq` ("feels like eq"). Consequence under the
+  2026-10-13 decision: the clone cell's identity islands (0.49 per island, universal-open 0/20, a persistent 7%
+  in-island inefficiency) count as cooperation but not as the target, and maximal hooks with self-keys are one more
+  identity route whose cost is measured, not excluded. *RE:* S-nonself production is unchanged. It is a rule of the
+  machinery (whom certificates are written against), not a strategy the prior offers; self-keyed fills and `eq` are
+  strategies, available to selection.
 
 ## 13. Threats: drift versus testing (RS, 2026-10-11)
 - *RS's guess:* inactive threats should drift out quickly enough to disarm them over the long run.
