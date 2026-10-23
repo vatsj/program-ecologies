@@ -485,6 +485,13 @@ REJECTED.md the ones we dropped.
   as the reported cell, with 3·10⁶ beside it; a "cannot produce" mark belongs in the tactic. *Open:* whether
   S-nonself's legibility cost at founding belongs to the language or to empty founders (founders carrying the
   scripts they could write against non-self partners).
+- *Decided (RS, 2026-10-23):* self-play production is admitted **in the `eq` wing** and refused outside it. The self-play
+  certificate ι is the degenerate Löbian loop, valid only when the two quotes are the same source: it is `eq` written
+  as a proof, so the identity tools come as one package per wing (`eq`, self-play production and, by the same
+  reasoning, self-keyed hook fills, DEFERRED 12). Consequences: the PD carrier grammar P has no `eq`, so provenance,
+  world K, the scaling paths, prudence and hooks Part R are no-`eq`-wing results and stand under S-nonself; the clone
+  cell of Part R is read as the `eq`-wing hooks cell; the social organization game fully realizable (`eq` in both
+  roles, S-nonself₃) is an `eq`-wing result under the old rule and is queued for a rerun under self-play production.
 - *Evidence (2026-10-14, legibility at founding):* founding lists change nothing (L1 0.001 on the ideal table, 0.002 at
   3·10⁶); fuel does not help produced lists (0.034 at 3·10⁶); full lists recover 0.30 on the ideal table where produced
   lists give 0/20 (RESULTS "Legibility at founding"). *Operating hypothesis:* the realizable claim on distribution is
