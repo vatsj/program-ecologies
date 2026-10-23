@@ -9,7 +9,11 @@ IMAGE = (Image.debian_slim("3.11")
                        "&& rm -rf /var/lib/apt/lists/*",
                        "npm install -g @anthropic-ai/claude-code @openai/codex @google/gemini-cli && npm cache clean --force",
                        "useradd -m -s /bin/bash agent && mkdir -p /work && chown agent:agent /work"))
-MODELS = {"opus": "claude-opus-5-5", "sol": "gpt-6.1-sol", "argon": "gemini-4-argon"}
+MODELS = {"opus": "claude-opus-5-5", "sonnet": "claude-sonnet-5-5", "sol": "gpt-6.1-sol", "argon": "gemini-4-argon"}
+import re as _re
+def family(name):
+    """Agent names may carry a suffix (sonnet2); the model is the name without trailing digits."""
+    return _re.sub(r"\d+$", "", name)
 class Box:
     def __init__(self, label="swarm"):
         self.keys = load_env()
@@ -34,20 +38,22 @@ class Box:
         except Exception: return None
     def close(self):
         self.sb.delete()
-def cli_resume(model, prompt):
-    q = shlex.quote(prompt)
-    if model == "opus":
-        return f"claude -c -p {q} --model {MODELS['opus']} --permission-mode bypassPermissions --output-format stream-json --verbose"
-    if model == "sol":
+def cli_resume(name, prompt, session=None):
+    q = shlex.quote(prompt); m = family(name)
+    if m in ("opus", "sonnet"):
+        sess = f"--resume {session}" if session else "-c"
+        return f"claude {sess} -p {q} --model {MODELS[m]} --permission-mode bypassPermissions --output-format stream-json --verbose"
+    if m == "sol":
         return (f"codex exec resume --last --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox --json "
                 f"-m {MODELS['sol']} {q}")
-    if model == "argon":
+    if m == "argon":
         return f"gemini -m {MODELS['argon']} --skip-trust --yolo --output-format stream-json --resume latest -p {q}"
-def cli(model, prompt, json_out=True):
-    q = shlex.quote(prompt)
-    if model == "opus":
-        return f"claude -p {q} --model {MODELS['opus']} --permission-mode bypassPermissions --output-format stream-json --verbose"
-    if model == "sol":
+def cli(name, prompt, json_out=True, session=None):
+    q = shlex.quote(prompt); m = family(name)
+    if m in ("opus", "sonnet"):
+        sess = f" --session-id {session}" if session else ""
+        return f"claude -p {q} --model {MODELS[m]}{sess} --permission-mode bypassPermissions --output-format stream-json --verbose"
+    if m == "sol":
         return f"codex exec --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox --json -m {MODELS['sol']} {q}"
-    if model == "argon":
+    if m == "argon":
         return f"gemini -m {MODELS['argon']} --skip-trust --yolo --output-format stream-json -p {q}"

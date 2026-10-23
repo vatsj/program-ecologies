@@ -40,12 +40,14 @@ def gemini(p):
                 for m,ms in st.get('models',{}).items():
                     t=ms.get('tokens',{}); inp+=t.get('prompt',0); out+=t.get('candidates',0)+t.get('thoughts',0)
     return dict(inp=inp,out=out,lost_invocations=max(inits-results,0))
-F={'opus':claude,'sol':codex,'argon':gemini}
+import re
+F={'opus':claude,'sonnet':claude,'sol':codex,'argon':gemini}
 def run_tokens(d):
     r={}
-    for m,f in F.items():
-        p=os.path.join(d,f'{m}.out')
-        if os.path.exists(p): r[m]=f(p)
+    for fn in sorted(os.listdir(d)):
+        if not fn.endswith('.out'): continue
+        name=fn[:-4]; f=F.get(re.sub(r'\d+$','',name))
+        if f: r[name]=f(os.path.join(d,fn))
     return r
 if __name__=='__main__':
     base=sys.argv[1]

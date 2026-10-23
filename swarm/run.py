@@ -1,6 +1,6 @@
 """Run one problem over the nonempty subsets of {opus, sol, argon}: one Daytona sandbox per (condition, replicate),
 agents launched concurrently in a shared /work with an append-only board; equal wall-clock per condition (v1)."""
-import sys, os, json, time, argparse, itertools, threading, traceback
+import sys, os, json, time, argparse, itertools, threading, traceback, uuid
 from concurrent.futures import ThreadPoolExecutor
 sys.path.insert(0, os.path.dirname(__file__))
 from sandbox import Box, cli, cli_resume
@@ -46,12 +46,12 @@ def one(problem, cond, rep, minutes, out):
                     b.root("pkill -u agent || true", t=60); return
                 time.sleep(20)
         def go(m):
-            others = [x for x in cond if x != m]; t0 = time.time(); calls = 0
+            others = [x for x in cond if x != m]; t0 = time.time(); calls = 0; sess = str(uuid.uuid4())
             while not stop.is_set():
                 rem = int(deadline - time.time())
                 if rem < 45: break
-                if calls == 0: c = cli(m, prompt(m, others, minutes))
-                else: c = cli_resume(m, f"Continue working. About {rem // 60} minutes remain. You are not done until "
+                if calls == 0: c = cli(m, prompt(m, others, minutes), session=sess)
+                else: c = cli_resume(m, session=sess, prompt=f"Continue working. About {rem // 60} minutes remain. You are not done until "
                                         f"/work/SUBMIT exists; see the success and stopping rules in /work/problem.md.")
                 r = b.agent(f"timeout {rem} {c} >> logs/{m}.out 2>> logs/{m}.err; echo $?", t=rem + 300)
                 calls += 1
