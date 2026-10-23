@@ -888,4 +888,11 @@ REJECTED.md the ones we dropped.
   a uniform action, the latter a coin built into the evaluator). *Operating hypothesis:* run all three as arms with
   forfeit as the main rule (`specs/2026-10-23-rps-mixed.md`); "recovery" means unexploitable individual play, not
   uniform time-averaged play, which symmetry gives for free.
+- *Evidence (2026-10-23, RESULTS "Rock–paper–scissors and mixed actions"):* under forfeit, the seed lottery is held by
+  readers whose self-play forfeits (the stochastic arms forfeit 0.52–0.69 of plays, the pure arm all), so the ecology
+  reaches the value by mutual non-play; the chain approaches unexploitable mixing only near N ≈ 10⁷; exact reading
+  adds nothing; a uniform default manufactures mixing without protection. *Open for the RS:* is mutual non-termination
+  an admissible tie, or should non-play cost something (which a zero-sum game cannot express without changing the
+  game)? and should the next test be a non-zero-sum game with an RPS-like cycle, where a reader could earn its place
+  against the coin?
 

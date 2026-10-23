@@ -6353,6 +6353,121 @@ repeat-encounter clause were not measured. Not scored: RE 4, RE 5, R10, R13, R14
   the audit covers a subset of labelled runs; one counted row (M-source rep 16) diverged on rerun from generation 10
   with the same code and founders, cause undiagnosed, and stays as counted.
 
+## Rock–paper–scissors and mixed actions: the chain approaches unexploitable mixing only near N ≈ 10⁷; the lottery is held by readers whose self-play forfeits; exact reading brings no registered benefit (2026-10-23)
+
+Spec `specs/2026-10-23-rps-mixed.md` (the RS's proposal; reviewed by gemini-4-argon then gpt-6.1-sol), predictions
+`predictions/2026-10-23-rps.md` (the RS's statement first), notes `notes/rps.md` (§1 by hand before code; §2 deviations;
+§2.11 additions made after the first counted cells), report `runs/rps.md` and `.json`, rows `runs/rps/`. Run by a
+Sonnet subagent (`src/rps.py`, `src/rps_n7.py`, `src/rps_run.py`, `src/rps_report.py`; 14 tests, passing on main).
+Each statement says whether it is about the ε → 0 chain (a diagnostic) or the ε = 0 seed lottery (the primary object).
+
+**Object.** Symmetric RPS (+1 / −1 / 0), one population, no `ROLE`. Grammar: R, P, S, `X` (uniform, fresh per
+evaluation), `next` (the action that beats its argument), `coin A B` (a private fair coin), application, and in the
+exact arm `cr` (best response to the exact distribution of what it reads, conditional on that program acting). An
+evaluation that does not terminate within the depth cap D = 12 is a **forfeit**: it loses to every action and ties
+with a forfeit. Arms: pure (no coins), sample (coins; readers simulate), exact (coins plus `cr`), sample-matched (the
+exact grammar with `cr` replaced by a second simulating counter), the sensitivity arms exact-uniform (non-termination
+yields a uniform action) and exact-br (a genuine best response), and the benchmarks constants and constants + `X`.
+Programs to n = 6 (18 to 125 behavioural classes per arm; n = 7, 376 exact classes, checked).
+
+**Deviations.**
+- The prior is the repo's length prior over spellings (IMPLEMENTATION §2), not the spec's 2^−nodes; 2^−nodes ran as a
+  chain sensitivity, where the exact arm approaches its limit faster (e 0.122 at N = 10⁴ against 0.432).
+- Added after the first counted cells and disclosed (notes §2.11): N = 10⁵–10⁷ chains, a 200-run lottery replicate,
+  n = 7, the exploiter-set control, the closed-form limit. No scored convention changed.
+- The exact arm is cap-sensitive: e at N = 10⁴ is 0.312 / 0.313 at D = 11 / 13 against 0.432 / 0.430 at D = 12 / 20,
+  through mutual `cr(coin(·, THEM(ME)))` readers whose tie-breaks flip on a 2⁻⁷ forfeit residue. Sample and matched
+  are cap-insensitive; no verdict changes sign at any cap.
+
+**The chain is a tournament.** In a symmetric zero-sum game a single mutant in a two-type contest either dominates at
+every frequency or is neutral, so every chain state is monomorphic and no three-type cycle occurs. `X` earns 0 against
+everything and is a neutral entrant into every state, so π(`X`'s class) equals its prior mass exactly at every N
+(0.227 in the exact arm, 0.221 in sample). As N → ∞, π concentrates on Z0, the classes no program can exploit: in the
+exact arm `X` and `next(coin(X, THEM(ME)))`, the guarded simulating reader (prior mass of Z0 0.2275); in the pure arm
+`THEM(ME)` and `next(THEM(ME))`, which forfeit against each other. π(Z0) at N = 10⁴ / 10⁶ / 10⁷: exact 0.239 / 0.397 /
+0.603, sample 0.312 / 0.756 / 0.964. **RE correction to the run report:** the report states that the limit weights
+are proportional to the prior, π_∞(c) = μ(c)/μ(Z0). That contradicts its own exact identity π(`X`) = μ(`X`) at every
+N, which pins `X`'s class at 0.227 in any limit, not at μ(`X`)/μ(Z0) ≈ 1. The finite-N data agree with the identity:
+at N = 10⁷, Z0 members other than `X` hold 0.74 of π in sample (prior mass about 10⁻⁴), and in exact the other Z0
+member, `next(coin(X, THEM(ME)))`, holds 0.376 (= 0.603 − 0.227) and is rising. If π(Z0) → 1, the non-`X` members hold
+1 − μ(`X`) ≈ 0.77 in the limit; that π(Z0) → 1, and the mechanism the RE conjectures for the non-`X` share (they
+strictly invade exploitable states, so drift out of Z0 returns to them), are not derived here. "Unexploitable" is
+grammar-relative: sample's population at 10⁷ has own-grammar e 0.002 but e 0.184 against the exact grammar's
+exploiters.
+
+**Chain numbers** (e = π-weighted statewise exploitability, Σ_c π_c · max_k U(k, c), the max over the arm's own
+grammar; mixing = π mass within 0.05 of uniform play). Statistics are per payoff class, read from a representative:
+`X`'s payoff class also holds `THEM(^THEM(THEM))`, which forfeits against pure readers (notes §2.4).
+
+| arm | e at N = 10² / 10⁴ / 10⁶ / 10⁷ | mixing at 10⁴ / 10⁷ |
+|---|---|---|
+| pure | – / 0.012 / 0.000 / – | 0 / – (self-play forfeit 0.997 at 10⁴) |
+| sample | 0.666 / 0.291 / 0.017 / 0.002 | 0.313 / 0.964 |
+| sample-matched | – / 0.293 / 0.016 / 0.002 | 0.313 / 0.936 |
+| exact | 0.703 / 0.432 / 0.055 / 0.010 | 0.307 / 0.887 |
+| exact-uniform | – / 0.433 / 0.029 / 0.003 | 0.906 / 0.999 |
+
+The approach is slow because forfeit residues leave classes exploitable by tiny margins (e between 10⁻³ and 10⁻²
+carries 0.46 of π at N = 10⁵), and such margins need N far above 1/(wδ) to matter.
+
+**Lottery** ((100, 64), mN = 1, 40 runs, generation 2,000; run-clustered intervals):
+
+| arm | in-population e | islands with e ≤ 0.05 | individual mixing | plays forfeited |
+|---|---|---|---|---|
+| pure | 0.37 | 0.52 | 0.00 | 1.00 |
+| sample | 0.34 | 0.58 | 0.22 | 0.69 |
+| sample-matched | 0.49 | 0.36 | 0.25 | 0.59 |
+| exact | 0.60 [0.48, 0.71] | 0.25 [0.13, 0.37] | 0.25 | 0.52 |
+| exact-uniform | 0.60 | 0.17 | 0.87 | 0.00 |
+| constants / constants + X | 0.82 / 0.76 | 0.00 / 0.01 | 0.00 / 0.06 | 0 |
+
+- Islands are held by readers whose self-play forfeits: the dominant class is `next(THEM(ME))` on 0.50 of pure-arm
+  islands and 0.43 of sample islands; in the exact arm `cr(THEM(THEM))` 0.21, `X` 0.19, `next(THEM(ME))` 0.16. About
+  0.45 of islands change dominant class between generations 500 and 2,000.
+- Islands where individuals mix and nobody can exploit them: 0.05–0.09 in sample, matched and exact (exact-uniform
+  0.17, exact-br 0.11). The genuine best response (exact-br) changes the picture materially: lottery mixing 0.62 and
+  forfeits 0.18 (exact 0.25 and 0.52); in the chain at N = 10⁴, mixing 0.554 and e 0.438. Islands whose
+  population is a uniform mixture of pure programs: 0.00 in every arm.
+- The size cell (400, 16) gives exact e 0.63; the continuation to 10,000 generations (10 runs) gives exact e 0.51; n = 7
+  matches n = 6.
+
+**Verdicts.** Held: 1 (statics: no program earns ≠ 0 against `X`; `cr(THEM(ME))` forfeits in self-play; `next(THEM(ME))`
+beats every deterministic opponent), 3 (pure arm: self-play forfeit 0.997, constants 0.002 at N = 10⁴), 6 (the uniform
+default removes forfeits; its separate "indistinguishable in play" check failed, self-play distance from uniform 0.053
+against a 0.05 threshold). Partial: 2 (relabeling equivariance holds to 10⁻¹⁶; pooled lottery frequencies exclude 1/3
+narrowly in 3 of 15 intervals at 40 runs and contain it in all at 200 runs). Failed: 4 (sample is no less
+exploitable than exact; it is less exploitable at every N), 5 (exact at N = 10⁴: e 0.432, mixing 0.307; lottery islands
+with e ≤ 0.05: 0.25; exact − matched exploitability is positive, +0.139 in the chain, +0.106 [−0.06, 0.27] in the
+registered 40-run lottery and +0.146 [0.07, 0.22] in the post-hoc 200-run replicate),
+the RS's statement in the scored reading (unexploitable individual mixers at N = 10⁴), and the gpt-6.1-sol
+counter-prediction (mixing 0.31, not substantial). gemini-4-argon's counter-prediction partial: `X` is 0.70–0.74 of
+the mixing mass, but the matched control does not erase the exact–matched difference.
+
+**Reading.**
+- *The chain approaches unexploitable individual mixing near N ≈ 10⁷* (own-grammar e 0.002–0.010, mixing
+  0.89–0.96), and the coin is not all of it: `X`'s class holds exactly its prior mass (0.22–0.23) at every N, and the
+  growing remainder is held by other unexploitable mixers, in the exact arm the guarded simulating reader
+  `next(coin(X, THEM(ME)))` (0.376 at 10⁷). Whether π(Z0) → 1 is observed as a trend, not derived. At the scored
+  N = 10⁴ the claim fails.
+- *The lottery is held by readers whose self-play forfeits.* `next(THEM(ME))` wins against any opponent that
+  terminates against it and forfeits only against opponents that do not; two such readers forfeit against each other
+  and tie at the game's value (0). A population of them plays no action. Forfeiting unilaterally loses, and these
+  islands remain exploitable (in-population e 0.34–0.60 in the stochastic arms); the stochastic arms forfeit 0.52–0.69
+  of plays and the pure arm all of them.
+- *Exact reading brings no registered benefit.* The exact arm is the most exploitable stochastic arm in the chain,
+  also with the exploiter set fixed to the exact grammar (0.432 against 0.358 matched and 0.354 sample at N = 10⁴), and
+  in the lottery (exact − matched +0.106 [−0.06, 0.27] registered, +0.146 [0.07, 0.22] in the post-hoc replicate). The
+  lottery mixing difference is unresolved (−0.000 [−0.095, 0.092]; replicate −0.010 [−0.064, 0.046]). Exact readers
+  forfeit in self-play, and their forfeit residues are exploitable.
+- *Mixing produced by the evaluator is not protection.* A uniform default for non-termination raises measured mixing
+  from 0.31 to 0.91 (chain, N = 10⁴) and from 0.25 to 0.87 (lottery) with exploitability unchanged (0.433 against
+  0.432; 0.60 in both).
+- What "a mixed action" is, and what non-termination yields, are now the levers (DEFERRED 16). A mixer that earns its
+  place would have to beat `X` on something other than the zero-sum value, so RPS alone cannot select a source-reading
+  mixer.
+- *Caveats:* one game, n ≤ 7, one cap rule; the lottery at N = 100 and 400 says nothing about large N; e is a maximum over
+  each arm's own grammar, so cross-arm comparisons are reported beside the fixed-exploiter control.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

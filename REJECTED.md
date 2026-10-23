@@ -1164,3 +1164,17 @@ natural seeds" (R7) and "history fills protect gentle programs" (RE 2).** Removi
 commitments, not losses" (R12).** −0.65 against seeding only. **"Islands stay efficient at ≥ 0.98 with hooks" (R9).**
 Five cells below 0.95 at 1,000; four are unfinished scrambles, the clone cell's loss persists. **"Grammar dilution
 within ±0.2" (R3).** −0.35. Open, not rejected: whether thanks fills or contracts mint the clone cell's cliques.
+
+
+## Added 2026-10-23: rock–paper–scissors and mixed actions (RESULTS.md, "Rock–paper–scissors and mixed actions")
+
+**"Exact readers select for individual mixing" (RE 5).** At N = 10⁴ the exact arm's chain has e 0.432 and mixing 0.307;
+0.25 of lottery islands are unexploitable; exact − matched exploitability is positive (+0.139 chain; +0.106 registered
+lottery, +0.146 post-hoc replicate); mixing differences unresolved. Not re-opened without a game where a reader can
+beat `X` on something other than the zero-sum value. **"Sample is more exploitable than exact, approaching more
+slowly" (RE 4).** The reverse at every N from 10² to 10⁷. **The RS's statement in the scored reading** (unexploitable
+individual mixers at N = 10⁴): failed in both objects; approached in the chain near N ≈ 10⁷. **gpt-6.1-sol's
+counter-prediction** (substantial mixing in both stochastic arms at 10⁴): 0.31. **The RE's premise that the chain would
+meet polymorphic or three-type-cycle states.** In a symmetric zero-sum game every two-type contest is dominance or
+neutral; every state is monomorphic. **The run report's limit formula π_∞(c) = μ(c)/μ(Z0)** (subagent): it contradicts
+the exact identity π(`X`) = μ(`X`) at every N.

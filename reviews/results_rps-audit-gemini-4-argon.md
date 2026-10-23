@@ -1,0 +1,13 @@
+# Review of `/private/tmp/claude-501/-Users-jstav-code-program-ecologies/eb8d2660-d0b5-4f2d-a91b-d841b12695c0/scratchpad/results_rps.md` by gemini-4-argon
+
+- **Draft:** `## Rock–paper–scissors and mixed actions: the chain recovers the one-node coin only at N ≳ 10⁷...` and `- *The minimax program is recovered only in the chain's limit, and only as X.* ... and the mixer it recovers is the one-node coin at its prior mass, not a source-reading program.`
+  **Evidence:** In `runs/rps.md` §2, `π(class X)` is identical at every $N$ (`0.227` in `exact`, `0.221` in `sample`), while the guarded-reader class `GN` (`coin X (next(THEM(ME)))`) grows from `0.0010` at $N=10^2$ to `0.3758` at $N=10^7$ in `exact` (`0.3569` in `sample`, `0.3692` in `matched`), and $Z_0$ in `exact` contains both `X` and `next(coin(X, THEM(ME)))`. Moreover, in `exact` at $N \to \infty$, `π_inf(X) = mu(X) / mu(Z_0)` is nearly 1 only because `X` has almost all the prior mass of $Z_0$ (`0.227` of `0.2275`), whereas at $N=10^7$ `π(Z_0)` is only `0.603` (`π(X) = 0.227`) and `GN` (`0.376`, which has $e \in (0, 10^{-3}]$ from its $2^{-13}$ cap residue) still holds more mass than `X`.
+  **Correction:** Do not say the chain at $N \approx 10^7$ recovers "only `X`" or "only the one-node coin at its prior mass". State that `π(X)` equals its prior mass (`0.227`) at *every* $N$, that at $N = 10^7$ the remaining mixing mass is held by $O(2^{-D})$-exploitable guarded readers (`GN` holds `0.36–0.38`), and that only as $N \to \infty$ (well past $10^7$ at $D=12$) does $\pi$ concentrate on $Z_0 = \{\text{X}, \text{next(coin(X, THEM(ME)))}\}$, where `X` dominates by prior weight (`0.227` of `0.2275`).
+
+- **Draft:** `π(X's class) equals its prior mass exactly at every N (0.2275 in the exact arm).`
+  **Evidence:** `runs/rps.md` §2 gives `0.2275` as the prior mass of $Z_0$ (`X` plus `next(coin(X, THEM(ME)))`) in the exact arm; `π(X)` is `0.227` (and §5 says `pi(X) = prior mass 0.227`). Also, `notes/rps.md` §2.4 notes that `X`'s payoff class contains `THEM(^THEM(THEM))` as well as `X`.
+  **Correction:** Change `0.2275` to `0.227` (or state that `0.2275` is $\mu(Z_0)$).
+
+- **Draft:** `Verdicts. Held: ... 6 (the uniform default removes forfeits).`
+  **Evidence:** `predictions/2026-10-23-rps.md` Prediction 6 also predicts that "the pure arm's loophole and the exact arm's mixing become indistinguishable in play", scored separately by whether self-play TV from uniform is $\le 0.05$. In `runs/rps.md` §5, `self-play TV from uniform: exact-uniform 0.053` (slightly above `0.05`).
+  **Correction:** Note that Prediction 6's separate "indistinguishable in play" check is `0.053` against the `0.05` threshold.
