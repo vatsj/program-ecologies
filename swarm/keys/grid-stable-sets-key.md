@@ -6,7 +6,9 @@
 - for even K it is **unique**: the symmetric set {(K/2, K/2, 0) and its permutations};
 - the same holds when allocations may sum to at most K (K ≤ 12 checked).
 
-**Proof status.** No complete proof is in hand, for either part: non-existence for odd K, or uniqueness for even K.
+**Proof status (update 2026-10-22):** every swarm condition proved it; see `runs/grid-stable-sets/SUMMARY.md`.
+
+**Proof status before the run.** No complete proof was in hand, for either part: non-existence for odd K, or uniqueness for even K.
 One ingredient exists in the repo: Lemma G (RESULTS "Stable sets on islands") shows that no discriminatory line
 x_k = c is externally stable on a grid. **Literature** (Sonnet pass, `stable-sets-grid-literature.md`): no source states
 existence, uniqueness or non-existence on the 1/K grid; it is probably folklore or exercise-level. The pass
