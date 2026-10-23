@@ -136,3 +136,59 @@ invaded by nothing except the cost-free constants and M (neutral); every reader 
 re-invaded by readers and by the guards). At N = 10^4 the pi mass on X is >= 0.8 and the mass on the guarded readers is
 below 0.1; at N = 100 selection is weak (N w * 0.06 = 1.8 at the largest payoff gap) and pi is more spread. This is the
 validation cell for the chain machinery (it also reproduces `chain.Chain` on the same table).
+
+## 2. Choices where the spec is silent, and deviations (written with the code, before any counted cell)
+
+*Disclosure.* Before this section was committed I ran, while debugging, the following; none changed a prediction, a scoring
+convention or a cell of the spec. (i) The static table (classes, splits, Prediction 1 statics, work-minus-depth) over all
+arm and price combinations, `runs/rps_priced/static.json`. (ii) The sample arm at c = 0.01: discovery, the chain at N = 100
+(exploration thresholds 1e-6, 1e-8, 1e-10) and N = 10^4 (1e-10), which showed pi(X) = 0.84 at N = 10^4 and a polymorphic mass of
+a few 1e-4; N = 100 at 1e-10 was killed after 20 minutes. (iii) Lottery pipeline tests: sample arm at c = 0 runs 0-2 (they
+reproduce the stored unpriced run bitwise) and exact arm at c = 0.01 runs 0-1 (deleted before the counted cells). (iv) The
+eleven-program toy chain (§1.4(iii)), `runs/rps_priced/toy.json`. The predictions file was committed before any code existed.
+
+1. **Price implemented as §1.** One numba kernel computes `E_d` and `M_d` for every ordered pair of programs
+   (`rps_priced._cost_depth`), the work price replaces the max in `M(coin)` by a sum, the forfeit-only price is
+   `c D P(forfeit)` from the stored forfeit mass. The kernel is checked against a recursive reference on random pairs in every
+   arm and against the hand table of §1.2 on the eleven programs. Payoffs `U - c * cost` are formed on the full program table
+   and only then collapsed to classes.
+2. **Work = depth at n = 6; the work-price sensitivity of the spec is vacuous there.** The check is `HW == H` on the whole
+   table (maximum absolute difference 0.0 in all four arms), so a work-price cell would reproduce the depth-price cell bit for
+   bit and is not rerun; the maximum node count over the n = 6 table is 12, equal to the depth maximum. The sensitivity is
+   made informative at n = 7 on the unpriced exact class representatives (`n7work`, §3 of the run report; the classes are not
+   recomputed under the price there). The spec's remark that the notes' hand table contains cases where depth and work differ
+   is corrected by §1.1: it needs a two-application coin, 7 nodes.
+3. **Classes.** Programs with equal priced payoff rows and columns, rounded to 9 decimals (the chain's own twin tolerance is
+   1e-9) and then merged where the representatives agree within 1e-11 on every entry (rounding-boundary splits); at c = 0 the
+   unpriced 6-decimal rule is used so the unpriced tables are reproduced exactly. Pricing splits only the class of `X`: its
+   unpriced class contains the costly impostor `THEM(^THEM(THEM))`. K goes 87 -> 88 (sample, matched), 125 -> 126 (exact),
+   123 -> 124 (exact-br) and the pure arm is unchanged at 18. Class masses and source multiplicities are the sums of member
+   priors.
+4. **Chain solver.** `LogChain`, twin-expanded, closure-seeded as in the unpriced run, with these choices. (a) The exploration
+   threshold is 1e-8 (log10 theta = -8, not the unpriced 1e-14): once polymorphic states exist, the expansion of every state with
+   inflow above 1e-14 is not affordable (each polymorphic expansion costs 1-3 s, thousands of states); the cut mass is reported
+   per cell as `log10_cut` and the sensitivity cells at N = 10^4 re-run at 1e-6 and 1e-10 and lumped. (b) The invasion
+   closure follows only the 8 strongest invaders at each node (the unrestricted closure explodes: over 100 s at 600 nodes
+   at K = 88), and a multi-start replicator search (1,000 random starts, supports of 2-6 classes, `solver_audit.attractor_search`)
+   supplies further stable polymorphic seeds. Both are N-independent and computed once per cell. (c) Any three-type cycle met
+   by a mutant is recorded as an indeterminate event and receives no stationary weight (`indeterminate_*` fields).
+5. **Lottery.** `rps.lottery_kernel` unchanged; founders drawn at the program level with the unpriced run's founder seeds
+   (`founders|primary` run r), mapped to the priced classes after seeding (tested: summing the priced counts over the members of
+   an unpriced class returns the unpriced founder counts exactly); dynamics seed identical to the unpriced run's, so that the
+   c = 0 pipeline is bitwise the stored run (tested on the stored statistics). Every run is carried to 10,000 generations (the
+   cost is a few seconds per run, so the extension rule "unresolved islands continue to 10,000" is applied to all runs; the
+   generation-2,000 reading stays the primary one, and the 10,000 reading is reported for the runs with an unresolved island and
+   for all). Supports are sampled every 10 generations over [1500, 2000] and [9500, 10000]; the share cut-off is
+   count >= 5% of N. A class change, a return to an earlier support, and no change give unresolved, cycling, resolved.
+6. **Statistics.** Net exploitability `e_prog` = max over the arm's own classes of the priced payoff against the population;
+   gross = same with game payoffs (`e_gross`); individual exploitability `e_indiv` = sum over residents of x_p max_k U_c[k, p];
+   `cost_paid` = x' C x with C the class-level cost matrix (c included), `net_payoff` = x' U_c x. The exploiter-set control uses
+   the priced exact arm at the same price (`rps_priced.get_aex`). The pure arm has no X, so its net exploitability can be
+   negative.
+7. **Work/forfeit/depth-panel controls.** Forfeit-only at c = 0.01 in all four arms; the depth panel holds c D = 0.12 at D = 8
+   (c = 0.015) and D = 16 (c = 0.0075) in the sample and exact arms, with the base tables rebuilt at those caps; exact-br at
+   c = 0.01.
+8. **Memory.** One exact-arm job (priced classes, table memory-mapped, 3,696 programs) peaks at 0.71 GB RSS, so three workers
+   fit comfortably.
+9. **Not done / deviations of scope.** n = 7 priced for the main arms (the priced spec does not ask for it); a 200-run
+   replicate is run only if the budget allows (flagged in the run report).
