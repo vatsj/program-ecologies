@@ -18,3 +18,22 @@ then defects forever. Several also report the minimal size: 7 symbols with const
 
 **Reading.** Once the definition was right, the problem was easy for every model alone. It does not separate
 swarms from solo agents; as on the warmup, swarms cost more tokens and time for the same answer.
+
+# Sonnet alone vs a Sonnet pair (2026-10-22), same problem
+
+The RS asked whether two Sonnet agents that can message each other outperform one. Three replicates per condition,
+60-minute cap, same sandbox, problem and checker as run 2; the pair shares `/work` and `board.md`.
+
+| condition | rep | finish (s) | formula (checker: prudent) | depth-1 proof | input tokens | output tokens | USD |
+|---|---|---|---|---|---|---|---|
+| sonnet | 0 | 52 | `B(a) & B(B(F) \| ~d)` | valid | 99,884 | 5,428 | 0.09 |
+| sonnet | 1 | 53 | `B(a) & B(B(F) \| ~d)` | valid | 134,657 | 6,036 | 0.11 |
+| sonnet | 2 | 42 | `B(a) & B(B(F) \| ~d)` | valid | 98,715 | 4,728 | 0.08 |
+| sonnet+sonnet2 | 0 | 54 | `B(a) & B(B(F) \| ~d)` | valid | 275,342 | 12,158 | 0.21 |
+| sonnet+sonnet2 | 1 | 43 | `B(a & (B(F) \| ~d))` | valid | 297,922 | 9,671 | 0.19 |
+| sonnet+sonnet2 | 2 | 83 | `B(a & (B(F) \| ~d))` | valid | 463,482 | 12,287 | 0.36 |
+
+**Reading.** 6/6 solved both parts in under a minute and a half, with the same world-1 argument as run 2 (RE read every
+proof). The pair is never better: same answer, about 2.4× the cost, and its messages are status and "please review"
+notes; in r0 and r2 both agents wrote `answer.md` concurrently. The problem is below Sonnet's ceiling, so it cannot
+show a gain from communication; the grid stable-sets problem is the harder test.
