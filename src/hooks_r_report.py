@@ -114,6 +114,82 @@ def paired(rows_a, rows_b, g):
     return dict(n=len(reps), a=sum(x), b=sum(y), diff=(sum(x) - sum(y)) / len(reps), only_a=b, only_b=c, p=p)
 
 
+def paired2(rows_a, ga, rows_b, gb):
+    A = {r['rep']: snap(r, ga) for r in rows_a}; B = {r['rep']: snap(r, gb) for r in rows_b}
+    reps = sorted(k for k in A if k in B and A[k] is not None and B[k] is not None and 'uo' in A[k] and 'uo' in B[k])
+    if not reps: return None
+    x = [bool(A[k]['uo']) for k in reps]; y = [bool(B[k]['uo']) for k in reps]
+    b, c, p = mcnemar(x, y)
+    return dict(n=len(reps), a=sum(x), b=sum(y), diff=(sum(x) - sum(y)) / len(reps), only_a=b, only_b=c, p=p)
+
+
+def trajectory(rows):
+    """UO runs, mean island P(C,C) and unheld share at each full snapshot; median generation at which P(C,C) >= 0.99."""
+    out = {}
+    for g in (200, 500, 1000, 2000):
+        S = [snap(r, g) for r in rows]; S = [s for s in S if s and 'uo' in s]
+        if not S: continue
+        out[str(g)] = dict(n=len(S), uo=sum(bool(s['uo']) for s in S), pcc=float(np.mean([np.mean(s['cc']) for s in S])),
+                           unheld=float(np.mean([s['n_unheld'] for s in S]) / len(S[0]['cc'])))
+    t = []
+    for r in rows:
+        hit = [g for (g, p, *_) in r['trace'] if p >= 0.99]
+        t.append(hit[0] if hit else float('inf'))
+    out['t99_median'] = None if np.isinf(np.median(t)) else float(np.median(t))
+    out['t99_never'] = int(sum(1 for x in t if np.isinf(x))); out['n'] = len(t)
+    return out
+
+
+def audit_summary():
+    """Identity audit (hooks_r_run.py idaudit): per cell, audited runs with raw 'identity' labels, the raw count,
+    and the strict count: islands whose majority type is mutual with none of 300 reference self-cooperating units, no
+    panel unit and no living type of another spelling."""
+    out = {}
+    for tag in ('main', 'ablations', 'mrivals'):
+        p = os.path.join(OUT, 'idaudit_%s.json' % tag)
+        if not os.path.exists(p): continue
+        for x in json.load(open(p)):
+            d = out.setdefault(x['cell'], dict(runs=0, raw_i=0, raw_r=0, strict=0, strict_of_i=0, not_reproduced=0, islands=0))
+            isl = x['islands']
+            st = [i for i in isl if i['ref_mutual'] == 0 and i['panel_mutual'] == 0 and i['living_other_mutual'] == 0]
+            d['runs'] += 1; d['raw_i'] += sum(1 for i in isl if i['label'] == 'i'); d['raw_r'] += sum(1 for i in isl if i['label'] == 'r')
+            d['strict'] += len(st); d['strict_of_i'] += sum(1 for i in st if i['label'] == 'i')
+            d['not_reproduced'] += 0 if x['reproduced'] else 1
+            d['islands'] += 64
+    return out
+
+
+STEP_SLOPE = dict(none=224, role=224, behaviour=28866, history=1336, source=1340, root=232)
+
+
+def cost_model(rows):
+    """Modelled verification steps per fill encounter (R15): gene-site checks per fill encounter times steps per check,
+    the latter 71 + (fills per holder) x (scope-weighted per-fill slope) from the gate's measured costs (runs/hooks-r-gate.json
+    g4_steps: slopes from the 1/2/4-fill checks).  Means over runs, not medians; the lists are priced alike in the inert
+    and the live cells (inert fills are held, scanned and never applied)."""
+    import hooks_r_kern as HK
+    out = {}
+    for g in (1000, 2000):
+        v = []
+        for r in rows:
+            s = snap(r, g)
+            if not s or 'fills' not in s: continue
+            held = np.array(s['fills']['held']).sum(1); tot = held.sum()
+            if tot == 0: continue
+            w = held / tot
+            k = min(4.0, tot / (12800 * 0.95))
+            sl = sum(w[i] * STEP_SLOPE[SCOPES[i]] for i in range(6))
+            chk = 71 + k * sl
+            c = s['ctr']
+            v.append((chk, c[HK.CT_EXEC_HOOK] / c[HK.CT_FENC], c[HK.CT_EXEC_FILLED] / max(c[HK.CT_EXEC_HOOK], 1)))
+        if v:
+            v = np.array(v)
+            out[str(g)] = dict(steps_per_check=float(np.median(v[:, 0])), sites_per_encounter=float(np.median(v[:, 1])),
+                               steps_per_encounter=float(np.median(v[:, 0] * v[:, 1])), filled_site_share=float(np.mean(v[:, 2])),
+                               empty_list_steps_per_encounter=float(71 * np.median(v[:, 1])))
+    return out
+
+
 CELLS_MAIN = ['B', 'I', 'M']
 CELLS_ABL = ['M-none', 'M-role', 'M-behaviour', 'M-history', 'M-source', 'M-root', 'seedonly', 'nowrite', 'nocopy',
              'nocontract', 'shuffle', 'noinherit', 'grudgeonly', 'idroutes', 'renorm', 'clone', 'recency']
@@ -135,6 +211,13 @@ def main():
     for c in CELLS_ABL:
         if rows[c] and rows['M']:
             res['paired']['%s-M@1000' % c] = paired(rows[c], rows['M'], 1000)
+            res['paired']['%s-I@1000' % c] = paired(rows[c], rows['I'], 1000)
+            res['paired']['%s-B@1000' % c] = paired(rows[c], rows['B'], 1000)
+            res['paired']['%s@1000-M@2000' % c] = paired2(rows[c], 1000, rows['M'], 2000)
+    res['paired']['M@2000-M@1000'] = paired2(rows['M'], 2000, rows['M'], 1000)
+    res['traj'] = {c: trajectory(rows[c]) for c in allc if rows[c]}
+    res['audit'] = audit_summary()
+    res['cost'] = {c: cost_model(rows[c]) for c in ('I', 'M', 'seedonly', 'clone') if rows[c]}
     for a, b in [('M-400', 'I-400'), ('I-400', 'B-400')]:
         if rows[a] and rows[b]: res['paired']['%s-%s@2000' % (a, b)] = paired(rows[a], rows[b], 2000)
     for c in allc:
@@ -158,11 +241,12 @@ def fmt(x, d=3):
 def markdown(res):
     L = ['# Hooks, Part R: run report (generated by src/hooks_r_report.py)', '',
          'Every number is an ε = 0 lottery statistic at finite (N, I, horizon) on world K, S-nonself production, '
-         'w = 0.3, r = 100, r_f = 2, calibrated mN, (200, 64); classifier as notes §2.5 (mass-based).', '']
+         'w = 0.3, r = 100, r_f = 2, calibrated mN, (200, 64); classifier as notes §2.5 (mass-based). The identity columns of the first table are the raw mass-classifier '
+         'labels, which over-count (a monomorphic rival island is labelled identity); the audited counts are in the identity-audit table.', '']
     C = res['cells']
     L.append('## Cells (universal-open runs of n; per-island rates over all islands of all runs)')
     L.append('')
-    L.append('| cell | g | n | UO | UO 95% | UOT | identity / island | runs with identity | rival / island | unheld / '
+    L.append('| cell | g | n | UO | UO 95% | UOT | identity (raw label) / island | runs with raw identity label | rival / island | unheld / '
              'island | island P(C,C) | hooked holders | majority-spelling share | open share | target share |')
     L.append('|' + '---|' * 15)
     for c, v in C.items():
@@ -211,6 +295,37 @@ def markdown(res):
             L.append('| %s | %s | %.0f | %.0f | %.0f | %.0f | %.0f | %.0f | %.0f | %.0f | %.3g | %.3g | %.0f |' % (
                 c, g, p['writes_grudge'], p['writes_thanks'], p['evictions'], p['copies'], p['contracts'],
                 p['fill_enc'], p['exec_hook'], p['exec_filled'], p['composite'], p['misses'], v['time_s']))
+    L.append('')
+    L.append('## Trajectories (UO runs / mean island P(C,C) / unheld islands per island at each snapshot; median generation at which '
+             'the run mean P(C,C) first reaches 0.99)')
+    L.append('')
+    L.append('| cell | n | g200 | g500 | g1000 | g2000 | median g(P(C,C) >= 0.99) | runs never reaching it |')
+    L.append('|---|---|---|---|---|---|---|---|')
+    for c, t in res.get('traj', {}).items():
+        cols = []
+        for g in ('200', '500', '1000', '2000'):
+            x = t.get(g)
+            cols.append('%d / %.3f / %.3f' % (x['uo'], x['pcc'], x['unheld']) if x else '–')
+        L.append('| %s | %d | %s | %s | %s |' % (c, t['n'], ' | '.join(cols), fmt(t['t99_median'], 0), t['t99_never']))
+    L.append('')
+    L.append('## Identity audit (post hoc; src/hooks_r_run.py idaudit; strict = mutual with none of 300 reference self-cooperating '
+             'units, no panel unit, no living type of another spelling)')
+    L.append('')
+    L.append('| cell | audited runs | raw identity labels | strict identity | strict among raw-identity | raw rival labels | strict among rival-labelled | not reproduced |')
+    L.append('|---|---|---|---|---|---|---|---|')
+    for c, d in res.get('audit', {}).items():
+        L.append('| %s | %d | %d | %d | %d | %d | %d | %d |' % (c, d['runs'], d['raw_i'], d['strict'], d['strict_of_i'], d['raw_r'],
+                                                          d['strict'] - d['strict_of_i'], d['not_reproduced']))
+    L.append('')
+    L.append('## Modelled verification cost (R15; means over runs, lists priced alike in inert and live cells)')
+    L.append('')
+    L.append('| cell | g | steps per check | gene-site checks per fill encounter | steps per encounter | share of reached sites with a live fill | steps per encounter if every list were empty |')
+    L.append('|---|---|---|---|---|---|---|')
+    for c, v in res.get('cost', {}).items():
+        for g, x in v.items():
+            L.append('| %s | %s | %.0f | %.2f | %.0f | %.2f | %.0f |' % (c, g, x['steps_per_check'], x['sites_per_encounter'],
+                                                                    x['steps_per_encounter'], x['filled_site_share'],
+                                                                    x['empty_list_steps_per_encounter']))
     return '\n'.join(L) + '\n'
 
 

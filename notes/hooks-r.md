@@ -412,3 +412,49 @@ Main and core ≈ 70 worker-hours (≈ 23 h on 3 workers). The secondary tier ru
   runs) reruns runs with identity labels deterministically and tests each such island's majority type against 300
   self-cooperating world-K units, the panel and every living type of another spelling; identity counts used in the
   verdicts are the audited ones, the raw labels are reported beside them.
+- **Batches 3 and 4 hung; the memory diagnosis; the single-process finish (2026-10-21/22).** Batch 3 (pid 94156, 90 jobs,
+  3 workers) logged 85 completions, the last (renorm rep 9) at 42,832 s on 2026-10-21 22:02, and then nothing: five jobs
+  never returned (nocontract 7, renorm 3, noinherit 8, M-none 8, nocopy 0) and the pool waited on them forever. The RE
+  killed it by pid and relaunched exactly those five as batch 4 (`batch_main4.log`, pid 55144, 2026-10-22 14:47): three
+  completed (nocontract 7 in 1,408 s, renorm 3 in 2,388 s, noinherit 8 in 2,717 s) and the other two (M-none 8, nocopy 0)
+  hung again. The RE's diagnosis, recorded here as his and not independently verified against system logs: the workers
+  were killed under memory pressure (each job peaks at 3.4-4.7 GB on a 16 GB machine that was shared with other
+  sessions), and `multiprocessing.Pool` with `maxtasksperchild=1` neither re-queues nor reports a task whose worker
+  died, so `imap_unordered` blocks. The evidence for the size of the jobs is the two single-process reruns, each run
+  alone under `/usr/bin/time -l` (`one_Mnone8.log`, `one_nocopy0.log`; `cmd_one --save`, no pool): **M-none rep 8: 1,903 s
+  wall, maximum resident set 4.19 GB, peak footprint 4.67 GB; nocopy rep 0: 995 s wall, maximum resident set 3.43 GB,
+  peak footprint 3.88 GB.** Three such jobs plus the parent come to 10-14 GB. Both reruns exited 0 and produced their
+  rows; the kernel reproduced a counted run in all but one of the 31 reproduction checks made (§2.8), and nothing
+  about the five jobs differs from the 85 pooled ones except the process they ran in. No
+  counted cell was dropped or altered by the hangs; the only cost was wall clock (about 20 h between the last pooled
+  completion and the last single rerun). **Rule from here:** this run's jobs are launched one process at a time (or
+  with a worker cap that fits the memory peak), never in a pool of three on this machine.
+- **Completion check (2026-10-22).** Every counted cell has all its replicates at its horizon and no error rows:
+  B, I, M 20 each at 2,000; seedonly, M-source, M-root, M-behaviour, M-history, nowrite, idroutes, clone 20 each at 1,000;
+  M-none, M-role, nocopy, nocontract, shuffle, noinherit, grudgeonly, renorm 10 each at 1,000. The projected costs of
+  §2.6 held (the secondary tier ran at 10 replicates as planned; nothing further was dropped beyond §2.5 item 9).
+
+### 2.8 Completion, the identity audit and one irreproducible row (2026-10-22/23, after every counted cell)
+
+- **Audit commands** (all single processes, run one after another; outputs `runs/hooks_r/idaudit_{main,ablations,mrivals}.json`
+  and `.log`): `idaudit --tag main` on every main-cell run with a raw identity label at the horizon it carried it
+  (B rep 13 at 1,000 and 2,000; I reps 1, 2, 13, 14, 15; 10 reruns, 960 s); `--tag ablations` on the cheapest labelled
+  runs of the ablation cells (seedonly 14, 15; idroutes 1, 5; M-source 16, 9, 13; nocopy 2, 7; M-history 10, 18, 17;
+  grudgeonly 4; nocontract 1; clone 19, 18, 11; 17 reruns, 6.5 h); `--tag mrivals` on three of M's six runs with rival
+  islands at 2,000 (reps 11, 12, 0; 6 of its 10 rival islands; 65 min, peak 8.3 GB resident, 10.9 GB footprint). Not
+  audited: the labelled runs of the cells and reps not listed (their raw labels are upper bounds), M's reps 4, 9, 19.
+  Results: of 250 islands labelled identity or rival in the non-clone audited runs, **one** is strict identity (M-history
+  rep 17); in the three clone runs 95 of 192 islands are strict identity (61 of the classifier's 99 identity labels and
+  34 of its 86 rival labels).
+- **Reproduction checks.** Each audit rerun checks that the class string at the audited generation equals the stored one:
+  29 of 30 do. The exception is **M-source rep 16**: a single-process rerun to 1,000 (`one --cell M-source --rep 16`, probe
+  file `probe_M-source_16.json`, 653 s) diverges from generation 10 on (P(C,C) 0.0648 stored against 0.0599; 0.9854
+  against 0.9965 at 1,000; class strings `oioooo...` against `ooooooro`) with the same code (src unchanged since
+  2026-10-18 23:46) and the same founders. The cause is **not diagnosed** (candidates: a hash-order or time-dependent
+  step in the host tactic or its memo; an uncontrolled counter stream). The counted row stays as run; it is one draw of
+  the lottery from the same founders, and the cell's verdicts use it; the rerun is reported here and not substituted.
+  Consequence for the statement "the kernel is deterministic in (cell, replicate)" (§2.7 batch 1): it holds in 29 of 30
+  audit reruns and in the earlier I rep 1 rerun, and fails in 1.
+- **Report additions** (`src/hooks_r_report.py`): contrasts of every ablation against I and B at 1,000 and against M at
+  2,000, a trajectory table (UO, P(C,C), unheld islands at 200/500/1,000/2,000; median generation of P(C,C) >= 0.99), the
+  audit table and the modelled cost table (R15). Verdicts: `runs/hooks-r-verdicts.md`.
