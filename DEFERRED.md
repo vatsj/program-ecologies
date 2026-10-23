@@ -491,7 +491,9 @@ REJECTED.md the ones we dropped.
   reasoning, self-keyed hook fills, DEFERRED 12). Consequences: the PD carrier grammar P has no `eq`, so provenance,
   world K, the scaling paths, prudence and hooks Part R are no-`eq`-wing results and stand under S-nonself; the clone
   cell of Part R is read as the `eq`-wing hooks cell; the social organization game fully realizable (`eq` in both
-  roles, S-nonself₃) is an `eq`-wing result under the old rule and is queued for a rerun under self-play production.
+  roles, S-nonself₃) is an `eq`-wing result under the old rule; its S-opp cell (no worker gate) is exactly self-play
+  production there and already answers the rerun: no fair run of 20 against about 0.07 persistence under S-nonself₃,
+  no greenbeard island, no self-play-only script held (RESULTS addendum, 2026-10-23).
 - *Evidence (2026-10-14, legibility at founding):* founding lists change nothing (L1 0.001 on the ideal table, 0.002 at
   3·10⁶); fuel does not help produced lists (0.034 at 3·10⁶); full lists recover 0.30 on the ideal table where produced
   lists give 0/20 (RESULTS "Legibility at founding"). *Operating hypothesis:* the realizable claim on distribution is
