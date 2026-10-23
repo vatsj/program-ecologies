@@ -147,6 +147,10 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 53. ~~Rock–paper–scissors and mixed actions (RS)~~ (done; RESULTS "Rock–paper–scissors and mixed actions": the chain is a tournament, the coin holds exactly its prior mass, unexploitable individual mixing is approached only near N ≈ 10⁷; the lottery is held by readers whose self-play forfeits; exact reading brings no benefit; a uniform default manufactures mixing without protection; DEFERRED 16).
 
+54. RPS with a compute price (RS, 2026-10-23: non-play is not free; default depth price, a forfeit costs c·D): priced pure, sample, matched and exact arms, forfeit-only and work-price controls (running: `specs/2026-10-23-rps-priced.md`).
+55. The inspection game (RS, 2026-10-23, "sgtm"): a mixed-equilibrium game where visible randomization is worth more than hidden (commitment value), so readers can earn their place against the coin. After 54.
+56. A basic endgame (RS, 2026-10-23): sequential perfect-information play, target backward induction; which game is to be confirmed with the RS.
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).
