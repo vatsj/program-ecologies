@@ -238,3 +238,20 @@ def test_state_stats_uniform_population():
     st = rps.state_stats(A, ids, [1 / 3] * 3, nm)
     assert abs(st['e_act']) < 1e-12 and st['e_prog'] > 0.99
     assert st['mix_pop'] == 0.0 and abs(st['share_consts'] - 1) < 1e-12
+
+
+def test_blocked_evaluation_matches_full_table():
+    """src/rps_n7.py (blocked rows/columns, class-level closed pass) reproduces the full-table classes and payoffs at n = 6."""
+    import rps_n7
+    for name in ('exact', 'sample'):
+        A = arm(name)
+        B = rps_n7.build_arm_blocked(name, 6, 12, block=200)
+        assert B.K == A.K
+        assert abs(B.mass.sum() - 1) < 1e-12
+        # same classes by representative name; same payoff tables and distributions
+        ia = {nm: i for i, nm in enumerate(A.names)}
+        perm = np.array([ia[nm] for nm in B.names])
+        assert np.abs(B.U - A.U[np.ix_(perm, perm)]).max() < 1e-12
+        assert np.abs(B.Gcl - A.Gcl[np.ix_(perm, perm)]).max() < 1e-12
+        assert np.abs(B.mass - A.mass[perm]).max() < 1e-12
+        assert B.consistency_err < 1e-12

@@ -455,7 +455,11 @@ def get_arm(arm, n=6, D=12, mu_kind='bits', full=False):
     path = os.path.join(CACHE, '%s_n%d_D%d_%s.npz' % (arm, n, D, mu_kind))
     if not full and os.path.exists(path):
         return load_arm(arm, n, D, mu_kind, path)
-    A = build_arm(arm, n, D, mu_kind=mu_kind)
+    if n >= 7:
+        import rps_n7
+        A = rps_n7.build_arm_blocked(arm, n, D, mu_kind=mu_kind, verbose=True)
+    else:
+        A = build_arm(arm, n, D, mu_kind=mu_kind)
     save_arm(A, path + '.tmp.npz')
     os.replace(path + '.tmp.npz', path)
     if not full:
@@ -494,7 +498,7 @@ def const_mask(A):
     return m
 
 
-def state_stats(A, ids, x, nm=None):
+def state_stats(A, ids, x, nm=None, Aex=None, emap=None):
     """Statistics of a class-level population (ids, x): all in-population quantities of the spec."""
     ids = np.asarray(ids, int); x = np.asarray(x, float)
     x = x / x.sum()
@@ -527,12 +531,23 @@ def state_stats(A, ids, x, nm=None):
     else:
         out['e_act_cond'] = float('nan'); out['freq'] = [float('nan')] * 3
     out['tv_self_play_uniform'] = float(x @ _tv(self_dist, UNI4))
+    if Aex is not None:
+        # exploiter set held fixed: the best any class of the exact grammar earns against this population
+        out['e_exset'] = float((Aex.U[:, emap[ids]] @ x).max())
     if nm is not None:
         for k, c in nm.items():
             out['share_' + k] = float(x[ids == c].sum())
         cm = const_mask(A)
         out['share_consts'] = float(x[cm[ids]].sum())
     return out
+
+
+def embed_classes(A, Aex):
+    """class of the exact arm that has the same behaviour as each class of A's representative (next2 read as next)."""
+    m = np.empty(A.K, np.int64)
+    for c in range(A.K):
+        m[c] = Aex.cls_of[Aex.lang.find(A.names[c].replace('next2(', 'next('))]
+    return m
 
 
 # ---------------------------------------------------------------- chain provider
@@ -702,11 +717,11 @@ def run_seed(base, r):
     return zlib.crc32(('rps|%s|%d' % (base, r)).encode()) & 0x7fffffff
 
 
-def island_stats(A, counts, N, nm=None):
+def island_stats(A, counts, N, nm=None, Aex=None, emap=None):
     """Per-island statistics at one checkpoint.  counts: (I, K) class counts.  Returns a dict of arrays over islands."""
     I = counts.shape[0]
     keys = ['e_prog', 'e_act', 'e_act_cond', 'forfeit_plays', 'forfeit_self', 'mix_pop', 'mix_self', 'regret', 'nclass', 'homo',
-            'tv_marg', 'max_regret']
+            'tv_marg', 'max_regret'] + (['e_exset'] if Aex is not None else [])
     out = {k: np.zeros(I) for k in keys}
     out['freqR'] = np.zeros(I); out['freqP'] = np.zeros(I); out['freqS'] = np.zeros(I)
     if nm is not None:
@@ -715,7 +730,7 @@ def island_stats(A, counts, N, nm=None):
     for i in range(I):
         ids = np.nonzero(counts[i] > 0)[0]
         x = counts[i, ids] / counts[i].sum()
-        st = state_stats(A, ids, x, nm)
+        st = state_stats(A, ids, x, nm, Aex, emap)
         for k in keys:
             if k in st:
                 out[k][i] = st[k]

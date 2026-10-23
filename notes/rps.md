@@ -196,3 +196,16 @@ predictions file was committed before any code existed.
    processes at a time, one job per process, no pools.
 10. **Not done at the time of writing:** n = 7 (the full table would be 17,888 programs, 10 GB per buffer; decided after the
     n = 6 cells, see below if added).
+11. **Added after the first counted cells (disclosed; no prediction, convention or cell of the spec was changed).** (a) The
+    first counted chains showed the exact arm more exploitable than the matched arm; since in-population program
+    exploitability is a maximum over each arm's own grammar, a control with the exploiter set held fixed (the best any class
+    of the exact grammar earns against the arm's population, representatives re-spelled with `next2` read as `next`) was added
+    as `e_exset` (chain: recomputed for all chain cells; lottery: computed offline from the stored compositions at
+    generation 2,000). The primary statistic (`e_prog`, own grammar) is the one the conventions score. (b) N = 10^5 and 10^6
+    chains, to see the approach to the N -> infinity limit; the closed-form limit pi_inf(c) = mu(c)/mu(Z0) on the unexploitable
+    classes Z0 follows from the neutral-entrant argument (pi(X) = mu(X) exactly) and is reported beside the finite-N cells.
+    (c) A 200-run independent replicate of the primary lottery cell (pure, sample, matched, exact), because 40 runs cannot
+    resolve the exact-minus-matched difference. (d) n = 7 (src/rps_n7.py, blocked evaluation; the class table is exact, 17,888
+    programs in the exact grammar, K = 376 classes), chains at N = 10^2..10^5 and the primary lottery in the four arms. (e) The
+    report script `src/rps_report.py` was written after the counted cells (the spec lists it with the code); it only reads
+    the stored cells.
