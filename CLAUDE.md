@@ -149,7 +149,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 54. RPS with a compute price (RS, 2026-10-23: non-play is not free; default depth price, a forfeit costs c·D): priced pure, sample, matched and exact arms, forfeit-only and work-price controls (running: `specs/2026-10-23-rps-priced.md`).
 55. The inspection game (RS, 2026-10-23, "sgtm"): a mixed-equilibrium game where visible randomization is worth more than hidden (commitment value), so readers can earn their place against the coin. After 54.
-56. A basic endgame (RS, 2026-10-23): sequential perfect-information play, target backward induction; which game is to be confirmed with the RS.
+56. Basic Endgame in poker (RS, 2026-10-23; Ferguson & Ferguson, "The endgame in poker"): two fixed roles, a hidden card for I, bet / check and call / fold; closed-form target (I bluffs w.p. π = (b/(2a+b))·P/(1−P), II folds w.p. b/(2a+b), value 2aP(2a+2b)/(2a+b) − a); hidden information that source reading cannot see, beside coins it can only simulate. After 54, inheriting its price rule.
 
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
