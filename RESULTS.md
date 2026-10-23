@@ -6253,6 +6253,104 @@ anti-punisher mass). So prediction 3 (K shrinks the premium) failed as a tie.
 - K and L have the same primary premium. Their population effects are uncertain at this horizon: at A156 on 40 runs,
   K − L in prudent share is −0.128, interval [−0.290, 0.038].
 
+## Hooks in the realizable language (Part R): no gain, history fills slow the scramble, identity only through self-keyed fills (2026-10-23)
+
+Spec `specs/2026-10-18-hooks.md` (Part R), predictions `predictions/2026-10-18-hooks-r.md` (the RS's statements first,
+committed before any code ran), notes `notes/hooks-r.md` (§1 by hand before code; §2 lists the deviations, the drop
+order and the cost plan, written before any counted cell; §2.7 the hung batches and the memory diagnosis; §2.8 the audit
+and one row that did not reproduce), report `runs/hooks-r.md` and `.json`, verdicts `runs/hooks-r-verdicts.md`, rows and
+audits `runs/hooks_r/`. Run by an Opus subagent and finished by a Sonnet subagent (`src/hooks_r*.py`; 6 tests, which
+need the untracked `runs/provenance/static` cache and pass where it exists). Setting: world K, S-nonself production,
+(N, I) = (200, 64), ε = 0, w = 0.3, paired founders; B is the no-hook baseline (grammar P), I the inert-hooks control
+(the same grammar with HOOK nodes whose fills are held but never applied), M maximal hooks. Every number is a lottery
+statistic at finite (N, I, horizon), not π.
+
+**Deviations that bound the claims.**
+- Horizons: the predictions say 10,000 for the main cells and 2,000 for the ablations. The cost plan (notes §2.5 item 8,
+  declared before the counted cells) ran B, I and M to 2,000 and every ablation to 1,000, scored against M at 1,000.
+  At 1,000 M's scramble is not over, so each ablation contrast mixes a final-state effect with a speed effect. Every
+  verdict below is therefore a shortened-horizon assessment; the registered horizons are untested.
+- Replicates: 20 per cell in the main and first-tier ablation cells, 10 in eight secondary cells.
+- Dropped by the drop order: the social organization wing (RE 4), fission–fusion (RE 5, R10), the recency-only conflict
+  rule (R13) and the (400, 64) size check (R14).
+- Identity counts are after an audit: the mass classifier's identity label over-counts monomorphic rival islands. 30
+  counted runs were rerun with a strict test (an island is identity when its majority type is mutual with none of 300
+  reference self-cooperating units, no panel unit and no living type of another spelling); 29 reproduced their stored
+  class string. Audit coverage is partial (B and I fully; 3 of M's 6 rival-bearing runs; the cheapest labelled ablation
+  runs; 3 of 20 clone runs), so unaudited raw labels are upper bounds.
+- Implementation conventions (notes §2.5): 2 fill encounters per Moran event, not 10 (about 4 per individual per
+  generation); composite productions use the host tactic without world K's executed-cap patch; two types that differ
+  only in their fills' source metadata count as distinct quotes; an inert write that matches a held fill updates it in
+  place and makes it inert.
+- Pooled batches hung twice, suspected memory pressure (an unverified diagnosis; single jobs peak at 3.4–4.2 GB
+  resident, the M audit at 8.3 GB); the last jobs ran as single processes.
+
+**The gate held.** 598/598 gene-site checks agree between the term's check, the host replay and the host-side conflict
+rule; 223 accepted certificates, 0 false atoms; Lemma H 1,800/1,800 pairs. Executed plays under the fuel cap differ from
+ideal plays in 2 of 360 sampled pairs (nested gene-site checks can exhaust the cap).
+
+**Main cells** (UO = universal-open runs, UOT = universal on the PrudentBot target; exact McNemar on paired founders):
+
+| cell | UO at 1,000 / 2,000 | UOT at 1,000 / 2,000 | rival islands per island | island P(C,C) | PrudentBot share |
+|---|---|---|---|---|---|
+| B (no hooks) | 17 / 19 | 14 / 16 | 0.007 / 0.006 | 0.998 / 0.999 | 0.93 / 0.95 |
+| I (inert hooks) | 11 / 12 | 8 / 9 | 0.028 / 0.026 | 0.996 / 0.995 | 0.92 / 0.90 |
+| M (maximal) | 2 / 11 | 0 / 3 | 0.087 / 0.008 | 0.953 / 0.997 | 0.62 / 0.72 |
+
+- **Hooks buy nothing.** Adding inert HOOK nodes to the grammar alone costs 0.35 of universality at 2,000 (I − B,
+  p = 0.016), carried by rival islands and the target (UOT 9 against 16). Live maximal fills cost a further 0.45 at
+  1,000 (p = 0.012) and 0.05 at 2,000 (p = 1): M's scramble is about 1,000 generations longer (median generation to
+  island P(C,C) ≥ 0.99 is 1,250 against 250 in B and I), and by 2,000 it is over. What M still pays at 2,000 is the
+  target: UOT 3/20 against 9 and 16.
+- **What survives is history.** By generation 200 the held mass of the none, role, behaviour and root scopes is
+  negligible (below 0.01 each, cause not separated). Held fills at 2,000 are history 0.83 and source 0.17, carried by
+  writes and copying (contracts under 0.1).
+- **The delay is implicated in the history writes, not in the root and behaviour scopes the design emphasised** (UO at
+  1,000 against M's 2/20): writes inert 14/20 (+0.60, p = 0.004), seeding only 15/20 (+0.65), history scope inert 10/20
+  (+0.40), root inert 4/20, behaviour inert 5/20, source inert 3/20; contracts inert also helps on 10 runs (6/10 against
+  1/10, p = 0.06). The trajectories are mixed: with the history scope inert, island P(C,C) is lower early (0.28 against
+  M's 0.60 at generation 200) but reaches 0.99 sooner (median generation 575 against 1,250). Removing the history scope
+  raises the PrudentBot share at 1,000 from 0.62 to 0.77. With history keys shuffled or restricted to grudges,
+  efficiency drops inside the window (island P(C,C) 0.856 and 0.770, 10 runs each).
+- **Identity is rare under S-nonself, even with maximal hooks.** In the audited samples strict identity is 0 in B, I
+  and M, and one island in 1,280 in the history-inert cell. Of 250 raw identity or rival labels audited outside the
+  clone cell, 1 is strict identity; the others are mutual with 9 to 267 of the 300 reference units. Seeded self-keyed
+  fills are 0.05 per run. The audit is partial (6 of M's 10 rival islands), so absence is not established.
+- **Identity is abundant when fills may key to one's own spelling** (the clone cell, S-self writes and contracts): UO
+  0/20, 0.49 strict identity islands per island in 3 audited runs (34 of them labelled rival by the classifier, so raw
+  labels are not upper bounds here), and a persistent 7% inefficiency inside held islands (mean P(C,C) 0.916 / 0.927 /
+  0.930 at generations 200 / 500 / 1,000). Whether thanks fills or contracts mint these cliques is not separated.
+- **Cost.** Under the registered pricing (inert and live lists priced alike), mean verification cost is 1.2× the inert
+  control's at 1,000 and 1.05× at 2,000 (R15 registered a median, which was not measured). That model hides the price of fills: a gene-site check on a list of about four history or source fills
+  costs about 5,400 steps against 71 for an empty list, and a behaviour fill would cost about 29,000 (none survives).
+
+**Verdicts** (shortened horizons throughout). Held: R1 (gate), R2 (seeded keys nearly inert), R4 (no seeded identity,
+in the audited samples), R8 (history the most held kind), R11 (clone fills mint identity), R15 on means (the registered
+median not measured), RE 8 (argon) on its first clause (the thanks-versus-contracts clause unresolved). Failed: RE 2 (history protects gentle programs; the sign is wrong), RE 3 (source-keyed fills bring identity
+back; the universality deficit held at −0.40, the mechanism did not), R3 (dilution within ±0.2; it is −0.35), R6 (loss
+located in root and behaviour), R7 (history decides little), R9 (islands stay efficient; five cells below 0.95 at 1,000 with
+runs lost to a failed scramble excluded, four of them unfinished scrambles and the clone cell persistent; nowrite is
+0.958 without its lost run and 0.910 with it), R12 (other fill sources add commitments, not losses;
+−0.65 against seeding only). Partial: RE 6 (identity 0 with source, history and contracts inert, but UO +0.20 above
+the inert control, outside the "within 0.1" clause). Inconclusive at the registered horizon: R5 (M − I −0.05 at 2,000;
+−0.45 at 1,000). RE 7 (sol): the history-conditional and efficiency clauses are supported; the wing comparison and the
+repeat-encounter clause were not measured. Not scored: RE 4, RE 5, R10, R13, R14.
+
+**Reading.**
+- In the realizable PD under S-nonself, maximal hooks are not a lever for universal cooperation: they lengthen the
+  scramble and thin the PrudentBot target, and the fills that survive are encounter-written thanks and grudges spread by
+  copying. These fills are sound but ecologically unhelpful.
+- This differs from the weak wing, where behaviour-keyed fills recovered the lottery (RESULTS "Every behavioural
+  predicate as a hook key"). Here no seeded behaviour fill survives past generation 200 (each costs about 29,000 steps
+  per check; whether the fuel cap or selection removes them is not separated), so the realizable wing never gets the
+  inheritance of partner-conditioned fills that carried the weak wing.
+- Identity follows provenance: it needs a self-keyed route, as self-play production did (RESULTS "Provenance").
+  Admitting fills keyed to one's own spelling is the RS's call, as for self-play production.
+- Unanswered: the social organization wing, fission–fusion and the size check.
+- *Caveats:* 20 replicates (a UO of 11/20 has a 95% interval of [0.32, 0.77]); the ablations are scored mid-scramble;
+  the audit covers a subset of labelled runs; one counted row (M-source rep 16) diverged on rerun from generation 10
+  with the same code and founders, cause undiagnosed, and stays as counted.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

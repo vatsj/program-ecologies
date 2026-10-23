@@ -1151,3 +1151,16 @@ p = 0.003 by sign test). **"World K shrinks the premium per sucker encounter" (R
 S4, S6, S9 and S7's timing clause.** Universality stays 1.00 at A156, growth is mostly resident-descended, and 0.917 of
 arrivals land by t = 5,000. **Dropped design:** the SD52 arm as a clean sucker removal; it removes only the unconditional
 cooperators.
+
+
+## Added 2026-10-23: hooks in the realizable language, Part R (RESULTS.md, "Hooks in the realizable language (Part R)")
+
+All at shortened horizons (2,000 for B, I, M; 1,000 for ablations). **"Source-keyed fills bring identity back in Part R"
+(RE 3).** Strict identity 0 in the audited M runs under S-nonself; the universality deficit (−0.40) is real but
+implicated in history writes and rivals, not identity. **"The loss is located in the root and behaviour scopes" (R6).**
+Those inert recover 22% and 33% of the gap; history writes recover more than all of it. **"History decides little at
+natural seeds" (R7) and "history fills protect gentle programs" (RE 2).** Removing the writes raises universal-open
+2 → 14 of 20 and the PrudentBot share 0.62 → 0.80; the sign is the opposite of RE 2. **"Other fill sources add
+commitments, not losses" (R12).** −0.65 against seeding only. **"Islands stay efficient at ≥ 0.98 with hooks" (R9).**
+Five cells below 0.95 at 1,000; four are unfinished scrambles, the clone cell's loss persists. **"Grammar dilution
+within ±0.2" (R3).** −0.35. Open, not rejected: whether thanks fills or contracts mint the clone cell's cliques.

@@ -618,6 +618,12 @@ REJECTED.md the ones we dropped.
   observed, and the recovery needs the prover's guard to be expressible (a-free 0.10). The winners are generous provers;
   prudence does not arise. *RE:* nothing here spooks the admission; it stands. The prudence premium needs a family in
   which prudent keys have prior mass.
+- *Evidence (2026-10-23, RESULTS "Hooks in the realizable language (Part R)"):* in the realizable PD under S-nonself,
+  maximal hooks give no gain (universal-open 19 / 12 / 11 of 20 for no hooks / inert / maximal at 2,000; on the
+  PrudentBot target 16 / 9 / 3); the surviving fills are history fills and identity appears only when fills may key to
+  one's own spelling (0.49 strict identity per island in the clone cell). *Decision for the RS:* are self-keyed fills
+  admissible? *Operating hypothesis until he decides:* no, by analogy with S-nonself production (provenance); the
+  clone cell is reported as a diagnostic.
 
 ## 13. Threats: drift versus testing (RS, 2026-10-11)
 - *RS's guess:* inactive threats should drift out quickly enough to disarm them over the long run.
