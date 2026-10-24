@@ -192,3 +192,29 @@ eleven-program toy chain (§1.4(iii)), `runs/rps_priced/toy.json`. The predictio
    fit comfortably.
 9. **Not done / deviations of scope.** n = 7 priced for the main arms (the priced spec does not ask for it); a 200-run
    replicate is run only if the budget allows (flagged in the run report).
+
+## 3. Deviations and facts recorded while running (after the counted cells began)
+
+1. **Batch.** 26 jobs of `rps_priced_run.py job` (one process each, three at a time, peak 0.7 GB) plus the 200-run replicates of the four arms at
+   c = 0.01 (`--lottery primary200`, same founder seeds as the unpriced replicate). Per job: discovery once (about 100-150 s: pairs,
+   triples, the 8-strongest-invader closure, 1,000-start replicator search), then the four chains, then the lottery cells. Exploration threshold
+   1e-8 (primary); the N = 10^4 sensitivity cells re-ran at 1e-6, 1e-10 and lumped for the four arms at c = 0.01 only.
+2. **c = 0 reference.** Run through this pipeline (chains N = 10^3, 10^4; lottery primary) so that the reference has the extra statistics (readers,
+   guarded, cost); the lottery rows are bitwise the stored unpriced run (tested) and the chain rows agree with the stored chains to 1e-6.
+3. **The 200-run replicate** was not in the spec's cut order; it was run because 40 runs cannot resolve Prediction 7 (disclosed; it is a
+   supplementary cell and is reported beside the 40-run paired difference, which is the scored one).
+4. **Resolution rule.** Applied at the primary generation-2,000 reading and, for every run, at generation 10,000; the "cycling" label is
+   frequent because a class hovering around the 5% cut-off revisits an earlier support, so it measures drift among neutral classes, not
+   a limit cycle of the replicator. Cycling and unresolved islands are reported, not extended.
+5. **Work price at n = 6** was not run as separate cells (identical tables, §2.2). The n = 7 work-versus-depth supplement is described in the run
+   report; if its chain did not finish, the report says so.
+6. **Correction to §1.1.** The hand estimate "grows like 2^(D/2)" for the work of an exact reader of a two-application coin was wrong. Both branches
+   of `coin(THEM(ME), THEM(THEM))` execute an application and recurse into the same reader at every level, so the exact computation
+   executes 1 + 2 + ... + 2^(D-1) = 2^D - 1 = 4095 applications at D = 12 (the computed maximum over the n = 7 closed set is 4095, for
+   `cr(...)` readers of that coin; the depth cost of the same pair is 12). 244 of the 141,376 class pairs have work above depth. At c = 0.01 that
+   is a branching tax of 41 per play, so a work price would end exact reading of branching programs outright; none of them is in the chain's
+   support, which is why the n = 7 chains under the two prices coincide to six decimals.
+7. **n = 7 chains.** The first full-discovery launch used the unpriced exploration threshold 1e-14 by mistake (a missing argument in the
+   `n7work` driver) and was killed after about 2 hours of CPU; the reported n = 7 cells are the restricted-discovery run (`--quick`: pairs and
+   triples among the 120 highest-prior classes, the 8-strongest-invader closure, no attractor search, threshold 1e-8), with the classes of the
+   unpriced n = 7 table (not recomputed under the price).

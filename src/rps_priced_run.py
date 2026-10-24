@@ -452,21 +452,22 @@ def cmd_n7work(a):
         P.K, P.rep, P.members, P.mass, P.cls_of, P.names = A7.K, A7.rep, A7.members, A7.mass, A7.cls_of, A7.names
         P.Ug = A7.U; P.Hc = c * Hm; P.U = np.round(A7.U - c * Hm, 12); P.Gcl = A7.Gcl
         P.reader, P.guarded = reader, guarded
-        disc = discover(P, att_starts=400)
+        disc = discover(P, att_starts=0 if a.quick else 400, pool_cap=120 if a.quick else None)
         for N in (1000, 10000):
-            res = chain_cell_p(P, N, None, None, disc)
+            res = chain_cell_p(P, N, None, None, disc, log_theta=math.log(1e-8))
             st = res['pi_stat']
             out['%s_N%d' % (kind, N)] = dict(e_prog=st['e_prog'], e_gross=st['e_gross'], mix_pop=st['mix_pop'], forfeit_self=st['forfeit_self'],
                                               forfeit_plays=st['forfeit_plays'], X=st.get('share_X', 0.0), readers=st['share_readers'],
                                               cost_paid=st['cost_paid'], poly=res['pi_polymorphic_mass'], n_recurrent=res['n_recurrent'])
             print('n7work chain %s N=%d: %s' % (kind, N, out['%s_N%d' % (kind, N)]), flush=True)
-    jdump(out, os.path.join(OUT, 'n7work.json'))
+    out['quick'] = bool(a.quick)
+    jdump(out, os.path.join(OUT, 'n7work_quick.json' if a.quick else 'n7work.json'))
 
 
 def main():
     ap = argparse.ArgumentParser()
     sp = ap.add_subparsers(dest='cmd')
-    sp.add_parser('prep'); sp.add_parser('static'); sp.add_parser('toy'); sp.add_parser('n7work')
+    sp.add_parser('prep'); sp.add_parser('static'); sp.add_parser('toy'); sp.add_parser('n7work').add_argument('--quick', action='store_true')
     j = sp.add_parser('job'); j.add_argument('arm'); j.add_argument('--c', type=float, required=True)
     j.add_argument('--kind', default='depth'); j.add_argument('--D', type=int, default=12)
     j.add_argument('--chains', type=int, nargs='*', default=[]); j.add_argument('--lottery', nargs='*', default=[])
