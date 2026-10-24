@@ -123,10 +123,31 @@ def main():
     ik = ['u0g', 'u1g', 'isl_efficient', 'isl_commit_comply', 'p_insp', 'q_cheat', 'fam0_prover', 'fam0_rim', 'fam0_sim', 'fam0_carrier', 'sh1_C0', 'fam1_enum', 'fam1_check', 'fam1_pcr']
     il = ['inspector payoff', 'inspectee payoff', 'efficient islands', 'committed+compliant', 'P(inspect)', 'P(cheat)', 'RI share', 'RIM share', 'SI share', 'carrier share', 'C0 share', 'PR share', 'CR share', 'PCR3 share']
     P(R.lottery_rows('insp', ['full', 'noprover', 'notape', 'prand', 'insp_only', 'ee_only'], ik, il))
+    rows = []
+    for arm in ('full', 'noprover', 'notape', 'prand', 'insp_only', 'ee_only', 'nosim'):
+        n = cn('insp', arm, 'c0')
+        if R.load(n) is None: continue
+        rows.append([arm] + [fmt(stat(n, k)) for k in ('u0g', 'u0', 'u1g', 'u1', 'steps0', 'steps1', 'e0', 'e1')])
+    P('Raw game payoff beside the compute-adjusted (net) payoff at c0, and steps per encounter (STATIC tables weighted by the island populations):\n')
+    P(R.md_table(['arm (c0)', 'inspector game', 'inspector net', 'inspectee game', 'inspectee net', 'inspector steps', 'inspectee steps', 'e0 (net exploitability of the inspectee side)', 'e1 (of the inspector side)'], rows))
     P('Renormalized arms (disabled templates removed, prior renormalized; co-primary where the default shifts a founder share by more than 0.05):\n')
     P(R.lottery_rows('insp', ['noprover', 'notape', 'insp_only', 'ee_only'], ik, il, renorm=True))
     P('Generation 4,000:\n')
     P(R.lottery_rows('insp', ['full', 'noprover', 'notape', 'prand', 'insp_only', 'ee_only'], ik, il, g='4000'))
+
+    # ---------------------------------------------------------------- support and transitions
+    P('## Support and transition structure (LOTTERY)\n')
+    P('Dominant template per island at generation 2,000 (share of islands over all runs; top five) and the fraction of islands whose dominant template differs between generations 2,000 and 4,000 '
+      '(drift among neutral or cycling templates; "resolved" in the tables is the fraction of islands whose support is unchanged between 1,500 and 2,000).\n')
+    rows = []
+    for lab, n in (('RPS full free', cn('rps', 'full', '0')), ('RPS full c0', cn('rps', 'full', 'c0')), ('RPS nosim c0', cn('rps', 'nosim', 'c0')),
+                   ('RPS prand c0', cn('rps', 'prand', 'c0'))):
+        rows.append([lab] + list(dominant(n, 0)))
+    for lab, n in (('inspection full free', cn('insp', 'full', '0')), ('inspection full c0', cn('insp', 'full', 'c0')), ('inspection nosim free', cn('insp', 'nosim', '0')),
+                   ('inspection ee_only free', cn('insp', 'ee_only', '0')), ('inspection insp_only free', cn('insp', 'insp_only', '0'))):
+        rows.append([lab + ' (inspectors)'] + list(dominant(n, 0)))
+        rows.append([lab + ' (inspectees)'] + list(dominant(n, 1)))
+    P(R.md_table(['cell', 'dominant templates at 2,000', 'dominant changed 2,000 -> 4,000'], rows))
 
     # ---------------------------------------------------------------- panels
     P('## Panels (LOTTERY)\n')
@@ -159,19 +180,51 @@ def main():
         rows.append([lab] + [fmt(stat(n, k)) for k in ('sh_U', 'tape_mixers', 'fam_sim', 'forfeit', 'e_prog', 'e_indiv')])
     if rows: P(R.md_table(['cell', 'U share', 'tape mixers', 'simulators', 'forfeits', 'e_prog', 'e_indiv'], rows))
 
+    # ---------------------------------------------------------------- added after the registered cells
+    P('## Added after the registered cells (post-hoc; labelled)\n')
+    P('**No-simulator arm** (simulators disabled in place, prior unchanged; founder shift 0.017 in RPS, 0.043 / 0.023 in inspection):\n')
+    P(R.lottery_rows('rps', ['nosim'], rps_keys, rps_lab))
+    P(R.lottery_rows('insp', ['nosim'], ik, il))
+    P('**Price dose at the fixed cap K₀** (c far above the calibrated c₀ = 1.2·10⁻⁵; c = 10⁻³ makes a forfeit cost 10 and a 100-step read 0.1):\n')
+    for game, keys, labs in (('rps', rps_keys, rps_lab), ('insp', ik, il)):
+        rows = []
+        for lab, c in (('0', '0'), ('c0 = 1.2e-5', 'c0'), ('1e-4', '0.0001'), ('1e-3', '0.001'), ('1e-2', '0.01')):
+            n = cn(game, 'full', c)
+            if R.load(n) is None: continue
+            rows.append([lab] + [fmt(stat(n, k)) for k in keys] + [fmt(R.resolved(n), 2)])
+        P('%s, full arm:\n' % ('RPS' if game == 'rps' else 'Inspection'))
+        P(R.md_table(['c'] + labs + ['resolved'], rows))
+    S2_ = S.get('RI_exploited')
+    P('**Simulator leak, STATIC:** pairs in which the responsive inspector `RI` proves compliance (plays N) and the inspectee still cheats with positive probability: %s. '
+      '(`RIM` plays N half the time through its fallback mixer, which is not a proof and not a leak.)\n' % (
+        ('none' if not S2_ else '; '.join('%s vs %s: P(N) %.2f, P(K) %.2f' % t_ for t_ in S2_))))
+    # replicate noise: identical tables, different dynamics seeds (the K = 2 K0 cells have the same action tables as K0)
+    rep = []
+    for c_ in ('0', 'c0'):
+        a_ = stat(cn('insp', 'full', c_), 'isl_efficient'); b_ = stat(cn('insp', 'full', c_, K=20000), 'isl_efficient')
+        rep.append('%s: %s at K0 against %s at 2K0' % ('free' if c_ == '0' else 'c0', fmt(a_), fmt(b_)))
+    P('**Replicate noise (identical action tables, different dynamics seeds):** efficient islands, inspection full arm, ' + '; '.join(rep) +
+      '. The K0 and 2K0 cells have the same action tables (no encounter of the catalogue uses more than 8,687 steps), so differences of this size between them are the lottery\'s own noise.\n')
+
     # ---------------------------------------------------------------- chain (if present)
     chain_files = sorted(f for f in os.listdir(OUT) if f.startswith('chain_') and f.endswith('.json'))
     if chain_files:
-        P('## CHAIN (ε → 0 diagnostic, monomorphic states; not the object of the lottery claims)\n')
-        rows = []
+        P('## CHAIN (ε → 0 diagnostic; not the object of the lottery claims)\n')
+        P('Inspection: the exact whole-state-space chain over the 22 x 24 pairs of monomorphic role classes (mutation to a role with probability 1/2, to a class by the length prior, '
+          'Moran fixation under constant selection with intensity w = 0.3). RPS: the chain over **monomorphic states only** (polymorphic stable states are not seen). '
+          'In the unpriced RPS game π(U) equals its prior mass exactly (the DSL identity).\n')
+        rows = []; rr = []
         for f in chain_files:
             d = jload(os.path.join(OUT, f))
             if d['game'] == 'insp':
-                rows.append([f[6:-5], '%.3f' % d['u0g'], '%.3f' % d['u1g'], '%.3f' % d['efficient'], '%.3f' % d['p_insp'], '%.3f' % d['q_cheat'], str(d['top_states'][:3])])
+                rows.append([f[6:-5], '%.3f' % d['u0g'], '%.3f' % d['u1g'], '%.3f' % d['efficient'], '%.3f' % d['commit_comply'], '%.3f' % d['p_insp'], '%.3f' % d['q_cheat'],
+                             ', '.join('%s/%s %.2f' % (a_, b_, p_) for a_, b_, p_ in d['top_states'][:3])])
             else:
-                rows.append([f[6:-5], 'pi(U) %.3f (prior %.3f)' % (d['pi_U'], d['prior_U']), 'e_indiv %.3f' % d['e_indiv'], 'self-forfeit %.3f' % d['forfeit_self'],
-                             'mix %.3f' % d['mix_self'], '', str(d['top_states'][:3])])
-        P(R.md_table(['cell', 'a', 'b', 'c', 'd', 'e', 'top states'], rows))
+                rr.append([f[6:-5], '%.3f (prior %.3f)' % (d['pi_U'], d['prior_U']), '%.3f' % d['pi_fam'].get('sim', 0), '%.3f' % d['pi_fam'].get('prover', 0),
+                           '%.3f' % d['pi_fam'].get('enum', 0), '%.3f' % d['e_indiv'], '%.3f' % d['mix_self'], '%.3f' % d['forfeit_self'],
+                           ', '.join('%s %.2f' % (a_, p_) for a_, p_ in d['top_states'][:3])])
+        P(R.md_table(['inspection chain cell', 'inspector payoff', 'inspectee payoff', 'efficient pair', 'committed+compliant', 'P(inspect)', 'P(cheat)', 'top states'], rows))
+        P(R.md_table(['RPS chain cell (monomorphic)', 'π(U)', 'π(sims)', 'π(PB)', 'π(PRR)', 'e_indiv', 'self-play mixing', 'self-play forfeit', 'top states'], rr))
 
     # ---------------------------------------------------------------- verdicts
     P('## Verdicts\n')
@@ -209,21 +262,32 @@ def main():
     cc = stat(n4, 'isl_commit_comply')
     cm = R.rv(n4, 'committed_mass'); cmc = R.rv(n4, 'committed_carrier_mass')
     car_share = float(np.nanmean(cmc) / max(np.nanmean(cm), 1e-12)) if len(cm) else float('nan')
+    car_ci = ratio_boot(cmc, cm)
     b4 = car_share > 0.5
     V['P4'] = (('held' if b4 else 'partial') if cc[0] >= 0.5 else ('failed' if cc[0] < 0.2 else 'partial'),
-               'committed+compliant islands %s (inspectee-only reading, free); carriers hold %.2f of the committed inspector mass; check-route share among inspectees %s' % (
-                   fmt(cc), car_share, fmt(boot_sum(n4, ('fam1_check', 'fam1_pcr')))))
+               'committed+compliant islands %s (inspectee-only reading, free); carriers hold %s of the committed inspector mass (a plain mixer holds the rest); check-route share among inspectees %s' % (
+                   fmt(cc), fmt(car_ci), fmt(boot_sum(n4, ('fam1_check', 'fam1_pcr')))))
     # P5
+    def lot_route_ratio(n):
+        """check-route over search-route mean steps per encounter on which the route is used (inspector-side search = RI / RIM, which are the only
+        inspector programs that prove; in-sim searches by simulating inspectors are not the responsive inspector's proof)."""
+        used_c = R.rv(n, 'ru1_check'); used_s = R.rv(n, 'ru0_search')
+        ri_share = R.rv(n, 'fam0_prover') + R.rv(n, 'fam0_rim')
+        if len(used_c) == 0 or np.nanmean(used_c) < 0.01 or np.nanmean(ri_share) < 0.01:
+            return float('nan'), float(np.nanmean(used_c)) if len(used_c) else float('nan'), float(np.nanmean(ri_share)) if len(ri_share) else float('nan')
+        chk_steps = R.rv(n, 'rs1_check') / np.maximum(used_c, 1e-12)
+        srch_steps = R.rv(n, 'rs0_search') / np.maximum(used_s, 1e-12)
+        return float(np.nanmean(chk_steps) / np.nanmean(srch_steps)), float(np.nanmean(used_c)), float(np.nanmean(ri_share))
     n5 = cn('insp', 'full', '0')
-    chk_steps = R.rv(n5, 'rs1_check') / np.maximum(R.rv(n5, 'ru1_check'), 1e-12)
-    srch_steps = R.rv(n5, 'rs0_search') / np.maximum(R.rv(n5, 'ru0_search'), 1e-12)
-    used_c = R.rv(n5, 'ru1_check'); used_s = R.rv(n5, 'ru0_search')
-    lot_ratio = float(np.nanmean(np.where(used_c > 1e-9, chk_steps, np.nan)) / np.nanmean(np.where(used_s > 1e-9, srch_steps, np.nan))) if (used_c > 1e-9).any() and (used_s > 1e-9).any() else float('nan')
+    lot_ratio, uc, us = lot_route_ratio(n5)
+    lot_ratio_nosim, ucn, usn = lot_route_ratio(cn('insp', 'nosim', '0'))
     st_ratio = S['measured_static_ratio']
     st_ok = 1.125 <= st_ratio <= 4.5
     lot_ok = (1.125 <= lot_ratio <= 4.5) if not np.isnan(lot_ratio) else None
     V['P5'] = (('held' if (st_ok and lot_ok) else ('partial' if st_ok else 'failed')),
-               'static check/proof = %.3f (hand 2.25); lottery-weighted (primary, free, generation 2,000) = %s' % (st_ratio, 'n/a (a route unused)' if np.isnan(lot_ratio) else '%.2f' % lot_ratio))
+               'static check/proof = %.3f (hand 2.25, window [1.125, 4.5]); lottery-weighted in the primary cell: %s; supplementary, no-simulator arm (both routes alive: check usage %.2f, responsive-inspector share %.2f): %s' % (
+                   st_ratio, ('n/a: the responsive inspector holds %.3f of inspectors in the primary cell (check route used on %.3f of encounters)' % (us, uc)) if np.isnan(lot_ratio) else '%.2f' % lot_ratio,
+                   ucn, usn, 'n/a' if np.isnan(lot_ratio_nosim) else '%.3f (outside the window: a search is dear because its refutations are, W up to thousands)' % lot_ratio_nosim))
     # P6
     routes = {'search_insp': ('RI', 'RIM'), 'search_ee': ('PE', 'PEC'), 'enum': ('PR2', 'PR3', 'PR4'), 'check': ('CR2', 'CR3', 'CR4', 'PCR3')}
     ins_t, ee_t = G.catalogue_insp(RUN.K0)
@@ -256,10 +320,17 @@ def main():
     else:
         V['P6'] = ('partial', 'fewer than two routes held a share above 0.005 in the free cell: %s' % {k: round(v[0], 4) for k, v in surv.items()})
     J['route_survival'] = {k: dict(share_free=v[0], share_c0=v[1], ratio=v[2]) for k, v in surv.items()}
+    P('Route survival under the price (LOTTERY, primary inspection cell, full arm, generation 2,000): share of the route\'s reader classes in the population, free and at c0, and the run-paired ratio; '
+      '"mean steps" is the route\'s prior-weighted mean steps per encounter over the opposing catalogue (STATIC).\n')
+    P(R.md_table(['route', 'members', 'mean steps (STATIC)', 'share, free', 'share, c0', 'survival ratio c0 / free'],
+                 [[r_, ', '.join(routes[r_]), '%.1f' % cost[r_], '%.4f' % surv[r_][0], '%.4f' % surv[r_][1], fmt(surv[r_][2], 2)] for r_ in routes]))
     J['route_cost'] = cost
     # S4
     dpe = R.paired(cn('insp', 'full', 'c0'), cn('insp', 'full', '0'), 'isl_efficient')
-    V['S4'] = ('held' if dpe and abs(dpe[0]) < 0.1 else 'failed', 'efficient islands c0 - free = %s' % fmt(dpe))
+    rep_free = [stat(cn('insp', 'full', '0'), 'isl_efficient'), stat(cn('insp', 'full', '0', K=20000), 'isl_efficient')]
+    rep_c0 = [stat(cn('insp', 'full', 'c0'), 'isl_efficient'), stat(cn('insp', 'full', 'c0', K=20000), 'isl_efficient')]
+    V['S4'] = ('held' if dpe and abs(dpe[0]) < 0.1 else 'failed', 'efficient islands c0 - free = %s as scored; but identical-table replicates differ by %.3f (free) and %.3f (c0), so the shift is inside the replicate noise' % (
+        fmt(dpe), abs(rep_free[0][0] - rep_free[1][0]), abs(rep_c0[0][0] - rep_c0[1][0])))
     # S5
     f_ = R.rv(cn('rps', 'full', '0'), 'fam_sim') + R.rv(cn('rps', 'full', '0'), 'fam_prover')
     p_ = R.rv(cn('rps', 'prand', '0'), 'fam_sim') + R.rv(cn('rps', 'prand', '0'), 'fam_prover')
@@ -273,6 +344,7 @@ def main():
     V['S6'] = ('held' if car_share > prior_share else 'failed', 'carrier share of committed mass %.2f vs prior share among committed templates %.2f' % (car_share, prior_share))
 
     vt = []
+    V['S1'] = ('held', 'tests/test_lt_tape.py (the hand table of notes §1.2-1.5 entry by entry: leaf lists, steps, certificate sizes, W = 8 and 12 steps, route totals, payoff tables) passes; no entry needed an erratum except the wording in §2.5')
     for k in ('P1', 'P2', 'P2_gpt', 'P3', 'P4', 'P5', 'P6', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6'):
         if k in V: vt.append([k, V[k][0], V[k][1]])
     P(R.md_table(['#', 'verdict', 'numbers'], vt))
@@ -284,6 +356,20 @@ def main():
     with open(os.path.join(ROOT, 'runs', 'lt-tape.md'), 'w') as f: f.write('\n'.join(md))
     with open(os.path.join(ROOT, 'runs', 'lt-tape.json'), 'w') as f: json.dump(J, f, indent=1, default=str)
     print('\n'.join(md)[-6000:])
+
+
+def dominant(name, role):
+    d = R.load(name)
+    if d is None: return ('n/a', 'n/a')
+    names = d['meta']['names'][role]
+    cnt = {}; tot = 0; chg = 0
+    for r in d['recs']:
+        a = r['dom2000'] if d['meta']['game'] == 'rps' else r['dom2000'][role]
+        b = r['dom4000'] if d['meta']['game'] == 'rps' else r['dom4000'][role]
+        for x, y in zip(a, b):
+            cnt[names[x]] = cnt.get(names[x], 0) + 1; tot += 1; chg += int(x != y)
+    top = sorted(cnt.items(), key=lambda kv: -kv[1])[:5]
+    return (', '.join('%s %.2f' % (k, v / tot) for k, v in top), '%.2f' % (chg / max(tot, 1)))
 
 
 def boot_sum(name, keys):

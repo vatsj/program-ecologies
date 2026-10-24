@@ -266,6 +266,7 @@ def arm_disabled(game, arm, t):
     """Is template t disabled in this arm?"""
     if arm in ('full', 'prand'): return False
     if arm == 'noprover': return t.family in PROVER_CAP_FAMILIES
+    if arm == 'nosim': return t.family == 'sim'                      # added after the registered cells (post-hoc arm)
     if arm == 'notape': return t.uses_tape or t.family == 'carrier'
     if game == 'insp':
         if arm == 'insp_only':          # only the inspector reads: inspectee readers disabled

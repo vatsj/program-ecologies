@@ -121,3 +121,13 @@ test, not a limit claim.
   at c = 0. [not larger]
 * **S6 (the carrier lowers the cost of commitment).** In the inspectee-only arm at c = 0 the committed inspector mass sits more on carriers than their founder share (prior 
   mass of carriers among committed inspector templates). [not more]
+
+## Addendum, written after the registered cells had run (not predictions)
+
+The registered cells (`runs/lt_tape/*_primary*` for the arms and prices above, the K panel at fixed c, the recalibrated price, the size
+check, the sampled-encounter check, m = 4 and the chain diagnostic) ran as registered. After seeing that simulators and not provers held
+the inspection islands and that the coin did not take the RPS islands at c₀, three post-hoc additions were run and are labelled as such in
+`runs/lt-tape.md`: a **no-simulator arm** (simulators disabled in place), a **price dose** at the fixed cap (c = 10⁻⁴, 10⁻³, 10⁻² against the calibrated
+1.2·10⁻⁵) and the static **leak** table. No registered threshold was moved; S1–S6 and predictions 1–6 are scored by the rules above. Two
+development facts are disclosed in `notes/lt-tape.md` §2.2 and §2.6: the simulators gained default variants after a 4-run development cell, and the first
+soundness run found an atom-semantics bug that was fixed before any counted cell.

@@ -46,6 +46,22 @@ def static_checks():
     out['RI_W'] = W
     refuted = [w for (w, f, c) in W.values() if (not f) and c]
     out['RI_refuted_W_min'] = min(refuted) if refuted else None
+    # the simulator leak: a responsive inspector (or prover-inspectee) whose proof succeeds but whose real opponent defects
+    leak = []
+    for nm_ in ('RI',):
+        a = I0[nm_]
+        for b_, y in zip(n1, tbi.terms[1]):
+            pn = float(tbi.G0[a, I1[b_], 1]); pk = float(tbi.G1[I1[b_], a, 1])
+            if pn > 0 and pk > 0: leak.append((nm_, b_, pn, pk))
+    out['RI_exploited'] = leak
+    cells = []
+    for nm_ in ('PE', 'PEC'):
+        b = I1[nm_]
+        for a_, x in zip(n0, tbi.terms[0]):
+            if nm_ == 'PE':
+                pk = float(tbi.G1[b, I0[a_], 1]); pnn = float(tbi.G0[I0[a_], b, 1])
+                if pk > 0 and pnn < 1: cells.append((nm_, a_, pk, 1 - pnn))
+    out['PE_cheats_but_inspected'] = cells
     p0 = G.prior_masses(tbi.sizes[0]); p1 = G.prior_masses(tbi.sizes[1])
     route_cost = {}
     for name in n1: route_cost[name] = float(S1[I1[name]] @ p0)

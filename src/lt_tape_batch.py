@@ -31,6 +31,8 @@ def cell_args(game, arm, c, cell='primary', K=None, renorm=False, m=3, runs=None
 
 
 def out_name(args):
+    if args[0] == 'chain':
+        return 'chain_%s_%s_%s_N%s' % (args[1], args[2], 'cprice' if args[3] == 'c0' else 'cfree', args[4])
     game, arm, c, cell = args[:4]
     cv = RUN.C0 if c == 'c0' else float(c)
     K = RUN.K0; m = 3; renorm = '--renorm' in args; sampled = '--sampled' in args
@@ -65,6 +67,23 @@ def batch(name):
                 cells.append(cell_args('insp', 'full', 'c0', runs=10, sampled=True))
             else:
                 for c in CS: cells.append(cell_args('rps', 'full', c, cell='size'))
+    elif name == 'nosim':
+        # post-hoc arm: simulators disabled in place (the registered arms left the responsive prover no room to win against them)
+        for game in ('rps', 'insp'):
+            for c in CS: cells.append(cell_args(game, 'nosim', c))
+    elif name == 'dose':
+        # added after the registered cells (labelled in the report): the price dose at the fixed cap K0, c far above the calibrated c0
+        for game in ('rps', 'insp'):
+            for c in ('0.0001', '0.001', '0.01'):
+                cells.append(cell_args(game, 'full', c))
+    elif name == 'chain':
+        # the epsilon -> 0 diagnostic (the spec's cut order: run last, labelled as a diagnostic)
+        for N in (100, 1000, 10000):
+            for arm in ('full', 'ee_only', 'nosim'):
+                for c in CS: cells.append(['chain', 'insp', arm, c, str(N)])
+        for N in (100, 1000, 10000, 100000):
+            for arm in ('full', 'nosim', 'noprover'):
+                for c in CS: cells.append(['chain', 'rps', arm, c, str(N)])
     elif name == 'dev':
         cells.append(cell_args('rps', 'full', 'c0', runs=2))
     else:
@@ -77,7 +96,7 @@ def main():
     workers = int(sys.argv[2]) if len(sys.argv) > 2 else 2
     os.makedirs(OUT, exist_ok=True)
     log = os.path.join(OUT, 'batch_%s.log' % name)
-    cells = [c for c in batch(name) if not os.path.exists(os.path.join(OUT, out_name(c) + '.json.gz'))]
+    cells = [c for c in batch(name) if not os.path.exists(os.path.join(OUT, out_name(c) + ('.json' if c[0] == 'chain' else '.json.gz')))]
     open(log, 'a').write('%s: %d cells to run\n' % (time.strftime('%H:%M:%S'), len(cells)))
     running = []
     last_change = time.time(); last_size = os.path.getsize(log)
@@ -86,7 +105,8 @@ def main():
         while queue and len(running) < workers:
             args = queue.pop(0)
             f = open(log, 'a')
-            p = subprocess.Popen([sys.executable, os.path.join(HERE, 'lt_tape_run.py')] + args, stdout=f, stderr=subprocess.STDOUT, cwd=ROOT)
+            script, sargs = ('lt_tape_chain.py', args[1:]) if args[0] == 'chain' else ('lt_tape_run.py', args)
+            p = subprocess.Popen([sys.executable, os.path.join(HERE, script)] + sargs, stdout=f, stderr=subprocess.STDOUT, cwd=ROOT)
             running.append((p, args, f))
             open(log, 'a').write('%s: start %s (pid %d)\n' % (time.strftime('%H:%M:%S'), ' '.join(args), p.pid))
         time.sleep(5)
