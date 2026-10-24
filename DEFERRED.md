@@ -895,4 +895,10 @@ REJECTED.md the ones we dropped.
   an admissible tie, or should non-play cost something (which a zero-sum game cannot express without changing the
   game)? and should the next test be a non-zero-sum game with an RPS-like cycle, where a reader could earn its place
   against the coin?
+- *Decided (RS, 2026-10-23):* non-play is not free ("compute costs nontrivial"); the default depth price (a forfeit
+  costs the cap) was accepted. *Evidence (RESULTS "Rock–paper–scissors with a compute price"):* forfeits vanish at
+  c = 0.01, individual mixing reaches 0.85–0.93 of the lottery, and the free coin `X` holds most of it; the exact reader
+  adds nothing. *Open:* whether a realizable language offers a randomizer that opponents can see and simulate but not
+  predict, free to its user; the next tests are the inspection game (queue 55) and Basic Endgame in poker (queue 56),
+  where reading the other side's randomization can be worth more than flipping blind.
 

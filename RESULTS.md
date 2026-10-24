@@ -6468,6 +6468,88 @@ the mixing mass, but the matched control does not erase the exact–matched diff
 - *Caveats:* one game, n ≤ 7, one cap rule; the lottery at N = 100 and 400 says nothing about large N; e is a maximum over
   each arm's own grammar, so cross-arm comparisons are reported beside the fixed-exploiter control.
 
+## Rock–paper–scissors with a compute price: once non-play costs, the coin takes the islands; reading is not selected (2026-10-23)
+
+Spec `specs/2026-10-23-rps-priced.md` (the RS's decision: non-play is not free, with the RE's default depth price;
+reviewed by gpt-6.1-sol then gemini-4-argon), predictions `predictions/2026-10-23-rps-priced.md` (the RS's statement
+first), notes `notes/rps-priced.md`, report `runs/rps-priced.md` and `.json`, rows `runs/rps_priced/`. Run by a Sonnet
+subagent (`src/rps_priced*.py`; 17 tests, passing on main; a c = 0 run through the same pipeline reproduces the
+unpriced lottery bitwise and its chains to 10⁻⁶). Chain = the ε → 0 diagnostic; lottery = the ε = 0 seed lottery at
+(100, 64), mN = 1, generation 2,000, 40 runs paired with the unpriced founders, run-clustered intervals.
+
+**The price.** Each program pays c times the application depth its own root evaluation reaches (including any
+opponent evaluation it runs), so a forfeit pays c·D with D = 12; constants and `X` pay 0. Exploitability is scored net
+of the exploiter's own cost (the game-payoff measure differs by at most 0.003 in the stochastic arms' main cells).
+
+**Deviations.** Chain exploration threshold 10⁻⁸ (10⁻⁶ and 10⁻¹⁰ differ by at most 10⁻⁴ on the headline statistics
+and about 3·10⁻⁴ on polymorphic mass at N = 10⁴; cut mass reported per cell). The invasion closure follows the 8 strongest invaders per state, with polymorphic seeds from 1,000
+replicator starts; the exact arm's closure is incomplete, and indeterminate events at transient states get no weight,
+so π is conditional on the explored and resolved states. Polymorphic mass is small but cell-specific (0.002 in sample
+at c = 0.01, N = 100; 0.012 at c = 0.05, N = 100). The work price is identical to the depth price at n = 6 (no body has
+two applications), so it was not rerun; at n = 7 it differs (an exact reading can cost 4,095 against depth 12), and a
+supplement agrees with the depth price to six decimals, but it kept the unpriced classes, restricted discovery to
+pairs and triples among the 120 highest-prior classes and ran no attractor search, so it is not a full robustness
+test. Development runs were seen before notes §2 was committed; no convention changed. All lottery runs continued to
+10,000 generations; at c = 0.01, 0.24 / 0.30 of islands (sample / exact) carried the "cycling" label at generation
+2,000, which mostly marks a class hovering near the 5% support cut, not an established limit cycle. Pricing split only `X`'s class
+(it loses `THEM(^THEM(THEM))`, which forfeits against readers).
+
+**Lottery, c = 0.01** (sample / exact; unpriced in brackets):
+- forfeited plays 0.000 / 0.000 (0.69 / 0.52);
+- individual mixing 0.93 / 0.85 (0.22 / 0.25);
+- islands with net exploitability ≤ 0.05: 0.88 / 0.82 (0.58 / 0.25);
+- `X` holds 0.87 / 0.84 of the population, all source-reading classes together 0.06 / 0.015; island homozygosity is
+  0.97 / 0.95. The size cell (400, 16) gives 0.95 `X` in matched and exact.
+
+**Chain, c = 0.01.** π(`X`) is 0.24 / 0.43 / 0.84 / 0.98 at N = 10² / 10³ / 10⁴ / 10⁵ in both the sample and exact
+arms (prior mass 0.221 sample, 0.228 exact): with a price
+the unpriced identity π(`X`) = μ(`X`) no longer holds, since costly mutants enter `X` at a deficit and `X` enters
+costly residents with an advantage. Net exploitability in the exact arm is 0.70 / 0.53 / 0.15 / 0.018 over the same N
+(sample 0.135 at 10⁴), mixing 0.84–0.85 at 10⁴ and 0.98 at 10⁵. The finite-N residue is cost-free constants drifting
+neutrally into the `X` sea and being eaten by readers (about 0.04 each for R, P, S at N = 10⁴): the unconditional
+shadow again. Self-play forfeits are already 0.006 at N = 10⁴.
+
+**Dose and controls.**
+- Lottery forfeits fall monotonically with c (sample 0.69 / 0.23 / 0 / 0 at c = 0 / 0.001 / 0.01 / 0.05). Mixing peaks
+  at c = 0.01 and falls at 0.05 (0.84 sample, 0.76 exact): c = 0.05 prices out the coin-guarded readers (0.055 → 0
+  sample, 0.014 → 0.001 exact) and, with readers gone, more islands stay in mixtures of constants (`X` 0.87 → 0.84
+  sample, 0.84 → 0.76 exact).
+- Holding c·D = 0.12 at D = 8, 12, 16 changes little in the sample arm (chain e 0.133 / 0.135 / 0.137; lottery mixing
+  0.92 / 0.93 / 0.95) and somewhat more in the exact lottery (mixing 0.82 / 0.85 / 0.81, exploitability 0.144 / 0.143 /
+  0.195). Depth and the per-level price move together in this panel, so it shows limited sensitivity, not which of
+  them matters.
+- Charging only forfeits (successful reading free) also removes forfeits in the lottery, but it is not the same
+  lottery: in the exact arm net exploitability rises from 0.143 to 0.305, readers from 0.015 to 0.188, and `X` falls
+  from 0.843 to 0.683; in the chain readers keep 0.27–0.39 at N = 10⁵. Ending free non-play removes the forfeits;
+  taxing successful reading moves further mass to `X`.
+- Exact − matched net exploitability has no sign: +0.010 [−0.12, 0.13] at 40 runs, −0.029 [−0.08, 0.03] in a 200-run
+  replicate, 0.000 in the chain at N = 10⁴. The genuine best response (exact-br) gives the same picture.
+- Pure arm (no coin): nothing mixes and every play forfeits; the chain sits on `next(THEM(ME))` (0.994).
+
+**Verdicts.** Held: 1 (`X` invades and weakly dominates every self-forfeiting program at every c > 0, 0 failures over
+all programs), 2 (lottery at c = 0.01, both arms), 6 (`X` holds more than every reader combined), 7 (no exact-reading
+benefit), and gpt-6.1-sol's counter-predictions on 3 (forfeits respond before mixing) and 4 (mixing non-monotone in c).
+Partial: 3 (net e 0.135 / 0.151 at N = 10⁴ misses ≤ 0.1 but avoids the 0.2 falsifier; the "fast approach" clause
+failed, 10³ against 10⁵ differs by about 0.5), 4 (forfeits monotone; mixing at 0.05 below 0.01). Failed: 5 (pure-arm net
+individual exploitability falls to −0.04 at c = 0.05, because every exploiter pays 12c), gemini-4-argon's
+counter-prediction (guarded readers 0.055 / 0.014, far below `X`). The RS's reading (I) as registered (net
+exploitability ≤ 0.05 and mixing ≥ 0.8, in the lottery and in the chain at N = 10⁴) is **partial** at c = 0.01 and
+0.05: mixing passes, but lottery net exploitability is 0.069 / 0.143 and chain 0.135 / 0.151; the chain meets both
+thresholds at N = 10⁵ (supplementary). It fails at c = 0.001.
+
+**Reading.**
+- The RS's diagnosis is borne out in direction: once computation costs, the free tie between looping readers
+  disappears, forfeits vanish, and individual mixing rises to 0.85–0.93 of the lottery; exploitability falls but stays
+  above the registered 0.05 at N = 100 and N = 10⁴.
+- What plays the mixed equilibrium is mostly the coin primitive: `X` holds most of the mass under the depth price, and
+  the exact reader adds nothing. Readers still exploit constants and keep substantial mass when successful reading is
+  free (forfeit-only chain 0.27–0.39), so source reading's role is not only the loophole, but it is not what the
+  ecology selects for mixing.
+- So the open question for the Turing-complete goal is the primitive: whether a realizable language can offer a
+  randomizer that opponents can see and simulate but not predict, at no cost to its user (DEFERRED 16).
+- *Caveats:* one game, n = 6, D = 12; the result leans on a free one-node coin; the chain's approach is slow, set by
+  the neutral entry of free constants.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

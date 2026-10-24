@@ -1178,3 +1178,15 @@ counter-prediction** (substantial mixing in both stochastic arms at 10⁴): 0.31
 meet polymorphic or three-type-cycle states.** In a symmetric zero-sum game every two-type contest is dominance or
 neutral; every state is monomorphic. **The run report's limit formula π_∞(c) = μ(c)/μ(Z0)** (subagent): it contradicts
 the exact identity π(`X`) = μ(`X`) at every N.
+
+
+## Added 2026-10-23: rock–paper–scissors with a compute price (RESULTS.md, "Rock–paper–scissors with a compute price")
+
+**"Pricing makes the chain converge fast" (RE 3, speed clause).** By N = 10³ the chain is about 0.5 from its N = 10⁵
+values; the binding rate is the neutral entry of free constants, not the forfeit. The level clause also missed (net
+e 0.135 / 0.151 at N = 10⁴, not ≤ 0.1). **"c = 0.05 is at least as mixed as c = 0.01" (RE 4b).** 0.84 / 0.76 against
+0.93 / 0.85: the higher price removes the guarded readers. **"Pure-arm individual exploitability stays ≥ 0.3 at every
+c" (RE 5).** Net −0.04 at c = 0.05, since every exploiter pays the cap. **gemini-4-argon: guarded readers beat `X` at
+c = 0.01.** 0.055 / 0.014 against 0.87 / 0.84. **The RS's reading (I) at c = 0.001.** Not met (lottery e 0.18 / 0.42).
+**Spec claim that the hand table shows depth and work differing at n = 6.** It needs n ≥ 7. **The unpriced identity
+π(`X`) = μ(`X`) carried over to a priced game.** It holds only at c = 0; with a price π(`X`) rises with N.
