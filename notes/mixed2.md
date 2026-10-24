@@ -176,3 +176,69 @@ reader: 12.
 * The posterior in II's `cr`: indifference at (w, l) = (1, 1/4), call iff 4l > w, with the P(BET) = 0 tie.
 * The fresh card in simulation: `RII` and `SRII` against `HON` use w/3 + 2l/3 and 1/2 + l/3 − w/6, not the real card.
 * The price at c = 0 reproduces the game tables; the mutual-forfeit entry (−4, −3) / (−3, −3).
+
+## 2. Choices where the spec is silent, and deviations (written with the code, before any counted cell)
+
+*Disclosure.* Before this section was committed I ran, while debugging, the following; none changed a prediction, a scoring
+convention or a cell of the spec. (i) Enumeration counts and the evaluator on both games' exact arms (table sanity against §1);
+(ii) one development chain, inspection exact arm at c = 0 and N = 100, which showed that the weakly improving graph over
+all pairs is a single closed class (below) and that exploration needs more than 1,500 states for full coverage at N = 100;
+(iii) the static job (`runs/mixed2/static.json`), which is validation and audit, not a counted cell. The predictions file
+was committed before any code existed.
+
+**Erratum to §1.2 (found by the evaluator, then re-derived by hand).** §1.2 lists `EXP = card BET cr(THEM(ME))` against
+the reader columns `CRII`, `RII`, `SRII` as mutual forfeits (−3). That is wrong: the winner branch (`BET`) does not read, so
+only the loser slice loops and the pair is not a total forfeit. Hand recursion for `EXP` against `CRII` (levels d, l_d =
+P(bet | loser), f_d = forfeit mass): EXP_d(L) = cr(CRII_{d−1}), CRII_d = cr(EXP_{d−1}); d = 0: both forfeit; the sequence of
+(l, f) of EXP and (call, f) of CRII is d = 1: (0, 1) and (0, 2/3); d = 2: (1/3, 2/3), (0, 2/3); d = 3: (1/3, 2/3), (5/9, 4/9);
+d = 4: (0, 4/9), (5/9, 4/9); d = 5: (0, 4/9), (0, 8/27); d = 6: (19/27, 8/27), (0, 8/27); d = 7: (19/27, 8/27), (65/81, 16/81);
+d = 8: (0, 16/81), (65/81, 16/81); d = 9: (0, 16/81), (0, 32/243); d = 10: (211/243, 32/243), (0, 32/243);
+d = 11: (211/243, 32/243), (665/729, 64/729); d = 12: EXP's loser slice checks with 665/729 and forfeits with 64/729, CRII
+calls with 665/729 and forfeits with 64/729. Then U_I = (1/3)(3) + (2/3)(−665/729
+− 3·64/729) = 473/2187 ≈ 0.2163 (the winner always bets, and II's call or forfeit both leave I +3). The tests use 473/2187.
+The other reader entries of the EXP row are taken from the independent exact-rational reference evaluator (below), not from
+§1. §1 is left as committed. This also shows the bounded-`cr` effect: CRII reads EXP's loser slice at level 11 (bets with
+probability 211/243) while EXP's actual level-12 slice checks.
+
+**Choices.**
+1. **Typed grammar.** Each node has a context role and a type; `THEM(THEM)` of the RPS weak arm is dropped (its argument
+   would have the wrong role); applications are `THEM(ME)` and `THEM(^B)` with B a program of the application's own role. `cr`,
+   `sr`, `sr_k` take any expression of the opposite type; the `if` test Q is an application, α is carried by the operator and
+   fixed to the first action of Q's type (the branches swap), so `coin` (commutative) and `if` are enumerated canonically and
+   a node carries its number of spellings; the prior is over spellings (bits = log2 a(|p|) + 2 log2 |p| + 1, a(s) = spellings of
+   size s in the role, `src/mixed2.py::Lang2._prior`), so canonicalisation changes nothing but the table size. Spelling counts
+   are checked against an independent recurrence in the tests. Programs per role: inspection exact 2,150 canonical (7,829
+   spellings), Endgame exact 3,938 (I) and 713 (II); `card` exists only for Endgame I.
+2. **`X` is an atom.** So `coin N X` (p = 1/4) has 3 nodes, 3/8 has 5 and the Endgame equilibrium bluffer
+   `card BET (coin X CHECK)` has 5 nodes. The spec's size counts (7-node bluffer, 3/8 at size 7) do not use the atom; n = 8 and
+   n = 7 are kept as specified. The blind inspection grid has exactly 17 distinct p (checked), the smallest above 1/4 is 5/16.
+3. **`cr` depth.** `cr` is a unary operator whose argument is the opponent-reading expression; its charge is that of the
+   application inside (one level against a non-reader), the RPS convention, not a separate level.
+4. **Forfeit payoffs** as in §1.0 (single forfeit: worst action against the realized action and card; mutual: the worst entry
+   of the forfeiter's own table). The spec was silent on mutual forfeit.
+5. **`sr`** sees the full simulated run (card and action) and best-responds to that draw; `sr_k` (inspection only) is the
+   best response to the empirical frequency of k draws, tie by own coin, any forfeit among the draws forfeits the program, cost
+   k times the child's cost. In the arms `matched`, `sr4`, `sr16` the operator replaces `cr` in **both** roles node for node
+   (the enumeration is isomorphic, tested), not only for the inspectee.
+6. **Price** is the serial application count of §1.0: `if` adds the test's depth to the branch's, a coin or `card` counts the
+   branch taken (the real card in play), `cr` counts the deepest branch of its exact computation. A `work` variant (all
+   branches summed) is evaluated in the static job for the exact arms to report the subsidy of exact enumeration.
+7. **Classes** are programs with equal net-payoff rows and columns (9 decimals) against all programs of the other role, per
+   price; class mass is the sum of the members' prior. Class counts: inspection blind 17, sample 83, exact 157, matched 97,
+   sr4 533 (at c = 0 per role).
+8. **Chain.** A two-population jump chain on pairs of monomorphic role classes with constant-selection Moran fixation
+   (`TwoPopChain`), exploration by relative inflow (threshold 1e-10 of the total flux, at most 1,500 states, 400 added per
+   round, seeds: the 10 × 10 pairs of highest prior mass and the ladder pairs), log-domain GTH (`chain_log.stationary_log`,
+   absorption weights from the prior over the explored pairs when several closed classes appear). The unexplored relative flux
+   and a circulation index (net flux around cycles over total flux) are reported with every cell. The **weakly improving
+   graph over all pairs is one closed class** (Δ ≥ 0 moves reach every pair through neutral shadows and the 4-cycle), so the
+   pre-registered "cycle class mass" is 1 in every arm and cannot separate arms; Prediction 3's chain clause is therefore
+   scored as registered (trivially satisfied) and the circulation index is reported beside it as the informative quantity.
+9. **Lottery.** `lottery2`: two populations per island, complete graph, 2·I·N events per generation, fitness exp(0.3 × mean
+   payoff against the other population), migration probability mN/N = 1/N for both roles; founders per slot by (size, quantile)
+   common random numbers shared across arms and prices; the dynamics seed is shared across prices. Checkpoints every 25
+   generations to 2,000, every 10 over 1,500–2,000, and (runs 0–9) 3,000, 4,000, 5,000, 7,500 and every 100 over 9,500–10,000.
+   Island phases (inspector p zone × inspectee q zone × reader majority) are recorded every 25 generations to measure
+   transitions along the ladder.
+10. **Memory.** One program-level evaluation peaks at 1.8 GB RSS (inspection exact; the sr4 arm needs a minute for the
+    binomial sums); chain and lottery jobs load cached class tables (< 0.5 GB). At most 3 workers.
