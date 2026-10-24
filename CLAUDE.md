@@ -154,7 +154,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 57. Exploration-cap audit of the published chains (RS, 2026-10-24): staged re-solves of every chain with restricted exploration, after the mixed2 capped chain gave −0.009 against −0.47 (running: `specs/2026-10-24-exploration-audit.md`).
 
 58. The inspection game's enforcer and its shadow (RS, 2026-10-24, "worth the confirmation"): exits from responsive enforcement and from efficiency, the lottery size path, cheater fringe and prudent-inspectee remedies (running: `specs/2026-10-24-inspection-shadow.md`).
-59. A realizable randomizer (RS, 2026-10-24, "sure"): a private random tape and counted-probability proofs in the realizable language, then priced RPS and the inspection game rerun there; awaiting the RS's view on the private tape as a primitive.
+59. A realizable randomizer (RS, 2026-10-24: "a private random tape is an acceptable primitive"): counted-probability proofs and count certificates in L_T, priced RPS and the inspection game rerun there (running: `specs/2026-10-24-realizable-randomizer.md`).
 
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
