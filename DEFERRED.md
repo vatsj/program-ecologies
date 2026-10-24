@@ -901,4 +901,10 @@ REJECTED.md the ones we dropped.
   adds nothing. *Open:* whether a realizable language offers a randomizer that opponents can see and simulate but not
   predict, free to its user; the next tests are the inspection game (queue 55) and Basic Endgame in poker (queue 56),
   where reading the other side's randomization can be worth more than flipping blind.
+- *Evidence (2026-10-24, RESULTS "Mixed actions in two-role games"):* in the inspection game reading pays in proportion
+  to what the reader sees; with both roles reading the lottery's modal island is the efficient outcome (a responsive
+  inspector over compliant constants), commitment appears when only the inspectee reads, and the chain loses the
+  efficient pair to the inspector's unconditional shadow; Basic Endgame's equilibrium is not recovered in any arm.
+  *Open:* whether a realizable reader keeps the responsive inspector unfakeable (the DSL cannot tell simulation from
+  play; `cr` is a free oracle).
 

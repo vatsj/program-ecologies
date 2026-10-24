@@ -6550,6 +6550,114 @@ thresholds at N = 10⁵ (supplementary). It fails at c = 0.001.
 - *Caveats:* one game, n = 6, D = 12; the result leans on a free one-node coin; the chain's approach is slow, set by
   the neutral entry of free constants.
 
+## Mixed actions in two-role games: in the inspection game a responsive inspector makes the efficient outcome the modal island, not commitment; Basic Endgame's equilibrium is not recovered (2026-10-24)
+
+Spec `specs/2026-10-23-two-role-mixed.md` (queue 55 and 56, the RS's choices; reviewed by gemini-4-argon then
+gpt-6.1-sol), predictions `predictions/2026-10-23-two-role-mixed.md` (the RS's statements first), notes
+`notes/mixed2.md` (§1 hand table before code, §2 choices and an erratum, §3 deviations while running), report
+`runs/mixed2.md` and `.json`, rows `runs/mixed2/`. Run by a Sonnet subagent (`src/mixed2*.py`; 23 tests, passing on
+main). Lottery = the ε = 0 seed lottery, N = 100 per role, 64 islands, mN = 1, generation 2,000, 40 runs, run-clustered
+intervals. Chain = the ε → 0 diagnostic over pairs of monomorphic role classes. Payoffs are game payoffs (net differs
+by at most 0.008 in the cells reported).
+
+**Games.** *Inspection* (n = 8): payoffs (inspector, inspectee) (I, C) = (−1, 0), (I, K) = (−1, −3), (N, C) = (0, 0),
+(N, K) = (−4, 1); Nash inspects and cheats with probability 1/4 each, inspector −1; an inspector visibly inspecting
+with p > 1/4 deters a best-responding inspectee and earns −p (commitment). *Basic Endgame* (C. and T. Ferguson; n = 7):
+a = 1, b = 2, P = 1/3; I bluffs a losing card with probability 1/4, II calls with probability 1/2, value 0. Arms: blind
+(no reading; Endgame I still sees its card), sample (one simulated draw), matched (`sr`, best response to one
+simulated run, the same grammar and prior as exact node for node), exact (`cr`, the bounded exact counter), and the
+inspection controls `sr_4`, `sr_16`. Depth price c ∈ {0, 0.01}; a mutual forfeit pays each player's worst table entry.
+
+**Deviations.** The spec's size counts treated `X` as a composite: 3/8 exists at size 5, the smallest blind
+probability above 1/4 at n = 8 is 5/16, and the equilibrium bluffer has 5 nodes; n = 8 and 7 were kept. One hand-table
+entry was wrong (found by the evaluator; erratum in notes §2). Two ablations were added after the exact-arm result,
+with no registered prediction: only one role reads (`exact_ee`: inspectee or II; `exact_er`: inspector or I). The
+spec made `sr_4` and `sr_16` inspectee-only controls; as run they replace `cr` in both roles (notes §2.5), so the
+graded ordering below mixes responder precision with a shift of regime (sr_16 moves to commitment). The
+exploration-capped chain (≤ 1,500 states) did not converge in the exact arms (inspection exact, c = 0, N = 10⁴:
+−0.009 capped against −0.47 on the whole space), so a whole-state-space solver was added (checked against the
+log-domain solver to 10⁻¹³) and is what is reported; sr_4, sr_16 and Endgame matched have only capped chains, flagged
+not converged. The registered chain criterion for indeterminacy (π on cycle classes ≥ 0.5) is satisfied trivially in
+every arm (the weakly improving graph is one closed class) and cannot discriminate. The bounded `cr` disagrees with the
+actual distribution on 0.36% of inspection pairs; support-weighted in the lotteries, 0.016 in inspection at (400, 16),
+c = 0, and in Endgame 0.006 (I) / 0.025 (II) at c = 0 and 0.002 (II) at c = 0.01. The island-outcome statistics
+(efficient, committed and compliant) were added after the first exact-arm cells were seen; three cells were
+discarded and rerun to record them (notes §3.1), so they are descriptive, not registered tests.
+
+**Inspection, lottery** (inspector payoff; Nash −1):
+
+| arm | c = 0 | islands at (N, C) = (0, 0) |
+|---|---|---|
+| blind | −0.981 [−1.05, −0.91] | 0.02 |
+| sample | −0.641 (c = 0.01: −0.679) | 0.26 (0.25) |
+| matched | −0.566 | 0.32 |
+| sr_4 / sr_16 | −0.389 / −0.279 | 0.27 / 0.02 (sr_16: 0.20 committed and compliant) |
+| exact | −0.223 [−0.33, −0.13] | 0.65 |
+| exact, c = 0.01 | −0.207 | 0.70 |
+| only the inspectee reads | −0.502 | 0.002 (0.91 committed and compliant) |
+| only the inspector reads | −0.290 | 0.58 |
+
+- *Blind* recovers Nash by polymorphism (p 0.253, q 0.241).
+- *Reading is graded by information:* exact > sr_16 > sr_4 > matched > sample > blind; exact − matched 0.343 [0.175,
+  0.506]. The grading is not one mechanism: exact, sr_4 and matched reach the reactive (0, 0) state on 0.27–0.65 of
+  islands, while sr_16 reaches it on 0.02 and has more committed-and-compliant islands (0.20).
+- *In the primary exact cell the modal island is the efficient outcome, not commitment.* A responsive inspector,
+  `cr(THEM(ME))` (inspect iff the inspectee would cheat), faces compliant constants: nobody inspects and nobody
+  cheats. Inspector readers are 0.85 of inspectors, inspectee readers only 0.19, committed inspector mass (p > 1/4)
+  0.11. The efficient islands rest on the inspector's responsiveness, not on inspectees reading a threat: the
+  compliant inspectees are constants, and when only the inspector reads 0.58 of islands are efficient. In the primary
+  cell, commitment is what appears when only the inspectee reads (0.91 of islands committed and compliant, inspector
+  mass at 3/8 and 1/2 0.44 / 0.45). At (400, 16), 20 runs, with both roles reading, commitment is as common as the
+  efficient state (c = 0: 0.50 committed and compliant against 0.41 efficient; inspector payoff −0.310; at c = 0.01,
+  −0.376 and 0.55 efficient).
+- *The price leaves the primary lottery's generation-2,000 payoff unchanged* (−0.207 against −0.223). Constant
+  cheaters are gone after the founding scramble, though cheating persists at 0.04–0.05 through mixed and reading
+  programs; in the continuation of runs 0–9 to 10,000 generations at c = 0.01 the payoff declines (−0.297 → −0.350,
+  difference −0.053 [−0.145, 0.000]; unchanged at c = 0), so long-run robustness to the price is not shown. When only the inspector reads, the price
+  bites at once (efficient islands 0.58 → 0.36).
+
+**Inspection, chain** (whole space; inspector payoff at N = 10² / 10³ / 10⁴): exact −0.78 / −0.50 / −0.47 at c = 0 and
+−0.63 / −0.62 at N = 10³ / 10⁴ with c = 0.01; matched −0.86 / −0.66 / −0.57; blind −0.93 / −0.92 / −0.92. Under rare
+mutation the efficient reactive pair is not held: π sits near the commitment payoff, with inspection probability
+0.28 and cheating 0.05 at N = 10⁴ (0.44 and 0.17 at N = 10²). This is the PD's structure: the reactive inspector is a conditional enforcer
+whose unconditional shadow (`N`) drifts in neutrally against compliant inspectees and is then exploited by cheaters.
+
+**Basic Endgame.** Lottery, exact, c = 0.01: value to I −0.148 [−0.195, −0.100] (equilibrium 0); bluff 0.148 (0.25),
+call 0.390 (0.5), winner betting 0.968; islands with both rates within 0.1 of equilibrium 0.151. II's exact readers
+hold 0.540 of II, the coin `X` 0.405; the equilibrium bluffer 0.128 of I. At c = 0: value −0.180, bluff 0.236, call
+0.375. At c = 0.01: matched −0.03, sample −0.142 (−0.122 at c = 0); blind (price-irrelevant) −0.149. When only I
+reads, value 0.001, call 0.504, `X` 0.88 of II. II's coin `X` earns at least the value against every I program, readers
+included (notes §1.2); II's exact posterior reader earns more than `X` against the particular off-equilibrium I
+populations that arise (no Endgame size panel was run, so whether this is a finite-population effect is open).
+Chain, exact, whole space, at N = 10² / 10³ / 10⁴: value −0.20 / −0.18 / −0.18 at c = 0.01 (call 0.76 → 0.69) and
+−0.20 / −0.16 / −0.07 at c = 0, where the value moves towards 0 while the bluff rate moves away from 1/4 (0.27 / 0.28 /
+0.36); neither convergence to the equilibrium nor a limiting failure is established.
+
+**Verdicts.** Failed as registered: 1 (one hand-table entry was wrong, replaced in the notes' erratum; the minimax
+checks and the corrected table pass). Held: 3 (blind inspection stays
+at Nash, −0.98; its chain clause is trivial), 4 (graded ordering, exact − matched 0.343), gpt-6.1-sol's
+counter-prediction on 2 (reader share founder-dependent, run SD 0.28). Partial: 5 (bluff within 0.1 on 0.30 of
+islands, both within 0.1 on 0.15, value −0.15). Failed: 2 (inspectee readers 0.19 < 0.3; mass at 3/8 below 1/2;
+c = 0.01 does not lower the payoff), 6 (II's readers hold 0.54 > 0.5), gemini-4-argon's counter-prediction on 2
+(payoff −0.21, not below −0.5), both counter-predictions on 4 (the gap is 0.34).
+
+**Reading.**
+- In the inspection game source reading matters, in proportion to what the reader sees. In the primary cell with both
+  roles reading, the modal island is the efficient outcome, held by a responsive inspector that removed cheaters in
+  the scramble and never inspects the compliant constants that remain, a conditional enforcer, as FairBot is in the
+  PD. Commitment, the predicted outcome, dominates in the primary cell only when the inspector cannot read, and is as
+  common as efficiency at (400, 16).
+- The two objects disagree as in the PD: the lottery holds the efficient pair at N = 100, the chain loses it to the
+  enforcer's unconditional shadow (−0.47 at N = 10⁴, −0.62 with the price).
+- In Basic Endgame no arm recovers the mixed equilibrium in the lottery. II's coin stays unexploitable, but II's
+  exact posterior reader does better than it against the off-equilibrium I populations that arise, and the value to I
+  is lower with exact reading than with the matched simulator (−0.15 against −0.03).
+- *Caveats:* `cr` is a bounded, subsidized oracle (its exact enumeration is free work, and its read differs from actual
+  play on a small support-weighted share); the reactive inspector is unfakeable only because the DSL cannot tell
+  simulation from play; small n; N ≤ 400 in the lottery; a mutual forfeit pays the game's worst outcome. *Method:*
+  exploration-capped chains can be badly wrong in grammars with large neutral networks (−0.01 against −0.47 here);
+  the whole-space solver is the check.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

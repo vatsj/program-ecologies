@@ -1190,3 +1190,16 @@ c" (RE 5).** Net −0.04 at c = 0.05, since every exploiter pays the cap. **gemi
 c = 0.01.** 0.055 / 0.014 against 0.87 / 0.84. **The RS's reading (I) at c = 0.001.** Not met (lottery e 0.18 / 0.42).
 **Spec claim that the hand table shows depth and work differing at n = 6.** It needs n ≥ 7. **The unpriced identity
 π(`X`) = μ(`X`) carried over to a priced game.** It holds only at c = 0; with a price π(`X`) rises with N.
+
+
+## Added 2026-10-24: mixed actions in two-role games (RESULTS.md, "Mixed actions in two-role games")
+
+**"Reading inspectees sustain commitment" (RE 2).** In the primary exact cell inspectee readers are 0.19 of inspectees,
+inspector mass at 3/8 is below 1/2, and the price does not lower the payoff at generation 2,000; the modal island is
+the efficient outcome held by a responsive inspector. Commitment dominates only when the inspector cannot read. Not
+re-opened without a reason the inspector should be unable to read. **gemini-4-argon on 2** (payoff below −0.5 at
+c = 0.01): −0.21. **gpt-6.1-sol and gemini-4-argon on 4** (gap below 0.2, or near 0): 0.34. **"II's exact readers do
+not beat the coin in Basic Endgame" (RE 6).** They hold 0.54 of II. **"The hand table matches" (RE 1).** One entry
+was wrong (EXP against the reader columns); the evaluator caught it. **The registered chain criterion for
+indeterminacy** (π on cycle classes ≥ 0.5): trivially met in every arm. **Exploration-capped chains as π in grammars
+with large neutral networks:** −0.009 capped against −0.47 on the whole space.
