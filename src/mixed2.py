@@ -60,6 +60,9 @@ ARMS = {
     'matched': dict(app=True, unary=OP_SR),
     'sr4':     dict(app=True, unary=OP_SRK, k=4),
     'sr16':    dict(app=True, unary=OP_SRK, k=16),
+    # ablations (not in the spec): only one role reads
+    'exact_ee': dict(app=True, unary=OP_CR, read=(False, True)),     # only the inspectee / player II reads (exactly)
+    'exact_er': dict(app=True, unary=OP_CR, read=(True, False)),     # only the inspector / player I reads (exactly)
 }
 
 
@@ -132,9 +135,10 @@ class Lang2:
     def _enumerate(self):
         n, card, a_ = self.n, self.g['card'], self.a_
         by, mult = self.by, self.mult
+        rd = a_.get('read', (True, True))
         for s in range(1, n + 1):
             for r in (0, 1):
-                if a_['app']:
+                if a_['app'] and rd[r]:
                     if s == 3:
                         self._add(('app', r, APP_ME, -1), OP_APP, -1, -1, -1, APP_ME, r, 1 - r, 3, 1)
                     if s >= 4:
@@ -147,7 +151,7 @@ class Lang2:
                         self._add(('c1', r, t), OP_C1, -1, -1, -1, 0, r, t, 1, 1)
                         self._add(('x', r, t), OP_X, -1, -1, -1, 0, r, t, 1, 1)
                         continue
-                    if a_['unary'] is not None:
+                    if a_['unary'] is not None and rd[r]:
                         for c in by[(r, 1 - t, s - 1)]:
                             k = a_.get('k', 0)
                             self._add(('u', a_['unary'], r, t, c), a_['unary'], c, -1, -1, k, r, t, s, mult[c])
@@ -167,7 +171,7 @@ class Lang2:
                             for x in by[(r, t, i)]:
                                 for y in by[(r, t, j)]:
                                     self._add(('card', x, y), OP_CARD, x, y, -1, 0, r, t, s, mult[x] * mult[y])
-                    if a_['app']:
+                    if a_['app'] and rd[r]:
                         for q in range(3, s - 2):
                             for a in range(1, s - q - 1):
                                 b = s - 1 - q - a
@@ -1011,6 +1015,39 @@ def weak_graph_classes(UA, UB, tol=1e-9):
     return lab, classes
 
 
+@njit(cache=True)
+def _gth_inplace(A):
+    """GTH state reduction on a row-stochastic matrix, destroying it; eliminates from the last index down."""
+    n = A.shape[0]
+    for i in range(n):
+        A[i, i] = 0.0
+    s = np.zeros(n)
+    for k in range(n - 1, 0, -1):
+        sk = 0.0
+        for j in range(k):
+            sk += A[k, j]
+        if sk <= 0.0:
+            sk = 1e-300
+        s[k] = sk
+        for i in range(k):
+            aik = A[i, k]
+            if aik == 0.0:
+                continue
+            f = aik / sk
+            for j in range(k):
+                A[i, j] += f * A[k, j]
+    x = np.zeros(n)
+    x[0] = 1.0
+    tot = 1.0
+    for k in range(1, n):
+        v = 0.0
+        for i in range(k):
+            v += x[i] * A[i, k]
+        x[k] = v / s[k]
+        tot += x[k]
+    return x / tot
+
+
 class TwoPopChain:
     """Pruned log-domain chain on the K0 x K1 pairs of monomorphic role classes.  A pair (a, b) moves to (q, b) at rate
     mu0(q)/2 * rho(UA[q, b] - UA[a, b]) and to (a, q) at rate mu1(q)/2 * rho(UB[q, a] - UB[b, a]) per mutation event."""
@@ -1051,8 +1088,82 @@ class TwoPopChain:
             ok = (t2 >= 0) & np.isfinite(L2)
             LA[i, t2[ok]] = np.logaddexp(LA[i, t2[ok]], L2[ok])
         seed = np.array([self.lm[divmod(s, K1)] for s in self.states])
+        if n > self.fast_above:
+            res = self._solve_fast(LA)
+            if res is not None:
+                return LA, res[0], res[1]
         lpi, info = stationary_log(LA, seed)
         return LA, lpi, info
+
+    fast_above = 2500
+
+    def _solve_fast(self, LA):
+        """jump-chain GTH in the linear domain (no subtractions): row-normalised probabilities (entries below 1e-30 of the row
+        dropped), log pi = log x_jump - log R.  Valid when the explored chain is irreducible (one closed class containing every
+        state); returns None otherwise so that the log-domain solver is used."""
+        from chain_log import closed_classes
+        from fixed_role_chicken import gth_dense
+        n = LA.shape[0]
+        nc, lab, closed = closed_classes(LA)
+        if len(closed) != 1 or (lab == closed[0]).sum() != n:
+            return None
+        with np.errstate(divide='ignore'):
+            lR = np.logaddexp.reduce(LA, axis=1)
+        P = np.exp(LA - lR[:, None])
+        P[P < 1e-30] = 0.0
+        P /= P.sum(1, keepdims=True)
+        order = np.argsort(lR, kind='stable')
+        x = gth_dense(np.ascontiguousarray(P[np.ix_(order, order)]))
+        xj = np.empty(n); xj[order] = x
+        with np.errstate(divide='ignore'):
+            lpi = np.log(np.maximum(xj, 0.0)) - lR
+        lpi -= np.logaddexp.reduce(lpi[np.isfinite(lpi)])
+        return lpi, dict(n_components=1, n_closed=1, solver='linear_jump_gth')
+
+    def solve_full(self, rel_drop=1e-30):
+        """Stationary distribution on the whole K0 x K1 state space: jump-chain GTH in the linear domain, in place on one dense
+        array (rows and columns permuted so that the states with the smallest exit rate are eliminated last); log pi = log x -
+        log R.  Needs about 8 (K0 K1)^2 bytes.  Valid because the weakly improving graph is one closed class (checked by the
+        caller): no state is a trap, so no entry probability underflows."""
+        K0, K1 = self.K0, self.K1
+        S = K0 * K1
+        lR = np.empty((K0, K1))
+        lR1 = np.empty((K0, K1)); lR2 = np.empty((K0, K1))
+        for b in range(K1):
+            du = self.UA[:, b][None, :] - self.UA[:, b][:, None]
+            L = self.lmu0[None, :] + lrho(du, self.N, self.w)
+            np.fill_diagonal(L, -np.inf)
+            lR1[:, b] = np.logaddexp.reduce(L, axis=1)
+        for a in range(K0):
+            du = self.UB[:, a][None, :] - self.UB[:, a][:, None]
+            L = self.lmu1[None, :] + lrho(du, self.N, self.w)
+            np.fill_diagonal(L, -np.inf)
+            lR2[a, :] = np.logaddexp.reduce(L, axis=1)
+        lR = np.logaddexp(lR1, lR2).ravel()
+        order = np.argsort(lR, kind='stable')
+        inv = np.empty(S, np.int64); inv[order] = np.arange(S)
+        P = np.zeros((S, S))
+        for i in range(S):
+            s = int(order[i])
+            a, b = divmod(s, K1)
+            L1, L2 = self.rates(s)
+            t1 = inv[np.arange(K0) * K1 + b]; t2 = inv[a * K1 + np.arange(K1)]
+            p1 = np.exp(L1 - lR[s]); p2 = np.exp(L2 - lR[s])
+            p1[p1 < rel_drop] = 0.0; p2[p2 < rel_drop] = 0.0
+            P[i, t1] = p1; P[i, t2] += p2
+            P[i] /= P[i].sum()
+        x = _gth_inplace(P)
+        del P
+        xj = np.empty(S); xj[order] = x
+        with np.errstate(divide='ignore'):
+            lpi = np.log(np.maximum(xj, 0.0)) - lR
+        lpi -= np.logaddexp.reduce(lpi[np.isfinite(lpi)])
+        self.states = list(range(S))
+        self.lpi = lpi
+        self.info = dict(n_components=1, n_closed=1, solver='full_linear_jump_gth')
+        self.capped = False
+        self.log_cut = -np.inf; self.log_unexplored = -np.inf; self.circulation = None
+        return lpi
 
     def inflows(self, lpi):
         """log flux from the explored states into every unexplored state, and the total log flux Sum_i pi_i R_i."""

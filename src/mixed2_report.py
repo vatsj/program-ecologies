@@ -86,9 +86,11 @@ def fmt(t, d=3):
     return '%.*f' % (d, t)
 
 
-def chain(game, arm, c):
+def chain(game, arm, c, capped=False):
     if arm == 'blind':
         c = 0.0
+    if exists('chain_%s_%s_c%g_full.json' % (game, arm, c)) and not capped:
+        return jload(os.path.join(RUNS, 'chain_%s_%s_c%g_full.json' % (game, arm, c)))
     p = 'chain_%s_%s_c%g.json' % (game, arm, c)
     return jload(os.path.join(RUNS, p)) if exists(p) else None
 
@@ -104,7 +106,9 @@ INSP_KEYS = [('u0g', 'inspector payoff (game)'), ('u0', 'inspector payoff (net)'
              ('e0', 'net exploitability of inspectees'), ('e1', 'net exploitability of inspectors'),
              ('mix0', 'individual mixing (inspector)'), ('mix1', 'individual mixing (inspectee)'), ('homo0', 'homozygosity 0'), ('homo1', 'homozygosity 1'),
              ('sup0', 'support 0'), ('sup1', 'support 1'), ('dis1', 'bounded-cr disagreement (inspectee)'),
-             ('isl_commit', 'islands committed'), ('isl_commit_comply', 'islands committed+compliant')]
+             ('isl_commit', 'islands committed'), ('isl_commit_comply', 'islands committed+compliant'), ('isl_efficient', 'islands at (0,0)'),
+             ('isl_nashlike', 'islands near Nash'), ('isl_cheat_majority', 'islands cheat prob > 1/2'), ('u0g_q10', 'island inspector payoff q10'),
+             ('u0g_q50', 'island inspector payoff median'), ('u0g_q90', 'island inspector payoff q90')]
 END_KEYS = [('u0g', 'player I payoff (game)'), ('u1g', 'player II payoff (game)'), ('bluff', 'bluff prob. (loser)'), ('call', 'call prob.'),
             ('winbet', 'winner betting'), ('m_bluff_eq', 'I mass |bluff-1/4|<=0.1'), ('m_call_eq', 'II mass |call-1/2|<=0.1'),
             ('isl_bluff10', 'islands bluff within 0.1'), ('isl_call10', 'islands call within 0.1'), ('isl_both10', 'islands both'),
@@ -113,6 +117,8 @@ END_KEYS = [('u0g', 'player I payoff (game)'), ('u1g', 'player II payoff (game)'
             ('rd0', 'I readers'), ('rd1', 'II readers'), ('rdx1', 'II exact readers'), ('rds1', 'II sampling readers'), ('reads1', 'II behavioural readers'),
             ('e0', 'exploitability of II (best I program)'), ('e1', 'exploitability of I (best II program)'),
             ('f0', 'forfeit I'), ('f1', 'forfeit II'), ('cost0', 'price paid I'), ('cost1', 'price paid II'),
+            ('bluff_q10', 'island bluff q10'), ('bluff_q50', 'island bluff median'), ('bluff_q90', 'island bluff q90'), ('call_q10', 'island call q10'),
+            ('call_q50', 'island call median'), ('call_q90', 'island call q90'),
             ('mix0', 'mixing I'), ('mix1', 'mixing II'), ('sup0', 'support 0'), ('sup1', 'support 1'), ('dis0', 'bounded-cr disagreement (I)'), ('dis1', 'bounded-cr disagreement (II)')]
 
 
@@ -317,7 +323,11 @@ def main():
                          ('insp', 'sample', 0.01), ('insp', 'sr16', 0.0), ('insp', 'sr4', 0.0), ('end', 'exact', 0.01), ('end', 'exact', 0.0), ('end', 'blind', 0.0),
                          ('end', 'sample', 0.01), ('end', 'matched', 0.01)]:
         ch = chain(game, arm, c)
-        chain_table(md, ch, '%s %s c=%g' % (game, arm, c))
+        chain_table(md, ch, '%s %s c=%g%s' % (game, arm, c, ' (whole state space)' if ch is not None and ch.get('full') else ' (exploration-capped, not converged where capped=True)'))
+        if ch is not None and ch.get('full'):
+            chc = chain(game, arm, c, capped=True)
+            if chc is not None and not chc.get('full'):
+                chain_table(md, chc, '%s %s c=%g, exploration-capped sensitivity (1,500 states)' % (game, arm, c))
         if ch is not None:
             R['chain']['%s_%s_c%g' % (game, arm, c)] = {N: dict(pi_cycle=r['pi_cycle'], circulation=r.get('circulation'), n_states=r['n_states'], capped=r['capped'],
                                                                  log10_unexplored=r.get('log10_unexplored'), stat={k: v for k, v in r['stat'].items() if k != 'J'},

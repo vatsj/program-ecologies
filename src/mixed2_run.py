@@ -104,11 +104,14 @@ def ladder_seeds(A):
     return pairs
 
 
-def chain_cell(A, N, classes_info, verbose=False, max_states=1500):
+def chain_cell(A, N, classes_info, verbose=False, max_states=1500, max_add=400, full=False):
     t0 = time.time()
     ch = M.TwoPopChain(A, N)
-    seeds = sorted(set(top_pairs(A, 10) + ladder_seeds(A)))
-    ch.explore(seeds, log_theta=math.log(1e-10), max_states=max_states, verbose=verbose)
+    if full:
+        ch.solve_full()
+    else:
+        seeds = sorted(set(top_pairs(A, 10) + ladder_seeds(A)))
+        ch.explore(seeds, log_theta=math.log(1e-10), max_states=max_states, max_add=max_add, verbose=verbose)
     n = len(ch.states)
     lpi = ch.lpi - np.logaddexp.reduce(ch.lpi[np.isfinite(ch.lpi)])
     pi = np.exp(lpi)
@@ -153,7 +156,7 @@ def chain_cell(A, N, classes_info, verbose=False, max_states=1500):
     cum = np.cumsum(np.sort(pi)[::-1])
     res = dict(N=N, n_states=n, capped=bool(ch.capped), log10_cut=float(ch.log_cut / math.log(10)) if np.isfinite(ch.log_cut) else None,
                log10_unexplored=float(ch.log_unexplored / math.log(10)) if np.isfinite(ch.log_unexplored) else None, circulation=ch.circulation,
-               info={k: (v if not isinstance(v, np.ndarray) else v.tolist()) for k, v in ch.info.items()},
+               info={k: (v if not isinstance(v, np.ndarray) else v.tolist()) for k, v in ch.info.items()}, full=bool(full),
                stat=stat, pi_cycle=float(mass.get('cycle', 0)), pi_drift=float(mass.get('drift', 0)), pi_rest=float(mass.get('rest', 0)),
                pi_transient=float(mass.get('transient', 0)),
                top_states=[dict(pi=float(pi[i]), s0=A.names[0][sa[i]], s1=A.names[1][sb[i]], kind=kind.get(int(lab[states[i]]), 'transient'),
@@ -203,13 +206,13 @@ def cmd_chain(a):
     log('[%s %s c=%g] K=%s weak classes: %s (%.0fs)' % (a.game, a.arm, a.c, A.K, [(c['kind'], c['size']) for c in cyc][:10], time.time() - t0))
     out = dict(game=a.game, arm=a.arm, c=a.c, K=A.K, weak_classes=[dict(kind=c['kind'], size=c['size']) for c in cyc], cells={})
     for N in a.N:
-        r = chain_cell(A, N, classes_info, verbose=a.verbose, max_states=a.max_states)
+        r = chain_cell(A, N, classes_info, verbose=a.verbose, max_states=a.max_states, max_add=a.max_add, full=a.full)
         out['cells'][str(N)] = r
         st = r['stat']
         log('  N=%d states=%d capped=%s cut=%s closed=%s pi_cycle=%.3f pi_drift=%.3f pi_rest=%.3f  u0g=%.4f u1g=%.4f (%.0fs)' % (
             N, r['n_states'], r['capped'], r['log10_cut'], r['info'].get('n_closed'), r['pi_cycle'], r['pi_drift'], r['pi_rest'],
             st['u0g'], st['u1g'], r['time_s']))
-        jdump(out, os.path.join(OUT, 'chain_%s_%s_c%g.json' % (a.game, a.arm, a.c)))
+        jdump(out, os.path.join(OUT, 'chain_%s_%s_c%g%s.json' % (a.game, a.arm, a.c, a.tag)))
 
 
 # ================================================================ lottery
@@ -375,7 +378,7 @@ def main():
     c = sp.add_parser('chain')
     c.add_argument('game'); c.add_argument('arm'); c.add_argument('c', type=float)
     c.add_argument('--N', type=int, nargs='+', default=list(NS_CHAIN)); c.add_argument('--verbose', action='store_true')
-    c.add_argument('--max_states', type=int, default=1500)
+    c.add_argument('--max_states', type=int, default=1500); c.add_argument('--max_add', type=int, default=400); c.add_argument('--tag', default=''); c.add_argument('--full', action='store_true')
     l = sp.add_parser('lottery')
     l.add_argument('game'); l.add_argument('arm'); l.add_argument('c', type=float); l.add_argument('cell')
     l.add_argument('--runs', type=int, nargs=2)

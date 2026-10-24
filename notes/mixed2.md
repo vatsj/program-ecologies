@@ -242,3 +242,28 @@ probability 211/243) while EXP's actual level-12 slice checks.
    transitions along the ladder.
 10. **Memory.** One program-level evaluation peaks at 1.8 GB RSS (inspection exact; the sr4 arm needs a minute for the
     binomial sums); chain and lottery jobs load cached class tables (< 0.5 GB). At most 3 workers.
+
+## 3. Deviations and facts recorded while running (after the counted cells began)
+
+1. **First batch killed.** The first lottery batch was stopped after three finished cells (inspection exact c = 0 and 0.01, blind)
+   to add island-level outcome shares and quantiles to the summaries (`isl_efficient`, `isl_nashlike`, `isl_cheat_majority`,
+   island quantiles of the inspector payoff, of the bluff and of the call probability); the three cells were deleted and the
+   whole batch re-run with the final code. The three discarded cells had shown the exact arm at mean inspector payoff about −0.22
+   (the registered statistics did not change afterwards).
+2. **Reference-test bug (test code, not the evaluator).** The first run of the exact-rational reference disagreed with the kernel
+   on one pair; the reference had applied the mutual-forfeit penalty per card (the worst entry of the card's table) instead of the
+   worst entry of the whole table as §1.0 states. The reference was corrected; the kernel was right.
+3. **Chain exploration does not converge at large N in the exact arms.** With the registered exploration (relative inflow 10⁻¹⁰,
+   at most 1,500 states) the unexplored relative flux at N = 10⁴ is ≈ 1 in most exact cells, and the headline statistics move with the
+   cap: inspection exact, c = 0, N = 10⁴, mean inspector payoff −0.009 at 1,500 states, −0.31 at 4,000, −0.47 at 8,000. The efficient
+   reactive state sits on a very large neutral network of spellings (programs of size 7–8 that play the same as `cr(THEM(ME))`
+   against everything that matters), and π is spread over it. A whole-state-space solver was therefore added
+   (`TwoPopChain.solve_full`: jump-chain GTH in the linear domain, in place on one dense array, validated against the log-domain
+   solver to 10⁻¹³ on explored sets and against a dense linear solve on toy chains in the tests); it needs 8 (K0 K1)² bytes and is
+   run only where that fits (one job at a time above 2 GB). Cells where it was not run (sr4, sr16, Endgame matched, and the
+   inspection exact c = 0.01 table at 28k states) keep the exploration-capped numbers and are marked as not converged.
+   The closed-class criterion of the predictions (`pi_cycle`) is 1 whenever it was computed, because the weakly improving graph is
+   one class; the circulation index is within 10⁻³ of 1 on explored sets for the same reason and does not discriminate either.
+   Chain statistics are therefore reported as π under the whole-state solver (converged) or flagged capped, and only the lottery
+   enters the verdicts except for Prediction 3's chain clause.
+4. **Peak memory** (RSS): static job 1.8 GB; lottery and capped chain jobs below 0.5 GB; the whole-space chain 3–5 GB for 24.6k states.

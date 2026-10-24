@@ -580,6 +580,19 @@ def test_chain_matches_dense_solution():
     assert np.abs(got[order] - pi).max() < 1e-9
 
 
+def test_full_chain_solver_matches_explored():
+    rng = np.random.default_rng(11)
+    K0, K1 = 5, 4
+    A = toy_arm(rng.normal(size=(K0, K1)), rng.normal(size=(K1, K0)), np.full(K0, 1 / K0), np.full(K1, 1 / K1))
+    for N in (20, 400):
+        ch = M.TwoPopChain(A, N)
+        ch.explore(list(range(K0 * K1)), log_theta=-400.0, max_states=K0 * K1)
+        ref = np.exp(ch.lpi - np.logaddexp.reduce(ch.lpi))[np.argsort(ch.states)]
+        ch2 = M.TwoPopChain(A, N)
+        lp = ch2.solve_full()
+        assert np.abs(np.exp(lp) - ref).max() < 1e-10
+
+
 def test_weak_graph_classes_matching_pennies():
     UA = np.array([[1, -1], [-1, 1]]); UB = np.array([[-1, 1], [1, -1]])     # matching pennies
     lab, classes = M.weak_graph_classes(UA, UB)
@@ -614,3 +627,11 @@ def test_island_stats_one_hot_matches_tables():
     assert abs(st['p_insp'][0] - 3 / 8) < 1e-9 and abs(st['q_cheat'][0]) < 1e-9
     assert abs(st['m_p38'][0] - 1) < 1e-12 and abs(st['m_above'][0] - 1) < 1e-12
     assert abs(st['J'][0].sum() - 1) < 1e-9
+
+
+def test_one_role_reads_ablation_arms():
+    ee = M.Lang2('insp', 'exact_ee', 8); bl = M.Lang2('insp', 'blind', 8); ex = M.Lang2('insp', 'exact', 8)
+    assert ee.S0 == bl.S0 and not ee.has_app[0].any() and not ee.has_cr[0].any()          # inspectors blind
+    assert ee.S1 == ex.S1 and (ee.has_cr[1] == ex.has_cr[1]).all()                          # inspectees as in the exact arm
+    er = M.Lang2('insp', 'exact_er', 8)
+    assert er.S1 == bl.S1 and er.S0 == ex.S0
