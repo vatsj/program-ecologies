@@ -931,4 +931,10 @@ REJECTED.md the ones we dropped.
   because a timed-out read returns a default rather than forfeiting; the coin wins at about 80× the price. *Open for
   the RS:* the timeout convention (what a timed-out read returns: the reader's default, a forfeit of the reader, or a
   charge) and the price scale; and whether the checker should become library code (milestone 4's convention).
+- *RS (2026-10-24), compute cost:* "I'm comfortable with a capped simulator primitive. It's a bash command and we're
+  aiming for Turing-completeness, so I see no principled reason to withhold it." On pricing failure rather than work:
+  "it points the finger more directly at the reason we need the restriction in the first place: infinite loops. I
+  don't think I have an answer to your question; I'm hoping we find experiments that answer the question for us."
+  *Operating hypothesis:* the timeout convention stays (a timed-out read returns to the reader); the cost notion is
+  open, informed by queue 63's cross-game robustness test.
 
