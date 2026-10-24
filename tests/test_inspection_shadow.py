@@ -194,3 +194,15 @@ def test_lottery3_equals_lottery2_without_rain_and_matches_controls():
     arr = S.lottery3(UA2, UB2, init0, iC, N, 0.3, 0.0, 5, np.array([3, 4], np.int64), 0.0, 1, -1, np.array([3], np.int64), np.array([1], np.int64),
                      np.array([1], np.int64), np.array([1], np.int64))
     assert (arr[1][0].sum(1) == N).all()
+
+
+def test_ablation_priors():
+    A = arm('exact', 0.0)
+    sh, li = S.ablation_sets(A)
+    nm = S.named(A)
+    assert nm['0N'] in sh and nm['0CRI'] not in sh and nm['1C'] not in li and nm['1K'] not in li
+    assert A.mass[0][sh].sum() == pytest.approx(0.3072, abs=1e-4) and A.mass[1][li].sum() == pytest.approx(0.00309, abs=1e-5)
+    for v in ('noshadow', 'nolight', 'neither'):
+        B = S.variant_arm(A, v)
+        assert B.mass[0].sum() == pytest.approx(1.0) and B.mass[1].sum() == pytest.approx(1.0)
+        assert (B.mass[0][sh] == 0).all() == (v != 'nolight') and (B.mass[1][li] == 0).all() == (v != 'noshadow')

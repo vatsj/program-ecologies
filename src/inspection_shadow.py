@@ -131,10 +131,35 @@ def mass_variant(A, kind, factor=10.0):
     return new, new / m, dict(kind=kind, S=S.tolist(), mS=float(mS), delta=float(delta), m_new_S=float(new[S].sum()), m_new_C=float(new[nm['1C']]))
 
 
+def ablation_sets(A):
+    """classes removed by the post-hoc ablations (c = 0 tables): the unconditional shadow = inspector classes that are payoff twins of CRI
+    against C but do not deter K; the light cheaters = inspectee classes that strictly invade (CRI, C)."""
+    nm = named(A)
+    CRI, C = nm['0CRI'], nm['1C']
+    shadow = np.nonzero((np.abs(A.UA[:, C] - A.UA[CRI, C]) < TOL) & ~(class_flags(A)['deter0']))[0]
+    light = np.nonzero(A.UB[:, CRI] - A.UB[C, CRI] > TOL)[0]
+    return shadow, light
+
+
 def variant_arm(A, kind, factor=10.0):
-    """shallow copy of the arm with the inspectee prior replaced."""
-    mass, fac, info = mass_variant(A, kind, factor)
+    """shallow copy of the arm with the prior replaced: 'boost' / 'control' change the inspectee prior (prudent x factor and its matched
+    control); 'noshadow', 'nolight', 'neither' (post-hoc ablations) set to zero the prior mass of the unconditional-shadow inspector classes
+    and / or of the light-cheater inspectee classes, renormalising."""
     B = copy.copy(A)
+    if kind in ('noshadow', 'nolight', 'neither'):
+        shadow, light = ablation_sets(A)
+        m0 = A.mass[0].copy(); m1 = A.mass[1].copy()
+        if kind in ('noshadow', 'neither'):
+            m0[shadow] = 0.0; m0 /= m0.sum()
+        if kind in ('nolight', 'neither'):
+            m1[light] = 0.0; m1 /= m1.sum()
+        B.mass = [m0, m1]
+        B.variant = dict(kind=kind, removed_mass_inspector=float(A.mass[0][shadow].sum()) if kind != 'nolight' else 0.0,
+                         removed_mass_inspectee=float(A.mass[1][light].sum()) if kind != 'noshadow' else 0.0,
+                         n_shadow=int(len(shadow)), n_light=int(len(light)))
+        B.class_factor = None
+        return B
+    mass, fac, info = mass_variant(A, kind, factor)
     B.mass = [A.mass[0], mass]
     B.variant = info
     B.class_factor = fac
