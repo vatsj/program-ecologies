@@ -1203,3 +1203,15 @@ not beat the coin in Basic Endgame" (RE 6).** They hold 0.54 of II. **"The hand 
 was wrong (EXP against the reader columns); the evaluator caught it. **The registered chain criterion for
 indeterminacy** (π on cycle classes ≥ 0.5): trivially met in every arm. **Exploration-capped chains as π in grammars
 with large neutral networks:** −0.009 capped against −0.47 on the whole space.
+
+
+## Added 2026-10-24: a private random tape in the realizable language (RESULTS.md, "A private random tape in the realizable language")
+
+**"At the calibrated step price the tape coin holds the RPS lottery" (RE 2).** `U` 0.045 at c₀ = 0.12/K₀; simulators
+0.87, because a timed-out read returns a default, not a forfeit. The coin held 0.91 at c = 10⁻³ (post-hoc). Not
+re-opened without a price of that order or a timeout convention that forfeits. **gpt-6.1-sol: a quote-hash population
+is balanced in aggregate.** Population exploitability 0.89. **"The responsive prover holds the efficient inspection
+islands in L_T" (RE 3, mechanism).** `RI` holds 0; simulators hold all of them; `RIM` holds them only without
+simulators. **The hand table's "a simulator earns half the best response against every biased mixer."** True for 3 of
+6. **"The calibrated price leaves efficiency within 0.1" (S4).** −0.128, uncertain. **A check-only reader survives.**
+Share 0. **A single timeout default for simulators.** A grammar artefact found in development.

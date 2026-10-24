@@ -6658,6 +6658,106 @@ c = 0.01 does not lower the payoff), 6 (II's readers hold 0.54 > 0.5), gemini-4-
   exploration-capped chains can be badly wrong in grammars with large neutral networks (−0.01 against −0.47 here);
   the whole-space solver is the check.
 
+## A private random tape in the realizable language: sound, but at the calibrated price simulators beat the coin, and they, not the prover, hold the inspection islands (2026-10-24)
+
+Spec `specs/2026-10-24-realizable-randomizer.md` (the RS: "A private random tape is an acceptable primitive";
+reviewed by gpt-6.1-sol then gemini-4-argon), predictions `predictions/2026-10-24-realizable-randomizer.md` (the RS's
+statement first; an addendum for post-hoc cells), notes `notes/lt-tape.md` (§1 hand table before code; §2 choices, an
+erratum and a bug found by the audit), report `runs/lt-tape.md` and `.json`, rows `runs/lt_tape/`. Run by a Sonnet
+subagent (`src/lt_tape*.py`; 14 tests, passing on main). Lottery = the ε = 0 seed lottery, N = 100 (per role), I = 64,
+mN = 1, w = 0.3, generation 2,000 (4,000 beside it), 40 runs, run-clustered intervals; static = exact tables over tapes;
+chain = the ε → 0 diagnostic.
+
+**Built.** L_T with `tape i`: each invocation (a root evaluation or one `run`) has its own private tape of m digits,
+indexed by (invocation, position), so a simulation samples and cannot predict. K_T gains TapeR/TapeL, which make
+"plays a on every tape" atoms derivable soundly. `prp` proves a counted probability by enumerating the decision tree;
+`chk` checks it from a count certificate the program carries, replayed against a wildcard opponent and bound to the
+fuel stamp. A quote hash `hq` is the pseudo-random control. Programs: constants, tape mixers, certificate carriers,
+hash programs, simulators (with timeout defaults), provers (`RI`, inspect unless provably compliant, budget 8; `RIM`,
+the same with a coin fallback; and others), enumerating and checking readers. Price c per evaluation step;
+c₀ = 0.12/K₀ with K₀ = 10⁴, the smallest power of ten above the dearest finishing encounter.
+
+**Deviations.** `prp` and `chk` are charged host primitives, not library code as in milestone 4, and certificate
+production is an uncharged host tactic. The soundness of TapeR/TapeL with Nec and JLöb is argued and audited, not
+re-proved. The grammar was extended after a 4-run development cell: with one timeout default a single simulator took
+every RPS island, so simulators now come with every default and a uniform-guard variant (30 RPS programs, 22
+inspectors, 24 inspectees). Three cells were added after the registered ones and are labelled post-hoc: a
+no-simulator arm, a price dose at the fixed cap, and a static leak table. Islands are only partly settled (support
+unchanged from 1,500 to 2,000 on 0.16–0.64 of islands in the primary cells; unchanged support is not absorption),
+so 4,000 is reported beside 2,000 where it moves: in the RPS full arm unpriced, simulators 0.845 → 0.909 and population
+exploitability 0.638 → 0.743; at c₀, `U` 0.045 → 0.055. Selection uses exact expected payoffs over tapes; a nested
+`prp` returns F at once; soundness of play was checked at K = 10⁶ (not universally), the idealized `prove` costs 1
+step against its actual W, and the post-hoc leak table found no simulator leak in the catalogue. Identical-table cells differ by
+0.10–0.13 on island fractions, the lottery's own noise at 40 runs.
+
+**Sound** (on these catalogues). 0 false atoms over four catalogues (343–1,191 derived atoms each, all witness sequents true), 0
+disagreements between derived atoms and play, the padded-space reference equal to the engine on 18/18 adaptive cases,
+and 18/18 adversarial certificates rejected. The first audit found 4–29 disagreements (a costly step drove a
+simulation's fuel below zero, so the idealized atom never timed out); fixed before any counted cell. A hash of the
+opponent's quote is a predictable coin: a simulator earns +1 against every hash fixture and 0 against the uniform
+tape mixer `U`.
+
+**RPS.**
+- At c₀ the uniform mixer holds 0.045 [0.011, 0.091] of the lottery and simulators 0.87; the islands are exploitable
+  (population exploitability 0.61). The DSL's priced result (`X` 0.84–0.87) is not reproduced. In L_T a timed-out read
+  returns a value (the simulator's default), not a forfeit, so simulators reading each other pay about 111 steps
+  (0.0013 at c₀) and cycle.
+- Price dose at the same cap (post-hoc): `U` holds 0.09 at c = 10⁻⁴, **0.91 at 10⁻³** (mixing 0.999, exploitability
+  ≈ 0), and 0.22 at 10⁻², where the cheapest tape program, a biased mixer, takes over. The coin wins at about 80× the
+  calibrated price.
+- Without simulators (post-hoc), the counted-probability reader `PRR`, which plays a coin unless it can prove an
+  exploitable bias, holds 0.82 at c₀ with mixing 0.95 and exploitability 0.046.
+- The pseudo-random-only arm is exploitable individually (0.999) and as a population (0.89). The pure arm: simulators
+  hold everything and nothing mixes.
+- Chain: π(`U`) equals its prior mass (0.033) at every N when unpriced, as in the DSL; 0.33 at N = 10⁵ at c₀.
+
+**Inspection.**
+- Full arm: efficient islands 0.875 [0.775, 0.975] unpriced and 0.747 at c₀, held by simulating inspectors (all of
+  them), not by the responsive prover (`RI` 0). At budget 8 `RI` cannot prove anything about a tape-reading program
+  (the for-all-tapes derivation that a mixer with the same action on both branches complies has size 9), and its
+  failed searches cost 56–3,544 expansions against 8 for a success.
+- Without simulators (post-hoc), `RIM` holds 0.97–1.00 of inspectors, efficient islands 0.39 / 0.58 and committed and
+  compliant 0.38 / 0.23 (unpriced / c₀).
+- Only the inspectee reads: committed and compliant 0.974 [0.923, 1.000] (the DSL: 0.91), inspectors predominantly 3/8
+  mixers (mean inspection about 0.40), inspector payoff −0.40; in the co-primary renormalized arm (the disabled templates' defaults shift a founder share by more than
+  0.05) 0.868 [0.765, 0.965] unpriced and 0.953 at c₀. Certified mixers hold 0.48 [0.35, 0.62] of the committed inspector mass against a founder share of
+  0.17, because checking readers comply only with certified mixers. Only the inspector reads: efficient 0.33,
+  inspector payoff −0.61 (renormalized: 0.215 and −0.721).
+- Routes (static): checking a certificate costs 11–27 steps against 18–47 for enumeration; the population-weighted
+  cost of proof search is set by its failed searches, not its successes.
+- The calibrated price moves efficient islands by −0.128 [−0.278, 0.030], an uncertain effect. At the fixed price c₀ the
+  fuel panel gives efficient islands 0.750 / 0.747 / 0.875 at K = 5,000 / 10,000 / 20,000.
+- Chain, full arm: inspector payoff −0.36 to −0.42 over N = 10² to 10⁴, against −0.07 unpriced and −0.14 at c₀ in the
+  lottery; the two objects disagree, as in the DSL.
+
+**Verdicts.** Held: 1 (soundness, adversarial certificates, the hash control; its parenthesis that a simulator earns
+"half the best response" against every biased mixer was wrong for 3 of 6 and withdrawn as an erratum, while the
+registered 1/3 payoff held), 6 (the cheapest route, checking, survives the price at 0.49 against 0 for the dearest,
+search by `PE`/`PEC`; difference 0.49 [0.21, 1.09]; enumeration, 0.75, survives better than checking, so cost does not
+order the middle routes), and the engineer's S1, S2, S3, S5, S6. Failed: 2 (the tape coin below 0.3 of the RPS lottery
+at c₀: 0.045), gpt-6.1-sol's counter-prediction on 2 (the hash population is exploitable, 0.89), and S4, which failed
+its registered threshold (|Δ| ≥ 0.1): Δ = −0.128 [−0.278, 0.030], an uncertain effect. Partial: 3 (efficient islands
+0.875, but held by simulators, not the responsive prover), 4 (committed and compliant 0.974; certified mixers 0.48 of
+committed mass, just under the registered majority), 5 (the static ratio, 27/12, holds; the registered lottery ratio is
+undefined in the primary cell, where `RI` has share 0, and the 0.009 from the post-hoc no-simulator arm is
+supplementary).
+
+**Reading.**
+- A private tape is a sound realizable randomizer, and a quote hash is not one.
+- Whether the coin or reading holds the ecology depends on price. In the DSL a looping read forfeited; in L_T a
+  timed-out read returns the reader's default, so mutual simulation is nearly free and cycles. The likely explanation
+  is that timeout convention, but no cell changes the convention alone (the DSL comparison also changes the language,
+  and the dose changes the price), and `U`'s response to price is not monotone (0.09, 0.91, 0.22 at 10⁻⁴, 10⁻³, 10⁻²),
+  so 10⁻³ is a measured point, not a threshold.
+- In this catalogue, at prove budget 8 and this horizon, reading by sampling beats reading by proof in the inspection
+  game: the prover cannot derive anything about a tape-reading program at that budget and pays heavily to fail, while
+  counted-probability readers do reason about mixing. Efficient islands are modal anyway, through simulators.
+- Commitment needs only the inspectee to read, and certificates make it cheaper to read: checking readers select
+  certified mixers.
+- *Caveats:* `prp` and `chk` are host primitives; the hash is a fixture; timeout defaults are template choices made
+  after a development run; N = 100 is a transfer test; the calibration put c₀ two orders of magnitude below the price
+  at which the coin wins.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

@@ -926,4 +926,9 @@ REJECTED.md the ones we dropped.
   efficient pair to the inspector's unconditional shadow; Basic Endgame's equilibrium is not recovered in any arm.
   *Open:* whether a realizable reader keeps the responsive inspector unfakeable (the DSL cannot tell simulation from
   play; `cr` is a free oracle).
+- *Evidence (2026-10-24, RESULTS "A private random tape in the realizable language"):* the RS's private tape is a sound
+  realizable randomizer, but at the calibrated step price simulators hold the RPS lottery and the inspection islands,
+  because a timed-out read returns a default rather than forfeiting; the coin wins at about 80× the price. *Open for
+  the RS:* the timeout convention (what a timed-out read returns: the reader's default, a forfeit of the reader, or a
+  charge) and the price scale; and whether the checker should become library code (milestone 4's convention).
 
