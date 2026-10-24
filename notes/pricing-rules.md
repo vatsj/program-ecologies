@@ -142,3 +142,82 @@ other rules, and whether F's RPS and PD bands meet under the lottery rather than
   priced like any other steps (§2: no exemption). The play-step model of §2 uses the stored decision trees, the
   stored check outcomes, and call-cost medians calibrated on the named-pair records.
 * **No stored record** prices a read by its outcome, caches across encounters, or charges anything at the cap.
+
+## 2. Choices where the spec is silent, deviations, caches (appended with the code, before any counted cell)
+
+**Caches.** The L_T games need nothing untracked. The PD needs the untracked world-K caches (`runs/provenance/{static,
+sets.npz, OSV.npy, SPO.npy, prod_exec.json}`, `runs/detectors/K/{static, sets.npz, OSV.npy, SPO.npy, prod_exec.json,
+grudge.npz, sync}`, 1.7 GB). They were **copied, not rebuilt**, from a sibling worktree (read-only on its side); the
+copies are untracked and never committed (explicit `git add` of named files only). The tracked JSON in those directories
+was already in this checkout.
+
+**Code layout (nothing under `src/` or `tests/` edited).**
+`src/pricing_rules.py` (instrumented ledger engine: a copy of `lt_tape.Engine.explore` that records the forest of read calls;
+`LedgerEngine.ledger`), `src/pricing_rules_lt.py` (RPS and inspection: statics, priced views, exact-kernel lotteries, records),
+`src/pricing_rules_kern.py` (sampled-encounter lotteries with island ledgers), `src/pricing_rules_pd_model.py` (the PD
+play-step model and priced payoff), `src/pricing_rules_pdkern.py` (a generated copy of `provenance._change`,
+`provenance.init_paysum` and `annealed_kern.segment_ann` with `pay` replaced by `pay_net`; no other change),
+`src/pricing_rules_pd.py` (PD run object and driver), `src/pricing_rules_pd_validate.py` (calibration and validation of the
+model against executable plays), `src/pricing_rules_batch.py`, `src/pricing_rules_report.py`.
+
+**Definitions the spec left open.**
+1. *What counts as a timed-out read.* A `run` frame closed on `TO` (fuel, partial cap, or a stuck inner term; the stuck case
+   is counted and logged apart, expected 0), and a `prp` that hits its enumeration cap b (returns F at charge b; logged
+   apart as `cap`). A root evaluation that exceeds K forfeits as now and pays no extra under A. Primitive `prove` and `chk`
+   that exceed a *sim's* fuel time that sim out (a partial-cap timeout, charged its remaining fuel + 1 = the call's k + 2).
+   `hq` is an ordinary step, not a read.
+2. *F+A's K* is the game's root fuel (10⁴ in RPS and inspection, 10⁶ per encounter in the PD), also for a `prp` cap hit that
+   used only b = 400 steps (the spec: "charged c·K in place of its own steps").
+3. *Call keys (B).* Issuer = the program whose code issues the call (the root program, or the program running inside the
+   enclosing frame), read = the program simulated (`run`), or the target and parameters (`prove`, `prp`, `chk`); programs
+   include their carried certificates (they are terms). A key hit makes the call and its subtree free and inserts nothing
+   below it; a miss is charged the call's own steps (its subtree minus its nested calls' subtrees) and inserted.
+4. *B cold* is run in a sampled-encounter kernel with a real ledger per island (empty at the start, island-bound, shared by
+   both roles); *B warm* (the pre-warmed cache, `Bw`) is the steady-state table charge c · (root steps outside every read call)
+   in the exact kernel. B cold uses 10 encounters per individual per generation and stops at generation 2,000. Because the
+   kernel differs from the stored one, the matched bridges `Zs` (zero price) and `Fs` (F) go through the same sampled kernel
+   at the panel levels, and B is read against them. Rejection sampling of the parent (exact, against a running upper bound).
+5. *Controls.* The timeout-free bounded simulator is the zero price (a read that returns a default after a small fixed
+   budget without being a charged timeout is an uncharged read): the zero-price cells are that control. The per-read toll τ
+   charges every read call (finishing or not) a constant τ: τ ∈ {0.1, 1}, exact kernel in RPS and inspection, type level in the
+   PD (calls = atoms evaluated plus production acts).
+6. *Seeds.* Founders as the stored cells (paired across rules). Dynamics seeds are the stored formula with the price label:
+   `'%g' % c` for F and Z (so F and Z reproduce the stored cells draw for draw: tested on four stored cells), `rule@level` for
+   the other rules.
+7. *Targets* as in the predictions file. The RPS statistic is `e_prog` (net of the rule's charge; for rule B cold the net
+   uses the warm-cache charge table); the inspection statistic is the fraction of efficient islands at 2,000; the PD statistic
+   is `universal_open` at the run's end (generation 10,000 or the frozen stop).
+8. *Larger geometry.* RPS and inspection (N, I) = (400, 16), 20 runs, the stored `size` cell; PD (200, 64), 20 runs.
+
+**The PD play-step model (a disclosed approximation, not a stored record).** The stored kernel has no play-step table, so
+each play is priced by the decision-tree evaluator of `pricing_rules_pd_model.py`: the atoms on the evaluated path, each
+charged by its class. The action it computes equals the stored action table on 200,000 random distinct pairs and the
+self-play table on 5,000 units (0 mismatches; a test). The class costs were fitted by non-negative least squares on 30,000
+executed plays (`lt_genes.play_side` at K = 10⁶, units drawn from the types of three zero-price lotteries advanced 300
+generations; the nolist check fixed at 101 and the root's steps at 4; TO fixed at 250,006). Fitted class costs (steps):
+
+| nolist | dist T | dist F | same T | same F | self T | self F | vsC T | vsC F | vsD T | vsD F | TO | root |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 101 | 18,843 | 25,865 | 18,304 | 21,523 | 17,616 | 15,767 | 13,277 | 12,739 | 12,955 | 13,672 | 250,006 | 4 |
+
+Held-out error (8,000 plays): mean predicted 9,439 against executed 9,364; median ratio executed/predicted 0.95; q10–q90
+0.63–3.9; 75% within a factor 2 (the first, median-based model: mean 5,258, 58% within a factor 2). The model's action
+disagrees with the executable evaluator on 1.5% of plays (⊥ and timeouts of the executable play). Production acts use the
+stored medians (`COSTS`): produce-C 13,743, produce-D 9,058, cap 250,005. The charges act on the Moran fitness at the type
+level: a type's payoff against a partner is the stored pair payoff minus the rule's charge of that ordered pair (play plus
+S-nonself production); the production charge is paid every encounter by a type that lacks an entry (futile retries
+included), as in the stored cost accounting. Rule B in the type-level kernel charges only the root's 4 steps per play: a
+read or production act is amortized to zero in steady state, and the first-execution charges (one per key per island) are not
+representable in a kernel whose fitness has no individual history; their size is bounded in the report by the number of
+distinct keys times their cost against the payoff mass of a generation. Nothing else in the PD differs from the stored
+cell: founders, r = 100, w = 0.3, mN = 1, the frozen stop and the statistics. Zero price returns `PV.pay` exactly (draw for
+draw with the stored run: a test on a 400-generation run).
+
+**Statics.** `src/pricing_rules_report.py` computes, from the instrumented tables, the grid c ∈ [10⁻⁶, 10⁻¹] and P_fail ∈
+[10⁻³, 10²] (8 points per decade): RPS, which programs invade a monomorphic `U` population (net) and the largest invasion
+gain; inspection, the fraction of efficient resident pairs (both roles' game payoff ≥ −0.05) that no single mutant of either
+role invades.
+
+**Cuts and disclosures** are listed in the report. Measured costs: a PD run is about 0.5 minutes when it freezes early and
+about 3.5 minutes at 10,000 generations when it does not (0.9 GB resident); an RPS or inspection exact-kernel run takes seconds,
+a sampled run about 8 seconds (0.12 GB). At most 2 worker processes were used while any other agent's process was alive.
