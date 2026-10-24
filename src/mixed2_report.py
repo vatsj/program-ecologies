@@ -86,6 +86,10 @@ def fmt(t, d=3):
     return '%.*f' % (d, t)
 
 
+def is_full(ch):
+    return any(r.get('full') for r in ch['cells'].values()) or all(not r['capped'] for r in ch['cells'].values())
+
+
 def chain(game, arm, c, capped=False):
     if arm == 'blind':
         c = 0.0
@@ -325,10 +329,10 @@ def main():
                          ('insp', 'sample', 0.01), ('insp', 'sr16', 0.0), ('insp', 'sr4', 0.0), ('end', 'exact', 0.01), ('end', 'exact', 0.0), ('end', 'blind', 0.0),
                          ('end', 'sample', 0.01), ('end', 'matched', 0.01)]:
         ch = chain(game, arm, c)
-        chain_table(md, ch, '%s %s c=%g%s' % (game, arm, c, ' (whole state space)' if ch is not None and ch.get('full') else ' (exploration-capped, not converged where capped=True)'))
-        if ch is not None and ch.get('full'):
+        chain_table(md, ch, '%s %s c=%g%s' % (game, arm, c, ' (whole state space)' if ch is not None and is_full(ch) else ' (exploration-capped, not converged where capped=True)'))
+        if ch is not None and is_full(ch):
             chc = chain(game, arm, c, capped=True)
-            if chc is not None and not chc.get('full'):
+            if chc is not None and not is_full(chc):
                 chain_table(md, chc, '%s %s c=%g, exploration-capped sensitivity (1,500 states)' % (game, arm, c))
         if ch is not None:
             R['chain']['%s_%s_c%g' % (game, arm, c)] = {N: dict(pi_cycle=r['pi_cycle'], circulation=r.get('circulation'), n_states=r['n_states'], capped=r['capped'],

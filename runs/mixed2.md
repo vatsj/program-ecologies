@@ -1318,7 +1318,7 @@ Spec `specs/2026-10-23-two-role-mixed.md`; predictions `predictions/2026-10-23-t
 
 ## Chain tables
 
-**insp exact c=0 (exploration-capped, not converged where capped=True)** (chain, pi over pairs of monomorphic classes, K = [157, 157])
+**insp exact c=0 (whole state space)** (chain, pi over pairs of monomorphic classes, K = [157, 157])
 
 | N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -1326,21 +1326,37 @@ Spec `specs/2026-10-23-two-role-mixed.md`; predictions `predictions/2026-10-23-t
 | 1000 | 24649 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.4959 | -0.0535 | 0.319 | 0.077 | 0.366 | 0.420 | 0.145 |
 | 10000 | 24649 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.4707 | 0.0291 | 0.281 | 0.054 | 0.569 | 0.534 | 0.293 |
 
+**insp exact c=0, exploration-capped sensitivity (1,500 states)** (chain, pi over pairs of monomorphic classes, K = [157, 157])
+
+| N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 100 | 1500 | True | -1.3 | 0.998 | 1.000 | 0.000 | 0.000 | 1 | -0.7376 | -0.1693 | 0.418 | 0.163 | 0.142 | 0.346 | 0.145 |
+| 1000 | 1500 | True | -0.1 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.1517 | -0.0164 | 0.098 | 0.023 | 0.806 | 0.128 | 0.044 |
+| 10000 | 1500 | True | -0.0 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.0093 | 0.0005 | 0.006 | 0.001 | 0.992 | 0.011 | 0.005 |
+
 Ladder rates (exact c=0 N=100, log10 rate per mutation event, N × rate): (P38,CRC)->(P38,C) -2.72, 0.189; (P38,C)->(N,C) -1.79, 1.63; (N,C)->(N,K) -1.41, 3.85; (N,K)->(I,K) -0.96, 10.9; (I,K)->(I,C) -0.95, 11.2; (I,C)->(N,C) -1.40, 3.98; (P38,C)->(P38,CRC) -5.17, 0.000676; (N,C)->(P38,C) -8.54, 2.88e-07; (P38,CRC)->(N,CRC) -47.75, 1.78e-46; (P38,CRC)->(P38,K) -8.13, 7.35e-07
 Ladder rates (exact c=0 N=1000, log10 rate per mutation event, N × rate): (P38,CRC)->(P38,C) -3.72, 0.189; (P38,C)->(N,C) -1.79, 16.3; (N,C)->(N,K) -1.41, 38.5; (N,K)->(I,K) -0.96, 109; (I,K)->(I,C) -0.95, 112; (I,C)->(N,C) -1.40, 39.8; (P38,C)->(P38,CRC) -6.17, 0.000676; (N,C)->(P38,C) -52.51, 3.07e-50; (P38,CRC)->(N,CRC) -472.82, 0; (P38,CRC)->(P38,K) -66.76, 1.72e-64
 Ladder rates (exact c=0 N=10000, log10 rate per mutation event, N × rate): (P38,CRC)->(P38,C) -4.72, 0.189; (P38,C)->(N,C) -1.79, 163; (N,C)->(N,K) -1.41, 385; (N,K)->(I,K) -0.96, 1.09e+03; (I,K)->(I,C) -0.95, 1.12e+03; (I,C)->(N,C) -1.40, 398; (P38,C)->(P38,CRC) -7.17, 0.000676; (N,C)->(P38,C) -492.24, 0; (P38,CRC)->(N,CRC) -4723.47, 0; (P38,CRC)->(P38,K) -653.06, 0
 
-**insp exact c=0.01 (exploration-capped, not converged where capped=True)** (chain, pi over pairs of monomorphic classes, K = [167, 167])
+**insp exact c=0.01 (whole state space)** (chain, pi over pairs of monomorphic classes, K = [167, 167])
 
 | N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1000 | 27889 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.6323 | -0.1205 | 0.383 | 0.123 | 0.211 | 0.387 | 0.130 |
 | 10000 | 27889 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.6228 | -0.1157 | 0.378 | 0.120 | 0.219 | 0.390 | 0.132 |
 
+**insp exact c=0.01, exploration-capped sensitivity (1,500 states)** (chain, pi over pairs of monomorphic classes, K = [167, 167])
+
+| N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 100 | 1500 | True | -3.5 | 0.998 | 1.000 | 0.000 | 0.000 | 1 | -0.7921 | -0.1839 | 0.446 | 0.177 | 0.085 | 0.363 | 0.157 |
+| 1000 | 1500 | True | -0.4 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.4004 | -0.0761 | 0.243 | 0.078 | 0.501 | 0.244 | 0.082 |
+| 10000 | 1500 | True | -0.1 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.1101 | -0.0204 | 0.067 | 0.021 | 0.862 | 0.069 | 0.023 |
+
 Ladder rates (exact c=0.01 N=1000, log10 rate per mutation event, N × rate): (P38,CRC)->(P38,C) -3.22, 0.597; (P38,C)->(N,C) -1.79, 16.3; (N,C)->(N,K) -1.41, 38.5; (N,K)->(I,K) -0.96, 109; (I,K)->(I,C) -0.95, 112; (I,C)->(N,C) -1.40, 39.8; (P38,C)->(P38,CRC) -6.97, 0.000106; (N,C)->(P38,C) -52.51, 3.07e-50; (P38,CRC)->(N,CRC) -472.82, 0; (P38,CRC)->(P38,K) -65.47, 3.39e-63
 Ladder rates (exact c=0.01 N=10000, log10 rate per mutation event, N × rate): (P38,CRC)->(P38,C) -3.25, 5.67; (P38,C)->(N,C) -1.79, 163; (N,C)->(N,K) -1.41, 385; (N,K)->(I,K) -0.96, 1.09e+03; (I,K)->(I,C) -0.95, 1.12e+03; (I,C)->(N,C) -1.40, 398; (P38,C)->(P38,CRC) -18.72, 1.9e-15; (N,C)->(P38,C) -492.24, 0; (P38,CRC)->(N,CRC) -4723.47, 0; (P38,CRC)->(P38,K) -640.04, 0
 
-**insp blind c=0 (exploration-capped, not converged where capped=True)** (chain, pi over pairs of monomorphic classes, K = [17, 17])
+**insp blind c=0 (whole state space)** (chain, pi over pairs of monomorphic classes, K = [17, 17])
 
 | N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -1348,7 +1364,7 @@ Ladder rates (exact c=0.01 N=10000, log10 rate per mutation event, N × rate): (
 | 1000 | 289 | False | n/a | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.9225 | -0.2606 | 0.494 | 0.230 | 0.000 | 0.432 | 0.247 |
 | 10000 | 289 | False | n/a | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.9211 | -0.2601 | 0.493 | 0.229 | 0.000 | 0.433 | 0.246 |
 
-**insp matched c=0 (exploration-capped, not converged where capped=True)** (chain, pi over pairs of monomorphic classes, K = [97, 97])
+**insp matched c=0 (whole state space)** (chain, pi over pairs of monomorphic classes, K = [97, 97])
 
 | N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -1356,7 +1372,15 @@ Ladder rates (exact c=0.01 N=10000, log10 rate per mutation event, N × rate): (
 | 1000 | 9409 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.6559 | -0.1014 | 0.466 | 0.097 | 0.288 | 0.205 | 0.126 |
 | 10000 | 9409 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.5689 | -0.0305 | 0.450 | 0.050 | 0.412 | 0.146 | 0.107 |
 
-**insp matched c=0.01 (exploration-capped, not converged where capped=True)** (chain, pi over pairs of monomorphic classes, K = [106, 106])
+**insp matched c=0, exploration-capped sensitivity (1,500 states)** (chain, pi over pairs of monomorphic classes, K = [97, 97])
+
+| N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 100 | 1500 | True | -4.3 | 0.997 | 1.000 | 0.000 | 0.000 | 1 | -0.8614 | -0.2212 | 0.491 | 0.197 | 0.079 | 0.370 | 0.220 |
+| 1000 | 1500 | True | -4.2 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.6560 | -0.1014 | 0.466 | 0.097 | 0.288 | 0.205 | 0.126 |
+| 10000 | 1500 | True | -4.1 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.5692 | -0.0304 | 0.450 | 0.050 | 0.412 | 0.146 | 0.107 |
+
+**insp matched c=0.01 (whole state space)** (chain, pi over pairs of monomorphic classes, K = [106, 106])
 
 | N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -1364,7 +1388,15 @@ Ladder rates (exact c=0.01 N=10000, log10 rate per mutation event, N × rate): (
 | 1000 | 11236 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.7624 | -0.1630 | 0.480 | 0.148 | 0.175 | 0.293 | 0.173 |
 | 10000 | 11236 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.7549 | -0.1569 | 0.479 | 0.144 | 0.182 | 0.289 | 0.172 |
 
-**insp sample c=0 (exploration-capped, not converged where capped=True)** (chain, pi over pairs of monomorphic classes, K = [83, 83])
+**insp matched c=0.01, exploration-capped sensitivity (1,500 states)** (chain, pi over pairs of monomorphic classes, K = [106, 106])
+
+| N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 100 | 1500 | True | -4.1 | 0.997 | 1.000 | 0.000 | 0.000 | 1 | -0.8698 | -0.2259 | 0.492 | 0.201 | 0.071 | 0.377 | 0.224 |
+| 1000 | 1500 | True | -4.1 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.7623 | -0.1629 | 0.480 | 0.148 | 0.175 | 0.293 | 0.172 |
+| 10000 | 1500 | True | -4.1 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.7549 | -0.1568 | 0.479 | 0.144 | 0.182 | 0.289 | 0.172 |
+
+**insp sample c=0 (whole state space)** (chain, pi over pairs of monomorphic classes, K = [83, 83])
 
 | N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -1372,13 +1404,29 @@ Ladder rates (exact c=0.01 N=10000, log10 rate per mutation event, N × rate): (
 | 1000 | 6889 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.6467 | -0.0782 | 0.453 | 0.091 | 0.302 | 0.217 | 0.154 |
 | 10000 | 6889 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.6424 | -0.0005 | 0.390 | 0.084 | 0.331 | 0.295 | 0.272 |
 
-**insp sample c=0.01 (exploration-capped, not converged where capped=True)** (chain, pi over pairs of monomorphic classes, K = [86, 86])
+**insp sample c=0, exploration-capped sensitivity (1,500 states)** (chain, pi over pairs of monomorphic classes, K = [83, 83])
+
+| N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 100 | 1500 | True | -3.4 | 0.995 | 1.000 | 0.000 | 0.000 | 1 | -0.8340 | -0.2025 | 0.488 | 0.183 | 0.131 | 0.354 | 0.216 |
+| 1000 | 1500 | True | -3.3 | 0.999 | 1.000 | 0.000 | 0.000 | 1 | -0.6468 | -0.0780 | 0.453 | 0.091 | 0.302 | 0.217 | 0.154 |
+| 10000 | 1500 | True | -3.3 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.6432 | -0.0003 | 0.390 | 0.085 | 0.330 | 0.295 | 0.272 |
+
+**insp sample c=0.01 (whole state space)** (chain, pi over pairs of monomorphic classes, K = [86, 86])
 
 | N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 100 | 7396 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.8436 | -0.2081 | 0.489 | 0.187 | 0.121 | 0.361 | 0.220 |
 | 1000 | 7396 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.7259 | -0.1349 | 0.473 | 0.129 | 0.226 | 0.271 | 0.171 |
 | 10000 | 7396 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.7193 | -0.1270 | 0.469 | 0.126 | 0.232 | 0.271 | 0.176 |
+
+**insp sample c=0.01, exploration-capped sensitivity (1,500 states)** (chain, pi over pairs of monomorphic classes, K = [86, 86])
+
+| N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 100 | 1500 | True | -3.4 | 0.995 | 1.000 | 0.000 | 0.000 | 1 | -0.8435 | -0.2081 | 0.489 | 0.187 | 0.121 | 0.360 | 0.219 |
+| 1000 | 1500 | True | -3.3 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.7257 | -0.1347 | 0.473 | 0.129 | 0.226 | 0.270 | 0.171 |
+| 10000 | 1500 | True | -3.3 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.7191 | -0.1268 | 0.469 | 0.126 | 0.232 | 0.270 | 0.175 |
 
 **insp sr16 c=0 (exploration-capped, not converged where capped=True)** (chain, pi over pairs of monomorphic classes, K = [436, 412])
 
@@ -1396,7 +1444,7 @@ Ladder rates (exact c=0.01 N=10000, log10 rate per mutation event, N × rate): (
 | 1000 | 1500 | True | -2.0 | 1.000 | 0.000 | 0.000 | 0.000 | 1 | -0.5547 | -0.1232 | 0.318 | 0.120 | 0.086 | 0.297 | 0.177 |
 | 10000 | 1500 | True | -0.0 | 1.000 | 0.000 | 0.000 | 0.000 | 1 | -0.7637 | 0.1465 | 0.055 | 0.187 | 1.000 | 1.000 | 1.000 |
 
-**end exact c=0.01 (exploration-capped, not converged where capped=True)** (chain, pi over pairs of monomorphic classes, K = [207, 78])
+**end exact c=0.01 (whole state space)** (chain, pi over pairs of monomorphic classes, K = [207, 78])
 
 | N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -1404,7 +1452,15 @@ Ladder rates (exact c=0.01 N=10000, log10 rate per mutation event, N × rate): (
 | 1000 | 16146 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.1833 | 0.1833 | 0.254 | 0.707 | 0.099 | 0.352 | 0.319 |
 | 10000 | 16146 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.1774 | 0.1774 | 0.250 | 0.690 | 0.108 | 0.371 | 0.336 |
 
-**end exact c=0 (exploration-capped, not converged where capped=True)** (chain, pi over pairs of monomorphic classes, K = [201, 72])
+**end exact c=0.01, exploration-capped sensitivity (1,500 states)** (chain, pi over pairs of monomorphic classes, K = [207, 78])
+
+| N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 100 | 1500 | True | -3.5 | 0.984 | 1.000 | 0.000 | 0.000 | 1 | -0.1998 | 0.1998 | 0.267 | 0.757 | 0.034 | 0.314 | 0.276 |
+| 1000 | 1500 | True | -2.8 | 0.999 | 1.000 | 0.000 | 0.000 | 1 | -0.1830 | 0.1830 | 0.255 | 0.707 | 0.099 | 0.352 | 0.319 |
+| 10000 | 1500 | True | -2.5 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.1768 | 0.1768 | 0.251 | 0.690 | 0.107 | 0.370 | 0.336 |
+
+**end exact c=0 (whole state space)** (chain, pi over pairs of monomorphic classes, K = [201, 72])
 
 | N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -1412,7 +1468,15 @@ Ladder rates (exact c=0.01 N=10000, log10 rate per mutation event, N × rate): (
 | 1000 | 14472 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.1591 | 0.1591 | 0.282 | 0.647 | 0.196 | 0.482 | 0.433 |
 | 10000 | 14472 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.0719 | 0.0719 | 0.361 | 0.563 | 0.310 | 0.825 | 0.718 |
 
-**end blind c=0 (exploration-capped, not converged where capped=True)** (chain, pi over pairs of monomorphic classes, K = [83, 17])
+**end exact c=0, exploration-capped sensitivity (1,500 states)** (chain, pi over pairs of monomorphic classes, K = [201, 72])
+
+| N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 100 | 1500 | True | -3.6 | 0.984 | 1.000 | 0.000 | 0.000 | 1 | -0.1991 | 0.1991 | 0.268 | 0.754 | 0.038 | 0.317 | 0.281 |
+| 1000 | 1500 | True | -1.9 | 0.998 | 1.000 | 0.000 | 0.000 | 1 | -0.1576 | 0.1576 | 0.283 | 0.646 | 0.195 | 0.481 | 0.432 |
+| 10000 | 1500 | True | -0.7 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.0640 | 0.0639 | 0.366 | 0.559 | 0.307 | 0.819 | 0.713 |
+
+**end blind c=0 (whole state space)** (chain, pi over pairs of monomorphic classes, K = [83, 17])
 
 | N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -1420,13 +1484,21 @@ Ladder rates (exact c=0.01 N=10000, log10 rate per mutation event, N × rate): (
 | 1000 | 1411 | False | n/a | 0.997 | 1.000 | 0.000 | 0.000 | 1 | -0.3030 | 0.3030 | 0.100 | 0.941 | 0.000 | 0.162 | 0.093 |
 | 10000 | 1409 | False | -9.8 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.2907 | 0.2907 | 0.091 | 0.946 | 0.000 | 0.174 | 0.087 |
 
-**end sample c=0.01 (exploration-capped, not converged where capped=True)** (chain, pi over pairs of monomorphic classes, K = [113, 47])
+**end sample c=0.01 (whole state space)** (chain, pi over pairs of monomorphic classes, K = [113, 47])
 
 | N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 100 | 5311 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.3319 | 0.3319 | 0.182 | 0.890 | 0.017 | 0.210 | 0.162 |
 | 1000 | 5311 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.3032 | 0.3032 | 0.099 | 0.940 | 0.010 | 0.162 | 0.096 |
 | 10000 | 5311 | False | n/a | n/a | 1.000 | 0.000 | 0.000 | 1 | -0.2907 | 0.2907 | 0.090 | 0.944 | 0.008 | 0.176 | 0.091 |
+
+**end sample c=0.01, exploration-capped sensitivity (1,500 states)** (chain, pi over pairs of monomorphic classes, K = [113, 47])
+
+| N | states | capped | log10 unexplored flux | circulation | pi cycle | pi drift | pi rest | closed classes | u0 | u1 | p / bluff | q / call | readers (1) | mixing 0 | mixing 1 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 100 | 1500 | True | -3.7 | 0.964 | 1.000 | 0.000 | 0.000 | 1 | -0.3318 | 0.3318 | 0.182 | 0.890 | 0.017 | 0.210 | 0.162 |
+| 1000 | 1500 | True | -3.8 | 0.997 | 1.000 | 0.000 | 0.000 | 1 | -0.3032 | 0.3032 | 0.099 | 0.940 | 0.010 | 0.162 | 0.096 |
+| 10000 | 1500 | True | -3.8 | 1.000 | 1.000 | 0.000 | 0.000 | 1 | -0.2907 | 0.2907 | 0.090 | 0.944 | 0.008 | 0.176 | 0.091 |
 
 **end matched c=0.01 (exploration-capped, not converged where capped=True)** (chain, pi over pairs of monomorphic classes, K = [440, 197])
 

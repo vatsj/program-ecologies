@@ -267,3 +267,16 @@ probability 211/243) while EXP's actual level-12 slice checks.
    Chain statistics are therefore reported as π under the whole-state solver (converged) or flagged capped, and only the lottery
    enters the verdicts except for Prediction 3's chain clause.
 4. **Peak memory** (RSS): static job 1.8 GB; lottery and capped chain jobs below 0.5 GB; the whole-space chain 3–5 GB for 24.6k states.
+5. **Whole-state-space chain results** (π over pairs of monomorphic classes; the converged chain). Inspection exact, c = 0: mean inspector
+   payoff −0.777 / −0.496 / −0.471 at N = 10² / 10³ / 10⁴ (8,000-state exploration at N = 10⁴ gave the same −0.471; 1,500 states gave −0.009);
+   c = 0.01 (N = 10³ and 10⁴ only, 27,889 states, about 25 minutes per N): −0.632 / −0.623. Inspection blind (complete exploration, 289 states):
+   −0.93 / −0.92 / −0.92. Whole-space runs also for inspection sample and matched (both prices) and Endgame exact (both prices), sample (c = 0.01)
+   and blind. Not converged (capped at 1,500 states, flagged `capped` in the files): inspection sr4 and sr16, Endgame matched. Not run:
+   Endgame sample and matched chains at c = 0 (the lottery cells for them were run), sr_k at c = 0.01.
+6. **Ablation arms (added after the exact-arm lottery was seen; not in the spec; no prediction registered).** `exact_ee` (only the inspectee /
+   player II may read; the other role has constants, `X`, `coin`, and `card`) and `exact_er` (only the inspector / player I reads), inspection
+   and Endgame, both prices, the primary lottery cell. They were added because the registered mechanism (committed inspector against a
+   reading inspectee) and the observed one (a reading inspector against a compliant constant) can only be told apart by letting one role
+   read at a time.
+7. **Cuts.** None of the spec's cut-order items was cut except those listed in 5. The matched Endgame arm was run in both objects only partly
+   (lottery both prices; chain at c = 0.01 capped).
