@@ -166,3 +166,78 @@ N = 10⁴ of a few points, not 0.1, and a larger one in the lottery where the sh
 * The strict-versus-neutral classification of (CRI, C) exits at N = 10⁴ (§1.2 numbers to 3 digits).
 * The 8 prudent classes of §1.4, their masses, and the exactness of the boost and of the matched control (same Δ).
 * The exit decomposition on a toy chain (rates sum to the total; categories partition).
+
+## 2. Choices where the spec is silent, and deviations (written with the code, before any counted cell)
+
+*Disclosure.* Before this section was committed I ran, besides the one-state calculations of §1: (i) the unit tests of
+`tests/test_inspection_shadow.py` (solver, twin relation, priors, decomposition against brute force, lottery kernel);
+(ii) scratch validations of the blocked solver on random chains, of float32 against float64 storage on a 6,400-state
+sub-arm of the exact arm (80 × 80 classes, N = 10² … 10⁵; scratch only), of the (100, 64) lottery against the previous run (runs 0–2 reproduce
+`lot_insp_exact_c0_primary` bit for bit at generation 2,000), of one direct-start sandbox cell, and of the exact-arm
+chain at c = 0 and N = 10³ (scratch output, not in `runs/`; it is rerun as a counted cell). None changed a prediction, a
+scoring convention or a cell of the spec. The predictions file was committed before any code existed.
+
+**Choices.**
+1. **The twin-expanded distribution is vacuous in this chain.** `TwoPopChain` has monomorphic states only, and its classes
+   are the programs with equal net-payoff rows and columns against *every* program of the other role (`mixed2.collapse`), so
+   twin spellings inside a class are exactly interchangeable and the class-level π is the twin-expanded π summed over
+   spellings (spellings share a class in proportion to their prior). The twin drift that matters here, between distinct
+   classes that are payoff twins *at the current state* (`N` and `CRI` against `C`), is inside the chain as a Δ = 0 move with
+   fixation probability 1/N. The polymorphic-state corrections of IMPLEMENTATION §4 (lumped-resident fixation, polymorphic traps)
+   do not arise because no state is polymorphic; this is also why the exit decomposition is exact.
+2. **Whole state space, not exploration.** The chain is solved on all 157 × 157 (c = 0) or 167 × 167 (c = 0.01) pairs. This
+   is stronger than "closure-seeded exploration with support diagnostics": there is nothing unexplored. Support diagnostics
+   reported: the number of pair states carrying 0.99 of π, the balance residual of the global-balance equations in float64
+   (max relative residual over states with π above 10⁻¹⁴ of the maximum), and the circulation index. The solver is a **blocked
+   subtraction-free GTH** (block 128; trailing updates by GEMM) that returns the stationary vector, and in the same elimination
+   pass the *censored chain* on the kept set (E ∪ named starts) with reward vectors, from which the first-passage statistics
+   follow exactly (tested against dense linear algebra to 10⁻¹²). Validation against the previous run's solver is the
+   positive control below. The previous run's whole-space numbers (−0.777 / −0.496 / −0.471 at c = 0, N = 10² / 10³ / 10⁴;
+   −0.632 / −0.623 at c = 0.01) are reproduced as controls and reported in the table.
+3. **Float32 storage of the jump-chain matrix for the whole-space solves.** The exploration audit (queue 57) runs 3 processes
+   of up to 5–7 GB; the machine has 16 GB; a float64 matrix of 24,649² entries is 4.9 GB (6.2 GB at c = 0.01) and a first
+   float64 attempt was killed when the system started to swap. Probabilities are stored in float32 (2.4 / 3.1 GB), the
+   stationary vector, rewards and everything downstream in float64. On the 6,400-state sub-arm the float32 and float64 solutions
+   differ by at most 1.9·10⁻⁶ relative on states with π > 10⁻⁹ (sum |Δπ| ≤ 3·10⁻⁷) at every N from 10² to 10⁵. The balance residual of
+   every cell is reported; where a float64 re-run of a cell was possible it is reported beside the float32 one. Each
+   chain file records its dtype.
+4. **Sets.** E, R, R\*, E\* exactly as in the predictions file. R is defined by P(inspect | K) > 1/4 because that is what
+   decides whether the constant cheater is a strict invader of (a, C); the strict version R\* (inspects K with probability 1
+   and C with probability 0) is reported beside it. All set-crossing statistics use the net-payoff Δ for fate (so at c = 0.01
+   the cost of reading is a selective difference) and the *gross* payoffs for membership of E.
+5. **The exit categories** are those of the predictions file; "reading" means the class contains `THEM` (the mutant's
+   syntactic flag `A.reader`); the forfeit-driven subset of category E is any mutant that forfeits with resident mass above 0.05 or
+   whose resident inspector does. Fixation probabilities of the reference states (CRI, C), (N, C), (N, K) are reported
+   per mutant class (`reference_exits`). Mean first-passage times are in mutation events (one mutation event = one arrival of
+   a mutant in either role).
+6. **Detours** are the exclusive categories forfeit > shadow excursion > cheater-majority (other) > light cheater > committed
+   and compliant > mixing > other, defined on the pair state's mean inspection and cheating probabilities (conditional on acting);
+   "light cheater" is 0.02 < q ≤ 0.25 with p ≤ 0.02; "shadow excursion" is q > 0.5 with a non-deterring inspector class;
+   "committed and compliant" is p > 0.25 and q < 0.1; "mixing" is an individually mixing class on either side (non-degenerate
+   probability against its partner).
+7. **Lottery cells.** The (100, 64) and (400, 16) baseline cells use the previous run's founder and dynamics seed names
+   (`primary`, `size`), so their dynamics up to generation 2,000 are identical to the previous run's (checked); the (800, 8)
+   and (400, 64) cells have their own seed names. Horizon 20N: 2,000 / 8,000 / 16,000 / 8,000. Checkpoints: a common-t grid,
+   a common t/N grid, and every N/10 generations over the last N generations. Runs: 40 at (100, 64), 20 elsewhere. Founders
+   are paired across prices and arms through the shared uniforms. mN = 1 means a migration probability of 1/N per birth event.
+8. **Rain.** "εN = 0.05 per generation": each birth event in the inspectee seat is, with probability 0.05/N, a newborn of the
+   rain class (K or C) instead of a draw from the island; N births per island per generation, so 0.05 rain individuals per island
+   per generation. The K rain and the C rain use the same random-number consumption (tested by a label-swap identity), so
+   they differ in the class only. Rain applies at all times from generation 0 (founders as in the baseline).
+9. **Prudent boost and control.** As in §1.4: class-level exact masses; in the chain they replace the inspectee mutation
+   prior; in the lottery they reweight the founder draw with the class factor (the same uniforms as the unboosted draw: the
+   reweighted size distribution, then the reweighted spelling mass within the size). The boost changes founders and mutation
+   in the sense that the lottery has founders only and the chain has mutations only; the spec's "founder-only and mutation-only"
+   split (gpt-6.1-sol, not folded into the design) is therefore automatic across the two objects. Not run: a boost of the
+   mutation prior inside the lottery (the lottery has none).
+10. **Direct starts.** Each island starts with N − n inspectors of the base class and n of the other twin (n ∈ {1, N/10,
+    N/2}) and N compliant inspectees; no mutation; no migration; I = 64 islands, 20 runs; with K = 1 a single K individual
+    replaces a uniformly chosen inspectee in every island at generation 100. This reads "shadow fixation, cheater establishment
+    and recovery" as: twin fixation by drift (base `CRI` with `N` injected, and the reverse), K's establishment where the
+    shadow holds the seat, and whether responsive inspectors hold the seat afterwards. In a closed island with no mutation
+    "recovery" needs surviving responsive inspectors; it is therefore measured where the twin injection leaves some.
+11. **Jobs.** `src/inspection_shadow_batch.py` runs the job file `runs/inspection_shadow/jobs.txt` as separate processes (no
+    pool): at most 3 at a time and 2 while the audit's processes exist (`ps` is re-read before every launch), one whole-space
+    chain at a time, gated by estimated memory against available memory.
+
+**Cut order** (spec): N = 10⁵, (800, 8), the crossed (400, 64) cell, mN = 10, the c = 0.01 remedy cells. None cut at this point.
