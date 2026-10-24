@@ -103,7 +103,7 @@ INSP_KEYS = [('u0g', 'inspector payoff (game)'), ('u0', 'inspector payoff (net)'
              ('rd0', 'inspector readers'), ('sh_1:C', 'class C share'), ('sh_1:K', 'class K share'), ('sh_1:X', 'inspectee X share'),
              ('sh_0:N', 'class N share'), ('sh_0:I', 'class I share'), ('q_comply', 'inspectees q<=0.02'), ('q_cheater', 'inspectees q>=0.98'),
              ('f0', 'forfeit (inspector)'), ('f1', 'forfeit (inspectee)'), ('cost0', 'price paid (inspector)'), ('cost1', 'price paid (inspectee)'),
-             ('e0', 'net exploitability of inspectees'), ('e1', 'net exploitability of inspectors'),
+             ('e0', 'best inspector program payoff vs the inspectees (net)'), ('e1', 'best inspectee program payoff vs the inspectors (net)'),
              ('mix0', 'individual mixing (inspector)'), ('mix1', 'individual mixing (inspectee)'), ('homo0', 'homozygosity 0'), ('homo1', 'homozygosity 1'),
              ('sup0', 'support 0'), ('sup1', 'support 1'), ('dis1', 'bounded-cr disagreement (inspectee)'),
              ('isl_commit', 'islands committed'), ('isl_commit_comply', 'islands committed+compliant'), ('isl_efficient', 'islands at (0,0)'),
@@ -115,7 +115,7 @@ END_KEYS = [('u0g', 'player I payoff (game)'), ('u1g', 'player II payoff (game)'
             ('isl_value10', 'islands |value|<=0.1'), ('isl_all10', 'islands all three'), ('sh_0:EQ', 'class EQ (I)'), ('sh_0:BET', 'class BET'),
             ('sh_0:CHECK', 'class CHECK'), ('sh_0:HON', 'class HON'), ('sh_1:X', 'class X (II)'), ('sh_1:CALL', 'class CALL'), ('sh_1:FOLD', 'class FOLD'),
             ('rd0', 'I readers'), ('rd1', 'II readers'), ('rdx1', 'II exact readers'), ('rds1', 'II sampling readers'), ('reads1', 'II behavioural readers'),
-            ('e0', 'exploitability of II (best I program)'), ('e1', 'exploitability of I (best II program)'),
+            ('e0', 'exploitability of II: best I program payoff (net)'), ('e1', 'exploitability of I: best II program payoff (net)'),
             ('f0', 'forfeit I'), ('f1', 'forfeit II'), ('cost0', 'price paid I'), ('cost1', 'price paid II'),
             ('bluff_q10', 'island bluff q10'), ('bluff_q50', 'island bluff median'), ('bluff_q90', 'island bluff q90'), ('call_q10', 'island call q10'),
             ('call_q50', 'island call median'), ('call_q90', 'island call q90'),
@@ -281,9 +281,11 @@ def main():
                                ('insp', 'matched', 0.0, 'primary'), ('insp', 'sr16', 0.0, 'primary'), ('insp', 'sr4', 0.0, 'primary'),
                                ('insp', 'sample', 0.0, 'primary'), ('insp', 'sample', 0.01, 'primary'), ('insp', 'matched', 0.01, 'primary'),
                                ('insp', 'exact', 0.0, 'size'), ('insp', 'exact', 0.01, 'size'),
+                               ('insp', 'exact_ee', 0.0, 'primary'), ('insp', 'exact_ee', 0.01, 'primary'), ('insp', 'exact_er', 0.0, 'primary'), ('insp', 'exact_er', 0.01, 'primary'),
                                ('end', 'exact', 0.01, 'primary'), ('end', 'exact', 0.0, 'primary'), ('end', 'blind', 0.0, 'primary'),
                                ('end', 'sample', 0.01, 'primary'), ('end', 'matched', 0.01, 'primary'), ('end', 'sample', 0.0, 'primary'),
-                               ('end', 'matched', 0.0, 'primary')]:
+                               ('end', 'matched', 0.0, 'primary'), ('end', 'exact_ee', 0.01, 'primary'), ('end', 'exact_er', 0.01, 'primary'),
+                               ('end', 'exact_ee', 0.0, 'primary'), ('end', 'exact_er', 0.0, 'primary')]:
         R['tables']['%s_%s_c%g_%s' % (game, arm, c, cell)] = lot_table(md, game, arm, c, cell)
 
     # ---------------------------------------------------------------- continuation, encounter distributions, phases
@@ -399,6 +401,31 @@ def main():
         failed6 = rd1 > 0.5
         V['P6'] = dict(verdict=verdict(held6, failed6), share_EQ=boot(vals(Le, 'sh_0:EQ')), share_X=boot(vals(Le, 'sh_1:X')), II_readers=boot(vals(Le, 'rd1')),
                        II_exact_readers=boot(vals(Le, 'rdx1')))
+    # --- ablation (not in the spec): who reads
+    abl = {}
+    for arm in ('blind', 'exact_ee', 'exact_er', 'exact'):
+        for c in ((0.0,) if arm == 'blind' else (0.0, 0.01)):
+            L = lot('insp', arm, c)
+            if L is not None:
+                abl['%s_c%g' % (arm, c)] = {k: boot(vals(L, k)) for k in ('u0g', 'u1g', 'rd0', 'rd1', 'm_above', 'm_p38', 'm_p12', 'isl_efficient', 'isl_commit_comply', 'p_insp', 'q_cheat')}
+    R['ablation'] = abl
+    md.append('## Ablation (not in the spec): which role reads (inspection, lottery, generation 2,000)\n')
+    md.append('| arm | c | inspector payoff | inspectee payoff | inspector readers | inspectee readers | inspector mass p>1/4 | islands at (0,0) | islands committed+compliant |\n|---|---|---|---|---|---|---|---|---|')
+    for k, v in abl.items():
+        md.append('| %s | %s | %s | %s | %.2f | %.2f | %.2f | %.2f | %.2f |' % (k.split('_c')[0], k.split('_c')[1], fmt(v['u0g']), fmt(v['u1g']), v['rd0'][0], v['rd1'][0], v['m_above'][0], v['isl_efficient'][0], v['isl_commit_comply'][0]))
+    md.append('')
+    ablE = {}
+    for arm in ('blind', 'exact_ee', 'exact_er', 'exact'):
+        for c in ((0.0,) if arm == 'blind' else (0.0, 0.01)):
+            L = lot('end', arm, c)
+            if L is not None:
+                ablE['%s_c%g' % (arm, c)] = {k: boot(vals(L, k)) for k in ('u0g', 'bluff', 'call', 'isl_both10', 'sh_0:EQ', 'sh_1:X', 'rd0', 'rd1', 'e0', 'e1')}
+    R['ablation_end'] = ablE
+    md.append('## Ablation (not in the spec): which role reads (Endgame, lottery, generation 2,000)\n')
+    md.append('| arm | c | value to I | bluff | call | islands both within 0.1 | EQ share | X share | I readers | II readers | exploitability of II | of I |\n|' + '---|' * 12)
+    for k, v in ablE.items():
+        md.append('| %s | %s | %s | %.3f | %.3f | %.2f | %.2f | %.2f | %.2f | %.2f | %.2f | %.2f |' % (k.split('_c')[0], k.split('_c')[1], fmt(v['u0g']), v['bluff'][0], v['call'][0], v['isl_both10'][0], v['sh_0:EQ'][0], v['sh_1:X'][0], v['rd0'][0], v['rd1'][0], v['e0'][0], v['e1'][0]))
+    md.append('')
     R['verdicts'] = V
     R['verdicts']['P1'] = dict(verdict=R['P1']['verdict'])
     md.append('| prediction | verdict | key numbers |\n|---|---|---|')
