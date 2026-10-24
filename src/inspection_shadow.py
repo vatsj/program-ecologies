@@ -146,15 +146,19 @@ def variant_arm(A, kind, factor=10.0):
     control); 'noshadow', 'nolight', 'neither' (post-hoc ablations) set to zero the prior mass of the unconditional-shadow inspector classes
     and / or of the light-cheater inspectee classes, renormalising."""
     B = copy.copy(A)
-    if kind in ('noshadow', 'nolight', 'neither'):
+    if kind in ('noshadow', 'nolight', 'neither', 'nolightnr', 'nolightrd'):
         shadow, light = ablation_sets(A)
+        if kind == 'nolightnr':                      # only the non-reading light cheaters (cheat-probability mixers)
+            light = light[~A.reader[1][light].astype(bool)]
+        if kind == 'nolightrd':                      # only the reading strict invaders (exploiters of the bounded read, half-readers)
+            light = light[A.reader[1][light].astype(bool)]
         m0 = A.mass[0].copy(); m1 = A.mass[1].copy()
         if kind in ('noshadow', 'neither'):
             m0[shadow] = 0.0; m0 /= m0.sum()
-        if kind in ('nolight', 'neither'):
+        if kind in ('nolight', 'neither', 'nolightnr', 'nolightrd'):
             m1[light] = 0.0; m1 /= m1.sum()
         B.mass = [m0, m1]
-        B.variant = dict(kind=kind, removed_mass_inspector=float(A.mass[0][shadow].sum()) if kind != 'nolight' else 0.0,
+        B.variant = dict(kind=kind, removed_mass_inspector=float(A.mass[0][shadow].sum()) if kind in ('noshadow', 'neither') else 0.0,
                          removed_mass_inspectee=float(A.mass[1][light].sum()) if kind != 'noshadow' else 0.0,
                          n_shadow=int(len(shadow)), n_light=int(len(light)))
         B.class_factor = None

@@ -132,7 +132,7 @@ def main():
     sp = ap.add_subparsers(dest='cmd', required=True)
     s = sp.add_parser('static'); s.set_defaults(f=cmd_static)
     s = sp.add_parser('chain'); s.add_argument('arm'); s.add_argument('c', type=float); s.add_argument('N', type=int)
-    s.add_argument('--variant', default='base', choices=['base', 'boost', 'control', 'noshadow', 'nolight', 'neither']); s.add_argument('--no-passage', action='store_true'); s.add_argument('--f32', action='store_true'); s.set_defaults(f=cmd_chain)
+    s.add_argument('--variant', default='base', choices=['base', 'boost', 'control', 'noshadow', 'nolight', 'neither', 'nolightnr', 'nolightrd']); s.add_argument('--no-passage', action='store_true'); s.add_argument('--f32', action='store_true'); s.set_defaults(f=cmd_chain)
     s = sp.add_parser('lottery'); s.add_argument('name'); s.add_argument('--runs', type=int, nargs=2); s.set_defaults(f=cmd_lottery)
     s = sp.add_parser('direct'); s.add_argument('arm'); s.add_argument('c', type=float); s.add_argument('N', type=int)
     s.add_argument('base', choices=['CRI', 'N']); s.add_argument('ninj', type=int); s.add_argument('karr', type=int); s.set_defaults(f=cmd_direct)
