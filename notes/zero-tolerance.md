@@ -178,7 +178,8 @@ with the stored 157 (c = 0) and 167 (c = 0.01) inspector classes:
 * `zt`, `cr_s`, `zt_s`, `sr_4`, `sr_16` and the three `sr_k,s` are **new inspector classes** (no existing class has their rows).
 * None splits an inspectee class at c = 0. At c = 0.01 `sr_4`, `sr_16`, `sr_4,s` and `sr_16,s` each split **3**
   inspectee classes (the cost of being read k times differs among spellings of the same behaviour); the others split none.
-  So K₁ grows by 3 at c = 0.01 in the `sr_4` / `sr_16` arms and K₀ by 1 (0 for `sr_1`) in every arm.
+  The class tables confirm it: K₁ grows from 167 to 173 (three classes split in two, or more) at c = 0.01 in the `sr_4` / `sr_16` arms,
+  and K₀ grows by 1 (0 for `sr_1`) in every arm.
 * The comparator `I` and the control `cr(THEM(ME))` are existing classes (`0I`, `0CRI`; the class of `cr(THEM(ME))` has 7
   spellings, mass 0.0013517).
 
@@ -210,3 +211,51 @@ probability m and independently of the program drawn, by the arm's added program
 * **Prediction 4**: at c = 0.01, `sr_16` loses 0.16 per round on compliant inspectees against `zt`'s 0.01.
 * **Prediction 5**: the lottery's founders contain about 9 of 6,400 replaced slots; the lottery was dominated by
   founding competition, so no arm moves by 0.1 unless the new program's row changes who wins the founding scramble.
+
+## 2. Choices where the spec is silent, and deviations (written with the code, before any counted cell)
+
+*Disclosure.* Before this section was committed I ran, besides the scratch evaluations of §1: (i) the unit tests of
+`tests/test_zero_tolerance.py` (15, passing); (ii) the static summary `runs/zero_tolerance/static.json` (class tables of every arm at both prices,
+no chain, no lottery); (iii) the validation job (`zero_tolerance_run.py validate`: arm `v0` against the stored chain at N = 10³ and 10⁴ and the
+stored lottery runs 0–2), which gates every counted cell; (iv) one scratch lottery run of the ZT arm at (100, 64) and a 400-generation run at
+(400, 64) to time the cells (not saved, not counted). None changed a prediction, a scoring rule or a cell of the spec. The predictions file was
+committed before any code existed.
+
+**Choices.**
+1. **Evaluation without a new kernel.** The added inspectors are evaluated by the stored kernel `mixed2._eval_role` (for the inspectee side, one
+   added inspector as the single opponent, level by level) and by a few vectorised numpy lines for the added inspector's own rule; the base
+   program table is `mixed2.evaluate`. The arm's table is the base table with the added rows/columns appended, collapsed by `mixed2.collapse` over
+   the arm's inspector set. Self-tests: the machinery reproduces the stored program rows of `cr(THEM(ME))` and of `if(THEM(ME)=C,N,I)` exactly
+   (zero difference in payoffs, costs, forfeits, values and level D−1 values), the validation arm `v0` reproduces the stored class table exactly,
+   and the added rows equal an independent scalar evaluator (`tests/zt_reference.py`) to 10⁻⁹ on 150 random inspectees (400 in scratch).
+2. **Timeout semantics** (§1.0): `cr` and `zt` forfeit on a timed-out read (the stored convention; the spec's "not inspecting" does not describe
+   it), the suspicious variants inspect the timed-out mass. The bounded-read exploit is a depth-phase effect, not a timeout (§1.3).
+3. **Cost of `sr_k`: expected draws** (short-circuit), `g · E(child)` with g = (1 − p_C^k)/(1 − p_C), as the spec states ("stops at the first
+   cheating draw"); the stored `sr4` / `sr16` arms charge `k · E(child)` always. The serial-depth measure M used by an inspectee that reads the
+   sampler is `k · M(child)` (a bound, as in the stored arms). Against a reading inspectee the cost compounds through the nested simulation
+   (8.9·10⁶ levels for `sr_16` against the first exploiter); at c = 0.01 such states are catastrophic for `sr_k`.
+4. **Prior.** The added mass m is the class mass of `cr(THEM(ME))` at the same price (0.0013517 at both prices to four decimals); every arm adds one
+   program with all of m; other inspector programs are scaled by 1 − m; the control scales the seven spellings of `cr(THEM(ME))` proportionally
+   and adds m to them; the comparator adds m to the single spelling `I`. `sr_1` lands in the existing class of `if(THEM(ME)=C,N,I)` (12 members, class
+   mass 0.000169 → 0.001521); this arm is the control with the mass given to the sampled responder instead of the exact one. The representative
+   spelling of that class is now `sr1(THEM(ME))` (smaller size), which changes the printed name of the class, not its identity.
+5. **Reporting.** Exit categories are the stored ones; "light cheaters" is category D, "bounded-read exploiters" E, "shadow" A, "others" the rest.
+   Hazards from R are reported under the arm's own weights (the headline; scoring of predictions 1 and 2) and under the control's weights embedded
+   by class names (fixed reference weights; the added class has weight zero; mass of control classes absent from an arm — the inspectee classes that
+   split at c = 0.01 in the `sr_4`, `sr_16` arms — is dropped and the retained mass reported in the JSON). The aggregate hazard from R includes the
+   control's `cr(THEM(ME))` residents, whose prior mass the arm keeps (1 − m of it); the resident-specific rates out of (added inspector, `C`) are
+   therefore reported beside every aggregate. Prediction 3's counter-prediction (a low-q escape channel) is scored by the resident-specific D
+   hazard of (`sr_16`, `C`), which is zero on this grammar (§1.1).
+6. **Lottery.** Founders are coupled to the stored draw (§1.6); the dynamics seed is the stored cell's for every arm (so `v0` reproduces the stored
+   cell bit for bit and the arms differ by the replaced slots, about 9 per run at (100, 64)); the founder-seed names are the stored ones
+   (`primary`, `n400i64`). Unresolved islands: a role's top class below 0.9 of the island at the checkpoint. The horizon is 20N; late transitions
+   are visible in the common-t trajectory in the JSON.
+7. **Extras outside the spec** (clearly marked, never part of verdicts 1–5): (a) the D-phase control of §1.3 (cells at D = 11 and D = 13 for the
+   control, SUS, ZT+SUS and ZT at c = 0, N = 10⁴ and 10⁵), scored as the engineer's E2; (b) the class tables of `sr_4,s` / `sr_16,s` (static only).
+8. **Jobs.** `src/zero_tolerance_batch.py` runs the job file `runs/zero_tolerance/jobs.txt` as separate processes (no pool), 2 at a time (other
+   subagents' processes are alive), one whole-space chain at a time, gated by memory; the batch exits with "STALL" if neither its log nor a running
+   job's log has changed for 2 hours. Chains use float32 storage of the jump-chain matrix as in the previous run (`--f32`); the stored float32 values
+   are reproduced by the validation job. The chain solver is the previous run's blocked GTH (`inspection_shadow.gth_blocked`); a chain cell takes
+   6–7 minutes single-threaded.
+
+**Cut order** (spec): the 400-island cell, N = 10⁵ at c = 0.01, `sr_4`. Decided and disclosed in §3 as the run proceeds.
