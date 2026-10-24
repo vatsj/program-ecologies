@@ -241,3 +241,25 @@ scoring convention or a cell of the spec. The predictions file was committed bef
     chain at a time, gated by estimated memory against available memory.
 
 **Cut order** (spec): N = 10⁵, (800, 8), the crossed (400, 64) cell, mN = 10, the c = 0.01 remedy cells. None cut at this point.
+
+## 3. Facts recorded while running (after the counted cells began)
+
+1. **First float64 attempt killed.** The first scratch run of the c = 0, N = 10³ chain in float64 (5.4 GB footprint) coincided with the
+   audit's three processes and sent the machine into swap; it was killed (scratch, not counted) and the solver changed to float32
+   storage (§2.3). It had also been started with a BLAS thread count above one because the runner imported numpy before setting
+   the thread variables (fixed in `inspection_shadow_run.py`; every counted job is single-threaded).
+2. **Counted batch.** 72 jobs (14 whole-space chains, 34 lottery cells, 24 direct-start cells; job file
+   `runs/inspection_shadow/jobs.txt`), at most 2 workers (the audit was alive throughout), one whole-space chain at a time; all 72
+   finished with return code 0. Chain wall-clock 3–7 minutes per cell (blocked solver), peak RSS 1.7–4.1 GB.
+3. **Controls reproduced.** The previous run's whole-space numbers (−0.777 / −0.496 / −0.471 at c = 0, −0.632 / −0.623 at c = 0.01), its
+   top-state π (7·10⁻⁷ relative) and its lottery cells ((100, 64) c = 0: efficient 0.648, inspector payoff −0.223; (400, 16) at generation 2,000:
+   −0.310, 0.406 efficient) are all reproduced by the new code.
+4. **Hand estimates checked** (report, last section): the 1/N neutral hazard, the crossover near 2.1·10³ and the ≈ 1% of loops reaching R hold; the
+   estimate of the stationary mass of E \ R (2.5/N) is refuted (measured 0.064 at N = 10³): E \ R is entered about 100 times per drift entry from R
+   through the cycle of constants.
+5. **Post-hoc ablations** (added after the chain tables were seen; no registered prediction): the prior mass of the six unconditional-shadow inspector
+   classes (0.3072) and of the twelve inspectee classes that strictly invade (CRI, C) (0.0031) set to zero, separately and together
+   (`noshadow`, `nolight`, `nolightnr`, `nolightrd`, `neither`), c = 0, N = 10³–10⁵ (N = 10⁴, 10⁵ for the split variants), same solver. They were
+   added because the exit tables showed the registered mechanism (the shadow) and the binding exit (strict invasion by cheaters below the exact
+   reader's threshold, and by readers of the bounded read) at different masses.
+6. **Prediction 6 scoring** follows the registered rule literally and says nothing about price (both effects within 0.03 of zero).

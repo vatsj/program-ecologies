@@ -99,7 +99,7 @@ def main():
           '(gross of the price). Intervals are run-clustered 95% bootstrap (4,000 resamples).\n']
     R = {}
     # ------------------------------------------------------------------ completeness
-    jobs = [l.split('|') for l in open(os.path.join(RUNS, 'jobs.txt')) if l.strip()]
+    jobs = [l.split('|') for f in ('jobs.txt', 'jobs_ablation.txt', 'jobs_ablation2.txt') if exists(f) for l in open(os.path.join(RUNS, f)) if l.strip()]
     missing = [j[2].strip() for j in jobs if not exists(j[2].strip())]
     R['completeness'] = dict(n_jobs=len(jobs), n_missing=len(missing), missing=missing)
     md.append('## Completeness\n')
@@ -125,7 +125,7 @@ def main():
         md.append('- `lottery3` equals `mixed2.lottery2` when no rain or arrival is used: **%s**; weighted founders at factor 1 equal the unweighted draw: **%s**.\n' % (st['lottery3_equals_lottery2'], st['founders_factor1_equal']))
 
     # (the remaining sections are built by the functions below)
-    sections = [chain_sections, lottery_sections, remedy_sections, control_sections, verdict_section]
+    sections = [chain_sections, lottery_sections, remedy_sections, control_sections, ablation_section, verdict_section]
     ctx = dict(md=md, R=R)
     for f in sections:
         f(ctx)
@@ -426,6 +426,17 @@ def control_sections(ctx):
     md.append('')
 
 
+DEVIATIONS = """## Deviations, caveats and readings
+
+- **Float32 storage** of the whole-space jump-chain matrices (memory contention with the exploration audit; every file records its dtype). Controls: against the previous run's float64 solver the top-12 π agree to 7·10⁻⁷ relative at c = 0 (N = 10², 10³, 10⁴) and c = 0.01 (10³, 10⁴), the mean payoffs to five digits; the global-balance residual of every cell is below 2·10⁻⁶; a 6,400-state sub-arm agrees with float64 to 2·10⁻⁶ at N up to 10⁵.
+- **No cut** from the spec's cut order: N = 10⁵, (800, 8), (400, 64), mN = 10 and the c = 0.01 remedy cells were all run.
+- **Post-hoc additions (no registered prediction):** the ablations above (shadow and light cheaters removed from the priors), the direct-start design (notes §2.10), the descriptive island statistics (E*, efficient+responsive, efficient+shadow, light-cheater islands). Their definitions were fixed in the predictions file or the notes before the counted cells, except the ablations, which were added after the chain tables were seen.
+- **Prediction 6** is scored held by the registered rule (the c = 0 effect is positive, the c = 0.01 effect is smaller), but both effects are within 0.03 of zero and the c = 0 effect is the "partial" of Prediction 5; it is not evidence of a price effect.
+- **Lottery intervals** are wide (20 runs of 8–16 islands at the larger sizes); the size path is not monotone, and the crossed cell (400, 64) shows that I, not N, moves the (400, 16) value.
+- **Hand estimates of notes §1.2 checked against the chain.** Held: the neutral hazard 0.1546/N (measured slope −1.07), the crossover near 2.1·10³ (measured between 10³ and 10⁴), the one-state strict hazard 7.4·10⁻⁵ (reproduced), and about 1% of loops of the four-cycle reaching R (first entry into R from (I, C): 0.0108 against 0.00332/0.31052 = 0.0107). **Refuted:** the estimate that the stationary mass of E \\ R is about 2.5/N (measured 0.064 at N = 10³, 26 times larger): E \\ R is re-entered from the cycle of constants about 100 times per drift entry from R, so the flux out of E is dominated by `K` striking states of E \\ R that were entered from outside E (3.9·10⁻³ against 3.8·10⁻⁵ per event at N = 10³).
+"""
+
+
 STRICT_INSPECTEE = ('C_strict_K', 'D_strict_other_nonreader', 'E_strict_reader_clean', 'E_strict_reader_forfeit')
 
 
@@ -438,6 +449,30 @@ def tag(x, thr, kind):
     if x > 0:
         return 'partial'
     return 'failed'
+
+
+ABL = ('base', 'noshadow', 'nolight', 'nolightnr', 'nolightrd', 'neither')
+
+
+def ablation_section(ctx):
+    md, R = ctx['md'], ctx['R']
+    R['ablation'] = {}
+    md.append('## Post-hoc ablations of the inspector and inspectee priors (chain, exact arm, c = 0; added after the counted cells were seen; no registered prediction)\n')
+    md.append('`noshadow`: the six unconditional-shadow inspector classes (payoff twins of `cr(THEM(ME))` against `C` that do not deter K; prior mass 0.3072, `N` among them) get prior mass 0; `nolight`: the twelve inspectee classes that strictly invade (CRI, C) (mass 0.0031) get 0; `nolightnr` / `nolightrd`: only the non-reading / only the reading ones; `neither`: both removed. Everything renormalised. Whole state space, float32 storage.\n')
+    md.append('| variant | N | π(E) | π(R) | odds E | mean inspector payoff | largest exit from R | hazard from R | committed+compliant | light cheater | shadow excursion |\n|' + '---|' * 11)
+    for v in ABL:
+        rows = {N: chain('exact', 0.0, v, N) for N in (1000, 10000, 100000)}
+        have = {N: r for N, r in rows.items() if r}
+        for N, r in have.items():
+            md.append('| %s | %d | %.4f | %.4f | %.4g | %.4f | %s | %.2e | %.3f | %.3f | %.4f |' % (v, N, r['pi_sets']['E'], r['pi_sets']['R'], r['odds_E'], r['stat']['u0g'], CAT_SHORT[r['exits']['R']['largest']].split(' ')[0],
+                                                                                       r['exits']['R']['hazard'], r['occupancy']['committed_compliant'], r['occupancy']['light_cheater'], r['occupancy']['shadow_excursion']))
+        if len(have) >= 2:
+            sl = lsslope(sorted(have), [have[N]['odds_E'] for N in sorted(have)])
+            hs = lsslope(sorted(have), [have[N]['exits']['R']['cats']['A_neutral_shadow']['hazard'] for N in sorted(have)])
+            R['ablation'][v] = dict(odds_slope=sl, slope_A_R=hs, pi_E={str(N): r['pi_sets']['E'] for N, r in have.items()}, pi_R={str(N): r['pi_sets']['R'] for N, r in have.items()},
+                                    largest_R={str(N): r['exits']['R']['largest'] for N, r in have.items()})
+    md.append('')
+    md.append('Odds slopes over the available N: ' + '; '.join('%s %.3f' % (v, d['odds_slope']) for v, d in R['ablation'].items()) + '.\n')
 
 
 def verdict_section(ctx):
@@ -531,6 +566,7 @@ def verdict_section(ctx):
         md.append('- **E5 (prudent boost effect in [0, 0.1)): %s.** Effect %.4f.' % (V['E5']['verdict'].upper(), e0['effect_E']))
     md.append('')
     R['verdicts'] = V
+    md.append(DEVIATIONS)
 
 
 if __name__ == '__main__':
