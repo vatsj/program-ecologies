@@ -696,6 +696,14 @@ REJECTED.md the ones we dropped.
   in threshold), the secondary thread, not the bidder-optimal point the RS prefers (20). So the thread hinges on the
   RS's open call (is accommodation of a read commitment a ring?), not on another run. *Operating hypothesis:* parked
   until the RS asks; the RS's attention moved to mixed actions (entry 16).
+- *RE derivation (2026-10-24, the RS asked whether the ring question follows from existing rulings; pending the RS's
+  confirmation):* accommodating a read commitment is admissible *behaviour* (the line of the `eq`, behaviour-key and
+  self-keyed-fill admissions: realizable behaviour is in the ecology and outcomes are judged); its *outcome* at a frozen
+  threat below the loser's value is outside the RS's notion (DEFERRED 15 with the seller as a player gives the core,
+  and {seller, loser} blocks any revenue below v_P even after the winners respond); and it survives by being untested,
+  which the 2026-10-17 target ruling does not count as a good reason. So stage 2's state is a failure of the dynamics,
+  not a legitimate outcome, and the auction thread's remaining question (what tests a read commitment?) is the
+  prudence premium's (entry 1).
 
 ## 15. The RS's equilibrium notion: response functions over action subprofiles (RS, 2026-10-13)
 - *RS's statement (verbatim):* "assume a normal-form game, with perfect complete information for simplicity. Call an
