@@ -887,6 +887,13 @@ REJECTED.md the ones we dropped.
   ecology the selector; where transfers are absent the menu is usually empty in substitutes games. *Would re-open:* a
   proof or counterexample for asymmetric supermodular games with aligned spillovers.
 
+- *RS (2026-10-24), target for majority division:* "all island outcomes are efficient and all stable sets show up";
+  "I'd like our island models to be expressive enough for the entire stable set to coexist. Disconnected components
+  reduces my goal to 'everything shows up w some probability' for ~free so I'll allow it for the time being", with
+  the caveat that "the disconnected components will still have to be large in general, else we won't have meaningful
+  migrant effects". *Operating hypothesis:* components of at least 16 islands count; coexistence within one large
+  connected component is the goal (queue 60, 61).
+
 ## 16. Mixed actions and adversarial games (RS, 2026-10-23)
 - *RS:* "I suspect we're gonna need strong notions of mixed actions to recover equilibria in adversarial games. I
   propose rock paper scissors for starters? We should recover the mixed-strategy equilibrium pretty

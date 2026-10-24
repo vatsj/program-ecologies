@@ -156,6 +156,9 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 58. The inspection game's enforcer and its shadow (RS, 2026-10-24, "worth the confirmation"): exits from responsive enforcement and from efficiency, the lottery size path, cheater fringe and prudent-inspectee remedies (running: `specs/2026-10-24-inspection-shadow.md`).
 59. A realizable randomizer (RS, 2026-10-24: "a private random tape is an acceptable primitive"): counted-probability proofs and count certificates in L_T, priced RPS and the inspection game rerun there (running: `specs/2026-10-24-realizable-randomizer.md`).
 
+60. A migration window for stable sets (RS, 2026-10-24: target "all island outcomes are efficient and all stable sets show up"; disconnected components allowed for now, but large): an mN sweep with the baseline, the derived farsighted guard and the veto; fixed-size components (running: `specs/2026-10-24-migration-window.md`).
+61. A derived immigrant-rejection guard (RS agreed, after 60): coexistence of the whole stable set within one large connected component.
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).
