@@ -6658,6 +6658,8 @@ c = 0.01 does not lower the payoff), 6 (II's readers hold 0.54 > 0.5), gemini-4-
   exploration-capped chains can be badly wrong in grammars with large neutral networks (−0.01 against −0.47 here);
   the whole-space solver is the check.
 
+**Addendum (2026-10-24).** The reading of the inspection chain above as "the PD's structure" holds only at N ≤ 10³: at N ≥ 10⁴ the efficient state is eroded mainly by light cheaters the exact inspector rationally tolerates and by exploiters of its bounded read, not by its shadow (RESULTS "The inspection game's enforcer and its shadow").
+
 ## A private random tape in the realizable language: sound, but at the calibrated price simulators beat the coin, and they, not the prover, hold the inspection islands (2026-10-24)
 
 Spec `specs/2026-10-24-realizable-randomizer.md` (the RS: "A private random tape is an acceptable primitive";
@@ -6757,6 +6759,87 @@ supplementary).
 - *Caveats:* `prp` and `chk` are host primitives; the hash is a fixture; timeout defaults are template choices made
   after a development run; N = 100 is a transfer test; the calibration put c₀ two orders of magnitude below the price
   at which the coin wins.
+
+## The inspection game's enforcer and its shadow: the shadow is real but binds only at small N; the chain is eroded by light cheaters the exact inspector tolerates (2026-10-24)
+
+Spec `specs/2026-10-24-inspection-shadow.md` (the RS: "worth the confirmation"; reviewed by gemini-4-argon then
+gpt-6.1-sol), predictions `predictions/2026-10-24-inspection-shadow.md`, notes `notes/inspection-shadow.md`, report
+`runs/inspection-shadow.md` and `.json`, rows `runs/inspection_shadow/`. Run by a Sonnet subagent
+(`src/inspection_shadow*.py`; 9 tests, passing on main). Chain = the ε → 0 object over all class pairs (157² states at
+c = 0, 167² at c = 0.01, no exploration cap). Lottery = the ε = 0 seed lottery at horizon 20N. E = both mean game payoffs (gross of
+reading costs) ≥ −0.05; R = E with an inspector that deters the constant cheater K.
+
+**Deviations.** The chain matrix was stored in float32 to fit memory beside the concurrent audit; the top-12 π agree
+with the earlier float64 solve to 7·10⁻⁷ relative, a 6,400-state sub-arm agrees with float64 to 2·10⁻⁶ up to N = 10⁵,
+and every cell's balance residual is below 2·10⁻⁶; no counted cell was rerun in float64. The twin-expanded distribution
+is vacuous here (every chain state is monomorphic and classes are exact payoff-equivalence classes). Five prior
+ablations of the chain were added after the counted tables were seen and carry no registered prediction. The
+engineer's hand estimate that E \ R holds about 2.5/N was wrong by 26× (0.064 at N = 10³).
+
+**The shadow is real and ∝ 1/N, but binds only below N* ≈ 2·10³.** The never-inspecting `N`, a payoff twin of the
+responsive inspector `cr(THEM(ME))` against compliant inspectees, leaves the state (`cr(THEM(ME))`, `C`) at 0.155/N per
+mutation event; the stationary exit hazard from R by this drift runs from 0.150/N to 0.100/N over N = 10² to 10⁵
+(slope −1.07). It is the largest exit category from R at the tested N = 10² and 10³. At N = 10⁴ and 10⁵ the largest
+exits from R are strict and N-independent: **light cheaters**, non-reading inspectee mixers that cheat with
+probability below 1/4 (for example `coin(C, coin(C, X))`; stationary hazard 7.4·10⁻⁵ and 7.9·10⁻⁵ per event), which
+the exact inspector declines to inspect because below 1/4 not inspecting is strictly its best reply, and readers that
+exploit the inspector's bounded read (`cr(coin(N, THEM(ME)))`; 3.5·10⁻⁵ and 3.0·10⁻⁵). The crossover lies between
+N = 10³ and 10⁴ (a one-state estimate puts it near 2·10³). The largest
+exit from E is always a cheater invasion.
+
+**Chain, c = 0.** π(E) = 0.278 / 0.343 / 0.157 / 0.047 at N = 10² / 10³ / 10⁴ / 10⁵; odds slope over 10³–10⁵ −0.51.
+For N ≥ 10³, mass outside E sits mostly on committed-and-compliant states (0.45–0.60) and tolerated light cheaters
+(0.09–0.30), with shadow excursions under 0.02 (at N = 10²: 0.43, 0.01 and 0.05). From the shadow-exploited state (`N`, `K`) the first return to E lands in R with
+probability 0.017–0.022, and the mean time back to R grows from 7,254 events at N = 10³ to 4.2·10⁴ at 10⁵.
+
+**Ablations (post hoc; chain, c = 0, π(E) at N = 10³ / 10⁴ / 10⁵):**
+
+| prior | π(E) | odds slope |
+|---|---|---|
+| unchanged | 0.343 / 0.157 / 0.047 | −0.51 |
+| shadow removed (prior mass 0.307) | 0.179 / 0.100 / 0.046 | −0.33 |
+| light cheaters and bounded-read exploiters removed (mass 0.0031) | 0.452 / 0.636 / 0.811 | +0.36 |
+| both removed | 0.976 / 0.990 / 0.996 | +0.40 |
+
+Removing the shadow alone does not help; removing the strict invaders, 0.3% of the prior, turns the trend around; with
+both removed π(E) rises over this range (slope +0.40). These ablations do not establish bounded return times or a
+limit.
+
+**Chain, c = 0.01.** π(E) ≈ 0.33 at every N ≥ 10³ (odds slope −0.005); the shadow now leaves R by selection (it pays no
+reading cost), at 4.3·10⁻⁴ per event, N-independent.
+
+**Lottery** (exact arm, c = 0, efficient islands at 20N): 0.648 at (100, 64), 0.400 at (400, 16), 0.800 at (800, 8),
+0.672 at (400, 64); the crossed cell suggests the dip at (400, 16) depends on the island count, but the intervals are
+wide (0.400 [0.200, 0.600] against 0.672 [0.472, 0.850]). Shadow-holding
+efficient islands stay at 0–0.05: the founders supply some `N` (0–0.095 of inspectors) and light-cheater islands
+(0.10–0.29), but without ongoing mutation nothing replenishes the shadow after the founding scramble. Remedies: cheater
+rain against matched compliant rain −0.05 [−0.20, 0.10] at (400, 16) (c = 0.01: +0.10 [0.00, 0.25]); the ×10
+prudent-inspectee boost against its control +0.19 [0.02, 0.35] at (100, 64) and +0.27 [−0.03, 0.55] at (400, 16), but
++0.013 in the chain. Inspector-only reading 0.58 at (100, 64); blind 0.02 at (100, 64) and 0.01–0.12 across sizes; migration mN = 0 / 1 / 10 gives 0.59 / 0.65 / 0.39 efficient islands, of which efficient with a responsive inspector
+0.027 / 0.637 / 0.317. Direct starts (N = 100, no mutation or migration, post hoc in
+design): an injected twin fixes at about its injected share (1 of 100: 0.011–0.016 of islands; 10: 0.065–0.10); one
+`K` arrival into a responsive island is almost always repelled (K majority 0.005), while into a shadow island it takes
+the majority on 0.255 of islands, with recovery only where responsive inspectors were left (0.013).
+
+**Verdicts.** Failed: 1 (the neutral hazard's slope is in range, −1.07, but the largest exit from R is strict at
+N ≥ 10⁴), 3 (efficient islands do not fall along the lottery path: 0.80 at (800, 8)), 4 (cheater rain does not help at
+c = 0). Partial: 5 (prudent boost +0.013 in the chain). Held: 2 (odds slope −0.51 < 0.5, for a different reason than
+registered), 6 (literally; both effects within 0.03 of 0), and the engineer's E1–E5. Counter-predictions:
+gemini-4-argon's on 3 held by its registered ≥ 0.5 rule (its purging mechanism was not tested separately); gemini-4-argon's and gpt-6.1-sol's on 2 failed (P(E) falls).
+
+**Reading.**
+- The PD-shadow reading of the inspection chain (RESULTS "Mixed actions in two-role games") fails as registered: the
+  shadow is the largest exit from R only at the tested N = 10² and 10³. At larger N the efficient state is eroded by
+  programs the exact responsive inspector rationally tolerates, cheaters below its inspection threshold (a residue of
+  the game's mixed equilibrium), and by exploiters of its bounded read.
+- The lottery holds the efficient island at every size tested. One interpretation is that without ongoing mutation
+  nothing replenishes the shadow or brings new light cheaters after the founding scramble; the objects also differ in
+  horizon, migration and polymorphic dynamics, so this is not isolated as the cause.
+- Neither registered remedy works: cheater rain (lottery only) gives −0.05 at c = 0, and the prudent boost gives
+  +0.013 in the chain at c = 0 (−0.023 at c = 0.01). Untested candidates, speculative: an inspector that inspects any
+  positive cheating probability (the inspection analogue of PrudentBot, which gives up immediate payoff against light
+  cheaters), or a sampling responder.
+- *Caveats:* `cr` is a bounded exact oracle; n = 8; the lottery at N ≤ 800; the ablations are post hoc.
 
 ## Not done
 

@@ -1215,3 +1215,14 @@ islands in L_T" (RE 3, mechanism).** `RI` holds 0; simulators hold all of them; 
 simulators. **The hand table's "a simulator earns half the best response against every biased mixer."** True for 3 of
 6. **"The calibrated price leaves efficiency within 0.1" (S4).** −0.128, uncertain. **A check-only reader survives.**
 Share 0. **A single timeout default for simulators.** A grammar artefact found in development.
+
+
+## Added 2026-10-24: the inspection game's enforcer and its shadow (RESULTS.md, "The inspection game's enforcer and its shadow")
+
+**"The binding exit of the efficient inspector state in the chain is the unconditional shadow" (RE 1, and the RE's
+reading in RESULTS "Mixed actions in two-role games").** The shadow is the largest exit from R only at N ≤ 10³; at
+N ≥ 10⁴ light cheaters and bounded-read exploiters (0.3% of the prior) bind, and removing the shadow alone changes
+nothing. **"Efficient islands fall along the lottery size path" (RE 3).** 0.80 at (800, 8). **"Cheater rain prunes the
+shadow" (RE 4).** −0.05 at c = 0. **"A ×10 prudent-inspectee prior raises chain P(E) by 0.1" (RE 5).** +0.013. **The
+counter-predictions that P(E) rises with N** (gemini-4-argon, gpt-6.1-sol on 2). It falls (odds slope −0.51). **The
+engineer's estimate that E \ R holds about 2.5/N.** 0.064 at N = 10³.

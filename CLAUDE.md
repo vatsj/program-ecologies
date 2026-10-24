@@ -153,7 +153,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 57. Exploration-cap audit of the published chains (RS, 2026-10-24): staged re-solves of every chain with restricted exploration, after the mixed2 capped chain gave −0.009 against −0.47 (running: `specs/2026-10-24-exploration-audit.md`).
 
-58. The inspection game's enforcer and its shadow (RS, 2026-10-24, "worth the confirmation"): exits from responsive enforcement and from efficiency, the lottery size path, cheater fringe and prudent-inspectee remedies (running: `specs/2026-10-24-inspection-shadow.md`).
+58. ~~The inspection game's enforcer and its shadow (RS)~~ (done; RESULTS "The inspection game's enforcer and its shadow": the shadow binds only at N ≤ 10³; at larger N light cheaters below the inspection threshold and bounded-read exploiters (0.3% of the prior) erode the efficient state, π(E) 0.047 at N = 10⁵, 0.81 without them; the lottery holds efficient islands at every size; the registered remedies did not work).
 59. ~~A realizable randomizer (RS)~~ (done; RESULTS "A private random tape in the realizable language": sound; at the calibrated price simulators hold the RPS lottery (coin 0.045; 0.91 at 80× the price) and the inspection islands (efficient 0.875, the prover 0); commitment with certified mixers when only the inspectee reads (0.97); open: the timeout convention, DEFERRED 16).
 
 60. A migration window for stable sets (RS, 2026-10-24: target "all island outcomes are efficient and all stable sets show up"; disconnected components allowed for now, but large): an mN sweep with the baseline, the derived farsighted guard and the veto; fixed-size components (running: `specs/2026-10-24-migration-window.md`).
