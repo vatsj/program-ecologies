@@ -178,3 +178,20 @@ the order of 0.3; the frozen waste at mN = 0 is 0.30 of islands (about 19 of 64)
 - **Bootstrap sizes.** Percentile bootstrap with 4,000 resamples for shares and differences, 1,000 for Kaplan–Meier
   medians (cost), run-clustered.
 - **Prediction 3** compares N = 200 with N = 100 unpaired (the founders differ by N); all within-N contrasts are paired.
+
+### 2.3 After the counted cells (disclosures; nothing here changes a pre-registered rule)
+
+- **All 72 counted cells ran to completion**; no cut from the cut order was needed (mN = 0.003, the (200, 64) guard
+  cells, the 20,000 snapshot and the 64-island size panel are all in). 2,020 jobs, two workers throughout (other
+  subagents were alive on the machine the whole time); peak job memory 0.77 GB; no failed job. The (200, 64) and size-
+  panel cells use 20 runs (40 for N = 100 and the 4-island size cell), as planned in the runner.
+- **The gV stray island** (§2.1) is one island per run in the 6 runs that miss the V\* target at mN = 1, N = 100:
+  unequal in 3 runs, disagreement in 2, wasteful in 1; the stated target fails in the last 3.
+- **Realized exposure** matches the definition: migrant births per slot-population per generation are 0.1000, 0.3000 and
+  1.0004 at mN = 0.1, 0.3, 1 (full-horizon runs), at both N.
+- **Prefix archipelagos.** The C = 1, 2, 4 rows are prefixes of the C = 8 archipelago; their migrant totals were
+  recorded for the whole 8-component run, so exposure is not reported for them.
+- **Waste is regenerated.** Reading the balanced and waste-seeded controls: even from a start with no waste, the baseline
+  forms wasteful islands locally (fair → wasteful transitions with the destination absent from the rest of the
+  component), at a rate comparable to their clearance by colonization; this is not in the spec's model of the window and
+  it is why the all-islands target is hard for the baseline at every mN.

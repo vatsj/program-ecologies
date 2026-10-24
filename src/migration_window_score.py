@@ -33,7 +33,9 @@ def stats(cell, prefix=None):
     if key not in STATS:
         rs = recs(cell)
         if prefix:
-            rs = [r[prefix] for r in rs]
+            # the prefix archipelagos share the run's wall time and memory; their migrant totals were recorded for the
+            # whole 8-component run, so the exposure statistic is not computed for them
+            rs = [dict(r[prefix], wall=r['wall'], rss_mb=r['rss_mb'], nmig=0, status=[0]) for r in rs]
         STATS[key] = P.cellstats(rs) if rs else None
     return STATS[key]
 
@@ -82,8 +84,8 @@ def panel_table(g, N):
     hdr = ('| mN | runs | target %s | | | | | V* @10k | hp @10k | islands F/U/G/W/D @10k | wasteful runs @10k | KM waste cleared | KM coverage lost'
            ' | mean gens in target | ever in target |'
            % '(as stated) @1k, 2k, 5k, 10k, 20k')
-    out = ['| mN | runs | ts@1k | ts@2k | ts@5k | ts@10k | ts@20k | V*@10k | hp@10k | F/U/G/W/D @10k | KM clear | KM lost | gens in target | ever |',
-           '|---|---|---|---|---|---|---|---|---|---|---|---|---|---|']
+    out = ['| mN | runs | ts@1k | ts@2k | ts@5k | ts@10k | ts@20k | V*@10k | hp@10k | F/U/G/W/D @10k | KM clear | KM lost | gens in target | ever | mean ineff. mass |',
+           '|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|']
     for m in MNS:
         c = mcell(g, N, m)
         s = stats(c)
@@ -96,9 +98,10 @@ def panel_table(g, N):
         x10 = sn['10000']
         isl = '/'.join('%.2f' % x10['isl_' + k] for k in 'FUGWD')
         ps = s['pass']
-        out.append('| %s | %d | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %.0f | %.2f |' % (
+        out.append('| %s | %d | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %.0f | %.2f | %.3f |' % (
             R.mlab(m), s['n'], one(1000), one(2000), one(5000), one(10000), one(20000), one(10000, 'tv'),
-            one(10000, 'hps'), isl, fmed(ps['clear']), fmed(ps['lost']), s['ep_ts']['cum_mean'], s['ep_ts']['ever']))
+            one(10000, 'hps'), isl, fmed(ps['clear']), fmed(ps['lost']), s['ep_ts']['cum_mean'], s['ep_ts']['ever'],
+            s['mean_inef']))
     return '\n'.join(out)
 
 
@@ -235,8 +238,8 @@ def p4():
                first_clause_all_mN=first, second_clause=second,
                mN_where_guard_below_base=[R.mlab(m) for m, d in diffs.items() if d[0] < 0],
                gemini=dict(le_at_01_03=all(diffs[m][0] <= 0 for m in (0.1, 0.3) if m in diffs),
-                           gt_at_low=all(diffs[m][0] > 0 for m in (0, 0.003, 0.01, 0.03) if m in diffs and
-                                         (shv(mcell('base', 100, m)) or 0) < 1.0)),
+                           gt_at_low_le_0_01=all(diffs[m][0] > 0 for m in (0, 0.003, 0.01) if m in diffs),
+                           diff_at_0_03=diffs[0.03][0] if 0.03 in diffs else None),
                verdict=verdict)
     return out
 
@@ -457,6 +460,35 @@ def main():
     write_md(res)
 
 
+def verdict_block(res):
+    P1, P2, P3, P4, P5, P6 = (res[k] for k in ('P1', 'P2', 'P3', 'P4', 'P5', 'P6'))
+    L = ['## 0. Verdicts (scored on target as stated at generation 10,000 unless noted; rules in the predictions file)', '',
+         '| # | prediction | verdict | numbers |', '|---|---|---|---|']
+    b20 = max((shv(mcell('base', 100, m), 20000) or 0, m) for m in MNS)
+    L.append('| 1 | window exists (baseline, N = 100) | **%s** | best share at 10,000 is %.3f at mN = %s (falsifier 0.25); at 20,000 the best is %.3f at mN = %s; no mN reaches 0.5 at either |' % (
+        P1['verdict'], P1['best_share'], P1['best_mN'], b20[0], b20[1]))
+    L.append('| 2 | lifetimes scale as 1/mN, coverage lost at least 5x later | **%s** | slopes clear %.2f, lost %.2f (all uncensored mN); on {0.03, 0.1, 0.3}: %.2f, %.2f; ratio lost/clear %s; coverage lost before waste cleared at mN = %s (pre-registered falsifier); on {0.03,0.1,0.3} only the ratio clause fails (partial) |' % (
+        P2['verdict'], P2['slope_clear'], P2['slope_lost'], P2['slope_clear_003_03'], P2['slope_lost_003_03'],
+        {k: round(v, 2) for k, v in P2['ratio_lost_over_clear'].items()}, P2['lost_before_clear']))
+    L.append('| 3 | window narrows with N | **%s** | best share %.3f at N = 200 (mN = %s) against %.3f at N = 100 (mN = %s); difference %.2f [%.2f, %.2f]; V* target 0 at both |' % (
+        P3.get('verdict'), P3['best_N200'][1], P3['best_N200'][0], P3['best_N100'][1], P3['best_N100'][0], *P3['best_vs_best']))
+    L.append('| 4 | derived guard widens window | **%s** | guard minus baseline per mN: %s; best mN = %s (gain %.2f), best mN > 0 = %s (gain %.2f); guard below baseline at mN %s |' % (
+        P4['verdict'], {k: round(v['diff'][0], 3) for k, v in P4['by_mN'].items()}, P4['guard_best_mN'], P4['gain_at_guard_best'][0],
+        P4['guard_best_mN_positive'], P4['gain_at_best_positive'][0], P4['mN_where_guard_below_base']))
+    L.append('| 5 | veto is the ceiling | **%s** | gV share by mN: %s; three members present in every cell and run |' % (
+        P5['verdict'], {k: round(v['share'][0], 3) for k, v in P5['by_mN'].items()}))
+    v6 = P6['verdicts']
+    L.append('| 6a | components, N = 100, mN = 1 | **%s** | C = 1, 2, 4, 8: %s against reference 0, 0, 0.444, 0.883 |' % (
+        v6['N100']['verdict'], [round(P6['N100'][C]['ts'][0], 3) for C in (1, 2, 4, 8)]))
+    L.append('| 6b | components, N = 200 below reference | **%s** | C = 4, 8: %s, %s |' % (
+        v6['N200']['verdict'], round(P6['N200'][4]['ts'][0], 3), round(P6['N200'][8]['ts'][0], 3)))
+    L.append('| 6c | 4-island components beat 64-island | **%s** | 4x4 %.3f, 4x16 %.3f, 4x64 %.3f; mechanism clause not scored |' % (
+        v6['size']['verdict'], P6['size_panel_N100_m1']['4x4']['ts'][0], P6['size_panel_N100_m1']['4x16']['ts'][0], P6['size_panel_N100_m1']['4x64']['ts'][0]))
+    L.append('')
+    return L
+
+
+
 def write_md(res):
     L = []
     A = L.append
@@ -466,6 +498,8 @@ def write_md(res):
       '`predictions/2026-10-24-migration-window.md`. Code `src/migration_window*.py`, tests `tests/test_migration_window.py`. '
       'Per-cell compact records in `runs/migration_window/`, all aggregates in `runs/migration-window.json`.')
     A('')
+    for line in verdict_block(res):
+        A(line)
     A('## 1. Re-verification of the stored cells (before any counted cell)')
     A('')
     A('Rerun of the stored founders and kernel seeds at the stored horizon (10,000) through the generated kernels; compared with the stored per-run records.')
