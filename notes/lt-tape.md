@@ -230,3 +230,105 @@ its fuel affords the hash (cost n(SIM) nodes, so `SIM{100}` does and `SIM{20}` d
 * The price: c₀ = 0.12/K₀ with K₀ ~ 10³ prices 10–50 steps at 10⁻³ to 10⁻², small against the payoff gaps of a game
   played at selection intensity 0.3, so the hand table predicts that the fixed-c fuel panel (smaller K at the same c)
   is the cell that can separate the routes.
+
+## 2. Choices where the spec is silent, and deviations (written with the code, before any counted cell)
+
+### 2.1 Fuel, price and the search limit
+
+* **K₀ = 10⁴ steps, c₀ = 0.12/K₀ = 1.2 × 10⁻⁵ per step.** Rule, fixed from the static tables of the full catalogues before any
+  lottery: K₀ is the smallest power of ten above the dearest encounter that finishes. Measured: the dearest finishing
+  encounter is 8,687 steps in inspection (the iterative-deepening refutation of `RIM` against `SE20`) and 5,312 in RPS (`PB`
+  refuting `U`). `PB` against the simulators and against itself runs past every K ≤ 2 × 10⁴ (its search is cut by the 6 × 10⁴-expansion
+  limit below, or exceeds K), so those encounters are forfeits at every K of the panels.
+* **Search limit.** One prover per (game, arm, K) cell with `limit` = 3 × max(K, 2K₀) = 6 × 10⁴ node expansions; a `prove` whose search
+  exceeds it is incomplete and costs more than any K of the panels (a timeout), so the K panels see one consistent search table.
+* **Panels at fixed c** (spec): K ∈ {K₀/2, K₀, 2K₀} at c = c₀ (and at c = 0), full arm, both games. **Added, labelled as such:**
+  the price recalibrated with the cap, c = 0.12/K at K ∈ {1,000, 2,000, 5,000}, to separate "more computation" from "cheaper
+  computation" (the confound named in the spec's review); the price at K₀ turned out small against the payoffs (a step costs
+  1.2 × 10⁻⁵, so a 100-step read costs 1.2 × 10⁻³), which makes the recalibrated panel informative.
+
+### 2.2 The grammar, frozen, and a development run that changed it
+
+Frozen catalogues (names are the code's; sizes and prior masses printed by `src/lt_tape_games.py`): inspection, **22 inspectors**
+(`I0 N0 M1..M7 CARR{1,2,3,4,6} HI{0,1} SI{20,100}{n,i} RI RIM`) and **24 inspectees** (`C0 K0 Mc1..Mc7 HE{0,1}
+SE{20,100}{k,c} PE PEC PR{2,3,4} CR{2,3,4} PCR3`); RPS, **30 programs** (`R0 P0 S0 U B_xy(6) CB_xy(6) H{0,1,2}
+SIM{20,100}{R,P,S,u} PB PRR CRR`). §1.1 listed 20 / 22 / 24 programs; the simulators gained default and guard variants after one
+**development run** (RPS, full arm, c = c₀, 2 and then 4 runs, seen before this section was committed): with a single
+default (R on a timed-out sample) `SIM100` took every island. That is a property of the grammar (all simulators tie each other
+at the same default; a program with another default beats them), not a finding, so the simulators now come with each default
+action (R, P, S; inspection: N or I for the inspector, K or C for the inspectee) and a guarded variant (`u`: a uniform tape
+draw on timeout) at both fuels. The prior is the length prior over template spellings (size = node count): P(size = s) ∝ 1/(2s²) over
+the sizes present, uniform within a size. Resulting masses (full arm): RPS constants 0.819 (0.273 each), mixers 0.124 (`U` 0.033),
+carriers 0.011, hash 0.023, simulators 0.017, `PB`/`PRR`/`CRR` 0.002 each; inspectors: constants 0.726, mixers 0.125 (`M4` 0.081),
+carriers 0.034, hash 0.039, simulators 0.043, `RI` 0.011, `RIM` 0.023; inspectees: constants 0.706, mixers 0.121, hash 0.038, simulators
+0.023, `PE`/`PEC` 0.012, `PR` 0.017, `CR` 0.064, `PCR3` 0.020. Readers arrive as one to a few founders per island.
+* **Disabled-template defaults** (spec: stated per class): RPS cycle R, P, S in catalogue order of the disabled set; inspection N
+  (inspectors), C (inspectees). Founder share moved onto defaults: RPS no-prover 0.018, no-tape 0.145 (R 0.069, P 0.038, S 0.038);
+  inspection inspectors: no-prover 0.068, no-tape 0.181, ee-only 0.115 (all N); inspectees: no-prover 0.112, no-tape 0.121,
+  insp-only 0.173 (all C). **Renormalized co-primary arms** (disabled templates removed, prior renormalized) are run for every arm with
+  a shift above 0.05: RPS no-tape; inspection no-prover, no-tape, insp-only, ee-only.
+* **Arm definitions.** No-prover: `prover`, `rim`, `enum`, `check`, `pcr` and `carrier` families disabled. No-tape: every template that
+  reads the tape disabled (mixers, carriers, `RIM`, `PB`, `PRR`, `CRR`, `SIM*u`). Pseudo-random-only: every `tape i` replaced by
+  `hq r (i, ⌜opponent⌝)`; carriers keep their (now false) certificates, which the checker must reject. Insp-only: inspectee-side
+  readers (`hash`, `sim`, `prover`, `enum`, `check`, `pcr`) disabled; ee-only: inspector-side readers (`hash`, `sim`, `prover`, `rim`)
+  disabled, carriers kept.
+
+### 2.3 Implementation choices
+
+* **A new evaluator, not an edit.** `src/lt_tape.py` copies lt.py's small-step machinery with tapes, tid-tagged sim frames,
+  `hq`, `prp`, `chk` and a `poison` value; `TTheory`, `TSearch`, `TProver` subclass lt.Theory/Search/Prover (the only change to `ms`
+  is TapeL/TapeR). `fst`/`snd` on quotes are not provided (nothing in the grammar uses them); `eq` is structural equality.
+* **`prp` and `chk` are charged host primitives**, not L_T^code library terms as in milestone 4: the checker's cost is the replay cost
+  of §1.0 and the replay is the engine's own small-step evaluation, so "executable = checked" holds by construction, but this is
+  weaker than milestone 4's checker-as-code and is the main realizability gap of this run. The production of a certificate is a
+  host tactic (`produce_cert`: the a-producing leaves of the decision tree against the wildcard opponent), not charged to matches,
+  as in milestone 4. Certificates carry the fuel stamp K and list **all** a-producing leaves of the mixer, so a carrier's certificate
+  claims exactly the mixer's probability; readers' thresholds are below, at and above it.
+* **A `prp` inside an enumeration or a replay returns F for one step** (an enumeration does not enumerate), which keeps the exact
+  engine finite on `PRR` against itself; the consequence is that two enumerating readers see each other as their uniform fallback.
+* **Budgets.** Every `prove` has budget 8, every `prp` work cap 400. Hand check from the tests: the for-all-tapes derivation that a
+  mixer with the same action on both branches plays C has size 9 (TapeR plus two EvR-EvR-Ax branches), so the responsive inspector at
+  budget 8 cannot prove even that, and `RI` plays I against every program that reads the tape.
+* **Opaque atoms.** A `prp`/`chk` redex inside an idealized atom gives the atom no rule (not "stuck"). The audit evaluates such an atom
+  by the same enumeration/check, and counts incomplete evaluations as `skipped`.
+* **K_T^tape soundness.** TapeL/TapeR are the equivalence truth(⟨s⟩⇒a) = ∧_d truth(⟨s_d⟩⇒a); the claim that the remaining rules (Nec, JLöb)
+  keep their soundness proofs because they use atoms only through truth is an argument made in §1.0, not a re-proof; the audit
+  (`src/lt_tape_audit.py`, `runs/lt_tape/soundness.json`) tests every derived box and every sequent of its witness.
+* **Statistics** are those of the DSL runs (`src/rps.py state_stats`, `src/mixed2.py island_stats`) recomputed on the class tables:
+  see `predictions/2026-10-24-realizable-randomizer.md` for definitions. Selection uses the exact expected net payoff over tapes via
+  `rps.lottery_kernel` and `mixed2.lottery2` (w = 0.3, migration probability 1/N per event); only the sampled-encounter check uses
+  realized actions (`lottery2_sampled`: each generation every individual plays 10 encounters against uniformly drawn members of the
+  other population of its island, realized actions drawn from the exact distributions, payoff minus c times the expected steps; then
+  2IN replacement events with parents drawn ∝ exp(w · sampled mean payoff), children inheriting the parent's sampled payoff
+  until the next generation). Founders are paired by cell and run across arms (common random numbers on size and quantile).
+* **The 4,000-generation checkpoint** is recorded for every run (spec: unresolved runs are extended, not counted as absorbed);
+  "resolved" = the island's support at generation 1,500 equals its support at 2,000.
+* **m = 4 check:** probabilities stay on the 1/8 grid for carriers and thresholds (j·2/16), and the mixers gain the odd multiples of 1/16.
+  RPS uses one digit, so m does not enter it. **Chain diagnostic** (the spec's first cut): run only if time allows after the lottery
+  cells, as the whole-state-space two-population chain for inspection (528 states) and the monomorphic chain for RPS, and labelled
+  as such.
+
+### 2.4 Cost measurements (for the scale guard)
+
+One static table (all pairs, one arm, one K) takes 1.5–2 s and about 70–110 MB; a soundness run over a whole catalogue (3,500
+`prove` queries) 90–130 s and about 110 MB; a lottery run of 4,000 generations takes 1.4–6 s (RPS), 4–6 s (inspection), 40 s with
+sampled encounters. Peak resident memory of one job is therefore ≈ 0.1 GB; jobs are one process each, at most 2 at a time while foreign
+jobs are alive (the machine was at load 10–12 on 10 cores during these measurements).
+
+### 2.5 Erratum to §1.5 (found while writing the static checks, before any counted cell)
+
+§1.5 derived "SIM100 earns 1/3 against B(R,P), half the best response 2/3" for one pair and §1.6 and prediction 1(c) repeat the
+parenthesis for all `B(a₁,a₂)`. The 1/3 is right for all six biased mixers (the sample is as good as the bias), but the best response
+is 2/3 only when the minor action a₂ is the action that ties with the best response to a₁ (B_RP, B_PS, B_SR); when a₂ beats that
+best response (B_RS, B_PR, B_SP) the best response is also 1/3, so a simulator that beats one sample is already optimal there. The
+registered claim of prediction 1(c) is the number 1/3, which the tables confirm for all six; the parenthesis is withdrawn.
+
+### 2.6 What the first soundness run found (before any counted cell)
+
+The first full run of the soundness test (`src/lt_tape_soundness.py`) already had 0 false atoms, but 4 (inspection, pseudo-random-only),
+5 (RPS) and 29 (RPS, pseudo-random-only) derived atoms disagreed with the actual play at K = 10⁶, all with a fuel-20 simulator and a
+hash. Cause: in an idealized atom a step that costs more than 1 (the hash) lowered the enclosing sim's fuel below zero, and `decompose`
+only timed a sim out at fuel exactly 0, so the atom's sim never timed out where the real run does. Fixed in `lt_tape.py` (a costly
+step that exceeds an enclosing sim's fuel times that sim out, as in actual play; a sim with fuel ≤ 0 times out); the tests were rerun
+and the soundness test repeated from scratch: **0 false atoms and 0 play disagreements** in all four catalogues
+(`runs/lt_tape/soundness.json`). The only remaining idealization is milestone 1's: a `prove` costs 1 inside an atom and W in play.

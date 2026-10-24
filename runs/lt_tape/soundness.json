@@ -1,0 +1,211 @@
+{
+ "insp_full": {
+  "game": "insp",
+  "K": 10000,
+  "arm": "full",
+  "queries": 4224,
+  "found": 408,
+  "incomplete": 372,
+  "boxes": 408,
+  "sequents": 2288,
+  "false": 0,
+  "bad": [],
+  "skipped": 0,
+  "play_checked": 224,
+  "play_disagree": 0,
+  "play_disagree_examples": []
+ },
+ "insp_prand": {
+  "game": "insp",
+  "K": 10000,
+  "arm": "prand",
+  "queries": 4224,
+  "found": 1191,
+  "incomplete": 126,
+  "boxes": 1191,
+  "sequents": 8483,
+  "false": 0,
+  "bad": [],
+  "skipped": 0,
+  "play_checked": 755,
+  "play_disagree": 0,
+  "play_disagree_examples": []
+ },
+ "rps_full": {
+  "game": "rps",
+  "K": 10000,
+  "arm": "full",
+  "queries": 5400,
+  "found": 343,
+  "incomplete": 835,
+  "boxes": 343,
+  "sequents": 2031,
+  "false": 0,
+  "bad": [],
+  "skipped": 0,
+  "play_checked": 220,
+  "play_disagree": 0,
+  "play_disagree_examples": []
+ },
+ "rps_prand": {
+  "game": "rps",
+  "K": 10000,
+  "arm": "prand",
+  "queries": 5400,
+  "found": 1173,
+  "incomplete": 541,
+  "boxes": 1173,
+  "sequents": 8060,
+  "false": 0,
+  "bad": [],
+  "skipped": 0,
+  "play_checked": 684,
+  "play_disagree": 0,
+  "play_disagree_examples": []
+ },
+ "adaptive_and_certificates": {
+  "adaptive": {
+   "queries": 484,
+   "found": 67,
+   "boxes": 67,
+   "sequents": 361,
+   "false": 0,
+   "bad": [],
+   "skipped": 0,
+   "padded_ref": 18,
+   "padded_ok": 18,
+   "padded_bad": []
+  },
+  "certs_honest_accepted": {
+   "honest_1_at_p": true,
+   "honest_1_below": true,
+   "honest_2_at_p": true,
+   "honest_2_below": true,
+   "honest_3_at_p": true,
+   "honest_3_below": true,
+   "honest_4_at_p": true,
+   "honest_4_below": true,
+   "honest_6_at_p": true,
+   "honest_6_below": true
+  },
+  "certs_overclaim_rejected": {
+   "honest_1_above": true,
+   "honest_2_above": true,
+   "honest_3_above": true,
+   "honest_4_above": true,
+   "honest_6_above": true
+  },
+  "attacks_rejected": {
+   "duplicate_prefix": true,
+   "omitted_prefix": true,
+   "wrong_weight_overlong": true,
+   "overlong_prefix_only": true,
+   "underlong_prefix": true,
+   "overlap_prefixes": true,
+   "wrong_action_prefix": true,
+   "wrong_stamp_bigger": true,
+   "wrong_stamp_smaller": true,
+   "digit_out_of_range": true,
+   "two_entries_same_action": true,
+   "no_entry_for_action": true,
+   "malformed_certs_nat": true,
+   "malformed_entries": true,
+   "empty_list": true,
+   "copied_cert_other_program": true,
+   "reads_opponent": true,
+   "body_changed": true
+  },
+  "attacks_detail": {
+   "duplicate_prefix": [
+    false,
+    1,
+    "duplicate"
+   ],
+   "omitted_prefix": [
+    false,
+    11,
+    "weight"
+   ],
+   "wrong_weight_overlong": [
+    false,
+    1,
+    "overlap"
+   ],
+   "overlong_prefix_only": [
+    false,
+    11,
+    "wrong-outcome:LONG"
+   ],
+   "underlong_prefix": [
+    false,
+    9,
+    "wrong-outcome:SHORT"
+   ],
+   "overlap_prefixes": [
+    false,
+    1,
+    "overlap"
+   ],
+   "wrong_action_prefix": [
+    false,
+    8,
+    "wrong-outcome:N"
+   ],
+   "wrong_stamp_bigger": [
+    false,
+    1,
+    "stamp"
+   ],
+   "wrong_stamp_smaller": [
+    false,
+    1,
+    "stamp"
+   ],
+   "digit_out_of_range": [
+    false,
+    1,
+    "digit"
+   ],
+   "two_entries_same_action": [
+    false,
+    1,
+    "entry"
+   ],
+   "no_entry_for_action": [
+    false,
+    1,
+    "entry"
+   ],
+   "malformed_certs_nat": [
+    false,
+    1,
+    "no-cert"
+   ],
+   "malformed_entries": [
+    false,
+    1,
+    "no-cert"
+   ],
+   "empty_list": [
+    false,
+    1,
+    "weight"
+   ],
+   "copied_cert_other_program": [
+    false,
+    12,
+    "wrong-outcome:SHORT"
+   ],
+   "reads_opponent": [
+    false,
+    5,
+    "wrong-outcome:POISON"
+   ],
+   "body_changed": [
+    false,
+    21,
+    "wrong-outcome:LONG"
+   ]
+  }
+ }
+}
