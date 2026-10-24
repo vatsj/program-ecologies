@@ -148,8 +148,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 53. ~~Rock–paper–scissors and mixed actions (RS)~~ (done; RESULTS "Rock–paper–scissors and mixed actions": the chain is a tournament, the coin holds exactly its prior mass, unexploitable individual mixing is approached only near N ≈ 10⁷; the lottery is held by readers whose self-play forfeits; exact reading brings no benefit; a uniform default manufactures mixing without protection; DEFERRED 16).
 
 54. ~~RPS with a compute price (RS)~~ (done; RESULTS "Rock–paper–scissors with a compute price": forfeits vanish at c = 0.01, individual mixing 0.85–0.93 of the lottery carried by the free coin `X`, π(`X`) rising with N; exact reading adds nothing; the chain's residue is the shadow of free constants; reading (I) partial as registered).
-55. The inspection game (RS, 2026-10-23, "sgtm"): a mixed-equilibrium game where visible randomization is worth more than hidden (commitment value), so readers can earn their place against the coin. After 54.
-56. Basic Endgame in poker (RS, 2026-10-23; Ferguson & Ferguson, "The endgame in poker"): two fixed roles, a hidden card for I, bet / check and call / fold; closed-form target (I bluffs w.p. π = (b/(2a+b))·P/(1−P), II folds w.p. b/(2a+b), value 2aP(2a+2b)/(2a+b) − a); hidden information that source reading cannot see, beside coins it can only simulate. After 54, inheriting its price rule.
+55. The inspection game (RS, 2026-10-23, "sgtm"): does reading select the commitment outcome over Nash? (running with 56: `specs/2026-10-23-two-role-mixed.md`).
+56. Basic Endgame in poker (RS, 2026-10-23; Ferguson & Ferguson, "The endgame in poker"): two fixed roles, a hidden card for I, bet / check and call / fold; closed-form target (I bluffs w.p. π = (b/(2a+b))·P/(1−P), II folds w.p. b/(2a+b), value 2aP(2a+2b)/(2a+b) − a); hidden information that source reading cannot see, beside coins it can only simulate. Running with 55 (`specs/2026-10-23-two-role-mixed.md`).
 
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
