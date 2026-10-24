@@ -157,7 +157,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 59. A realizable randomizer (RS, 2026-10-24: "a private random tape is an acceptable primitive"): counted-probability proofs and count certificates in L_T, priced RPS and the inspection game rerun there (running: `specs/2026-10-24-realizable-randomizer.md`).
 
 60. A migration window for stable sets (RS, 2026-10-24: target "all island outcomes are efficient and all stable sets show up"; disconnected components allowed for now, but large): an mN sweep with the baseline, the derived farsighted guard and the veto; fixed-size components (running: `specs/2026-10-24-migration-window.md`).
-61. A derived immigrant-rejection guard (RS agreed, after 60): coexistence of the whole stable set within one large connected component.
+61. A derived immigrant-rejection guard (RS agreed, after 60): coexistence of the whole stable set within one large connected component. Optional follow-up (RS, "maybe PD?"): component size in the PD, where migrants are the good force (establishment per component against rival lock-in at boundaries).
 
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 

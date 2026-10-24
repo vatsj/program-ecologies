@@ -893,6 +893,10 @@ REJECTED.md the ones we dropped.
   the caveat that "the disconnected components will still have to be large in general, else we won't have meaningful
   migrant effects". *Operating hypothesis:* components of at least 16 islands count; coexistence within one large
   connected component is the goal (queue 60, 61).
+- *RS (2026-10-24):* component size matters little here, "since there's only 3 real candidate equilibria to choose
+  from. It'll matter more in games w good migrants - maybe PD?" *RE:* in the PD migration carries good migrants
+  (fission–fusion universal 40/40, one donor per island, bridge-mediated merging), so component size trades
+  per-component establishment against rival lock-in at component boundaries; an optional follow-up (queue 61).
 
 ## 16. Mixed actions and adversarial games (RS, 2026-10-23)
 - *RS:* "I suspect we're gonna need strong notions of mixed actions to recover equilibria in adversarial games. I
