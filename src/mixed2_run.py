@@ -66,12 +66,19 @@ def summarize(st, game):
         out['isl_lax'] = float(np.mean(p < 0.25 - 5e-3))
         out['isl_reader_majority1'] = float(np.mean(st['rd1'] >= 0.5))
         out['isl_u0_gt_m06'] = float(np.mean(st['u0g'] > -0.6))
+        out['isl_efficient'] = float(np.mean((st['u0g'] >= -0.05) & (st['u1g'] >= -0.05)))           # the (N, C) outcome (0, 0)
+        out['isl_nashlike'] = float(np.mean((np.abs(p - 0.25) <= 0.1) & (np.abs(q - 0.25) <= 0.1)))
+        out['isl_cheat_majority'] = float(np.mean(q > 0.5))
+        for qq in (10, 50, 90):
+            out['u0g_q%d' % qq] = float(np.percentile(st['u0g'], qq))
     else:
         b = np.nan_to_num(st['bluff'], nan=-9); c = np.nan_to_num(st['call'], nan=-9)
         ob = np.abs(b - 0.25) <= 0.1; oc = np.abs(c - 0.5) <= 0.1
         out['isl_bluff10'] = float(np.mean(ob)); out['isl_call10'] = float(np.mean(oc))
         out['isl_both10'] = float(np.mean(ob & oc)); out['isl_value10'] = float(np.mean(np.abs(st['u0g']) <= 0.1))
         out['isl_all10'] = float(np.mean(ob & oc & (np.abs(st['u0g']) <= 0.1)))
+        for qq in (10, 50, 90):
+            out['bluff_q%d' % qq] = float(np.percentile(b, qq)); out['call_q%d' % qq] = float(np.percentile(c, qq))
     return out
 
 
