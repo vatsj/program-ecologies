@@ -142,3 +142,39 @@ the order of 0.3; the frozen waste at mN = 0 is 0.30 of islands (about 19 of 64)
 - Hand-built archipelagos: one with all 64 islands on fair pairs (21, 21, 22) meets both targets; the same with a
   single wasteful island meets neither; with one fair pair replaced by an unequal pair, the stated target holds if
   all three fair pairs are still present and the V\* target does not; with a fair pair missing, neither holds.
+
+## 2. Choices where the spec is silent, deviations, validation, costs (appended as they arise)
+
+### 2.1 Validation before any counted cell
+
+- **Tests** (`tests/test_migration_window.py`, 10 passing): the generated kernels reproduce `stable_sets.kern` and
+  `farsighted_refusal.fkern` draw for draw (classes, final counts, migrant counts, events) on small configurations at
+  mN = 0 and 1 for the baseline, U-gKR(0.99) and gV; the stored baseline runs `L0` (runs 0-2) and `L1` (runs 0, 2), the
+  stored `UKR99-1` run 0 and `R2r-1` run 0 are reproduced at the stored horizon in status, stop generation, migrant births
+  and event counts; the reference formula against enumeration; the target statistic on hand-built archipelagos (both
+  versions, high purity); passage-time helpers; the control starts (balanced: 20/20/20 fair-pair islands, waste-seeded:
+  45 fair + 15 wasteful, the seeded outcome is the modal outcome at generation 0).
+- **Re-verification of the stored cells** (`runs/migration-window-verify.json`): all 40 runs of the baseline `L1`, `UKR99-1`
+  and gV (`R2r-1`) cells at mN = 1 were rerun through the generated kernels with the stored founders and seeds at the stored
+  horizon 10,000 and compared with the stored per-run records: status, stop generation, migrant births and event counts
+  identical in 40/40 in each cell; the modal outcome counts (guard cells), occupancy, consensus and coverage flags
+  identical in 40/40. The stored gV cell at mN = 1, rederived: consensus 0/40, all three members present 40/40, modal
+  occupancy 0.998 (the spec's 0.996 is the dominance-contracts `R2-1` figure; the farsighted rerun `R2r-1`, which is the
+  stored cell used here, gives 0.998), and the spec's target as a statistic is **target (as stated) 0.925, target (V\*)
+  0.850** at generation 10,000: one stray island (a non-fair modal outcome somewhere in 64) in 3 and 6 of 40 runs. So gV
+  at mN = 1 is a good reference but not a certain 1.0; Prediction 5's 0.9 threshold is close at mN = 1 on this cell.
+
+### 2.2 Choices and deviations
+
+- **Components as independent sub-archipelagos** (§1.4): not a modification of the kernel. The 16-island prefix
+  arrangement (C = 1, 2, 4, 8 from one batch of 8 components) means the C rows are nested, not independent draws.
+- **Founders common across mN and guards.** The counted mN = 0 baseline cell uses founder base `L1`, not the stored `L0`
+  (the stored mN = 0 runs are reproduced in the tests), so that every mN is paired on founders.
+- **Event logs switched off.** `evcap` = 1000 and `cevcap` = 1000 in the copied kernels (the stored runs used 2·10⁶ /
+  6·10⁵). They only bound the size of arrays that this experiment does not read; they do not enter the random stream
+  (the identity tests run with the smaller values).
+- **Hrec empty.** The kernels' snapshot arrays are unused; snapshots come from the per-generation records.
+- **Prediction 6's mechanism clause** is not scored (see §1.3); component outcome distributions are reported.
+- **Bootstrap sizes.** Percentile bootstrap with 4,000 resamples for shares and differences, 1,000 for Kaplan–Meier
+  medians (cost), run-clustered.
+- **Prediction 3** compares N = 200 with N = 100 unpaired (the founders differ by N); all within-N contrasts are paired.
