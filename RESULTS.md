@@ -6841,6 +6841,83 @@ gemini-4-argon's on 3 held by its registered ≥ 0.5 rule (its purging mechanism
   cheaters), or a sampling responder.
 - *Caveats:* `cr` is a bounded exact oracle; n = 8; the lottery at N ≤ 800; the ablations are post hoc.
 
+## A migration window for stable sets on islands: without a guard there is no window; the hand-written veto meets the RS's target at every migration rate, the derived guard only at very low migration (2026-10-25)
+
+Spec `specs/2026-10-24-migration-window.md` (the RS's target "all island outcomes are efficient and all stable sets
+show up", and the RS's two messages on disconnected components; reviewed by gemini-4-argon then gpt-6.1-sol),
+predictions `predictions/2026-10-24-migration-window.md`, notes `notes/migration-window.md`, report
+`runs/migration-window.md` and `.json`, `runs/migration-window-verify.json`, rows `runs/migration_window/`. Run by a
+Sonnet subagent (`src/migration_window*.py`; 10 tests, passing on main). The ε = 0 seed lottery of RESULTS "Stable sets
+on islands" (three-player majority division in sixths; V\* = the three fair pairs), 20,000 generations, (N, I) =
+(100, 64) with 40 runs and (200, 64) with 20 runs; 72 cells, 2,020 runs. *Target (as stated)*: every island's modal
+outcome efficient and all three fair pairs present; *target (V\*)*: every island on a fair pair and all three present.
+Scored at generation 10,000.
+
+**Deviations.** The original kernels are copied by a generator that asserts every patched anchor and adds
+per-generation records; they reproduce the stored runs draw for draw, and the stored baseline, derived-guard and veto
+cells at mN = 1 were re-verified on every recorded statistic before any counted cell. Founders are common across mN
+(base `L1`), so the counted mN = 0 cells differ from the stored `L0` runs. Components are independent sub-archipelagos
+with fixed per-component birth clocks (replacing the shared multinomial allocation, notes §1.4), and the C = 1, 2, 4
+rows are prefixes of the C = 8 archipelago (nested, not independent draws). Waste-cleared and
+coverage-lost times are debounced over 25 generations. N = 100 against N = 200 is compared unpaired (founders differ).
+
+**No guard: no window.** The best baseline share meeting the target is 0.225 at mN = 0.1 (0.375 at mN = 0.03 by
+20,000); no migration rate reaches 0.5 at any snapshot, and the V\* target is never met, because unequal pairs hold
+about half the islands. Waste clears in medians of 8,432 / 2,685 / 1,394 / 746 generations at mN = 0.03 / 0.1 / 0.3 / 1
+(median × mN rising from 253 to 746, slope −0.68), and coverage is lost about 4× later at mN = 0.1, 2.3× at 0.3, and
+before clearance at mN = 1 (median × mN falling by 38%). The scaling is approximate and differs between the two
+measures, so lowering migration does not open a wider window, but a single rescaled trajectory is not demonstrated.
+Waste is also regenerated locally from a waste-free start. On the 50-generation grid, member-to-member transitions
+outnumber member-to-unequal ones by 1.8:1, 2.0:1 and 4.8:1 at mN = 0.03, 0.1, 0.3 and 14:1 at mN = 1 (transition
+counts, not an established cause of the coverage loss). Larger islands shorten waste clearance (medians 4,499 / 1,764 /
+674 / 390) and stretch coverage loss: at N = 200 the best share is 0.70 (mN = 0.1), with 0.59 of islands on fair pairs
+but no run meeting the V\* target. Initialization matters: from a balanced start (each island on a fair pair, the three
+in equal numbers) the unguarded baseline reaches 0.60 at 10,000 (mN = 0.1) and 0.70 at 20,000 (mN = 0.01).
+
+**The hand-written veto meets the target at every migration rate.** gV (refuse exits from V\*) meets the stated target
+in 1.0 / 0.975 / 1.0 / 1.0 / 1.0 / 1.0 / 0.925 of runs at mN = 0 / 0.003 / 0.01 / 0.03 / 0.1 / 0.3 / 1 (N = 100), and in
+1.0 at N = 200, with all three members present in every run at both snapshots. The V\* version holds at N = 200 (1.0)
+and at N = 100 up to mN = 0.3, but not at mN = 1 (0.85 at 10,000, 0.825 at 20,000, below the 0.9 criterion); each of the
+six N = 100, mN = 1 runs that miss it has exactly one stray island. Its cost is purity: the encounter-weighted
+inefficient mass rises from 0.005–0.006 at mN ≤ 0.03 to 0.051 at mN = 1 (0.027 at N = 200).
+
+**The derived farsighted guard holds only at low migration.** U-gKR(0.99) meets the target in at least 0.9 of runs at
+both 10,000 and 20,000 generations only at mN ≤ 0.003. Its coverage-lost median is about 18,300 / 5,800 / 2,200 / 960 /
+500 generations at mN = 0.01 / 0.03 / 0.1 / 0.3 / 1, roughly 1/mN: it delays consolidation without stopping it. Against the
+baseline it gains +1.0 at mN ≤ 0.003 and +0.975 at 0.01, and loses at 0.1 (−0.225 [−0.35, −0.10]).
+
+**Disconnected components** (the RS's allowance, components of at least 16 islands). Unguarded, at N = 100, mN = 1, the
+share meeting the target at C = 1 / 2 / 4 / 8 sixteen-island components is 0 / 0 / 0.15 / 0.725, below the
+independent-draw reference (0 / 0 / 0.444 / 0.883); at N = 200, 0.20 (C = 4) and 0.50 (C = 8). In the size panel 4 × 4
+gives 0.10, 4 × 16 0.15 and 4 × 64 0.25: small components settle on unequal pairs more often (44% against 18%). At
+lower migration components help substantially: at N = 200, mN = 0.1, four and eight 16-island components meet the
+stated target in 0.90 and 0.80 of runs at 10,000 and 0.80 and 1.00 at 20,000 (one component: 0.70 and 0.50), though
+none qualifies at both snapshots and no run meets the V\* target.
+
+**Verdicts.** Failed: 1 (best 0.225 against the 0.25 falsifier), 2 under its registered rule (slopes −0.68 and −1.21;
+partial on mN ∈ {0.03, 0.1, 0.3}: −0.78 and −1.13; the ratio is below 5), 3 (reversed: N = 200 does better), 6a
+(C = 4 and 8 below the reference), 6c (reversed: larger components do better). Partial: 4 (the guard's gain at its best
+mN holds; "at least as many at every mN" fails at 0.03 and 0.1). Held: 5 (the veto is the ceiling), 6b. gemini-4-argon's
+counter-prediction on 2 held on the ratio but not on its mechanism; its counter-prediction on 4 is mixed under its
+frozen rule (it holds at mN ∈ {0.1, 0.3} and mN ≤ 0.01, and misses at 0.03, guard 0.175 against baseline 0.20, a
+difference with interval [−0.175, 0.15]). gpt-6.1-sol's on
+2 holds only approximately (the coverage-lost median times mN drifts by 38%); its counter-prediction on 5 (declining
+coverage under the veto) is not seen.
+
+**Audit note.** gpt-6.1-sol audited the draft before gemini-4-argon's corrections were applied (a fold script failed);
+both audits' points are folded above, and they overlapped.
+
+**Reading.**
+- For the tested lottery founders, in one connected component the RS's target is mainly a property of the guard, not
+  of the migration rate: the unguarded lottery has no window at any migration rate tested (a balanced start does
+  better, so initialization matters).
+- A refusal guard on exits from the stable set meets the stated target at every migration rate tested, at both
+  snapshots, at the price of some migrant-borne impurity; the V\* version fails only at N = 100, mN = 1. The guard that
+  programs derive by farsighted consent only postpones consolidation (lifetime roughly 1/mN).
+- The next hypothesis, untested here, is the RS's next item: a derived guard that keeps islands from adopting a
+  different member, i.e. immigrant rejection (queue 61).
+- *Caveats:* finite N and I, ε = 0, a transient-window experiment; 20 runs at N = 200 and in the size panel.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

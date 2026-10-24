@@ -1226,3 +1226,14 @@ nothing. **"Efficient islands fall along the lottery size path" (RE 3).** 0.80 a
 shadow" (RE 4).** −0.05 at c = 0. **"A ×10 prudent-inspectee prior raises chain P(E) by 0.1" (RE 5).** +0.013. **The
 counter-predictions that P(E) rises with N** (gemini-4-argon, gpt-6.1-sol on 2). It falls (odds slope −0.51). **The
 engineer's estimate that E \ R holds about 2.5/N.** 0.064 at N = 10³.
+
+
+## Added 2026-10-25: a migration window for stable sets on islands (RESULTS.md, "A migration window for stable sets on islands")
+
+**"An unguarded migration window exists and widens as mN falls" (RE 1, 2).** The best baseline share is 0.225 at
+10,000 (0.375 at 20,000); clearance and consolidation both slow as mN falls. **"The window narrows with N" (RE 3).**
+Reversed: 0.70 at N = 200. **"Small components beat large ones by preserving founding diversity" (RE 6c).** Reversed:
+small components settle on unequal pairs more often. **"Components meet the independent-draw reference" (RE 6a).**
+Below it at N = 100, mN = 1. **gemini-4-argon's mechanism that coverage is lost by unequal pairs invading fair
+pairs.** Member-to-member transitions dominate. **The expectation that the veto meets the V\* target at every mN.**
+0.85 at N = 100, mN = 1.
