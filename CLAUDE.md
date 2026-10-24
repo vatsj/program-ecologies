@@ -157,7 +157,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 59. ~~A realizable randomizer (RS)~~ (done; RESULTS "A private random tape in the realizable language": sound; at the calibrated price simulators hold the RPS lottery (coin 0.045; 0.91 at 80× the price) and the inspection islands (efficient 0.875, the prover 0); commitment with certified mixers when only the inspectee reads (0.97); open: the timeout convention, DEFERRED 16).
 
 60. ~~A migration window for stable sets (RS)~~ (done; RESULTS "A migration window for stable sets on islands": no unguarded window at any mN; the hand-written veto meets the stated target at every mN tested; the derived guard only at mN ≤ 0.003; components help at N = 200 but never reach V*).
-61. A derived immigrant-rejection guard (RS agreed, after 60): coexistence of the whole stable set within one large connected component. Optional follow-up (RS, "maybe PD?"): component size in the PD, where migrants are the good force (establishment per component against rival lock-in at boundaries).
+61. A derived immigrant-rejection guard (RS agreed): coexistence of the whole stable set within one large connected component; Step 0 decomposes how the veto works, then loyalty, status-quo tie-breaking and conformity by sampling (running: `specs/2026-10-25-immigrant-rejection.md`). Optional follow-up (RS, "maybe PD?"): component size in the PD, where migrants are the good force (establishment per component against rival lock-in at boundaries).
 
 62. Zero-tolerance, suspicious-default and sampling inspectors (the RS delegated the inspection thread to the RE, 2026-10-24: "manage that thread autonomously"; report only what matters) (running: `specs/2026-10-24-zero-tolerance.md`).
 
