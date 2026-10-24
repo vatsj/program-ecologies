@@ -27,7 +27,10 @@ and are blocked under gV, and whether gV acts through contract refusal, through 
 immigrants, or through the tie step. The notes state the mechanism before any derived arm is built; the derived arms
 target it. [After review] Step 0 includes two diagnostics that freeze only the excluded slot's offers, or only the
 pivot's tie choice, to measure how much of each route carries the baseline's member-to-member flips, and [after second review] both
-together, since the two routes may interact. **Step 0 is a
+together, since the two routes may interact. [After second review] Attribution is preregistered over three routes, immigrant selection (mismatched immigrants
+lose on member islands), contract refusal, and tie blocking: the route that accounts for more than half of the flips
+that the baseline makes and gV blocks, in the freeze diagnostics, is the mechanism; if none exceeds half, the
+mechanism is reported as mixed. **Step 0 is a
 gate:** if it falsifies prediction 1 (gV acts mainly through contract refusal), the candidates are revised in a spec
 addendum, reviewed again, before the main panel.
 
