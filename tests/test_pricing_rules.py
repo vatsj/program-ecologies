@@ -240,3 +240,15 @@ def test_pd_charges_have_the_stated_form():
         act, S, nto, tos, nc = M.play_ledger(int(tunit[0]), int(tunit[1]), False, utau, DTy, DR, BTy, BA, BL, BLC, BLD, CHC, CHD, UVt, CST)
         want = {'F': S, 'A': nto, 'FA': S - tos + M.KPD * nto, 'B': cst[M.C_BASE], 'T': nc}[rule]
         assert ch == pytest.approx(want)
+
+
+def test_pd_priced_run_ledger_matches_rule_form():
+    """Through the generated kernel and the run object (a stale numba cache of a dependent kernel once priced with the wrong
+    class costs): at B the end-state charge per play is exactly c times the root steps; at F it is c (play + production steps)."""
+    if not _pd_cache(): pytest.skip('PD cache absent')
+    import pricing_rules_pd as PD
+    import pricing_rules_pd_model as M
+    r = PD.pd_job('wk_Snon_100_64', 0, 'B', 1e-3, 60)
+    assert r['ledger'][3] == pytest.approx(1e-3 * M.load_cst()[M.C_BASE])
+    r = PD.pd_job('wk_Snon_100_64', 0, 'F', 1e-3, 60)
+    assert r['ledger'][3] == pytest.approx(1e-3 * (r['ledger'][0] + r['ledger'][1]), rel=1e-6)

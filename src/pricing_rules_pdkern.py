@@ -14,7 +14,7 @@ from provenance import (ri, ru, side, plog_close, plog_open, is_settled, make_ty
 from pricing_rules_pd_model import pay_net
 
 
-@njit(cache=True)
+@njit(cache=False)
 def _change_p(i, a, b, counts, paysum, pres, npres, pos, tunit, tsp, trule, A, selfa, PX):
     counts[i, a] -= 1
     if counts[i, a] == 0:
@@ -36,7 +36,7 @@ def _change_p(i, a, b, counts, paysum, pres, npres, pos, tunit, tsp, trule, A, s
         paysum[i, b] = vv
 
 
-@njit(cache=True)
+@njit(cache=False)
 def init_paysum_p(counts, paysum, pres, npres, tunit, tsp, trule, A, selfa, PX):
     I = counts.shape[0]
     for i in range(I):
@@ -49,7 +49,7 @@ def init_paysum_p(counts, paysum, pres, npres, tunit, tsp, trule, A, selfa, PX):
             paysum[i, j] = vv
 
 
-@njit(cache=True)
+@njit(cache=False)
 def segment_p(g0, gens, seed, N, w, m, r, slots, counts, paysum, pres, npres, pos, spcount, d, tunit, trule, tsp, tanc,
             ntv, utau, BLC, BLD, SINGLE, APP, PRODC, PD, KIND, NAT, CHC, CHD, UVt, A, selfa, OSV, SPO, capable, COSTS,
             ctr, steps_rule, wn, wenc, wsp, wcode, wsid, ckey, cval, ncache, plog, hist_wait, hist_acq, hist_steps,

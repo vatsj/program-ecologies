@@ -67,7 +67,7 @@ class PricedRun(WK.IslandRun):
         LAST['ledger_isl'] = L[:, 3].tolist()
 
 
-@njit(cache=True)
+@njit(cache=False)
 def pop_ledger(counts, pres, npres, N, tunit, tsp, trule, PX):
     """Per island: mean per-play steps, production steps, timed-out calls (play + production) per play and the mean
     charge per play, over ordered pairs of distinct individuals, using the ledger functions of the model."""
