@@ -117,3 +117,45 @@ What would change the program: if A had no adjacent pair met, the failure-only n
 the question "every step or only wasted steps" would have no answer in this panel; if F had a joint band, the single-price
 worry that motivated the experiment is not borne out; if B or F+A had bands as wide as A's, the distinction between the
 notions would be one of degree. Every verdict above carries its number in the report.
+
+## Addendum (coordinator, 2026-10-25, before any B-own cell): the per-program memo arm B-own
+
+The RS asked for a fifth pricing arm beside the island cache B (spec addendum, reviewed and folded at `55b1031`). **B-own:**
+every step costs c; each program keeps its own memo of reads it has paid for, keyed like B's cache (reader quote and read quote,
+both with carried certificates); a repeated read is free for that program; the memo is runtime metadata, excluded from the quote;
+offspring inherit the parent's memo, migrants carry theirs, founders start cold; cost-only (the read is re-executed against a
+fresh tape). A pre-warmed-memo cell in the PD at c = 10⁻³ is run beside it. Rules for B's cache and B-own's memo: a key is
+inserted only when its read runs to completion and its charge is paid; a read executed free inside a cached ancestor inserts
+nothing; an interrupted first execution (a forfeited root, a read abandoned inside a timed-out ancestor) is charged for the steps
+it ran and inserts nothing; a nested key already cached is free even inside a paid ancestor; the first payer is the reader that
+completes the read. Logged apart for B and B-own: payments caused by certificate updates (a key that is new only because a list
+changed) against first-encounter misses; mean and maximum memo size per program. B-own is run paired with B at the same price
+levels and cells, and the two stay paired in the cut order. B and B-own are two subsidy institutions (shared and island-owned,
+against inherited and carried), not a clean decomposition of memoization.
+
+6. *B-own sits between F and B in every game* (the RE's, verbatim from the spec addendum): it amortizes a lineage's own repeated
+   checks (enough to keep the PD target at c = 10⁻³ wherever B does, within 0.1) but gives no free rides to newcomers [B-own meets
+   the PD target where B does not, or falls below F]. **Scoring:** for each game and each panel c the target statistic of B-own is
+   compared with those of F and of B (the sampled-kernel B for RPS and inspection, the individual-level island ledger `Bi` for the
+   PD, so that B and B-own run through the same machinery); "between" means the statistic lies between F's and B's (inclusive,
+   within 0.05 of an end); *held* if that holds in all three games at both panel c and the PD target at c = 10⁻³ is met under B-own
+   wherever B meets it within 0.1; *failed* if B-own meets the PD target where B does not, or falls below F's statistic by more
+   than 0.1 anywhere; *partial* otherwise.
+   *Counter-prediction (gemini-4-argon), registered:* with cold memos every founder copy and immigrant pays the full verification
+   toll before its lineage inherits a memo, which can kill establishment in the scramble, so B-own falls below B by more than 0.1 at
+   c = 10⁻³ unless memos start warm. **Scoring:** held if the PD universal-open fraction under cold B-own is more than 0.1 below
+   B's at c = 10⁻³ and the pre-warmed-memo cell recovers to within 0.1 of B's.
+   *Counter-prediction (gpt-6.1-sol), registered:* there is no universal F–B-own–B ordering; rank reversals are plausible during
+   establishment and migration. **Scoring:** held if in at least one game and level the statistic of B-own lies outside the
+   interval spanned by F's and B's by more than 0.05.
+
+Conventions added for the addendum (engineer, before any B-own cell): **point estimates are reported beside every run-level
+interval for every target** (the registered met / failed / undetermined rule is unchanged, and nothing already counted is
+altered). In the PD the memo is kept per (island, lineage, type): the lineage is the founder's descendants (the stored lineage
+tracking, a founder is its own lineage), a type change by production is a new reader quote and starts a cold memo, offspring
+inherit the group's memo, a migrant child copies the old island's memo entries for the partner types present in the new island;
+the type-level fitness of the stored kernel becomes individual-level for B and B-own only (a first payment lowers one individual's
+fitness for that generation). Payments are made at generation boundaries: each distinct partner quote is read once by a program
+that has not paid for it (B-own: every such program of the lineage group; B: one program on the island, the first), at the
+read cost of the model (all steps of the pair except the root's 4, production acts included), and the key is cached from then on.
+In RPS and inspection the memo is a bit-row per individual in the sampled kernel, copied to offspring and carried by migrants.
