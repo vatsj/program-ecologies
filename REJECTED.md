@@ -1257,3 +1257,22 @@ immigrants"** (RESULTS "Dominance contracts and refusal on islands"; the explain
 - **gemini-4-argon's counter-prediction that churn in arm T needs two-partner weight ≥ 0.05.** Failed by its rule (T-hi 7.0 / 4.3 against T-lo 5.9 / 4.0); single-partner switchers carry the churn. Same section.
 - **Single immigrants as the measure of island switching.** Dropped: a mismatched immigrant dies in about 10 generations (switching 0.07–0.1%); the balanced start with resident readers is the better probe. Same section.
 - **Readers' churn keeps all three fair pairs present (the hope behind the RS's test).** Not seen: coverage 0.00 in every cell at mN = 1. Same section.
+- **The published one-population modal chicken / hawk–dove chain as converged at `max_states` 3,000 (`fixed_role_chicken.onepop_chain`, six of nine cells at the cap).**
+  Dropped: with the cap raised to 12,000 states hd3 at N = 10^4 gives payoff per player 0.183 (not 0.016; no candidates left) and hd3 at N = 10^3
+  gives 0.906 (not 0.234; 15 candidates still left). Evidence: `runs/exploration_audit/chk_modal_hd3_N{1000,10000}.json`, addendum A1.
+  What survives: the fixed-role results and every lottery figure of the section; "one population cannot learn the norm" at hd3 N = 10^4 and chicken.
+- **Reading a small `cut_flow` / relative cut as a convergence certificate for a capped or θ-pruned chain.** Dropped (extends the 2026-10-05 entry
+  on θ-pruned exploration): the capped mixed2 exact cell had unexplored relative flux 0.999 (1,500 states) and moved by 0.46 payoff units (0.115 of the range)
+  on enlargement; the hd3 N = 10^4 cell had a cut of 10^-14.7 at its cap and moved by 0.17 payoff units (0.067 of its range). The convergence flag of this audit is
+  the number of candidates still above θ at the cap (`n_cand_left` / frontier mass), not the cut. Recommended solver default: raise an error or print UNCONVERGED
+  when `n_cand_left` > 0 at exit; no existing file edited here.
+- **The graded ordering exact > sr16 > sr4 > matched of the mixed2 chain (capped cells; sr_k at c = 0, Endgame matched at c = 0.01).** Dropped as a chain
+  statement: sr16 N = 10^4 gives -2.456 at 1,500 states (outside the game's payoff range) and -0.361 at 15,000 (still capped); sr4 -0.764 → -0.352;
+  Endgame matched -0.2019 → -0.2006. The lottery ordering is untouched.
+- **Engineer predictions E2 and E3 of this audit** (that the cells to move would be the monomorphic-restricted cap-limited multi-role cells, and that no other
+  M-status cell would move by more than 0.02 outside a known deep trap): wrong; the mover was an M-status one-population cell whose cap limits the polymorphic
+  search (addendum A1). The registered counter-prediction of gemini-4-argon (shifts above 0.05 in enforcement, concessions, gene arm, auctions, RPS) was
+  not supported on the cells reached.
+- **Re-solving the union game, enforcement CC and the three-player dollar by lowering θ by four or more decades with this solver.** Dropped as infeasible,
+  not as wrong: union N = 10^4 at θ = 10^-11 spent 81 min in round 1 (42,007 ring states, relative cut 0.175); the three-player weak N = 100 at θ = 10^-10 took
+  4 h 45 min and 8 GB for a 3.7-fold cut reduction. A converged answer there needs a different solver, not a smaller θ.

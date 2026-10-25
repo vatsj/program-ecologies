@@ -2599,6 +2599,12 @@ Encounter-level: E[max share] 0.596 at N = 100 and 0.600–0.604 at N ≥ 10³; 
 - **The grand coalition is drift-closed only in the constants language** and loses closure at n = 6 to one-atom "accept a pair offer" bridges, a k = 3 instance of the sibling theorem's lesson that larger languages open leaks.
 - As with the fixed-role ultimatum game, the selected outcome is the one whose deviations are generous rather than self-punishing.
 
+*Addendum (exploration-cap audit, 2026-10-25, RESULTS "Exploration-cap audit of the published chains").* Weak arm, N = 100, re-solved at θ = 10^-10 (53,763 states against 31,989; outcome-changing
+cut 0.0027 against 0.0101): grand 0.0101 → 0.0096, each pair 0.3298 → 0.3300, efficiency 0.9951 → 0.9949. Weak N = 10^3 at its
+published θ = 10^-10 reproduces (31,686 states, grand 0.0161). Not re-run: modal and modalPA arms, N = 10^4, θ below 10^-10 (the
+published θ-sensitivity, grand 0.0016 at θN = 10^-6 against 0.0161 at 10^-7, remains the evidence that the grand-coalition share needs a θ below
+10^-7/N; this audit finds it stable from there to 10^-8/N at N = 100).
+
 ## Almost all seeds: compatibility among co-seeded establishers (`runs/compatibility.md`; spec `specs/2026-10-05-compatibility.md`, predictions in `predictions/2026-10-05-compatibility.md`)
 
 Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (about 35 minutes on 3 workers; nothing censored). Modal arm, PD, w = 0.3, ε = 0; classes are the behavioural classes at the cutoff.
@@ -2968,6 +2974,12 @@ Part C: repression given a strike is 1.000 under the declared tie and 0.58 under
 - **A replacement pool makes repression credible and drives the wage to zero in every arm**, creating a closed neutral network at zero wage under rational repression. Efficiency and equal division separate completely: the efficient cells pay workers nothing.
 - **The polarity dilemma survives in the two-level language.** The unfakeable "¬□fair" pact's handshake activates only on a world-0 low wage, so it inherits a world-0 faker ("fair only while provably struck"), as the sibling theorem's regress predicts; moving the wage check up a level kills activation altogether. Lemma 0 holds: militant⁻'s errors are self-harm only.
 - Method: a per-world best-response override is cheap to state and changes what the chain tests; any compute price that makes commitment costly is also a selection on which threats get tested (THEORY §9.11).
+*Addendum (exploration-cap audit, 2026-10-25, RESULTS "Exploration-cap audit of the published chains").* Union quorum c = 0.5 at N = 10^4 re-solved at θ = 10^-10 (9,981 states, outcome-changing cut 0.005
+against 0.014): fair 0.00248 → 0.00249, intermediate 0.0092 → 0.0088, zero wage 0.478 → 0.481, all differences ≤ 0.003. θ = 10^-11 did not
+finish (round 1: 42,007 ring states, relative cut 0.175 after 81 min); θ = 10^-12 not run. Enforcement Part C RR (N = 10^3, 10^4) and RC
+(N = 10^3) re-solved at θ = 10^-13 (RR: 11,609 and 9,309 states against 3,591 and 2,099; RC 17,678 against 4,320): every reported share
+changes by ≤ 2·10^-5; the RR "smallest positive wage" 0.75 and the RC fair 0.005 stand. The CC cell at θ = 10^-11 did not finish.
+
 ## Proof length: an explicit GL calculus on the free arm, and a sound bounded calculus K (`runs/proof-length.md`, `runs/proof-length.json`, `notes/proof-length.md`; spec `specs/2026-10-05-proof-length.md`, predictions in `predictions/2026-10-05-proof-length.md`)
 
 Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/gl_proofs.py`, `src/bounded_k.py`, `src/proof_length_arm.py`, `tests/test_gl_proofs.py`). Part A is static and exact (every length a certified minimum in a stated calculus; nothing capped); Part B defines a bounded prover K, proves it sound, and runs the budget grid, the n = 6 arm (ε→0 chain and ε = 0 lottery) and the priced arm. RE check: tests pass on main, the FairBot–FairBot derivation and the K soundness proof verified by hand.
@@ -3247,6 +3259,13 @@ Under the amortized price P(C,C) rises with N at every c (at c = 1: 0.17 / 0.42 
 - **Lemma sharing needs weakening-aware certificates.** Exact-identity DAG gives almost nothing; analytic cut helps only where a boxed lemma is reused across Löb branches (PrudentBot 24 → 18); subsumption saves 30–40% for prudent provers; siblings stay ≥ 1.96× for prudent readers under every certified measure, so proof length is still not a closure mechanism.
 - **Amortized and cache-accounting prices do not rebuild the ladder:** N·Δ = c·b is N-independent, the fixation ratio is 1 + w·c·b/2, the exit slope is −1 and cooperation rises with N (the α = 1 path, now as a schedule). The per-match price rebuilds the ladder at n = 6 and n = 8. **Lazy pricing becomes a closure exactly when an ALLC punisher exists** (PrudentBot@16 at n = 8, absorbing even at c = 0.01): the copy subsidy is the moat.
 - *Realizability caveat.* K is a sound bounded calculus for the modal fragment, not a bounded PA prover; the prune uses GL decidability, which Turing-complete readers lack; lengths are minima in a stated calculus; prices are imposed schedules with verification events and cache lifetimes uncounted.
+*Addendum (exploration-cap audit, 2026-10-25, RESULTS "Exploration-cap audit of the published chains").* Bounded re-solves (published construction re-run, then `LogChain` at log10 theta -14 seeded with the published
+polymorphic states, one layer of targets around every monomorphic class, cap 8,000): K b = 4 (N = 10^4, 3·10^4) 0.6789 / 0.7736 → identical
+to 5 digits; K b = 8 0.6622 / 0.7623 → 0.6622 / 0.7623; free modal n = 8 0.6172 / 0.7246 → 0.6172 / 0.7246 (polymorphic mass ≤ 10^-6, 0
+candidates left); priced lazy n = 8, c = 0.01, N = 10^5: 1.0000 → 1.0000; the n = 6 members of the same families, all unchanged to four digits with no candidate left at log10 theta -14 and polymorphic mass ≤ 3·10^-6
+(priced atoms c = 0.01 / 0.001: 0.0150 / 0.3018; depth c = 0.01: 0.0150; lazy c = 0.01: 0.5903 at N = 10^4 and 0.8161 at 10^5; certificate cert0 0.5864, lazy 0.5903;
+fringes D 0.9885, μ 0.9863). The "Divide-the-dollar partitions" cells at N = 100 and 3,000 were not re-solved.
+
 ## The modal arm on two-player divide-the-dollar: sound reading creates the leak, and Löbian hawks hold π (`runs/modal-dollar.md`, `runs/modal-dollar.json`, `runs/modal_dollar/`, `notes/modal-dollar.md`; spec `specs/2026-10-05-modal-dollar.md`, predictions in `predictions/2026-10-05-modal-dollar.md`)
 
 Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/modal_dollar.py`, on `dollar3`'s canonical reduction, `dollar_partitions`' chain, summary and lottery code, and `gl_proofs`). ε→0 chains (two solvers; see the methods finding), reduced subsystems, an augmentation arm, fixed roles, and ε = 0 lotteries. RE check: P′'s escape probability √(8w/(9πN)) agrees with the diffusion calculation (advantage slope 4w/9 once the mean's first-order decline is included).
@@ -3293,6 +3312,14 @@ The trap is X+Z+V = `if(BOX(S1),S1,S4)` 4/7 + `if(BOX1(S3),S3,S2)` 2/7 + `if(BOX
 - **Methods:** the repo's linear-domain lazy chain is not trustworthy once deep polymorphisms exist (0.44 vs 0.75 at different θ); use the seeded log-domain chain, and account for twin drift, under which the lim_N failure stands but is polynomial (N^−4 to N^−5 on best paths) and which trap holds π is open.
 - Distribution: with fixed roles in this grammar π spreads over all splits (the n = 5 rotating dictatorship ran on universal conceders); the lottery makes 50–50 universal under migration in both arms, so bargaining under the primary object is unaffected. *Free-box caveat:* the hawk's meekness with copies and P′'s exploitation both need Löb, which a realizable bounded prover has only above its copy threshold.
 *Addendum (2026-10-06, RESULTS "Solver audit").* The numbers stand: 0.653 at N = 10⁴ reproduces as 0.6531, unchanged when 226 saturated supports of up to six classes are seeded and at N = 10⁵. The methods finding is corrected in its mechanism: the lazy θ = 10⁻⁷ chain reproduces 0.4445 and log GTH on its own explored set also gives 0.4445 (5,952 underflowed edges, none carrying weight), so the failure was a missed state, not underflow. The "47 deep states" count rested on a 10⁻¹² tolerance against 9-decimal payoffs; at 10⁻⁹ none is strictly deep, 13 (27 with larger supports) are deep modulo twins and 37 (53) deep with a penalty, X+Z+V among them. *Twin-expanded stationary distribution (labelled intervention):* P(efficient) 0.545 at N = 10⁴ and 0.445 at 10⁵, not 0.653: Z = `if(BOX1(S3),S3,S2)` drifts to its PA-level twin `if(BOX(S3),S3,S2)` at 10⁻⁷·², the relabelled trap exits at 10⁻⁵·³ (against 10⁻²⁵·⁵ for X+Z+V itself) toward a five-class S4-hawk polymorphism of Löbian readers (S4 0.463, `if(BOX(S1),S4,S2)` 0.075, `if(BOX(S4),S1,S4)` 0.060, `if(BOX1(S2),S4,S2)` 0.388, `if(BOX1(S4),S1,S4)` 0.015; exit 10⁻⁹·³) holding 0.91–0.98 of π at 10⁴, and by 10⁵ to a twin-linked family of two-class hawk states. *What changes in the reading:* "the trap is a hawk provably meek with its own copies" holds for the lumped chain only.
+
+*Addendum (exploration-cap audit, 2026-10-25, RESULTS "Exploration-cap audit of the published chains").* The one-population paired chain with the published seeded chain: modal N = 100 gives P(efficient) 0.9858 at θ = 10^-7 and
+0.9859 at θ = 10^-14 (4,000 states, the cap, log10 cut -11); N = 3·10^4 gives 0.6531 at θ = 10^-7 and 10^-11; the weak n = 7
+comparator through the solver-audit pipeline gives efficiency 1.0000 at N = 10^3 and 10^4, lumped and twin-expanded (746 twin moves), no strict-deep state, 19
+deep-modulo-twins states carrying no mass. The twin-expanded modal cells at N = 100 and 3·10^4 did not finish (stopped after 40 min).
+The modal fixed-role chain of the same section (N = 100, 10^3; published at 8,000 of 42,025 states, cut 9.8·10^-4 and 5.2·10^-3) re-solved at 16,000
+states: cut 9.4·10^-5 and 1.0·10^-6, 50–50 0.3395 / 0.2925 (0.3393 / 0.2922 published), 1/3-types 0.5330 / 0.4747 (0.5329 / 0.4745), endpoints 0.1187 / 0.2327
+(0.1189 / 0.2332); every share within 0.0005.
 
 ## K with the 4-rule, and a frozen classifier for what a sound bounded prover loses (`runs/k-four.md`, `runs/k-four.json`, `runs/k-four/`, `notes/k-four.md`; spec `specs/2026-10-05-k-four.md`, predictions in `predictions/2026-10-05-k-four.md`)
 
@@ -3859,6 +3886,11 @@ Under the prior, islands close at zero wage (CC, 0.73–0.83) or 1/4 (RR, 0.83�
 - **The unfakeable version exists but is level-1 and two-atom:** (D\*[L1], militant⁻, militant⁻) has no strict invader in the n = 11 grammar, and militant⁻ is certified only by PA + Con probes. Its exits are neutral and ∝ 1/N, so the sibling theorem's arithmetic applies; under the length prior its mass (10⁻⁸) keeps it out of π.
 - **Method: θ-pruning hides exits spread thin.** The strict faker exits from probe-concession fair states go to hundreds of distinct faker classes of mass ~10⁻⁵ each, every destination below θ = 10⁻⁹; the explored chain made P₀₁'s fair share look like it grew with N (0.004 → 0.009). A cut diagnostic (re-evaluate every edge leaving the explored set under the solved π, by source and destination summary) catches it in seconds where a lower θ takes hours; it should accompany every hybrid-explored cell whose cut exceeds ~2%.
 - **RR and the pool erase the probe**: with ex-post rational strikes no worker is certified to strike at 1/4, so D\* pays 1/4 and π is the enforcement run's smallest positive wage (0.76); the pool gives zero wage (≥ 0.98) at c = 0.1 and 0.5.
+*Addendum (exploration-cap audit, 2026-10-25, RESULTS "Exploration-cap audit of the published chains").* The explored P01 fair share at N = 10^4 (0.0086, relative outcome-changing cut 0.094) falls to 0.0050
+when theta is lowered by 3.3 (θ = 3·10^-10: 26,175 states, relative cut 0.042), the direction of the published first-order
+cut-corrected value 0.0020; zero wage 0.479 → 0.480, intermediate 0.0103 → 0.0117. Not converged at either theta (θ = 10^-10 and
+10^-11 did not finish in the original run either); the headline "the concession loses to the prior" is unchanged.
+
 ## Mixed-budget populations under K: budget mixing splits `BOX1(THEM(ME))`, not FairBot (`runs/mixed-budgets.md`, `runs/mixed-budgets.json`, `runs/mixed-budgets-static.json`, `runs/mixed-budgets-calib.json`, `runs/mixed-budgets/`; spec `specs/2026-10-05-mixed-budgets.md`, predictions in `predictions/2026-10-05-mixed-budgets.md`)
 
 Designed by the RE, reviewed by gpt-6.1-sol, run by an Opus subagent (`src/mixed_budgets.py`; core files unchanged). The run was interrupted once (the K-cut sibling's mistyped `pkill` killed its workers on 10-06 around 00:00) and resumed by rep set; the chain then ran detached and the report was regenerated from the finished data. RE check: the 2,048/3,000 horizon separation is in `runs/mixed-budgets.md` with its separated pairs and bridge fates.
@@ -4150,6 +4182,18 @@ The role split is in [0.46, 0.53] in every cell. The weak shortfall is islands f
 - **The readers that read the commitment are what unseat it,** under rare mutation and between islands under migration: bridges are the universality mechanism here as in RESULTS "Rival networks across islands", up to 0.68 of runs end with one global norm by 4,000 generations, none with the readers removed, and which norm wins is a coin flip. Provability changes how norms merge (M0 resolves far less in chicken), not which norm forms.
 - **One population without roles cannot learn the norm** and loses most of the surplus.
 - *Caveats:* finite (N, I, horizon); the flip attribution rule was revised post hoc (the frozen rule sampled too early) and the forced-island control is the clean evidence; one-population cells reduced to 12.
+*Addendum (exploration-cap audit, 2026-10-25, RESULTS "Exploration-cap audit of the published chains"; `runs/exploration-audit.md`, records `runs/exploration_audit/chk_modal_*.json`).* The one-population modal
+chain of this section (`fixed_role_chicken.onepop_chain`, log-theta 10^-14, `max_states` 3,000 plus seeds) was at its cap in six of its
+nine cells (`n_cand_left` > 0 at chicken N = 100, hd3 N = 100, 10^3, 10^4 (16 left), hd6 N = 100, 10^3). Re-solving with the cap raised
+to 12,000 states and everything else unchanged: **hd3 at N = 10^4 gives payoff per player 0.183 (5,469 states, no candidates left,
+log10 cut -13.7), not 0.016; at N = 10^3 it gives 0.906 (12,031 states, 15 candidates left, so still capped), not 0.234**; chicken at
+N = 100 moves from -0.476 to -0.381 (4,726 candidates left, unconverged). The N = 10^4 chicken (-0.10) and hd6 (0.83) cells were not
+capped and are unchanged. The sentence "one population without roles cannot learn the norm and loses most of the surplus" stands for hd3
+at N = 10^4 (0.18 against the fixed-role 1) and chicken, and **does not hold at hd3, N = 10^3** (0.91 of the fixed-role benchmark, not
+converged); "chicken and hd3 are deep (top-state exits 10^-381, 10^-74 per event)" was computed on the truncated set and is
+unverified for hd3 at the enlarged set. for hd6 at N = 10^3 at 12,000 states the solve finished but the exit-analysis step of `onepop_chain` found no recurrent class in the capped set, and hd3 at N = 10^3 failed in the same step at a 24,000-state cap after 1.5 h (`np.argmax` of an empty sequence), so the hd3 N = 10^3 value 0.906 cannot be pushed further with this code and stays unconverged (15 candidates left at 12,000);
+hd3 / hd6 at N = 100 were not re-run. Every lottery figure of the section (island establishment, forced islands, flips) is untouched.
+
 ## The social organization game over the realizable language: a library prior reaches the fair wage, the matched expanded prior does not (`runs/sog-realizable.md`, `runs/sog-realizable.json`, `runs/sog_realizable/`, `runs/sog-realizable-{validate,gap,static,costs,audit,assays,modal,chain}.json`, `notes/sog-realizable.md`; spec `specs/2026-10-10-sog-realizable.md`, predictions in `predictions/2026-10-10-sog-realizable.md`)
 
 Designed by the RE from the RS's prior question (DEFERRED 10), reviewed by gpt-6.1-sol, run by an Opus subagent (`src/sog_realizable.py`, `src/sog_realizable_run.py`, `src/sog_realizable_report.py`, `tests/test_sog_realizable.py`; 9 tests, one of which is a sample-size floor on the composition-vs-whole-runs check that passes the per-play assertions and misses its count on main, see commit history). Order of commits: the notes' §1.1–1.3 (calculus, grammar, prior, frozen conventions) before any code; the predictions before the static analysis; the code with its validation and the static tables; the cells. The hosting session ended once (the machine restarted); only missing cells were rerun. **Not run:** L at (100, 256). **Not converged:** the diagnostic chain at N = 10⁴ (five rounds, no promotions, outcome-changing cut 0.969 of flow over 2,500 core and 34,722 ring states; π not reported). **Deviation:** the lottery runs on the ideal (host-replay) table, with an audit of realized encounters at K = 10⁶. RE check: the founding-coalition masses, D\*'s weight ratio and the L / expanded-syntax lottery cells are in the run report; the mechanism of the expanded-syntax failure is the prior's mass on concession-like bosses, measured statically.
@@ -6662,6 +6706,15 @@ c = 0.01 does not lower the payoff), 6 (II's readers hold 0.54 > 0.5), gemini-4-
 
 **Addendum (2026-10-24).** The reading of the inspection chain above as "the PD's structure" holds only at N ≤ 10³: at N ≥ 10⁴ the efficient state is eroded mainly by light cheaters the exact inspector rationally tolerates and by exploiters of its bounded read, not by its shadow (RESULTS "The inspection game's enforcer and its shadow").
 
+*Addendum (exploration-cap audit, 2026-10-25, RESULTS "Exploration-cap audit of the published chains").* The positive control reproduces: inspection exact, c = 0, N = 10^4 gives -0.0093 at 1,500 states
+(frontier mass 1.0), -0.4708 at 4,000 (not the -0.31 of `notes/mixed2.md` §3; that point is not reproduced), -0.4707 at 8,000 and at
+15,000 states (the cap is still binding at 15,000, frontier mass 0.52) and -0.4707 on the whole 24,649-state space; the blind arm (289
+states) is unchanged by the cap; the jump-chain GTH solver agrees with a dense continuous-time generator solve to TV 3·10^-14 on the sample arm
+(6,889 states). The uncited capped cells are not usable: inspection sr16 c = 0 N = 10^4 gives -2.456 at 1,500 states (outside the payoff
+range of the game) and -0.361 at 15,000 (still capped, 93,723 candidates left); sr4 -0.764 → -0.352 (still capped, 143,867 left); Endgame matched c = 0.01
+-0.2019 → -0.2006 (still capped); `chain_insp_exact_c0.01` at N = 100 (27,889 states) gives -0.7920 on the whole space against -0.7921 capped. The "graded
+ordering" of the sr_k arms in the chain is therefore not supported by the capped numbers.
+
 ## A private random tape in the realizable language: sound, but at the calibrated price simulators beat the coin, and they, not the prover, hold the inspection islands (2026-10-24)
 
 Spec `specs/2026-10-24-realizable-randomizer.md` (the RS: "A private random tape is an acceptable primitive";
@@ -7184,6 +7237,72 @@ churn" rule without failing P1's coverage clause.
 - *Caveats:* finite N and I, ε = 0, 10,000 generations, 40 runs (20 in the balanced start); library priors chosen by the
   engineer; T reads only by capped simulation (no tape, certificates or proofs); the mechanism is inferred; hazards are
   per fair-pair island-generation.
+
+## Exploration-cap audit of the published chains: the failure is real but narrow; among re-solved cells, only those whose own records showed a cap hit moved by more than 0.004, and one sentence changes (2026-10-25)
+
+Spec `specs/2026-10-24-exploration-audit.md` (queue 57; RS, 2026-10-24, after the mixed2 capped chain gave −0.009 against
+−0.47 on the whole space; reviewed by gpt-6.1-sol then gemini-4-argon), predictions
+`predictions/2026-10-24-exploration-audit.md`, notes `notes/exploration-audit.md` (§1 inventory and triage, §2 deviations,
+including every stopped job), report `runs/exploration-audit.md`, per-cell table `runs/exploration-audit-table.md`,
+records `runs/exploration_audit/`. Run by a Sonnet subagent on a loaded shared host (`src/exploration_audit*.py`). No
+lottery was re-run and no stored result file was modified. Execution qualifications (notes §2): the ultimatum and modal
+fixed-role stage-(a) values were seen before the harness and controls were committed; several enlargements were stopped
+or reduced for time; the registered convergence diagnostic (frontier mass > 0.01) was replaced by cut proxies for the
+hybrid chains and candidate counts for the log-domain chain; "stable under this enlargement" is bounded stability, not a
+completed prescribed audit.
+
+**Inventory.** 52 chain-result groups: 45 with capped or thresholded exploration (30 complete on monomorphic states with
+pruned or seeded polymorphic states, 15 with the monomorphic space itself restricted), 7 complete or not chains. 15
+groups were re-solved at a larger cap, a lower threshold or the whole space; 30 were not, with a reason each (static
+tables stored nowhere, including the realizable-language carrier chains; restricted by design; or beyond this solver:
+the union game below θ = 10⁻¹⁰, the three-player dollar below 10⁻¹⁰, the dollar partitions at N = 100 and 3,000, and
+several n = 8 cells). Jobs stopped for time are listed in notes §2.
+
+**Controls.** The mixed2 inspection chain (exact, c = 0, N = 10⁴) reproduces −0.0093 at the published 1,500-state cap and
+−0.4707 on the whole 24,649-state space; the notes' intermediate −0.31 at 4,000 states does not reproduce (−0.4708). The
+blind arm (289 states) is identical capped and whole. The jump-chain GTH solver agrees with a dense generator solve to
+total variation 3·10⁻¹⁴.
+
+**What moved.** Among re-solved cells, changes above 0.004 on the spec's scale occurred only where the stored record
+already showed a cap hit (candidates left above θ at the cap):
+
+| cell | published | re-solved |
+|---|---|---|
+| one-population modal hd3, N = 10³, payoff per player | 0.234 | 0.906 at 12,000 states (15 candidates left; unconverged) |
+| one-population modal hd3, N = 10⁴ | 0.016 | 0.183 at 5,469 states (0 candidates left; stable under this enlargement) |
+| one-population modal chicken, N = 100 | −0.476 | −0.381 (unconverged) |
+| mixed2 inspection sr16, c = 0, N = 10⁴ (flagged unconverged when published) | −2.456 | −0.361 (still capped) |
+| mixed2 inspection sr4 (same) | −0.764 | −0.352 (still capped) |
+
+Every other re-solved cell agrees with its published value to within 0.004 on the spec's scale: the ultimatum arms, the
+modal fixed-role dollar, the union game, enforcement RR and RC, the three-player weak arm at N = 100, the modal and K
+arms of the PD at n = 8 with their n = 6 priced, certificate and fringe relatives, the modal dollar, and mixed2 exact at
+c = 0.01; the concessions fair share moves 0.0086 → 0.0050, toward the published cut-corrected 0.0020.
+
+**Verdicts.** RE 1 (at least 10 capped results: 45) held; RE 2 (two thirds of re-solved one-population cells within
+0.02: 25 of 27, counting each cell's largest difference over statistics and stages and including extra priced cells
+compared with their own reproduction, a modified tally) held; sol's counter-prediction (corrections track missing
+transition structure): stored cap hits identify every large mover among reached cells, but the opened transitions were
+not identified, so mechanistic support is incomplete; RE 3 (a published number in the named realizable-language and RPS
+groups moves by more than 0.05) not demonstrated on those groups, which were complete, unreached or reproduced without a
+finished enlargement (untested, not refuted), while numbers outside them did move; argon's counter-prediction (movers in large multi-role games) not
+supported; RE 4 (no lottery number changes) held. The engineer's E2 and E3 failed (the mover was a monomorphic-complete one-population cell whose cap limits the
+polymorphic search).
+
+**Reading.**
+- Three interpretations change. (i) "One population without roles cannot learn the norm and loses most of the surplus"
+  (RESULTS "Fixed-role chicken and hawk–dove without `ROLE`") holds for chicken and for hd3 at N = 10⁴, not for hd3 at
+  N = 10³ (0.91 of the fixed-role payoff, unconverged). Converging it needs a fix to `fixed_role_chicken.onepop_chain`,
+  whose exit analysis finds no recurrent class at large caps.
+  (ii) The section's deep-exit statement for hd3 (top-state exit 10⁻⁷⁴ per event) was computed on the truncated set
+  and is unverified. (iii) The chain's graded ordering of the sr_k inspectors (RESULTS "Mixed actions in two-role
+  games", where those chains were already flagged unconverged) is unsupported; the lottery ordering is untouched.
+- A small cut or small unexplored flux is not a convergence certificate (moved cells had cuts of 10⁻¹⁵ and 0.999). The
+  proposed reporting rule (IMPLEMENTATION 4; the solver code is not yet changed) is to report the number of candidates
+  still above θ at the cap and call a chain unconverged when it is positive; a zero count certifies neither convergence
+  in θ nor completeness.
+- The 30 unresolved groups, among them the realizable-language carrier chains and the gene arm, remain unaudited; the
+  union game, the three-player dollar and concessions need a different solver to go further.
 
 ## Not done
 
