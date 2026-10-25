@@ -21,6 +21,7 @@ STAGES = {
     '2': ['gVs'],
     '3': ['FI', 'FP', 'FX', 'FXP', 'FPL'],
     '4': ['gKRw', 'g0'],
+    '5': ['gKR'],            # reference: the stored strict farsighted guard, added after the first batch (disclosed)
 }
 
 

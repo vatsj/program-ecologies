@@ -213,6 +213,79 @@ def verdicts(cells, st):
     return V
 
 
+def verify_stored(cells):
+    """the reference arms B and gV against the stored migration-window rows (same founders, seeds, N, I): the generation-
+    10,000 snapshot of every run must be identical on the class counts, the target indicators and consensus."""
+    out = {}
+    keys = ('ts', 'tv', 'nm', 'F', 'U', 'G', 'W', 'D', 'cons')
+    for arm, sg in (('B', 'base'), ('gV', 'gV'), ('gKR', 'gKR')):
+        for m in RUN.MNS:
+            n = cname(arm, m)
+            path = os.path.join(ROOT, 'runs', 'migration_window', 'M-%s-N100-m%s.json' % (sg, ('%g' % m)))
+            if n not in cells or not os.path.exists(path):
+                continue
+            dd = json.load(open(path)); fld = dd['snap_fields']
+            stored = {r['run']: dict(zip(fld, r['snap']['10000'])) for r in dd['runs']}
+            same = 0; tot = 0
+            for r in cells[n]:
+                if r['run'] in stored:
+                    tot += 1
+                    same += int(all(r['snap']['10000'][k] == stored[r['run']][k] for k in keys))
+            out[n] = dict(compared=tot, identical=same)
+    return out
+
+
+def score_lines(cells, st, V):
+    """the engineer's predictions E1-E7 and prediction 1, scored against their registered thresholds."""
+    L = []
+    MN = RUN.MNS
+    fl = V['flips_B_gV']
+    ratios = {m: fl[m]['ratio'][0] for m in fl}
+    ok1 = all(r > 5 for r in ratios.values())
+    bad1 = any(r < 2 for r in ratios.values()) or any(fl[m]['v'][0] <= 0.75 * fl[m]['b'][0] for m in fl)
+    L.append(('E1', 'held' if ok1 else ('failed' if bad1 else 'partial'),
+              'gV : B flip ratio %s; gV at mN = 0.1: %.0f per run (guess 1,000-2,200)' % (
+                  ', '.join('%g: %.1f' % (m, ratios[m]) for m in MN), fl[0.1]['v'][0])))
+    cs = {m: V['branch_b'][m].get('c') for m in MN}; f33 = {m: V['branch_b'][m].get('frac_inst_mem_fair33') for m in MN}
+    ok2 = all(cs[m] is not None and cs[m] >= 0.8 for m in (0.1, 1.0)) and all(f33[m] >= 0.8 for m in MN if f33[m] is not None)
+    bad2 = any(cs[m] is not None and cs[m] < 0.5 for m in (0.1, 1.0)) or any(f33[m] is not None and f33[m] < 0.5 for m in MN)
+    L.append(('E2', 'held' if ok2 else ('failed' if bad2 else 'partial'),
+              'contract-mediated share of gV m->m flips: %s; share of member-island installs that are (3,3): %s' % (
+                  ', '.join('%g: %.3f' % (m, cs[m]) for m in MN), ', '.join('%g: %.3f' % (m, f33[m]) for m in MN))))
+    ts = {m: V['branch_b'][m]['ts'] for m in MN}
+    ok3 = ts[1.0]['gVs'] <= 0.5 * ts[1.0]['gV'] and abs(ts[0.01]['gV'] - ts[0.01]['gVs']) <= 0.15
+    bad3 = abs(ts[1.0]['gV'] - ts[1.0]['gVs']) <= 0.1
+    L.append(('E3', 'held' if ok3 else ('failed' if bad3 else 'partial'),
+              'target (as stated) gV / gVs / B: ' + '; '.join('%g: %.2f / %.2f / %.2f' % (m, ts[m]['gV'], ts[m]['gVs'], ts[m]['B']) for m in MN)))
+    def pm(arm, m, role, match='mismatched'):
+        r = [x for x in st[cname(arm, m)]['fate'] if x['origin'] == 'migrant' and x['role'] == role and x['match'] == match][0]
+        return r['p_majority']
+    pB = {m: pm('B', m, 'included') for m in MN}; pG = {m: pm('gV', m, 'included') for m in MN}
+    exB = {m: pm('B', m, 'excluded') for m in MN}
+    L.append(('E4', 'held for B, partial for gV' if max(pB.values()) < 0.02 and max(pG.values()) >= 0.02 else
+              ('held' if max(pB.values()) < 0.02 else 'partial'),
+              'P(majority) of mismatched included-slot arrivals, B: %s; gV: %s; excluded-slot arrivals (B) %s (the neutral level is about 0.02)' % (
+                  ', '.join('%g: %.4f' % (m, pB[m]) for m in MN), ', '.join('%g: %.4f' % (m, pG[m]) for m in MN),
+                  ', '.join('%g: %.4f' % (m, exB[m]) for m in MN))))
+    sh = V['shares']
+    rem = lambda k, m: sh[m]['removed_' + k][0]
+    cond = [rem('FI', 1.0) >= 0.7, rem('FI', 0.01) < 0.4] + [rem('FX', m) >= 0.5 for m in MN] + [rem('FXP', m) >= 0.9 for m in MN]
+    bad5 = any(rem('FXP', m) < 0.7 for m in MN)
+    L.append(('E5', 'held' if all(cond) else ('failed' if bad5 else 'partial'),
+              'fraction of B\'s m->m flips removed: ' + '; '.join('%s: ' % k + ', '.join('%g: %.2f' % (m, rem(k, m)) for m in MN)
+                                                                  for k in ('FI', 'FX', 'FP', 'FXP', 'FPL'))))
+    r6 = {m: st[cname('gKRw', m)]['mm'][0] / st[cname('gV', m)]['mm'][0] for m in MN}
+    d6 = {m: st[cname('gKRw', m)]['ts'][0] - st[cname('gV', m)]['ts'][0] for m in MN}
+    ok6 = all(0.5 <= r6[m] <= 2 for m in MN) and all(abs(d6[m]) <= 0.15 for m in (0.1, 1.0))
+    bad6 = d6[0.1] < -0.3
+    L.append(('E6', 'held' if ok6 else ('failed' if bad6 else 'partial'),
+              'gKRw/gV m->m flips: ' + ', '.join('%g: %.3f' % (m, r6[m]) for m in MN) + '; target gKRw - gV: ' +
+              ', '.join('%g: %+.2f' % (m, d6[m]) for m in MN)))
+    L.append(('E7 / P1', 'E7 held, P1 failed' if V['mechanism'] == 'contract channel' else 'see mechanism: %s' % V['mechanism'],
+              'mechanism by the rule: %s' % V['mechanism']))
+    return L
+
+
 def write_md(cells, st, V, path):
     L = []
     P = L.append
@@ -226,7 +299,7 @@ def write_md(cells, st, V, path):
     P('| mN | arm | m->m | of which contract-mediated | m->other | other->m | other->other | installs on member islands (3,3) / other | refusals on member islands | cons. at 10,000 |')
     P('|---|---|---|---|---|---|---|---|---|---|')
     for m in RUN.MNS:
-        for arm in ('B', 'FX', 'FP', 'FXP', 'FI', 'FPL', 'g0', 'gV', 'gVs', 'gKRw'):
+        for arm in ('B', 'FX', 'FP', 'FXP', 'FI', 'FPL', 'g0', 'gV', 'gVs', 'gKRw', 'gKR'):
             n = cname(arm, m)
             if n not in st:
                 continue
@@ -241,7 +314,7 @@ def write_md(cells, st, V, path):
     P('| mN | arm | target (as stated) | target (V*) | all three members present | status codes | runs | mean wall (s) |')
     P('|---|---|---|---|---|---|---|---|')
     for m in RUN.MNS:
-        for arm in ('B', 'FX', 'FP', 'FXP', 'FI', 'FPL', 'g0', 'gV', 'gVs', 'gKRw'):
+        for arm in ('B', 'FX', 'FP', 'FXP', 'FI', 'FPL', 'g0', 'gV', 'gVs', 'gKRw', 'gKR'):
             n = cname(arm, m)
             if n not in st:
                 continue
@@ -284,6 +357,12 @@ def write_md(cells, st, V, path):
     for m, e in V['shares'].items():
         P('- mN = %g: ' % m + '; '.join('%s %s' % (k, ('%s [%s, %s]' % tuple(fmt(v, 2) for v in e[k])) if isinstance(e[k], tuple) else fmt(e[k], 2))
                                          for k in sorted(e)))
+    P('\n## Scores\n')
+    P('| prediction | verdict | numbers |')
+    P('|---|---|---|')
+    for a_, b_, c_ in score_lines(cells, st, V):
+        P('| %s | %s | %s |' % (a_, b_, c_))
+    P('\nVerification against the stored migration-window rows (generation-10,000 snapshot identical): ' + ', '.join('%s %d/%d' % (k, v['identical'], v['compared']) for k, v in V['verify_stored'].items()))
     open(path, 'w').write('\n'.join(L) + '\n')
 
 
@@ -293,11 +372,13 @@ def main():
     a = ap.parse_args()
     cells, st = build(a.scratch)
     V = verdicts(cells, st)
+    V['verify_stored'] = verify_stored(cells)
     os.makedirs(os.path.join(OUT, 'immigrant_rejection'), exist_ok=True)
     for n, recs in cells.items():
         json.dump([{k: r[k] for k in KEEP} | {'ts': r['snap']['10000']['ts'], 'tv': r['snap']['10000']['tv'],
                                               'nm': r['snap']['10000']['nm'], 'cons': r['snap']['10000']['cons']}
                    for r in recs], open(os.path.join(OUT, 'immigrant_rejection', n + '.json'), 'w'), separators=(',', ':'))
+    V['scores'] = score_lines(cells, st, V)
     out = dict(cells=st, verdicts=V)
     json.dump(out, open(os.path.join(OUT, 'immigrant-rejection.json'), 'w'), indent=1, default=lambda o: o.tolist() if hasattr(o, 'tolist') else str(o))
     write_md(cells, st, V, os.path.join(OUT, 'immigrant-rejection.md'))
