@@ -193,7 +193,9 @@ enlargement (log10 theta -10, 12,000 nodes, branch 8, 2,000 starts); `pd-pr8-dep
 and through the bounded pipeline (42 min) and the n = 8 drift-closure fringe cell (40 min) were stopped; the dollar-partition cells
 (`dollar5-role` N = 100 through the solver-audit pipeline ran 2 h 30 min without finishing: unresolved); one-population chicken hd6
 N = 10^3 at 12,000 states ended in an exception after 1 h (the exit-analysis step found no recurrent class in the capped set; the
-solve itself had finished), and hd3 / hd6 at N = 100 were not run. **Bug fixed during the run:** `make_cell` recursed through the
+solve itself had finished), hd3 at N = 10^3 with a 24,000-state cap failed the same way after 1.5 h (empty recurrent class; `np.argmax` of an empty sequence in `onepop_chain`), and hd3 / hd6 at
+N = 100 were not run. after the outage the priced-RPS enlargement with theta alone lowered (log10 theta -11, everything else published) was run once more and stopped
+at 2 h 15 min without finishing, so the I-49 enlargement is unresolved. **Bug fixed during the run:** `make_cell` recursed through the
 patched `solver_audit.make_cell` in the first launch of the dollar-partition jobs (16 jobs failed at start; relaunched).
 
 **Disclosure (order).** The harness was developed on the ultimatum arms and the modal fixed-role cell before the controls were

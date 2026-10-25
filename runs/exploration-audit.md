@@ -103,8 +103,9 @@ N = 100 moves from -0.476 to -0.381 (4,726 candidates left, unconverged). The N 
 capped and are unchanged. The sentence "one population without roles cannot learn the norm and loses most of the surplus" stands for hd3
 at N = 10^4 (0.18 against the fixed-role 1) and chicken, and **does not hold at hd3, N = 10^3** (0.91 of the fixed-role benchmark, not
 converged); "chicken and hd3 are deep (top-state exits 10^-381, 10^-74 per event)" was computed on the truncated set and is
-unverified for hd3 at the enlarged set. hd6 at N = 10^3 failed numerically at 12,000 states (unresolved); hd3 / hd6 at N = 100 were not
-re-run. Every lottery figure of the section (island establishment, forced islands, flips) is untouched.
+unverified for hd3 at the enlarged set. hd6 at N = 10^3 failed numerically at 12,000 states, and hd3 at N = 10^3 failed the same way at a 24,000-state cap after 1.5 h (`onepop_chain` finds no recurrent class
+in the capped set: `np.argmax` of an empty sequence), so the hd3 N = 10^3 value 0.906 cannot be pushed further with this code and stays unconverged (15 candidates left at 12,000);
+hd3 / hd6 at N = 100 were not re-run. Every lottery figure of the section (island establishment, forced islands, flips) is untouched.
 
 ### A2. "Mixed actions in two-role games" (RESULTS line ~6553; paragraph "Deviations")
 
@@ -191,8 +192,8 @@ Checked against REJECTED.md: this audit re-opens nothing; it extends the 2026-10
    agrees with its published value to four digits when the threshold is 10 to 10^4 times lower or the cap 2 to 10 times larger.
 2. **One sentence needs a decision.** The one-population modal hawk–dove (hd3) chain was at its 3,000-state cap. With 12,000 states, hd3 gives payoff per player 0.18 (not 0.02) at
    N = 10^4, and 0.91 (not 0.23, still capped) at N = 10^3: one population with no roles then reaches about nine tenths of the fixed-role surplus at N = 10^3. "One population
-   cannot learn the norm" holds at N = 10^4 and for chicken but not at hd3, N = 10^3. Whether to push that cell to a converged answer (cap 24,000+, hours) is your call; hd6
-   at N = 10^3 needs a code fix before it can be re-solved.
+   cannot learn the norm" holds at N = 10^4 and for chicken but not at hd3, N = 10^3. A 24,000-state attempt at hd3, N = 10^3 died after 1.5 h (the solver found no recurrent class in the capped set), as did hd6, N = 10^3 at 12,000: converging that cell
+   needs a code fix in `fixed_role_chicken.onepop_chain` (outside this audit), which is your call.
 3. **No THEORY claim is touched.** The headline chain results (lim_N PD, modal and K-arm cooperation, dollar traps, enforcement, union, three-player) stand; the audit's
    new content is a list of which published chain cells are converged under enlargement and which are not.
 4. **A rule for the solvers.** A small unexplored flux ("cut") is not a convergence certificate: the cells that moved had cuts of 10^-15 or an unexplored flux of 0.999 at the
