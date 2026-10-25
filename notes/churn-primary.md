@@ -293,3 +293,20 @@ per run 2 / 55 / 215 at mN = 0.01 / 0.1 / 1 (mN = 0: none, drift cannot move a c
    changed because of it.
 10. **The dearest finishing encounter** of the T library is 821 steps for the program Dnfn with both partners Snoy
     (not "Dnfn against itself", as §1.4 loosely says); K₀ = 10³ and c₀ = 1.2·10⁻⁴ stand.
+
+### 2.2 After the counted cells
+
+11. **Service outage.** A service outage stopped the first batch at about 300 of 802 jobs; stale claims for unfinished jobs were deleted
+    and the same job file relaunched. Finished results were kept (every run is deterministic in its seed). No result was altered.
+12. **Post-hoc cells** (labelled as such in the predictions' addendum 2, written after the lottery, probe and balanced-start
+    results were read): three ablations per catalogue (switchers S, null-fallback singles Z, two-partner D alone at weight 0.03),
+    and a scratch dwell-time diagnostic (8 runs, mN = 0.1, B6w / E-min main modal / T-main; not in the cell files).
+13. **Cut order.** Nothing was cut: the c₀ sensitivity (T-main, T-hi), mN = 0.01 and the balanced start all ran. The 20,000-generation
+    extension was not run. Everything is at 10,000 generations.
+14. **Scoring notes.** P3's registered statistic (immigrants into slot 1, stratum a, readers resident) had zero switches in every
+    grammar; across all slots the pooled rate is 0.07-0.1%. The "taker" configuration (an excluded-slot immigrant that offers a fair
+    share to the reader's slot) switches 0.75% (modal) and 0.45% (weak). The E-min rows fail P1's "no churn" rule but are not
+    counted as P1 failures (the rule's failure needs coverage ≥ 0.5). The balanced-start cells have 20 runs. T-hi and T-main at c₀
+    use the type-id payoff tables of `churn_primary_t.make_J`.
+15. **Not done:** the stored mN > 0 composition as the natural excluded stratum; certificates, proofs and the tape in arm T; the 20,000
+    extension; coupling founders across doses.

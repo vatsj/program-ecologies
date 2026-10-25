@@ -408,6 +408,9 @@ def main():
     P('## Verdicts\n')
     for k, v in verdicts.items():
         P('- **%s**: %s' % (k, json.dumps(v, default=lambda o: float(o) if isinstance(o, (np.floating, np.integer)) else str(o))[:900]))
+    rd = os.path.join(ROOT, 'runs', 'churn_primary', 'reading.md')
+    if os.path.exists(rd):
+        L.append(open(rd).read())
     open(a.out + '.md', 'w').write('\n'.join(L) + '\n')
     print('wrote', a.out + '.md', 'and .json')
 
