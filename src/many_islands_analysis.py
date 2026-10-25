@@ -422,6 +422,7 @@ def post_job(arm_name, A, npools=5, probe_n=200, idxs=None, tag=''):
                             D=[float(D_[0, 1]), float(D_[0, 2]), float(D_[1, 2])], flow=float(fl_[~np.eye(3, dtype=bool)].mean()))
     res['injection_at_checkpoints'] = inj
     res['two_migrant'] = two_migrant_probe(arm, tr0, oc0, rng, n_per_cell=probe_n, seed0=MR.crc('mi-2m|%s|%d' % (arm_name, A)) % 10 ** 6)
+    res['mixed_states'] = mixed_report(arm, A, list(idxs if idxs is not None else range(npools)), rng)
     res['wall'] = time.time() - t0
     with open(os.path.join(MR.OUT, 'post_%s_A%d%s.json' % (arm_name, A, tag)), 'w') as f:
         json.dump(res, f)
@@ -522,6 +523,50 @@ def sym_job(arm_name, A, idxs=(0, 1, 2), cap=100000, tag='sym', n_reps=None):
     with open(os.path.join(MR.OUT, 'sym_%s_A%d_%s.json' % (arm_name, A, tag)), 'w') as f:
         json.dump(out, f)
     return out
+
+# ====================================================================== mixed states (the RS's ruling 2026-10-25)
+def mixed_report(arm, A, idxs, rng, probe_n=100):
+    """share of islands in mixed states (status 2) and drifting islands (status 3) over the pools; the outcome classes they mix;
+    and, if there are mixed islands, a simulated injection of one migrant from a random pure island into each (conversion =
+    the modal outcome class after relaxation differs from before)."""
+    arm.maybe_flush(0.5)
+    n = 0; nm = 0; nd = 0; classes = {}
+    comps = []
+    pures = []
+    for k in idxs:
+        if not os.path.exists(MR.pool_path(arm.name, A, k)):
+            continue
+        z = np.load(MR.pool_path(arm.name, A, k))
+        n += len(z['status']); nm += int((z['status'] == 2).sum()); nd += int((z['status'] == 3).sum())
+        for row in z['capped']:
+            cl = int(row[1]); lab = MI.OLAB[cl] if cl < MI.NOUT else ('member-mixed' if cl == MI.NOUT else 'other')
+            classes[lab] = classes.get(lab, 0) + 1
+        pures.append(z['triples'][z['status'] == 0].astype(np.int64))
+        mx = z['mixed'] if 'mixed' in z.files else np.zeros((0, 4), np.int64)
+        for isl in np.unique(mx[:, 0]) if len(mx) else []:
+            cnt = np.zeros((3, arm.K), np.int64)
+            for (_, s_, k_, c_) in mx[mx[:, 0] == isl]:
+                cnt[s_, k_] = c_
+            comps.append(cnt)
+    res = dict(n=n, mixed=nm, drifting=nd, mixed_share=nm / max(n, 1), drifting_share=nd / max(n, 1), classes=classes)
+    if comps and pures:
+        pures = np.concatenate(pures)
+        conv = 0; tot = 0
+        for cnt in comps[:probe_n]:
+            c0, _ = MI.classify_counts(arm, cnt)
+            for rep in range(3):
+                d = pures[rng.integers(len(pures))]
+                s_ = int(rng.integers(3)); x = int(d[s_])
+                c2 = cnt.copy()
+                pop = np.repeat(np.arange(arm.K), c2[s_]); v = int(rng.choice(pop))
+                c2[s_, v] -= 1; c2[s_, x] += 1
+                st, g, cc, _ = MI.island_run(arm.ctx(), arm.lc(64), MI.PAY, c2, MI.N0, MI.W, int(rng.integers(2 ** 30)), 5000,
+                                             np.empty(0), arm.cum, True)
+                c1, _ = MI.classify_counts(arm, cc)
+                conv += (c1 != c0); tot += 1
+        res['probe'] = dict(injections=tot, class_changed=conv)
+    return res
+
 
 
 if __name__ == '__main__':
