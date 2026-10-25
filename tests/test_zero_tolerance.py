@@ -265,3 +265,16 @@ def test_founder_coupling():
     # outside the replaced slots the founders are the stored draw
     cl = base.cls_of[0][Z.slot_programs(lang0, 0, 400, 100, seed0)].reshape(400, 100)
     assert (cl.sum() > 0)
+
+
+def test_lrho_safe_agrees_with_stored_and_survives_huge_differences():
+    du = np.array([-400.0, -120.0, -105.0, -99.0, -3.0, -0.1, 0.0, 0.3, 5.0])
+    for N in (100, 10000, 100000):
+        old = Z._lrho_stored(du, N)
+        new = Z.lrho_safe(du, N)
+        assert np.isfinite(old).all()
+        assert np.abs(old - new).max() < 1e-9 * max(1.0, np.abs(old).max())
+    big = np.array([-9e4, -1e6, 1e5])
+    out = Z.lrho_safe(big, 10000)
+    assert np.isfinite(out).all() and out[0] < -1e3 and out[2] > -20
+    assert M.lrho is Z.lrho_safe

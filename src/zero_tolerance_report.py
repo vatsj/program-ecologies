@@ -120,7 +120,7 @@ def main():
     R = {}
     # ------------------------------------------------------------------ completeness
     jobs = []
-    for f in ('jobs.txt',):
+    for f in ('jobs.txt', 'jobs_redo.txt'):
         if exists(f):
             jobs += [l.split('|') for l in open(os.path.join(RUNS, f)) if l.strip() and not l.startswith('#')]
     missing = [j[2].strip() for j in jobs if not exists(j[2].strip())]

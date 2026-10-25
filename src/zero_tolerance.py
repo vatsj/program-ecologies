@@ -37,6 +37,24 @@ D0 = 12
 W = M.W
 TOL = 1e-9
 EFF = S.EFF
+_lrho_stored = M.lrho
+
+
+def lrho_safe(du, N, w=W):
+    """`mixed2.lrho` with the deleterious branch evaluated without overflow: for a = -w du > 30 (payoff differences of 100 or more, which the
+    k-fold nested simulation of sr_k reaches at c = 0.01: 8.9e6 levels charged) log(expm1(a)) is replaced by a + log1p(-exp(-a)).  Identical
+    to the stored function (to rounding) wherever that one is finite.  Installed as `mixed2.lrho` at import, so the chain classes see it."""
+    dw = w * np.asarray(du, float)
+    out = _lrho_stored(np.where(-dw > 30.0, 0.0, du), N, w)
+    big = -dw > 30.0
+    if big.any():
+        a = -dw[big]
+        out = np.array(out, float)
+        out[big] = a + np.log1p(-np.exp(-a)) - N * a - np.log(-np.expm1(-N * a))
+    return out
+
+
+M.lrho = lrho_safe
 CACHE = os.environ.get('ZT_CACHE', os.path.join(tempfile.gettempdir(), 'zt_cache'))
 
 # added programs: name -> (operator, k, suspicious, printed source)
