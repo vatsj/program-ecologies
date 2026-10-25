@@ -205,6 +205,38 @@ def routes(arm, pool, oc, rng, per_class=1500, m_don=30):
                     res['%s>%s|%s' % (MI.CATLAB[ca], MI.CATLAB[cc], ['excluded', 'member', 'dictator', 'victim', 'other'][r])] = v
     return res
 
+def fair_ka(K, x=None):
+    """conformist rate kappa[a, b] = K(F_a, F_b -> F_b) and third-pair rate alpha[a, b] = K(F_a, F_b -> F_c), c the third pair,
+    for ordered pairs a != b of the three fair pairs (indices into MI.V)."""
+    kap = np.zeros((3, 3)); alp = np.zeros((3, 3))
+    for a in range(3):
+        for b in range(3):
+            if a == b:
+                continue
+            c = 3 - a - b
+            kap[a, b] = K[MI.V[a], MI.V[b], MI.V[b]]
+            alp[a, b] = K[MI.V[a], MI.V[b], MI.V[c]]
+    return kap, alp
+
+
+def dominated_ka(K, x):
+    """for each dominated category (U, G, W, D) of recipients, weighted by the shares of its classes: the rate of ending on the donor's
+    fair pair (kappa) and on either of the other two fair pairs (alpha, summed), per donor pair."""
+    out = {}
+    for gi, lab in ((1, 'U'), (2, 'G'), (3, 'W'), (4, 'D')):
+        ids = [a for a in range(MI.NOUT) if MI.CATMAP[a] == gi and x[a] > 0]
+        w = sum(x[a] for a in ids)
+        if w <= 0:
+            continue
+        kap = np.zeros(3); alp = np.zeros(3)
+        for b in range(3):
+            for a in ids:
+                kap[b] += x[a] / w * K[a, MI.V[b], MI.V[b]]
+                alp[b] += x[a] / w * sum(K[a, MI.V[b], MI.V[c]] for c in range(3) if c != b)
+        out[lab] = dict(kappa=kap.tolist(), alpha=alp.tolist())
+    return out
+
+
 
 # ====================================================================== two-migrant probes
 def event_dist(arm, tr, s, x):
@@ -376,6 +408,19 @@ def post_job(arm_name, A, npools=5, probe_n=200, idxs=None, tag=''):
     Fm = np.array([[fl[i, j] for i in range(3) for j in range(3) if i != j] for fl in flows])
     res['fair_block'] = dict(D=[tint(Dm[:, q]) for q in range(3)], flow_mean=Fm.mean(0).tolist(),
                              D_over_flow=[float(abs(Dm[:, q].mean()) / max(Fm.mean(), 1e-300)) for q in range(3)])
+    kas = [fair_ka(K_, x_) for K_, x_ in zip(Ks, shares)]
+    dka = [dominated_ka(K_, x_) for K_, x_ in zip(Ks, shares)]
+    pairs_ = [(a, b) for a in range(3) for b in range(3) if a != b]
+    res['ka'] = dict(
+        kappa_pair={'%d>%d' % (a, b): tint([k[0][a, b] for k in kas]) for a, b in pairs_},
+        alpha_pair={'%d>%d' % (a, b): tint([k[1][a, b] for k in kas]) for a, b in pairs_},
+        kappa_sym=tint([float(np.mean([k[0][a, b] for a, b in pairs_])) for k in kas]),
+        alpha_sym=tint([float(np.mean([k[1][a, b] for a, b in pairs_])) for k in kas]),
+        dominated={lab: dict(kappa=tint([float(np.mean(d[lab]['kappa'])) for d in dka if lab in d]),
+                             alpha=tint([float(np.mean(d[lab]['alpha'])) for d in dka if lab in d]),
+                             kappa_by_donor=[tint([d[lab]['kappa'][b] for d in dka if lab in d]) for b in range(3)],
+                             alpha_by_donor=[tint([d[lab]['alpha'][b] for d in dka if lab in d]) for b in range(3)])
+                   for lab in ('U', 'G', 'W', 'D') if any(lab in d for d in dka)})
     # pooled kernel and the class-level ODE
     out = sum(outs); npair = sum(npairs)
     Kp = normalize_K(out, npair)
@@ -418,8 +463,11 @@ def post_job(arm_name, A, npools=5, probe_n=200, idxs=None, tag=''):
                     rows[MI.CATLAB[g]] = dict(n=int(len(v)), exit=float(v[:, 1].mean()), toF=float(v[:, 2].mean()),
                                               cv=float(v[:, 1].std() / max(v[:, 1].mean(), 1e-300)))
             fl_, D_ = fair_block(Kd, xd)
+            kd_, ad_ = fair_ka(Kd)
+            pr_ = [(a, b) for a in range(3) for b in range(3) if a != b]
             inj[key] = dict(shares={MI.CATLAB[c]: float(xd[cats == c].sum()) for c in range(5)}, by_group=rows,
-                            D=[float(D_[0, 1]), float(D_[0, 2]), float(D_[1, 2])], flow=float(fl_[~np.eye(3, dtype=bool)].mean()))
+                            D=[float(D_[0, 1]), float(D_[0, 2]), float(D_[1, 2])], flow=float(fl_[~np.eye(3, dtype=bool)].mean()),
+                            kappa=float(np.mean([kd_[a, b] for a, b in pr_])), alpha=float(np.mean([ad_[a, b] for a, b in pr_])))
     res['injection_at_checkpoints'] = inj
     res['two_migrant'] = two_migrant_probe(arm, tr0, oc0, rng, n_per_cell=probe_n, seed0=MR.crc('mi-2m|%s|%d' % (arm_name, A)) % 10 ** 6)
     res['mixed_states'] = mixed_report(arm, A, list(idxs if idxs is not None else range(npools)), rng)

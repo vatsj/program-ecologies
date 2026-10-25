@@ -258,6 +258,10 @@ law and from two tilted starts (the fair pair F0 and the unequal pairs reweighte
 fixations per event per island) at every checkpoint, and the switching rate of the S₃-symmetric orbit chain. Definitions are in the predictions
 addendum.
 
+3. *Conformist and third-pair rates (second ruling, same day).* `many_islands_analysis.fair_ka` and `dominated_ka`: κ(a, b) = K(F_a, F_b -> F_b),
+α(a, b) = K(F_a, F_b -> F_c) per ordered pair and symmetry-averaged, intervals across pools, in the post job (`ka`) and at each injection
+checkpoint; dominated recipients by category toward the donor's pair (κ) and the other two (α). Predictions addendum E15.
+
 ### 2.4 Execution notes
 
 - The orbit chain (`many_islands_analysis.sym_chain`): recipients are n representative islands, donors a uniform element of the union of the six

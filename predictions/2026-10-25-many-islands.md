@@ -191,3 +191,23 @@ the kernel over pure triples is the whole kernel.
   events per island at every size from 1.5·10³ to 3·10⁵ islands, with the break time growing by less than a factor 3 over that range
   [pairs differ by > 5%, or V\* < 0.95; or a break time outside the window or growing by more than 3×]. Odds 0.7 (the pilot supports the
   first clause and the sizes 1.5·10³, 1.6·10⁴, 9.8·10⁴).
+
+## Addendum 2026-10-25 (second ruling relayed by the RE: conformist and third-pair rates)
+
+*Order, disclosed.* Pools 0 of all six cells and pools L A=0 p1 and M A=0 p1 were complete, and I had looked at the exact kernel of L pool 0 and
+R pool 0 (a development check) when the message arrived; E15 is therefore labelled informed by that look. The message: split each
+single-migrant conversion of a fair-pair island into the **conformist rate** κ(a, b) = K(F_a, F_b → F_b) (the recipient ends on the donor's pair,
+a ≠ b fair) and the **third-pair rate** α(a, b) = K(F_a, F_b → F_c) (c the pair that is neither); report both with intervals, per arm,
+symmetry-averaged and per ordered pair; and report α and κ from dominated recipient classes into each fair pair relative to the donor's pair.
+The RS's reasoning: with symmetric rates κ cancels from the share dynamics and α alone drives the shares to (1/3, 1/3, 1/3) from any interior
+start, so α > 0 is the criterion for a unique interior attractor with ongoing switching (a dynamic equilibrium), while α = 0 with κ > 0 gives
+neutral shares that keep switching but stay where they start. Operationalization: K from the exact injection statistics on the post-anneal pools
+(as for the fair block), intervals across pools (t), the dominated classes grouped by category (U, G, W, D) and weighted by their shares,
+κ(dominated → donor's pair) and α(dominated → the other two pairs, summed) per donor pair; repeated on the triples sampled at 10, 100, 1,000,
+10⁴ and 10⁵ events per island (pool 0). *Scoring.* α is **positive** in a cell iff its pool interval excludes 0; the class-level criterion is
+**met** iff α is positive in every arm. Caveat registered with it: the class-level chain is not Markov (E3), so α > 0 at class level is necessary
+for the RS's reduction and not sufficient for the attractor; the aggregate-stability runs (E13) and the symmetric orbit chain are the test.
+
+- **E15 (informed by the look at pools 0).** α > 0 and κ > 0 in every cell with α/κ between 0.05 and 0.5 in L and M, and the readers raise κ by
+  at least 3× over M at the same A [α interval includes 0 anywhere, or α/κ outside the band, or the reader factor < 3]. Odds 0.7 (pool 0
+  of L: κ ≈ 4.5·10⁻⁴, α ≈ 5.8·10⁻⁵ per event; of R: κ ≈ 3.5·10⁻³, α ≈ 3.4·10⁻⁴, seen before this entry).
