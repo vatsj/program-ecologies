@@ -188,3 +188,54 @@ Stated here only as hand reasoning from §1.3–1.4; numbers are in the predicti
   across recipients of the same class, according to the excluded slot's content.
 - The extended clock shows slow drift of the fair share after the spec's last checkpoint; coverage in the pool Monte Carlo
   is symmetric in expectation, and the loss of a pair in finite I is by symmetry breaking whose time grows slowly in I.
+
+## 2. Deviations, choices where the spec is silent, costs (appended as they arise)
+
+### 2.1 Before any counted cell (code, tests, validation: `src/many_islands*.py`, `tests/test_many_islands.py`, `runs/many-islands-validate.json`)
+
+- **A hand error in §1.2, found by a test and corrected before any counted cell.** The fixation formula for a
+  deleterious migrant (ρ < 1) in the first version of `pfix` lacked a factor e^b (b = |w Δ|): the closed form is
+  (1 − e^(−b)) e^(−b(N−1)) / (1 − e^(−bN)). The exact absorption solve of the Moran chain (tests, N = 10, 40, 100) caught it. The
+  §1.2 table's deleterious entries were hand arithmetic and are corrected here: P_fix = 3.48·10⁻⁴ (Δ = −1), 4.77·10⁻⁶ (−2),
+  4.95·10⁻⁸ (−3, the table said ≈ 3·10⁻⁸), 4.6·10⁻¹⁰ (−4); the neutral and selected entries (0.01, 0.0491, 0.0952, 0.139, 0.181) stand.
+  The claim "mismatched migrants die" is unchanged.
+- **The chain does not simulate the relaxation of each event.** By §1.2 the relaxation of one migrant into a settled island is
+  a two-type Moran process with constant fitness, so the jump chain uses the closed form (`pfix`). The simulated relaxation
+  (the stored kernel, reimplemented in `island_run`) is used for the founding/annealing phase, for validation and for the
+  two-migrant probes. The spec's wording ("the recipient runs alone until it settles") is satisfied in law. Validation
+  (`runs/many-islands-validate.json`): simulated fixation frequency against the formula for four event types, all inside the
+  Wilson interval (+1/6: 0.0553 [0.0449, 0.0681] against 0.0491; +2/6: 0.1075 [0.0879, 0.1309] against 0.0952; neutral:
+  0.0120 [0.0087, 0.0166] against 0.01; −2/6: 0/400 against 5·10⁻⁸). `island_run` reproduces `stable_sets.kern` (I = 1, m = 0) draw for draw on
+  five founder states and twelve one-migrant states (tests). One known limit of the equivalence: `kern` stops at "locally
+  closed" (identical play) or at the horizon, `island_run` at monomorphism, so the draw-for-draw check compares the counts at a
+  common horizon after both have stopped changing.
+- **The stored cell is reproduced.** 2,560 founders per arm, classified at generation 2,000 by the stored `_classify` rule: L fair
+  0.2871 [0.2699, 0.3049] (stored 0.281 [0.263, 0.300]); modalPA 0.2879 [0.2707, 0.3057] (stored 0.283). The gate passes.
+- **Annealing parameters (mine, the spec being silent).** Arrival intensity (1/t₀)(1 + (t − t₁)/t₀)^(−2) on t ≥ t₁, t₁ = 200, t₀ = 500
+  generations; Poisson(A) arrivals by inverse CDF, which has a heavy tail (mean last arrival of the order of 10⁵ to 10⁶
+  generations at A = 150; mean generation to settlement 1.2·10⁶ for L); the cost does not depend on it because monomorphic
+  stretches are jumped over. The cap is 20,000 generations after the last arrival. No capped island has appeared in the
+  validation runs (240 annealed islands).
+- **Arms.** Readers = `churn_primary.get_cat('Emin-main-m')` (the modalPA evaluator). Its reader mass is 0.09 in each slot (0.06 on the
+  switchers and null-fallback readers, which are base-catalogue programs, plus 0.03 on the four two-partner forms, which are
+  extra size-11 forms). The catalogue holds absolute forms meaningful only in their own slot, so the symmetry test uses the
+  permutation restricted to the support (`permute_support`). `Rw` (weak evaluator) exists in the code and is not a registered arm.
+- **Founders are paired.** By island index and pool: the multinomial founders are common to all A and to the arms of a group
+  ({L, M}, {R}); the arrival times are common within a group and A. So A = 0 and A = 150 islands of the same index have the same founders.
+- **Costs measured** (one core, shared host): founding plus relaxation 0.119 s per island at A = 0 and 0.122 s at A = 150 (L, M),
+  0.161 and 0.168 s (R); mean settlement generation 104 (A = 0). The hand estimate of §1.5 (0.05–0.2 s, 0.5–2 s annealed) held
+  at A = 0 and over-estimated the annealed cost by 5–15×, because the arrivals mostly die at once or are jumped over. A chain event costs about 10⁻⁶ s
+  (a million-event pilot on 512 islands: 0.6 s), ten times the hand estimate (cache misses in the joint-code table); a pool
+  of 16,384 islands is 33 min (L, M) or 44 min (R) of founding. The extension of the clock to 10⁵ events per island on a 16,384 pool is
+  1.6·10⁹ events, about 30 minutes.
+- **Joint-code cache.** A hash table of (x₀, x₁, x₂) → joint code, filled on demand by the stored evaluator (`dollar3.enc_into`), and a
+  per-island dense table over local program ids. The stored kernel builds a K³ table per run; at K = 1,305 that is 2.2·10⁹
+  entries, so the lazy table is needed for large pools. All evaluator codes on 20,000 random triples per arm are valid (minimum 0).
+
+### 2.2 Pilot observations before the counted cells (disclosed, not scored)
+
+A 512-island L pool (A = 0) and a 1,200-island one were built to test the analysis code (not used in any counted number):
+V\* 0.28 → 0.43 at 1,000 events per island, wasteful pairs 0.21 → 0.025, disagreement 0.08 → 0, unequal 0.43 → 0.54; the
+class-level ODE from the pilot's kernel runs to V\* 0.77 at 10⁵ events (not trusted, the chain is not class-Markov: per-recipient
+exit probabilities of unequal and fair islands have a coefficient of variation above 1.2). These numbers were seen before the
+counted cells; the predictions (E2, E3, E6) were written before them and are scored against the counted cells only.
