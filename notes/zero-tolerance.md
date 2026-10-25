@@ -259,3 +259,26 @@ committed before any code existed.
    6–7 minutes single-threaded.
 
 **Cut order** (spec): the 400-island cell, N = 10⁵ at c = 0.01, `sr_4`. Decided and disclosed in §3 as the run proceeds.
+
+## 3. Facts recorded while running (after the counted cells began)
+
+1. **Counted batch.** The 85 jobs of `runs/zero_tolerance/jobs.txt` (chain cells, lottery cells at (100, 64) and five at (400, 64)), then 2 redo
+   cells and 4 extra cells; all finished with return code 0 except the two redone ones below. Two workers throughout (other subagents were alive),
+   one whole-space chain at a time; a chain cell took 3.5–8 minutes single-threaded, peak RSS 1.7–4.1 GB. No cell of the spec was cut. The
+   scheduler started the cheap lottery cells first and the chains after them (memory gating), which changed the order, not the content.
+2. **Overflow in `mixed2.lrho` at c = 0.01 for `sr_k`.** The first two `sr16` chain cells at c = 0.01 (N = 10⁴ and 10⁵) crashed in the exit
+   decomposition: the nested k-fold simulation charges 8.9·10⁶ levels, so a payoff difference of 10⁵ makes `log(expm1(a))` overflow in the
+   stored `lrho`. The fix is `lrho_safe` (an algebraically identical expression for a = −w·Δ > 30, installed as `mixed2.lrho` at import; a test pins
+   its agreement with the stored function where that one is finite). No other cell has |Δ| > 100, so no completed cell changed (the validation arm
+   was run before the fix and is unaffected by construction). The two cells were rerun after the fix; the `sr16` N = 10³ cell and all `sr4` cells at
+   c = 0.01 were run after it. A tool outage interrupted the run for about nine hours between the main batch and the redo batch (nothing was running);
+   the redo batch was launched when the outage ended.
+3. **Post-hoc extras** (not in the spec, not scored in verdicts 1–5): (a) the validation arm `v0` at (400, 64), c = 0 reproduces the stored cell bit for
+   bit (efficient islands 0.672, max |Δ| = 0 per run), so the control's 0.430 at (400, 64) and 0.725 at (100, 64) (stored 0.648) measure how much moving
+   m = 0.00135 of inspector prior mass changes a lottery cell, not an error: the dynamics diverge after the first replaced founder, so a "paired" contrast is
+   in effect an independent-sample contrast at this run count; (b) `sr16` at D = 11 and 13, c = 0, N = 10⁴ and 10⁵ (the D-phase control for the second
+   arm that gains); (c) the restated phase comparison E2′ (descriptive).
+4. **Scoring caveat found on the way.** The registered hazard statistics (predictions 1, 2 and E1, E3, E5) are *aggregate* hazards from R. R keeps the
+   control's `cr(THEM(ME))` residents at their prior mass beside the arm's added inspector, so the aggregate falls less than the resident-specific rate
+   of (added inspector, `C`). The scores follow the registered rule; the resident-specific rates are in the report beside every aggregate (for example
+   (`zt`, `C`) has D-hazard exactly 0, (`cr_s`, `C`) has E-hazard exactly 0, (`zt_s`, `C`) has both exactly 0 at N = 10⁴ and 10⁵).

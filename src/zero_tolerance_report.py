@@ -120,7 +120,7 @@ def main():
     R = {}
     # ------------------------------------------------------------------ completeness
     jobs = []
-    for f in ('jobs.txt', 'jobs_redo.txt'):
+    for f in ('jobs.txt', 'jobs_redo.txt', 'jobs_extra.txt'):
         if exists(f):
             jobs += [l.split('|') for l in open(os.path.join(RUNS, f)) if l.strip() and not l.startswith('#')]
     missing = [j[2].strip() for j in jobs if not exists(j[2].strip())]
@@ -271,6 +271,13 @@ def main():
                     fmt(boot(lvals(L, 'isl_eff_resp', T))), fmt(boot(lvals(L, 'isl_eff_shadow', T))), fmt(boot(lvals(L, 'isl_light', T))), fmt(boot(lvals(L, 'u0g', T))), nrep))
             md.append('')
     R['lottery'] = {'%s|%g|%s' % k: v for k, v in LOT.items()}
+    Lv = lot('v0', 0.0, 'n400i64')
+    stp = os.path.join(ROOT, 'runs', 'inspection_shadow', 'lot_exact-c0-n400i64-base.json.gz')
+    if Lv is not None and os.path.exists(stp):
+        Ls = S.jload(stp)
+        d = np.nanmax(np.abs(lvals(Lv, 'isl_efficient', 8000) - lvals(Ls, 'isl_efficient', 8000)))
+        md.append('**Validation at (400, 64), c = 0:** the validation arm `v0` against the stored cell of the previous run, efficient islands at generation 8,000 per run: max |Δ| = %.1e (stored mean %.3f, `v0` mean %.3f).\n' % (d, np.nanmean(lvals(Ls, 'isl_efficient', 8000)), np.nanmean(lvals(Lv, 'isl_efficient', 8000))))
+        R['validation_400'] = dict(max_abs_diff=float(d))
 
     # ------------------------------------------------------------------ D-phase extras
     md.append('## D-phase control (extra, outside the spec; notes §1.3): the same arms at depth D = 11 and D = 13, c = 0\n')
@@ -278,7 +285,7 @@ def main():
     md.append('|---|---|---|---|---|')
     ph = {}
     for D in (11, 13):
-        for a in ('ctl', 'sus', 'ztsus', 'zt'):
+        for a in ('ctl', 'sus', 'ztsus', 'zt', 'sr16'):
             tag = '%s@D%d' % (a, D)
             vs = [pE(tag, 0.0, N) for N in (10000, 100000)]
             if any(v is None for v in vs):
@@ -286,7 +293,7 @@ def main():
             cb = pE('ctl@D%d' % D, 0.0, 100000)
             ph[(D, a)] = dict(pE=vs, gain=(vs[1] - cb) if cb is not None and a != 'ctl' else None)
             md.append('| %d | %s | %.4f | %.4f | %s |' % (D, LABEL[a], vs[0], vs[1], f3(ph[(D, a)]['gain'], 3) if a != 'ctl' else '-'))
-    md.append('(D = 12 gains over the control at N = 10⁵: %s.)\n' % ', '.join('%s %+.3f' % (LABEL[a], pE(a, 0.0, 100000) - pE('ctl', 0.0, 100000)) for a in ('sus', 'ztsus', 'zt') if pE(a, 0.0, 100000) is not None and pE('ctl', 0.0, 100000) is not None))
+    md.append('(D = 12 gains over the control at N = 10⁵: %s.)\n' % ', '.join('%s %+.3f' % (LABEL[a], pE(a, 0.0, 100000) - pE('ctl', 0.0, 100000)) for a in ('sus', 'ztsus', 'zt', 'sr16') if pE(a, 0.0, 100000) is not None and pE('ctl', 0.0, 100000) is not None))
     R['phase'] = {'%d|%s' % k: v for k, v in ph.items()}
 
     # ------------------------------------------------------------------ verdicts
@@ -390,6 +397,18 @@ def main():
         md.append('| E2 | the SUS gain at D = 11 is ≥ 0.2 below its D = 12 gain (N = 10⁵) [within 0.1] | gain D = 12: %+.4f; D = 11: %+.4f; D = 13: %s | **%s** |' % (
             g12, g11, f3(ph[(13, 'sus')]['gain'], 4) if (13, 'sus') in ph else 'n/a', 'held' if ok else ('failed' if fail else 'partial')))
         V['E2'] = dict(verdict='held' if ok else ('failed' if fail else 'partial'), gain12=g12, gain11=g11)
+    # E2' (post hoc restatement: the arms that gain at D = 12)
+    gl = []
+    for a in ('ztsus', 'sr16'):
+        c12 = pE(a, 0.0, 100000), pE('ctl', 0.0, 100000)
+        row = [(c12[0] - c12[1]) if None not in c12 else None]
+        for D in (11, 13):
+            x, y = pE('%s@D%d' % (a, D), 0.0, 100000), pE('ctl@D%d' % D, 0.0, 100000)
+            row.append((x - y) if x is not None and y is not None else None)
+        gl.append((a, row))
+    if gl:
+        md.append("| E2′ (post hoc, not registered) | gain over the same-D control at N = 10⁵, D = 12 / 11 / 13 | %s | descriptive |" % '; '.join('%s: %s' % (LABEL[a], ' / '.join(f3(x, 3) for x in row)) for a, row in gl))
+        V["E2'"] = {a: row for a, row in gl}
     # E3
     if rz5 and rc5:
         a_, b_ = rc5['occupancy']['light_cheater'], rz5['occupancy']['light_cheater']
