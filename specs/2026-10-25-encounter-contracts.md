@@ -39,7 +39,7 @@ on-path behaviour (each slot's stage-2 action distribution against the island) h
 no contract formed in that window fires on path; silent contracts may keep drifting and are recorded, not waited on.
 [After second review] The pool keeps each island's full program-and-contract state (never only its outcome class).
 Settlement is checked against an independent no-migrant holdout of 5,000 further generations; any class change
-during holdouts is a spontaneous (genesis-driven) transition, counted and included in the dynamics explicitly,
+during holdouts is a spontaneous (genesis-driven) transition, counted on the within-island clock and handled by the two-clock rule below,
 never attributed to migration. [Addendum review, amended by the second addendum review] Spontaneous transitions
 are kept as rates on the within-island clock (per generation, from fresh fixed-length windows, failures not
 discarded); only a verified closed recurrent class is collapsed to one state, with migrant transitions averaged over
@@ -48,7 +48,11 @@ not such a class is reported as metastable and not crisp, never forced into a se
 The two clocks are not added: in the rare-migration limit genesis is within-island dynamics, so before each migrant
 an island's state is its within-island limit (a closed class, or the invariant law of its recurrent class), and only
 migrant transitions are jumps on the migration clock. Classes identified from holdouts are labelled provisional, with
-an escape-rate upper bound propagated into the share dynamics.
+an escape-rate upper bound propagated into the share dynamics. [Addendum S review] A positive escape rate dominates
+migration as m → 0, so a class enters the limit only if its closure is certified from transition support (no
+reachable configuration leaves it); otherwise the cell is reported at an explicit finite migration rate (mN = 10⁻³),
+not as the limit. Hitting probabilities into recurrent classes are reported separately from their internal laws, and
+invariant averaging is used only where mixing before the next migrant is shown.
 
 **Contract.** A pair (situation key, fill) carried by an individual as an inherited gene. The key is the full
 action profile of the encounter as the three programs play it without overrides (each slot's partner and demand); the
@@ -80,7 +84,7 @@ Genesis applies to the encounter only, never to whole slots.
 
 **Arms.**
 - **R (the RS's):** behavioural response as above.
-- **BR (control):** the uncommitted members of the complement play a pure best reply to S's new actions, holding
+- **BR (control; a robust-acceptance diagnostic, [addendum S review]):** the uncommitted members of the complement play a pure best reply to S's new actions, holding
   committed complement members (those with a fill for p) fixed (two uncommitted members jointly: the pure Nash
   equilibria of the remaining game; one: its pure best replies); S's contract forms only if every member gains under
   every such reply (BR changes acceptance only; installed contracts then play under the arm's ordinary semantics, and
@@ -93,7 +97,9 @@ Genesis applies to the encounter only, never to whole slots.
   A hook is exposed in an encounter if the program's evaluation reaches it there. A contract is a set of fills, one
   per member, each written into a hook that member reaches in the genesis encounter, keyed by the situation as in R
   and carrying the proposed action; a member that reaches no hook cannot join the coalition. Responders answer as in
-  R. Arm R is the special case where every program is wrapped in one top-level hook at no prior cost, so H against R
+  R. [Addendum S review] H restricts singleton deviations too (an unhooked member cannot deviate alone); every arm
+  reports the share of genesis and of V\* conversions from |S| = 1 against |S| = 2, 3, so individual plasticity and
+  coalitional contractibility are read separately. Arm R is the special case where every program is wrapped in one top-level hook at no prior cost, so H against R
   measures what restricting contracts to exposed points costs and buys. [Second addendum review] Matched cells on the
   same hooked grammar and prior: H (writes only into exposed hooks), H-top (the same population, writes also allowed
   at a free top-level wrapper) and H-inert (hooks present, no genesis), so access and prior are varied separately. [Addendum review] In H fills are indexed by
@@ -172,14 +178,37 @@ keeping with the island model." The RE's proposal: copying as a proposal source,
 fraction q = 0.5 of genesis proposals are drawn from contracts already carried on the island instead of uniformly.
 [Addendum C review, amended] Every installed contract keeps its bundle identity (key p, the signing coalition and
 each member's fill), inherited with the fills; a copied proposal is an actual surviving bundle drawn by the frequency
-of its carriers, offered to the same coalition of slots, and made in an encounter drawn from the island only if that
-encounter's situation is p, and it is accepted by exactly the same test (every
+of its carriers, offered to the same coalition of slots, and made in an encounter drawn among the island's triples whose situation is
+p (by their frequency; if none exists, the copied proposal is logged as unmatched and no encounter is wasted), and it is accepted by exactly the same test (every
 member gains after the responders answer). Copying thus changes which deviations are tried, never which survive the
 test, so no contract exists that has not earned its keep in the encounter where it was written; migrants carry their
 fills between islands as genes already. (Part W's free copying spread fills without a test and leaked disabled fills
 back; this avoids both.) Report C against R: genesis attempts and acceptances by source (uniform or copied), settled
 shares, κ and α. A recombination variant (one fill per slot drawn by frequency, across bundles) is a separate,
 secondary cell if cheap.
+
+## Addendum 3 (the RS, 2026-10-25): the Pareto clause as selection
+
+The RS: "Eventually I'm hoping we can migrate the Pareto improvement clause from a precondition on mutation to an
+observed fitness constraint. If the mutation doesn't serve me I'll die and won't pass it to my offspring, losing the
+coalition my slot." Arm **S** is R with the acceptance test removed: genesis installs every proposed contract on its
+signers (same proposal law, same keys, same two-stage evaluation), and selection alone decides what survives. Each
+member's fill is inherited in its own slot, so a bundle is not co-transmitted; its halves are selected separately.
+Since S installs every proposal, its genesis rate is set so that installations per island-generation match R's
+proposals (not R's acceptances), and a matched S-low cell installs at R's acceptance rate, so S against R separates
+removing the filter from changing the input rate.
+
+Outputs for S: survival and fixation of each half and of whole bundles (both halves present above 0.5 in their slots),
+split by whether a half is silent (its key not on path) or firing while it rises; settled shares, κ and α against R
+and 0; the share of S's conversions that pass R's test at the moment they fire (selection rediscovering the clause).
+
+8. *Selection keeps only what each member wants alone.* [Revised before the run after both reviews of addendum 3, which
+   showed the RE's silent-halves mechanism wrong: keys use override-free play, so on a resident island both halves fire
+   at once.] Under S, conversions come from fills that raise their holder's fitness without the other signer present
+   (singleton-compatible, or the partner slot's programs already accommodate): at least 0.8 of S's conversions are of
+   this kind, and conversions that need two signers to coordinate are at least 5× rarer per migrant than under R
+   [fewer than 0.5 of this kind, or coordinated conversions within 2× of R]. The original prediction (silent halves
+   drifting up neutrally) is kept in the predictions file as withdrawn, with the reviewers' counter-predictions.
 
 ## [After second review] Further checks
 
@@ -190,6 +219,16 @@ secondary cell if cheap.
 - A contract cap of 8 per individual with least-recently-fired eviction, fixed in advance, with a cap-16 sensitivity
   cell; eviction is part of the genesis test and of the oracle, and displaced entries are logged with their
   consequences (the locality claim holds only up to eviction).
+- [Addendum S review] An execution-consistent BR cell: uncommitted responders actually play the selected equilibrium
+  (the worst for S among pure equilibria, ties by a fixed order), so acceptance and execution agree.
+- Firing hazards also from fixed-age, unselected post-anneal snapshots, with time to settlement and the never-settled
+  mass.
+- Efficiency reported three ways: V\* membership of the modal outcome, encounter efficiency, and whether the island's
+  expected slot-payoff vector is Pareto-dominated.
+- Configuration snapshots and replays include eviction order and bundle provenance; for each sampled configuration,
+  paired migrant and no-migrant branches with common random numbers give the migrant's incremental conversion
+  probability.
+- Establishment stratified by whether each signer's fill raises its fitness without the other signer present.
 - On settled V\* islands, the share whose fair play depends on stage-2 overrides on path against those where the
   programs play fair in stage 1 and contracts were only a transient bridge.
 - Replay of every accepted installation across all encounter types it affects, with the signers' expected-fitness
@@ -221,5 +260,5 @@ secondary cell if cheap.
 
 **Budget and scale guard.** At most 3 workers, 2 while another subagent is alive; one job per process; no
 `multiprocessing.Pool`; one background wait per batch that exits at completion and fires if the log stops changing for
-2 hours; never poll periodically. Cut order (disclose): V, the recombination cell, C, the cap-16 cell, unmatched B, the N panel at N = 200; keep the tilted starts and ν = 1 (genesis against a short-lived migrant at ν = 0.1 is
+2 hours; never poll periodically. Cut order (disclose): V, the recombination cell, S-low, C, the cap-16 cell, unmatched B, the N panel at N = 200; keep the tilted starts and ν = 1 (genesis against a short-lived migrant at ν = 0.1 is
 rare, so ν = 1 separates "cannot form" from "was not sampled"; also report migrant-encounter genesis conditionally).
