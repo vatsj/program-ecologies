@@ -44,7 +44,11 @@ never attributed to migration. [Addendum review, amended by the second addendum 
 are kept as rates on the within-island clock (per generation, from fresh fixed-length windows, failures not
 discarded); only a verified closed recurrent class is collapsed to one state, with migrant transitions averaged over
 its invariant distribution of full configurations. An island with a positive spontaneous class-change rate that is
-not such a class is reported as metastable and not crisp, never forced into a settled state.
+not such a class is reported as metastable and not crisp, never forced into a settled state. [Addendum C review]
+The two clocks are not added: in the rare-migration limit genesis is within-island dynamics, so before each migrant
+an island's state is its within-island limit (a closed class, or the invariant law of its recurrent class), and only
+migrant transitions are jumps on the migration clock. Classes identified from holdouts are labelled provisional, with
+an escape-rate upper bound propagated into the share dynamics.
 
 **Contract.** A pair (situation key, fill) carried by an individual as an inherited gene. The key is the full
 action profile of the encounter as the three programs play it without overrides (each slot's partner and demand); the
@@ -94,10 +98,13 @@ Genesis applies to the encounter only, never to whole slots.
   same hooked grammar and prior: H (writes only into exposed hooks), H-top (the same population, writes also allowed
   at a free top-level wrapper) and H-inert (hooks present, no genesis), so access and prior are varied separately. [Addendum review] In H fills are indexed by
   (t, p), at most one per (t, p), the cap of 8 counting all entries; the fill is written into the hook whose
-  evaluation produced the member's stage-1 action (the last hook reached on that path).
+  evaluation produced the member's stage-1 action (the last hook reached on that path). [Addendum C review] `HOOK(t, a₀)` is a leaf, so a stage-1 path that ends at hook t
+  fixes which fill can apply: in stage 2 a carrier whose stage-1 path ended at `HOOK(t, a₀)` and that holds a fill for
+  (t, p) plays that fill, and responders substitute it for that carrier's simulation atoms.
 - **0:** no contracts (the many-islands baseline).
 - **B (diagnostic, [after review], amended after second review):** as R, but a successful genesis installs the
-  contract on the signers and on up to 9 further members of each signing slot with the same program (matched copies),
+  contract on the signers and on exactly 9 further members of each signing slot with the same program (matched copies;
+  cells where fewer exist report the realized count and the payoff changes the broadcast induces),
   to separate the responder test from dilution of a two-individual installation; unmatched broadcasting (random
   members) is reported separately as a secondary cell.
 - **V (reference, if cheap):** the stored aggregate test with the veto, under the same order of limits.
@@ -121,8 +128,12 @@ Genesis applies to the encounter only, never to whole slots.
 
 1. *Settled islands go quiet.* On settled fair-pair islands without migrants, in fresh fixed windows after settlement, genesis forms no contract that fires on
    path [a settled fair island keeps forming firing contracts at a rate above 10⁻³ per island-generation].
+   *Counter-prediction (gemini-4-argon), registered:* monomorphic settled fair islands go quiet, but polymorphic ones
+   keep forming firing contracts above 10⁻³ through drift in silent and committed fills.
 2. *Contracts clear some dominated islands.* Under R the settled V\* share is at least 0.15 above arm 0's at the same
    checkpoint [less than 0.05 above].
+   *Counter-prediction (gpt-6.1-sol), registered:* gains are heterogeneous with no robust 0.15 uplift across ν and N;
+   installations with a positive expected-fitness change, not acceptance counts, predict conversions.
 3. *Coordination barrier.* Contracts whose fill needs the other member slot to change as well rarely spread from their
    two signers, because other members of the partner slot do not carry the fill: of contracts formed on dominated
    islands, those that fix in both member slots are under 0.1, and conversions run mostly through partner slots whose
@@ -148,7 +159,9 @@ programs gain or lose share over time (contractibility selected for or against);
 fills that move islands sit (a top-level hook or a hook inside a branch).
 
 7. *H lies between 0 and R.* H's settled V\* share is between arm 0's and arm R's, and hooked programs gain share on
-   islands where contracts fire [H outside the interval spanned by 0 and R, or hooked programs lose share].
+   islands where contracts fire [H outside the interval spanned by 0 and R, or hooked programs lose share]. Restriction
+   and dilution are read separately: H against H-top is the cost of restricting writes, H-inert against 0 the cost of
+   hook syntax in the prior.
    *Counter-prediction (gpt-6.1-sol), registered:* restricting hooks changes the reachable attractors and can expose
    holders to exploitation, so H need not lie between them and hooked programs need not gain.
 
@@ -156,14 +169,17 @@ fills that move islands sit (a top-level hook or a hook inside a branch).
 
 The RS: "can contracts still spread peer to peer? I don't really see a need nor a suitable mechanism for it but it's in
 keeping with the island model." The RE's proposal: copying as a proposal source, not a transfer. In arm **C**, a
-fraction q = 0.5 of genesis proposals are drawn from contracts already carried on the island (a whole contract: every
-member's fill, keyed as written) instead of uniformly; such a proposal is offered to the coalition of the current
-encounter only when its key matches the encounter's situation, and it is accepted by exactly the same test (every
+fraction q = 0.5 of genesis proposals are drawn from contracts already carried on the island instead of uniformly.
+[Addendum C review, amended] Every installed contract keeps its bundle identity (key p, the signing coalition and
+each member's fill), inherited with the fills; a copied proposal is an actual surviving bundle drawn by the frequency
+of its carriers, offered to the same coalition of slots, and made in an encounter drawn from the island only if that
+encounter's situation is p, and it is accepted by exactly the same test (every
 member gains after the responders answer). Copying thus changes which deviations are tried, never which survive the
 test, so no contract exists that has not earned its keep in the encounter where it was written; migrants carry their
 fills between islands as genes already. (Part W's free copying spread fills without a test and leaked disabled fills
 back; this avoids both.) Report C against R: genesis attempts and acceptances by source (uniform or copied), settled
-shares, κ and α.
+shares, κ and α. A recombination variant (one fill per slot drawn by frequency, across bundles) is a separate,
+secondary cell if cheap.
 
 ## [After second review] Further checks
 
@@ -174,10 +190,18 @@ shares, κ and α.
 - A contract cap of 8 per individual with least-recently-fired eviction, fixed in advance, with a cap-16 sensitivity
   cell; eviction is part of the genesis test and of the oracle, and displaced entries are logged with their
   consequences (the locality claim holds only up to eviction).
+- On settled V\* islands, the share whose fair play depends on stage-2 overrides on path against those where the
+  programs play fair in stage 1 and contracts were only a transient bridge.
 - Replay of every accepted installation across all encounter types it affects, with the signers' expected-fitness
   change, not only the founding encounter.
 - A no-response arm NR (the coalition is judged against the responders' stage-1 actions), to separate the response
-  from encounter-conditioned acceptance.
+  from encounter-conditioned acceptance; not cuttable.
+- [Addendum C review] BR against R at proposal level: for each proposal, the actual reply, whether it is a best reply,
+  the worst-equilibrium verdict and the installed payoffs, so non-best-reply behaviour and equilibrium conservatism are
+  separated.
+- Establishment and conversion stratified by the sign of the signers' expected-fitness change at installation (not
+  only founding-encounter gains).
+- α's uncertainty clustered by source island and configuration, not treating migrant events as independent.
 - Conclusions are finite-N (50–200) and labelled so.
 - Matched no-migrant windows beside migrant windows, and contract-lineage attribution, so that third-pair moves are
   not spontaneous genesis events that happened to coincide with a migrant.
@@ -197,5 +221,5 @@ shares, κ and α.
 
 **Budget and scale guard.** At most 3 workers, 2 while another subagent is alive; one job per process; no
 `multiprocessing.Pool`; one background wait per batch that exits at completion and fires if the log stops changing for
-2 hours; never poll periodically. Cut order (disclose): V, C, NR, the cap-16 cell, unmatched B, the N panel at N = 200; keep the tilted starts and ν = 1 (genesis against a short-lived migrant at ν = 0.1 is
+2 hours; never poll periodically. Cut order (disclose): V, the recombination cell, C, the cap-16 cell, unmatched B, the N panel at N = 200; keep the tilted starts and ν = 1 (genesis against a short-lived migrant at ν = 0.1 is
 rare, so ν = 1 separates "cannot form" from "was not sampled"; also report migrant-encounter genesis conditionally).
