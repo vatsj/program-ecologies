@@ -405,7 +405,7 @@ def build(write=True):
             rows.append([N, d['fair_islands'], m['n'], ci(m['flip']), ci(m['kappa']), ci(m['alpha']), ci(m['same_reinstall']), ci(m['other_pair_install']),
                          '%d/%d' % tuple(m['migrant_fixed']), '%d/%d' % tuple(m['flip_given_fixed']), '%d/%d' % tuple(m['flip_given_died']),
                          '%d/%d' % (sh['flip'][0], sh['n'])])
-        md += md_table(['N', 'fair islands', 'migrants', 'flip per migrant', 'kappa', 'alpha', 'same-pair reinstall', 'other-pair install', 'migrant fixed', 'flip | fixed', 'flip | died', 'sham flips'], rows)
+        md += md_table(['N', 'fair islands', 'migrants', 'flip per migrant', 'kappa', 'alpha', 'same-pair reinstall', 'other-pair install', 'migrant fixed', 'flip given fixed', 'flip given died', 'sham flips'], rows)
         kap = sum(d['migrant']['kappa'][0] for d in vt.values() if d); alp = sum(d['migrant']['alpha'][0] for d in vt.values() if d)
         lo, hi = wilson(kap, kap + alp)
         md += ['', 'Pooled over N: kappa %d, alpha %d; conformist share of flips %s [%s, %s] (uniform restarts: 0.5).' % (kap, alp, fmt(kap / max(kap + alp, 1), 3), fmt(lo, 3), fmt(hi, 3)), '']
