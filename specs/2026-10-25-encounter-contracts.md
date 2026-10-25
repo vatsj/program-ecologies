@@ -40,7 +40,11 @@ no contract formed in that window fires on path; silent contracts may keep drift
 [After second review] The pool keeps each island's full program-and-contract state (never only its outcome class).
 Settlement is checked against an independent no-migrant holdout of 5,000 further generations; any class change
 during holdouts is a spontaneous (genesis-driven) transition, counted and included in the dynamics explicitly,
-never attributed to migration.
+never attributed to migration. [Addendum review, amended by the second addendum review] Spontaneous transitions
+are kept as rates on the within-island clock (per generation, from fresh fixed-length windows, failures not
+discarded); only a verified closed recurrent class is collapsed to one state, with migrant transitions averaged over
+its invariant distribution of full configurations. An island with a positive spontaneous class-change rate that is
+not such a class is reported as metastable and not crisp, never forced into a settled state.
 
 **Contract.** A pair (situation key, fill) carried by an individual as an inherited gene. The key is the full
 action profile of the encounter as the three programs play it without overrides (each slot's partner and demand); the
@@ -54,7 +58,9 @@ others' stage-2 actions (the responders see the contract). The stage-2 actions a
 reactions happen through later contracts, not inside an encounter. [After review] Stage-2 semantics in the weak arm:
 a responder re-runs its program with every simulation atom of a carrier replaced by that carrier's fill (a behavioural
 substitution: the responder sees what the carrier does at that point, not a re-simulation of the carrier's program
-and contract), and with non-carrier opponents simulated as in stage 1. "Carrier" in stage 2 means an individual with
+and contract), and with non-carrier opponents simulated as in stage 1. [Addendum review] The substitution applies at every
+simulation depth (a nested simulation of a carrier also sees its fill); replay tests cover the two-responder case
+(|S| = 1) under this rule. "Carrier" in stage 2 means an individual with
 a contract whose key equals p; every other individual of the encounter is a responder. Fitness is the expected encounter payoff against
 uniformly drawn members of the other two slots, as in the stable-sets kernel.
 
@@ -73,8 +79,22 @@ Genesis applies to the encounter only, never to whole slots.
 - **BR (control):** the uncommitted members of the complement play a pure best reply to S's new actions, holding
   committed complement members (those with a fill for p) fixed (two uncommitted members jointly: the pure Nash
   equilibria of the remaining game; one: its pure best replies); S's contract forms only if every member gains under
-  every such reply. [After second review] If the remaining game has no pure equilibrium, the proposal is rejected (no
+  every such reply (BR changes acceptance only; installed contracts then play under the arm's ordinary semantics, and
+  replay reports the gains they actually deliver); rejections are logged separately by cause (no pure equilibrium, or some equilibrium failing the
+  Pareto test). [After second review] If the remaining game has no pure equilibrium, the proposal is rejected (no
   vacuous acceptance); the notes check by enumeration how often this case arises.
+- **H (the RS's synthesis, addendum 2026-10-25):** genesis may write only into hooks the signers' programs expose
+  ("I'd propose mutations restrict to hooks exposed by the underlying programs"). The weak `dollar3` grammar gains the
+  leaf `HOOK(t, a₀)` (tag t ∈ {0, 1}, default a₀ one of the nine actions), priced by the length prior like any node.
+  A hook is exposed in an encounter if the program's evaluation reaches it there. A contract is a set of fills, one
+  per member, each written into a hook that member reaches in the genesis encounter, keyed by the situation as in R
+  and carrying the proposed action; a member that reaches no hook cannot join the coalition. Responders answer as in
+  R. Arm R is the special case where every program is wrapped in one top-level hook at no prior cost, so H against R
+  measures what restricting contracts to exposed points costs and buys. [Second addendum review] Matched cells on the
+  same hooked grammar and prior: H (writes only into exposed hooks), H-top (the same population, writes also allowed
+  at a free top-level wrapper) and H-inert (hooks present, no genesis), so access and prior are varied separately. [Addendum review] In H fills are indexed by
+  (t, p), at most one per (t, p), the cap of 8 counting all entries; the fill is written into the hook whose
+  evaluation produced the member's stage-1 action (the last hook reached on that path).
 - **0:** no contracts (the many-islands baseline).
 - **B (diagnostic, [after review], amended after second review):** as R, but a successful genesis installs the
   contract on the signers and on up to 9 further members of each signing slot with the same program (matched copies),
@@ -99,7 +119,7 @@ Genesis applies to the encounter only, never to whole slots.
 
 ## Predictions (the RE's; falsifiers in brackets)
 
-1. *Settled islands go quiet.* On settled fair-pair islands without migrants, genesis forms no contract that fires on
+1. *Settled islands go quiet.* On settled fair-pair islands without migrants, in fresh fixed windows after settlement, genesis forms no contract that fires on
    path [a settled fair island keeps forming firing contracts at a rate above 10⁻³ per island-generation].
 2. *Contracts clear some dominated islands.* Under R the settled V\* share is at least 0.15 above arm 0's at the same
    checkpoint [less than 0.05 above].
@@ -108,6 +128,8 @@ Genesis applies to the encounter only, never to whole slots.
    islands, those that fix in both member slots are under 0.1, and conversions run mostly through partner slots whose
    programs already accept the new action (readers) [at least 0.3 fix in both].
 4. *Third-pair moves exist.* Under R, α > 0 with an interval excluding 0 on fair islands [α's interval includes 0].
+   [Second addendum review] Exposure budget: at least 2·10⁴ migrant events per arm on fair islands; α is reported
+   absent at this resolution if its 95% upper bound is below 10⁻³ per migrant, and unresolved otherwise.
    *Counter-prediction (gemini-4-argon), registered:* a third-pair contract needs slots 1 and 3 to change together,
    its two signers are a 1/N minority each, and it dies by drift, so α's interval includes 0 or α < 10⁻³.
 5. *R and BR differ where programs do not best-reply.* The two arms' settled V\* shares differ by at least 0.05, and the
@@ -118,6 +140,31 @@ Genesis applies to the encounter only, never to whole slots.
    share → 0]. *Counter-prediction (gpt-6.1-sol), registered:* symmetric nonlinear pool dynamics can have unstable
    interior coexistence and attracting boundaries, so coverage depends on invasion rates and the start.
 
+## Addendum (the RS's synthesis): arm H
+
+Outputs for H: the prior mass of hooked programs at n ≤ 6 and how many hooks they carry; the share of genesis
+attempts blocked because a needed member reaches no hook; settled shares, κ and α against R and 0; whether hooked
+programs gain or lose share over time (contractibility selected for or against); and where on the programs' paths the
+fills that move islands sit (a top-level hook or a hook inside a branch).
+
+7. *H lies between 0 and R.* H's settled V\* share is between arm 0's and arm R's, and hooked programs gain share on
+   islands where contracts fire [H outside the interval spanned by 0 and R, or hooked programs lose share].
+   *Counter-prediction (gpt-6.1-sol), registered:* restricting hooks changes the reachable attractors and can expose
+   holders to exploitation, so H need not lie between them and hooked programs need not gain.
+
+## Addendum 2 (the RS, 2026-10-25): peer-to-peer spread
+
+The RS: "can contracts still spread peer to peer? I don't really see a need nor a suitable mechanism for it but it's in
+keeping with the island model." The RE's proposal: copying as a proposal source, not a transfer. In arm **C**, a
+fraction q = 0.5 of genesis proposals are drawn from contracts already carried on the island (a whole contract: every
+member's fill, keyed as written) instead of uniformly; such a proposal is offered to the coalition of the current
+encounter only when its key matches the encounter's situation, and it is accepted by exactly the same test (every
+member gains after the responders answer). Copying thus changes which deviations are tried, never which survive the
+test, so no contract exists that has not earned its keep in the encounter where it was written; migrants carry their
+fills between islands as genes already. (Part W's free copying spread fills without a test and leaked disabled fills
+back; this avoids both.) Report C against R: genesis attempts and acceptances by source (uniform or copied), settled
+shares, κ and α.
+
 ## [After second review] Further checks
 
 - A small N panel (N = 50, 100, 200) for genesis and settled shares, at fixed ν per island and at fixed proposal
@@ -125,7 +172,13 @@ Genesis applies to the encounter only, never to whole slots.
 - Replay tests: an accepted genesis, replayed after installation, reproduces its predicted outcome, including
   complement contracts, replacements, two responders and the grand coalition.
 - A contract cap of 8 per individual with least-recently-fired eviction, fixed in advance, with a cap-16 sensitivity
-  cell.
+  cell; eviction is part of the genesis test and of the oracle, and displaced entries are logged with their
+  consequences (the locality claim holds only up to eviction).
+- Replay of every accepted installation across all encounter types it affects, with the signers' expected-fitness
+  change, not only the founding encounter.
+- A no-response arm NR (the coalition is judged against the responders' stage-1 actions), to separate the response
+  from encounter-conditioned acceptance.
+- Conclusions are finite-N (50–200) and labelled so.
 - Matched no-migrant windows beside migrant windows, and contract-lineage attribution, so that third-pair moves are
   not spontaneous genesis events that happened to coincide with a migrant.
 
@@ -144,4 +197,5 @@ Genesis applies to the encounter only, never to whole slots.
 
 **Budget and scale guard.** At most 3 workers, 2 while another subagent is alive; one job per process; no
 `multiprocessing.Pool`; one background wait per batch that exits at completion and fires if the log stops changing for
-2 hours; never poll periodically. Cut order (disclose): V, ν = 1, the cap-16 cell, unmatched B, the N panel at N = 200; keep the tilted starts.
+2 hours; never poll periodically. Cut order (disclose): V, C, NR, the cap-16 cell, unmatched B, the N panel at N = 200; keep the tilted starts and ν = 1 (genesis against a short-lived migrant at ν = 0.1 is
+rare, so ν = 1 separates "cannot form" from "was not sampled"; also report migrant-encounter genesis conditionally).
