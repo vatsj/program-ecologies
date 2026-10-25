@@ -917,6 +917,14 @@ REJECTED.md the ones we dropped.
   statement"); anything needing several simultaneous migrants is eventually lost, as with mutants. *Operating
   hypothesis:* the object for coverage of the stable set is lim_t lim_I of the rare-migration jump chain after an
   annealed tail; tested in queue 65.
+- *RS (2026-10-25), contract genesis:* contracts should form per encounter on the programs that stand to benefit, not
+  by an aggregate test over the population, and only replace actions "at that point" (situation-keyed overrides that
+  stay silent elsewhere); a coalition deviates when it Pareto-improves after the responders answer its new actions
+  ("the responders get to see the contracts mutate into existence, and they only actually do if they earn their
+  keep"); this is the extensional wing's reading of "the opponent coalition gets a chance to respond" in the notion
+  above; best-reply response is the control; no farsighted arm; holders need not meet each other. *Operating
+  hypothesis (RE):* the situation key is the encounter's program-action profile, the response one round by
+  behavioural substitution, further reactions through later contracts (queue 66).
 - *RS (2026-10-24):* component size matters little here, "since there's only 3 real candidate equilibria to choose
   from. It'll matter more in games w good migrants - maybe PD?" *RE:* in the PD migration carries good migrants
   (fission–fusion universal 40/40, one donor per island, bridge-mediated merging), so component size trades
