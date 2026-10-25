@@ -428,11 +428,6 @@ def post_job(arm_name, A, npools=5, probe_n=200, idxs=None, tag=''):
     return res
 
 
-if __name__ == '__main__':
-    r = post_job(sys.argv[1], int(sys.argv[2]), npools=int(sys.argv[3]) if len(sys.argv) > 3 else 5)
-    print(json.dumps({k: r[k] for k in ('arm', 'A', 'npools', 'wall')}))
-
-
 # ====================================================================== the S3-symmetric mean-field chain (orbit Monte Carlo)
 @njit(cache=True)
 def sym_chain(C, PAYt, VECt, PFT, reps, imgs, PERM, SIG, nev, seed):
@@ -440,10 +435,11 @@ def sym_chain(C, PAYt, VECt, PFT, reps, imgs, PERM, SIG, nev, seed):
     six S3 images of all representatives (imgs[6 r + k]), so the donor law is exactly S3-invariant at all times: this is the
     symmetric manifold of the mean-field equation, simulated with noise only in the orbit classes.  One event: recipient
     uniform among representatives, donor uniform among the 6n images except the recipient's own identity image, slot
-    uniform, exact Moran fixation.  Returns the number of fixations."""
+    uniform, exact Moran fixation.  Returns (fixations, class changes)."""
     np.random.seed(seed)
     n = reps.shape[0]
     nfix = 0
+    nchg = 0
     for _ in range(nev):
         i = np.random.randint(n)
         jj = np.random.randint(6 * n - 1)
@@ -466,10 +462,12 @@ def sym_chain(C, PAYt, VECt, PFT, reps, imgs, PERM, SIG, nev, seed):
         if pf > 1e-12 and np.random.random() < pf:
             reps[i, s] = x
             nfix += 1
+            if VECt[cx] != VECt[ci]:
+                nchg += 1
             for k in range(6):
                 for t in range(3):
                     imgs[6 * i + k, SIG[k, t]] = PERM[k, t, reps[i, t]]
-    return nfix
+    return nfix, nchg
 
 
 def sym_job(arm_name, A, idxs=(0, 1, 2), cap=100000, tag='sym', n_reps=None):
@@ -490,6 +488,8 @@ def sym_job(arm_name, A, idxs=(0, 1, 2), cap=100000, tag='sym', n_reps=None):
     cps = MR.fine_cps(cap)
     hist = np.zeros((len(cps), MI.NOUT), np.int64)
     div = np.zeros((len(cps), 3))
+    sw = np.zeros((len(cps), 2))
+    fix_acc = chg_acc = ev_acc = 0
     prev = 0
     seed = MR.crc('mi-sym|%s|%d|%s' % (arm_name, A, tag)) % (2 ** 31)
     t0 = time.time()
@@ -507,15 +507,28 @@ def sym_job(arm_name, A, idxs=(0, 1, 2), cap=100000, tag='sym', n_reps=None):
             piece = min(MR.PIECE, todo)
             arm.maybe_flush(0.5)
             seed = (seed * 1103515245 + 12345) % (2 ** 31)
-            sym_chain(arm.ctx(), MI.PAY, MI.VEC, MI.PFT, reps, imgs, PERM, SIG, piece, seed)
+            nf_, nc_ = sym_chain(arm.ctx(), MI.PAY, MI.VEC, MI.PFT, reps, imgs, PERM, SIG, piece, seed)
             prev += piece; todo -= piece
+            fix_acc += nf_; chg_acc += nc_; ev_acc += piece
         hist[q] = census()
+        sw[q] = [chg_acc / max(ev_acc, 1), fix_acc / max(ev_acc, 1)]
+        fix_acc = chg_acc = ev_acc = 0
         for t in range(3):
             div[q, t] = len(np.unique(reps[:, t]))
         if q % 5 == 0:
             print('  sym checkpoint %s: %.0f s' % (c, time.time() - t0), flush=True)
-    out = dict(arm=arm_name, A=A, n_reps=n, images=6 * n, cps=cps, hist=hist.tolist(), h0=h0.tolist(), div=div.tolist(),
+    out = dict(arm=arm_name, A=A, n_reps=n, images=6 * n, cps=cps, hist=hist.tolist(), h0=h0.tolist(), div=div.tolist(), switching=sw.tolist(),
                wall=time.time() - t0)
     with open(os.path.join(MR.OUT, 'sym_%s_A%d_%s.json' % (arm_name, A, tag)), 'w') as f:
         json.dump(out, f)
     return out
+
+
+if __name__ == '__main__':
+    mode = sys.argv[1]
+    if mode == 'post':
+        r = post_job(sys.argv[2], int(sys.argv[3]), npools=int(sys.argv[4]) if len(sys.argv) > 4 else 5)
+        print(json.dumps({k: r[k] for k in ('arm', 'A', 'npools', 'wall')}))
+    elif mode == 'sym':
+        r = sym_job(sys.argv[2], int(sys.argv[3]), idxs=tuple(int(v) for v in sys.argv[5].split(',')), cap=int(sys.argv[4]))
+        print(json.dumps({k: r[k] for k in ('arm', 'A', 'n_reps', 'wall')}))

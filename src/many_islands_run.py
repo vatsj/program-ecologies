@@ -55,6 +55,8 @@ def build_pool(arm_name, A, idx, n_isl=16384, log=None):
     narr = np.zeros(n_isl, np.int32)
     t0 = time.time()
     capped = []
+    mixed = []
+    late = 0
     for i in range(n_isl):
         if i % 128 == 0:
             arm.maybe_flush(0.45)
@@ -67,22 +69,44 @@ def build_pool(arm_name, A, idx, n_isl=16384, log=None):
         st, gg, counts, na = MI.island_run(arm.ctx(), arm.lc(32 if A == 0 else 64), MI.PAY, init, MI.N0, MI.W, seed, H,
                                           arr, arm.cum, True)
         status[i] = st; gens[i] = gg; narr[i] = na
+        if st != 0:
+            # RS ruling (2026-10-25): a slot still polymorphic at the cap is run a further 5,000 generations; if every slot's class
+            # frequencies move by less than 0.1 between the two windows with no class lost, the island is a mixed state (status 2,
+            # not run on to absorption); if it settles in the continuation it is a pure triple; otherwise it drifts (status 3).
+            st2, g2, counts2, _ = MI.island_run(arm.ctx(), arm.lc(32 if A == 0 else 64), MI.PAY, counts, MI.N0, MI.W, seed + 1, 5000,
+                                                np.empty(0), arm.cum, True)
+            if st2 == 0:
+                counts = counts2; st = 0; status[i] = 0; late += 1
+            else:
+                f1 = counts / MI.N0; f2 = counts2 / MI.N0
+                lost = bool(((counts > 0) & (counts2 == 0)).any())
+                band = bool((np.abs(f2 - f1) < 0.1).all()) and not lost
+                status[i] = 2 if band else 3
+                c, e = MI.classify_counts(arm, counts2)
+                capped.append((i, int(c), float(e)))
+                if band:
+                    for s_ in range(3):
+                        for k_ in np.nonzero(counts2[s_])[0]:
+                            mixed.append((i, s_, int(k_), int(counts2[s_, k_])))
         if st == 0:
             triples[i] = MI.triple_of(counts)
-        else:
-            c, e = MI.classify_counts(arm, counts)
-            capped.append((i, int(c), float(e)))
         if log and i % 1024 == 1023:
             print('%s A%d p%d: %d islands, %.0f s, capped %d' % (arm_name, A, idx, i + 1, time.time() - t0, len(capped)),
                   file=log, flush=True)
     np.savez_compressed(pool_path(arm_name, A, idx), triples=triples, status=status, gens=gens, narr=narr,
-                        capped=np.array(capped, dtype=np.float64).reshape(-1, 3))
-    return dict(arm=arm_name, A=A, idx=idx, n=n_isl, wall=time.time() - t0, capped=len(capped),
+                        capped=np.array(capped, dtype=np.float64).reshape(-1, 3),
+                        mixed=np.array(mixed, dtype=np.int64).reshape(-1, 4))
+    return dict(arm=arm_name, A=A, idx=idx, n=n_isl, wall=time.time() - t0, capped=len(capped), n_mixed=int(len({m[0] for m in mixed})),
+                n_drifting=int((status == 3).sum()), n_late=late,
                 max_gen=int(gens.max()), flushes=int(arm.cache['meta'][1]))
 
 
 # ====================================================================== the chain on a pool
 PIECE = 20_000_000                                          # events per njit call (the table is flushed between calls)
+
+
+def existing_pools(arm, A):
+    return [k for k in range(10) if os.path.exists(pool_path(arm, A, k))]
 
 
 def load_pool(arm, A, idx):
@@ -185,13 +209,13 @@ def chain_job(arm_name, A, idx, cap=None):
     return out
 
 
-def union_job(arm_name, A, npools=4, cap=1000):
+def union_job(arm_name, A, npools=None, cap=1000):
     """the 65,536-island pool = pools 0..npools-1 concatenated, to `cap` events per island; plus the 4,096-island
     pool (first quarter of pool 0)."""
     arm = MI.Arm(arm_name); arm.new_cache(26)
     cps = fine_cps(cap)
     out = {}
-    trs = [load_pool(arm_name, A, k)[0] for k in range(npools)]
+    trs = [load_pool(arm_name, A, k)[0] for k in (range(npools) if npools else existing_pools(arm_name, A))]
     big = np.concatenate(trs)
     for label, tr in (('I%d' % len(big), big), ('I4096', trs[0][:4096])):
         r = run_chain(arm, tr, len(tr), cps, crc('mi-union|%s|%d|%s' % (arm_name, A, label)))
@@ -219,11 +243,11 @@ def ia_caps(I):
     return 1000000 if I <= 256 else (300000 if I <= 1024 else 100000)
 
 
-def ia_job(arm_name, A, npools=5, Is=None, block=4096, runs=IA_RUNS, tag='', idxs=None):
+def ia_job(arm_name, A, npools=None, Is=None, block=4096, runs=IA_RUNS, tag='', idxs=None):
     """(2a): archipelagos of I islands, 10 runs per I, run r using the disjoint block of 4,096 islands r of the master list
     (the first I of the block: supersets, paired by construction)."""
     arm = MI.Arm(arm_name); arm.new_cache(24)
-    master = np.concatenate([load_pool(arm_name, A, k)[0] for k in (idxs if idxs is not None else range(npools))])
+    master = np.concatenate([load_pool(arm_name, A, k)[0] for k in (idxs if idxs is not None else (range(npools) if npools else existing_pools(arm_name, A)))])
     assert len(master) >= runs * block, len(master)
     res = []
     for I in (Is or IA_I):
@@ -242,11 +266,11 @@ def ia_job(arm_name, A, npools=5, Is=None, block=4096, runs=IA_RUNS, tag='', idx
 COMP_C = (1, 4, 16, 64)
 
 
-def comp_job(arm_name, A, npools=5, I=1024, runs=IA_RUNS, tag='', idxs=None):
+def comp_job(arm_name, A, npools=None, I=1024, runs=IA_RUNS, tag='', idxs=None):
     """(1): the same 1,024 islands (a block of the master list) connected as C disconnected components of 1,024/C islands;
     10 runs (blocks), paired by construction across C."""
     arm = MI.Arm(arm_name); arm.new_cache(24)
-    master = np.concatenate([load_pool(arm_name, A, k)[0] for k in (idxs if idxs is not None else range(npools))])
+    master = np.concatenate([load_pool(arm_name, A, k)[0] for k in (idxs if idxs is not None else (range(npools) if npools else existing_pools(arm_name, A)))])
     res = []
     cps = fine_cps(100000)
     for C in COMP_C:
@@ -275,7 +299,7 @@ def symmetrize(arm, triples):
     return np.concatenate(out)
 
 
-def resample_job(arm_name, A, M=262144, idxs=(0, 1, 2), cap=100000, sym=False, tilt=0.0, tag='rs'):
+def resample_job(arm_name, A, M=262144, idxs=(0, 1, 2), cap=100000, sym=False, tilt=0.0, tag='rs', tiltcls='F0'):
     """population-dynamics Monte Carlo with I -> infinity by resampling: M islands drawn with replacement from the settled islands
     of the listed pools (optionally from their exactly S3-symmetrized union), optionally tilted: islands on the fair pair F0
     get weight 1 + tilt.  Records the chain at the fine checkpoints."""
@@ -288,15 +312,28 @@ def resample_job(arm_name, A, M=262144, idxs=(0, 1, 2), cap=100000, sym=False, t
     if tilt:
         ctx = arm.ctx()
         oc = np.array([MI.VEC[int(MI.jl(ctx, *map(np.int64, t)))] for t in master])
-        w[oc == MI.V[0]] += tilt
+        if tiltcls == 'F0':
+            w[oc == MI.V[0]] += tilt
+        else:
+            w[MI.CATLAB.index(tiltcls) == MI.CATMAP[oc]] += tilt
     if M <= 0:
         M = len(master)
         pick = rng.permutation(M) if not tilt else rng.choice(len(master), M, p=w / w.sum())
     else:
         pick = rng.choice(len(master), M, p=w / w.sum())
     tr = master[pick]
-    r = run_chain(arm, tr, M, fine_cps(cap), crc('mi-rsc|%s|%d|%s|%g' % (arm_name, A, tag, tilt)), quiet=False)
-    out = dict(arm=arm_name, A=A, M=M, sym=sym, tilt=tilt, idxs=list(idxs), source=int(len(master)), cps=fine_cps(cap), hist=r['hist'].tolist(),
+    r = run_chain(arm, tr, M, fine_cps(cap), crc('mi-rsc|%s|%d|%s|%g' % (arm_name, A, tag, tilt)), track_K=True, quiet=False)
+    cp_ = fine_cps(cap)
+    chg = []
+    prev_ = 0
+    for k_, c_ in enumerate(cp_):
+        a_ = r['Kc'][k_]
+        tot_ = float(a_.sum())
+        off_ = float(a_.sum() - sum(a_[x, :, x].sum() for x in range(MI.NOUT)))
+        pair_ = float(sum(a_[x, :, y].sum() for x in MI.V for y in MI.V if x != y))
+        chg.append([off_ / max((c_ - prev_) * M, 1), pair_ / max((c_ - prev_) * M, 1), tot_ / max((c_ - prev_) * M, 1)])
+        prev_ = c_
+    out = dict(arm=arm_name, A=A, M=M, sym=sym, tilt=tilt, tiltcls=tiltcls, switching=chg, idxs=list(idxs), source=int(len(master)), cps=fine_cps(cap), hist=r['hist'].tolist(),
                h0=r['h0'].tolist(), first_loss=r['first_loss'].tolist(), div=r['div'].tolist(), wall=r['wall'])
     with open(os.path.join(OUT, 'rs_%s_A%d_%s.json' % (arm_name, A, tag)), 'w') as f:
         json.dump(out, f)
@@ -411,7 +448,8 @@ if __name__ == '__main__':
         union_job(sys.argv[2], int(sys.argv[3]), cap=int(sys.argv[4]) if len(sys.argv) > 4 else 1000)
     elif cmd == 'resample':
         resample_job(sys.argv[2], int(sys.argv[3]), M=int(sys.argv[4]), cap=int(sys.argv[5]), sym=bool(int(sys.argv[6])),
-                     tilt=float(sys.argv[7]), tag=sys.argv[8], idxs=tuple(int(v) for v in sys.argv[9].split(',')))
+                     tilt=float(sys.argv[7]), tag=sys.argv[8], idxs=tuple(int(v) for v in sys.argv[9].split(',')),
+                     tiltcls=sys.argv[10] if len(sys.argv) > 10 else 'F0')
     elif cmd == 'ia':
         ia_job(sys.argv[2], int(sys.argv[3]))
     elif cmd == 'comp':

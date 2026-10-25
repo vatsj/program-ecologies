@@ -239,3 +239,29 @@ V\* 0.28 → 0.43 at 1,000 events per island, wasteful pairs 0.21 → 0.025, dis
 class-level ODE from the pilot's kernel runs to V\* 0.77 at 10⁵ events (not trusted, the chain is not class-Markov: per-recipient
 exit probabilities of unequal and fair islands have a coefficient of variation above 1.2). These numbers were seen before the
 counted cells; the predictions (E2, E3, E6) were written before them and are scored against the counted cells only.
+
+
+### 2.3 Spec amendment received during the run (the RS's ruling, 2026-10-25; relayed by the RE)
+
+1. *Polymorphic island states.* The settled state of an island is an attractor: a program triple or a persistent polymorphism, not
+necessarily a monomorphism. Implemented in `many_islands_run.build_pool`: islands still polymorphic at the cap (20,000 generations after the
+last arrival) run 5,000 generations more; settled in the continuation = pure triple ("late"); every slot's class frequencies within 0.1 of
+the value at the cap, no class lost = mixed state (status 2; compositions stored, not run on); otherwise drifting (status 3, disclosed).
+The pool JSON reports `n_mixed`, `n_drifting`, `n_late`; the chain runs over pure triples only. Mixed states cannot arise from the migration
+chain (one migrant makes one slot a constant-fitness two-type process, which absorbs; §1.2), so they come only from founding and annealing.
+*Order:* L A=0 p0, M A=0 p0 and L A=150 p0 were complete (49,152 islands, 0 capped, hence 0 mixed) and R A=0 p0 was running under the old rule when
+the ruling arrived; the code was changed between jobs, so the later pools use the new rule. A zero-capped pool is unchanged by the amendment.
+The requested sensitivity cell (mixed states run on to absorption) is vacuous if no cell has mixed islands; a probe of conversion of mixed
+islands by single migrants (simulated from the stored compositions) exists in the analysis module and runs only if mixed islands exist.
+2. *Aggregate stability.* Added to every cell: giant resampled pools (M = 262,144 drawn with replacement from pools 0–2) from the post-anneal
+law and from two tilted starts (the fair pair F0 and the unequal pairs reweighted by 6), with the island switching rate (class-changing
+fixations per event per island) at every checkpoint, and the switching rate of the S₃-symmetric orbit chain. Definitions are in the predictions
+addendum.
+
+### 2.4 Execution notes
+
+- The orbit chain (`many_islands_analysis.sym_chain`): recipients are n representative islands, donors a uniform element of the union of the six
+  S₃ images of all representatives, so the donor law is exactly invariant at all times; it simulates the symmetric manifold of the mean-field
+  equation with noise only in the orbit classes. A symmetrization test (`tests/test_many_islands.py`) checks equal fair-pair counts and preserved category counts.
+- The pool builds ran with at most two workers (another subagent was alive); short analysis checks were run with one of the two build processes
+  stopped (SIGSTOP) and resumed, so the count of running workers stayed at two.

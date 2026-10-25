@@ -146,3 +146,48 @@ Probabilities are my honest odds that the statement holds as scored.
 
 I = 4,096 in (2a), modalPA beyond (2b), A = 50, components C = 4; additionally (mine, if the pool build binds) fewer
 pools per annealed cell (down to 1 pool of 16,384 for A = 150), disclosed with the intervals that lose meaning.
+
+## Addendum 2026-10-25 (the RS's ruling, relayed by the RE after the first pools were built; before any scored statistic)
+
+*Order, disclosed.* The pool builds had started when the ruling arrived: pools L A=0 p0, M A=0 p0 and L A=150 p0 (49,152 islands) were
+complete under the old settlement rule, and R A=0 p0 was running. All had 0 capped islands, so the new rule changes nothing in them; every
+later pool uses it. Before the ruling I had also run, as pilots and development checks (not scored), the L A=0 pool 0 chain to 10⁵ events per
+island, an S₃-symmetric orbit chain on it, and a 98,304-island symmetrized resampled chain (notes §2.2): V\* rose to 0.998, the symmetric
+chain kept the three pairs equal, the unsymmetrized pools consolidated on one pair at about 10⁴ events per island. E12–E14 below are therefore
+informed by the pilot and are labelled so; the spec's predictions 1–7 and E1–E11 were written before it.
+
+*The ruling.* (1) The settled state of an island is an attractor of its within-island dynamics: a program triple or a persistent
+polymorphism. Settlement: a monomorphic slot is absorbed; if any slot is polymorphic at the cap, run a further 5,000 generations; if every
+slot's class frequencies change by less than 0.1 between the two windows with no class lost, record a mixed state (slot compositions and
+outcome-class frequencies) and do not run it on; islands that drift without settling are disclosed separately. The kernel runs over pure
+triples plus mixed states; if cheap, a sensitivity cell runs mixed states on to absorption. Report the mixed share at each stage, the
+classes they mix, and whether single migrants convert them or are converted by them. (2) Aggregate stability: run (2b) from the post-anneal
+shares and from two tilted starts (one fair pair; one dominated class), and report the island-level switching rate at the final checkpoint
+beside the trajectories: a converged share vector with ongoing switching is a dynamic equilibrium, frozen shares with no switching is
+neutral; say which per arm.
+
+*Operationalization (fixed now).* Band 0.1, second window 5,000 generations. Tilted starts: giant resampled pools (M = 262,144 islands
+drawn with replacement from the three phase-1 pools) with the weight of the fair pair F0 (respectively of every unequal-pair island) raised
+to 6 (tilt 5), which moves the F0 share from about 0.09 to 0.38 and the unequal share from about 0.43 to 0.79; the untilted resample is the
+base start. Switching rate = class-changing fixations per event per island, in the last checkpoint interval (10⁴ to 3·10⁴ events per island
+for the giant pools; the last interval of the clock for the symmetric chain). *Converged* = V\* and the unequal, wasteful, disagreement and
+grand shares at 3·10⁴ events agree across the three starts within 0.02. *Dynamic equilibrium* = converged and switching ≥ 10⁻⁵ per event
+(one class change per island per 10⁵ events); *frozen* = switching < 10⁻⁶; between the two, "slow". *Neutral* = not converged (shares stay
+near their starts) and switching < 10⁻⁶.
+
+*Mechanical note.* A single migrant into a settled island makes one slot a two-type constant-fitness Moran process (notes §1.2), which
+always absorbs, so mixed states cannot be created by the migration chain, only by founding and annealing; where none appear at the cap
+the kernel over pure triples is the whole kernel.
+
+- **E12 (mixed states are absent).** The share of islands in mixed states after annealing is ≤ 0.001 in every cell, and none in L and
+  M at A = 0 (49,152 islands examined at the time of the ruling: 0) [share > 0.005 in any cell]. Odds 0.8; for the readers cells 0.6.
+- **E13 (aggregate stability; pilot-informed).** Under the three starts, V\* at 3·10⁴ events per island agrees within 0.02 (a fixed point
+  independent of the start, so not neutral), the dominated-class tilt (unequal) ends at V\* ≥ 0.95, and the pair identity follows the F0 tilt
+  [V\* differs by more than 0.02 across starts, or the unequal tilt ends below 0.9]. The final state is frozen (switching < 10⁻⁶ per
+  event) rather than a dynamic equilibrium [switching ≥ 10⁻⁵ at the last interval in the base start]. Odds 0.6 for the first two clauses,
+  0.7 for the third.
+- **E14 (symmetric manifold; pilot-informed).** On the S₃-symmetric orbit chain (L, A = 0) V\* ≥ 0.99 and the three pair shares are within
+  1% of each other at 10⁵ events per island; unsymmetrized pools break the symmetry (largest pair ≥ 0.6 of V\*) between 3·10³ and 3·10⁴
+  events per island at every size from 1.5·10³ to 3·10⁵ islands, with the break time growing by less than a factor 3 over that range
+  [pairs differ by > 5%, or V\* < 0.95; or a break time outside the window or growing by more than 3×]. Odds 0.7 (the pilot supports the
+  first clause and the sizes 1.5·10³, 1.6·10⁴, 9.8·10⁴).
