@@ -6843,6 +6843,12 @@ gemini-4-argon's on 3 held by its registered ≥ 0.5 rule (its purging mechanism
   cheaters), or a sampling responder.
 - *Caveats:* `cr` is a bounded exact oracle; n = 8; the lottery at N ≤ 800; the ablations are post hoc.
 
+**Addendum (2026-10-25, RESULTS "Zero-tolerance, suspicious and sampling inspectors").** Every chain number in this
+section is at the evaluator's depth cap D = 12. The bounded-read exploit has period 4 in D, and the matched control's
+π(E) at N = 10⁵ is 0.0023 at D = 11 and 0.0008 at D = 13 against 0.047 at D = 12; the level of the inspection chain,
+and which exploiters bind, depend on the cap's phase by more than an order of magnitude. The lottery was not rerun at
+other caps.
+
 ## A migration window for stable sets on islands: without a guard there is no window; the hand-written veto meets the RS's target at every migration rate, the derived guard only at very low migration (2026-10-25)
 
 Spec `specs/2026-10-24-migration-window.md` (the RS's target "all island outcomes are efficient and all stable sets
@@ -6989,6 +6995,99 @@ E3 (the exemption carries the coverage), E6 (gKRw behaves like gV) and E7 (the g
   sets show up" is the RS's call.
 - *Caveats:* finite N and I, ε = 0, 40 runs, 10,000 generations; gKRw is a plug-in; the freeze arms are approximations;
   the mN = 0.1 exemption share straddles the 0.5 rule.
+
+## Zero-tolerance, suspicious and sampling inspectors: two fixes together lift the efficient state to 0.53, but only at the depth cap D = 12; the inspection chain itself moves 20–60× with the cap's phase (2026-10-25)
+
+Spec `specs/2026-10-24-zero-tolerance.md` (queue 62; the inspection thread is delegated to the RE, 2026-10-24),
+predictions `predictions/2026-10-24-zero-tolerance.md`, notes `notes/zero-tolerance.md`, report `runs/zero-tolerance.md`
+and `.json`, rows `runs/zero_tolerance/`. Run by a Sonnet subagent (`src/zero_tolerance*.py`; 16 tests, passing on
+main). Builds on "The inspection game's enforcer and its shadow". Chain = the ε → 0 object over all class pairs (about
+158 × 157 at c = 0, 168 × 167–173 at c = 0.01); lottery = the ε = 0 seed lottery at horizon 20N; E and R as in that
+section. Each arm moves the same prior mass m = 0.00135 onto one added inspector (the control moves it onto
+`cr(THEM(ME))` itself, the comparator onto the unconditional inspector). The validation arm reproduces the stored chain
+(relative 1.3·10⁻⁷) and the stored lotteries bit for bit.
+
+**Deviations.** A timed-out `cr` read is a forfeit in the evaluator, not "not inspecting"; the suspicious variants
+inspect the timed-out mass. `sr_k` is charged its expected number of draws (the stored `sr4`/`sr16` arms charge k). The
+stored `lrho` overflows at c = 0.01 for `sr_k` (nested simulation charged about 9·10⁶ levels); an algebraically
+identical overflow-safe version was installed in the new module and two crashed cells rerun. Founder coupling does not
+give outcome-paired lotteries (dynamics diverge after the first replacement), so lottery contrasts have a noise floor
+of about ±0.1 at 40 runs. The depth-phase cells (D = 11, 13) are extras outside the spec, added after the engineer's
+hand table (notes §1.3) predicted the phase effect; they do not enter verdicts 1–5. The engineer's E2 registered the
+D = 11 SUS comparison; everything else at D = 11 and 13 is descriptive.
+
+**Hand table (notes §1).** Against a light cheater with probability q the exact reader earns −4q, zero tolerance −1,
+and `sr_k` −p_k − 4(1−p_k)q with p_k = 1 − (1−q)^k; the profit threshold q\*_k = 1 − (3/4)^{1/k} is 0.25 / 0.069 / 0.018
+for k = 1 / 4 / 16. The smallest mixer in the n = 8 grammar has q = 1/16, so `sr_16` has no light-cheater channel. The
+bounded-read exploiter `cr(coin(N, THEM(ME)))` is not a timeout but a depth-phase effect: its level-by-level play has
+period 4 in the depth cap D; it beats `cr` and `zt` at D ≡ 0 (mod 4) and the suspicious variants at D ≡ 3.
+
+**Chain, c = 0, D = 12, π(E) at N = 10³ / 10⁴ / 10⁵ (gain over the matched control at 10⁵).**
+
+| arm | N = 10³ | N = 10⁴ | N = 10⁵ | gain at 10⁵ |
+|---|---|---|---|---|
+| control | 0.407 | 0.170 | 0.047 | – |
+| ZT (`zt`) | 0.450 | 0.266 | 0.088 | +0.041 |
+| SUS (`cr_s`) | 0.415 | 0.174 | 0.037 | −0.010 |
+| ZT+SUS (`zt_s`) | 0.466 | 0.420 | 0.534 | +0.487 |
+| SR1 | 0.420 | 0.214 | 0.065 | +0.017 |
+| SR4 | 0.453 | 0.301 | 0.116 | +0.069 |
+| SR16 | 0.465 | 0.406 | 0.382 | +0.335 |
+| unconditional inspector | 0.343 | 0.157 | 0.047 | −0.001 |
+
+At D = 12 the two exits the previous section found are closed only together: zero tolerance removes its resident's
+light-cheater exit (exactly 0 out of (`zt`, `C`)) but not the bounded-read one, the suspicious default the reverse, and
+`zt_s` both, cutting the total hazard from R 17× at N = 10⁵ (2.8× at 10⁴). The registered aggregate hazards look weak
+(ZT cuts the light-cheater category 2.5× and the total 1.9×, 1.01·10⁻⁴ to 5.3·10⁻⁵) because the control's `cr`
+residents stay in R beside the added program. `sr_16` closes the light-cheater
+channel by the q-grid argument and most bounded-read exploiters by breaking the read's parity, but not all
+(`cr(coin(N,coin(X,THEM(ME))))` still earns +0.79 against it). Unconditional inspection at this mass gains nothing (it is dominated
+and cannot hold R; commitment in general is not excluded). At c = 0.01 every arm is within 0.015 of the control's 0.38 except SR4 (−0.04), SR16 (−0.055) and
+the unconditional inspector (−0.06); SR16 loses about 0.07 to ZT; it pays 16 reads against compliant constants where ZT pays one, and its nested
+simulations are charged far more (about 9·10⁶ levels), though no causal split of the stationary difference was made.
+
+**The depth phase (extra).** π(E) at N = 10⁵, c = 0, and gain over the same-D control:
+
+| arm | D = 11 | D = 12 | D = 13 |
+|---|---|---|---|
+| control | 0.0023 | 0.047 | 0.0008 |
+| ZT | 0.066 (+0.064) | 0.088 (+0.041) | 0.032 (+0.031) |
+| SUS | 0.003 (+0.001) | 0.037 (−0.010) | 0.002 (+0.001) |
+| ZT+SUS | 0.003 (+0.001) | 0.534 (+0.487) | 0.023 (+0.022) |
+| SR16 | 0.061 (+0.059) | 0.382 (+0.335) | 0.024 (+0.023) |
+
+The 0.53 is a coincidence of the D = 12 cap, where the stale-read exploit works against `cr`/`zt` and not against the
+suspicious variants; at D = 11 the suspicious default is itself exploited and ZT+SUS gains nothing. Only zero tolerance
+and SR16 keep a gain of a few hundredths at all three tested caps (+0.03 to +0.06); ZT+SUS's vanishes at D = 11. The control itself moves
+20–60× with the phase, so the stored inspection-chain numbers are D = 12 numbers (addendum to "The inspection game's
+enforcer and its shadow").
+
+**Lottery.** At (100, 64), c = 0 and 0.01, every arm is within 0.051 of the matched control and every interval contains
+0 (point estimates meet prediction 5; equivalence is not established, e.g. SR16 +0.051 [−0.083, 0.184]); the
+matched control itself moves the cell (0.725 against the stored 0.648). At (400, 64), c = 0, 20 runs, not
+scored, where the matched control is 0.430 against the validated stored 0.672: ZT +0.26 [−0.01, 0.51], SR16 +0.32 [0.04, 0.59], ZT+SUS +0.22, SUS +0.12. The lottery was run at D = 12 only.
+
+**Verdicts.** Held: 2 (ZT+SUS ≥ 0.5; SUS ≤ 0.136, i.e. within 0.1 of the 0.036 ablation reference), 3 (SR16 gains ≥ 0.1, SR1 does not), 4 (at c = 0.01
+SR16 loses to ZT), 5 (lottery moves < 0.1), E4, E6. Partial: 1 (ZT gains +0.041, short of π(E) ≥ 0.1; aggregate hazard
+cut 2.5×, not 10×). Failed: the counter-predictions 1c (argon: the bounded-read exit absorbs ZT's flow; the largest exit
+is still light cheaters), 2c (sol: ZT+SUS stays below 0.5) and 3c (sol: the SR16 gain depends on the q grid; it fails as
+scored, a gain of +0.335 with the channel empty, while dependence on a finer grid was not tested), and the engineer's
+E1 (bounded-read hazard cut ≥ 10×; SUS 1.4×, ZT+SUS 3.5× and 22× in aggregate), E2 as registered (SUS gains about 0 at every
+depth), E3 (light-cheater occupancy 1.2× below the control, not 3×) and E5 (SR1 within 0.03 of the control; +0.044 at
+N = 10⁴). Predictions 2 and 3 held only
+at D = 12.
+
+**Reading.**
+- Two N-independent strict exits erode the inspection chain's efficient state, and fixed inspector programs close them
+  only at a particular depth cap. No arm tested keeps its D = 12 gain across the three caps; what survives is a few
+  hundredths for zero tolerance and SR16.
+- For realizable source-reading programs: a closure of a read exploit must not depend on the evaluator's depth
+  convention, and the inspection chain's level depends on that convention by more than an order of magnitude. Chain
+  claims in this thread should be reported across D.
+- The lottery shows no effect at (100, 64); the inspection lottery's efficient islands are a seed-lottery property on which
+  these inspectors have no detected effect there.
+- *Caveats:* n = 8; bounded exact oracle; three depth caps; the lottery at one cap; finite-horizon lotteries with
+  divergent dynamics.
 
 ## Not done
 
