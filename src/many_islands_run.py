@@ -16,7 +16,7 @@ OUT = os.path.join(ROOT, 'runs', 'many_islands')
 os.makedirs(OUT, exist_ok=True)
 
 CHECKPOINTS = (1, 3, 10, 30, 100, 300, 1000)               # the spec's, events per island
-EXT = (3000, 10000, 30000, 100000)                          # extension (not in the spec)
+EXT = (3000, 10000, 30000, 100000, 300000, 1000000)         # extension (not in the spec)
 
 
 def crc(s):
@@ -110,6 +110,7 @@ def run_chain(arm, triples, comp, cps_per_island, seed, track_K=False, dump_at=N
     first = np.full(3, -1, np.int64)
     fids = np.array(MI.V, np.int64)
     dumps = {}
+    div = np.zeros((ncp, 6))
     prev = 0
     t0 = time.time()
     rseed = seed
@@ -140,11 +141,14 @@ def run_chain(arm, triples, comp, cps_per_island, seed, track_K=False, dump_at=N
                     first[q] = (prev + (0 if fl[q] == 0 else fl[q]))
             prev += piece
             todo -= piece
+        for q in range(3):
+            u, cn = np.unique(pool[:, q], return_counts=True)
+            div[k, q] = len(u); div[k, 3 + q] = float(((cn / I) ** 2).sum())
         if dump_at and c in dump_at:
             dumps[int(c)] = pool[:dump_n].copy()
         if not quiet:
             print('  checkpoint %s: %.0f s' % (c, time.time() - t0), flush=True)
-    return dict(hist=hist, h0=h0, first_loss=first, drift=drift, Kc=Kc, dumps=dumps, wall=time.time() - t0, I=I)
+    return dict(hist=hist, h0=h0, first_loss=first, drift=drift, Kc=Kc, dumps=dumps, div=div, wall=time.time() - t0, I=I)
 
 
 def summarize_hist(h):
@@ -164,14 +168,13 @@ def summarize_hist(h):
 def chain_job(arm_name, A, idx, cap=None):
     arm = MI.Arm(arm_name); arm.new_cache(26)
     tr, info = load_pool(arm_name, A, idx)
-    cps = list(CHECKPOINTS) + list(EXT)
-    if cap is not None:
-        cps = [c for c in cps if c <= cap]
+    cap = cap or (1000000 if idx == 0 else 100000)
+    cps = fine_cps(cap)
     seed = crc('mi-chain|%s|%d|%d' % (arm_name, A, idx))
-    r = run_chain(arm, tr, len(tr), cps, seed, track_K=True, dump_at=(10, 100, 1000) if idx == 0 else None, quiet=False)
+    r = run_chain(arm, tr, len(tr), cps, seed, track_K=True, dump_at=(10, 100, 1000, 10000, 100000) if idx == 0 else None, quiet=False)
     out = dict(arm=arm_name, A=A, idx=idx, I=r['I'], capped=info['capped'], cps=cps, wall=r['wall'],
                first_loss=r['first_loss'].tolist(), h0=r['h0'].tolist(), hist=r['hist'].tolist(),
-               drift=r['drift'].tolist(), pathK=sparse_K(r['Kc']))
+               drift=r['drift'].tolist(), pathK=sparse_K(r['Kc']), div=r['div'].tolist())
     out['summary0'] = summarize_hist(r['h0'])
     out['summary'] = [summarize_hist(r['hist'][k]) for k in range(len(cps))]
     with open(os.path.join(OUT, 'chain_%s_A%d_p%d.json' % (arm_name, A, idx)), 'w') as f:
@@ -186,7 +189,7 @@ def union_job(arm_name, A, npools=4, cap=1000):
     """the 65,536-island pool = pools 0..npools-1 concatenated, to `cap` events per island; plus the 4,096-island
     pool (first quarter of pool 0)."""
     arm = MI.Arm(arm_name); arm.new_cache(26)
-    cps = [c for c in CHECKPOINTS if c <= cap]
+    cps = fine_cps(cap)
     out = {}
     trs = [load_pool(arm_name, A, k)[0] for k in range(npools)]
     big = np.concatenate(trs)
@@ -200,30 +203,38 @@ def union_job(arm_name, A, npools=4, cap=1000):
     return out
 
 
+def fine_cps(cap, step=1.5):
+    """checkpoints in events per island: the spec's (1, 3, 10, 30, 100, 300, 1000), the extension, and a geometric grid of
+    ratio `step`, up to cap."""
+    g = {int(round(step ** k)) for k in range(0, 80)}
+    g |= set(CHECKPOINTS) | set(EXT)
+    return sorted(c for c in g if 1 <= c <= cap)
+
+
 IA_I = (16, 64, 256, 1024, 4096)
 IA_RUNS = 10
 
 
 def ia_caps(I):
-    return 100000 if I <= 1024 else 10000
+    return 1000000 if I <= 256 else (300000 if I <= 1024 else 100000)
 
 
-def ia_job(arm_name, A, npools=5):
+def ia_job(arm_name, A, npools=5, Is=None, block=4096, runs=IA_RUNS, tag='', idxs=None):
     """(2a): archipelagos of I islands, 10 runs per I, run r using the disjoint block of 4,096 islands r of the master list
     (the first I of the block: supersets, paired by construction)."""
     arm = MI.Arm(arm_name); arm.new_cache(24)
-    master = np.concatenate([load_pool(arm_name, A, k)[0] for k in range(npools)])
-    assert len(master) >= IA_RUNS * 4096, len(master)
+    master = np.concatenate([load_pool(arm_name, A, k)[0] for k in (idxs if idxs is not None else range(npools))])
+    assert len(master) >= runs * block, len(master)
     res = []
-    for I in IA_I:
-        cps = [c for c in list(CHECKPOINTS) + list(EXT) if c <= ia_caps(I)]
-        for r in range(IA_RUNS):
-            tr = master[r * 4096: r * 4096 + I]
+    for I in (Is or IA_I):
+        cps = fine_cps(ia_caps(I))
+        for r in range(runs):
+            tr = master[r * block: r * block + I]
             o = run_chain(arm, tr, I, cps, crc('mi-ia|%s|%d|%d|%d' % (arm_name, A, I, r)))
             res.append(dict(I=I, run=r, cps=cps, hist=o['hist'].tolist(), h0=o['h0'].tolist(), first_loss=o['first_loss'].tolist(),
                             wall=o['wall']))
         print('ia %s A%d I=%d done' % (arm_name, A, I), flush=True)
-    with open(os.path.join(OUT, 'ia_%s_A%d.json' % (arm_name, A)), 'w') as f:
+    with open(os.path.join(OUT, 'ia_%s_A%d%s.json' % (arm_name, A, tag)), 'w') as f:
         json.dump(res, f)
     return res
 
@@ -231,24 +242,66 @@ def ia_job(arm_name, A, npools=5):
 COMP_C = (1, 4, 16, 64)
 
 
-def comp_job(arm_name, A, npools=5):
+def comp_job(arm_name, A, npools=5, I=1024, runs=IA_RUNS, tag='', idxs=None):
     """(1): the same 1,024 islands (a block of the master list) connected as C disconnected components of 1,024/C islands;
     10 runs (blocks), paired by construction across C."""
     arm = MI.Arm(arm_name); arm.new_cache(24)
-    master = np.concatenate([load_pool(arm_name, A, k)[0] for k in range(npools)])
-    I = 1024
+    master = np.concatenate([load_pool(arm_name, A, k)[0] for k in (idxs if idxs is not None else range(npools))])
     res = []
-    cps = [c for c in list(CHECKPOINTS) + list(EXT) if c <= 10000]
+    cps = fine_cps(100000)
     for C in COMP_C:
-        for r in range(IA_RUNS):
-            tr = master[r * 1024: (r + 1) * 1024]
+        for r in range(runs):
+            tr = master[r * I: (r + 1) * I]
             o = run_chain(arm, tr, I // C, cps, crc('mi-comp|%s|%d|%d|%d' % (arm_name, A, C, r)))
             res.append(dict(C=C, run=r, cps=cps, hist=o['hist'].tolist(), h0=o['h0'].tolist(), first_loss=o['first_loss'].tolist(),
                             wall=o['wall']))
         print('comp %s A%d C=%d done' % (arm_name, A, C), flush=True)
-    with open(os.path.join(OUT, 'comp_%s_A%d.json' % (arm_name, A)), 'w') as f:
+    with open(os.path.join(OUT, 'comp_%s_A%d%s.json' % (arm_name, A, tag)), 'w') as f:
         json.dump(res, f)
     return res
+
+
+# ====================================================================== giant pools by resampling; symmetrization; tilt
+def symmetrize(arm, triples):
+    """all six S3 images of every triple (an exactly invariant empirical measure)."""
+    import itertools
+    out = []
+    for sigma in itertools.permutations(range(3)):
+        perm = MI.permute_support(arm, sigma)
+        img = np.zeros_like(triples)
+        for s in range(3):
+            img[:, sigma[s]] = perm[s][triples[:, s]]
+        out.append(img)
+    return np.concatenate(out)
+
+
+def resample_job(arm_name, A, M=262144, idxs=(0, 1, 2), cap=100000, sym=False, tilt=0.0, tag='rs'):
+    """population-dynamics Monte Carlo with I -> infinity by resampling: M islands drawn with replacement from the settled islands
+    of the listed pools (optionally from their exactly S3-symmetrized union), optionally tilted: islands on the fair pair F0
+    get weight 1 + tilt.  Records the chain at the fine checkpoints."""
+    arm = MI.Arm(arm_name); arm.new_cache(26)
+    master = np.concatenate([load_pool(arm_name, A, k)[0] for k in idxs])
+    if sym:
+        master = symmetrize(arm, master)
+    rng = np.random.default_rng(crc('mi-rs|%s|%d|%s|%g' % (arm_name, A, tag, tilt)))
+    w = np.ones(len(master))
+    if tilt:
+        ctx = arm.ctx()
+        oc = np.array([MI.VEC[int(MI.jl(ctx, *map(np.int64, t)))] for t in master])
+        w[oc == MI.V[0]] += tilt
+    if M <= 0:
+        M = len(master)
+        pick = rng.permutation(M) if not tilt else rng.choice(len(master), M, p=w / w.sum())
+    else:
+        pick = rng.choice(len(master), M, p=w / w.sum())
+    tr = master[pick]
+    r = run_chain(arm, tr, M, fine_cps(cap), crc('mi-rsc|%s|%d|%s|%g' % (arm_name, A, tag, tilt)), quiet=False)
+    out = dict(arm=arm_name, A=A, M=M, sym=sym, tilt=tilt, idxs=list(idxs), source=int(len(master)), cps=fine_cps(cap), hist=r['hist'].tolist(),
+               h0=r['h0'].tolist(), first_loss=r['first_loss'].tolist(), div=r['div'].tolist(), wall=r['wall'])
+    with open(os.path.join(OUT, 'rs_%s_A%d_%s.json' % (arm_name, A, tag)), 'w') as f:
+        json.dump(out, f)
+    print(json.dumps(dict(tag=tag, final=summarize_hist(r['hist'][-1]))))
+    return out
 
 
 # ====================================================================== validation
@@ -356,6 +409,9 @@ if __name__ == '__main__':
         chain_job(arm, A, idx, cap)
     elif cmd == 'union':
         union_job(sys.argv[2], int(sys.argv[3]), cap=int(sys.argv[4]) if len(sys.argv) > 4 else 1000)
+    elif cmd == 'resample':
+        resample_job(sys.argv[2], int(sys.argv[3]), M=int(sys.argv[4]), cap=int(sys.argv[5]), sym=bool(int(sys.argv[6])),
+                     tilt=float(sys.argv[7]), tag=sys.argv[8], idxs=tuple(int(v) for v in sys.argv[9].split(',')))
     elif cmd == 'ia':
         ia_job(sys.argv[2], int(sys.argv[3]))
     elif cmd == 'comp':

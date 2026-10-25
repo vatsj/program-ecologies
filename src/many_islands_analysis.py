@@ -131,6 +131,81 @@ def fair_block(K, x):
     return flow, D
 
 
+# ====================================================================== routes: which role the migrant takes
+ROLE = np.full((MI.NOUT, 3), 4, np.int64)            # 0 excluded slot, 1 pair member (fair / wasteful), 2 dictator, 3 victim, 4 other
+for _k in range(MI.NOUT):
+    _c = int(MI.CATMAP[_k])
+    for _s in range(3):
+        if MI.EXCL[_k] == _s:
+            ROLE[_k, _s] = 0
+        elif _c in (0, 3) and MI.EXCL[_k] >= 0:
+            ROLE[_k, _s] = 1
+        elif _c == 1 and MI.EXCL[_k] >= 0:
+            ROLE[_k, _s] = 2 if MI.X[_k][_s] == 4 else 3
+
+
+@njit(cache=True)
+def route_rates(C, PAYt, VECt, CATt, ROLEt, pool, rec_idx, don_idx, N, w, out):
+    """out[cat_a, role, cat_c] += sum over the pairs and slots of P(fix and the class becomes cat_c) / 3 (the class-
+    changing events only), and out[cat_a, role, cat_a + 5] counts the pair-slot visits for normalisation."""
+    for n in range(rec_idx.shape[0]):
+        i = rec_idx[n]; j = don_idx[n]
+        ci = jl(C, pool[i, 0], pool[i, 1], pool[i, 2])
+        old = VECt[ci]
+        for s in range(3):
+            x = pool[j, s]
+            if x == pool[i, s]:
+                continue
+            if s == 0:
+                cx = jl(C, x, pool[i, 1], pool[i, 2])
+            elif s == 1:
+                cx = jl(C, pool[i, 0], x, pool[i, 2])
+            else:
+                cx = jl(C, pool[i, 0], pool[i, 1], x)
+            pf = MI.pfix(PAYt[cx, s] - PAYt[ci, s], float(N), w)
+            nw = VECt[cx]
+            r = ROLEt[old, s]
+            if nw != old:
+                out[CATt[old], r, CATt[nw]] += pf / 3.0
+        for s in range(3):
+            out[CATt[old], ROLEt[old, s], 5 + CATt[old]] += 1.0 / 3.0
+    return 0
+
+
+def routes(arm, pool, oc, rng, per_class=1500, m_don=30):
+    """mean per-event probability, for a recipient of category a, that a migrant in role r turns it into category c:
+    dict 'a>c|role' -> rate.  Also the share of the class-changing mass by role."""
+    arm.maybe_flush(0.5)
+    ctx = arm.ctx()
+    out = np.zeros((5, 5, 10))
+    cats = MI.CATMAP.astype(np.int64)
+    nrec = np.zeros(5)
+    for a in range(MI.NOUT):
+        idx = np.nonzero(oc == a)[0]
+        if len(idx) == 0:
+            continue
+        rec = idx if len(idx) <= per_class else rng.choice(idx, per_class, replace=False)
+        don = rng.integers(0, len(pool), (len(rec), m_don))
+        r_ = np.repeat(rec, m_don).astype(np.int64); d_ = don.reshape(-1).astype(np.int64)
+        keep = r_ != d_
+        tmp = np.zeros((5, 5, 10))
+        route_rates(ctx, MI.PAY, MI.VEC, cats, ROLE, pool, r_[keep], d_[keep], MI.N0, MI.W, tmp)
+        # weight by the class's share so that the output is a rate per event for a recipient drawn from the category
+        sc = float((oc == a).sum()); npair = float(keep.sum())
+        out += tmp / max(npair, 1.0) * sc
+        nrec[cats[a]] += sc
+    res = {}
+    for ca in range(5):
+        if nrec[ca] == 0:
+            continue
+        for r in range(5):
+            for cc in range(5):
+                v = out[ca, r, cc] / nrec[ca]
+                if v > 0 and cc != ca:
+                    res['%s>%s|%s' % (MI.CATLAB[ca], MI.CATLAB[cc], ['excluded', 'member', 'dictator', 'victim', 'other'][r])] = v
+    return res
+
+
 # ====================================================================== two-migrant probes
 def event_dist(arm, tr, s, x):
     """(p, new triple) as event_prob."""
@@ -264,12 +339,12 @@ def tint(vals):
     return [float(v.mean()), float(v.mean() - h), float(v.mean() + h)]
 
 
-def post_job(arm_name, A, npools=5, probe_n=200):
+def post_job(arm_name, A, npools=5, probe_n=200, idxs=None, tag=''):
     t0 = time.time()
     arm = MI.Arm(arm_name); arm.new_cache(24)
     rng = np.random.default_rng(MR.crc('mi-post|%s|%d' % (arm_name, A)))
     pools = []
-    for k in range(npools):
+    for k in (idxs if idxs is not None else range(npools)):
         if os.path.exists(MR.pool_path(arm_name, A, k)):
             pools.append(MR.load_pool(arm_name, A, k))
     res = dict(arm=arm_name, A=A, npools=len(pools))
@@ -283,6 +358,18 @@ def post_job(arm_name, A, npools=5, probe_n=200):
             res['capped_pool0'] = info['capped']
     shares = np.array(shares)
     xm = shares.mean(0)
+    cats_ = MI.CATMAP
+    catrate = {MI.CATLAB[g]: [] for g in range(5)}
+    for x_, K_ in zip(shares, Ks):
+        for g in range(5):
+            ids = [a for a in range(MI.NOUT) if cats_[a] == g and x_[a] > 0]
+            xg = sum(x_[a] for a in ids)
+            if xg <= 0:
+                continue
+            ex = sum(x_[a] * sum(x_[b] * (1 - K_[a, b, a]) for b in range(MI.NOUT)) for a in ids) / xg
+            toF = sum(x_[a] * sum(x_[b] * K_[a, b, c] for b in range(MI.NOUT) for c in MI.V) for a in ids if not FAIR[a]) / xg
+            catrate[MI.CATLAB[g]].append((float(ex), float(toF)))
+    res['cat_rates'] = {g: dict(exit=tint([v[0] for v in vs]), toF=tint([v[1] for v in vs])) for g, vs in catrate.items() if vs}
     res['post_shares'] = {MI.OLAB[c]: tint(shares[:, c]) for c in range(MI.NOUT) if xm[c] > 0}
     res['post_summary'] = [MR.summarize_hist(np.round(sh * 1e6).astype(np.int64)) for sh in shares]
     Dm = np.array([[D[0, 1], D[0, 2], D[1, 2]] for D in Ds])               # antisymmetric entries D01, D02, D12
@@ -313,6 +400,7 @@ def post_job(arm_name, A, npools=5, probe_n=200):
     res['heterogeneity'] = het
     res['hazard_by_class'] = {MI.OLAB[c]: dict(n=int(len(hz[c])), mean=hz[c].mean(0).tolist()) for c in hz}
     res['cryptic'] = cryptic_drift(arm, tr0, oc0, rng)
+    res['routes'] = routes(arm, tr0, oc0, rng)
     # injection statistics repeated on triples sampled during migration (dumps at 10, 100, 1000 events per island)
     dp = os.path.join(MR.OUT, 'dump_%s_A%d.npz' % (arm_name, A))
     inj = {}
@@ -335,7 +423,7 @@ def post_job(arm_name, A, npools=5, probe_n=200):
     res['injection_at_checkpoints'] = inj
     res['two_migrant'] = two_migrant_probe(arm, tr0, oc0, rng, n_per_cell=probe_n, seed0=MR.crc('mi-2m|%s|%d' % (arm_name, A)) % 10 ** 6)
     res['wall'] = time.time() - t0
-    with open(os.path.join(MR.OUT, 'post_%s_A%d.json' % (arm_name, A)), 'w') as f:
+    with open(os.path.join(MR.OUT, 'post_%s_A%d%s.json' % (arm_name, A, tag)), 'w') as f:
         json.dump(res, f)
     return res
 
@@ -343,3 +431,91 @@ def post_job(arm_name, A, npools=5, probe_n=200):
 if __name__ == '__main__':
     r = post_job(sys.argv[1], int(sys.argv[2]), npools=int(sys.argv[3]) if len(sys.argv) > 3 else 5)
     print(json.dumps({k: r[k] for k in ('arm', 'A', 'npools', 'wall')}))
+
+
+# ====================================================================== the S3-symmetric mean-field chain (orbit Monte Carlo)
+@njit(cache=True)
+def sym_chain(C, PAYt, VECt, PFT, reps, imgs, PERM, SIG, nev, seed):
+    """Recipients are the n representative islands (rows of reps); the donor is a uniformly chosen element of the union of the
+    six S3 images of all representatives (imgs[6 r + k]), so the donor law is exactly S3-invariant at all times: this is the
+    symmetric manifold of the mean-field equation, simulated with noise only in the orbit classes.  One event: recipient
+    uniform among representatives, donor uniform among the 6n images except the recipient's own identity image, slot
+    uniform, exact Moran fixation.  Returns the number of fixations."""
+    np.random.seed(seed)
+    n = reps.shape[0]
+    nfix = 0
+    for _ in range(nev):
+        i = np.random.randint(n)
+        jj = np.random.randint(6 * n - 1)
+        if jj >= 6 * i:
+            jj += 1
+        s = np.random.randint(3)
+        x = imgs[jj, s]
+        r = reps[i, s]
+        if x == r:
+            continue
+        ci = jl(C, reps[i, 0], reps[i, 1], reps[i, 2])
+        if s == 0:
+            cx = jl(C, x, reps[i, 1], reps[i, 2])
+        elif s == 1:
+            cx = jl(C, reps[i, 0], x, reps[i, 2])
+        else:
+            cx = jl(C, reps[i, 0], reps[i, 1], x)
+        d6 = int(round(6.0 * (PAYt[cx, s] - PAYt[ci, s])))
+        pf = PFT[d6 + 4] if (d6 >= -4 and d6 <= 4) else 0.0
+        if pf > 1e-12 and np.random.random() < pf:
+            reps[i, s] = x
+            nfix += 1
+            for k in range(6):
+                for t in range(3):
+                    imgs[6 * i + k, SIG[k, t]] = PERM[k, t, reps[i, t]]
+    return nfix
+
+
+def sym_job(arm_name, A, idxs=(0, 1, 2), cap=100000, tag='sym', n_reps=None):
+    import itertools
+    arm = MI.Arm(arm_name); arm.new_cache(26)
+    master = np.concatenate([MR.load_pool(arm_name, A, k)[0] for k in idxs])
+    if n_reps:
+        master = master[:n_reps]
+    sigmas = list(itertools.permutations(range(3)))
+    SIG = np.array(sigmas, np.int64)
+    PERM = np.stack([np.stack(MI.permute_support(arm, sg)) for sg in sigmas]).astype(np.int64)       # (6, 3, K)
+    n = len(master)
+    reps = np.ascontiguousarray(master.copy())
+    imgs = np.zeros((6 * n, 3), np.int64)
+    for k in range(6):
+        for t in range(3):
+            imgs[k::6, SIG[k, t]] = PERM[k, t, reps[:, t]]
+    cps = MR.fine_cps(cap)
+    hist = np.zeros((len(cps), MI.NOUT), np.int64)
+    div = np.zeros((len(cps), 3))
+    prev = 0
+    seed = MR.crc('mi-sym|%s|%d|%s' % (arm_name, A, tag)) % (2 ** 31)
+    t0 = time.time()
+
+    def census():
+        ctx = arm.ctx()
+        h = np.zeros(MI.NOUT, np.int64)
+        for t in imgs:
+            h[MI.VEC[int(MI.jl(ctx, *map(np.int64, t)))]] += 1
+        return h
+    h0 = census()
+    for q, c in enumerate(cps):
+        todo = int(c) * n - prev
+        while todo > 0:
+            piece = min(MR.PIECE, todo)
+            arm.maybe_flush(0.5)
+            seed = (seed * 1103515245 + 12345) % (2 ** 31)
+            sym_chain(arm.ctx(), MI.PAY, MI.VEC, MI.PFT, reps, imgs, PERM, SIG, piece, seed)
+            prev += piece; todo -= piece
+        hist[q] = census()
+        for t in range(3):
+            div[q, t] = len(np.unique(reps[:, t]))
+        if q % 5 == 0:
+            print('  sym checkpoint %s: %.0f s' % (c, time.time() - t0), flush=True)
+    out = dict(arm=arm_name, A=A, n_reps=n, images=6 * n, cps=cps, hist=hist.tolist(), h0=h0.tolist(), div=div.tolist(),
+               wall=time.time() - t0)
+    with open(os.path.join(MR.OUT, 'sym_%s_A%d_%s.json' % (arm_name, A, tag)), 'w') as f:
+        json.dump(out, f)
+    return out

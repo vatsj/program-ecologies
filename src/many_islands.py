@@ -246,6 +246,9 @@ def pfix(dpay, N, w):
     return (1.0 - math.exp(-b)) * math.exp(-b * (N - 1.0)) / (1.0 - math.exp(-b * N))
 
 
+PFT = np.array([pfix(d / 6.0, float(N0), W) for d in range(-4, 5)])      # fixation probability by payoff change in sixths
+
+
 def pfix_py(dpay, N=N0, w=W):
     return pfix(float(dpay), float(N), float(w))
 
@@ -571,12 +574,13 @@ def chain_run(C, PAYt, VECt, EXCLt, pool, comp, events_total, cps, seed, N, w, h
                 cx = jl(C, pool[i, 0], x, pool[i, 2])
             else:
                 cx = jl(C, pool[i, 0], pool[i, 1], x)
-            pf = pfix(PAYt[cx, s] - PAYt[code[i], s], float(N), w)
+            d6 = int(round(6.0 * (PAYt[cx, s] - PAYt[code[i], s])))
+            pf = PFT[d6 + 4] if (d6 >= -4 and d6 <= 4) else pfix(PAYt[cx, s] - PAYt[code[i], s], float(N), w)
             old = oc[i]
             ex = EXCLt[old]
             if ex >= 0 and s == ex:
                 drift[ci, old, 2] += 1
-            if np.random.random() < pf:
+            if pf > 1e-12 and np.random.random() < pf:
                 pool[i, s] = x
                 code[i] = cx
                 nw = VECt[cx]

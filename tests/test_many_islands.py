@@ -342,3 +342,22 @@ def test_founding_reproduces_stored_L_mN0_cell():
     f = nf / n
     se = math.sqrt(0.281 * 0.719 / n)
     assert abs(f - 0.281) < 3.5 * se + 0.01, f
+
+
+# ---------------------------------------------------------------------------------------------- symmetrization
+def test_symmetrize_gives_equal_fair_pair_counts():
+    import many_islands_run as MR
+    a = arm('L')
+    rng = np.random.default_rng(31)
+    isl = [MI.build_island(a, rng, 900 + k, 0) for k in range(60)]
+    tr = np.array([r['triple'] for r in isl if r['triple'] is not None], np.int64)
+    sym = MR.symmetrize(a, tr)
+    assert len(sym) == 6 * len(tr)
+    ctx = a.ctx()
+    oc = np.array([MI.VEC[int(MI.jl(ctx, *map(np.int64, t)))] for t in sym])
+    cnt = [int((oc == v).sum()) for v in MI.V]
+    assert cnt[0] == cnt[1] == cnt[2]
+    # outcome-category counts are preserved
+    oc0 = np.array([MI.VEC[int(MI.jl(ctx, *map(np.int64, t)))] for t in tr])
+    for c in range(5):
+        assert int((MI.CATMAP[oc] == c).sum()) == 6 * int((MI.CATMAP[oc0] == c).sum())
