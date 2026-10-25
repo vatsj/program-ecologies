@@ -163,7 +163,9 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 63. What compute should cost (RS, 2026-10-24: the capped simulator primitive stays; "I'm hoping we find experiments that answer the question for us"): pricing rules F (every step), A (failure only), F+A, B (amortized) across RPS, inspection and the PD, scored by the joint band of price levels meeting every game's target (running: `specs/2026-10-25-pricing-rules.md`).
 
-64. Churn in the primary object (RS, 2026-10-25: the veto is "an experimental artifact rather than a core part of our equilibrium notion"; "extensional or Turing-complete would convince me"): majority division in the modal, weak and L_T arms, no contracts, mN sweep and an injection probe (running: `specs/2026-10-25-churn-primary.md`).
+64. ~~Churn in the primary object (RS: the veto is "an experimental artifact")~~ (done; RESULTS "Churn among the fair pairs in the primary object": with flexible readers seeded at 9–16% the DSL and the Turing-complete arm churn without contracts, 2.8–21× the baseline's flips, and put 0.89–1.00 of islands on a fair pair at mN ≥ 0.1, but no cell keeps the three pairs present at mN = 1; the n = 10 length prior does not churn; DEFERRED 15).
+
+65. Islands → ∞ before time (RS, 2026-10-25: "I want a crisp, well-defined notion of limiting behavior"; annealed mutation for predators, then migration → 0, then I → ∞ before t; "run both but shoot for (2) and tell me if and where it fails"): majority division under the rare-migration jump chain with islands relaxed to program triples, the I → ∞ dynamics against finite I and disconnected components (running: `specs/2026-10-25-many-islands.md`).
 
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 

@@ -911,6 +911,12 @@ REJECTED.md the ones we dropped.
   length prior does not churn. *Operating hypothesis:* the target's efficiency half is reachable without the veto;
   coverage under steady migration is not, in the primary object as tested, and needs either founders (low mN),
   components, or a mechanism that resists consolidation (the veto's refusal of exits plays that role).
+- *RS (2026-10-25):* islands must not be transient; the limit should be crisp. Order of limits proposed: annealed
+  mutation (decaying, finite total) to bring predators, migration → 0 more slowly than mutation, and the number of
+  islands → ∞ before time (preferred over disconnected components, "the sharper choice deriving a stronger
+  statement"); anything needing several simultaneous migrants is eventually lost, as with mutants. *Operating
+  hypothesis:* the object for coverage of the stable set is lim_t lim_I of the rare-migration jump chain after an
+  annealed tail; tested in queue 65.
 - *RS (2026-10-24):* component size matters little here, "since there's only 3 real candidate equilibria to choose
   from. It'll matter more in games w good migrants - maybe PD?" *RE:* in the PD migration carries good migrants
   (fission–fusion universal 40/40, one donor per island, bridge-mediated merging), so component size trades
