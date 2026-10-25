@@ -2,28 +2,32 @@
 
 ## 1. Errors, contradictions, unsound mechanisms
 
-- **F+A’s timeout charge is ambiguous.** “Every step costs c, and a timed-out read is charged as if it had run to the cap, c·K.” Does this replace the read’s step charge or supplement it? Supplementing charges twice for a read already consuming K. **Fix:** specify an explicit ledger formula, including nested calls, their local caps, and whether child steps count toward ancestor charges. Test partial-cap and nested timeouts.
-- **B is not yet an executable accounting rule.** “Every step costs c, but a reader pays a given read once per island lifetime” conflicts with “stores the cost only … against a fresh tape”: stochastic executions have different costs and timeout statuses. **Fix:** define first-execution charging versus some fixed expected charge; exempt precisely the cached subtree, without double-counting it as root steps. Specify cache ownership, migration, certificate changes, and island resets.
-- **Prediction 2’s falsifier is incomplete.** “At least two adjacent P_fail levels” is not falsified only by “[none]”; one successful level, or two nonadjacent levels, also falsifies it. **Fix:** use “no adjacent pair meets all three targets.”
+- **Scoring reverses the RPS criterion.** Target: “population exploitability ≤ 0.1”; amendment: “met if the interval lies above the threshold, failed if below.” That would reward exploitability. **Fix:** specify directions separately: RPS exploitability’s upper confidence bound ≤0.1; inspection and PD lower bounds ≥ their thresholds. Operationalize “uniform mixer, or guarded mixers, hold” separately from aggregate exploitability.
+
+- **Cache accounting remains underspecified.** B says “a reader pays a given read once,” but also “later executions … are free, including their subtree.” When a cached ancestor executes a previously unseen descendant, does that descendant become cached despite nobody paying? Likewise, what happens when a first execution is interrupted? **Fix:** define cache insertion, nested-hit precedence, partial execution and first-payer rules; add corresponding tests for B and B-own. Otherwise free ancestor execution can silently prewarm unrelated keys.
+
+- **Falsifiers do not match claims.** “RPS simulators lose to `U` at every P_fail ≥ 0.1” is not falsified solely by “`U` below 0.5 at P_fail = 0.1.” Conversely, absence of a statistically certified adjacent pair need not falsify A’s joint-band prediction: results may be undetermined. **Fix:** distinguish pairwise mechanism tests, ecological targets and inconclusive outcomes.
 
 ## 2. Design flaws or confounds
 
-- **Cross-game price robustness depends on arbitrary units.** A common numeric price depends on payoff scales; F and F+A additionally depend on evaluator steps and game-specific K. A’s equal penalty does not imply equal timeout severity. **Fix:** report raw prices alongside prices normalized by game stakes, and tabulate fuel caps and timeout frequencies. Describe the result as robustness under these conventions, not an intrinsic ranking of cost notions.
-- **Static records may be insufficient.** Pair/route totals do not establish the nested-call counts needed for A or unambiguous F+A accounting. PD production changes certificates and subsequent encounters. **Fix:** audit record sufficiency before launch; obtain fresh event traces where needed. Explicitly price production, retries, and checking—or state their exemptions.
-- **Joint-band verdicts are too noisy and potentially incomplete.** Twenty PD runs poorly resolve a 0.7 threshold; budget cuts can remove cells necessary to establish a joint band. **Fix:** preregister confidence intervals and an “undetermined” category; preserve one complete cross-game panel before optional cells. Static invasion flips do not establish lottery success between sampled prices.
-- This is a fixed-geometry seed-lottery comparison, not evidence of large-population convergence. **Fix:** bound claims accordingly; add one larger geometry for any apparent winning level.
+- **Stored stochastic records may not support faithful repricing.** Per-pair mean steps/timeouts need not reproduce selection under random tapes, nested events, nonlinear fitness transformations or evolving certificates. **Fix:** audit whether records preserve the required joint payoff–cost distribution; validate replay against online execution at one nonzero price per game before relying on tables.
+
+- **Power is poorly matched to the headline.** With 20 PD runs, an observed 0.75 success rate cannot certify exceeding 0.7; approximately 19/20 successes are needed with common two-sided interval methods. Requiring every game to pass further reduces power. **Fix:** specify interval methods and anticipated power; allow preregistered expansion for undetermined cells. Report point-estimate overlap separately from certified overlap, and discrete adjacent levels rather than a continuous “band.”
+
+- **B-own does not isolate memoization alone.** It changes ownership, inheritance, migration and exposure to first-payment barriers simultaneously. **Fix:** characterize B versus B-own as different subsidy institutions, not a clean memoization decomposition.
 
 ## 3. Predictions likely wrong
 
-- **A’s RPS mechanism is overstated.** Mutual simulation timing out does not show every relevant simulator loses to U: readers may finish against U, exploit constants, or use bounded reads without timeout. Nor does U ≥ 0.5 establish exploitability ≤ 0.1. **Prediction:** timeout-heavy simulators decline, but residual successful readers can prevent the RPS target; derive pairwise margins before predicting a joint band.
-- **B’s pointwise U ordering is unjustified.** Subsidizing reads changes a frequency-dependent ecology, including predators of simulators. **Prediction:** B lowers repeated-read costs, but U’s population share need not be monotone relative to F.
+- **Prediction 6’s ordering is unjustified.** More subsidy does not monotonically improve ecological outcomes, and inherited memos can favor established lineages differently from island caches. **Prediction:** no universal F–B-own–B ordering; rank reversals are plausible during establishment and migration.
+
+- **A’s reliable joint band is doubtful.** Successful bounded reads remain free, while PD root production/retries retain fuel constraints and forfeiture risks. **Prediction:** A suppresses timeout-heavy RPS strategies without necessarily delivering the RPS target; PD remains closer to its unpriced baseline than under F.
 
 ## 4. Missing controls or cheap additions
 
-- Add timeout-free bounded simulators and a matched constant per-read toll.
-- For B, log cache hits, first-charge payer, and cumulative charges; compare cold versus prewarmed caches.
-- Report support, transition structure, non-play, gross payoffs, net payoffs, and PD P(C,C), not only winner labels.
+- Test cache-order dependence by permuting encounter evaluation order under identical founders.
+- Log cumulative charges by lineage and phase: founding, production, establishment, maintenance.
+- At one price, separate true timeouts from bounded default returns with matched computational effort; otherwise the bounded-simulator control changes both semantics and pricing.
 
 ## 5. Alternative explanations
 
-Apparent success could reflect free successful computation, cache-incumbency subsidies, founder composition, arbitrary payoff/fuel calibration, or finite-time delayed collapse—not selection favoring efficient reasoning.
+Apparent robustness could reflect free successful computation, first-payer selection, cache saturation or the chosen stopping horizon—not a generally suitable compute price. Larger geometry alone does not separate these; report phase-resolved outcomes and cache saturation versus time.

@@ -106,3 +106,31 @@ P(C,C). This is a fixed-geometry lottery comparison, not evidence about large po
 memory before each batch; at most 2 workers while others are alive. One job per process; no `multiprocessing.Pool`;
 one background wait per batch that exits at completion and fires if the log stops changing for 2 hours; never poll
 periodically.
+
+## Addendum (RS, 2026-10-25): a per-program memo arm
+
+(Reviewed by gemini-4-argon then gpt-6.1-sol in amended mode; folded [after review] / [after second review].)
+
+The RS asked for a fourth pricing arm beside the island cache B: **B-own (per-program memo).** Every step costs c, but
+each program keeps its own memo of reads it has already paid for, keyed like B's cache (the reader's quote and the read
+program's quote, both with their carried certificates); a repeated read is free for that program. The memo is part of
+the program's state: offspring inherit their parent's memo, migrants carry theirs, and nobody else's reads are free
+through it. Cost-only, as in B (the read is re-executed against a fresh tape). It separates "memoization helps" (B-own)
+from "a shared island subsidy helps" (B). Run at the same price levels and cells as B, paired with it.
+[After review] The memo is runtime metadata, excluded from the program's quote (unlike certificates), so updating it
+never changes a key. Founders start with empty memos (cold), and a pre-warmed-memo cell at c = 10⁻³ in the PD is run
+beside it. Logged: cache and memo invalidations caused by certificate updates, separately from first-encounter misses
+(in B and B-own); mean and maximum memo size per program. B and B-own stay paired in the cut order; the tests cover all
+five rules' charges. [After second review] Cache and memo rules: a key is inserted only when its read
+runs to completion and its charge is paid; a read executed free inside a cached ancestor inserts nothing; an interrupted
+first execution is charged for the steps it ran and inserts nothing; a nested key already cached is free even inside a
+paid ancestor (the hit takes precedence); the first payer is the reader that completes the read. Tests cover each
+rule. B and B-own are two subsidy institutions (shared and island-owned, against inherited and carried), not a clean
+decomposition of memoization.
+
+*Prediction 6 (the RE's).* B-own sits between F and B in every game: it amortizes a lineage's own repeated checks
+(enough to keep the PD target at c = 10⁻³ wherever B does, within 0.1) but gives no free rides to newcomers [B-own
+meets the PD target where B does not, or falls below F]. *Counter-prediction (gemini-4-argon), registered:* with cold
+memos every founder copy and immigrant pays the full verification toll before its lineage inherits a memo, which can
+kill establishment in the scramble, so B-own falls below B by more than 0.1 at c = 10⁻³ unless memos start warm. *Counter-prediction (gpt-6.1-sol), registered:* there is no universal F–B-own–B ordering; rank
+reversals are plausible during establishment and migration.
