@@ -163,6 +163,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 63. What compute should cost (RS, 2026-10-24: the capped simulator primitive stays; "I'm hoping we find experiments that answer the question for us"): pricing rules F (every step), A (failure only), F+A, B (amortized) across RPS, inspection and the PD, scored by the joint band of price levels meeting every game's target (running: `specs/2026-10-25-pricing-rules.md`).
 
+64. Churn in the primary object (RS, 2026-10-25: the veto is "an experimental artifact rather than a core part of our equilibrium notion"; "extensional or Turing-complete would convince me"): majority division in the modal, weak and L_T arms, no contracts, mN sweep and an injection probe (running: `specs/2026-10-25-churn-primary.md`).
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).
