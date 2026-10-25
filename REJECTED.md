@@ -1237,3 +1237,13 @@ small components settle on unequal pairs more often. **"Components meet the inde
 Below it at N = 100, mN = 1. **gemini-4-argon's mechanism that coverage is lost by unequal pairs invading fair
 pairs.** Member-to-member transitions dominate. **The expectation that the veto meets the V\* target at every mN.**
 0.85 at N = 100, mN = 1.
+
+
+## Added 2026-10-25: deriving immigrant rejection, Step 0 (RESULTS.md, "Deriving immigrant rejection for stable sets on islands, Step 0")
+
+**"The veto keeps coverage by making mismatched immigrants lose; no contracts exist between members" (RE 1).** Under the
+veto every contract on a member island is fair-to-fair, islands rotate members 20–59× as often as the baseline, and the
+exemption of those contracts carries the coverage. **Loyalty, status-quo tie-breaking and conformity as the route to
+the RS's target.** Set aside, not tested: they lock islands and the veto does not; immigrant fiat and pivot freezes,
+the benchmarks for locking, reach the V\* target only at mN = 1. **The reading that "locked islands reject
+immigrants"** (RESULTS "Dominance contracts and refusal on islands"; the explainer "Stable Sets on Islands").

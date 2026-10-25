@@ -897,6 +897,11 @@ REJECTED.md the ones we dropped.
   in one connected component; the hand-written veto meets the stated target at every migration rate tested; the
   derived farsighted guard only at mN ≤ 0.003; 16-island components help at N = 200, mN = 0.1 but never reach V\*.
   Next: a derived immigrant-rejection guard (queue 61).
+- *Evidence (2026-10-25, RESULTS "Deriving immigrant rejection, Step 0"):* the veto keeps all three fair pairs present by
+  churn (islands rotate members through fair-to-fair contracts), not by rejecting immigrants; a farsighted table with
+  weak consent matches it (1.00 / 1.00 / 0.90). *Decision for the RS:* does coverage by churn, with islands changing
+  member about every 150 generations at mN = 1, count as "all stable sets show up"? *Operating hypothesis:* yes at a
+  snapshot, reported with the churn rate; the locking candidates are set aside.
 - *RS (2026-10-24):* component size matters little here, "since there's only 3 real candidate equilibria to choose
   from. It'll matter more in games w good migrants - maybe PD?" *RE:* in the PD migration carries good migrants
   (fission–fusion universal 40/40, one donor per island, bridge-mediated merging), so component size trades

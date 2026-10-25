@@ -4466,6 +4466,8 @@ Efficiency: D1 +0.087 over the paired baseline at mN = 0 (traps broken), R2 +0.1
 - **Migration under contracts is a load, not a consensus builder;** at mN = 1 the 0.95 classifier and modal play part by 0.25–0.7, so mN = 1 claims in contract cells need both.
 - *Caveats:* finite (N, I, horizon); 20–40 runs per cell; the refusal decomposition is correlational and post hoc; the guard is written by hand, and whether a source-reading program derives it (refuse κ iff accepting leads provably to one's own exclusion) is open.
 
+**Addendum (2026-10-25).** The reading that under migration "locked islands reject immigrants" is wrong: under R2 (gV) islands rotate among the members through fair-to-fair contracts, 20–59× the baseline's member-to-member flips, and the exemption of those contracts from refusal carries the coverage (RESULTS "Deriving immigrant rejection for stable sets on islands, Step 0").
+
 ## The social organization game, fully realizable: the fair wage is a fuel threshold under free certificates and a seeding threshold under endogenous production; identity fills a few islands and decides nothing (`runs/sog-fully-realizable.md`, `runs/sog-fully-realizable.json`, `runs/sog_full/`, `runs/sog-full-{static,validate,costc}.json`, `notes/sog-fully-realizable.md`; spec `specs/2026-10-13-sog-fully-realizable.md`, predictions in `predictions/2026-10-13-sog-fully-realizable.md` with the RS's prediction first, the gemini-4-argon addendum, and a second addendum before two diagnostic cells)
 
 The RE designed it, gpt-6.1-sol and gemini-4-argon reviewed it, and an Opus subagent ran it (`src/sog_full.py`, `src/sog_full_kern.py`, `src/sog_full_run.py`, `src/sog_full_report.py`, `tests/test_sog_full.py`; 26 tests, passing on main). Order of commits: notes §1 and the predictions before any code; the Gemini addendum before any static table; code, validation, static tables and static costs before any counted cell; addendum 2 (S20, S21) before the two diagnostic cells. **Deviations, disclosed (notes §1.13):**
@@ -6917,6 +6919,76 @@ both audits' points are folded above, and they overlapped.
 - The next hypothesis, untested here, is the RS's next item: a derived guard that keeps islands from adopting a
   different member, i.e. immigrant rejection (queue 61).
 - *Caveats:* finite N and I, ε = 0, a transient-window experiment; 20 runs at N = 200 and in the size panel.
+
+**Addendum (2026-10-25).** The derived guard's failure here is its strict consent: with weak consent ("accept if not worse") the same farsighted table accepts the fair-to-fair contracts and meets the stated target in 1.00 / 1.00 / 0.90 of runs at mN = 0.01 / 0.1 / 1 (RESULTS "Deriving immigrant rejection for stable sets on islands, Step 0").
+
+## Deriving immigrant rejection for stable sets on islands, Step 0: the veto does not reject immigrants, it rotates members; a farsighted consent table that accepts indifferent moves matches it (2026-10-25)
+
+Spec `specs/2026-10-25-immigrant-rejection.md` (queue 61, agreed by the RS; reviewed by gemini-4-argon then
+gpt-6.1-sol), predictions `predictions/2026-10-25-immigrant-rejection.md` (with the preregistered attribution rule and
+gate), notes `notes/immigrant-rejection.md`, report `runs/immigrant-rejection.md` and `.json`, rows
+`runs/immigrant_rejection/`. Run by a Sonnet subagent (`src/immigrant_rejection*.py`, a generated copy of the kernel
+with freeze vetoes and fate counters; 8 tests, passing on main). Step 0 only: 33 cells × 40 runs, 10,000 generations,
+(N, I) = (100, 64), one connected component, mN ∈ {0.01, 0.1, 1}; the reference arms reproduce the stored
+migration-window rows in 360 of 360 runs. The gate failed prediction 1, so the main panel (loyalty, status-quo
+tie-breaking, conformity) was not run.
+
+**Deviations.** A few exploratory runs on one founder set preceded the hand predictions (disclosed in notes §1.0). The
+horizon is 10,000 generations, not 20,000. The freeze arms read actions against the plurality play classes at the last
+generation boundary (an approximation); the local-births freeze slows consolidation and is reported, not used. Added
+arms: immigrant fiat (FI), the local-births freeze, the strict veto gVs, the weak-consent farsighted guard gKRw, and
+the stored strict guard gKR (added after the first 1,200 jobs). gKRw uses the strict fixed point's value function with
+"consent if not worse"; it is a plug-in, not a fixed point of the weak-consent game.
+
+**The veto rotates members.** Under the hand-written veto gV, islands change member far more than under the baseline:
+134 / 1,167 / 4,375 member-to-member flips per run at mN = 0.01 / 0.1 / 1 against 2 / 55 / 215 (20–59×), and 0.84 /
+0.80 / 0.73 of them follow an installed contract within three generations. Under gV every contract installed on a member
+island is a fair-to-fair (3, 3) contract (the unguarded contract arm g0 installs others too). These pass the dominance test because it uses the pivot slot's mean payoff, which the
+migrant load keeps below 1/2, and gV exempts them from refusal (it refuses only exits from the set). At mN = 1 an island
+changes member about every 150 generations. Rejecting immigrants by fiat lowers the baseline's flip rate by 0.96 / 0.99 / 0.99 (a counterfactual rate
+effect, not a traced attribution), and by the registered measure gV produces no net reduction in flips.
+
+**The exemption carries the coverage.** The strict veto gVs, which also refuses fair-to-fair contracts, meets the
+stated target (every island efficient, all three fair pairs present) in 1.00 / 0.57 / 0.00 of runs, against gV's 1.00
+/ 1.00 / 0.93 and the baseline's 0.00 / 0.23 / 0.00. By the preregistered rule the mechanism is the contract channel
+(contract-mediated share 0.80 and 0.73 at mN = 0.1 and 1, above 0.5; the exemption accounts for 0.55 [0.35, 0.74] and
+1.00 of gV's advantage), so prediction 1 failed. The implemented rule tests coverage attributable to the exemption,
+an operational reading of the spec's falsifier (flips blocked by refusal), disclosed as such; at mN = 0.1 the share's
+interval straddles the 0.5 rule. The premise that no contracts exist between members was false in the model.
+
+**Immigrant majorities are rare.** Mismatched new arrivals on included slots exceed half their slot population in 0.3
+/ 0.4 / 1.4% of cases under the baseline and 1.1 / 1.5 / 3.9% under gV, against a neutral benchmark of about 2%
+(descriptive frequencies, not selection coefficients; contracts also overwrite arrivals).
+
+**Locking benchmarks.** Rejecting every play-changing immigrant on member islands by fiat meets the stated target in
+0.03 / 0.95 / 1.00 of runs (the V\* target: 0.00 / 0.03 / 1.00), and freezing the pivot's partner choice in 0.00 / 0.88
+/ 0.88 (V\*: 0.00 / 0.05 / 0.88); at mN = 0.01 clearing waste is rare and neither reaches the V\* target in any run.
+These are finite-time diagnostic benchmarks for locking guards (the spec's candidates), not upper bounds; gV and gKRw
+reach the V\* target at mN = 0.1 (1.00) where these benchmarks do not.
+
+**A derived guard matches the veto.** The farsighted guard with weak consent, gKRw, accepts all nine fair-to-fair
+contracts at the fair pairs and no other contract there (from its consent table, notes §3), makes flips within about 1.2% of gV's (135 / 1,163 / 4,381), and
+meets the target in 1.00 / 1.00 / 0.90 of runs. The strict farsighted guard gKR, which accepts two of the nine, makes
+38 / 289 / 723 flips and meets it in 0.97 / 0.00 / 0.00. The derived guard's failure in the migration window is a
+matter of refusing indifferent moves.
+
+**Verdicts.** Prediction 1 failed; predictions 2–5 not run (gate). The engineer's E1 (gV flips more than the baseline),
+E3 (the exemption carries the coverage), E6 (gKRw behaves like gV) and E7 (the gate fails) held; E2 and E4 partial; E5
+(freeze fractions) failed.
+
+**Reading.**
+- The hand-written veto keeps all three fair pairs present by churn, not by island stability: fair-to-fair re-pairing
+  at indifference rotates islands among the members while exits from the set are refused. The earlier reading that
+  "locked islands reject mismatched immigrants" (RESULTS "Dominance contracts and refusal on islands"; the explainer
+  "Stable Sets on Islands") is wrong in this model.
+- A farsighted consent table with weak consent (a supplied plug-in, not yet a weak-consent fixed point or a guard that
+  evolving programs reach) meets the RS's stated target in one connected component at generation 10,000 under the L1
+  founders: 1.00 / 1.00 / 0.90 at mN = 0.01 / 0.1 / 1. Establishment from uncoordinated founders, survival curves and
+  hazards were not measured (the main panel did not run).
+- Whether coverage by churn, with islands changing member about every 150 generations at mN = 1, counts as "all stable
+  sets show up" is the RS's call.
+- *Caveats:* finite N and I, ε = 0, 40 runs, 10,000 generations; gKRw is a plug-in; the freeze arms are approximations;
+  the mN = 0.1 exemption share straddles the 0.5 rule.
 
 ## Not done
 
