@@ -246,6 +246,9 @@ def _pd_cell(c, prov, kw, name):
     c.name = name; c.headline = 'pcc'
 
 
+_SA_ORIG = None
+
+
 def make_cell(name, N):
     """solver_audit.make_cell plus the cells of this audit.  Names: pd-modal6, pd-modal8 (free modal arm, published
     eager_poly=True), pd-kb<b> (K at n = 8, budget b, eager_poly=False), pd-weakdollar7 / dollar-weak7 (weak n = 7 dollar)."""
@@ -253,7 +256,23 @@ def make_cell(name, N):
     if name in ('pd-modal6', 'pd-modal8'):
         import modal as MM
         c = SA.Cell()
-        _pd_cell(c, MM.build(int(name[-1]))[3], dict(w=0.3), name)
+        # published modal_limN cells used eager_poly=True (hours at n = 8); priced_limN c = 0 (eager_poly=False) agrees to 1e-5
+        _pd_cell(c, MM.build(int(name[-1]))[3], dict(w=0.3, eager_poly=(name == 'pd-modal6')), name)
+    elif name.startswith('pd-pr') and '-c' in name:          # pd-pr8-lazy-c0.1: priced arm, n = 8, lazy pricing, c = 0.1
+        import modal as MM
+        _, nn, pricing, cc = name.split('-')
+        c = SA.Cell()
+        _pd_cell(c, MM.build_priced(int(nn[2:]), float(cc[1:]), pricing=pricing)[3], dict(w=0.3, eager_poly=False), name)
+    elif name.startswith('pd-fr-'):                            # pd-fr-mu-n8-d0.01: drift-closure fringe (src/fringe.py)
+        import fringe as FR
+        _, _, kind, nn, dd = name.split('-')
+        c = SA.Cell()
+        _pd_cell(c, FR.build_variant(int(nn[1:]), float(dd[1:]), kind, None, ())[1], dict(w=0.3, eager_poly=False), name)
+    elif name.startswith('pd-cert-'):                          # pd-cert-lazycert0-n8-c0.01
+        import cert_priced as CP
+        _, _, pricing, nn, cc = name.split('-')
+        c = SA.Cell()
+        _pd_cell(c, CP.build_cert(int(nn[1:]), float(cc[1:]), pricing=pricing)[3], dict(w=0.3, eager_poly=False), name)
     elif name.startswith('pd-kb'):
         import k_at_n8 as K8
         c = SA.Cell()
@@ -271,7 +290,7 @@ def make_cell(name, N):
         c.chain_kw = dict(w=0.3, theta=1e-7, max_states=30000, eager_poly=False)
         c.headlines = ('eff', 'half'); c.twin_ok = True
     else:
-        return SA.make_cell(name, N)
+        return _SA_ORIG(name, N)
     c.N = N
     c.id2c = {int(p): k for k, p in enumerate(c.cid)}
     return c
@@ -281,7 +300,9 @@ def sa_run(name, N, log_theta=math.log(1e-14), max_states=20000, twins=False, cl
     """Stages (a), (b), (d) and optionally (e) of an M-status cell via solver_audit.run_cell (published configuration
     re-run exactly, then a closure-seeded log-domain re-solve), with this module's cell list."""
     import solver_audit as SA
+    global _SA_ORIG
     old_make, old_out = SA.make_cell, SA.OUT
+    _SA_ORIG = old_make
     SA.make_cell = make_cell
     SA.OUT = SCRATCH
     try:
@@ -290,6 +311,46 @@ def sa_run(name, N, log_theta=math.log(1e-14), max_states=20000, twins=False, cl
     finally:
         SA.make_cell, SA.OUT = old_make, old_out
     return res
+
+
+def sa_bounded(name, N, log_theta=math.log(1e-14), max_states=20000, twins=False, verbose=False):
+    """Stages (a), (b) and the bounded (d) of the spec for an M-status cell, without the all-pairs/all-triples enumeration of
+    solver_audit.run_cell (which costs an hour at K ~ 600): (a) the published Chain re-run; (b) the LogChain on the same
+    construction at log_theta (every monomorphic class expanded, their targets, then inflow rounds up to max_states), seeded
+    with the published chain's polymorphic states; (d) the polymorphic states reached from the recurrent monomorphic classes are
+    exactly the targets that expansion creates, each tested against every admissible invader by the same expansion."""
+    import solver_audit as SA
+    from chain import Chain
+    from chain_log import LogChain
+    t0 = time.time()
+    global _SA_ORIG
+    if _SA_ORIG is None:
+        _SA_ORIG = SA.make_cell
+    c = make_cell(name, N)
+    pch = Chain(c.provider(), N=N, **c.chain_kw).explore()
+    pst = SA.stat_of(c, pch, pch.keys_list, pch.pi)
+    seeds = []
+    for k in pch.trans:
+        ids_, x_, kind_ = pch.states[k]
+        if kind_ == 'poly':
+            seeds.append((list(ids_), list(x_)))
+    fch = LogChain(c.provider(), N=N, Ufull=c.U if twins else None, twins=twins, theta=1.0, max_states=10 ** 9,
+                   **{k: v for k, v in c.chain_kw.items() if k in ('w',)})
+    fch.explore_log(extra_states=seeds, log_theta=log_theta, max_states=max_states + len(seeds), verbose=verbose, layer_mask=[False] * len(seeds))
+    keys_all, lpi_all, info, out_un, rec = fch.solve_sparse()
+    keys = [keys_all[i] for i in rec]
+    lpi = lpi_all[rec]
+    pi = np.exp(lpi)
+    st = SA.stat_of(c, fch, keys, pi)
+    npoly = sum(1 for k in keys if len(fch.states[k][0]) > 1)
+    return dict(cell=name, N=N, K=int(len(c.mu)), published=SA.PUBLISHED.get((name, N)), rerun_stat=pst, rerun_n_expanded=len(pch.trans),
+                rerun_n_states=len(pch.states), rerun_cut_flow=float(pch.cut_flow), rerun_indeterminate=len(pch.indeterminate),
+                rerun_n_terminal=len(pch.terminal), resolve_stat=st, resolve_n_states=len(keys), resolve_n_expanded=len(fch.trans),
+                resolve_n_seeded=len(seeds), resolve_log10_cut=float(fch.log_cut / math.log(10)) if np.isfinite(fch.log_cut) else None,
+                resolve_n_cand_left=int(fch.n_cand_left), resolve_mass_poly=float(sum(p for k, p in zip(keys, pi) if len(fch.states[k][0]) > 1)),
+                resolve_n_recurrent_poly=npoly, twins=twins, twin_moves=int(fch.n_twin_moves), resolve_closed=info,
+                resolve_top=[(SA.desc(c, fch, keys[i]), float(pi[i])) for i in np.argsort(-pi)[:5]],
+                log10_theta=log_theta / math.log(10), max_states=max_states, time_s=time.time() - t0, rss_mb=rss_mb())
 
 
 def sa_summary(res):
@@ -354,6 +415,130 @@ def enf_partC(arm, pool, c, N, tie, theta, core_max=2500, promote=1e-5, max_roun
     keep = {k: out.get(k) for k in ('states', 'rel_cut_change', 'rel_cut', 'summary', 'efficiency', 'total_surplus', 'mean_payoff',
                                     'strike_incidence', 'repression_given_strike', 'class_counts', 'cut_flow', 'theta', 'time_s')}
     keep['wall_s'] = time.time() - t0; keep['rss_mb'] = rss_mb(); keep['theta_arg'] = theta
+    return keep
+
+
+UNION_SCRATCH = os.path.join(SCRATCH, 'union')
+
+
+def union_cell(arm, c, N, theta, core_max=2500, promote=1e-5, max_rounds=40, max_states=400000):
+    """Inventory I-23.  union_run.run_chain with its output directory redirected to scratch.  classes_<arm>.npz must be in
+    UNION_SCRATCH (the enforcement run's classes_CC.npz is the quorum arm's class lumping and is copied there; checked by
+    reproducing the published cell)."""
+    import argparse
+    import union_run as UR
+    os.makedirs(UNION_SCRATCH, exist_ok=True)
+    UR.OUT = UNION_SCRATCH
+    args = argparse.Namespace(arm=arm, c=c, N=float(N), w=0.3, theta=theta, max_states=max_states, core_max=core_max, promote=promote,
+                              max_rounds=max_rounds, timing=False)
+    t0 = time.time()
+    UR.run_chain(args)
+    with open(os.path.join(UNION_SCRATCH, '%s_c%g_N%d.json' % (arm, c, N))) as f:
+        out = json.load(f)
+    keep = {k: out.get(k) for k in ('states', 'core', 'rel_cut_change', 'rel_cut', 'summary', 'efficiency', 'mean_payoff', 'theta', 'wage_offered')}
+    keep['wall_s'] = time.time() - t0; keep['rss_mb'] = rss_mb(); keep['theta_arg'] = theta; keep['core_max'] = core_max
+    return keep
+
+
+def glob_lang(d):
+    import glob
+    return sorted(glob.glob(os.path.join(d, 'lang_*.json')))
+
+
+def conc_cell(arm, N, theta, enf='CC', pool=0, c=0.5):
+    """Inventory I-36.  concessions.run_cell(save=False) with the language build forced to one process (the module's
+    build_language pools three processes by default; this audit runs one process per job)."""
+    import concessions as CC
+    import shutil
+    # the module writes its language caches and a lang_*.json into CC.OUT (a tracked directory): redirect to scratch and seed it
+    # with a copy of the tracked json, so that no stored result is touched
+    scratch = os.path.join(SCRATCH, 'conc')
+    os.makedirs(scratch, exist_ok=True)
+    for fn in glob_lang(CC.OUT):
+        dst = os.path.join(scratch, os.path.basename(fn))
+        if not os.path.exists(dst):
+            shutil.copy(fn, dst)
+    CC.OUT = scratch
+    _orig = CC.build_language
+    CC.build_language = lambda a, e, p, cc, procs=1, verbose=True: _orig(a, e, p, cc, procs=1, verbose=verbose)
+    t0 = time.time()
+    out, ch, C = CC.run_cell(arm, enf=enf, pool=pool, c=c, N=float(N), theta=theta, save=False)
+    keep = {k: out.get(k) for k in ('states', 'core', 'rel_cut_change', 'summary', 'wage_offered', 'wage_paid_both_work', 'efficiency',
+                                    'full_production', 'theta', 'support_size_99', 'solver_check')}
+    keep['support_top'] = [(s['state'], s['pi']) for s in out['support'][:6]]
+    keep['wall_s'] = time.time() - t0; keep['rss_mb'] = rss_mb(); keep['theta_arg'] = theta
+    return keep
+
+
+def rps_cell(arm, N, n=6, D=12, mu='bits', log10theta=-14.0, closure_nodes=6000, max_states=20000, twins=True):
+    """Inventory I-48: rps_run.chain_cell (published: log10 theta -14, closure 6000 nodes, max_states 20000, twins)."""
+    import rps as RP
+    import rps_run as RR
+    t0 = time.time()
+    A = RP.get_arm(arm, n, D, mu)
+    res, _ = RR.chain_cell(A, N, log_theta=log10theta * math.log(10), twins=twins, max_states=max_states, closure_nodes=closure_nodes)
+    st = res['pi_stat']
+    keep = dict(arm=arm, N=N, n=n, D=D, K=res['K'], log10_theta=res['log10_theta'], n_candidates=res['n_candidates'], n_seeded=res['n_seeded'],
+                closure_nodes=res['closure_nodes'], closure_complete=res['closure_complete'], n_expanded=res['n_expanded'],
+                n_recurrent=res['n_recurrent'], log10_cut=res['log10_cut'], n_cand_left=res['n_cand_left'], n_twin_moves=res['n_twin_moves'],
+                e_prog=st.get('e_prog'), e_act=st.get('e_act'), mix_pop=st.get('mix_pop'), forfeit_self=st.get('forfeit_self'),
+                share_X=st.get('share_X'), pi_mass_X=res['pi_mass_X'], top=[(s['state'], s['pi']) for s in res['top_states'][:4]],
+                time_s=time.time() - t0, rss_mb=rss_mb())
+    return keep
+
+
+def rps_priced_cell(arm, c, kind, N, D=12, log10theta=-8.0, closure_nodes=6000, branch=8, att_starts=1000, att_sub=6, max_states=40000, twins=True):
+    """Inventory I-49: rps_priced_run.discover + chain_cell_p (published: log10 theta -8, closure 6000 nodes branch 8,
+    1000-start attractor search of support <= 6, max_states 40000, twins)."""
+    import rps as RP
+    import rps_priced as PP
+    import rps_priced_run as RPP
+    t0 = time.time()
+    b = PP.load_base(arm, 6, D)
+    A = PP.make_arm(b, c, kind)
+    Aex = emap = None
+    if arm in ('pure', 'sample', 'matched', 'exact'):
+        Aex = PP.get_aex(c, kind, D)
+        emap = PP.embed_priced(A, Aex)
+    disc = RPP.discover(A, att_starts=att_starts, att_sub=att_sub, closure_nodes=closure_nodes, branch=branch)
+    res = RPP.chain_cell_p(A, N, Aex, emap, disc, log_theta=log10theta * math.log(10), twins=twins, max_states=max_states)
+    st = res['pi_stat']
+    keep = dict(arm=arm, c=c, kind=kind, N=N, D=D, K=res['K'], log10_theta=res['log10_theta'], n_seeded=disc['info']['n_seeded'],
+                closure_complete=disc['info']['closure_complete'], closure_nodes=disc['info']['closure_nodes'],
+                n_attractor_new=disc['info']['n_attractor_search_new'], n_expanded=res['n_expanded'], n_recurrent=res['n_recurrent'],
+                log10_cut=res['log10_cut'], n_cand_left=res['n_cand_left'], n_twin_moves=res['n_twin_moves'],
+                e_prog=st.get('e_prog'), e_gross=st.get('e_gross'), mix_pop=st.get('mix_pop'), forfeit_self=st.get('forfeit_self'),
+                share_X=st.get('share_X'), share_readers=st.get('share_readers'), poly_mass=res['pi_polymorphic_mass'],
+                top=[(s['state'], s['pi']) for s in res['top_states'][:4]], time_s=time.time() - t0, rss_mb=rss_mb())
+    return keep
+
+
+def md_limN(arm, N, theta, twins=False, deep_types=3):
+    """Inventory I-29/I-30: modal_dollar.limN_run (the published seeded log-domain chain: all K monomorphic classes, the
+    <= 3-class deep states plus one layer, log_theta = ln theta; published theta 1e-7 and 1e-9, twins off)."""
+    import modal_dollar as MD
+    t0 = time.time()
+    d = MD.data(arm, 7)
+    deep = MD.deep_states(d, deep_types)
+    r = MD.limN_run(arm, N, math.log(theta), deep=deep, twins=twins)
+    keep = {k: r.get(k) for k in ('arm', 'N', 'twins', 'log10_theta', 'n_states', 'log10_cut', 'n_deep', 'P_efficient', 'E_max', 'mean_pay')}
+    for nm_ in ('effset', 'greedy', 'deep'):
+        keep[nm_ + '_mass'] = r[nm_].get('mass')
+    keep['top_states'] = [(s['state'], s['pi']) for s in r['top_states'][:4]]
+    keep['wall_s'] = time.time() - t0; keep['rss_mb'] = rss_mb()
+    return keep
+
+
+def chk_onepop(arm, game, N, max_states, log_theta=math.log(1e-14), twins=True):
+    """Inventory I-42: fixed_role_chicken.onepop_chain with an explicit max_states (published 3000 + seeds)."""
+    import fixed_role_chicken as F
+    t0 = time.time()
+    r = F.onepop_chain(arm, game, N, log_theta=log_theta, twins=twins, max_states=max_states)
+    keep = {k: r.get(k) for k in ('arm', 'game', 'N', 'twins', 'log10_theta', 'n_candidates', 'n_seeded', 'closure_nodes', 'closure_complete',
+                                  'n_states', 'log10_cut', 'n_cand_left', 'pay_per_player', 'efficiency', 'StSt', 'asym', 'SwSw',
+                                  'pi_by_class', 'top_exit_log10')}
+    keep['support_top'] = [(s['state'], s['pi']) for s in r['support'][:4]]
+    keep['max_states'] = max_states; keep['time_s'] = time.time() - t0; keep['rss_mb'] = rss_mb()
     return keep
 
 

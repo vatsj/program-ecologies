@@ -106,9 +106,87 @@ def cmd_enf(a):
     X.log(cell, 'theta', a.theta, 'states', out['states'], 'rel_cut_change %.4f' % out['rel_cut_change'], out['summary'], 'eff', out['efficiency'], '%.0fs' % out['wall_s'])
 
 
+def cmd_union(a):
+    cell = 'union_%s_c%g_N%d' % (a.arm, a.c, a.N)
+    out = X.union_cell(a.arm, a.c, a.N, a.theta, core_max=a.core_max)
+    X.record(cell, 'theta%g_core%d' % (a.theta, a.core_max), out)
+    X.log(cell, 'theta', a.theta, 'states', out['states'], 'rel_cut_change %.4f' % (out['rel_cut_change'] or float('nan')), out['summary'], '%.0fs' % out['wall_s'])
+
+
+def cmd_conc(a):
+    cell = 'conc_%s_%s_c%g_N%d' % (a.arm, a.enf, a.c, a.N)
+    out = X.conc_cell(a.arm, a.N, a.theta, enf=a.enf, pool=a.pool, c=a.c)
+    X.record(cell, 'theta%g' % a.theta, out)
+    X.log(cell, 'theta', a.theta, 'states', out['states'], 'rel_cut_change %.4f' % out['rel_cut_change'], out['summary'], '%.0fs' % out['wall_s'])
+
+
+def cmd_chk(a):
+    cell = 'chk_%s_%s_N%d' % (a.arm, a.game, a.N)
+    out = X.chk_onepop(a.arm, a.game, a.N, a.max_states, log_theta=math.log(a.theta), twins=not a.lumped)
+    X.record(cell, 'cap%d_th%g%s' % (a.max_states, a.theta, '_lumped' if a.lumped else ''), out)
+    X.log(cell, 'cap', a.max_states, 'states', out['n_states'], 'left', out['n_cand_left'], 'log10cut', out['log10_cut'],
+          'pay %.4f eff %.4f' % (out['pay_per_player'], out['efficiency']), '%.0fs' % out['time_s'])
+
+
+def cmd_mdlimn(a):
+    cell = 'mdlimn_%s_N%d' % (a.arm, a.N)
+    out = X.md_limN(a.arm, a.N, a.theta, twins=a.twins)
+    X.record(cell, 'th%g%s' % (a.theta, '_twins' if a.twins else '_lumped'), out)
+    X.log(cell, 'theta', a.theta, 'twins', a.twins, 'P_eff %.4f' % out['P_efficient'], 'states', out['n_states'], 'log10cut', out['log10_cut'],
+          'effset %.3f deep %.3f greedy %.3f' % (out['effset_mass'], out['deep_mass'], out['greedy_mass']), '%.0fs' % out['wall_s'])
+
+
+def cmd_rps(a):
+    cell = 'rps_%s_D%d_n%d_N%d' % (a.arm, a.D, a.n, a.N)
+    out = X.rps_cell(a.arm, a.N, n=a.n, D=a.D, log10theta=a.log10theta, closure_nodes=a.closure_nodes, max_states=a.max_states)
+    X.record(cell, 'lt%g_cl%d' % (a.log10theta, a.closure_nodes), out)
+    X.log(cell, 'e_prog %.4f e_act %.4f mix %.3f X %.3f' % (out['e_prog'], out['e_act'], out['mix_pop'], out['share_X']), 'rec', out['n_recurrent'],
+          'cut', out['log10_cut'], 'left', out['n_cand_left'], 'closure_complete', out['closure_complete'], '%.0fs' % out['time_s'])
+
+
+def cmd_rpsp(a):
+    cell = 'rpsp_%s_%s_c%g_D%d_N%d' % (a.arm, a.kind, a.c, a.D, a.N)
+    out = X.rps_priced_cell(a.arm, a.c, a.kind, a.N, D=a.D, log10theta=a.log10theta, closure_nodes=a.closure_nodes, branch=a.branch,
+                            att_starts=a.att_starts, max_states=a.max_states)
+    X.record(cell, 'lt%g_cl%d_b%d_att%d' % (a.log10theta, a.closure_nodes, a.branch, a.att_starts), out)
+    X.log(cell, 'e_prog %.4f e_gross %.4f mix %.3f X %.3f poly %.4f' % (out['e_prog'], out['e_gross'], out['mix_pop'], out['share_X'] or 0, out['poly_mass']),
+          'rec', out['n_recurrent'], 'cut', out['log10_cut'], 'left', out['n_cand_left'], 'closure_complete', out['closure_complete'], '%.0fs' % out['time_s'])
+
+
+def cmd_sab(a):
+    cell = 'sb_%s_N%d' % (a.name, a.N)
+    out = X.sa_bounded(a.name, a.N, log_theta=math.log(a.theta), max_states=a.max_states, twins=a.twins, verbose=a.verbose)
+    X.record(cell, 'b_twins' if a.twins else 'b_lumped', out)
+    X.log(cell, 'twins' if a.twins else 'lumped', out['rerun_stat'], '->', out['resolve_stat'], 'states', out['resolve_n_states'],
+          'log10cut', out['resolve_log10_cut'], 'left', out['resolve_n_cand_left'], 'poly %.2e' % out['resolve_mass_poly'], '%.0fs' % out['time_s'])
+
+
 def main():
     ap = argparse.ArgumentParser()
     sp = ap.add_subparsers(dest='cmd')
+    sb = sp.add_parser('sab')
+    sb.add_argument('name'); sb.add_argument('N', type=int); sb.add_argument('--theta', type=float, default=1e-14)
+    sb.add_argument('--max_states', type=int, default=20000); sb.add_argument('--twins', action='store_true'); sb.add_argument('--verbose', action='store_true')
+    rp = sp.add_parser('rps')
+    rp.add_argument('arm'); rp.add_argument('N', type=int); rp.add_argument('--n', type=int, default=6); rp.add_argument('--D', type=int, default=12)
+    rp.add_argument('--log10theta', type=float, default=-14.0); rp.add_argument('--closure_nodes', type=int, default=6000)
+    rp.add_argument('--max_states', type=int, default=20000)
+    pp = sp.add_parser('rpsp')
+    pp.add_argument('arm'); pp.add_argument('N', type=int); pp.add_argument('--c', type=float, required=True); pp.add_argument('--kind', default='depth')
+    pp.add_argument('--D', type=int, default=12); pp.add_argument('--log10theta', type=float, default=-8.0)
+    pp.add_argument('--closure_nodes', type=int, default=6000); pp.add_argument('--branch', type=int, default=8)
+    pp.add_argument('--att_starts', type=int, default=1000); pp.add_argument('--max_states', type=int, default=40000)
+    ml = sp.add_parser('mdlimn')
+    ml.add_argument('arm'); ml.add_argument('N', type=int); ml.add_argument('--theta', type=float, default=1e-7); ml.add_argument('--twins', action='store_true')
+    ck = sp.add_parser('chk')
+    ck.add_argument('arm'); ck.add_argument('game'); ck.add_argument('N', type=int); ck.add_argument('--max_states', type=int, default=3000)
+    ck.add_argument('--theta', type=float, default=1e-14); ck.add_argument('--lumped', action='store_true')
+    cn = sp.add_parser('conc')
+    cn.add_argument('arm'); cn.add_argument('N', type=int); cn.add_argument('--enf', default='CC'); cn.add_argument('--pool', type=int, default=0)
+    cn.add_argument('--c', type=float, default=0.5); cn.add_argument('--theta', type=float, required=True)
+    un = sp.add_parser('union')
+    un.add_argument('arm'); un.add_argument('N', type=int); un.add_argument('--c', type=float, default=0.5)
+    un.add_argument('--theta', type=float, required=True); un.add_argument('--core_max', type=int, default=2500)
     en = sp.add_parser('enf')
     en.add_argument('arm'); en.add_argument('pool', type=int); en.add_argument('N', type=int); en.add_argument('--c', type=float, default=0.5)
     en.add_argument('--tie', default='whack'); en.add_argument('--theta', type=float, required=True)
@@ -136,7 +214,7 @@ def main():
     s = sp.add_parser('solvercheck')
     s.add_argument('game'); s.add_argument('arm'); s.add_argument('c', type=float); s.add_argument('N', type=int)
     a = ap.parse_args()
-    {'m2cell': cmd_m2cell, 'solvercheck': cmd_solvercheck, 'ult': cmd_ult, 'mdfixed': cmd_mdfixed, 'sacell': cmd_sacell, 'd3': cmd_d3, 'enf': cmd_enf}[a.cmd](a)
+    {'m2cell': cmd_m2cell, 'solvercheck': cmd_solvercheck, 'ult': cmd_ult, 'mdfixed': cmd_mdfixed, 'sacell': cmd_sacell, 'd3': cmd_d3, 'enf': cmd_enf, 'union': cmd_union, 'conc': cmd_conc, 'chk': cmd_chk, 'mdlimn': cmd_mdlimn, 'rps': cmd_rps, 'rpsp': cmd_rpsp, 'sab': cmd_sab}[a.cmd](a)
 
 
 if __name__ == '__main__':

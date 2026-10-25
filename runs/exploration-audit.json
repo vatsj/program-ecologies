@@ -1,0 +1,1954 @@
+{
+ "rows": [
+  {
+   "group": "control+",
+   "cell": "inspection exact c=0 N=1e4 (24,649 states)",
+   "stat": "mean inspector payoff",
+   "scale": 4.0,
+   "published": -0.471,
+   "note": "positive control: capped -0.0093 reproduces the published -0.009 and the whole space -0.4707 the published -0.471; the 4,000-state point does not reproduce (-0.4708 here against -0.31)",
+   "stages": [
+    {
+     "stage": "a: cap 1,500 (published -0.009)",
+     "value": -0.009317835193153353,
+     "diff_scaled": 0.11542054120171165
+    },
+    {
+     "stage": "b: cap 4,000 (published -0.31)",
+     "value": -0.4707823542866495,
+     "diff_scaled": 5.441142833761958e-05
+    },
+    {
+     "stage": "b: cap 8,000 (published -0.47)",
+     "value": -0.470748206764328,
+     "diff_scaled": 6.294830891799552e-05
+    },
+    {
+     "stage": "b: cap 15,000 (10x)",
+     "value": -0.47074453763549007,
+     "diff_scaled": 6.386559112747658e-05
+    },
+    {
+     "stage": "c: whole space",
+     "value": -0.47074446700751166,
+     "diff_scaled": 6.388324812207913e-05
+    }
+   ],
+   "max_abs_diff_after_repro": 6.388324812207913e-05,
+   "max_abs_diff_any": 0.11542054120171165
+  },
+  {
+   "group": "control-",
+   "cell": "inspection blind c=0 N=100 (289 states, complete)",
+   "stat": "mean inspector payoff",
+   "scale": 4.0,
+   "published": -0.93,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: cap 1,500",
+     "value": -0.9335338909489556,
+     "diff_scaled": -0.0008834727372388773
+    },
+    {
+     "stage": "c: whole space",
+     "value": -0.9335338909489558,
+     "diff_scaled": -0.0008834727372389328
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0008834727372389328,
+   "max_abs_diff_any": 0.0008834727372389328
+  },
+  {
+   "group": "control-",
+   "cell": "inspection blind c=0 N=10000 (289 states, complete)",
+   "stat": "mean inspector payoff",
+   "scale": 4.0,
+   "published": -0.92,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: cap 1,500",
+     "value": -0.9210790007641307,
+     "diff_scaled": -0.00026975019103267495
+    },
+    {
+     "stage": "c: whole space",
+     "value": -0.9210790007641309,
+     "diff_scaled": -0.0002697501910327027
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0002697501910327027,
+   "max_abs_diff_any": 0.0002697501910327027
+  },
+  {
+   "group": "control-caps",
+   "cell": "inspection sample c=0 N=1e4 (6,889 states): caps and seeds against the whole space",
+   "stat": "mean inspector payoff",
+   "scale": 4.0,
+   "published": -0.6423638118075738,
+   "note": "published value = the whole-space value here (RESULTS -0.64 / notes)",
+   "stages": [
+    {
+     "stage": "cap 500",
+     "value": -0.9470707428495213,
+     "diff_scaled": -0.07617673276048686
+    },
+    {
+     "stage": "cap 1,500 published seeds",
+     "value": -0.6432091414416959,
+     "diff_scaled": -0.00021133240853052349
+    },
+    {
+     "stage": "cap 1,500 random seeds 1",
+     "value": -0.6435860833125503,
+     "diff_scaled": -0.00030556787624411164
+    },
+    {
+     "stage": "cap 1,500 random seeds 2",
+     "value": -0.6438835358739688,
+     "diff_scaled": -0.00037993101659875017
+    },
+    {
+     "stage": "cap 1,500 random seeds 3",
+     "value": -0.6446256647995893,
+     "diff_scaled": -0.0005654632480038557
+    },
+    {
+     "stage": "cap 3,000",
+     "value": -0.6423873752357456,
+     "diff_scaled": -5.890857042945008e-06
+    },
+    {
+     "stage": "whole space",
+     "value": -0.6423638118075738,
+     "diff_scaled": 0.0
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0005654632480038557,
+   "max_abs_diff_any": 0.07617673276048686
+  },
+  {
+   "group": "solver-check",
+   "cell": "jump-chain GTH vs dense generator solve: inspection blind c=0 N=1e4",
+   "stat": "TV distance",
+   "scale": 1.0,
+   "published": 0.0,
+   "note": "",
+   "stages": [
+    {
+     "stage": "TV (full GTH, generator)",
+     "value": 1.2416182297094816e-15,
+     "diff_scaled": 1.2416182297094816e-15
+    },
+    {
+     "stage": "TV (log GTH, jump GTH)",
+     "value": 7.748133432195124e-16,
+     "diff_scaled": 7.748133432195124e-16
+    }
+   ],
+   "max_abs_diff_after_repro": 7.748133432195124e-16,
+   "max_abs_diff_any": 1.2416182297094816e-15
+  },
+  {
+   "group": "solver-check",
+   "cell": "jump-chain GTH vs dense generator solve: inspection sample c=0 N=1e4",
+   "stat": "TV distance",
+   "scale": 1.0,
+   "published": 0.0,
+   "note": "",
+   "stages": [
+    {
+     "stage": "TV (full GTH, generator)",
+     "value": 2.778706761122474e-14,
+     "diff_scaled": 2.778706761122474e-14
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 2.778706761122474e-14
+  },
+  {
+   "group": "I-05",
+   "cell": "ultimatum ult mutual N=100",
+   "stat": "rejection rate",
+   "scale": 1.0,
+   "published": 0.109430178401042,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: reproduced",
+     "value": 0.109430178401042,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10, cap 200k",
+     "value": 0.10945964407071823,
+     "diff_scaled": 2.9465669676237427e-05
+    },
+    {
+     "stage": "c: all pairs (1936)",
+     "value": 0.10945968193853006,
+     "diff_scaled": 2.950353748806811e-05
+    }
+   ],
+   "max_abs_diff_after_repro": 2.950353748806811e-05,
+   "max_abs_diff_any": 2.950353748806811e-05
+  },
+  {
+   "group": "I-05",
+   "cell": "ultimatum ult mutual N=100",
+   "stat": "proposer share",
+   "scale": 1.0,
+   "published": 0.5399644230965517,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: reproduced",
+     "value": 0.5399644230965517,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10, cap 200k",
+     "value": 0.5398050131413176,
+     "diff_scaled": -0.00015940995523411328
+    },
+    {
+     "stage": "c: all pairs (1936)",
+     "value": 0.5398047144317926,
+     "diff_scaled": -0.00015970866475911727
+    }
+   ],
+   "max_abs_diff_after_repro": 0.00015970866475911727,
+   "max_abs_diff_any": 0.00015970866475911727
+  },
+  {
+   "group": "I-05",
+   "cell": "ultimatum ult mutual N=100",
+   "stat": "responder share",
+   "scale": 1.0,
+   "published": 0.3506053985023572,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: reproduced",
+     "value": 0.3506053985023572,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10, cap 200k",
+     "value": 0.3507353427877584,
+     "diff_scaled": 0.00012994428540119562
+    },
+    {
+     "stage": "c: all pairs (1936)",
+     "value": 0.350735603629472,
+     "diff_scaled": 0.0001302051271147575
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0001302051271147575,
+   "max_abs_diff_any": 0.0001302051271147575
+  },
+  {
+   "group": "I-05",
+   "cell": "ultimatum ult onesided N=100",
+   "stat": "rejection rate",
+   "scale": 1.0,
+   "published": 0.11010458452149932,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: reproduced",
+     "value": 0.11010458452149932,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10, cap 200k",
+     "value": 0.11011602004820847,
+     "diff_scaled": 1.14355267091526e-05
+    },
+    {
+     "stage": "c: all pairs (432)",
+     "value": 0.11011604087991508,
+     "diff_scaled": 1.1456358415762313e-05
+    }
+   ],
+   "max_abs_diff_after_repro": 1.1456358415762313e-05,
+   "max_abs_diff_any": 1.1456358415762313e-05
+  },
+  {
+   "group": "I-05",
+   "cell": "ultimatum ult onesided N=100",
+   "stat": "proposer share",
+   "scale": 1.0,
+   "published": 0.5375765339030784,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: reproduced",
+     "value": 0.5375765339030784,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10, cap 200k",
+     "value": 0.5372759227249834,
+     "diff_scaled": -0.0003006111780949894
+    },
+    {
+     "stage": "c: all pairs (432)",
+     "value": 0.5372758363202239,
+     "diff_scaled": -0.0003006975828544478
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0003006975828544478,
+   "max_abs_diff_any": 0.0003006975828544478
+  },
+  {
+   "group": "I-05",
+   "cell": "ultimatum ult onesided N=100",
+   "stat": "responder share",
+   "scale": 1.0,
+   "published": 0.35231888157475,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: reproduced",
+     "value": 0.35231888157475,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10, cap 200k",
+     "value": 0.3526080572259002,
+     "diff_scaled": 0.0002891756511502197
+    },
+    {
+     "stage": "c: all pairs (432)",
+     "value": 0.3526081227989543,
+     "diff_scaled": 0.0002892412242043174
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0002892412242043174,
+   "max_abs_diff_any": 0.0002892412242043174
+  },
+  {
+   "group": "I-06",
+   "cell": "ultimatum ult_out mutual N=100",
+   "stat": "rejection rate",
+   "scale": 1.0,
+   "published": 0.21564106188556884,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: reproduced",
+     "value": 0.21564106188556884,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10, cap 200k",
+     "value": 0.21553210810410608,
+     "diff_scaled": -0.00010895378146275059
+    },
+    {
+     "stage": "c: all pairs (1980)",
+     "value": 0.21553206294232316,
+     "diff_scaled": -0.00010899894324567505
+    }
+   ],
+   "max_abs_diff_after_repro": 0.00010899894324567505,
+   "max_abs_diff_any": 0.00010899894324567505
+  },
+  {
+   "group": "I-06",
+   "cell": "ultimatum ult_out mutual N=100",
+   "stat": "proposer share",
+   "scale": 1.0,
+   "published": 0.37053969795123726,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: reproduced",
+     "value": 0.37053969795123726,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10, cap 200k",
+     "value": 0.3705981872018356,
+     "diff_scaled": 5.848925059837029e-05
+    },
+    {
+     "stage": "c: all pairs (1980)",
+     "value": 0.3705982174341591,
+     "diff_scaled": 5.8519482921848276e-05
+    }
+   ],
+   "max_abs_diff_after_repro": 5.8519482921848276e-05,
+   "max_abs_diff_any": 5.8519482921848276e-05
+  },
+  {
+   "group": "I-06",
+   "cell": "ultimatum ult_out mutual N=100",
+   "stat": "responder share",
+   "scale": 1.0,
+   "published": 0.478511558712429,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: reproduced",
+     "value": 0.478511558712429,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10, cap 200k",
+     "value": 0.4785293371088952,
+     "diff_scaled": 1.777839646621704e-05
+    },
+    {
+     "stage": "c: all pairs (1980)",
+     "value": 0.4785293384898216,
+     "diff_scaled": 1.777977739259029e-05
+    }
+   ],
+   "max_abs_diff_after_repro": 1.777977739259029e-05,
+   "max_abs_diff_any": 1.777977739259029e-05
+  },
+  {
+   "group": "I-23",
+   "cell": "union quorum c=0.5 N=1000",
+   "stat": "fair",
+   "scale": 1.0,
+   "published": 0.0032347939336212586,
+   "note": "theta 1e-11 reached 42,007 ring states with relative cut 0.175 after 81 min in round 1 and was stopped (unconverged); theta 1e-12 not run",
+   "stages": [
+    {
+     "stage": "a: theta 1e-9",
+     "value": 0.0032347939336212586,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10",
+     "value": null,
+     "diff_scaled": null
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "I-23",
+   "cell": "union quorum c=0.5 N=1000",
+   "stat": "intermediate",
+   "scale": 1.0,
+   "published": 0.013204440527764367,
+   "note": "theta 1e-11 reached 42,007 ring states with relative cut 0.175 after 81 min in round 1 and was stopped (unconverged); theta 1e-12 not run",
+   "stages": [
+    {
+     "stage": "a: theta 1e-9",
+     "value": 0.013204440527764367,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10",
+     "value": null,
+     "diff_scaled": null
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "I-23",
+   "cell": "union quorum c=0.5 N=1000",
+   "stat": "zero wage",
+   "scale": 1.0,
+   "published": 0.47579098580744583,
+   "note": "theta 1e-11 reached 42,007 ring states with relative cut 0.175 after 81 min in round 1 and was stopped (unconverged); theta 1e-12 not run",
+   "stages": [
+    {
+     "stage": "a: theta 1e-9",
+     "value": 0.47579098580744583,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10",
+     "value": null,
+     "diff_scaled": null
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "I-23",
+   "cell": "union quorum c=0.5 N=10000",
+   "stat": "fair",
+   "scale": 1.0,
+   "published": 0.0024756127772885324,
+   "note": "theta 1e-11 reached 42,007 ring states with relative cut 0.175 after 81 min in round 1 and was stopped (unconverged); theta 1e-12 not run",
+   "stages": [
+    {
+     "stage": "a: theta 1e-9",
+     "value": 0.0024756127772885324,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10",
+     "value": 0.0024853405118002527,
+     "diff_scaled": 9.727734511720283e-06
+    }
+   ],
+   "max_abs_diff_after_repro": 9.727734511720283e-06,
+   "max_abs_diff_any": 9.727734511720283e-06
+  },
+  {
+   "group": "I-23",
+   "cell": "union quorum c=0.5 N=10000",
+   "stat": "intermediate",
+   "scale": 1.0,
+   "published": 0.00924333603473665,
+   "note": "theta 1e-11 reached 42,007 ring states with relative cut 0.175 after 81 min in round 1 and was stopped (unconverged); theta 1e-12 not run",
+   "stages": [
+    {
+     "stage": "a: theta 1e-9",
+     "value": 0.00924333603473665,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10",
+     "value": 0.008848751131800402,
+     "diff_scaled": -0.00039458490293624825
+    }
+   ],
+   "max_abs_diff_after_repro": 0.00039458490293624825,
+   "max_abs_diff_any": 0.00039458490293624825
+  },
+  {
+   "group": "I-23",
+   "cell": "union quorum c=0.5 N=10000",
+   "stat": "zero wage",
+   "scale": 1.0,
+   "published": 0.4783639698783213,
+   "note": "theta 1e-11 reached 42,007 ring states with relative cut 0.175 after 81 min in round 1 and was stopped (unconverged); theta 1e-12 not run",
+   "stages": [
+    {
+     "stage": "a: theta 1e-9",
+     "value": 0.4783639698783213,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-10",
+     "value": 0.4810788806419181,
+     "diff_scaled": 0.0027149107635968117
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0027149107635968117,
+   "max_abs_diff_any": 0.0027149107635968117
+  },
+  {
+   "group": "I-24C",
+   "cell": "enforcement RR pool0 N=1e3",
+   "stat": "fair",
+   "scale": 1.0,
+   "published": 0.0001037820165332015,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: theta 1e-11",
+     "value": 0.0001037820165332015,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-13",
+     "value": 0.00010388638719399449,
+     "diff_scaled": 1.0437066079299064e-07
+    }
+   ],
+   "max_abs_diff_after_repro": 1.0437066079299064e-07,
+   "max_abs_diff_any": 1.0437066079299064e-07
+  },
+  {
+   "group": "I-24C",
+   "cell": "enforcement RR pool0 N=1e3",
+   "stat": "intermediate",
+   "scale": 1.0,
+   "published": 0.7533860540289019,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: theta 1e-11",
+     "value": 0.7533860540289019,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-13",
+     "value": 0.7533885460265325,
+     "diff_scaled": 2.4919976305826097e-06
+    }
+   ],
+   "max_abs_diff_after_repro": 2.4919976305826097e-06,
+   "max_abs_diff_any": 2.4919976305826097e-06
+  },
+  {
+   "group": "I-24C",
+   "cell": "enforcement RR pool0 N=1e3",
+   "stat": "zero wage",
+   "scale": 1.0,
+   "published": 0.24147283744912224,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: theta 1e-11",
+     "value": 0.24147283744912224,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-13",
+     "value": 0.24147018752886407,
+     "diff_scaled": -2.649920258168681e-06
+    }
+   ],
+   "max_abs_diff_after_repro": 2.649920258168681e-06,
+   "max_abs_diff_any": 2.649920258168681e-06
+  },
+  {
+   "group": "I-24C",
+   "cell": "enforcement RR pool0 N=1e4",
+   "stat": "fair",
+   "scale": 1.0,
+   "published": 5.363234211506813e-06,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: theta 1e-11",
+     "value": 5.363234211506813e-06,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-13",
+     "value": 5.386873203705352e-06,
+     "diff_scaled": 2.363899219853866e-08
+    }
+   ],
+   "max_abs_diff_after_repro": 2.363899219853866e-08,
+   "max_abs_diff_any": 2.363899219853866e-08
+  },
+  {
+   "group": "I-24C",
+   "cell": "enforcement RR pool0 N=1e4",
+   "stat": "intermediate",
+   "scale": 1.0,
+   "published": 0.7515731994707506,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: theta 1e-11",
+     "value": 0.7515731994707506,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-13",
+     "value": 0.751567450514021,
+     "diff_scaled": -5.748956729667576e-06
+    }
+   ],
+   "max_abs_diff_after_repro": 5.748956729667576e-06,
+   "max_abs_diff_any": 5.748956729667576e-06
+  },
+  {
+   "group": "I-24C",
+   "cell": "enforcement RR pool0 N=1e4",
+   "stat": "zero wage",
+   "scale": 1.0,
+   "published": 0.24789216403101444,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: theta 1e-11",
+     "value": 0.24789216403101444,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-13",
+     "value": 0.2478978662853557,
+     "diff_scaled": 5.702254341266588e-06
+    }
+   ],
+   "max_abs_diff_after_repro": 5.702254341266588e-06,
+   "max_abs_diff_any": 5.702254341266588e-06
+  },
+  {
+   "group": "I-24C",
+   "cell": "enforcement RC pool1 N=1e3",
+   "stat": "fair",
+   "scale": 1.0,
+   "published": 1.3050868438835603e-05,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: theta 1e-11",
+     "value": 1.3050868438835603e-05,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-13",
+     "value": 1.3095210991289001e-05,
+     "diff_scaled": 4.434255245339803e-08
+    }
+   ],
+   "max_abs_diff_after_repro": 4.434255245339803e-08,
+   "max_abs_diff_any": 4.434255245339803e-08
+  },
+  {
+   "group": "I-24C",
+   "cell": "enforcement RC pool1 N=1e3",
+   "stat": "intermediate",
+   "scale": 1.0,
+   "published": 0.0003194473868128828,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: theta 1e-11",
+     "value": 0.0003194473868128828,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-13",
+     "value": 0.0003187890101548286,
+     "diff_scaled": -6.583766580541993e-07
+    }
+   ],
+   "max_abs_diff_after_repro": 6.583766580541993e-07,
+   "max_abs_diff_any": 6.583766580541993e-07
+  },
+  {
+   "group": "I-24C",
+   "cell": "enforcement RC pool1 N=1e3",
+   "stat": "zero wage",
+   "scale": 1.0,
+   "published": 0.9996644860192543,
+   "note": "",
+   "stages": [
+    {
+     "stage": "a: theta 1e-11",
+     "value": 0.9996644860192543,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 1e-13",
+     "value": 0.9996650441482191,
+     "diff_scaled": 5.581289648226573e-07
+    }
+   ],
+   "max_abs_diff_after_repro": 5.581289648226573e-07,
+   "max_abs_diff_any": 5.581289648226573e-07
+  },
+  {
+   "group": "I-24C",
+   "cell": "enforcement CC pool0 N=1e3",
+   "stat": "fair",
+   "scale": 1.0,
+   "published": 0.0032347939336212586,
+   "note": "theta 1e-11 reached 42,902 candidates in round 0 and was stopped (not comparable)",
+   "stages": [
+    {
+     "stage": "a: theta 1e-9",
+     "value": 0.0032347939336212586,
+     "diff_scaled": 0.0
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "I-24C",
+   "cell": "enforcement CC pool0 N=1e3",
+   "stat": "intermediate",
+   "scale": 1.0,
+   "published": 0.013204440527764367,
+   "note": "theta 1e-11 reached 42,902 candidates in round 0 and was stopped (not comparable)",
+   "stages": [
+    {
+     "stage": "a: theta 1e-9",
+     "value": 0.013204440527764367,
+     "diff_scaled": 0.0
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "I-24C",
+   "cell": "enforcement CC pool0 N=1e3",
+   "stat": "zero wage",
+   "scale": 1.0,
+   "published": 0.47579098580744583,
+   "note": "theta 1e-11 reached 42,902 candidates in round 0 and was stopped (not comparable)",
+   "stages": [
+    {
+     "stage": "a: theta 1e-9",
+     "value": 0.47579098580744583,
+     "diff_scaled": 0.0
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "I-36",
+   "cell": "concessions P01 N=1e4 (explored fair; cut-corrected fair 0.0020)",
+   "stat": "fair",
+   "scale": 1.0,
+   "published": 0.00855290650352064,
+   "note": "published cut-corrected fair: 0.0020; theta 1e-10 and 1e-11 never finished in the original run either",
+   "stages": [
+    {
+     "stage": "a: theta 1e-9 (rel_cut_change 0.094)",
+     "value": 0.00855290650352064,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 3e-10 (rel_cut_change 0.042)",
+     "value": 0.004999640502757748,
+     "diff_scaled": -0.0035532660007628926
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0035532660007628926,
+   "max_abs_diff_any": 0.0035532660007628926
+  },
+  {
+   "group": "I-36",
+   "cell": "concessions P01 N=1e4 (explored fair; cut-corrected fair 0.0020)",
+   "stat": "intermediate",
+   "scale": 1.0,
+   "published": 0.010252052306412457,
+   "note": "published cut-corrected fair: 0.0020; theta 1e-10 and 1e-11 never finished in the original run either",
+   "stages": [
+    {
+     "stage": "a: theta 1e-9 (rel_cut_change 0.094)",
+     "value": 0.010252052306412457,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 3e-10 (rel_cut_change 0.042)",
+     "value": 0.01168279067008097,
+     "diff_scaled": 0.0014307383636685128
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0014307383636685128,
+   "max_abs_diff_any": 0.0014307383636685128
+  },
+  {
+   "group": "I-36",
+   "cell": "concessions P01 N=1e4 (explored fair; cut-corrected fair 0.0020)",
+   "stat": "zero wage",
+   "scale": 1.0,
+   "published": 0.47932128403571084,
+   "note": "published cut-corrected fair: 0.0020; theta 1e-10 and 1e-11 never finished in the original run either",
+   "stages": [
+    {
+     "stage": "a: theta 1e-9 (rel_cut_change 0.094)",
+     "value": 0.47932128403571084,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: theta 3e-10 (rel_cut_change 0.042)",
+     "value": 0.48022014867473445,
+     "diff_scaled": 0.000898864639023611
+    }
+   ],
+   "max_abs_diff_after_repro": 0.000898864639023611,
+   "max_abs_diff_any": 0.000898864639023611
+  },
+  {
+   "group": "I-32",
+   "cell": "modal fixed-role dollar N=100 (space 42,025)",
+   "stat": "1/2|1/2",
+   "scale": 1.0,
+   "published": 0.339320078016708,
+   "note": "cut 9.8e-4 -> 9.4e-5 (N=100), 5.2e-3 -> 1.0e-6 (N=1000); the whole 42,025-state space does not fit in memory (14 GB)",
+   "stages": [
+    {
+     "stage": "a: 8,000 states",
+     "value": 0.339320078016708,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: 16,000 states",
+     "value": 0.33947465362801715,
+     "diff_scaled": 0.0001545756113091601
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0001545756113091601,
+   "max_abs_diff_any": 0.0001545756113091601
+  },
+  {
+   "group": "I-32",
+   "cell": "modal fixed-role dollar N=100 (space 42,025)",
+   "stat": "1/3-type (both orders)",
+   "scale": 1.0,
+   "published": 0.5328955407411737,
+   "note": "cut 9.8e-4 -> 9.4e-5 (N=100), 5.2e-3 -> 1.0e-6 (N=1000); the whole 42,025-state space does not fit in memory (14 GB)",
+   "stages": [
+    {
+     "stage": "a: 8,000 states",
+     "value": 0.5328955407411737,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: 16,000 states",
+     "value": 0.5329825601528262,
+     "diff_scaled": 8.701941165245586e-05
+    }
+   ],
+   "max_abs_diff_after_repro": 8.701941165245586e-05,
+   "max_abs_diff_any": 8.701941165245586e-05
+  },
+  {
+   "group": "I-32",
+   "cell": "modal fixed-role dollar N=100 (space 42,025)",
+   "stat": "endpoints (both orders)",
+   "scale": 1.0,
+   "published": 0.11891567923536892,
+   "note": "cut 9.8e-4 -> 9.4e-5 (N=100), 5.2e-3 -> 1.0e-6 (N=1000); the whole 42,025-state space does not fit in memory (14 GB)",
+   "stages": [
+    {
+     "stage": "a: 8,000 states",
+     "value": 0.11891567923536892,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: 16,000 states",
+     "value": 0.11866040957488339,
+     "diff_scaled": -0.0002552696604855298
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0002552696604855298,
+   "max_abs_diff_any": 0.0002552696604855298
+  },
+  {
+   "group": "I-32",
+   "cell": "modal fixed-role dollar N=100 (space 42,025)",
+   "stat": "ineff + clash",
+   "scale": 1.0,
+   "published": 0.008868702006751253,
+   "note": "cut 9.8e-4 -> 9.4e-5 (N=100), 5.2e-3 -> 1.0e-6 (N=1000); the whole 42,025-state space does not fit in memory (14 GB)",
+   "stages": [
+    {
+     "stage": "a: 8,000 states",
+     "value": 0.008868702006751253,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b: 16,000 states",
+     "value": 0.008882376644273065,
+     "diff_scaled": 1.3674637521811361e-05
+    }
+   ],
+   "max_abs_diff_after_repro": 1.3674637521811361e-05,
+   "max_abs_diff_any": 1.3674637521811361e-05
+  },
+  {
+   "group": "I-32",
+   "cell": "modal fixed-role dollar N=1000 (space 42,025)",
+   "stat": "1/2|1/2",
+   "scale": 1.0,
+   "published": 0.2922357794953958,
+   "note": "cut 9.8e-4 -> 9.4e-5 (N=100), 5.2e-3 -> 1.0e-6 (N=1000); the whole 42,025-state space does not fit in memory (14 GB)",
+   "stages": [
+    {
+     "stage": "a: 8,000 states",
+     "value": null,
+     "diff_scaled": null
+    },
+    {
+     "stage": "b: 16,000 states",
+     "value": 0.29252455335956273,
+     "diff_scaled": 0.00028877386416692463
+    }
+   ],
+   "max_abs_diff_after_repro": 0.00028877386416692463,
+   "max_abs_diff_any": 0.00028877386416692463
+  },
+  {
+   "group": "I-32",
+   "cell": "modal fixed-role dollar N=1000 (space 42,025)",
+   "stat": "1/3-type (both orders)",
+   "scale": 1.0,
+   "published": 0.4744702982611261,
+   "note": "cut 9.8e-4 -> 9.4e-5 (N=100), 5.2e-3 -> 1.0e-6 (N=1000); the whole 42,025-state space does not fit in memory (14 GB)",
+   "stages": [
+    {
+     "stage": "a: 8,000 states",
+     "value": null,
+     "diff_scaled": null
+    },
+    {
+     "stage": "b: 16,000 states",
+     "value": 0.4746860840514022,
+     "diff_scaled": 0.0002157857902761462
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0002157857902761462,
+   "max_abs_diff_any": 0.0002157857902761462
+  },
+  {
+   "group": "I-32",
+   "cell": "modal fixed-role dollar N=1000 (space 42,025)",
+   "stat": "endpoints (both orders)",
+   "scale": 1.0,
+   "published": 0.23315278764945874,
+   "note": "cut 9.8e-4 -> 9.4e-5 (N=100), 5.2e-3 -> 1.0e-6 (N=1000); the whole 42,025-state space does not fit in memory (14 GB)",
+   "stages": [
+    {
+     "stage": "a: 8,000 states",
+     "value": null,
+     "diff_scaled": null
+    },
+    {
+     "stage": "b: 16,000 states",
+     "value": 0.2326591405541205,
+     "diff_scaled": -0.0004936470953382233
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0004936470953382233,
+   "max_abs_diff_any": 0.0004936470953382233
+  },
+  {
+   "group": "I-32",
+   "cell": "modal fixed-role dollar N=1000 (space 42,025)",
+   "stat": "ineff + clash",
+   "scale": 1.0,
+   "published": 0.00014113459402017033,
+   "note": "cut 9.8e-4 -> 9.4e-5 (N=100), 5.2e-3 -> 1.0e-6 (N=1000); the whole 42,025-state space does not fit in memory (14 GB)",
+   "stages": [
+    {
+     "stage": "a: 8,000 states",
+     "value": null,
+     "diff_scaled": null
+    },
+    {
+     "stage": "b: 16,000 states",
+     "value": 0.00013022203491612274,
+     "diff_scaled": -1.0912559104047585e-05
+    }
+   ],
+   "max_abs_diff_after_repro": 1.0912559104047585e-05,
+   "max_abs_diff_any": 1.0912559104047585e-05
+  },
+  {
+   "group": "I-29",
+   "cell": "one-population dollar n=7 modal N=100",
+   "stat": "P(efficient)",
+   "scale": 1.0,
+   "published": 0.986,
+   "note": "",
+   "stages": [
+    {
+     "stage": "th1e-07_lumped",
+     "value": 0.9858173673277006,
+     "diff_scaled": -0.0001826326722993432
+    },
+    {
+     "stage": "th1e-14_lumped",
+     "value": 0.9858761716675246,
+     "diff_scaled": -0.00012382833247537306
+    }
+   ],
+   "max_abs_diff_after_repro": 0.00012382833247537306,
+   "max_abs_diff_any": 0.0001826326722993432
+  },
+  {
+   "group": "I-29",
+   "cell": "one-population dollar n=7 modal N=30000",
+   "stat": "P(efficient)",
+   "scale": 1.0,
+   "published": 0.653,
+   "note": "",
+   "stages": [
+    {
+     "stage": "th1e-07_lumped",
+     "value": 0.6530653066213318,
+     "diff_scaled": 6.530662133175102e-05
+    },
+    {
+     "stage": "th1e-11_lumped",
+     "value": 0.6530653066213318,
+     "diff_scaled": 6.530662133175102e-05
+    }
+   ],
+   "max_abs_diff_after_repro": 6.530662133175102e-05,
+   "max_abs_diff_any": 6.530662133175102e-05
+  },
+  {
+   "group": "I-29",
+   "cell": "one-population dollar n=7 weak N=1000 (solver-audit pipeline)",
+   "stat": "efficiency",
+   "scale": 1.0,
+   "published": 1.0,
+   "note": "",
+   "stages": [
+    {
+     "stage": "d: closure-seeded, lumped",
+     "value": 0.9999999999999999,
+     "diff_scaled": -1.1102230246251565e-16
+    },
+    {
+     "stage": "e: twin-expanded",
+     "value": 1.0,
+     "diff_scaled": 0.0
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 1.1102230246251565e-16
+  },
+  {
+   "group": "I-29",
+   "cell": "one-population dollar n=7 weak N=10000 (solver-audit pipeline)",
+   "stat": "efficiency",
+   "scale": 1.0,
+   "published": 1.0,
+   "note": "",
+   "stages": [
+    {
+     "stage": "d: closure-seeded, lumped",
+     "value": 1.0,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "e: twin-expanded",
+     "value": 1.0,
+     "diff_scaled": 0.0
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "I-42",
+   "cell": "one-population modal chicken N=100",
+   "stat": "payoff per player",
+   "scale": 12.0,
+   "published": -0.4762845360612073,
+   "note": "published: 2971 states, 3797 candidates left, log10 cut -11.625802459449819",
+   "stages": [
+    {
+     "stage": "cap12000_th1e-14 (12050 states, 4726 candidates left)",
+     "value": -0.3810110736682092,
+     "diff_scaled": 0.007939455199416509
+    }
+   ],
+   "max_abs_diff_after_repro": 0.007939455199416509,
+   "max_abs_diff_any": 0.007939455199416509
+  },
+  {
+   "group": "I-42",
+   "cell": "one-population modal hd3 N=1000",
+   "stat": "payoff per player",
+   "scale": 2.5,
+   "published": 0.23399449915056308,
+   "note": "published: 3005 states, 2542 candidates left, log10 cut -11.148309928307187",
+   "stages": [
+    {
+     "stage": "cap12000_th1e-14 (12031 states, 15 candidates left)",
+     "value": 0.90625,
+     "diff_scaled": 0.26890220033977474
+    }
+   ],
+   "max_abs_diff_after_repro": 0.26890220033977474,
+   "max_abs_diff_any": 0.26890220033977474
+  },
+  {
+   "group": "I-42",
+   "cell": "one-population modal hd3 N=10000",
+   "stat": "payoff per player",
+   "scale": 2.5,
+   "published": 0.01577459500016173,
+   "note": "published: 3005 states, 16 candidates left, log10 cut -14.670177609678982",
+   "stages": [
+    {
+     "stage": "cap3000_th1e-14 (3005 states, 16 candidates left)",
+     "value": 0.01577459500016173,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "cap12000_th1e-14 (5469 states, 0 candidates left)",
+     "value": 0.18251432503367376,
+     "diff_scaled": 0.06669589201340481
+    }
+   ],
+   "max_abs_diff_after_repro": 0.06669589201340481,
+   "max_abs_diff_any": 0.06669589201340481
+  },
+  {
+   "group": "I-42",
+   "cell": "one-population modal hd6 N=1000",
+   "stat": "payoff per player",
+   "scale": 4.0,
+   "published": 0.8038611359624297,
+   "note": "published: 3052 states, 1558 candidates left, log10 cut -11.241854108686676",
+   "stages": [],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "I-22",
+   "cell": "three-player dollar weak N=100",
+   "stat": "mass G",
+   "scale": 1.0,
+   "published": 0.010053318270056077,
+   "note": "",
+   "stages": [
+    {
+     "stage": "theta1e-09_core2500_prom1e-05 (states 31989, rel_cut 0.0037)",
+     "value": 0.010045988191906769,
+     "diff_scaled": -7.330078149308042e-06
+    },
+    {
+     "stage": "theta1e-10_core2500_prom1e-05 (states 53763, rel_cut 0.0014)",
+     "value": 0.009551986619872575,
+     "diff_scaled": -0.0005013316501835015
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0005013316501835015,
+   "max_abs_diff_any": 0.0005013316501835015
+  },
+  {
+   "group": "I-22",
+   "cell": "three-player dollar weak N=100",
+   "stat": "mass P12",
+   "scale": 1.0,
+   "published": 0.3298377717211697,
+   "note": "",
+   "stages": [
+    {
+     "stage": "theta1e-09_core2500_prom1e-05 (states 31989, rel_cut 0.0037)",
+     "value": 0.3298403937141643,
+     "diff_scaled": 2.6219929946114107e-06
+    },
+    {
+     "stage": "theta1e-10_core2500_prom1e-05 (states 53763, rel_cut 0.0014)",
+     "value": 0.32998782842536806,
+     "diff_scaled": 0.0001500567041983758
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0001500567041983758,
+   "max_abs_diff_any": 0.0001500567041983758
+  },
+  {
+   "group": "I-22",
+   "cell": "three-player dollar weak N=100",
+   "stat": "mass X",
+   "scale": 1.0,
+   "published": 0.0004333665664357875,
+   "note": "",
+   "stages": [
+    {
+     "stage": "theta1e-09_core2500_prom1e-05 (states 31989, rel_cut 0.0037)",
+     "value": 0.0004328306656000095,
+     "diff_scaled": -5.359008357780099e-07
+    },
+    {
+     "stage": "theta1e-10_core2500_prom1e-05 (states 53763, rel_cut 0.0014)",
+     "value": 0.0004845281040226749,
+     "diff_scaled": 5.1161537586887366e-05
+    }
+   ],
+   "max_abs_diff_after_repro": 5.1161537586887366e-05,
+   "max_abs_diff_any": 5.1161537586887366e-05
+  },
+  {
+   "group": "I-22",
+   "cell": "three-player dollar weak N=100",
+   "stat": "efficiency",
+   "scale": 1.0,
+   "published": 0.9950987574026866,
+   "note": "",
+   "stages": [
+    {
+     "stage": "theta1e-09_core2500_prom1e-05",
+     "value": 0.9951026328625104,
+     "diff_scaled": 3.875459823832195e-06
+    },
+    {
+     "stage": "theta1e-10_core2500_prom1e-05",
+     "value": 0.9949473288262569,
+     "diff_scaled": -0.00015142857642969076
+    }
+   ],
+   "max_abs_diff_after_repro": 0.00015142857642969076,
+   "max_abs_diff_any": 0.00015142857642969076
+  },
+  {
+   "group": "I-22",
+   "cell": "three-player dollar weak N=1000",
+   "stat": "mass G",
+   "scale": 1.0,
+   "published": 0.01609137152094248,
+   "note": "",
+   "stages": [
+    {
+     "stage": "theta1e-10_core2500_prom1e-05 (states 31686, rel_cut 0.0020)",
+     "value": 0.01609137152094251,
+     "diff_scaled": 3.122502256758253e-17
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 3.122502256758253e-17
+  },
+  {
+   "group": "I-22",
+   "cell": "three-player dollar weak N=1000",
+   "stat": "mass P12",
+   "scale": 1.0,
+   "published": 0.3279520380645957,
+   "note": "",
+   "stages": [
+    {
+     "stage": "theta1e-10_core2500_prom1e-05 (states 31686, rel_cut 0.0020)",
+     "value": 0.3279520380645956,
+     "diff_scaled": -1.1102230246251565e-16
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 1.1102230246251565e-16
+  },
+  {
+   "group": "I-22",
+   "cell": "three-player dollar weak N=1000",
+   "stat": "mass X",
+   "scale": 1.0,
+   "published": 5.25142852702055e-05,
+   "note": "",
+   "stages": [
+    {
+     "stage": "theta1e-10_core2500_prom1e-05 (states 31686, rel_cut 0.0020)",
+     "value": 5.2514285270205454e-05,
+     "diff_scaled": -4.743384504624082e-20
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 4.743384504624082e-20
+  },
+  {
+   "group": "I-51",
+   "cell": "insp sr16 c=0 N=1e4",
+   "stat": "mean payoff (player 0)",
+   "scale": 4.0,
+   "published": -2.455542813942777,
+   "note": "frontier mass at the stages: cap1500_published 1.000, cap15000_published 1.000",
+   "stages": [
+    {
+     "stage": "cap1500_published",
+     "value": -2.455542813942777,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "cap15000_published",
+     "value": -0.36108555788712043,
+     "diff_scaled": 0.5236143140139141
+    }
+   ],
+   "max_abs_diff_after_repro": 0.5236143140139141,
+   "max_abs_diff_any": 0.5236143140139141
+  },
+  {
+   "group": "I-51",
+   "cell": "insp sr4 c=0 N=1e4",
+   "stat": "mean payoff (player 0)",
+   "scale": 4.0,
+   "published": -0.76366179256,
+   "note": "frontier mass at the stages: cap1500_published 1.000, cap15000_published 1.000",
+   "stages": [
+    {
+     "stage": "cap1500_published",
+     "value": -0.76366179256,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "cap15000_published",
+     "value": -0.351999732798107,
+     "diff_scaled": 0.10291551494047325
+    }
+   ],
+   "max_abs_diff_after_repro": 0.10291551494047325,
+   "max_abs_diff_any": 0.10291551494047325
+  },
+  {
+   "group": "I-51",
+   "cell": "Endgame matched c=0.01 N=1e4",
+   "stat": "mean payoff (player 0)",
+   "scale": 6.0,
+   "published": -0.20186017280874322,
+   "note": "frontier mass at the stages: cap1500_published 1.000, cap15000_published 1.000",
+   "stages": [
+    {
+     "stage": "cap1500_published",
+     "value": -0.20186017280874322,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "cap15000_published",
+     "value": -0.20063600439767101,
+     "diff_scaled": 0.00020402806851203362
+    }
+   ],
+   "max_abs_diff_after_repro": 0.00020402806851203362,
+   "max_abs_diff_any": 0.00020402806851203362
+  },
+  {
+   "group": "I-51",
+   "cell": "insp exact c=0.01 N=100 (27,889 states)",
+   "stat": "mean inspector payoff",
+   "scale": 4.0,
+   "published": -0.7921090706855768,
+   "note": "",
+   "stages": [
+    {
+     "stage": "cap1500_published",
+     "value": -0.7921090706855768,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "c_full",
+     "value": -0.7919543536671223,
+     "diff_scaled": 3.867925461362165e-05
+    }
+   ],
+   "max_abs_diff_after_repro": 3.867925461362165e-05,
+   "max_abs_diff_any": 3.867925461362165e-05
+  },
+  {
+   "group": "M:pd-modal6",
+   "cell": "pd-modal6 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 0.5869,
+   "note": "polymorphic mass 2.89e-07; recurrent polymorphic states None",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.5869271113516353,
+     "diff_scaled": 2.711135163535605e-05
+    },
+    {
+     "stage": "b/d: LogChain d_lumped, 86 states, log10 cut None, 0 candidates left",
+     "value": 0.5869285291789641,
+     "diff_scaled": 2.852917896412066e-05
+    }
+   ],
+   "max_abs_diff_after_repro": 2.852917896412066e-05,
+   "max_abs_diff_any": 2.852917896412066e-05
+  },
+  {
+   "group": "M:pd-pr8-lazy-c0.01",
+   "cell": "pd-pr8-lazy-c0.01 N=100000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 1.0,
+   "note": "polymorphic mass 0.00e+00; recurrent polymorphic states None",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.9999999992450723,
+     "diff_scaled": -7.549276759277745e-10
+    },
+    {
+     "stage": "b/d: LogChain d_lumped, 610 states, log10 cut -48.357991840496645, 0 candidates left",
+     "value": 0.9999999999999999,
+     "diff_scaled": -1.1102230246251565e-16
+    }
+   ],
+   "max_abs_diff_after_repro": 1.1102230246251565e-16,
+   "max_abs_diff_any": 7.549276759277745e-10
+  },
+  {
+   "group": "M:pd-pr8-lazy-c0.1",
+   "cell": "pd-pr8-lazy-c0.1 N=1000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": null,
+   "note": "polymorphic mass 7.19e-08; recurrent polymorphic states None",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.9932599718623657,
+     "diff_scaled": null
+    },
+    {
+     "stage": "b/d: LogChain d_lumped, 1415 states, log10 cut -11.593572205912388, 0 candidates left",
+     "value": 0.9932602126741842,
+     "diff_scaled": null
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "M:pd-pr8-lazy-c0.1",
+   "cell": "pd-pr8-lazy-c0.1 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": null,
+   "note": "polymorphic mass 0.00e+00; recurrent polymorphic states None",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 1.0000000000000022,
+     "diff_scaled": null
+    },
+    {
+     "stage": "b/d: LogChain d_lumped, 610 states, log10 cut -48.01415470126054, 0 candidates left",
+     "value": 1.0,
+     "diff_scaled": null
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "M:pd-cert-cert0-n6-c0.01",
+   "cell": "pd-cert-cert0-n6-c0.01 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 0.5863605518842657,
+   "note": "polymorphic mass 4.28e-07; recurrent polymorphic states 376",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.5863605518842657,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 428 states, log10 cut -12.000604996468113, 0 candidates left",
+     "value": 0.5863631480190543,
+     "diff_scaled": 2.596134788590554e-06
+    }
+   ],
+   "max_abs_diff_after_repro": 2.596134788590554e-06,
+   "max_abs_diff_any": 2.596134788590554e-06
+  },
+  {
+   "group": "M:pd-cert-lazy-n6-c0.01",
+   "cell": "pd-cert-lazy-n6-c0.01 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 0.5903366279974942,
+   "note": "polymorphic mass 2.73e-07; recurrent polymorphic states 74",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.5903366279974942,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 140 states, log10 cut -13.337749036465771, 0 candidates left",
+     "value": 0.5903378170777881,
+     "diff_scaled": 1.189080293895195e-06
+    }
+   ],
+   "max_abs_diff_after_repro": 1.189080293895195e-06,
+   "max_abs_diff_any": 1.189080293895195e-06
+  },
+  {
+   "group": "M:pd-cert-lazycert0-n6-c0.01",
+   "cell": "pd-cert-lazycert0-n6-c0.01 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": null,
+   "note": "polymorphic mass 2.89e-07; recurrent polymorphic states 45",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.5868252877814907,
+     "diff_scaled": null
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 105 states, log10 cut None, 0 candidates left",
+     "value": 0.5868266530474834,
+     "diff_scaled": null
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "M:pd-fr-D-n6-d0.01",
+   "cell": "pd-fr-D-n6-d0.01 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": null,
+   "note": "polymorphic mass 3.14e-06; recurrent polymorphic states 812",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.9884875602181366,
+     "diff_scaled": null
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 863 states, log10 cut -11.893304495568907, 0 candidates left",
+     "value": 0.9884575622643054,
+     "diff_scaled": null
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "M:pd-fr-mu-n6-d0.01",
+   "cell": "pd-fr-mu-n6-d0.01 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": null,
+   "note": "polymorphic mass 3.26e-06; recurrent polymorphic states 559",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.9863003283809484,
+     "diff_scaled": null
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 610 states, log10 cut -11.896036380302592, 0 candidates left",
+     "value": 0.9862976008484946,
+     "diff_scaled": null
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "M:pd-kb4",
+   "cell": "pd-kb4 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 0.679,
+   "note": "polymorphic mass 0.00e+00; recurrent polymorphic states 0",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.6789412268583374,
+     "diff_scaled": -5.877314166269354e-05
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 83 states, log10 cut None, 0 candidates left",
+     "value": 0.67894122685879,
+     "diff_scaled": -5.877314121005561e-05
+    }
+   ],
+   "max_abs_diff_after_repro": 5.877314121005561e-05,
+   "max_abs_diff_any": 5.877314166269354e-05
+  },
+  {
+   "group": "M:pd-kb4",
+   "cell": "pd-kb4 N=30000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 0.774,
+   "note": "polymorphic mass 0.00e+00; recurrent polymorphic states 0",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.7736308952053272,
+     "diff_scaled": -0.000369104794672781
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 83 states, log10 cut None, 0 candidates left",
+     "value": 0.7736308952050208,
+     "diff_scaled": -0.00036910479497920257
+    }
+   ],
+   "max_abs_diff_after_repro": 0.00036910479497920257,
+   "max_abs_diff_any": 0.00036910479497920257
+  },
+  {
+   "group": "M:pd-kb8",
+   "cell": "pd-kb8 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 0.662,
+   "note": "polymorphic mass 2.84e-07; recurrent polymorphic states 578",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.6622335012392813,
+     "diff_scaled": 0.0002335012392812308
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 949 states, log10 cut -11.648949460499084, 0 candidates left",
+     "value": 0.6622360435885682,
+     "diff_scaled": 0.00023604358856821328
+    }
+   ],
+   "max_abs_diff_after_repro": 0.00023604358856821328,
+   "max_abs_diff_any": 0.00023604358856821328
+  },
+  {
+   "group": "M:pd-kb8",
+   "cell": "pd-kb8 N=30000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 0.762,
+   "note": "polymorphic mass 1.05e-07; recurrent polymorphic states 392",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.7622521017797982,
+     "diff_scaled": 0.00025210177979817505
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 763 states, log10 cut -11.936083983451047, 0 candidates left",
+     "value": 0.7622542665797543,
+     "diff_scaled": 0.0002542665797542476
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0002542665797542476,
+   "max_abs_diff_any": 0.0002542665797542476
+  },
+  {
+   "group": "M:pd-modal8",
+   "cell": "pd-modal8 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 0.617,
+   "note": "polymorphic mass 1.08e-06; recurrent polymorphic states 1129",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.617237036120772,
+     "diff_scaled": 0.00023703612077197178
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 1600 states, log10 cut -11.590762845421064, 0 candidates left",
+     "value": 0.6172453342473344,
+     "diff_scaled": 0.00024533424733441667
+    }
+   ],
+   "max_abs_diff_after_repro": 0.00024533424733441667,
+   "max_abs_diff_any": 0.00024533424733441667
+  },
+  {
+   "group": "M:pd-modal8",
+   "cell": "pd-modal8 N=30000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 0.725,
+   "note": "polymorphic mass 4.81e-07; recurrent polymorphic states 877",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.7246332611535795,
+     "diff_scaled": -0.00036673884642046684
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 1348 states, log10 cut -11.635960205517547, 0 candidates left",
+     "value": 0.7246399848359633,
+     "diff_scaled": -0.00036001516403671996
+    }
+   ],
+   "max_abs_diff_after_repro": 0.00036001516403671996,
+   "max_abs_diff_any": 0.00036673884642046684
+  },
+  {
+   "group": "M:pd-pr6-atoms-c0.001",
+   "cell": "pd-pr6-atoms-c0.001 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 0.30180923308077945,
+   "note": "polymorphic mass 1.44e-06; recurrent polymorphic states 467",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.30180923308077945,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 519 states, log10 cut -11.988439827403464, 0 candidates left",
+     "value": 0.30181322369113994,
+     "diff_scaled": 3.9906103604936405e-06
+    }
+   ],
+   "max_abs_diff_after_repro": 3.9906103604936405e-06,
+   "max_abs_diff_any": 3.9906103604936405e-06
+  },
+  {
+   "group": "M:pd-pr6-atoms-c0.01",
+   "cell": "pd-pr6-atoms-c0.01 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 0.014995959837012799,
+   "note": "polymorphic mass 1.93e-07; recurrent polymorphic states 263",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.014995959837012799,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 315 states, log10 cut -12.085165873820511, 0 candidates left",
+     "value": 0.01499622118572463,
+     "diff_scaled": 2.6134871183164377e-07
+    }
+   ],
+   "max_abs_diff_after_repro": 2.6134871183164377e-07,
+   "max_abs_diff_any": 2.6134871183164377e-07
+  },
+  {
+   "group": "M:pd-pr6-depth-c0.01",
+   "cell": "pd-pr6-depth-c0.01 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 0.014995959837012799,
+   "note": "polymorphic mass 1.93e-07; recurrent polymorphic states 263",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.014995959837012799,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 315 states, log10 cut -12.085165873820511, 0 candidates left",
+     "value": 0.01499622118572463,
+     "diff_scaled": 2.6134871183164377e-07
+    }
+   ],
+   "max_abs_diff_after_repro": 2.6134871183164377e-07,
+   "max_abs_diff_any": 2.6134871183164377e-07
+  },
+  {
+   "group": "M:pd-pr6-lazy-c0.01",
+   "cell": "pd-pr6-lazy-c0.01 N=10000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": 0.5903366279974942,
+   "note": "polymorphic mass 2.73e-07; recurrent polymorphic states 74",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.5903366279974942,
+     "diff_scaled": 0.0
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 140 states, log10 cut -13.337749036465771, 0 candidates left",
+     "value": 0.5903378170777881,
+     "diff_scaled": 1.189080293895195e-06
+    }
+   ],
+   "max_abs_diff_after_repro": 1.189080293895195e-06,
+   "max_abs_diff_any": 1.189080293895195e-06
+  },
+  {
+   "group": "M:pd-pr6-lazy-c0.01",
+   "cell": "pd-pr6-lazy-c0.01 N=100000",
+   "stat": "pcc",
+   "scale": 1.0,
+   "published": null,
+   "note": "polymorphic mass 3.37e-08; recurrent polymorphic states 49",
+   "stages": [
+    {
+     "stage": "a: published construction re-run",
+     "value": 0.8161131959561195,
+     "diff_scaled": null
+    },
+    {
+     "stage": "b/d: LogChain b_lumped, 115 states, log10 cut -13.299117590452353, 0 candidates left",
+     "value": 0.8161142163469784,
+     "diff_scaled": null
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "I-49",
+   "cell": "rpsp_exact_forfeit_c0.01_D12_N100000",
+   "stat": "e_prog",
+   "scale": 1.0,
+   "published": null,
+   "note": "",
+   "stages": [
+    {
+     "stage": "lt-8_cl6000_b8_att1000",
+     "value": 0.07000284238957333,
+     "diff_scaled": null
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "I-49",
+   "cell": "rpsp_exact_forfeit_c0.01_D12_N100000",
+   "stat": "e_gross",
+   "scale": 1.0,
+   "published": null,
+   "note": "",
+   "stages": [
+    {
+     "stage": "lt-8_cl6000_b8_att1000",
+     "value": 0.07000590064465519,
+     "diff_scaled": null
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "I-49",
+   "cell": "rpsp_exact_forfeit_c0.01_D12_N100000",
+   "stat": "mix_pop",
+   "scale": 1.0,
+   "published": null,
+   "note": "",
+   "stages": [
+    {
+     "stage": "lt-8_cl6000_b8_att1000",
+     "value": 0.9734576024958108,
+     "diff_scaled": null
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  },
+  {
+   "group": "I-49",
+   "cell": "rpsp_exact_forfeit_c0.01_D12_N100000",
+   "stat": "poly_mass",
+   "scale": 1.0,
+   "published": null,
+   "note": "",
+   "stages": [
+    {
+     "stage": "lt-8_cl6000_b8_att1000",
+     "value": 0.10903547473761385,
+     "diff_scaled": null
+    }
+   ],
+   "max_abs_diff_after_repro": 0.0,
+   "max_abs_diff_any": 0.0
+  }
+ ],
+ "n_rows": 87,
+ "moved_over_0_02": [
+  [
+   "I-42",
+   "one-population modal hd3 N=1000",
+   "payoff per player",
+   0.26890220033977474
+  ],
+  [
+   "I-42",
+   "one-population modal hd3 N=10000",
+   "payoff per player",
+   0.06669589201340481
+  ],
+  [
+   "I-51",
+   "insp sr16 c=0 N=1e4",
+   "mean payoff (player 0)",
+   0.5236143140139141
+  ],
+  [
+   "I-51",
+   "insp sr4 c=0 N=1e4",
+   "mean payoff (player 0)",
+   0.10291551494047325
+  ]
+ ]
+}

@@ -144,6 +144,58 @@ claim is a headline. Cells that cannot be reached are marked *unresolved* in the
 Twin-network risk flag (spec prediction 3 names it): large payoff-twin networks reached through reading programs occur
 in I-08, I-16, I-19, I-22, I-23, I-24, I-29, I-32, I-36, I-38–I-40, I-49, I-50, I-51.
 
-## 2. Deviations and facts found while running
+## 2. Deviations and facts found while running (written after the audited cells began)
 
-(appended after the audited cells began)
+**Method.** Stages follow the spec: (a) the published configuration re-run with the published code; (b) every active restriction
+enlarged together (cap, threshold, rounds, with the memory limit stated where 10x was not possible); (c) the whole monomorphic
+space where it fits (mixed2 and the two-population ultimatum arms only); (d) polymorphic states added from the recurrent monomorphic
+classes, in the bounded form of the spec (`src/exploration_audit.py::sa_bounded`: published `Chain` re-run, then `LogChain` seeded
+with the published polymorphic states, every monomorphic class expanded, their targets, then inflow rounds at log10 theta -14, cap
+8,000) or with the solver-audit pipeline (`solver_audit.run_cell`, exhaustive pairs and triples plus the invasion closure) where K was
+small; (e) twin-expanded only where the published cell was lumped and a twin-expanded `LogChain` exists (dollar arms). All code is in
+`src/exploration_audit.py` (adapters, no existing file edited) and `src/exploration_audit_run.py` (CLI, one job per process, one thread
+each); records in `runs/exploration_audit/` (small json). The shared host was loaded by other sessions (load average 8-9, 7.6 GB swap in
+use), so wall times are inflated, which is why several hour-scale cells were stopped.
+
+**Frontier outflow.** Defined as the pi-mass of explored states with an outgoing transition into an unexplored target whose
+relative inflow exceeds the stage's own threshold (the targets the explorer would still add, i.e. the ones a cap, not the threshold,
+left out); the strict count of states with any unexpanded out-rate share above 1e-6 is 1.0 in every capped mixed2 cell and is
+recorded but not used as the flag. Flag: frontier mass above 0.01 means *unconverged*. For the hybrid chains (`Chain3`, `UChain`) the
+relative outcome-changing cut stands in for it; for the log chains `n_cand_left` (candidates still above theta at exit).
+
+**Reproduction record.** Reproduced exactly (state counts and statistics to the published digits): mixed2 inspection exact c = 0 at
+1,500 states (-0.0093 vs -0.009), at 8,000 (-0.4707) and whole space (-0.4707 vs -0.471); inspection exact c = 0.01 N = 100 at 1,500
+states (-0.7921); blind inspection (289 states); the three ultimatum arms (152 / 144 / 160 expanded, cut 2.56e-5 / 7.0e-6 / 2.89e-5);
+the union game quorum c = 0.5 at N = 10^3 and 10^4; enforcement Part C RR (N = 10^3, 10^4) and RC; concessions P01 N = 10^4 (21,913
+states, fair 0.008553); the modal fixed-role dollar at N = 100 and 10^3 (8,000 states, cut 9.78e-4 / 5.22e-3); the one-population modal
+hd3 N = 10^4 cell (3,005 states, 16 candidates left, payoff 0.0158); three-player dollar weak at N = 100 (31,989 states, the stable-sets
+re-run; the original had 32,259) and N = 10^3 (31,686 states); priced RPS exact forfeit-only c = 0.01 N = 10^5 (4,466 recurrent states,
+polymorphic mass 0.109, log10 cut -5.5087); the K-arm and modal PD cells (kb4, kb8, modal6, modal8). **Not reproduced:** the
+4,000-state point of the mixed2 contrast (-0.4708 here against the -0.31 in `notes/mixed2.md` §3; the 1,500 and 8,000-state points
+reproduce, so the difference is in the earlier 4,000-state run's settings, which are not recorded).
+
+**Inputs rebuilt or copied (all gitignored or in the scratch directory, none committed).** mixed2 class tables and the priced-RPS caches
+were taken from the earlier runs' temporary caches on this machine; the enforcement run's `classes_CC.npz` (copied from the main
+checkout's gitignored cache) is the quorum arm's class lumping and was used for the union game, which the exact reproduction of the
+published union cells supports; the fixed-role chicken catalogues and the dollar evaluation tables were copied from the main checkout's
+gitignored cache into the worktree's gitignored `runs/` paths; the ultimatum published rows predate `ROLE` becoming first-class
+(7f2aac6), so the audit rebuilds the `Language` with `role=False` (902 programs, 44 classes), which reproduces them (`twopop.build`
+itself now builds the ROLE language and would not).
+
+**Jobs stopped before completion (each recorded here; no value from them is used).**
+union quorum c = 0.5 N = 10^4 at theta 1e-11: round 1 alone took 81 min (42,007 ring states, relative cut 0.175, 10,427 new
+candidates) and was stopped, and theta 1e-12 was not run; enforcement CC N = 10^3 at theta 1e-11 (42,902 candidates in round 0,
+stopped); modal dollar N = 100 through the solver-audit pipeline (its published-rerun step is the lazy linear chain, which did not
+finish in 33 min and is not the published configuration at that N; the published configuration, the seeded chain, was run instead);
+modal dollar N = 10^2 theta 1e-12 twin-expanded (40 min) and N = 3·10^4 twin-expanded (38 min) stopped; the priced-RPS enlargement at
+log10 theta -12 with 18,000 closure nodes, branch 16 and 4,000 starts ran 4 h 13 min without finishing and was replaced by a milder
+enlargement (log10 theta -10, 12,000 nodes, branch 8, 2,000 starts); `pd-pr8-depth-c0.01` through the solver-audit pipeline (78 min)
+and through the bounded pipeline (42 min) and the n = 8 drift-closure fringe cell (40 min) were stopped; the dollar-partition cells
+(`dollar5-role` N = 100 through the solver-audit pipeline ran 2 h 30 min without finishing: unresolved); one-population chicken hd6
+N = 10^3 at 12,000 states ended in an exception after 1 h (the exit-analysis step found no recurrent class in the capped set; the
+solve itself had finished), and hd3 / hd6 at N = 100 were not run. **Bug fixed during the run:** `make_cell` recursed through the
+patched `solver_audit.make_cell` in the first launch of the dollar-partition jobs (16 jobs failed at start; relaunched).
+
+**Disclosure (order).** The harness was developed on the ultimatum arms and the modal fixed-role cell before the controls were
+committed (commit "harness and controls"); those two families' stage (a) values were therefore seen before the commit; none of
+them changed a prediction or a threshold. The mixed2 4,000-state discrepancy was seen at the control and is reported, not smoothed.
