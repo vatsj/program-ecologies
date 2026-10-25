@@ -307,11 +307,11 @@ def verdicts(R, S):
         {p: fmt(v[0]) + ' ' + v[1] for p, v in iA.items()})
     diffsw = {}
     for c in (1e-5, 1e-4, 1e-3, 1e-2):
-        b_ = get('rps', 'B', c); w_ = get('rps', 'Bw', c)
+        b_ = get('rps', 'B', c); w_ = get('rps', 'Bws', c)
         if b_ and w_:
             diffsw[c] = (boot(runstat(b_, 'e_prog'))[0] - boot(runstat(w_, 'e_prog'))[0], boot(runstat(b_, 'sh_U'))[0] - boot(runstat(w_, 'sh_U'))[0])
     add('E5 warm and cold cache within 0.1', 'not scored' if not diffsw else ('held' if all(abs(a) < 0.1 and abs(b) < 0.1 for a, b in diffsw.values()) else 'failed'),
-        'e_prog and U-share differences (B cold - B warm): %s' % {c: (round(a, 3), round(b, 3)) for c, (a, b) in diffsw.items()})
+        'e_prog and U-share differences (B cold - B warm, both sampled kernel): %s' % {c: (round(a, 3), round(b, 3)) for c, (a, b) in diffsw.items()})
     wid = {r: len(S[r]['possible']) for r in S}
     add('E6 headline: F none; A widest possible band, two adjacent met; FA and B narrower', 'held' if (not S['F']['met'] and S['A']['adjacent_met'] and len(S['A']['possible']) >= 3 and
          len(S['A']['possible']) > max(len(S['B']['possible']), len(S['FA']['possible']))) else ('failed' if (not S['A']['adjacent_met'] and all(s != 'undetermined' for s in S['A']['status'].values())) or len(S['A']['possible']) < len(S['B']['possible']) else 'partial'),
@@ -337,7 +337,7 @@ def cells_for(game):
         parts = b.split('_')
         rule, lv = parts[0], float(parts[1])
         seen.append((rule, lv))
-    order = {'Z': 0, 'Zs': 1, 'F': 2, 'Fs': 3, 'A': 4, 'As': 5, 'FA': 6, 'FAs': 7, 'Bw': 8, 'B': 9, 'T': 10}
+    order = {'Z': 0, 'Zs': 1, 'F': 2, 'Fs': 3, 'A': 4, 'As': 5, 'FA': 6, 'FAs': 7, 'Bw': 8, 'Bws': 9, 'B': 10, 'T': 11}
     return sorted(set(seen), key=lambda x: (order.get(x[0], 99), x[1]))
 
 

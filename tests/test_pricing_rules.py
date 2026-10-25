@@ -252,3 +252,96 @@ def test_pd_priced_run_ledger_matches_rule_form():
     assert r['ledger'][3] == pytest.approx(1e-3 * M.load_cst()[M.C_BASE])
     r = PD.pd_job('wk_Snon_100_64', 0, 'F', 1e-3, 60)
     assert r['ledger'][3] == pytest.approx(1e-3 * (r['ledger'][0] + r['ledger'][1]), rel=1e-6)
+
+
+# ---- B-own and the cache / memo rules (addendum) ------------------------------------------------------------------------
+def test_cache_rules_synthetic():
+    """a key is inserted only when its read is paid; free inside a cached ancestor inserts nothing; a nested key already cached
+    is free even inside a paid ancestor; an interrupted (abandoned) inner call is never recorded, so inserts nothing."""
+    k0, k1 = 10, 11
+    calls = ((0, -1, 0, k0, 100, False, 'value'), (1, 0, 0, k1, 30, False, 'value'))
+    S = 110
+    cache = set()
+    assert P.b_charge(S, calls, cache) == 110 and cache == {k0, k1}          # both paid: root 10 + own 70 + own 30
+    cache = {k1}
+    assert P.b_charge(S, calls, cache) == 80 and cache == {k0, k1}           # nested hit inside a paid ancestor: free
+    cache = {k0}
+    assert P.b_charge(S, calls, cache) == 10 and cache == {k0}               # cached ancestor: subtree free, nothing inserted
+    # an inner call abandoned inside a timed-out ancestor is not in the call list: only the ancestor's key is inserted
+    w, out, used, calls2, reason = leaf0(led('rps', 'SIM100R', 'SIM100R'))
+    cache = set()
+    P.b_charge(used, calls2, cache)
+    assert len(cache) == 1
+    # the timed-out call, completed and paid, is cached; the repeat pays only the root's own steps
+    assert P.b_charge(used, calls2, cache) == used - calls2[0][4]
+
+
+def test_b_own_equals_b_when_ledger_mode_and_counts():
+    import pricing_rules_kern_own as KO
+    for game in ('rps', 'insp'):
+        bs = base(game)
+        sd = KR.SampledData(bs, 'B', 1e-3)
+        tb = bs.view('B', 1e-3)
+        label = L.seed_label('B', 1e-3)
+        a, _ = KR.lottery_sampled(bs, tb, sd, 'B', 1e-3, 'primary', 0, 40, 6, label)
+        b, ex = KO.lottery_own(bs, tb, sd, 'Bl', 1e-3, 'primary', 0, 40, 6, label)
+        if game == 'rps': assert all((a[g] == b[g]).all() for g in a)
+        else: assert all((a[g][0] == b[g][0]).all() and (a[g][1] == b[g][1]).all() for g in a)
+        assert ex['payments'] > 0 and ex['memo_max'] <= ex['nkeys']
+        c, ex2 = KO.lottery_own(bs, tb, sd, 'Bo', 1e-3, 'primary', 0, 40, 6, L.seed_label('Bo', 1e-3))
+        assert ex2['memo_mean'] <= ex2['memo_max'] <= ex2['nkeys']
+        assert ex2['payments_per_ind'] > ex['payments_per_ind']             # cold per-program memos pay more reads than one ledger
+        assert ex2['cert_invalidations'] == 0
+
+
+def test_pd_memo_update_hand_built():
+    if not _pd_cache(): pytest.skip('PD cache absent')
+    import world_k as WK
+    import pricing_rules_pd_model as M
+    import pricing_rules_pdkern_memo as KM
+    from numba import types
+    from numba.typed import Dict
+    LS = WK.use_world('K')
+    O = np.asarray(LS['st']['O'])
+    ua, ub, uc = int(O[3]), int(O[10]), int(O[11])                 # three units
+    lev = 1e-3
+    PX = M.make_px(LS, 'Bo', lev)
+    N = 4
+    tunit = np.array([ua, ub, uc], np.int64); tsp = np.array([0, 1, 0], np.int64); trule = np.array([PV_R_SNON(), PV_R_SNON(), PV_R_SNON()], np.int64)
+    pres = np.array([[0, 1, 0, 0]], np.int64); npres = np.array([2], np.int64)
+
+    def run(slots_row, lin_row, mmode, free=False, memd=None, spd=None):
+        memd = memd if memd is not None else Dict.empty(key_type=types.int64, value_type=types.int64)
+        spd = spd if spd is not None else Dict.empty(key_type=types.int64, value_type=types.int64)
+        slots = np.array([slots_row], np.int64); lin = np.array([lin_row], np.int64)
+        pr = np.zeros((1, N), np.int64); npr = np.zeros(1, np.int64)
+        ts = sorted(set(slots_row)); pr[0, :len(ts)] = ts; npr[0] = len(ts)
+        costind = np.zeros((1, N)); MST = np.zeros(8)
+        KM._memo_update(0, N, lev, free, mmode, slots, lin, pr, npr, tunit, tsp, trule, PX, memd, spd, costind, MST)
+        return costind, MST, memd, spd
+
+    rs = {(k, t): M.read_steps(k, t, tunit, tsp, trule, PX) for k in (0, 1) for t in (0, 1)}
+    # B-own: groups (lineage 1, type 0) one program, (2, 0) one, (3, 1) two: 2 partner types each -> 8 payments, 6 keys
+    ci, MST, memd, spd = run([0, 0, 1, 1], [1, 2, 3, 3], 1)
+    assert MST[0] == 8 and len(memd) == 6 and MST[7] == 0
+    exp = [lev * (rs[(0, 0)] + rs[(0, 1)]) / (N - 1)] * 2 + [lev * (rs[(1, 0)] + rs[(1, 1)]) / (N - 1)] * 2
+    assert np.allclose(ci[0], exp)
+    ci2, MST2, _, _ = run([0, 0, 1, 1], [1, 2, 3, 3], 1, memd=memd, spd=spd)
+    assert MST2[0] == 0 and ci2.sum() == 0                          # nothing new: the memo is kept
+    # island ledger: one key per (type, partner type); the first program of the type pays
+    ci3, MST3, memd3, _ = run([0, 0, 1, 1], [1, 2, 3, 3], 2)
+    assert MST3[0] == 4 and len(memd3) == 4
+    assert ci3[0, 0] == pytest.approx(lev * (rs[(0, 0)] + rs[(0, 1)]) / (N - 1)) and ci3[0, 1] == 0
+    assert ci3[0, 2] == pytest.approx(lev * (rs[(1, 0)] + rs[(1, 1)]) / (N - 1)) and ci3[0, 3] == 0
+    # warm: the keys are inserted free
+    ci4, MST4, memd4, _ = run([0, 0, 1, 1], [1, 2, 3, 3], 1, free=True)
+    assert ci4.sum() == 0 and MST4[0] == 0 and MST4[7] == 6 and len(memd4) == 6
+    # a certificate update: the same spelling pair under a different unit pays again and is logged as an update
+    ci5, MST5, memd5, spd5 = run([0, 0, 1, 1], [1, 2, 3, 3], 1)
+    ci6, MST6, _, _ = run([2, 2, 1, 1], [1, 2, 3, 3], 1, memd=memd5, spd=spd5)       # type 2 has the spelling of type 0 (tsp 0)
+    assert MST6[2] > 0 and MST6[4] >= 0
+
+
+def PV_R_SNON():
+    import provenance as PV
+    return PV.R_SNON

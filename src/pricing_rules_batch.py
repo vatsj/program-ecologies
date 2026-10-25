@@ -96,6 +96,10 @@ def batch(name):
             jobs.append(pd_cell(rule, 1e-2))
         for rule in ('F', 'FA', 'B'):
             jobs.append(pd_cell(rule, 1e-5))
+    elif name == 'warm':
+        for c in (1e-3, 1e-4):
+            for g in ('rps', 'insp'):
+                jobs.append(lt_cell(g, 'Bws', c))
     elif name == 'big':
         p = os.path.join(OUT, 'big_levels.json')
         levels = json.load(open(p)) if os.path.exists(p) else []
@@ -115,6 +119,7 @@ def main():
     todo = [j for j in batch(name) if not os.path.exists(out_file(j))]
     print('%s: %d cells to run, %d workers (pid %d)' % (name, len(todo), workers, os.getpid()), flush=True)
     running = []
+    tries = {}
     last = time.time()
     logs = {}
     while todo or running:
@@ -131,6 +136,10 @@ def main():
             if p.poll() is not None:
                 f.close(); running.remove(item)
                 print('done', job, 'rc', p.returncode, 'wall %.0fs' % (time.time() - t0), flush=True); last = time.time()
+                if p.returncode != 0 and tries.get(job, 0) < 2:
+                    tries[job] = tries.get(job, 0) + 1
+                    todo.insert(0, job)
+                    print('retry', job, flush=True)
         # stall: no output file of a running job has changed for 2 hours
         newest = max([os.path.getmtime(it[3]) for it in running] + [last]) if running else last
         if running and time.time() - newest > 7200:

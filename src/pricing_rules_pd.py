@@ -97,6 +97,9 @@ def _slim(d):
 
 
 def pd_job(cell, rep, rule, level, horizon=10000, cst=None):
+    if rule in ('Bo', 'Bow', 'Bi'):
+        import pricing_rules_pd_memo as PM
+        return PM.memo_job(cell, rep, rule, level, horizon, cst)
     CFG.update(rule=rule, level=level, cst=cst)
     WK.IslandRun = PricedRun
     t0 = time.time()
@@ -115,7 +118,7 @@ def digest(r):
     d = dict(cell=r['cell'], rep=r['rep'], rule=r['rule'], level=r['level'], last_gen=r['last_gen'], frozen_at=r['frozen_at'],
              time_s=r['time_s'], n_types=r['n_types'], uo_first=r['uo_first'], uo_last_change=r['uo_last_change'],
              final={k: fin[k] for k in KEEP_FINAL if k in fin}, cls=fin['cls'],
-             establish=r['establish'], steps_rule=r['steps_rule'], ledger=r.get('ledger'), ctr_enc=int(np.sum(np.array(r['ctr'])[:, 0])) if 'ctr' in r else None)
+             establish=r['establish'], steps_rule=r['steps_rule'], ledger=r.get('ledger'), memo=r.get('memo'), ctr_enc=int(np.sum(np.array(r['ctr'])[:, 0])) if 'ctr' in r else None)
     d['trace'] = [t for t in r['trace'] if t[0] in (10, 50, 100, 200, 500, 1000, 2000, 5000, 10000)]
     d['mean_pcc_trace'] = [(t[0], t[1]) for t in d['trace']]
     return d

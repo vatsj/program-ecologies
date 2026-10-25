@@ -32,8 +32,8 @@ OUT = os.path.join(ROOT, 'runs', 'pricing_rules')
 K0 = R.K0
 CELLS = R.CELLS
 CPS = R.CPS
-RULES = ('Z', 'F', 'A', 'FA', 'B', 'Bw', 'T', 'Zs', 'Fs', 'As', 'FAs')
-SAMPLED = ('B', 'Zs', 'Fs', 'As', 'FAs')
+RULES = ('Z', 'F', 'A', 'FA', 'B', 'Bw', 'Bws', 'Bo', 'Bl', 'T', 'Zs', 'Fs', 'As', 'FAs')
+SAMPLED = ('B', 'Bws', 'Bo', 'Bl', 'Zs', 'Fs', 'As', 'FAs')
 KEEP_KEYS = None            # all keys of the stored record are small enough once the island lists are dropped
 
 
@@ -93,10 +93,10 @@ class Base:
         """Expected charge matrix (same shape as the arrays) of a rule at a level.  Z: 0; F: c S; A: P n_to; FA: c fa;
         Bw (warm cache): c root_own; T: tau ncall."""
         if rule in ('Z', 'Zs'): return np.zeros_like(arr['S'])
-        if rule in ('F', 'Fs', 'B'): return level * arr['S']
+        if rule in ('F', 'Fs'): return level * arr['S']
         if rule in ('A', 'As'): return level * arr['n_to']
         if rule in ('FA', 'FAs'): return level * arr['fa']
-        if rule == 'Bw': return level * arr['root_own']
+        if rule in ('Bw', 'Bws', 'B', 'Bo', 'Bl'): return level * arr['root_own']
         if rule == 'T': return level * arr['ncall']
         raise ValueError(rule)
 
@@ -104,7 +104,7 @@ class Base:
         """A copy of the stored tables whose payoffs are net of the rule's charge (B in the sampled kernel is shown by its
         warm-cache steady state in the statistics tables: the net payoffs used for exploitability)."""
         tb = copy.copy(self.tb)
-        eff = 'Bw' if rule == 'B' else rule
+        eff = 'Bw' if rule in ('B', 'Bws', 'Bo', 'Bl') else rule
         if self.game == 'rps':
             ch = self.charge(self.arrays, eff, level, self.K)
             tb.U = tb.Ug - ch
@@ -227,8 +227,12 @@ def run_cell(game, rule, level, cell, runs=None, base=None):
         sdata = KR.SampledData(base, rule, level)
     for r in range(runs):
         t1 = time.time()
-        if sampled:
-            full, ex = KR.lottery_sampled(base, tb, sdata, rule, level, cell, r, N, I, label)
+        if sampled and rule in ('Bo', 'Bl'):
+            import pricing_rules_kern_own as KO
+            lab = label if rule == 'Bo' else seed_label('B', level)
+            full, ex = KO.lottery_own(base, tb, sdata, rule, level, cell, r, N, I, lab)
+        elif sampled:
+            full, ex = KR.lottery_sampled(base, tb, sdata, rule, level, cell, r, N, I, label, warm=1 if rule == 'Bws' else 0)
         elif game == 'rps':
             full, ex = lottery_rps_exact(tb, cell, r, N, I, label)
         else:

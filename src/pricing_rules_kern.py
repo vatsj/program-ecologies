@@ -24,7 +24,7 @@ import mixed2 as M2
 
 NENC = 10
 CPS_S = np.array([500, 1000, 1500, 2000], np.int64)        # sampled cells stop at 2,000
-RC = {'Z': 0, 'Zs': 0, 'F': 1, 'Fs': 1, 'A': 2, 'As': 2, 'FA': 3, 'FAs': 3, 'B': 4, 'T': 5}
+RC = {'Z': 0, 'Zs': 0, 'F': 1, 'Fs': 1, 'A': 2, 'As': 2, 'FA': 3, 'FAs': 3, 'B': 4, 'Bws': 4, 'T': 5}
 
 
 class Flat:

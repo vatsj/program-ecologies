@@ -34,7 +34,7 @@ R_SNON = PV.R_SNON
 KPD = 1.0e6
 # cost classes (see CLASS_NAMES): the median-based first model; replaced by the executable calibration when present
 CST_DEFAULT = np.array([101.0, 15815.0, 15815.0, 9513.0, 9513.0, 9513.0, 9513.0, 2415.0, 2415.0, 245.0, 245.0, 250006.0, 4.0])
-RULE_CODE = {'Z': 0, 'F': 1, 'A': 2, 'FA': 3, 'B': 4, 'T': 5}
+RULE_CODE = {'Z': 0, 'F': 1, 'A': 2, 'FA': 3, 'B': 4, 'T': 5, 'Bo': 6, 'Bow': 6, 'Bi': 7}
 
 
 def build_dt(cat):
@@ -176,8 +176,19 @@ def charge_pair(k, j, tunit, tsp, trule, PX):
     if rule == 1: return lev * (S + SP)
     if rule == 2: return lev * (nto + nto2)
     if rule == 3: return lev * ((S - tos + Kp * nto) + (SP - tos2 + Kp * nto2))
-    if rule == 4: return lev * CST[C_BASE]
+    if rule == 4 or rule >= 6: return lev * CST[C_BASE]
     return lev * (ncall + nacts)
+
+
+@njit(cache=True)
+def read_steps(k, j, tunit, tsp, trule, PX):
+    """Steps of type k's reads in an encounter with type j beyond the root's own steps: its check calls plus its production acts."""
+    utau, BLC, BLD, CHC, CHD, UVt, PRODC, PD, KIND, NAT, DTy, DR, BTy, BA, BL, CST, COSTS, PAR = PX
+    u = tunit[k]; v = tunit[j]
+    same = (u == v) and (tsp[k] == tsp[j])
+    act, S, nto, tos, ncall = play_ledger(u, v, same, utau, DTy, DR, BTy, BA, BL, BLC, BLD, CHC, CHD, UVt, CST)
+    SP, nto2, tos2, nacts = prod_ledger(k, j, tunit, tsp, trule, utau, BLC, BLD, PRODC, PD, KIND, NAT, CHD, UVt, COSTS)
+    return (S - CST[C_BASE]) + SP
 
 
 @njit(cache=True)
