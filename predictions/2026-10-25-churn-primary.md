@@ -127,3 +127,26 @@ E7. Unresolved: whether a ≥ 10× excess appears in T-hi, E-min hi or the reade
   population of flexible readers (a seeding threshold), and the contract layer's churn does not appear in the primary
   object at library priors.
 - No excess anywhere means the churn is a property of the contract layer.
+
+## Addendum (2026-10-25, written after the probe code and a few debugging runs, before any counted cell)
+
+Two additions to the registered design, labelled as extensions; no registered prediction above is changed.
+
+1. **Immigrant-fraction scan in the homogeneous-reader cell.** The registered fractions are 1% and 5%. A debugging run
+   of the probe showed what any selection-based argument predicts: a single mismatched immigrant is removed within about
+   ten generations (it earns 0 against the residents' 3/6), so at 1% and 5% the cell can be expected to switch almost
+   never. The cell is therefore also run at 10-90% in steps of 10%, to find the fraction at which the island follows the
+   immigrants (the threshold the gpt-6.1-sol counter-prediction refers to). Scored only descriptively (threshold fraction at
+   which the switching rate first reaches 0.5).
+2. **Balanced start with resident readers** (the primary-object analogue of the migration window's balanced-start
+   control). I = 60 islands, 20 on each fair pair, the pair slots held by one program each (the lower slot a reader of the
+   kind `const`, `switch` or `two`, its mate a constant that names it), the excluded slot drawn from the catalogue's seed
+   law; mN ∈ {0.01, 0.1, 1}, 20 runs, 10,000 generations, in the E-min (modal and weak) and T-main catalogues, with the
+   constants-only start in B6w and B6m beside them. It asks directly whether *resident* flexible readers under steady
+   migration produce churn that resident constants do not. *Hand prediction (E8):* flips per run of the reader starts are
+   within 0.5-3× of the constants start of the same catalogue at mN = 0.1 and 1, and the share of runs with all three
+   pairs present at generation 10,000 under mN = 0.1 is at most 0.2 above the constants start's. *Falsifier:* a ratio
+   of 10 or more with coverage at least 0.5 at mN = 1.
+
+Cut order is unchanged (the c₀ sensitivity first, then mN = 0.01, then 20,000-generation extensions); the two additions
+are cut before the c₀ sensitivity only if the scale guard requires it.

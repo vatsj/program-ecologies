@@ -245,3 +245,51 @@ per run 2 / 55 / 215 at mN = 0.01 / 0.1 / 1 (mN = 0: none, drift cannot move a c
 6. **Where I am least sure:** T-hi and E-min hi (resident two-partner readers in many islands), and the probe stratum
    with reader members. Those are the cells where a ≥ 10× excess would not surprise me; if one appears the
    mechanism question (redirect versus drift versus exploitation of unconditional seeds) is what the report must answer.
+
+## 2. Deviations, choices where the spec is silent, costs
+
+(Appended as they arise; entries dated 2026-10-25 were written before any counted cell unless marked otherwise.)
+
+### 2.1 Choices and deviations made before the counted cells
+
+1. **n = 10 does not contain the two-partner reader** (§1.0, §1.3). Arm E is run as the spec states it (n = 10); the
+   two-partner reader is tested in E-min, whose catalogue builds it explicitly (size 11 in the DSL). The spec's
+   expectation that "nested reads exist" at n = 10 is true only of the single-atom switchers and of conjunctions of two atoms.
+2. **No private tape and no certificate/proof readers in arm T.** The L_T^code evaluator has no tape primitive (the tape
+   lives in the prove-based `lt_tape.py`, a two-player PD language); a carried-certificate checker for three-player atoms
+   exists only for the social organization game's boss and worker roles (`sog_realizable.py`). Arm T therefore reads by
+   capped simulation only, which the spec records as the RS's ruling, and breaks ties by fixed priority; both
+   orientations are in the library. The tape-coin tie-break is not tested; the nearest proxy is the 50/50 mixture of
+   the two orientations in a slot, which the lottery's founders contain by construction. This removes the spec's
+   "tape-driven action changes" control (there are none by construction) and its "tape-coin tie-break" counter-case.
+3. **Cyclic frame in arm T.** A program cannot know its slot label and the DSL's label-ordered arguments are not
+   slot-symmetric once programs simulate each other (the simulated program's argument order depends on the simulator's
+   rank), so T uses the rotation-symmetric frame (next, prev) of §1.2.3. The consequence that three identical
+   orientations cycle is recorded in §1.2.3 and is part of what T measures.
+4. **Founders.** B6w and B6m use the stored founders (`L1`), so B6w reproduces the stored `M-base-N100` rows draw for
+   draw (tested for run 0 at mN = 1; the full 160-run check is the pre-registered gate). E and E′ share a base
+   (paired); the E-min modal and weak cells share a base within a dose; doses of T and E-min are drawn independently
+   (not coupled), and the n = 10 and n = 6 catalogues cannot share founders (different class lists). The "same
+   founders" of the spec's baseline rerun therefore means the same random streams and the same law family, not
+   identical individual draws, except for B6w/B6m.
+5. **Horizon.** 10,000 generations for every cell (the stored comparison horizon); 20,000-generation extensions are
+   in the cut order and are not run unless time allows.
+6. **Exposure for hazards** counts island-generations on a fair pair up to the stop generation (closure, global at mN
+   > 0, local at mN = 0), after which no flip is possible at ε = 0.
+7. **Probe: natural excluded composition (stratum b)** is a draw from the catalogue's seed law (the E-min main prior
+   for the DSL probes, the T-main prior for T), kept if the pair {0, 1} holds at least 0.9 of encounters against the
+   monomorphic member slots (rejection sampling, 20 compositions per configuration). It is not the stored mN > 0
+   composition. DSL probes use the E-min main catalogue (n ≤ 6 plus the explicit readers), because the two-partner
+   reader and the named fair switchers must be in the catalogue; the readers are the same classes as in arm E where
+   arm E contains them (the single-atom ones).
+8. **Probe immigrants** are single individuals replacing a uniformly drawn resident; replicates differ by kernel seed
+   (and, in stratum b, by composition). The homogeneous-reader cell and the fraction scans use the same code with a
+   fraction of the slot replaced.
+9. **Pilot runs.** While debugging I ran run 0 of B6w, E10m, T-main and Emin-hi-m at mN ∈ {0, 0.1, 1}, and the probe on
+   T-main/switch/a with 20 replicates, and the homogeneous-reader cell at 20 replicates (scratch, not used for any
+   claim; the counted cells reproduce them exactly where they overlap because every run is deterministic in its seed).
+   The pilot showed that run 0 of E10m at mN = 1 has 1,067 member-to-member flips against 84 for B6w's run 0, which is
+   one run; I note it here so that nobody reads the final tables as blind to it. No cell, threshold or prediction was
+   changed because of it.
+10. **The dearest finishing encounter** of the T library is 821 steps for the program Dnfn with both partners Snoy
+    (not "Dnfn against itself", as §1.4 loosely says); K₀ = 10³ and c₀ = 1.2·10⁻⁴ stand.
