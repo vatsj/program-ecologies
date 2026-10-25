@@ -54,6 +54,8 @@ class DSLCat:
     kind = 'dsl'
 
     def __init__(self, name, n=6, evalr='modalPA', dose=None):
+        if isinstance(dose, tuple):
+            dose = dict(S=dose[0] / 2, Z=dose[0] / 2, D=dose[1])
         self.name = name; self.n = n; self.evalr = evalr; self.armi = D.ARM[evalr]; self.dose = dose
         L, S0, mu, cnt, size = D.build('modalPA', n)
         self.size0 = size
@@ -86,15 +88,12 @@ class DSLCat:
     def law(self, s):
         if self.dose is None:
             return self.mu / self.mu.sum()
-        wS, wD = self.dose
+        d = self.dose
         p = np.zeros(self.K)
-        p[:self.K0] = (1 - wS - wD) * self.mu[:self.K0] / self.mu[:self.K0].sum()
-        singles = [self.idx[(s, k)] for k in ('Sj', 'Sk', 'Zj', 'Zk')]
-        twos = [self.idx[(s, k)] for k in ('R2jf', 'R2jz', 'R2kf', 'R2kz')]
-        for x in singles:
-            p[x] += wS / 4
-        for x in twos:
-            p[x] += wD / 4
+        p[:self.K0] = (1 - d['S'] - d['Z'] - d['D']) * self.mu[:self.K0] / self.mu[:self.K0].sum()
+        for key, ks in (('S', ('Sj', 'Sk')), ('Z', ('Zj', 'Zk')), ('D', ('R2jf', 'R2jz', 'R2kf', 'R2kz'))):
+            for k in ks:
+                p[self.idx[(s, k)]] += d[key] / len(ks)
         return p
 
     def make_J(self, U, price=0.0):
@@ -169,8 +168,7 @@ def get_cat(spec, cache_dir=None):
         c = DSLCat(spec, 10, 'weak')
     elif spec.startswith('Emin-'):
         _, dose, ev = spec.split('-')
-        wS, wD = EMIN_DOSE[dose]
-        c = DSLCat(spec, 6, 'modalPA' if ev == 'm' else 'weak', dose=(wS, wD))
+        c = DSLCat(spec, 6, 'modalPA' if ev == 'm' else 'weak', dose=EMIN_DOSE[dose])
     elif spec.startswith('T-'):
         import churn_primary_t as CT
         global _TBASE
@@ -183,7 +181,9 @@ def get_cat(spec, cache_dir=None):
     return c
 
 
-EMIN_DOSE = {'lo': (0.087, 0.003), 'main': (0.06, 0.03), 'hi': (0.06, 0.10)}
+EMIN_DOSE = {'lo': (0.087, 0.003), 'main': (0.06, 0.03), 'hi': (0.06, 0.10),
+             # ablations (post-hoc, addendum 2): one reader family alone at weight 0.03
+             'abS': dict(S=0.03, Z=0.0, D=0.0), 'abZ': dict(S=0.0, Z=0.03, D=0.0), 'abD': dict(S=0.0, Z=0.0, D=0.03)}
 
 
 def cat_law(cat, s):

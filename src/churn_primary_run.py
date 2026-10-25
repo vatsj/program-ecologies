@@ -173,6 +173,8 @@ STAGES = {
                                                               ('Emin-main-w', ('const', 'switch', 'two')),
                                                               ('T-main', ('const', 'switch', 'two'))) for k in kinds
                   for r in range(20)],
+    # stage 6: ablations of the reader families (post-hoc, predictions addendum 2)
+    '6': lambda: ['L:%s:%d' % (s, r) for s in ['Emin-ab%s-m' % f for f in 'SZD'] + ['T-ab%s' % f for f in 'SZD'] for r in range(RUNS)],
     # stage 5: the c0 sensitivity (cut candidate)
     '5': lambda: ['L:%s:%d:c0' % (s, r) for s in C0_CELLS for r in range(RUNS)],
 }

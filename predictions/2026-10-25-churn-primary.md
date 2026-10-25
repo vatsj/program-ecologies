@@ -150,3 +150,13 @@ Two additions to the registered design, labelled as extensions; no registered pr
 
 Cut order is unchanged (the c₀ sensitivity first, then mN = 0.01, then 20,000-generation extensions); the two additions
 are cut before the c₀ sensitivity only if the scale guard requires it.
+
+## Addendum 2 (2026-10-25, POST HOC: written after the stage 1-4 lottery, probe and balanced-start results were read; before the ablation cells run)
+
+The counted lottery cells showed a flip excess in every arm with resident flexible readers (E-min, T) and none in arms E and
+E′ (n = 10), with no gain in coverage. To say which reader family carries the excess, three ablation cells are added per
+catalogue (E-min modal evaluator, and T): one family alone at weight 0.03, the rest constants: **S** (the switchers, fallback
+"other slot"; DSL `Sj`, `Sk`; T `S*o*`), **Z** (single-partner readers with the null fallback; DSL `Zj`, `Zk`; T `S*z*`),
+**D** (the two-partner readers). 40 runs, four mN. These are post-hoc and carry no scored verdict; the engineer's
+expectation, stated now so it can fail: S alone carries most of the excess (flips at least 3× B6w at mN = 0.1, and at least
+70% of the main dose's excess), Z alone does not (within 1.5×), D alone carries a smaller part than S.

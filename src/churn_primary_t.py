@@ -192,6 +192,17 @@ class TCat:
     # ---- priors
     def law(self, dose):
         w = np.zeros(self.K)
+        if dose.startswith('ab'):
+            # ablations (addendum 2): one reader family alone at weight 0.03, the rest constants
+            pick = {'abS': [i for i, n in enumerate(self.names) if self.fam[i] == 'single' and n[2] == 'o'],
+                    'abZ': [i for i, n in enumerate(self.names) if self.fam[i] == 'single' and n[2] == 'z'],
+                    'abD': [i for i, f in enumerate(self.fam) if f == 'two']}[dose]
+            cs = [i for i, f in enumerate(self.fam) if f == 'const']
+            for i in cs:
+                w[i] = 0.97 / len(cs)
+            for i in pick:
+                w[i] = 0.03 / len(pick)
+            return w
         fw = FAMILY_WEIGHT[dose]
         for fam, tot in fw.items():
             ids = [i for i, f in enumerate(self.fam) if f == fam]
