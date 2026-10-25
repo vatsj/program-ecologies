@@ -353,6 +353,14 @@ def build(write=True):
         fb = P['fair_block']
         md += ['Antisymmetric net flows between fair pairs (shares per event, mean [t interval over pools]): D01 %s, D02 %s, D12 %s; mean fair-to-fair flow %s.' % (
             interval_t(fb['D'][0], 9), interval_t(fb['D'][1], 9), interval_t(fb['D'][2], 9), fmt(float(np.mean(fb['flow_mean'])), 9)), '']
+        ka = P.get('ka')
+        if ka:
+            md += ['Conformist rate kappa and third-pair rate alpha of fair-pair islands (per event, post-anneal exact kernel; symmetry-averaged: kappa %s, alpha %s; alpha/kappa %s). Per ordered pair (recipient>donor): ' % (
+                interval_t(ka['kappa_sym'], 6), interval_t(ka['alpha_sym'], 6), fmt(ka['alpha_sym'][0] / max(ka['kappa_sym'][0], 1e-300), 3)) +
+                '; '.join('%s: kappa %s, alpha %s' % (pr, fmt(ka['kappa_pair'][pr][0], 6), fmt(ka['alpha_pair'][pr][0], 6)) for pr in ka['kappa_pair']), '']
+            md += ['From dominated recipients (to the donor\'s pair, kappa; to the other two, alpha; averaged over donor pairs): ' + '; '.join(
+                '%s: kappa %s, alpha %s' % (g, interval_t(v['kappa'], 6), interval_t(v['alpha'], 6)) for g, v in ka['dominated'].items()), '']
+        md += ['Mixed states: ' + json.dumps(P.get('mixed_states', {})), '']
         md += ['Category rates per event (exit, to V*): ' + '; '.join('%s: %s, %s' % (g, interval_t(v['exit'], 6), interval_t(v['toF'], 6)) for g, v in P['cat_rates'].items()), '']
         md += ['Heterogeneity of per-recipient exit probability within category (pool 0): ' + '; '.join(
             '%s: mean %s, CV %s, share with zero exit %s' % (g, fmt(v['mean_exit'], 6), fmt(v['cv_exit'], 2), fmt(v['frac_zero_exit'], 3)) for g, v in P['heterogeneity'].items()), '']
@@ -384,6 +392,23 @@ def build(write=True):
     md += ['', 'Largest class-changing path flows up to 1,000 events per island (counts, all pools):', '']
     for k, S in R.items():
         md += ['- %s: ' % k + ', '.join('%s %d' % (a, v) for a, v in list(S['path_flows_to1000'].items())[:10])]
+    vt = {N: jload(os.path.join(OUT, 'veto_N%d.json' % N)) for N in (50, 100, 200)}
+    if any(vt.values()):
+        md += ['', '## 8. Reference arm (extra, outside the registered predictions): the single-migrant kernel under the hand-written veto gV', '']
+        rows = []
+        def ci(x):
+            return '%s [%s, %s]' % (fmt(x[0] / x[1], 4), fmt(x[2], 4), fmt(x[3], 4))
+        for N, d in vt.items():
+            if not d:
+                continue
+            m = d['migrant']; sh = d['sham']
+            rows.append([N, d['fair_islands'], m['n'], ci(m['flip']), ci(m['kappa']), ci(m['alpha']), ci(m['same_reinstall']), ci(m['other_pair_install']),
+                         '%d/%d' % tuple(m['migrant_fixed']), '%d/%d' % tuple(m['flip_given_fixed']), '%d/%d' % tuple(m['flip_given_died']),
+                         '%d/%d' % (sh['flip'][0], sh['n'])])
+        md += md_table(['N', 'fair islands', 'migrants', 'flip per migrant', 'kappa', 'alpha', 'same-pair reinstall', 'other-pair install', 'migrant fixed', 'flip | fixed', 'flip | died', 'sham flips'], rows)
+        kap = sum(d['migrant']['kappa'][0] for d in vt.values() if d); alp = sum(d['migrant']['alpha'][0] for d in vt.values() if d)
+        lo, hi = wilson(kap, kap + alp)
+        md += ['', 'Pooled over N: kappa %d, alpha %d; conformist share of flips %s [%s, %s] (uniform restarts: 0.5).' % (kap, alp, fmt(kap / max(kap + alp, 1), 3), fmt(lo, 3), fmt(hi, 3)), '']
     out = '\n'.join(md) + '\n'
     if write:
         with open(os.path.join(ROOT, 'runs', 'many-islands.md'), 'w') as f:
