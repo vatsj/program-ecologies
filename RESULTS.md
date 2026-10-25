@@ -7089,6 +7089,102 @@ at D = 12.
 - *Caveats:* n = 8; bounded exact oracle; three depth caps; the lottery at one cap; finite-horizon lotteries with
   divergent dynamics.
 
+## Churn among the fair pairs in the primary object: with flexible readers seeded, islands churn without contracts or a veto (3–21× the baseline's flips) and sit on fair pairs, but all three pairs are not kept present; the n = 10 grammar does not churn (2026-10-25)
+
+Spec `specs/2026-10-25-churn-primary.md` (queue 64; the RS: the veto is "an experimental artifact rather than a core
+part of our equilibrium notion … Extensional or Turing-complete would convince me"; reviewed by gemini-4-argon then
+gpt-6.1-sol), predictions `predictions/2026-10-25-churn-primary.md` (two addenda, the second post hoc), notes
+`notes/churn-primary.md`, report `runs/churn-primary.md` and `.json`, rows `runs/churn_primary/`. Run by a Sonnet
+subagent (`src/churn_primary*.py`; 16 tests, passing on main). Object: the ε = 0 seed lottery of three-player majority
+division (`dollar3`) with no contracts and no veto; N = 100 per slot, I = 64, one component, mN ∈ {0, 0.01, 0.1, 1},
+40 runs, 10,000 generations, w = 0.3. Gate: the matched baseline B6w reproduces the stored `M-base-N100` rows in 40/40
+runs at every mN. A flip is a debounced (25 generations) change of an island's modal outcome from one fair pair to
+another; coverage is all three fair pairs each modal on some island at generation 10,000; V\* share is the fraction of
+islands on a fair pair then.
+
+**Deviations.** The spec's premise was false: the two-partner reader ("name j iff j names me fair, else k iff k does")
+needs size 11 and is absent at n ≤ 10, and churn-capable classes are about 0.1% of a slot at n = 10 (about 6 copies per
+slot per run). The two-partner reader is therefore tested only in E-min, whose catalogue adds it explicitly. Arm T has
+no private tape and no certificate or proof readers (the L_T^code evaluator has no tape primitive, and the three-player
+checker exists only for the social organization game's roles); it reads by capped simulation (27 programs, fuel 1,200,
+read cap 400) in a rotation-symmetric frame with fixed-priority tie-breaks. Founders are paired only within an
+evaluator pair. The probe's natural stratum is a draw from the seed law, not the stored mN > 0 composition. The
+immigrant-fraction scan and the balanced start with resident readers were added before counting; three ablations are
+post hoc. Pilot runs preceded counting (run 0 of four arms at three migration rates, plus probe and homogeneous-cell
+pilots; notes §2.1), and the overlapping counted runs reproduce them. The balanced start uses I = 60, not 64; the weak
+homogeneous cell keeps a constant partner because an all-reader fair pair is not realizable there.
+
+**Arms.** E and E′: the `dollar3` DSL at n = 10 under the modalPA and weak evaluators. E-min: the n ≤ 6 grammar plus an
+explicit reader family (switchers S, whose fallback names the other slot; null-fallback readers Z; two-partner readers
+D) at three doses, modal and weak. T: Turing-complete programs at three doses, c = 0, and the calibrated price c₀ as a
+sensitivity. The library doses put flexible readers at about 9% of the seed (lo, main) and 16% (hi).
+
+**Flips per run, ratio to the baseline (mN = 0.01 / 0.1 / 1), V\* share and coverage at mN = 0.1 and 1.**
+
+| cell | flips/run | ratio to B6w | V\* share (0.1 / 1) | coverage (0.1 / 1) |
+|---|---|---|---|---|
+| B6w (baseline) | 2.3 / 55 / 215 | – | 0.56 / 0.82 | 0.62 / 0.00 |
+| E modal (n = 10) | 2.7 / 51 / 251 | 1.21 / 0.93 / 1.17 | 0.55 / 0.95 | 0.55 / 0.00 |
+| E′ weak (n = 10) | 2.3 / 51 / 105 | 1.03 / 0.93 / 0.49 | 0.57 / 0.78 | 0.45 / 0.00 |
+| E-min main, modal | 22 / 263 / 793 | 9.6 / 4.8 / 3.7 | 0.97 / 1.00 | 0.42 / 0.00 |
+| E-min main, weak | 19 / 270 / 866 | 8.4 / 4.9 / 4.0 | 0.89 / 1.00 | 0.70 / 0.00 |
+| T-lo | 22 / 325 / 860 | 9.7 / 5.9 / 4.0 | 0.98 / 1.00 | 0.65 / 0.00 |
+| T-main | 25 / 327 / 983 | 11.0 / 5.9 / 4.6 | 0.97 / 1.00 | 0.50 / 0.00 |
+| T-hi | 47 / 388 / 928 | 21.0 / 7.0 / 4.3 | 0.99 / 1.00 | 0.50 / 0.00 |
+| veto gV (stored, for comparison) | 134 / 1,167 / 4,375 | 59 / 21 / 20 | – | 1.00 / 0.93 (target) |
+
+Hazards per fair-pair island-generation are cell-specific, mostly 3–6× the baseline's (T-main 6.5× / 3.4× / 3.4×; from
+about 2.5× for E-min main modal at mN = 1 to about 10× for T-hi at mN = 0.01); the flip-ratio intervals at mN = 1 are
+wide ([2.4, 11.2] for T-main). Coverage averaged over time is 0.68–0.83 at mN = 0.1 with readers against the
+baseline's 0.80, and 0.00–0.02 at mN = 1 against 0.00. The c₀ price lowers T's rate slightly (T-main 10.6 / 5.6 / 3.1×). Of the
+flips with readers seeded, 83–92% (modal and T; 68–87% in E-min weak) occur on islands where a reader is the dominant
+class of some slot (baseline 1–9%). At mN = 1 consensus on one pair is reached in 0.72–0.90 of runs with readers,
+against 0.95 for the baseline. Over all doses the ratio at mN = 1 ranges 2.8–4.6×.
+
+**Route.**
+- Not encounter redirection: single immigrants switch an island in 0.07–0.1% of injections over all slots for the constant, switcher and
+  two-partner configurations (0.5–0.8% for an excluded-slot taker) (0 of 24,400
+  in the registered statistic; sham and naming-preserving controls 0); the probe at N = 50 and 200 gives the same (switching
+  0.000–0.001 in every arm), and no homogeneous-reader cell reaches 0.5 even
+  at a 90% immigrant fraction (0.14 / 0.11 / 0.28). In the DSL, redirection of encounters is common (0.21 modal, 0.47
+  weak at a 50% fraction, in the descriptive fraction scan; at the registered 1% and 5% it stays lower) while island
+  switching stays below 0.03, descriptive support for gpt-6.1-sol's counter-prediction; in T redirection peaks at 0.13
+  and the criterion is not met.
+- Ablations at 0.03 each (post hoc): switchers alone 4.2× and two-partner readers alone 3.6× at mN = 0.1 in E-min modal (4.0×
+  and 3.8× in T), null-fallback readers 1.3–1.4×. The excess is carried by readers whose fallback names the third slot, and churn is present already
+  at two-partner weight 0.003. gemini-4-argon's counter-prediction fails by its registered rule (T-hi's ratio at least
+  twice T-lo's at mN = 0.1 or 1): 7.0 against 5.9 and 4.3 against 4.0.
+- Flips are persistent (median dwell 650–890 generations in an 8-run post-hoc scratch diagnostic, not in the cell files; 21% return within 300
+  generations, as in the baseline). The working hypothesis, suggested by ablations, routes and probes but not isolated, is
+  payoff-neutral re-pairing through readers that have somewhere else to go: such readers would be neutral bridges
+  between fair pairs, as conditional straights were in fixed-role chicken.
+- Balanced start (three pairs on equal numbers of islands, readers resident against resident constants): flip ratios
+  0.96–2.2; coverage at mN = 0.1 mixed in sign (E-min weak switchers 0.70 against 0.35, T two-partner 0.65 against
+  0.25, E-min modal 0.00 against 0.35).
+
+**Verdicts.** Held: P1 (arm E does not churn: ratios within 3×, coverage at mN = 1 0.00), P3 (readers do not take fair
+offers at the island level: 0 switches in the registered injections), P4 (coverage is founders' and falls with mN:
+1.00 / 1.00 / 0.45–0.55 / 0.00; sol's non-monotonicity counter not seen), E6 (gate). Partial: P2 (T at c = 0 churns
+4–11× without coverage, which the falsifier required jointly with the 10× flips), E1, E4, E8. Failed: the engineer's E2,
+E3, E5 (hand estimates of no cell above 6×), and gemini-4-argon's counter-prediction as stated. E-min fails the "no
+churn" rule without failing P1's coverage clause.
+
+**Reading.**
+- Churn among the fair pairs is not an artefact of the veto: in both the DSL and the Turing-complete arm, with flexible
+  readers seeded at 9–16%, islands change pair 2.8–21× as often as without them (3.2–11× at the 9% doses), with no contracts. It is not a
+  property of the length prior, which at n = 10 gives these readers about 0.1% and does not churn; the excess appears
+  under the library priors (E against E-min changes catalogue and prior together, and no abundance threshold was
+  measured).
+- What the readers do deliver is the efficiency half of the RS's target: at mN ≥ 0.1, 0.89–1.00 of islands sit on a fair
+  pair (baseline 0.56–0.82), without a veto.
+- They do not deliver coverage: at generation 10,000 and N = 100, no cell has all three pairs present at mN = 1
+  (consensus on one pair in 0.72–0.90 of runs), and at mN = 0.1 coverage is mixed (0.42–0.70 against 0.62), with no
+  systematic improvement. The veto kept three pairs present by refusing exits from the set and by fair-to-fair moves that its
+  dominance test made strict; the readers' re-pairing does not resist consolidation by migration.
+- *Caveats:* finite N and I, ε = 0, 10,000 generations, 40 runs (20 in the balanced start); library priors chosen by the
+  engineer; T reads only by capped simulation (no tape, certificates or proofs); the mechanism is inferred; hazards are
+  per fair-pair island-generation.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

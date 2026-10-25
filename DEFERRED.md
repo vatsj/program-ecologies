@@ -905,6 +905,12 @@ REJECTED.md the ones we dropped.
 - *RS (2026-10-25):* the veto is "an experimental artifact rather than a core part of our equilibrium notion"; the churn
   must be shown in the primary object (extensional or Turing-complete) to count (queue 64). The stored primary-object
   runs (weak and modalPA, n = 6) kept no coverage under migration.
+  *Result (2026-10-25, RESULTS "Churn among the fair pairs in the primary object"):* with flexible readers seeded
+  (library priors, 9–16%) the DSL and the Turing-complete arm churn without contracts (2.8–21× the baseline's flips) and
+  put 0.89–1.00 of islands on a fair pair at mN ≥ 0.1, but no cell keeps all three pairs present at mN = 1; the n = 10
+  length prior does not churn. *Operating hypothesis:* the target's efficiency half is reachable without the veto;
+  coverage under steady migration is not, in the primary object as tested, and needs either founders (low mN),
+  components, or a mechanism that resists consolidation (the veto's refusal of exits plays that role).
 - *RS (2026-10-24):* component size matters little here, "since there's only 3 real candidate equilibria to choose
   from. It'll matter more in games w good migrants - maybe PD?" *RE:* in the PD migration carries good migrants
   (fission–fusion universal 40/40, one donor per island, bridge-mediated merging), so component size trades
