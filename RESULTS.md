@@ -7672,6 +7672,94 @@ not conversions per migrant). "Fix in both slots" means each half above 0.5 at a
   0.40) at every ν; the readers arm of "Islands to infinity before time" remains the only cell that meets it.
 - Caveats: finite N, finite pools, one seed law (97% constants: responders almost never read), the migration rate is explicit, S at ν = 1 not run to its end, coverage at small ν unresolved at 10⁴ rounds.
 
+## Charging forfeits like failed reads: the leak closes; exact simulation dies where failure costs and is selected in inspection; the security fallback sponsors the coin at low prices (2026-10-26)
+
+Spec `specs/2026-10-26-forfeit-pricing.md` (queue 68; the RS, 2026-10-26: "I think a forfeit should be charged … I
+further propose that those 2 costs be equal, since they seem like the same failure", and on the double charge, "The
+old rule is that a forfeit spits out the minmax action … which makes me worry about state-sponsoring that solution";
+reviewed by gemini-4-argon then gpt-6.1-sol, with an addendum for the security fallback), predictions
+`predictions/2026-10-26-forfeit-pricing.md`, notes `notes/forfeit-pricing.md`, report `runs/forfeit-pricing.md` and
+`.json`, rows and deviations `runs/forfeit_pricing/`. Run by a Sonnet subagent (`src/forfeit_pricing*.py`; 29 tests,
+passing where the world-K caches are present). Objects: the ε = 0 seed lottery at (100, 64), 40 runs, generation
+2,000, fresh indices; scores as in "Confirming failure pricing".
+
+**Rules.** A: P_fail per timed-out read, forfeits free (the confirmed default). A_f: the same P_fail also per forfeit,
+one charge per failure event (an uncapped read that exhausts the root is the forfeit, charged once), with the game's own
+forfeit payoff kept (RPS: −1 for the forfeiter, +1 for its opponent). A_m: A_f's charge, with a forfeit replaced by the
+forfeiter's security strategy (in RPS a uniform referee draw; in inspection pure: inspect, comply). Arm X adds
+uncapped shared-fuel simulators (`SIMX` in RPS, `SIMX_I` and `SIMX_E` in inspection), each splitting its capped
+counterpart's prior mass; X-sham splits it with a clone of the capped simulator.
+
+**Deviations.** Nested capped timeouts stay charged to the root, as in the merged A; the spec's broader reading
+("failures inside a simulated execution are not charged") was not adopted, because it would make A_f differ from A on
+plays with no forfeit and break the draw-for-draw validation. The sham's clone is the same term with fuel 101, so it
+differs from its counterpart only against the hash programmes, and it controls the split's bookkeeping, not the
+halving of the capped class. Under A an uncapped read's failure is a free forfeit. The PD's A_f cells are A plus a
+read-only recorder, since no forfeit was recorded in these PD runs (largest encounter 759,079 steps against 10⁶), so the observed
+trajectories need no forfeit charge; 15 and 18 of 40
+PD runs were censored at generation 10,000 and kept under the persistence rule. Extras outside the spec: concurrent A
+at 10, A_m + X at 0.1 and 1 in inspection, and a supplement of 80 more runs in 12
+inspection cells (indices 340–419), added because the run-level inspection statistic is nearly binary; registered
+verdicts use the 40 runs only. The batch driver gained a static job and an option after the code commit (no path that
+produced a registered cell changed). Validation: A_f with the forfeit term removed reproduces an A cell draw for draw;
+the confirmation run's A 0.1 cell is reproduced exactly on runs 100 and 101; exact boundary budgets are tested for all three simulators.
+
+**The leak closes.** RPS under A_f is met by mixing at every level from 0.03 to 10 (gross exploitability 0.031 at
+0.03, 0.000 from 0.1 through 1 and 0.017 at 10; forfeits 0.000 through 1 and 0.001 at 10), with the guarded mixer `PRR` modal on 0.81–0.90 of islands at 1 and
+10. The concurrent A reproduces the leak: at 1 and 10 the prover `PB` is modal on 0.58 and 0.70 of islands, forfeits
+are 0.49 and 0.62 and gross exploitability 0.58 and 0.81. Under A_f `PB` is modal on at most 0.002 of islands and forfeits are below 0.001. The PD is unaffected (37/40
+at 0.1 and 39/40 at 1, met, within 3 runs of the confirmation run).
+
+**Exact simulation.**
+- *RPS:* under A (forfeits free) `SIMX` takes 0.53 of islands at 0.1 and 0.34 at 1, by mutual non-play (0.89–0.93 of
+  its plays forfeit; `SIMX` against `SIMX` or `PB` is a mutual forfeit). Under A_f it is extinct from 0.1 up and survives
+  only at 0.03 (mass 0.084, modal 0.071, island forfeits 0.057, with 68% of its own plays forfeiting); that cell is
+  by-mixing met by generation 4,000, with modal turnover continuing.
+- *Inspection:* `SIMX_I` is selected at every price under A_f (mass 0.37–0.72, modal 0.37–0.72), `SIMX_E` never. An
+  exact read of a capped-simulator inspectee returns that inspectee's own default (cheat), which `SIMX_I` then inspects
+  (−1) where the capped inspector defaults to not inspecting and takes −4; it also finishes reads of provers that time
+  out a capped read. Inspection efficiency with X is +0.05 to +0.16 above no X (significant at 0.3 and 1 on 120 runs),
+  but the sham adds about +0.10 at 0.1 and 1 and X minus sham is not significant, so the efficiency gain cannot be
+  attributed to exact reading.
+
+**The security fallback.** A_m removes the double charge and the +1 reward for causing a forfeit, but at low prices a
+prover forfeits into the referee's coin: fallback share 0.21 at 0.03 and 0.10 [0.025, 0.200] at 0.1 (0.121 with X),
+0 from 0.3 up without X (0.025 [0.000, 0.075] with X at 0.3, by mixing undetermined to generation 4,000); by mixing failed at 0.03 and undetermined at 0.1. It also moves RPS mass from the guarded reader to the
+free coin, which takes the middle of the band (`U` 0.83 against 0.21 under A_f at 0.3; 0.44 against 0.19 at 1). From 1 up A_m and A_f agree on RPS by-mixing status, not on outcomes (the coin's mass
+differs; inspection at 1 is met under A_m and undetermined under A_f).
+
+**Classification.** RPS and the PD are met at every level under A_f (the PD from this run at 0.1 and 1, carried from the
+confirmation run at 0.03, 0.3 and 10). Inspection's 40-run cells are undetermined at every level (0.64–0.71), so A_f is
+registered as unresolved at every level; the inspection tables under A, A_f and A_m without X are identical (that
+catalogue has no forfeits), so the spread is dynamics noise, and two post-hoc readings both put inspection above 0.60: pooled across the rules run at each level (two rules at
+0.03, 0.3 and 10, three at 0.1 and 1) it is 0.722–0.752, and the A_f-only 120-run supplement gives 0.710–0.769.
+Neither changes the registered unresolved classification; on these post-hoc readings A_f would be confirmed at every
+level.
+
+**Verdicts.** Held: 1 (the leak closes), 3 (no forfeits at 10), 6 (the PD), 9c and 10c (gpt-6.1-sol: persistent fallback
+and changed selection), 11 (arithmetically: A_f's `SIMX` mass is exactly 0, which supports nothing about its
+mechanism), and the engineer's E1, E3, E4, E10. Supported: 5c-gpt (by its operational criterion, `SIMX_I`'s modal share 0.369
+against the sham clone's 0.235, a difference above 0.03; no mechanism established). Unevaluable: 11c-gemini (its ratio
+has a zero denominator). Partial: 2 (RPS
+equivalent at 0.1, unresolved at 0.03; inspection undetermined), 5 (`SIMX_I` modal ≥ 0.1, but efficiency differs by
+more than 0.10). Failed: 4 (at 0.03 only), 9, 10, 5c-gemini (`SIMX_I` beats the capped inspector by up to 3.1 against
+some inspectees at 0.1, and 4.0 at 1), 6c-gpt, and the engineer's E2 (the guarded reader, not the coin, carries the high end),
+E5–E9, E11 (A_f is registered unresolved at 0.1, not confirmed; E11 is missing from the report's table) and E12.
+
+**Reading.**
+- Charging a forfeit closes failure pricing's upper leak: with A_f, RPS is met by mixing at every price from 0.03 to
+  10, held by a guarded mixer, and the PD is untouched; the residual uncertainty is inspection's noisy cell.
+- A free forfeit is an exit that provers and exact simulators take (mutual non-play); once it is charged, exact
+  simulation is common only where reads finish and pay (the exact inspector) and disappears where they fail (RPS from
+  0.1); at 0.03 failures and survival coexist, and endpoint abundance does not isolate the selection mechanism.
+- The RS's sponsorship worry is real under A_m at low prices: forfeits turn into referee coin draws (0.10–0.21 of
+  plays) and the free coin takes the middle of the band (modal on
+  0.64 and 0.83 of islands at 0.1 and 0.3, 0.42 at 1). A_f's alternative cost, the opponent's +1 for a forfeit, did not
+  sustain any forfeit-inducing strategy here; residual forfeits are below 0.001 from 0.1 up.
+- *Caveats:* generation 2,000 is the primary endpoint and support and modal turnover continue (no equilibrium is
+  implied); finite-size lottery, these caps and catalogues and world K; `SIMX` seeded by the split prior; the sham
+  controls bookkeeping only; the inspection statistic is nearly binary at 40 runs.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

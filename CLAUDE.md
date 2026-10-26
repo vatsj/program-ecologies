@@ -171,7 +171,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 67. ~~Confirming failure pricing (RS)~~ (done; RESULTS "Confirming failure pricing as the default compute charge": confirmed on fresh runs at P_fail = 0.1 and 0.03, unresolved at 0.3, refuted at 1 and 10 by RPS non-play; only RPS discriminates; failure pricing does not charge forfeits, the suspected upper-edge leak; DEFERRED 16).
 
-68. Forfeit pricing (RS, 2026-10-26: a forfeit is charged the same as a timed-out read, "the same failure"; readers may then simulate exactly at their own risk): A_f across RPS, inspection and the PD at 0.03–10 with concurrent A controls, and uncapped shared-fuel simulators with a sham-split control (running: `specs/2026-10-26-forfeit-pricing.md`).
+68. ~~Forfeit pricing (RS)~~ (done; RESULTS "Charging forfeits like failed reads": charging the forfeit (A_f) closes the leak, RPS met by mixing at every price 0.03–10 with the guarded mixer, the PD unchanged, inspection noise-bound; exact simulation is selected in inspection, dies in RPS from 0.1; the security fallback (A_m) sponsors the coin at 0.03–0.1; operating hypothesis A_f at 0.1, DEFERRED 16).
 
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 

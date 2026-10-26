@@ -1013,4 +1013,9 @@ REJECTED.md the ones we dropped.
   playing the coin itself; it is a mixed referee draw only where the security strategy is mixed (RPS). Safeguard: a
   fallback play never counts as the programme's mixing. Both rules run side by side in queue 68; the default between
   A_f and A_m is the RS's call after it reports.
+- *Result (2026-10-26, RESULTS "Charging forfeits like failed reads"):* A_f closes the leak (RPS met by mixing at every
+  price from 0.03 to 10, the PD unchanged; inspection registered unresolved by its noisy 40-run cell, met on post-hoc
+  pooled readings); A_m sponsors the coin at 0.03–0.1 (forfeits become referee draws) and matches A_f from 1 up.
+  *Operating hypothesis (RE, pending the RS):* the default compute charge is A_f at P_fail = 0.1, keeping the game's own
+  forfeit payoff; the RS asked for equal costs, and A_f equalizes the charges, not the total consequence.
 
