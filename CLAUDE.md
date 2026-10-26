@@ -169,7 +169,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 66. Contracts that form in encounters (RS, 2026-10-25: contracts as situation-keyed overrides that "trigger on the rare special cases where they apply", formed when the coalition Pareto-improves after the responders' programs answer; best-reply response as the control; no farsighted arm; holders need not meet): the weak arm of majority division under queue 65's order of limits (running: `specs/2026-10-25-encounter-contracts.md`, with arms H (hooks only), C (copying as proposals) and S (the Pareto clause as selection)).
 
-67. Confirming failure pricing (RS, 2026-10-25: "Next steps sg, happy to make this our working hypothesis / default compute charge"): A at 0.03–10 on fresh runs in RPS, inspection and the PD, inspection at (400, 16), the PD scored cost-inclusive, RPS scored by mixing, a stakes-normalized point (running: `specs/2026-10-25-failure-pricing-confirmation.md`; circle back on DEFERRED 16 when it reports).
+67. ~~Confirming failure pricing (RS)~~ (done; RESULTS "Confirming failure pricing as the default compute charge": confirmed on fresh runs at P_fail = 0.1 and 0.03, unresolved at 0.3, refuted at 1 and 10 by RPS non-play; only RPS discriminates; failure pricing does not charge forfeits, the suspected upper-edge leak; DEFERRED 16).
 
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 

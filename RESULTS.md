@@ -7525,6 +7525,74 @@ checkpoint differences never exceed 0.05; its long-time support is an extension)
 - *Caveats:* three pools per cell; the large pools are resamples of a finite source; the symmetric chain is a
   simulation; the instability's mechanism is composition-level and not isolated; one catalogue (n ≤ 6 plus readers).
 
+## Confirming failure pricing as the default compute charge: confirmed on fresh runs at P_fail = 0.1 (and at 0.03); only RPS discriminates (2026-10-25)
+
+Spec `specs/2026-10-25-failure-pricing-confirmation.md` (queue 67; the RS, 2026-10-25: "happy to make this our working
+hypothesis / default compute charge"; reviewed by gemini-4-argon then gpt-6.1-sol), predictions
+`predictions/2026-10-25-failure-pricing-confirm.md`, notes `notes/failure-pricing-confirm.md`, report
+`runs/failure-pricing-confirm.md` and `.json`, rows `runs/failure_pricing_confirm/`. Run by a Sonnet subagent
+(`src/failure_pricing_confirm*.py`; 16 tests, passing where the world-K caches are present). Objects: the ε = 0 seed
+lottery on fresh run indices (none used before), at (100, 64) for all three games and at (400, 16) for RPS and
+inspection; a fixed-geometry comparison, not π. Scores: the three registered targets plus RPS by mixing (gross
+exploitability ≤ 0.10 and forfeits ≤ 0.05, by upper bound), inspection net of charges (both roles' net means ≥ −0.05),
+and the PD cost-inclusive count (universal-open, persistent over the last 500 generations or frozen in an absorbing
+state however recently, end-state charge per play ≤ 0.1 of the payoff range). Cell thresholds as registered: RPS net
+exploitability ≤ 0.10, inspection ≥ 0.60 of islands net-efficient, PD ≥ 0.70 of runs, each by run-level 95% intervals;
+RPS and inspection scored at generation 2,000. Classification: confirmed only if all three are met with these scores.
+
+**Deviations.** The world-K caches were copied from the pricing-rules engineer's worktree (the main checkout has none;
+digests unchanged before and after, never committed). 16–19 of 40 runs per PD cell had not frozen by generation 10,000
+(censored); all are kept and scored by the persistence rule, which equals the end-snapshot count in every priced cell.
+PD timeouts are reported by stage only (PD reads are primitive, at most two per play, never nested). Inspection net of
+charges is unavailable for the stored rows of the earlier run.
+
+**At P_fail = 0.1, (100, 64), fresh runs: confirmed.**
+
+| game | score | A 0.1 | zero price, same founders |
+|---|---|---|---|
+| RPS | net / gross exploitability, forfeits | 0.000 / 0.000, 0.000 | 0.587 (failed) |
+| RPS | islands whose modal programme is `PRR` | 0.851 [0.802, 0.898] | – |
+| inspection | net efficient islands | 0.825 [0.704, 0.929] | 0.734 [0.600, 0.866] |
+| PD | cost-inclusive runs | 37/40 = 0.925 [0.801, 0.974] | 35/40 |
+
+The largest PD end-state charge per play in any priced run is 0.0039 (against the 0.3 cap), and the largest cell-mean
+scramble charge is 0.0009.
+At (400, 16) RPS and inspection are also met (inspection net 0.814 [0.694, 0.919], zero price 0.762). Paired
+price-minus-zero differences in the PD and inspection all include 0: only RPS discriminates on the registered targets.
+There the price suppresses the simulators (zero-price simulator share 0.831, timeouts 0.824 per play; zero-price
+forfeits are 0). It also changes behaviour elsewhere (inspection timeouts fall from 0.098 to 0.006 per play at 0.1)
+without changing the verdicts.
+
+**The band** (discrete points tested; edges not located). Confirmed at 0.03 (PD 38/40, inspection 0.825, RPS by mixing met with `PRR` modal on 0.90 of islands) and
+0.1; unresolved at 0.3 (RPS by mixing undetermined: forfeits 0.056 [0, 0.126], gross exploitability 0.061 [0, 0.136]);
+refuted at 1 and 10 by RPS mutual non-play (gross exploitability 0.595 and 0.786, forfeits 0.502 and 0.632), although
+the net target is met at 1. The stored exploratory cell at 0.01 failed RPS, so the lower
+edge is suggested to lie between 0.01 and 0.03 (a comparison across exploratory and fresh samples). At 0.3 the prover `PB` becomes modal on
+0.06 of RPS islands and lifts cell-mean forfeits to 0.056; the engineer reports that `PB` forfeits on most of its plays
+and that a forfeit exhausting the root fuel is not a timed-out read, so A does not charge it (run-level detail not
+tabulated in the report; an engineer-reported hypothesis, not tested by intervention). The stakes-normalized point (P_fail = 0.1 × each game's range) is met in RPS
+(0.2) and the PD (0.3, the same cell as A 0.3) and undetermined in inspection (0.5: 0.619 [0.475, 0.759]; the engineer
+attributes it to noise, no mechanism identified).
+
+**Verdicts.** Held: 1 (the default holds), 2 (inspection at (400, 16)), 4 (mixing, not non-play, at 0.1; non-play at 1
+and 10), 5 (cost-inclusive PD equal to the cost-blind count at every A level, no priced run at 0.03 per play, stored
+per-step 10⁻² passes 0/20), the inspection-and-PD clause of 3, the engineer's E1–E4, E7, E8 and E10, and gemini-4-argon's counter on 3 (held under the operational rule, by-mixing not met at 0.3; its cost mechanism is
+not supported). Failed: 3 (RPS by mixing is met at 0.03, and only
+undetermined at 0.3), gpt-6.1-sol's counters on 1 (inspection at (100, 64) undetermined) and on 5 (the scramble's
+charges change which network establishes), and the engineer's E5, E6 and E9.
+
+**Reading.**
+- The RS's default is confirmed on fresh runs: at P_fail = 0.1 every game meets its target with the charge counted,
+  and at the scoring checkpoint the RPS islands are mostly held (0.851) by a mixer guarded by a sound read, with zero
+  exploitability; holders still turn over (modal identity changes on 0.23 of islands between generations 2,000 and
+  4,000).
+- The support is one game deep: inspection and the PD pass without any price, so RPS alone shows what the charge does.
+- 0.03 and 0.1 are confirmed, 0.3 unresolved and 1 and 10 refuted, so the working range is about a factor of 3 and
+  0.1 sits near its top. The engineer's reading of the upper edge is a leak in the rule rather than cost: A charges
+  timed-out reads but not forfeits, so a prover that forfeits plays for free (a hypothesis to test).
+- *Caveats:* these geometries, grammars, caps and world K only; no island-size or large-N claim; the inspection
+  stakes-normalized point is undetermined.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

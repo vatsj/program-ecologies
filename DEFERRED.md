@@ -990,4 +990,9 @@ REJECTED.md the ones we dropped.
   earlier if a new game makes the charge bind differently: the band so far rests on pooled PD runs, the price is in
   raw payoff units (so its weight in stakes differs by game), and at P_fail ≥ 1 RPS is held by mutual non-play rather
   than mixing.
+- *Circle-back (2026-10-25, RESULTS "Confirming failure pricing"):* confirmed on fresh runs at P_fail = 0.1 (and 0.03),
+  unresolved at 0.3, refuted at 1 and 10 by RPS mutual non-play; only RPS discriminates (inspection and the PD pass
+  unpriced). *Open:* failure pricing does not charge a forfeit (a read that exhausts the root fuel without a timed-out
+  call), which the engineer suspects sets the upper edge; whether a forfeit should count as wasted computation is the
+  RS's call. The default stands.
 

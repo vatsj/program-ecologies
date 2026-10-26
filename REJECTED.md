@@ -1286,3 +1286,6 @@ immigrants"** (RESULTS "Dominance contracts and refusal on islands"; the explain
 - **α > 0 (third-pair moves) suffices for a unique interior attractor with all three fair pairs (RE, 2026-10-25).** Not sufficient: α/κ 0.09–0.13 > 0, yet any asymmetry breaks the symmetric state and an unequal basin competes. Same section.
 - **RE predictions 1, 3, 5, 6, 7 and engineer E2, E4, E6, E10, E13 (many islands)**, and gemini-4-argon's counter on 5 and gpt-6.1-sol's 7c as registered. Same section.
 - **Single-migrant conversion as the efficiency bottleneck (unequal islands nearly absorbing).** Wrong in the limit: unequal islands convert slowly but steadily; V* 0.96 by 10⁴ events per island in L A = 0. Same section.
+- **RPS fails under failure pricing at P_fail = 0.03 (confirmation, prediction 3a).** Failed: by-mixing met, `PRR` modal on 0.90 of islands (RESULTS "Confirming failure pricing").
+- **gpt-6.1-sol's counters: inspection at (100, 64) undetermined; the scramble's charges change which PD network establishes.** Failed: net efficient 0.825 [0.704, 0.929]; paired differences all include 0. Same section.
+- **Engineer E5, E6, E9 (confirmation).** Failed (PRR share at 0.03 is 0.90; the stakes-normalized inspection point undetermined; the headline confirmed, not unresolved). Same section.
