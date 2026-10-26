@@ -519,12 +519,19 @@ def sym_chain(C, PAYt, VECt, PFT, reps, imgs, PERM, SIG, nev, seed):
     return nfix, nchg
 
 
-def sym_job(arm_name, A, idxs=(0, 1, 2), cap=100000, tag='sym', n_reps=None):
+def sym_job(arm_name, A, idxs=(0, 1, 2), cap=100000, tag='sym', n_reps=None, tiltcls=None, tilt=0.0):
     import itertools
     arm = MI.Arm(arm_name); arm.new_cache(26)
     master = np.concatenate([MR.load_pool(arm_name, A, k)[0] for k in idxs])
     if n_reps:
         master = master[:n_reps]
+    if tiltcls:
+        ctx0 = arm.ctx()
+        oc0 = np.array([MI.VEC[int(MI.jl(ctx0, *map(np.int64, t)))] for t in master])
+        w0 = np.ones(len(master))
+        w0[MI.CATMAP[oc0] == MI.CATLAB.index(tiltcls)] += tilt
+        rngt = np.random.default_rng(MR.crc('mi-symtilt|%s|%d|%s' % (arm_name, A, tag)))
+        master = master[rngt.choice(len(master), len(master), p=w0 / w0.sum())]
     sigmas = list(itertools.permutations(range(3)))
     SIG = np.array(sigmas, np.int64)
     PERM = np.stack([np.stack(MI.permute_support(arm, sg)) for sg in sigmas]).astype(np.int64)       # (6, 3, K)
@@ -623,5 +630,9 @@ if __name__ == '__main__':
         r = post_job(sys.argv[2], int(sys.argv[3]), npools=int(sys.argv[4]) if len(sys.argv) > 4 else 5)
         print(json.dumps({k: r[k] for k in ('arm', 'A', 'npools', 'wall')}))
     elif mode == 'sym':
-        r = sym_job(sys.argv[2], int(sys.argv[3]), idxs=tuple(int(v) for v in sys.argv[5].split(',')), cap=int(sys.argv[4]))
+        if len(sys.argv) > 8:
+            r = sym_job(sys.argv[2], int(sys.argv[3]), idxs=tuple(int(v) for v in sys.argv[5].split(',')), cap=int(sys.argv[4]),
+                        tag=sys.argv[6], tiltcls=sys.argv[7], tilt=float(sys.argv[8]))
+        else:
+            r = sym_job(sys.argv[2], int(sys.argv[3]), idxs=tuple(int(v) for v in sys.argv[5].split(',')), cap=int(sys.argv[4]))
         print(json.dumps({k: r[k] for k in ('arm', 'A', 'n_reps', 'wall')}))

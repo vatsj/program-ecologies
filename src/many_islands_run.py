@@ -172,7 +172,7 @@ def run_chain(arm, triples, comp, cps_per_island, seed, track_K=False, dump_at=N
             dumps[int(c)] = pool[:dump_n].copy()
         if not quiet:
             print('  checkpoint %s: %.0f s' % (c, time.time() - t0), flush=True)
-    return dict(hist=hist, h0=h0, first_loss=first, drift=drift, Kc=Kc, dumps=dumps, div=div, wall=time.time() - t0, I=I)
+    return dict(hist=hist, h0=h0, first_loss=first, drift=drift, Kc=Kc, dumps=dumps, div=div, pool=pool, wall=time.time() - t0, I=I)
 
 
 def summarize_hist(h):

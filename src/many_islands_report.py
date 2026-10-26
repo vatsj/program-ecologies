@@ -16,7 +16,7 @@ ARMS = ('L', 'M', 'R')
 AS = (0, 50, 150)
 ARMNAME = {'L': 'L (weak)', 'M': 'modalPA', 'R': 'readers', 'Rw': 'readers (weak)'}
 V = list(MI.V)
-SHOW_CP = (1, 10, 100, 300, 1000, 3000, 10000, 100000, 1000000)
+SHOW_CP = (1, 10, 100, 300, 1000, 3000, 10000, 30000, 100000, 1000000)
 
 
 def jload(path):
@@ -124,6 +124,7 @@ def load_cell(arm, A):
     c['ia'] = jload(os.path.join(OUT, 'ia_%s_A%d.json' % (arm, A)))
     c['comp'] = jload(os.path.join(OUT, 'comp_%s_A%d.json' % (arm, A)))
     c['sym'] = jload(os.path.join(OUT, 'sym_%s_A%d_sym.json' % (arm, A)))
+    c['symtilt'] = {os.path.basename(f)[len('sym_%s_A%d_' % (arm, A)):-5]: jload(f) for f in sorted(glob.glob(os.path.join(OUT, 'sym_%s_A%d_symtilt*.json' % (arm, A))))}
     c['rs'] = {os.path.basename(f)[len('rs_%s_A%d_' % (arm, A)):-5]: jload(f)
                for f in sorted(glob.glob(os.path.join(OUT, 'rs_%s_A%d_*.json' % (arm, A))))}
     c['pools'] = [jload(f) for f in sorted(glob.glob(os.path.join(OUT, 'pool_%s_A%d_p[0-9].json' % (arm, A))))]
@@ -178,6 +179,11 @@ def cell_summary(cell):
     if sy:
         S['sym'] = {cp: lowdim(sy['hist'][sy['cps'].index(cp)]) for cp in SHOW_CP if cp in sy['cps']}
         S['sym_meta'] = dict(n_reps=sy['n_reps'], cap=sy['cps'][-1], wall=sy['wall'])
+        S['sym_switching'] = {cp: sy['switching'][sy['cps'].index(cp)] for cp in SHOW_CP if cp in sy['cps']} if 'switching' in sy else {}
+    S['symtilt'] = {}
+    for tag, r in cell['symtilt'].items():
+        S['symtilt'][tag] = dict(traj={cp: lowdim(r['hist'][r['cps'].index(cp)]) for cp in SHOW_CP if cp in r['cps']},
+                                 switching={cp: r['switching'][r['cps'].index(cp)] for cp in SHOW_CP if cp in r['cps']}, cap=r['cps'][-1])
     # pool-size ladder
     un = cell['union']
     if un:
@@ -188,6 +194,7 @@ def cell_summary(cell):
     for tag, r in cell['rs'].items():
         S['rs'][tag] = dict(M=r['M'], sym=r['sym'], tilt=r['tilt'], source=r['source'],
                             traj={cp: lowdim(r['hist'][r['cps'].index(cp)]) for cp in SHOW_CP if cp in r['cps']},
+                            switching={cp: r['switching'][r['cps'].index(cp)] for cp in SHOW_CP if cp in r['cps']} if 'switching' in r else {},
                             brk=break_time(r['cps'], r['hist']), imbalance=[(c, max_pair_fraction(h)) for c, h in zip(r['cps'], r['hist'])
                                                                            if 300 <= c <= 30000], wall=r['wall'])
     # (2a)
@@ -262,6 +269,7 @@ def build(write=True):
     R = {}
     for arm, A in cs:
         R[key(arm, A)] = cell_summary(load_cell(arm, A))
+    EXTRA = {}
     md = ['# Many islands: islands to infinity before time, rare migration, annealed mutation (report)', '']
     md += ['Spec `specs/2026-10-25-many-islands.md`; predictions `predictions/2026-10-25-many-islands.md`; notes `notes/many-islands.md`.', '']
     md += ['## 1. Post-annealing law of the settled islands (pool means [t interval over pools])', '']
@@ -314,6 +322,18 @@ def build(write=True):
                     s = S['sym'][cp]
                     rows.append([k, cp, fmt(s['Vstar'], 4), ', '.join(fmt(x, 4) for x in s['pairs']), fmt(s['U'], 4), fmt(s['G'], 4), fmt(s['W'] + s['D'], 4)])
     md += md_table(['cell', 'events/island', 'V*', 'pairs', 'U', 'G', 'W+D'], rows)
+    md += ['', 'Symmetric orbit chain from tilted starts (fair pairs / unequal pairs reweighted by 6): V*, unequal, grand, and the class-switching rate per event in the last interval:', '']
+    rows = []
+    for k, S in R.items():
+        base = S.get('sym')
+        items = [('base', base, S.get('sym_switching'))] + [(t, v['traj'], v['switching']) for t, v in S.get('symtilt', {}).items()]
+        for tag, tr, swd in items:
+            if not tr:
+                continue
+            cp = max(tr.keys())
+            sw = swd.get(cp) if swd else None
+            rows.append([k, tag, cp, fmt(tr[cp]['Vstar'], 4), fmt(tr[cp]['U'], 4), fmt(tr[cp]['G'], 4), '%.1e' % sw[0] if sw else '-'])
+    md += md_table(['cell', 'start', 'events/island', 'V*', 'U', 'G', 'class switching per event'], rows)
     # ladder
     md += ['', '## 4. Pool-size ladder and giant resampled pools (V*, break time)', '']
     rows = []
@@ -323,6 +343,15 @@ def build(write=True):
         for tag, u in S.get('rs', {}).items():
             rows.append([k, 'rs:' + tag, u['M'], ', '.join('%s:%s' % (cp, fmt(u['traj'][cp]['Vstar'], 3)) for cp in (100, 1000, 3000, 10000) if cp in u['traj']), fmt(u['brk'], 0)])
     md += md_table(['cell', 'pool', 'islands', 'V* at 100, 1000, 3000, 10000', 'break time'], rows)
+    ep = jload(os.path.join(OUT, 'endpoints.json'))
+    if ep:
+        md += ['', 'Endpoints of finite pools at 100,000 events per island (30,000 for the 262,144-island resample): fair-pair endpoint (V* >= 0.9), unequal-pair endpoint (U >= 0.9), or mixed (components on different pairs):', '']
+        rows = []
+        for cell_, d in ep.items():
+            for lab, v in d.items():
+                rows.append([cell_, lab, v['n'], v['F'], v['U'], v['mixed']])
+        EXTRA['_endpoints'] = ep
+        md += md_table(['cell', 'unit', 'n', 'fair endpoint', 'unequal endpoint', 'mixed'], rows)
     # ia
     md += ['', '## 5. (2a) Event-driven archipelagos: V* (run mean) at 1,000 events/island, coverage at 1,000, first loss and break (KM median, events/island)', '']
     rows = []
@@ -392,6 +421,26 @@ def build(write=True):
     md += ['', 'Largest class-changing path flows up to 1,000 events per island (counts, all pools):', '']
     for k, S in R.items():
         md += ['- %s: ' % k + ', '.join('%s %d' % (a, v) for a, v in list(S['path_flows_to1000'].items())[:10])]
+    try:
+        import many_islands_verdicts as VD
+        val = jload(os.path.join(ROOT, 'runs', 'many-islands-validate.json'))
+        vrows = VD.verdicts(R, val)
+        orows, agg = VD.own_verdicts(R, val)
+        EXTRA['_verdicts'] = vrows + orows
+        EXTRA['_aggregate_stability'] = agg
+        md += ['', '## 9. Verdicts (the rules of the predictions file)', '']
+        md += md_table(['id', 'claim', 'outcome', 'numbers'], [[r['id'], r['claim'], r['outcome'], r['detail'].replace('|', '/')] for r in vrows + orows])
+        md += ['', '### Aggregate stability (RS ruling 2): three starts at 30,000 events per island and the island switching rate', '']
+        rows = []
+        for k, v in agg.items():
+            symv = ' / '.join(fmt(v['sym_row'][t]['V'], 3) for t in ('sym', 'symtiltF', 'symtiltU')) if v.get('sym_row') else '-'
+            rows.append([k, symv, fmt(v['sym_spread'], 4) if v.get('sym_spread') is not None else '-',
+                         '%.1e' % v['switching_sym_last'] if v['switching_sym_last'] is not None else '-',
+                         ' / '.join(fmt(v['row'][t]['V'], 3) for t in ('rs', 'tiltF0', 'tiltU')), fmt(v['spread'], 4),
+                         '%.1e' % v['switching_pool_last'] if v['switching_pool_last'] is not None else '-', v['classification']])
+        md += md_table(['cell', 'symmetric chain V* (base / fair tilt / unequal tilt)', 'spread of shares', 'switching per event', 'unsymmetrized giant pool V* (base / F0 tilt / U tilt)', 'spread', 'switching', 'classification (symmetric chain)'], rows)
+    except Exception as e:  # keep the report buildable while cells are missing
+        md += ['', 'Verdict section unavailable: %r' % (e,)]
     vt = {N: jload(os.path.join(OUT, 'veto_N%d.json' % N)) for N in (50, 100, 200)}
     if any(vt.values()):
         md += ['', '## 8. Reference arm (extra, outside the registered predictions): the single-migrant kernel under the hand-written veto gV', '']
@@ -414,7 +463,7 @@ def build(write=True):
         with open(os.path.join(ROOT, 'runs', 'many-islands.md'), 'w') as f:
             f.write(out)
         with open(os.path.join(ROOT, 'runs', 'many-islands.json'), 'w') as f:
-            json.dump(R, f, default=lambda o: o.tolist() if hasattr(o, 'tolist') else str(o))
+            json.dump(dict(R, **EXTRA), f, default=lambda o: o.tolist() if hasattr(o, 'tolist') else str(o))
     return R, out
 
 

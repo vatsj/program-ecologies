@@ -269,3 +269,33 @@ checkpoint; dominated recipients by category toward the donor's pair (κ) and th
   equation with noise only in the orbit classes. A symmetrization test (`tests/test_many_islands.py`) checks equal fair-pair counts and preserved category counts.
 - The pool builds ran with at most two workers (another subagent was alive); short analysis checks were run with one of the two build processes
   stopped (SIGSTOP) and resumed, so the count of running workers stayed at two.
+
+
+### 2.5 Completeness, cuts and what the counted cells are (written at hand-back)
+
+*Counted cells.* Six cells (arm L, M, R at A = 0 and 150), each with 3 pools of 16,384 settled islands (49,152 per cell, 0 capped, 0 mixed,
+0 drifting in every cell), the pool chain to 10⁵ events per island (pool 0 of L A=0 to 10⁶; M A=0 and the A=150 cells 3·10⁵ on pool 0;
+pools 1, 2 to 10⁵), the exact kernel and its statistics (post job), the union pool of 49,152 islands and the 4,096-island subpool
+(to 10⁵), (2a) at I = 16, 64, 256, 1,024, 4,096 with 10 runs each (caps 10⁶ / 10⁶ / 10⁶ / 3·10⁵ / 10⁵ events per island), (1) at C = 1, 4, 16,
+64 for 1,024 islands with 10 runs (to 10⁵), the S₃-symmetric orbit chain (49,152 representatives; cap 3·10⁵ for L A=0 and M A=0, 10⁵ for
+the others) with fair-tilt and unequal-tilt starts (cap 5·10⁴), and giant resampled pools (262,144 islands, to 3·10⁴) from the base law and
+tilted toward F0 and toward the unequal pairs. The reference arm (veto gV) ran at N = 50, 100, 200.
+
+*Cuts, in the spec's order and mine.* (i) A = 50 not run (the spec's cut order). (ii) 3 pools per cell instead of 5: all intervals over pools
+are t-intervals with 2 degrees of freedom (4.30), and the registered "5 pools" statements are scored on 3; the 65,536-island pool of the ladder
+is replaced by a 49,152-island union and a 262,144-island resample (the resample draws with replacement from the 49,152 settled islands of
+the cell, so it is a mean-field estimate for the empirical post-anneal law, not 262,144 independent founders). (iii) Rw (readers, weak
+evaluator) not run. (iv) The spec's "at least 200 simulated injections per occupied cell" became exact class-kernel probabilities from
+stratified samples (up to 2,000 recipients per class × 20 donors per donor class, ≥ 40,000 pairs per occupied cell, three slots each), validated
+against simulated relaxation (§2.1); simulated relaxation is used for the two-migrant probes (200 tuples per recipient-group × donor-group cell
+at the 25 cells; overlap conversions are rare, so most cells have 0 overlapping conversions). (v) Injections "on triples sampled during migration" use
+the dumps at 10, 100, 1,000, 10⁴, 10⁵ events per island of pool 0 (4,000 islands).
+
+*Interruption.* The parent session restarted while the analysis cells were running; no job of mine survived. Completed outputs were kept. Resumed
+from the missing step per cell (L A=0 from the symmetric chain; M A=0 from (2a)); the other four cells from the pool chains; the same seeds, so the results
+of the interrupted steps are those they would have been. Caps for the symmetric chains were lowered to 10⁵ events per island for the four cells not yet started.
+
+*Questions added after the first look.* The modal arm's fall between 3,000 and 10,000 events (M A=0) was checked against an implementation fault: joint
+codes of the lazy cache against the stored joint table (0 / 300 mismatches), `island_run` against `stable_sets.kern` draw for draw on modalPA founders
+(5 / 5), the closed-form event probability against simulated relaxation on 40 random modalPA events (observed 108 fixations against 116.7 expected, z = −0.84)
+(`runs/many-islands-validate-modal.json`). The earlier validation covered the weak arm only.
