@@ -1,0 +1,19 @@
+# Review of `specs/2026-10-26-forfeit-pricing.md` by gemini-4-argon
+
+1. **Design flaws or confounds**
+- **Double-charging (`SIMX` vs the RS's equality requirement):** The RS specified that a capped read that times out and an uncapped (exact) read that runs out of fuel should have *equal* costs ("since they seem like the same failure"). Under the brief's Rule $A_f$, if `run` is implemented as a primitive read call, an uncapped `run` that exhausts the caller's remaining fuel both (a) fails as a read call and (b) causes the root program to forfeit. If both trigger $P_{\text{fail}}$, `SIMX` is charged $2 P_{\text{fail}}$ (plus the game's base forfeit penalty, e.g., $-1$ in RPS), whereas a capped simulator is charged $P_{\text{fail}}$ and still plays a default action. **Fix:** Explicitly specify in `notes/forfeit-pricing.md` and `test_forfeit_pricing.py` that an uncapped `run` exhausting root fuel incurs *one* $P_{\text{fail}}$ charge (as a forfeit, not a timed-out read + a forfeit), and clarify whether the RS's "those 2 costs be equal" requires waiving the game's intrinsic forfeit payoff when $P_{\text{fail}}$ is charged.
+- **Post-simulation fuel exhaustion:** If `SIMX` passes "the caller's whole remaining fuel" to `run`, and the opponent halts on the exact last step of that fuel, `SIMX` has 0 fuel left to compute its own best response ("play what beats the simulated action") and will forfeit even though the simulation succeeded. **Fix:** Reserve the fixed $k$-step response overhead when passing remaining fuel to `run` (i.e., pass $\text{fuel}_{\text{rem}} - k_{\text{post}}$), or make `SIMX` a primitive combinator whose post-processing is included before the forfeit check.
+- **Prior perturbation in Arm X:** Taking the prior mass of `SIMX`, `SIMX_I`, and `SIMX_E` from the constants' mass shrinks the unconditional shadow in RPS and Inspection relative to the confirmation run. Because constant mass drives drift/shadow dynamics in both games, Arm X is confounded with a reduced constant prior. **Fix:** Either split the existing simulator template mass equally between capped `SIM` and `SIMX` (leaving constant mass untouched), or log the exact constant-mass reduction and check that the $A_f$ vs $A_f+X$ comparison isn't driven by constant depletion.
+
+2. **Predictions I think are wrong**
+- **Prediction 5 (`SIMX_I` modal on $\ge 0.1$ of inspector slots at $P_{\text{fail}} = 0.1$):** Likely wrong (will fall below 0.1). Against a compliant constant inspectee, the existing capped simulator *already* finishes within its cap, pays 0 failure charge, and gets the exact answer. `SIMX_I` has no payoff or cost advantage over the capped simulator against constants or light cheaters, is strictly worse against deep/looping inspectees (forfeits the game instead of falling back to a default action), and splits the simulator founding mass.
+
+3. **Missing controls or cheap additions**
+- **Static payoff-matrix assertion in `test_forfeit_pricing.py`:** Before running the 40-run cells, assert in the test suite that the single-play net payoff of `SIMX` vs `SIMX` and `SIM` vs `SIM` matches the hand-calculated table in `notes/forfeit-pricing.md`, specifically verifying the total charge (1× vs 2× $P_{\text{fail}}$).
+- **Breakdown of who `SIMX` loses to:** In the output JSON, log the opponent class whenever `SIMX_I` or `SIMX` forfeits, to distinguish mutual-simulation loops (`SIMX` vs `SIMX` / `SIM`) from deep-prover exhaustion.
+
+4. **Alternative explanations the brief does not rule out**
+- If Inspection efficiency shifts between $A_f$ and $A_f + X$ (Prediction 5), the brief cannot distinguish the direct effect of exact simulation from the indirect effect of removing prior mass from the constants (which alters the shadow pressure on the responsive inspector). Splitting the simulator's existing prior mass (Fix 1c) rules this out cleanly.
+
+5. **Ideas that matter for the research program beyond this experiment**
+- Nothing material.

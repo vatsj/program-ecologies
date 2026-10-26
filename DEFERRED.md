@@ -995,4 +995,9 @@ REJECTED.md the ones we dropped.
   unpriced). *Open:* failure pricing does not charge a forfeit (a read that exhausts the root fuel without a timed-out
   call), which the engineer suspects sets the upper edge; whether a forfeit should count as wasted computation is the
   RS's call. The default stands.
+- *RS (2026-10-26):* "I think a forfeit should be charged, esp if our simulations do so implicitly. That way, opponents
+  have the option to simulate an opponent EXACTLY, potentially at cost to themselves. I further propose that those 2
+  costs be equal, since they seem like the same failure." *Operating hypothesis (adopted):* the default charge is
+  A_f: P_fail per timed-out read and the same P_fail per forfeit, one charge per failure event in the root's own trace;
+  the game's own forfeit payoff stays (to confirm with the RS). Tested in queue 68.
 

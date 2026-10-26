@@ -171,6 +171,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 67. ~~Confirming failure pricing (RS)~~ (done; RESULTS "Confirming failure pricing as the default compute charge": confirmed on fresh runs at P_fail = 0.1 and 0.03, unresolved at 0.3, refuted at 1 and 10 by RPS non-play; only RPS discriminates; failure pricing does not charge forfeits, the suspected upper-edge leak; DEFERRED 16).
 
+68. Forfeit pricing (RS, 2026-10-26: a forfeit is charged the same as a timed-out read, "the same failure"; readers may then simulate exactly at their own risk): A_f across RPS, inspection and the PD at 0.03–10 with concurrent A controls, and uncapped shared-fuel simulators with a sham-split control (running: `specs/2026-10-26-forfeit-pricing.md`).
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).
