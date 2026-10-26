@@ -59,6 +59,7 @@ def jobs():
     for game in ('rps', 'insp'):
         sp = specs(game)
         j.append(('lt_%s' % game, [PY, FRR, 'lt', game] + sp, [spec_file(game, s) for s in sp], False))
+    j.append(('static', [PY, os.path.join(HERE, 'forfeit_pricing_static.py')], [os.path.join(OUT, 'static_K.json')], False))
     for lv in (0.1, 1.0):
         j.append(('pd_%g' % lv, [PY, FPD, repr(lv)], [os.path.join(OUT, 'pd_Af_%g.json.gz' % lv)], True))
     return j

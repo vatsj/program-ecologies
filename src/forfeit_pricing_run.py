@@ -298,13 +298,13 @@ def insp_record(base, tb, full, N, I, run, wall, tag):
 # cell runner
 # ----------------------------------------------------------------------------------------------------------------
 def lt_cell(base, rule, arm, level, cell='primary', runs=FRESH_LT, out_dir=OUT, label=None, no_forfeit=False, no_write=False, quiet=False,
-            keep_full=False):
+            keep_full=False, tag=''):
     game = base.game
     tb = make_view(base, rule, level, arm, no_forfeit=no_forfeit)
     cfg = R.CELLS[cell]
     N, I = cfg['N'], cfg['I']
     lab = label if label is not None else (PL.seed_label('A', level) if (rule == 'A' and arm == 'none') else seed_label(rule, arm, level))
-    name = spec_name(game, rule, arm, level, cell)
+    name = spec_name(game, rule, arm, level, cell) + tag
     recs = []
     for r in runs:
         t1 = time.time()
@@ -332,14 +332,18 @@ def main(argv):
     mode = argv[0]
     if mode == 'lt':
         game = argv[1]
+        tag = ''; runs = FRESH_LT
+        if '--ext' in argv:          # supplementary runs (fresh indices 340-419), files tagged _ext
+            i = argv.index('--ext'); runs = list(range(int(argv[i + 1]), int(argv[i + 2]))); tag = '_ext'
+            argv = argv[:i] + argv[i + 3:]
         base = BaseX(game)
         print('tables ready', game, 'mismatch', base.mismatch, 'build %.0fs' % base.t_build, flush=True)
         for s in argv[2:]:
             rule, arm, level = parse_spec(s)
-            path = os.path.join(OUT, spec_name(game, rule, arm, level) + '.json.gz')
+            path = os.path.join(OUT, spec_name(game, rule, arm, level) + tag + '.json.gz')
             if os.path.exists(path):
                 print('skip', path); continue
-            lt_cell(base, rule, arm, level)
+            lt_cell(base, rule, arm, level, runs=runs, tag=tag)
     elif mode == 'build':
         BaseX(argv[1])
     else:
