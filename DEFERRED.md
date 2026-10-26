@@ -976,4 +976,11 @@ REJECTED.md the ones we dropped.
   (shared cache or the RS's per-program memo) returns RPS to the simulators. *Operating hypothesis (RE, pending the
   RS):* failure pricing at P_fail = 0.1 is the default cost notion for new realizable-language experiments; the
   registered PD target is cost-blind and is to be scored with the charge included in follow-ups.
+- *RS (2026-10-25):* "happy to make this our working hypothesis / default compute charge … throw a note in DEFERRED
+  to circle back". *Operating hypothesis (adopted):* failure pricing, P_fail = 0.1 per timed-out read, is the default
+  compute charge for new realizable-language experiments. *Circle back* when the confirmation run (queue 67: more PD
+  runs at P_fail 1 and 10, inspection at 0.1 at larger geometry, the PD scored with the charge included) reports, or
+  earlier if a new game makes the charge bind differently: the band so far rests on pooled PD runs, the price is in
+  raw payoff units (so its weight in stakes differs by game), and at P_fail ≥ 1 RPS is held by mutual non-play rather
+  than mixing.
 
