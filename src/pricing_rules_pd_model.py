@@ -70,12 +70,12 @@ C_BASE = 12
 CLASS_NAMES = ['nolist', 'dist_T', 'dist_F', 'same_T', 'same_F', 'self_T', 'self_F', 'vsC_T', 'vsC_F', 'vsD_T', 'vsD_F', 'TO', 'base']
 
 
-@njit(cache=True)
+@njit(cache=False)
 def _has(ai, x, BLC, BLD):
     return BLC[x, 0] >= 0 if ai == 0 else BLD[x, 0] >= 0
 
 
-@njit(cache=True)
+@njit(cache=False)
 def atom_eval(kind, ai, qi, u, v, same, BLC, BLD, CHC, CHD, UVt):
     """(value 0/1, cost class, timed out 0/1) of one atom of u's tree against v (u, v units; same = same quote)."""
     if kind == 0 or kind == 1:
@@ -107,7 +107,7 @@ def atom_eval(kind, ai, qi, u, v, same, BLC, BLD, CHC, CHD, UVt):
     return (1, C_VD_T, 0) if x == 1 else (0, C_VD_F, 0)
 
 
-@njit(cache=True)
+@njit(cache=False)
 def play_classes(u, v, same, utau, DTy, DR, BTy, BA, BL, BLC, BLD, CHC, CHD, UVt):
     """(action 1 = C, first atom class or -1, second atom class or -1, first timed out, second timed out)."""
     t = utau[u]
@@ -123,7 +123,7 @@ def play_classes(u, v, same, utau, DTy, DR, BTy, BA, BL, BLC, BLD, CHC, CHD, UVt
     return (1 if ty == 0 else 0), c1, -1, to1, 0
 
 
-@njit(cache=True)
+@njit(cache=False)
 def play_ledger(u, v, same, utau, DTy, DR, BTy, BA, BL, BLC, BLD, CHC, CHD, UVt, CST):
     """(action 1 = C, steps, timed-out calls, steps of those calls, calls) of u's play against v."""
     act, c1, c2, to1, to2 = play_classes(u, v, same, utau, DTy, DR, BTy, BA, BL, BLC, BLD, CHC, CHD, UVt)
@@ -137,7 +137,7 @@ def play_ledger(u, v, same, utau, DTy, DR, BTy, BA, BL, BLC, BLD, CHC, CHD, UVt,
     return act, S, nto, tos, ncall
 
 
-@njit(cache=True)
+@njit(cache=False)
 def prod_ledger(k, j, tunit, tsp, trule, utau, BLC, BLD, PRODC, PD, KIND, NAT, CHD, UVt, COSTS):
     """(steps, timed-out acts, steps of those acts, acts) of the S-nonself production of type k in an encounter with j."""
     if trule[k] != R_SNON: return 0.0, 0, 0.0, 0
@@ -162,7 +162,7 @@ def prod_ledger(k, j, tunit, tsp, trule, utau, BLC, BLD, PRODC, PD, KIND, NAT, C
     return SP, nto, tos, nacts
 
 
-@njit(cache=True)
+@njit(cache=False)
 def charge_pair(k, j, tunit, tsp, trule, PX):
     """The rule's charge of type k in an encounter with type j (payoff units)."""
     utau, BLC, BLD, CHC, CHD, UVt, PRODC, PD, KIND, NAT, DTy, DR, BTy, BA, BL, CST, COSTS, PAR = PX
@@ -180,7 +180,7 @@ def charge_pair(k, j, tunit, tsp, trule, PX):
     return lev * (ncall + nacts)
 
 
-@njit(cache=True)
+@njit(cache=False)
 def read_steps(k, j, tunit, tsp, trule, PX):
     """Steps of type k's reads in an encounter with type j beyond the root's own steps: its check calls plus its production acts."""
     utau, BLC, BLD, CHC, CHD, UVt, PRODC, PD, KIND, NAT, DTy, DR, BTy, BA, BL, CST, COSTS, PAR = PX
@@ -191,7 +191,7 @@ def read_steps(k, j, tunit, tsp, trule, PX):
     return (S - CST[C_BASE]) + SP
 
 
-@njit(cache=True)
+@njit(cache=False)
 def pay_net(k, j, tunit, tsp, trule, A, selfa, PX):
     base = PV.pay(k, j, tunit, tsp, A, selfa)
     if PX[17][0] == 0.0: return base

@@ -18,7 +18,7 @@ ROOT = os.path.dirname(HERE)
 OUT = os.path.join(ROOT, 'runs', 'pricing_rules')
 
 TH = dict(rps=0.10, insp=0.60, pd=0.70)
-RULE_LEVELS = dict(F=[1e-5, 1e-4, 1e-3, 1e-2], FA=[1e-5, 1e-4, 1e-3, 1e-2], B=[1e-5, 1e-4, 1e-3, 1e-2], A=[0.01, 0.1, 1.0, 10.0])
+RULE_LEVELS = dict(F=[1e-5, 1e-4, 1e-3, 1e-2], FA=[1e-5, 1e-4, 1e-3, 1e-2], B=[1e-5, 1e-4, 1e-3, 1e-2], Bo=[1e-5, 1e-4, 1e-3, 1e-2], A=[0.01, 0.1, 1.0, 10.0])
 _cache = {}
 
 
@@ -190,10 +190,17 @@ def build():
     ref['pd'] = dict(Z=target('pd', cell('pd', 'Z', 0.0)))
     R['reference'] = ref
     R['bands'] = {}
-    for rule in ('F', 'FA', 'B', 'A'):
+    for rule in ('F', 'FA', 'B', 'Bo', 'A'):
         R['bands'][rule] = {lv: triple(rule, lv) for lv in RULE_LEVELS[rule]}
     R['bands_Bw'] = {lv: triple('Bw', lv) for lv in RULE_LEVELS['F']} if False else None
     return R
+
+
+def pdcount(rule, lv):
+    d = cell('pd', rule, lv)
+    if d is None: return ''
+    v = pdstat(d, 'uo')
+    return ' (%d/%d)' % (int(v.sum()), len(v))
 
 
 def md_triple_table(R, rule):
@@ -201,14 +208,14 @@ def md_triple_table(R, rule):
     for lv in RULE_LEVELS[rule]:
         tr = R['bands'][rule][lv]
         if all(tr[g][1] == 'not run' for g in tr): continue
-        lines.append('| %g | %s | %s | %s | %s | %s | %s | %s |' % (lv, fmt(tr['rps'][0]), tr['rps'][1], fmt(tr['insp'][0]), tr['insp'][1],
-                                                                   fmt(tr['pd'][0]), tr['pd'][1], joint(tr)))
+        lines.append('| %g | %s | %s | %s | %s | %s%s | %s | %s |' % (lv, fmt(tr['rps'][0]), tr['rps'][1], fmt(tr['insp'][0]), tr['insp'][1],
+                                                                   fmt(tr['pd'][0]), pdcount(rule, lv), tr['pd'][1], joint(tr)))
     return '\n'.join(lines)
 
 
 def band_summary(R):
     out = {}
-    for rule in ('F', 'FA', 'B', 'A'):
+    for rule in ('F', 'FA', 'B', 'Bo', 'A'):
         lv = RULE_LEVELS[rule]
         stat = {l: joint(R['bands'][rule][l]) for l in lv}
         met = [l for l in lv if stat[l] == 'MET']
@@ -326,7 +333,83 @@ def verdicts(R, S):
     pdFA = target('pd', get('pd', 'FA', 1e-3)); pdF3 = target('pd', get('pd', 'F', 1e-3))
     add('E8 F+A binds the PD at least as hard as F', 'not scored' if pdFA[0] is None or pdF3[0] is None else ('failed' if (pdFA[1] == 'met' and pdF3[1] == 'failed') else 'held'),
         'PD c=1e-3: F %s, F+A %s' % (fmt(pdF3[0]), fmt(pdFA[0])))
+    V += verdict6(R)
+    V += supplementary(R)
     return V
+
+
+def pj(rule, lv):
+    st = {}
+    for g in ('rps', 'insp', 'pd'):
+        d = pooled(g, rule, lv) or cell(g, rule, lv)
+        st[g] = target(g, d)[1] if d is not None else 'not run'
+    if any(x == 'not run' for x in st.values()): return 'incomplete', st
+    if all(x == 'met' for x in st.values()): return 'MET', st
+    if any(x == 'failed' for x in st.values()): return 'failed', st
+    return 'undetermined', st
+
+
+def supplementary(R):
+    """Verdicts 1 and 2 re-read with the supplementary pooled runs (registered rule unchanged, registered verdicts stand)."""
+    out = []
+    f = {lv: pj('F', lv) for lv in RULE_LEVELS['F']}
+    a = {lv: pj('A', lv) for lv in RULE_LEVELS['A']}
+    out.append(('1s F with pooled runs', 'held' if all(x[0] == 'failed' for x in f.values()) else ('failed' if any(x[0] == 'MET' for x in f.values()) else 'undetermined'),
+                {lv: x[0] for lv, x in f.items()}))
+    lv = RULE_LEVELS['A']
+    adj = any(a[lv[i]][0] == 'MET' and a[lv[i + 1]][0] == 'MET' for i in range(3))
+    anymet = [l for l in lv if a[l][0] == 'MET']
+    out.append(('2s A with pooled runs', 'held' if adj else ('partial' if anymet else 'undetermined'),
+                'one level meets all three (%s); status by level %s' % (anymet, {l: (a[l][0], a[l][1]) for l in lv})))
+    return out
+
+
+def good(game, rule, level):
+    """Point estimate of the target statistic oriented so that larger is better (RPS: minus e_prog), or None.  PD rule B
+    is read through the individual-level ledger Bi (the like-for-like partner of B-own)."""
+    r = {'B': 'Bi'}.get(rule, rule) if game == 'pd' else rule
+    d = cell(game, r, level)
+    if d is None: return None
+    if game == 'rps': return -boot(runstat(d, 'e_prog'))[0]
+    if game == 'insp': return boot(runstat(d, 'isl_efficient'))[0]
+    return float(pdstat(d, 'uo').mean())
+
+
+def verdict6(R):
+    out = []
+    rows = []
+    for g in ('rps', 'insp', 'pd'):
+        for c in (1e-4, 1e-3):
+            f, b, o = good(g, 'F', c), good(g, 'B', c), good(g, 'Bo', c)
+            if f is None or b is None or o is None: continue
+            lo, hi = min(f, b), max(f, b)
+            rows.append((g, c, f, b, o, lo - 0.05 <= o <= hi + 0.05, o < f - 0.1))
+    if not rows:
+        return [('6 B-own between F and B', 'not scored', 'no B-own cells'), ('6c (gemini-4-argon) cold memos kill establishment', 'not scored', ''), ('6c (gpt-6.1-sol) no universal ordering', 'not scored', '')]
+    pdo = {c: (R_status('pd', 'Bo', c), R_status('pd', 'Bi', c)) for c in (1e-3,)}
+    meets_where_b_not = any(R_status('pd', 'Bo', c) == 'met' and R_status('pd', 'Bi', c) != 'met' for c in (1e-4, 1e-3) if R_status('pd', 'Bo', c) and R_status('pd', 'Bi', c))
+    below_f = any(r[6] for r in rows)
+    allbetween = all(r[5] for r in rows)
+    o3, b3 = good('pd', 'Bo', 1e-3), good('pd', 'B', 1e-3)
+    near = (o3 is not None and b3 is not None and (b3 < 0.7 or o3 >= b3 - 0.1))
+    v6 = 'failed' if (meets_where_b_not or below_f) else ('held' if allbetween and near else 'partial')
+    det = '; '.join('%s c=%g: F %.3f, B %.3f, B-own %.3f%s' % (g, c, f, b, o, '' if btw else ' (outside)') for g, c, f, b, o, btw, bf in rows)
+    out.append(('6 B-own between F and B', v6, det + '; PD status B-own/Bi at 1e-3: %s' % (pdo[1e-3],)))
+    ob, ow = good('pd', 'Bo', 1e-3), good('pd', 'Bow', 1e-3)
+    if ob is None or b3 is None:
+        out.append(('6c (gemini-4-argon) cold memos kill establishment', 'not scored', 'PD B-own or Bi at 1e-3 missing'))
+    else:
+        held = ob < b3 - 0.1 and ow is not None and ow >= b3 - 0.1
+        out.append(('6c (gemini-4-argon) cold memos kill establishment', 'held' if held else 'failed',
+                    'PD universal-open at 1e-3: B-own cold %.3f, warm %s, Bi %.3f' % (ob, 'n/a' if ow is None else '%.3f' % ow, b3)))
+    outside = [(g, c) for g, c, f, b, o, btw, bf in rows if (o > max(f, b) + 0.05) or (o < min(f, b) - 0.05)]
+    out.append(('6c (gpt-6.1-sol) no universal F-B-own-B ordering', 'held' if outside else 'failed', 'outside the F-B interval by more than 0.05: %s' % outside))
+    return out
+
+
+def R_status(game, rule, level):
+    d = cell(game, rule, level)
+    return None if d is None else target(game, d)[1]
 
 
 def cells_for(game):
@@ -337,7 +420,7 @@ def cells_for(game):
         parts = b.split('_')
         rule, lv = parts[0], float(parts[1])
         seen.append((rule, lv))
-    order = {'Z': 0, 'Zs': 1, 'F': 2, 'Fs': 3, 'A': 4, 'As': 5, 'FA': 6, 'FAs': 7, 'Bw': 8, 'Bws': 9, 'B': 10, 'T': 11}
+    order = {'Z': 0, 'Zs': 1, 'F': 2, 'Fs': 3, 'A': 4, 'As': 5, 'FA': 6, 'FAs': 7, 'Bw': 8, 'Bws': 9, 'B': 10, 'Bl': 11, 'Bo': 12, 'Bow': 13, 'Bi': 14, 'T': 15}
     return sorted(set(seen), key=lambda x: (order.get(x[0], 99), x[1]))
 
 
@@ -382,6 +465,88 @@ def larger():
     return '\n'.join(out)
 
 
+def memo_md():
+    out = ['', '## Memo and ledger logs (B-own `Bo`, the island ledger through the logging kernel `Bl` / PD `Bi`)', '',
+           'L_T games: certificates are fixed in the carriers, so payments caused by certificate updates are 0 by construction; `payments` = ledger insertions (reads paid) per program over the run (`Bl`: per island ledger, divided by the programs of the island); sizes at generation 2,000.', '',
+           '| cell | mean memo / ledger size | max | payments per program | cert-update payments |', '|---|---|---|---|---|']
+    for g in ('rps', 'insp'):
+        for rule in ('Bl', 'Bo'):
+            for lv in (1e-5, 1e-4, 1e-3, 1e-2):
+                d = cell(g, rule, lv)
+                if d is None: continue
+                ms = boot([r['memo_mean'] for r in d['recs']]); mx = boot([r['memo_max'] for r in d['recs']]); pp = boot([r['payments_per_ind'] for r in d['recs']])
+                out.append('| %s %s %g | %s | %s | %s | 0 |' % (g, rule, lv, fmt(ms, 1), fmt(mx, 1), fmt(pp, 2)))
+    out += ['', 'PD (world K, per-generation payments at generation boundaries; memo per (island, lineage, type); `Bi` ledger per island):', '',
+            '| cell | mean size per program (Bi: per island) | max | reads paid | of which cert-update | first-encounter | warm-free inserts | universal-open |', '|---|---|---|---|---|---|---|---|']
+    for rule in ('Bi', 'Bo', 'Bow'):
+        for lv in (1e-5, 1e-4, 1e-3, 1e-2):
+            d = cell('pd', rule, lv)
+            if d is None: continue
+            ms = [r['memo'] for r in d['recs'] if r.get('memo')]
+            if not ms: continue
+            f = lambda k: boot([m[k] for m in ms])
+            out.append('| %s %g | %s | %s | %s | %s | %s | %s | %s |' % (rule, lv, fmt(f('size_mean'), 1), fmt(f('size_max'), 0), fmt(f('payments'), 0), fmt(f('cert_pay'), 0),
+                                                                   fmt(f('first_pay'), 0), fmt(f('warm_free'), 0), fmt(target('pd', d)[0])))
+    return '\n'.join(out)
+
+
+def pooled(game, rule, level):
+    """The registered cell pooled with its supplementary 'ext' runs (new run indices), or None."""
+    if game == 'pd':
+        a = cell('pd', rule, level); b = load(os.path.join(OUT, 'pd_%s_%g_wk_Snon_100_64_ext.json.gz' % (rule, level)))
+    else:
+        a = cell(game, rule, level); b = load(os.path.join(OUT, '%s_%s_%g_primary_ext.json.gz' % (game, rule, level)))
+    if a is None or b is None: return None
+    return dict(meta=a['meta'], recs=a['recs'] + b['recs'])
+
+
+def ext_md():
+    out = ['', '## Supplementary runs for cells left undetermined (pooled with the registered runs; the registered cells are unchanged)', '',
+           '| cell | runs | registered runs | pooled runs | pooled status |', '|---|---|---|---|---|']
+    for game, rule, lv in (('pd', 'Z', 0.0), ('pd', 'F', 1e-3), ('pd', 'A', 0.1), ('pd', 'A', 1.0), ('pd', 'A', 10.0), ('rps', 'A', 10.0)):
+        d = pooled(game, rule, lv)
+        if d is None: continue
+        t0, s0 = target(game, cell(game, rule, lv)); t1, s1 = target(game, d)
+        extra = ''
+        if game == 'pd':
+            v = pdstat(d, 'uo'); extra = ' (%d/%d)' % (int(v.sum()), len(v))
+        out.append('| %s %s %g | %d | %s %s | %s%s | %s |' % (game, rule, lv, len(d['recs']), fmt(t0), s0, fmt(t1), extra, s1))
+    return '\n'.join(out)
+
+
+def audit_md():
+    """Ledger audit: the end-state charge per play of every PD cell against the rule's form (F: c (play + production steps);
+    B, Bo, Bi: c * 4; A: P * timeouts)."""
+    out = ['', '## Audit of the PD charges (end-state ledger against the rule form)', '', '| cell | recorded charge/play | expected | ok |', '|---|---|---|---|']
+    for f in sorted(glob.glob(os.path.join(OUT, 'pd_*_wk_Snon_100_64.json.gz'))):
+        d = load(f)
+        rule, lv = d['meta']['rule'], d['meta']['level']
+        if rule in ('Z', 'FA', 'T'): continue
+        ch = np.nanmean([r['ledger'][3] for r in d['recs'] if r.get('ledger')])
+        L = np.nanmean([r['ledger'] for r in d['recs'] if r.get('ledger')], axis=0)
+        exp = {'F': lv * (L[0] + L[1]), 'A': lv * L[2], 'B': lv * 4, 'Bo': lv * 4, 'Bow': lv * 4, 'Bi': lv * 4}[rule]
+        ok = abs(ch - exp) <= 0.02 * abs(exp) + 1e-9
+        out.append('| %s %g | %.4f | %.4f | %s |' % (rule, lv, ch, exp, 'ok' if ok else 'MISMATCH'))
+    return '\n'.join(out)
+
+
+def afford_md():
+    out = ['', '## Supplementary: what the price takes (end-state charge per play, raw and in stakes) and PD P(C,C)', '',
+           'The registered PD target (universal-open) is a statement about which program holds each island; it does not see the size of the charge. The columns below put the charge beside the stakes (RPS 2, inspection 5, PD 3) and the PD cooperation rate.', '',
+           '| rule level | RPS charge (stakes) | inspection charge (stakes) | PD charge (stakes) | PD P(C,C) |', '|---|---|---|---|---|']
+    for rule in ('F', 'FA', 'B', 'Bo', 'A'):
+        for lv in RULE_LEVELS[rule]:
+            dr, di, dp = cell('rps', rule, lv), cell('insp', rule, lv), cell('pd', rule, lv)
+            if dr is None and di is None and dp is None: continue
+            def f(x, stakes): return 'n/a' if x is None else '%.4g (%.3g)' % (x, x / stakes)
+            c1 = None if dr is None else boot(runstat(dr, 'cost'))[0]
+            c2 = None if di is None else 0.5 * (boot(runstat(di, 'u0g') - runstat(di, 'u0'))[0] + boot(runstat(di, 'u1g') - runstat(di, 'u1'))[0])
+            c3 = None if dp is None else boot(pdstat(dp, 'charge'))[0]
+            pc = 'n/a' if dp is None else '%.3f' % boot(pdstat(dp, 'pcc'))[0]
+            out.append('| %s %g | %s | %s | %s | %s |' % (rule, lv, f(c1, 2), f(c2, 5), f(c3, 3), pc))
+    return '\n'.join(out)
+
+
 def statics_md():
     st, b, b2 = statics()
     out = ['', '## Statics (exact tables; where invasions flip between the panel points)', '']
@@ -416,13 +581,13 @@ def main():
         lines.append('| %s | %s %s | %s %s |' % (g, fmt(R['reference'][g]['Z'][0]), R['reference'][g]['Z'][1], fmt(R['reference'][g]['Zs'][0]), R['reference'][g]['Zs'][1]))
     lines.append('| pd | %s %s | – |' % (fmt(R['reference']['pd']['Z'][0]), R['reference']['pd']['Z'][1]))
     lines += ['', '## Joint-band table', '']
-    for rule in ('F', 'A', 'FA', 'B'):
+    for rule in ('F', 'A', 'FA', 'B', 'Bo'):
         lines += ['### Rule %s' % rule, '', md_triple_table(R, rule), '',
                   'Joint band (all three met): %s; possible band (no game failed): %s; adjacent pair met: %s' % (
                       S[rule]['met'] or 'none', S[rule]['possible'] or 'none', S[rule]['adjacent_met']), '']
     lines += ['## Verdicts', '', '| # | verdict | detail |', '|---|---|---|']
     for n, v, d in V: lines.append('| %s | **%s** | %s |' % (n, v, d))
-    lines += ['', DETAIL(R), larger()]
+    lines += ['', DETAIL(R), larger(), memo_md(), ext_md(), afford_md(), audit_md()]
     if '--nostatics' not in sys.argv:
         sm, st = statics_md()
         lines.append(sm)

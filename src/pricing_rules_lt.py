@@ -206,11 +206,11 @@ def make_record(base, tb, full, N, extra, named, run, wall, tag):
 
 
 # ----------------------------------------------------------------------------------------------------------------
-def cell_file(game, rule, level, cell):
-    return os.path.join(OUT, '%s_%s_%g_%s.json.gz' % (game, rule, level, cell))
+def cell_file(game, rule, level, cell, tag=None):
+    return os.path.join(OUT, '%s_%s_%g_%s%s.json.gz' % (game, rule, level, cell, '' if tag is None else '_' + tag))
 
 
-def run_cell(game, rule, level, cell, runs=None, base=None):
+def run_cell(game, rule, level, cell, runs=None, base=None, first=0, tag=None):
     t0 = time.time()
     base = base or Base(game)
     tb = base.view(rule, level)
@@ -225,7 +225,7 @@ def run_cell(game, rule, level, cell, runs=None, base=None):
     if sampled:
         import pricing_rules_kern as KR
         sdata = KR.SampledData(base, rule, level)
-    for r in range(runs):
+    for r in range(first, first + runs):
         t1 = time.time()
         if sampled and rule in ('Bo', 'Bl'):
             import pricing_rules_kern_own as KO
@@ -243,9 +243,9 @@ def run_cell(game, rule, level, cell, runs=None, base=None):
     meta = dict(name=name, game=game, rule=rule, level=level, cell=cell, K=base.K, N=N, I=I, runs=runs, sampled=sampled,
                 names=tb.names, fam=[f.tolist() for f in tb.fam], mismatch=base.mismatch, t_total=time.time() - t0,
                 engine_stats=dict(base.tb.engine_stats))
-    with gzip.open(cell_file(game, rule, level, cell) + '.tmp', 'wt') as f:
+    with gzip.open(cell_file(game, rule, level, cell, tag) + '.tmp', 'wt') as f:
         json.dump(dict(meta=meta, recs=recs), f)
-    os.replace(cell_file(game, rule, level, cell) + '.tmp', cell_file(game, rule, level, cell))
+    os.replace(cell_file(game, rule, level, cell, tag) + '.tmp', cell_file(game, rule, level, cell, tag))
     return name
 
 
@@ -253,6 +253,6 @@ if __name__ == '__main__':
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument('game'); ap.add_argument('rule'); ap.add_argument('level', type=float); ap.add_argument('cell')
-    ap.add_argument('--runs', type=int, default=None)
+    ap.add_argument('--runs', type=int, default=None); ap.add_argument('--first', type=int, default=0); ap.add_argument('--tag', default=None)
     a = ap.parse_args()
-    run_cell(a.game, a.rule, a.level, a.cell, a.runs)
+    run_cell(a.game, a.rule, a.level, a.cell, a.runs, None, a.first, a.tag)

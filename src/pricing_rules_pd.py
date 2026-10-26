@@ -153,6 +153,6 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('rule'); ap.add_argument('level', type=float); ap.add_argument('cell')
     ap.add_argument('--runs', type=int, default=20); ap.add_argument('--horizon', type=int, default=10000)
-    ap.add_argument('--first', type=int, default=0)
+    ap.add_argument('--first', type=int, default=0); ap.add_argument('--tag', default=None)
     a = ap.parse_args()
-    run_cell(a.rule, a.level, a.cell, a.runs, a.horizon, a.first)
+    run_cell(a.rule, a.level, a.cell, a.runs, a.horizon, a.first, a.tag)

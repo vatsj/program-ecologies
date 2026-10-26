@@ -29,6 +29,10 @@ def pd_cell(rule, level, cell='wk_Snon_100_64'):
 
 
 def out_file(job):
+    if job[0] == 'pdx':
+        return os.path.join(OUT, 'pd_%s_%g_%s_ext.json.gz' % (job[1], job[2], job[3]))
+    if job[0] == 'ltx':
+        return os.path.join(OUT, '%s_%s_%g_%s_ext.json.gz' % (job[1], job[2], job[3], job[4]))
     if job[0] == 'lt':
         _, game, rule, level, cell = job
         return os.path.join(OUT, '%s_%s_%g_%s.json.gz' % (game, rule, level, cell))
@@ -37,6 +41,10 @@ def out_file(job):
 
 
 def cmd(job):
+    if job[0] == 'pdx':
+        return [PY, os.path.join(HERE, 'pricing_rules_pd.py'), job[1], repr(job[2]), job[3], '--runs', '20', '--first', '20', '--tag', 'ext']
+    if job[0] == 'ltx':
+        return [PY, os.path.join(HERE, 'pricing_rules_lt.py'), job[1], job[2], repr(job[3]), job[4], '--runs', '40', '--first', '40', '--tag', 'ext']
     if job[0] == 'lt':
         _, game, rule, level, cell = job
         a = [PY, os.path.join(HERE, 'pricing_rules_lt.py'), game, rule, repr(level), cell]
@@ -100,6 +108,25 @@ def batch(name):
         for c in (1e-3, 1e-4):
             for g in ('rps', 'insp'):
                 jobs.append(lt_cell(g, 'Bws', c))
+    elif name == 'bown':
+        # B-own paired with B at the same levels and cells (the pairs stay together in the cut order); logging cells Bl (the island
+        # ledger through the logging kernel, draw for draw with B) and the PD individual-level ledger Bi beside the memo arm Bo
+        for c in (1e-3, 1e-4):
+            for g in ('rps', 'insp'):
+                jobs.append(lt_cell(g, 'Bo', c)); jobs.append(lt_cell(g, 'Bl', c))
+            jobs.append(pd_cell('Bi', c)); jobs.append(pd_cell('Bo', c))
+        jobs.append(pd_cell('Bow', 1e-3))
+        for c in (1e-5, 1e-2):
+            for g in ('rps', 'insp'):
+                jobs.append(lt_cell(g, 'Bo', c)); jobs.append(lt_cell(g, 'Bl', c))
+        for c in (1e-2, 1e-5):
+            jobs.append(pd_cell('Bi', c)); jobs.append(pd_cell('Bo', c))
+    elif name == 'ext':
+        # supplementary runs for the cells the registered intervals left undetermined (pooled with the registered runs in the report;
+        # the registered cells are not touched): PD reps 20-39, RPS reps 40-79
+        for rule, lv in (('A', 0.1), ('A', 1.0), ('A', 10.0), ('F', 1e-3), ('Z', 0.0)):
+            jobs.append(('pdx', rule, lv, 'wk_Snon_100_64'))
+        jobs.append(('ltx', 'rps', 'A', 10.0, 'primary'))
     elif name == 'big':
         p = os.path.join(OUT, 'big_levels.json')
         levels = json.load(open(p)) if os.path.exists(p) else []
