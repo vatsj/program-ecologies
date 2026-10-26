@@ -263,4 +263,83 @@ excluded slot's half is neutral.
 
 ## 2. Deviations, choices where the spec is silent, costs (appended as they arise)
 
-(none yet)
+### 2.1 Before any counted cell (code, tests, validation: `src/encounter_contracts*.py`, `tests/test_encounter_contracts.py`)
+
+- **Two hand errors in §1, found by the tests / the first runs and corrected here (§1 is left as written).**
+  1. *BR with two uncommitted responders is stricter than §1.6 said.* With S = {0} and both slots 1 and 2 uncommitted, the pure
+     equilibria of the remaining 9 × 9 game include the one in which slots 1 and 2 pair with each other, which leaves slot 0
+     with nothing; so BR rejects the proposals §1.6 counted as accepted (the stubborn-constant case and the accommodator case).
+     BR differs from R in the acceptance of a proposal when exactly one responder is uncommitted (the others being signers or
+     carrying an entry for the key); the test `test_br_differs_from_r_on_stubborn_responder` builds that case by committing
+     slot 2. The spec's counter-prediction (gpt-6.1-sol: "BR's worst-equilibrium rule can create differences by another
+     route") is this route.
+  2. *A lone mismatched migrant lives about one generation, not five.* A single individual of a slot is the victim of a given
+     slot-event with probability 1/N and a slot has N events per generation, so a deleterious lineage is gone in about a generation
+     (the "five generations" of the many-islands notes §1.2 were the lineage's *total* birth count over N ln N, not a lifetime).
+     The repair probability in §1.4 is therefore about 2·10⁻⁴ ν per migrant, not 10⁻³ ν.
+- **The clock (the spec's two-clock rule, operationalized).** The spec says a class enters the rare-migration limit only if its
+  closure is certified from transition support, and otherwise the cell is reported "at an explicit finite migration rate
+  (mN = 10⁻³)". Genesis acceptances occur on every fair island at about 3.6·10⁻³ ν per generation (§1.2; confirmed by the
+  exhaustive oracle, 2/560 per draw on a fair island of constants), so no fair island is a certified closed class. The pool is therefore run
+  in continuous time at the explicit rate: migrants arrive at mN = 10⁻³ per slot per generation (three slots: mean 333 generations
+  between migrants to an island), one *round* is 333 generations (mean 1.0 migrants per island), and **the clock is rounds =
+  migrant events per island**. The strict m → 0 statements (the within-island chain) are made from no-migrant runs and are labelled
+  provisional. The donor state is the donor island's current state (asynchronous, random order per round), a lag of at most one
+  round.
+- **Settlement (operational).** The spec's literal rule (stage-2 behaviour fixed 500 generations and *no contract formed in that
+  window fires on path*) is never met at ν = 1 (acceptances on fair islands every ≈ 280 generations). An island is in outcome
+  class c when the stored `_classify` (outcome with at least 0.95 of the encounter mass; member-mixed; other) has been c for 500
+  consecutive generations, evaluated at generation boundaries when the state changed; the program composition may drift.
+  Transient carriers (one individual, about one generation) do not change the class. The 5,000-generation holdouts of the spec
+  are replaced by the no-migrant long runs (`within` jobs, 10⁵–10⁶ generations per island), which also supply the spontaneous
+  class-change rates; they are not applied to every island.
+- **Founding.** Islands are founded from the stored multinomial seed law (the same generator, N = 100) and relaxed for 2,000
+  generations with genesis running and no migrants before event 0 (arm 0: the same 2,000 generations at ν = 0, which settles every
+  island to monomorphism, the stored pools' state). No annealed mutation (A = 0) in any cell (A = 150 is not run).
+- **Scale.** The earlier pools (16,384 islands, closed-form events) are out of reach for a simulated relaxation, but the engine is
+  fast (a quiet monomorphic island is jumped over; 10⁵ generations cost 0.3 s at ν = 1): main cells have I = 1,024 islands, secondary
+  arms 512, tilted starts and replicates as listed in the report. The I → ∞ statements are finite-pool statements: the donor
+  law is the pool's own (no symmetrization of the donor law; the three fair pairs are compared directly).
+- **Eviction.** Entries are kept in installation order and evicted oldest-first past the cap (8; 16 in the cap cell). The spec's
+  least-recently-*fired* order is not implemented: firing is not an explicit event in the expected-payoff fitness model (a type's
+  fitness is an average over encounters), so recency of firing has no object other than the genesis-sampled encounters. Evictions are
+  counted (`ST_EVICT`).
+- **Type-table capacity.** At most 160 distinct types per slot per island; a genesis install or a migrant that needs a 161st is
+  dropped and counted (`ST_TABFULL`, `ST_MIGFAIL`).
+- **Arm B.** The broadcast installs the entry on up to 9 further individuals of the signing slot *with the same program* (any
+  entry list), drawn without replacement by type; the realized count is reported (`ST_BC_INST` against `ST_BC_WANT`). The unmatched
+  (random-member) broadcast is not run.
+- **Arm C.** q = 0.5; a copied proposal picks a surviving bundle by the number of carriers of any of its entries, then an
+  encounter among the present type triples whose stage-1 profile is the bundle's key (by frequency); with no such triple it is
+  logged as unmatched and no encounter is spent. The bundle code is (key, coalition, fills), so identical contents formed
+  independently are one bundle.
+- **Arm H.** The grammar gains HOOK(t, a₀) (27 size-1 programs instead of 9; the prior is recomputed; `HookLang`), the hooked
+  population has its own founders. A write by a signer that does not reach a hook is blocked (counted by |S|); H-top does not
+  block (a member reaching no hook writes at the free top-level wrapper, whose entry has the same semantics: an entry is indexed by the
+  key and the stage-1 path fixes the tag, so the entry list needs no tag field). H-inert is H's population at ν = 0.
+- **Not run (cut order).** V (the stored aggregate-test veto under this order of limits), the recombination variant of C, the
+  unmatched B cell, S-low only if R's acceptance rate is available (it is; run), the A = 150 annealing cell. The N = 200 panel and
+  the cap-16 cell are run at I = 256–512.
+- **Validation.** `tests/test_encounter_contracts.py` (27 tests): with ν = 0 the engine reproduces `many_islands.island_run`
+  draw for draw (counts, generation and status) on founders, and with annealed arrivals; the two-stage evaluation on hand-built
+  triples (a carrier that fires, one that does not, a responder that reacts, two responders with nested substitution); BR against R on
+  a hand-built case, NR, BR with execution; the genesis examples of §1 (fair, unequal, wasteful, disagreement, mismatched migrant);
+  replay of an accepted grand-coalition genesis and of replacement; hook blocking and the hooked prior (18 hooked and 9 unhooked
+  constants); copying (an actual surviving bundle, unmatched when none); the S arm installs every proposal; the cap evicts the
+  oldest; population, table and cache invariants (cache = direct evaluation, F = full recomputation, neutral flag) along random runs of
+  every arm; the Monte Carlo acceptance frequency of the genesis draws against the exhaustive oracle (three islands, 4σ).
+
+### 2.2 Validation run (before any counted cell; `runs/encounter-contracts-validate.json`)
+
+- `nu = 0` against `many_islands.island_run`: 12 of 12 founders and 6 of 6 founders with annealed arrivals identical draw for draw
+  (status, generation, final counts).
+- The exhaustive oracle against the Monte Carlo acceptance frequency of 30,000 genesis draws on each of 12 islands of the arm-0 pool
+  (fair, unequal, wasteful, disagreement, grand classes): all inside 1.9 σ (mean z = +0.22), no island skipped.
+- Arm 0 of this engine (continuous-time migrants, 1,024 islands, 1,000 rounds, mN = 10⁻³) against the stored many-islands chain (closed
+  form, 49,152 islands, L A = 0): V\* at 1 / 10 / 100 / 300 / 1,000 events 0.254 / 0.265 / 0.329 / 0.403 / 0.469 against 0.280 / 0.289 / 0.348
+  / 0.413 / 0.501; the increments agree (+0.215 against +0.221 over the full range) and the level is lower by 0.025 from event 0
+  (0.254 against 0.280 post-anneal, 1.9 standard errors of a 1,024-island founding sample; 1.2% of islands are still twin-polymorphic at
+  generation 2,000 and count as member-mixed). W + D at 1,000 events: 0.026 against 0.024. The paired comparison with the contract arms is
+  between cells that share their founders by island index, so the level offset cancels. The overlap of migrants in time (two within a
+  relaxation, a few percent) is the engine's only difference from the stored one-at-a-time chain and is invisible at this resolution.
+- This pool is the arm-0 baseline cell of the report (it is also the validation cell and is not selected).

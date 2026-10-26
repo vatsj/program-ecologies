@@ -72,9 +72,12 @@ ST_ATT_SC = 44        # attempts by settled-class category (7)
 ST_ACC_SC = 51
 ST_INST_S = 58        # installs by |S|-1 (3)
 ST_NTRACKFULL = 61
-ST_LEN = 64
+ST_ATT_FM = 64        # attempts on settled-fair islands: [monomorphic types, polymorphic]
+ST_ACC_FM = 66
+ST_LEN = 72
 STF_GEN_C = 0         # float accumulators: island-generations by current category (7)
 STF_GEN_SC = 7        # by settled category (7)
+STF_GEN_FM = 14       # island-generations on settled-fair islands: [monomorphic types, polymorphic]
 STF_LEN = 16
 
 # --- state meta
@@ -1018,6 +1021,10 @@ def genesis_attempt(A, C1, C2, ST, P, act, apos, nact, N, stat, trk, now_abs, co
             k += 1
     stat[ST_ATT_S + k - 1] += 1
     stat[ST_ATT_C + cur_cat] += 1; stat[ST_ATT_SC + set_cat] += 1
+    npr = ST[7]
+    polyf = 0 if (npr[0] == 1 and npr[1] == 1 and npr[2] == 1) else 1
+    if set_cat == 0:
+        stat[ST_ATT_FM + polyf] += 1
     if not copied:
         nprof = 1
         for i in range(k):
@@ -1055,6 +1062,8 @@ def genesis_attempt(A, C1, C2, ST, P, act, apos, nact, N, stat, trk, now_abs, co
         return nact
     stat[ST_ACC_S + k - 1] += 1
     stat[ST_ACC_C + cur_cat] += 1; stat[ST_ACC_SC + set_cat] += 1
+    if set_cat == 0:
+        stat[ST_ACC_FM + polyf] += 1
     if copied:
         stat[ST_COPY_ACC] += 1
     else:
@@ -1233,6 +1242,12 @@ def touch(A, C1, C2, ST, P, N, now_abs, cev, STATF):
     if dt > 0.0:
         STATF[STF_GEN_C + cat_of(mi[MI_CLS])] += dt
         STATF[STF_GEN_SC + cat_of(mi[MI_SETTLED])] += dt
+        if cat_of(mi[MI_SETTLED]) == 0:
+            npr = ST[7]
+            if npr[0] == 1 and npr[1] == 1 and npr[2] == 1:
+                STATF[STF_GEN_FM] += dt
+            else:
+                STATF[STF_GEN_FM + 1] += dt
         mf[MF_LASTTOUCH] = now_abs
     if mi[MI_CLS] != mi[MI_SETTLED] and mi[MI_CLS] >= 0:
         held = now_abs - mf[MF_CLSSINCE]

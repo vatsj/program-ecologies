@@ -417,3 +417,48 @@ def test_invariants_hooked_arm():
         R.run(isl, 800, 17, 0.0)
         check_invariants(R, isl)
         assert R.stat[EC.ST_ATT_S:EC.ST_ATT_S + 3].sum() > 0
+
+
+def test_two_responders_nested_substitution(arm, ci):
+    """S = {0} with two responders that read: slot 1 answers slot 0's fill, slot 2 answers slot 1's answer (the substitution
+    reaches nested simulation depth)"""
+    acc1 = reader(arm, 1, 0, lo(0, 1, 2), lo(1, 0, 0), lo(1, 0, 1))          # if slot 0 plays (1,2/3) then (0,1/3) else (0,1/2)
+    rd2 = reader(arm, 2, 1, lo(1, 0, 0), lo(2, 1, 2), lo(2, 0, 1))           # if slot 1 plays (0,1/3) then (1,2/3) else (0,1/2)
+    trip = [const(ci, 0, 1, 1), acc1, rd2]
+    R = EC.Runner(arm, EC.make_P(nu=0.0))
+    isl = island(arm, R, trip)
+    t = [tid(isl, s) for s in range(3)]
+    p, c2 = EC.encounter(R, isl, t)
+    assert (c2 // 81, (c2 // 9) % 9, c2 % 9) == (lo(0, 1, 1), lo(1, 0, 1), lo(2, 0, 1))      # stage 1: fair pair, slot 2 offers 0
+    ok, p, fills, pb, _ = EC.propose_check(R, isl, t, 0b001, {0: lo(0, 1, 2)})
+    EC.install_python(R, isl, t, 0b001, {0: lo(0, 1, 2)}, p)
+    car = carrier(isl, 0)
+    _, code = EC.encounter(R, isl, [car, t[1], t[2]])
+    # slot 0 plays (1,2/3); slot 1 answers (0,1/3); slot 2 reads slot 1's answer and plays (1,2/3) (not (0,1/2))
+    assert (code // 81, (code // 9) % 9, code % 9) == (lo(0, 1, 2), lo(1, 0, 0), lo(2, 1, 2))
+    assert ok
+
+
+def test_acceptance_monte_carlo_matches_oracle(arm, ci):
+    """the genesis draws (uniform individuals, coalition, profile) accept with the oracle's probability on a hand-built island"""
+    R = EC.Runner(arm, EC.make_P(nu=0.0))
+    acc = reader(arm, 1, 0, lo(0, 1, 2), lo(1, 0, 0), lo(1, 0, 1))
+    for trip in ([const(ci, 0, 1, 1), const(ci, 1, 0, 1), const(ci, 2, 0, 1)],
+                 [const(ci, 0, 1, 0), const(ci, 1, 0, 0), const(ci, 2, 0, 0)],
+                 [const(ci, 0, 1, 1), acc, const(ci, 2, 0, 1)]):
+        isl = island(arm, R, trip)
+        out = EC.acceptance_profile(R, isl)
+        pexp = out[:3].sum()
+        n = 40000
+        hits = 0
+        act = np.arange(3); apos = np.arange(3)
+        np.random.seed(5)
+        stat0 = np.zeros(EC.ST_LEN, np.int64)
+        for i in range(n):
+            ST = tuple(a.copy() for a in isl.ST)
+            R.arm.clear_c2()
+            EC.genesis_attempt(R.A, R.arm.c1, R.arm.c2, ST, R.P, act.copy(), apos.copy(), 0, 100, stat0, isl.trk.copy(), 0.0, False)
+        acc_n = int(stat0[EC.ST_ACC_S:EC.ST_ACC_S + 3].sum())
+        # binomial interval, 4 sigma
+        sd = (pexp * (1 - pexp) / n) ** 0.5
+        assert abs(acc_n / n - pexp) < 4 * sd + 1e-9, (acc_n / n, pexp)
