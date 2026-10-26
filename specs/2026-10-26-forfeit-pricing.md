@@ -30,7 +30,9 @@ by-mixing, inspection net of charges, PD cost-inclusive; confirmed / refuted / u
   event in the root's own execution is charged once (every capped read call that times out, and the forfeit if the
   root fuel runs out, but an uncapped read that exhausts the root counts only as the forfeit); failures inside a
   simulated execution are not charged to anyone (the simulator pays only for its own read's outcome).
-- **Exact simulators (arm X)** ([after second review] precisely: uncapped, shared-fuel simulators; the simulated
+- **Exact simulators (arm X)** (uncapped shared-fuel simulators; agreement with the opponent's actual action is
+  claimed only where its execution is budget-invariant, and actual-against-simulated disagreement among completed
+  deterministic simulations is measured) ([after second review] precisely: uncapped, shared-fuel simulators; the simulated
   opponent runs on the caller's remaining fuel less the reserved response steps, which can differ from its own root
   budget, and a private tape is drawn fresh, so "exact" means exact for deterministic opponents that finish within
   that fuel): the RPS and inspection catalogues gain the exact simulators, `run` with the caller's
@@ -74,6 +76,49 @@ by-mixing, inspection net of charges, PD cost-inclusive; confirmed / refuted / u
    confirmation run's A at the same level (a margin above sampling noise at these rates) [not met, or outside 6].
    *Counter-prediction (gpt-6.1-sol), registered:* a 3-run margin would be falsified by noise alone.
 
+## Addendum (the RS, 2026-10-26): what a forfeit yields
+
+The RS: "The RPS double-charge reads like a bug. The old rule is that a forfeit spits out the minmax action - thoughts
+on that as an alternative? For RPS that's the coin, which makes me worry about state-sponsoring that solution." Under
+A_f a forfeiter in RPS pays P_fail and also loses the play (−1 against any action, its pure security level), and its
+opponent gains +1, which rewards making opponents run out of fuel. Arm **A_m**: a forfeit is replaced by the
+forfeiter's security (maximin) strategy and charged P_fail once. In RPS that is the uniform mixture drawn by the
+referee; in inspection and the PD the security strategies are pure (inspector: inspect; inspectee: comply; PD:
+defect), so A_m's game outcome is a pure action there. [Addendum review 2] The notes publish the unilateral and mutual
+forfeit payoff tables of each game under A, A_f and A_m entry by entry; where A_m's pure security action differs from
+the stored forfeit outcome, inspection and the PD are separate treatments, not equivalence checks. Safeguards against
+sponsoring the coin: a fallback play is never counted as the programme's own mixing in any statistic (individual
+mixing, by-mixing and the coin share are computed on non-fallback plays, with the fallback share reported beside
+them), and A_m is read against the stored finding that a free uniform default raised measured mixing from 0.25 to 0.87
+with exploitability unchanged (RESULTS "Rock–paper–scissors and mixed actions").
+
+Cells: A_m in RPS at 0.03, 0.1, 0.3, 1 and 10, with and without X, on the same fresh founders as A_f; inspection at 0.1
+and 1 without X (a check that A_m equals A_f there up to the opponent's forfeit payoff). [Addendum review] Mutual
+forfeit: under A_f and A the game's own mutual-forfeit payoff applies (RPS (0, 0); the stored tables elsewhere), stated
+in the notes' hand table before P_fail; under A_m both forfeiters are replaced by their security strategies. [Addendum review 2] Exploitability is reported for the actual
+policy, fallback actions included, and separately conditioned on completed plays; a conditional quantity with no
+completed plays is undefined, never assigned a value. X-sham's population
+mass and modal share are reported beside the exact simulators'. A concurrent A cell at 0.03 is added so that
+prediction 2 is paired at both levels; prediction 2's PD clause is dropped (no concurrent PD A cells; prediction 6
+covers the PD against the confirmation run, unpaired). Generation 2,000 is the primary endpoint; any extension to
+4,000 covers every member of the matched comparison and is secondary. Intervals are run-clustered 95% bootstrap;
+equivalence is two one-sided tests at the stated margin; "above 0.05 by upper bound" means not demonstrated below,
+not demonstrated above. The notes report each simulator class's advantage on completed plays against its loss on
+failed ones, and tests cover fallback independence, mutual fallback, nested timeouts and reservation exhaustion.
+
+9. *The fallback is not selected.* Under A_m, the share of RPS plays that are fallbacks is below 0.05 at every level
+   from 0.1 up, because a programme that forfeits into the mixture pays P_fail more than one that plays the coin itself
+   [≥ 0.05 at any level from 0.1 up]. *Counter-prediction (gpt-6.1-sol), registered:* readers can profit on completed
+   plays while occasionally falling back, so persistent fallback is possible at 0.1, especially with X.
+10. *A_m and A_f agree on the band.* *Counter-prediction (gpt-6.1-sol), registered:* A_m removes the +1 reward for
+   causing an opponent's forfeit, which changes selection, so classifications differ where reader-induced failures are
+   common. A_m's classification equals A_f's at every level, matched by arm (A_m against A_f
+   without X, A_m + X against A_f + X), and its by-mixing exploitability
+   (non-fallback plays) is within 0.05 of A_f's [a classification differs, or exploitability differs by more].
+11. *Exact simulation is cheaper under A_m.* `SIMX`'s population mass is at least twice its A_f mass at 0.1, because its
+   worst case is the security value less P_fail rather than −1 less P_fail [less than twice]. *Counter-prediction
+   (gemini-4-argon), registered:* both masses sit near the founder floor, so the ratio is founder noise.
+
 ## [After second review] Further outputs and limits
 
 - Paired payoff differences between capped and uncapped simulators against each opponent class, with charge totals
@@ -103,4 +148,5 @@ by-mixing, inspection net of charges, PD cost-inclusive; confirmed / refuted / u
 after; check `ps` and free memory before each batch. One job per process; no `multiprocessing.Pool`; one background
 wait per batch that exits at completion and fires if the log stops changing for 2 hours; never poll periodically. The
 PD kernel needs the untracked world-K caches: copy them read-only (from `.claude/worktrees/agent-a77da45eb47c729f4`
-if the main checkout lacks them), never commit them. Cut order (disclose): A with X at 1, the PD cells, A_f at 0.03.
+if the main checkout lacks them), never commit them. Cut order (disclose): A with X at 1, A_m in inspection, A_f at 0.03; predictions whose cells are cut are marked
+untested.

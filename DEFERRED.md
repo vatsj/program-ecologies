@@ -1000,4 +1000,11 @@ REJECTED.md the ones we dropped.
   costs be equal, since they seem like the same failure." *Operating hypothesis (adopted):* the default charge is
   A_f: P_fail per timed-out read and the same P_fail per forfeit, one charge per failure event in the root's own trace;
   the game's own forfeit payoff stays (to confirm with the RS). Tested in queue 68.
+- *RS (2026-10-26):* "The RPS double-charge reads like a bug. The old rule is that a forfeit spits out the minmax
+  action - thoughts on that as an alternative? For RPS that's the coin, which makes me worry about state-sponsoring that
+  solution." *RE:* under A_f a forfeiter's opponent gains +1, which rewards making opponents run out of fuel; a
+  security-strategy fallback charged P_fail (A_m) removes that and makes a forfeiter strictly worse than a programme
+  playing the coin itself; it is a mixed referee draw only where the security strategy is mixed (RPS). Safeguard: a
+  fallback play never counts as the programme's mixing. Both rules run side by side in queue 68; the default between
+  A_f and A_m is the RS's call after it reports.
 
