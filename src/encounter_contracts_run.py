@@ -593,9 +593,11 @@ def main(argv):
     if cmd == 'pool':
         arm, nu, I, rounds, rep, start = argv[2], float(argv[3]), int(argv[4]), int(argv[5]), int(argv[6]), argv[7]
         mN = float(argv[8]) if len(argv) > 8 else 1e-3
-        name = 'pool_%s_nu%g_I%d_R%d_p%d_%s_m%g' % (arm, nu, I, rounds, rep, start, mN)
+        Nn = int(argv[9]) if len(argv) > 9 else N0
+        name = 'pool_%s_nu%g_I%d_R%d_p%d_%s_m%g%s' % (arm, nu, I, rounds, rep, start, mN, '' if Nn == N0 else '_N%d' % Nn)
         dump_at = tuple(int(x) for x in os.environ.get('EC_DUMP', '').split(',') if x)
-        res, pool, R = run_pool(arm, nu, I, rounds, rep, start, mN, name=name, dump_at=dump_at, log=log)
+        cps = tuple(int(x) for x in os.environ.get('EC_CPS', '').split(',') if x) or CHECKPOINTS
+        res, pool, R = run_pool(arm, nu, I, rounds, rep, start, mN, N=Nn, name=name, dump_at=dump_at, log=log, checkpoints=cps)
         write_json(res, os.path.join(OUT, name + '.json'))
         print('done', name, res['wall'])
     elif cmd == 'within':
