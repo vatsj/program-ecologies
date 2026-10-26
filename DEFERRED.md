@@ -917,6 +917,13 @@ REJECTED.md the ones we dropped.
   statement"); anything needing several simultaneous migrants is eventually lost, as with mutants. *Operating
   hypothesis:* the object for coverage of the stable set is lim_t lim_I of the rare-migration jump chain after an
   annealed tail; tested in queue 65.
+  *Result (2026-10-25, RESULTS "Islands to infinity before time"):* the object is crisp (an exactly Markov chain on
+  program triples), and with symmetric founding it reaches a dynamic equilibrium with nearly every island on a fair pair
+  and the three pairs equal; but it is a knife-edge (any asymmetry picks one pair, at a time growing far slower than I)
+  and, outside the readers arm, an unequal basin competes. *Operating hypothesis:* efficiency is reachable in this
+  order of limits; coverage of the stable set is not, without a mechanism that pushes rare pairs up (an anti-conformist
+  force strong enough to beat the composition-level instability); the encounter contracts (queue 66) are the next test.
+  *Open for the RS:* whether a knife-edge symmetric equilibrium counts as "all stable sets show up".
 - *RS (2026-10-25), contract genesis:* contracts should form per encounter on the programs that stand to benefit, not
   by an aggregate test over the population, and only replace actions "at that point" (situation-keyed overrides that
   stay silent elsewhere); a coalition deviates when it Pareto-improves after the responders answer its new actions

@@ -7418,6 +7418,113 @@ runs: 1 (F has no joint band) and 2 (A has one); 2 is partial with the pooled ru
   within a factor 2), not measured; the sampled kernel moves the zero-price baseline for B and B-own; one catalogue per
   game.
 
+## Islands to infinity before time: under rare migration nearly every island reaches a fair pair on the symmetric path, but the state with all three fair pairs present is a knife-edge that any asymmetry breaks (2026-10-25)
+
+Spec `specs/2026-10-25-many-islands.md` (queue 65; the RS: "I want a crisp, well-defined notion of limiting behavior";
+annealed mutation, then migration → 0, then islands → ∞ before time; "run both but shoot for (2) and tell me if and
+where it fails"; reviewed by gemini-4-argon then gpt-6.1-sol), predictions `predictions/2026-10-25-many-islands.md`
+(two addenda for the RS's mid-run rulings: polymorphic island states and aggregate stability, then the conformist and
+third-pair rates), notes `notes/many-islands.md`, report `runs/many-islands.md` and `.json`, validations
+`runs/many-islands-validate.json` and `-validate-modal.json`, rows `runs/many_islands/`. Run by a Sonnet subagent
+(`src/many_islands*.py`; 28 tests, passing on main).
+
+**Object.** Three-player majority division (`dollar3`), N = 100 per slot, w = 0.3, ε = 0. Islands are founded from the
+seed law, receive Poisson(A) annealed prior arrivals (A = 0 or 150) and relax until every slot is monomorphic; then
+migrants arrive one at a time (recipient, donor and slot uniform), each recipient relaxing before the next. One migrant
+into a settled island makes one slot a constant-fitness two-type Moran process, so the island-state chain is exactly
+Markov on program triples with the closed-form fixation probability (1 − 1/ρ)/(1 − ρ^−N), ρ = e^(wΔπ); validated
+against simulated relaxation and the stored island kernel draw for draw, in both evaluators (the modalPA check was run after the counted cells, following the M A = 0 dip). Arms: L (weak, stored L
+seeds), M (modalPA), R (the churn experiment's flexible readers). Statistics: V\* share (islands on a fair pair), the
+three fair pairs' shares, unequal (U), grand (G), wasteful and disagreement (W + D). Time is migrant events per island.
+
+**Deviations.** Three pools of 16,384 islands per cell, not five (intervals have 2 degrees of freedom); the
+65,536-island pool replaced by a 49,152-island union and a 262,144-island resample drawn with replacement from it (a
+mean-field estimate of the empirical law, not independent founders); A = 50 and the readers' weak-evaluator cell not
+run; injections computed from the exact class kernel (≥ 40,000 pairs per occupied cell) rather than 200 simulated ones;
+annealing timing (t₁ = 200, t₀ = 500 generations) chosen by the engineer. The RS's rulings arrived mid-run and are
+recorded as addenda; E12–E15 were written after pilots on one pool, and the modal-arm implementation check after the
+first look at the M A = 0 dip. The parent session restarted mid-run; the engineer resumed with the same seeds.
+
+**Polymorphisms.** None: 0 mixed and 0 drifting islands among 294,912 settled islands. A single migrant cannot create
+one (it makes a two-type constant-fitness contest), and founding plus annealing produced none.
+
+**Efficiency is reached.** Wasteful and disagreement islands drain by about 10³ events per island and unequal ones
+more slowly; V\* by events per island (pool means):
+
+| cell | 10³ | 3·10³ | 10⁴ | 10⁵ |
+|---|---|---|---|---|
+| L A = 0 | 0.501 | 0.775 | 0.960 | 0.998 |
+| M A = 0 | 0.501 | 0.778 | 0.673 | 0.762 |
+| R A = 0 | 0.870 | 0.996 | 0.999 | 0.999 |
+
+Post-anneal V\* is 0.280 / 0.277 / 0.516 (L / M / R) at A = 0 and 0.339 / 0.332 / 0.587 at A = 150. About 0.1–0.25% of
+islands stay on the grand coalition (2, 2, 2), which single migrants leave at about 5·10⁻⁶ per event. Single migrants
+are enough to reach this; the two-migrant probe establishes no route that needs overlap (overlap and sequential U → V\*
+rates 2.5·10⁻³ and 7.1·10⁻⁴ per tuple in L A = 0, too sparse elsewhere to score).
+
+**The I → ∞ limit is a symmetric dynamic equilibrium.** Run as an exactly S₃-symmetric mean-field chain, five of six
+cells reach V\* 0.998–0.999 with the three fair pairs equal to four digits (0.3327 each in L A = 0), while islands keep
+switching (2–3·10⁻³ class changes per event per island). The exception is M A = 0, whose symmetric chain reaches
+0.817 at 10⁴ and collapses onto unequal pairs (V\* 0.100, U 0.898 at 3·10⁴). Single-migrant rates on fair islands, symmetry-averaged
+per event at A = 0: κ (to the donor's pair) 4.5·10⁻⁴ and α (to the third pair) 6.0·10⁻⁵ in L and M, 3.6·10⁻³ and
+3.5·10⁻⁴ for readers (at A = 150: 4.2–4.3·10⁻⁴ and 5.3·10⁻⁵; readers 2.2·10⁻³ and 2.1·10⁻⁴); α/κ 0.09–0.13, every interval excluding 0.
+
+**It is not stable.** 
+- *Symmetry breaking.* Pools of 1.6·10⁴ to 2.6·10⁵ islands agree to three decimals up to 3,000 events and then break
+  symmetry, mostly at 7.5·10³–1.7·10⁴ events (some pools undefined at the horizon), with one pair taking most of the
+  fair share (readers' largest pair at 10⁵ is 0.52–1.0 of V\*, so coverage loss is not always a monoculture). In event-driven archipelagos the first loss of a
+  fair pair grows with I like I^0.27 [0.21, 0.34] (L A = 0; 3,578 / 5,084 / 8,115 / 10,810 events at I = 64 / 256 /
+  1,024 / 4,096), against ∝ I for neutral voter drift; a slope this far below 1 is consistent with amplification
+  of an initial asymmetry of order I^(−1/2) over a time of order ln I (a hypothesis; no logarithmic fit or stability
+  analysis was made). The engineer reports that the outcome-class flow among fair pairs is restoring (the net flow
+  anticorrelating with the share difference; computed from the per-pool chain records, not tabulated in the report),
+  and the instability is attributed to composition the class does not see (a hypothesis; the evidence shows
+  composition dependence, not its causal role): the class
+  chain is not Markov (per-recipient exit hazards vary with coefficient of variation 1.5–2.3), a neutral substitution in
+  the excluded slot raises an unequal island's exit to V\* by 1.6–2.4×, and the outcome-class ODE gives V\* 0.64 where
+  the chain gives 0.998.
+- *Bistability.* From tilted starts (symmetric chain, V\* at 3·10⁴): L A = 0 goes to 0.999 from a fair tilt and to 0.000
+  (U 0.995) from an unequal tilt; M A = 0 likewise; readers reach 1.000 from both. Finite pools of L and M end on a fair
+  monoculture or on an unequal one about as often as a coin (fair endpoints 3/10 to 8/10 across I in L A = 0), and the engineer
+  reports a tilted pool whose fair monoculture was later replaced by an unequal one (not tabulated). M A = 0's dip is
+  pool 1 consolidating on an unequal pair (V\* 0.790 at 3,000 events, 0.141 at 10⁴, from
+  `runs/many_islands/chain_M_A0_p1.json`), checked not to be a bug.
+- *Readers mostly have one basin.* On the symmetric chain R reaches V\* ≥ 0.999 from every tested start and 10/10 fair endpoints from I = 1,024 (from I = 256
+  at A = 150), but still one pair per finite pool; an unsymmetrized
+  F0-tilted giant reader pool (R A = 0) has V\* 0.347 at 3·10⁴, and small reader archipelagos sometimes end unequal.
+
+**Components.** With I = 1,024 split into C disconnected components (L A = 0), V\* at 10⁴ events falls with C (0.787 /
+0.671 / 0.519 / 0.408 for C = 1 / 4 / 16 / 64), while coverage across components rises (3 / 8 / 10 / 10 of 10), because
+each component lands on a random pair or on an unequal one.
+
+**Veto reference arm (extra).** Under the hand-written veto, a single mismatched migrant flips a fair island with
+probability 1.2–1.4% (N = 50, 100, 200), with conformist share 0.525 [0.443, 0.606] (uniform restarts would give 0.5),
+no sham flips in 11,000, and no visible shrinkage with N: results compatible with the RE's reading of the veto as a uniform restart, at a
+lower per-migrant rate than estimated.
+
+**Verdicts** (registered scoring; extensions do not change checkpoint scores). Held: E1, E5, E7 (the slow first loss,
+by a different mechanism), E8, E11, E12, E14, E15. Supported at the observed symmetric-chain times, asymptotically
+unresolved: 2 (coverage in the I → ∞ dynamics; finite pools lose it by 10⁵). Partial: 4, E3, E9. Failed: 1 (fair pairs
+neutral on average; a small net flow in L A = 0 only), 3 (its checkpoint clause held, V\* 0.501 at 10³, but the
+trajectory crosses the ≥ 0.9 falsifier: 0.960 at 10⁴), 5 (readers at 10³: 0.855 against the required 0.9), 6 (first loss
+at least linear in I), 7 (components agree with one archipelago, at long times), gpt-6.1-sol's counter 7c (the L and M
+checkpoint differences never exceed 0.05; its long-time support is an extension), gemini-4-argon's counter on 5
+(readers stay below 0.75), E2 (by 0.001), E4, E6, E10, E13.
+
+**Reading.**
+- In the RS's order of limits the object is crisp in simulation: with exactly symmetric founding and I → ∞ first, the
+  symmetric chain reaches V\* 0.998–0.999 (efficiency in the registered sense, which also counts the grand coalition,
+  holds throughout; fairness is the V\* share) with the three fair pairs equal and islands still switching, a dynamic
+  equilibrium observed to 10⁵ events, not proved for infinite time; M A = 0 instead goes unequal. Mutation is not needed for this; the annealed tail changes little.
+- It is a knife-edge. Any asymmetry, including the I^(−1/2) noise of any finite archipelago, grows and selects one pair
+  in a time that grows only like ln I, so in practice lim_I and lim_t do not commute (not proved); and outside the readers
+  arm a second basin of unequal pairs competes with the fair one. Coverage of the stable set therefore fails robustly,
+  while efficiency (every island on some pair, fair or not) holds.
+- α > 0, registered as necessary for a unique interior attractor, was met and proved not sufficient; composition in
+  the excluded slot is the likely reason. Readers mostly fix the fair-versus-unequal choice but not coverage.
+- *Caveats:* three pools per cell; the large pools are resamples of a finite source; the symmetric chain is a
+  simulation; the instability's mechanism is composition-level and not isolated; one catalogue (n ≤ 6 plus readers).
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
