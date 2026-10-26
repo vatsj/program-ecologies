@@ -252,3 +252,78 @@ worktree, hashed before and after, never committed. The L_T games need nothing u
    is not adopted (§1.0).
 4. The exact simulators are seeded at 0.1–0.5 per island by the prior; "no one simulates exactly" is first a statement about
    abundance, and the report separates it from selection.
+
+## 2. Choices where the spec is silent, deviations, caches (appended with the code, before any counted cell)
+
+**Caches.** The L_T games need nothing untracked beyond the numeric tables, which are cached after the first build in
+`runs/forfeit_pricing/_cache/base_<game>_K10000.pkl` (untracked, never committed: pickles). The PD needs the untracked world-K caches
+(`runs/provenance/{static, sets.npz, OSV.npy, SPO.npy, prod_exec.json}`, `runs/detectors/K/{static, sets.npz, OSV.npy, SPO.npy,
+prod_exec.json, grudge.npz, sync}`): the main checkout has none, so they were copied (`cp -Rn`, read-only on the source side) from
+the sibling worktree `.claude/worktrees/agent-a77da45eb47c729f4`; untracked, never committed (named files only are added);
+pre- and post-run sha256 digests go to `runs/forfeit_pricing/provenance_hashes.json` (`forfeit_pricing_batch.py hashes pre|post`).
+
+**Code layout (nothing existing edited).** `src/forfeit_pricing.py` (the exact simulators' terms, the instrumented engine
+`LedgerEngineX` that classifies reads as capped or uncapped and flags tape reads inside an uncapped frame, the leaf event rule,
+`TablesX`/`BaseX`: the merged catalogue extended by the exact twins and the sham twins, built once, cached),
+`src/forfeit_pricing_run.py` (the three forfeit payoff conventions, arms, founders, views, the statistics of §1.4, the cell runner),
+`src/forfeit_pricing_pd.py` (the PD run object with a read-only recorder of encounter steps), `src/forfeit_pricing_batch.py` (the
+driver), `src/forfeit_pricing_static.py` (the nearby-budget check), `src/forfeit_pricing_report.py`, `tests/test_forfeit_pricing.py`
+(29 tests).
+
+**Definitions the spec left open.**
+1. *Uncapped means within 16 steps of the root's fuel.* `LedgerEngineX` classifies a `run` as uncapped when its fuel k >= K - 16. The
+   exact simulators use k = K - 11 (RPS) and K - 9 (inspection); every capped simulator of the catalogue has k <= 100. No program in the
+   catalogue has a read with k in (100, K - 16).
+2. *Under A the failure of an uncapped read is a free forfeit* (§1.7 flag 2). The merged `n_to` counts only capped timeouts; an uncapped
+   timeout in a non-forfeiting leaf (impossible for the exact simulators) would be charged as a read timeout under every rule.
+3. *The counterparts and the sham.* SIMX splits `SIM100u`; SIMX_I splits `SI100n`; SIMX_E splits `SE100k` (§1.2). The sham twins
+   are `SIM100u~`, `SI100n~`, `SE100k~`: the same term with fuel 101 instead of 100. They agree with the counterparts in play law, capped
+   timeouts and forfeits against every program of the merged catalogue *except the hash programmes* (`H*`, `HE*`, `HI*`), which key on
+   the opponent's source and so see a different quote (a test asserts exactly this). "Behaviourally identical" therefore holds up to
+   the hash programmes. The sham controls the template bookkeeping of the split, not the halving of the capped class (the X arm and the
+   sham arm both halve the counterpart's founders); a control that isolates the halving would split the counterpart with an inert
+   template, which would change the constants' or another family's mass and is not run.
+4. *Founders.* The standard founders of the run index (the merged `draw_founders`, so the concurrent no-X cells are the merged
+   pipeline's cells draw for draw) with an independent fair coin per founder of a counterpart (§1.2). The twin coin is the same in
+   the X and sham arms.
+5. *Dynamics labels.* A (no X): `A@P`, the merged label (so a no-X A cell on a stored run index reproduces the stored cell: tested on
+   the confirmation run's runs 100 and 101); every other cell `<rule>@P` with `+X` or `+S`. Because the inspection catalogue has no
+   forfeits, A, A_f and A_m cells without X share their tables there: the differences among them are dynamics-seed noise (a noise floor,
+   E8).
+6. *e_comp and the fallback statistics* as in §1.4; the classification uses the arm's own `e_gross`.
+7. *The PD under A_f.* The model's forfeit would need all four reads of an encounter to hit their caps (steps 1,000,026 > 10^6, §1.1),
+   so A_f runs the merged rule-A PD run object with a read-only recorder (`forfeit_pricing_pd.pop_steps`: the maximum steps of one
+   side's play plus production over ordered pairs of present individuals, and the weight above 10^6, at every checkpoint). A test
+   shows the recorder does not change the trajectory (draw for draw against the merged `pd_cell`, 60 generations). If any run
+   recorded a forfeit weight > 0 it would be reported and the cell's reading changed; the PD rows carry `ffe`.
+8. *PD freshness.* Reps 300-339 (kernel seeds rep*1,000,003 + 21,268,176 = 321,269,... to 360,270,...), disjoint from the stored 0-39
+   and 200-239; a test recomputes them.
+9. *Extra cells* beyond the spec's list (cheap, disclosed): a concurrent A cell at 10 (the confirmation run had it on other runs),
+   A_m + X in RPS at every level, and in inspection A_m + X at 0.1 and 1 and A_m at 1 (the spec asks for A_m at 0.1 and 1 without X;
+   A_m + X in inspection is an addition). Not run: an A_m sham.
+10. *An equivalence.* A_m with SIMX equals a capped exact simulator with a coin default under A_f (the failed read is a charged
+   timeout and the program plays a uniform tape): same charge, same game outcome up to the referee's draw versus the program's own
+   tape. This follows from the definitions; it is not an extra cell.
+
+**Static facts found while building the tables** (not in §1.3 because §1.3 could not derive them): SIMX against `PB` is a *mutual
+forfeit* (PB's three `prove` calls exceed the root's fuel, and the read of PB dies with it), so SIMX's row against PB is the same
+as against SIMX; the capped `SIM100u~` row is identical to `SIM100u`'s apart from the hash programmes. In inspection the merged
+catalogue has no forfeits; `SIMX_I` forfeits only against `SIMX_E`, `SIMX_E` against `SIMX_I` and `RIM` (RIM's prover search exceeds
+the fuel against SIMX_E), and `RIM` against `SIMX_E`; `SIMX_I` gets a finishing exact answer against every merged inspectee, a
+private-tape inspectee (`Mc1`..`Mc7`) included (and then the simulated draw is not the actual play); `SIMX_E` finishes against every
+merged inspector, the tape mixers `M*` and `CARR*` included. The table builds: RPS 202 s, inspection 395 s (the SIMX-SIMX regress costs
+about 90 s per ordered pair per engine); mismatch against the stored engine 0 pairs in both games (the instrumented totals equal
+`Engine.dist` exactly).
+
+**Validation (before any counted cell).**
+* `tests/test_forfeit_pricing.py` (29 tests, all passing; the PD test needs the world-K caches): leaf events (neither, forfeit,
+  timed-out read, both, uncapped exhausting the root: one charge); hand-built plays against a looping opponent; the ledger equals
+  the engine on hand pairs; SIMX on constants, a tape mixer and a looping reader (9 steps against a constant); exact boundary budgets
+  (the read that just fits leaves exactly the response steps; one step more closes on TO and forfeits) for the three exact simulators;
+  SIMX against SIMX at K = 200, 300, 1000; the clone; the §1.3 hand table at all five levels (every row, SIMX against SIMX and SIM
+  against SIM); the forfeit payoff tables of §1.1 entry by entry (A, A_f, A_m) for RPS and inspection; fallback independence of the
+  opponent's action; e_comp undefined with no completed plays; the founders (paired, split, same coin); **A_f without forfeits
+  reproduces an A cell draw for draw** (RPS runs 300, 301; inspection run 300, also A_m); **the confirmation run's A 0.1 cell (runs
+  100, 101) reproduced through the new pipeline exactly** (modal programmes at 2,000 and 4,000 and the statistics); the fresh-index
+  guard; the PD recorder (not altering the trajectory, zero forfeit weight at 60 generations).
+* Static check at nearby budgets (`forfeit_pricing_static.py`, K = 9,000, 10,000, 11,000), run with the counted cells.
