@@ -192,3 +192,46 @@ payoff entry were price-dependent. Code is identified by the hash of every `src/
   supports. For the PD: the holder spellings of the 64 islands at the end, the number of holder changes after generation
   500, and the class string.
 * Conclusions never leave the tested geometries.
+
+## 2. Choices where the spec is silent, deviations, caches (appended with the code, before any counted cell)
+
+**Caches (deviation from the brief).** The brief said to copy the untracked world-K caches from the main checkout; the main
+checkout has none of them (`runs/provenance/static`, `sets.npz`, `OSV.npy`, `SPO.npy`, `prod_exec.json` and the
+`runs/detectors/K/…` set are absent there). They were copied, read-only on the source side, from the pricing-rules
+engineer's worktree (`.claude/worktrees/agent-a2a0df6470309b1aa`, files dated 2026-10-24 14:06–14:13). Untracked, never
+committed (explicit `git add` of named files only). Pre-run and post-run sha256 digests are in
+`runs/failure_pricing_confirm/provenance_hashes.json` (`src/failure_pricing_confirm_batch.py hashes pre|post`).
+
+**Code layout (nothing existing edited).** `src/failure_pricing_confirm.py` (scores, the L_T cell runner built on
+`pricing_rules_lt.Base` and its exact-kernel lotteries, the depth tables from the instrumented call forest, the PD cell runner
+with a read-only population-ledger recorder `PricedRunC(pricing_rules_pd.PricedRun)`, provenance hashes),
+`src/failure_pricing_confirm_batch.py` (one process per job, at most W at a time, STALL exit, no `multiprocessing.Pool`),
+`src/failure_pricing_confirm_report.py` (the report), `tests/test_failure_pricing_confirm.py`. Outputs go to
+`runs/failure_pricing_confirm/` (the library's `OUT` is redirected there; nothing is written into `runs/pricing_rules/`).
+
+**Choices.**
+1. *Rule and levels.* Rule A only (and the zero price, rule Z); the price enters exactly as in the merged code (L_T: the
+   exact-kernel view with charge = P × expected timed-out calls; PD: `pricing_rules_pd_model` with the fitted class costs of
+   `runs/pricing_rules/pd_cost_calibration.json`, tracked). Nothing about the charge semantics differs from the
+   exploratory run; only the run indices (fresh) and the extra statistics.
+2. *The recorder is read-only.* After every `advance` the PD run records the population ledger (`pop_ledger`, the merged
+   function that produces the end-state charge); it does not touch the state, so the trajectory equals the unrecorded run
+   draw for draw (a test: `A 0.1` rep 0 reproduces the stored record's final state, last generation, class string, trace
+   and ledger exactly).
+3. *Stored-cell validation.* RPS and inspection at the zero price and A 0.1, runs 0–1, reproduce the stored statistics at
+   generation 2,000 (every key) and the modal programme at 2,000 and 4,000 exactly; the PD A 0.1 rep 0 reproduces the stored
+   digest (tests pass).
+4. *Seed labels.* The dynamics label of rule A at level P is `A@<P>` (`%g`), the zero price `0`, as in the merged
+   `seed_label`; the new levels 0.03, 0.3, 0.2 and 0.5 have no stored counterpart.
+5. *A_s.* RPS 0.2 and inspection 0.5 are new L_T cells at (100, 64) (40 runs, runs 100–139); the PD A_s is the cell A 0.3
+   (no separate run).
+6. *Retrospective table.* Applied to the stored cells' rows at no simulation cost: the by-mixing score from the stored
+   `e_gross` and `forfeit` run values (RPS cells); the PD cost-inclusive and persistent scores from the stored
+   `ledger[3]`, `frozen_at`, `uo_last_change` and `last_gen` (PD cells, registered rows and, where present, the `_ext` rows
+   pooled); inspection net by island is unavailable (the stored rows keep run means of u0, u1, not island counts), and the
+   scramble and cumulative PD charges are unavailable (not recorded).
+7. *Process budget.* The many-islands subagent was alive at launch: at most 2 worker processes, one job per process.
+   Estimated cost (from the exploratory run): a PD run 1–2 minutes (0.9 GB resident), so a 40-run PD cell about 50–80
+   minutes; an L_T cell 1–3 minutes.
+8. *Cut order* if time or memory bind (spec): A_s, PD at 0.03 and 0.3, RPS and inspection at 0.03. The L_T cells are cheap
+   and run first; the PD cells run in the order 0.1, zero, 1, 10, 0.3, 0.03.
