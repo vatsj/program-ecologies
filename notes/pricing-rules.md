@@ -221,3 +221,39 @@ role invades.
 **Cuts and disclosures** are listed in the report. Measured costs: a PD run is about 0.5 minutes when it freezes early and
 about 3.5 minutes at 10,000 generations when it does not (0.9 GB resident); an RPS or inspection exact-kernel run takes seconds,
 a sampled run about 8 seconds (0.12 GB). At most 2 worker processes were used while any other agent's process was alive.
+
+### 2.1 Additions made during the run (disclosed; none changes a registered threshold)
+
+**A stale numba cache priced the first PD batch wrongly; it was discarded.** The generated PD kernel and the model functions were
+compiled with `cache=True`; after the model's class table was restructured, a dependent kernel's cached compile read the old
+index layout, so the first batch of priced PD cells (everything except the zero price) used wrong class costs (a TO charged
+17,616 steps, the root's steps charged 15,767). They were noticed because B's end-state charge per play was not c times the root
+steps. All priced PD cells from that batch were discarded (kept out of the report) and rerun after the dependents and the model
+functions were set to `cache=False`. A test now runs a priced PD job through the run object and checks the end-state charge
+against the rule's form, and the report carries an audit of every PD cell's recorded charge against its form (all ok). Two cells
+(`A 0.1`, `B 0.01`) of the rerun batch had a ledger inconsistent with their rule (an F-like charge in the end-state statistic;
+their dynamics looked unaffected) and were rerun after the model went uncached; the rerun values replace them. Intermittent
+crashes of PD processes (exit -11 or -6, early, with an empty log) were retried by the driver, at most twice; no cell was
+dropped.
+
+**B-own and the logging kernel (the addendum).** `Bo` (a per-program memo) and `Bl` (the island ledger of B run through the
+kernel that logs sizes and payments; draw for draw with `B`, a test) are in the sampled kernel for RPS and inspection (a bit-row
+per individual, empty for founders, copied to offspring and carried by migrants; certificates are fixed in the carriers, so no
+payment is caused by a certificate update, 0 by construction). In the PD the memo is per (island, lineage, type), the island
+ledger `Bi` per island; both are individual-level: payments are made at generation boundaries by groups that have not paid for a
+partner quote present on their island, the type-level fitness of the stored kernel becomes individual-level for these rules, and
+parents are drawn individual by individual (rejection against the island's best type fitness). A migrant child copies its old
+group's memo entries for the partner types present on the new island. A type change by production is a new reader quote and
+starts a cold memo. PD `B` (type-level steady state: reads amortized to zero) is kept beside `Bi`, which is the like-for-like
+partner of `Bo`. `Bow` starts each founder lineage with every present partner quote already cached (the pre-warmed memo).
+
+**Supplementary runs.** The registered intervals left some cells undetermined at 20 PD runs (and RPS A at 10 at 40 runs). New run
+indices were added in files tagged `_ext` (PD reps 20–39; RPS reps 40–79) for the PD zero price, F at 10⁻³, A at 0.1, 1 and 10,
+and RPS A at 10; the report pools them with the registered runs under the same scoring rule and labels the result
+supplementary. The registered cells are untouched. Wall times of some `_ext` cells in the batch log include hours in which the
+host was asleep.
+
+**Larger geometry** was run for the only level that met all three targets on pooled runs (A at 0.1) and for the zero price:
+RPS and inspection (400, 16), 20 runs; PD (200, 64), 20 runs.
+
+**No `multiprocessing.Pool` was used** (one process per cell; the stored `world_k_run.py` pool driver was not called).

@@ -1,0 +1,80 @@
+panel: 2 cells to run, 2 workers (pid 44965)
+start ('pd', 'B', 0.001, 'wk_Snon_100_64') pid 44970
+start ('pd', 'A', 0.1, 'wk_Snon_100_64') pid 44971
+done ('pd', 'B', 0.001, 'wk_Snon_100_64') rc 0 wall 1261s
+done ('pd', 'A', 0.1, 'wk_Snon_100_64') rc 0 wall 3422s
+batch panel finished
+warm: 4 cells to run, 2 workers (pid 58510)
+start ('lt', 'rps', 'Bws', 0.001, 'primary') pid 58511
+start ('lt', 'insp', 'Bws', 0.001, 'primary') pid 58512
+done ('lt', 'rps', 'Bws', 0.001, 'primary') rc 0 wall 340s
+start ('lt', 'rps', 'Bws', 0.0001, 'primary') pid 59975
+done ('lt', 'insp', 'Bws', 0.001, 'primary') rc 0 wall 460s
+start ('lt', 'insp', 'Bws', 0.0001, 'primary') pid 60439
+done ('lt', 'rps', 'Bws', 0.0001, 'primary') rc 0 wall 340s
+done ('lt', 'insp', 'Bws', 0.0001, 'primary') rc 0 wall 520s
+batch warm finished
+rest: 28 cells to run, 2 workers (pid 62530)
+start ('lt', 'rps', 'A', 0.01, 'primary') pid 62531
+start ('lt', 'insp', 'A', 0.01, 'primary') pid 62532
+done ('lt', 'rps', 'A', 0.01, 'primary') rc 0 wall 100s
+start ('pd', 'A', 0.01, 'wk_Snon_100_64') pid 62948
+done ('lt', 'insp', 'A', 0.01, 'primary') rc 0 wall 160s
+start ('lt', 'rps', 'A', 10.0, 'primary') pid 63188
+done ('lt', 'rps', 'A', 10.0, 'primary') rc 0 wall 80s
+start ('lt', 'insp', 'A', 10.0, 'primary') pid 63534
+done ('lt', 'insp', 'A', 10.0, 'primary') rc 0 wall 160s
+start ('pd', 'A', 10.0, 'wk_Snon_100_64') pid 64248
+done ('pd', 'A', 10.0, 'wk_Snon_100_64') rc -11 wall 100s
+retry ('pd', 'A', 10.0, 'wk_Snon_100_64')
+start ('pd', 'A', 10.0, 'wk_Snon_100_64') pid 64642
+done ('pd', 'A', 0.01, 'wk_Snon_100_64') rc 0 wall 1361s
+start ('lt', 'rps', 'F', 1e-05, 'primary') pid 68581
+done ('lt', 'rps', 'F', 1e-05, 'primary') rc 0 wall 100s
+start ('lt', 'insp', 'F', 1e-05, 'primary') pid 69033
+done ('lt', 'insp', 'F', 1e-05, 'primary') rc 0 wall 160s
+start ('lt', 'rps', 'FA', 1e-05, 'primary') pid 69976
+done ('lt', 'rps', 'FA', 1e-05, 'primary') rc 0 wall 80s
+start ('lt', 'insp', 'FA', 1e-05, 'primary') pid 70401
+done ('pd', 'A', 10.0, 'wk_Snon_100_64') rc 0 wall 1421s
+start ('lt', 'rps', 'Bw', 1e-05, 'primary') pid 71118
+done ('lt', 'insp', 'FA', 1e-05, 'primary') rc 0 wall 180s
+start ('lt', 'insp', 'Bw', 1e-05, 'primary') pid 71450
+done ('lt', 'rps', 'Bw', 1e-05, 'primary') rc 0 wall 100s
+start ('lt', 'rps', 'B', 1e-05, 'primary') pid 71671
+done ('lt', 'insp', 'Bw', 1e-05, 'primary') rc 0 wall 160s
+start ('lt', 'insp', 'B', 1e-05, 'primary') pid 72511
+done ('lt', 'rps', 'B', 1e-05, 'primary') rc 0 wall 360s
+start ('lt', 'rps', 'F', 0.01, 'primary') pid 73868
+done ('lt', 'rps', 'F', 0.01, 'primary') rc 0 wall 80s
+start ('lt', 'insp', 'F', 0.01, 'primary') pid 74278
+done ('lt', 'insp', 'F', 0.01, 'primary') rc 0 wall 120s
+start ('lt', 'rps', 'FA', 0.01, 'primary') pid 74866
+done ('lt', 'insp', 'B', 1e-05, 'primary') rc 0 wall 460s
+start ('lt', 'insp', 'FA', 0.01, 'primary') pid 74949
+done ('lt', 'rps', 'FA', 0.01, 'primary') rc 0 wall 80s
+start ('lt', 'rps', 'Bw', 0.01, 'primary') pid 75236
+done ('lt', 'insp', 'FA', 0.01, 'primary') rc 0 wall 140s
+done ('lt', 'rps', 'Bw', 0.01, 'primary') rc 0 wall 80s
+start ('lt', 'insp', 'Bw', 0.01, 'primary') pid 75646
+start ('lt', 'rps', 'B', 0.01, 'primary') pid 75647
+done ('lt', 'insp', 'Bw', 0.01, 'primary') rc 0 wall 140s
+start ('lt', 'insp', 'B', 0.01, 'primary') pid 76367
+done ('lt', 'rps', 'B', 0.01, 'primary') rc 0 wall 320s
+start ('pd', 'F', 0.01, 'wk_Snon_100_64') pid 77313
+done ('pd', 'F', 0.01, 'wk_Snon_100_64') rc -11 wall 140s
+retry ('pd', 'F', 0.01, 'wk_Snon_100_64')
+start ('pd', 'F', 0.01, 'wk_Snon_100_64') pid 78005
+done ('lt', 'insp', 'B', 0.01, 'primary') rc 0 wall 420s
+start ('pd', 'FA', 0.01, 'wk_Snon_100_64') pid 78570
+done ('pd', 'FA', 0.01, 'wk_Snon_100_64') rc 0 wall 2441s
+start ('pd', 'B', 0.01, 'wk_Snon_100_64') pid 91372
+done ('pd', 'F', 0.01, 'wk_Snon_100_64') rc 0 wall 2561s
+start ('pd', 'F', 1e-05, 'wk_Snon_100_64') pid 91478
+done ('pd', 'F', 1e-05, 'wk_Snon_100_64') rc 0 wall 880s
+start ('pd', 'FA', 1e-05, 'wk_Snon_100_64') pid 94070
+done ('pd', 'B', 0.01, 'wk_Snon_100_64') rc 0 wall 1161s
+start ('pd', 'B', 1e-05, 'wk_Snon_100_64') pid 94104
+done ('pd', 'FA', 1e-05, 'wk_Snon_100_64') rc 0 wall 920s
+done ('pd', 'B', 1e-05, 'wk_Snon_100_64') rc 0 wall 1161s
+batch rest finished
