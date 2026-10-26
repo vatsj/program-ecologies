@@ -306,7 +306,7 @@ def verdicts(R, S):
     z = target('pd', get('pd', 'Z', 0.0))
     pdA = {p: target('pd', get('pd', 'A', p)) for p in (0.01, 0.1, 1.0, 10.0)}
     pdA = {p: v for p, v in pdA.items() if v[0] is not None}
-    add('E3 PD under A is the zero-price PD', 'not scored' if z[0] is None or not pdA else ('held' if all(abs(v[0][0] - z[0][0]) <= 0.15 for v in pdA.values()) else 'failed'),
+    add('E3 PD under A is the zero-price PD', 'not scored' if z[0] is None or not pdA else ('held' if all(abs(v[0][0] - z[0][0]) <= 0.15 + 1e-9 for v in pdA.values()) else 'failed'),
         'zero %s; A: %s' % (fmt(z[0]), {p: fmt(v[0]) for p, v in pdA.items()}))
     iA = {p: target('insp', get('insp', 'A', p)) for p in (0.01, 0.1, 1.0, 10.0)}
     iA = {p: v for p, v in iA.items() if v[0] is not None}

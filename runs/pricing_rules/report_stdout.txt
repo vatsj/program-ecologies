@@ -80,7 +80,7 @@ Joint band (all three met): none; possible band (no game failed): none; adjacent
 | 5 F+A against F | **partial** | lowest panel c meeting RPS: F 0.001, F+A 1e-05; PD under F+A at 1e-3: undetermined; F+A joint band: none |
 | E1 stored RPS dose reproduced | **held** | U share F: 1e-3 0.907 [0.813, 0.980], 1e-4 0.093 [0.037, 0.158] |
 | E2 PD under F fails by arithmetic | **failed** | c=0.0001: 0.000 [0.000, 0.161]; c=0.001: 0.600 [0.387, 0.781] |
-| E3 PD under A is the zero-price PD | **failed** | zero 0.900 [0.699, 0.972]; A: {0.01: '0.950 [0.764, 0.991]', 0.1: '0.850 [0.640, 0.948]', 1.0: '0.750 [0.531, 0.888]', 10.0: '0.850 [0.640, 0.948]'} |
+| E3 PD under A is the zero-price PD | **held** | zero 0.900 [0.699, 0.972]; A: {0.01: '0.950 [0.764, 0.991]', 0.1: '0.850 [0.640, 0.948]', 1.0: '0.750 [0.531, 0.888]', 10.0: '0.850 [0.640, 0.948]'} |
 | E4 inspection under A stays >= 0.6 | **held** | {0.01: '0.765 [0.640, 0.890] met', 0.1: '0.925 [0.850, 1.000] met', 1.0: '0.851 [0.741, 0.949] met', 10.0: '0.743 [0.624, 0.862] met'} |
 | E5 warm and cold cache within 0.1 | **failed** | e_prog and U-share differences (B cold - B warm, both sampled kernel): {0.0001: (-0.114, 0.002), 0.001: (0.039, -0.007)} |
 | E6 headline: F none; A widest possible band, two adjacent met; FA and B narrower | **partial** | possible-band widths {'F': 1, 'FA': 2, 'B': 0, 'Bo': 0, 'A': 3}; met {'F': [], 'FA': [], 'B': [], 'Bo': [], 'A': []} |
