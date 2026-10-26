@@ -969,4 +969,11 @@ REJECTED.md the ones we dropped.
   don't think I have an answer to your question; I'm hoping we find experiments that answer the question for us."
   *Operating hypothesis:* the timeout convention stays (a timed-out read returns to the reader); the cost notion is
   open, informed by queue 63's cross-game robustness test.
+- *Evidence (2026-10-25, RESULTS "What compute should cost"):* across RPS, inspection and the PD no rule has a
+  confirmed joint band on the registered runs; only failure pricing (A, P_fail = 0.1 per timed-out read) meets all three
+  targets, on pooled PD runs, and there the RPS islands are held by a guarded mixer (uniform unless it certifies a
+  biased opponent) with zero exploitability; per-step pricing has at most one possible level (10⁻³), amortized pricing
+  (shared cache or the RS's per-program memo) returns RPS to the simulators. *Operating hypothesis (RE, pending the
+  RS):* failure pricing at P_fail = 0.1 is the default cost notion for new realizable-language experiments; the
+  registered PD target is cost-blind and is to be scored with the charge included in follow-ups.
 

@@ -7304,6 +7304,120 @@ polymorphic search).
 - The 30 unresolved groups, among them the realizable-language carrier chains and the gene arm, remain unaudited; the
   union game, the three-player dollar and concessions need a different solver to go further.
 
+## What compute should cost: no level is confirmed jointly met on the registered runs; charging only failed reads is the one rule with a jointly met point (pooled), where RPS islands are held by a reader that mixes unless it can certify a biased opponent (2026-10-25)
+
+Spec `specs/2026-10-25-pricing-rules.md` (queue 63; the RS, 2026-10-24: the capped simulator stays, "I'm hoping we find
+experiments that answer the question for us"; the per-program memo B-own added by the RS's addendum; reviewed by
+gemini-4-argon then gpt-6.1-sol), predictions `predictions/2026-10-25-pricing-rules.md` (the RS's statements first; the
+B-own addendum committed before any B-own cell), notes `notes/pricing-rules.md` (§1 hand table before code, §2 and
+§2.1), report `runs/pricing-rules.md` and `.json`, rows `runs/pricing_rules/`. Run by a Sonnet subagent
+(`src/pricing_rules*.py`; 29 tests, 24 passing on main and 5 needing the untracked world-K cache). Objects: the ε = 0
+seed lottery at fixed geometry, never π. RPS and inspection in L_T with the private tape: N = 100 per role, I = 64,
+mN = 1, 40 runs, generation 2,000, fuel K = 10⁴. PD: the realizable carrier lottery, world K, S-nonself, (100, 64),
+20 runs, up to 10,000 generations, K = 10⁶ per encounter.
+
+**Question and criterion.** Does "compute costs are nontrivial" mean every step costs, or only wasted computation? The
+criterion is robustness: one price level that meets every game's target at once (a joint band). Targets: RPS net
+programme exploitability e_prog ≤ 0.10; inspection efficient islands ≥ 0.60; PD universal-open runs ≥ 0.70; each
+scored met / failed / undetermined by run-level 95% intervals.
+
+**Rules.** F: c per step. A: P_fail per timed-out read (a raw payoff charge: P_fail = 1 is half the RPS payoff
+range, a fifth of the inspection range and a third of the PD's). F+A: c per step, with the topmost timed-out call
+charged c·K in place of its subtree. B: c per step with a per-island cache of paid reads (shared, cost only). B-own:
+the same with a per-program memo, inherited by offspring and carried by migrants. Controls: zero price, a per-read
+toll τ, sampled-kernel bridges, pre-warmed cache and memo.
+
+**Deviations.** A stale numba cache priced the first PD batch wrongly; those cells were discarded unseen and rerun with
+caching off, and two further cells with an inconsistent end-state ledger were rerun; every PD cell's recorded charge is
+now audited against its rule (all consistent in the displayed audit, which omits the F+A
+cells; the notes do not establish that the discarded results were unseen). The stored PD kernel has no play-step table, so plays are priced by
+class costs fitted on 30,000 executed plays (held-out mean 9,439 predicted against 9,364 executed; 75% within a factor
+2; actions agree with the stored table on 205,000 pairs, and with the executable evaluator on 98.5% of plays). B and
+B-own in RPS and inspection run in a sampled-encounter kernel (10 encounters per individual per generation), whose own
+zero-price baseline differs from the exact kernel's (RPS 0.211 against 0.638), so they are read against the sampled
+bridges. PD processes crashed intermittently and were retried (no cell dropped). Supplementary PD runs (reps 20–39)
+and RPS runs (reps 40–79) were added for undetermined cells and are reported pooled, labelled supplementary; the
+registered cells are unchanged. In L_T the carriers' certificates are fixed, so B-own pays nothing for certificate
+updates there; in the PD such repayments are 12–23% of cold B-own's and the island ledger's payments (41% for the
+pre-warmed memo). PD `B` is a type-level steady state with free reads, while `Bi` and B-own pay at individual level at
+generation boundaries; cold B in RPS is scored with warm-cache charges; the timeout-free bounded-simulator control was
+identified with the zero price, not run separately.
+
+**Joint-band table** (registered runs; point [95% interval], m / f / u; PD runs met out of 20).
+
+| rule, level | RPS e_prog | inspection efficient | PD universal-open | joint |
+|---|---|---|---|---|
+| zero price | 0.638 f | 0.875 m | 0.900 (18/20) u | – |
+| F 10⁻⁵ / 10⁻⁴ / 10⁻³ / 10⁻² | 0.611 f / 0.546 f / −0.002 m / 0.380 f | 0.826 m / 0.711 u / 0.789 m / 0.775 m | 9 f / 0 f / 12 u / 20 m | f / f / u / f |
+| A 0.01 / 0.1 / 1 / 10 | 0.310 f / 0.000 m / 0.029 m / 0.093 u | 0.765 m / 0.925 m / 0.851 m / 0.743 m | 19 m / 17 u / 15 u / 17 u | f / u / u / u |
+| F+A 10⁻⁵ / 10⁻⁴ / 10⁻³ / 10⁻² | 0.013 m / 0.005 m / 0.027 m / 0.696 f | 0.750 m / 0.800 m / 0.825 m / 0.775 m | 10 u / 0 f / 12 u / 20 m | u / f / u / f |
+| B 10⁻⁵ … 10⁻² | 0.23–0.35 f | 0.62–0.90 (m or u) | 18 u (steady-state B) | f |
+| B-own 10⁻⁵ / 10⁻⁴ / 10⁻³ / 10⁻² | 0.24 f / 0.23 f / 0.33 f / 0.26 f | 0.600 u / 0.702 u / 0.731 u / 1.000 m | 20 m / 20 m / 17 u / 12 u | f |
+
+No level is confirmed to meet all three targets on the registered runs under any rule; F at 10⁻³ and F+A at 10⁻⁵ and
+10⁻³ remain possible (no game failed; F's pooled PD is 24/40 [0.446, 0.737], undetermined). With 40 pooled PD runs, A at 0.1 meets the PD
+target (35/40 = 0.875 [0.739, 0.945]) and so meets all three; A at 1 (33/40) and 10 (32/40) stay undetermined, and the
+zero price is met in the PD when pooled (37/40). At larger geometry A at 0.1 is met in RPS at (400, 16) (0.000; the zero
+price fails there, 0.679) and in the PD at (200, 64) (19/20; the zero price also 19/20), and undetermined in
+inspection at (400, 16) (0.650 [0.450, 0.850]; zero price 0.744).
+
+**Mechanisms.**
+- *F:* no level is confirmed jointly; the one possible level is 10⁻³. RPS needs c ≈ 10⁻³, where the coin takes 0.91
+  of the lottery (0.09 at 10⁻⁴). The PD under F is non-monotone (9, 0, 12 and 20 of 20 from 10⁻⁵ to 10⁻²); the 20/20 at
+  10⁻² is an artefact of the registered statistic, which does not see the charge: there every program pays about 31
+  stakes per play and P(C,C) is 0.586.
+- *A at 0.1 gives unexploitable individual mixing in RPS, through a reader, not the named coin.* A charges timeouts
+  (simulators' fuel exhaustion and enumeration-cap hits); at P_fail ≥ 0.1 RPS simulators vanish (0.425 of the lottery
+  remain at 0.01). At 0.1 net and gross exploitability are 0.000, individual mixing 1.000 and forfeits 0, while the
+  named coin `U` holds 0.084 [0.031, 0.152] of the lottery, and the islands are held by the
+  counted-probability reader `PRR` (0.911 of islands) at 0.1 and by the prover `PB` (0.49) at 1 (modal programme per
+  island at generation 2,000, from the per-cell files `runs/pricing_rules/rps_A_*_primary.json.gz`): readers whose reads
+  finish pay nothing. `PRR` plays the uniform tape mixture unless it certifies by enumeration that the opponent plays
+  one action with probability at least 12/27, and then beats it: a mixer guarded by a sound read. At 1 and 10 the net
+  statistic is met by mutual non-play, not mixing (gross exploitability 0.515 and 0.800, forfeits 0.418 and 0.631). In
+  inspection the simulating inspectors stay (share 1.000 at A 0.1). In the PD and inspection, A changes little against the zero price (PD timeouts are at most 0.0002 per play;
+  inspection timeouts at A 0.1 are 0.016).
+- *F+A* extends F's RPS band down to 10⁻⁵ but has no joint band; its PD numbers equal F's because PD plays almost never
+  time out.
+- *Amortizing (B, B-own) keeps the PD and gives RPS back to the simulators* (0.55–0.69 of the lottery at 10⁻⁵ … 10⁻³ and 0.33–0.41 at
+  10⁻², against 0.70 at the sampled zero price): free repeated reads are what lets simulators beat the coin. The owned memo is not between
+  F and B: at the panel levels (10⁻⁴, 10⁻³) it is within 0.02 of B in RPS and 0.08 in
+  inspection (up to 0.07 and 0.27 apart across all four levels), and in the PD it is above both F and the individual-level
+  island ledger at 10⁻⁴ (20/20 against 0/20 and 17/20) and at 10⁻³ (17/20 against 12/20 and 15/20). A cold memo does not
+  prevent establishment (0.85 against 0.90 warm).
+- *Statics:* a monomorphic coin population is invaded by a cheaper program at every c > 0 under F, F+A and B (its
+  unconditional shadow) and at no level of P_fail or the toll on the grid; so F's RPS result at 10⁻³ is not static
+  stability (drift and founder composition are the likely reading, not tested dynamically).
+- *Toll:* a constant τ = 1 per read breaks inspection (0.014) and RPS (0.669).
+
+**Verdicts.** Held: E1 (the stored RPS dose response), E3 (the PD under A near the zero price), E4 (inspection under A
+≥ 0.6), E7 (the toll breaks inspection), and gpt-6.1-sol's counter-predictions
+on 3 (finishing readers keep RPS off the coin), 4 (no pointwise ordering of B and F) and 6 (no universal F–B-own–B
+ordering). Failed: 3 (the coin beats simulators under A at P_fail ≥ 0.1), 4 (B helps the PD and hurts the coin: the
+B − F difference in the coin's share changes sign), 6 (B-own between F and B), E2 (the PD under F fails by
+arithmetic; it is non-monotone), E5 (warm and cold caches agree; RPS differs by 0.114 at 10⁻⁴), and gemini-4-argon's
+counter-prediction on 6 (cold memos kill establishment). Partial: 5 (F+A against F), E6, E8 (F+A binds the PD as hard as F: equal at 10⁻³ and
+10⁻⁴, 10 against 9 at 10⁻⁵, but its prediction of PD failure from 10⁻⁴ up fails at 10⁻², 20/20). Undetermined on the registered
+runs: 1 (F has no joint band) and 2 (A has one); 2 is partial with the pooled runs.
+
+**Reading.**
+- Charging only wasted computation is the only rule here with a jointly met point (P_fail = 0.1 per timed-out read, on
+  pooled PD runs). It is parameterized in payoff units rather than per step, so the price level does not scale with a
+  game's fuel cap (how often timeouts occur still does); step-charging rules are parameterized against caps that
+  differ by 100× between the L_T games and the PD, which is a plausible reason, not a demonstrated one, why no c was
+  confirmed jointly.
+- What A buys is RPS: it removes the simulators that hold the RPS lottery at zero price, and leaves the PD and
+  inspection about where the zero price has them. At P_fail = 0.1 it also yields what the RPS thread wanted, unexploitable individual
+  mixing, carried by a guarded mixer that reads (`PRR`) rather than by the bare coin; at higher P_fail the net target
+  is met by mutual non-play instead.
+- Amortization, shared or owned, returns the RPS lottery to simulators; the interpretation that free repeated reads
+  are what lets them win is consistent with the shares but was not tested by intervention.
+- The registered PD statistic is cost-blind; a follow-up should score the PD with the charge included.
+- *Caveats:* fixed-geometry lotteries; the candidate band rests on pooled supplementary PD runs (20 registered runs
+  leave it undetermined) and inspection at (400, 16) is undetermined; the PD play-step model is fitted (75% of plays
+  within a factor 2), not measured; the sampled kernel moves the zero-price baseline for B and B-own; one catalogue per
+  game.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

@@ -1276,3 +1276,8 @@ immigrants"** (RESULTS "Dominance contracts and refusal on islands"; the explain
 - **Re-solving the union game, enforcement CC and the three-player dollar by lowering θ by four or more decades with this solver.** Dropped as infeasible,
   not as wrong: union N = 10^4 at θ = 10^-11 spent 81 min in round 1 (42,007 ring states, relative cut 0.175); the three-player weak N = 100 at θ = 10^-10 took
   4 h 45 min and 8 GB for a 3.7-fold cut reduction. A converged answer there needs a different solver, not a smaller θ.
+- **Failure pricing makes the bare coin win RPS (pricing rules, prediction 3).** Failed: at P_fail ≥ 0.1 simulators vanish but the coin holds 0.084 of the lottery; the islands go to the guarded mixer `PRR` (0.911) and, at P_fail = 1, the prover `PB` (RESULTS "What compute should cost").
+- **Amortized pricing helps the PD and hurts the coin pointwise (prediction 4).** Failed: the B − F difference in the coin's share changes sign across c. Same section.
+- **The per-program memo sits between per-step and shared-cache pricing (prediction 6, the RS's B-own arm).** Failed: it is near B in RPS and inspection at the panel levels and above both in the PD at 10⁻⁴ and 10⁻³. gemini-4-argon's counter-prediction (cold memos kill establishment) also failed. Same section.
+- **The PD under per-step pricing fails by arithmetic, monotonically (engineer E2), and warm and cold caches agree (E5).** Failed: 9, 0, 12, 20 of 20 from 10⁻⁵ to 10⁻²; RPS differs by 0.114 between warm and cold at 10⁻⁴. Same section.
+- **The registered PD target (universal-open runs) as a score for priced arms.** Dropped for priced comparisons: it is cost-blind (per-step 10⁻² is "met" 20/20 while each play costs about 31 stakes and P(C,C) is 0.586). Same section.
