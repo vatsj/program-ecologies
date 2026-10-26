@@ -924,6 +924,12 @@ REJECTED.md the ones we dropped.
   order of limits; coverage of the stable set is not, without a mechanism that pushes rare pairs up (an anti-conformist
   force strong enough to beat the composition-level instability); the encounter contracts (queue 66) are the next test.
   *Open for the RS:* whether a knife-edge symmetric equilibrium counts as "all stable sets show up".
+  *Result (2026-10-26, RESULTS "Contracts that form in encounters"):* the RS's encounter contracts realize the rotating
+  walk of majority dominance (observed 0.40 fair / 0.60 unequal), not the stable set; coverage in the weak sense holds
+  at a high genesis rate only. The RS judged the stable-set line a failure for robust coverage and chose to wait on this
+  result; it does not rescue coverage. *Pending the RS:* restating the target as "every island lands in V*, and each
+  member equally likely across independent worlds" (met by the readers arm), and whether to sharpen "efficient" to
+  "in the stable set" (the RE recommends both).
 - *RS (2026-10-25), contract genesis:* contracts should form per encounter on the programs that stand to benefit, not
   by an aggregate test over the population, and only replace actions "at that point" (situation-keyed overrides that
   stay silent elsewhere); a coalition deviates when it Pareto-improves after the responders answer its new actions

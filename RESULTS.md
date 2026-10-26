@@ -7593,6 +7593,85 @@ charges change which network establishes), and the engineer's E5, E6 and E9.
 - *Caveats:* these geometries, grammars, caps and world K only; no island-size or large-N claim; the inspection
   stakes-normalized point is undetermined.
 
+## Contracts that form in encounters, with the responders' programs answering: every island is efficient within a few events, but the fair pairs are not held: each island cycles between fair and unequal pairs, the long-run law is 0.40 fair / 0.60 unequal, and coverage of all three pairs holds only at a high genesis rate (2026-10-26)
+
+Spec `specs/2026-10-25-encounter-contracts.md` (queue 66; the RS: contracts as situation-keyed overrides that "trigger on the rare special cases where
+they apply", formed when every signer does strictly better after the responders' programs answer; reviewed by gemini-4-argon then gpt-6.1-sol, three addenda each),
+predictions `predictions/2026-10-25-encounter-contracts.md`, notes `notes/encounter-contracts.md`, report `runs/encounter-contracts.md` and `.json`, validation
+`runs/encounter-contracts-validate.json`, cells `runs/encounter_contracts/`. Code `src/encounter_contracts*.py`, 27 tests (`tests/test_encounter_contracts.py`). Run by a Sonnet subagent.
+
+**Object.** `dollar3`, weak arm, L seeds, N = 100, w = 0.3, ε = 0. An individual is a program plus up to 8 entries (key = the override-free action profile of
+the encounter, fill = the carrier's action); stage 1 plays the programs, carriers whose key matches play their fills, the others re-run their programs against the fills
+(the substitution reaches nested simulation). Genesis at rate ν per island-generation draws one individual per slot, a coalition and a new action profile and installs it on the
+signers if each signer strictly gains after the responders answer. Order of limits: founding, 2,000 generations of relaxation with genesis, then rare-migration (continuous-time arrivals with overlapping relaxations and asynchronous donors; the explicit
+rate) islands at mN = 10⁻³ per slot per generation (one migrant per island per 333-generation round, against the
+frozen prediction's per-island rate and 1,000-generation rounds, a threefold clock change; clock = rounds), islands made large by pool size (I = 128 to 2,048); the strict
+m → 0 object is the no-migrant island chain. Arms R, NR, BR (robust acceptance over pure equilibria), BRx (BR also executed), B (broadcast to 9 copies), C (copied proposals), H and
+H-top and H-inert (hooks), S (no acceptance test), S-low (S at R's acceptance rate).
+
+**Deviations (disclosed).** The spec's literal settlement rule is never met at ν = 1 (a firing contract forms on every fair island every ≈ 280 generations); a class is settled
+after 500 generations in the same `_classify` class; the migration rate is the explicit mN = 10⁻³ (no class is a certified closed class); pools are 128–2,048 islands (founders
+paired across arms by island index); eviction by installation order, not firing recency; 160 types per slot (never full); arm V, the recombination variant of C, the unmatched B cell and
+A = 150 not run; **S at ν = 1 cut** (190 s per round at 512 islands; a 128-island 30-round pool and a 30-island no-migrant run show that no island settles a class); secondary-arm paired runs 6,000
+events; the first two R cells predate three added counters; tracked-bundle aggregates include the 2,000-generation relaxation (under 1%); `settled` shares are among settled islands.
+Validation: ν = 0 reproduces `many_islands.island_run` draw for draw (12/12 founders, 6/6 with arrivals); the exhaustive oracle against 30,000 Monte Carlo draws on 12 islands within
+1.9σ; arm 0 against the stored chain: V\* increments 0.215 against 0.221 over 1,000 events (level 0.025 lower from the founding sample).
+
+**Efficiency is reached and fast.** Wasteful plus disagreement islands drain within the 2,000-generation relaxation at ν = 1 (R: 0.011 at event 0, 0.000 at 10; arm 0: 0.31 at 0, 0.292 at 10,
+0.026 at 1,000) and by event 100 at ν = 0.1 (0.022; 0.214 at 0); encounter efficiency 0.998 and 2% of islands with a Pareto-dominated payoff vector at ν = 1.
+
+**Fairness is not reached.** R's V\* (the three fair pairs) is 0.39–0.42 at ν = 1 from event 0 to 1,000 (arm 0: 0.254 → 0.469); 0.32 → 0.40 (100) → 0.325 (1,000) at ν = 0.1; U about 0.6. The uplift over arm
+0 at 1,000 events is −0.054 (ν = 1) and −0.144 (ν = 0.1). The no-migrant island chain (200 islands × 3·10⁵ generations at ν = 1; 3·10⁶ at ν = 0.1) has long-run occupancy 0.400 fair / 0.599 unequal /
+0.001 W + D at ν = 1 and 0.395 / 0.601 at ν = 0.1: the observed occupancies are similar at the two rates tested, the rates about tenfold apart (finite-duration occupancies; convergence and irreducibility not shown) (fair-island exit 3.6·10⁻⁵ per generation at ν = 1, 3.7·10⁻⁶ at ν = 0.1; 99% of
+exits to an unequal pair; unequal islands exit at 5.4·10⁻⁵ at ν = 1, 43% to a fair pair, 54% to another unequal pair, the rotating dictator; at
+ν = 0.1, 5.4·10⁻⁶, 34.5% to a fair pair, 44.9% to another unequal pair and 20.6% to W + D). No fair island is contract-stable (exhaustive oracle: 0 of 404 at
+round 0, 0 of 414 at round 1,000; mean acceptance probability per draw 0.0043–0.0064). In the stable-set reading: the Pareto test counts only the signers, and on every fair island the excluded slot and
+one pair member strictly gain from "demand ⅔ of the excluded slot, who takes ⅓" whatever the third member's program is (two accepted proposals of 560, 3.6·10⁻³ per draw, confirmed by the oracle); the excluded half
+is neutral and the pair member's half underdominant until the excluded half is common (threshold ¾), so the deal is carried by a neutral drift followed by a selected sweep (fair → unequal),
+and the same deal one level up (victim and excluded slot) takes an unequal island to a fair or a different unequal pair. Of 84,000 two-signer contracts formed on fair islands 0.45% fix in both slots, median half lifetime 2 generations; of the 13,000 singleton
+contracts 31% fix (the sweeps after the excluded half has fixed). On settled fair islands 81% (round 1,000; 82–88% in the long ν = 1 pools, 98.6–100% at ν = 0.1) play the fair pair only through overrides (the mean encounter mass where a contract fires is 0.95–1.00).
+
+**Migrant-attributed moves.** Paired migrant / no-migrant branches (same seed, 5,000-generation main branches and 2,000-generation secondary ones, 2·10⁴ events, cluster bootstrap
+over recipient islands): κ (to the donor's pair) 1.5–2.7·10⁻³ per migrant excess,
+α (to the third pair) 0.65–0.90·10⁻³ at ν = 1 (excess intervals [0.25, 1.06]·10⁻³ and [0.55, 1.38]·10⁻³, both excluding 0), 1·10⁻⁴ at ν = 0.1 ([0, 2.5]·10⁻⁴); arm 0: 6·10⁻⁴ and 3·10⁻⁴.
+
+**Arms.** NR and R are indistinguishable (V\*, within-chain occupancy, rates), so the response does not matter on this seed law (97% constants). BR accepts more per attempt (0.0074 against 0.0057) yet clears dominated
+islands worse (W + D 0.070 and 0.145 against 0.002 and 0.034): with two uncommitted responders the pure equilibria include the responders pairing with each other, so singleton moves fail the robust test; BRx (responders
+execute best replies) puts the within-chain law at 0.048 fair / 0.942 unequal. B (broadcast to 9 copies) raises the fair-island exit rate 4.7× and the fair occupancy to 0.536 (pool V\* 0.576 at 300). C (copying) changes the aggregate little
+(within occupancy 0.435; it lowers the ν = 1 fair-island exit rate from 3.6·10⁻⁵ to 2.1·10⁻⁵ and raises two-signer
+fixation; copied acceptance 0.005–0.009 against 0.006–0.010 uniform, half the copies unmatched). H blocks 0.31 / 0.52 / 0.67 of proposals by |S| (hooks are 18 of the 27 size-1 programs), cuts the fair-island exit rate to 0.43× R (overall class-change rate 0.31× R), lowers the fair
+occupancy to 0.287 and leaves W + D at 0.04–0.075; H-top equals R, H-inert equals arm 0 (V\* 0.480 against 0.469); hooked programs gain 5–8 points of share. S at ν = 0.1 (512 × 1,000): V\* 0.365 with 24% of islands Pareto-dominated; at ν = 1 no island
+holds a class. S-low (installation at R's acceptance rate): V\* 0.357 at ν_eff = 6·10⁻³ (round 300), 0.555 at 8.5·10⁻⁴ (round 1,000, arm 0 0.469).
+
+**Order of limits and coverage.** At ν = 1 all three pairs are present from every start by event 300 (tilted starts forget the tilt) and at every pool size tested (I = 128 to 2,048, to 3,000–8,000 rounds; V\* 0.38–0.45 in four of five replicates at I ≥ 512; one
+founder set drifts to V\* 0.17–0.23 with every pair at 0.04–0.07, with or without contracts carried by migrants). At ν = 0.1 the pool's V\* fluctuates with s.d. 0.085 (I = 128, 512) and 0.033 (I = 2,048), mean 0.23 at 2,048, and F0 falls to 0.023 at 10⁴ rounds
+(trend, not resolved). At ν ≤ 0.01 pairs are lost by 10⁴ rounds (ν = 0.001: 0.000 / 0.381 / 0.006; ν = 0.01: 0.002 / 0.016 / 0.109), as in arm 0 (F1 = 0.000, V\* 0.975). Mixed starts are not a rescue.
+
+**Verdicts** (full table in the report). Held: 3's barrier clause (its reader-mediated conversion clause failed:
+partners are constants), 4 (ν = 1), 4c, 5c, 7c, 2c's uplift clause (its expected-fitness clause untested), E1–E4, E6,
+E10, E14, E15 (except S at ν = 1). Failed: 2, 7, E13. Partial: 1 (fails at ν = 1, holds at ν = 0.1), 1c, 5, E5, E7, E8
+(fails on the interval at ν = 1, holds at ν = 0.1), E9, E11, E12. Unresolved: 6 (infinite-pool persistence; at finite
+checkpoints every fair pair is ≥ 0.047 at round 300 (ν = 1, tilted runs end there) and 1,000 (ν = 0.1) from every
+start, but one ν = 0.1 replicate at I = 512 crosses below 0.02 twice, and pairs fall near zero at ν ≤ 0.01 by 10⁴
+rounds). Unscored: 8 (neither clause measured as stated; the proxies are a coordination-free share of bundle
+fixations of 0.926, an upper bound that includes neutral halves, and coordination-needing fixations per generation,
+not conversions per migrant). "Fix in both slots" means each half above 0.5 at a check within 2,000 generations.
+
+**Reading.**
+- Contracts bring islands close to efficiency quickly at ν = 1 (W + D 0.004 and 2.1% Pareto-dominated at round
+  1,000; at ν = 0.1, W + D 0.034, above the registered 0.02, and 4.0% Pareto-dominated) and give up the fair pairs: the Pareto test of the signers alone makes both the fair and the unequal pairs targets of the excluded slot's deals, so islands cycle (rate ∝ ν; observed occupancy about 0.40 / 0.60 at both rates tested).
+- Coverage in the weak sense (all three pairs present) holds at ν = 1 and is finite-pool; near-efficiency holds at ν = 1; fairness and crispness (a settled state) fail. The statement "every island efficient and all three pairs present" is true in the coverage-plus-efficiency sense and false as a statement of the fair, settled outcome.
+- NR ≈ R; BR/BRx show that the the measured aggregate differences between response rules run through the equilibrium rule (NR ≈ R does not
+  establish exclusive causation); H, C, S do not repair it; B shifts the law toward fair (a dilution, not a mechanism).
+- In stable-set terms this is expected of a myopic rule: a fair pair (3, 3, 0) is majority-dominated by an unequal pair
+  such as (4, 0, 2), which is in turn dominated by a fair pair; the stable set V\* is stable only because such a move
+  would be undone, a farsighted argument the signers-only test does not make. So encounter contracts as specified
+  realize the rotating walk of majority dominance (as the atomic pair contracts did, RESULTS "Dominance contracts and
+  refusal on islands"), not the stable set.
+- Against the sharpened target (every island lands in V\*, every member present), arm R fails the first clause (V\* about
+  0.40) at every ν; the readers arm of "Islands to infinity before time" remains the only cell that meets it.
+- Caveats: finite N, finite pools, one seed law (97% constants: responders almost never read), the migration rate is explicit, S at ν = 1 not run to its end, coverage at small ν unresolved at 10⁴ rounds.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
