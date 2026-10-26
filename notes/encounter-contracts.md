@@ -343,3 +343,39 @@ excluded slot's half is neutral.
   between cells that share their founders by island index, so the level offset cancels. The overlap of migrants in time (two within a
   relaxation, a few percent) is the engine's only difference from the stored one-at-a-time chain and is invisible at this resolution.
 - This pool is the arm-0 baseline cell of the report (it is also the validation cell and is not selected).
+
+### 2.3 What the counted cells are, cuts and disclosures (written at hand-back)
+
+*Counted cells* (`runs/encounter_contracts/`, report `runs/encounter-contracts.md`): pools of islands at mN = 10⁻³ (one migrant per island per 333-generation
+round), founded by the stored multinomial and relaxed 2,000 generations with genesis on, rounds as the clock: arm 0 (1,024 islands, 1,000 rounds; 512 islands to 10⁴
+rounds); R at ν = 1 (1,024, 1,000 rounds; replicate 1,024 × 500; 512 to 3,000) and ν = 0.1 (1,024 × 1,000; replicate; 512 to 10⁴); R at ν = 0.01 and 0.001
+(512 to 10⁴); the finite-I panel of R at ν = 0.1 (I = 128, 512, 2,048 to 10⁴ rounds) and ν = 1 (I = 128, 1,024 to 3,000); NR, BR, BRx, B, C, H, H-top, R16 at I = 512
+(ν = 1 to 300 rounds, ν = 0.1 to 1,000), H-inert, S at ν = 0.1 (512 × 1,000) and S-low at ν = 1 and 0.1 (installation rate equal to R's acceptance rate, 6.26·10⁻³ and
+8.47·10⁻⁴ per generation); tilted starts (×6 toward F0 and toward the unequal pairs; R and arm 0); the N panel (50 and 200, ν fixed and ν ∝ N); the migration
+panel (mN = 10⁻⁴, 10⁻⁵). No-migrant runs ("within": 200 islands × 3·10⁵ generations at ν = 1; 200 × 3·10⁶ at ν = 0.1; S: 30 islands). Paired migrant / no-migrant
+branches (20,000 κ/α events for R, arm 0, NR, BR, BRx, B at ν = 1 and R at ν = 0.1; 6,000 for the other arms at ν = 0.1 and C, H, Htop, R16 at ν = 1, 5,000 / 2,000 general
+events).
+
+*Cuts and changes of plan.* (i) **S at ν = 1 was cut**: with one random install per generation no island holds a class for 500 generations (unsettled share 1.0), the
+512-island pool ran at 190 s per round (16 h projected for 300 rounds) and was killed after 10 rounds; a 128-island, 30-round pool was run instead (all islands
+unsettled, encounter efficiency 0.906, 0.48 of islands Pareto-dominated) and a 30-island 10⁵-generation no-migrant run (no class settles). S at ν = 0.1: 512 islands
+× 1,000 rounds (80 min). The paired runs and the within-island chain for S at ν = 1 are therefore absent. (ii) The within-island runs at ν = 0.1 for S were reduced to 30 islands. (iii) V,
+the recombination variant of C, the unmatched B cell, the A = 150 cell: not run. (iv) Replicates: R only; single pools for the other arms. (v) Paired runs for
+the secondary arms at ν = 0.1 are 6,000 events (not 20,000); the α-resolution budget (2·10⁴ per arm) is met for R at ν = 1 only (and R at ν = 0.1, arm 0, NR, BR, BRx, B).
+
+*Disclosures.*
+- The tracked-bundle aggregates (fates, lifetimes, fixation, coordination classes) include the founding relaxation's events (2,000 generations of 3·10⁵–3.3·10⁵ per island,
+  under 1% of the tracked contracts at ν = 1; 2% in the 30-island S run). The rate statistics (acceptances per island-generation by class) were reset before the migration phase
+  (pools) or before the holdout window (within).
+- The first two cells run (R at ν = 1 and ν = 0.1, 1,024 islands) used the engine before the install-site counters, the polymorphism split of the fair-island acceptance
+  rate, and the joint (fixed × coordination) counts were added; those cells have zeros in the corresponding fields. Dynamics are unchanged (the counters do not enter the
+  state or the random-number order; the tests were rerun).
+- The settled class of an island is a class held 500 generations; at ν = 1 about 2% of islands have no settled class at round 0 and 0 from round 10 (R). The
+  `settled` shares are among settled islands, `cur` is the instantaneous class.
+- Contract fixation ("fix in both member slots") means each signer's half exceeded half of its slot at some check (every 4 generations) within 2,000 generations of
+  formation; the tracking table holds 12 bundles per island at a time (the S arm at ν = 1 overflows it).
+- "Coordination-needing" bundles are those with a half whose lone-carrier fitness change against the island's current populations is negative at formation;
+  "coordination-free" is the complement and includes neutral halves (the excluded slot's), so the coordination-free fixation share is an upper bound on a strict singleton-compatibility share.
+- Class-change attribution to migrants uses paired branches on the same random seed (the migrant branch and the control); the in-pool `cev` events are classified only by
+  proximity in time (a migrant within 1,500 generations, a fresh contract within 3,000) and are a proxy.
+- The founders of arms in one grammar share their random streams by island index (paired); the hooked grammar has its own founders.
