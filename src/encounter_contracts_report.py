@@ -53,7 +53,7 @@ def find(cells, arm, nu, start='post', mN=1e-3, N=100, rep=0, I=None, rounds_min
     best = None
     for k, r in cells.items():
         if r['arm'] == arm and abs(r['nu'] - nu) < 1e-12 and r['start'] == start and abs(r['mN'] - mN) < 1e-15 and r['N'] == N \
-                and r['rep'] == rep and (I is None or r['I'] == I) and r['rounds'] >= rounds_min:
+                and r['rep'] == rep and (I is None or r['I'] == I) and r['rounds'] >= rounds_min and not r.get('bare'):
             if best is None or r['rounds'] > best['rounds']:
                 best = r
     return best
@@ -536,7 +536,7 @@ def main():
     rows = []
     for k, r in sorted(cells.items(), key=lambda kv: (kv[1]['arm'], kv[1]['nu'], kv[1]['start'], kv[1]['N'], kv[1]['mN'], kv[1]['rep'])):
         g = r['genesis_stat']
-        rows.append((r['arm'], r['nu'], r['I'], r['rounds'], r['start'], r['mN'], r['N'], r['rep'], '%.0f' % r['wall'], g[38], g[42], g[37]))
+        rows.append((r['arm'] + (' (bare migrants)' if r.get('bare') else ''), r['nu'], r['I'], r['rounds'], r['start'], r['mN'], r['N'], r['rep'], '%.0f' % r['wall'], g[38], g[42], g[37]))
     A('## 1. Cells run\n')
     A(md_table(['arm', 'nu', 'I', 'rounds', 'start', 'mN', 'N', 'rep', 'wall s', 'type-table full', 'migrant failed', 'evictions'], rows))
     A('')
@@ -666,6 +666,20 @@ def main():
                          fmt(o0.get('mean_accept_prob'), 5), o.get('n'), fmt(o.get('contract_stable_share')), fmt(o.get('mean_accept_prob'), 5)))
     A(md_table(['arm', 'nu', 'round', 'settled fair islands', 'share of them whose fair play is override-dependent', 'mean encounter mass where a contract fires', 'oracle round 0: fair islands',
                 'contract-stable share', 'accept prob / draw', 'oracle final: fair islands', 'contract-stable share', 'accept prob / draw'], rows))
+    A('')
+    A('## 6e. The pool size at fixed nu: coverage and fluctuations along the clock (rounds >= 1,000)\n')
+    rows = []
+    for k, r in sorted(cells.items(), key=lambda kv: (kv[1]['arm'], kv[1]['nu'], kv[1]['I'], kv[1]['rep'], bool(kv[1].get('bare')))):
+        if r['arm'] == 'R' and r['rounds'] >= 3000 and r['N'] == 100 and r['mN'] == 1e-3 and r['start'] == 'post':
+            cps_ = [c for c in r['checkpoints'] if c['round'] >= 1000]
+            if len(cps_) < 2:
+                continue
+            vs = np.array([vstar(c) for c in cps_])
+            mp = np.array([min(sh(c).get('F0', 0), sh(c).get('F1', 0), sh(c).get('F2', 0)) for c in cps_])
+            us = np.array([sh(c).get('U', 0) for c in cps_])
+            rows.append((r['nu'], r['I'], str(r['rep']) + (' (migrants carry no contracts)' if r.get('bare') else ''), len(cps_), fmt(vs.mean()), fmt(vs.std()), fmt(vs.min()), fmt(vs.max()), fmt(mp.mean()), fmt(mp.min()), int((mp < 0.02).sum()),
+                         fmt(us.mean()), fmt(us.std())))
+    A(md_table(['nu', 'I', 'rep', 'checkpoints >= 1000', 'mean V*', 'sd V*', 'min V*', 'max V*', 'mean min-pair share', 'min of min-pair share', 'checkpoints with a pair below 0.02', 'mean U', 'sd U'], rows))
     A('')
     # verdicts
     V = build_verdicts(cells, within, paired) + build_e_verdicts(cells, within, paired)

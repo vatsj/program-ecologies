@@ -290,7 +290,7 @@ def donor_individual(rng, isl, s):
 
 
 def run_pool(armname, nu, I, rounds, rep, start='post', mN=1e-3, N=N0, nu_override=None, checkpoints=CHECKPOINTS, name=None, dump_at=(),
-             log=None, extra=None):
+             log=None, extra=None, bare=False):
     R, hooked = make_runner(armname, nu, N, nu_override)
     group = 'H' if hooked else 'L'
     t0 = time.time()
@@ -344,6 +344,8 @@ def run_pool(armname, nu, I, rounds, rep, start='post', mN=1e-3, N=N0, nu_overri
                     if j >= i: j += 1
                     s = int(rng.integers(3))
                     prog, ent = donor_individual(rng, pool[j], s)
+                    if bare:
+                        ent = []
                     xrows.append(R.xrow(tt, 1, slot=s, prog=prog, entries=ent))
             seed = crc('ec-run|%s|%g|%d|%s|%d|%d' % (armname, nu, rep, start, r, int(i)))
             R.run(isl, Hr, seed, abs_g, xrows=xrows, island_id=int(i))
@@ -613,10 +615,11 @@ def main(argv):
         arm, nu, I, rounds, rep, start = argv[2], float(argv[3]), int(argv[4]), int(argv[5]), int(argv[6]), argv[7]
         mN = float(argv[8]) if len(argv) > 8 else 1e-3
         Nn = int(argv[9]) if len(argv) > 9 else N0
-        name = 'pool_%s_nu%g_I%d_R%d_p%d_%s_m%g%s' % (arm, nu, I, rounds, rep, start, mN, '' if Nn == N0 else '_N%d' % Nn)
+        bare = os.environ.get('EC_BARE', '') == '1'
+        name = 'pool_%s_nu%g_I%d_R%d_p%d_%s_m%g%s%s' % (arm, nu, I, rounds, rep, start, mN, '' if Nn == N0 else '_N%d' % Nn, '_bare' if bare else '')
         dump_at = tuple(int(x) for x in os.environ.get('EC_DUMP', '').split(',') if x)
         cps = tuple(int(x) for x in os.environ.get('EC_CPS', '').split(',') if x) or CHECKPOINTS
-        res, pool, R = run_pool(arm, nu, I, rounds, rep, start, mN, N=Nn, name=name, dump_at=dump_at, log=log, checkpoints=cps)
+        res, pool, R = run_pool(arm, nu, I, rounds, rep, start, mN, N=Nn, name=name, dump_at=dump_at, log=log, checkpoints=cps, bare=bare, extra=dict(bare=bare))
         write_json(res, os.path.join(OUT, name + '.json'))
         print('done', name, res['wall'])
     elif cmd == 'within':
