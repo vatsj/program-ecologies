@@ -140,6 +140,9 @@ def pool_stats(R, pool):
     out = np.zeros(5 + 2 * NOUT)
     pay = np.zeros((I, 4)); dom = np.zeros(I, bool)
     fire = np.zeros(I); s1fair = np.zeros(I); s2fair = np.zeros(I)
+    hk = arm.hk
+    hooked_prog = np.array([[hk[s, x].max() >= 0 for x in range(arm.K)] for s in range(3)]) if arm.hooked else None
+    hshare = np.zeros(I)
     ntypes = np.zeros(I, np.int64)
     for i, isl in enumerate(pool):
         ST = isl.ST
@@ -151,8 +154,17 @@ def pool_stats(R, pool):
         pay[i, :3] = out[:3]; pay[i, 3] = out[3]
         dom[i] = pareto_dominated(out[:3])
         fire[i] = out[4 + 2 * NOUT]
+        if hooked_prog is not None:
+            cnt_, tprog_, pres_, npres_ = ST[0], ST[1], ST[6], ST[7]
+            tot = 0.0
+            for s_ in range(3):
+                for j in range(npres_[s_]):
+                    t_ = pres_[s_, j]
+                    if hooked_prog[s_, tprog_[s_, t_]]:
+                        tot += cnt_[s_, t_]
+            hshare[i] = tot / (3.0 * int(R.P[EC.P_N]))
         s2fair[i] = out[4 + MV].sum(); s1fair[i] = out[4 + NOUT + MV].sum()
-    return cur, sett, pay, dom, ntypes, (fire, s1fair, s2fair)
+    return cur, sett, pay, dom, ntypes, (fire, s1fair, s2fair, hshare if hooked_prog is not None else None)
 
 
 def cat_counts(cls):
@@ -174,7 +186,7 @@ def cat_counts(cls):
 
 def checkpoint_record(R, pool, rnd, wall):
     cur, sett, pay, dom, ntypes, fs = pool_stats(R, pool)
-    fire, s1fair, s2fair = fs
+    fire, s1fair, s2fair, hshare = fs
     I = len(pool)
     rec = dict(round=rnd, wall=wall, I=I)
     rec['cur'] = cat_counts(cur)
@@ -187,6 +199,8 @@ def checkpoint_record(R, pool, rnd, wall):
     rec['mean_pay_sixths'] = pay[:, :3].mean(axis=0).tolist()
     rec['pareto_dominated_share'] = float(dom.mean())
     rec['ntypes_mean'] = float(ntypes.mean()); rec['ntypes_max'] = int(ntypes.max())
+    if hshare is not None:
+        rec['hooked_share'] = float(hshare.mean())
     # on islands whose settled class is a fair pair: how much of the fair play is override-dependent (stage 2 fair, stage 1 not)
     fair_s = np.array([(0 <= c < NOUT and int(MI.CATMAP[c]) == 0) for c in sett])
     if fair_s.any():
@@ -237,9 +251,11 @@ def aggregate_events(rows, N, agg):
             if not m.any():
                 continue
             key = '%d|%d' % (kk, c)
-            d = agg.setdefault(key, dict(n=0, both=0, simult=0, coord=0, anypos=0, copied=0, alive_end=0, life_sum=np.zeros(3), life_n=0, lifes=[]))
+            d = agg.setdefault(key, dict(n=0, both=0, simult=0, coord=0, anypos=0, copied=0, alive_end=0, life_sum=np.zeros(3), life_n=0, lifes=[],
+                                         both_coord=0, both_free=0, coord_alive=0))
             d['n'] += int(m.sum()); d['both'] += int(both[m].sum()); d['simult'] += int(simult[m].sum())
             d['coord'] += int(coord[m].sum()); d['anypos'] += int(anypos[m].sum()); d['copied'] += int(copied[m].sum())
+            d['both_coord'] += int((both[m] & coord[m]).sum()); d['both_free'] += int((both[m] & ~coord[m]).sum())
             d['alive_end'] += int((a[m, 15] > 0.5).sum())
             # lifetime of the signer halves (generations), kept as a bounded sample
             if len(d['lifes']) < 20000:
@@ -250,7 +266,8 @@ def finalize_agg(agg):
     out = {}
     for key, d in agg.items():
         L = np.array(d['lifes']) if d['lifes'] else np.zeros((0, 3))
-        out[key] = dict(n=d['n'], frac_both_fix=d['both'] / d['n'], frac_simult=d['simult'] / d['n'], frac_coord=d['coord'] / d['n'],
+        out[key] = dict(n=d['n'], n_both_fix=d['both'], n_both_coord=d['both_coord'], n_both_free=d['both_free'], n_coord=d['coord'],
+                        frac_both_fix=d['both'] / d['n'], frac_simult=d['simult'] / d['n'], frac_coord=d['coord'] / d['n'],
                         frac_anypos=d['anypos'] / d['n'], frac_copied=d['copied'] / d['n'], frac_alive_2000=d['alive_end'] / d['n'],
                         life_median=[float(np.nanmedian(L[:, s])) if np.isfinite(L[:, s]).any() else None for s in range(3)],
                         life_mean=[float(np.nanmean(L[:, s])) if np.isfinite(L[:, s]).any() else None for s in range(3)])
@@ -469,7 +486,9 @@ def run_within(armname, nu, I, gens, rep, N=N0, chunk=20000, log=None, name='wit
             o, n_ = int(row[2]), int(row[3])
             def lab(c):
                 if c < 0: return 'none'
-                if c < NOUT: return MI.OLAB[c]
+                if c < NOUT:
+                    k_ = int(MI.CATMAP[c])
+                    return ('F%d' % MI.V.index(c)) if k_ == 0 else ['F', 'U', 'G', 'W', 'D'][k_]
                 return 'M'
             k = '%s>%s' % (lab(o), lab(n_))
             trans[k] = trans.get(k, 0) + 1

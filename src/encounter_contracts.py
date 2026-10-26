@@ -74,6 +74,7 @@ ST_INST_S = 58        # installs by |S|-1 (3)
 ST_NTRACKFULL = 61
 ST_ATT_FM = 64        # attempts on settled-fair islands: [monomorphic types, polymorphic]
 ST_ACC_FM = 66
+ST_INST_ATOMLESS = 68  # signer installs on atomless (constant) programs / on programs with atoms
 ST_LEN = 72
 STF_GEN_C = 0         # float accumulators: island-generations by current category (7)
 STF_GEN_SC = 7        # by settled category (7)
@@ -1083,6 +1084,7 @@ def genesis_attempt(A, C1, C2, ST, P, act, apos, nact, N, stat, trk, now_abs, co
             t = ts[s]
             nact, ok = install_one(A, C1, C2, ST, P, act, apos, nact, s, t, p, newa[s], bun, stat)
             stat[ST_INST_S + k - 1] += 1
+            stat[ST_INST_ATOMLESS + (0 if A[0][s, progs[s]] == 0 else 1)] += 1
             if nbc > 0 and ok:
                 taken = np.zeros(TM, np.int64)
                 for j in range(nbc):
