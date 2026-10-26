@@ -169,6 +169,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 66. Contracts that form in encounters (RS, 2026-10-25: contracts as situation-keyed overrides that "trigger on the rare special cases where they apply", formed when the coalition Pareto-improves after the responders' programs answer; best-reply response as the control; no farsighted arm; holders need not meet): the weak arm of majority division under queue 65's order of limits (spec `specs/2026-10-25-encounter-contracts.md`, reviewed; launches after queue 65 hands back).
 
+67. Confirming failure pricing (RS, 2026-10-25: "Next steps sg, happy to make this our working hypothesis / default compute charge"): A at 0.03–10 on fresh runs in RPS, inspection and the PD, inspection at (400, 16), the PD scored cost-inclusive, RPS scored by mixing, a stakes-normalized point (running: `specs/2026-10-25-failure-pricing-confirmation.md`; circle back on DEFERRED 16 when it reports).
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).
