@@ -1018,4 +1018,13 @@ REJECTED.md the ones we dropped.
   pooled readings); A_m sponsors the coin at 0.03–0.1 (forfeits become referee draws) and matches A_f from 1 up.
   *Operating hypothesis (RE, pending the RS):* the default compute charge is A_f at P_fail = 0.1, keeping the game's own
   forfeit payoff; the RS asked for equal costs, and A_f equalizes the charges, not the total consequence.
+- *RS (2026-10-28):* "default charge sounds good as an operating hypothesis". *Operating hypothesis (adopted):* the
+  default compute charge is A_f, P_fail = 0.1 per timed-out read and the same P_fail per forfeit, one charge per failure
+  event, with the game's own forfeit payoff kept; A_m (security fallback) is not adopted because it sponsors the coin at
+  low prices. *Open (RS):* "do we wna allow cheaper reads too? My guess is it's not worth a DSL primitive (I'd have no
+  clue how to price it)". Under A_f a read that finishes is free whatever its budget, so a read is cheaper only if its
+  failure is charged less. *RE:* no wing now (nothing currently binds that a cheaper read would fix); if one becomes
+  needed, the primitive-free form is a budget-proportional failure charge, P_fail·b/B for a read with cap b against a
+  reference cap B, since caps are already term parameters in the catalogues; coarse "glance" reads are not proposed
+  (surface reads are fakeable through probes, RESULTS "Certificates-only arm").
 
