@@ -704,6 +704,9 @@ REJECTED.md the ones we dropped.
   which the 2026-10-17 target ruling does not count as a good reason. So stage 2's state is a failure of the dynamics,
   not a legitimate outcome, and the auction thread's remaining question (what tests a read commitment?) is the
   prudence premium's (entry 1).
+  *RS (2026-10-29): "Confirmed re: rings."* Decided: accommodating a read commitment is admissible behaviour; a frozen,
+  untested threat below the core price is scored as a failure of the dynamics; the auction thread stays parked under
+  the prudence-premium question (what tests a commitment everyone accommodates).
 
 ## 15. The RS's equilibrium notion: response functions over action subprofiles (RS, 2026-10-13)
 - *RS's statement (verbatim):* "assume a normal-form game, with perfect complete information for simplicity. Call an
