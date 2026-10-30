@@ -930,6 +930,14 @@ REJECTED.md the ones we dropped.
   result; it does not rescue coverage. *Pending the RS:* restating the target as "every island lands in V*, and each
   member equally likely across independent worlds" (met by the readers arm), and whether to sharpen "efficient" to
   "in the stable set" (the RE recommends both).
+  *RS (2026-10-29), decided:* "Sgtm - I see farsightedness as a band-aid antithetical to the rest of the program."
+  The target is restated: in majority-division games the outcome target is that every island lands in the stable set
+  V\* (sharpening "efficient" to "in the stable set"; the grand coalition is reported separately), with each member
+  equally likely across independent worlds. Farsighted clauses (consent guards, look-ahead genesis tests) are not part
+  of the object; foresight must come from the programs' own play. Standing reading: myopic contracting realizes the
+  rotating walk and fails the target; the readers arm of "Islands to infinity before time" is the cell that meets it.
+  A readers seed for encounter contracts was dropped (REJECTED): in majority division the lone responder cannot block
+  a two-signer deal.
 - *RS (2026-10-25), contract genesis:* contracts should form per encounter on the programs that stand to benefit, not
   by an aggregate test over the population, and only replace actions "at that point" (situation-keyed overrides that
   stay silent elsewhere); a coalition deviates when it Pareto-improves after the responders answer its new actions

@@ -173,6 +173,8 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 68. ~~Forfeit pricing (RS)~~ (done; RESULTS "Charging forfeits like failed reads": charging the forfeit (A_f) closes the leak, RPS met by mixing at every price 0.03–10 with the guarded mixer, the PD unchanged, inspection noise-bound; exact simulation is selected in inspection, dies in RPS from 0.1; the security fallback (A_m) sponsors the coin at 0.03–0.1; operating hypothesis A_f at 0.1, DEFERRED 16).
 
+**Stable-set target (RS, 2026-10-29):** in majority-division games every island lands in the stable set V\* ("efficient" sharpened to "in the stable set"), each member equally likely across independent worlds; farsighted clauses are out of the object ("a band-aid antithetical to the rest of the program"); myopic encounter contracts fail it, the readers arm meets it (DEFERRED 15).
+
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
 **Object (RS, 2026-10-10):** the seed lottery is the object for the Turing-complete goal; the target is universal cooperation; identity cliques count as cooperation but not as the target; the ε→0 chain is a diagnostic (DEFERRED 1). **Decided (RS, 2026-10-13):** the realizable arm admits `eq`; identity cliques are part of the ecology; the defended claim is island-level efficiency along the seed path plus universality relative to identity's seeded abundance and the (N, I) geometry, with the measured threshold and remedies (DEFERRED 1 closed).
