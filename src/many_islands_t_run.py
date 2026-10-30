@@ -48,7 +48,7 @@ def cells_main():
 
 
 def cells_ablation():
-    return ['%s|%s|0' % (d, P) for d in ('ab:So', 'ab:D', 'ab:X') for P in ('0', '0.1')]
+    return ['%s|%s|0' % (d, P) for d in ('ab-So', 'ab-D', 'ab-X') for P in ('0', '0.1')]
 
 
 # ---------------------------------------------------------------- jobs
@@ -140,12 +140,17 @@ def run_ode(cell, pm, start, pool, raw=False):
     return out
 
 
-def run_world_job(cell, I):
+def run_world_job(cell, I, start='raw'):
     import many_islands_t_worlds as WD
     T = tabs()
     dose, P, A = parse_cell(cell)
     PF = get_pf(P)
     hist = sum(load_pool(cell, p) for p in range(NPOOL))
+    if start != 'raw':
+        # worlds founded from the tilted symmetrized pooled law (the same tilt as the ODE start)
+        kind = {'fair': 'fair', 'uneq': 'unequal', 'wd': 'wd'}[start]
+        y, info = O.tilt(O.symmetrize(O.hist_to_x(hist)), T, kind)
+        hist = y
     cps = np.array(CPS, np.int64)
     rows = []
     t0 = time.time()
@@ -158,6 +163,31 @@ def run_world_job(cell, I):
     return dict(cell=cell, I=I, cps=list(CPS), worlds=rows, wall=round(time.time() - t0, 1))
 
 
+def run_worldx_job(cell, I, Tmax):
+    """long finite worlds: checkpoints 1, 3, 10, ... up to Tmax events per island."""
+    import many_islands_t_worlds as WD
+    T = tabs()
+    dose, P, A = parse_cell(cell)
+    PF = get_pf(P)
+    hist = sum(load_pool(cell, p) for p in range(NPOOL))
+    cps = []
+    e = 0
+    while 10 ** e <= Tmax:
+        for m in (1, 3):
+            if m * 10 ** e <= Tmax:
+                cps.append(m * 10 ** e)
+        e += 1
+    cps = np.array(sorted(set(cps)), np.int64)
+    rows = []
+    t0 = time.time()
+    for w in range(NWORLDS):
+        rng = np.random.default_rng([37, DOSEID[dose], int(round(P * 1000)), A, I, w])
+        tri = WD.sample_world(hist, I, rng)
+        r = WD.run_world(PF, T, tri, cps, int(rng.integers(1 << 31)))
+        rows.append(dict(w=w, hist=r['hist'].tolist(), pairs=r['pairs'].tolist(), first_loss=r['first_loss'].tolist(), events=r['events']))
+    return dict(cell=cell, I=I, cps=cps.tolist(), worlds=rows, wall=round(time.time() - t0, 1))
+
+
 def run_job(j):
     parts = j.split(':')
     if parts[0] == 'P':
@@ -166,7 +196,9 @@ def run_job(j):
         raw = len(parts) > 5 and parts[5] == 'raw'
         return dict(job=j, **run_ode(parts[1], float(parts[2]), parts[3], int(parts[4]), raw))
     if parts[0] == 'W':
-        return dict(job=j, **run_world_job(parts[1], int(parts[2])))
+        return dict(job=j, **run_world_job(parts[1], int(parts[2]), parts[3] if len(parts) > 3 else 'raw'))
+    if parts[0] == 'WX':
+        return dict(job=j, **run_worldx_job(parts[1], int(parts[2]), int(float(parts[3]))))
     if parts[0] == 'J':
         import many_islands_t_jobs as JB
         return dict(job=j, **JB.run_jac(parts[1], float(parts[2]), int(parts[3])))
@@ -287,7 +319,14 @@ def stage_x():
 
 def stage_worlds():
     cs = ['main|0.1|0', 'main|0|0', '0|0|0']
-    return ['W:%s:%d' % (c, I) for I in WORLD_I for c in cs]
+    js = ['W:%s:%d' % (c, I) for I in WORLD_I for c in cs]
+    js += ['W:%s:%d:uneq' % (c, I) for I in (1024, 4096) for c in cs]
+    return js
+
+
+def stage_worldsx():
+    cs = ['main|0.1|0', 'main|0|0', '0|0|0']
+    return ['WX:%s:%d:%d' % (c, I, T) for (I, T) in ((64, 10 ** 7), (256, 3 * 10 ** 6), (1024, 10 ** 6)) for c in cs]
 
 
 def stage_abl_pools():
@@ -304,7 +343,7 @@ def stage_abl_ode():
 
 
 STAGES = {'valid': stage_valid, 'valid2': stage_valid2, 'pools': stage_pools, 'ode': stage_ode, 'cross': stage_cross, 'jac': stage_jac,
-          'x': stage_x, 'worlds': stage_worlds, 'abl_pools': stage_abl_pools, 'abl_ode': stage_abl_ode}
+          'x': stage_x, 'worlds': stage_worlds, 'worldsx': stage_worldsx, 'abl_pools': stage_abl_pools, 'abl_ode': stage_abl_ode}
 
 
 def main():

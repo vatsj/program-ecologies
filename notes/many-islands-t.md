@@ -144,3 +144,69 @@ right-hand side) at every evaluation and report the unprojected runs separately.
   in numba) and the horizon of 10⁵ events per island needs about 10⁴ explicit steps (stability-limited by the fastest
   exit rate ≈ 0.17 per event); 10⁷ events needs an implicit or exponential scheme and will be done only for unresolved
   trajectories.
+
+## 2. Deviations, choices where the spec is silent, costs (appended as they arose; entries before the counted cells were written before them)
+
+### 2.1 Before any counted cell
+
+- **Order of work and what was seen.** §1 and the predictions file were committed before any code. During the code I ran (all scratch, outside the
+  repository, none a counted cell): the table build (5 s), which showed the forfeit count 0 and the failed-read histogram [11017, 7370, 1296] (the
+  hand predictions of §1.2 were already written); a 4,000-island pilot pool at main, P_fail 0, with the exact ODE run from it to 10^6 events
+  (V\* 0.28 -> 1.0000, grand coalition decaying roughly linearly in time, residual 10^-9) and its Jacobian (leading non-invariant real part 5.6e-4);
+  and a backward-Euler test on the same pilot. Those numbers were seen before the counted cells; the predictions did not use them (they were written
+  first) and they are not scored. The two main pools (P_fail 0 and 0.1) were built before the post-pool validations ran; no ODE, Jacobian or world
+  result of a counted cell existed then.
+- **Library.** The 27 programs of the prior (the four stub twins of `churn_primary_t` have weight zero and are excluded; all tables are 27^3). The seed
+  law is the churn experiment's (`FAMILY_WEIGHT`), identical in the three slots.
+- **Failed-read counter.** No edit of `lt_code`: a context manager wraps `lt_code.enter_sim` and counts a frame that returns `TO` (the compiled
+  closures look the function up at call time). A forfeit is a root that runs out of fuel, gets stuck or returns a non-number (`BOT` or a value outside 0-8),
+  all of which play the timeout action 8. The counter agrees with the merged A_f rules on hand programs (`V:charge`): one charge per failed read, a frame
+  closed by an enclosing expiry not counted separately, a forfeit counted once, a read that expires and then loops two events. The stored accounting
+  of `lt_tape` (the merged A_f counter's home) does not exist in `lt_code`, so the rule was reimplemented, not imported; this is a deviation from "importing the merged A_f counter".
+- **Controls of question 5 are vacuous.** Since the table has no forfeit, "failed reads charged without the forfeit charge" is A_f itself and
+  "forfeits charged without failed reads" is the P_fail 0 table (checked as equal payoff tables, max difference 0); no separate trajectories were run.
+- **Pools.** 3 pools of 16,384 founders per cell, founders paired across P_fail (same generator for the founding draws and arrival times, per dose and A);
+  A = 150 uses the stored intensity (t1 = 200, t0 = 500, 20,000-generation cap, 5,000 more for capped islands): no island was capped in any cell, so the
+  amendment about mixed states was not exercised. Pools of 8,192 (the cut) were not needed: a 16,384-island pool costs 60 s here, against 0.1 s per island in the DSL arms.
+- **Ablation law.** A family is removed from the main law and its mass goes to the constants in proportion to their weights (the other reader weights
+  are unchanged); ablation cells run at P_fail 0 and 0.1, natural start only, 3 pools.
+- **Starts.** The tilts are as pre-registered: the symmetrized post-anneal law, one class (F, U, or W + D with their ratio kept) rescaled to 0.6 and the
+  other classes to 0.4 in proportion, within-class frequencies kept. Every tilt was available in every cell (no class had zero mass).
+
+### 2.2 The ODE and its numerics
+
+- Explicit adaptive integration (DOP853, rtol 1e-8, atol 1e-14) of the quadratic field on the 19,683 triples to 10^5 events per island with the field
+  projected on the rotation-invariant subspace at every evaluation (symmetric trajectories), then, if criterion (a) is not met, backward Euler with
+  Newton-GMRES (diagonal preconditioner, 8 geometric steps per decade, a step is halved when it lands on a negative or inaccurate root of the implicit
+  quadratic) to 10^7 events (to 10^6 for the unprojected raw trajectories, which are not scored at convergence). All 162 symmetric trajectories (132 main-cell, 12 crossed-charge, 18 ablation)
+  met criterion (a); the raw ones are horizon-limited at 10^6 by construction.
+- Solver checks (natural start, pool 0, every cell): tightening rtol to 1e-10 changes no class share by more than 1e-12 at 10^4; halving the backward-Euler
+  step (16 per decade) changes no class share by more than 3.2e-9 at the end; the explicit run to 10^6 on the 4,000-island pilot and backward Euler
+  agreed to the printed digits (V\* 1.0000, G 0.0000).
+- Mass is conserved to 2e-15 and the minimum entry never falls below -3e-13 (`V:ode`); the field equals the exact directional derivative's finite
+  difference to 4e-13; forward Euler (dt 0.05) agrees with the adaptive solution of the logistic test to 2e-5; backward Euler to 4e-3.
+- The "natural law" of the predictions is the symmetrized pool law; the raw laws were integrated separately (section 5 of the run) and show the sampling tilt amplified by the knife-edge.
+
+### 2.3 Jacobian and perturbations
+
+- J is computed exactly (directional derivative of the quadratic field) on the support S of x\* (threshold 1e-9, relaxed to 1e-8..1e-6 only if S exceeds
+  6,000 triples; it never did), restricted to the non-invariant sector R = omega by the orbit basis (verified: the spectra of the two conjugate sectors and the
+  invariant sector together are the spectrum of J on S, a test), plus matrix-free Arnoldi on the sector in the full 19,683-dimensional space (which also sees the
+  absent-triple directions). The flux from S into absent triples is the "leak rate" (about 1e-14, zero within round-off at the converged limit).
+- Controlled perturbations are relative (largest entry), mass-conserving by construction, integrated without projection; the growth rate is fitted where the
+  non-invariant norm is between 3 N0 and 0.05.
+
+### 2.4 Finite worlds
+
+- 20 worlds per (cell, I) with I in {64, 256, 1024, 4096}, founded by sampling I islands iid from the pooled raw post-anneal law of the three pools, to
+  10^5 events per island, with the exact kernel. Cells: main at P_fail 0.1 and 0, and dose 0 (P_fail does not matter for constants, so one dose-0 cell).
+  Added beyond the spec: worlds from the unequal-tilted law at I = 1,024 and 4,096 (a check of the single-basin finding of the ODE by a method that does not
+  use it), and long worlds (7b: I = 64 to 10^7, 256 to 3·10^6, 1,024 to 10^6 events per island) to see whether a fair consensus lasts. The cut order (I = 4,096
+  worlds, the A = 150 cells, dose lo, the ablations) was not applied: nothing was cut.
+- Event rate about 3·10^-8 s per event after compilation.
+
+### 2.5 Costs
+
+Table build 5 s. Pools: 60 s per 16,384 islands (A = 0), 118 s (A = 150). One symmetric ODE trajectory 50-100 s (the natural start of pool 0 also runs
+the two solver checks), one raw 45-60 s. Jacobian job 100-120 s. Worlds: 65 s for 20 worlds at I = 1,024 (10^5 events per island). In all, about 3 hours of
+three-worker time.

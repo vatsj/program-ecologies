@@ -162,7 +162,7 @@ def kappa_alpha(x, PF, tabs, thr=1e-9):
     out = np.zeros((3, 3, 5))
     _ka(xr, idx, xr, idx, PF, PAIR, float(thr), out)
     K = out[:, :, :4] / np.maximum(out[:, :, 4:5], 1e-300)
-    exc = np.array([M.EXCL[M.V[i]] for i in range(3)])
+    exc = np.array([M.EXCL[M.MI.V[i]] for i in range(3)])
     # orbit-average: classify (a, b) by the cyclic offset (exc_b - exc_a) mod 3
     kap = {}; alp = {}; leave = {}
     for off in (0, 1, 2):

@@ -146,7 +146,7 @@ class Tabs:
 
 def seed_law(tabs, dose):
     """the seed law over the 27 programs (every slot): 'main' / 'lo' / 'hi' from churn_primary_t.FAMILY_WEIGHT, '0' the
-    constants only (the readers' mass moved to the constants proportionally), 'ab:<name>' the main law with a reader
+    constants only (the readers' mass moved to the constants proportionally), 'ab-<name>' the main law with a reader
     family removed and its mass moved to the constants proportionally."""
     cat = tabs.cat
     if dose == '0':
@@ -154,7 +154,7 @@ def seed_law(tabs, dose):
         ids = [i for i in range(NP) if tabs.fam[i] == 'const']
         w[ids] = 1.0 / len(ids)
         return w
-    if dose.startswith('ab:'):
+    if dose.startswith('ab-'):
         w = cat.law('main')[:NP].copy()
         kind = dose[3:]
         if kind == 'So':

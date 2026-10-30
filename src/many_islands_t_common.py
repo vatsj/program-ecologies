@@ -14,7 +14,7 @@ POOLS = os.path.join(SCR, 'pools')
 XSTAR = os.path.join(SCR, 'xstar')
 NPOOL = 3
 NISL = 16384
-DOSEID = {'0': 0, 'lo': 1, 'main': 2, 'hi': 3, 'ab:So': 4, 'ab:D': 5, 'ab:X': 6, 'ab:Sz': 7}
+DOSEID = {'0': 0, 'lo': 1, 'main': 2, 'hi': 3, 'ab-So': 4, 'ab-D': 5, 'ab-X': 6, 'ab-Sz': 7}
 
 _CACHE = {}
 

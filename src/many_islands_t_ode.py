@@ -264,7 +264,7 @@ def integrate_be(x, t0, PF, tabs, tmax, sym=True, steps_per_decade=8, recs=None,
         h = min(h, tmax - t)
         for attempt in range(14):
             xn, info = be_step(x, h, PF, sym)
-            if xn.min() > -1e-10 and info['resid'] < 1e-9:
+            if xn.min() > -1e-10 and info['resid'] < 1e-8:
                 break
             h *= 0.5                      # the implicit equation is quadratic: a large step can land on a spurious root
         x = xn
