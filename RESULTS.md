@@ -7760,6 +7760,130 @@ E5–E9, E11 (A_f is registered unresolved at 0.1, not confirmed; E11 is missing
   implied); finite-size lottery, these caps and catalogues and world K; `SIMX` seeded by the split prior; the sham
   controls bookkeeping only; the inspection statistic is nearly binary at 40 runs.
 
+## Arm T under islands to infinity before time: the mean field puts every island on a fair pair from every tested start and charge, the symmetric state is the same knife-edge as in the DSL readers arm, and readers keep finite worlds fair against consensus collapse (2026-10-29)
+
+Spec `specs/2026-10-29-many-islands-t.md` (queue 69; the RS restated the target on 2026-10-29, DEFERRED 15: every
+island in the stable set V\*, each member equally likely across independent worlds, farsighted clauses out of the
+object, "Sgtm - I see farsightedness as a band-aid antithetical to the rest of the program"; on this experiment, "Ur
+experiment sgtm"; reviewed by gemini-4-argon then gpt-6.1-sol, folded), predictions
+`predictions/2026-10-29-many-islands-t.md`, notes `notes/many-islands-t.md`, report `runs/many-islands-t.md` and `.json`,
+rows `runs/many_islands_t/`. Run by a Sonnet subagent (`src/many_islands_t*.py`; 18 tests, passing). The question: does
+the Turing-complete readers arm T of "Churn among the fair pairs in the primary object" meet the restated target in the
+order of limits of "Islands to infinity before time", at the default compute charge A_f (P_fail = 0.1), and where does it
+fail.
+
+**Object.** Arm T: 27 programs per slot of L_T^code (cyclic frame, read cap 400, root fuel 1,200): nine constants, eight
+single-partner readers (T-S), eight two-partner readers (T-D), two exploiters (T-X). A settled island is a program
+triple (27³ = 19,683 states); one migrant is a constant-fitness two-type Moran process (play is across slots only), so
+its fixation probability has the closed form; the I → ∞ dynamics are an exact ODE on the triple simplex, time in migrant
+events per island, and finite I is the jump chain with the same kernel. A_f charges P_fail per failed read in the root's
+own trace and per forfeit, in dollars (the unit on which w = 0.3 acts). Founding and annealing are simulated: 3 pools of
+16,384 islands per cell, 11 cells (doses 0 = constants only, lo, main, hi at P_fail 0 and 0.1; main at 0.03; main at
+A = 150). Starts: natural (the rotation-averaged post-anneal law) and three tilts (fair, unequal, or wasteful plus
+disagreement rescaled to 0.6, within-class frequencies kept).
+
+**Validation and deviations.** The table reproduces the stored arm-T tables on every triple (0 mismatches) and is
+exactly rotation-equivariant, kernel tensor included. The A_f counter lives in `lt_tape`, which this arm does not use, so
+it was reimplemented around `lt_code.enter_sim` and checked on hand programs. The exact kernel agrees with simulated
+relaxation in 10 strata (475,415 draws, all |z| < 0.8); the ODE reproduces logistic and voter solutions, conserves mass
+to 2·10⁻¹⁵, and matches a simulated archipelago at I = 4,096 to 0.002 in V\* at 10³ events. Founding at main, P_fail 0
+gives V\* 0.528 ± 0.004 against the churn run's 0.532 [0.511, 0.552]. A 4,000-island pilot and the two main-cell pools
+were seen before some post-pool validations finished; the predictions predate both. **The table has no forfeit** in 3 ×
+19,683 root evaluations (root fuel is never reached), so A_f equals A here and the spec's two forfeit-charge ODE controls
+are vacuous; failed reads do occur (in 0.0017 of encounters at the P_fail 0.1 limit, 0.0118 at the founding law). The
+spec's cut order was not applied. Added after the counted cells: tilted, long and larger-I worlds (16,384 and 65,536
+islands), the DSL table comparison and per-migrant rates.
+
+**The first clause holds in the mean field.** All 162 symmetric trajectories (11 cells × 4 starts × 3 pools, plus
+crossed charges and ablations) meet the convergence criterion (‖dx/dt‖₁ < 10⁻⁹, class shares moving < 10⁻⁴ over the
+last decade) at 3·10⁶–10⁷ events per island, with V\* ≥ 0.9999998 and the grand coalition ≤ 6·10⁻⁸. No tested start
+in any cell goes elsewhere, including dose 0, where the unequal tilt (V\* 0.196 at the start) reaches V\* 1; this is
+numerical convergence from four rotation-symmetric starts per cell, not a proof of a global basin. V\* by events per
+island, natural start, pool mean:
+
+| cell | 0 | 10² | 10³ | 10⁴ | 10⁵ | limit |
+|---|---|---|---|---|---|---|
+| dose 0 (constants) | 0.281 | 0.350 | 0.503 | 0.9971 | 0.9981 | 1 |
+| main, P_fail 0 | 0.528 | 0.631 | 0.889 | 0.9985 | 0.9992 | 1 |
+| main, 0.03 | 0.527 | 0.629 | 0.883 | 0.9988 | 0.9993 | 1 |
+| main, 0.1 | 0.522 | 0.622 | 0.874 | 0.9989 | 0.9993 | 1 |
+| hi, 0.1 | 0.666 | 0.759 | 0.944 | 0.9992 | 0.9995 | 1 |
+| main, A = 150, 0.1 | 0.590 | 0.638 | 0.862 | 0.9984 | 0.9990 | 1 |
+
+From every tilt at main, P_fail 0.1, V\* reaches 0.99 by about 5·10³ events. Per migrant, single- and two-partner
+readers convert wasteful and disagreement islands to fair pairs 2.5–3.5 times as fast as constants; unequal islands
+convert at 0.0010 per event against 0.0068 (wasteful) and 0.011 (disagreement). Removing a family (mass to the
+constants; natural start only) never moves the limit; at 10³ events V\* is 0.889 (none removed), 0.781 (switchers),
+0.819 (two-partner), 0.883 (exploiters).
+
+**The charge sets the reader share, not V\*.** At P_fail 0 the main-dose limit (pool 0, support threshold 10⁻⁹) is all
+readers (1,046 triples, reader marginal 1.000, mostly the timeout-accepting switchers); at 0.1 it is half readers (133
+triples, marginal 0.501, pairs of the constant naming its neighbour at one half with a non-cycling reader). Crossing
+founding and migration charges shows the limit's reader marginal is set by the migration charge; the founding charge
+moves V\* by 0.006 at founding and at 10³ events, and by 0 at the limit.
+
+**The second clause holds as a lottery across worlds.** At the symmetric limit the Jacobian's largest real part on the
+rotation-non-invariant sector is 5.556·10⁻⁴ per event wherever no read fails (P_fail 0 at every dose and at A = 150,
+and constants at any charge), 5.508·10⁻⁴ with readers at 0.1 and 4.635·10⁻⁴ at 0.03; its eigenvector lies on the
+fair-pair classes (one pair up, another down). Perturbations along it grow at that rate to three digits at amplitudes
+10⁻⁶, 10⁻⁴ and 10⁻²; along random directions the fits agree to within 0.5%, except the largest constants-only one
+(early rate 3.5·10⁻⁴). The raw pool laws (pair imbalance 0.1–2.3%) end at 10⁶ events with one pair holding 0.46–1.00 of
+V\* (above 0.9 in 21 of 33). In finite worlds the median time to the first loss of a pair grows slowly with I (2.4,
+8.0, 13.5, 18.8·10³ events per island at I = 64, 256, 1,024, 4,096; P_fail 0). At 10⁵ events and I = 1,024, 20/20
+worlds (P_fail 0) and 18/20 (0.1) have ≥ 0.99 of islands on fair pairs, one world in 20 keeps all three pairs ≥ 0.05 at
+either charge, and 11 and 13 of 20 sit on a single pair; at I = 4,096, 4 and 1 of 20 keep all three. Among the 155
+single-pair worlds of all cells the pair is uniform: 44 / 54 / 57 (χ² p = 0.41). Equal likelihood is therefore met
+across worlds, conditional on a fair consensus; it is not a property of each world, and the symmetric mean field keeps
+the three pairs equal only on the exactly symmetric path.
+
+**Where finite worlds depart: unequal consensus, which readers resist.** Worlds ending with ≥ 0.99 of islands on
+unequal pairs, of 20, run to 10⁵ events per island:
+
+| cell | I = 64 | 256 | 1,024 | 4,096 | larger I |
+|---|---|---|---|---|---|
+| main, P_fail 0 | 4 | 0 | 0 | 0 | |
+| main, P_fail 0.1 | 5 | 2 | 2 | 0 | 0/10 at 16,384 |
+| dose 0 (constants) | 8 | 9 | 9 | 8 | 1/10 at 16,384; 0/6 at 65,536 (to 3·10⁴ only) |
+
+Long runs (to 10⁶–10⁷) give similar incidence (readers at P_fail 0.1: 5, 1, 0 at I = 64, 256, 1,024; constants: 11,
+8, 9). In constants-only worlds a fair consensus often forms first and then collapses: at I = 1,024 the mean fair share
+is 0.86 at 10⁴ events and 0.55 at 3·10⁴, with 6 of 20 worlds collapsing. The mean field has no such collapse, so it is
+a finite-I effect; its route is not isolated (the RE's candidate is neutral drift of the excluded slot, whose action
+is irrelevant while a fair pair holds), and the support-restricted eigenvalues of the single-pair endpoint, all zero
+within 10⁻⁶ (a post-hoc calculation in the notes, not in the JSON), do not test invasion by absent triples. The
+65,536-island worlds stop before the collapse times seen at smaller I. With readers the incidence falls with I: 0–2 of
+20 at 1,024 islands, 0 at 4,096.
+
+**Arm T against the DSL readers arm.** With one reader and two constants the arm-T and DSL tables agree in all 3,888
+triples; with two readers they differ in 27–38% of triples, with three in 42–51%. Fuel decides whether a fallback runs,
+so the differences are not attributed to the timeout action.
+
+**Verdicts.** Held: 1 (V\* ≥ 0.99, main, P_fail 0: 1.00000 in every pool), 2 (one basin from the unequal and
+wasteful/disagreement tilts), 4 (λ > 0 at both charges; 1/20 worlds keep three pairs at I = 1,024; 20/20 and 18/20 on
+fair pairs; the finite-world clause scored since λ·10⁵ = 55 > ln √1024), 5 (V\* ≥ 0.95 at P_fail 0.1: 1.00000 from the
+natural and unequal starts), engineer E1–E9 (E6–E8 trivially at the limit, where every V\* is 1; the same orderings hold
+at 10³ events, supplementary). Supported: gpt-6.1-sol's counter to 5 (the reader marginal is lower and conversion
+slightly slower; the basin dependence it allowed was not observed). Failed: 3 (constants alone bistable: dose 0 goes to
+V\* 1 from every tilt at both charges), gemini-4-argon's counter to 5 (readers repel each other under the charge, V\* <
+0.9). Partial: 6 (switchers matter more than two-partner readers for the limit: neither it nor the reverse occurred, both
+drops are 0; at 10³ events the switchers cost more, supplementary).
+
+**Reading.**
+- The restated target is met by arm T in this order of limits at the default charge: in the mean field every island
+  ends on a fair pair from every tested start, and across finite worlds that reach a fair consensus each pair is equally
+  likely. As in the DSL readers arm of "Islands to infinity before time", the symmetric state is a knife-edge, so equal
+  likelihood is a lottery across worlds, not coverage within one.
+- In the mean field nine constants alone reach the stable set from every tested start, so the unequal basin of the DSL
+  arms L and M is not a property of constants; the RE's hypothesis is that it comes from the length prior's conditional
+  programs (no matched test).
+- What readers add over constants is speed in the mean field (V\* 0.87–0.96 at 10³ events against 0.50) and robustness
+  at finite I: constants-only worlds of up to 4,096 islands end on an unequal consensus in about 40% of runs, often after
+  a fair consensus collapses; worlds with readers in 0–2 of 20 at 1,024 islands and none at 4,096.
+- The charge reshapes who holds the fair pairs (readers become half the limit) and does not touch V\*.
+- *Caveats:* a hand-built 27-program library with fixed fuel caps, not a general realizable language; no forfeits occur,
+  so A_f is untested as distinct from A; three pools per cell; ablations at the natural start only, and the
+  null-fallback single readers (S..z..) not ablated; the large-I constants-only worlds are short.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what

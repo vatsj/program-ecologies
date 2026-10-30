@@ -941,6 +941,11 @@ REJECTED.md the ones we dropped.
   rotating walk and fails the target; the readers arm of "Islands to infinity before time" is the cell that meets it.
   A readers seed for encounter contracts was dropped (REJECTED): in majority division the lone responder cannot block
   a two-signer deal.
+- *Result (2026-10-29, RESULTS "Arm T under islands to infinity before time"):* the Turing-complete readers arm T meets
+  the restated target in the RS's order of limits at the default charge: every island on a fair pair in the mean field
+  from every tested start, and each pair equally likely across worlds (155 single-pair worlds, 44 / 54 / 57). Within a
+  world one pair wins (the knife-edge). *Operating hypothesis (RE):* "equally likely across independent worlds" is
+  satisfied by this lottery; the RS may instead want coverage within a world, which no tested cell delivers.
 - *RS (2026-10-25), contract genesis:* contracts should form per encounter on the programs that stand to benefit, not
   by an aggregate test over the population, and only replace actions "at that point" (situation-keyed overrides that
   stay silent elsewhere); a coalition deviates when it Pareto-improves after the responders answer its new actions
