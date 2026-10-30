@@ -305,9 +305,11 @@ def sec_worldsx(r):
     r.add('### 7b. Long finite worlds (20 worlds each): does a fair consensus last?\n')
     rows = []
     js = {}
-    for c in ('main|0.1|0', 'main|0|0', '0|0|0'):
-        for (I, T) in ((64, 10 ** 7), (256, 3 * 10 ** 6), (1024, 10 ** 6)):
-            w = r.get('WX:%s:%d:%d' % (c, I, T))
+    keys = [('%s' % c, I, T, 'WX:%s:%d:%d' % (c, I, T)) for c in ('main|0.1|0', 'main|0|0', '0|0|0') for (I, T) in ((64, 10 ** 7), (256, 3 * 10 ** 6), (1024, 10 ** 6))]
+    keys += [('0|0|0', 16384, 100000, 'WX:0|0|0:16384:100000:10'), ('main|0.1|0', 16384, 100000, 'WX:main|0.1|0:16384:100000:10'), ('0|0|0', 65536, 30000, 'WX:0|0|0:65536:30000:6')]
+    for c, I, T, key in keys:
+        if True:
+            w = r.get(key)
             if not w:
                 continue
             s = world_stats(w)
@@ -317,9 +319,11 @@ def sec_worldsx(r):
             sel = [t for t in (10 ** 3, 10 ** 4, 10 ** 5, 10 ** 6, 10 ** 7) if t in cps]
             fs = [float(np.mean([h[cps.index(t), 0] for h in hist])) for t in sel]
             cl = [t for t in s['collapse'] if t is not None]
+            sel = [t for t in (10 ** 3, 10 ** 4, 3 * 10 ** 4, 10 ** 5, 10 ** 6, 10 ** 7) if t in cps]
+            fs = [float(np.mean([h[cps.index(t), 0] for h in hist])) for t in sel]
             rows.append([c, I, T, s['n'], ', '.join('%g: %.3f' % (t, f) for t, f in zip(sel, fs)), s['cons99'], s['uneq'], len(cl), ('%.0f' % np.median(cl)) if cl else 'none',
                          s['single'], s['keep3']])
-            js['%s|%d' % (c, I)] = dict(T=T, cons99=s['cons99'], uneq=s['uneq'], collapse=s['collapse'], fair_by_time=dict(zip([str(t) for t in sel], fs)))
+            js['%s|%d' % (c, I)] = dict(T=T, n=s['n'], cons99=s['cons99'], uneq=s['uneq'], collapse=s['collapse'], fair_by_time=dict(zip([str(t) for t in sel], fs)))
     r.add(table(rows, ['cell', 'I', 'to (events/island)', 'worlds', 'mean fair share at (events/island)', '>= 0.99 on fair pairs at end', '>= 0.99 unequal at end', 'worlds with a fair consensus that collapsed',
                        'median collapse checkpoint', 'single-pair worlds at end', 'all three pairs >= 0.05 at end']))
     r.js['worldsx'] = js

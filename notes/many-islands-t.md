@@ -203,6 +203,12 @@ right-hand side) at every evaluation and report the unprojected runs separately.
   Added beyond the spec: worlds from the unequal-tilted law at I = 1,024 and 4,096 (a check of the single-basin finding of the ODE by a method that does not
   use it), and long worlds (7b: I = 64 to 10^7, 256 to 3·10^6, 1,024 to 10^6 events per island) to see whether a fair consensus lasts. The cut order (I = 4,096
   worlds, the A = 150 cells, dose lo, the ablations) was not applied: nothing was cut.
+- Added after the first look at the world tables (dose 0 worlds ended on unequal consensus in about half of the worlds at every I up to 4,096, against the ODE's
+  single basin): worlds at I = 16,384 (10 worlds to 10^5 events per island; dose 0 and main at P_fail 0.1) and I = 65,536 (6 worlds, dose 0, to 3·10^4, the
+  compute allowing). They are labelled as additions in the report (7b); the world seeds of the added jobs are fresh.
+- Also added after the first look: the Jacobian of the raw single-pair endpoint (scratch, dose 0 and main at P_fail 0.1): all eigenvalues on the support are
+  zero within 10^-6 (neutral), so the fair consensus of the mean-field equation is not linearly unstable towards the unequal pairs; the unequal consensus of finite worlds is a
+  finite-size drift event, not a linear instability of the limit (recorded here, not in the run's JSON).
 - Event rate about 3·10^-8 s per event after compilation.
 
 ### 2.5 Costs

@@ -163,7 +163,7 @@ def run_world_job(cell, I, start='raw'):
     return dict(cell=cell, I=I, cps=list(CPS), worlds=rows, wall=round(time.time() - t0, 1))
 
 
-def run_worldx_job(cell, I, Tmax):
+def run_worldx_job(cell, I, Tmax, nworlds=None):
     """long finite worlds: checkpoints 1, 3, 10, ... up to Tmax events per island."""
     import many_islands_t_worlds as WD
     T = tabs()
@@ -180,7 +180,7 @@ def run_worldx_job(cell, I, Tmax):
     cps = np.array(sorted(set(cps)), np.int64)
     rows = []
     t0 = time.time()
-    for w in range(NWORLDS):
+    for w in range(nworlds or NWORLDS):
         rng = np.random.default_rng([37, DOSEID[dose], int(round(P * 1000)), A, I, w])
         tri = WD.sample_world(hist, I, rng)
         r = WD.run_world(PF, T, tri, cps, int(rng.integers(1 << 31)))
@@ -198,7 +198,7 @@ def run_job(j):
     if parts[0] == 'W':
         return dict(job=j, **run_world_job(parts[1], int(parts[2]), parts[3] if len(parts) > 3 else 'raw'))
     if parts[0] == 'WX':
-        return dict(job=j, **run_worldx_job(parts[1], int(parts[2]), int(float(parts[3]))))
+        return dict(job=j, **run_worldx_job(parts[1], int(parts[2]), int(float(parts[3])), int(parts[4]) if len(parts) > 4 else None))
     if parts[0] == 'J':
         import many_islands_t_jobs as JB
         return dict(job=j, **JB.run_jac(parts[1], float(parts[2]), int(parts[3])))
@@ -329,6 +329,10 @@ def stage_worldsx():
     return ['WX:%s:%d:%d' % (c, I, T) for (I, T) in ((64, 10 ** 7), (256, 3 * 10 ** 6), (1024, 10 ** 6)) for c in cs]
 
 
+def stage_worlds_big():
+    return ['WX:0|0|0:16384:100000:10', 'WX:main|0.1|0:16384:100000:10', 'WX:0|0|0:65536:30000:6']
+
+
 def stage_abl_pools():
     return ['P:%s:%d' % (c, p) for c in cells_ablation() for p in range(NPOOL)]
 
@@ -343,7 +347,7 @@ def stage_abl_ode():
 
 
 STAGES = {'valid': stage_valid, 'valid2': stage_valid2, 'pools': stage_pools, 'ode': stage_ode, 'cross': stage_cross, 'jac': stage_jac,
-          'x': stage_x, 'worlds': stage_worlds, 'worldsx': stage_worldsx, 'abl_pools': stage_abl_pools, 'abl_ode': stage_abl_ode}
+          'x': stage_x, 'worlds': stage_worlds, 'worldsx': stage_worldsx, 'worlds_big': stage_worlds_big, 'abl_pools': stage_abl_pools, 'abl_ode': stage_abl_ode}
 
 
 def main():
