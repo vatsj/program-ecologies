@@ -946,6 +946,8 @@ REJECTED.md the ones we dropped.
   from every tested start, and each pair equally likely across worlds (155 single-pair worlds, 44 / 54 / 57). Within a
   world one pair wins (the knife-edge). *Operating hypothesis (RE):* "equally likely across independent worlds" is
   satisfied by this lottery; the RS may instead want coverage within a world, which no tested cell delivers.
+- *RS (2026-10-31): "Accept ur recommendation."* Decided: "each member equally likely across independent worlds" is
+  met by a lottery over members across worlds; coverage of all three pairs within one world is not part of the target.
 - *RS (2026-10-25), contract genesis:* contracts should form per encounter on the programs that stand to benefit, not
   by an aggregate test over the population, and only replace actions "at that point" (situation-keyed overrides that
   stay silent elsewhere); a coalition deviates when it Pareto-improves after the responders answer its new actions

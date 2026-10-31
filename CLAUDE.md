@@ -175,7 +175,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 
 69. ~~The stable-set target in arm T, islands → ∞ before time (RS)~~ (done; RESULTS "Arm T under islands to infinity before time": the target is met in the mean field at the default charge, every island on a fair pair from every tested start, V\* unmoved by the charge; each pair equally likely across worlds by the knife-edge lottery (44 / 54 / 57); constants alone also reach V\* in the mean field (the RE's bistability prediction failed), and readers buy speed and finite-world robustness against unequal consensus, 0–2 of 20 worlds at I = 1,024 against ≈ 40% for constants; the table has no forfeits, so A_f = A here).
 
-**Stable-set target (RS, 2026-10-29):** in majority-division games every island lands in the stable set V\* ("efficient" sharpened to "in the stable set"), each member equally likely across independent worlds; farsighted clauses are out of the object ("a band-aid antithetical to the rest of the program"); myopic encounter contracts fail it, the readers arm meets it (DEFERRED 15).
+**Stable-set target (RS, 2026-10-29):** in majority-division games every island lands in the stable set V\* ("efficient" sharpened to "in the stable set"), each member equally likely across independent worlds; farsighted clauses are out of the object ("a band-aid antithetical to the rest of the program"); "equally likely" is met by a lottery across worlds, not coverage within one (RS, 2026-10-31); myopic encounter contracts fail it, the readers arm and the Turing-complete arm T meet it (DEFERRED 15).
 
 **Naming (RS, 2026-10-11):** certificates and contracts are "genes" (NOTATION); the social-choice side quest is DEFERRED 14.
 
