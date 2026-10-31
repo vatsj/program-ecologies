@@ -98,10 +98,16 @@ def keys_of(T):
 
 
 # ---------------------------------------------------------------- state enumeration
-def enumerate_states(supp, isc, m):
-    """all triples (a0, a1, a2), a_s in supp[s], with at most m conditionals, as an (n, 3) int16 array sorted by key."""
+def enumerate_states(supp, isc, m, core=None):
+    """all triples (a0, a1, a2), a_s in supp[s], with at most m conditionals, as an (n, 3) int16 array sorted by key.
+    core (optional, one set of program ids per slot): states with two or more conditionals are admitted only if every
+    conditional in them is in core[s] of its slot (a core-restricted m = 2 or 3 object)."""
     cons = [np.array([x for x in supp[s] if isc[x]], np.int64) for s in range(3)]
     cond = [np.array([x for x in supp[s] if not isc[x]], np.int64) for s in range(3)]
+    if core is None:
+        ccond = cond
+    else:
+        ccond = [np.array([x for x in supp[s] if (not isc[x]) and x in core[s]], np.int64) for s in range(3)]
     parts = []
 
     def prod(lists):
@@ -118,10 +124,10 @@ def enumerate_states(supp, isc, m):
     if m >= 2:
         for s, t in ((0, 1), (0, 2), (1, 2)):
             lists = [cons[0], cons[1], cons[2]]
-            lists[s] = cond[s]; lists[t] = cond[t]
+            lists[s] = ccond[s]; lists[t] = ccond[t]
             parts.append(prod(lists))
     if m >= 3:
-        parts.append(prod(cond))
+        parts.append(prod(ccond))
     if m > 3:
         raise ValueError(m)
     T = np.concatenate(parts)
@@ -150,7 +156,7 @@ def codes_of(arm, T):
 class Obj:
     """States, payoff levels, outcome classes and fibre structure of the m-truncated object over the supports supp[s]."""
 
-    def __init__(self, armname, pfail, supp, m, verbose=False, symmetric=True):
+    def __init__(self, armname, pfail, supp, m, verbose=False, symmetric=True, core=None):
         self.armname = armname
         self.pfail = float(pfail)
         self.arm = get_arm(armname)
@@ -158,7 +164,8 @@ class Obj:
         self.supp = [np.array(sorted(set(int(v) for v in sp)), np.int64) for sp in supp]
         self.m = m
         t0 = time.time()
-        self.T = enumerate_states(self.supp, self.isc, m)
+        self.core = core
+        self.T = enumerate_states(self.supp, self.isc, m, core)
         self.n = len(self.T)
         self.key = keys_of(self.T)
         code2 = codes_of(self.arm, self.T)
@@ -344,45 +351,69 @@ def outflow(obj, x):
 
 
 @njit(cache=True)
-def _blocked_rate(x, q, pid, isc, T, K):
-    """for the reflecting truncation: the rate (per event, per island, mass-weighted) of migrations that would give an island
-    one conditional too many, with fixation probability weights ignored (an upper bound: the attempt rate), by slot.  A
-    migrant y into slot s of triple t is blocked iff ncond(t) == m and y is conditional and t_s is a constant."""
-    return 0.0
-
-
-def attempts_blocked(obj, x):
-    """exact blocked flux: sum over states t with ncond == m, slots s with a constant resident, conditional donors y of
-    (1/3) x_t q_s(y) PF(payoff of the would-be triple).  Computed by evaluating the would-be triples' payoffs with the
-    stored joint-code function (outside the allowed set), per slot, in numpy chunks."""
-    if obj.m >= 3:
-        return 0.0, 0.0
-    q = obj.marg(x)
-    total = 0.0
-    attempt = 0.0
-    S = obj.arm.S
-    isc = obj.isc
-    idx = np.nonzero((obj.ncond == obj.m) & (x > 0))[0]
+def _blocked(x, q, ordA, fstA, nfib, lev, pid, T, supp_flat, supp_off, armi, nat, atL, atJ, atA, tab, PARTNER, PAY2, PF, thr, out):
+    """blocked flux of the reflecting truncation: for every fibre (s, context) with mass above thr and every donor y in the
+    support of slot s with q_s(y) > 0 that is not a member of the fibre, the flux (1/3) q_s(y) sum_u x_u PF[l_y - l_u]
+    that the full object would have, with l_y the payoff level of the would-be triple.  out[s] accumulates it."""
+    hist = np.empty((2, 3), np.int64)
+    val = np.empty(3, np.int64)
+    mark = np.zeros(1305, np.int8)
+    xl = np.zeros(NLEV)
     for s in range(3):
-        sel = idx[isc[obj.pid[s, idx]]]
-        if len(sel) == 0:
-            continue
-        cond_y = obj.supp[s][~isc[obj.supp[s]]]
-        qy = q[s, cond_y]
-        keep = qy > 0
-        cond_y = cond_y[keep]; qy = qy[keep]
-        for y, qq in zip(cond_y, qy):
-            T2 = obj.T[sel].astype(np.int16).copy()
-            T2[:, s] = y
-            code2 = codes_of(obj.arm, T2)
-            PAY2, _ = UC.tables2(obj.pfail)
-            pay_new = PAY2[code2, s]
-            pay_old = PAY2[obj.code2[sel], s]
-            d = np.rint((pay_new - pay_old) * 30.0).astype(np.int64)
-            pf = PF30[d + DMAX]
-            total += float((x[sel] * qq * pf).sum()) / 3.0
-            attempt += float(x[sel].sum() * qq) / 3.0
-    return total, attempt
+        for f in range(nfib[s]):
+            a = fstA[s, f]
+            b = fstA[s, f + 1]
+            tot = 0.0
+            for l in range(NLEV):
+                xl[l] = 0.0
+            for j in range(a, b):
+                t = ordA[s, j]
+                xl[lev[s, t]] += x[t]
+                tot += x[t]
+            if tot < thr:
+                continue
+            for j in range(a, b):
+                mark[pid[s, ordA[s, j]]] = 1
+            t0 = ordA[s, a]
+            c0 = np.int64(T[t0, 0]); c1 = np.int64(T[t0, 1]); c2 = np.int64(T[t0, 2])
+            for k in range(supp_off[s], supp_off[s + 1]):
+                y = supp_flat[k]
+                if mark[y] == 0 and q[s, y] > 0.0:
+                    if s == 0:
+                        code = UC.enc2(armi, nat, atL, atJ, atA, tab, PARTNER, np.int64(y), c1, c2, hist, val)
+                    elif s == 1:
+                        code = UC.enc2(armi, nat, atL, atJ, atA, tab, PARTNER, c0, np.int64(y), c2, hist, val)
+                    else:
+                        code = UC.enc2(armi, nat, atL, atJ, atA, tab, PARTNER, c0, c1, np.int64(y), hist, val)
+                    ly = int(np.rint(PAY2[code, s] * 30.0)) + 3
+                    acc = 0.0
+                    for v in range(NLEV):
+                        if xl[v] != 0.0:
+                            acc += xl[v] * PF[ly - v + DMAX]
+                    out[s] += acc * q[s, y] / 3.0
+            for j in range(a, b):
+                mark[pid[s, ordA[s, j]]] = 0
+
+
+def blocked_flux(obj, x, thr=1e-14):
+    """(blocked flux per event per island, realized flux per event per island, per-slot blocked fluxes).  Realized = sum_t x_t
+    lam_t, the rate at which islands change state under the truncated object."""
+    if obj.m >= 3 and obj.core is None:
+        return 0.0, float((x * outflow(obj, x)).sum()), [0.0, 0.0, 0.0]
+    q = obj.marg(x)
+    out = np.zeros(3)
+    flat = np.concatenate([obj.supp[s] for s in range(3)]).astype(np.int64)
+    off = np.zeros(4, np.int64)
+    for s in range(3):
+        off[s + 1] = off[s] + len(obj.supp[s])
+    a = obj.arm
+    S = a.S
+    PAY2, _ = UC.tables2(obj.pfail)
+    _blocked(x, q, obj.ordA, obj.fstA, obj.nfib, obj.lev, obj.pid, obj.T, flat, off, np.int64(a.armi),
+             np.ascontiguousarray(S.nat), np.ascontiguousarray(S.atL), np.ascontiguousarray(S.atJ), np.ascontiguousarray(S.atA),
+             np.ascontiguousarray(S.tab), np.ascontiguousarray(D.PARTNER), PAY2, PF30, thr, out)
+    real = float((x * outflow(obj, x)).sum())
+    return float(out.sum()), real, out.tolist()
 
 
 # ---------------------------------------------------------------- starts
@@ -558,7 +589,7 @@ class Cell:
     trip, w: the distinct S3-symmetrized triples and their probabilities (sum 1); supp[s]: the S3-union support of slot s
     plus the nine constants; pool_of: per distinct triple unused.  Built from the pools' npz files (scratch, not committed)."""
 
-    def __init__(self, armname, pfail_found, A, pools=(0, 1, 2)):
+    def __init__(self, armname, pfail_found, A, pools=(0, 1, 2), symmetrize=True):
         self.armname = armname
         self.pfail_found = pfail_found
         self.A = A
@@ -574,7 +605,8 @@ class Cell:
         self.raw = np.concatenate(raw)
         self.n_islands = sum(i['n'] for i in self.npool)
         self.n_settled = len(self.raw)
-        img = image_triples(self.arm, self.raw)
+        self.symmetrized = symmetrize
+        img = image_triples(self.arm, self.raw) if symmetrize else self.raw
         k = keys_of(img)
         uk, cnt = np.unique(k, return_counts=True)
         self.trip = decode_keys(uk)

@@ -15,10 +15,11 @@ DMAX = 23
 
 
 @njit(cache=True)
-def chain_run2(C, PAY2, VEC2, pool, events_total, seed, PF30, hist_out):
+def chain_run2(C, PAY2, VEC2, pool, events_total, seed, PF30, hist_out, isc, mmax):
     """I = len(pool) islands (one component); `events_total` events (recipient uniform, donor uniform among the others, slot
     uniform; the migrant fixes with the exact Moran probability).  hist_out[NOUT] is overwritten with the outcome counts at
-    the end."""
+    the end.  mmax < 3: the reflecting truncation of the ODE object (a migration that would give the island more than
+    mmax conditional programs is a null event); mmax >= 3: the full dynamics."""
     np.random.seed(seed)
     I = pool.shape[0]
     code = np.zeros(I, np.int64)
@@ -37,6 +38,14 @@ def chain_run2(C, PAY2, VEC2, pool, events_total, seed, PF30, hist_out):
         e += 1
         if x == pool[i, s]:
             continue
+        if mmax < 3:
+            nc = 0
+            for r in range(3):
+                v = x if r == s else pool[i, r]
+                if not isc[v]:
+                    nc += 1
+            if nc > mmax:
+                continue
         if s == 0:
             cx = UC.jl2(C, x, pool[i, 1], pool[i, 2])
         elif s == 1:
@@ -56,13 +65,14 @@ def chain_run2(C, PAY2, VEC2, pool, events_total, seed, PF30, hist_out):
     return e
 
 
-def run_mc(armname, pfail, triples, cps, seed, quiet=True):
+def run_mc(armname, pfail, triples, cps, seed, quiet=True, mmax=3):
     """run the chain on `triples` (I, 3) to each checkpoint (events per island, ascending); returns hist (ncp, NOUT) and wall."""
     arm = MI.Arm(armname)
     arm.new_cache(26)
     PAY2, VEC2 = UC.tables2(pfail)
     PF30 = np.array([MI.pfix(d / 30.0, float(MI.N0), float(MI.W)) for d in range(-DMAX, DMAX + 1)])
     pool = np.ascontiguousarray(triples.copy())
+    isc = np.ascontiguousarray(np.asarray(arm.S.nat)[0] == 0)
     I = len(pool)
     hist = np.zeros((len(cps), MI.NOUT), np.int64)
     prev = 0
@@ -75,7 +85,7 @@ def run_mc(armname, pfail, triples, cps, seed, quiet=True):
             arm.maybe_flush(0.5)
             h = np.zeros(MI.NOUT, np.int64)
             rs = (rs * 1103515245 + 12345) % (2 ** 31)
-            chain_run2(arm.ctx(), PAY2, VEC2, pool, piece, rs, PF30, h)
+            chain_run2(arm.ctx(), PAY2, VEC2, pool, piece, rs, PF30, h, isc, np.int64(mmax))
             prev += piece
             todo -= piece
         hist[k] = h

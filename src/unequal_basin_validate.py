@@ -398,6 +398,68 @@ def v4(armname='L', pfail=0.1, A=0, pools=(0,), seed=7, nmax=20000):
     return res
 
 
+# ====================================================================== V3
+V3_CPS = (1, 3, 10, 30, 100, 300, 1000, 3000)
+
+
+def v3(cellname, m=1, nrep=3, I=262144, cps=V3_CPS, seed=11, do_full=True):
+    """matched Monte Carlo: fresh pool chains resampled from exactly the empirical law the ODE starts from.
+    (a) implementation gate: ODE(m) against MC(m), the same reflecting truncation, replicate band (or 0.01);
+    (b) truncation error: MC(full dynamics) against ODE(m)."""
+    import unequal_basin_run as R
+    import unequal_basin_mc as MC
+    c = R.CELLS[cellname]
+    cell = R.cell_of(cellname)
+    arm = UB.get_arm(c['arm'])
+    obj = UB.Obj(c['arm'], c['pf_migr'], cell.supp, m)
+    xn, dropped = R.law_to_state(obj, cell.trip, cell.w)
+    grid = [0.0] + [float(v) for v in cps]
+    recs, _, _, _ = UB.integrate(obj, xn, float(cps[-1]), sym=True, grid=grid, stop_converged=False)
+    ode = {int(r['t']): r['shares'] for r in recs}
+    rng = np.random.default_rng(seed)
+    # truncated law (conditioned on the allowed states) for MC(m)
+    pos, ok = obj.index_of(cell.trip)
+    w_m = np.where(ok, cell.w, 0.0)
+    w_m /= w_m.sum()
+
+    def shares_of(hist):
+        out = np.zeros((hist.shape[0], 5))
+        for k in range(5):
+            out[:, k] = hist[:, MI.CATMAP == k].sum(axis=1)
+        return out / hist.sum(axis=1, keepdims=True)
+
+    res = dict(cell=cellname, m=m, I=I, nrep=nrep, dropped_mass=dropped, cps=list(cps), ode=ode)
+    for label, w, mmax in (('mc_m', w_m, m), ('mc_full', cell.w, 3)):
+        if label == 'mc_full' and not do_full:
+            continue
+        reps = []
+        for r in range(nrep):
+            idx = rng.choice(len(w), I, p=w)
+            trip = cell.trip[idx]
+            hist, wall = MC.run_mc(c['arm'], c['pf_migr'], trip, cps, int(rng.integers(1, 2 ** 30)), mmax=mmax)
+            reps.append(shares_of(hist))
+        reps = np.array(reps)                               # (nrep, ncp, 5)
+        res[label] = dict(mean=reps.mean(axis=0).tolist(), sd=reps.std(axis=0, ddof=1).tolist(), reps=reps.tolist())
+    # comparison table
+    rows = []
+    for k, t in enumerate(cps):
+        o = np.array(ode[int(t)])
+        row = dict(t=int(t), ode=o.tolist())
+        if 'mc_m' in res:
+            mm = np.array(res['mc_m']['mean'][k]); sd = np.array(res['mc_m']['sd'][k])
+            band = np.maximum(2.0 * sd, 0.01)
+            row['mc_m'] = mm.tolist(); row['diff_ode_mc_m'] = float(np.abs(o - mm).max()); row['inside_band'] = bool((np.abs(o - mm) <= band).all())
+        if 'mc_full' in res:
+            mf = np.array(res['mc_full']['mean'][k])
+            row['mc_full'] = mf.tolist(); row['diff_ode_mc_full'] = float(np.abs(o - mf).max())
+        rows.append(row)
+    res['rows'] = rows
+    res['gate_implementation'] = bool(all(r.get('inside_band', True) for r in rows))
+    res['max_diff_ode_full'] = float(max(r.get('diff_ode_mc_full', 0.0) for r in rows))
+    save('v3-%s-m%d' % (cellname, m), res)
+    return res
+
+
 if __name__ == '__main__':
     cmd = sys.argv[1]
     t0 = time.time()
@@ -405,6 +467,8 @@ if __name__ == '__main__':
         r = v1()
     elif cmd == 'v2':
         r = v2()
+    elif cmd == 'v3':
+        r = v3(sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 1)
     elif cmd == 'v4':
         r = v4(sys.argv[2], float(sys.argv[3]))
     elif cmd == 'v5':
