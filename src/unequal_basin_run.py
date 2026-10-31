@@ -88,6 +88,11 @@ def family_mask(arm, name):
                 ok = f['atom_tgt'] == 'all'
             elif name == 'yielder':
                 ok = f['atom_tgt'] == 'self' and f['atom_d'] == 2 and f['t_tgt'] == 'j' and f['t_d'] == 0
+            elif name == 'exploiter':
+                ok = f['atom_tgt'] == 'self' and f['atom_d'] == 0 and f['t_tgt'] == 'j' and f['t_d'] == 2
+            elif name == 'exploiter-fair':
+                ok = (f['atom_tgt'] == 'self' and f['atom_d'] == 0 and f['t_tgt'] == 'j' and f['t_d'] == 2
+                      and f['f_tgt'] == 'k' and f['f_d'] == 1)
             elif name == 'fair-reader':
                 ok = f['atom_tgt'] == 'self' and f['atom_d'] == 1 and f['t_tgt'] == 'j' and f['t_d'] == 1
             elif name == 'bully-branch':
