@@ -116,10 +116,11 @@ def orbit_mask(arm, rm):
 
 
 # ====================================================================== ablated start laws
-def ablate_law(cell, removed, rule='reassign'):
+def ablate_law(cell, removed, rule='reassign', keep=0.0):
     """(trip, w, supp) with the programs flagged in removed (3, K) taken out of the symmetrized post-anneal triple law.
     rule 'reassign': a removed program in slot s is replaced by each constant in proportion to the constants' own slot-s
-    marginal (the arm-T rule at the triple level); 'drop': the triples are dropped and the law renormalized."""
+    marginal (the arm-T rule at the triple level); 'drop': the triples are dropped and the law renormalized.  keep in [0, 1]:
+    the fraction of each affected triple's mass that stays (restoration doses); with keep > 0 the programs stay in the support."""
     isc = cell.isc
     cons = np.array([x for x in range(UB.KP) if isc[x]])
     trip, w = cell.trip.copy(), cell.w.copy()
@@ -130,12 +131,14 @@ def ablate_law(cell, removed, rule='reassign'):
         hit = removed[s][trip[:, s]]
         if not hit.any():
             continue
-        if rule == 'drop':
-            trip, w = trip[~hit], w[~hit]
-            continue
-        cm = q0[s, cons] / q0[s, cons].sum()
         kt, kw = trip[~hit], w[~hit]
         ht, hw = trip[hit], w[hit]
+        if keep > 0:
+            kt = np.concatenate([kt, ht]); kw = np.concatenate([kw, keep * hw]); hw = (1.0 - keep) * hw
+        if rule == 'drop':
+            trip, w = kt, kw
+            continue
+        cm = q0[s, cons] / q0[s, cons].sum()
         rt = np.repeat(ht, len(cons), axis=0)
         rw = np.repeat(hw, len(cons)) * np.tile(cm, len(ht))
         rt[:, s] = np.tile(cons, len(ht))
@@ -149,7 +152,8 @@ def ablate_law(cell, removed, rule='reassign'):
     supp = []
     for s in range(3):
         sp = set(int(v) for v in np.unique(trip2[:, s])) | set(int(c) for c in cons)
-        sp = {v for v in sp if not removed[s][v]}
+        if keep == 0:
+            sp = {v for v in sp if not removed[s][v]}
         supp.append(sorted(sp))
     return trip2, w2, supp
 
@@ -168,10 +172,11 @@ def key_of(spec):
 
 
 def build_obj_start(spec, remove=None, rule='reassign', pools=None, core=None):
+    keep = float(spec.get('keep', 0.0))
     c = CELLS[spec['cell']]
     cell = cell_of(spec['cell'], tuple(pools or spec.get('pools') or (0, 1, 2)), not spec.get('raw', False))
     if remove is not None:
-        trip, w, supp = ablate_law(cell, remove, rule)
+        trip, w, supp = ablate_law(cell, remove, rule, keep)
     else:
         trip, w, supp = cell.trip, cell.w, cell.supp
     obj = UB.Obj(c['arm'], c['pf_migr'], supp, spec['m'], core=core, symmetric=not spec.get('raw', False))
@@ -187,6 +192,13 @@ def make_start(obj, xn, start):
         return UB.tilt(obj, xn, kind, 0.6)
     if start.startswith('u:'):
         return UB.tilt(obj, xn, 'unequal', float(start[2:]))
+    if start.startswith('mix:'):
+        # mix:<eps>:<endpoint key>: (1 - eps) * the saved endpoint state + eps * the natural law (self-consistency of the endpoint)
+        _, eps, key = start.split(':', 2)
+        xe = np.load(os.path.join(XS, key + '.npz'))['x']
+        assert len(xe) == obj.n, 'endpoint of a different object'
+        y = (1.0 - float(eps)) * xe + float(eps) * xn
+        return y / y.sum(), dict(kind=start, available=True, after=obj.class_shares(y / y.sum()).tolist())
     raise ValueError(start)
 
 
@@ -215,7 +227,7 @@ def endpoint_diag(obj, x, tail_recs):
     return d
 
 
-def run_one(spec, remove=None, rule='reassign', core=None, pools=None, force=False, keep_x=True, verbose=False, tmax=1e7):
+def run_one(spec, remove=None, rule='reassign', core=None, pools=None, force=False, keep_x=True, verbose=False, tmax=1e7, early=False):
     """spec: cell, m, start, abl (label).  Returns the row (and writes it)."""
     key = key_of(spec)
     path = os.path.join(ROWS, key + '.json')
@@ -229,7 +241,7 @@ def run_one(spec, remove=None, rule='reassign', core=None, pools=None, force=Fal
         row.update(status='unavailable')
         json.dump(row, open(path, 'w'))
         return row
-    recs, xe, status, kept = UB.run_ode(obj, x0, tmax, sym=not spec.get('raw', False), verbose=verbose)
+    recs, xe, status, kept = UB.run_ode(obj, x0, tmax, sym=not spec.get('raw', False), verbose=verbose, early=early)
     row['status'] = status
     row['records'] = [dict(t=r['t'], shares=r['shares'], pairs=r['pairs'], resid=r['resid']) for r in recs]
     row['t_end'] = recs[-1]['t']
@@ -256,7 +268,7 @@ def scan_ustar(spec_base, remove=None, rule='reassign', core=None, us=SCAN_U, re
     table = {}
     for u in us:
         sp = dict(spec_base, start='u:%g' % u)
-        r = run_one(sp, remove, rule, core)
+        r = run_one(sp, remove, rule, core, early=True)
         table[u] = (r['status'], r['endpoint'], r['records'][-1]['shares'] if r.get('records') else None, r['t_end'] if 't_end' in r else None)
         if verbose:
             print('  u=%.2f -> %s %s t=%s' % (u, table[u][1], table[u][0], table[u][3]), flush=True)
@@ -268,7 +280,7 @@ def scan_ustar(spec_base, remove=None, rule='reassign', core=None, us=SCAN_U, re
             while hi - lo > refine + 1e-12:
                 mid = round(0.5 * (lo + hi), 4)
                 sp = dict(spec_base, start='u:%g' % mid)
-                r = run_one(sp, remove, rule, core)
+                r = run_one(sp, remove, rule, core, early=True)
                 table[mid] = (r['status'], r['endpoint'], r['records'][-1]['shares'], r['t_end'])
                 if verbose:
                     print('  bisect u=%.3f -> %s' % (mid, table[mid][1]), flush=True)

@@ -476,7 +476,7 @@ def converged(recs, t, sh, resid):
 
 
 def integrate(obj, x0, tmax, sym=True, rtol=1e-8, atol=1e-14, grid=None, method='DOP853', stop_converged=True, keep_x_at=(),
-              verbose=False, recs=None, t_start=0.0):
+              verbose=False, recs=None, t_start=0.0, early=False):
     from scipy.integrate import solve_ivp
     grid = checkpoint_grid(tmax) if grid is None else list(grid)
     x = x0.copy()
@@ -501,6 +501,9 @@ def integrate(obj, x0, tmax, sym=True, rtol=1e-8, atol=1e-14, grid=None, method=
             print('t=%g shares=%s resid=%.2e nfev=%d' % (t1, np.round(r['shares'], 4), r['resid'], sol.nfev), flush=True)
         if stop_converged and converged(recs, t1, r['shares'], r['resid']):
             status = 'converged'
+            break
+        if early and locked(recs, t1, r['shares'], r['resid']):
+            status = 'early'
             break
     return recs, x, status, kept
 
@@ -533,7 +536,7 @@ def be_step(obj, x, h, sym=True, max_newton=5, gm_tol=1e-9, gm_restart=50, gm_ma
     return xn, dict(newton=its, resid=float(np.abs(R).sum()))
 
 
-def integrate_be(obj, x, t0, tmax, sym=True, steps_per_decade=8, recs=None, verbose=False):
+def integrate_be(obj, x, t0, tmax, sym=True, steps_per_decade=8, recs=None, verbose=False, early=False):
     recs = [] if recs is None else recs
     t = t0
     status = 'horizon'
@@ -555,17 +558,34 @@ def integrate_be(obj, x, t0, tmax, sym=True, steps_per_decade=8, recs=None, verb
         if converged(recs, t, r['shares'], r['resid']):
             status = 'converged'
             break
+        if early and locked(recs, t, r['shares'], r['resid']):
+            status = 'early'
+            break
         h *= ratio
     return recs, x, status
 
 
-def run_ode(obj, x0, tmax=1e7, sym=True, explicit_until=1e4, verbose=False, keep_x_at=()):
+def run_ode(obj, x0, tmax=1e7, sym=True, explicit_until=1e4, verbose=False, keep_x_at=(), early=False):
     """explicit DOP853 to explicit_until events, then backward Euler to tmax; returns (records, x_end, status, kept)."""
-    recs, x, status, kept = integrate(obj, x0, min(explicit_until, tmax), sym, verbose=verbose, keep_x_at=keep_x_at)
-    if status != 'converged' and tmax > explicit_until:
+    recs, x, status, kept = integrate(obj, x0, min(explicit_until, tmax), sym, verbose=verbose, keep_x_at=keep_x_at, early=early)
+    if status not in ('converged', 'early') and tmax > explicit_until:
         recs2 = recs
-        recs2, x, status = integrate_be(obj, x, explicit_until, tmax, sym, recs=recs, verbose=verbose)
+        recs2, x, status = integrate_be(obj, x, explicit_until, tmax, sym, recs=recs, verbose=verbose, early=early)
     return recs, x, status, kept
+
+
+def locked(recs, t, sh, resid):
+    """early classification for scans: a class holds >= 0.99 of the islands, the residual is below 1e-6, t >= 2e4 and the class
+    shares moved by < 1e-3 over the last half decade (the decisive cells are run to the full criterion)."""
+    if t < 2e4 or resid >= 1e-6 or (sh[0] < 0.99 and sh[1] < 0.99):
+        return False
+    best = None
+    for r in recs:
+        if abs(r['t'] - t / 3.16) < 0.3 * t / 3.16 and (best is None or abs(r['t'] - t / 3.16) < abs(best['t'] - t / 3.16)):
+            best = r
+    if best is None:
+        return False
+    return float(np.abs(np.array(best['shares']) - np.array(sh)).max()) < 1e-3
 
 
 def classify_endpoint(sh):

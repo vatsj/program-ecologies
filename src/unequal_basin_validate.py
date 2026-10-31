@@ -321,7 +321,7 @@ def v1(tmax=1e4):
 
 
 # ====================================================================== V4
-def v4(armname='L', pfail=0.1, A=0, pools=(0,), seed=7, nmax=20000):
+def v4(armname='L', pfail=0.1, A=0, pools=(0,), seed=7, nmax=200000):
     """exact kernel vs simulated relaxation, strata: sign of the payoff change (+, 0, -) x slot role (in the pair, excluded).
     Aggregated test per stratum: observed fixations against the Poisson-binomial mean and variance of the exact fixation
     probabilities of the injections, z = (obs - mu)/sigma."""
@@ -363,12 +363,10 @@ def v4(armname='L', pfail=0.1, A=0, pools=(0,), seed=7, nmax=20000):
             sel = np.nonzero((sign == sg) & mask)[0]
             if len(sel) == 0:
                 continue
-            # choose injections to reach mu >= 5 (or nmax)
-            order = rng.permutation(sel)
-            cs = np.cumsum(pfx[order])
-            k = int(np.searchsorted(cs, 6.0)) + 1
-            k = min(max(k, 200), nmax, len(order))
-            strata[(sg, role)] = order[:k]
+            # injections drawn with replacement from the stratum until the expected number of fixations reaches 40 (or nmax)
+            pm_ = pfx[sel].mean()
+            k = int(min(max(200, np.ceil(40.0 / max(pm_, 1e-12))), nmax))
+            strata[(sg, role)] = rng.choice(sel, k, replace=True)
     out = []
     ctx = arm2.ctx()
     for (sg, role), idxs in strata.items():
@@ -402,16 +400,16 @@ def v4(armname='L', pfail=0.1, A=0, pools=(0,), seed=7, nmax=20000):
 V3_CPS = (1, 3, 10, 30, 100, 300, 1000, 3000)
 
 
-def v3(cellname, m=1, nrep=3, I=262144, cps=V3_CPS, seed=11, do_full=True):
+def v3(cellname, m=1, nrep=3, I=262144, cps=V3_CPS, seed=11, do_full=True, pools=(0, 1, 2), core=None, tag=''):
     """matched Monte Carlo: fresh pool chains resampled from exactly the empirical law the ODE starts from.
     (a) implementation gate: ODE(m) against MC(m), the same reflecting truncation, replicate band (or 0.01);
     (b) truncation error: MC(full dynamics) against ODE(m)."""
     import unequal_basin_run as R
     import unequal_basin_mc as MC
     c = R.CELLS[cellname]
-    cell = R.cell_of(cellname)
+    cell = R.cell_of(cellname, tuple(pools))
     arm = UB.get_arm(c['arm'])
-    obj = UB.Obj(c['arm'], c['pf_migr'], cell.supp, m)
+    obj = UB.Obj(c['arm'], c['pf_migr'], cell.supp, m, core=core)
     xn, dropped = R.law_to_state(obj, cell.trip, cell.w)
     grid = [0.0] + [float(v) for v in cps]
     recs, _, _, _ = UB.integrate(obj, xn, float(cps[-1]), sym=True, grid=grid, stop_converged=False)
@@ -456,7 +454,7 @@ def v3(cellname, m=1, nrep=3, I=262144, cps=V3_CPS, seed=11, do_full=True):
     res['rows'] = rows
     res['gate_implementation'] = bool(all(r.get('inside_band', True) for r in rows))
     res['max_diff_ode_full'] = float(max(r.get('diff_ode_mc_full', 0.0) for r in rows))
-    save('v3-%s-m%d' % (cellname, m), res)
+    save('v3-%s-m%d%s' % (cellname, m, tag), res)
     return res
 
 
@@ -468,7 +466,8 @@ if __name__ == '__main__':
     elif cmd == 'v2':
         r = v2()
     elif cmd == 'v3':
-        r = v3(sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 1)
+        pools = tuple(int(v) for v in sys.argv[4].split(',')) if len(sys.argv) > 4 else (0, 1, 2)
+        r = v3(sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 1, pools=pools, tag=('-p' + sys.argv[4].replace(',', '')) if len(sys.argv) > 4 else '')
     elif cmd == 'v4':
         r = v4(sys.argv[2], float(sys.argv[3]))
     elif cmd == 'v5':
