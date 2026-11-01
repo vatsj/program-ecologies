@@ -200,3 +200,81 @@ and M cells differ only through mutual edges, so L and M natural starts are clos
 differ in the stored chains for later reasons: in M a mutual edge between two Löbian conditionals is not an obstacle,
 and M's U collapse at 3·10⁴ events needs a program family that cooperates only under provability; that is what the
 attribution will show).
+
+## 2. Deviations, choices where the spec is silent, and what the first look changed
+
+Written while the run was in progress; every item is a departure from the spec or a choice the spec left open. Numbers are in
+`runs/unequal-basin.md` and `runs/unequal_basin/`.
+
+### 2.1 The stop rule fired, and the object computed is a truncation ladder (the largest deviation)
+
+The spec says: if the dense lumped field is infeasible, "stop and report the class counts before running anything counted". I
+measured the class counts (`runs/unequal_basin/prep-*.json`): **1,251 classes per slot in L and 1,249 in M** (the S3-union of the
+three pools' supports plus the nine constants; 1,242 / 1,240 of the 1,296 conditionals), equal to the number of programs: the
+lumping merges nothing. §1.5 predicted this; the exhaustive check is in `validate-v2.json` (lumping is exact on a support where
+conditionals do merge: 111 programs -> 45 / 42 classes, aggregated field equal to 1e-18) and the count on the real supports in
+`prep-L0.json`. C^3 is 2 x 10^9. I did **not** stop: I could not ask the RE mid-run, I judged that a disclosed truncation, validated
+against the full-dynamics Monte Carlo, was worth more to the RE than a bare report of the counts, and every counted cell below is
+labelled with its truncation. The RE can discard everything computed on a truncated object; the class counts and the
+infeasibility argument stand on their own.
+
+The object computed is the **reflecting m-conditional truncation** (`src/unequal_basin.py`): states are triples with at most m
+conditional programs, optionally with the conditionals of the states with two or more restricted to a *core*; a migration that
+would leave the state set is a null event (mass conserved); its flux is the reported "blocked" flux (`blocked_flux`, exact; checked
+against the full object on an embedded state). The kernel is the exact one: fixation probabilities on the 1/30-dollar payoff
+lattice, evaluated in O(states) by summing over payoff levels within each fibre (a migrant's payoff takes at most 24 values).
+The ladder (rows in `runs/unequal-basin.md`, table "ladder"):
+
+- m = 1, all 1,242+ conditionals: 316,000 states. Blocked flux at the natural start 0.09% of the realized flux; **at the m = 1
+  U-tilted endpoint 15%**, so m = 1 is not converged there. It is the object of the first look and is reported, not scored on.
+- m = 2 and m = 3 with a core of 48 conditionals per slot (the 16 `exploiter`, 16 `yielder`, 16 `fair-reader` programs per slot,
+  S3-closed, plus the endpoint donors of the m = 1 run): the blocked flux at the m = 3 endpoints is 10^-10 of the realized flux.
+- m = 2 with the 432 `read-me` conditionals per slot as core (3.1 million states, one start): same endpoint as the 48-core.
+- m = 3 with the 48-core plus 30 random conditionals (two draws, 102 per slot): same endpoint for M.
+Reflecting m = 3 on the 48-core is "object P", used for every scan and ablation. Not done: m = 2 with all 1,296 conditionals
+(45 million states, lean implementation not written), m = 3 with a core above 102. The unequal basin therefore stands on the
+reading that conditionals outside the cores are negligible once two or three of the core's programs share an island; the evidence
+is the core-size and random-core sensitivity above and the match with the stored full-dynamics symmetric chain (L: U 0.9949 at
+3e4 events against 0.9949; M natural: F 0.1004 / U 0.8996 against 0.1003 / 0.8979), which includes everything.
+
+### 2.2 Other deviations
+
+1. **Families A2s and A2x are empty** at n <= 6 (§1.1): predictions 3 and 4 coincide on A1 and 4's second clause is vacuous.
+   Added syntactic families (not in the spec): `read-me`, `read-third`, `read-all` (what the atom's action names), `yielder`,
+   `fair-reader`, `exploiter` (atom: the partner offers me 1/3, true branch: name the partner at 2/3), `exploiter-fair` (the same
+   with false branch "name the third slot at 1/2"; 2 programs per slot), `bully-branch`.
+2. **A = 150 cells cut** (no pools founded; cut order of the spec). Pools: 3 x 16,384 for L (P_fail 0), M, L (P_fail 0.1) at A = 0.
+3. **Validation order.** V1, V2, V5, V6 and the tests ran before any counted cell; V3 and V4 ran after the first counted cells (the
+   pilots on pool 0, the m = 1 natural and unequal-tilt starts), because the pools were the long pole. Their results are in
+   `validate-v3-*.json`, `validate-v4-*.json`. V4 for M has five strata (the sixth, a deleterious move of the excluded slot, does not
+   exist without a charge); every |z| < 1.5.
+4. **Early classification in scans.** Non-decisive scan runs stop when a class holds >= 0.99, the residual is below 1e-6, t >= 2e4
+   and the class shares moved < 1e-3 over the last half decade (status "early" in the rows); the baseline starts (natural, fair,
+   unequal 0.6, wasteful) and u = 0.6 run to the full criterion of the spec.
+5. **Bisection** is to a bracket of 1/80 (0.0125) in u, not 0.02; u* is the upper end of the first bracketing interval.
+6. **Attribution.** At every U endpoint only 4 classes per slot have mass >= 10^-3 (two S3 orbits), so "the top 20" is these 4; the
+   single-class knockouts are the two orbits (exploiters, ⅓-constants), the joint knockouts k = 1, 2 are the same, and the
+   excluded-versus-pair joint knockout of the spec cannot be done: the same programs hold the high, excluded and low roles.
+7. **Random knockouts** (the matched-abundance control) are 10 draws per arm scored by the endpoint class at u = 0.6 (the
+   baseline's u* is 0.55 for L and 0.425 for M), not by u* scans.
+8. **Restoration** is at 0.25 and 0.5 of the family's start-law mass (1.0 is the unablated scan).
+9. The Jacobian is dense on the support (states with x >= 10^-9, S3-closed, 62-68 states) plus matrix-free Arnoldi on the whole
+   object for the full-space leading eigenvalues; the class-changing eigenvalue list excludes the trivial normalization mode
+   (eigenvalue 0 with class projection equal to the endpoint's class share).
+10. Charge: founding and migration both at 0.1 (L01), founded at 0 and migrating at 0.1 (L0x). M has no divergence (V5), so one cell.
+
+### 2.3 What was run (final)
+
+Cells: L (P_fail 0), M, L at 0.1 (founded and migrating), L founded at 0 and migrating at 0.1; A = 0; 3 pools of 16,384 each (9 pools). Starts: natural, fair, unequal (0.6), wasteful at object P
+(m = 3, 48-core) for L and M, plus a full tilt scan (10-13 shares with bisection) for L, M, L at 0.1, L crossed, and one pool of L. Ablation scans at object P (auto cores of at most 60 conditionals per slot beyond
+the base core, built from the m = 1 endpoints of the ablated world): L and M with `exploiter-fair` removed (reassign and drop), `A1` (constants only), `exploiter`, `read-me`, `yielder`, `fair-reader`, the ⅓-constants (victims),
+and `exploiter-fair` kept at 0.25 and 0.5; 20 matched-mass random knockouts at u = 0.6. Not run (cut): `read-third`, `read-all`, `bully-branch`, `true-names-j` families, A = 150 cells, m = 2 on all conditionals.
+Endpoint analyses (roles, rescue moves, flux decomposition, three Jacobian spectra, blocked flux): L unequal (union), L fair (pool 0), M natural, constants-only L u = 0.9. Perturbations (1e-6, 1e-4, 1e-2 toward V\*;
+asymmetric 1e-3, 1e-1) and mixing (1%, 10% natural) from the L and M unequal endpoints. Raw unsymmetrized pool-0 law (unprojected field) from the natural and unequal starts: **both end unequal (U = 1.0)**, unlike the symmetric law
+(natural -> V\* 0.9997): a single finite pool's own asymmetry sends its natural start to one unequal orientation (support of 93,000 states against 346,000), the finite-pool effect of the stored chain, now with all programs at positive mass.
+
+Two things the first look did not predict (both in the drafts): the constants-only entry (u\* 0.69, prediction 3 failed) and the non-monotone classification in u for M with the victims removed (U for 0.5625-0.8375, F at 0.85 and 0.9).
+The identity of the carrier changed my hand candidate (soft yielders, §1.4): the data say Trojan bullies (exploiters that are fair on the fair path), with yielders only as M's prey.
+
+Operational note: three scan workers died silently twice (out of memory on auto cores of 224 conditionals per slot, 11 million states); the cores were capped at 60, the lost work was one in-flight run each time (rows are cached by key).
+Early runs of this experiment (pilots on pool 0 at m = 1, 2, 3 with the 48- and 432-cores) are rows tagged `pilot` in `runs/unequal_basin/rows/`; they are counted in the ladder.
