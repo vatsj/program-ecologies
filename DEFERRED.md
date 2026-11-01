@@ -238,6 +238,13 @@ REJECTED.md the ones we dropped.
   the premium needs a sucker supply set by the schedule; this schedule's supply is too thin at A ≤ 52. Next levers: a
   depleted control at A = 156, a complete sucker-depletion control, and an exposure scan above 52.
 
+- *RS (2026-11-01):* the seed lottery without mutation is not the primary object. The annealed tail is part of the
+  object: it trickles in predators that the founding scramble killed, which would otherwise leave inefficient programs
+  to spread after the scramble. The pure ε = 0 lottery is the tail-free reference case. The operating-hypotheses Claude
+  Doc (h01, h03) states this and is the source of truth for operating hypotheses from today; where this file
+  disagrees with it, the doc wins. *Operating hypothesis:* new specs run the annealed tail as the main arm and the
+  tail-free lottery as the reference.
+
 ## 2. The observation channel: behaviour probes, source reading, or certificates?
 - *Options:* extensional probes (simulation), source reading through a sound (bounded) prover, honest certificates,
   partial-disclosure certificates.
