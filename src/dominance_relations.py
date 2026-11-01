@@ -87,11 +87,10 @@ def absorbing(R,dom):
     return classes
 def show(R,cls,scale):
     return [sorted(tuple(int(scale*t) for t in R[i]) for i in c) for c in cls]
-R=outcomes(F(1,3),6)
+R13=outcomes(F(1,3),6)
 for w in (False,True):
-    cls=absorbing(R,mkdom(F(1,3),w))
-    print('a=1/3 sixths', 'weak' if w else 'strict', 'absorbing sets:',len(cls),'sizes',sorted(len(c) for c in cls)[:5],'... union is core proper:', set(R[i] for c in cls for i in c)=={y for y in R if sum(y)==1 and all(y[i]+y[j]>=F(1,3) for i,j in P)})
-R=R
+    cls=absorbing(R13,mkdom(F(1,3),w))
+    print('a=1/3 sixths', 'weak' if w else 'strict', 'absorbing sets:',len(cls),'sizes',sorted(len(c) for c in cls)[:5],'... union is core proper:', set(R13[i] for c in cls for i in c)=={y for y in R13 if sum(y)==1 and all(y[i]+y[j]>=F(1,3) for i,j in P)})
 for w in (False,True):
     cls=absorbing(R,mkdom(F(1),w))
     print('majority division', 'weak' if w else 'strict', 'absorbing sets:', show(R,cls,6))
