@@ -152,7 +152,7 @@ def v3(Lam=10.0, t0=100.0, I=4096, nworld=4, cps=(1, 3, 10, 30, 100, 300, 1000, 
     res = dict(cell=cellname, Lam=Lam, t0=t0, I=I, nworld=nworld, rows=rows, mc_info=info,
                gate_0p02=bool(all(r['maxdiff'] < 0.02 for r in rows if r['t'] in (100, 1000, 10000))),
                max_diff_at_gate_times=float(max(r['maxdiff'] for r in rows if r['t'] in (100, 1000, 10000))))
-    save('v3_%s_L%g_t%g' % (cellname, Lam, t0), res)
+    save('v3_%s_L%g_t%g%s' % (cellname, Lam, t0, '' if I == 4096 else '_I%d' % I), res)
     return res
 
 
@@ -232,7 +232,7 @@ if __name__ == '__main__':
     elif cmd == 'v2':
         r = v2()
     elif cmd == 'v3':
-        r = v3(float(sys.argv[2]) if len(sys.argv) > 2 else 10.0, float(sys.argv[3]) if len(sys.argv) > 3 else 100.0)
+        r = v3(float(sys.argv[2]) if len(sys.argv) > 2 else 10.0, float(sys.argv[3]) if len(sys.argv) > 3 else 100.0, I=int(sys.argv[4]) if len(sys.argv) > 4 else 4096)
     elif cmd == 'v4':
         r = v4()
     else:

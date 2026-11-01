@@ -81,7 +81,7 @@ def run_job(job, verbose=False):
         if x0 is None:
             return A.save_row(job, dict(status='unavailable'))
         res, xe, kept = A.run_cell(S, x0, sched, tmax=job.get('tmax', 1e8), early=bool(job.get('early', False)),
-                                   spd=job.get('spd', 8), verbose=verbose, explicit_until=job.get('explicit_until', 1e4))
+                                   spd=job.get('spd', 8), verbose=verbose, explicit_until=job.get('explicit_until', 4e4))
         row = A.save_row(job, res, dict(states=obj.n, dropped_mass=dropped, start_info=sinfo))
         if job.get('keep_x'):
             np.savez_compressed(os.path.join(A.XSD, A.row_key(job) + '.npz'), x=xe)

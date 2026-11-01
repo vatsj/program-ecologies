@@ -217,12 +217,16 @@ def locked(recs, t, r):
     return float(np.abs(np.array(best['shares']) - np.array(sh)).max()) < 1e-3
 
 
-def be_step(S, x, h, e_h, max_newton=6, gm_tol=1e-9, gm_restart=50, gm_maxiter=30):
-    """x' = x + h F(x') + h e_h G(x'), Newton with matrix-free GMRES and a diagonal preconditioner."""
+def be_step(S, x, h, e_h, max_newton=8, gm_tol=1e-4, gm_restart=50, gm_maxiter=30):
+    """x' = x + h F(x') + h e_h G(x'), inexact Newton (matrix-free GMRES, diagonal preconditioner).  Fails fast (returns
+    info['failed']) when the residual stops contracting after two iterations: the implicit equation is quadratic and a large step
+    can fall on a spurious root, in which case the caller halves the step."""
     from scipy.sparse.linalg import LinearOperator, gmres
     xn = x.copy()
     n = x.size
     its = 0
+    r_prev = None
+    failed = False
     for it in range(max_newton):
         Fx = S.F(xn)
         R = xn - x - h * Fx
@@ -231,6 +235,10 @@ def be_step(S, x, h, e_h, max_newton=6, gm_tol=1e-9, gm_restart=50, gm_maxiter=3
         rn = float(np.abs(R).sum())
         if rn < 1e-13:
             break
+        if it >= 2 and r_prev is not None and rn > 0.5 * r_prev and rn > 1e-9:
+            failed = True
+            break
+        r_prev = rn
         q = S.qof(xn)
         lam = S.lam(xn) + (e_h * S.lamG if e_h != 0.0 else 0.0)
         Minv = 1.0 / (1.0 + h * lam)
@@ -251,7 +259,7 @@ def be_step(S, x, h, e_h, max_newton=6, gm_tol=1e-9, gm_restart=50, gm_maxiter=3
     R = xn - x - h * S.F(xn)
     if e_h != 0.0:
         R = R - h * e_h * S.G(xn)
-    return xn, dict(newton=its, resid=float(np.abs(R).sum()))
+    return xn, dict(newton=its, resid=float(np.abs(R).sum()), failed=failed)
 
 
 def classify(sh):
@@ -282,7 +290,13 @@ def integrate(S, x0, sched, tau0=0.0, tmax=1e8, explicit_until=1e4, spd=8, early
     t = tau0
     # explicit phase
     if tau0 < explicit_until:
-        grid = [g for g in (checkpoint_grid(min(explicit_until, tmax)) if explicit_grid is None else explicit_grid) if g > tau0 and g <= explicit_until]
+        if explicit_grid is None:
+            grid = checkpoint_grid(min(explicit_until, tmax))
+            if grid[-1] < min(explicit_until, tmax) * (1 - 1e-12):
+                grid.append(min(explicit_until, tmax))
+        else:
+            grid = list(explicit_grid)
+        grid = [g for g in grid if g > tau0 and g <= explicit_until * (1 + 1e-12)]
         if not grid or grid[0] > tau0:
             pass
         tprev = tau0
@@ -304,19 +318,18 @@ def integrate(S, x0, sched, tau0=0.0, tmax=1e8, explicit_until=1e4, spd=8, early
                 return recs, x, 'stationary', kept
             if early and locked(recs, t, r):
                 return recs, x, 'early', kept
-    # backward-Euler phase on t_k = t_start 10^(k/spd)
+    # backward-Euler phase on the global lattice t_k = 10^(k/spd) (so that 1e5, 1e6, 1e7 are lattice points)
     t_start = max(t, 1.0)
     if t_start >= tmax * (1 - 1e-12):
         return recs, x, 'capped', kept
-    k = 0
+    k = int(math.floor(math.log10(t_start) * spd + 1e-9))
     tcur = t
     while tcur < tmax * (1 - 1e-12):
         k += 1
-        # next point on the geometric lattice strictly above tcur
-        tn = t_start * 10.0 ** (k / float(spd))
-        while tn <= tcur * (1 + 1e-12):
+        tn = 10.0 ** (k / float(spd))
+        while tn <= tcur * (1 + 1e-9):
             k += 1
-            tn = t_start * 10.0 ** (k / float(spd))
+            tn = 10.0 ** (k / float(spd))
         tn = min(tn, tmax)
         h = tn - tcur
         dose = sched.dose(tcur, tn)
@@ -331,7 +344,7 @@ def integrate(S, x0, sched, tau0=0.0, tmax=1e8, explicit_until=1e4, spd=8, early
             for attempt in range(16):
                 dose_s = sched.dose(tt, tt + hs)
                 xn, info = be_step(S, xs, hs, dose_s / hs if dose_s != 0 else 0.0)
-                if xn.min() > -1e-10 and info['resid'] < 1e-8:
+                if xn.min() > -1e-10 and info['resid'] < 1e-8 and not info['failed']:
                     break
                 hs *= 0.5
             xs = xn
@@ -374,7 +387,7 @@ def _is_grid(t):
     return any(abs(m - g) < 1e-6 for g in (1.0, 2.0, 5.0, 10.0))
 
 
-def run_cell(S, x0, sched, tmax=1e8, early=False, spd=8, verbose=False, keep_at=(), explicit_until=1e4, wall_limit=None):
+def run_cell(S, x0, sched, tmax=1e8, early=False, spd=8, verbose=False, keep_at=(), explicit_until=4e4, wall_limit=None):
     """a full tail run with the spec's censoring protocol.  Returns a dict: status, class, endpoint shares, milestones, records,
     x_end (not json)."""
     t0 = time.time()
