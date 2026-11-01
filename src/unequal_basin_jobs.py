@@ -66,7 +66,7 @@ def save_core(label, core):
     np.savez(os.path.join(R.ABLD, 'core_%s.npz' % label), **{'c%d' % s: np.array(sorted(core[s]), np.int64) for s in range(3)})
 
 
-def auto_core(job, remove, base='pilot_L', qmin=1e-7, cap=100):
+def auto_core(job, remove, base='pilot_L', qmin=1e-7, cap=60):
     """core for an ablated object: the base core minus the removed programs, plus the conditional donors (q >= qmin) at the endpoints
     of the m = 1 runs of the ablated object from the natural start and the U tilt 0.9 (everything that can carry anything in the
     ablated world), S3-closed.  Cached by label."""
@@ -115,7 +115,7 @@ def run_job(job, verbose=False):
         job = dict(job, core=auto_core(job, remove))
     core = load_core(job.get('core'))
     spec = dict(cell=job['cell'], m=job.get('m', 1), abl=job.get('abl'), start=job.get('start', 'nat'))
-    for k in ('pools', 'raw', 'core', 'rule', 'tag', 'keep'):
+    for k in ('pools', 'raw', 'core', 'rule', 'tag', 'keep', 'noproj'):
         if job.get(k) is not None:
             spec[k] = job[k]
     rule = job.get('rule', 'reassign')

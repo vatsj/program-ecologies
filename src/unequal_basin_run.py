@@ -199,6 +199,24 @@ def make_start(obj, xn, start):
         assert len(xe) == obj.n, 'endpoint of a different object'
         y = (1.0 - float(eps)) * xe + float(eps) * xn
         return y / y.sum(), dict(kind=start, available=True, after=obj.class_shares(y / y.sum()).tolist())
+    if start.startswith('pert:'):
+        # pert:<eps>:<endpoint key>: (1 - eps) x* + eps x_F, x_F the natural law restricted to the fair-pair states
+        _, eps, key = start.split(':', 2)
+        xe = np.load(os.path.join(XS, key + '.npz'))['x']
+        assert len(xe) == obj.n
+        xf = xn * (obj.cl == 0)
+        xf = xf / xf.sum()
+        y = (1.0 - float(eps)) * xe + float(eps) * xf
+        return y / y.sum(), dict(kind=start, available=True, after=obj.class_shares(y / y.sum()).tolist())
+    if start.startswith('asym:'):
+        # asym:<eps>:<seed>:<endpoint key>: x* (1 + eps xi), xi i.i.d. standard normal per state (a symmetry-breaking perturbation)
+        _, eps, seed, key = start.split(':', 3)
+        xe = np.load(os.path.join(XS, key + '.npz'))['x']
+        assert len(xe) == obj.n
+        xi = np.random.default_rng(int(seed)).standard_normal(obj.n)
+        y = xe * (1.0 + float(eps) * xi)
+        y = np.maximum(y, 0.0)
+        return y / y.sum(), dict(kind=start, available=True, after=obj.class_shares(y / y.sum()).tolist())
     raise ValueError(start)
 
 
@@ -241,7 +259,7 @@ def run_one(spec, remove=None, rule='reassign', core=None, pools=None, force=Fal
         row.update(status='unavailable')
         json.dump(row, open(path, 'w'))
         return row
-    recs, xe, status, kept = UB.run_ode(obj, x0, tmax, sym=not spec.get('raw', False), verbose=verbose, early=early)
+    recs, xe, status, kept = UB.run_ode(obj, x0, tmax, sym=not (spec.get('raw', False) or spec.get('noproj', False)), verbose=verbose, early=early)
     row['status'] = status
     row['records'] = [dict(t=r['t'], shares=r['shares'], pairs=r['pairs'], resid=r['resid']) for r in recs]
     row['t_end'] = recs[-1]['t']
