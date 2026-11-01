@@ -13,7 +13,7 @@ Get Turing-complete program classes with source access to cooperate. The DSL arm
 - `RESULTS.md` — append-only record of runs. Never rewrite a past verdict; add addenda.
 - `REJECTED.md` — ledger of dropped proposals with reasons. **Check it before proposing anything**; if a proposal re-opens an entry, say so explicitly and state what new evidence justifies it.
 - `predictions/` — dated verdict files.
-- **Hypotheses tracker** (RS, 2026-10-31): artifact https://claude.ai/artifact/TFanV3wt6B3WCbUGtYjjPb, a ledger of operating hypotheses (db collection `hypotheses`) with the theorems and desiderata tested on them (`criteria`: kind, text, status proved/supported/partial/open/refuted, evidence, done). Update its rows with ArtifactData whenever a RESULTS section or a DEFERRED decision changes an entry.
+- `HYPOTHESES.md` (RS, 2026-10-31; markdown from 2026-11-01, replacing the tracker artifact) — the ledger of operating hypotheses with the theorems and desiderata tested on them as plaintext checkboxes (kind, status proved/supported/partial/open/refuted, evidence), plus a **Games** section recording what happens in each game tested. The RS hand-edits it too: pull before editing, never overwrite his changes. Update it whenever a RESULTS section or a DEFERRED decision changes an entry.
 
 ## Discipline (non-negotiable)
 1. **Predictions before runs.** Every experiment gets a `predictions/YYYY-MM-DD-*.md` with verdicts and an explicit falsifier, committed *before* the run. Report failures as failures.
