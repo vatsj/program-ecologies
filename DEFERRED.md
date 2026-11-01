@@ -975,6 +975,15 @@ REJECTED.md the ones we dropped.
   target is judged from the natural founding law, with the boundary u\* reported as the margin; arm T meets it with a
   wide margin, the length-prior DSL arms do not.
 
+- *RS (2026-11-01), dominance relation:* strict dominance is the operating hypothesis for stated targets; weak
+  dominance is read as moves the ecology makes at drift rates (a neutral step, then a selected one or a second neutral
+  one). On a grid the strict relation leaves a one-step ring and wasteful splits undominated; these are scored
+  separately and the target is the core proper. With a sliver currency finer than the demand grid, strict dominance
+  has the same core and chain ends as weak dominance (checked: pair worth 1/3 and the glove monopolist, demands on
+  sixths, transfers in 24ths and 48ths), but not the same stable sets (majority division keeps V* under strict with
+  transfers; weak has none). Recorded in the OH doc's Theory tab, section 0 (`src/dominance_relations.py`,
+  `src/dominance_hard_band.py`).
+
 ## 16. Mixed actions and adversarial games (RS, 2026-10-23)
 - *RS:* "I suspect we're gonna need strong notions of mixed actions to recover equilibria in adversarial games. I
   propose rock paper scissors for starters? We should recover the mixed-strategy equilibrium pretty
