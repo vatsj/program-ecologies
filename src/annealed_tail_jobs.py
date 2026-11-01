@@ -94,6 +94,20 @@ def run_job(job, verbose=False):
         return row
     if job['kind'] == 'bisect':
         return run_bisect(job)
+    if job['kind'] == 'tailonly':
+        # the tail alone (no migration): dx/ds = G(x; p) at unit rate to s = tmax; the stationary law the tail itself imposes
+        cell, obj, xn, S, dropped = get_dsl(job)
+        x0, sinfo = A.dsl_start(obj, xn, job['start'])
+
+        class TailOnly(A.DSL):
+            def F(self, x):
+                return np.zeros_like(x)
+        S2 = TailOnly(obj, S.p, S.PF)
+        sch = A.Sched('const', float(job.get('tmax', 1e3)), T=float(job.get('tmax', 1e3)))
+        recs, x, st, _ = A.integrate(S2, x0, sch, 0.0, float(job.get('tmax', 1e3)), float(job.get('tmax', 1e3)), stop_stationary=False)
+        res = dict(status=st, shares=recs[-1]['shares'], pairs=recs[-1]['pairs'], tau_end=recs[-1]['t'], protocol='tailonly',
+                   records=[dict(t=r['t'], shares=r['shares']) for r in recs], resid_G=float(np.abs(S2.G(x)).sum()), **{'class': 'U' if recs[-1]['shares'][1] >= 0.5 else ('F' if recs[-1]['shares'][0] >= 0.5 else 'other')})
+        return A.save_row(job, res, dict(start_info=sinfo))
     if job['kind'] == 'asym':
         # S3-asymmetric perturbation of a saved tail-free endpoint (the Lam = 0 row of `source`, run with keep_x), integrated without projection
         cell, obj, xn, S, dropped = get_dsl(dict(job, tail='full'))
