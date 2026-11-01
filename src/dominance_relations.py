@@ -94,3 +94,39 @@ for w in (False,True):
 for w in (False,True):
     cls=absorbing(R,mkdom(F(1),w))
     print('majority division', 'weak' if w else 'strict', 'absorbing sets:', show(R,cls,6))
+
+# --- Games with a nonempty core that is not externally stable (glove monopolist; pair worth 7/12 and 2/3), 2026-11-01
+def game(caps,g):
+    q=[F(i,g) for i in range(g+1)]; out={(F(0),)*3}
+    for S,c in caps.items():
+        for xs in itertools.product(q,repeat=len(S)):
+            if sum(xs)<=c:
+                v=[F(0)]*3
+                for i,x in zip(S,xs): v[i]=x
+                out.add(tuple(v))
+    return sorted(out)
+def mk(caps,weak):
+    def dom(x,y):
+        for S,c in caps.items():
+            if sum(x[i] for i in S)>c: continue
+            if weak:
+                if all(x[i]>=y[i] for i in S) and any(x[i]>y[i] for i in S): return True
+            elif all(x[i]>y[i] for i in S): return True
+        return False
+    return dom
+def report(name,caps,g,core):
+    R=game(caps,g)
+    for w in (False,True):
+        dom=mk(caps,w)
+        und=[y for y in R if not any(dom(x,y) for x in R)]
+        ext=all(any(dom(c,y) for c in und) for y in R if y not in und)
+        cls=absorbing(R,dom); U=set(R[i] for c in cls for i in c)
+        print(f"{name} 1/{g} {'weak' if w else 'strict'}: undominated {len(und)} (core proper {len(core(R))}), externally stable {ext}; absorbing sets {len(cls)}, sizes {sorted(len(c) for c in cls)[-3:]}, union == core proper {U==set(core(R))}")
+# glove monopolist: player 0 = R
+gl={(0,1):F(1),(0,2):F(1),(0,1,2):F(1)}
+report('glove',gl,6,lambda R:[y for y in R if y==(F(1),F(0),F(0))])
+report('glove',gl,12,lambda R:[y for y in R if y==(F(1),F(0),F(0))])
+# awkward band of the pair-worth family
+for a in (F(7,12),F(2,3)):
+    caps={(0,1):a,(0,2):a,(1,2):a,(0,1,2):F(1)}
+    report(f'pair worth {a}',caps,12,lambda R,a=a:[y for y in R if sum(y)==1 and all(y[i]+y[j]>=a for i,j in P)])
