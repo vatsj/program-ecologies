@@ -67,3 +67,31 @@ for w in (False,True):
             cover|=out[i]
         if ok and (cover|V)==full: found.append(V)
     print('weak' if w else 'strict', len(found), [[tuple(int(6*t) for t in R[i]) for i in range(n) if V>>i&1] for V in found])
+
+# --- Minimal sets closed under dominance (absorbing sets of the dominance digraph), 2026-11-01
+def absorbing(R,dom):
+    n=len(R); succ=[[j for j in range(n) if dom(R[j],R[i])] for i in range(n)]  # i -> j if j dominates i
+    reach=[]
+    for i in range(n):
+        seen={i}; st=[i]
+        while st:
+            u=st.pop()
+            for v in succ[u]:
+                if v not in seen: seen.add(v); st.append(v)
+        reach.append(seen)
+    classes=[]
+    for i in range(n):
+        if all(i in reach[j] for j in reach[i]):  # i's reach set is strongly connected back to i => closed class
+            c=frozenset(reach[i])
+            if c not in classes: classes.append(c)
+    return classes
+def show(R,cls,scale):
+    return [sorted(tuple(int(scale*t) for t in R[i]) for i in c) for c in cls]
+R=outcomes(F(1,3),6)
+for w in (False,True):
+    cls=absorbing(R,mkdom(F(1,3),w))
+    print('a=1/3 sixths', 'weak' if w else 'strict', 'absorbing sets:',len(cls),'sizes',sorted(len(c) for c in cls)[:5],'... union is core proper:', set(R[i] for c in cls for i in c)=={y for y in R if sum(y)==1 and all(y[i]+y[j]>=F(1,3) for i,j in P)})
+R=R
+for w in (False,True):
+    cls=absorbing(R,mkdom(F(1),w))
+    print('majority division', 'weak' if w else 'strict', 'absorbing sets:', show(R,cls,6))
