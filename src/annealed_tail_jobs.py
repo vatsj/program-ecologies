@@ -32,15 +32,16 @@ def get_dsl(job):
     N = job.get('N', 100)
     tail = job.get('tail', 'full')
     renorm = bool(job.get('renorm', False))
-    corelabel = 'pilot_L' if objv in ('P', 'm1core') else None
-    m = 3 if objv == 'P' else 1
-    if objv == 'm1core':
-        # m = 1 on the 48-core object: states with one conditional drawn from the whole support (the core only matters for m >= 2)
-        m = 1
-        corelabel = 'pilot_L'
     key = ('dsl', cell_name, objv, N, tail, renorm)
     if key not in _CACHE:
-        cell, obj, xn, dropped = A.dsl_base(cell_name, corelabel, m)
+        if objv == 'P':
+            cell, obj, xn, dropped = A.dsl_base(cell_name, 'pilot_L', 3)
+        elif objv == 'm1full':
+            cell, obj, xn, dropped = A.dsl_base(cell_name, None, 1)
+        elif objv == 'm1core':
+            cell, obj, xn, dropped = A.dsl_m1core(cell_name)
+        else:
+            raise ValueError(objv)
         p = A.tail_law(cell, tail, renorm)
         S = A.DSL(obj, p, A.pf_table(N), label='%s %s N=%s tail=%s' % (cell_name, objv, N, tail))
         _CACHE[key] = (cell, obj, xn, S, dropped)
@@ -49,6 +50,11 @@ def get_dsl(job):
 
 def late_state(cell_name, N=100):
     path = os.path.join(A.XSD, 'late_%s_N%d.npz' % (cell_name, N))
+    for _ in range(120):
+        if os.path.exists(path):
+            time.sleep(2)
+            break
+        time.sleep(30)
     z = np.load(path)
     return z['x'], z['x_end']
 
@@ -81,13 +87,27 @@ def run_job(job, verbose=False):
         if x0 is None:
             return A.save_row(job, dict(status='unavailable'))
         res, xe, kept = A.run_cell(S, x0, sched, tmax=job.get('tmax', 1e8), early=bool(job.get('early', False)),
-                                   spd=job.get('spd', 8), verbose=verbose, explicit_until=job.get('explicit_until', 4e4))
+                                   spd=job.get('spd', 8), verbose=verbose, explicit_until=job.get('explicit_until', 4e4), rtol=job.get('rtol', 1e-8))
         row = A.save_row(job, res, dict(states=obj.n, dropped_mass=dropped, start_info=sinfo))
         if job.get('keep_x'):
             np.savez_compressed(os.path.join(A.XSD, A.row_key(job) + '.npz'), x=xe)
         return row
     if job['kind'] == 'bisect':
         return run_bisect(job)
+    if job['kind'] == 'asym':
+        # S3-asymmetric perturbation of a saved tail-free endpoint (the Lam = 0 row of `source`, run with keep_x), integrated without projection
+        cell, obj, xn, S, dropped = get_dsl(dict(job, tail='full'))
+        S2 = A.DSL(obj, S.p, S.PF, sym=False, label='asym')
+        xe = np.load(os.path.join(A.XSD, A.row_key(job['source']) + '.npz'))['x']
+        d = float(job['delta'])
+        f = np.ones(obj.n)
+        f[obj.pair == 0] += d
+        f[obj.pair == 1] -= d
+        x0 = xe * f
+        x0 = x0 / x0.sum()
+        res, xe2, kept = A.run_cell(S2, x0, A.Sched('anneal', 0.0), tmax=float(job.get('tmax', 1e6)), explicit_until=job.get('explicit_until', 4e4))
+        res['pairs_end'] = res.get('pairs')
+        return A.save_row(job, res, dict(delta=d))
     if job['kind'] == 'attr':
         import annealed_tail_attr as AT
         cell, obj, xn, S, dropped = get_dsl(job)
@@ -128,17 +148,19 @@ def run_one(base, lam):
 
 
 def run_bisect(job):
-    """Lam*: the smallest Lam whose endpoint has V* >= 0.5 (first upward crossing on the grid), bisected in log Lam to a factor `ratio`.
-    base: a dsl/armT job template; lams: the grid (rows computed if absent); extends below the grid (down to 1e-3) when the first grid
-    value already flips."""
+    """Lam*: the first Lam on the grid whose endpoint crosses V* = 0.5 (mode 'rescue': V* >= 0.5 from a start below; mode 'harm': V* < 0.5
+    from a start above), bisected in log Lam to a factor `ratio`.  base: a dsl/armT job template; lams: the grid (rows computed if
+    absent).  In 'rescue' mode the search extends below the grid (down to 1e-3) when the first grid value already flips."""
     base = job['base']
     ratio = float(job.get('ratio', 1.25))
+    mode = job.get('mode', 'rescue')
     lams = sorted(job['lams'])
+    flips = (lambda v: v is not None and v >= 0.5) if mode == 'rescue' else (lambda v: v is not None and v < 0.5)
     vs = {}
     for lam in lams:
         vs[lam] = vstar_of(run_one(base, lam))
-    first = next((i for i, l in enumerate(lams) if vs[l] is not None and vs[l] >= 0.5), None)
-    out = dict(series=base, grid={str(l): vs[l] for l in lams}, ratio=ratio)
+    first = next((i for i, l in enumerate(lams) if flips(vs[l])), None)
+    out = dict(series=base, mode=mode, grid={str(l): vs[l] for l in lams}, ratio=ratio)
     if first is None:
         out.update(lam_star=None, note='none on the grid')
         return A.save_row(job, out)
@@ -150,7 +172,7 @@ def run_bisect(job):
             cand = cand / 3.1623
             v = vstar_of(run_one(base, cand))
             vs[cand] = v
-            if v is not None and v < 0.5:
+            if not flips(v):
                 lo = cand
                 break
             hi = cand
@@ -164,7 +186,7 @@ def run_bisect(job):
         mid = (lo * hi) ** 0.5
         v = vstar_of(run_one(base, mid))
         evals[str(mid)] = v
-        if v is not None and v >= 0.5:
+        if flips(v):
             hi = mid
         else:
             lo = mid

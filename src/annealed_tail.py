@@ -271,7 +271,7 @@ def classify(sh):
 
 
 def integrate(S, x0, sched, tau0=0.0, tmax=1e8, explicit_until=1e4, spd=8, early=False, recs=None, keep_at=(), verbose=False,
-              stop_stationary=True, wall_limit=None, cb=None, explicit_grid=None):
+              stop_stationary=True, wall_limit=None, cb=None, explicit_grid=None, rtol=1e-8):
     """integrate from tau0 to tmax.  Returns (recs, x, status, kept).  status: 'stationary' (criterion (a) on the tail-free residual),
     'early' (locked), 'capped' (tau = tmax), 'wall' (wall_limit s exceeded)."""
     from scipy.integrate import solve_ivp
@@ -301,7 +301,7 @@ def integrate(S, x0, sched, tau0=0.0, tmax=1e8, explicit_until=1e4, spd=8, early
             pass
         tprev = tau0
         for g in grid:
-            sol = solve_ivp(fun, (tprev, g), x, method='DOP853', rtol=1e-8, atol=1e-14)
+            sol = solve_ivp(fun, (tprev, g), x, method='DOP853', rtol=rtol, atol=1e-14)
             x = sol.y[:, -1]
             tprev = g
             t = g
@@ -387,12 +387,12 @@ def _is_grid(t):
     return any(abs(m - g) < 1e-6 for g in (1.0, 2.0, 5.0, 10.0))
 
 
-def run_cell(S, x0, sched, tmax=1e8, early=False, spd=8, verbose=False, keep_at=(), explicit_until=4e4, wall_limit=None):
+def run_cell(S, x0, sched, tmax=1e8, early=False, spd=8, verbose=False, keep_at=(), explicit_until=4e4, wall_limit=None, rtol=1e-8):
     """a full tail run with the spec's censoring protocol.  Returns a dict: status, class, endpoint shares, milestones, records,
     x_end (not json)."""
     t0 = time.time()
     sched0 = sched
-    recs, x, status, kept = integrate(S, x0, sched, 0.0, tmax, explicit_until, spd, early, keep_at=keep_at, verbose=verbose, wall_limit=wall_limit)
+    recs, x, status, kept = integrate(S, x0, sched, 0.0, tmax, explicit_until, spd, early, keep_at=keep_at, verbose=verbose, wall_limit=wall_limit, rtol=rtol)
     tau = recs[-1]['t']
     rem = sched.remaining(tau)
     out = dict(status=status, tau_end=tau, rem_end=float(rem))
@@ -482,6 +482,24 @@ def dsl_base(cellname, corelabel='pilot_L', m=3, remove=None, pools=(0, 1, 2)):
         spec = dict(cell=cellname, m=m, start='nat', abl=None)
         core = J.load_core(corelabel) if corelabel else None
         cell, obj, xn, dropped = R.build_obj_start(spec, remove, 'reassign', pools, core)
+        _SYS[key] = (cell, obj, xn, dropped)
+    return _SYS[key]
+
+
+def dsl_m1core(cellname, corelabel='pilot_L'):
+    """m = 1 over the constants and the 48-core conditionals only (cell 6b): the contrast with object P isolates m, the contrast with
+    the m = 1 object over every conditional isolates the core."""
+    import unequal_basin_run as R
+    import unequal_basin_jobs as J
+    key = ('m1core', cellname, corelabel)
+    if key not in _SYS:
+        cell = R.cell_of(cellname)
+        core = J.load_core(corelabel)
+        cons = [x for x in range(UB.KP) if cell.isc[x]]
+        supp = [sorted(set(cons) | set(core[s])) for s in range(3)]
+        c = R.CELLS[cellname]
+        obj = UB.Obj(c['arm'], c['pf_migr'], supp, 1)
+        xn, dropped = R.law_to_state(obj, cell.trip, cell.w)
         _SYS[key] = (cell, obj, xn, dropped)
     return _SYS[key]
 

@@ -75,7 +75,62 @@ def plan_rain():
     return [mk('dsl', 'M0', 'nat', Lam, 1e4, sk='const') for Lam in LAMS]
 
 
-PLANS = dict(main=plan_main, armT=plan_armT, late=plan_late, rain=plan_rain)
+def plan_late_ext():
+    return [mk('dsl', 'M0', 'late', Lam, t0) for t0 in (1.0, 100.0) for Lam in (1e3, 1e4, 1e5)]
+
+
+def plan_attr():
+    jobs = [mk('attr', 'M0', 'nat', 0.0, 100.0), mk('attr', 'M0', 'nat', 100.0, 100.0), mk('attr', 'M0', 'nat', 1e4, 100.0)]
+    return jobs
+
+
+def plan_abl():
+    jobs = []
+    for Lam in (100.0, 1e4):
+        for tail in ('bully', 'victim', 'bully+victim', 'cond'):
+            jobs.append(mk('dsl', 'M0', 'nat', Lam, 100.0, tail=tail))
+    for tail in ('bully', 'victim', 'bully+victim', 'cond'):
+        jobs.append(mk('dsl', 'M0', 'nat', 100.0, 100.0, tail=tail, renorm=True))
+    return jobs
+
+
+def plan_obj():
+    jobs = []
+    for objv in ('m1core', 'm1full'):
+        for Lam in (0.0, 100.0, 1e4):
+            jobs.append(mk('dsl', 'M0', 'nat', Lam, 100.0, obj=objv))
+    return jobs
+
+
+def plan_N():
+    jobs = [mk('late0', 'M0', 'nat', 0.0, 100.0, N=N) for N in (200, 400)]
+    for N in (200, 400):
+        for Lam in (10.0, 300.0, 1e4):
+            jobs.append(mk('dsl', 'M0', 'nat', Lam, 100.0, N=N))
+        for Lam in (300.0, 1e4):
+            jobs.append(mk('dsl', 'M0', 'late', Lam, 1.0, N=N))
+    return jobs
+
+
+def plan_num():
+    base = mk('dsl', 'L0', 'nat', 0.0, 100.0, keep_x=True)
+    jobs = [base]
+    for d in (1e-6, 1e-3):
+        jobs.append(dict(kind='asym', cell='L0', start='nat', sched=dict(kind='anneal', Lam=0.0, t0=1.0), source=base, delta=d, tmax=1e6))
+    return jobs
+
+
+def plan_armT_ext():
+    jobs = []
+    for cell in ('main|0.1|0', 'main|0|0'):
+        for start in ('nat', 'u:0.8'):
+            for t0 in (1.0, 100.0):
+                jobs.append(mk('armT', cell, start, 1e3, t0))
+    jobs.append(mk('armT', 'main|0.1|0', 'nat', 1e4, 100.0))
+    return jobs
+
+
+PLANS = dict(late_ext=plan_late_ext, attr=plan_attr, abl=plan_abl, obj=plan_obj, N=plan_N, num=plan_num, armT_ext=plan_armT_ext, main=plan_main, armT=plan_armT, late=plan_late, rain=plan_rain)
 
 if __name__ == '__main__':
     cmd, name = sys.argv[1], sys.argv[2]
