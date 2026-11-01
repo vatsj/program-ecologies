@@ -961,6 +961,13 @@ REJECTED.md the ones we dropped.
   (fission–fusion universal 40/40, one donor per island, bridge-mediated merging), so component size trades
   per-component establishment against rival lock-in at component boundaries; an optional follow-up (queue 61).
 
+- *Result (2026-10-31, RESULTS "Where the unequal basin comes from"):* in the mean field the target is a property of the
+  founding law relative to a boundary the library sets, not of the dynamics: constants alone cross to the unequal state
+  from an unequal share near 0.69, the length prior's Trojan bullies lower that to 0.55 (L) and 0.425 (M, under its
+  natural 0.429), and arm T's readers remove it up to 0.95 on the tilts tested. *Operating hypothesis (RE):* the stable-set
+  target is judged from the natural founding law, with the boundary u\* reported as the margin; arm T meets it with a
+  wide margin, the length-prior DSL arms do not.
+
 ## 16. Mixed actions and adversarial games (RS, 2026-10-23)
 - *RS:* "I suspect we're gonna need strong notions of mixed actions to recover equilibria in adversarial games. I
   propose rock paper scissors for starters? We should recover the mixed-strategy equilibrium pretty

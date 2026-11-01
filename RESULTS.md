@@ -7884,6 +7884,191 @@ drops are 0; at 10³ events the switchers cost more, supplementary).
   so A_f is untested as distinct from A; three pools per cell; ablations at the natural start only, and the
   null-fallback single readers (S..z..) not ablated; the large-I constants-only worlds are short.
 
+**Addendum (2026-11-01).** The reading "nine constants alone reach the stable set from every tested start, so the unequal basin of the DSL arms L and M is not a property of constants" is wrong in its second half. The four starts tested were all below the constants' boundary: the constants' unequal tilt was 0.6, against a boundary of about 0.69. With arm T's own code at dose 0, tilts of 0.7–0.9 end at U 1.0. Arm T's full library has no boundary up to an unequal share of 0.95 (main dose, both charges, pool 0), so its first clause ("the mean field puts every island on a fair pair") is strengthened: it holds from every unequal tilt tested up to 0.95. What readers add over constants includes removing the constants' basin. RESULTS "Where the unequal basin comes from".
+
+## Where the unequal basin comes from: the constants already have one, two Trojan-bully programs per slot pull its boundary under M's natural start, the unequal state depletes the programs that could leave it, and arm T's readers remove the basin up to an unequal share of 0.95 (2026-10-31)
+
+Spec `specs/2026-10-31-unequal-basin.md` (queue 70; the RS: "1 sgtm btw", 2026-10-31; reviewed by gemini-4-argon then
+gpt-6.1-sol, folded), predictions `predictions/2026-10-31-unequal-basin.md`, notes `notes/unequal-basin.md` (§2 lists every
+deviation), report `runs/unequal-basin.md` and `.json`, rows `runs/unequal_basin/`. Run by a Sonnet subagent
+(`src/unequal_basin*.py`; 11 tests, passing). The question: "Islands to infinity before time" found the DSL arms L (weak
+evaluator) and M (modalPA), founded from the n ≤ 6 length prior, bistable on the symmetric mean-field chain (a fair tilt
+ends on fair pairs, an unequal tilt of 0.6 on unequal pairs, and M's natural start goes unequal), while "Arm T under
+islands to infinity before time" found arm T's nine constants alone at V\* = 1 from every tested start, and the RE
+attributed the unequal basin to the length prior's conditional programs. Is the basin a finite-pool artefact, and if
+not, which programs make it?
+
+**Object.** `dollar3`, N = 100, w = 0.3, ε = 0, islands to infinity before time (time in migrant events per island),
+A = 0; cells L and M at P_fail 0, and L at P_fail 0.1. The exact mean-field ODE on program triples, started from the
+S₃-symmetrized post-anneal law of three fresh pools of 16,384 islands per cell. Starts: natural, fair tilt, unequal tilt
+(U share 0.6), wasteful tilt, and a scan of the unequal share u from 0.3 to 0.9, bisected to a bracket of 1/80. u\* is
+the smallest scanned u whose endpoint has U ≥ 0.5. "Basin" below means the scanned starts that end at object P's
+unequal endpoint, which is metastable rather than certified in L and M (§4); constants alone are exact and certified.
+
+**The spec's dense field does not fit; the object is a validated truncation.** Behavioural lumping merges nothing here:
+1,251 classes per slot in L and 1,249 in M, equal to the number of programs, because the nine constants tell every
+conditional apart. The dense field would have about 2·10⁹ states, and the spec's stop rule fired; the engineer did not
+stop and disclosed it (notes §2.1). The object computed is a reflecting truncation in the number of conditional programs
+per island: a migration that would leave the state set is a null event, and its flux is reported. "Object P" allows up
+to three conditionals per island drawn from a 48-program core per slot (exploiters, yielders and fair readers, below),
+and any single conditional otherwise. Its blocked flux at the endpoints is 1.0·10⁻¹⁰ (L unequal) and 2.4·10⁻⁹ (M
+natural) of the realized flux. Classification agrees with two conditionals from a 432-program core (L, pool 0; 3.1 million
+states) and with three from a random 102-program core (M); quantitatively, two against three conditionals give U 0.9989
+against 0.9949 in L and about 1.0 against 0.8996 in M. Against the stored full-dynamics symmetric chain: L unequal tilt
+U 0.9949 in both; M natural V\* 0.1004 / U 0.8996 against 0.1003 / 0.8979, a gap of 0.0017 in U. With one conditional per island the object is not converged (15% of the
+flux blocked at the unequal endpoint; M's natural start ends fair there). The RE accepts object P; every statement about
+dynamics below is about it. Not run: two conditionals per island over all 1,296 (45 million states), and the A = 150
+cells (no pools founded).
+
+**Validations.** The constants-only object equals arm T's dose 0 (table exactly, ODE to 10⁻¹²). Lumping is exact where it
+merges (111 programs to 45 classes in L and 42 in M, field to 3·10⁻¹⁸). Object P against a fresh Monte Carlo of the same truncated dynamics from the same
+law (262,144 islands, 3 replicates): within 0.0011 (L) and 0.0025 (M) to 3,000 events; the one-conditional truncation
+against a full-dynamics Monte Carlo: within 0.0018. The full-dynamics reference for object P is the stored symmetric chain
+above. Kernel against simulated relaxation: |z| < 1.5 in 6 strata (L); in M only 5 strata
+exist without a charge, below the spec's six, a disclosed deviation (the recorded pass flag is false). Tables and field are exactly S₃-equivariant. The Monte Carlo and
+kernel checks ran after the first counted cells. The fresh Monte Carlo validates the implementation of the truncated object;
+the truncation itself is validated only by the core comparisons and the stored chain, which departs from the registered
+full-dynamics check for m = 2 and 3. Support: the pools' S₃-union holds 1,242 (L) / 1,240 (M) of the 1,296 conditionals, the
+rest about 0.001 of seed mass; pool 0 alone gives L's boundary 0.5625 against the union's 0.55.
+
+**1. The basin is in the mean field, not the finite pool.** Endpoints (V\* / U), object P:
+
+| start | L | M |
+|---|---|---|
+| natural (unequal share 0.429) | 0.9997 / 0 | 0.1004 / 0.8996 |
+| unequal tilt 0.6 | 0 / 0.9949 | 0.1004 / 0.8996 |
+| fair and wasteful tilts | ≥ 0.9997 / 0 | 1.0000 / 0 |
+
+Trajectories are not monotone: M's natural start passes V\* 0.98 at 10⁴ events before turning unequal by 3·10⁴.
+Unsymmetrized, pool 0's raw law ends at U 1.0000 on one orientation from L's natural start as well (symmetrized: V\*
+0.9997): in L the sampling asymmetry of a single pool is enough to tip the natural law into the basin, where arm T's raw
+laws ended on one fair pair.
+
+**2. The boundary, and what moves it.** u\* by removal (mass reassigned to the constants unless stated):
+
+| removal | L | M |
+|---|---|---|
+| none (the arm) | 0.55 | 0.425 |
+| every conditional (constants only; exact, 729 states) | 0.6875 | 0.675 |
+| the 2 `exploiter-fair` programs per slot (reassigned / dropped) | 0.675 / 0.675 | 0.6625 / 0.6625 |
+| the 16 `exploiter` programs per slot | 0.75 | 0.7625 |
+| the 432 `read-me` programs per slot | 0.6875 | 0.6875 |
+| the 16 `yielder` programs per slot | 0.55 | 0.50 |
+| the 16 `fair-reader` programs per slot | 0.4875 | U at every scanned u (0.3–0.9) |
+| the ⅓-demanding constants ("victims") | none (fair up to 0.9) | U for 0.5625–0.8375, fair again at 0.85 and 0.9 (yielders replace the prey) |
+| `exploiter-fair` restored at 0 / ¼ / ½ / 1 of its mass | 0.675 / 0.625 / 0.5875 / 0.55 | 0.6625 / 0.5375 / 0.4875 / 0.425 |
+
+- **The constants have a basin.** Constants alone end unequal from an unequal share of 0.6875 (L's law) or 0.675 (M's).
+  The check with arm T's own code agrees: at dose 0, tilt 0.6 ends at V\* 1 and tilts 0.7–0.9 end at U 1.0. Arm T's single
+  tilt of 0.6 sat below the boundary.
+- **The conditionals move the boundary, almost entirely through one family.** `exploiter-fair` is two programs per slot,
+  with seed mass 3.7·10⁻⁵ and start-law mass 1.4·10⁻⁴ (L) and 1.0·10⁻⁴ (M). Removing them returns u\* to within one
+  bracket of the constants-only value. Restoring them moves it back monotonically.
+- **Random removals do nothing at u = 0.6.** Ten random sets of conditional classes with the same start-law mass, per arm,
+  leave the u = 0.6 endpoint unequal 20 times out of 20 (their boundaries were not scanned).
+- **The other families push the other way.** Fair readers hold the fair state up: without them L's boundary falls to
+  0.4875 and M goes unequal from every scanned start. Yielders do so weakly in M.
+- **The 864 conditionals that do not read the owner change nothing in L** (0.6875 with or without them). Under object P
+  they appear at most one per island.
+- **The charge barely matters.** It moves L's boundary by 0.0125 (founded and migrating at 0.1) or 0.025 (migrating
+  only).
+- **M lands in the basin because its boundary falls under its natural start.** M's boundary (0.425) sits just under the
+  natural unequal share (0.429); L's (0.55) does not.
+
+**3. The carrier is a Trojan bully.** `exploiter-fair` is
+`if(BOX(partner j offers me ⅓)) (j, ⅔) else (k, ½)`, where k is the third slot.
+
+- **On the fair path it is the fair half-constant.** Nobody in a fair island offers it ⅓, so it enters there neutrally
+  (fixation 1/N).
+- **Against a partner that offers ⅓ it demands ⅔ and gets it** (+1/6, 4.9 times neutral fixation).
+- **L's unequal endpoint.** Exploiters hold 0.30 of each slot (0.17 in the high role, 0.13 excluded) and the ⅓-constants
+  0.20 (mostly the low role). The programs that offer ½ are at 10⁻¹⁷, and the flux from unequal to fair islands is 10⁻³⁶
+  per event. No move into a fair pair exists in the support.
+- **L's fair endpoint is the mirror image**, with the ⅓-offering prey extinct.
+- **M's unequal endpoint is all conditionals**: exploiters (0.28 each) against yielders, `if(partner demands ⅔ of me)
+  accept ⅓ else ½` (0.22 each). Its fair share of 0.10 is a balanced exchange, 1.2·10⁻³ per event each way. In L these
+  two programs diverge against each other; in M they meet through the provability box.
+
+The basin is a ratchet, not a blocked rescue:
+- *measured:* the donors of the constants' own rescue route go extinct;
+- *inferred from the role table:* those donors are exploited in the pair slots, and the excluded slot, neutral for them,
+  refills from the depleted marginal;
+- at ε = 0 nothing re-supplies them.
+
+The conditionals do not block a rescue. They put more islands onto the ratchet: a fair pair with a Trojan bully in the
+excluded slot is one ⅓-offerer away from an unequal pair.
+
+**4. Stability.**
+- **Unequal endpoint.** On the support (62 states in L, 68 in M) the leading class-changing eigenvalue is −3.6·10⁻³ (L)
+  and −2.3·10⁻³ (M). A mode at −2.3·10⁻¹¹ (L) / −2.4·10⁻¹¹ (M) is excluded as the normalization mode: its class projection
+  (0.99 / 0.90) equals the endpoint's own U share (0.9949 / 0.8996), as the direction x itself must.
+  - 52 of L's 62 modes are neutral.
+  - Absent classes grow at up to 1.9·10⁻⁹ (L) and 3.7·10⁻⁸ (M) per event, so the endpoint is metastable by the spec's
+    certificate, on time scales above 10⁹ events. The constants-only unequal endpoint is a certified attractor.
+  - The symmetry-breaking sector is unstable (+7·10⁻⁴): any asymmetry ends on one orientation of the unequal pair, as
+    arm T's fair state ends on one pair.
+  - Perturbations toward V\* of 10⁻⁶ to 10⁻², and mixing in 10% of the natural law, return to the endpoint (numerical
+    depletion, not finite-time extinction: the rescuers sit at 10⁻¹⁷, not 0).
+- **Fair endpoint (L).** It has the same unstable symmetry-breaking sector (+4.6·10⁻⁴), and its class-changing eigenvalues
+  are negative (−2.1·10⁻²).
+
+**Arm T's boundary (the RE's follow-up check, predictions `predictions/2026-11-01-arm-t-tilt-scan.md`, committed before
+the scan; run by the RE with arm T's own ODE, `src/unequal_basin_armT_scan.py`, rows
+`runs/unequal_basin/armT_main_tilt_scan.json`).** Arm T's main dose, pool 0, symmetric start, unequal tilt u ∈ {0.65, 0.7,
+0.75, 0.8, 0.85, 0.9, 0.95} (natural unequal share 0.28; one composition-preserving tilt family), at migration charge P_fail 0.1 and 0: all 14 runs converge to
+V\* 1.0000 (U < 10⁻²⁵), by 4·10⁵–4·10⁶ events. Readers convert fast: at u = 0.95, V\* is 0.12 at 10³ events and 1.000 at
+10⁴. **No crossing is observed in arm T up to an unequal share of 0.95, while its own constants cross at 0.7.**
+Verdicts: 1 (a basin exists, u\* ≤ 0.95) failed; 2 (u\* ≥ 0.75) held under the convention that no crossing in the scanned
+range counts as u\* above it; 3 (the charge moves u\* by at most 0.05) unresolved, there being no crossing to move. One pool, and the tilt keeps the within-class composition of the natural
+law.
+
+**Verdicts.** Scored as registered.
+- **Held:** 7 (the charge moves u\* by < 0.05 in L); E2, E4, E6, E10, E11, E13 (its random-knockout boundary clause
+  unscored: only u = 0.6 classifications were measured); sol's counter to 6 (neutral modes, and
+  instability across the symmetry-breaking directions).
+- **Partial:**
+  - 1: L U 0.9949; M U 0.8996, just under the 0.9 bar; the falsifier holds nowhere.
+  - 2: M's natural start ends fair with one conditional per island and unequal with two or three.
+  - 6: class-changing eigenvalues are negative, but the symmetry-breaking sector is unstable.
+  - Argon's counter to 5: right that the carrier sits in the pair slots; it works by exploiting appeasers, not by
+    blocking.
+  - E1.
+- **Failed:**
+  - 3: constants alone have the basin.
+  - 4: removing every one-atom conditional leaves the constants' basin. The two-atom families are empty at n ≤ 6, so its
+    second clause is vacuous.
+  - 5: there is no rescue for the excluded slot to block.
+  - E3: one conditional per island is not converged.
+  - E5: the stored bistability is not a finite-pool effect.
+  - E9: the tilt does not inflate conditionals; 0.0217 against 0.0221.
+  - E12: the fair endpoint's class-changing spectrum is negative, not neutral.
+  - E7: no yielder among L's leading endpoint classes (it held in M).
+- **Unscorable:** E8 (the same programs hold all three roles).
+
+**Reading.**
+- The unequal basin is a mean-field property, not a finite-pool one (in L and M on a validated truncation, metastable;
+  in the constants exact and certified), and it is already in the constants. Arm T's "every tested
+  start" was true of the starts tested, and its corollary was wrong: that the DSL arms' basin cannot come from constants
+  (addendum below).
+- What a library adds decides the boundary. The DSL length prior's conditionals lower it; arm T's readers remove it up
+  to an unequal share of 0.95 along the tested tilt family. For the Turing-complete arm the stable-set target in the mean
+  field therefore holds well beyond its natural law, on the starts tested.
+- What the length prior adds is a lower boundary. It comes from a two-program family per slot with a few 10⁻⁵ of seed
+  mass, which is identical to the fair program on the fair path and takes ⅔ from anyone who offers ⅓. In M that lowers the
+  boundary just under the natural start, which is why M's natural start goes unequal.
+- Fair readers do the opposite and hold the fair state up. Removing them alone sends M unequal from every scanned start (0.3–0.9).
+- The basin is a ratchet: each outcome's state depletes the programs the other would need (to 10⁻¹⁷ here), and at
+  ε = 0 nothing re-supplies them. The target "every island in V\*" in this order of limits is therefore a statement about the founding law
+  lying on the fair side of a boundary, not a global property of the dynamics.
+- For a realizable library the operating hypothesis (THEORY) is that what the prior must not weight is any conditional
+  that is on-path identical to the fair program and exploits whoever offers less. The amounts involved are small.
+- *Caveats:*
+  - object P is a truncation (cores of 48 to 102 conditionals per slot, at most three per island);
+  - n ≤ 6, A = 0, one prior, three pools; in L and M the endpoint is metastable, not certified;
+  - the arm-T scan is one pool and one tilt family;
+  - scans outside the baseline starts stop early once a class holds ≥ 0.99;
+  - the "victims removed" knockout is near-tautological in L, since unequal pairs need an acceptor of ⅓.
+
 ## Not done
 
 - Prediction (c) at n=9 through the chain (the enterer search covers what
