@@ -8075,3 +8075,137 @@ law.
   L_9 can do against all-D and all-p, but not the full n=9 chain).
 - N = 1000 in the weak arm.
 - Polymorphic-target ρ beyond the truncated-product approximation.
+
+## Annealing the unequal basin: the prior's own tail rescues neither M nor L's unequal tilt at any tested dose (to 10⁵ arrivals per island), the ⅓ constants and two Trojan bullies in the tail hold the basin, and a tail without them flips M's natural start above tens of arrivals per island (2026-11-01)
+
+Spec `specs/2026-11-01-annealed-tail-dollar3.md` (queue 71; the RS: "Go ahead w the annealing run", 2026-11-01; reviewed by
+gemini-4-argon then gpt-6.1-sol, folded), predictions `predictions/2026-11-01-annealed-tail.md` (committed before any counted
+cell), notes `notes/annealed-tail.md` (§2 lists every deviation), report `runs/annealed-tail.md` and `.json`, rows
+`runs/annealed_tail/`. Run by a Sonnet subagent (`src/annealed_tail*.py`; 7 tests, passing). The question: "Where the
+unequal basin comes from" found M's natural start ending unequal (V\* 0.1004, U 0.8996) because M's boundary u\* = 0.425 sits
+just under the natural unequal share 0.429, and each outcome is a ratchet that depletes the programs that could leave it.
+That is an ε = 0 statement, and the object (the OH doc, h01/h03) carries an annealed tail that trickles prior programs back
+in. Does the tail rescue the stable-set target in the DSL arms, and if so, which arrivals carry the rescue?
+
+**Object.** `dollar3`, N = 100, w = 0.3, islands to infinity before time, the tail-free dynamics of queue 70 plus prior
+arrivals at rate ε(τ) = (Λ/t₀)(1 + τ/t₀)⁻² per island per migrant event (Λ = total arrivals per island, t₀ = how early,
+τ = events since the tail starts), in a uniformly random slot, the program drawn from that slot's founding prior and fixing
+with the migrant's Moran kernel: dx/dt = F(x) + ε(τ) G(x; p), G linear in the donor law. Arms L and M on object P (queue
+70's reflecting truncation: at most three conditionals per island from the 48-conditional core) from the S₃-symmetrized
+post-anneal law; arm T (27 programs) on its own ODE at P_fail 0.1 and 0. Spec grid: Λ from 0.1 to 300, t₀ ∈ {1, 10², 10⁴},
+M and L at the natural start and at the unequal tilt u = 0.6, arm T at the natural start and u = 0.8; then a late tail
+(from M's tail-free state at 10⁶ events), constant rain over [0, 10⁴], matched-dose ablations of the tail's arrival law,
+N = 200 and 400, and extensions of the grid (below). About 390 trajectories and 35 further bisection points; 46 CPU-hours.
+Λ\* is the smallest Λ whose endpoint has V\* ≥ 0.5, bisected in log Λ to a factor 1.25. Where the tail was still
+delivering more than 10⁻⁴ arrivals per island when the stationarity criterion held (starred in the report), the class is
+assigned by two continuations, tail-free and with the remaining dose delivered at once; they agree in every such row, and
+"endpoint" below includes these classifications.
+
+**Validations.** Λ = 0 reproduces queue 70 to 10⁻⁸ and arm T (queue 69) to 6·10⁻¹²; the field is linear in the donor law
+to 5·10⁻¹⁹ and conserves mass to 10⁻¹⁴ with the tail; a single-arrival assay against direct Moran simulation of the island
+passes (7 strata, |z| ≤ 1.6). The tail kernel against a pool Monte Carlo agrees within 0.012 at 10² and 10³ events
+(0.001 at I = 16,384). **The registered gate at 10⁴ events fails (0.20 at Λ = 10) and is uninformative:** M's natural
+start passes through a sharp F → U transition near 1.2·10⁴ events in object P (V\* 0.98 → 0.27 within 3·10³ events), the
+full-dynamics chain makes it earlier, and the tail-free control fails worse (0.62), so the 10⁴ comparison measures the
+transition's timing, not the tail. The central contrast was then checked in the full-dynamics chain directly (no
+truncation; I = 8,192, two worlds, 4·10⁴ events, Λ = 300, t₀ = 100): the victim-less tail flips M to V\* (0.66 and 0.998,
+still rising; object P 0.997), the full tail stays unequal (0.000 and 0.000; object P V\* 0.100).
+
+**1. The full tail changes no endpoint.** On the spec grid every endpoint equals the tail-free one within 10⁻⁵: M natural
+and M u = 0.6 at V\* 0.1004, L natural at 0.9997, L u = 0.6 at U 0.9949, arm T at V\* ≥ 0.99999. Beyond the grid: M natural
+to Λ = 10⁵ at t₀ = 100 and 10⁴ at t₀ = 1, still 0.1004; the late tail (whose start has every offering constant and the exit
+constant at ≤ 3·10⁻¹⁷ of donor mass) at every Λ to 10⁵ (t₀ = 1, 100) and to 300 (t₀ = 10⁴), still 0.1004, with a
+small-Λ response linear in Λ at t₀ = 1 (3·10⁻¹⁰ of V\* per arrival) and below 10⁻⁵ at the other t₀; constant rain to
+Λ = 300, unchanged; arm T to Λ = 10³ (one cell 10⁴), unchanged. No Λ\* exists for M or L at any t₀ within these ranges. The tail is not inert
+along the way (a very early heavy dose, Λ = 10⁵, builds a tail-dominated state with F 0.375, U 0.59 within two events),
+but migration carries every tested trajectory to the same ratchet endpoint.
+
+**2. A heavy tail harms the fair arm.** L natural holds V\* 0.9997 to Λ = 10⁵ at t₀ = 1, but at t₀ = 100 it falls to the
+unequal state between Λ = 2.4·10⁴ and 3.2·10⁴ (a step, 0.9997 → 0). On the spec grid (Λ ≤ 300) no endpoint V\*
+decreases.
+
+**3. The tail's composition decides.** Removing programs from the tail's arrival law at matched dose (removed mass becomes
+null events; the founding law is unchanged; M natural, t₀ = 100) turns the endpoint to V\* = 1.0000 above a sharp Λ\*. Each
+series is a step function in Λ, and every bracket point reproduces at 10× tighter tolerance with half the backward-Euler
+step:
+
+| tail | removed prior mass per slot | Λ\* (bracket) |
+|---|---|---|
+| full | 0 | none to 10⁵ |
+| without the two Trojan bullies (`exploiter-fair`) | 3.7·10⁻⁵ | (274, 316] |
+| without the two ⅓-naming constants ("victims") | 0.217 | (75, 87] |
+| without both ("clean tail") | 0.217 | (48.7, 56.2] |
+| without every conditional (constants only) | 0.023 | (750, 866] |
+
+The bullies are 5,850 times rarer in the tail than the offering constants, and removing them alone moves Λ\* from none to
+about 300: arrivals into unequal islands are selected (+⅙ for a bully), so rare arrivals are amplified, and a static count
+of arrival mass does not predict their effect. The effects are not additive. Victims and bullies each impede; removing every conditional while keeping the victims
+also rescues, at a higher dose; the other conditionals were not ablated on their own. Renormalized ablations (the remaining mass rescaled) give the same
+classes at Λ = 100. The clean tail's Λ\* depends on timing: (31.6, 36.5] at t₀ = 1, (48.7, 56.2] at t₀ = 100, (316, 365] at
+t₀ = 10⁴; started at the settled ratchet (10⁶ events), the clean and victim-less tails do not flip at any Λ ≤ 10⁴. From the
+deep tilt u = 0.6 the clean tail flips both arms. M needs 13–24 times its natural start's dose: (649, 750] at t₀ = 1 and
+(750, 866] at t₀ = 100. L's unequal tilt flips at (133, 154] and (178, 205] (L's natural start is fair without a tail).
+
+**4. Endpoint structure.** Just below the victim-less Λ\* (Λ = 75) the endpoint is the tail-free one: four programs per slot
+above 10⁻⁹ (two bullies, two yielders), V\* 0.100, the three pairs at 0.0335 each, and a migrant exchange of 1.24·10⁻³ per
+event in each direction between F and U islands. Just above (Λ = 86.6) it is V\*-absorbing: four programs per slot (the two
+fair half-constants and two fair readers at 0.25 each), the three pairs at ⅓, no flux between F and U.
+
+**5. The tail's direct flux does not assign the effect** (the registered tail-minus-control decomposition was not
+built; these are direct tail flux and migrant flux). Integrated to 10⁴ events at Λ = 100, the tail's own
+class-changing flux is two orders of magnitude below the migrants' (U → F 0.009 against 0.91–0.98), and nearly the same
+for the full and victim-less tails (within about 10%), whose endpoints are opposite. By source, 96% of the tail's U → F flux
+is the exit constant arriving in a U island whose excluded slot already holds an offering constant, and 94% of its F → U
+flux is carried by the ⅔ constants (victims and bullies 4%). The effect is a knife-edge in the donor composition that
+migration amplifies: M's natural start sits 0.004 in u inside its basin, and a clean tail of tens of arrivals moves it
+across; the deep tilt sits 0.175 inside (M) and 0.05 inside (L). The mechanism of the block (why victims and conditionals
+impede) is not established, only its composition.
+
+**6. N.** In a hybrid object (fixation kernel at N, founding law of N = 100), M's tail-free endpoint stays unequal and
+strengthens (V\* 0.1004, 0.0580, 0.0325 at N = 100, 200, 400), the full tail still has no Λ\*, and the victim-less tail's Λ\*
+is (75, 87], (2,054, 2,371] and (10,000, 11,548]: ×24–32 for the first doubling, ×4.2–5.6 for the second, not
+proportional to N over these three sizes. A fixed dose of the victim-less tail stops rescuing as N grows from 100 to 400.
+
+**7. Objects and symmetry.** With one conditional per island (on the 48-core or over all conditionals) M's natural start is
+already fair without the tail (V\* 1.0000) and the tail does not move it to Λ = 10⁴: the contrast with object P is the
+truncation in the number of conditionals per island, as queue 70 found, not the core. The tail's blocked flux in object P is
+0.1% at the start and 1.6% at the tail-free endpoint. An S₃-asymmetric perturbation of the rescued endpoint (victim-less,
+Λ = 100), integrated tail-free to 10⁶ events (rows `asym2`, listed in the report's RE addendum), keeps V\* = 1.0000: at 10⁻³ the raised pair takes over (pairs 1, 0, 0), at 10⁻⁶
+the pairs stay at ⅓. L's tail-free fair endpoint drifts to 0.61 / 0.06 / 0.32 from 10⁻⁶ and 0.62 / 0.14 / 0.24 from 10⁻³:
+the same knife-edge as "Islands to infinity before time" (the report's own lines for L, at 10³ and 3·10⁵ events, are earlier
+stops of the same runs).
+
+**Predictions** (table in the report). RE 1 (the tail pushes M natural to V\* ≥ 0.99 at some Λ ≤ 30) failed: 0.1004 at every
+Λ tested. RE 2 (a late tail needs ≥ 10× the early dose) failed under its registered rule for an unbracketed late arm (held
+iff Λ\*(t₀ = 1) ≤ 30; the full tail has none); the clean tail, outside the registration, has early (31.6, 36.5] and no
+late flip to 10⁴. RE 3 (rain and the annealed tail within 3×) vacuous. RE 4 (L natural and arm T unharmed)
+held on the spec grid, failed in the extension (L at Λ ≈ 3·10⁴). RE 5 failed on its ablation clause: removing the bullies moved Λ\* from none to about 300 against < 1.25×. Its
+share clauses were registered on the tail-minus-control class flux, which was not computed; on the direct tail flux the
+offering-constant share of U → F is 0.96 and the victims' and bullies' share of F → U is 0.04 (against ≥ 0.7 each). RE 6 (Λ\*(400)/Λ\*(100) in [2.5, 6]) failed: no full-tail Λ\* at any N; 115–154 for the
+victim-less tail. RE 7 (L u = 0.6 flips at Λ\* ≤ 10, t₀ = 1) failed: no flip to 300; clean tail (133, 154]. Argon (a): the
+bully clause (< 1.05×) failed, the victim clause (≥ 1.5×) held; argon (b) (ratio < 2.5) unscored (no full-tail Λ\*). Sol (c) (rescue from the
+natural start much easier than from deep U) unscored for the registered tail; on the clean tail consistent (13–18× at
+t₀ = 100, no late flip); sol (d) (no proportional N scaling)
+unscored for the registered tail, and consistent with it on the victim-less tail (exploratory); sol (e) (V\* non-monotone
+in Λ on the grid) failed, though a decrease appears in the extension (L natural). Engineer: E1, E3 (victims barely matter) and E4
+(constants-only within 1.25× of the full tail) failed; E2, E5, E7 held; E6 held vacuously.
+
+**What it means.**
+- The DSL arms' failure of the stable-set target is not an ε = 0 artefact. A tail drawn from the arms' own prior leaves M's
+  natural start unequal at every tested dose (to 10⁵ arrivals per island at t₀ = 100) and both deep tilts unequal to 300, and a heavy early dose moves L's fair
+  start to the unequal state.
+- The tail's arrival law is part of the object, not a neutral background. The same dose without the ⅓ constants and the
+  bullies flips M's natural start above Λ\* ≈ 35–55 at N = 100. The arrivals that hold the basin
+  include exactly the predators the tail is meant to trickle back (the bullies), and they are selected after a neutral
+  entry, like the arrivals that would help.
+- The victim-less tail's threshold grows faster than N from 100 to 400, so a fixed dose is a finite-N remedy there;
+  the clean tail was not scaled.
+- Arm T has no basin to leave and the tail changes nothing there. Whether the clean-tail result transfers to a realizable
+  library is open.
+- *Caveats:*
+  - object P is a truncation, and its F → U transition timing differs from the full chain, and the full-chain check agrees
+    on the qualitative contrast only (full tail V\* 0.000 against object P's 0.100; victim-less 0.66 and 0.998 at 4·10⁴
+    events against 0.997);
+  - N scaling is the hybrid object;
+  - one prior (the n ≤ 6 length prior), A = 0, queue 70's founding law, S₃-symmetrized;
+  - the block's mechanism is identified by ablation only.

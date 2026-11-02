@@ -397,3 +397,11 @@ Full tail: no Lam* up to 1e5 (M natural, t0 = 1 and 100). Ablated endpoints repr
 | E5 | M natural tail-free hybrid endpoint is U-dominated at N = 200 and 400 | HELD | tail-free V*: N = 200: 0.0580, N = 400: 0.0325 |
 | E6 | monotone to within 0.01 on every series with a Lam* in the grid | HELD (vacuous for the full tail) | no full-tail series has a Lam*; the ablated bisection series are monotone (step functions) |
 | E7 | arm T at Lam = 300, t0 = 1: V* >= 0.999 | HELD | min V* over the four arm-T series at Lam = 300, t0 = 1: 0.9999998258638438 |
+
+## RE addendum (2026-11-01): the cell-8 rows at 10⁶ events
+
+The symmetry lines above are earlier stops. The four `asym2` rows, integrated tail-free without projection to τ = 10⁶ (notes §2.8):
+`d1fbb72c3536` M natural rescued endpoint (victim-less tail, Λ = 100), δ = 1e-6: class F, pairs 0.333 / 0.333 / 0.333;
+`f1c7011fc0f9` same, δ = 1e-3: class F, pairs 1.0 / 0.0 / 0.0;
+`c5633adec135` L natural tail-free endpoint, δ = 1e-6: class F, pairs 0.611 / 0.064 / 0.324;
+`ec202849cf64` same, δ = 1e-3: class F, pairs 0.623 / 0.138 / 0.240.
