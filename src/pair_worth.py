@@ -184,6 +184,8 @@ def pi_split(G, i, j, sigma):
         return 0, 0
     if G.glove:
         den = sigma[i] + sigma[j]
+        if den == 0:                         # outside the bid sets (R's share >= 1/2): equal split
+            return w // 2 + (w % 2 if sigma[i] >= sigma[j] else 0), w // 2 + (w % 2 if sigma[i] < sigma[j] else 0)
         pi_, pj = (w * sigma[i]) // den, (w * sigma[j]) // den
         rem = w - pi_ - pj
         if sigma[i] >= sigma[j]:
@@ -203,28 +205,29 @@ def _grand_line(G, i, sigma):
     return ([(j, G.act(j, ALL, sigma[j]), 0, 1), (k, G.act(k, ALL, sigma[k]), 0, 1)], G.act(i, ALL, sigma[i]))
 
 
-def _pair_lines(G, i, sigma, lvl):
+def _pair_lines(G, i, sigma, lvl, prio=None):
     out = []
-    for p in others(i):
+    for p in (prio if prio is not None else others(i)):
         pii, pip = pi_split(G, i, p, sigma)
         out.append(([(p, G.act(p, i, pip), lvl, 1)], G.act(i, p, pii)))
     return out
 
 
-def program(G, kind, s, sigma, c):
+def program(G, kind, s, sigma, c, prio=None):
     """(lines, default) of slot s's program of the named family.  kind: 'B', 'K', 'A', 'G' (level 1 pair lines) or
-    'B0', 'K0', 'A0' (level 0 throughout).  sigma: grand split in ticks (3-tuple); c: fallback action."""
+    'B0', 'K0', 'A0' (level 0 throughout).  sigma: grand split in ticks (3-tuple); c: fallback action.  prio: the order
+    in which the two other slots' handshakes are tried (default: increasing slot index, the spec's j < k)."""
     lvl = 0 if kind.endswith('0') else 1
     base = kind[0]
     if base == 'G':
         return ([], G.act(s, ALL, sigma[s]))
     if base == 'B':
-        return ([_grand_line(G, s, sigma)] + _pair_lines(G, s, sigma, lvl), c)
+        return ([_grand_line(G, s, sigma)] + _pair_lines(G, s, sigma, lvl, prio), c)
     if base == 'K':
-        return (_pair_lines(G, s, sigma, lvl) + [_grand_line(G, s, sigma)] + _pair_lines(G, s, sigma, lvl), c)
+        return (_pair_lines(G, s, sigma, lvl, prio) + [_grand_line(G, s, sigma)] + _pair_lines(G, s, sigma, lvl, prio), c)
     if base == 'A':
         lines = [_grand_line(G, s, sigma)]
-        for p in others(s):
+        for p in (prio if prio is not None else others(s)):
             w = G.v[s][p]
             for d in range(w + 1):
                 lines.append(([(p, G.act(p, s, d), lvl, 1)], G.act(s, p, w - d)))
