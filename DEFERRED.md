@@ -1069,3 +1069,13 @@ REJECTED.md the ones we dropped.
   reference cap B, since caps are already term parameters in the catalogues; coarse "glance" reads are not proposed
   (surface reads are fakeable through probes, RESULTS "Certificates-only arm").
 
+- *RS (2026-11-02), the priors:* the founding prior and the mutation prior are both the length (Solomonoff-style) prior
+  of the language; any other choice is overfitting. Consequences: tail = founding prior (what queue 71 ran), so the
+  clean-tail results (RESULTS "Annealing the unequal basin") are diagnostics of why the basin holds, not remedies; the
+  DSL arm M's failure at its natural start is a property of the language and prior, to be mended by the language or
+  the target (arm T), not by tail design. The reference machine (the grammar) is the free parameter, so results
+  should be checked across reasonable machines (n = 10, which does not churn, is one); the realizable-language
+  library prior (RESULTS "The social organization game over the realizable language", fair wage 40/40 against 0/40
+  under a matched expanded-syntax prior) is not a length prior and is the exception to be justified or replaced by a
+  length prior over the real Turing-complete syntax. Recorded in the OH doc, h03.
+
