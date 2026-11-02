@@ -1318,3 +1318,15 @@ immigrants"** (RESULTS "Dominance contracts and refusal on islands"; the explain
 - **"L's unequal tilt flips at Λ\* ≤ 10 for t₀ = 1" (RE prediction 7) and "Λ\*(M natural, t₀ = 1) ≤ 3, t₀ = 100 ≤ 10" (engineer E1).** Failed: no flip to 300 (L u = 0.6) and to 10⁵ (M natural); the clean tail flips L u = 0.6 at (133, 154].
 - **"V\* is non-monotone in Λ somewhere on the grid" (gpt-6.1-sol (e)).** Failed on the grid; a decrease appears only in the extension (L natural, Λ ≈ 3·10⁴).
 - **The registered V3 gate at 10⁴ events.** Uninformative: it compares the timing of M's F → U transition, which differs between object P and the full chain (the tail-free control fails by 0.62). Replaced by agreement at 10² and 10³ events and the central contrast in the full-dynamics chain.
+
+## Added 2026-11-02: the pair-worth-a game on islands (RESULTS.md, "The pair-worth-a game on islands")
+
+- **The RS's easy-case conjecture (G1/3: every island in the core, every core point with positive probability) in the arm registered for it, C+B* (bids on all 28 grand splits).** Failed: core 0.25 of islands at mN 1 (0.25 over 60 runs); at mN 0, 0.78 of islands end null, core 0.02, 11 of 19 core points ever seen, all 19 with upper bounds below 1/76. The core is 1.00 only when the menu is one split (C+B=), a menu effect. Re-open only with a bid that coordinates the split without a menu, or at a size where per-split seed counts exceed one (N = 200 and 400 gave 0.80 and 0.85, exploratory).
+- **"Bids carry the easy case at N = 100" (RE 2; gemini-4-argon: C+B core ≥ 0.9).** Failed: C+B* − C = −0.20 [−0.45, 0.05], C+B* − C+G = −0.55; C+B 0.15. Grand constants that read no one reach 0.80.
+- **"The tail matters only through a neutral path" (RE 3).** Failed: the tail is not inert (C: L10 − L0 core −0.20 [−0.40, −0.05]); it has no consistent benefit.
+- **"The ring is a grid effect (RE 4)."** Failed as a conjunction: no ring islands in G1/3 or G2/3 in either arm, and on the glove the ring falls from 0.05 (C, mN 1) to 0 on 24ths; the static claim that strict undominated equals the core proper on 24ths is false (13 and 5 undominated: the ring is one tick wide at any grid; weak dominance gives the core).
+- **RE 5, RE 7, RE 8.** Failed: middle and glove islands end on dominated outcomes; no grand state survives migration at a = 5/6 (C+B, C+B+K, C+B2, C+G, C+A, R, R+B all end in pairs at N = 100).
+- **RE 11(ii): "a blocker is neutral until a second one is present."** Failed: a blocker fixes at 2.7/N in slots 0 and 1 at G5/6 (never in slot 2); at G1/3 it does not fix. RE 9 held by its falsifier but "within 0.05" is false (C+A is 0.45 below C).
+- **The spec's bid as written.** Its exclusion fallback never fires (the grand line is true vacuously at world 0, so level-0 handshake atoms never hold); run as controls (B0), with the level-1 handshake as the repaired main arm.
+- **The spec's V6 (slot-permutation invariance with an index-ordered partner priority).** Fails at 17% of random triples; passes with priorities carried along under relabelling.
+- **Engineer E4 (ring islands ≥ 0.05 at mN 0) failed; E2 unresolved (level-0 bids vs C).**
