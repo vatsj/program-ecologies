@@ -1,5 +1,5 @@
 {
- "n_rows": 317,
+ "n_rows": 427,
  "lam_star_rescue": {
   "M0 nat t0=1": null,
   "M0 nat t0=100": null,
@@ -39,6 +39,30 @@
      "Lam": 0.0,
      "t0": 100.0
     },
+    "tail": "victim",
+    "N": 400
+   },
+   "mode": "rescue",
+   "lam_star": null,
+   "bracket": null,
+   "evals": null,
+   "grid": {
+    "10.0": 0.03245587412018331,
+    "100.0": 0.032445181294997655,
+    "1000.0": 0.03239837744378657,
+    "10000.0": 0.03233439643223315
+   }
+  },
+  {
+   "series": {
+    "kind": "dsl",
+    "cell": "M0",
+    "start": "nat",
+    "sched": {
+     "kind": "anneal",
+     "Lam": 0.0,
+     "t0": 100.0
+    },
     "tail": "bully"
    },
    "mode": "rescue",
@@ -57,6 +81,35 @@
     "100.0": 0.10040966506052029,
     "1000.0": 0.9999999817191358,
     "10000.0": 0.9999999815601632
+   }
+  },
+  {
+   "series": {
+    "kind": "dsl",
+    "cell": "L0",
+    "start": "u:0.6",
+    "sched": {
+     "kind": "anneal",
+     "Lam": 0.0,
+     "t0": 100.0
+    },
+    "tail": "bully+victim"
+   },
+   "mode": "rescue",
+   "lam_star": 205.3525026457146,
+   "bracket": [
+    177.82794100389228,
+    205.3525026457146
+   ],
+   "evals": {
+    "316.22776601683796": 0.9997368896609329,
+    "177.82794100389228": -7.40066924321444e-28,
+    "237.13737056616552": 0.9997368900847892,
+    "205.3525026457146": 0.9997368902003683
+   },
+   "grid": {
+    "100.0": 8.057888522987937e-25,
+    "1000.0": 0.9997368896068252
    }
   },
   {
@@ -85,6 +138,129 @@
     "1000.0": 0.9997368895904,
     "10000.0": 0.9997368896257213,
     "100000.0": -4.093066874921332e-22
+   }
+  },
+  {
+   "series": {
+    "kind": "dsl",
+    "cell": "M0",
+    "start": "u:0.6",
+    "sched": {
+     "kind": "anneal",
+     "Lam": 0.0,
+     "t0": 1.0
+    },
+    "tail": "bully+victim"
+   },
+   "mode": "rescue",
+   "lam_star": 749.8942093324558,
+   "bracket": [
+    649.3816315762114,
+    749.8942093324558
+   ],
+   "evals": {
+    "316.22776601683796": 0.10040966360078674,
+    "562.3413251903492": 0.10040966482695761,
+    "749.8942093324558": 0.9999999816063766,
+    "649.3816315762114": 0.10040966482600445
+   },
+   "grid": {
+    "100.0": 0.10040966363571924,
+    "1000.0": 0.9999999814743928
+   }
+  },
+  {
+   "series": {
+    "kind": "dsl",
+    "cell": "M0",
+    "start": "nat",
+    "sched": {
+     "kind": "anneal",
+     "Lam": 0.0,
+     "t0": 1.0
+    },
+    "tail": "bully+victim"
+   },
+   "mode": "rescue",
+   "lam_star": 36.51741272548377,
+   "bracket": [
+    31.622776601683793,
+    36.51741272548377
+   ],
+   "evals": {
+    "31.622776601683793": 0.1004096634270329,
+    "56.23413251903491": 0.9999999814061815,
+    "42.169650342858226": 0.9999999814050636,
+    "36.51741272548377": 0.9999999813950423
+   },
+   "grid": {
+    "10.0": 0.10040966342943936,
+    "100.0": 0.999999981408953,
+    "1000.0": 0.9999999818307013
+   }
+  },
+  {
+   "series": {
+    "kind": "dsl",
+    "cell": "M0",
+    "start": "nat",
+    "sched": {
+     "kind": "anneal",
+     "Lam": 0.0,
+     "t0": 100.0
+    },
+    "tail": "victim",
+    "N": 400
+   },
+   "mode": "rescue",
+   "lam_star": 11547.819846894581,
+   "bracket": [
+    10000.0,
+    11547.819846894581
+   ],
+   "evals": {
+    "17782.794100389227": 0.9938519981629511,
+    "13335.21432163324": 0.9940838485825273,
+    "11547.819846894581": 0.9941820668878188
+   },
+   "grid": {
+    "10.0": 0.03245587412018331,
+    "100.0": 0.032445181294997655,
+    "1000.0": 0.03239837744378657,
+    "10000.0": 0.03233439643223315,
+    "31622.776601683792": 0.9931740493097848,
+    "100000.0": 0.9900332704713725
+   }
+  },
+  {
+   "series": {
+    "kind": "dsl",
+    "cell": "M0",
+    "start": "nat",
+    "sched": {
+     "kind": "anneal",
+     "Lam": 0.0,
+     "t0": 100.0
+    },
+    "tail": "cond"
+   },
+   "mode": "rescue",
+   "lam_star": 865.9643233600654,
+   "bracket": [
+    749.8942093324558,
+    865.9643233600654
+   ],
+   "evals": {
+    "1000.0": 0.9999999816628414,
+    "316.22776601683796": 0.10040966506398419,
+    "562.3413251903492": 0.10040966506273012,
+    "749.8942093324558": 0.10040966506188603,
+    "865.9643233600654": 0.9999999816415083
+   },
+   "grid": {
+    "100.0": 0.10040966506332867,
+    "10000.0": 0.9999999816537579,
+    "100000.0": 0.9999998815225841
    }
   },
   {
@@ -122,6 +298,96 @@
    "series": {
     "kind": "dsl",
     "cell": "M0",
+    "start": "u:0.6",
+    "sched": {
+     "kind": "anneal",
+     "Lam": 0.0,
+     "t0": 100.0
+    },
+    "tail": "bully+victim"
+   },
+   "mode": "rescue",
+   "lam_star": 865.9643233600654,
+   "bracket": [
+    749.8942093324558,
+    865.9643233600654
+   ],
+   "evals": {
+    "316.22776601683796": 0.10040966506158407,
+    "562.3413251903492": 0.1004096650638877,
+    "749.8942093324558": 0.1004096650609089,
+    "865.9643233600654": 0.9999999816047254
+   },
+   "grid": {
+    "100.0": 0.10040966506105328,
+    "1000.0": 0.9999999817038254
+   }
+  },
+  {
+   "series": {
+    "kind": "dsl",
+    "cell": "L0",
+    "start": "u:0.6",
+    "sched": {
+     "kind": "anneal",
+     "Lam": 0.0,
+     "t0": 1.0
+    },
+    "tail": "bully+victim"
+   },
+   "mode": "rescue",
+   "lam_star": 153.9926526059492,
+   "bracket": [
+    133.3521432163324,
+    153.9926526059492
+   ],
+   "evals": {
+    "316.22776601683796": 0.9997368898082838,
+    "177.82794100389228": 0.999736889777744,
+    "133.3521432163324": 3.9979907326742184e-25,
+    "153.9926526059492": 0.999736889496819
+   },
+   "grid": {
+    "100.0": 2.424884071690835e-25,
+    "1000.0": 0.9997368894053302
+   }
+  },
+  {
+   "series": {
+    "kind": "dsl",
+    "cell": "M0",
+    "start": "nat",
+    "sched": {
+     "kind": "anneal",
+     "Lam": 0.0,
+     "t0": 100.0
+    },
+    "tail": "victim",
+    "N": 200
+   },
+   "mode": "rescue",
+   "lam_star": 2371.3737056616555,
+   "bracket": [
+    2053.5250264571464,
+    2371.3737056616555
+   ],
+   "evals": {
+    "3162.2776601683795": 0.9949348651837037,
+    "1778.2794100389228": 0.05782924861846995,
+    "2371.3737056616555": 0.9951703397360295,
+    "2053.5250264571464": 0.05782016988254648
+   },
+   "grid": {
+    "10.0": 0.057993545053113035,
+    "100.0": 0.05797176764693075,
+    "1000.0": 0.05786762873104279,
+    "10000.0": 0.9940341422821923
+   }
+  },
+  {
+   "series": {
+    "kind": "dsl",
+    "cell": "M0",
     "start": "nat",
     "sched": {
      "kind": "anneal",
@@ -148,6 +414,36 @@
     "10.0": 0.10040966343155625,
     "100.0": 0.99999998168288
    }
+  },
+  {
+   "series": {
+    "kind": "dsl",
+    "cell": "M0",
+    "start": "nat",
+    "sched": {
+     "kind": "anneal",
+     "Lam": 0.0,
+     "t0": 10000.0
+    },
+    "tail": "bully+victim"
+   },
+   "mode": "rescue",
+   "lam_star": 365.17412725483774,
+   "bracket": [
+    316.22776601683796,
+    365.17412725483774
+   ],
+   "evals": {
+    "316.22776601683796": 0.100409665061172,
+    "562.3413251903492": 0.999999981544585,
+    "421.6965034285823": 0.9999999814919138,
+    "365.17412725483774": 0.9999999817190993
+   },
+   "grid": {
+    "10.0": 0.10040966506347487,
+    "100.0": 0.10040966506143369,
+    "1000.0": 0.9999999818464086
+   }
   }
  ],
  "donor_const_slot0": [
@@ -165,55 +461,55 @@
   "1.0": [
    [
     0.01,
-    -7.761865303851367e-06
+    3.054112518441343e-12
    ],
    [
     0.03,
-    -7.761859167315643e-06
+    9.190648242451971e-12
    ],
    [
     0.1,
-    -7.761837721165232e-06
+    3.0636798653560504e-11
    ],
    [
     0.3,
-    -7.761776422865463e-06
+    9.193509842297942e-11
    ]
   ],
   "100.0": [
    [
     0.01,
-    -7.761886580540112e-06
+    -1.8222576225745968e-11
    ],
    [
     0.03,
-    -7.761923022611694e-06
+    -5.466464780834457e-11
    ],
    [
     0.1,
-    -7.762050557608147e-06
+    -1.8219964426080537e-10
    ],
    [
     0.3,
-    -9.499450007444121e-07
+    6.811923357219474e-06
    ]
   ],
   "10000.0": [
    [
     0.01,
-    -5.662400958672542e-07
+    7.195628262096632e-06
    ],
    [
     0.03,
-    -3.100019713014879e-07
+    7.451866386662398e-06
    ],
    [
     0.1,
-    -1.5219825139078935e-07
+    7.6096701065730965e-06
    ],
    [
     0.3,
-    -6.488595261089358e-08
+    7.696982405352992e-06
    ]
   ]
  },
@@ -242,6 +538,16 @@
   "main|0|0 u:0.8 t0=10000": 0.9999998815044777
  },
  "attr": {
+  "100.0": {
+   "status": "capped",
+   "shares_end": [
+    0.10017917742779464,
+    0.8982144710858839,
+    0.0016055055915131671,
+    5.492949219813636e-08,
+    7.90965283576735e-07
+   ]
+  },
   "0.0": {
    "status": "capped",
    "shares_end": [
@@ -261,16 +567,274 @@
     5.4950742032354835e-06,
     9.014263606052781e-07
    ]
+  }
+ },
+ "ablated_lam_star": {
+  "M0 nat victim N=400 t0=100": {
+   "lam_star": 11547.819846894581,
+   "bracket": [
+    10000.0,
+    11547.819846894581
+   ]
   },
-  "100.0": {
-   "status": "capped",
-   "shares_end": [
-    0.10017917742779464,
-    0.8982144710858839,
-    0.0016055055915131671,
-    5.492949219813636e-08,
-    7.90965283576735e-07
+  "M0 nat bully N=100 t0=100": {
+   "lam_star": 316.22776601683796,
+   "bracket": [
+    273.8419634264361,
+    316.22776601683796
+   ]
+  },
+  "L0 u:0.6 bully+victim N=100 t0=100": {
+   "lam_star": 205.3525026457146,
+   "bracket": [
+    177.82794100389228,
+    205.3525026457146
+   ]
+  },
+  "M0 u:0.6 bully+victim N=100 t0=1": {
+   "lam_star": 749.8942093324558,
+   "bracket": [
+    649.3816315762114,
+    749.8942093324558
+   ]
+  },
+  "M0 nat bully+victim N=100 t0=1": {
+   "lam_star": 36.51741272548377,
+   "bracket": [
+    31.622776601683793,
+    36.51741272548377
+   ]
+  },
+  "M0 nat cond N=100 t0=100": {
+   "lam_star": 865.9643233600654,
+   "bracket": [
+    749.8942093324558,
+    865.9643233600654
+   ]
+  },
+  "M0 nat victim N=100 t0=100": {
+   "lam_star": 86.59643233600653,
+   "bracket": [
+    74.98942093324558,
+    86.59643233600653
+   ]
+  },
+  "M0 u:0.6 bully+victim N=100 t0=100": {
+   "lam_star": 865.9643233600654,
+   "bracket": [
+    749.8942093324558,
+    865.9643233600654
+   ]
+  },
+  "L0 u:0.6 bully+victim N=100 t0=1": {
+   "lam_star": 153.9926526059492,
+   "bracket": [
+    133.3521432163324,
+    153.9926526059492
+   ]
+  },
+  "M0 nat victim N=200 t0=100": {
+   "lam_star": 2371.3737056616555,
+   "bracket": [
+    2053.5250264571464,
+    2371.3737056616555
+   ]
+  },
+  "M0 nat bully+victim N=100 t0=100": {
+   "lam_star": 56.23413251903491,
+   "bracket": [
+    48.696752516586315,
+    56.23413251903491
+   ]
+  },
+  "M0 nat bully+victim N=100 t0=10000": {
+   "lam_star": 365.17412725483774,
+   "bracket": [
+    316.22776601683796,
+    365.17412725483774
    ]
   }
- }
+ },
+ "numerics_check": [
+  [
+   "bully",
+   316.22776601683796,
+   "F",
+   0.9999999817591665,
+   "F",
+   0.9999999815271055
+  ],
+  [
+   "victim",
+   86.59643233600653,
+   "F",
+   0.9999999817344238,
+   "F",
+   0.9999999816294854
+  ],
+  [
+   "bully",
+   273.8419634264361,
+   "U",
+   0.10040966506161955,
+   "U",
+   0.1004096650623789
+  ],
+  [
+   "victim",
+   74.98942093324558,
+   "U",
+   0.10040966506132921,
+   "U",
+   0.10040966506332444
+  ],
+  [
+   "bully+victim",
+   56.23413251903491,
+   "F",
+   0.9999999817101078,
+   "F",
+   0.9999999816034874
+  ],
+  [
+   "cond",
+   749.8942093324558,
+   "U",
+   0.10040966506181344,
+   "U",
+   0.10040966506188603
+  ],
+  [
+   "bully+victim",
+   48.696752516586315,
+   "U",
+   0.10040966506286997,
+   "U",
+   0.10040966506225728
+  ],
+  [
+   "cond",
+   865.9643233600654,
+   "F",
+   0.9999999816909766,
+   "F",
+   0.9999999816415083
+  ]
+ ],
+ "verdicts": [
+  {
+   "id": "RE1",
+   "claim": "M natural: some Lam <= 30 reaches V* >= 0.99 at t0 = 1 and 100, V* non-decreasing",
+   "verdict": "FAILED",
+   "number": "max V* over Lam <= 30: 0.1004; over every Lam tested (to 1e5 at t0 = 100, to 1e4 at t0 = 1): 0.1004; M nat endpoint is the tail-free 0.1004 at every Lam"
+  },
+  {
+   "id": "RE2",
+   "claim": "Lam*(late) >= 10 Lam*(t0 = 1)",
+   "verdict": "UNSCORED for the full tail (neither flips); HELD for the clean tail",
+   "number": "full tail: no Lam* early or late; victim+bully-less tail: early Lam*(t0 = 1) in [31.622776601683793, 36.51741272548377], Lam*(t0 = 100) in [48.696752516586315, 56.23413251903491], Lam*(t0 = 1e4) in [316.22776601683796, 365.17412725483774], settled-ratchet late tail (t_s = 1e6) does not flip at any Lam tested (max V* 0.1004, Lam up to 1e4), ratio > 250"
+  },
+  {
+   "id": "RE3",
+   "claim": "constant rain and t0 = 100 annealed within a factor 3 in Lam*",
+   "verdict": "UNSCORED (vacuous)",
+   "number": "constant rain: V* = 0.1004 at every Lam <= 300; no Lam* either way"
+  },
+  {
+   "id": "RE4",
+   "claim": "L natural and arm T keep V* >= 0.999 at every Lam, t0 on the grid (Lam <= 300), cell 7 included",
+   "verdict": "HELD on the spec grid; FAILS in extension (L natural)",
+   "number": "min V* on the grid: L natural 0.9997, arm T 0.999993; extension: L natural t0 = 100 falls to U at Lam in (2.4e4, 3.2e4] (V* 0.9997 -> 0), t0 = 1 holds to 1e5"
+  },
+  {
+   "id": "RE5",
+   "claim": "rescue carried by excluded-slot offering constants (>= 0.7) and by victims with bullies (>= 0.7); bully ablation < 1.25x; victim ablation >= 1.5x",
+   "verdict": "FAILED (bully clause and second share)",
+   "number": "direct tail flux at Lam = 100, tau = 1e4: U->F through sources whose excluded slot holds an offering constant 0.958 of the U->F flux; F->U carried by the 1/3 constants (c0, c3) and bullies: 0.040 (the 2/3 constants c2, c5: 0.937); bully-less tail Lam* in [273.8419634264361, 316.22776601683796] against none for the full tail (moves it by far more than 1.25x); victim-less tail Lam* in [74.98942093324558, 86.59643233600653] (lowers it)"
+  },
+  {
+   "id": "RE6",
+   "claim": "Lam*(400)/Lam*(100) in [2.5, 6] at t0 = 100",
+   "verdict": "FAILED",
+   "number": "full tail: no Lam* at any N; victim-less tail (the series that has one): Lam* in [74.98942093324558, 86.59643233600653], [2053.5250264571464, 2371.3737056616555], [10000.0, 11547.819846894581] at N = 100, 200, 400, ratio 400/100 in [115, 154]"
+  },
+  {
+   "id": "RE7",
+   "claim": "L at u = 0.6 flips to V* at Lam* <= 10 for t0 = 1",
+   "verdict": "FAILED",
+   "number": "full tail: L u = 0.6 stays at U 0.9949 at every Lam <= 300 and every t0 (V* = 0.0000); clean tail: Lam* in [133.3521432163324, 153.9926526059492] at t0 = 1"
+  },
+  {
+   "id": "argon a",
+   "claim": "bully tail ablation < 1.05x; victim ablation >= 1.5x",
+   "verdict": "FAILED / HELD",
+   "number": "bully ablation: none -> (274, 316]; victim ablation: none -> (75, 87] (held)"
+  },
+  {
+   "id": "argon b",
+   "claim": "Lam*(400)/Lam*(100) < 2.5 for the early tail",
+   "verdict": "FAILED (on the victim-less tail)",
+   "number": "ratio 400/100 in [115, 154]; the full tail has no Lam*"
+  },
+  {
+   "id": "sol c",
+   "claim": "early M-natural rescue substantially easier than deep-U rescue (M u = 0.6, late arm); the prior's constant share alone will not predict the latter",
+   "verdict": "HELD (for the clean tail; the full tail rescues nothing)",
+   "number": "clean tail, t0 = 1: M natural Lam* in [31.622776601683793, 36.51741272548377]; M u = 0.6 in [649.3816315762114, 749.8942093324558] (ratio 18-24); L u = 0.6 in [133.3521432163324, 153.9926526059492]; t0 = 100: M u = 0.6 in [749.8942093324558, 865.9643233600654], L u = 0.6 in [177.82794100389228, 205.3525026457146]; settled late tail: no flip to 1e4; constants-only tail flips early at (750, 866] and has no late flip tested"
+  },
+  {
+   "id": "sol d",
+   "claim": "no clean proportional scaling of Lam* across N",
+   "verdict": "HELD",
+   "number": "victim-less tail: 100 -> 200 multiplies Lam* by [24, 32], 200 -> 400 by [4.2, 5.6]; not a power law in N, and nowhere near proportional"
+  },
+  {
+   "id": "sol e",
+   "claim": "V* non-monotone in Lam somewhere",
+   "verdict": "HELD (extension only)",
+   "number": "L natural, t0 = 100: V* 0.9997 -> 0 between Lam 2.4e4 and 3.2e4; no decrease > 0.01 on the spec grid"
+  },
+  {
+   "id": "E1",
+   "claim": "Lam*(M nat, t0 = 1) <= 3 and Lam*(t0 = 100) <= 10",
+   "verdict": "FAILED",
+   "number": "none to 1e5 (t0 = 100), to 1e4 (t0 = 1)"
+  },
+  {
+   "id": "E2",
+   "claim": "no late Lam <= 300 has V* >= 0.5",
+   "verdict": "HELD",
+   "number": "late V* = 0.1004 at every Lam to 1e5 (t0 = 1, 100), to 300 (t0 = 1e4), and for the victim-less and victim+bully-less tails at 1e2-1e4"
+  },
+  {
+   "id": "E3",
+   "claim": "victim ablation moves Lam* by < 1.25x",
+   "verdict": "FAILED",
+   "number": "victim-less tail Lam* in (75, 87] against none; the 1/3 constants carry the full tail's block"
+  },
+  {
+   "id": "E4",
+   "claim": "constants-only tail has Lam* within 1.25x of the full tail",
+   "verdict": "FAILED",
+   "number": "constants-only Lam* in (750, 866] against none"
+  },
+  {
+   "id": "E5",
+   "claim": "M natural tail-free hybrid endpoint is U-dominated at N = 200 and 400",
+   "verdict": "HELD",
+   "number": "tail-free V*: N = 200: 0.0580, N = 400: 0.0325"
+  },
+  {
+   "id": "E6",
+   "claim": "monotone to within 0.01 on every series with a Lam* in the grid",
+   "verdict": "HELD (vacuous for the full tail)",
+   "number": "no full-tail series has a Lam*; the ablated bisection series are monotone (step functions)"
+  },
+  {
+   "id": "E7",
+   "claim": "arm T at Lam = 300, t0 = 1: V* >= 0.999",
+   "verdict": "HELD",
+   "number": "min V* over the four arm-T series at Lam = 300, t0 = 1: 0.9999998258638438"
+  }
+ ]
 }

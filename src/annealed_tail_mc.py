@@ -52,6 +52,8 @@ def chain_tail(C, PAY2, VEC2, pool, code, oc, e0, events, seed, PF30, cum, Lam, 
                 i = np.random.randint(I)
                 s = np.random.randint(3)
                 u = np.random.random()
+                if u >= cum[s, K - 1]:
+                    continue                      # matched-dose ablation: the removed prior mass is a null event
                 lo = 0
                 hi = K - 1
                 while lo < hi:
@@ -80,7 +82,7 @@ def chain_tail(C, PAY2, VEC2, pool, code, oc, e0, events, seed, PF30, cum, Lam, 
     return n_tail, n_tail_fix
 
 
-def run_mc_tail(armname, pfail, triples, cps, seed, Lam, t0, quiet=True, PF30=None):
+def run_mc_tail(armname, pfail, triples, cps, seed, Lam, t0, quiet=True, PF30=None, p=None):
     arm = MI.Arm(armname)
     arm.new_cache(26)
     PAY2, VEC2 = UC.tables2(pfail)
@@ -94,7 +96,7 @@ def run_mc_tail(armname, pfail, triples, cps, seed, Lam, t0, quiet=True, PF30=No
     for i in range(I):
         code[i] = UC.jl2(C, pool[i, 0], pool[i, 1], pool[i, 2])
         oc[i] = VEC2[code[i]]
-    cum = np.ascontiguousarray(arm.cum)
+    cum = np.ascontiguousarray(np.cumsum(arm.laws if p is None else p, axis=1))     # unnormalized: mass beyond cum[-1] is null
     hist = np.zeros((len(cps), MI.NOUT), np.int64)
     prev = 0
     rs = seed

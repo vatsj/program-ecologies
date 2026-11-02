@@ -156,6 +156,32 @@ def v3(Lam=10.0, t0=100.0, I=4096, nworld=4, cps=(1, 3, 10, 30, 100, 300, 1000, 
     return res
 
 
+def v3b(tail='victim', Lam=300.0, t0=100.0, I=8192, nworld=2, cps=(100, 1000, 3000, 10000, 20000, 40000), seed=31, cellname='M0'):
+    """the central finding against the full-dynamics Monte Carlo: ODE (object P) and chain (no truncation, every conditional) with the same
+    tail law (matched-dose ablation), V* at the checkpoints; the question is whether the flip (victim-less) and its absence (full) reproduce."""
+    import annealed_tail_mc as MC
+    cell, obj, xn, dropped = A.dsl_base(cellname)
+    p = A.tail_law(cell, tail)
+    S = A.DSL(obj, p)
+    x0, _ = A.dsl_start(obj, xn, 'nat')
+    sched = A.Sched('anneal', Lam, t0)
+    grid = [0.0] + [float(c) for c in cps]
+    recs, x, st, _ = A.integrate(S, x0, sched, 0.0, float(cps[-1]), float(cps[-1]), explicit_grid=grid, stop_stationary=False)
+    ode = {int(r['t']): r['shares'] for r in recs}
+    rng = np.random.default_rng(seed)
+    reps = []
+    for w in range(nworld):
+        idx = rng.choice(len(cell.w), I, p=cell.w)
+        hist, inf = MC.run_mc_tail('M', 0.0, cell.trip[idx], cps, int(rng.integers(1, 2 ** 30)), Lam, t0, p=p)
+        sh = np.zeros((len(cps), 5))
+        for k in range(5):
+            sh[:, k] = hist[:, MI.CATMAP == k].sum(axis=1)
+        reps.append((sh / hist.sum(axis=1, keepdims=True)).tolist())
+    res = dict(tail=tail, Lam=Lam, t0=t0, I=I, cps=list(cps), ode={str(k): v for k, v in ode.items()}, mc_worlds=reps)
+    save('v3b_%s_L%g_I%d' % (tail, Lam, I), res)
+    return res
+
+
 # ---------------------------------------------------------------------------------------------------------------- V4
 def v4(armname='M', nmax=100000, seed=17):
     """single-arrival assay: prior arrivals into two key triples of M's endpoint support (a U triple and a fair triple), fixation by the
@@ -233,6 +259,8 @@ if __name__ == '__main__':
         r = v2()
     elif cmd == 'v3':
         r = v3(float(sys.argv[2]) if len(sys.argv) > 2 else 10.0, float(sys.argv[3]) if len(sys.argv) > 3 else 100.0, I=int(sys.argv[4]) if len(sys.argv) > 4 else 4096)
+    elif cmd == 'v3b':
+        r = v3b(sys.argv[2], float(sys.argv[3]), I=int(sys.argv[4]) if len(sys.argv) > 4 else 8192)
     elif cmd == 'v4':
         r = v4()
     else:

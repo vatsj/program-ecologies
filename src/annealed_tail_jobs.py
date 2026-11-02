@@ -90,7 +90,20 @@ def run_job(job, verbose=False):
             return A.save_row(job, dict(status='unavailable'))
         res, xe, kept = A.run_cell(S, x0, sched, tmax=job.get('tmax', 1e8), early=bool(job.get('early', False)),
                                    spd=job.get('spd', 8), verbose=verbose, explicit_until=job.get('explicit_until', 4e4), rtol=job.get('rtol', 1e-8))
-        row = A.save_row(job, res, dict(states=obj.n, dropped_mass=dropped, start_info=sinfo))
+        extra = dict(states=obj.n, dropped_mass=dropped, start_info=sinfo)
+        if job.get('diag'):
+            import unequal_basin_run as R
+            import annealed_tail_attr as AT
+            d = R.endpoint_diag(obj, xe, None)
+            arm = cell.arm
+            d['top_donor_names'] = [[(arm.name_of(sl, i), q) for (i, q) in d['top_donors'][sl][:8]] for sl in range(3)]
+            arrs = AT.attr_arrays(cell, obj)
+            Tm = AT.flux_tensor(S, arrs, xe, obj.marg(xe)).sum(axis=(2, 3, 4))
+            d['migrant_class_flux'] = Tm.tolist()
+            d['classes'] = ['F', 'U', 'G', 'W', 'D']
+            d['donor_const_slot0'] = [float(v) for v in obj.marg(xe)[0][:9]]
+            extra['endpoint_diag'] = d
+        row = A.save_row(job, res, extra)
         if job.get('keep_x'):
             np.savez_compressed(os.path.join(A.XSD, A.row_key(job) + '.npz'), x=xe)
         return row
@@ -110,6 +123,38 @@ def run_job(job, verbose=False):
         res = dict(status=st, shares=recs[-1]['shares'], pairs=recs[-1]['pairs'], tau_end=recs[-1]['t'], protocol='tailonly',
                    records=[dict(t=r['t'], shares=r['shares']) for r in recs], resid_G=float(np.abs(S2.G(x)).sum()), **{'class': 'U' if recs[-1]['shares'][1] >= 0.5 else ('F' if recs[-1]['shares'][0] >= 0.5 else 'other')})
         return A.save_row(job, res, dict(start_info=sinfo))
+    if job['kind'] == 'blocked':
+        # blocked flux (null events of the reflecting truncation) of the migrants and of the tail, at the natural start and at the stored
+        # tail-free late state (object P only); restricted tail mass is in static.json
+        cell, obj, xn, S, dropped = get_dsl(job)
+        out = dict(states=obj.n, dropped_start_mass=dropped)
+        x0, _ = A.dsl_start(obj, xn, 'nat')
+        pts = [('start', x0)]
+        if job.get('obj', 'P') == 'P':
+            pts.append(('late_state', late_state(job['cell'], job.get('N', 100))[0]))
+            pts.append(('tail_free_endpoint', late_state(job['cell'], job.get('N', 100))[1]))
+        for name, x in pts:
+            bm, rm = A.blocked(S, x, obj.marg(x))
+            bt, rt = A.blocked(S, x, S.p)
+            out[name] = dict(blocked_migrant=bm, realized_migrant=rm, blocked_tail=bt, realized_tail=rt,
+                             frac_migrant=(bm / (bm + rm) if bm + rm > 0 else None), frac_tail=(bt / (bt + rt) if bt + rt > 0 else None))
+        return A.save_row(job, out)
+    if job['kind'] == 'asym2':
+        # S3-asymmetric perturbation of a saved endpoint (source job run with keep_x), tail-free, unprojected, no early stop, to tmax
+        cell, obj, xn, S, dropped = get_dsl(dict(job['source'], tail=job['source'].get('tail', 'full')))
+        S2 = A.DSL(obj, S.p, S.PF, sym=False, label='asym')
+        xe = np.load(os.path.join(A.XSD, A.row_key(job['source']) + '.npz'))['x']
+        d = float(job['delta'])
+        f = np.ones(obj.n)
+        f[obj.pair == 0] += d
+        f[obj.pair == 1] -= d
+        x0 = xe * f
+        x0 = x0 / x0.sum()
+        recs, x, st, _ = A.integrate(S2, x0, A.Sched('anneal', 0.0), 0.0, float(job.get('tmax', 1e6)), job.get('explicit_until', 4e4), 8, False,
+                                     stop_stationary=False)
+        res = dict(status=st, tau_end=recs[-1]['t'], shares=recs[-1]['shares'], pairs=recs[-1]['pairs'],
+                   records=[dict(t=r['t'], shares=r['shares'], pairs=r['pairs']) for r in recs if A._is_grid(r['t'])], **{'class': A.classify(recs[-1]['shares'])})
+        return A.save_row(job, res, dict(delta=d))
     if job['kind'] == 'asym':
         # S3-asymmetric perturbation of a saved tail-free endpoint (the Lam = 0 row of `source`, run with keep_x), integrated without projection
         cell, obj, xn, S, dropped = get_dsl(dict(job, tail='full'))
