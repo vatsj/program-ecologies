@@ -72,6 +72,8 @@ def run_job(job, verbose=False):
         res, xe, kept = A.run_cell(S, x0, free, tmax=1e8, keep_at=(1e6,), early=False)
         # keep_at is honoured by integrate; run_cell returns kept states only through the third value
         x_late = kept.get(1e6)
+        if x_late is None:
+            x_late = xe          # the tail-free object had already converged before tau = 1e6: its endpoint is the state at t_s
         np.savez_compressed(os.path.join(A.XSD, 'late_%s_N%d.npz' % (job['cell'], job.get('N', 100))), x=x_late, x_end=xe)
         q = obj.marg(x_late)
         extra = dict(donor_const=[[float(q[s][x]) for x in range(9)] for s in range(3)],
