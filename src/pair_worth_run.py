@@ -36,12 +36,13 @@ def geometry(N):
     return dict(g0=g0, t0=t0, gend=gend, H=gend + chase, win=20 * N)
 
 
-def prepare(gname, arm, r, N, delta, lams, I=I_DEFAULT, menu=None):
+def prepare(gname, arm, r, N, delta, lams, I=I_DEFAULT, menu=None, founders=None):
     G, CLA, CLB = game_tables(gname)
     menu = menu or PW.arm_menu(gname, arm, delta)
     geo = geometry(N)
     base = '%s|N%d|I%d' % (gname, N, I)
-    founders = PW.draw_founders(menu, base, r, I, N)
+    if founders is None:
+        founders = PW.draw_founders(menu, base, r, I, N)
     sched = PW.tail_schedule(menu, base, r, I, N, 100.0, geo['g0'], geo['t0'], geo['gend'], sorted(set(list(lams) + [100.0])))
     lmax = max(lams) if len(lams) else 0
     sm = sched[float(lmax)] if lmax > 0 else None

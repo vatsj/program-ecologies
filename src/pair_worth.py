@@ -255,7 +255,7 @@ class Menu:
     uniform over its members (sigma, c) (G: sigma).  Member ids per slot: constants 0..nact-1, then the families in
     order."""
 
-    def __init__(self, G, families):
+    def __init__(self, G, families, rcond=False):
         self.G, self.fams = G, families
         n = G.nact
         self.off = []; self.size = []
@@ -263,14 +263,22 @@ class Menu:
         for f in families:
             sz = len(f.sigmas) * (1 if f.kind == 'G' else n)
             self.off.append(o); self.size.append(sz); o += sz
-        self.total = o
+        self.rcond = rcond
+        self.roff = o
+        self.nR = 2 * n * n * n if rcond else 0
+        self.total = o + self.nR
         self.cum = np.cumsum([f.dose for f in families]) if families else np.zeros(0)
+        # R's grammar (n <= 6, one-atom conditionals): constants have mass 1/2 (size 1), size-6 programs 1/72 spread
+        # over 2 n^3 spellings (atom x then x else y); x = y spellings are constants.
+        self.p_cond = (1.0 / 72.0) * (1 - 1.0 / n) / (0.5 + 1.0 / 72.0) if rcond else 0.0
 
     def decode(self, m):
         """member id -> (family index or -1, sigma index, c)."""
         n = self.G.nact
         if m < n:
             return -1, -1, m
+        if m >= self.roff:
+            return -2, m - self.roff, -1
         for fi, f in enumerate(self.fams):
             if m < self.off[fi] + self.size[fi]:
                 r = m - self.off[fi]
@@ -281,16 +289,32 @@ class Menu:
 
     def prog(self, s, m):
         fi, si, c = self.decode(m)
+        if fi == -2:                          # R conditional: index = (atom * n + x) * n + y, atom = jr * n + al
+            n = self.G.nact
+            y = si % n; x = (si // n) % n; atom = si // (n * n)
+            jr, al = atom // n, atom % n
+            return ([([(others(s)[jr], al, 0, 1)], x)], y)
         if fi < 0:
             return const_program(c)
         f = self.fams[fi]
         return program(self.G, f.kind, s, f.sigmas[si], c)
 
+    def member_id(self, kind, sigma, c=None):
+        """member id of the family member (kind, sigma, c); constants: kind None, c the action."""
+        n = self.G.nact
+        if kind is None:
+            return int(c)
+        for fi, f in enumerate(self.fams):
+            if f.kind == kind and tuple(sigma) in [tuple(x) for x in f.sigmas]:
+                si = [tuple(x) for x in f.sigmas].index(tuple(sigma))
+                return self.off[fi] + (si if f.kind == 'G' else si * n + int(c))
+        raise KeyError((kind, sigma))
+
     def famcode(self, m):
         fi, _, _ = self.decode(m)
         return 0 if fi < 0 else self.fams[fi].code
 
-    def draw(self, u1, u2, u3):
+    def draw(self, u1, u2, u3, u4=None):
         """vectorised member ids from common random numbers: u1 uniform in [0,1) (constant), u2 (family), u3 (member)."""
         n = self.G.nact
         m = np.minimum((u1 * n).astype(np.int64), n - 1)
@@ -301,6 +325,17 @@ class Menu:
             mem = np.minimum((u3 * self.size[fi]).astype(np.int64), self.size[fi] - 1)
             m = np.where(sel, self.off[fi] + mem, m)
             lo = hi
+        if self.rcond:
+            n = self.G.nact
+            # conditionals with x != y: draw the (atom, x, y) triple uniformly from u3 (and u1) outside the families
+            sel = (u2 >= (self.cum[-1] if len(self.cum) else 0.0)) & (u4 < self.p_cond)
+            atom = np.minimum((u3 * 2 * n).astype(np.int64), 2 * n - 1)
+            frac = u3 * 2 * n - atom
+            x = np.minimum((frac * n).astype(np.int64), n - 1)
+            y0 = np.minimum((u1 * (n - 1)).astype(np.int64), n - 2)
+            y = np.where(y0 >= x, y0 + 1, y0)
+            idx = (atom * n + x) * n + y
+            m = np.where(sel, self.roff + idx, m)
         return m
 
 
@@ -365,6 +400,10 @@ def arm_menu(gname, arm, delta=0.05):
         fams = [Family('B0', bid_sigmas(gname, 'all'), delta)]
     elif arm == 'CBK0':
         fams = [Family('B0', std_set(), delta), Family('K0', std_set(), delta)]
+    elif arm == 'R':
+        return Menu(G, [], rcond=True)
+    elif arm == 'RB':
+        return Menu(G, [Family('B', std_set(), delta)], rcond=True)
     else:
         raise ValueError(arm)
     return Menu(G, fams)
@@ -514,8 +553,8 @@ def seed_int(*parts):
 def draw_founders(menu, base, r, I, N):
     """member ids (I, 3, N) with common random numbers across arms that share (base, r)."""
     rng = np.random.default_rng(seed_int('F', base, r))
-    u1 = rng.random((I, 3, N)); u2 = rng.random((I, 3, N)); u3 = rng.random((I, 3, N))
-    return menu.draw(u1, u2, u3)
+    u1 = rng.random((I, 3, N)); u2 = rng.random((I, 3, N)); u3 = rng.random((I, 3, N)); u4 = rng.random((I, 3, N))
+    return menu.draw(u1, u2, u3, u4)
 
 
 def tail_schedule(menu, base, r, I, N, Lmax, g0, t0, gend, lams):
@@ -530,8 +569,8 @@ def tail_schedule(menu, base, r, I, N, Lmax, g0, t0, gend, lams):
     ag = np.repeat(gs[gi], rep); ai = np.repeat(ii, rep)
     n = len(ag)
     asl = rng.integers(0, 3, n); au = rng.random(n); thin = rng.random(n)
-    u1 = rng.random(n); u2 = rng.random(n); u3 = rng.random(n)
-    am = menu.draw(u1, u2, u3)
+    u1 = rng.random(n); u2 = rng.random(n); u3 = rng.random(n); u4 = rng.random(n)
+    am = menu.draw(u1, u2, u3, u4)
     out = {}
     for lam in lams:
         keep = thin < lam / Lmax

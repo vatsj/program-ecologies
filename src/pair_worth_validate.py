@@ -129,6 +129,67 @@ def v3():
                 nested=bool(nest_ok), kernel_applied=int(o['na']), scheduled=int(n_sched), counts_conserved=cnt_ok))
 
 
+# ===================================================================== V7 (added by the engineer)
+def v7():
+    """kernel internals: after random arrivals applied to random states, the incrementally updated fitness vectors equal
+    a full recomputation, counts are conserved, presence lists are consistent."""
+    import pair_worth_run as PR
+    from stable_sets import _fit_full, _setact
+    rng = np.random.default_rng(7)
+    worst = 0.0
+    bad = 0
+    for gname, arm in (('pw13', 'CBs'), ('pw56', 'CBK')):
+        prep = PR.prepare(gname, arm, 0, 100, 0.05, [10.0], I=4)
+        G = prep['G']; J = prep['J']; K = J.shape[0]
+        N = 100; I = 4
+        nout = G.nout
+        counts = np.zeros((I, 3, K), np.int64)
+        for i in range(I):
+            for s in range(3):
+                kk = rng.choice(K, size=min(K, 4), replace=False)
+                c = rng.multinomial(N, np.ones(len(kk)) / len(kk))
+                counts[i, s, kk] = c
+        pres = np.zeros((I, 3, K), np.int64); npres = np.zeros((I, 3), np.int64); pos = -np.ones((I, 3, K), np.int64)
+        glob = np.zeros((3, K), np.int64)
+        for i in range(I):
+            for s in range(3):
+                for k in range(K):
+                    if counts[i, s, k] > 0:
+                        pres[i, s, npres[i, s]] = k; pos[i, s, k] = npres[i, s]; npres[i, s] += 1; glob[s, k] += counts[i, s, k]
+        F = np.zeros((I, 3, K))
+        for i in range(I):
+            for s in range(3):
+                for t in range(npres[i, s]):
+                    k = pres[i, s, t]
+                    F[i, s, k] = _fit_full(J, G.PAY, counts, pres, npres, i, s, k)
+        intro = np.full((I, 3, K), -2, np.int64); t10 = np.full((I, 3, K), -1, np.int64); arrf = np.zeros((I, 3, K), np.int64)
+        NU = 3 * I
+        act = np.arange(NU); apos = np.arange(NU); nact = 0
+        for u in range(NU):
+            if npres[u // 3, u % 3] > 1:
+                nact = _setact(u, True, act, apos, nact)
+        for step in range(400):
+            i = int(rng.integers(I)); s = int(rng.integers(3)); child = int(rng.integers(K))
+            nact, vk, ap = PK._apply_arrival(J, G.PAY, F, counts, pres, npres, pos, glob, intro, t10, arrf, i, s, float(rng.random()), child, step, N, act, apos, nact)
+        for i in range(I):
+            for s in range(3):
+                if counts[i, s].sum() != N:
+                    bad += 1
+                for t in range(npres[i, s]):
+                    k = pres[i, s, t]
+                    if pos[i, s, k] != t or counts[i, s, k] <= 0:
+                        bad += 1
+                    d = abs(F[i, s, k] - _fit_full(J, G.PAY, counts, pres, npres, i, s, k))
+                    worst = max(worst, d)
+                if (counts[i, s] > 0).sum() != npres[i, s]:
+                    bad += 1
+        na_true = sum(1 for u in range(NU) if npres[u // 3, u % 3] > 1)
+        if na_true != nact:
+            bad += 1
+    report('V7 arrival bookkeeping (incremental fitness vs recomputation, counts, presence lists, active set)', bad == 0 and worst < 1e-9,
+           dict(worst_abs_fitness_error=worst, inconsistencies=bad))
+
+
 # ===================================================================== helpers for V3-V6
 def A(G, s, partner, d):
     return G.act(s, PW.ALL if partner == 'ALL' else partner, d)
@@ -409,7 +470,7 @@ def v6():
 
 def main(which=None):
     os.makedirs(OUTP, exist_ok=True)
-    fns = dict(V1=v1, V2=v2, V3=v3, V4=v4, V5=v5, V6=v6)
+    fns = dict(V1=v1, V2=v2, V3=v3, V4=v4, V5=v5, V6=v6, V7=v7)
     for k, f in fns.items():
         if f is None or (which and k not in which):
             continue
