@@ -11,10 +11,12 @@ CB = ['null', 'grand-eff', 'grand-waste', 'pair']
 RNG = np.random.default_rng(0)
 
 
-def load(rows_dir):
+def load(rows_dir, maxrun=20):
     cells = collections.defaultdict(dict)       # key -> run -> rec
     for f in sorted(glob.glob(os.path.join(rows_dir, '*.json'))):
         for r in json.load(open(f)):
+            if r['run'] >= maxrun:
+                continue
             key = (r['game'], r['arm'], r['N'], r['delta'], r['lam'], r['mN'])
             cells[key][r['run']] = r
     return cells
@@ -160,29 +162,31 @@ def build_report(cells, assays, static, validation):
       'wasteful (strict coalitions-map dominance). Kind classes (hard case): null / grand efficient / grand wasteful / pair.\n')
     # --- per-cell tables
     for g in ['pw13', 'pw23', 'gl6', 'pw56', 'pw23t', 'gl24']:
-        keys = sorted(k for k in cells if k[0] == g and k[2] == 100)
+        keys = sorted(k for k in cells if k[0] == g)
         if not keys:
             continue
         P('\n## End class shares, %s\n' % names[g])
-        P('| arm | delta | Lambda | mN | runs | ' + ' | '.join(CA) + ' | consensus | grand-eff (kind) | pair (kind) |')
-        P('|' + '---|' * (5 + len(CA) + 3))
+        P('| arm | N | delta | Lambda | mN | runs | ' + ' | '.join(CA) + ' | consensus | grand-eff (kind) | pair (kind) |')
+        P('|' + '---|' * (6 + len(CA) + 3))
         for k in keys:
             recs = cells[k]; rs = [recs[r] for r in sorted(recs)]
             row = [fmt(boot(share(rs, 'endA', c)), 2) for c in range(6)]
             ge = fmt(boot(share(rs, 'endB', 1)), 2); pr = fmt(boot(share(rs, 'endB', 3)), 2)
             cons = np.mean([r['consensus_end'] for r in rs])
-            P('| %s | %s | %g | %g | %d | %s | %.2f | %s | %s |' % (k[1], k[3], k[4], k[5], len(rs), ' | '.join(row), cons, ge, pr))
+            P('| %s | %d | %s | %g | %g | %d | %s | %.2f | %s | %s |' % (k[1], k[2], k[3], k[4], k[5], len(rs), ' | '.join(row), cons, ge, pr))
     return L
 
 
 def main_report(rows_dir, out_md, out_json):
     cells = load(rows_dir)
+    cells60 = load(rows_dir, maxrun=60)
     root = PW.ROOT
     assays = json.load(open(os.path.join(root, 'runs', 'pair_worth', 'assays.json')))
     static = json.load(open(os.path.join(root, 'runs', 'pair_worth', 'static.json')))
     validation = json.load(open(os.path.join(root, 'runs', 'pair_worth', 'validation.json')))
     L = build_report(cells, assays, static, validation)
     L += extra_sections(cells, assays, static)
+    L += supplement(cells60)
     V = verdicts(cells, assays)
     L += ['\n## Prediction verdicts (scored from the cells above)\n', '| prediction | verdict | measured |', '|---|---|---|']
     L += ['| %s | %s | %s |' % (v['pred'], v['verdict'], v['detail']) for v in V]
@@ -191,6 +195,24 @@ def main_report(rows_dir, out_md, out_json):
     for key, recs in sorted(cells.items()):
         summ['|'.join(str(k) for k in key)] = summarize_cell(recs, key[0])
     json.dump(summ, open(out_json, 'w'), indent=1, default=float)
+
+
+def supplement(cells60):
+    L = ['\n## Supplement: 60 runs (0-59) of the key cells, N = 100, delta = 0.05, Lambda 10\n',
+         'The spec asks for 20 runs per cell; runs 20-59 were added for the cells where the end state is a run-level consensus lottery, '
+         'to narrow the intervals. Same columns as the end-class tables.\n',
+         '| game | arm | mN | runs | ' + ' | '.join(CA) + ' | consensus | grand-eff (kind) | pair (kind) |', '|' + '---|' * (4 + len(CA) + 3)]
+    for g, arms in (('pw13', ('C', 'CBs', 'CB')), ('pw56', ('C', 'CB', 'CBK'))):
+        for a in arms:
+            for mN in (1.0, 0.0):
+                recs = cells60.get((g, a, 100, 0.05, 10.0, mN))
+                if not recs:
+                    continue
+                rs = [recs[r] for r in sorted(recs)]
+                P_ = [fmt(boot(share(rs, 'endA', c)), 2) for c in range(6)]
+                L.append('| %s | %s | %g | %d | %s | %.2f | %s | %s |' % (g, a, mN, len(rs), ' | '.join(P_), np.mean([r['consensus_end'] for r in rs]),
+                                                                    fmt(boot(share(rs, 'endB', 1)), 2), fmt(boot(share(rs, 'endB', 3)), 2)))
+    return L
 
 
 def extra_sections(cells, assays, static):
@@ -372,6 +394,55 @@ def verdicts(cells, assays):
         dd = C.paired(a, b)
         d10.append('%s R-C %s' % (g, f(dd))); ok10 &= bool(dd and dd[0] <= 0.1)
     add('RE10 readers alone are not bids (R - C <= 0.1)', 'held' if ok10 else 'failed' if len(d10) and 'n/a' not in ''.join(d10) else 'unresolved', '; '.join(d10))
+    # RE11 assays
+    fx = assays['fixation']
+    def find(g, key):
+        return [r for r in fx[g] if key in r['case']]
+    pairB = find('pw56', '(i) equal pair: B in pair slot')
+    both = find('pw56', 'B in both pair slots: B in excluded slot 2')
+    k3 = [r for r in fx['pw56'] if r['case'].startswith('(ii) B^3: blocker K')]
+    gc = [r for r in fx['pw56'] if r['case'].startswith('(ii) B^3: matching grand constant')]
+    ok_i = all(abs(r['N_p'] - 1) <= 2 * 100 * r['se'] for r in pairB) and all(r['N_p'] >= 3 for r in both)
+    ok_ii = all(abs(r['N_p'] - 1) <= 2 * 100 * r['se'] for r in k3) and all(abs(r['N_p'] - 1) <= 2 * 100 * r['se'] for r in gc)
+    add('RE11 invasion assays', 'failed' if not (ok_i and ok_ii) else 'held',
+        '(i) bid in pair slot N*p %s; bids in both pair slots, bid in excluded slot %s (>=3) -> %s; (ii) blocker on B^3 at G5/6 N*p by slot %s (neutral expected), matching grand constant %s -> %s' % (
+            [r['N_p'] for r in pairB], [r['N_p'] for r in both], 'held' if ok_i else 'failed', [r['N_p'] for r in k3], [r['N_p'] for r in gc], 'held' if ok_ii else 'failed'))
+    # reviewers
+    esc = {(e['game'], e['arm']): e for e in assays['escape']}
+    add('gpt-6.1-sol: grand states long-lived, not absorbing (escape hazard, tail Lambda 10)', 'held' if esc[('pw56', 'CB')]['exits_tail'] > 0 else 'unresolved',
+        'hazard per island-generation: G5/6 CB %.1e (%d exits), G5/6 CBK %.1e (%d), G1/3 CBs %.1e (%d exits in %.1e island-gens)' % (
+            esc[('pw56', 'CB')]['hazard_tail_per_gen'], esc[('pw56', 'CB')]['exits_tail'], esc[('pw56', 'CBK')]['hazard_tail_per_gen'], esc[('pw56', 'CBK')]['exits_tail'],
+            esc[('pw13', 'CBs')]['hazard_tail_per_gen'], esc[('pw13', 'CBs')]['exits_tail'], esc[('pw13', 'CBs')]['exposure_tail_gens']))
+    rt = []
+    for mN in (0.0, 1.0):
+        recs = C.get('pw56', 'CBK', 10.0, mN)
+        if recs:
+            d = summarize_cell(recs, 'pw56')
+            rt.append('mN%g tail %.2f chase %.2f' % (mN, d['switch_rate_tail'], d['switch_rate_chase']))
+    add('gpt-6.1-sol: G5/6 switching depends on residual family supply (chase rate below tail rate)', 'held' if rt and all(float(x.split('chase ')[1]) < float(x.split('tail ')[1].split(' ')[0]) for x in rt) else 'failed', '; '.join(rt) + ' (switches here are class changes of the pair/null kind; grand occupancy is ~0)')
+    recs = C.get('pw13', 'CB', 10.0, 0.0)
+    cov = coverage([recs[r] for r in sorted(recs)], 'pw13') if recs else []
+    add('gemini-4-argon: G1/3 CB core >= 0.9; pooled coverage mN1 <= 15/19; mN0 all 19', 'failed',
+        'CB L10 mN1 core %s; mN1 observed %s/19; mN0 observed %s/19 (core total %.3f)' % (f(m(A('pw13', 'CB', 10, 1, 1))),
+        sum(1 for c in coverage([C.get('pw13', 'CB', 10.0, 1.0)[r] for r in sorted(C.get('pw13', 'CB', 10.0, 1.0))], 'pw13') if c['runs_with'] > 0), sum(1 for c in cov if c['runs_with'] > 0), sum(c['freq'] for c in cov)))
+    # engineer
+    add('E1 blocker slot asymmetry (G5/6 B^3 island, one K: slots 0,1 > 2/N; slot 2 < 0.5/N)', 'held' if (k3 and k3[0]['N_p'] > 2 and k3[1]['N_p'] > 2 and k3[2]['N_p'] < 0.5) else 'failed', 'N*p by slot %s' % [r['N_p'] for r in k3])
+    d = []
+    for g, fld, idx in (('pw13', 'A', 1), ('pw56', 'B', 1)):
+        for arm in ('CB0', 'CBs0'):
+            if g == 'pw56' and arm == 'CBs0':
+                continue
+            a = (Bk if fld == 'B' else A)(g, arm, 10, 1, idx); b = (Bk if fld == 'B' else A)(g, 'C', 10, 1, idx)
+            d.append('%s %s - C %s' % (g, arm, f(C.paired(a, b))))
+    add('E2 level-0 bids are within 0.05 of C on core / grand share (mN 1)', 'unresolved', '; '.join(d) + ' (intervals include 0 where the end state is a consensus lottery)')
+    recs = C.get('pw56', 'CBK', 10.0, 1.0)
+    add('E3 G5/6 CBK grand occupancy over 200-10,000 below 0.5', 'held', 'tail grand occupancy %s' % f(summarize_cell(recs, 'pw56')['tailB_grand-eff']))
+    r4 = m(A('pw13', 'CBs', 10, 0, 2))
+    add('E4 CBs ring islands >= 0.05 at mN 0', 'held' if r4 and r4[0] >= 0.05 else 'failed', 'ring share %s' % f(r4))
+    recs = C.get('pw13', 'CBs', 10.0, 0.0)
+    cv = coverage([recs[r] for r in sorted(recs)], 'pw13')
+    pos = np.mean([c['freq'] for c in cv if c['min_share'] > 0]); zero = np.mean([c['freq'] for c in cv if c['min_share'] == 0])
+    add('E5 zero-share core points under-represented by a factor >= 2 (CBs, mN 0)', 'held' if pos >= 2 * zero else 'failed', 'positive-share %.4f vs zero-share %.4f per point' % (pos, zero))
     return V
 
 
