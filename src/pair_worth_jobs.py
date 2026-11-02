@@ -48,6 +48,19 @@ def stage(name):
             for a in ('C', 'CBs'):
                 for r in range(RUNS):
                     L.append(job('pw13', a, r, N=N, mns='1'))
+    elif name == 'sec3':
+        # engineer's additions: high doses (is the mechanism ever sufficient?), and runs 20-59 of the key cells
+        for g, arms in (('pw13', ('CBs', 'CB')), ('pw56', ('CB', 'CBK'))):
+            for d in (0.3, 0.5):
+                for a in arms:
+                    if a == 'CBK' and d > 0.3:
+                        continue
+                    for r in range(RUNS):
+                        L.append(job(g, a, r, delta=d))
+        for g, arms in (('pw13', ('C', 'CBs', 'CB')), ('pw56', ('C', 'CB', 'CBK'))):
+            for a in arms:
+                for r in range(20, 60):
+                    L.append(job(g, a, r))
     else:
         raise SystemExit(name)
     return L
