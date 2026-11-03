@@ -54,7 +54,7 @@ def main():
     os.makedirs(OUTP, exist_ok=True)
     res = dict(reps=REPS, w=W, rows=[])
     cs = cases()
-    seed = 7300
+    seed = 91000          # fresh Monte-Carlo seeds: a smoke run with seed 7300 was discarded before the predictions were committed
     for N in NS:
         for (rn, s, nm, residents, inv) in cs:
             seed += 1
