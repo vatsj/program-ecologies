@@ -1,6 +1,6 @@
 # Spec: the pair-worth easy case along N: coordination supply, dose, and what reading adds, 2026-11-03
 
-Status: draft by the RE; to be reviewed by gemini-4-argon (folded [after review]), then gpt-6.1-sol (`--mode amended`,
+Status: reviewed by gemini-4-argon (folded [after review]) and gpt-6.1-sol (`--mode amended`,
 folded [after second review]); to be run by a Sonnet subagent. Queue 73. Follow-up to queue 72 (RESULTS "The pair-worth-a
 game on islands"). The RS approved the run on 2026-11-03 ("Sure") after the RE proposed it: rerun the easy case at
 N = 200–400 with the per-split seed count above one, to see whether bids keep helping.
@@ -72,10 +72,21 @@ and the exclusion bid B as in queue 72; level-0 variants are not rerun).
   to the grand constant (ALL, σ_i) whenever the others' constants sum to at most 1 − σ_i. Dose δ per slot; [after
   review] σ_i is drawn from the per-slot marginal of the 28 splits, weight (7 − s)/28 for a share of s sixths (the same
   marginal as C+G and C+B\*; uniform over the 7 shares would make random F triples mostly infeasible), and c uniform.
-- **C+F₄ (core-bounded F, secondary)** [after review]. F with σ_i ≤ 4/6 only (the core's per-slot bound), weights
-  renormalized; separates failures from non-core grand splits from pair traps. The static question is whether the Löbian joint fixed point of three F's with feasible σ's plays the
-  grand coalition (engineer: V6 below; the RE expects yes, since the disjunct containing the true tuple holds
-  self-consistently, and states the play before evaluation).
+- **C+F₄ (bounded-demand F, secondary)** [after review; reworded after second review]. F with σ_i ≤ 4/6 only, weights
+  renormalized. It removes excessive individual demands, not non-core outcomes in general (a feasible triple can still
+  waste slack), so slack and core membership are reported separately for it.
+- **C+F⁻ (F without the pair fallback, control)** [after second review]: F's grand line, then `else c`. F and G differ
+  in the fallback as well as in reading; F⁻ against F isolates the fallback, F⁻ against G isolates reading. N = 100 and
+  200, δ = 0.05.
+- **C+B\*ₖ (fixed-count inoculation)** [after second review]: the C founders, plus exactly k copies per slot of
+  B\*(σ; c) on one split σ drawn uniformly from the 28 per island (c the slot's constant drawn from C's law), k ∈ {1, 4},
+  replacing random founders. Supply is fixed in count across N, so N alone varies.
+- **F's grand line and Löb** [after second review]. The grand line reads at level 0 (□ = PA), as in queue 72's B. Let φ
+  be the conjunction "slot ℓ plays (ALL, σ_ℓ)" over ℓ = i, j, k, with σ_i + σ_j + σ_k ≤ 1. From □φ, PA derives
+  □(j = (ALL, σ_j)) and □(k = (ALL, σ_k)) by distribution; (σ_j, σ_k) is one of i's disjuncts because
+  σ_j + σ_k ≤ 1 − σ_i, and the grand line is i's first line, so i plays (ALL, σ_i); likewise for j and k. Hence
+  PA ⊢ □φ → φ and, by Löb, PA ⊢ φ: three feasible F's play the grand coalition. For infeasible share triples no
+  disjunct is provable (soundness) and play falls to the handshakes. V6 checks this exhaustively and is a launch gate.
 - **Stored arms not rerun:** the queue-72 cells at N = 100 (60 runs for C, C+B\*, C+B; 20 for C+G, C+A and doses).
 
 ## Design
@@ -89,8 +100,12 @@ and the exclusion bid B as in queue 72; level-0 variants are not rerun).
 2. **Validation.** (V1) Re-run runs 0–2 of stored cells (G⅓ C, C+B\* at N = 200, mN = 1, both Λ) and reproduce the
    stored rows exactly (deterministic founders by run index); (V2) at N = 400 runs 0–1 of C+B\* likewise. (V6) F's
    closed-form outcome rule against direct modal evaluation (GL chain, `modal.py`) on 1,000 random triples including
-   mixed σ, infeasible sums, constants that mimic F's output, and F next to B; the play of F³ at every feasible triple
-   of shares, stated before evaluation (grand coalition).
+   mixed σ, infeasible sums, constants that mimic F's output, and F next to B; [after second review] plus exhaustive
+   evaluation of every F/F/F share triple (feasible and infeasible), every F/F/constant and F/constant/constant triple,
+   and F⁻ likewise, against the play stated before evaluation (grand coalition iff feasible). 0 mismatches is a launch
+   gate. (V7) Common random numbers: the C base founders and the tail draws come from a stream keyed by run index alone,
+   and named programs replace founders from a separate stream keyed by (arm, run), so arms share base founders exactly;
+   check by diffing founder arrays for two arms on one run.
 3. **Counted cells** (Λ ∈ {0, 10}; each job is one (arm, N, run) with all listed mN; founders paired across arms).
    Confirmatory runs are **20–59** for the cells the predictions score at N = 200 and 400 (stored runs 0–19 of C and
    C+B\* are exploratory and are reported separately and pooled with disclosure); all other cells use runs 0–19.
@@ -103,7 +118,14 @@ and the exclusion bid B as in queue 72; level-0 variants are not rerun).
      C+G and C+F are all paired on 60 runs (C, C+B\*, C+B are stored at 60).
    - **D. N = 800** (cut first; pilot one run before launch and report the per-record time), mN = 1, Λ = 10 only: C,
      C+B\*, C+G, 10 runs each.
-   - Cut order (report every cut): D; C+F₄; mN = 0 at N = 400; the dose cells at N = 400; C+B and C+F at N = 400; the extra
+   - **E. Fixed-count inoculation** [after second review]: C+B\*ₖ, k ∈ {1, 4}, at N ∈ {100, 200, 400}, mN ∈ {1, 0},
+     20 runs each (paired with C's base founders). C+F⁻ at N = 100 and 200, mN = 1, 20 runs.
+   - **F. Invasion assays (ε-free exits)** [after second review]: single islands, no migration, no tail, 2,000
+     replicates each at N ∈ {100, 200, 400}: a homogeneous B\*(σ)³ island on the equal split, and a homogeneous
+     (ALL, ⅓)³ grand-constant island, each with one introduced matching grand constant, one introduced non-matching
+     constant (a pair offer), and one introduced B\*(σ′) on another core split; fixation probability against 1/N.
+   - **G. Longer chase** [after second review]: 5 runs of C+B\* and C+G at N = 400, chase 60·N instead of 20·N.
+   - Cut order (report every cut): D; G; C+F₄; E at N = 400; mN = 0 at N = 400; the dose cells at N = 400; C+B and C+F at N = 400; the extra
      40-run replication at N = 200. Validation, static numbers and cells A and B for C, C+B\*, C+G at δ = 0.05 (mN = 1)
      are never cut.
 4. **Statistics**, per island from the modal outcome as in queue 72 (core proper / ring / efficient dominated /
@@ -112,11 +134,13 @@ and the exclusion bid B as in queue 72; level-0 variants are not rerun).
    - run-level paired differences between arms on shared founders, with percentile bootstrap intervals **over runs** (at
      mN = 1 islands synchronize, so the effective sample is runs, not islands; report consensus and the share of runs in
      which at least 0.9 of islands are in the core);
-   - **supply realized**: per island, the number of same-σ bid triples (and of F, G, and C compatible grand triples) in
-     the founders and the first generation at which a grand state is held (any class "grand"), and core entry and exit
-     events per island-generation (debounced 25 generations) with the program families present at each event, so entry
-     and exit hazards are read per N, not inferred from end shares (discipline 5; these are encounter-level, ε-free
-     quantities where the debounce is not an approximation);
+   - **supply realized** [amended after second review]: per island at founding, whether any compatible grand support
+     exists (a slot-wise choice of programs that plays a grand coalition), the number of occupied split types per slot,
+     the minimum slot abundance of the compatible support, and the count T; then establishment (first generation at
+     which a grand state is held) conditional on those statistics. Core entry and exit events (debounced 25
+     generations) are reported as **finite-schedule transition rates** with at-risk exposure, separately for the tail
+     period and the chase, with the ancestry of the transition (mutant arrival, migrant, resident) and the program
+     families present; they are not ε-free. The ε-free exit quantities are the invasion assays (cell F);
    - **who holds the core**: in core islands at the end, the shares of the majority triple that are bids, F, grand
      constants of the same split and other constants;
    - core coverage at mN = 0 (the RS's clause): how many of the 19 core points occur at the end on some island, pooled
@@ -125,7 +149,8 @@ and the exclusion bid B as in queue 72; level-0 variants are not rerun).
    - the non-core grand splits (the 9 splits with a share > ⅔) held by bids at the end (dominated grand islands).
 5. **Budget.** 3 workers, BLAS threads 1. From the queue-72 timings (kernel per (Λ, mN) record: N = 200 18–29 s,
    N = 400 190–280 s; N = 800 extrapolated at 40–60 min per record) the confirmatory cells cost about 16 core-hours at
-   N = 400 (mN = 1), 7 at mN = 0, 9 at N = 200 and 20 at N = 800: about 20 hours at 3 workers in all. Cut in the order
+   N = 400 (mN = 1), 7 at mN = 0, 9 at N = 200 and 20 at N = 800, plus [after second review] about 15 for cells E–G:
+about 25 hours at 3 workers in all. Cut in the order
    above if the pilot at N = 800 or the first N = 400 records run over by more than 1.5×.
 
 ## Required outputs
@@ -141,9 +166,12 @@ and the exclusion bid B as in queue 72; level-0 variants are not rerun).
 
 ## Predictions, with falsifiers
 
-Scored on confirmatory runs (20–59) at mN = 1, Λ = 10 unless stated; "core" is core proper at the end of the run, paired
-differences on shared founders with run-level bootstrap intervals; a bound counts as met only if the point estimate
-meets it and the stated sample is complete.
+Scored at mN = 1, Λ = 10 unless stated; "core" is core proper at the end of the run, paired differences on shared
+founders with run-level bootstrap intervals; a bound counts as met only if the point estimate meets it and the stated
+sample is complete. [after second review] **Manifest:** C and C+B\* at N = 200, 400, δ = 0.05 are scored on runs 20–59
+(runs 0–19 are the stored exploratory rows); C+G at N = 200, 400 on runs 20–59 for pairing with them; every other
+cell is new and scored on all its runs (0–19, or 0–59 at N = 100); a prediction whose cell is cut is unscored, not
+failed.
 
 **The RS's conjecture, re-scored at larger N.** G⅓: core ≥ 0.95 of islands at mN = 1 in some arm at N = 400, and at
 mN = 0 every core point has island frequency ≥ 1/76 (run-clustered simultaneous 95% intervals) in C+B\*. *The RS is
@@ -167,14 +195,22 @@ invited to state his own prediction for N = 400 (does any arm reach 0.95; does t
 6. **The RS's conjecture still fails at N = 400, on the core clause.** No arm reaches core ≥ 0.95 at mN = 1 (the best
    arm ≤ 0.9; dominated pairs and non-core bid splits remain). *Falsifier:* an arm with core ≥ 0.95 and the lower
    bootstrap bound ≥ 0.9.
-7. **Entry is the bind, exit is neutral drift.** At N = 100 → 400, in C+B\* the core exit hazard per island-generation
-   falls by at least 2× (neutral drift out ∝ 1/N), while the entry hazard rises with T. *Falsifier:* the exit hazard
-   falls by < 2× or rises.
+7. **Entry is the bind, exit is neutral drift** [restated after second review: scored on the ε-free assays, cell F].
+   On a homogeneous B\*³ or grand-constant core island, an introduced matching grand constant fixes at 1/N within 2
+   standard errors at N = 100, 200, 400 (neutral), and an introduced pair offer fixes at < 0.5/N (selected against).
+   Raw transition rates in the runs are reported, not scored. *Falsifier:* either assay outside its bound at any N.
+8. **Fixed count isolates N** [after second review]. C+B\*ₖ (k = 4) core at N = 400 exceeds k = 4 at N = 100 by less
+   than 0.15 (a fixed number of same-split copies helps equally at every N, so the gain at fixed δ is supply).
+   *Falsifier:* the N = 400 cell exceeds the N = 100 cell by ≥ 0.15 (H_N).
 
 **Reviewer counter-predictions, recorded and scored.** gemini-4-argon: (i) at mN = 1 the lever is metapopulation supply
 I·T, not T: C+B\* at N = 400, δ = 0.0125 reaches core ≥ 0.50 and exceeds C by > 0.15 (against RE 1; the mN = 0 cell at
 the same dose separates the two: under argon, mN = 0 stays low while mN = 1 is high); (ii) C+F with matched marginals
-has an efficient-dominated share > 0.15 (F stabilizes the 9 non-core splits), scored against C+F₄.
+has an efficient-dominated share > 0.15 (F stabilizes the 9 non-core splits), scored against C+F₄. gpt-6.1-sol:
+(iii) raw per-generation exit rates will not follow 1/N (scored by the reported rates against the assays); (iv) C+F
+differs from C+G mainly through a pair excess in infeasible encounters, not a reading premium (scored by C+F's pair
+share against C+G's and C+F⁻'s); (v) metapopulation rescue depends on lineage survival and assembly, not total
+compatible-triple count (scored by establishment conditional on the founding-support statistics).
 
 ## Notes for the engineer
 
