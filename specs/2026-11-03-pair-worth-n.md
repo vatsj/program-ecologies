@@ -64,11 +64,16 @@ and the exclusion bid B as in queue 72; level-0 variants are not rerun).
   `if ⋁_{(a,b) : a + b ≤ 1 − σ_i} (□(j = (ALL, a)) ∧ □(k = (ALL, b))) then (ALL, σ_i)`
   `elif □(j = (i, π_j(σ_i; i, j))) then (j, π_i(σ_i; i, j))` `elif □(k = (i, π_k(σ_i; i, k))) then (k, π_i(σ_i; i, k))`
   `else c`.
-  The disjunction runs over the grid's demands a, b (0…6 sixths). Here π is the queue-72 exclusion split with σ replaced
-  by the vector (σ_i, ½(1 − σ_i), ½(1 − σ_i)) rounded as the queue-72 rule rounds it. F is a reading program that
-  accepts any feasible grand coalition and keeps the exclusion fallback; against constants it is on-path identical to the
-  grand constant (ALL, σ_i) whenever the others' constants sum to at most 1 − σ_i. Dose δ per slot, uniform over its
-  (σ_i, c) pairs. The static question is whether the Löbian joint fixed point of three F's with feasible σ's plays the
+  The disjunction runs over the grid's demands a, b (0…6 sixths). [after review] The two handshake lines read their
+  atoms at **level 1** (`BOX_1`, PA + Con(PA)), exactly the queue-72 repair R1 (notes/pair-worth.md 1.3); at level 0 the
+  fallback never fires. π is the queue-72 exclusion split, which at G⅓ is (⅙, ⅙) for every pair and every σ (the pair
+  worth is two ticks, split equally), so two F's with different shares still agree on the pair. F is a reading program
+  that accepts any feasible grand coalition and keeps the exclusion fallback; against constants it is on-path identical
+  to the grand constant (ALL, σ_i) whenever the others' constants sum to at most 1 − σ_i. Dose δ per slot; [after
+  review] σ_i is drawn from the per-slot marginal of the 28 splits, weight (7 − s)/28 for a share of s sixths (the same
+  marginal as C+G and C+B\*; uniform over the 7 shares would make random F triples mostly infeasible), and c uniform.
+- **C+F₄ (core-bounded F, secondary)** [after review]. F with σ_i ≤ 4/6 only (the core's per-slot bound), weights
+  renormalized; separates failures from non-core grand splits from pair traps. The static question is whether the Löbian joint fixed point of three F's with feasible σ's plays the
   grand coalition (engineer: V6 below; the RE expects yes, since the disjunct containing the true tuple holds
   self-consistently, and states the play before evaluation).
 - **Stored arms not rerun:** the queue-72 cells at N = 100 (60 runs for C, C+B\*, C+B; 20 for C+G, C+A and doses).
@@ -90,14 +95,15 @@ and the exclusion bid B as in queue 72; level-0 variants are not rerun).
    Confirmatory runs are **20–59** for the cells the predictions score at N = 200 and 400 (stored runs 0–19 of C and
    C+B\* are exploratory and are reported separately and pooled with disclosure); all other cells use runs 0–19.
    - **A. N = 200**, mN ∈ {1, 0}: C, C+B\*, C+G, C+B, C+F at δ = 0.05 (40 runs each for C, C+B\*, C+G; 20 for C+B, C+F);
-     C+B\* at δ ∈ {0.025, 0.15, 0.5}, 20 runs each.
+     C+B\* at δ ∈ {0.025, 0.15, 0.5}, 20 runs each; [after review] C+F₄ at δ = 0.05, 20 runs.
    - **B. N = 400**, mN = 1: C, C+B\*, C+G at δ = 0.05, 40 runs each; C+B, C+F at δ = 0.05, 20 runs;
-     C+B\* at δ ∈ {0.0125, 0.15, 0.5}, 20 runs each. mN = 0: C, C+B\*, C+G, C+F, 20 runs each, δ = 0.05.
-   - **C. N = 100**, mN = 1: C+F at δ = 0.05, 40 runs (runs 20–59 for C, C+B\*, C+B stored at 60 runs; C+G and the doses
-     stored at 20 runs, 20–39 extra for C+G); mN = 0: C+F, 20 runs.
+     C+B\* at δ ∈ {0.0125, 0.15, 0.5}, 20 runs each. mN = 0: C, C+B\*, C+G, C+F, 20 runs each, δ = 0.05; [after review]
+     C+B\* at δ = 0.0125, 20 runs (local supply T against metapopulation supply I·T).
+   - **C. N = 100**, mN ∈ {1, 0}: [after review] C+F on runs 0–59 and C+G extended to runs 20–59, so that C, C+B\*, C+B,
+     C+G and C+F are all paired on 60 runs (C, C+B\*, C+B are stored at 60).
    - **D. N = 800** (cut first; pilot one run before launch and report the per-record time), mN = 1, Λ = 10 only: C,
      C+B\*, C+G, 10 runs each.
-   - Cut order (report every cut): D; mN = 0 at N = 400; the dose cells at N = 400; C+B and C+F at N = 400; the extra
+   - Cut order (report every cut): D; C+F₄; mN = 0 at N = 400; the dose cells at N = 400; C+B and C+F at N = 400; the extra
      40-run replication at N = 200. Validation, static numbers and cells A and B for C, C+B\*, C+G at δ = 0.05 (mN = 1)
      are never cut.
 4. **Statistics**, per island from the modal outcome as in queue 72 (core proper / ring / efficient dominated /
@@ -165,7 +171,10 @@ invited to state his own prediction for N = 400 (does any arm reach 0.95; does t
    falls by at least 2× (neutral drift out ∝ 1/N), while the entry hazard rises with T. *Falsifier:* the exit hazard
    falls by < 2× or rises.
 
-The reviewers' counter-predictions are recorded and scored here too.
+**Reviewer counter-predictions, recorded and scored.** gemini-4-argon: (i) at mN = 1 the lever is metapopulation supply
+I·T, not T: C+B\* at N = 400, δ = 0.0125 reaches core ≥ 0.50 and exceeds C by > 0.15 (against RE 1; the mN = 0 cell at
+the same dose separates the two: under argon, mN = 0 stays low while mN = 1 is high); (ii) C+F with matched marginals
+has an efficient-dominated share > 0.15 (F stabilizes the 9 non-core splits), scored against C+F₄.
 
 ## Notes for the engineer
 
