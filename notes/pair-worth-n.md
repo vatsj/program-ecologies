@@ -93,6 +93,21 @@ runs, chase 60N); D (N = 800).
 
 Three workers, `OPENBLAS/OMP/MKL/VECLIB/NUMBA_NUM_THREADS = 1`; one lock file per job.
 
-## 2. Static numbers, validation, predictions
+## 2. Static numbers, validation, predictions, pilot
 
-(Sections filled in as they are produced; see below.)
+- **Static** (`runs/pair_worth_n/static.json`, exact evaluation of every catalogue triple, 21 s for the 609-program C+B* catalogue): the grand coalition is
+  never scarce (constants alone: 2,600 efficient grand triples per island at N = 100); the named supply is 0.16 same-split B* triples at N = 100 against 73 feasible F
+  or G triples (F and G have identical feasibility counts, 73.18); the probability of a named-only efficient support at founding in C+B* is 0.116 / 0.537 / 0.982 / 1.000
+  at N = 100 / 200 / 400 / 800 (Poisson, E1).
+- **Validation:** V6 (launch gate) 0 mismatches: R1-R5 stated play (hand-derived, written in the code before the first evaluation) against the numba evaluator on all
+  4,741,632 triples of the F+constants catalogue and the F- catalogue; an independent explicit-equation chain (written from the action equations, not decision lists)
+  on 9,811 triples incl. 1,000 random triples with mixed shares, infeasible sums, B next to F and constants mimicking F's outputs; a mutated F (grand line off by
+  one on share 3) is caught (R3 84,865, R4 300, R5 45 mismatches), so the test has power. One hand rule was wrong at first: R2 said "no grand outcome when the world-0
+  triple is infeasible", but a left F's fallback c (or a constant) can itself be a feasible grand triple; the rule was restated as "a grand outcome then equals the
+  outcome of the fallback actions" before the first run that was kept (V6 had not yet been evaluated against the final rule; the first evaluation passed).
+  V1 (N = 200, C and C+B*, runs 0-2, both Lambda, mN = 1) and V2 (N = 400, C+B*, runs 0-1) reproduce the stored rows exactly in every field except `structure`
+  (the stored list was an earlier version capped at 60 entries; the stored list is a prefix of the new one, switch counts equal) and the new statistics. V7 passes
+  (arms share every unreplaced founder; tails identical; F and B* replace the same positions with the same c); V8 passes.
+- **Pilot** (not counted; run indices 20, written outside the rows directory): N = 400, C+B*, run 20, Lambda = 10: kernel 102 s at mN = 1 (the run closed at
+  generation 37,560 of 48,000), 12.8 s at mN = 0, preparation 12.4 s; N = 800, mN = 1: kernel 967 s (96,000 generations, no early stop), preparation 17.6 s,
+  1.4 GB. The spec's extrapolation was 190-280 s at N = 400 and 40-60 min at N = 800: no overrun, nothing cut on the pilot's account.
