@@ -1330,3 +1330,17 @@ immigrants"** (RESULTS "Dominance contracts and refusal on islands"; the explain
 - **The spec's bid as written.** Its exclusion fallback never fires (the grand line is true vacuously at world 0, so level-0 handshake atoms never hold); run as controls (B0), with the level-1 handshake as the repaired main arm.
 - **The spec's V6 (slot-permutation invariance with an index-ordered partner priority).** Fails at 17% of random triples; passes with priorities carried along under relabelling.
 - **Engineer E4 (ring islands ≥ 0.05 at mN 0) failed; E2 unresolved (level-0 bids vs C).**
+
+## Added 2026-11-04: the pair-worth easy case along N (RESULTS.md, "The pair-worth easy case along N")
+
+- **RE 1 ("supply, not N or dose, is the lever for bids").** Failed on the d = 0.0125 clause: C+B* at N = 400 with T = 0.16 is 0.68, +0.29 [0.06, 0.53] over C (the H_N reading, argon's metapopulation reading); the N = 400 d = 0.05 clause (0.94, +0.57) and the N = 200 d = 0.025 clause (-0.06) held. Founding named support does not predict establishment (ROC 0.50, establishment 0.65 vs 0.63).
+- **RE 3 ("constants coordinate better than bids at every N; C+G >= 0.8 at N = 400").** Failed: C+G - C+B* = +0.33 at N = 200, -0.29 [-0.40, -0.17] at N = 400 (a reading premium); C+G is 0.66 at N = 400.
+- **RE 4 ("a flexible bid is a constant with a fallback").** Failed: |C+F - C+G| = 0.17 at N = 100 and 0.32 at N = 400 (> 0.15); C+F - C+B* = +0.57 at N = 100 held.
+- **RE 5 ("local supply is enough without migration at N = 400").** Failed: mN = 0 core 0.06 (C+B*) and 0.12 (C+G), null 0.50 / 0.64.
+- **RE 6 ("no arm reaches core >= 0.95 at N = 400").** Failed: C+B and C+F 1.00 [1.00, 1.00] over 20 runs; C+B* 0.94.
+- **RE 8 ("fixed count isolates N").** Failed: C+B*_4 core 0.77 at N = 400 against 0.20 at N = 100 (+0.57): the count does not carry the gain, N does (H_N).
+- **The RS's conjecture re-scored.** Failed on its registered coverage clause (C+B*, N = 400, mN = 0: 16 of 19 core points with simultaneous upper bounds below 1/76, total core share 0.065); the core clause is met by C+B and C+F at N = 400 (1.00, 20 runs), not by C+B* (0.94). Post hoc, at mN = 1, 0.98 of core islands sit on the seven points with every share in [1/6, 1/2].
+- **gemini-4-argon (ii)** (C+F has an efficient-dominated share > 0.15): failed, 0.00 at every N. **gpt-6.1-sol (iv)** (C+F differs from C+G through a pair excess): failed, C+F has fewer pair islands than C+G at N = 100 (-0.19) and N = 200 (-0.10), and the F- control shows the fallback *raises* the core at N = 100.
+- **Engineer E1** (named support share within 0.05 of the Poisson count 0.116 / 0.537 / 0.982): failed at N = 200 (0.594), by 0.057 (N = 100 0.129, N = 400 0.991 within). **E2** (the pair fallback does not change the core share): failed at N = 100 (+0.30 [0.05, 0.55]), 0.00 at N = 200.
+- **Spec's design points.** "T = 28 n_sigma^3 as the supply that bids need" (design 1(c), the matched-T cells): rejected as the operative quantity; the grand coalition is never scarce (static) and founding support is non-predictive. "Lambda in {0, 10} at N = 400 and 800": not run (Lambda = 10 only; the cost table assumed it).
+- Nothing re-opened by this run that REJECTED already holds: the queue-72 entry on the easy-case conjecture is re-opened at N >= 400 (and was allowed to be: larger N and a menu-free bid).
