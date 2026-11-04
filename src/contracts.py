@@ -42,8 +42,8 @@ until the mask is stable.
 import os, sys
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
-import modal as M
-from modal import TM, TT, TL, KC, KD, PD
+import provability as M
+from provability import TM, TT, TL, KC, KD, PD
 from abm import njit
 
 INF = 10 ** 9

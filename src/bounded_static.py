@@ -5,7 +5,7 @@
 import os, sys, json, time
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
-import modal as M
+import provability as M
 from bounded import (build_arm, lang, cost_matrix, _evaluate_online, _evaluate_gated, BUDGETS, INF, FB, PB, PSTAR, ROOT)
 
 NAMED = [('FairBot', FB), ('FB1', 'BOX1(THEM(ME))'), ('BTT', 'BOX(THEM(THEM))'), ('BTT1', 'BOX1(THEM(THEM))'),

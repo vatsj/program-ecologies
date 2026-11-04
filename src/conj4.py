@@ -183,7 +183,7 @@ def wide_arrays(L):
 
 
 def to_op(L, p):
-    import modal as M
+    import provability as M
     t = p[0]
     if t in ('C', 'D'): return L.op(t)
     if t == 'not': return L.op('not', to_op(L, p[1]))

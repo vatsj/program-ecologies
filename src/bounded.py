@@ -21,7 +21,7 @@ import os, sys, json, time, hashlib
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
 from abm import njit
-import modal as M
+import provability as M
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INF = float('inf')

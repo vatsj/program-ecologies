@@ -260,7 +260,7 @@ def cmd_static(a):
 
 # ------------------------------------------------------------------ the lim_N chain
 def build_prov(n, val, keep=None):
-    import modal as M
+    import provability as M
     L = tables(n)[0]
     U, PCC = M.pd_payoffs(val, M.PD)
     K = len(L.rep)
@@ -272,7 +272,7 @@ def build_prov(n, val, keep=None):
 
 
 def chain_cell(j):
-    import modal as M
+    import provability as M
     from chain import Chain
     from cert_limN import top_exits
     label, n, val, N, keep = j
@@ -364,7 +364,7 @@ def cmd_fakers(a):
     L, vf, hc, hd = tables(8)
     rows = json.load(open(os.path.join(RUNS, 'k-at-n8-chain.json')))
     idx = {s: i for i, s in enumerate(L.rep)}
-    import modal as M
+    import provability as M
     Uf, _ = M.pd_payoffs(vf, M.PD)
     vk = load_val(8, a.ref)
     Uk, _ = M.pd_payoffs(vk, M.PD)
@@ -499,7 +499,7 @@ a_cap = 1_000_000
 
 def cmd_mce(a):
     """Scaling on the n = 8 mutually cooperating establisher pairs under each measure."""
-    import modal as M
+    import provability as M
     L8 = M.ModalLanguage(8); val8, _ = M.evaluate(L8)
     iD = L8.rep.index('D')
     est = [c for c in range(len(L8.rep)) if val8[c, c] == 1 and val8[c, iD] == 0]
@@ -595,7 +595,7 @@ def price_matrix(schedule, c, N, val, base, gb, copy='a'):
 
 
 def priced_cell(j):
-    import modal as M
+    import provability as M
     from chain import Chain
     from proof_length_arm import priced_val
     from cert_limN import top_exits
@@ -693,7 +693,7 @@ def catalogue_val8(B):
 
 def priced8_cell(j):
     """priced_cell on the n = 8 catalogue (addendum S10, S11)."""
-    import modal as M
+    import provability as M
     from chain import Chain
     from cert_limN import top_exits
     schedule, c, N, copy, B = j

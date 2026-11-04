@@ -138,7 +138,7 @@ def chunks(tag, n, pairs, k=50):
 
 
 def partA(a):
-    import modal as M
+    import provability as M
     jobs = []
     L6 = M.ModalLanguage(6)
     jobs += chunks('n6', 6, [(x, y) for x in L6.rep for y in L6.rep], 100)
@@ -182,7 +182,7 @@ def partA(a):
 def partA_uniform(a):
     """Addition (not in the spec): a uniform (not mu-weighted) sample of 5,000 L_8 pairs, because the mu-weighted
     sample is 89% constant opponents (v = 0) and leaves only 312 pairs for the proxy comparison."""
-    import modal as M
+    import provability as M
     L8 = M.ModalLanguage(8)
     rng = np.random.default_rng(20261006)
     xs = rng.integers(len(L8.rep), size=5000); ys = rng.integers(len(L8.rep), size=5000)
@@ -243,7 +243,7 @@ KVALS = os.path.join(RUNS, 'proof-length-karm.npz')
 def _kval(b):
     """Play matrix of L_6 with every class at global budget b, decided by K; plus soundness and GL-comparison."""
     import bounded_k as BK
-    import modal as M
+    import provability as M
     L = M.ModalLanguage(6)
     t = time.time()
     K = BK.KTheory(cap=max(b, 1))
@@ -273,7 +273,7 @@ def karm_vals(a):
 
 
 def _free6():
-    import modal as M
+    import provability as M
     L = M.ModalLanguage(6); val, _ = M.evaluate(L)
     return L, val.astype(np.int8)
 
@@ -281,7 +281,7 @@ def _free6():
 def matched_control(val_k, val_free, seed=20261005):
     """Random flips of the free table, matched to the K arm stratum by stratum: stratum = (opponent class y, free
     play C/D, reader has boxes); within each stratum, as many plays flipped as the K arm changed."""
-    import modal as M
+    import provability as M
     L = M.ModalLanguage(6); nat = L.arrays()[0]
     rng = np.random.default_rng(seed)
     out = val_free.copy()
@@ -318,7 +318,7 @@ def leak_test(val):
 
 
 def _arm_prov(val):
-    import modal as M
+    import provability as M
     L = M.ModalLanguage(6)
     U, PCC = M.pd_payoffs(val, M.PD)
     prov = M.ModalProvider(U.astype(float), PCC, L.mu_canon, L.rep, L.bits_canon)
@@ -327,7 +327,7 @@ def _arm_prov(val):
 
 
 def _chain_cell(j):
-    import modal as M
+    import provability as M
     from chain import Chain
     label, val, N = j
     t = time.time()
@@ -401,7 +401,7 @@ def karm_chain(a):
 def _lottery_job(j):
     import almost_all_seeds as AS
     label, val, N, I, rep = j
-    import modal as M
+    import provability as M
     prov = _arm_prov(val)
     L = M.ModalLanguage(6)
     names = list(prov.names)
@@ -459,7 +459,7 @@ KPAIRS = os.path.join(RUNS, 'proof-length-kpairs.npz')
 def _kpair(j):
     """Plays of every L_6 class at budget bx against every class at budget by (and by against bx), by K."""
     import bounded_k as BK
-    import modal as M
+    import provability as M
     bx, by = j
     L = M.ModalLanguage(6)
     t = time.time()
@@ -494,7 +494,7 @@ def kpairs(a):
 
 def priced_val(B):
     """Genotypes: C, D unbudgeted; every non-constant class at each budget in B.  Returns val, base, gb."""
-    import modal as M
+    import provability as M
     L = M.ModalLanguage(6); nat = L.arrays()[0]
     V = dict(np.load(KPAIRS))
     const = [c for c in range(len(nat)) if nat[c] == 0]
@@ -511,7 +511,7 @@ def priced_val(B):
 
 
 def _priced_cell(j):
-    import modal as M
+    import provability as M
     from chain import Chain
     B, c, N = j
     val, base, gb, L = priced_val(B)
@@ -573,7 +573,7 @@ def priced(a):
 
 # ------------------------------------------------------------------ Part A report
 def _proxy(n):
-    import modal as M
+    import provability as M
     L = M.ModalLanguage(n)
     nat, ak, al, af, aa, tt = L.arrays()
     K = len(nat)
@@ -727,7 +727,7 @@ def reportA(a):
     for tag, n in (('n8_mce', 8), ('n6', 6)):
         R = by[tag]
         if tag == 'n6':
-            import modal as M
+            import provability as M
             L6 = M.ModalLanguage(6); val6, _ = M.evaluate(L6); i6 = {s: i for i, s in enumerate(L6.rep)}; iD = i6['D']
             est = {s for s, i in i6.items() if val6[i, i] == 1 and val6[i, iD] == 0}
             R = [r for r in R if r['x'] in est and r['y'] in est and val6[i6[r['x']], i6[r['y']]] == 1 and val6[i6[r['y']], i6[r['x']]] == 1]

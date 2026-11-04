@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from run import get_language, get_provider, ROOT
 from game import Game
 from chain import Chain
-import modal as M
+import provability as M
 
 
 class Named:

@@ -44,8 +44,8 @@ import os, sys
 from collections import defaultdict
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
-import modal as M
-from modal import TM, TT, TL, ModalProvider, PD, pd_payoffs
+import provability as M
+from provability import TM, TT, TL, ModalProvider, PD, pd_payoffs
 from abm import njit
 
 VARIANTS = ('tag', 'tageq', 'lfp', 'gfp', 'lob', 'lob1')

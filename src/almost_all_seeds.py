@@ -39,7 +39,7 @@ def arm_data(arm, n=6):
     if key in _ARM:
         return _ARM[key]
     if arm == 'modal':
-        import modal as M
+        import provability as M
         L, val, worlds, prov = M.build(n)
         K = len(prov.names)
         cnt = np.zeros((K, n + 1))

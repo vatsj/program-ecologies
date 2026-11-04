@@ -120,7 +120,7 @@ def _weak_programs(x_on):
 
 
 def _modal_programs(kinds):
-    import modal as M
+    import provability as M
     L = M.ModalLanguage(6, kinds)
     val, nw = M.evaluate(L)
     return L, val.astype(float), nw
@@ -129,7 +129,7 @@ def _modal_programs(kinds):
 def _translate_w0_to_m0(L, ids, ML):
     """map every W0 program to its M0 canonical function (THEM(P) <-> BOX(THEM(P')))."""
     from dsl import CONST, NOT, AND, OR, APP, ME, THEM
-    import modal as M
+    import provability as M
     memo = {}
 
     def tr(i):
@@ -176,7 +176,7 @@ def build_catalogue(arm):
                  iSt=names.index('Straight'), iSw=names.index('Swerve'), prog_mu=mu_p, prog_cls=cls_of,
                  prog_names=[L.src(i) for i in ids])
         if arm == 'W0':
-            import modal as M
+            import provability as M
             ML, val, nw = _modal_programs(((0, 0),))
             canon = _translate_w0_to_m0(L, ids, ML)
             m0 = build_catalogue('M0')

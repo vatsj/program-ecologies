@@ -9,7 +9,7 @@ import argparse, json, os, sys, time
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
 import certificates as CE
-import modal as M
+import provability as M
 from chain import Chain, fixation
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

@@ -27,8 +27,8 @@ from collections import defaultdict
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
 from abm import njit
-import modal as M
-from modal import TM, TT, TL, KC, KD, ModalLanguage, ModalProvider, PD
+import provability as M
+from provability import TM, TT, TL, KC, KD, ModalLanguage, ModalProvider, PD
 
 KCLUB = 2                     # atom kind: club membership of the opponent
 FCLUB = 3                     # form slot for the CLUB atom (no application)

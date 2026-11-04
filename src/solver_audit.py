@@ -401,7 +401,7 @@ def make_cell(name, N):
         c.headlines = ('eff', 'half')
         c.twin_ok = True
     elif name in ('pd-modal9', 'pd-priced6-atoms', 'pd-priced8-atoms', 'pd-priced8-lazy', 'pd-k16'):
-        import modal as M
+        import provability as M
         if name == 'pd-modal9':
             prov = M.build(9)[3]
             kw = dict(w=0.3)
@@ -836,7 +836,7 @@ def _stat_keys(ch, keys, pi, stat):
 
 def cmd_controls(a):
     res = {}
-    import modal as M
+    import provability as M
     prov = M.build(6)[3]
     names = list(prov.names); P = prov.PCC
     idx = {s: i for i, s in enumerate(names)}

@@ -29,7 +29,7 @@ import os, sys
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
 from abm import njit
-import modal as M
+import provability as M
 
 
 @njit(cache=True)

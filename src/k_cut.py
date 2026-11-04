@@ -731,7 +731,7 @@ def _sweep_job(j):
 
 
 def cmd_sweep(a):
-    import modal as M
+    import provability as M
     progs, godel, con = sweep_progs()
     _, _, fk = faker_sets()
     idx = {s: i for i, s in enumerate(progs)}
@@ -915,7 +915,7 @@ def cmd_chain(a):
 def restored(v, vk, idx_victims, names):
     """Restored cooperators (self-cooperating in v, not vk) and restored exploiters against the given victims
     (strict invasion in v, not in vk), as {invader: [victims]}."""
-    import modal as M
+    import provability as M
     U, _ = M.pd_payoffs(v, M.PD); Uk, _ = M.pd_payoffs(vk, M.PD)
     rc = [i for i in range(len(v)) if v[i, i] == 1 and vk[i, i] == 0]
     rex = {}

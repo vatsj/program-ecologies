@@ -39,7 +39,7 @@ NPAIRS = 6
 # ------------------------------------------------------------------ class data
 def build_main(a):
     from numba import set_num_threads
-    import modal as M
+    import provability as M
     import moat_static_big as MB
     set_num_threads(3)
     os.makedirs(CACHE, exist_ok=True)

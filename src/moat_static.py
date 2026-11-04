@@ -16,7 +16,7 @@ import json, os, sys, time
 from collections import deque
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
-import modal as M
+import provability as M
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FB = 'BOX(THEM(ME))'

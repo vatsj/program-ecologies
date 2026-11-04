@@ -15,7 +15,7 @@ at FairBot's mass, as if PrudentBot were a 3-node primitive), then renormalize.
 import os, sys
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
-import modal as M
+import provability as M
 
 FB = 'BOX(THEM(ME))'
 FB1 = 'BOX1(THEM(ME))'

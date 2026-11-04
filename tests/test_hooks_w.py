@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 import hooks_w as H
-import modal as M
+import provability as M
 
 ROOT = os.path.join(os.path.dirname(__file__), '..')
 ALL = np.ones((4, 4), np.bool_)

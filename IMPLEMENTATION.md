@@ -234,3 +234,9 @@ both true, in run trees that do not read EQW. Immaterial to RESULTS "Coverage co
 **Source ablations need provenance-preserving copies (found 2026-10-18, hooks Part W).** Relabelling a copied fill's
 origin as "copied" lets a disabled source (writes, contracts, seeds) leak back in through copying; a copy must keep
 its source's origin so that disabling a source disables its copies too.
+
+**The provability module is `src/provability.py` (renamed from `src/modal.py`, 2026-11-04).** A local `modal.py` on
+`sys.path` shadows the Modal cloud package (`import modal`), so the module was renamed before running experiments on
+Modal; every import was rewritten as `import provability as <alias>` or `from provability import ...`, so code below
+the import line is unchanged. RESULTS, notes and specs before this date name the old path. The other `modal_*.py`
+files keep their names (no collision).

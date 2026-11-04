@@ -316,7 +316,7 @@ def _load(game_name, norole):
     key = (game_name, norole)
     if key not in _CTX:
         if game_name.startswith('modal'):          # modal arm, PD: 'modal6' = n = 6, all box kinds
-            import modal as MO
+            import provability as MO
             L, val, worlds, prov = MO.build(int(game_name[5:]))
             game = Game.load(os.path.join(ROOT, 'games', 'pd.yaml'))
             mu = np.array([c[2] for c in prov.classes])

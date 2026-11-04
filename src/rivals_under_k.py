@@ -178,7 +178,7 @@ def lumping_check(arm, nsample=1000, seed=7):
 def free_reproduction():
     """The free class table built here must equal the existing n = 8 free class table (modal.build(8), the table
     almost_all_seeds.arm_data('modal', 8) / seeds_in_n use): classes, names, order, payoffs, masses."""
-    import modal as M
+    import provability as M
     Lm, val, worlds, prov = M.build(NCUT)
     d = arm_table('free')
     U = PDP[d['V'].astype(int), d['V'].T.astype(int)]

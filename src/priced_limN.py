@@ -8,7 +8,7 @@ import json, os, sys, time
 import numpy as np
 from multiprocessing import Pool
 sys.path.insert(0, os.path.dirname(__file__))
-import modal as M
+import provability as M
 from chain import Chain
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

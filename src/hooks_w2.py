@@ -28,7 +28,7 @@ for _v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS", "VECLIB
     os.environ.setdefault(_v, "1")
 from numba import njit, types
 from numba.typed import Dict
-import modal as M
+import provability as M
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUNS = os.path.join(ROOT, 'runs')

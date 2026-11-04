@@ -14,7 +14,7 @@ import os, sys, itertools
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 import numpy as np
 import certificates as CE
-from modal import TM, TT, TL
+from provability import TM, TT, TL
 
 
 def trees(n):

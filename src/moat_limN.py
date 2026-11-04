@@ -8,7 +8,7 @@ import json, os, sys, time, argparse
 import numpy as np
 from multiprocessing import Pool
 sys.path.insert(0, os.path.dirname(__file__))
-import modal as M
+import provability as M
 import fringe as F
 from chain import Chain
 from cert_limN import networks, top_exits

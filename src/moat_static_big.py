@@ -17,7 +17,7 @@ from collections import defaultdict
 import numpy as np
 from numba import njit, prange, set_num_threads
 sys.path.insert(0, os.path.dirname(__file__))
-import modal as M
+import provability as M
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FB = 'BOX(THEM(ME))'

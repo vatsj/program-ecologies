@@ -54,7 +54,7 @@ def data(b):
     iC = names.index('C'); iD = names.index('D'); iFB = names.index('BOX(THEM(ME))')
     PS = 'and(BOX1(THEM(ME)),not(BOX(THEM(ME))))'
     # anti-provers (RS-b): a BOX/BOX1(THEM(ME)) atom whose truth makes the action D
-    import modal as M
+    import provability as M
     L = M.ModalLanguage(8)
     nat, ak, al, af, aa, tt = L.arrays()
     anti = np.zeros(K, np.bool_)

@@ -589,7 +589,7 @@ class Cat:
     prior_g = (p0, p1).  cost: G x G per-match cost on the row genotype (or None)."""
 
     def __init__(self, val, cat, L, prior_g, cost=None, names=None, gdeps=None, mu_src=None):
-        import modal as M
+        import provability as M
         self.val = val; self.cat = cat; self.L = L; self.prior_g = prior_g
         U0, PCC = M.pd_payoffs(val, M.PD)
         self.U = U0.astype(float) - (cost if cost is not None else 0.0)
@@ -944,7 +944,7 @@ def faker_partner_sets(v, cat, L, mode='est'):
     mode 'est' (used; addendum to the predictions, fixed before the attribution chains): the victim x must be an
     establisher (self-cooperates, defects on D) and z must not be one -- a faker exploits a cooperative reader.
     Partners: g = L genotypes with a newly enabled mutual-cooperation cell (self-play included), not fakers."""
-    import modal as M
+    import provability as M
     U, _ = M.pd_payoffs(v, M.PD)
     e = erased_index(cat); lab = np.array([g for c, g in cat])
     Ue = U[np.ix_(e, e)]
@@ -1060,7 +1060,7 @@ def chain_core(arm, N=10000, prior='u', kernel='joint', thresh=1e-3):
 
 
 def cmd_static(a):
-    import modal as M
+    import provability as M
     from chain import fixation
     v, cat, L, gd = base()
     C = Cat(v, cat, L, PRIORS['u'])

@@ -254,12 +254,12 @@ def make_cell(name, N):
     eager_poly=True), pd-kb<b> (K at n = 8, budget b, eager_poly=False), pd-weakdollar7 / dollar-weak7 (weak n = 7 dollar)."""
     import solver_audit as SA
     if name in ('pd-modal6', 'pd-modal8'):
-        import modal as MM
+        import provability as MM
         c = SA.Cell()
         # published modal_limN cells used eager_poly=True (hours at n = 8); priced_limN c = 0 (eager_poly=False) agrees to 1e-5
         _pd_cell(c, MM.build(int(name[-1]))[3], dict(w=0.3, eager_poly=(name == 'pd-modal6')), name)
     elif name.startswith('pd-pr') and '-c' in name:          # pd-pr8-lazy-c0.1: priced arm, n = 8, lazy pricing, c = 0.1
-        import modal as MM
+        import provability as MM
         _, nn, pricing, cc = name.split('-')
         c = SA.Cell()
         _pd_cell(c, MM.build_priced(int(nn[2:]), float(cc[1:]), pricing=pricing)[3], dict(w=0.3, eager_poly=False), name)

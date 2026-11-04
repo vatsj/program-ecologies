@@ -464,7 +464,7 @@ def box_tables(n):
     """The modal language L_n, its stable plays and the four box-fact tables at the stable world
     (bounded._evaluate_gated with every gate open is modal._evaluate plus hc/hd)."""
     import numpy as np
-    import modal as M
+    import provability as M
     from bounded import _evaluate_gated
     L = M.ModalLanguage(n)
     arr = L.arrays()

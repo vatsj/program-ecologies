@@ -117,7 +117,7 @@ def founders(rep, NI, Lh, renorm=None, ff=False):
 def stored_founders(rep, N, I, mN, Lp, T, tdict):
     """The stored modal lottery's founders: island i is a multinomial draw over the 51 behavioural classes from
     rng [0, N, I, 10 mN, rep]; one type per class (lineage 0), in class order."""
-    import modal as M
+    import provability as M
     import almost_all_seeds as AS
     d = AS.arm_data('modal', 6)
     L, val, worlds, prov = M.build(6)

@@ -17,7 +17,7 @@ import numpy as np
 from multiprocessing import Pool
 sys.path.insert(0, os.path.dirname(__file__))
 from abm import njit
-import modal as M
+import provability as M
 import club as CL
 from chain import Chain
 from priced_limN import hitting_time

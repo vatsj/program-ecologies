@@ -351,7 +351,7 @@ def family4(progs, b, four, goff=0, W=60):
     """K(+4m) plays among a family at global budget b (trace-pruned as k_at_n8.family_table), with the plain and
     closure soundness checks, and the exact minimal sizes of every self-play atom content."""
     import k_at_n8 as KN
-    import modal as M
+    import provability as M
     t = time.time()
     K = KTheoryG(cap=max(b + goff, 1), filter_first=True, four=four, goff=goff)
     K.prune = KN.make_prune_trace(K, W)
@@ -380,7 +380,7 @@ def _sweep_job(j):
 
 
 def cmd_sweep(a):
-    import modal as M
+    import provability as M
     progs, godel, vict = sweep_family()
     idx = {s: i for i, s in enumerate(progs)}
     cfgs = [(None if f == 'K' else f, int(g)) for f, g in (c.split('/') for c in a.configs)]
@@ -405,7 +405,7 @@ def cmd_sweep(a):
 def eligible(n, residents, vf, labels):
     """Eligible pairs (z, x): x a supported self-cooperator, z strictly invades x in the free arm.  labels: dict
     name -> play table; returns list of dict(z, x, <label>: disarmed?)."""
-    import modal as M
+    import provability as M
     Uf, _ = M.pd_payoffs(vf, M.PD)
     Us = {k: M.pd_payoffs(v, M.PD)[0] for k, v in labels.items()}
     out = []
@@ -738,7 +738,7 @@ def cmd_static(a):
     """Per K+4m table: plays vs K and vs free, soundness, self-cooperators, leak test, named self-play, splits and
     merges against K, restored cooperators and restored exploiters."""
     import k_at_n8 as KN
-    import modal as M
+    import provability as M
     n = a.n
     L, vf, hc, hd = KN.tables(n)
     vf = vf.astype(np.int8)

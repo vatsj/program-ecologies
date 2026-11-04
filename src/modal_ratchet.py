@@ -8,7 +8,7 @@ Writes runs/modal_ratchet.md/json (finished n = 8 cells from runs/modal_limN.jso
 import json, os, sys
 from multiprocessing import Pool
 sys.path.insert(0, os.path.dirname(__file__))
-import modal as M
+import provability as M
 from modal_limN import cell, ROOT
 
 

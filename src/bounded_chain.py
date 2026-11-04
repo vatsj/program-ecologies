@@ -8,7 +8,7 @@ import os, sys, json, time, argparse
 import numpy as np
 from multiprocessing import Pool
 sys.path.insert(0, os.path.dirname(__file__))
-import modal as M
+import provability as M
 from chain import Chain
 from bounded import build_arm, BUDGETS, INF, FB, PB, PSTAR, ROOT
 from cert_limN import top_exits

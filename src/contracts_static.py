@@ -8,7 +8,7 @@ import json, os, sys, time
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
 import contracts as CT
-from modal import PD
+from provability import PD
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BS = (CT.INF, 4, 2)
