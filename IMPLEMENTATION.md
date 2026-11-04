@@ -240,3 +240,7 @@ its source's origin so that disabling a source disables its copies too.
 Modal; every import was rewritten as `import provability as <alias>` or `from provability import ...`, so code below
 the import line is unchanged. RESULTS, notes and specs before this date name the old path. The other `modal_*.py`
 files keep their names (no collision).
+
+## Running the tests (2026-11-04)
+
+Run the suite with `tools/run_tests.sh` (one pytest process per file, 3 at a time), not a bare `pytest tests`. Several modules extend the shared realizable-language library at import time, so a single process is order-dependent: `test_detectors` then fails collection (`KeyError: CHK3`) and `coverage_components`, `per_root`, `sog_full` and `founding_legibility` raise IndexErrors. Each passes on its own.
