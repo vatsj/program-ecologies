@@ -111,3 +111,20 @@ Three workers, `OPENBLAS/OMP/MKL/VECLIB/NUMBA_NUM_THREADS = 1`; one lock file pe
 - **Pilot** (not counted; run indices 20, written outside the rows directory): N = 400, C+B*, run 20, Lambda = 10: kernel 102 s at mN = 1 (the run closed at
   generation 37,560 of 48,000), 12.8 s at mN = 0, preparation 12.4 s; N = 800, mN = 1: kernel 967 s (96,000 generations, no early stop), preparation 17.6 s,
   1.4 GB. The spec's extrapolation was 190-280 s at N = 400 and 40-60 min at N = 800: no overrun, nothing cut on the pilot's account.
+
+## 3. What was run, and deviations (all also in the report)
+
+All 900 jobs of `runs/pair_worth_n/jobs.txt` ran (2,200 records; no failure; 33 kernel core-hours: 0.6 / 5.8 / 18.0 / 8.8 at N = 100 / 200 / 400 / 800, against the spec's
+estimate of about 67), so **nothing was cut**. Rows: `runs/pair_worth_n/rows.jsonl.gz` (per-job JSON files under `runs/pair_worth_n/rows/` are not committed). Report:
+`runs/pair-worth-n.md`, `.json`. Drafts: `notes/pair-worth-n-drafts.md`.
+
+1. **Run indices of new 20-run cells at N >= 200 are 20-39, not the manifest's 0-19**, so that C+F, C+B, C+F4, C+F-, the dose, mN = 0 and inoculation cells have the confirmatory
+   C / C+B* / C+G comparators (runs 20-59) on common runs. Fixed in the predictions file before any counted cell. N = 100 new 20-run cells use 0-19; N = 800 uses 20-29.
+2. **Lambda = 10 only at N >= 400** (Lambda in {0, 10} at N = 100 and 200). The spec's cost table assumes one record per job at N = 400; all predictions are scored at Lambda = 10.
+3. **Founders: the stored CRN scheme** (`PW.draw_founders` keyed by game, N, I, run; named members chosen by the shared `u3`) instead of a separate (arm, run) stream; it reproduces the stored rows (V1, V2), arms share every
+   unreplaced founder, F and B* replace the same positions with the same c, and the tail is arm-independent (V7). B*_k uses a separate stream keyed (k, N, run) as the spec says.
+4. **Assay reading of "matching grand constant" on the grand-constant island**: it is the resident program itself (identity, 1/N exactly); a reading entrant B*(equal split) was added. The scoring rule for RE 7 (B*^3 cells within 2 SE; G^3 cells noted unless |z| > 3; selected entrants N p < 0.5) was fixed in the predictions file before the assays were rerun.
+5. **Pre-prediction looks** (disclosed in the predictions file): smoke runs of C+F and C+B*_4 (N = 100, run 0) and one run of the assays with seed 7300 (discarded; rerun with seeds from 91000 after the predictions were committed). The pilot runs (N = 400, N = 800, run 20) were written outside the rows directory and are not counted (the counted records are recomputed, deterministically).
+6. **Operationalizations not in the spec** (fixed in the predictions file): reviewer predictions (i)-(v), RE 7's neutrality rule, RS-conjecture arm list, engineer's E1-E3. sol (v) is satisfied trivially (both ROC areas at chance); E1 is computed from the founders (no kernel) for all three N.
+7. **Process**: V1 and V2 were run twice (the first run's comparison flagged `structure`, a stored list capped at 60 entries by an earlier summarize; the comparison was changed to prefix equality before the second run); a mutation test of V6 and a debug diff of `structure` were run as diagnostics within the 3-process limit; the RS-prediction line of the predictions file was edited after launch to read "none supplied before launch"; the engineer's session stopped on a network error with the three workers running, resumed on the coordinator's message with no relaunch. Cell G has 5 runs (20-24) of C+B* and C+G; cell D 10 runs each.
+8. The stored `structure` field aside, V1 (12 records) and V2 (4 records) are exact in every field. The stored N = 100 rows (C, C+B*, C+B 60 runs; C+G 0-19; dose cells 20 runs) are used for the N = 100 contrasts and labelled stored; they lack the new statistics, so the N = 100 hazards use only new cells (C+G 20-59, C+F).

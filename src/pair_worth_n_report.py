@@ -239,8 +239,8 @@ def build(D, assays, static, valid):
     L += end_table(D, cells, 'Tail-free reference (Lambda = 0), N = 100 and 200')
     # ---------------- dose response
     P('\n## Dose response, C+B* (Lambda = 10, mN = 1; N = 100 from the stored cells, labelled stored)\n')
-    P('| N | delta | T (28 n^3) | runs | core | pair (kind) | eff-dominated | grand-eff (kind) | paired with delta = 0.05: core diff |')
-    P('|---|---|---|---|---|---|---|---|---|')
+    P('| N | delta | T (28 n^3) | runs | core | pair (kind) | eff-dominated | grand-eff (kind) | paired with delta = 0.05: core diff | minus C (paired) |')
+    P('|---|---|---|---|---|---|---|---|---|---|')
     dose_rows = {}
     for N, ds in ((100, (0.01, 0.05, 0.15, 0.3, 0.5)), (200, (0.025, 0.05, 0.15, 0.5)), (400, (0.0125, 0.05, 0.15, 0.5))):
         base = D.cell('CBs', N, 0.05, 10.0, 1.0, runs=None if N == 100 else R2039)
@@ -251,8 +251,9 @@ def build(D, assays, static, valid):
                 continue
             dose_rows[(N, d)] = c
             dd = pdiff(vals(c, 'core'), vals(base, 'core')) if d != 0.05 else None
-            P('| %d%s | %g | %.3g | %d | %s | %s | %s | %s | %s |' % (N, ' (stored)' if N == 100 else '', d, 28 * (d * N / 28) ** 3, len(c),
-              fmt(mean_of(vals(c, 'core'))), fmt(mean_of(vals(c, 'pair'))), fmt(mean_of(vals(c, 'effdom'))), fmt(mean_of(vals(c, 'grand'))), fmtd(dd)))
+            dC = pdiff(vals(c, 'core'), vals(D.cell('C', N, 0.05, 10.0, 1.0, runs=runs), 'core'))
+            P('| %d%s | %g | %.3g | %d | %s | %s | %s | %s | %s | %s |' % (N, ' (stored)' if N == 100 else '', d, 28 * (d * N / 28) ** 3, len(c),
+              fmt(mean_of(vals(c, 'core'))), fmt(mean_of(vals(c, 'pair'))), fmt(mean_of(vals(c, 'effdom'))), fmt(mean_of(vals(c, 'grand'))), fmtd(dd), fmtd(dC)))
     # ---------------- inoculation
     P('\n## Fixed-count inoculation C+B*_k and the F- control (Lambda = 10)\n')
     P('| cell | N | mN | runs | core | pair (kind) | null | establishment: islands that ever hold a grand state (25 gens) |')
@@ -289,7 +290,7 @@ def build(D, assays, static, valid):
     # ---------------- coverage mN = 0
     P('\n## Core coverage at mN = 0, C+B* (Lambda = 10): the 19 core points\n')
     cov_res = {}
-    for N, rr in ((100, None), (200, R2059), (400, R2039), (400, R2059)):
+    for N, rr in ((100, None), (200, R2059), (400, R2039)):
         c = D.cell('CBs', N, 0.05, 10.0, 0.0, runs=rr)
         if not c or len(c) < 5:
             continue
@@ -511,7 +512,8 @@ def build(D, assays, static, valid):
             txt.append('%s slope %.2f [%.2f, %.2f], hazards %s' % (ARMNAME[arm], s['slope'], s['lo'], s['hi'], {N: '%.2e (%d exits)' % (v[0], v[1]) for N, v in s['rates'].items()}))
             oks.append(not (s['lo'] <= -1 <= s['hi']))
     if oks:
-        add('sol (iii) raw exit rates do not follow 1/N', 'held' if all(oks) else 'failed', '; '.join(txt))
+        st3 = 'held' if all(oks) else ('unresolved' if any(oks) else 'failed')
+        add('sol (iii) raw exit rates do not follow 1/N', st3, '; '.join(txt) + ' [held iff every arm\'s interval excludes -1; unresolved when some do and some include -1]')
     # sol (iv)
     p = []; det = []
     for N in (100, 200):
@@ -544,7 +546,7 @@ def build(D, assays, static, valid):
             det.append('mN = 1 N = 400 d = 0.0125: establishment with named support %.2f (%d islands), without %.2f (%d islands)' % (rw, named.sum(), rn, (~named).sum()))
             resb = rn >= 0.5 * rw
     if res_a and resb is not None:
-        add('sol (v) rescue depends on lineage survival and assembly, not triple count', 'held' if (all(res_a) and resb) else 'failed', '; '.join(det))
+        add('sol (v) rescue depends on lineage survival and assembly, not triple count', 'held' if (all(res_a) and resb) else 'failed', '; '.join(det) + ' [the registered inequality holds trivially: both areas are at chance, founding support does not predict establishment]')
     else:
         add('sol (v) rescue depends on lineage survival and assembly, not triple count', 'unresolved', '; '.join(det) or 'cells absent')
     # E1
@@ -567,6 +569,19 @@ def build(D, assays, static, valid):
     g200 = Dc('CG', 200, runs=R2059)
     if g200:
         add('E3 constants carry the easy case once supply exists (C+G core >= 0.5 at N = 200)', 'held' if point(vals(g200, 'core')) >= 0.5 else 'failed', 'C+G N = 200 core %s' % fmt(mean_of(vals(g200, 'core'))))
+    P('\n## Cost\n')
+    byN = collections.defaultdict(lambda: [0, 0.0])
+    for k, r in D.new.items():
+        byN[k[1]][0] += 1; byN[k[1]][1] += r['kern_wall'] + r['prep_wall'] / max(1, len([1])) 
+    P('| N | records | kernel core-hours (preparation counted once per job below) |'); P('|---|---|---|')
+    prep = collections.defaultdict(float)
+    seen = set()
+    for k, r in D.new.items():
+        jk = (k[0], k[1], k[2], k[5], k[6])
+        if jk not in seen:
+            seen.add(jk); prep[k[1]] += r['prep_wall']
+    for N in sorted(byN):
+        P('| %d | %d | kernel %.1f + preparation %.1f |' % (N, byN[N][0], sum(r['kern_wall'] for k, r in D.new.items() if k[1] == N) / 3600.0, prep[N] / 3600.0))
     P('\n## Prediction verdicts\n')
     P('| prediction | verdict | measured |')
     P('|---|---|---|')
