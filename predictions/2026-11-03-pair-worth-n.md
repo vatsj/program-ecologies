@@ -107,5 +107,5 @@ compatible-triple count (scored by establishment conditional on the founding-sup
 
 ## RS's prediction
 
-to be added by the RE before counted cells if received
+none supplied before launch (the file `predictions/RS-prediction-queue73.txt` did not exist in the main checkout when the counted cells were launched; this line was edited after launch, at the coordinator's instruction, and carries no prediction)
 
