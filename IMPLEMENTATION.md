@@ -244,3 +244,11 @@ files keep their names (no collision).
 ## Running the tests (2026-11-04)
 
 Run the suite with `tools/run_tests.sh` (one pytest process per file, 3 at a time), not a bare `pytest tests`. Several modules extend the shared realizable-language library at import time, so a single process is order-dependent: `test_detectors` then fails collection (`KeyError: CHK3`) and `coverage_components`, `per_root`, `sog_full` and `founding_legibility` raise IndexErrors. Each passes on its own.
+
+## Remote compute: Daytona (2026-11-06)
+
+Cloud sessions run experiments on Daytona with `tools/daytona_run.py` (`pip install daytona` locally; `DAYTONA_API_KEY` from the environment). Modal is unusable from cloud sessions: its client is gRPC-only and the session proxy carries HTTPS only.
+
+- `python3 tools/daytona_run.py run --cpus 4 --out runs/<dir> -- <command>` ships `git archive HEAD` (commit first; `--dirty` adds uncommitted tracked edits), installs `requirements.txt` on `python:3.11-slim` (the pinned environment of the published runs, about a minute), runs the command from the repo root, fetches each `--out` directory back, saves the log under `runs/_daytona_logs/` (ignored) and deletes the sandbox. `list` and `cleanup` handle strays.
+- Limits on this account: 4 CPUs per sandbox (hard), at least 5 sandboxes at once; this account cannot build snapshots. `nproc` inside reports the host's cores, so size worker pools from `DAYTONA_CPUS` (thread caps are set to `--cpus`).
+- Session network needs `app.daytona.io` and `proxy.app.daytona.io`; the tool sets the proxy and CA itself because the SDK ignores `HTTPS_PROXY`.
