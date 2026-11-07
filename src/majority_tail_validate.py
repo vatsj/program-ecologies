@@ -296,12 +296,15 @@ def v6():
 
 
 def main():
-    gates = [a for a in sys.argv[1:] if a.startswith('v')] or ['v1', 'v2', 'v3', 'v4', 'v5', 'v6']
+    gates = [a for a in sys.argv[1:] if a in ('v1', 'v2', 'v3', 'v4', 'v5', 'v6')] or ['v1', 'v2', 'v3', 'v4', 'v5', 'v6']
     workers = 4
     if '--workers' in sys.argv:
         workers = int(sys.argv[sys.argv.index('--workers') + 1])
     os.makedirs(OUT, exist_ok=True)
     path = os.path.join(OUT, 'validation.json')
+    if '--vout' in sys.argv:
+        path = os.path.join(ROOT, sys.argv[sys.argv.index('--vout') + 1])
+        os.makedirs(os.path.dirname(path), exist_ok=True)
     res = json.load(open(path)) if os.path.exists(path) else {}
     for gname in gates:
         t = time.time()
