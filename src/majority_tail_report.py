@@ -383,6 +383,61 @@ def write_md(path, cs, contrasts, ver, valid):
         L.append('| %s | %s | %d | %g | %g | %d | %s | %s | %s | %.3f | %s | %d (%s) | %d |' % (k[0], k[1], k[2], k[3], k[4], c['n'], fmt(c['V']), fmt(c['Vmajo'], 2), fmt(c['fair_enc'], 2), c['surplus'][0],
                   '/'.join('%.2f' % c[x][0] for x in CLS), c['cons_fair'], '/'.join(str(x) for x in c['cons_fair_pairs']), c['cons_unequal']))
     L.append('')
+    L.append('## V* share along the run (mean over runs of the share of islands whose modal outcome is a fair pair)'); L.append('')
+    L.append('| arm | variant | N | Lam | mN | 2N | 10N | 30N | 100N | 120N | ties at 120N |'); L.append('|---|---|---|---|---|---|---|---|---|---|---|')
+    for k in sorted(cs, key=lambda k: (k[0], k[1], k[2], k[4], k[3])):
+        c = cs[k]; N = k[2]
+        L.append('| %s | %s | %d | %g | %g | %s | %.3f | %.4f |' % (k[0], k[1], N, k[3], k[4], ' | '.join('%.3f' % c['V_by_snap'][str(g)] for g in (2 * N, 10 * N, 30 * N, 100 * N)), c['V'][0], c['ties'][0]))
+    L.append('')
+    L.append('## Transition structure (debounced island-level class transitions; rates per 1,000 island-generations; d25 = 25-generation debounce, dq = round(N/4))'); L.append('')
+    L.append('Exit rate of F (F to any other class), entry rate to F (any class to F, per island-generation outside F), fair-to-fair flip rate (per island-generation on F); full 5 x 5 count matrices (rows from, columns to; order F U G W D) are in the JSON.'); L.append('')
+    L.append('| arm | variant | N | Lam | mN | window | debounce | F exit | entry to F | F-to-F flips | F occupancy |'); L.append('|---|---|---|---|---|---|---|---|---|---|---|')
+    for k in sorted(cs, key=lambda k: (k[0], k[1], k[2], k[4], k[3])):
+        c = cs[k]
+        for tk in sorted(c['trans']):
+            if tk.startswith('chase2'):
+                continue
+            t = c['trans'][tk]; M = np.array(t['M']); occ = np.array(t['occ']); expo = t['expo']
+            if expo == 0:
+                continue
+            fexit = (M[0].sum() - M[0, 0]) / max(occ[0], 1) * 1000
+            entry = (M[:, 0].sum() - M[0, 0]) / max(expo - occ[0], 1) * 1000
+            L.append('| %s | %s | %d | %g | %g | %s | %s | %.3f | %.3f | %.3f | %.3f |' % (k[0], k[1], k[2], k[3], k[4], tk.split('|')[0], tk.split('|')[1], fexit, entry, t['rate_ff'] * 1000 * expo / max(occ[0], 1), occ[0] / expo))
+    L.append('')
+    L.append('## Who holds the islands at 120N (dominant program per slot on F and U islands, by family; counts over runs, islands and slots)'); L.append('')
+    for k in sorted(cs, key=lambda k: (k[0], k[1], k[2], k[4], k[3])):
+        c = cs[k]
+        if k[1] != 'main' or k[4] != 1 or k[3] != 100:
+            continue
+        names = c['fam_names']
+        L.append('- %s N = %d (mN = 1, Lam = 100): F islands %s; U islands %s' % (k[0], k[2], ', '.join('%s %d' % (names[int(f)], n) for f, n in sorted(c['hold']['F'].items(), key=lambda x: -x[1])) or '-', ', '.join('%s %d' % (names[int(f)], n) for f, n in sorted(c['hold']['U'].items(), key=lambda x: -x[1])) or '-'))
+    L.append('')
+    L.append('## Tail accounting (arrivals by family: delivered / applied / established (an arrival\'s presence episode crosses N/2) / established and the island class changed within 5N), early (g <= 15N) and late')
+    L.append('')
+    for k in sorted(cs, key=lambda k: (k[0], k[1], k[2], k[4], k[3])):
+        c = cs[k]
+        if 'tail' not in c or k[3] != 100 or k[4] != 1 or k[1] not in ('main', 'D1', 'D2', 'D3'):
+            continue
+        t = c['tail']; names = t['fam_names']
+        e = np.array(t['early']); l = np.array(t['late'])
+        L.append('- %s %s N = %d: delivered per island %.2f (scheduled %.2f); early / late total %d / %d; ' % (k[0], k[1], k[2], t['per_island_logged'], t['per_island_scheduled'], e[:, 0].sum(), l[:, 0].sum()) +
+                 '; '.join('%s e %d/%d/%d/%d l %d/%d/%d/%d' % (names[i], *e[i], *l[i]) for i in range(len(names)) if e[i, 0] + l[i, 0] > 0))
+    L.append('')
+    L.append('## Long chase (runs 0-9 at mN = 1, Lam = 100 continue tail-free to 240N)'); L.append('')
+    for k in sorted(cs):
+        c = cs[k]
+        if 'long' in c:
+            lg = c['long']
+            L.append('- %s N = %d: V* at 120N %s, at 240N %s; fair consensus at 240N %d, unequal consensus %d of %d runs; island class mix changed between 120N and 240N in %d runs' % (k[0], k[2], fmt(lg['V120']), fmt(lg['V240']), lg['cons240_fair'], lg['cons240_unequal'], lg['n'], lg['changed_class']))
+    L.append('')
+    L.append('## Without migration (mN = 0): class shares at the founding snapshot 2N and at 120N'); L.append('')
+    L.append('| arm | N | Lam | W at 2N | W at 120N | F/U/G/W/D at 120N |'); L.append('|---|---|---|---|---|---|')
+    for k in sorted(cs, key=lambda k: (k[0], k[2], k[3])):
+        c = cs[k]; N = k[2]
+        if k[1] != 'main' or k[4] != 0:
+            continue
+        L.append('| %s | %d | %g | %.3f | %.3f | %s |' % (k[0], N, k[3], c['cls_by_snap'][str(2 * N)][3], c['cls_by_snap'][str(120 * N)][3], '/'.join('%.2f' % x for x in c['cls_by_snap'][str(120 * N)])))
+    L.append('')
     L.append('## Paired contrasts on V* (CRN by run index; mean [95% bootstrap], n runs)'); L.append('')
     for k in sorted(contrasts):
         t = contrasts[k]
