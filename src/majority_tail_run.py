@@ -114,6 +114,7 @@ def main():
     os.makedirs(cache, exist_ok=True)
     if ns.cmd == 'jobs':
         jobs = make_jobs(ns.stage or ['main', 'L', 'D', 'T0'])
+        jobs.sort(key=lambda j: -int(j.split(':')[3] if j.split(':')[1] == 'D4' else j.split(':')[2]))     # dearest (largest N) first
         open(ns.out, 'w').write('\n'.join(jobs) + '\n')
         print(len(jobs), 'jobs')
     elif ns.cmd == 'one':
