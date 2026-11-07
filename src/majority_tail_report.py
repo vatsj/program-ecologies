@@ -117,6 +117,8 @@ def cell_stats(runs, rng):
     for nm in ('V', 'Vmajo', 'fair_enc', 'surplus', 'F', 'U', 'G', 'W', 'D', 'npairs', 'ties'):
         out[nm] = boot([val(r, nm) for r in rs], rng)
     # snapshots of V and fair_enc at every snapshot
+    vv = [val(r, 'V') for r in rs]
+    out['runs_allfair'] = int(sum(1 for v in vv if v >= 1 - 1e-9)); out['runs_nofair'] = int(sum(1 for v in vv if v <= 1e-9)); out['runs_mixed'] = len(vv) - out['runs_allfair'] - out['runs_nofair']
     out['V_by_snap'] = {}
     for g in (2 * N, 10 * N, 30 * N, 100 * N, 120 * N):
         out['V_by_snap'][str(g)] = boot([val(r, 'V', g) for r in rs], rng)[0]
@@ -246,7 +248,9 @@ def verdicts(G, cs, rng):
         if var == 'main' and mN == 0 and lam <= 100:
             mx['%s/%d/%g' % (arm, N, lam)] = c['V'][0]
     if mx:
-        add('RE 6', 'failed' if any(v >= 0.6 for v in mx.values()) else 'held', 'mN = 0: no arm reaches V* >= 0.6 at any N and Lambda <= 100', {k: round(v, 3) for k, v in sorted(mx.items())})
+        byarm = {a: max(v for k, v in mx.items() if k.startswith(a + '/')) for a in ('M', 'L', 'T')}
+        add('RE 6', 'failed' if any(v >= 0.6 for v in mx.values()) else 'held', 'mN = 0: no arm reaches V* >= 0.6 at any N and Lambda <= 100 (falsifier: any cell >= 0.6)',
+            dict(max_by_arm={a: round(v, 3) for a, v in byarm.items()}, cells={k: round(v, 3) for k, v in sorted(mx.items())}))
     # RE 7
     nums = {}; v7 = 'held'; any_scored = False
     for N in (100, 200, 400):
@@ -346,6 +350,10 @@ def main():
             m = G.get(('M', 'main', N, lam, mN))
             if m:
                 contrasts['T-M|N%d|mN%g|lam%g' % (N, mN, lam)] = paired(runs, m, 'V', rng)
+        if arm == 'L' and var == 'main':
+            m = G.get(('M', 'main', N, lam, mN))
+            if m:
+                contrasts['M-L|N%d|mN%g|lam%g' % (N, mN, lam)] = paired(m, runs, 'V', rng)
         if arm == 'T' and var == 'T0':
             m = G.get(('T', 'main', N, lam, mN))
             if m:
@@ -362,10 +370,27 @@ def main():
     vp = os.path.join(ROOT, 'runs', 'majority_tail', 'validation.json')
     if os.path.exists(vp):
         valid = json.load(open(vp))
-    res = dict(cells={'|'.join(str(x) for x in k): v for k, v in cs.items()}, contrasts={k: dict(mean=v[0], lo=v[1], hi=v[2], n=v[3]) for k, v in contrasts.items()},
+    d4 = d4_composition()
+    res = dict(d4_removed=d4, cells={'|'.join(str(x) for x in k): v for k, v in cs.items()}, contrasts={k: dict(mean=v[0], lo=v[1], hi=v[2], n=v[3]) for k, v in contrasts.items()},
                verdicts=ver, validation=valid)
     json.dump(res, open(out + '.json', 'w'), indent=1, default=float)
     write_md(out + '.md', cs, contrasts, ver, valid)
+
+
+def d4_composition():
+    import majority_tail as MT
+    cat = MT.get_cat('M')
+    p = MT.base_laws('M')
+    out = {}
+    for d in range(3):
+        fl, tl = MT.variant_laws('M', 'D4:%d' % d)
+        per = []
+        for sl in range(3):
+            rem = np.nonzero((fl[sl] == 0) & (p[sl] > 0))[0]
+            rem = sorted(rem, key=lambda x: -p[sl][x])
+            per.append(dict(mass=float(p[sl][rem].sum()), n=len(rem), top=[(cat.S.src(sl, int(x)), round(float(p[sl][x]), 4)) for x in rem[:8]]))
+        out['D4:%d' % d] = per
+    return out
 
 
 def write_md(path, cs, contrasts, ver, valid):
@@ -376,12 +401,12 @@ def write_md(path, cs, contrasts, ver, valid):
         L.append('- %s: %s (%s)' % (g, 'PASS' if v.get('passed') else 'FAIL', ', '.join('%s=%s' % (k, v[k]) for k in v if k in ('n', 'wall'))))
     L.append('')
     L.append('## Key table: V* share at 120N (modal outcome is a fair pair), fair encounter probability, consensus counts'); L.append('')
-    L.append('| arm | variant | N | Lam | mN | runs | V* | V* (maj. triple) | fair enc. | surplus | F/U/G/W/D | fair consensus (pairs) | unequal consensus |')
-    L.append('|---|---|---|---|---|---|---|---|---|---|---|---|---|')
+    L.append('| arm | variant | N | Lam | mN | runs | V* | V* (maj. triple) | fair enc. | surplus | F/U/G/W/D | fair consensus (pairs) | unequal consensus | runs all-fair / mixed / none fair |')
+    L.append('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|')
     for k in sorted(cs, key=lambda k: (k[0], k[1], k[2], k[4], k[3])):
         c = cs[k]
         L.append('| %s | %s | %d | %g | %g | %d | %s | %s | %s | %.3f | %s | %d (%s) | %d |' % (k[0], k[1], k[2], k[3], k[4], c['n'], fmt(c['V']), fmt(c['Vmajo'], 2), fmt(c['fair_enc'], 2), c['surplus'][0],
-                  '/'.join('%.2f' % c[x][0] for x in CLS), c['cons_fair'], '/'.join(str(x) for x in c['cons_fair_pairs']), c['cons_unequal']))
+                  '/'.join('%.2f' % c[x][0] for x in CLS), c['cons_fair'], '/'.join(str(x) for x in c['cons_fair_pairs']), c['cons_unequal']) + ' %d / %d / %d |' % (c['runs_allfair'], c['runs_mixed'], c['runs_nofair']))
     L.append('')
     L.append('## V* share along the run (mean over runs of the share of islands whose modal outcome is a fair pair)'); L.append('')
     L.append('| arm | variant | N | Lam | mN | 2N | 10N | 30N | 100N | 120N | ties at 120N |'); L.append('|---|---|---|---|---|---|---|---|---|---|---|')
@@ -437,6 +462,24 @@ def write_md(path, cs, contrasts, ver, valid):
         if k[1] != 'main' or k[4] != 0:
             continue
         L.append('| %s | %d | %g | %.3f | %.3f | %s |' % (k[0], N, k[3], c['cls_by_snap'][str(2 * N)][3], c['cls_by_snap'][str(120 * N)][3], '/'.join('%.2f' % x for x in c['cls_by_snap'][str(120 * N)])))
+    L.append('')
+    L.append('## Fair-consensus pair counts (runs with >= 0.99 of islands on one fair pair at 120N), by dose and pooled; the uniformity test is exact multinomial (see the prediction table for RE 7)')
+    L.append('')
+    L.append('| arm | variant | N | mN | Lam 0 | Lam 10 | Lam 100 | pooled over the three Lam (F0/F1/F2; not tested, runs share founders across Lam) |'); L.append('|---|---|---|---|---|---|---|---|')
+    seen = set()
+    for k in sorted(cs, key=lambda k: (k[0], k[1], k[2], k[4])):
+        kk = (k[0], k[1], k[2], k[4])
+        if kk in seen or k[4] != 1 or k[1] not in ('main', 'T0'):
+            continue
+        seen.add(kk)
+        row = []; tot = np.zeros(3, int)
+        for lam in (0, 10, 100):
+            c = cs.get((k[0], k[1], k[2], lam, k[4]))
+            if c:
+                row.append('%d (%s)' % (c['cons_fair'], '/'.join(str(x) for x in c['cons_fair_pairs']))); tot += np.array(c['cons_fair_pairs'])
+            else:
+                row.append('-')
+        L.append('| %s | %s | %d | %g | %s | %s |' % (k[0], k[1], k[2], k[4], ' | '.join(row), '/'.join(str(x) for x in tot)))
     L.append('')
     L.append('## Paired contrasts on V* (CRN by run index; mean [95% bootstrap], n runs)'); L.append('')
     for k in sorted(contrasts):

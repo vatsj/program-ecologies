@@ -58,6 +58,23 @@ cell). Code: `src/majority_tail_kern.py` (kernel), `src/majority_tail.py` (arms,
 13. **Spec files.** The spec, its two reviews, `tools/daytona_run.py` and `tools/run_tests.sh` were uncommitted in the RE's
     checkout, so they were copied into the worktree (commits 1–2 of the branch).
 
+14. **Long chase includes L.** The ten long-chase runs (to 240N) were run for every `main` cell at (Λ = 100, mN = 1), which includes arm L
+    (the spec asked for M and T); the L rows are extra and are reported.
+15. **D4 matched mass is two constants.** Each of the nine constants carries 0.1084 of the prior in every slot (the nine constants hold
+    0.976), so the 0.217 of removed mass in D1/D2/D3 is the two ⅓-naming constants of the slot (0.2168) plus the Trojan bullies
+    (about 10⁻⁵); D4's random removal of the same mass is therefore two random constants (plus a few conditionals of negligible mass).
+    `runs/majority-current-object.json` (`d4_removed`) lists the removed classes per draw and slot. D4 is a control for renormalization
+    and for losing any two constants, not a control for losing "mass" in the abstract.
+16. **No snapshot cell is `ties`-corrected.** Ties in the top two outcome probabilities occur on at most 0.08% of island-snapshots at 120N
+    (column `ties`); nothing is adjusted for them.
+
 ## Timing and budget
 
-(Filled after the run.)
+- Kernel time per job (all cells of one founder draw): M / T at N = 100: 0.5 / 0.7 min; N = 200: 2.0 / 2.6 min; N = 400: 9.0 / 11.5 min
+  (the N = 400 M job includes the ten 240N runs); D and T0 jobs 0.1–2.1 min. Per-cell kernel wall: M N = 100 about 20 s locally
+  (the Lambda = 100, mN = 1 cell), N = 400 about 130 s.
+- Totals (sum of recorded cell and prepare wall times over 740 jobs, 3,160 cell records): **15.1 core-hours**. Five sandboxes of 4 CPUs
+  ran the 740 jobs in 2,670–2,830 s wall each (about 15 sandbox-CPU-hours plus about 1 minute of pip install and numba compilation
+  per sandbox), the pinned-environment V1 sandbox used another 0.5 CPU-hours (427 s on 4 CPUs), and the local gates and tests about 2
+  CPU-hours. About 18 CPU-hours in all against the ceiling of 400. **No cut was applied** (E3 held).
+- Sandboxes: all five counted-cell sandboxes exited 0, results were fetched, `daytona_run.py list` is empty.
