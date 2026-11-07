@@ -65,7 +65,7 @@ cell). Code: `src/majority_tail_kern.py` (kernel), `src/majority_tail.py` (arms,
     (about 10⁻⁵); D4's random removal of the same mass is therefore two random constants (plus a few conditionals of negligible mass).
     `runs/majority-current-object.json` (`d4_removed`) lists the removed classes per draw and slot. D4 is a control for renormalization
     and for losing any two constants, not a control for losing "mass" in the abstract.
-16. **No snapshot cell is `ties`-corrected.** Ties in the top two outcome probabilities occur on at most 0.08% of island-snapshots at 120N
+16. **No snapshot cell is `ties`-corrected.** Ties in the top two outcome probabilities occur on at most 0.16% of island-snapshots at 120N (cell means)
     (column `ties`); nothing is adjusted for them.
 
 ## Timing and budget

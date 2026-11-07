@@ -399,6 +399,10 @@ def write_md(path, cs, contrasts, ver, valid):
     L.append('## Validations'); L.append('')
     for g, v in valid.items():
         L.append('- %s: %s (%s)' % (g, 'PASS' if v.get('passed') else 'FAIL', ', '.join('%s=%s' % (k, v[k]) for k in v if k in ('n', 'wall'))))
+    pv = os.path.join(ROOT, 'runs', 'majority_tail_sbx', 'validation_v1_pinned.json')
+    if os.path.exists(pv):
+        v1p = json.load(open(pv))['V1']
+        L.append('- V1 (pinned sandbox environment, numpy 1.24.3 / numba 0.57.0): %s (n=%d)' % ('PASS' if v1p['passed'] else 'FAIL', v1p['n']))
     L.append('')
     L.append('## Key table: V* share at 120N (modal outcome is a fair pair), fair encounter probability, consensus counts'); L.append('')
     L.append('| arm | variant | N | Lam | mN | runs | V* | V* (maj. triple) | fair enc. | surplus | F/U/G/W/D | fair consensus (pairs) | unequal consensus | runs all-fair / mixed / none fair |')
