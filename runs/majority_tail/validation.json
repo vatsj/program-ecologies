@@ -1,0 +1,210 @@
+{
+ "V2": {
+  "gate": "V2",
+  "passed": true,
+  "law": {
+   "M": {
+    "n": 101883,
+    "chi2": 13.158478288444183,
+    "dof": 9,
+    "p": 0.1555654335634287,
+    "classes_in_test": 9
+   },
+   "T": {
+    "n": 101883,
+    "chi2": 22.62015346267876,
+    "dof": 20,
+    "p": 0.3078282968839489,
+    "classes_in_test": 20
+   }
+  },
+  "counts": {
+   "N100": {
+    "per_island_mean": 99.31796875,
+    "analytic": 99.49238578680203,
+    "integral_of_schedule": 99.49238578680205,
+    "rel_err": -0.0017530691964284806,
+    "late_share_after_15N": 0.03235347329835519
+   },
+   "N200": {
+    "per_island_mean": 99.8296875,
+    "analytic": 99.49238578680203,
+    "integral_of_schedule": 99.49238578680205,
+    "rel_err": 0.0033902264030611917,
+    "late_share_after_15N": 0.032042854236120896
+   },
+   "N400": {
+    "per_island_mean": 99.559375,
+    "analytic": 99.49238578680203,
+    "integral_of_schedule": 99.49238578680205,
+    "rel_err": 0.0006733099489795169,
+    "late_share_after_15N": 0.032643836906368684
+   },
+   "lam10_N100": {
+    "per_island_mean": 9.952734375,
+    "analytic": 9.949238578680204,
+    "rel_err": 0.00035136320153061895
+   }
+  },
+  "wall": 2.8
+ },
+ "V1": {
+  "gate": "V1",
+  "passed": true,
+  "n": 240,
+  "by_cell": {
+   "B6m|mN=0": {
+    "n": 40,
+    "same_kern_mw": 40,
+    "same_stored": 40
+   },
+   "B6m|mN=0.1": {
+    "n": 40,
+    "same_kern_mw": 40,
+    "same_stored": 40
+   },
+   "B6m|mN=1": {
+    "n": 40,
+    "same_kern_mw": 40,
+    "same_stored": 40
+   },
+   "T-main|mN=0": {
+    "n": 40,
+    "same_kern_mw": 40,
+    "same_stored": 40
+   },
+   "T-main|mN=0.1": {
+    "n": 40,
+    "same_kern_mw": 40,
+    "same_stored": 40
+   },
+   "T-main|mN=1": {
+    "n": 40,
+    "same_kern_mw": 40,
+    "same_stored": 40
+   }
+  },
+  "fails": [],
+  "wall": 999.7
+ },
+ "V3": {
+  "gate": "V3",
+  "passed": true,
+  "per_run_table_vs_reference": {
+   "n": 54000,
+   "mismatches": 0
+  },
+  "full_catalogue_lazy_vs_reference": {
+   "n": 10000,
+   "mismatches": 0
+  },
+  "universes": {
+   "N100": {
+    "K": [
+     197,
+     195,
+     173
+    ],
+    "J_dtype": "int16"
+   },
+   "N200": {
+    "K": [
+     304,
+     330,
+     332
+    ],
+    "J_dtype": "int16"
+   },
+   "N400": {
+    "K": [
+     517,
+     551,
+     554
+    ],
+    "J_dtype": "int16"
+   }
+  },
+  "T_table_shape": [
+   27,
+   27,
+   27
+  ],
+  "note": "per-run universe = founders + all scheduled arrivals (Lambda = 100 schedule), so every program an arrival can bring has an entry against every pair that can be present; migrants copy residents",
+  "wall": 297.2
+ },
+ "V4": {
+  "gate": "V4",
+  "passed": true,
+  "max_abs_diff_vs_Tabs_payoff": 3.333999742949345e-13,
+  "outcomes_equal": true,
+  "independent_recomputation": {
+   "n": 300,
+   "mismatches": 0
+  },
+  "P_fail": 0.1,
+  "n_types": 1188,
+  "note": "the table is built from many_islands_t.Tabs (the queue-69 table); no stored per-triple table exists to compare with, so it is checked against Tabs.payoff and against an independent counted re-evaluation",
+  "wall": 0.2
+ },
+ "V6": {
+  "gate": "V6",
+  "passed": true,
+  "M": {
+   "law_equivariant": true,
+   "families_equivariant": true,
+   "table_mismatches": 0,
+   "triples": 10000
+  },
+  "T": {
+   "law_identical_across_slots": true,
+   "table_mismatches": 0,
+   "triples": 19683
+  },
+  "modal_tie_break": {
+   "note": "argmax breaks exact ties by the lowest outcome id, which is not rotation equivariant; the frequency of ties at the recorded snapshots is reported per cell in the rows (snap[..].ties)"
+  },
+  "wall": 0.1
+ },
+ "V5": {
+  "gate": "V5",
+  "passed": true,
+  "N": 100,
+  "results": {
+   "opener_k1_arrival": {
+    "k": 1,
+    "trials": 10000,
+    "fixation": 0.0106,
+    "neutral": 0.01,
+    "se": 0.00099498743710662,
+    "z": 0.6030226891555271,
+    "within3se": true
+   },
+   "opener_k10": {
+    "k": 10,
+    "trials": 10000,
+    "fixation": 0.0943,
+    "neutral": 0.1,
+    "se": 0.003,
+    "z": -1.9000000000000035,
+    "within3se": true
+   },
+   "opener_kN2": {
+    "k": 50,
+    "trials": 10000,
+    "fixation": 0.5065,
+    "neutral": 0.5,
+    "se": 0.005,
+    "z": 1.29999999999999,
+    "within3se": true
+   },
+   "switch_after_opener": {
+    "trials": 10000,
+    "fixation": 0.05,
+    "three_over_N": 0.03,
+    "selected": true
+   }
+  },
+  "triple": "slot 0: (1,2/3) constant, slot 1: (0,1/3) constant, slot 2 resident (ALL,2/3); opener (1,1/2); switch (2,1/2)",
+  "wall": 38.1
+ }
+}
