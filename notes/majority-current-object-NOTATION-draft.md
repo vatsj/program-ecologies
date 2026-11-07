@@ -1,0 +1,11 @@
+# NOTATION entries (draft for the RE), queue 74
+
+- **Λ (tail dose).** Total expected annealed-tail arrivals per island over the whole schedule; the delivered count to g_end = 100N is Λ(1 − 1/197) = 0.9949 Λ for every N. Tail schedule: from g₀ = 2N, Poisson with mean Λ[(1 + (g − g₀)/t₀)⁻¹ − (1 + (g + 1 − g₀)/t₀)⁻¹] per island and generation, t₀ = N/2.
+- **V\* share (primary).** Fraction of the 64 islands whose modal outcome (the encounter-weighted argmax of the island's outcome distribution, `kern_mw`'s `modal`) is a fair pair, at generation 120N. The same with the outcome of the three majority programs ("maj. triple") is reported beside it.
+- **Fair encounter probability.** Probability that a uniformly random encounter (one individual per slot) forms a fair pair, averaged over islands. Material surplus: mean total payoff per encounter (gross of the A_f charge in arm T).
+- **Landing.** An arm "lands in V\*" in a cell when the V\* share is ≥ 0.95 with the bootstrap lower bound ≥ 0.90.
+- **Fair consensus / unequal consensus.** A run is in fair (unequal) consensus when ≥ 0.99 of its 64 islands (that is, all 64) sit on one fair pair (one unequal outcome) at 120N.
+- **Debounces d25 and dq.** Island-level transitions counted when the new modal class persists 25 generations (comparable with queue 64) or round(0.25 N) generations (comparable across N).
+- **Establishment (episode flag).** An arrival is credited as established when the presence episode it began on its island and slot (the program was absent at its arrival) crosses N/2 of the slot; copies of a program already present, or arriving later, are not credited. This is the genotype-frequency fallback the spec allows, not lineage tagging.
+- **D1, D2, D3, D4, T0.** Diagnostics: clean tail (two ⅓-naming constants and two Trojan bullies per slot removed from the arrival law); clean founders and tail; clean founders and full tail; matched-mass random removals (3 draws); arm T with the constants only.
+- **CRN.** Founders shared across Λ and mN within (arm, variant, N, run); the arrival schedule (times, islands, slots, victim uniforms, thinning and program uniforms) shared across arms at equal (N, run) and nested across Λ (Λ = 10 is a thinning of Λ = 100).
