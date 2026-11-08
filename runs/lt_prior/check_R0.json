@@ -1,0 +1,99 @@
+{
+ "machine": "R0",
+ "npairs": 30,
+ "setA": {
+  "total": 1000,
+  "reproduced": 1000,
+  "other": 0,
+  "by_group": {
+   "const/family": [
+    965,
+    965
+   ],
+   "const/exact": [
+    35,
+    35
+   ]
+  },
+  "by_kind": {},
+  "examples_other": [],
+  "n_programs": 1000,
+  "tries": 16731,
+  "assigned_groups": {
+   "const": 1000
+  }
+ },
+ "wall": 2.0973196029663086,
+ "setB": {
+  "total": 110,
+  "reproduced": 65,
+  "other": 45,
+  "by_group": {
+   "bully/exact": [
+    10,
+    10
+   ],
+   "single/exact": [
+    24,
+    24
+   ],
+   "bully/family": [
+    28,
+    20
+   ],
+   "two/family": [
+    12,
+    0
+   ],
+   "single/family": [
+    36,
+    11
+   ]
+  },
+  "by_kind": {},
+  "examples_other": [
+   [
+    "(app (lam (if (if (eq #0 4) T (eq #0 4)) 1 (app (lam (if (if (eq #0 1) T (eq #0 1)) 4 1)) (capk 1500 (run 1500 #0 #2) #1)))) (capk 1500 (run 1500 #1 #0) #2))",
+    "two_fair:n",
+    ""
+   ],
+   [
+    "(app (lam (if (if (eq #0 4) T (eq #0 4)) 1 (app (lam (if (if (eq #0 0) T (eq #0 0)) 4 4)) (capk 1500 (run 1500 #0 #2) #1)))) (capk 1500 (run 1500 #1 #0) #2))",
+    "single_fair:n",
+    ""
+   ],
+   [
+    "(app (lam (if (eq #0 4) 1 (app (lam (if (eq #0 1) 4 1)) (capk 1500 (run 1500 #0 #2) #1)))) (capk 1500 (run 1500 #1 #0) #2))",
+    "two_fair:n",
+    ""
+   ],
+   [
+    "(if (eq (capk 95 (run 95 #1 #0) #2) 4) 1 12)",
+    "single_fair:n",
+    ""
+   ],
+   [
+    "(app (lam (if (eq #0 4) (app (lam (if (eq #0 1) 4 1)) (capk 1500 (run 1500 #0 #2) #1)) 4)) (capk 1500 (run 1500 #1 #0) #2))",
+    "two_fair:p",
+    ""
+   ],
+   [
+    "(app (lam (if (if (eq #0 1) F T) 12 4)) (capk 95 (run 95 #0 #2) #1))",
+    "single_fair:p",
+    ""
+   ],
+   [
+    "(if (if (eq (capk 95 (run 95 #1 #0) #2) 4) F T) 12 1)",
+    "single_fair:n",
+    ""
+   ],
+   [
+    "(app (lam (if (eq #0 4) (app (lam (if (if (eq #0 1) T (eq #0 1)) 4 1)) (capk 1500 (run 1500 #0 #2) #1)) 4)) (capk 1500 (run 1500 #1 #0) #2))",
+    "two_fair:p",
+    ""
+   ]
+  ],
+  "n_programs": 110,
+  "candidates": 110
+ }
+}
