@@ -132,3 +132,30 @@ def test_sampler_literals_and_scope():
     xs = [sm.elias() for _ in range(40000)]
     assert abs(xs.count(0) / 40000 - 0.5) < 0.01 and abs(xs.count(1) / 40000 - 0.125) < 0.01
     assert E.scope_fix(('v', 5)) == ('oos',) and E.scope_fix(('lam', ('v', 3))) == ('lam', ('v', 3))
+
+
+def test_adaptive_table_random():
+    """the taint rule (a run that never inspects a partner's source is the same for every partner) against the full
+    probe tables, on random tainted programs of both machines (and with R1's read macro)."""
+    pr = P.probes()
+    c0 = pr.terms[0]
+    for mn, seed in (('R0', 11), ('R1', 12)):
+        mach = P.MACHINES[mn]
+        sm = E.Sampler(mach, seed)
+        got = tries = 0
+        while got < 12 and tries < 100000:
+            tries += 1
+            t, sz = sm.draw()
+            if t is None:
+                continue
+            body = E.scope_fix(t)
+            if P.static_junk(body):
+                continue
+            prog = P.frame(P.expand(body))
+            r = P.eval_prog(prog, c0, c0, taint=True)
+            if not (r[5][0] or r[5][1]):
+                continue
+            got += 1
+            a, _ = pr.table_adaptive(prog, r[5])
+            assert pr.signature(a) == pr.signature(pr.table(prog)), P.to_sexpr(body)
+        assert got == 12

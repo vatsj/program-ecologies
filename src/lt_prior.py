@@ -284,9 +284,9 @@ def _rt_to_tval(v):
 
 
 def _enter_sim(k, thunk, key=None):
-    if _T['on'] and key is not None:
-        for e in key:
-            if isinstance(e, tuple): _mark(e)
+    # the regress key of a `run` call contains the partners' terms; the regress lemma makes a hit observationally
+    # equivalent to running the loop to the enclosing expiry, so the key is not an inspection (checked against the full
+    # tables in tests/test_lt_prior.py::test_adaptive_table_random)
     return TP._counted_enter_sim_inner(k, thunk, key)
 
 
