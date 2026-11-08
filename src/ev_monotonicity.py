@@ -203,7 +203,9 @@ def mf_table(c, b, raw=False):
         d = _load('mf:%r:%r:%d' % (c, b, pool) + (':raw' if raw else ''))
         if d is None:
             return None
-        out['pools'].append(dict(status=d['status'], t_end=d['t_end'], resid=d['resid_end'], pairs_end=d['final_pairs'],
+        vs = [(r['shares'][0], r['t']) for r in d['recs'] if r['t'] >= 100]
+        vmin = min(vs)
+        out['pools'].append(dict(status=d['status'], t_end=d['t_end'], vmin_after_100=vmin[0], t_vmin=vmin[1], resid=d['resid_end'], pairs_end=d['final_pairs'],
                                  shares_end=d['final_shares'], min_x=d['min_x'], mass_dev=d['mass_dev']))
         rows.append(d)
     for lab, t in (('0', 0.0), ('1e3', 1e3), ('1e4', 1e4), ('1e5', 1e5), ('end', None)):
@@ -230,7 +232,7 @@ def world_summary(c, b, I=1024):
     dom = np.where(single, fin.argmax(axis=1), -1)
     cps = d['cps']
     sh = {}
-    for t in (1000, 10000, 100000):
+    for t in (1000, 3000, 10000, 30000, 100000):
         k = cps.index(t)
         sh[str(t)] = dict(pair_mean=(pr[:, k, :].mean(axis=0) / I).tolist(), vstar_mean=float(hs[:, k, 0].mean() / I))
     return dict(c=c, b=b, I=I, n=len(rows), cons99=int((fair >= 0.99).sum()), single=int(single.sum()),
@@ -300,6 +302,8 @@ def report():
     md.append('| condition | t | V* | F0 (1/2,1/2,0) | F1 | F2 | status per pool |')
     md.append('|---|---|---|---|---|---|---|')
     conds = [('control c=0, b=0', 0.0, 0.0)] + [('penalty c=%g' % c, c, 0.0) for c in PEN] + [('bonus b=%.4g' % b, 0.0, b) for b in BON]
+    expl = [('EXPLORATORY bonus b=%.4g' % b, 0.0, b) for b in (0.0416666666666666, 0.125)]
+    conds = conds + expl
     for name, c, b in conds:
         t = mf_table(c, b)
         js['mf'][name] = t
@@ -328,6 +332,16 @@ def report():
             pooled += np.array(w['dom_counts'])
     js['penalty_pooled_dom_counts'] = pooled.tolist()
     js['penalty_pooled_chi2_p'] = chi2_uniform(pooled.tolist())
+    md.append('\nMean-field minimum of V* after 100 events per island (pool: value at event time), the excursion of the bonus runs:\n')
+    for name, c, b in conds:
+        t = js['mf'].get(name)
+        if t:
+            md.append('- %s: ' % name + '; '.join('%.4f at %.3g' % (q['vmin_after_100'], q['t_vmin']) for q in t['pools']))
+    md.append('\nFinite worlds, mean V* (share of islands on fair pairs) at 10^3 / 3e3 / 10^4 / 3e4 / 10^5 events per island:\n')
+    for name, c, b in conds:
+        w = js['worlds'].get(name)
+        if w:
+            md.append('- %s: ' % name + ' / '.join('%.3f' % w['by_t'][k]['vstar_mean'] for k in ('1000', '3000', '10000', '30000', '100000')))
     md.append('\nPenalty single-pair worlds pooled over c: %s, chi-square p against uniform = %s.\n' % (pooled.tolist(), js['penalty_pooled_chi2_p']))
     os.makedirs(os.path.join(ROOT, 'runs'), exist_ok=True)
     json.dump(js, open(os.path.join(ROOT, 'runs', 'ev-monotonicity.json'), 'w'), default=_default)
