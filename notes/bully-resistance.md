@@ -22,3 +22,10 @@
 - 21:39 UTC: the scheduler task hit its 30-minute background limit and its five clients died with it (sandboxes alive); reattached with tools/daytona_fetch.py (tools/br_reattach.sh)
   to 94dcd599 = m_0of12, d6e057cb = m_1of12, 46f4c468 = m_2of12, 6dbf0dc7 = m_3of12, 411ebf5c = m_4of12; clients are now launched from foreground calls (tools/br_fill.sh) and the
   background task only waits (tools/br_wait.sh, 2 h limit). Lost work: none (clients only poll).
+- 22:20 UTC: the R2 enumeration to s0 = 5 (job r2, sandbox 3174ded1) was stopped and the sandbox deleted: size 4 took 433 s and size 5 would have taken about 4 h per shard (terms
+  containing a probe tag with a literal child are classified by a full 29 x 29 probe table: seconds each). The exhaustive part for R2 is s0 = 4 (262,358 terms at size 4, run locally in 772 s,
+  mass accounting sum 1 - 3e-16; `runs/lt_prior_br/e_R2/enum_R2_s4_0of1.json`); the Monte Carlo (4 x 1.5e6 draws from the prior, S0 = 4) runs as job r2mc (a5468260). R1 was s0 = 5 and R0 s0 = 6 in queue 75; the
+  P / O masses do not depend on s0 (they come from the grammar search).
+- R0 prudent search first ran with a wrong cap-class label (no spelling found); fixed (`cap_ok`: the classes `[255,510]` and `>=1023`, the same labels queue 75's two-reader search used) and rerun. Note: queue 75's
+  R0 two-reader search used the labels `[256,510]` and found none (R0 two exact mass 0 in `step1.json`); that is probably the same label bug, and R0's two-partner mass is negligible either way (R1/R2: 10^-29).
+- Local compute: V1 (80 cells) and the `ideal` stage (320 cells) run on the local container (2-3 workers).
