@@ -148,7 +148,7 @@ def report_machine(mn, dirn, s0):
             g = grp(fam)
             for s, forms in szd.items():
                 s = int(s)
-                for form, (m, c, e) in forms.items():
+                for form, (m, c, e, *_t) in forms.items():
                     by_size.setdefault((g, 'exact' if ex else 'family'), {}).setdefault(s, [0.0, 0, ''])
                     t = by_size[(g, 'exact' if ex else 'family')][s]
                     t[0] += m; t[1] += c

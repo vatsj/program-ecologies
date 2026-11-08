@@ -22,7 +22,7 @@ OPS = L.OPS
 
 # ====================================================================== the enumerator
 class Enumerator:
-    def __init__(self, mach, memo_max=4):
+    def __init__(self, mach, memo_max=3):
         self.mach = mach
         self.pt = 1.0 / mach.T
         self.tags = P.ENUM_TAGS[mach.name]

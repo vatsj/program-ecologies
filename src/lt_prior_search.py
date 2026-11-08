@@ -239,10 +239,10 @@ def search(mach, two_limit=None):
         rs = rd.size(i); rm0 = rd.mass(i, 0)
         for (mp, sz), (mF, cF, F) in let.items():
             fam, exact = P.classify_table(tab1(rd, i, mp), pr)
-            add((fam, exact, 2 + sz + rs, 'let'), pt * pt * mF * rm0, cF, P.to_sexpr(('app', ('lam', F), rd.variants[i][2])))
+            add((fam, exact, 2 + sz + rs, 'let'), pt * pt * mF * rm0, cF, ('app', ('lam', F), rd.variants[i][2]))
         for (mp, sz1), (mF, cF, F) in inl.items():
             fam, exact = P.classify_table(tab1(rd, i, mp), pr)
-            add((fam, exact, sz1 + rs, 'inline'), mF * rm0, cF, P.to_sexpr(subst(F, R, rd.variants[i][2])))
+            add((fam, exact, sz1 + rs, 'inline'), mF * rm0, cF, subst(F, R, rd.variants[i][2]))
     # two-stage: leaves of F1 / F2 restricted to the codes the library readers use
     small_leaves = [('nat', k) for k in (1, 4, 8, 0, 3, 5)] + [('nat', 12)]
     let1, _ = group(True, True, small_leaves, mach, False)
@@ -260,14 +260,15 @@ def search(mach, two_limit=None):
                 for (mp2, sz2), (mF2, c2, F2) in let2.items():
                     fam, exact = P.classify_table(tab2(rd, i, j, mp1, mp2), pr)
                     total = 2 + sz1 + 2 + sz2 + rd.size(i) + rd.size(j)
-                    add((fam, exact, total, 'two-let'), pt ** 4 * mF1 * mF2 * m1r * m2r, c1 * c2, '')
+                    ex2 = ('app', ('lam', subst(F1, ('cont',), ('app', ('lam', F2), rd.variants[j][2]))), rd.variants[i][2])
+                    add((fam, exact, total, 'two-let'), pt ** 4 * mF1 * mF2 * m1r * m2r, c1 * c2, ex2)
     return res
 
 
 def pack(res):
     out = {}
     for (fam, exact, size, form), (m, c, ex) in res.items():
-        out.setdefault('%s|%s' % (fam, exact), {}).setdefault(str(size), {})[form] = [m, c, ex]
+        out.setdefault('%s|%s' % (fam, exact), {}).setdefault(str(size), {})[form] = [m, c, P.to_sexpr(ex) if ex else '', ex]
     return out
 
 
