@@ -5,6 +5,7 @@ The catalogue is T+ (queue 75: arm T's 27 programs, Trojan bullies Bn Bp, junk J
   prudent readers P  (8):  P<dir><fb><to>   strict probe (an inconclusive probe read counts as refuse)
   lenient probe  Q   (4):  Q<dir>z<to>      the probe variant: an inconclusive probe read counts as accept (fallback z only)
   openers        O   (8):  O<first><fb><to>
+  firm control   F2  (4):  F<dir>z<to>     T's single reader (fallback z) plus P's second read made and ignored (matched read charges)
 
 Prudent reader (reading partner j = next for dir n, previous for dir p; k the third slot): accept j iff the cooperation read says
 j names me at 1/2 (T's convention `to`: y accepts a timed-out read, n does not) AND a second read of j, with the third slot
@@ -74,12 +75,25 @@ NAMES_O = ['O%s%s%s' % (f, fb, to) for f in 'np' for fb in 'fz' for to in 'yn']
 SRC_P = [src_prudent(n[1], n[2], n[3]) for n in NAMES_P]
 SRC_Q = [src_prudent(n[1], n[2], n[3], True) for n in NAMES_Q]
 SRC_O = [src_opener(n[1], n[2], n[3]) for n in NAMES_O]
-NAMES_NEW = NAMES_P + NAMES_Q + NAMES_O
-FAM_NEW = ['prudent'] * 8 + ['prudent_a'] * 4 + ['opener'] * 8
-SRC_NEW = SRC_P + SRC_Q + SRC_O
-NBR = TP.NPLUS + len(NAMES_NEW)           # 51
 
-FAMB = ['c_third', 'c_half', 'c_two3', 'c_grand', 'single', 'two', 'exploit', 'bully', 'junk', 'prudent', 'prudent_a', 'opener']
+
+def src_f2(dirn, to):
+    """the matched firm control F2: T's single reader (fallback z) plus P's second read made and ignored (the probe read of the
+    same partner is performed when the cooperation read accepts, so it pays P's read charges without discriminating)."""
+    sim = SIMN if dirn == 'n' else SIMP
+    probe = PROBEN if dirn == 'n' else PROBEP
+    go = 1 if dirn == 'n' else 4
+    return '(lambda (me n p) (let ((r %s)) (if %s (let ((q %s)) %d) %d)))' % (sim, _acc('r', dirn, to), probe, go, CT.NULL)
+
+
+NAMES_F2 = ['F%sz%s' % (d, to) for d in 'np' for to in 'yn']
+SRC_F2 = [src_f2(n[1], n[3]) for n in NAMES_F2]
+NAMES_NEW = NAMES_P + NAMES_Q + NAMES_O + NAMES_F2
+FAM_NEW = ['prudent'] * 8 + ['prudent_a'] * 4 + ['opener'] * 8 + ['single2'] * 4
+SRC_NEW = SRC_P + SRC_Q + SRC_O + SRC_F2
+NBR = TP.NPLUS + len(NAMES_NEW)           # 55 (the first 51: P, Q, O after T+; F2 appended last)
+
+FAMB = ['c_third', 'c_half', 'c_two3', 'c_grand', 'single', 'two', 'exploit', 'bully', 'junk', 'prudent', 'prudent_a', 'opener', 'single2']
 
 
 def library_br():
@@ -100,7 +114,7 @@ class CatalogueBR(TP.Catalogue):
 
 
 class TabsBR(TP.TabsPlus):
-    """Execution tables of the 51 programs and the joint tables (as TabsPlus)."""
+    """Execution tables of the 55 programs and the joint tables (as TabsPlus)."""
 
     def __init__(self, cache_dir=None):
         self.cat = CatalogueBR()

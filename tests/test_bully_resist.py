@@ -16,7 +16,7 @@ def tb():
 
 
 def test_count_and_names(tb):
-    assert tb.K == 51 and tb.names[:31] == [x[0] for x in TP.library_plus()]
+    assert tb.K == 55 and tb.names[:31] == [x[0] for x in TP.library_plus()]
     assert tb.names[31:39] == ['Pnoy', 'Pnon', 'Pnzy', 'Pnzn', 'Ppoy', 'Ppon', 'Ppzy', 'Ppzn']
 
 
