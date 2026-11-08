@@ -9,7 +9,8 @@ cd "$(dirname "$0")/.."
 count() { pgrep -fc "daytona_run.py run|daytona_fetch.py"; }
 while [ "$(count)" -lt 5 ] && [ -s "$Q" ]; do
   c=$(head -n 1 "$Q"); sed -i 1d "$Q"
-  setsid nohup python3 tools/daytona_run.py run --cpus 4 --out runs/lpt_rows/$c -- python3 src/length_prior_t_run.py run runs/lpt_jobs/$c.txt runs/lpt_rows/$c > "$LOG/dt_$c.log" 2>&1 < /dev/null &
+  S1=""; case "$c" in 2b*) S1="--step1 runs/length_prior_t/step1.json";; esac
+  setsid nohup python3 tools/daytona_run.py run --cpus 4 --out runs/lpt_rows/$c -- python3 src/length_prior_t_run.py run runs/lpt_jobs/$c.txt runs/lpt_rows/$c $S1 > "$LOG/dt_$c.log" 2>&1 < /dev/null &
   echo "launched $c"; sleep 15
 done
 n0=$(count)

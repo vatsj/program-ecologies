@@ -70,8 +70,13 @@ def make_jobs(stages, step1=None, delta2=None, longlist=None):
                     jobs.append(jid('slice2', '2a:df=%s:dt=%s:b=0.0' % (fmt(delta2 * a), fmt(delta2 * b_)), 200, 64, r))
         elif st == '2b':
             for mach in step1['machines']:
+                m = step1[mach]
+                rd = m['single'] + m['two']
                 for N in (200, 400):
                     for d in DELTAS:
+                        rest = 1.0 - d * (1.0 + (m['bully'] + m['exploit']) / rd) - m['junk_f'] - m['junk_r']
+                        if rest <= 0:
+                            continue        # the measured junk and bully mass leave no room for readers at this delta
                         for r in range(RUNS):
                             jobs.append(jid('2b', '2b:%s:d=%s' % (mach, fmt(d)), N, 64, r))
         elif st == 'long':
