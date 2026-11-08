@@ -1,0 +1,116 @@
+{
+ "machine": "R1",
+ "npairs": 30,
+ "setA": {
+  "total": 266,
+  "reproduced": 265,
+  "other": 1,
+  "by_group": {
+   "const/family": [
+    257,
+    257
+   ],
+   "const/exact": [
+    8,
+    8
+   ],
+   "yielder/family": [
+    1,
+    0
+   ]
+  },
+  "by_kind": {},
+  "examples_other": [
+   [
+    "(mod readn readn)",
+    "yielder:n",
+    ""
+   ]
+  ],
+  "n_programs": 1000,
+  "tries": 5515,
+  "assigned_groups": {
+   "other_cond": 571,
+   "const": 265,
+   "const_read": 163,
+   "yielder": 1
+  }
+ },
+ "wall": 23.87849712371826,
+ "setB": {
+  "total": 112,
+  "reproduced": 65,
+  "other": 47,
+  "by_group": {
+   "two/exact": [
+    28,
+    28
+   ],
+   "single/family": [
+    26,
+    3
+   ],
+   "bully/exact": [
+    10,
+    10
+   ],
+   "single/exact": [
+    24,
+    24
+   ],
+   "bully/family": [
+    12,
+    0
+   ],
+   "two/family": [
+    12,
+    0
+   ]
+  },
+  "by_kind": {},
+  "examples_other": [
+   [
+    "(app (lam (app (lam (if (if (eq #0 1) T (eq #0 1)) 4 1)) readp)) readn)",
+    "single_fair:p",
+    ""
+   ],
+   [
+    "(if (eq readp 1) 4 12)",
+    "single_fair:p",
+    ""
+   ],
+   [
+    "(app (lam (if (if (eq #0 0) (eq #0 1) F) 1 (app (lam (if (if (eq #0 0) F T) 1 5)) readp))) readn)",
+    "bully:p",
+    ""
+   ],
+   [
+    "(app (lam (if (if (eq #0 4) T (eq #0 4)) 1 12)) readn)",
+    "single_fair:n",
+    ""
+   ],
+   [
+    "(app (lam (if (eq #0 TO) 1 (app (lam (if (if (eq #0 0) T (eq #0 0)) 5 1)) readp))) readn)",
+    "bully:p",
+    ""
+   ],
+   [
+    "(app (lam (if (if (eq #0 4) F T) 4 (app (lam (if (if (eq #0 1) T (eq #0 1)) 4 1)) readp))) readn)",
+    "two_fair:p",
+    ""
+   ],
+   [
+    "(app (lam (if (eq #0 4) 1 (app (lam (if (if (eq #0 0) T (eq #0 0)) 4 4)) readp))) readn)",
+    "single_fair:n",
+    ""
+   ],
+   [
+    "(app (lam (if (eq #0 1) 4 12)) readp)",
+    "single_fair:p",
+    ""
+   ]
+  ],
+  "n_programs": 112,
+  "candidates": 112
+ }
+}
