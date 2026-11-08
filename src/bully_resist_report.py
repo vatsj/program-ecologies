@@ -74,7 +74,16 @@ def cell_stats(rs):
             w = np.array([t[1] for t in lst]); c_ = np.array([t[0] for t in lst])
             chm[f] = [float((c_ * w).sum() / w.sum()), float(w.mean())]
     fp = [int(r['cons_modal']['fair_pair']) for r in rs]
-    return dict(n=len(rs), mean=float(v.mean()), ci=[lo, hi], all_fair=float((v >= 1.0 - 1e-9).mean()), fair_pair_islands=(pairs / max(pairs.sum(), 1)).tolist(),
+    tr = {}
+    for win in ('tail|d25', 'chase|d25'):
+        M = np.zeros((5, 5)); occ = np.zeros(5); ff = 0
+        for r in rs:
+            t = r['trans'][win]
+            M += np.array(t['M']); occ += np.array(t['occ']); ff += t['ff']
+        tr[win] = dict(F_to_U=float(M[0, 1] / occ[0]) if occ[0] else None, U_to_F=float(M[1, 0] / occ[1]) if occ[1] else None,
+                       F_to_other=float(M[0, 2:].sum() / occ[0]) if occ[0] else None, FF_flips=float(ff / occ[0]) if occ[0] else None,
+                       occ_F=float(occ[0]), occ_U=float(occ[1]), n_FU=int(M[0, 1]), n_UF=int(M[1, 0]))
+    return dict(trans=tr, n=len(rs), mean=float(v.mean()), ci=[lo, hi], all_fair=float((v >= 1.0 - 1e-9).mean()), fair_pair_islands=(pairs / max(pairs.sum(), 1)).tolist(),
                 unequal_consensus=int(sum(1 for r in rs if r['cons_modal']['unequal'] >= 0)), charges=chm,
                 v120=float(v.mean()), v_by_run=[float(x) for x in v])
 

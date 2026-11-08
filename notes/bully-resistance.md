@@ -19,3 +19,6 @@
 - 2026-11-08 21:07 UTC: step 3 main chunks launched on Daytona (scheduler tools/br_sched.sh, queue runs/br_launch/queue.txt: 12 main chunks m_*of12, 5 control/variant/seed/charge-off
   chunks s_*of5, 5 I = 256 chunks i_*of5). Sandbox ids are in runs/br_launch/launch.log (untracked) and below.
   94dcd599 = m_0of12, d6e057cb = m_1of12, 46f4c468 = m_2of12, 6dbf0dc7 = m_3of12, 411ebf5c = m_4of12.
+- 21:39 UTC: the scheduler task hit its 30-minute background limit and its five clients died with it (sandboxes alive); reattached with tools/daytona_fetch.py (tools/br_reattach.sh)
+  to 94dcd599 = m_0of12, d6e057cb = m_1of12, 46f4c468 = m_2of12, 6dbf0dc7 = m_3of12, 411ebf5c = m_4of12; clients are now launched from foreground calls (tools/br_fill.sh) and the
+  background task only waits (tools/br_wait.sh, 2 h limit). Lost work: none (clients only poll).
