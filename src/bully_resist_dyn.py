@@ -10,7 +10,7 @@ Laws (family totals over the 55 programs, founders and tail alike).  Constants a
   PO   half P_z, half O                                                 FPO  thirds: F (2:1), P_z, O
 A spec string is  br:arm=<A>:d=<delta>:b=<beta>[:pf=<P_fail>][:seed=fair|unequal][:fm=..:tm=..]  or
 lp:<machine>:<alloc>:d=<delta>  (length-prior-shaped, see law_lp).  `pf=0` suppresses the A_f charges (diagnostic replay: the same
-actions and schedule, charges zero).  `seed=` starts every island on a named triple (see seeded_init) instead of the founding law.
+actions and schedule, charges zero).  `tab=ideal` uses the idealized uncapped table of bully_resist_ideal.py (no timeouts, no charges; diagnostic).  `seed=` starts every island on a named triple (see seeded_init) instead of the founding law.
 """
 import os, sys, json, time
 import numpy as np
@@ -143,7 +143,7 @@ def parse(spec, step2=None):
     for p in parts[1:]:
         if '=' in p:
             k, v = p.split('=', 1); kv[k] = v
-    out = dict(pf=float(kv.get('pf', PFAIL0)), seed=kv.get('seed'), arm=kv.get('arm'))
+    out = dict(pf=float(kv.get('pf', PFAIL0)), seed=kv.get('seed'), arm=kv.get('arm'), tab=kv.get('tab', 'cap'))
     if parts[0] == 'br':
         d = float(kv['d']); b = float(kv['b'])
         fm = float(kv.get('fm', 1.0)); tm = float(kv.get('tm', 1.0))
@@ -203,15 +203,20 @@ def law_lp(step2, mach, alloc, delta):
     return w / w.sum()
 
 
-def tables(pf):
-    key = ('tables', round(pf, 9))
+def tables(pf, tab='cap'):
+    key = ('tables', round(pf, 9), tab)
     if key not in _G:
-        tb = tabs()
-        _G[key] = tb.charged_tables(pf, MT.T)
+        if tab == 'ideal':
+            import bully_resist_ideal as BI
+            if 'ideal' not in _G:
+                _G['ideal'] = BI.ideal_tabs()[0]
+            _G[key] = _G['ideal'].charged_tables(0.0, MT.T)
+        else:
+            _G[key] = tabs().charged_tables(pf, MT.T)
     return _G[key]
 
 
-def prepare(wf, wt, N, r, I, pf=PFAIL0, init=None, cache_dir=None):
+def prepare(wf, wt, N, r, I, pf=PFAIL0, init=None, cache_dir=None, tab='cap'):
     tb = tabs(cache_dir)
     init0, seed = MT.founders([wf, wf, wf], 'CP-T-main', r, I, N)
     if init is not None:
@@ -222,7 +227,7 @@ def prepare(wf, wt, N, r, I, pf=PFAIL0, init=None, cache_dir=None):
     K = tb.K
     U = [np.arange(K, dtype=np.int64) for _ in range(3)]
     loc = init0[:, :, :K].astype(np.int64)
-    J, PAY, VEC, ISMEM, TOT = tables(pf)
+    J, PAY, VEC, ISMEM, TOT = tables(pf, tab)
     return dict(arm='BR', variant='br', N=N, r=r, I=I, init=init0, seed=seed, sched=sched, tail_laws=tl, U=U, loc=loc,
                 J=J, PAY=PAY, VEC=VEC, ISMEM=ISMEM, TOT=TOT, geo=MT.geometry(N))
 
@@ -260,7 +265,7 @@ def run_cell(spec, N, r, I, long=False, step2=None, cache_dir=None, charges=True
     if pr['seed']:
         rng = np.random.default_rng(76000 + 31 * r + N)
         init, npool = seeded_init(pr['arm'], pr['seed'], I, N, rng)
-    prep = prepare(pr['wf'], pr['wt'], N, r, I, pf=pr['pf'], init=init, cache_dir=cache_dir)
+    prep = prepare(pr['wf'], pr['wt'], N, r, I, pf=pr['pf'], init=init, cache_dir=cache_dir, tab=pr['tab'])
     geo = prep['geo']
     H = geo['Hlong'] if long else geo['H']
     snaps = list(geo['snaps']) + ([240 * N] if long else [])
@@ -271,7 +276,7 @@ def run_cell(spec, N, r, I, long=False, step2=None, cache_dir=None, charges=True
     rec['fam_names'] = FAMN
     for sn in rec['snap'].values():
         sn.pop('fair_enc_isl', None)
-    if charges:
+    if charges and pr['tab'] == 'cap':
         rec['charges'] = charges_by_family(prep, res, pr['pf'])
     return rec
 
