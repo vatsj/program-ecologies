@@ -1386,3 +1386,8 @@ immigrants"** (RESULTS "Dominance contracts and refusal on islands"; the explain
 - **A reading to drop: "family-level classes are the readers".** On sampled partners the non-exact family-level classes mostly fail to reproduce (R0 single 11 / 36; R1 single 3 / 26); only exact-member classes enter.
 - **A reading to drop: "a length prior over the syntax is a prior over reader-like programs".** 72-88% of the finite mass is forfeits (junk), and the conditional mass outside the library is mostly other conditionals (R1 0.153) and constants-with-reads (0.041).
 - **Dropped: the R1 enumeration to size 6** (two Daytona launches, one killed by memory, one lost its client after 5,900 s; the term count and the 0.1 s per tainted term made 8 CPU-h per shard-set); R1 was enumerated to size 5 and the size-6 readers are reached by the targeted search.
+
+## Added 2026-11-08: EV-monotonicity check on arm T (RESULTS.md, the EV-monotonicity section)
+
+- **RE 6 (the bonused pair's mean-field share rises monotonically in b and it wins consensus in ≥ 12 of 20 worlds at b = 1/12).** Failed: at b = 1/12 the bonused monoculture opens a transient excursion to unequal consensus (V\* 0.0005–0.004 near 10⁴–2·10⁴ events per island) before F0 returns, and F0 wins only 6 of 20 finite worlds (10 of 20 end unequal). Reading to drop: "a bonus on one fair pair can only help it"; below ½ + b = ⅔ the bonus can open a route to the unequal state (hypothesis: the excluded slot drifts to accommodating constants and a bully then gains ⅔ − (½ + b)).
+- **RE 7's finite-world clause at b = 1/12 (≥ 16 of 20 worlds on fair pairs).** Failed (10 of 20); the mean-field clause held and the registered falsifier was not triggered.
