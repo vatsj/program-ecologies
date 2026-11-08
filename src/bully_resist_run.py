@@ -8,7 +8,7 @@ A job is `series|spec|N|I|r|long`; one cell (Lambda = 100, mN = 1).  Workers cla
 finished job to OUTDIR/rows_<pid>.jsonl, so a stopped run resumes.  Stages: main (arms P, O, PO, FPO; beta 1, 3; the six delta;
 N = 100, 200, 400; I = 64), i256 (P, PO at N = 200, I = 256), variants (Q at beta 3, N = 100..400; Po at N = 200), ctrl (beta = 0
 for P, O, PO, F2 and F2 at beta 1, 3, N = 200), seed (seeded starts, N = 200), nocharge (charge-suppressed replay), v1 (F arm
-reproduction of queue 75's stored rows), ideal (idealized uncapped table, diagnostic), lps (length-prior-shaped, needs --step2), long (continuations from --long LISTFILE).
+reproduction of queue 75's stored rows), decomp (founders-only / tail-only readers and bullies, exploratory), ideal (idealized uncapped table, diagnostic), lps (length-prior-shaped, needs --step2), long (continuations from --long LISTFILE).
 """
 import argparse, glob, json, os, sys, time, hashlib, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -82,6 +82,12 @@ def make_jobs(stages, step2=None, longlist=None):
                 for d in (1e-2, 1e-1):
                     for r in range(RUNS):
                         jobs.append(jid('nocharge', br(arm, d, 3.0, ':pf=0.0'), 200, 64, r))
+        elif st == 'decomp':
+            for arm in ('F', 'P', 'O'):
+                for d in (3e-3, 3e-2):
+                    for r in range(RUNS):
+                        jobs.append(jid('decomp', br(arm, d, 3.0, ':fm=1.0:tm=0.0'), 200, 64, r))
+                        jobs.append(jid('decomp', br(arm, d, 3.0, ':fm=0.0:tm=1.0'), 200, 64, r))
         elif st == 'ideal':
             for arm in ('F', 'P', 'O', 'PO'):
                 for b in (0.0, 3.0):

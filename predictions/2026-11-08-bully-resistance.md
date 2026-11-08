@@ -126,3 +126,11 @@ being debugged) and its class table: the shortest spellings of P_z / P_o variant
 28 nodes; the table-level collisions Qnzn = Pnzn, Qpzn = Ppzn, Fnzn = Snzn, Fpzn = Spzn (identical probe tables) were found there. This
 pilot leaves E5 (R2 gap 6) as registered (the gap it shows is 6; RE 4's 'within 3' fails on it) and was not used to change any other
 prediction. The counted step-2 runs (R0, R1, R2 searches; R2 enumeration and Monte Carlo) follow.
+
+## Addendum: exploratory decomposition (registered before it runs)
+
+Added after the step-0 holding configurations (which show 99% of islands that end unequal were unequal at 30N, and the tail is front-loaded: 98% of its dose is
+delivered by 30N): arms F, P, O at beta = 3, N = 200, I = 64, delta in {0.003, 0.03}, with readers and bullies in the founders only (fm = 1, tm = 0) or in the tail
+only (fm = 0, tm = 1), 20 runs. **E9.** In the F arm at delta = 0.03 the founders-only V\* is below the tail-only V\* (the founding scramble carries the loss).
+Falsifier: tail-only V\* <= founders-only V\*. **E10.** P and O are within 0.15 of F's V\* in each of the four decomposition cells per delta (the arms differ in neither route).
+Falsifier: any |V\*(P or O) - V\*(F)| above 0.15 in two or more of the eight comparisons.
