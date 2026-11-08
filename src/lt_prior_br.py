@@ -451,7 +451,8 @@ def search_machine(mach_name, out):
     res['opener'] = op
     if mach_name == 'R2':
         S.Reads = ReadsBR
-        base = L.run_big(S.search, mach)
+        alias = P.Machine('R1', mach.tags)          # S.search tests mach.name == 'R1' for the readn / readp reads; R2's reads are those
+        base = L.run_big(S.search, alias)
         res['t_plus'] = S.pack(base)
     res['wall'] = time.time() - t0
     json.dump(res, open(out, 'w'), default=str)
