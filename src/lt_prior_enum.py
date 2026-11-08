@@ -8,7 +8,7 @@ spine is certainly stuck, or whose root is not a number, are junk without evalua
 evaluated: one taint-tracked evaluation decides partner-independence, a 29 x 29 probe table classifies the rest.
 
     python3 src/lt_prior_enum.py enum R0 5 SHARD K OUT.json      # sizes 1..5, shard SHARD of K
-    python3 src/lt_prior_enum.py mc R1 NSAMPLES SEED OUT.json
+    python3 src/lt_prior_enum.py mc R1 NSAMPLES SEED OUT.json S0
 """
 import os, sys, json, math, random, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -230,10 +230,26 @@ def scope_fix(t, d=0):
     return (tag,) + tuple(scope_fix(c, d) for c in t[1:])
 
 
-def mc_run(mach, n, seed, log=False):
+def has_excluded(t):
+    tag = t[0]
+    if tag in P.EXCLUDED_ENUM:
+        return True
+    if tag in ('v', 'nat', 'con', 'lib', 'readn', 'readp', 'oos'):
+        return False
+    if tag == 'op':
+        return has_excluded(t[2]) or has_excluded(t[3])
+    if tag == 'sim':
+        return True
+    return any(has_excluded(c) for c in t[1:])
+
+
+def mc_run(mach, n, seed, s0=0, log=False):
+    """Monte Carlo from the prior.  counts: all finite samples by class; countsM: the samples that the exhaustive
+    enumeration to size s0 does not cover (size > s0, or a lib / libsrc / sim tag anywhere)."""
     sm = Sampler(mach, seed)
     pr = P.probes()
     cnt = {}
+    cntM = {}
     nlost = 0
     sizes = {}
     ex = {}
@@ -255,12 +271,15 @@ def mc_run(mach, n, seed, log=False):
             c[0] += 1
             if sz < c[1]:
                 c[1] = sz; ex[key] = [P.to_sexpr(t)]
+        if sz > s0 or has_excluded(t):
+            cntM[key] = cntM.get(key, 0) + 1
         if i % 5000 == 4999:
             L._compiled.clear()
             if log:
                 print('mc', i + 1, 'elapsed %.0f' % (time.time() - t0), flush=True)
-    return dict(n=n, lost=nlost, counts={'%s|%s' % k: v for k, v in cnt.items()}, sizes=sizes,
-                examples={'%s|%s' % k: v for k, v in ex.items()})
+    return dict(n=n, lost=nlost, s0=s0, counts={'%s|%s' % k: v for k, v in cnt.items()},
+                countsM={'%s|%s' % k: v for k, v in cntM.items()}, sizes=sizes,
+                examples={'%s|%s' % k: v for k, v in ex.items()}, internal_errors=P.INTERNAL_ERRORS[0])
 
 
 def main():
@@ -271,12 +290,13 @@ def main():
         t0 = time.time()
         stats, ex, nev = L.run_big(enum_run, mach, s0, shard, K, True)
         res = pack(stats, ex)
-        res.update(machine=mach.name, s0=s0, shard=shard, K=K, wall=time.time() - t0, evals=nev)
+        res.update(machine=mach.name, s0=s0, shard=shard, K=K, wall=time.time() - t0, evals=nev, internal_errors=P.INTERNAL_ERRORS[0])
         json.dump(res, open(out, 'w'))
     elif cmd == 'mc':
         n = int(sys.argv[3]); seed = int(sys.argv[4]); out = sys.argv[5]
+        s0 = int(sys.argv[6]) if len(sys.argv) > 6 else 0
         t0 = time.time()
-        res = L.run_big(mc_run, mach, n, seed, True)
+        res = L.run_big(mc_run, mach, n, seed, s0, True)
         res.update(machine=mach.name, seed=seed, wall=time.time() - t0)
         json.dump(res, open(out, 'w'))
 

@@ -159,3 +159,25 @@ def test_adaptive_table_random():
             a, _ = pr.table_adaptive(prog, r[5])
             assert pr.signature(a) == pr.signature(pr.table(prog)), P.to_sexpr(body)
         assert got == 12
+
+
+def test_r1_fast_and_hybrid_tables():
+    """R1 read macro: bodies whose only partner contact is through the read leaves are evaluated once per read outcome
+    (fast_table_r1), those that also refer to n / p per profile with the reads replaced by their outcomes
+    (hybrid_table_r1); both equal the real 29 x 29 table."""
+    pr = P.probes()
+    cases = [('if', ('eq', ('readn',), ('nat', 4)), ('nat', 1), ('nat', 4)),
+             ('add', ('readp',), ('nat', 2)) if False else ('op', 'add', ('readp',), ('nat', 2)),
+             ('app', ('lam', ('v', 0)), ('readn',)),
+             ('op', 'add', ('readp',), ('fst', ('v', 1))),
+             ('if', ('eq', ('readn',), ('v', 0)), ('nat', 1), ('nat', 4))]
+    for body in cases:
+        acc = {}
+        P._scan(body, 0, acc)
+        real = pr.table(P.frame(P.expand(body)))
+        if not acc.get('bad'):
+            tab = P.fast_table_r1(body, acc, pr)
+        else:
+            assert acc.get('badref') and not acc.get('badtag')
+            tab = P.hybrid_table_r1(body, acc, pr)
+        assert pr.signature(tab) == pr.signature(real), P.to_sexpr(body)

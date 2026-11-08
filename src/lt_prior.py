@@ -589,12 +589,152 @@ def classify_table(tab, pr):
     return 'other_cond', exact           # responds only to non-constant partners (source or behaviour)
 
 
+# ---- R1 fast path: a body whose only contact with its partners is through the read leaves is evaluated once per distinct
+# read outcome (value 0..8 / TO / stuck, failed-read count) instead of once per probe profile
+_RV = {}
+_FORBID = ('run', 'capk', 'lib', 'libsrc', 'sim')
+
+
+def _scan(t, d, acc):
+    tag = t[0]
+    if tag == 'readn':
+        acc['n'] = True
+    elif tag == 'readp':
+        acc['p'] = True
+    elif tag in _FORBID:
+        acc['bad'] = True; acc['badtag'] = True
+    elif tag == 'v':
+        if t[1] >= d and t[1] - d in (0, 1):
+            acc['bad'] = True; acc['badref'] = True        # a reference to n or p: inspection of a partner
+    elif tag in ('lam', 'fix'):
+        _scan(t[1], d + 1, acc)
+    elif tag in ('nat', 'con', 'oos', 'lib'):
+        pass
+    elif tag == 'quote':
+        pass                              # data (quoted terms are never run here: `run` is forbidden)
+    elif tag == 'op':
+        _scan(t[2], d, acc); _scan(t[3], d, acc)
+    else:
+        for c in t[1:]:
+            _scan(c, d, acc)
+
+
+def read_values():
+    """(rn, nn, rp, np) over the probe profiles: the value code of readn / readp (0..8, 9 = TO, 11 = stuck or over 1100
+    steps) and its failed-read count, computed by running the real macro (no inspection shortcut)."""
+    if 'v' in _RV:
+        return _RV['v']
+    pr = probes()
+    n = pr.n
+    out = []
+    for term in (('readn',), ('readp',)):
+        prog = frame(expand(term))
+        rc = np.empty((n, n), np.int64); nt = np.zeros((n, n), np.int64)
+        for b in range(n):
+            for c in range(n):
+                cd, k, f, st, raw, _ = eval_prog(prog, pr.terms[b], pr.terms[c])
+                if st > 1100 or isinstance(raw, bool) or (not isinstance(raw, int) and raw != 'TO'):
+                    rc[b, c] = 11
+                elif raw == 'TO':
+                    rc[b, c] = 9
+                elif 0 <= raw <= 8:
+                    rc[b, c] = raw
+                else:
+                    rc[b, c] = 10
+                nt[b, c] = k
+        out += [rc, nt]
+    _RV['v'] = tuple(out)
+    return _RV['v']
+
+
+def _val_term(rc):
+    if rc == 9:
+        return ('capk', ('nat', 0), ('lam', ('v', 0)), ('nat', 0))        # a read that fails: TO, one failed read
+    if rc == 11:
+        return ('fst', ('nat', 0))                                         # a stuck read
+    return ('nat', rc)
+
+
+def _subst_reads(t, vn, vp):
+    tag = t[0]
+    if tag == 'readn':
+        return vn
+    if tag == 'readp':
+        return vp
+    if tag in ('v', 'nat', 'con', 'oos', 'lib', 'quote'):
+        return t
+    if tag in ('lam', 'fix'):
+        return (tag, _subst_reads(t[1], vn, vp))
+    if tag == 'op':
+        return ('op', t[1], _subst_reads(t[2], vn, vp), _subst_reads(t[3], vn, vp))
+    return (tag,) + tuple(_subst_reads(c, vn, vp) for c in t[1:])
+
+
+def hybrid_table_r1(body, acc, pr):
+    """a body with read leaves and references to n / p (but no run / capk / lib / sim): per profile, the reads are replaced by
+    their precomputed outcomes and the body is evaluated with the real partners."""
+    rn, nn, rp, npp = read_values()
+    n = pr.n
+    code = np.empty((n, n), np.int8); nto = np.empty((n, n), np.int8); fo = np.empty((n, n), np.int8)
+    for b in range(n):
+        for c in range(n):
+            vn = _val_term(int(rn[b, c])) if acc.get('n') else ('nat', 0)
+            vp = _val_term(int(rp[b, c])) if acc.get('p') else ('nat', 0)
+            t2 = _subst_reads(body, vn, vp)
+            cd, nt, f, st, raw, _ = eval_prog(frame(expand(t2)), pr.terms[b], pr.terms[c])
+            code[b, c] = cd; nto[b, c] = min(nt, 100); fo[b, c] = f
+    return code, nto, fo
+
+
+def fast_table_r1(body, acc, pr):
+    rn, nn, rp, npp = read_values()
+    n = pr.n
+    key = np.zeros((n, n), np.int64)
+    if acc.get('n'):
+        key = key * 64 + rn * 4 + np.minimum(nn, 3)
+    if acc.get('p'):
+        key = key * 64 + rp * 4 + np.minimum(npp, 3)
+    uk, inv = np.unique(key.ravel(), return_inverse=True)
+    res = []
+    c0 = pr.terms[0]
+    for u in uk:
+        u = int(u)
+        un = up = None
+        if acc.get('n') and acc.get('p'):
+            un, up = (u // 64), (u % 64)
+        elif acc.get('n'):
+            un = u
+        else:
+            up = u
+        vn = _val_term(un // 4) if un is not None else ('nat', 0)
+        vp = _val_term(up // 4) if up is not None else ('nat', 0)
+        t2 = _subst_reads(body, vn, vp)
+        cd, nt, f, st, raw, _ = eval_prog(frame(expand(t2)), c0, c0)
+        res.append((cd, min(nt, 100), f))
+    res = np.array(res, np.int64)
+    code = res[inv, 0].reshape(n, n).astype(np.int8)
+    nto = res[inv, 1].reshape(n, n).astype(np.int8)
+    fo = res[inv, 2].reshape(n, n).astype(np.int8)
+    return code, nto, fo
+
+
 def classify_body(body, mach, pr=None, taint=True):
     """classify the term `body` (a body of the arm-T frame).  Returns (family label, exact member name, n_evals)."""
     pr = pr or probes()
     if static_junk(body):
         return 'junk_f', '', 0
-    term = expand(body) if mach.name == 'R1' else expand(body)     # 'oos' leaves become stuck terms in both
+    if mach.name == 'R1':
+        acc = {}
+        _scan(body, 0, acc)
+        if (acc.get('n') or acc.get('p')) and not acc.get('bad'):
+            tab = fast_table_r1(body, acc, pr)
+            fam, exact = classify_table(tab, pr)
+            return fam, exact, 1
+        if (acc.get('n') or acc.get('p')) and acc.get('badref') and not acc.get('badtag'):
+            tab = hybrid_table_r1(body, acc, pr)
+            fam, exact = classify_table(tab, pr)
+            return fam, exact, pr.n * pr.n
+    term = expand(body)                    # 'oos' leaves become stuck terms
     prog = frame(term)
     c0 = pr.terms[0]
     cd, nt, f, st, raw, hit = eval_prog(prog, c0, c0, taint=True)
