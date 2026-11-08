@@ -111,3 +111,12 @@ the length-prior-shaped series, both allocations; a cell counts if mean V\* >= 0
   holds >= 0.8 fair at 120N. Falsifier: any recovery above 0.25, or a seeded-fair hold below 0.8.
 - **E8 (F2 control).** The matched firm control F2 (extra unused read) has V\* within 0.1 of F's at every beta = 0 grid delta at
   N = 200 (double charges alone do not matter at the 0.1 price). Falsifier: a gap above 0.1 at two or more delta.
+
+## Addendum: pilots after this file's first commit (disclosure; no verdict depends on them)
+
+Step 0 assays (exact and Monte Carlo, `runs/bully_resist/step0_assays.json.gz`) were run after the first commit of this file and read
+before the addendum: the class summaries of rho * N (FRI, FRC, UBI, BFI for firm readers, P_z, P_o, Q, O). The scoring rules above were fixed
+before they ran and are applied unchanged. Dynamics timing and reproduction pilots (4 cells of the counted grid, deterministic, re-run
+identically in the counted grid): F arm (delta 0.01, beta 1, N = 100, run 0) and (0.1, 3, 100, run 1), both identical to the stored queue-75 rows
+(V1, 2 of 2); P (0.03, 3, 100, run 0) V* 0.0; O (0.03, 3, 100, 0) V* 0.0; PO (0.03, 1, 400, 0) V* 0.0; FPO (0.003, 3, 200, 0) V* 0.0. The
+matched control F2 was added to the catalogue (K = 55, the first 51 programs unchanged: identical code, steps and charges on the 51 block).
