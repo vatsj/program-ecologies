@@ -120,3 +120,9 @@ before they ran and are applied unchanged. Dynamics timing and reproduction pilo
 identically in the counted grid): F arm (delta 0.01, beta 1, N = 100, run 0) and (0.1, 3, 100, run 1), both identical to the stored queue-75 rows
 (V1, 2 of 2); P (0.03, 3, 100, run 0) V* 0.0; O (0.03, 3, 100, 0) V* 0.0; PO (0.03, 1, 400, 0) V* 0.0; FPO (0.003, 3, 200, 0) V* 0.0. The
 matched control F2 was added to the catalogue (K = 55, the first 51 programs unchanged: identical code, steps and charges on the 51 block).
+Step-2 pilot (read before the counted step-2 runs): one run of the prudent search for machine R2 (the grammar of `lt_prior_br.py`, which was
+being debugged) and its class table: the shortest spellings of P_z / P_o variants with timeouts not accepted are 12 nodes
+(`(if (eq readn 4) (if (eq (probn 3) 2) 8 1) 8)`, mass about 10^-25 to 10^-24 against T+'s fair single reader's order 10^-11), the 'y' variants
+28 nodes; the table-level collisions Qnzn = Pnzn, Qpzn = Ppzn, Fnzn = Snzn, Fpzn = Spzn (identical probe tables) were found there. This
+pilot leaves E5 (R2 gap 6) as registered (the gap it shows is 6; RE 4's 'within 3' fails on it) and was not used to change any other
+prediction. The counted step-2 runs (R0, R1, R2 searches; R2 enumeration and Monte Carlo) follow.
