@@ -134,3 +134,6 @@ delivered by 30N): arms F, P, O at beta = 3, N = 200, I = 64, delta in {0.003, 0
 only (fm = 0, tm = 1), 20 runs. **E9.** In the F arm at delta = 0.03 the founders-only V\* is below the tail-only V\* (the founding scramble carries the loss).
 Falsifier: tail-only V\* <= founders-only V\*. **E10.** P and O are within 0.15 of F's V\* in each of the four decomposition cells per delta (the arms differ in neither route).
 Falsifier: any |V\*(P or O) - V\*(F)| above 0.15 in two or more of the eight comparisons.
+Disclosure: E10 was written after a partial look at the main grid (the first three of twelve chunks, about five runs per cell, a quarter of the counted runs, which
+showed P, O, PO, FPO within noise of F at beta = 1, 3 and no arm with a threshold); the main grid's verdicts (RE 2, RE 3, E2, E3) are scored on the complete
+cells. No decomposition cell had been run.
