@@ -179,3 +179,22 @@ sandbox-CPU-hours. Long work runs on Daytona (two container restarts in queue 75
 - O is defined by its reaction to an unequal pair; it does not punish.
 - The masses above enumerated sizes are lower bounds; the length-prior series is a projection.
 - Finite schedules; nothing here is π.
+
+## Addendum (RS, 2026-11-08, before any counted cell): openers with firm readers
+
+The RS: "Prudent readers strike me as judgmental assholes - why tf wouldn't you take 2/3? I prefer openers - they take a
+much more sympathetic negotiating tack." The prudent reader stays in the run as a comparison (its refusal is costly
+third-party norm enforcement, not self-interest); the opener is the incentive-aligned design (its offer makes both the
+excluded slot and the underpaid member strictly better off, the move behind V\*'s external stability).
+
+- **New arm F+O:** readers at δ split half firm (T's single and two-partner readers at 2 : 1) and half openers; β ∈ {1,
+  3}; the δ grid; N ∈ {100, 200, 400}; I = 64; plus the seeded unequal start at N = 200, I = 64. It ranks ahead of P+O
+  and F+P+O in the cut order (cut those first).
+- **Mechanism the RE now expects (replacing RE 3's stated reason):** a ⅓-constant victim cannot answer an opener, but
+  its slot evolves: once an opener in the excluded slot offers ½, a firm reader entering the victim's slot reads the
+  offer and gets ½ instead of ⅓, so its entry is selected (the drift-then-selection route of the Theory tab).
+- **RE 6.** Arm F+O at β = 3, N = 200, I = 64 has a threshold δ\* ≤ 0.1 (full threshold definition), and in the seeded
+  unequal start the unequal islands' exit hazard under F+O exceeds that under F alone. Falsifier: no threshold, or the
+  exit hazard is not higher.
+- RE 3 (O alone has no threshold) is kept as registered; its stated reason is withdrawn (the victim slot evolves even
+  without firm readers, through constants that name the opener at ½).
