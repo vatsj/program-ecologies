@@ -137,3 +137,15 @@ Falsifier: any |V\*(P or O) - V\*(F)| above 0.15 in two or more of the eight com
 Disclosure: E10 was written after a partial look at the main grid (the first three of twelve chunks, about five runs per cell, a quarter of the counted runs, which
 showed P, O, PO, FPO within noise of F at beta = 1, 3 and no arm with a threshold); the main grid's verdicts (RE 2, RE 3, E2, E3) are scored on the complete
 cells. No decomposition cell had been run.
+
+## Addendum (2026-11-08): the coordinator's spec addendum (arm F+O, RE 6, RE 3's reason)
+
+Folded from the spec addendum (commit 2511aa0), before any F+O cell was run. Everything above this addendum was already committed; already run when this was written: step 0, step 1,
+the main grid for arms P, O, PO, FPO (chunks m_0 to m_5 fetched or running), V1, controls not yet. No F+O cell exists.
+- **New arm F+O** (half firm at 2:1 single:two, half the eight openers) at beta in {1, 3}, the six delta, N in {100, 200, 400}, I = 64, plus seeded starts at N = 200 (unequal, beta 3,
+  delta 0.03; and fair at beta 0 and 3 as for the other arms); queued ahead of the remaining P+O / F+P+O work.
+- **RE 6 (spec).** F+O at beta = 3, N = 200, I = 64 has a threshold delta\* <= 0.1 (full definition), and in the seeded unequal start the unequal islands' exit hazard under F+O exceeds that
+  under F alone (scored: V\* at 120N from the seeded unequal start, F+O above F, with non-overlapping 95% bootstrap intervals counted as "exceeds", overlapping as "not shown"). Falsifier: no threshold, or the exit hazard not higher.
+- **RE 3** kept as registered (O alone has no threshold, delta\* <= 0.1 is the falsifier); its stated reason ("constant victims cannot answer an offer") is withdrawn per the addendum (the victim slot evolves through constants naming the opener at 1/2).
+- **My own E11.** I expect RE 6 to fail: step 0 shows a firm reader entering the victim slot of a bully-held unequal island has rho * N about 10^-10 (the opener sits in the unpaired slot and
+  its offer does not change the victim's payoff against the bully), and in the partial main grid O and F+P+O (which contains O) show no threshold. Falsifier: F+O has delta\* <= 0.1 at beta = 3, N = 200.

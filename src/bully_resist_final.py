@@ -82,7 +82,7 @@ def build_verdict_inputs(cs, step0, step2rep, lps):
         v['E8'] = dict(gaps=gaps, n_above=sum(1 for x in gaps if x > 0.1), holds=sum(1 for x in gaps if x > 0.1) < 2)
     # --- seeded starts
     seeds = {}
-    for arm in ('F', 'P', 'O', 'PO'):
+    for arm in ('F', 'P', 'O', 'FO', 'PO'):
         un = cell(cs, arm, 3.0, 200, 64, 0.03, ':seed=unequal')
         f0 = cell(cs, arm, 0.0, 200, 64, 0.03, ':seed=fair')
         f3 = cell(cs, arm, 3.0, 200, 64, 0.03, ':seed=fair')
@@ -161,7 +161,7 @@ def main():
         L += ['', '# Step 2', ''] + open(pm).read().split('\n')
     L += ['', '# Step 3: dynamics', '']
     for N in (100, 200, 400):
-        L += series_table(cs, ['F', 'P', 'O', 'PO', 'FPO'], [1.0, 3.0], N, 64)
+        L += series_table(cs, ['F', 'P', 'O', 'FO', 'PO', 'FPO'], [1.0, 3.0], N, 64)
     L += ['## I = 256, N = 200', '']
     L += series_table(cs, ['F', 'P', 'PO'], [1.0, 3.0], 200, 256)
     L += ['## Variants and controls (N = 200 unless stated)', '']

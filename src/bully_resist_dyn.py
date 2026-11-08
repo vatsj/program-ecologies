@@ -7,7 +7,7 @@ Laws (family totals over the 55 programs, founders and tail alike).  Constants a
   F    singles 2/3, twos 1/3 (queue 75's law 2a exactly; V1)         P    the four P_z (strict probe, fallback z)
   Po   the four P_o                                                     Q    the four lenient-probe readers
   O    the eight openers                                                F2   the four matched controls
-  PO   half P_z, half O                                                 FPO  thirds: F (2:1), P_z, O
+  PO   half P_z, half O                                                 FPO  thirds: F (2:1), P_z, O                                           FO   half F (2:1), half O (the RS's addendum)
 A spec string is  br:arm=<A>:d=<delta>:b=<beta>[:pf=<P_fail>][:seed=fair|unequal][:fm=..:tm=..]  or
 lp:<machine>:<alloc>:d=<delta>  (length-prior-shaped, see law_lp).  `pf=0` suppresses the A_f charges (diagnostic replay: the same
 actions and schedule, charges zero).  `tab=ideal` uses the idealized uncapped table of bully_resist_ideal.py (no timeouts, no charges; diagnostic).  `seed=` starts every island on a named triple (see seeded_init) instead of the founding law.
@@ -90,6 +90,8 @@ def law_arm(arm, delta, beta):
         spread(F2, delta)
     elif arm == 'PO':
         spread(Pz, delta / 2); spread(O, delta / 2)
+    elif arm == 'FO':
+        spread(F_single, delta / 2 * 2 / 3); spread(F_two, delta / 2 / 3); spread(O, delta / 2)
     elif arm == 'FPO':
         spread(F_single, delta / 3 * 2 / 3); spread(F_two, delta / 3 / 3); spread(Pz, delta / 3); spread(O, delta / 3)
     else:
@@ -109,7 +111,8 @@ def seeded_init(arm, kind, I, N, rng):
     if kind == 'fair':
         arm_readers = {'F': ids('single') + ids('two'), 'P': ids('prudent', PZ), 'Po': ids('prudent', PO_), 'Q': ids('prudent_a'),
                        'O': ids('opener'), 'F2': ids('single2'), 'PO': ids('prudent', PZ) + ids('opener'),
-                       'FPO': ids('single') + ids('two') + ids('prudent', PZ) + ids('opener')}[arm]
+                       'FPO': ids('single') + ids('two') + ids('prudent', PZ) + ids('opener'),
+                       'FO': ids('single') + ids('two') + ids('opener')}[arm]
         pool = []
         for t in itertools.product(arm_readers + cst, repeat=3):
             if CAT[OUT[t]] != 0:

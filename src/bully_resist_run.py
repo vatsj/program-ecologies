@@ -82,6 +82,15 @@ def make_jobs(stages, step2=None, longlist=None):
                 for d in (1e-2, 1e-1):
                     for r in range(RUNS):
                         jobs.append(jid('nocharge', br(arm, d, 3.0, ':pf=0.0'), 200, 64, r))
+        elif st == 'fo':
+            for N in NS:
+                for b in BETAS:
+                    for d in DELTAS:
+                        for r in range(RUNS):
+                            jobs.append(jid('fo', br('FO', d, b), N, 64, r))
+            for kind, b in (('unequal', 3.0), ('fair', 0.0), ('fair', 3.0)):
+                for r in range(RUNS):
+                    jobs.append(jid('fo', br('FO', 0.03, b, ':seed=%s' % kind), 200, 64, r))
         elif st == 'decomp':
             for arm in ('F', 'P', 'O'):
                 for d in (3e-3, 3e-2):
