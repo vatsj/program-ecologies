@@ -7,7 +7,9 @@ count() { pgrep -fc "daytona_run.py run|daytona_fetch.py"; }
 while [ "$(count)" -lt 5 ] && [ -s "$Q" ]; do
   c=$(head -n 1 "$Q"); sed -i 1d "$Q"
   S1=""; case "$c" in lps*) S1="--step2 runs/bully_resist/step2.json";; esac
-  if [ "$c" = "r2" ]; then
+  if [ "$c" = "r2mc" ]; then
+    setsid nohup python3 tools/daytona_run.py run --cpus 4 --out runs/lt_prior_br/e_R2 -- bash tools/br_r2mc.sh > "$LOG/dt_$c.log" 2>&1 < /dev/null &
+  elif [ "$c" = "r2" ]; then
     setsid nohup python3 tools/daytona_run.py run --cpus 4 --out runs/lt_prior_br/e_R2 -- bash tools/br_r2.sh > "$LOG/dt_$c.log" 2>&1 < /dev/null &
   else
     setsid nohup python3 tools/daytona_run.py run --cpus 4 --out runs/br_rows/$c -- python3 src/bully_resist_run.py run runs/br_jobs/$c.txt runs/br_rows/$c $S1 > "$LOG/dt_$c.log" 2>&1 < /dev/null &
