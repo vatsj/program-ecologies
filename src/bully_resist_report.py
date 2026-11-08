@@ -164,3 +164,25 @@ if __name__ == '__main__':
         L = table_md(cs, ['F', 'P', 'O', 'PO', 'FPO'], [1.0, 3.0], [100, 200, 400], [64])
         open(sys.argv[2], 'w').write('\n'.join(L) + '\n')
         print('\n'.join(L[:40]))
+
+
+def v1_check():
+    """V1: the F arm of this queue (stage v1, K = 55 catalogue) against queue 75's stored rows (same seeds, same law): vshare_ts, class and pair counts,
+    consensus flags and transition counts must be identical."""
+    rows, stored = load_rows()
+    n = same = 0
+    bad = []
+    for jid_, r in rows.items():
+        if r['series'] != 'v1':
+            continue
+        spec = r['spec'].replace('br:arm=F:', '2a:')
+        old = stored.get('2a|%s|%d|%d|%d|0' % (spec, r['N'], r['I'], r['r']))
+        if old is None:
+            continue
+        n += 1
+        ok = (r['vshare_ts'] == old['vshare_ts'] and r['snap120']['cls_modal'] == old['snap120']['cls_modal'] and r['snap120']['pair_modal'] == old['snap120']['pair_modal']
+              and r['cons_modal'] == old['cons_modal'] and r['trans'] == old['trans'])
+        same += ok
+        if not ok:
+            bad.append(jid_)
+    return dict(compared=n, identical=same, mismatches=bad[:10])

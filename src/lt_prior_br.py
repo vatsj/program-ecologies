@@ -240,8 +240,10 @@ class Probes2:
 
 
 def cap_ok(v):
-    """the cap classes used for the first read of the prudent search (R0 written-out reads): equal classes 383 / >= 1023."""
-    return v[0].startswith('capk[[256,510],[256,510]]') or v[0].startswith('capk[>=1023,>=1023]') or v[0] in ('readn', 'readp')
+    """the cap classes used for the first read of the prudent search (R0 written-out reads): equal classes 383 (the class [255, 510] that
+    holds the library's 400) and 1500 (>= 1023)."""
+    ok = ('capk[%s,%s]' % (S.LITLAB[383], S.LITLAB[383]), 'capk[%s,%s]' % (S.LITLAB[1500], S.LITLAB[1500]))
+    return v[0].startswith(ok) or v[0] in ('readn', 'readp')
 
 
 # ====================================================================== the prudent search

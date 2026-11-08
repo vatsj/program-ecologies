@@ -54,14 +54,19 @@ def br_groups(path):
 
 
 def mc_union_upper(R, q):
-    """95% Wilson upper bound (conditional) on the union of the reader-type classes outside the exhaustive enumeration."""
+    """95% Wilson upper bounds (conditional) from the Monte Carlo outside the exhaustive enumeration: for P (and Q), which the queue-75 classifier
+    labels as a single-reader family (it answers constants like a single reader), the groups single / two / bully / exploit (all zero hits in
+    queue 75's runs, as for the bound on rho_R); for O, which answers constants unlike D and so lands in 'other_cond', that group's hits (not informative:
+    other conditionals are most of the finite mass of R1)."""
     mc = R.get('mc')
     if not mc:
         return None
     n = mc['n']
-    k = sum(R['estimate'][g]['hits_M'] for g in ('single', 'two', 'bully', 'exploit', 'yielder', 'other_cond'))
+    k = sum(R['estimate'][g]['hits_M'] for g in ('single', 'two', 'bully', 'exploit'))
+    ko = R['estimate']['other_cond']['hits_M']
     lo, hi = RP.wilson(k, n)
-    return dict(n=n, hits=k, upper_raw=hi, upper_cond=hi / q)
+    lo2, hi2 = RP.wilson(ko, n)
+    return dict(n=n, hits=k, upper_raw=hi, upper_cond=hi / q, other_cond_hits=ko, other_cond_upper_cond=hi2 / q)
 
 
 def main(out2, outrep, outmd):
@@ -118,13 +123,13 @@ def main(out2, outrep, outmd):
     json.dump(step2, open(out2, 'w'), indent=1)
     json.dump(rep, open(outrep, 'w'), indent=1, default=str)
     L = ['## Step 2: the length-prior mass of P, Q, O (conditional on finite trees; exact-member lower bounds; R2 = R1 + probn / probp)', '']
-    L.append('| machine | q | fair single (lower bound) | bully | P_z | P_o | Q (y variants) | O | MC 95% upper bound, all reader classes |')
+    L.append('| machine | q | fair single (lower bound) | bully | P_z | P_o | Q (y variants) | O | MC 95% upper bound on the reader classes (P, Q); other conditionals (O) |')
     L.append('|---|---|---|---|---|---|---|---|---|')
     for mn, r in rep.items():
         q = r['q']
         mcu = r['mc_upper_bound']
         L.append('| %s | %.4f | %.3g | %.3g | %.3g | %.3g | %.3g | %.3g | %s |' % (mn, q, r['single_raw'] / q, r['bully_raw'] / q, r['prudent_z']['cond'], r['prudent_o']['cond'],
-                                                                        r['prudent_a']['cond'], r['opener']['cond'], ('%.3g (hits %d of %d)' % (mcu['upper_cond'], mcu['hits'], mcu['n'])) if mcu else '-'))
+                                                                        r['prudent_a']['cond'], r['opener']['cond'], ('%.3g (hits %d of %d); other_cond hits %d, upper %.3g' % (mcu['upper_cond'], mcu['hits'], mcu['n'], mcu['other_cond_hits'], mcu['other_cond_upper_cond'])) if mcu else '-'))
     L.append('')
     L.append('| machine | shortest fair single | shortest bully | shortest P_z (gap) | shortest P any (gap) | shortest O (gap) | P_z / single | P_z / bully | O / single |')
     L.append('|---|---|---|---|---|---|---|---|---|')
