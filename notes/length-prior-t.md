@@ -29,3 +29,19 @@
   logs (7e3ac59a = g4_10of13, 5c34cce1 = g4_5, 7d7d7370 = g4_6, b45e1e8b = g4_7, 7d04ff0f = g4_8, af36189c = g4_9, 27f7464a = long64);
   fetchers reattached to all; long64 and slice2 had already completed. No work lost. g4_11 and g4_12 re-queued. Remaining long work is
   launched on Daytona only.
+
+## Budget and timing (final)
+- Step 2 cell time (sum of job walls inside the sandboxes): 2a 195.7 CPU-h (3,840 cells), 240N continuations 23.3 (240 cells), 2b 6.6 (440),
+  independent doses 5.6 (300), matched 5.3 (200), slice 1 1.6 (160), slice 2 0.3 (40): 238.4 sandbox-CPU-hours.
+- Step 1: R0 s0 = 6 enumeration 4 shards x 1,183 s locally, R1 s0 = 5 enumeration about 4 x 2,000 s locally, Monte Carlo 12e6 (R0) and 6e6 (R1)
+  samples locally, both searches (R0 363 s) locally; the abandoned R1 s0 = 6 Daytona runs about 13 sandbox-CPU-hours; two earlier killed R1 attempts a few minutes each.
+- Total sandbox-CPU-hours about 255 (ceiling 300). The spec's cut order was not applied: the projected total stayed under the ceiling at every check.
+- Final counts: 5,100 counted rows (series 2a 3,840 + slice 1 160 + matched 200 + independent 300 + slice 2 40 + 2b 440 + 120 + 120 long).
+- Sampled-interaction check (1,000 non-junk programs per machine, 30 random partner pairs each, `runs/lt_prior/check_R*.json`): every constant
+  and every exact-member class reproduces (R0 set A 1000 / 1000; exact single / bully / two classes of the search 24/24, 10/10, 28/28); family-level
+  classes that are not exact members mostly do NOT reproduce (R0: single 11 / 36, bully 20 / 28, two 0 / 12; R1: single 3 / 26, bully 0 / 12, two 0 / 12), so
+  those family-level masses overstate the reader classes: only the exact-member masses are used in the join and series 2b.
+- 2b law: delta values where the measured junk and bully mass leave no room for constants were dropped (R0 delta <= 0.01, R1 delta <= 0.03 stay; others omitted).
+- Pilot cells read before launch are reported above; the counted grid re-ran them identically.
+- Series 2b is a projection onto T+ of the exact-member lower bounds: the within-reader ratio single : two is 1 : 0 (two-partner readers have mass 7.5e-29 in R1 and
+  0 in R0), exploiters 0, yielders and other conditionals omitted (R1 other conditionals 0.153 of the finite mass, constant-with-reads 0.041).
