@@ -115,6 +115,7 @@ def enum_run(mach, s0, shard=0, K=1, log=None, size_from=1):
     stats = {}
     ex = {}
     nev = 0
+    ndone = 0
     t0 = time.time()
     for s in range(size_from, s0 + 1):
         st = stats.setdefault(s, {})
@@ -125,6 +126,9 @@ def enum_run(mach, s0, shard=0, K=1, log=None, size_from=1):
                 continue
             fam, exact, ne = P.classify_body(term, mach, pr)
             nev += ne
+            ndone += 1
+            if ndone % 20000 == 0:
+                L._compiled.clear(); L._canon_cache.clear()
             key = (fam, exact)
             e = st.get(key)
             if e is None:
@@ -135,8 +139,7 @@ def enum_run(mach, s0, shard=0, K=1, log=None, size_from=1):
                 lst = ex[key].setdefault(s, [])
                 if len(lst) < 3:
                     lst.append(P.to_sexpr(term))
-            if idx % 20000 == 0:
-                L._compiled.clear()
+            if idx % 1000000 == 0:
                 if log:
                     print('size', s, 'idx', idx, 'elapsed %.0f' % (time.time() - t0), flush=True)
         L._compiled.clear()
