@@ -8,8 +8,8 @@ Laws (family totals over the 31 programs of tplus.py, every slot, founding and t
   2b:<file>:<machine>:d=<delta>:  see law_2b: junk at its measured mass, readers at d with the measured single / two
                                  ratio, bullies at the measured ratio times d, exploiters at the measured ratio times d,
                                  constants in their measured conditional proportions
-Founder and tail doses can differ (series 2a slice (ii) and the matched cells): the spec string carries `f=` / `t=`
-multipliers on the reader family (founders / tail) mass, see parse_law.
+Founder and tail doses can differ (series 2a slice (ii) and the matched cells): the spec string carries `fm=` / `tm=`
+multipliers on the reader family (founders / tail) mass or absolute doses `df=` / `dt=`, see parse_law.
 """
 import os, sys, json, gzip, time
 import numpy as np
@@ -118,10 +118,11 @@ def parse_law(spec, step1=None):
         w = law_main_exact()
         return w, w
     if parts[0] == '2a':
-        d = kv['d']; b = kv.get('b', 0.0)
-        wf = law_2a(d * kv.get('fm', 1.0), b, s1) if True else None
-        wt = law_2a(d * kv.get('tm', 1.0), b, s1)
-        return wf, wt
+        b = kv.get('b', 0.0)
+        if 'df' in kv or 'dt' in kv:             # independent founder and tail doses (absolute)
+            return law_2a(kv.get('df', 0.0), b, s1), law_2a(kv.get('dt', 0.0), b, s1)
+        d = kv['d']
+        return law_2a(d * kv.get('fm', 1.0), b, s1), law_2a(d * kv.get('tm', 1.0), b, s1)
     if parts[0] == '2b':
         mach = parts[1]
         d = kv['d']

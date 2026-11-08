@@ -310,6 +310,19 @@ def _fresh(t):
     return (t[0],) + t[1:]            # a new tuple object, equal in value
 
 
+INTERNAL_ERRORS = [0]
+
+
+def _safe_evaluate(t):
+    """L.evaluate with the fast evaluator's internal errors (a `run` of a quoted open term indexes an empty environment)
+    treated as stuck; the number of such evaluations is counted."""
+    try:
+        return L.evaluate(t, CT.KR)
+    except (TypeError, IndexError, AttributeError, KeyError, ValueError):
+        INTERNAL_ERRORS[0] += 1
+        return 'BOT', 0
+
+
 def eval_prog(prog, b, c, taint=False):
     """prog: closed program term lam lam lam body; b, c partner programs (closed terms).  Returns (code 0-8, failed reads,
     forfeit, steps, raw value, hit) with hit = (inspected next's source, inspected prev's source) in taint mode."""
@@ -318,13 +331,13 @@ def eval_prog(prog, b, c, taint=False):
         nb, pc = _fresh(b), _fresh(c)
         _T['on'] = True; _T['n'] = nb; _T['p'] = pc; _T['hn'] = False; _T['hp'] = False
         try:
-            v, st = L.evaluate(TP.init3(prog, nb, pc), CT.KR)
+            v, st = _safe_evaluate(TP.init3(prog, nb, pc))
         finally:
             _T['on'] = False
         hit = (_T['hn'], _T['hp'])
         _T['n'] = _T['p'] = None
     else:
-        v, st = L.evaluate(TP.init3(prog, b, c), CT.KR)
+        v, st = _safe_evaluate(TP.init3(prog, b, c))
         hit = None
     ok = isinstance(v, int) and not isinstance(v, bool) and 0 <= v <= 8
     return (int(v) if ok else CT.NULL), int(TP._COUNT[0]), (0 if ok else 1), int(st), v, hit
