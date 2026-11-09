@@ -1,0 +1,506 @@
+{
+ "R0": {
+  "q": 0.4748096336326839,
+  "single_raw": 1.937356468867191e-24,
+  "bully_raw": 5.988192721957719e-24,
+  "two_raw": 0.0,
+  "exploit_raw": 0.0,
+  "shortest_single": 12,
+  "shortest_single_example": "(if (eq (capk 95 (run 95 #1 #0) #2) 4) 1 4)",
+  "shortest_bully": 12,
+  "shortest_two": null,
+  "prudent_z": {
+   "raw": 2.3812579192085743e-52,
+   "cond": 5.01518450876827e-52,
+   "min_size": 26,
+   "example": "(if (eq (capk 383 (run 383 #1 #0) #2) 4) (if (eq (app (run 383 #1 (quote (lam (lam (lam 3))))) #2) 2) 8 1) 8)",
+   "count": 6096,
+   "ratio_to_single": 1.2291273998743975e-28,
+   "ratio_to_bully": 3.9765886466494187e-29,
+   "gap_to_shortest_single": 14,
+   "members": {
+    "Pnzn": {
+     "raw": 3.663473726830601e-54,
+     "min_size": 26,
+     "example": "(if (eq (capk 383 (run 383 #1 #0) #2) 4) (if (eq (app (run 383 #1 (quote (lam (lam (lam 3))))) #2) 2) 8 1) 8)"
+    },
+    "Pnzy": {
+     "raw": 2.647769900196769e-82,
+     "min_size": 43,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 8)) 8 (app (lam (if (if (eq #0 4) T (eq #0 8)) 1 8)) (capk 383 (run 383 #1 (quote (lam (lam (lam 3))))) #2)))) (capk 383 (run 383 #1 #0) #2))"
+    },
+    "Ppzn": {
+     "raw": 2.3446231819402685e-52,
+     "min_size": 26,
+     "example": "(if (eq (capk 383 (run 383 #0 #2) #1) 1) (if (eq (app (run 383 #0 #2) (quote (lam (lam (lam 0))))) 1) 4 8) 8)"
+    },
+    "Ppzy": {
+     "raw": 1.2125184920473778e-81,
+     "min_size": 43,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 TO)) (app (lam (if (if (eq #0 1) T (eq #0 8)) 4 8)) (capk 383 (run 383 #0 #2) (quote (lam (lam (lam 0)))))) 8)) (capk 383 (run 383 #0 #2) #1))"
+    }
+   }
+  },
+  "prudent_o": {
+   "raw": 6.008096903730016e-50,
+   "cond": 1.2653696298794818e-49,
+   "min_size": 26,
+   "example": "(if (eq (capk 383 (run 383 #1 #0) #2) 4) (if (eq (app (run 383 #1 (quote (lam (lam (lam 3))))) #2) 2) 4 1) 4)",
+   "count": 6096,
+   "ratio_to_single": 3.10118297808305e-26,
+   "ratio_to_bully": 1.0033239046731599e-26,
+   "gap_to_shortest_single": 14,
+   "members": {
+    "Pnon": {
+     "raw": 5.8615579629289615e-53,
+     "min_size": 26,
+     "example": "(if (eq (capk 383 (run 383 #1 #0) #2) 4) (if (eq (app (run 383 #1 (quote (lam (lam (lam 3))))) #2) 2) 4 1) 4)"
+    },
+    "Pnoy": {
+     "raw": 4.23643184031483e-81,
+     "min_size": 43,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 8)) 4 (app (lam (if (if (eq #0 4) T (eq #0 8)) 1 4)) (capk 383 (run 383 #1 (quote (lam (lam (lam 3))))) #2)))) (capk 383 (run 383 #1 #0) #2))"
+    },
+    "Ppon": {
+     "raw": 6.002235345767087e-50,
+     "min_size": 26,
+     "example": "(if (eq (capk 383 (run 383 #0 #2) #1) 1) (if (eq (app (run 383 #0 #2) (quote (lam (lam (lam 0))))) 1) 4 1) 1)"
+    },
+    "Ppoy": {
+     "raw": 3.104047339641287e-79,
+     "min_size": 43,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 TO)) (app (lam (if (if (eq #0 1) T (eq #0 8)) 4 1)) (capk 383 (run 383 #0 #2) (quote (lam (lam (lam 0)))))) 1)) (capk 383 (run 383 #0 #2) #1))"
+    }
+   }
+  },
+  "prudent_a": {
+   "raw": 5.7002327400340596e-70,
+   "cond": 1.2005301359247062e-69,
+   "min_size": 37,
+   "example": "(app (lam (if (if (eq #0 4) T (eq #0 TO)) (app (lam (if (eq #0 2) 8 1)) (app (run 383 #1 (quote (lam (lam (lam 3))))) #2)) 8)) (capk 383 (run 383 #1 #0) #2))",
+   "count": 384,
+   "ratio_to_single": 2.9422735731060863e-46,
+   "ratio_to_bully": 9.519120383571227e-47,
+   "gap_to_shortest_single": 25,
+   "members": {
+    "Qnzy": {
+     "raw": 1.140046548007794e-70,
+     "min_size": 37,
+     "example": "(app (lam (if (if (eq #0 4) T (eq #0 TO)) (app (lam (if (eq #0 2) 8 1)) (app (run 383 #1 (quote (lam (lam (lam 3))))) #2)) 8)) (capk 383 (run 383 #1 #0) #2))"
+    },
+    "Qpzy": {
+     "raw": 4.5601861920262656e-70,
+     "min_size": 37,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 TO)) (app (lam (if (eq #0 5) 8 4)) (app (run 383 #0 #2) (quote (lam (lam (lam 0)))))) 8)) (capk 383 (run 383 #0 #2) #1))"
+    }
+   }
+  },
+  "opener": {
+   "raw": 1.0767140000294633e-92,
+   "cond": 2.2676751349624403e-92,
+   "min_size": 49,
+   "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #1 4) 1 (if (eq #0 1) 4 1))))) (capk 383 (run 383 #1 #3) #2))) (capk 383 (run 383 #1 #0) #2))",
+   "count": 69632,
+   "ratio_to_single": 5.557645262149606e-69,
+   "ratio_to_bully": 1.7980617024587902e-69,
+   "gap_to_shortest_single": 37,
+   "members": {
+    "Onfy": {
+     "raw": 3.509074538838436e-108,
+     "min_size": 59,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (if (eq #1 4) T (eq #1 TO)) 1 (if (if (eq #0 1) T (eq #0 TO)) 4 1))))) (capk 383 (run 383 #1 #3) #2))) (capk 383 (run 383 #1 #0) #2))"
+    },
+    "Onfn": {
+     "raw": 7.830647272941548e-93,
+     "min_size": 49,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #1 4) 1 (if (eq #0 1) 4 1))))) (capk 383 (run 383 #1 #3) #2))) (capk 383 (run 383 #1 #0) #2))"
+    },
+    "Onzy": {
+     "raw": 2.1931715867740224e-109,
+     "min_size": 59,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (if (eq #1 4) T (eq #1 TO)) 1 (if (if (eq #0 1) T (eq #0 TO)) 4 8))))) (capk 383 (run 383 #1 #3) #2))) (capk 383 (run 383 #1 #0) #2))"
+    },
+    "Onzn": {
+     "raw": 4.894154545588467e-94,
+     "min_size": 49,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #1 4) 1 (if (eq #0 1) 4 8))))) (capk 383 (run 383 #1 #3) #2))) (capk 383 (run 383 #1 #0) #2))"
+    },
+    "Opfy": {
+     "raw": 8.77268634709609e-109,
+     "min_size": 59,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (if (eq #0 1) T (eq #0 TO)) 4 (if (if (eq #1 4) T (eq #1 TO)) 1 4))))) (capk 383 (run 383 #1 #3) #2))) (capk 383 (run 383 #1 #0) #2))"
+    },
+    "Opfn": {
+     "raw": 1.957661818235387e-93,
+     "min_size": 49,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #0 1) 4 (if (eq #1 4) 1 4))))) (capk 383 (run 383 #1 #3) #2))) (capk 383 (run 383 #1 #0) #2))"
+    },
+    "Opzy": {
+     "raw": 2.1931715867740224e-109,
+     "min_size": 59,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (if (eq #0 1) T (eq #0 TO)) 4 (if (if (eq #1 4) T (eq #1 TO)) 1 8))))) (capk 383 (run 383 #1 #3) #2))) (capk 383 (run 383 #1 #0) #2))"
+    },
+    "Opzn": {
+     "raw": 4.894154545588467e-94,
+     "min_size": 49,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #0 1) 4 (if (eq #1 4) 1 8))))) (capk 383 (run 383 #1 #3) #2))) (capk 383 (run 383 #1 #0) #2))"
+    }
+   }
+  },
+  "probe_bearing_spellings_of_other_classes_raw": {
+   "single": 2.368617218254024e-48,
+   "f2": 7.49999615971753e-60,
+   "bully": 1.0285763800772646e-47,
+   "exploit": 7.296297919322822e-68
+  },
+  "prudent_all_min_size": 26,
+  "gap_prudent_any": 14,
+  "gap_prudent_z": 14,
+  "gap_opener": 37,
+  "mc_upper_bound": {
+   "n": 12000000,
+   "hits": 0,
+   "upper_raw": 3.20133230848015e-07,
+   "upper_cond": 6.742349105234716e-07,
+   "other_cond_hits": 5,
+   "other_cond_upper_cond": 2.0544945727058632e-06
+  },
+  "accounting_sum": 0.9999999999998943
+ },
+ "R1": {
+  "q": 0.6666666666666663,
+  "single_raw": 2.098219871850067e-11,
+  "bully_raw": 6.485406876629617e-11,
+  "two_raw": 5.002270930934822e-29,
+  "exploit_raw": 0.0,
+  "shortest_single": 6,
+  "shortest_single_example": "(if (eq readn 4) 1 4)",
+  "shortest_bully": 6,
+  "shortest_two": 17,
+  "prudent_z": {
+   "raw": 3.3039454350005227e-38,
+   "cond": 4.955918152500787e-38,
+   "min_size": 20,
+   "example": "(if (eq readn 4) (if (eq (app (run 383 #1 (quote (lam (lam (lam 3))))) #2) 2) 8 1) 8)",
+   "count": 6096,
+   "ratio_to_single": 1.5746421427642514e-27,
+   "ratio_to_bully": 5.094430461882664e-28,
+   "gap_to_shortest_single": 14,
+   "members": {
+    "Pnzn": {
+     "raw": 5.082992980589501e-40,
+     "min_size": 20,
+     "example": "(if (eq readn 4) (if (eq (app (run 383 #1 (quote (lam (lam (lam 3))))) #2) 2) 8 1) 8)"
+    },
+    "Pnzy": {
+     "raw": 6.126860783722021e-69,
+     "min_size": 37,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 8)) 8 (app (lam (if (if (eq #0 4) T (eq #0 8)) 1 8)) (capk 383 (run 383 #1 (quote (lam (lam (lam 3))))) #2)))) readn)"
+    },
+    "Ppzn": {
+     "raw": 3.2531155051946273e-38,
+     "min_size": 20,
+     "example": "(if (eq readp 1) (if (eq (app (run 383 #0 #2) (quote (lam (lam (lam 0))))) 1) 4 8) 8)"
+    },
+    "Ppzy": {
+     "raw": 2.805731720838264e-68,
+     "min_size": 37,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 TO)) (app (lam (if (if (eq #0 1) T (eq #0 8)) 4 8)) (capk 383 (run 383 #0 #2) (quote (lam (lam (lam 0)))))) 8)) readp)"
+    }
+   }
+  },
+  "prudent_o": {
+   "raw": 8.336108482067189e-36,
+   "cond": 1.250416272310079e-35,
+   "min_size": 20,
+   "example": "(if (eq readn 4) (if (eq (app (run 383 #1 (quote (lam (lam (lam 3))))) #2) 2) 4 1) 4)",
+   "count": 6096,
+   "ratio_to_single": 3.9729432524709517e-25,
+   "ratio_to_bully": 1.285363993446061e-25,
+   "gap_to_shortest_single": 14,
+   "members": {
+    "Pnon": {
+     "raw": 8.132788768943202e-39,
+     "min_size": 20,
+     "example": "(if (eq readn 4) (if (eq (app (run 383 #1 (quote (lam (lam (lam 3))))) #2) 2) 4 1) 4)"
+    },
+    "Pnoy": {
+     "raw": 9.802977253955233e-68,
+     "min_size": 37,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 8)) 4 (app (lam (if (if (eq #0 4) T (eq #0 8)) 1 4)) (capk 383 (run 383 #1 (quote (lam (lam (lam 3))))) #2)))) readn)"
+    },
+    "Ppon": {
+     "raw": 8.327975693298246e-36,
+     "min_size": 20,
+     "example": "(if (eq readp 1) (if (eq (app (run 383 #0 #2) (quote (lam (lam (lam 0))))) 1) 4 1) 1)"
+    },
+    "Ppoy": {
+     "raw": 7.182673205345956e-66,
+     "min_size": 37,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 TO)) (app (lam (if (if (eq #0 1) T (eq #0 8)) 4 1)) (capk 383 (run 383 #0 #2) (quote (lam (lam (lam 0)))))) 1)) readp)"
+    }
+   }
+  },
+  "prudent_a": {
+   "raw": 2.4819178980161916e-56,
+   "cond": 3.7228768470242895e-56,
+   "min_size": 31,
+   "example": "(app (lam (if (if (eq #0 4) T (eq #0 TO)) (app (lam (if (eq #0 2) 8 1)) (app (run 383 #1 (quote (lam (lam (lam 3))))) #2)) 8)) readn)",
+   "count": 384,
+   "ratio_to_single": 1.1828683596575633e-45,
+   "ratio_to_bully": 3.826927045949679e-46,
+   "gap_to_shortest_single": 25,
+   "members": {
+    "Qnzy": {
+     "raw": 4.963835796034655e-57,
+     "min_size": 31,
+     "example": "(app (lam (if (if (eq #0 4) T (eq #0 TO)) (app (lam (if (eq #0 2) 8 1)) (app (run 383 #1 (quote (lam (lam (lam 3))))) #2)) 8)) readn)"
+    },
+    "Qpzy": {
+     "raw": 1.9855343184127262e-56,
+     "min_size": 31,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 TO)) (app (lam (if (eq #0 5) 8 4)) (app (run 383 #0 #2) (quote (lam (lam (lam 0)))))) 8)) readp)"
+    }
+   }
+  },
+  "opener": {
+   "raw": 4.549493369041628e-63,
+   "cond": 6.824240053562446e-63,
+   "min_size": 37,
+   "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #1 4) 1 (if (eq #0 1) 4 1))))) readp)) readn)",
+   "count": 69632,
+   "ratio_to_single": 2.168263407509431e-52,
+   "ratio_to_bully": 7.014969847822318e-53,
+   "gap_to_shortest_single": 31,
+   "members": {
+    "Onfy": {
+     "raw": 5.1698788284579147e-79,
+     "min_size": 47,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (if (eq #1 4) T (eq #1 TO)) 1 (if (if (eq #0 1) T (eq #0 TO)) 4 1))))) readp)) readn)"
+    },
+    "Onfn": {
+     "raw": 3.3087224502120927e-63,
+     "min_size": 37,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #1 4) 1 (if (eq #0 1) 4 1))))) readp)) readn)"
+    },
+    "Onzy": {
+     "raw": 3.2311742677861967e-80,
+     "min_size": 47,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (if (eq #1 4) T (eq #1 TO)) 1 (if (if (eq #0 1) T (eq #0 TO)) 4 8))))) readp)) readn)"
+    },
+    "Onzn": {
+     "raw": 2.067951531382558e-64,
+     "min_size": 37,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #1 4) 1 (if (eq #0 1) 4 8))))) readp)) readn)"
+    },
+    "Opfy": {
+     "raw": 1.2924697071144787e-79,
+     "min_size": 47,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (if (eq #0 1) T (eq #0 TO)) 4 (if (if (eq #1 4) T (eq #1 TO)) 1 4))))) readp)) readn)"
+    },
+    "Opfn": {
+     "raw": 8.271806125530232e-64,
+     "min_size": 37,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #0 1) 4 (if (eq #1 4) 1 4))))) readp)) readn)"
+    },
+    "Opzy": {
+     "raw": 3.2311742677861967e-80,
+     "min_size": 47,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (if (eq #0 1) T (eq #0 TO)) 4 (if (if (eq #1 4) T (eq #1 TO)) 1 8))))) readp)) readn)"
+    },
+    "Opzn": {
+     "raw": 2.067951531382558e-64,
+     "min_size": 37,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #0 1) 4 (if (eq #1 4) 1 8))))) readp)) readn)"
+    }
+   }
+  },
+  "probe_bearing_spellings_of_other_classes_raw": {
+   "single": 3.2856057570036973e-34,
+   "f2": 5.530241650394732e-46,
+   "bully": 1.4268320622907199e-33,
+   "exploit": 3.176854912566016e-54
+  },
+  "prudent_all_min_size": 20,
+  "gap_prudent_any": 14,
+  "gap_prudent_z": 14,
+  "gap_opener": 31,
+  "mc_upper_bound": {
+   "n": 6000000,
+   "hits": 0,
+   "upper_raw": 6.402662567255247e-07,
+   "upper_cond": 9.603993850882877e-07,
+   "other_cond_hits": 7174,
+   "other_cond_upper_cond": 0.0018354597249457638
+  },
+  "accounting_sum": 0.9999999999999986
+ },
+ "R2": {
+  "q": 0.6666666666666662,
+  "single_raw": 1.1843712732196914e-11,
+  "bully_raw": 3.660783935406881e-11,
+  "two_raw": 9.896701712603665e-30,
+  "exploit_raw": 0.0,
+  "shortest_single": 6,
+  "shortest_single_example": "(if (eq readn 4) 1 4)",
+  "shortest_bully": 6,
+  "shortest_two": 17,
+  "prudent_z": {
+   "raw": 1.539537097910607e-24,
+   "cond": 2.3093056468659123e-24,
+   "min_size": 12,
+   "example": "(if (eq readn 4) (if (eq (probn 3) 2) 8 1) 8)",
+   "count": 1032,
+   "ratio_to_single": 1.2998771016502317e-13,
+   "ratio_to_bully": 4.205484740632456e-14,
+   "gap_to_shortest_single": 6,
+   "members": {
+    "Pnzn": {
+     "raw": 9.056100575944748e-26,
+     "min_size": 12,
+     "example": "(if (eq readn 4) (if (eq (probn 3) 2) 8 1) 8)"
+    },
+    "Pnzy": {
+     "raw": 9.731984689801135e-51,
+     "min_size": 28,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 8)) 8 (app (lam (if (if (eq #0 4) T (eq #0 8)) 1 8)) (probn 3)))) readn)"
+    },
+    "Ppzn": {
+     "raw": 1.4489760921511596e-24,
+     "min_size": 12,
+     "example": "(if (eq readp 1) (if (eq (probp 0) 1) 4 8) 8)"
+    },
+    "Ppzy": {
+     "raw": 4.456660452189938e-50,
+     "min_size": 28,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 TO)) (app (lam (if (if (eq #0 1) T (eq #0 8)) 4 8)) (probp 0)) 8)) readp)"
+    }
+   }
+  },
+  "prudent_o": {
+   "raw": 3.72386855682848e-22,
+   "cond": 5.585802835242724e-22,
+   "min_size": 12,
+   "example": "(if (eq readn 4) (if (eq (probn 3) 2) 4 1) 4)",
+   "count": 1032,
+   "ratio_to_single": 3.1441733188151487e-11,
+   "ratio_to_bully": 1.0172325443223918e-11,
+   "gap_to_shortest_single": 6,
+   "members": {
+    "Pnon": {
+     "raw": 1.4489760921511596e-24,
+     "min_size": 12,
+     "example": "(if (eq readn 4) (if (eq (probn 3) 2) 4 1) 4)"
+    },
+    "Pnoy": {
+     "raw": 1.5571175503681815e-49,
+     "min_size": 28,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 8)) 4 (app (lam (if (if (eq #0 4) T (eq #0 8)) 1 4)) (probn 3)))) readn)"
+    },
+    "Ppon": {
+     "raw": 3.7093787959069686e-22,
+     "min_size": 12,
+     "example": "(if (eq readp 1) (if (eq (probp 0) 1) 4 1) 1)"
+    },
+    "Ppoy": {
+     "raw": 1.140905075760624e-47,
+     "min_size": 28,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 TO)) (app (lam (if (if (eq #0 1) T (eq #0 8)) 4 1)) (probp 0)) 1)) readp)"
+    }
+   }
+  },
+  "prudent_a": {
+   "raw": 6.199406581813976e-42,
+   "cond": 9.299109872720971e-42,
+   "min_size": 23,
+   "example": "(app (lam (if (if (eq #0 4) T (eq #0 TO)) (app (lam (if (eq #0 2) 8 1)) (probn 3)) 8)) readn)",
+   "count": 64,
+   "ratio_to_single": 5.234343927441776e-31,
+   "ratio_to_bully": 1.6934642118191382e-31,
+   "gap_to_shortest_single": 17,
+   "members": {
+    "Qnzy": {
+     "raw": 1.2398813199715413e-42,
+     "min_size": 23,
+     "example": "(app (lam (if (if (eq #0 4) T (eq #0 TO)) (app (lam (if (eq #0 2) 8 1)) (probn 3)) 8)) readn)"
+    },
+    "Qpzy": {
+     "raw": 4.9595252618424345e-42,
+     "min_size": 23,
+     "example": "(app (lam (if (if (eq #0 1) T (eq #0 TO)) (app (lam (if (eq #0 5) 8 4)) (probp 0)) 8)) readp)"
+    }
+   }
+  },
+  "opener": {
+   "raw": 1.3379309045578603e-64,
+   "cond": 2.006896356836792e-64,
+   "min_size": 37,
+   "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #1 4) 1 (if (eq #0 1) 4 1))))) readp)) readn)",
+   "count": 69632,
+   "ratio_to_single": 1.1296549779704804e-53,
+   "ratio_to_bully": 3.654766105198052e-54,
+   "gap_to_shortest_single": 31,
+   "members": {
+    "Onfy": {
+     "raw": 5.861707749688944e-81,
+     "min_size": 47,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (if (eq #1 4) T (eq #1 TO)) 1 (if (if (eq #0 1) T (eq #0 TO)) 4 1))))) readp)) readn)"
+    },
+    "Onfn": {
+     "raw": 9.730406578602621e-65,
+     "min_size": 37,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #1 4) 1 (if (eq #0 1) 4 1))))) readp)) readn)"
+    },
+    "Onzy": {
+     "raw": 3.66356734355559e-82,
+     "min_size": 47,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (if (eq #1 4) T (eq #1 TO)) 1 (if (if (eq #0 1) T (eq #0 TO)) 4 8))))) readp)) readn)"
+    },
+    "Onzn": {
+     "raw": 6.081504111626638e-66,
+     "min_size": 37,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #1 4) 1 (if (eq #0 1) 4 8))))) readp)) readn)"
+    },
+    "Opfy": {
+     "raw": 1.465426937422236e-81,
+     "min_size": 47,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (if (eq #0 1) T (eq #0 TO)) 4 (if (if (eq #1 4) T (eq #1 TO)) 1 4))))) readp)) readn)"
+    },
+    "Opfn": {
+     "raw": 2.4326016446506552e-65,
+     "min_size": 37,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #0 1) 4 (if (eq #1 4) 1 4))))) readp)) readn)"
+    },
+    "Opzy": {
+     "raw": 3.66356734355559e-82,
+     "min_size": 47,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (if (eq #0 1) T (eq #0 TO)) 4 (if (if (eq #1 4) T (eq #1 TO)) 1 8))))) readp)) readn)"
+    },
+    "Opzn": {
+     "raw": 6.081504111626638e-66,
+     "min_size": 37,
+     "example": "(app (lam (app (lam (if (if (eq #1 2) (eq #0 3) F) 4 (if (if (eq #0 5) (eq #1 0) F) 1 (if (eq #0 1) 4 (if (eq #1 4) 1 8))))) readp)) readn)"
+    }
+   }
+  },
+  "probe_bearing_spellings_of_other_classes_raw": {
+   "single": 1.5273865006310413e-20,
+   "f2": 2.224696507214577e-31,
+   "bully": 6.516062755398897e-20,
+   "exploit": 7.935240475725503e-40
+  },
+  "prudent_all_min_size": 12,
+  "gap_prudent_any": 6,
+  "gap_prudent_z": 6,
+  "gap_opener": 31,
+  "mc_upper_bound": {
+   "n": 6000000,
+   "hits": 0,
+   "upper_raw": 6.402662567255247e-07,
+   "upper_cond": 9.603993850882879e-07,
+   "other_cond_hits": 6050,
+   "other_cond_upper_cond": 0.0015510760687369395
+  },
+  "accounting_sum": 0.9999999999999997
+ }
+}

@@ -4,7 +4,7 @@
 
 Inputs: queue 75's runs/lt_prior/lt-prior.json (R0, R1: constants, junk, fair readers, bullies, Monte Carlo, shortest spellings) and
 runs/length_prior_t/step1.json; this queue's runs/lt_prior_br/search_<M>.json (P, Q, O lower bounds and spellings; for R2 also the T+
-classes) and, for R2, the exhaustive enumeration and the Monte Carlo in runs/lt_prior_br/e_R2 (enum_R2_s5_*.json, mc_R2_*.json).
+classes) and, for R2, the exhaustive enumeration and the Monte Carlo in runs/lt_prior_br/e_R2 (enum_R2_s4_*.json, mc_R2_*.json).
 All masses are conditional on a finite tree (divided by the machine's finite-tree mass q) unless called raw.
 """
 import os, sys, json, glob
@@ -77,10 +77,10 @@ def main(out2, outrep, outmd):
     # ---- R2 base report (enumeration, Monte Carlo, T+ search) in the queue-75 format
     e2 = os.path.join(NEW, 'e_R2')
     r2 = None
-    if os.path.exists(os.path.join(NEW, 'search_R2.json')) and glob.glob(os.path.join(e2, 'enum_R2_s5_*.json')):
+    if os.path.exists(os.path.join(NEW, 'search_R2.json')) and glob.glob(os.path.join(e2, 'enum_R2_s4_*.json')):
         s = json.load(open(os.path.join(NEW, 'search_R2.json')))
         json.dump(dict(machine='R2', wall=s['wall'], classes=s['t_plus']), open(os.path.join(e2, 'search_R2.json'), 'w'))
-        r2 = RP.report_machine('R2', e2, 5)
+        r2 = RP.report_machine('R2', e2, 4)
     machines = {'R0': old['machines']['R0'], 'R1': old['machines']['R1']}
     if r2:
         machines['R2'] = r2
