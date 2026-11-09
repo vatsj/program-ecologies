@@ -52,7 +52,7 @@ def build_verdict_inputs(cs, step0, step2rep, lps):
     def ds(arm, beta, N, I=64):
         return RPT.delta_star(cs, arm, beta, N, I)
     v['dstar'] = {}
-    for arm in ('F', 'P', 'O', 'PO', 'FPO'):
+    for arm in ('F', 'P', 'O', 'FO', 'PO', 'FPO'):
         for beta in (1.0, 3.0):
             for N in (100, 200, 400):
                 d = ds(arm, beta, N)
@@ -101,6 +101,12 @@ def build_verdict_inputs(cs, step0, step2rep, lps):
             pz_ub = step0['item2_summary']['Pz']['UB']['all']['median'] if step0 else None
             v['argon_b'] = dict(no_threshold=not v['RE2_holds'], P_UB_median=pz_ub, entry_hazard_P=seeds['P']['entry_hazard'],
                                 value=(not v['RE2_holds']) and (pz_ub is not None and pz_ub <= 1) and seeds['P']['entry_hazard'] < 0.25)
+    if g('FO', 3.0, 200):
+        v['E11_FO_no_threshold'] = g('FO', 3.0, 200)['status'] == 'none'
+        if 'FO' in seeds and 'F' in seeds:
+            v['RE6'] = dict(threshold=g('FO', 3.0, 200)['status'] == 'bracket', entry_FO=seeds['FO']['entry_hazard'], entry_F=seeds['F']['entry_hazard'],
+                            entry_FO_ci=seeds['FO']['entry_ci'], entry_F_ci=seeds['F']['entry_ci'])
+            v['RE6']['holds'] = v['RE6']['threshold'] and seeds['FO']['entry_ci'][0] > seeds['F']['entry_ci'][1]
     # --- RE4 / E5 / E6 from step 2
     if step2rep:
         r0, r2 = step2rep.get('R0'), step2rep.get('R2')
@@ -188,14 +194,24 @@ def main():
                 if any(a):
                     L.append('| %s | %s | %s | %s | %s | %s |' % (arm, beta, fm(a[0]), fm(b[0]), fm(a[1]), fm(b[1])))
         L.append('')
-    L += ['## Mean A_f charge per capita by family (120N snapshot), N = 200, I = 64, delta = 0.1', '']
-    L.append('| arm | beta | reader families present: mean charge [share of capita] |')
-    L.append('|---|---|---|')
-    for arm in ('P', 'O', 'PO', 'F2'):
+    L += ['', '## Mean A_f charge per capita by family at the 30N and 120N snapshots (mean over runs), N = 200, I = 64, delta = 0.1', '']
+    L.append('| arm | beta | snapshot | families present: mean charge per capita [share of capita] |')
+    L.append('|---|---|---|---|')
+    import collections
+    rows_, _st = RPT.load_rows()
+    for arm in ('F', 'P', 'O', 'FO', 'PO', 'F2'):
         for beta in (0.0, 3.0):
-            c = cell(cs, arm, beta, 200, 64, 0.1)
-            if c and c.get('charges'):
-                L.append('| %s | %s | %s |' % (arm, beta, '; '.join('%s %.3f [%.4f]' % (f, x[0], x[1]) for f, x in c['charges'].items() if f != 'all' and x[1] > 1e-6 and f not in ('c_third', 'c_half', 'c_two3', 'c_grand')) + '; all %.3f' % c['charges']['all']))
+            rs = [r for r in rows_.values() if r['series'] in ('main', 'ctrl', 'fo') and r['N'] == 200 and r['I'] == 64 and not r['long']
+                  and RPT.spec_key(r) == (arm, beta, 0.1, '') and r.get('charges')]
+            for snap in ('30N', '120N'):
+                num = collections.defaultdict(float); den = collections.defaultdict(float)
+                for r in rs:
+                    for f, x in r['charges'][snap].items():
+                        if f != 'all' and x[0] is not None:
+                            num[f] += x[0] * x[1]; den[f] += x[1]
+                txt = '; '.join('%s %.3f [%.4f]' % (f, num[f] / den[f], den[f] / len(rs)) for f in den if den[f] / len(rs) > 1e-4 and f not in ('c_third', 'c_half', 'c_two3', 'c_grand', 'exploit', 'bully'))
+                if rs:
+                    L.append('| %s | %s | %s (%d runs) | %s |' % (arm, beta, snap, len(rs), txt))
     L += ['', '## Transition rates among classes (per island-generation spent in the class), N = 200, I = 64, beta = 3, delta = 0.01', '']
     L.append('| arm | window | F to U | U to F | n F>U | n U>F | fair-pair flips (per fair island-generation) |')
     L.append('|---|---|---|---|---|---|---|')
@@ -205,6 +221,28 @@ def main():
             for win in ('tail|d25', 'chase|d25'):
                 t = c['trans'][win]
                 L.append('| %s | %s | %.2e | %.2e | %d | %d | %.2e |' % (arm, win, t['F_to_U'] or 0, t['U_to_F'] or 0, t['n_FU'], t['n_UF'], t['FF_flips'] or 0))
+    L += ['', '## Decomposition (exploratory E9, E10): readers and bullies in the founders only / the tail only, beta = 3, N = 200, I = 64', '']
+    L.append('| arm | delta | founders only V* | tail only V* |')
+    L.append('|---|---|---|---|')
+    dec = {}
+    for arm in ('F', 'P', 'O'):
+        for d in (3e-3, 3e-2):
+            a = cs.get((arm, 3.0, 200, 64, d, ':fm=1.0:tm=0.0', False)); b = cs.get((arm, 3.0, 200, 64, d, ':fm=0.0:tm=1.0', False))
+            if a and b:
+                L.append('| %s | %g | %s | %s |' % (arm, d, fm(a), fm(b)))
+                dec[(arm, d)] = (a['mean'], b['mean'])
+    if dec:
+        V['E9'] = dict(F_delta03=dec.get(('F', 3e-2)), holds=(dec[('F', 3e-2)][0] < dec[('F', 3e-2)][1]) if ('F', 3e-2) in dec else None)
+        gaps = [abs(dec[(a, d)][i] - dec[('F', d)][i]) for a in ('P', 'O') for d in (3e-3, 3e-2) for i in (0, 1) if (a, d) in dec and ('F', d) in dec]
+        V['E10'] = dict(gaps=gaps, n_above=sum(1 for g_ in gaps if g_ > 0.15), holds=sum(1 for g_ in gaps if g_ > 0.15) < 2)
+    L += ['', '## Boundary cells continued to 240N (beta = 3, N = 200, I = 64): V* at 120N and at 240N', '']
+    L.append('| arm | delta | V* at 120N | V* at 240N |')
+    L.append('|---|---|---|---|')
+    for arm in ('P', 'O', 'FO', 'PO', 'FPO'):
+        for d in (1e-3, 3e-4):
+            a = cs.get((arm, 3.0, 200, 64, d, '', False)); b = cs.get((arm, 3.0, 200, 64, d, '', True))
+            if a and b:
+                L.append('| %s | %g | %s | %s |' % (arm, d, fm(a), fm(b)))
     L += ['', '## Length-prior-shaped series (grammar-conditioned projections onto T+ u P u O; both allocations)', '']
     lps_md(L, lps)
     L += ['', '## Verdict inputs', '', '```', json.dumps(V, indent=1, default=str), '```']

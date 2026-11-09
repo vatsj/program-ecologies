@@ -29,3 +29,15 @@
 - R0 prudent search first ran with a wrong cap-class label (no spelling found); fixed (`cap_ok`: the classes `[255,510]` and `>=1023`, the same labels queue 75's two-reader search used) and rerun. Note: queue 75's
   R0 two-reader search used the labels `[256,510]` and found none (R0 two exact mass 0 in `step1.json`); that is probably the same label bug, and R0's two-partner mass is negligible either way (R1/R2: 10^-29).
 - Local compute: V1 (80 cells) and the `ideal` stage (320 cells) run on the local container (2-3 workers).
+
+## Budget and timing (final)
+- Step-3 cell time (sum of job walls on one core): 121.8 CPU-hours (main 40.1, i256 24.3, s 15.8, fo 9.9, lps 24.8, decomp 2.0, long 1.6, ideal 3.3 local, v1 0.4 local); step 2: R2 enumeration to s0 = 4 about 0.2 h local, three prudent / opener searches about 1.3 h local, R2 Monte Carlo 4 x 1.5e6 draws about 6 sandbox-CPU-hours, the stopped R2 s0 = 5 attempt about 0.5 sandbox-CPU-hour; step 0 assays 0.02 h and the holding rerun (120 cells) about 1.5 h local. Total about 135 CPU-hours of the 250 ceiling; no cut applied.
+- Pilots disclosed in `predictions/2026-11-08-bully-resistance.md` (step-0 assays, step-2 R2 prudent search, partial look at the main grid before E10, no F+O cell before its addendum).
+- The spec's coordinator addendum was merged mid-run (arm F+O, RE 6); F+O ran as chunks fo_*of3 (780 cells) ahead of the remaining queue. The decomposition (E9, E10) and the idealized table are additions to the spec, registered.
+- Sandbox clients died with their 30-minute background scheduler once (reattached, no loss); clients are now started from foreground calls (tools/br_fill.sh, br_loop.sh). `python3 tools/daytona_run.py list` is empty at hand-back.
+
+## The model cannot express
+- A program that builds the probe from what it read (a quote-from-value primitive): the probe constant is a literal quoted term; R2's probe tag takes a literal code, anything else is stuck.
+- Conditional self-cooperation between readers without relying on timeouts: a reader that cooperates iff its partner cooperates with it has only the refusal fixed point under the capped (and the level-iterated) semantics; P x P = 0 even in the idealized table.
+- A third party that changes a victim's payoff: offers (O) and refusals (P) act on pairs, but a constant victim never reads, so no reader in the unpaired slot can move the pair; coordinated two-slot moves are not in the single-slot invasion dynamics.
+- Punishment or a side payment: nothing in the dollar game lets a reader cost a bully anything except by not pairing with it.
