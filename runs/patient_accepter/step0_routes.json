@@ -1,0 +1,1202 @@
+[
+ {
+  "res": [
+   "Bn",
+   "C3",
+   "C8"
+  ],
+  "s": 1,
+  "x": "Rnn",
+  "xg": "R",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 7.5e-05,
+  "mass": 0.015,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   4,
+   2,
+   0
+  ],
+  "x_nto": 0,
+  "step": "R first: R into v",
+  "R": "Rnn",
+  "rot": 0
+ },
+ {
+  "res": [
+   "Bn",
+   "C3",
+   "C8"
+  ],
+  "s": 2,
+  "x": "C4",
+  "xg": "C4",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0004703703703703704,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   4,
+   2,
+   0
+  ],
+  "x_nto": 0,
+  "step": "offerer first: 1/2 constant into e",
+  "R": "Rnn",
+  "rot": 0
+ },
+ {
+  "res": [
+   "Bn",
+   "Rnn",
+   "C8"
+  ],
+  "s": 2,
+  "x": "C4",
+  "xg": "C4",
+  "dnet": 0.5,
+  "dgross": 0.5,
+  "rhoN": 27.858404714991046,
+  "rate": 0.013103768143718011,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   0,
+   3,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: 1/2 constant into e, R resident",
+  "R": "Rnn",
+  "rot": 0
+ },
+ {
+  "res": [
+   "Bn",
+   "C3",
+   "C4"
+  ],
+  "s": 1,
+  "x": "Rnn",
+  "xg": "R",
+  "dnet": 0.166666667,
+  "dgross": 0.166666667,
+  "rhoN": 9.75455795610327,
+  "rate": 0.0007315918467077452,
+  "mass": 0.015,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   0,
+   3,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: R into v, 1/2 constant resident",
+  "R": "Rnn",
+  "rot": 0
+ },
+ {
+  "res": [
+   "C8",
+   "Bn",
+   "C3"
+  ],
+  "s": 2,
+  "x": "Rnn",
+  "xg": "R",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 7.5e-05,
+  "mass": 0.015,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   0,
+   4,
+   2
+  ],
+  "x_nto": 0,
+  "step": "R first: R into v",
+  "R": "Rnn",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C8",
+   "Bn",
+   "C3"
+  ],
+  "s": 0,
+  "x": "C4",
+  "xg": "C4",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0004703703703703704,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   0,
+   4,
+   2
+  ],
+  "x_nto": 0,
+  "step": "offerer first: 1/2 constant into e",
+  "R": "Rnn",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C8",
+   "Bn",
+   "Rnn"
+  ],
+  "s": 0,
+  "x": "C4",
+  "xg": "C4",
+  "dnet": 0.5,
+  "dgross": 0.5,
+  "rhoN": 27.858404714991046,
+  "rate": 0.013103768143718011,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   0,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: 1/2 constant into e, R resident",
+  "R": "Rnn",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C4",
+   "Bn",
+   "C3"
+  ],
+  "s": 2,
+  "x": "Rnn",
+  "xg": "R",
+  "dnet": 0.166666667,
+  "dgross": 0.166666667,
+  "rhoN": 9.75455795610327,
+  "rate": 0.0007315918467077452,
+  "mass": 0.015,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   0,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: R into v, 1/2 constant resident",
+  "R": "Rnn",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C3",
+   "C8",
+   "Bn"
+  ],
+  "s": 0,
+  "x": "Rnn",
+  "xg": "R",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 7.5e-05,
+  "mass": 0.015,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   2,
+   0,
+   4
+  ],
+  "x_nto": 0,
+  "step": "R first: R into v",
+  "R": "Rnn",
+  "rot": 2
+ },
+ {
+  "res": [
+   "C3",
+   "C8",
+   "Bn"
+  ],
+  "s": 1,
+  "x": "C4",
+  "xg": "C4",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0004703703703703704,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   2,
+   0,
+   4
+  ],
+  "x_nto": 0,
+  "step": "offerer first: 1/2 constant into e",
+  "R": "Rnn",
+  "rot": 2
+ },
+ {
+  "res": [
+   "Rnn",
+   "C8",
+   "Bn"
+  ],
+  "s": 1,
+  "x": "C4",
+  "xg": "C4",
+  "dnet": 0.5,
+  "dgross": 0.5,
+  "rhoN": 27.858404714991046,
+  "rate": 0.013103768143718011,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   3,
+   0
+  ],
+  "x_nto": 0,
+  "step": "selected: 1/2 constant into e, R resident",
+  "R": "Rnn",
+  "rot": 2
+ },
+ {
+  "res": [
+   "C3",
+   "C4",
+   "Bn"
+  ],
+  "s": 0,
+  "x": "Rnn",
+  "xg": "R",
+  "dnet": 0.166666667,
+  "dgross": 0.166666667,
+  "rhoN": 9.75455795610327,
+  "rate": 0.0007315918467077452,
+  "mass": 0.015,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   3,
+   0
+  ],
+  "x_nto": 0,
+  "step": "selected: R into v, 1/2 constant resident",
+  "R": "Rnn",
+  "rot": 2
+ },
+ {
+  "res": [
+   "Bp",
+   "C8",
+   "C0"
+  ],
+  "s": 2,
+  "x": "Rpn",
+  "xg": "R",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 7.5e-05,
+  "mass": 0.015,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   4,
+   0,
+   2
+  ],
+  "x_nto": 0,
+  "step": "R first: R into v",
+  "R": "Rpn",
+  "rot": 0
+ },
+ {
+  "res": [
+   "Bp",
+   "C8",
+   "C0"
+  ],
+  "s": 1,
+  "x": "C1",
+  "xg": "C1",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0004703703703703704,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   4,
+   0,
+   2
+  ],
+  "x_nto": 0,
+  "step": "offerer first: 1/2 constant into e",
+  "R": "Rpn",
+  "rot": 0
+ },
+ {
+  "res": [
+   "Bp",
+   "C8",
+   "Rpn"
+  ],
+  "s": 1,
+  "x": "C1",
+  "xg": "C1",
+  "dnet": 0.5,
+  "dgross": 0.5,
+  "rhoN": 27.858404714991046,
+  "rate": 0.013103768143718011,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   0,
+   3,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: 1/2 constant into e, R resident",
+  "R": "Rpn",
+  "rot": 0
+ },
+ {
+  "res": [
+   "Bp",
+   "C1",
+   "C0"
+  ],
+  "s": 2,
+  "x": "Rpn",
+  "xg": "R",
+  "dnet": 0.166666667,
+  "dgross": 0.166666667,
+  "rhoN": 9.75455795610327,
+  "rate": 0.0007315918467077452,
+  "mass": 0.015,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   0,
+   3,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: R into v, 1/2 constant resident",
+  "R": "Rpn",
+  "rot": 0
+ },
+ {
+  "res": [
+   "C0",
+   "Bp",
+   "C8"
+  ],
+  "s": 0,
+  "x": "Rpn",
+  "xg": "R",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 7.5e-05,
+  "mass": 0.015,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   2,
+   4,
+   0
+  ],
+  "x_nto": 0,
+  "step": "R first: R into v",
+  "R": "Rpn",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C0",
+   "Bp",
+   "C8"
+  ],
+  "s": 2,
+  "x": "C1",
+  "xg": "C1",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0004703703703703704,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   2,
+   4,
+   0
+  ],
+  "x_nto": 0,
+  "step": "offerer first: 1/2 constant into e",
+  "R": "Rpn",
+  "rot": 1
+ },
+ {
+  "res": [
+   "Rpn",
+   "Bp",
+   "C8"
+  ],
+  "s": 2,
+  "x": "C1",
+  "xg": "C1",
+  "dnet": 0.5,
+  "dgross": 0.5,
+  "rhoN": 27.858404714991046,
+  "rate": 0.013103768143718011,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   0,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: 1/2 constant into e, R resident",
+  "R": "Rpn",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C0",
+   "Bp",
+   "C1"
+  ],
+  "s": 0,
+  "x": "Rpn",
+  "xg": "R",
+  "dnet": 0.166666667,
+  "dgross": 0.166666667,
+  "rhoN": 9.75455795610327,
+  "rate": 0.0007315918467077452,
+  "mass": 0.015,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   0,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: R into v, 1/2 constant resident",
+  "R": "Rpn",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C8",
+   "C0",
+   "Bp"
+  ],
+  "s": 1,
+  "x": "Rpn",
+  "xg": "R",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 7.5e-05,
+  "mass": 0.015,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   0,
+   2,
+   4
+  ],
+  "x_nto": 0,
+  "step": "R first: R into v",
+  "R": "Rpn",
+  "rot": 2
+ },
+ {
+  "res": [
+   "C8",
+   "C0",
+   "Bp"
+  ],
+  "s": 0,
+  "x": "C1",
+  "xg": "C1",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0004703703703703704,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   0,
+   2,
+   4
+  ],
+  "x_nto": 0,
+  "step": "offerer first: 1/2 constant into e",
+  "R": "Rpn",
+  "rot": 2
+ },
+ {
+  "res": [
+   "C8",
+   "Rpn",
+   "Bp"
+  ],
+  "s": 0,
+  "x": "C1",
+  "xg": "C1",
+  "dnet": 0.5,
+  "dgross": 0.5,
+  "rhoN": 27.858404714991046,
+  "rate": 0.013103768143718011,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   3,
+   0
+  ],
+  "x_nto": 0,
+  "step": "selected: 1/2 constant into e, R resident",
+  "R": "Rpn",
+  "rot": 2
+ },
+ {
+  "res": [
+   "C1",
+   "C0",
+   "Bp"
+  ],
+  "s": 1,
+  "x": "Rpn",
+  "xg": "R",
+  "dnet": 0.166666667,
+  "dgross": 0.166666667,
+  "rhoN": 9.75455795610327,
+  "rate": 0.0007315918467077452,
+  "mass": 0.015,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   3,
+   0
+  ],
+  "x_nto": 0,
+  "step": "selected: R into v, 1/2 constant resident",
+  "R": "Rpn",
+  "rot": 2
+ },
+ {
+  "res": [
+   "Bn",
+   "C3",
+   "C8"
+  ],
+  "s": 1,
+  "x": "Rny",
+  "xg": "R",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0,
+  "mass": 0.0,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   4,
+   2,
+   0
+  ],
+  "x_nto": 0,
+  "step": "R first: R into v",
+  "R": "Rny",
+  "rot": 0
+ },
+ {
+  "res": [
+   "Bn",
+   "C3",
+   "C8"
+  ],
+  "s": 2,
+  "x": "C4",
+  "xg": "C4",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0004703703703703704,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   4,
+   2,
+   0
+  ],
+  "x_nto": 0,
+  "step": "offerer first: 1/2 constant into e",
+  "R": "Rny",
+  "rot": 0
+ },
+ {
+  "res": [
+   "Bn",
+   "Rny",
+   "C8"
+  ],
+  "s": 2,
+  "x": "C4",
+  "xg": "C4",
+  "dnet": 0.5,
+  "dgross": 0.5,
+  "rhoN": 27.858404714991046,
+  "rate": 0.013103768143718011,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   0,
+   3,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: 1/2 constant into e, R resident",
+  "R": "Rny",
+  "rot": 0
+ },
+ {
+  "res": [
+   "Bn",
+   "C3",
+   "C4"
+  ],
+  "s": 1,
+  "x": "Rny",
+  "xg": "R",
+  "dnet": 0.166666667,
+  "dgross": 0.166666667,
+  "rhoN": 9.75455795610327,
+  "rate": 0.0,
+  "mass": 0.0,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   0,
+   3,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: R into v, 1/2 constant resident",
+  "R": "Rny",
+  "rot": 0
+ },
+ {
+  "res": [
+   "C8",
+   "Bn",
+   "C3"
+  ],
+  "s": 2,
+  "x": "Rny",
+  "xg": "R",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0,
+  "mass": 0.0,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   0,
+   4,
+   2
+  ],
+  "x_nto": 0,
+  "step": "R first: R into v",
+  "R": "Rny",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C8",
+   "Bn",
+   "C3"
+  ],
+  "s": 0,
+  "x": "C4",
+  "xg": "C4",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0004703703703703704,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   0,
+   4,
+   2
+  ],
+  "x_nto": 0,
+  "step": "offerer first: 1/2 constant into e",
+  "R": "Rny",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C8",
+   "Bn",
+   "Rny"
+  ],
+  "s": 0,
+  "x": "C4",
+  "xg": "C4",
+  "dnet": 0.5,
+  "dgross": 0.5,
+  "rhoN": 27.858404714991046,
+  "rate": 0.013103768143718011,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   0,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: 1/2 constant into e, R resident",
+  "R": "Rny",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C4",
+   "Bn",
+   "C3"
+  ],
+  "s": 2,
+  "x": "Rny",
+  "xg": "R",
+  "dnet": 0.166666667,
+  "dgross": 0.166666667,
+  "rhoN": 9.75455795610327,
+  "rate": 0.0,
+  "mass": 0.0,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   0,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: R into v, 1/2 constant resident",
+  "R": "Rny",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C3",
+   "C8",
+   "Bn"
+  ],
+  "s": 0,
+  "x": "Rny",
+  "xg": "R",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0,
+  "mass": 0.0,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   2,
+   0,
+   4
+  ],
+  "x_nto": 0,
+  "step": "R first: R into v",
+  "R": "Rny",
+  "rot": 2
+ },
+ {
+  "res": [
+   "C3",
+   "C8",
+   "Bn"
+  ],
+  "s": 1,
+  "x": "C4",
+  "xg": "C4",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0004703703703703704,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   2,
+   0,
+   4
+  ],
+  "x_nto": 0,
+  "step": "offerer first: 1/2 constant into e",
+  "R": "Rny",
+  "rot": 2
+ },
+ {
+  "res": [
+   "Rny",
+   "C8",
+   "Bn"
+  ],
+  "s": 1,
+  "x": "C4",
+  "xg": "C4",
+  "dnet": 0.5,
+  "dgross": 0.5,
+  "rhoN": 27.858404714991046,
+  "rate": 0.013103768143718011,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   3,
+   0
+  ],
+  "x_nto": 0,
+  "step": "selected: 1/2 constant into e, R resident",
+  "R": "Rny",
+  "rot": 2
+ },
+ {
+  "res": [
+   "C3",
+   "C4",
+   "Bn"
+  ],
+  "s": 0,
+  "x": "Rny",
+  "xg": "R",
+  "dnet": 0.166666667,
+  "dgross": 0.166666667,
+  "rhoN": 9.75455795610327,
+  "rate": 0.0,
+  "mass": 0.0,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   3,
+   0
+  ],
+  "x_nto": 0,
+  "step": "selected: R into v, 1/2 constant resident",
+  "R": "Rny",
+  "rot": 2
+ },
+ {
+  "res": [
+   "Bp",
+   "C8",
+   "C0"
+  ],
+  "s": 2,
+  "x": "Rpy",
+  "xg": "R",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0,
+  "mass": 0.0,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   4,
+   0,
+   2
+  ],
+  "x_nto": 0,
+  "step": "R first: R into v",
+  "R": "Rpy",
+  "rot": 0
+ },
+ {
+  "res": [
+   "Bp",
+   "C8",
+   "C0"
+  ],
+  "s": 1,
+  "x": "C1",
+  "xg": "C1",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0004703703703703704,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   4,
+   0,
+   2
+  ],
+  "x_nto": 0,
+  "step": "offerer first: 1/2 constant into e",
+  "R": "Rpy",
+  "rot": 0
+ },
+ {
+  "res": [
+   "Bp",
+   "C8",
+   "Rpy"
+  ],
+  "s": 1,
+  "x": "C1",
+  "xg": "C1",
+  "dnet": 0.5,
+  "dgross": 0.5,
+  "rhoN": 27.858404714991046,
+  "rate": 0.013103768143718011,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   0,
+   3,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: 1/2 constant into e, R resident",
+  "R": "Rpy",
+  "rot": 0
+ },
+ {
+  "res": [
+   "Bp",
+   "C1",
+   "C0"
+  ],
+  "s": 2,
+  "x": "Rpy",
+  "xg": "R",
+  "dnet": 0.166666667,
+  "dgross": 0.166666667,
+  "rhoN": 9.75455795610327,
+  "rate": 0.0,
+  "mass": 0.0,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   0,
+   3,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: R into v, 1/2 constant resident",
+  "R": "Rpy",
+  "rot": 0
+ },
+ {
+  "res": [
+   "C0",
+   "Bp",
+   "C8"
+  ],
+  "s": 0,
+  "x": "Rpy",
+  "xg": "R",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0,
+  "mass": 0.0,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   2,
+   4,
+   0
+  ],
+  "x_nto": 0,
+  "step": "R first: R into v",
+  "R": "Rpy",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C0",
+   "Bp",
+   "C8"
+  ],
+  "s": 2,
+  "x": "C1",
+  "xg": "C1",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0004703703703703704,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   2,
+   4,
+   0
+  ],
+  "x_nto": 0,
+  "step": "offerer first: 1/2 constant into e",
+  "R": "Rpy",
+  "rot": 1
+ },
+ {
+  "res": [
+   "Rpy",
+   "Bp",
+   "C8"
+  ],
+  "s": 2,
+  "x": "C1",
+  "xg": "C1",
+  "dnet": 0.5,
+  "dgross": 0.5,
+  "rhoN": 27.858404714991046,
+  "rate": 0.013103768143718011,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   0,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: 1/2 constant into e, R resident",
+  "R": "Rpy",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C0",
+   "Bp",
+   "C1"
+  ],
+  "s": 0,
+  "x": "Rpy",
+  "xg": "R",
+  "dnet": 0.166666667,
+  "dgross": 0.166666667,
+  "rhoN": 9.75455795610327,
+  "rate": 0.0,
+  "mass": 0.0,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   0,
+   3
+  ],
+  "x_nto": 0,
+  "step": "selected: R into v, 1/2 constant resident",
+  "R": "Rpy",
+  "rot": 1
+ },
+ {
+  "res": [
+   "C8",
+   "C0",
+   "Bp"
+  ],
+  "s": 1,
+  "x": "Rpy",
+  "xg": "R",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0,
+  "mass": 0.0,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   0,
+   2,
+   4
+  ],
+  "x_nto": 0,
+  "step": "R first: R into v",
+  "R": "Rpy",
+  "rot": 2
+ },
+ {
+  "res": [
+   "C8",
+   "C0",
+   "Bp"
+  ],
+  "s": 0,
+  "x": "C1",
+  "xg": "C1",
+  "dnet": 0.0,
+  "dgross": 0.0,
+  "rhoN": 1.0,
+  "rate": 0.0004703703703703704,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "U",
+  "shares_if_fixed": [
+   0,
+   2,
+   4
+  ],
+  "x_nto": 0,
+  "step": "offerer first: 1/2 constant into e",
+  "R": "Rpy",
+  "rot": 2
+ },
+ {
+  "res": [
+   "C8",
+   "Rpy",
+   "Bp"
+  ],
+  "s": 0,
+  "x": "C1",
+  "xg": "C1",
+  "dnet": 0.5,
+  "dgross": 0.5,
+  "rhoN": 27.858404714991046,
+  "rate": 0.013103768143718011,
+  "mass": 0.09407407407407407,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   3,
+   0
+  ],
+  "x_nto": 0,
+  "step": "selected: 1/2 constant into e, R resident",
+  "R": "Rpy",
+  "rot": 2
+ },
+ {
+  "res": [
+   "C1",
+   "C0",
+   "Bp"
+  ],
+  "s": 1,
+  "x": "Rpy",
+  "xg": "R",
+  "dnet": 0.166666667,
+  "dgross": 0.166666667,
+  "rhoN": 9.75455795610327,
+  "rate": 0.0,
+  "mass": 0.0,
+  "out_if_fixed": "F",
+  "shares_if_fixed": [
+   3,
+   3,
+   0
+  ],
+  "x_nto": 0,
+  "step": "selected: R into v, 1/2 constant resident",
+  "R": "Rpy",
+  "rot": 2
+ }
+]

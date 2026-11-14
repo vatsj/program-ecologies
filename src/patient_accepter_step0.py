@@ -311,5 +311,32 @@ def report_md(res):
     return Lx
 
 
+def spec_routes(out):
+    """RE 2's four edges on the spec's triple (Bn, C3, C8) and its rotations, for both bullies (Bp with C0 as victim, the mirror):
+    the first step of each route (R into v; the 1/2 constant naming v into e) and the selected steps (the other member resident)."""
+    ctx = Ctx(); i = ctx.idx
+    rows = []
+    for bn, vc, rn in (('Bn', 'C3', 'Rnn'), ('Bp', 'C0', 'Rpn'), ('Bn', 'C3', 'Rny'), ('Bp', 'C0', 'Rpy')):
+        base = [i[bn], i[vc], i['C8']] if bn == 'Bn' else [i[bn], i['C8'], i[vc]]
+        for rot in range(3):
+            t = tuple(base[(s - rot) % 3] for s in range(3))
+            sb, sv, se = t.index(i[bn]), t.index(i[vc]), t.index(i['C8'])
+            assert ctx.CLS[t] == 1
+            off = i['C1'] if (se + 1) % 3 == sv else i['C4']
+            tR = list(t); tR[sv] = i[rn]; tR = tuple(tR)
+            tO = list(t); tO[se] = off; tO = tuple(tO)
+            for lab, res_, s_, x_ in (('R first: R into v', t, sv, i[rn]), ('offerer first: 1/2 constant into e', t, se, off),
+                                      ('selected: 1/2 constant into e, R resident', tR, se, off), ('selected: R into v, 1/2 constant resident', tO, sv, i[rn])):
+                e = edge(ctx, res_, s_, x_); e['step'] = lab; e['R'] = rn; e['rot'] = rot
+                rows.append(e)
+    json.dump(rows, open(out, 'w'), indent=1)
+    for r in rows:
+        print(r['R'], r['rot'], r['step'], r['res'], r['x'], round(r['rhoN'], 4), r['out_if_fixed'], '%.3g' % r['rate'])
+    return rows
+
+
 if __name__ == '__main__':
-    run(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)
+    if sys.argv[1] == 'routes':
+        spec_routes(sys.argv[2])
+    else:
+        run(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)
