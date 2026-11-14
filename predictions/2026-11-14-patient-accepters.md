@@ -123,3 +123,20 @@ The numbers below use the gate disclosed above. Exact Moran values at N = 200, w
   Falsifier: F+R below F by more than 0.25.
 - **E15 (carbon and sol).** Carbon (a) true; carbon (b) true; carbon (c) false or vacuous (no exits); sol true if any exit
   occurs. Falsifier: carbon (a) false.
+
+## Addendum (2026-11-14, before any counted step-2 cell)
+
+- **Step 0 has been run** (after the commit above): `runs/patient_accepter/step0.{json,md}`. The E-predictions are not changed.
+- **One timing pilot of the seeded kernel (read).** One non-counted cell: F+R, seeded unequal start, N = 100 (not a counted N),
+  I = 64, run index 95. The logging kernel matches `kern_mt` draw for draw (identical counts, modal series, logs and migrant count).
+  Wall 5–11 s. I read its exit classification. No island was fair at 30N or 120N. There were 64 debounced unequal-to-fair flips, all
+  transient: most were (bully, ½ constant) pairs while migration briefly displaced the victim slot's ⅓ constant, one was "imported".
+  Seen before the counted cells; it informs nothing above. The exit counter will therefore count many transient episodes, and the
+  "lasted to 120N" flag and the hazard are the statistics that matter.
+- V1 pilot: `pa:arm=F:d=0.01:b=1.0`, N = 100, run 0 reproduces queue 75's stored row exactly (V\* series, classes, transitions,
+  consensus). V\* = 0.0 in both. That is a stored, already published value.
+- Implementation choices fixed before the cells: R in the dynamics is the two `n` variants (`Rnn`, `Rpn`) at γδ/2 each. In F+R, F+O+R
+  and F+C⅓ the γδ is taken uniformly from the nine constants, and F+C⅓ adds it to C3 and C0 (the constants `Rnn` and `Rpn` play on path).
+  R only has R at δ. F/R split has δ/2 F (2:1) and δ/2 R. The seeded islands get rotation i mod 3. The exit classes are defined in
+  `src/patient_accepter_dyn.classify_exits`. "Imported" means the new pair's two holders took their slots within one debounce window
+  (0.25N) and both presences began with migrants.
