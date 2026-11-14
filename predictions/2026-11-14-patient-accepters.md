@@ -140,3 +140,14 @@ The numbers below use the gate disclosed above. Exact Moran values at N = 200, w
   R only has R at δ. F/R split has δ/2 F (2:1) and δ/2 R. The seeded islands get rotation i mod 3. The exit classes are defined in
   `src/patient_accepter_dyn.classify_exits`. "Imported" means the new pair's two holders took their slots within one debounce window
   (0.25N) and both presences began with migrants.
+
+## Addendum 2 (2026-11-14 ~21:20 UTC, after half the counted grid; disclosure of a classifier change)
+
+The first exit classifier read slot roles from the island's majority triple at the start of the unequal episode. After migration mixes the
+rotated seeded triples that triple is often not a bully-held unequal one, and the roles came out undefined ('?'). I saw this in the
+first five counted chunks (half of the seeded cells). In F+R seeded-unequal, run 2 swept to the fair triple (C1, Bn, Bn) on every island
+(fair 0.10 pooled at 120N); there were no other lasting exits in those chunks. Classifier v2 (`classify_exits`, commit after this
+addendum) takes roles from each island's seeded triple. "Imported" now means every new pair holder's presence began with a migrant, whatever
+the timing, and "local" means some holder arrived by tail arrival on that island or at founding. All 200 seeded cells are rerun with v2 as
+series `seed2`; the dynamics are deterministic and identical. The predictions and scoring rules above are unchanged. Sol's counter is scored
+with the v2 "imported", which is closer to the spec's "a migrant replaced the pair".
