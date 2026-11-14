@@ -71,11 +71,11 @@ def make_jobs(stages, step2=None, longlist=None):
             for d in DELTAS:
                 for r in range(RUNS):
                     jobs.append(jid('b0', pa('FR', d, 0.0, 1.0), 200, 64, r))
-        elif st == 'seed':
+        elif st in ('seed', 'seed2'):
             for arm in ('F', 'FR', 'FOR', 'FC', 'R'):
                 for kind in ('unequal', 'fair'):
                     for r in range(RUNS):
-                        jobs.append(jid('seed', pa(arm, 0.03, 3.0, 1.0 if arm in GAMMA_ARMS else None, ':seed=%s' % kind), 200, 64, r, True))
+                        jobs.append(jid(st, pa(arm, 0.03, 3.0, 1.0 if arm in GAMMA_ARMS else None, ':seed=%s' % kind), 200, 64, r, True))
         elif st == 'v1':
             for N in (100, 200):
                 for b in BETAS:

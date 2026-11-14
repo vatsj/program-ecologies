@@ -97,7 +97,7 @@ def build():
         for jid, r in rr.items():
             if src == 'q75' and (not jid.startswith('2a|') or ':s1' in r['spec']):
                 continue
-            if src == 'pa' and r['series'] in ('v1', 'test'):
+            if src == 'pa' and r['series'] in ('v1', 'test', 'seed'):     # seed: first pass, exit classifier v1; superseded by seed2 (same cells)
                 continue
             k = spec_key(r)
             if src == 'q75' and k[1] not in (0.0, 1.0, 3.0):
@@ -178,13 +178,14 @@ def seeded(cs, rows):
             exl = []
             for r in rs:
                 for e in r['exits']['exits']:
-                    routes[e['route']] = routes.get(e['route'], 0) + 1
-                    k = '+'.join(e['pair_fams']) if e['pair_fams'] else '-'
-                    pairs[k] = pairs.get(k, 0) + 1
+                    k = '%s|%s' % (e['route'], e.get('origin', '-'))
+                    routes[k] = routes.get(k, 0) + 1
+                    pk = ','.join('%s=%s' % (a, b) for a, b in sorted(e.get('pair_roles', {}).items())) or '-'
+                    pairs[pk] = pairs.get(pk, 0) + 1
                     if e['lasted_to_120N']:
-                        lasted[e['route']] = lasted.get(e['route'], 0) + 1
-                        pairs_lasted[k] = pairs_lasted.get(k, 0) + 1
-                        exl.append(dict(run=r['r'], **{x: e[x] for x in ('island', 'g', 'route', 'pair', 'seq', 'unequal_triple', 'fair_triple')}))
+                        lasted[k] = lasted.get(k, 0) + 1
+                        pairs_lasted[pk] = pairs_lasted.get(pk, 0) + 1
+                        exl.append(dict(run=r['r'], **{x: e.get(x) for x in ('island', 'g', 'route', 'origin', 'pair_roles', 'took', 'triple', 'seq')}))
             f120_by_run = [r['exits']['fair120'] for r in rs]
             out['%s|%s' % (arm, kind)] = dict(n=len(rs), fair30=float(f30), fair120=float(f120), fair240=float(f240), fair120_ci=boot(f120_by_run),
                                               hazard_UF_toend=(nUF / occ if occ else None), n_UF=nUF, hazard_UF_to120N=(nUF120 / occ120 if occ120 else None),

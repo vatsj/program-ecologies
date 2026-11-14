@@ -295,14 +295,18 @@ def r_measures(prep, res):
 
 
 def classify_exits(prep, res, kind):
-    """Exit classification on a seeded-start run.  Debounced (0.25 N) island class series from the modal outcome; for every unequal->fair
-    transition, the majority-holder changes of the island between the start of its unequal episode and the transition, with the slot roles
-    of the unequal state (bully slot b: share 2/3, victim v: 1/3, excluded e) and the new fair pair.  Routes:
-      local R->X   R took v (as majority) while the island stayed unequal, then X took e, pair (R, X)
-      local X->R   X took e first (unequal kept), then R took v, pair (R, X)
-      local other  any other fair pair reached through single-slot steps each of which held its slot before the next (e.g. (bully, X))
-      imported     the new pair's two holders both took their slots within one debounce window and both presences began with migrants
-    Records the full step list (generation, slot role, old, new, origin) for each exit and, for every fair episode, whether it lasted to 120N."""
+    """Exit classification on a seeded-start run (version 2: slot roles are the island's SEEDED roles).  The island's seeded triple fixes
+    the roles of its slots: b (the seeded bully's slot), v (the seeded victim's slot), e (the seeded excluded slot) (for the fair start
+    the roles of the seeded unequal triple at the same rotation are used, as labels only).  Debounced (0.25 N) class series of the modal
+    outcome; for every unequal->fair flip the majority triple one debounce window later gives the new fair pair, and the majority-holder
+    log gives, for each pair slot, the generation at which its final holder last took it and that presence's origin (tail arrival on this
+    island, migrant, founder).
+      pair route:   'R+X (v, e)'  R holds v and X holds e: 'R->X' if R took v first, 'X->R' otherwise
+                    'bully+X'     the pair is (b, e) with the seeded bully's program class (a bully) in b
+                    other labels  '<roles of the pair slots>' with the holder families
+      origin:       'local' if some pair holder's presence began with a tail arrival on this island or at founding, 'imported' if every
+                    pair holder's presence began with a migrant (the pair came from elsewhere)
+    Records the last 16 majority-holder changes (generation, slot, role, old, new, origin) and whether the fair episode lasted to 120N."""
     tb = tabs(); names = tb.names
     N = prep['N']
     L = max(1, int(round(0.25 * N)))
@@ -315,72 +319,46 @@ def classify_exits(prep, res, kind):
     for row in mlog:
         per_isl[int(row[1])].append(tuple(int(x) for x in row))
     init = prep['init']
-    OUT = tb.VEC[tb.JT]
     fam = tb.fam
+    base = SEED_TRIPLES['unequal']            # roles b, v, e in base slots 0, 1, 2; rotation r puts base slot s in slot s + r
     exits = []
-    episodes = []
     g120 = 120 * N
+    ORIG = lambda row: 'arr' if row[5] == 1 else ('mig' if row[6] >= 0 else 'fnd')
     for i in range(I):
-        maj = [int(np.argmax(init[i, s])) for s in range(3)]
-        hist = [(0, s, -1, maj[s], 0, -1) for s in range(3)]
+        rot = i % 3
+        roles = {(s + rot) % 3: 'bve'[s] for s in range(3)}
+        maj0 = [int(np.argmax(init[i, s])) for s in range(3)]
         steps = per_isl[i]
-        # class series checkpoints: unequal episodes
-        cur_cls = int(cls[0, i]); start_u = 0 if cur_cls == 1 else None
-        ch = fl[i]
-        for (g, a, b) in ch:
-            if a == 1 and b == 0:
-                # majority triple at the start of the unequal episode and at the transition (+ L to let the pair settle)
-                g0 = start_u if start_u is not None else 0
-                def triple_at(gg):
-                    m = list(maj)
-                    for row in steps:
-                        if row[0] > gg:
-                            break
-                        m[row[2]] = row[4]
-                    return m
-                tu = triple_at(max(g0, 0)); tf = triple_at(min(g + L, G - 1))
-                ou = int(OUT[tu[0], tu[1], tu[2]]); of_ = int(OUT[tf[0], tf[1], tf[2]])
-                shu = MW.X[ou]; shf = MW.X[of_]
-                roles = {}
-                if MW.CATMAP[ou] == 1:
-                    for s in range(3):
-                        roles[s] = {4: 'b', 2: 'v'}.get(int(shu[s]), 'e')
+        for (g, a, b) in fl[i]:
+            if not (a == 1 and b == 0):
+                continue
+            gg = min(g + L, G - 1)
+            m = list(maj0); took = {s: (0, 'fnd') for s in range(3)}
+            for row in steps:
+                if row[0] > gg:
+                    break
+                m[row[2]] = row[4]; took[row[2]] = (row[0], ORIG(row))
+            o = int(tb.VEC[tb.JT[m[0], m[1], m[2]]]); sh = MW.X[o]
+            pair = [s for s in range(3) if sh[s] > 0] if MW.CATMAP[o] == 0 else []
+            route = 'unresolved'; origin = '-'
+            if len(pair) == 2:
+                pr = ''.join(sorted(roles[s] for s in pair))
+                isR = {s: fam[m[s]] == 'accepter' for s in pair}
+                origin = 'imported' if all(took[s][1] == 'mig' for s in pair) else 'local'
+                if pr == 'ev' and any(isR[s] and roles[s] == 'v' for s in pair):
+                    sv = [s for s in pair if roles[s] == 'v'][0]; se = [s for s in pair if roles[s] == 'e'][0]
+                    route = 'R->X' if took[sv][0] <= took[se][0] else 'X->R'
+                elif pr == 'be' and fam[m[[s for s in pair if roles[s] == 'b'][0]]] == 'bully':
+                    route = 'bully+X'
                 else:
-                    roles = {s: '?' for s in range(3)}
-                pair = [s for s in range(3) if shf[s] > 0] if MW.CATMAP[of_] == 0 else []
-                sl = [row for row in steps if g0 < row[0] <= g + L]
-                seq = [(row[0], roles[row[2]], names[row[3]], names[row[4]], 'arr' if row[5] == 1 else ('mig' if row[6] >= 0 else 'fnd')) for row in sl]
-                route = 'unresolved'
-                if len(pair) == 2:
-                    holders = {s: tf[s] for s in pair}
-                    pr_roles = sorted(roles[s] for s in pair)
-                    isR = {s: fam[tf[s]] == 'accepter' for s in pair}
-                    # last time each pair slot changed to its final holder
-                    last = {}
-                    for row in sl:
-                        if row[2] in pair and row[4] == holders[row[2]]:
-                            last[row[2]] = row
-                    if len(last) == 2 and abs(last[pair[0]][0] - last[pair[1]][0]) <= L and all(last[s][5] == 0 and last[s][6] >= 0 for s in pair):
-                        route = 'imported'
-                    elif any(isR.values()) and set(pr_roles) == {'v', 'e'}:
-                        sR = [s for s in pair if isR[s]][0]; sX = [s for s in pair if not isR[s]][0]
-                        tR = last.get(sR, (g0,))[0]; tX = last.get(sX, (g0,))[0]
-                        route = 'local R->X' if tR <= tX else 'local X->R'
-                    else:
-                        route = 'local other'
-                    partner = {s: names[tf[s]] for s in pair}
-                else:
-                    partner = {}
-                lasted = bool((cls[g:g120 + 1, i] == 0).all()) if g <= g120 else False
-                exits.append(dict(island=i, g=int(g), route=route, roles={str(s): roles[s] for s in roles}, pair_slots=pair, pair=partner,
-                                  pair_fams=sorted(fam[tf[s]] for s in pair), seq=seq[-12:], nsteps=len(seq), lasted_to_120N=lasted,
-                                  unequal_triple=[names[x] for x in tu], fair_triple=[names[x] for x in tf]))
-            if b == 1:
-                start_u = g
-            elif a == 1:
-                start_u = None
-        episodes.append(dict(island=i, cls120=int(cls[min(g120, G - 1), i]), cls30=int(cls[30 * N, i]), cls240=int(cls[G - 1, i])))
-    return dict(exits=exits, n_exits=len(exits), mlog_rows=int(res['nm']), mlog_cap=MCAP,
+                    route = 'pair %s: %s' % (pr, '+'.join(sorted(fam[m[s]] for s in pair)))
+            sl = [row for row in steps if row[0] <= gg][-16:]
+            seq = [(row[0], row[2], roles[row[2]], names[row[3]], names[row[4]], ORIG(row)) for row in sl]
+            lasted = bool((cls[g:g120 + 1, i] == 0).all()) if g <= g120 else False
+            exits.append(dict(island=i, g=int(g), route=route, origin=origin, pair_roles={roles[s]: names[m[s]] for s in pair},
+                              pair_fams=sorted(fam[m[s]] for s in pair), took={roles[s]: list(took[s]) for s in pair},
+                              triple=[names[x] for x in m], seq=seq, lasted_to_120N=lasted))
+    return dict(version=2, exits=exits, n_exits=len(exits), mlog_rows=int(res['nm']), mlog_cap=MCAP,
                 fair30=float(np.mean(cls[30 * N] == 0)), fair120=float(np.mean(cls[min(g120, G - 1)] == 0)), fair_end=float(np.mean(cls[G - 1] == 0)),
                 hazard=hazard_u(cls, fl, N))
 
