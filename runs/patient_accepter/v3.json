@@ -1,0 +1,58 @@
+{
+ "Rnn|R1": {
+  "family": "other_cond",
+  "exact": "Rnn",
+  "ok": true,
+  "sexpr": "(app (lam (if (eq #0 4) 1 3)) readn)",
+  "nodes": 9
+ },
+ "Rnn|R0": {
+  "family": "other_cond",
+  "exact": "Rnn",
+  "ok": true,
+  "sexpr": "(app (lam (if (eq #0 4) 1 3)) (capk 400 (run 400 #1 #0) #2))",
+  "nodes": 15
+ },
+ "Rny|R1": {
+  "family": "other_cond",
+  "exact": "Rny",
+  "ok": true,
+  "sexpr": "(app (lam (if (if (eq #0 4) T (eq #0 TO)) 1 3)) readn)",
+  "nodes": 14
+ },
+ "Rny|R0": {
+  "family": "other_cond",
+  "exact": "Rny",
+  "ok": true,
+  "sexpr": "(app (lam (if (if (eq #0 4) T (eq #0 TO)) 1 3)) (capk 400 (run 400 #1 #0) #2))",
+  "nodes": 20
+ },
+ "Rpn|R1": {
+  "family": "other_cond",
+  "exact": "Rpn",
+  "ok": true,
+  "sexpr": "(app (lam (if (eq #0 1) 4 0)) readp)",
+  "nodes": 9
+ },
+ "Rpn|R0": {
+  "family": "other_cond",
+  "exact": "Rpn",
+  "ok": true,
+  "sexpr": "(app (lam (if (eq #0 1) 4 0)) (capk 400 (run 400 #0 #2) #1))",
+  "nodes": 15
+ },
+ "Rpy|R1": {
+  "family": "other_cond",
+  "exact": "Rpy",
+  "ok": true,
+  "sexpr": "(app (lam (if (if (eq #0 1) T (eq #0 TO)) 4 0)) readp)",
+  "nodes": 14
+ },
+ "Rpy|R0": {
+  "family": "other_cond",
+  "exact": "Rpy",
+  "ok": true,
+  "sexpr": "(app (lam (if (if (eq #0 1) T (eq #0 TO)) 4 0)) (capk 400 (run 400 #0 #2) #1))",
+  "nodes": 20
+ }
+}
