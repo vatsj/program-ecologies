@@ -157,6 +157,42 @@ arrivals with their programs. Say so in the report; who writes the first scripts
 
 The subagent adds its own numbered expectations (E-series) for the exact assays before running them.
 
+## Amendments after the second review (these override the text above where they differ)
+
+- **Eligibility, one predicate.** For carriers x and y, `elig(x, y)` (x is eligible for y) holds iff x holds an offer
+  statement toward y's slot and x holds every statement in y's requirement R_y. y's set is
+  E_y = {x : elig(x, y) and elig(y, x)}. S_off(d; R) reads: "if d is my preferred member of E, I name d at ½". The
+  same predicate is used verbatim in the statement, the code and the soundness argument. Pc⁺'s requirement is
+  {S_nx}, nothing else.
+- **Forger fix.** The fourth new forger passes S_off toward d but names someone else when d is eligible *and
+  preferred*.
+- **Interrupted checks.** In S1 a check whose remaining fuel is below its tabulated S0 cost times out exactly as S0
+  does; it is not completed and charged afterwards. Fuel is sized on the worst cost of any catalogue check,
+  rejections included. Test each check at residual fuel one below and at its cost; S1 must equal S0 in both.
+- **Registration in two commits.** RE 1 (the checker can be built, is sound, accepts the spellings, costs 10³–10⁵
+  steps) is committed before construction begins. RE 2–11 and the E-series are committed after the gates and before
+  any step-0 assay, mass or counted cell.
+- **Mass claims.** Step 1 gives witnesses, so RE 10 is scored on witness ratios only (the listed shortest spellings
+  with their scripts against the 6-node fair reader). No minimality or family-scarcity claim without an exhaustive
+  bounded search; if one is cheap at the smallest sizes, do it and say to what size.
+- **Fallback pools.** V2 reproduces queue 79 on its historical catalogue (16 fallbacks). Arms K, K2 and A1–A5 all
+  use the restricted two-fallback pool.
+- **RE 8 revised** (sol's point accepted: in A4 only Pc⁺ refuses Bc; Oc⁺ and Rc⁺ still pair with it, and Bc pairs
+  with Bc). In A4 at φ = ½ Bc's share of *paired* fair-island slots is lower than in A2 by at least 0.15 and still
+  above 0.2; V\* at δ = 0.003 is lower than A2's by 0.1 or more. Falsifiers: Bc's paired share not lower than A2's;
+  A4's V\* at δ = 0.003 at or above A2's. The first draft said "under 0.1"; recorded.
+- **Arm A5 (everyone requires no-exploit).** As A4 with Oc⁺ and Rc⁺ also at R = {S_nx}; φ = ½, β = 3, N = 200.
+  **RE 12:** in A5 at least 0.9 of Bc's paired fair-island slots have a Bc partner (the bully is excluded from
+  carriers and keeps only its own pairs), and Bc's unequal islands (Bc on ⅔) are a larger share of islands than in
+  A2 at δ ≤ 0.01. Falsifier: under 0.6 Bc-partnered. Cut A5 before A3 if short.
+- **Occupancy records.** Report Bc's occupancy separately for paired and excluded slots, and for paired slots by the
+  partner's family.
+- **Extra gates.** (Pc⁺, Oc) and (Pc⁺, Rc) without S_nx do not pair; three mutually pointing carriers with mixed
+  requirements (competing offers) are tabulated over all orientations, on S0 and S1.
+- **Scope statements for the report.** N = 100–400 is exploratory and not a large-N result. A prudence penalty may be
+  lost connectivity, not a cost of no-exploit as such. Cross-spelling success is robustness across the listed
+  transformations under one proof convention with scripts supplied to founders.
+
 ## Required outputs
 
 `runs/script-checked-offers.md` (run report: headline, gates, step 0, step 1, step 2 tables with bootstrap
@@ -169,7 +205,7 @@ failures.
 ## Budget and operations
 
 200 sandbox-CPU-hours on Daytona (`tools/daytona_run.py`; 4 CPUs per sandbox; at most 3 concurrent workers locally).
-Cut order if short: N = 100 and 400 cells; A3; the seeded start; φ = 0 for K2. Never cut U, K, A1, A2 at N = 200 or
+Cut order if short: N = 100 and 400 cells; A5; A3; the seeded start; φ = 0 for K2. Never cut U, K, A1, A2 at N = 200 or
 the gates. Leave no sandbox running (`python3 tools/daytona_run.py list` empty at the end). Do not read `.env` or
 print, echo or commit any key; no `.npz`, `.pkl` or large `.npy` in git; commit on the worktree branch only and do
 not push; do not edit RESULTS, REJECTED, THEORY, DEFERRED, CLAUDE.md or the operating-hypotheses doc.
