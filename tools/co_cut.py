@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Queue 79: apply the budget cut to job files and to running sandboxes.
 
-The cut (notes/certified-offers.md, Budget): I = 256 (all), the phi in {0, 1} extension to the arms other than FcOcRc and Fc, and the mixed
-arm at N = 400.  For a running sandbox the cut jobs of its chunk are pre-locked (the workers skip a job whose lock file exists); for a
+The cut (notes/certified-offers.md, Budget): I = 256 (all), the phi in {0, 1} extension to the arms other than FcOcRc and Fc (the mixed
+arm at N = 400, cut first, was restored).  For a running sandbox the cut jobs of its chunk are pre-locked (the workers skip a job whose lock file exists); for a
 chunk not yet launched the job file is rewritten without them.
 
     python3 tools/co_cut.py files              # rewrite runs/co_jobs/g_*of12.txt of chunks still in the queue
@@ -19,8 +19,7 @@ def is_cut(job):
         return True
     if series == 'phi' and not ('arm=FcOcRc:' in spec or 'arm=Fc:' in spec):
         return True
-    if series == 'main' and 'arm=mix:' in spec and N == 400:
-        return True
+    # the mixed arm at N = 400 was cut at 01:45 UTC and restored at 04:20 UTC (measured cost allowed it; chunks m_0of2, m_1of2)
     return False
 
 
