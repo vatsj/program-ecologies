@@ -119,3 +119,23 @@ is committed before any step-0 assay, before any step-1 mass and before any coun
 - **E12 (mass, C1 `carry` tag).** Under the C1 measure the shortest Oc and Rc are at most as long as the shortest fair single reader
   and the shortest Fc is at most 6 nodes longer; under R1 with the skeleton written out every carrier is at least 12 nodes longer
   than the fair reader. Falsifier: C1 Oc longer than the fair reader, or R1-written gap below 8.
+
+## Addendum 1 (after the commit of this file, before reading any step-2 result)
+
+- No timing pilot was run before this file. After it, two non-counted pilot cells (run index 95; FcOcRc and Fc\* at N = 100 and 200)
+  timed the kernel; one printed a scramble record, which I read. They are not results.
+- **V1 first failed 2 of 20** (FR, N = 200, β = 1, δ = 0.1): queue 78's law normalized over 87 entries rounds 1.4·10⁻¹⁷ differently from
+  its normalization over 59, and the founders' multinomial draws differ. Fixed by normalizing F, FR, FOR over their first 59 entries;
+  V1 then 20 of 20. Five chunks launched before the fix run the 40 seeded FR cells of the two new kinds with the old normalization (no stored
+  comparator exists for them).
+- **Budget cut in the spec's order** at 01:45 UTC (first sandbox timings projected ≈ 250 cell CPU-hours): I = 256 dropped; φ ∈ {0, 1}
+  kept only for FcOcRc and Fc (the original φ grid), the second review's extension to FcOc, FcRc, FcOcRcs and mix dropped; the mixed arm at
+  N = 400 dropped. At 04:20 UTC, from the measured cost of the first five chunks, the last-cut item (the mixed arm at N = 400) was restored.
+  RE 10 is scored at N ∈ {100, 200}, as registered.
+
+## Addendum 2 (step 0, disclosed)
+
+- After the first step-0 pass (items 1–4 as specified) I added items 1c and 4c (every program into the excluded slot of the bully's and of
+  Bc's unequal island with the ⅓ constant as victim, no accepter), because RE 4's third clause and E3 are stated for entries "without a
+  resident Rc", which items 1–4 do not contain. I had read the item-2 and item-4 summaries (with Rc resident) before adding them. Scoring
+  rules were not changed.

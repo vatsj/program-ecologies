@@ -173,4 +173,18 @@ the canonical spelling (one spelling per program; no search, no Monte Carlo).
   (`tools/co_cut.py lock`), so their workers skip them; queued chunks' job files rewritten without them (`tools/co_cut.py files`). Cut jobs
   that had already finished stay in the rows and are excluded from the report.
 
+- 04:07–07:06 UTC: chunks g_5..g_11 launched from 3a2126b / 5020fac (cut job files); 04:20 the mixed arm at N = 400 restored as chunks
+  m_0of2, m_1of2 (b9cde5e). `tools/co_loop.sh` kept five slots filled; it was stopped once by the background time limit (06:16) and
+  re-armed; the detached clients were unaffected. All 14 sandbox runs exited 0 and were fetched; every chunk has all its rows (545 or 150).
+- 09:30 UTC: `python3 tools/daytona_run.py list` empty. No container restart occurred.
+- Interpretation notes: the main-arm pacing table counts tail arrivals only, so Rc routes completed among founders in the scramble are
+  observed but not predicted; the seeded starts carry the pacing comparison (E7).
+
 ## 4. Budget
+
+- Cut order (spec, fixed before running): I = 256; φ ∈ {0, 1}; the mixed arm at N = 400; Pc's arm. Applied at 01:45 UTC: I = 256, the φ
+  extension, the mixed arm at N = 400; the last restored at 04:20 UTC. Pc's arm (gates showed Pc self-compatible: Pc×Pc fair in 5,664 of
+  5,664 pointing triples) ran as Pc+Oc+Rc at N = 200.
+- Sandbox job walls: 131,346 s × 4 CPUs = 146 sandbox-CPU-hours (14 runs; cells: N = 400 ≈ 230 s, N = 200 ≈ 52 s, seeded long ≈ 32 s per
+  cell per CPU), plus ≈ 3 for setup. Local: table builds (2 × 1 min × 3 workers), gates (2 min), step 0 (3 × 2 min), step 1 (2 min), V1
+  (2 × 20 cells), pilots. Total ≈ 150 of 200.
