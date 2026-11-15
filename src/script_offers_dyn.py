@@ -195,11 +195,14 @@ def prepare(world, w, N, r, I, pf=PFAIL0, init=None):
     if init is not None:
         init0 = init
     sched = MT.make_schedule(N, r, I, 100.0)
-    K = tb.K
-    U = [np.arange(K, dtype=np.int64) for _ in range(3)]
+    # each slot's local catalogue is the law's support (plus any seeded program): the kernel's cost grows with the catalogue
+    sup = np.union1d(np.nonzero(w)[0], np.nonzero(init0.sum(axis=(0, 1)))[0]).astype(np.int64)
+    U = [sup, sup, sup]
     J, PAY, VEC, ISMEM, TOT = tables(world, pf)
-    return dict(arm='SCO', variant='sco', N=N, r=r, I=I, init=init0, seed=seed, sched=sched, tail_laws=[w, w, w], U=U,
-                loc=init0[:, :, :K].astype(np.int64), J=J, PAY=PAY, VEC=VEC, ISMEM=ISMEM, TOT=TOT, geo=MT.geometry(N))
+    J = np.ascontiguousarray(J[np.ix_(sup, sup, sup)])
+    return dict(arm='SCO', variant='sco', N=N, r=r, I=I, init=init0, seed=seed, sched=sched, tail_laws=[w, w, w], U=U, sup=sup,
+                loc=np.ascontiguousarray(init0[:, :, sup]).astype(np.int64), J=J, PAY=PAY, VEC=VEC, ISMEM=ISMEM, TOT=TOT,
+                geo=MT.geometry(N))
 
 
 def run_kernel_log(prep, lam, mN, H, snapg, mcap):
@@ -220,9 +223,10 @@ def occupancy(tb, prep, res, g):
     snaps = list(prep['geo']['snaps']) + ([240 * prep['N']] if g == 240 * prep['N'] else [])
     si = snaps.index(g)
     c = res['snapc'][si]
+    sup = prep['sup']
     out = dict(fair=0, unequal=0, hold={}, bc_pair_partner={}, bc_on_23=0, sb_on_23=0, unequal_holder={})
     for i in range(c.shape[0]):
-        t = [int(np.argmax(c[i, s])) for s in range(3)]
+        t = [int(sup[int(np.argmax(c[i, s]))]) for s in range(3)]
         o = int(tb.VEC[tb.JT[t[0], t[1], t[2]]])
         cl = int(MW.CATMAP[o]); sh = XS[o]
         if cl == 0:
@@ -251,8 +255,9 @@ def occupancy(tb, prep, res, g):
 
 def charges(tb, prep, res, pf=PFAIL0):
     N = prep['N']
-    ch = pf * (tb.NTO.astype(np.float64) + tb.FO.astype(np.float64))
-    fam = fam_table(tb)[0]
+    sup = prep['sup']
+    ch = pf * (tb.NTO.astype(np.float64) + tb.FO.astype(np.float64))[np.ix_(sup, sup, sup)]
+    fam = fam_table(tb)[0][sup]
     nf = len(FAMN)
     snaps = list(prep['geo']['snaps'])
     out = {}
@@ -320,7 +325,13 @@ def pacing(tb, prep, res):
     NET = tb.payoff(PFAIL0, PFAIL0)
     init = prep['init']
     cur = [[int(np.argmax(init[i, s])) for s in range(3)] for i in range(I)]
-    rows = sorted([tuple(int(x) for x in r) for r in res['mlog']], key=lambda r: (r[0], r[1], r[2]))
+    sup = prep['sup']
+    rows = []
+    for r in res['mlog']:
+        r = [int(x) for x in r]
+        r[3] = int(sup[r[3]]) if r[3] >= 0 else r[3]; r[4] = int(sup[r[4]])
+        rows.append(tuple(r))
+    rows.sort(key=lambda r: (r[0], r[1], r[2]))
     ag, ai, asl, au, lk = res['arr']
     order = np.argsort(ag, kind='stable')
     took = {}
