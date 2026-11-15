@@ -491,3 +491,21 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   - **Victim illegibility**: the bully's read of a reading victim times out when a reader sits in the excluded slot.
   - RESULTS "Patient accepters in arm T".
 - **Follower-value core / joint core (aside):** **v_F(S)** = v(S) − FMA(S), S's payoff at the complement's leader outcome; **follower core**: the TU core of v_F; **joint core**: the TU core of max(v, v_F) on proper coalitions, i.e. the intersection of the leader and follower cores (no coalition deviates before or after the others); **sign class**: lead / follow / mixed / none by the signs of FMA over proper coalitions. RESULTS "The follower-value core and the joint core".
+- **Certified offers (queue 79):** **carrier** — a program whose body is `CARRY cert fb me n p`; **certificate** (fn, fp, pref) — offer
+  toward next / prev (bits), preference (0 next, 1 prev); **CARRY** — the shared library combinator executing the certified rule;
+  **CHK** — the skeleton check (T iff the partner is a carrier whose flag toward me is 1); **skeleton** — λme. λn. λp.
+  (((((lib CARRY) CERT) FB) me) n) p with CERT a literal of three bits and FB a λ; **E** — the eligibility set (partners whose certificate
+  points back); **pointing** — x's certificate offers toward y's slot; **active / inactive** — whether the excluded slot's certificate
+  points at the victim; **S(t)** — a carrier's certified statement; **C0 / C1** — the check written out in L_T^code / a primitive charged
+  **κ** = 50 ticks; **forger** — a program built to pass the check without the skeleton (gate only).
+- **Families:** **Oc** (Ocn, Ocp) certified opener (offer one way, ½-constant fallback); **Fc** (Fc + each of T's 16 firm readers)
+  certified firm reader; **Rc** (Rcn, Rcp) pure certified accepter (offer to the excluded slot, ⅓-constant fallback); **Rcs** hybrid (fallback
+  queue 78's R); **Bc** (Bcn, Bcp) certified Trojan bully (offers both ways, the simulating bully as fallback); **Pc** certified prudent
+  reader (fallback P_z); **Fc\*** — the comparator with three-carrier cycles broken by slot index (slots 0 and 1 pair); **φ** — the certified
+  share of bully mass; **Fc+Oc+C⅓** — the main arm with Rc's mass given to C3 and C0.
+- **Step-1 measures:** **C1 measure** — R1 plus an arity-2 tag `carry(c, B)` (c = fn + 2 fp + 4 pref); **R1-written** — the skeleton with
+  `lib CARRY`; **C0-written** — the library inlined, R0 tags.
+- **Pacing records:** Rc victim-seat exposure (island-generations), first steps (Rc into v) and second steps (a certified offerer into e
+  with Rc in v, or Rc into v beside one), each with Σρ from the exact formula in its resident majority triple; predicted completions = Σρ
+  of second steps.
+  RESULTS "Certified offers in arm T".

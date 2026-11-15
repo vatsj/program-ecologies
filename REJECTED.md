@@ -1419,3 +1419,20 @@ immigrants"** (RESULTS "Dominance contracts and refusal on islands"; the explain
 - **F3 (joint core at ≥ 80% of leader-core points).** Fails (0.58), falsifier not fired.
 - **F4, share clause (mixed-sign points < 20%).** False: 0.56.
 - **F5, SOG under pessimistic selection.** Falsified: the follower core and the joint core are empty.
+
+### Queue 79, certified offers (2026-11-15)
+
+- **RE 6 (no certified threshold at β = 3)**, queue 79: falsified. Every certified arm has δ\* ≤ 0.01 at β = 3, every N (φ = ½), δ\* ≤ 0.03 at
+  φ = 0. The RE's reading "single-slot pacing and the founding scramble bind" was half right: the scramble decides, and certificates win it.
+- **RE 5 (legibility lifts the seeded unequal start to (0.05, 0.3))**, queue 79: falsified on the "no gain" side (0.05 = queue 78's F+R). The
+  exit route is paced (0.66 predicted, 1 observed completion).
+- **RE 4, third clause (Bc's own unequal island resists like the simulating bully's)**: false (the registered falsifier, carriers excluding Bc, did not fire). Any carrier pointing at Bc enters its
+  excluded slot at ρ·N = 27.9 and pairs with it (1 on the simulating bully's island). Dropped reading: "the certified bully is a faker that
+  carriers must exclude"; it is a cooperator among carriers.
+- **E4 (exact neutrality of ⅓ constants in the third slot of (Fc, Bc))**: falsified by residents that paid read charges (ρ·N up to 5.9).
+- **E6 (φ = 1 above φ = 0 by ≥ 0.2 at δ = 0.1)**: falsified at the ceiling (both 1.00); the φ effect is at δ ≤ 0.003.
+- **Dropped reading (queues 76/78):** "no reader arm can have a threshold under Trojan bullies in arm T." It held for simulating readers only;
+  it was illegibility at founding.
+- **Dropped reading (queue 78):** "O or F can be R's offerer" is now true for their certified versions in the gates and step 0, but buys
+  nothing at the population level (pacing); not re-opened further.
+  - RESULTS "Certified offers in arm T".
