@@ -997,6 +997,17 @@ Bernheim–Peleg–Whinston's self-enforcing-deviations sense, which accepts mor
 legibility asymmetry of a realization (fuel, bounded provers, one-sided reading), never as an axiom. Recorded in the
 OH doc, Theory tab.
 
+**Addendum (RS, 2026-11-15, later): "credible" dropped for the time being; deviation without response.** After the
+memo and two opinions (`notes/2026-11-15-alpha-core-memo.md`, `reviews/2026-11-15-alpha-core-memo-*.md`) the RS
+dropped "credible" from the domination relation and chose *deviation without response* as the condition: a coalition
+rewrites its programs, the others' programs stay as written, and any punishment is whatever their text already does.
+The condition is therefore a property of program profiles (strong equilibrium in program space), and the α-core is
+*not* the definition (the RS: it builds the punishment into the notion, when the programs already carry it); the
+RE's α-core identification in the previous addendum is withdrawn to an unproved outer bound on outcomes. Consequences
+the RE is operating under: acceptability of an outcome is relative to the profile that plays it (the same outcome is
+stable with punishers present and unstable once shadows replace them); credibility stays an open dynamic question
+(DEFERRED 13). Recorded in the OH doc, Theory tab (domination paragraph).
+
 ## 16. Mixed actions and adversarial games (RS, 2026-10-23)
 - *RS:* "I suspect we're gonna need strong notions of mixed actions to recover equilibria in adversarial games. I
   propose rock paper scissors for starters? We should recover the mixed-strategy equilibrium pretty
