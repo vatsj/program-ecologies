@@ -1411,3 +1411,11 @@ immigrants"** (RESULTS "Dominance contracts and refusal on islands"; the explain
 - **Reading to drop: "R is identical to the ⅓ constant on path, so it only feeds or only waits".** With any reader near, R's reading makes it illegible to the bully: the bully drops it (fair (bully, reader) or D). R is selected out of the scramble and is the victim on 0.03% of unequal islands at 120N.
 - **E1, E4, E6, E8 (mine).** E1 false (junk `Jr` makes R pay a nested failed read, ρ·N 0.015; the mismatched bound 0.01 was too tight). E4 false (bullies gain above 3 in 16% of R-paired fair islands with charged residents; the clean (R, ½ constant) island is neutral). E6 false (R's route is about 1 in 1,500 local exits, not ≥ 70%). E8 false (γ moves V\* by up to 0.50, γ = 3 higher in F+R and F+O+R).
 - **Carbon's (b) and (c), as scored.** (b): F+O+R exceeds F+R by 0.25 in one main-grid cell (intervals overlap), though not in the seeded start. (c): every R pair's partner is a ½ constant, but 14 transient exits pair a reader with the bully, so "never by F or O" fails.
+
+
+### Follower-value core (aside; RESULTS "The follower-value core and the joint core")
+
+- **F1 (joint = leader verdict at ≥ 95% in Cournot and public goods).** Falsified outside plain Cournot: 201 of 332 with capacities, 310 of 1,820 in public goods. Reading to drop: "first-mover advantage is the rule"; singletons mostly gain by following there.
+- **F3 (joint core at ≥ 80% of leader-core points).** Fails (0.58), falsifier not fired.
+- **F4, share clause (mixed-sign points < 20%).** False: 0.56.
+- **F5, SOG under pessimistic selection.** Falsified: the follower core and the joint core are empty.

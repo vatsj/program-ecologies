@@ -490,3 +490,4 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   - **local / imported exit**: an unequal-to-fair flip whose new pair has at least one holder whose presence began with a tail arrival on that island or at founding (local), or whose holders all began as migrants (imported).
   - **Victim illegibility**: the bully's read of a reading victim times out when a reader sits in the excluded slot.
   - RESULTS "Patient accepters in arm T".
+- **Follower-value core / joint core (aside):** **v_F(S)** = v(S) − FMA(S), S's payoff at the complement's leader outcome; **follower core**: the TU core of v_F; **joint core**: the TU core of max(v, v_F) on proper coalitions, i.e. the intersection of the leader and follower cores (no coalition deviates before or after the others); **sign class**: lead / follow / mixed / none by the signs of FMA over proper coalitions. RESULTS "The follower-value core and the joint core".
