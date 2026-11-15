@@ -257,6 +257,16 @@ def _key_rt(v):
         return ('P', _key_rt(v[0]), _key_rt(v[1]))
     if tv is L.Q:
         return ('Q', v.canon())
+    if tv is L.Clo or tv is L.FixV:
+        # (the body's canonical form, the environment's values): determines the closure's behaviour; no new term is built
+        # (canon_rt would substitute the environment and cache a fresh term per call)
+        env = []
+        e = v.env
+        while e is not None:
+            env.append(_key_rt(e[0])); e = e[1]
+        return (tv.__name__, L.canon_term(v.body), tuple(env))
+    if tv is L.LibV:
+        return ('LibV', v.n)
     return (tv.__name__, L.canon_rt(v))
 
 

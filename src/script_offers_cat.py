@@ -199,7 +199,7 @@ class Cat:
 
     def key(self, machine, fuel, extra=''):
         h = hashlib.md5()
-        h.update(('|'.join(self.names) + '|%s|%d|%d|%s|%s|%s' % (self.world, self.cap, fuel, machine, S.REGRESS[0], extra)).encode())
+        h.update(('|'.join(self.names) + '|%s|%d|%d|%s|%s|%s' % (self.world, self.cap, fuel, machine, 'on', extra)).encode())
         h.update(S.CHK_SRC.encode()); h.update(CO.CO_SRC.encode())
         h.update(('%d|%d|%d' % (S.KCHK, S.WCHK, S.KRP)).encode())
         for t in self.terms:
@@ -263,13 +263,13 @@ def build_tables(world, machine='S1', cap=None, fuel=None, forg=False, workers=3
     rows = list(range(K)) if rows is None else rows
     heavy = [p for p in rows if cat.fam[p] not in ('const', 'junk_f', 'junk_r')]
     order = heavy[::-1] + [p for p in rows if p not in heavy]
-    nch = nchunks or max(1, workers * 8)
+    nch = nchunks or max(1, workers * (24 if machine == 'S0' else 8))
     chunks = [(order[i::nch], cols) for i in range(nch)]
     chunks = [c for c in chunks if c[0]]
     import multiprocessing as mp
     t0 = time.time()
     parts = []
-    with mp.get_context('fork').Pool(workers, initializer=_init_worker,
+    with mp.get_context('fork').Pool(workers, initializer=_init_worker, maxtasksperchild=1,
                                       initargs=(world, cap, forg, machine, s1tab, regress, fuel)) as pool:
         for i, (d, w) in enumerate(pool.imap_unordered(_row_job, chunks)):
             parts.append(d)
