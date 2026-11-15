@@ -145,6 +145,32 @@ the canonical spelling (one spelling per program; no search, no Monte Carlo).
   skeleton check written out in L_T^code; it was built (V3 is therefore not the time-boxed failure branch), but a milestone-4-style
   checker that certifies arbitrary spellings of the rule was not built.
 
+- Gate 4's split of timeouts: arm T's nested reads never trigger the evaluator's identical-key regress detector (the keys differ level by
+  level), so "regress versus cap exhaustion" is decided operationally: a timed-out profile re-evaluated with every cap and the root fuel
+  ×20 that still times out is a regress (G4b, a sample of 300 per group, also with the third slot restricted to constants).
+- Gate 1's fallback clause: inside a carrier the fallback's `me` is the carrier's quote, so in 448 of 116,932 fallback profiles the
+  fallback plays differently from the same program standing alone (partners that read it see the carrier). S(t)'s fallback clause is
+  "plays FB as run inside CARRY", which holds by Lemma 2; the standalone comparison is reported, not counted as a false acceptance.
+- Step 0 adds item 1c / 4c (every program into e with the 1/3 constant as victim, no accepter), needed to score RE 4's third clause and E3.
+  The full step-0 rows (946 MB) are not stored; `step0.json.gz` keeps the accepter rows, the offerer-class rows of items 2 and 1c and every
+  summary.
+- **V1 first failed 2 of 20 (both FR cells at N = 200, β = 1, δ = 0.1).** Cause: the law normalized over 87 entries rounds differently
+  (1.4·10⁻¹⁷) from queue 78's normalization over 59, and the founders' multinomial draws then differ. Fixed by normalizing queue 78's arms
+  (F, FR, FOR) over their first 59 entries; V1 rerun: 20 of 20 identical (`runs/certified_offers/v1.json`). The five chunks launched
+  before the fix (g_0..g_4) run the 40 seeded FR cells of the two new kinds (unequalBc, fairC) with the old normalization, a law difference
+  ≤ 10⁻¹⁶; these cells have no stored comparator, and FR cells in later chunks use the fixed normalization.
+- Step 1's comparators are canonical spellings re-weighed in each machine (one spelling each), so the fair-reader and bully masses are
+  about half queue 78's search-based lower bounds; ratios are on the same basis.
+
 ## 3. Operations log
+
+- 2026-11-15 01:21 UTC: chunks g_0..g_4of12 launched from 828cc05 (sandboxes c5c42bea = g_0, 20e8d947 = g_1, 26e22170 = g_2,
+  6e3c74ab = g_3, 1399ef03 = g_4; full ids in `runs/co_launch/launch.log`, untracked). V1, step 0 and step 1 ran locally.
+- 01:45 UTC: the first N = 400 cells took 210–290 s per cell per CPU on the sandboxes (about 22 s per cost unit, against queue 78's
+  12.6 s); the projected grid is about 250 cell CPU-hours, over the 200 ceiling. **Cut applied in the spec's order**: I = 256 (both i256
+  chunks dropped); φ ∈ {0, 1} kept only for FcOcRc and Fc (the spec's original φ grid; the [after second review] extension to FcOc, FcRc,
+  FcOcRcs and mix is cut); the mixed arm at N = 400 cut. Pc's arm kept. Running sandboxes: the cut jobs of each chunk pre-locked
+  (`tools/co_cut.py lock`), so their workers skip them; queued chunks' job files rewritten without them (`tools/co_cut.py files`). Cut jobs
+  that had already finished stay in the rows and are excluded from the report.
 
 ## 4. Budget
