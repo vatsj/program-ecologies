@@ -1,0 +1,309 @@
+{
+ "verdicts": {
+  "RE1": {
+   "result": "pointing triples 303024 (C1 and C0), not fair or timed out: 0",
+   "verdict": "holds"
+  },
+  "RE2": {
+   "result": "Rc inactive medians {'carrier-inactive': 1.0, 'const-other': 1.0, 'half-naming-v': 1.0, 'other': 1.0, 'sim-reader': 1.0} (min 1); active median 9.75 (min 9.75); bully reads timed out beside Rc: 0; Rcs beside simulating readers median 1.42e-10, beside active carriers 9.75",
+   "verdict": "holds"
+  },
+  "RE3": {
+   "result": "Fc into e median 27.9 (min 27.9); matched Oc 27.9 (min 27.9); mismatched Oc 1",
+   "verdict": "holds"
+  },
+  "RE4": {
+   "result": "(a) Bc into pair slots of fair carrier islands: rho*N in [1, 1]; (b) 1/3 constants into the third slot of (Fc, Bc): median 1; (c) carriers pointing at the bully into e, Bc island vs simulating bully island (medians): {'Fc': (27.858404714991046, 1.0), 'Oc': (27.858404714991046, 1.0)}",
+   "verdict": "falsified (third clause)",
+   "clauses": {
+    "a": true,
+    "b": true,
+    "c": false,
+    "falsifier_fired": false
+   }
+  },
+  "RE5": {
+   "result": "FcOcRc seeded all-unequal (simulating bully) fair at 120N: 0.05 (queue 78 F+R 0.05)",
+   "verdict": "falsified (no gain)"
+  },
+  "RE6": {
+   "result": "delta* status at beta = 3, phi = 1/2: {'Fc|b=3|ph=0.5|N=100|I=64': 'bracket', 'Fc|b=3|ph=0.5|N=200|I=64': 'bracket', 'Fc|b=3|ph=0.5|N=400|I=64': 'bracket', 'FcOc|b=3|ph=0.5|N=100|I=64': 'bracket', 'FcOc|b=3|ph=0.5|N=200|I=64': 'bracket', 'FcOc|b=3|ph=0.5|N=400|I=64': 'bracket', 'FcOcRc|b=3|ph=0.5|N=100|I=64': 'bracket', 'FcOcRc|b=3|ph=0.5|N=200|I=64': 'bracket', 'FcOcRc|b=3|ph=0.5|N=400|I=64': 'bracket', 'FcOcRcs|b=3|ph=0.5|N=200|I=64': 'bracket', 'FcRc|b=3|ph=0.5|N=100|I=64': 'bracket', 'FcRc|b=3|ph=0.5|N=200|I=64': 'bracket', 'FcRc|b=3|ph=0.5|N=400|I=64': 'bracket', 'PcOcRc|b=3|ph=0.5|N=200|I=64': 'bracket', 'mix|b=3|ph=0.5|N=100|I=64': 'bracket', 'mix|b=3|ph=0.5|N=200|I=64': 'bracket', 'mix|b=3|ph=0.5|N=400|I=64': 'bracket'}",
+   "verdict": "falsified"
+  },
+  "RE7": {
+   "result": "FcOcRc 1.00 vs F+O+R 0.15 at beta = 1, N = 200, delta = 0.1: +0.85",
+   "verdict": "holds"
+  },
+  "RE8": {
+   "result": "main arm, beta = 3, phi = 1/2: mean share of islands with the 120N class equal to the 30N class 0.9912499999999999",
+   "verdict": "holds"
+  },
+  "RE9": {
+   "result": "beta = 0, N = 200, delta = 0.03, arm - F (F 0.90): {'Fc': 0.097, 'FcOc': 0.097, 'FcOcRc': 0.097, 'FcRc': 0.097, 'mix': 0.048, 'FcOcRcs': 0.097, 'PcOcRc': 0.097}",
+   "verdict": "holds",
+   "note": "scored as \"no arm lower than F by more than 0.1\" (arms above F count as within the claim that certification costs nothing)"
+  },
+  "RE10": {
+   "result": "20 cells; mix within 0.05 of [min, max] of (FcOcRc, F+O+R) in 17; mean signed distance outside 0.010; below the lower by >= 0.15 with separated intervals in 0",
+   "verdict": "fails, falsifier not fired",
+   "cells": [
+    {
+     "b": 1,
+     "N": 100,
+     "d": 0.1,
+     "mix": 1.0,
+     "cert": 1.0,
+     "sim": 0.15,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 1,
+     "N": 100,
+     "d": 0.03,
+     "mix": 1.0,
+     "cert": 1.0,
+     "sim": 0.4,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 1,
+     "N": 100,
+     "d": 0.01,
+     "mix": 0.85,
+     "cert": 0.95,
+     "sim": 0.25,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 1,
+     "N": 100,
+     "d": 0.003,
+     "mix": 0.4,
+     "cert": 0.5,
+     "sim": 0.55,
+     "dist": -0.1,
+     "fired": false
+    },
+    {
+     "b": 1,
+     "N": 100,
+     "d": 0.001,
+     "mix": 0.7,
+     "cert": 0.7,
+     "sim": 0.7,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 1,
+     "N": 200,
+     "d": 0.1,
+     "mix": 1.0,
+     "cert": 1.0,
+     "sim": 0.15,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 1,
+     "N": 200,
+     "d": 0.03,
+     "mix": 1.0,
+     "cert": 1.0,
+     "sim": 0.1,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 1,
+     "N": 200,
+     "d": 0.01,
+     "mix": 0.9,
+     "cert": 1.0,
+     "sim": 0.1,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 1,
+     "N": 200,
+     "d": 0.003,
+     "mix": 0.7,
+     "cert": 0.5,
+     "sim": 0.29297,
+     "dist": 0.2,
+     "fired": false
+    },
+    {
+     "b": 1,
+     "N": 200,
+     "d": 0.001,
+     "mix": 0.4,
+     "cert": 0.5,
+     "sim": 0.35,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 3,
+     "N": 100,
+     "d": 0.1,
+     "mix": 1.0,
+     "cert": 1.0,
+     "sim": 0.1,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 3,
+     "N": 100,
+     "d": 0.03,
+     "mix": 1.0,
+     "cert": 1.0,
+     "sim": 0.35,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 3,
+     "N": 100,
+     "d": 0.01,
+     "mix": 1.0,
+     "cert": 1.0,
+     "sim": 0.1,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 3,
+     "N": 100,
+     "d": 0.003,
+     "mix": 0.65,
+     "cert": 0.8,
+     "sim": 0.1,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 3,
+     "N": 100,
+     "d": 0.001,
+     "mix": 0.6,
+     "cert": 0.5,
+     "sim": 0.4,
+     "dist": 0.1,
+     "fired": false
+    },
+    {
+     "b": 3,
+     "N": 200,
+     "d": 0.1,
+     "mix": 1.0,
+     "cert": 1.0,
+     "sim": 0.0,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 3,
+     "N": 200,
+     "d": 0.03,
+     "mix": 1.0,
+     "cert": 1.0,
+     "sim": 0.1,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 3,
+     "N": 200,
+     "d": 0.01,
+     "mix": 1.0,
+     "cert": 1.0,
+     "sim": 0.35,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 3,
+     "N": 200,
+     "d": 0.003,
+     "mix": 0.75,
+     "cert": 0.80547,
+     "sim": 0.05,
+     "dist": 0.0,
+     "fired": false
+    },
+    {
+     "b": 3,
+     "N": 200,
+     "d": 0.001,
+     "mix": 0.5,
+     "cert": 0.64922,
+     "sim": 0.3,
+     "dist": 0.0,
+     "fired": false
+    }
+   ]
+  },
+  "RE12": {
+   "result": "(Fc)^3 mean payoff per slot 0.2500 against 1/3 (relative loss 0.250, 2 of 8 orientations cycle); Fc - F at beta = 0, N = 200, delta = 0.1: +0.00",
+   "verdict": "holds"
+  },
+  "RE11": {
+   "result": "C1 shortest Oc / Rc 3 / 3 nodes against the fair reader 6 (gap -3); C0-written shortest carrier 740 nodes",
+   "verdict": "holds"
+  },
+  "E1": {
+   "result": "Rc (matched) beside non-pointing e: rho*N in [1, 1] over 372 edges",
+   "verdict": "holds"
+  },
+  "E2": {
+   "result": "Fc into e 27.86, matched Oc 27.86; Rc into v beside Fc 9.755 (min over the second steps 9.75)",
+   "verdict": "holds"
+  },
+  "E3": {
+   "result": "carriers pointing at Bc into e of Bc's unequal island (no Rc): min rho*N 27.9, outcomes if fixed ['F']",
+   "verdict": "holds"
+  },
+  "E4": {
+   "result": "Bc into pair slots of (Fc, Fc) / (Rc, Oc): [1, 1]; 1/3 constants into the third slot of (Fc, Bc): median 1, range [1, 5.93]",
+   "verdict": "falsified"
+  },
+  "E5": {
+   "result": "fair at 120N, Bc start (phi = 1) {'Fc': 1.0, 'FcOcRc': 1.0, 'FcRc': 1.0}; simulating start (phi = 1/2) {'Fc': 0.05, 'FcOcRc': 0.05, 'FcRc': 0.2}",
+   "verdict": "fails, falsifier not fired"
+  },
+  "E6": {
+   "result": "FcOcRc beta = 3, N = 200, delta = 0.1: phi = 1 1.0, phi = 0 1.0, difference +0.00",
+   "verdict": "falsified"
+  },
+  "E7": {
+   "result": "{\"FcOcRc\": {\"predicted\": 0.66, \"observed\": 1, \"second_step_arrivals\": 8}, \"FcRc\": {\"predicted\": 1.71, \"observed\": 2, \"second_step_arrivals\": 21}}",
+   "verdict": "holds"
+  },
+  "E8": {
+   "result": "beta = 0, N = 200: mean over delta of V*(Fc) - V*(F) = 0.10937499999999997 (per delta [0.0, 0.1, 0.3, -0.05, 0.2])",
+   "verdict": "holds"
+  },
+  "E9": {
+   "result": "Fc* - Fc, mean over delta at N = 200: {0: 0.0, 3: 0.010000000000000009}",
+   "verdict": "holds"
+  },
+  "E10": {
+   "result": "seeded all-unequal fair at 120N: FcOcRcs 0.0, FcOcRc 0.05",
+   "verdict": "holds"
+  },
+  "E11": {
+   "result": "FcOcRc - FcOcC3 at beta = 3, N = 200 by delta: [0.0, 0.0, 0.0, 0.105, 0.099]",
+   "verdict": "fails, falsifier not fired"
+  },
+  "E12": {
+   "result": "C1: Oc 3, Fc 8, fair reader 6 nodes; R1-written Oc 18 (gap 12)",
+   "verdict": "holds"
+  }
+ }
+}
