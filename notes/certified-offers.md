@@ -122,6 +122,21 @@ Forgers (gate 1 only): XmBn (the bully's body with Ocp's certificate data in mil
 calling a lookalike combinator that ignores the certificate), XswapBn (n and p swapped), XappBn (fallback an application), XbitBn
 (a flag of 2), XopBn (a computed flag), XifBn (the skeleton under `if T`), Xconst (returns certificate data as its value).
 
+### 1.6 Step 1's three measures (fixed before computing them)
+
+Queue 75's prior (`lt_prior`: every node draws its tag uniformly among the machine's tags; literals Elias-gamma; `lib` uniform over
+the library; masses conditional on finite trees), only the body under the fixed frame drawn. Exact-member lower bound = the mass of
+the canonical spelling (one spelling per program; no search, no Monte Carlo).
+
+- **C1 (the check as a primitive, as R1 had `readn`)**: R1's tags plus one arity-2 tag `carry(c, B)` that expands to the skeleton
+  with certificate code c = fn + 2 fp + 4 pref (a `nat` literal, valid if ≤ 7) and fallback λλλ B (B written in the carrier's own
+  frame, so its indices are unchanged). Oc = `carry(1, 1)` and so on. The comparators (the fair single reader, the bully, R) are
+  re-weighed in this machine (it has one more tag).
+- **R1 written out**: R1's tags; the skeleton spelled with `lib CARRY` (the library index drawn uniformly over milestone 3's library
+  plus this queue's entries), the certificate as the literal pair, the fallback as λλλ B.
+- **C0 written out**: R0's tags; the skeleton with CARRY's, CHK's and their helpers' bodies inlined in place of `lib` (no library
+  at all), the fallback's reads written out as in R0. Reported as node counts and masses.
+
 ## 2. Deviations and implementation choices
 
 - Worktree fast-forwarded to `main-t69lqz` (7bf523b) before starting.
