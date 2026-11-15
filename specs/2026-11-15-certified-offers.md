@@ -1,6 +1,6 @@
 # Spec: certified offers in majority division: readers that can read each other, 2026-11-15
 
-Status: reviewed by gemini-4-carbon (folded, [after review]). Queue 79. The RS (2026-11-15), on the three things the model could not express after queue 78 (an offer
+Status: reviewed by gemini-4-carbon (folded, [after review]) and by gpt-6.1-sol (`--mode amended`, folded [after second review]). Queue 79. The RS (2026-11-15), on the three things the model could not express after queue 78 (an offer
 between two readers; a reader that is a constant to its partner while reading the other; a two-slot move): "1 sgtm".
 To be reviewed by gemini-4-carbon, then gpt-6.1-sol (`--mode amended`); run by an Opus subagent on Daytona.
 
@@ -41,6 +41,14 @@ as queue 76 unless the machine below changes them).
   and optionally *"otherwise I play a (a named constant action)"* (the **fallback clause**, which is what makes a
   certified program legible to a simulating reader: the simulation of a carrier runs the carrier's check of others'
   scripts, which is bounded and reads no one).
+- [after second review: what is certified] The certified statement is the carrier's actual rule, not a bilateral
+  promise: *"my eligibility set E is the partners whose certified rule makes me eligible for them; if E is non-empty I
+  name my preferred member of E at ½; otherwise I play my fallback"*. Mutual naming is derived, not certified: two
+  carriers form the fair pair iff each is the other's chosen member. A carrier with two eligible partners names only
+  one, and that is consistent with its statement.
+- [after second review] Soundness needs a structural argument, written in the notes before the gates: the script is
+  bound to the carrier's executable code (as milestone 4's skeleton rule), and the argument covers fuel exhaustion,
+  the fallback and competing offers. The catalogue-cube check (gate 1) is a regression test, not the proof.
 - **Soundness** is unconditional: an accepted script's statement is true of the carrier's play in every profile. The
   pair rule is the symmetry of milestone 4: two carriers whose statements point at each other both check the same
   predicate and both name the other at ½.
@@ -55,8 +63,9 @@ as queue 76 unless the machine below changes them).
   carrier's two checks plus its fallback fit inside one outer read cap (κ ≤ cap/8; the value is recorded before the
   gates) (the analogue of R1's read primitive); dynamics run on C1 tables. **C0**: checker and scripts written out in L_T^code as
   milestone 4, caps raised as needed; used statically only, to verify on the whole catalogue that C1's tables equal
-  C0's actions and that soundness holds with 0 false acceptances (if C0's caps cannot be met within a day of
-  engineering, report that and the cost numbers; C1 stands as the idealization, said so).
+  C0's actions and that soundness holds with 0 false acceptances. [after second review] If C0 cannot be built within a
+  day of engineering, report the cost numbers, record V3 as not validated, and label every conclusion as holding for
+  the idealized check primitive only, not for executable certificates.
 
 ## Programs (added to queue 78's 59-program catalogue; the first 59 unchanged)
 
@@ -96,7 +105,7 @@ as queue 76 unless the machine below changes them).
 2. With Rc resident as victim: Oc, Fc, a ½ constant, Bc each into the excluded slot. With each of those resident in the
    excluded slot: Rc into the victim's seat.
 3. Reverse edges: the bully, Bc, a ⅔-demander, a ⅓ constant into each fair carrier island ((Rc, Oc), (Fc, Fc),
-   (Rc, ½ constant), (Fc, Bc)); Bc into fair simulating-reader islands; carriers into fair simulating-reader islands.
+   (Rcs, ½ constant), (Fc, Bc)); Bc into fair simulating-reader islands; carriers into fair simulating-reader islands.
 4. Bc's own unequal island (Bc on ⅔ with a ⅓ constant): the same entries as items 1–2.
 Per-mutant fixation reported separately from prior-weighted per-arrival rates under the main law.
 
@@ -124,11 +133,25 @@ of bully mass that is certified (Bc): φ ∈ {0, ½, 1}.
 Grid: β ∈ {0, 1, 3}; φ = ½ on the full grid, φ ∈ {0, 1} at N = 200 for the main arm and Fc; δ ∈ {10⁻³, 3·10⁻³, 10⁻²,
 3·10⁻², 0.1}; N ∈ {100, 200, 400}; I = 64; I = 256 at N = 200 for the main arm.
 
+[after second review] **Matched controls.** The φ = 0 rows differ from queue 78's stored simulating rows only in the
+substituted reader families (same bully composition, same donor mass from the same constants), so the certification
+effect is read at φ = 0 and Bc's effect from φ = 0 → ½ → 1; φ ∈ {0, 1} therefore runs at N = 200 for every certified
+arm, not only two. Two further controls at N = 200: **Fc+Oc+C⅓** (Rc's γδ given to ⅓ constants: Rc with its script
+ablated is that constant) and **Fc\*** (Fc with cycles broken by slot index, a role-using comparator that is not a
+candidate program, to bound what the 2-in-8 cycles cost during founding; β ∈ {0, 3}).
+
 **Seeded starts** (N = 200, I = 64, δ = 0.03, β = 3, φ = ½; exact triples and rotations as queue 78): all-unequal
 (simulating bully, ⅓ constant, C8); all-unequal with Bc as the bully ([after review] run at φ = 1 as well as ½, so the tail's bullies match the seed); all-fair (two ½ constants, C8); all-fair on
 carriers (Fc, Fc, C8). Arms: F+R (stored), Fc, Fc+Oc+Rc, Fc+Rc, Fc+Oc+Rcs. Report fair shares at 30N, 120N, 240N, the exit hazard,
 and exits classified by queue 78's v2 classifier (unchanged, fixed before the run; local Rc-route with a certified
 offerer, local Rc-route with a ½ constant, other local, imported; lasting or transient).
+
+[after second review] **Pacing against scramble.** On seeded-start and main-arm islands record: first-passage times
+out of unequal, every transition (not only endpoints), Rc's resident exposure time in victim seats, and offerer
+arrivals and fixations conditional on a resident Rc. From step 0's exact rates and the realized arrival counts compute
+the predicted number of completed Rc routes per cell and compare with the observed number; a null is attributed to
+pacing only if predicted and observed counts agree. Outcomes and fixation rates are reported per orientation as well
+as averaged.
 
 **Scramble diagnostic** (the RE's expected binding constraint): for the main arm and Fc at β = 3, N = 200, δ = 0.03,
 the share of islands whose 120N outcome equals their 30N outcome, and the composition of unequal islands at 30N (who is
@@ -151,8 +174,9 @@ sandbox-CPU-hours. Long work on Daytona, detached clients, launch log for reatta
 - **RE 1 (the regress goes).** Every pointing carrier pair in gate 2 gives the fair pair with no timed-out read.
   Falsifier: any pointing pair times out or disagrees. (Three mutually pointing carriers may cycle; not scored.)
 - **RE 2 (legibility).** [after review: stated for the pure Rc] With Rc as victim the simulating bully's read of it
-  completes beside every excluded-slot program, and Rc's entry into the victim's seat has ρ·N in [0.5, 2] beside
-  carriers, constants and simulating readers. Falsifier: ρ·N < 0.1 beside any of them. For Rcs the queue 78 pattern
+  completes beside every excluded-slot program, and Rc's entry into the victim's seat has ρ·N in [0.5, 2] wherever
+  its certificate stays inactive (constants, simulating readers, carriers not pointing at it); [after second review]
+  beside a carrier that makes it eligible Rc activates and its entry is selected (ρ·N ≥ 5). Falsifier: ρ·N < 0.1 beside any of them. For Rcs the queue 78 pattern
   returns beside simulating readers (ρ·N < 0.1) and not beside carriers.
 - **RE 3 (certified offers are selected).** With Rc resident as victim, Oc and Fc entering the excluded slot have
   ρ·N ≥ 5. Falsifier: below 2.
@@ -170,7 +194,7 @@ sandbox-CPU-hours. Long work on Daytona, detached clients, launch log for reatta
   more than 0.2.
 - **RE 10 (mixed worlds).** [after review: revised; carbon's point that pure carriers are legible to simulating
   readers is accepted] The mixed arm's V\* lies between its two pure arms' (within 0.05 outside). Falsifier: below the
-  lower by 0.15 or more. The RE's first draft said "at or below the lower"; recorded.
+  lower by 0.15 or more (sol's counter: outside both, especially lower; the claim is exploratory). The RE's first draft said "at or below the lower"; recorded.
 - **RE 12 [after review] (cycles are not the story).** The mean payoff of (Fc, Fc, Fc) over orientations is ¼ of a
   slot's fair share lower than a cycle-free rule would give (2 of 8 triples cycle), and at β = 0 the Fc arm's V\* at
   δ = 0.1 is within 0.1 of F's. Falsifier: lower by more than 0.2, in which case Fc's failures under bullies cannot
