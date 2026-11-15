@@ -984,6 +984,19 @@ REJECTED.md the ones we dropped.
   transfers; weak has none). Recorded in the OH doc's Theory tab, section 0 (`src/dominance_relations.py`,
   `src/dominance_hard_band.py`).
 
+**Addendum (RS, 2026-11-15): theory kept to the closed space.** The RS's proposal after the follower-value
+aside (RESULTS "The follower-value core and the joint core"): static theory is stated only for realizations closed
+under reading (every fixing is a program that reads every other program). There leader and follower are one role, so
+the leader-value core and its follower twin are both retired as theory objects; the static condition is
+coalition-proofness in program space (no coalition gains by rewriting its source against fixed text), whose outcome
+set the RE derives, unverified against the literature, as the α-core. The leader-value results (existence sweep,
+auction stages, follower/joint aside) stand as level-0 action-space records and are not extended. *Operating
+hypotheses, the RS's to move:* (a) "coalition-proof" is read in the strong sense (every coalition rewrite counts), not
+Bernheim–Peleg–Whinston's self-enforcing-deviations sense, which accepts more; (b) where the α-core is empty
+(majority division) the stable-set target stands unchanged; (c) leader/follower asymmetry re-enters only as a
+legibility asymmetry of a realization (fuel, bounded provers, one-sided reading), never as an axiom. Recorded in the
+OH doc, Theory tab.
+
 ## 16. Mixed actions and adversarial games (RS, 2026-10-23)
 - *RS:* "I suspect we're gonna need strong notions of mixed actions to recover equilibria in adversarial games. I
   propose rock paper scissors for starters? We should recover the mixed-strategy equilibrium pretty
