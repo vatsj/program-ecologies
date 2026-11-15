@@ -1,0 +1,10 @@
+- **Patient accepters in arm T (queue 78):**
+  - **R (`R<d><to>`)**: the patient accepter. It reads partner d (n = next, p = prev) and names it at 1/2 if d names R at 1/2; otherwise it names its other partner at 1/3. `to` is T's timeout convention: `n` treats a timed-out read as no offer, `y` as an offer. Under R1 `Rnn` = `(if (eq readn 4) 1 3)` and `Rpn` = `(if (eq readp 1) 4 0)`. **Matched orientation**: R in the victim's seat reads the excluded slot, so on path it plays the 1/3 constant (C3 for `Rn*`, C0 for `Rp*`).
+  - **K = 59**: T+ ∪ P ∪ Q ∪ O ∪ F2 ∪ R (the first 55 are queue 76's, unchanged).
+  - **γ**: R's seed and tail mass as a multiple of the reader share δ, taken uniformly from the nine constants.
+  - **Arms**: **F+R**, **F+O+R** (δ/2 firm, δ/2 openers), **F+C⅓** (the control: the same γδ given to C3 and C0 instead of R), **R only** (δ = R), **F/R split** (δ/2 firm, δ/2 R).
+  - **b / v / e**: the seeded unequal island's bully slot, victim slot and excluded slot.
+  - **R route**: R in v and a 1/2 constant naming v in e. *R first* or *offerer first* gives the order of the neutral and the selected step.
+  - **local / imported exit**: an unequal-to-fair flip whose new pair has at least one holder whose presence began with a tail arrival on that island or at founding (local), or whose holders all began as migrants (imported).
+  - **Victim illegibility**: the bully's read of a reading victim times out when a reader sits in the excluded slot.
+  - RESULTS "Patient accepters in arm T".

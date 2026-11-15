@@ -31,3 +31,25 @@
 - Cut order (spec, recorded before running): I = 256, then γ ∈ {0.3, 3}, then N = 400 for F+O+R. Projected total at launch:
   25,580 cost units ≈ 90 sandbox-CPU-hours for the grid. The first sandbox timing was 12.6 s per unit per CPU, against 9.2 s in queue 76.
   The length-prior series adds ≈ 20 and the R1 Monte Carlo ≈ 5. The projection is under the 200 ceiling, so no cut is applied.
+- mcR1 (a8ab005f): two of the four shards (seeds 7801, 7802) were OOM-killed inside the sandbox, after 0.8·10⁶ and 1.45·10⁶ draws
+  (the memory growth queue 75 noted). Kept: seeds 7800 and 7803, 2.0·10⁶ finite draws, 0 R hits, 95% upper bound 1.9·10⁻⁶. Not rerun:
+  the bound is uninformative against the 10⁻¹⁰ lower bound either way. Cost ≈ 10.7 sandbox-CPU-hours (9,619 s × 4).
+- ~21:15 UTC: exit classifier v1 gave undefined slot roles after migration mixed the rotated seeded triples (seen in the first five
+  chunks). Classifier v2 committed; all 200 seeded cells rerun as series `seed2` (chunks s2_0of2, s2_1of2). The report uses `seed2` only.
+  Disclosed in predictions addendum 2.
+- Launches: 45d7789e = g_5of10, 0fdcd25e = g_6of10, 05d0ddc1 = g_7of10, 1272dce7 = g_8of10, 535e8603 = g_9of10, 33c153c3 = lps_0of4,
+  75f22e85 = lps_1of4, 56cfc63e = lps_2of4, ac199ee2 = lps_3of4, 9cbc7774 = s2_0of2, 8813543c = s2_1of2. All exited 0 and were fetched;
+  no container restart occurred.
+
+## Budget and timing (final)
+- Daytona: 17 sandbox runs (10 grid chunks, 4 lps, 2 seed2, mcR1). Sum of sandbox walls is 87,796 s × 4 CPUs ≈ 97.6 allocated
+  sandbox-CPU-hours. Cell time (sum of job walls) is 85.7 CPU-hours. Local: gates, step 0 (25 s), step-1 searches (≈ 11 min),
+  R0 Monte Carlo (≈ 10 CPU-min), V1 (40 cells, ≈ 25 min). Total ≈ 99 CPU-hours of the 200 ceiling; no cut applied.
+- V1: 40 of 40 identical. seed vs seed2: 200 of 200 identical V\* series and fair shares (determinism check).
+- `python3 tools/daytona_run.py list` is empty at hand-back.
+
+## The model cannot express
+- An offer from a reader that R can read. Mutual reading between readers always times out under the capped simulation, so R's
+  patience is answerable only by non-reading ½ constants.
+- A reader that stays a constant to its current partner. R's read makes it unreadable to the bully whenever a reader is near.
+- A coordinated two-slot move (R and its offerer together); the dynamics are single-slot invasions.
