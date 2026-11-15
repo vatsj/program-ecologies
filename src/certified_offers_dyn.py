@@ -130,6 +130,11 @@ def law_arm(arm, delta, beta, phi=0.5, gamma=1.0):
         spread(Pc, delta / 2); spread(Oc, delta / 2); spread(Rc, extra)
     else:
         raise ValueError(arm)
+    if arm in OLD_ARMS:
+        # queue 78's arithmetic: its arms are normalized over the first 59 programs (the pairwise sum over 87 entries rounds differently,
+        # 1e-17, and the founders' multinomial draws then differ: V1)
+        assert (w[59:] == 0).all()
+        return w / w[:59].sum()
     return w / w.sum()
 
 
