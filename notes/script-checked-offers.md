@@ -207,3 +207,44 @@ can hold; a program that names prev when next is the eligible preferred partner;
   78–80. At the new fuel, 300 sampled world-S profiles agree exactly with the key on and off. All tables of this queue, at both fuels,
   are built with the key on.
 - **Execution steps are stored as int32** (KR' = 384,000 exceeds int16).
+- **Table caches.** The execution-table cache key first included the calling process's regress flag; the gates then rebuilt the S1
+  table under another name (an identical rebuild, discarded) before the key was fixed to a constant and the cached files renamed.
+- **S0 build memory.** The first S0 table build grew to about 6 GB per worker and one worker was killed by the kernel (no result was
+  used); the build was restarted with workers recycled after every chunk (`maxtasksperchild=1`, 72 chunks), 1,830 s with 3 workers.
+- **G2's accounting.** The spec's G2 asks that pointing pairs be the fair pair. Pairing is predicted from the parameters (certified
+  eligibility both ways) and every predicted pair is checked; pairs that form without eligibility are counted separately as *fallback
+  pairs* (Pc⁺'s firm-reader fallback accepts any partner naming it at ½; the bully's fallback names its prev at ½ unless its next
+  names it at ⅓; Oc's fallback is the ½ constant naming the offered partner). The extra gate "(Pc⁺, Oc) and (Pc⁺, Rc) do not pair" is
+  scored on eligibility (never eligible); (Pc⁺, Oc) still forms the fair pair through fallbacks in 12,000 of 35,400 triples.
+- **Step 0's E6 assay** used the ⅔-demanding constants C8, C2, C5 as third slots; a post-hoc pass with every non-carrier as third slot
+  (queue 79's form) is stored separately (`step0.json` b3_all_thirds_posthoc) and labelled post hoc.
+- **Dynamics on each law's support.** Each cell's local catalogue (all three slots) is the support of its law plus any seeded program
+  (queue 74's simulator supports per-slot local catalogues; arrivals are mapped onto them). The kernel's cost does not depend on the
+  catalogue size; the charges summary does. V1 was rerun after the change: 20 of 20 identical.
+- **Timing pilot.** One A2 cell (run index 95, N = 200) was run locally after the predictions' stage-2 commit to size the grid
+  (158 s locally); not reported. Its table build briefly ran three workers beside two other processes (step 0, V2): five local
+  processes for about six minutes, above the three-worker rule.
+- **K2's non-canonical programs** call CHK on their partners and so see canonical carriers' certificates; they are invisible
+  themselves. Toward a canonical partner they offer one-sidedly (they name it at ½, it plays its fallback); among themselves they play
+  their fallbacks. The spec's "they act as their fallbacks" holds only among non-canonical programs.
+
+## 3. Operations log
+
+- 2026-11-15 ~18:30 UTC worktree fast-forwarded to `main-t69lqz` (71fe732); RE 1 committed (8d6bfb3) before any code.
+- ~20:15 checker, catalogues and notes §1 committed (e6517d6); tables built locally (S1 248 s, K 41 s, S0 1,830 s, 3 workers).
+- ~22:00 gates passed; predictions stage 2 committed (2030c95). V1 and V2 (20/20 each), step 0, step 1 run locally; committed
+  (2d7efcb).
+- 22:33 UTC: 15 chunks queued (`tools/sco_chunks.py`: k ×3 (K, K2), core ×4 (U, A1, A2), rest ×3 (A3, A4, A5, seed), nscale ×5 (A1, A2
+  at N = 100, 400; the first to cut)); `tools/sco_loop.sh` keeps 5 sandboxes running (`runs/sco_launch/launch.log` has the ids).
+- 22:33–01:41 UTC: all 15 chunks exited 0 and were fetched (4,600 rows plus V1's 20); every sandbox's table checksum equals the local
+  tables' (world S a604bb16…, world K 3f704eb7…). No cut was needed. `python3 tools/daytona_run.py list` empty.
+- 00:40 UTC: RE 9's route classifier refined (local / imported split, as queue 79); the 20 seeded cells rerun locally
+  (`runs/sco_rows/zz_seedfix`, which supersedes the sandbox seeded rows in aggregation; deterministic, only the new field differs).
+- Post-run static checks (not registered): A1 against K tables (`a1_vs_k.json`: identical on 300,763 triples in action, failed reads,
+  forfeits), spelling and ⁺ equivalence (`equiv.json`: 32/32 and 30/30), step 0's post-hoc E6 assay.
+
+## 4. Budget
+
+Daytona: 15 runs × 4 CPUs, walls 49,683 s = 55 sandbox-CPU-hours (job walls 54) of the 200 ceiling. Local, 3 workers: about 5 CPU-hours
+(tables, gates, V1, V2, step 0, step 1, the seeded rerun, exactness tests, pilots). Engineering time: about 7 hours from RE 1 to the
+gates, inside the two-day time box.

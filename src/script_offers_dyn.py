@@ -387,6 +387,7 @@ def pacing(tb, prep, res):
     rec.update(n_UF=int(n_uf), occ_U=occ, hazard=(n_uf / occ if occ else None))
     # observed local accepter routes: U->F flips whose new pair is (v, e) of the last unequal triple with an accepter in v
     obs = 0
+    kinds = {}
     per = [[] for _ in range(I)]
     for r in rows:
         per[r[1]].append(r)
@@ -395,6 +396,7 @@ def pacing(tb, prep, res):
             if not (a == 1 and b == 0):
                 continue
             m = [int(np.argmax(init[i, s])) for s in range(3)]
+            orig = ['fnd'] * 3
             prev_u = None
             for r in per[i]:
                 if r[0] > g + L:
@@ -402,13 +404,19 @@ def pacing(tb, prep, res):
                 if roles_of(tb, m) is not None:
                     prev_u = list(m)
                 m[r[2]] = r[4]
+                orig[r[2]] = 'arr' if r[5] == 1 else ('mig' if r[6] >= 0 else 'fnd')
             o = int(tb.VEC[tb.JT[m[0], m[1], m[2]]])
             if MW.CATMAP[o] == 0 and prev_u is not None:
                 bb, vv, ee = roles_of(tb, prev_u)
                 sh = XS[o]
                 if sh[vv] == 3 and sh[ee] == 3 and tb.fam[m[vv]] in ACCF:
                     obs += 1
+                    origin = 'imported' if orig[vv] == 'mig' and orig[ee] == 'mig' else 'local'
+                    k = '%s|%s|%s' % ('Rc' if tb.fam[m[vv]] != 'accepter' else 'R', offer_kind(tb, m[ee], ee, vv), origin)
+                    kinds[k] = kinds.get(k, 0) + 1
     rec['observed_routes'] = obs
+    rec['observed_routes_by_kind'] = kinds
+    rec['observed_local_cert'] = sum(n for k, n in kinds.items() if k == 'Rc|cert|local')
     return rec
 
 

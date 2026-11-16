@@ -14,7 +14,7 @@ BULLY = ('s_bully', 'k_bully')
 
 def load(pattern):
     out = {}
-    for f in glob.glob(os.path.join(ROOT, pattern)):
+    for f in sorted(glob.glob(os.path.join(ROOT, pattern))):     # sorted: zz_seedfix (the refined route classifier) overrides
         for line in open(f):
             line = line.strip()
             if line:
@@ -95,6 +95,9 @@ def aggregate(rows):
             e['pacing'] = dict(pred_second=round(sum(p['pred_second'] for p in P), 4), n_second=sum(p['n_second'] for p in P),
                                pred_first=round(sum(p['pred_first'] for p in P), 4), n_first=sum(p['n_first'] for p in P),
                                observed_routes=sum(p['observed_routes'] for p in P), n_UF=sum(p['n_UF'] for p in P),
+                               observed_local_cert=sum(p.get('observed_local_cert', 0) for p in P) if all('observed_local_cert' in p for p in P) else None,
+                               routes_by_kind={k: sum(p.get('observed_routes_by_kind', {}).get(k, 0) for p in P)
+                                               for k in sorted({kk for p in P for kk in p.get('observed_routes_by_kind', {})})},
                                occ_U=sum(p['occ_U'] for p in P), acc_expo=sum(p['acc_expo'] for p in P))
             e['fair240'] = round(float(np.mean([x['snap240']['cls_modal'][0] / 64 for x in rs])), 4)
         agg[k] = e
@@ -218,8 +221,8 @@ def score(agg, st, step0=None, step1=None):
     # RE 9
     e = agg.get(('A2', 3.0, 0.5, 200, 0.03, 'unequal'))
     if e:
-        f = e['fair240']; p = e['pacing']; pr, ob = p['pred_second'], p['observed_routes']
-        within = (pr == 0 and ob == 0) or (pr > 0 and ob > 0 and max(pr / ob, ob / pr) <= 3)
+        f = e['fair240']; p = e['pacing']; pr, ob = p['pred_second'], p['observed_local_cert']
+        within = ob is not None and ((pr == 0 and ob == 0) or (pr > 0 and ob > 0 and max(pr / ob, ob / pr) <= 3))
         V['RE 9'] = dict(holds=bool(f <= 0.15 and within), falsifier=bool(f >= 0.3), detail=dict(fair240=f, pred_second=pr, observed=ob, pacing=p))
     # RE 12
     def partner_share(arm):
