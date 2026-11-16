@@ -509,3 +509,25 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   with Rc in v, or Rc into v beside one), each with Σρ from the exact formula in its resident majority triple; predicted completions = Σρ
   of second steps.
   RESULTS "Certified offers in arm T".
+
+- **Script-checked offers (queue 80):**
+  - **CHKS** — queue 80's shared script checker (library entry): `CHKS (x . c)` is T iff the quote x carries a script whose entry for
+    statement code c is a valid derivation; at most KCHK + 5 = 16,005 ticks. **CCORE** its core (L_T^code); **S0** CCORE executed,
+    **S1** CCORE as a primitive with S0's exact value and tick count per (quote, code).
+  - **Carrier (queue 80)** — any program with a script, packaged `λme.λn.λp.(if T B SCRIPT)`.
+  - **S_off(d; R)** — "if d is my preferred member of E, I name d at ½", E computed with requirement R; codes 1–4 (toward next / prev, asked
+    with h = ∅ or {S_nx}, accepted iff R ⊆ h). **S_nx** — "I never demand ⅔" (codes 2, 5, 8), code 5. **H_x** — x's declared holding of
+    S_nx; **R_x** — x's requirement.
+  - **E_x (queue 80)** — s ∈ E_x iff x offers toward s, CHKS(s, OFF(toward x; H_x)) = T and (R_x = {S_nx} → CHKS(s, S_nx) = T).
+  - **κ_S** — the worst accepted S0 check cost (15,141). **cap', KR'** — the raised read cap and root fuel (128,000, 384,000).
+  - **Oc⁺, Rc⁺, Fc⁺** — Oc, Rc, Fc that also hold S_nx (H = {S_nx}, R = ∅). **Pc⁺** — Fc⁺ with R = {S_nx}. **OcR⁺, RcR⁺** — Oc⁺, Rc⁺ with
+    R = {S_nx} (arm A5).
+  - **Spellings** — `canon` (the shared rule OFFER), `inl`, `rord`, `guard`, `noelig` (world S); `canon`, `inl`, `rord`, `guard`, `alias`
+    (world K, queue 79's skeleton machine).
+  - **Arms** — U (uncertified F, F+R at the new fuel), K (queue 79's skeleton machine, canonical), K2 (K on A2's spelling split), A1
+    (script checker, canonical), A2 (spellings split), A3 (⁺ families), A4 (Pc⁺ + Oc⁺ + Rc⁺), A5 (Pc⁺ + OcR⁺ + RcR⁺).
+  - **Fallback pair** — a fair pair formed by two programs' fallbacks although neither is certified-eligible for the other.
+  - **Closure regress key** — queue 80's evaluator extension: `capk` frames with a closure function are keyed by (cap, body, environment,
+    argument), so milestone 3's regress lemma fast-forwards them.
+  - **S79** — RESULTS' name for the run report's arm K / "world K" (queue 79's skeleton machine), to avoid the clash with the PD certificate convention world K.
+  RESULTS "Script-checked offers in arm T".

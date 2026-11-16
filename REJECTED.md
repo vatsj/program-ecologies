@@ -1436,3 +1436,23 @@ immigrants"** (RESULTS "Dominance contracts and refusal on islands"; the explain
 - **Dropped reading (queue 78):** "O or F can be R's offerer" is now true for their certified versions in the gates and step 0, but buys
   nothing at the population level (pacing); not re-opened further.
   - RESULTS "Certified offers in arm T".
+
+## Queue 80: script-checked offers (2026-11-16)
+
+- **RE 8 (queue 80): "certified prudence excludes the bully and buys no V\*".** Falsified on both clauses: in A4 Bc's share of paired
+  fair-island slots rises (0.79 against A2's 0.67) and V\* at δ = 0.003 is higher (0.95 against 0.85). Pc⁺ is selected out (1.7% of
+  paired slots), not Bc. Dropped: "prudence certificates displace the faker"; the requirement costs the prudent reader its partners.
+- **RE 12 (queue 80): A5's second clause** (Bc's unequal islands more common than in A2 at δ ≤ 0.01) fails: Bc on ⅔ on 0–5% of islands in
+  both arms. Bc keeps fair islands by pairing with itself (100% Bc-partnered), not by bullying.
+- **RE 10's second clause (queue 80):** "script carriers are at least as abundant as the reader if the script is not charged" fails:
+  even script-free they are ≤ 10⁻²⁹·⁵ of the fair reader (the rule and packaging are ≥ 20 nodes). (The first draft, "at least as
+  abundant as the fair reader", was already revised before the run.)
+- **RE 4's 0.1 band (queue 80):** A2 is above A1 by 0.14 at φ = 0; the two laws are identical up to copies of equivalent programs, so the
+  difference is sampling. The band was too narrow for 20 runs × 5 δ, not a property of spellings.
+- **RE 9's pacing ratio (queue 80):** 2 local certified routes against 0.56 predicted (factor 3.6) and 0.20 fair at 240N (> 0.15); the
+  exits that occur are imported pairs.
+- **RE 1's stage-1 wording "every forger rejected" (queue 80):** fails literally; forgers are accepted for statements true of them. The rule that matters is no false statement accepted.
+- **E6 (subagent, queue 80): "the simulating bully cannot break carrier pairs".** With ⅔-demanding constants as third slots it enters
+  pair slots of (Fc, Fc), (Fc⁺, Fc⁺), (Pc⁺, Pc⁺) neutrally in half the seat patterns, pairing with the remaining carrier's fallback;
+  with every non-carrier as third, the median is 0 (queue 79's result).
+  - RESULTS "Script-checked offers in arm T".
