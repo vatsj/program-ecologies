@@ -531,3 +531,4 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
     argument), so milestone 3's regress lemma fast-forwards them.
   - **S79** — RESULTS' name for the run report's arm K / "world K" (queue 79's skeleton machine), to avoid the clash with the PD certificate convention world K.
   RESULTS "Script-checked offers in arm T".
+- **Nonempty technology** (RS, 2026-11-21) — a technology that returns at least one acceptable outcome on every game (or on every game of a stated class).
