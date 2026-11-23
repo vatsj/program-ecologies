@@ -19,7 +19,7 @@ def main():
         if a not in arms:
             arms[a] = tbr.Tri(a)
         A = arms[a]
-        key = (a, r['N'], r['lam'], r['mN'])
+        key = (a, r['N'], r['lam'], r['mN'], 'S3' if r.get('supply') else 'main')
         for snap in ('100',):
             w = r['snaps'][snap]['world']
             cs = r['snaps'][snap]['cases']
@@ -39,13 +39,13 @@ def main():
     for key in sorted(DIAG):
         rows = DIAG[key]
         div = [x for x in rows if x['diverse']]
-        print('%s %d N=%d Lam=%g mN=%g: worlds %d, diverse in programs %d, of which diverse in outcomes %d' % (
-            key[0], 0, key[1], key[2], key[3], len(rows), len(div), sum(1 for x in div if x['n_out_big'] >= 2)))
+        print('%s N=%d Lam=%g mN=%g %s: worlds %d, diverse in programs %d, of which diverse in outcomes %d' % (
+            key[0], key[1], key[2], key[3], key[4], len(rows), len(div), sum(1 for x in div if x['n_out_big'] >= 2)))
     # names of arm T holders
     A = arms.get('T')
     if A is not None:
         hold = Counter()
-        for f in glob.glob(os.path.join(ROOT, 'runs', 'tbr_rows', 'tm', 'T_*_100_1.json.gz')):
+        for f in glob.glob(os.path.join(ROOT, 'runs', 'tbr_rows', 'tm', 'T_*_100_1.json.gz')):     # stage 1 only
             r = json.load(gzip.open(f, 'rt'))
             for c in r['snaps']['100']['cases']:
                 hold[(c['j'], A.names[c['p']])] += 1

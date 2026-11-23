@@ -32,7 +32,7 @@ def load_p():
 def cell_key(r):
     if r['arm'] == 'P':
         return ('P', r['exp'], 200, None, round(r['mN'], 3))
-    return (r['arm'], 'main', r['N'], r['lam'], r['mN'])
+    return (r['arm'], 'S3' if r.get('supply') else 'main', r['N'], r['lam'], r['mN'])
 
 
 def boot(vals_per_run, stat, rng):

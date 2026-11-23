@@ -32,7 +32,7 @@ def label(k):
     a, exp, N, lam, mN = k
     if a == 'P':
         return 'P %s mN=%g' % (exp, mN)
-    return '%s N=%d Λ=%g mN=%g' % (a, N, lam, mN)
+    return '%s N=%d Λ=%g mN=%g%s' % (a, N, lam, mN, ' + supply (stage 3)' if exp == 'S3' else '')
 
 
 def main():
@@ -40,7 +40,7 @@ def main():
     agg = json.load(open(os.path.join(ROOT, 'runs', 'tbr', 'agg.json')))['cells']
     L = []
     J = dict(tables={}, verdicts={})
-    S1 = [k for k, e in agg.items() if (e['key'][0] in 'TM' and e['key'][3] == 100 and e['key'][4] == 1) or
+    S1 = [k for k, e in agg.items() if (e['key'][0] in 'TM' and e['key'][1] == 'main' and e['key'][3] == 100 and e['key'][4] == 1) or
           (e['key'][0] == 'P' and abs(e['key'][4] - 1.091) < 1e-3)]
     order = sorted(agg, key=lambda k: (agg[k]['key'][0], agg[k]['key'][1], agg[k]['key'][2] or 0,
                                        agg[k]['key'][3] if agg[k]['key'][3] is not None else -1, agg[k]['key'][4]))
@@ -150,11 +150,12 @@ def main():
             continue
         b25 = e['mig_diverse_25']['T']; b50 = (e.get('mig_diverse_50') or {}).get('T'); b100 = e['mig_diverse']['T']
         L.append('| %s | %s | %g | %s / %s | %s | %s | %d / %s / %d | %s | %s | %s | %s | %s |' % (
-            a, '–' if lam is None else '%g' % lam, mN, f(e['counts25']['diverse'], 2), f(e['counts']['diverse'], 2),
+            a + (' (stage 3)' if exp == 'S3' else ''), '–' if lam is None else '%g' % lam, mN, f(e['counts25']['diverse'], 2), f(e['counts']['diverse'], 2),
             f(e['counts']['settled08'], 2), f(e['counts']['nonemptyE'], 2), b25['n_cases'],
             b50['n_cases'] if b50 else '–', b100['n_cases'], f(b25['res_zero']), f(b50['res_zero']) if b50 else '–',
             f(b100['res_zero']), f(b100['pm_zero']), f(b100['res_mean'])))
-        dose[(a, lam, mN)] = b100
+        if exp != 'S3':
+            dose[(a, lam, mN)] = b100
     # RE 5: mN = 1 vs 0.1 at Lambda = 100 (P: 1.091 vs 0.1)
     re5 = {}
     for a in ('T', 'M', 'P'):
