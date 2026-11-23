@@ -297,9 +297,12 @@ def cellset(name, nrep=20):
     return out
 
 
+_OUT = [OUTD]
+
+
 def _w(c):
     try:
-        t = time.time(); p = run_cell(c)
+        t = time.time(); p = run_cell(c, _OUT[0])
         return 'done %s %s %g %d %.0fs' % (c[0], (c[6] or '-')[:30], c[3], c[4], time.time() - t)
     except Exception as e:
         import traceback
@@ -317,6 +320,7 @@ def main():
     ap.add_argument('--procs', type=int, default=3)
     ap.add_argument('--nrep', type=int, default=20)
     ap.add_argument('--shard', default='0/1', help='i/k: run cells i, i+k, ... of the sorted cell set')
+    ap.add_argument('--out', default=OUTD)
     a = ap.parse_args()
     from multiprocessing import Pool
     if a.cmd == 'repro':
@@ -343,6 +347,7 @@ def main():
         cs.sort(key=lambda c: (c[6] is None, c[4], c[3], c[6] or ''))
         si, sk = (int(x) for x in a.shard.split('/'))
         cs = cs[si::sk]
+        _OUT[0] = a.out
         with Pool(a.procs) as pool:
             for m in pool.imap_unordered(_w, cs):
                 print(m, flush=True)

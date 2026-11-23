@@ -1,0 +1,27 @@
+== positive migrant regret (settled, zero native regret, T-weighted) ==
+T N=200 run 13 island 35 slot 0: profile ['C4', 'Xn', 'C4']; resident C4, better C1 (sigma 3.48); separating migrant Dpfn in slot 1 (Delta +0.500, share of migrants 0.67, T_q 60.9)
+T N=400 run 14 island 17 slot 2: profile ['Snon', 'C4', 'C4']; resident C4, better C1 (sigma 0.02); separating migrant C5 in slot 1 (Delta +0.500, share of migrants 0.02, T_q 7.3)
+T N=400 run 14 island 63 slot 1: profile ['C0', 'C5', 'C4']; resident C5, better Xp (sigma 1.49); separating migrant C1 in slot 0 (Delta +0.500, share of migrants 0.94, T_q 10.8)
+T N=400 run 14 island 63 slot 2: profile ['C0', 'C5', 'C4']; resident C4, better C1 (sigma 0.10); separating migrant Snon in slot 0 (Delta +0.500, share of migrants 0.06, T_q 10.8)
+M N=100 run 1 island 0 slot 2: profile ['6:c_grand', '4:c_half', '4:c_half']; resident 4:c_half, better 259:bully (sigma 0.22); separating migrant 3:c_third in slot 0 (Delta +0.167, share of migrants 0.14, T_q 30.2)
+M N=100 run 5 island 0 slot 0: profile ['4:c_half', '5:c_two3', '1:c_half']; resident 4:c_half, better 43:bully (sigma 0.24); separating migrant 0:c_third in slot 1 (Delta +0.167, share of migrants 0.16, T_q 30.2)
+M N=200 run 13 island 0 slot 0: profile ['0:c_third', '43:bully', '4:c_half']; resident 0:c_third, better 977:other_cond (sigma 0.14); separating migrant 1:c_half in slot 2 (Delta +0.167, share of migrants 0.05, T_q 60.9)
+M N=400 run 10 island 0 slot 0: profile ['0:c_third', '2:c_two3', '4:c_half']; resident 0:c_third, better 81:fair_reader (sigma 0.07); separating migrant 1:c_half in slot 1 (Delta +0.167, share of migrants 0.06, T_q 21.6)
+P BOX1(THEM(^not(BOX(THEM(ME))))) run 0 island 50: resident BOX(THEM(ME)), better and(BOX(THEM(ME)),BOXD1(THEM(^D))) (sigma 18.97); separating migrant BOX1(THEM(THEM)) (Delta +1.0, share 0.95, T_q 60.9)
+P BOX1(THEM(^not(BOX(THEM(ME))))) run 13 island 3: resident BOX1(THEM(ME)), better C (sigma 0.76); separating migrant BOX1(THEM(^not(BOX(THEM(ME))))) (Delta +1.0, share 0.57, T_q 4.0)
+P BOX1(THEM(^not(BOX(THEM(ME))))) run 16 island 2: resident and(BOX(THEM(ME)),BOX(THEM(THEM))), better and(BOX(THEM(ME)),BOXD1(THEM(^D))) (sigma 3.48); separating migrant BOX1(THEM(THEM)) (Delta +1.0, share 0.41, T_q 60.9)
+P BOX1(THEM(^not(BOX(THEM(ME))))) run 19 island 2: resident BOX(THEM(ME)), better or(not(BOX(THEM(ME))),BOXD1(THEM(^D))) (sigma 1.51); separating migrant BOX1(THEM(^not(BOX(THEM(ME))))) (Delta +2.0, share 0.57, T_q 4.0)
+P BOX1(THEM(^not(BOX(THEM(ME))))) run 8 island 7: resident BOX1(THEM(ME)), better or(BOXD1(THEM(ME)),not(BOXD1(THEM(^D)))) (sigma 2.21); separating migrant BOX(THEM(THEM)) (Delta +1.0, share 0.27, T_q 60.9)
+P BOX1(THEM(^not(BOX(THEM(^C))))) run 10 island 5: resident BOX(THEM(ME)), better or(not(BOX(THEM(ME))),BOXD1(THEM(^D))) (sigma 2.48); separating migrant BOX1(THEM(^not(BOX(THEM(^C))))) (Delta +2.0, share 0.94, T_q 4.0)
+
+== costly threats carried with zero migrant regret (T, M; settled, zero native regret) ==
+T N=100 run 10 island 0 slot 0: resident Spon carries a threat against prior tester C0 in slot 2 (prior mass 0.1): variant Xp would earn +0.167 more against it, the tester earns +0.333 more against the variant; world diverse: True
+T N=100 run 10 island 0 slot 1: resident C4 carries a threat against prior tester C2 in slot 0 (prior mass 0.1): variant C3 would earn +0.333 more against it, the tester earns +0.667 more against the variant; world diverse: True
+T N=100 run 10 island 3 slot 1: resident Spoy carries a threat against prior tester C0 in slot 0 (prior mass 0.1): variant C5 would earn +0.667 more against it, the tester earns +0.333 more against the variant; world diverse: True
+T N=100 run 10 island 6 slot 1: resident Snon carries a threat against prior tester C2 in slot 0 (prior mass 0.1): variant C3 would earn +0.333 more against it, the tester earns +0.667 more against the variant; world diverse: True
+T: zero-regret residents 8527, of which carrying a costly threat against some prior tester 5200 (0.61)
+M N=100 run 0 island 0 slot 0: resident 1:c_half carries a threat against prior tester 2:c_two3 in slot 1 (prior mass 0.108): variant 81:fair_reader would earn +0.333 more against it, the tester earns +0.667 more against the variant; world diverse: True
+M N=100 run 0 island 0 slot 1: resident 1:c_half carries a threat against prior tester 2:c_two3 in slot 0 (prior mass 0.108): variant 81:fair_reader would earn +0.333 more against it, the tester earns +0.667 more against the variant; world diverse: True
+M N=100 run 0 island 0 slot 2: resident 1:c_half carries a threat against prior tester 3:c_third in slot 1 (prior mass 0.108): variant 5:c_two3 would earn +0.667 more against it, the tester earns +0.333 more against the variant; world diverse: True
+M N=100 run 0 island 1 slot 0: resident 163:other_cond carries a threat against prior tester 0:c_third in slot 2 (prior mass 0.108): variant 669:bully would earn +0.167 more against it, the tester earns +0.333 more against the variant; world diverse: True
+M: zero-regret residents 9476, of which carrying a costly threat against some prior tester 9476 (1.00)

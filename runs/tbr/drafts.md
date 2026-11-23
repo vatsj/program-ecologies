@@ -28,10 +28,15 @@ lump-free (same law), matching the published cells' headlines (dense P\* separat
   as often as residents (excess over the arrival control −0.01 in T, 0.00 in M). The one place the tail supplies
   equivalents (T, Λ = 1,000) shows a real filter: 0.19 of the arrivals at zero regret against 1.00 of residents
   (33 cases). In P the founder-weighted control removes about a quarter of the excess.
-- **Dose (RE 5 holds, arm T only).** Arm T's zero-regret share in diverse worlds is 0.69 at mN = 0.1 and 0.96 at
+- **Dose (RE 5 holds in T and P).** Arm T's zero-regret share in diverse worlds is 0.69 at mN = 0.1 and 0.96 at
   mN = 1. At mN = 0.1 it rises over the run (0.42 → 0.57 → 0.69) against a flat control (0.29). At mN ≥ 3 worlds
-  reach program consensus and the tier empties. Arm M has no diverse world at mN = 1 (N = 200) and no tier at 0.1.
-  [Arm P: fill in from the stage-2 table.]
+  reach program consensus and the tier empties. Arm P (dense): 0.39 at mN = 0.1 against 0.47 at 1.091 (control
+  0.27, 0.28); at mN = 3, 0.31 against 0.16, with 0.68 of worlds diverse. Arm M has no diverse world at mN = 1
+  (N = 200) and no tier at 0.1.
+- **Supply (stage 3).** A Λ = 100 stream of on-path equivalents of the stage-1 holders (in-pair slots) doubles arm
+  T's excess (residents 1.00 against a control of 0.24, excess 0.76 against 0.38 without) and raises program
+  diversity (0.40 of worlds against 0.25). In arm M (the registered cell) it creates diverse worlds (4 of 20, none
+  without) but no tier (0.973 against 0.971).
 - **Outcome consensus is not program consensus (RE 6 falsified).** Arm T's worlds are at fair consensus by outcome
   (queue 74) but 0.25–0.60 stay diverse in programs at mN = 1. Nearly all of that is among on-path equivalents: 6 of
   27 program-diverse worlds differ in outcome. The migrant tier acts exactly on off-path differences.

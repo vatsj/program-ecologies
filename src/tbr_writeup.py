@@ -25,7 +25,8 @@ def summary(V, T):
     re3 = V['RE3']; re4 = V['RE4']; re5 = V['RE5']['per_arm']; re7 = V['RE7']; re8 = V['RE8']; re9 = V['RE9']['per_arm']
     pa = re3['per_arm']
     p5 = re5.get('P')
-    p5s = ('Arm P (dense): %.2f at mN = 0.1 against %.2f at 1.091.' % (p5['lo'], p5['hi'])) if p5 else \
+    p5s = ('Arm P (dense) also rises, %.2f at mN = 0.1 against %.2f at 1.091 (control 0.27 and 0.28); at mN = 3 it is '
+           '0.31 against 0.16, with 0.68 of worlds diverse and 0.60 of islands settled.' % (p5['lo'], p5['hi'])) if p5 else \
         'Arm P has no stage-2 result in this record (see "What was not run").'
     return """## Summary
 
@@ -44,7 +45,7 @@ exception points the other way: in arm T at Lambda = 1,000, where the tail itsel
 the equivalents that arrived had zero regret against 1.00 for residents (33 cases). In arm P the founder-weighted
 supply control removes only about a quarter of the excess (excess over it %.2f).
 
-**Dose matters in arm T (RE 5 %s).** Arm T's zero-regret share in diverse worlds is %.2f at mN = 0.1 and %.2f at
+**Dose matters (RE 5 %s).** Arm T's zero-regret share in diverse worlds is %.2f at mN = 0.1 and %.2f at
 mN = 1. At mN = 0.1, where worlds stay diverse throughout, it rises over the run, 0.42 -> 0.57 -> 0.69 at 25 / 50 /
 100%% of the horizon, while the prior-matched control is 0.29. At mN >= 3 worlds reach program consensus and the tier
 empties (diverse at the horizon: 0.10 at mN = 3, 0 at mN = 10). Arm M has no diverse world at mN = 1 (N = 200), so
@@ -75,6 +76,12 @@ breaks both (a wrong sign at N = 100, sigma = 0.5; errors -64%% / +218%%; RE 2 f
 (stage 1b) the sign of sigma predicts the direction in most cases, but magnitudes saturate (sigma between -4 and -6
 gives N rho 0.3-0.4 where the formula gives 0.01-0.06) and testers establish often enough that the neutral control
 itself falls to 0.25-0.8: assumption A fails exactly where the migrant tier is active.
+
+**Supply (stage 3).** Adding a Lambda = 100 stream of on-path equivalents of the stage-1 holders (in-pair slots) to
+the tail: in arm T (exploratory) residents of diverse worlds reach zero regret in 1.00 of cases (0.96 without), mean
+sigma-regret 0.00 (0.14), against 0.24 for the control (0.58), so the excess doubles (0.76 against 0.38), and more
+worlds stay program-diverse (0.40 against 0.25). In arm M (the registered cell) the supply creates diverse worlds
+(4 of 20, none without) but residents equal their control (0.973 against 0.971): no tier.
 
 **Time (RE 8 holds).** Pooled over arms, residents' mean T-weighted migrant regret in diverse worlds does not rise
 between 25%% and 100%% of the horizon (paired change %+.3f [%+.3f, %+.3f] sigma units, %d runs).
@@ -112,8 +119,9 @@ def verdicts(V):
     out = ['## Verdicts (registered rules)\n', '| # | prediction | measured | verdict |', '|---|---|---|---|']
     for k, p, m in rows:
         out.append('| %s | %s | %s | **%s** |' % (k, p, m, V[k.replace(' ', '')]['verdict']))
-    out.append('\nRE 5 is scored on arm T alone: arm M has no diverse world at mN = 1 and arm P %s.' % (
-        'has both' if V['RE5']['per_arm'].get('P') else 'has no stage-2 cell in this record'))
+    scored = [a for a, v in V['RE5']['per_arm'].items() if v]
+    out.append('\nRE 5 is scored on the arms with diverse worlds at both doses (%s); arm M has no diverse world at '
+               'mN = 1 (N = 200).' % ', '.join(scored))
     return '\n'.join(out) + '\n'
 
 
@@ -177,7 +185,10 @@ The full lists are in `runs/tbr/examples.txt`.
    with lumping on (35 of 35 runs: 5 per forced rival and 5 natural match the stored rows exactly). The published
    cells' headline (dense P* separated 0.97, island P(C,C) >= 0.978) is compared statistically below.
 5. Arm P's middle dose is its published boundary mN = 1.091; stage-2 doses {0.1, 1.091, 3, 10}. Arm P's 50% and 75%
-   states were not saved (route (b) there uses the kernel's strong-holder log); its stage-2 cells ran on Daytona.
+   states were not saved (route (b) there uses the kernel's strong-holder log). Arm P's stage 2 was first sent to
+   Daytona (two 4-CPU sandboxes); the run engineer's command quoting was wrong (the tool joins its arguments, so
+   `bash -c "..."` ran a bare python3 waiting on stdin), the sandboxes idled about 2 hours each (about 16
+   sandbox-CPU-hours, no output) and were interrupted and deleted; stage 2 for arm P then ran locally.
 6. Arms T and M: the arrival-based supply control (uniform weights) is primary; founder-weighted beside it. Arm P:
    founder-weighted only. The prior-matched control is an exact expectation, not a draw.
 7. Lambda = 1,000 has its own tail stream (Lmax = 1,000); founders are paired across doses.
@@ -190,8 +201,7 @@ The full lists are in `runs/tbr/examples.txt`.
    equivalents of in-pair holders; the slot left out of a pair is excluded, since there every program is an
    equivalent.
 10. Builds: arm P's class cache was built with parallel kernels recompiled serially (numba 0.68 fails in its parfor
-    pass; the serial table is identical, and the build's own checks passed). Daytona sandboxes use the pinned
-    numba 0.57 and built the cache with the original code.
+    pass; the serial table is identical, and the build's own checks passed).
 """
 
 
