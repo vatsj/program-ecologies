@@ -29,3 +29,24 @@ The pair {1, 2} wants to match player 3 (X with L, Y with R); only the pair can 
    most two atoms each, so the status quo is not strong Nash in pure actions. Falsifier: a player-3 program no such
    pair matches.
 5. No deviating pair (≤ 1 atom each) matches every such player-3 program. Falsifier: one does.
+
+## Result (`src/three_coins_static.py`, `runs/three-coins-static.json`; under a minute)
+
+All five predictions hold.
+
+1. The pair's best guaranteed gain over (1, 1) with a shared coin is 0 (no α-block: the status quo itself is the best
+   it can guarantee), and against every mixture of player 3 it can gain at least 0.5 (β-block); in pure actions the
+   same signs. The status quo is in the α-core and not in the β-core, with or without coalition coins.
+2. For each single player maxmin and minmax against a correlated complement are both 0.
+3. Against player 3's private ½–½ mix, the best an independently mixing pair can do is a gain of exactly 0 for its
+   worse-off member (it cannot make both strictly better); with a shared coin the pair gains 0.5 each. The coalition
+   coin changes whether the status quo is blocked.
+4. Three-player sound-reading arm: 1,082 programs for player 3, 541 of which play L at the status quo. Every one is
+   matched by some deviating pair with one atom each (63 programs per member); the hardest residents are matched by
+   162 of the 3,969 pairs. The status quo is not strong Nash in pure actions: the β end again.
+5. No one-atom pair matches every resident; the best matches 0.856 of them.
+
+Reading. With three players and no transfers, coalition coins do not close the gap between the two cores for a
+pair, sound reading still picks the β end, and the coin a coalition holds decides whether it can block a privately
+mixing outsider. Scope: one constructed game; decision trees with at most two atoms; pure actions in the program arm
+(the coin results are for the base game).

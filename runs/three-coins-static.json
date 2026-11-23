@@ -1,0 +1,64 @@
+{
+ "part1": {
+  "pair_alpha_gain_shared_coin": 0.0,
+  "pair_beta_gain_shared_coin_min_over_p": 0.5,
+  "at_p": 0.5,
+  "pair_alpha_gain_pure": 0.0,
+  "pair_beta_gain_pure": 1.0
+ },
+ "part2": {
+  "player1": {
+   "maxmin": -0.0,
+   "minmax_correlated": -0.0
+  },
+  "player2": {
+   "maxmin": -0.0,
+   "minmax_correlated": -0.0
+  },
+  "player3": {
+   "maxmin": -0.0,
+   "minmax_correlated": -0.0
+  }
+ },
+ "part3": {
+  "independent_best_min_gain": 0.0,
+  "shared_coin_best_min_gain": 0.5
+ },
+ "part4": {
+  "player3_programs": 1082,
+  "residents_playing_L_at_status_quo": 541,
+  "deviator_programs_1atom": 63,
+  "deviator_programs_2atoms": 3303,
+  "residents_unmatched_by_1atom_pairs": 0,
+  "universal_matching_pairs_1atom": 0,
+  "best_pair_share_of_residents_matched": 0.8558225508317929,
+  "best_pair": [
+   "if(BOX(2=Y),Y,X)",
+   "if(BOX1(3=R),Y,X)"
+  ],
+  "hardest_residents": [
+   [
+    "if(BOX1(1=N),L,if(BOX1(2=X),R,L))",
+    162
+   ],
+   [
+    "if(BOX1(1=X),if(BOX1(2=N),L,R),L)",
+    162
+   ],
+   [
+    "if(BOX1(1=X),if(BOX1(2=Y),L,R),L)",
+    162
+   ],
+   [
+    "if(BOX1(1=N),L,if(BOX1(1=X),R,L))",
+    162
+   ],
+   [
+    "if(BOX1(1=X),if(BOX1(1=Y),L,R),L)",
+    162
+   ]
+  ],
+  "residents_unmatched_by_2atom_pairs": 0,
+  "unmatched_examples": []
+ }
+}
