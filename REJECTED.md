@@ -1456,3 +1456,17 @@ immigrants"** (RESULTS "Dominance contracts and refusal on islands"; the explain
   pair slots of (Fc, Fc), (Fc⁺, Fc⁺), (Pc⁺, Pc⁺) neutrally in half the seat patterns, pairing with the remaining carrier's fallback;
   with every non-carrier as third, the median is 0 (queue 79's result).
   - RESULTS "Script-checked offers in arm T".
+
+
+### Queue 81 (2026-11-23; RESULTS "Do surviving programs best-respond in tiers?")
+
+- **RE 2 (real testers within 25% for an indifferent tester; no wrong sign):** falsified. A neutral tester's lineages
+  establish and truncate replicates (wrong sign at N = 100, σ = 0.5; errors −64% / +218%). What survives: the sign for
+  selected-against testers. Lesson: P10's σ is a mean-field bias. With long-lived or invading testers it misstates
+  the size and can flip the sign.
+- **RE 6 (arm T at mN = 1 mostly in consensus):** falsified at N = 100 (0.60 diverse) and N = 400 (0.50). It held at
+  N = 200 (0.25) and at mN = 10 (0). The RE conflated outcome consensus (queue 74) with program consensus.
+  Off-path diversity among on-path equivalents persists under migration.
+- **The idea that tier 3 acts through the annealed tail at our doses:** the residents' prior bias is dose-independent
+  (Λ = 0 / 100 / 1,000) and the tail is 99.7% spent by half the horizon. Drop "the prior tier is the tail's"; the founding scramble is the plausible source, not established.
+- **"Mostly supply" as a scored result (RE, queue 81 draft):** RE 4's recorded pass depends on pooling weights (0.090 recorded; about 0.12 weighting by evaluable cases). Kept only as a reading of the arrival counts.

@@ -535,3 +535,23 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
 - **Machine** (RS, 2026-11-23) — the parameters of a program game beyond the base game: admissible programs, what a program sees, step limit and non-return penalty, coins. **Coalition coin** — a coin whose draw only the members of one coalition see; the public coin is the grand coalition's, the private coin a singleton's. **Insulated exit** — a refusal after which no action in the game affects payoffs outside it (orthogonal coalitions).
 - **α-block / β-block; α-core / β-core** (PROOFS P6–P9) — S α-blocks a if one joint action of S beats a for all of S whatever the rest do; β-blocks if S has such an action against each response; the cores are the unblocked outcomes (β-core ⊆ α-core). **Axioms E / R / T** — exposure with a committed punishment per exposed set; deviators read the punishers' actual actions; punishers read the exposed deviators' actions.
 - **Tiered fixation (PROOFS P10):** **Δ₀ / Δ_q** — a variant's payoff advantage against natives / in an encounter with tester q; **m_q, T_q** — arrivals of q per generation and the expected copy-generations of one arrival's lineage; **σ** = (w/f)·Σ m_q T_q Δ_q, the tier's selection strength; N·ρ → σ/(1 − e^(−σ)) for an on-path-equivalent variant; **tester field (assumption A)** — testers met independently at stationary frequency m_q T_q/N.
+
+
+### Queue 81: tiered best response
+
+- **E(p; k)** (on-path equivalents): catalogue programs p′ that, put in p's slot on island k with the other slots at
+  their majority programs, leave the whole payoff vector of the encounter unchanged (one population: u(p′,p) =
+  u(p,p′) = u(p′,p′) = u(p,p)). **E_comp**: equality against every present combination.
+- **Migrant regret** (arrival-weighted): best migrant payoff in E minus p's, the migrant payoff being the expected
+  payoff when one other slot's resident is replaced by a draw from the other islands' majorities (island-count
+  weights). **T-weighted migrant regret** (σ units): max over E of σ(p′) = w Σ_q m_q T_q Δ_q (P10's σ with w/f = w
+  for fitness exp(w·payoff)), m_q = mN·n_q/(I − 1), T_q the exact single-arrival sojourn (copy-generations to
+  extinction or N/2) on the island's native profile.
+- **Prior regret** (in tier): the same against the tail law, within the migrant-argmax members of E.
+- **Native regret:** best catalogue payoff against the island's majority profile (or composition) minus p's.
+- **Prior-matched / founder / arrival controls:** E weighted by the seed law / by the run's founder counts / uniform
+  over E members that arrived on the island while the horizon profile held.
+- **Program-diverse world:** at least two majority program profiles each on ≥ 5% of islands (outcome-diverse: at least
+  two payoff vectors so represented).
+- **Routes** of a zero-regret resident: (c) island taken over, (a) replaced an on-path equivalent with positive
+  regret, (b) held from 25% of the horizon, (u) other.
