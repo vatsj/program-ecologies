@@ -305,12 +305,13 @@ def main():
     J['verdicts']['RE2'] = dict(verdict='falsified' if (wrong or off) else 'holds', wrong_sign=wrong, off40=off)
 
     # ---------------- stage 1b
-    for arm in ('T', 'M', 'P'):
+    for arm in ('T', 'M', 'P', 'T_diverse'):
         p = os.path.join(ROOT, 'runs', 'tbr_rows', 'stage1b_%s.jsonl' % arm)
-        if not os.path.exists(p):
+        if not os.path.exists(p) or os.path.getsize(p) == 0:
             continue
         rows = [json.loads(l) for l in open(p)]
-        L.append('\n### Stage 1b, arm %s: frozen natives, real migrant lineages (N = 200)\n' % arm)
+        L.append('\n### Stage 1b, arm %s: frozen natives, real migrant lineages (N = 200)%s\n' % (
+            arm, ' (exploratory: the ten most common profiles of diverse worlds)' if 'diverse' in arm else ''))
         L.append('| profile (occurrences) | slot | variant class (size) | resident? | σ (P10) | N·ρ [95%] | σ/(1 − e^−σ) | tester est. |')
         L.append('|---|---|---|---|---|---|---|---|')
         agree = 0; tot = 0
@@ -321,7 +322,19 @@ def main():
             if abs(r['sigma']) >= 0.5:
                 tot += 1
                 agree += (r['sigma'] > 0) == (r['Nrho'] > 1)
-        L.append('\nSign agreement where |σ| ≥ 0.5: %d of %d.' % (agree, tot))
+        # against the neutral control: the resident's own copy in the same field (same profile and slot)
+        neut = {}
+        for r in rows:
+            if r['is_resident']:
+                neut[(str(r['profile']), r.get('j', 0))] = r['Nrho']
+        ag2 = tot2 = 0
+        for r in rows:
+            k = (str(r['profile']), r.get('j', 0))
+            if abs(r['sigma']) >= 0.5 and k in neut:
+                tot2 += 1
+                ag2 += (r['sigma'] > 0) == (r['Nrho'] > neut[k])
+        L.append('\nSign agreement where |σ| ≥ 0.5: %d of %d against N·ρ = 1; %d of %d against the neutral control '
+                 '(the resident\'s own copy in the same field).' % (agree, tot, ag2, tot2))
         J['tables']['stage1b_' + arm] = rows
 
     J['tables']['cells'] = agg

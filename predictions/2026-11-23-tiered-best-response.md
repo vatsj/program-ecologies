@@ -104,3 +104,13 @@ forced one. None changes a prediction's threshold.
     simulation (40,000 replicates) per class.
 11. **RE 3, RE 4, RE 8, RE 9 pools**: stage-1 cells (mN = 1, Λ = 100; arm P dense + natural at its boundary mN).
     RE 5: stage-2 cells at N = 200. RE 6: arm T stage-1 cells (each N) and stage 2 at mN = 10; arm P dense cell.
+
+## Stage 3 as implemented (committed before the stage-3 run; no registered prediction)
+
+12. **Supply law.** Per slot, the arm's seed law restricted to the union of E(p; profile) over every program p that
+    held an island in a slot of that island's pair (positive payoff) in the stage-1 worlds at N = 200 (the slot left
+    out of the pair is excluded, since there every catalogue program is an on-path equivalent and the union would be
+    the whole catalogue); renormalized. Sizes: arm M 721 / 842 / 857 of 1,305 classes; arm T 20 of 27 per slot.
+    It is added as an independent Λ = 100 stream (own random stream, the same annealing schedule) to the published
+    Λ = 100 tail; founders paired with stage 1. Arm M is the registered cell; arm T is run beside it as exploratory,
+    because arm M at N = 200, mN = 1 had no diverse worlds in stage 1 (its migrant tier was empty).

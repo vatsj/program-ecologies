@@ -48,26 +48,104 @@ def to_glob(arr, U, K, fill=0):
     return G
 
 
-def run_cell(arm, N, r, lam, mN, outdir=OUTD):
+_SUP = {}
+
+
+def supply_laws(arm, N):
+    """stage 3: per slot, the arm's seed law restricted to the on-path equivalents E(p; profile) of every program p that
+    held an island (horizon majority) in a slot of the island's pair (positive payoff) in the stage-1 worlds at
+    (N, Lambda = 100, mN = 1), renormalized.  (The slot left out of the pair is excluded: there every program is an
+    on-path equivalent, and the union would be the whole catalogue.)"""
+    import glob, tbr
+    if (arm, N) in _SUP:
+        return _SUP[(arm, N)]
+    A = arm_obj(arm)
+    S = [set(), set(), set()]
+    seen = set()
+    for f in sorted(glob.glob(os.path.join(OUTD, '%s_%d_*_100_1.json.gz' % (arm, N)))):
+        rec = json.load(gzip.open(f, 'rt'))
+        maj = {}
+        for c in rec['snaps']['100']['cases']:
+            maj.setdefault(c['i'], [0, 0, 0])[c['j']] = c['p']
+        for pr in set(tuple(v) for v in maj.values()):
+            for j in range(3):
+                o1, o2 = tbr.OTHERS[j]
+                key = (j, pr[j], pr[o1], pr[o2])
+                if key in seen:
+                    continue
+                seen.add(key)
+                row = A.pay_slot(j, np.arange(A.K), {o1: [pr[o1]], o2: [pr[o2]]})[:, 0, 0, :]
+                if row[pr[j], j] <= 1e-12:
+                    continue          # the slot left out of the pair: every program is on path equivalent there
+                S[j] |= set(np.nonzero(np.all(np.abs(row - row[pr[j]]) <= 1e-12, axis=1))[0].tolist())
+    import majority_tail as MT
+    base = MT.base_laws(arm)
+    laws = []
+    for j in range(3):
+        w = np.zeros(len(base[j]))
+        idx = np.array(sorted(S[j]), np.int64)
+        w[idx] = base[j][idx]
+        laws.append(w / w.sum())
+    _SUP[(arm, N)] = (laws, [len(x) for x in S])
+    return _SUP[(arm, N)]
+
+
+def prepare_supply(arm, N, r):
+    """published founders and Lambda = 100 tail plus an independent Lambda = 100 supply stream (own random stream,
+    same annealing schedule) drawn from supply_laws; universe and tables rebuilt over both."""
+    import majority_tail as MT
+    prep = MT.prepare(arm, 'main', N, r)
+    a1 = MT.map_programs(prep['sched'], prep['tail_laws'], 100.0)
+    geo = MT.geometry(N)
+    rng = np.random.default_rng(MT._seed_int('S3', N, r))
+    gs, mean = MT.tail_mean(N, geo['g0'], geo['t0'], geo['gend'], 100.0)
+    cnt = rng.poisson(mean[:, None], size=(len(gs), prep['I']))
+    gi, ii = np.nonzero(cnt); rep = cnt[gi, ii]
+    sg = np.repeat(gs[gi], rep).astype(np.int64); si = np.repeat(ii, rep).astype(np.int64)
+    n = len(sg)
+    sched2 = dict(g=sg, i=si, s=rng.integers(0, 3, n).astype(np.int64), u=rng.random(n), thin=np.zeros(n),
+                  up=rng.random(n), Lmax=100.0)
+    laws, sizes = supply_laws(arm, N)
+    full = []
+    for s_ in range(3):
+        L = np.zeros(len(prep['tail_laws'][s_])); L[:len(laws[s_])] = laws[s_]; full.append(L)
+    a2 = MT.map_programs(sched2, full, 100.0)
+    cat = [np.concatenate([x, y]) for x, y in zip(a1, a2)]
+    order = np.argsort(cat[0], kind='stable')
+    ag, ai, asl, au, ak = [c[order] for c in cat]
+    U, loc = MT.build_universe(arm, prep['init'], (ag, ai, asl, au, ak))
+    J, PAY, VEC, ISMEM, TOT = MT.build_tables(arm, U)
+    lk = np.zeros(len(ak), np.int64)
+    for s_ in range(3):
+        sel = asl == s_
+        lk[sel] = np.searchsorted(U[s_], ak[sel])
+    prep.update(U=U, loc=loc, J=J, PAY=PAY, VEC=VEC, ISMEM=ISMEM, TOT=TOT)
+    return prep, (ag, ai, asl, au, lk), sizes, int(n)
+
+
+def run_cell(arm, N, r, lam, mN, outdir=OUTD, supply=False):
     import majority_tail as MT
     import tbr_kern as TK
     import tbr
-    path = os.path.join(outdir, '%s_%d_%d_%g_%g.json.gz' % (arm, N, r, lam, mN))
+    path = os.path.join(outdir, '%s_%d_%d_%g_%g%s.json.gz' % (arm, N, r, lam, mN, '_S3' if supply else ''))
     if os.path.exists(path):
         return path
     t0 = time.time()
     Lmax = 1000.0 if lam > 100 else 100.0
-    prep = MT.prepare(arm, 'main', N, r, Lmax=Lmax)
+    if supply:
+        prep, arrs, sup_sizes, n_sup = prepare_supply(arm, N, r)
+    else:
+        prep = MT.prepare(arm, 'main', N, r, Lmax=Lmax)
     H = 120 * N
     snapg = np.array([30 * N, 60 * N, 90 * N, 120 * N], np.int64)
-    ag, ai, asl, au, lk = MT.local_arrivals(prep, lam)
+    ag, ai, asl, au, lk = arrs if supply else MT.local_arrivals(prep, lam)
     o = TK.kern_tbr(prep['J'], prep['PAY'], prep['VEC'], prep['ISMEM'], prep['TOT'], prep['loc'], N, MT.W, mN / N,
                     prep['seed'], H, 10, snapg, ag, ai, asl, au, lk, 400000, 400000)
     (status, stop, counts, modal, majo, snapc, snapd, xlog, nx, alog, na, nmig, lastnew, intro, arrf, t10) = o
     t_kern = time.time() - t0
     # reproduction check against queue 74's stored row
     vs = [round(float(MT.ISFAIR[modal[g]].mean()), 4) for g in range(0, H + 1, N)]
-    st = stored_series(arm, N, r, lam, mN) if Lmax == 100.0 else None
+    st = stored_series(arm, N, r, lam, mN) if (Lmax == 100.0 and not supply) else None
     repro = None
     if st is not None:
         repro = bool(st['vshare_ts'][:len(vs)] == vs) and int(st['nmig']) == int(nmig) if not st.get('long') else \
@@ -84,7 +162,9 @@ def run_cell(arm, N, r, lam, mN, outdir=OUTD):
     rec = dict(arm=arm, N=N, run=r, lam=lam, mN=mN, Lmax=Lmax, status=int(status), stop=int(stop), nmig=int(nmig),
                n_arr=int(len(ag)), arr_late=float((ag > 60 * N).mean()) if len(ag) else None,
                arr_after_gend=float((ag > 100 * N).mean()) if len(ag) else None,
-               vstar120=vs[-1], repro=repro, t_kern=round(t_kern, 1))
+               vstar120=vs[-1], repro=repro, t_kern=round(t_kern, 1), supply=bool(supply))
+    if supply:
+        rec['supply_sizes'] = sup_sizes; rec['n_supply_sched'] = n_sup
     snaps = {}
     maj4 = []
     for k, frac in enumerate((25, 50, 75, 100)):
@@ -147,7 +227,9 @@ def make_jobs(stage):
                 for lam in (0, 1000):
                     jobs.append((arm, 200, r, lam, 1))
     elif stage == 's3':
-        pass
+        for arm in ('M', 'T'):
+            for r in range(20):
+                jobs.append((arm, 200, r, 100, 1, 'S3'))
     jobs.sort(key=lambda j: (-j[1], j[0] != 'T'))
     return jobs
 
@@ -155,7 +237,7 @@ def make_jobs(stage):
 def _work(j):
     try:
         t = time.time()
-        p = run_cell(*j)
+        p = run_cell(*j[:5], supply=(len(j) > 5 and j[5] == 'S3'))
         return '%s done %.0fs' % (j, time.time() - t)
     except Exception as e:
         import traceback
@@ -183,7 +265,7 @@ def main():
             if l.strip():
                 x = l.split()
                 jobs.append((x[0], int(x[1]), int(x[2]), int(float(x[3])) if float(x[3]).is_integer() else float(x[3]),
-                             int(float(x[4])) if float(x[4]).is_integer() else float(x[4])))
+                             int(float(x[4])) if float(x[4]).is_integer() else float(x[4])) + tuple(x[5:6]))
         with Pool(a.procs) as pool:
             for msg in pool.imap_unordered(_work, jobs):
                 print(msg, flush=True)
