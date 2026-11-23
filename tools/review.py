@@ -2,8 +2,8 @@
 OpenAI models read OPENAI_API_KEY, Gemini models (name starting with "gemini") read GEMINI_API_KEY,
 both from .env (gitignored).
 
-    python3 tools/review.py specs/<file>.md --context CLAUDE.md --model gpt-6.1-sol
-    python3 tools/review.py specs/<file>.md --context CLAUDE.md --model gemini-4-argon
+    python3 tools/review.py specs/<file>.md --context CLAUDE.md --model gpt-6.2-astra
+    python3 tools/review.py specs/<file>.md --context CLAUDE.md --model gemini-4-carbon
 Writes reviews/<brief-stem>-<model>.md.
 
 Modes (RS, 2026-10-17; two reviews before a run and two after, each pair sequential: one model, fold, then the
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("brief")
     ap.add_argument("--context", nargs="*", default=[])
-    ap.add_argument("--model", default="gpt-6-astra")
+    ap.add_argument("--model", default="gpt-6.2-astra")
     ap.add_argument("--note", default="")
     ap.add_argument("--mode", choices=["spec", "amended", "audit"], default="spec")
     main(ap.parse_args())
