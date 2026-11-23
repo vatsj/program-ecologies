@@ -149,14 +149,13 @@ def _sim1(U, n, field, N, w, mN, reps, seed):
                 if x < acc2:
                     vi = t; break
             cnt[ch] += 1; cnt[vi] -= 1
+            # the variant fixes against the resident when the resident is extinct (testers may be present)
             if cnt[1] == 0: out = 1
-            elif cnt[1] == N: out = 0
+            elif cnt[0] == 0: out = 0
             else:
                 for t in range(2, n):
                     if cnt[t] >= half:
                         out = 2
-                if cnt[0] == 0 and out < 0:
-                    out = 3
         res[out] += 1
     return res
 
@@ -167,13 +166,15 @@ def wilson(k, n, z=1.96):
     return max(0.0, c - h), min(1.0, c + h)
 
 
-def run_tm(arm, reps, N=200, mN=1.0, top=10):
+def run_tm(arm, reps, N=200, mN=1.0, top=10, diverse_only=False):
     import tbr
     A = tbr.Tri(arm)
     files = sorted(glob.glob(os.path.join(ROOT, 'runs', 'tbr_rows', 'tm', '%s_%d_*_100_1.json.gz' % (arm, N))))
     occ = Counter(); fields = defaultdict(lambda: [Counter(), Counter(), Counter()])
     for f in files:
         rec = json.load(gzip.open(f, 'rt'))
+        if diverse_only and not rec['snaps']['100']['world']['diverse']:
+            continue
         cs = rec['snaps']['100']['cases']
         maj = {}
         for c in cs:
@@ -273,7 +274,7 @@ def run_p(reps, N=200, top=10):
             rows.append(dict(arm='P', profile=d['names'][p], occ=n_occ, resident=p, variant=d['names'][e],
                              cls_size=len(mem), is_resident=bool(e == p), sigma=sig, Nrho=N * k / n, Nrho_lo=N * lo,
                              Nrho_hi=N * hi, Nrho_asym=asym(sig), fixed=k, lost=int(o[1]), tester_est=int(o[2]),
-                             resident_lost=int(o[3]), reps=n, n_testers=len(Q), wall=round(time.time() - t0, 1)))
+                             reps=n, n_testers=len(Q), wall=round(time.time() - t0, 1)))
             print(json.dumps(rows[-1]), flush=True)
     return rows
 
@@ -282,9 +283,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('arm', choices=['T', 'M', 'P'])
     ap.add_argument('--reps', type=int, default=40000)
+    ap.add_argument('--diverse', action='store_true', help='exploratory: profiles of diverse worlds only (T, M)')
     a = ap.parse_args()
-    rows = run_p(a.reps) if a.arm == 'P' else run_tm(a.arm, a.reps)
-    with open(os.path.join(OUT, 'stage1b_%s.jsonl' % a.arm), 'w') as f:
+    rows = run_p(a.reps) if a.arm == 'P' else run_tm(a.arm, a.reps, diverse_only=a.diverse)
+    with open(os.path.join(OUT, 'stage1b_%s%s.jsonl' % (a.arm, '_diverse' if a.diverse else '')), 'w') as f:
         for r in rows:
             f.write(json.dumps(r) + '\n')
 
