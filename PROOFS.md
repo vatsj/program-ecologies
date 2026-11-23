@@ -78,6 +78,36 @@ nothing is claimed. (iii) Which axioms the provability arm satisfies is not prov
 (`notes/2026-11-23-case3-static.md`): on the catalogue at n = 5–9 axiom R holds, axiom T fails, and the strong Nash
 outcomes of the PD, pure matching pennies and the separating game Q are the β-core.
 
+### The tiered fixation lemma (2026-11-23; credibility as lexicographic best response)
+
+Setting: one slot of one island, a Moran population of N individuals with fitness 1 − w + w·(expected payoff),
+0 < w ≤ 1. The resident program p earns ū against the island's residents. A variant p′ earns ū + Δ₀ against them.
+**Assumption A (tester field):** independently in each encounter, the partner in some other slot is a tester of type
+q with probability ε_q = m_q·T_q / N (m_q arrivals of q per generation, T_q the expected copy-generations one
+arrival's lineage lives), the field is stationary and does not depend on how many variants there are, and encounters
+with two testers are neglected. Δ_q is the variant's payoff minus the resident's in an encounter with q.
+
+**P10.** Under A the variant's relative fitness is r = 1 + w(Δ₀ + Σ_q ε_q Δ_q)/f, f = 1 − w + wū, and its fixation
+probability from one copy is ρ = (1 − 1/r)/(1 − r^(−N)) (ρ = 1/N if r = 1).
+(i) If Δ₀ > 0, ρ → 1 − 1/r₀ > 0 as N → ∞, and if Δ₀ < 0, Nρ → 0 exponentially in N, whatever the testers
+(r₀ = 1 + wΔ₀/f).
+(ii) If Δ₀ = 0 (the variant is on-path equivalent), Nρ → σ/(1 − e^(−σ)) as N → ∞, with
+σ = (w/f)·Σ_q m_q T_q Δ_q; this is above 1 iff σ > 0, below 1 iff σ < 0, and does not depend on N.
+(iii) Split the testers into migrants and mutants, σ = σ_mig + σ_mut. As the migration dose grows with the mutation
+dose fixed, Nρ → ∞ if Σ_mig m_q T_q Δ_q > 0 and Nρ → 0 if it is < 0; if it is exactly 0, Nρ = σ_mut/(1 − e^(−σ_mut)).
+*Proof.* Expected payoffs are linear in the partner's type, so under A every variant has the same constant fitness
+f + w(Δ₀ + Σε_qΔ_q) and every resident f; the Moran process with constant relative fitness r has the stated ρ
+(the gambler's-ruin formula). (i) r → r₀ ≠ 1 since ε_q = O(1/N). (ii) r = 1 + σ/N, so r^(−N) → e^(−σ) and
+N(1 − 1/r) → σ. (iii) from (ii), since x/(1 − e^(−x)) → ∞ as x → ∞ and → 0 as x → −∞. ∎
+
+*Reading.* Selection orders a program's rivals lexicographically: first by payoff against the island's natives (at
+strength N), then against migrants (at strength of the migration dose), then against the mutation prior (at
+strength of the tail's dose). The order is exact only in the limit where the three strengths are well separated;
+at finite doses each lower tier is a bias factor σ/(1 − e^(−σ)), not a filter. *Not proved:* assumption A for the
+object (tester lineages are real individuals whose own fate depends on the mix of residents and variants); for a
+tester selected against at relative fitness r_q < 1, T_q = 1/(1 − r_q). At a world in consensus migrants are
+natives, Δ_q = 0 for every migrant, and the migrant tier is empty.
+
 ## Proved elsewhere (pointers)
 
 - Lemma D′, the scramble (any lineage, any stopping time): RESULTS "The demographic lemma".
