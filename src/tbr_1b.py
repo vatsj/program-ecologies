@@ -2,6 +2,8 @@
 mN = 1 for T and M; arm P at its boundary mN), freeze the natives, take the migrant distribution of the worlds in
 which the profile occurs as an exogenous tester field (pooled over occurrences, island-count weights, the island
 itself excluded), and simulate fixation from one copy of each member of E(p; k) against the resident.
+In arm P (one pool) only tester migrants arrive, at total rate mN * (share of the field that is not p), so that, as
+in the focal slot of T and M, migrants of the resident's own program do not dilute the variant.
 
 Members of E are grouped into classes with identical payoffs against every tester triple of the field (they have the
 same law in this simulation); one simulation per class.  The island is a real Moran island: in the other slots (arm T,
@@ -262,9 +264,11 @@ def run_p(reps, N=200, top=10):
             sig = W * mN * float((f * Tq * (U[e, Q] - U[p, Q])).sum()) if len(Q) else 0.0
             types = [p, e] + Q
             Ut = U[np.ix_(types, types)].astype(float)
-            field = np.concatenate([[max(0.0, 1.0 - f.sum())], [0.0], f])
+            # only tester migrants arrive (as the focal slot of T and M, migrants of the resident's own program are
+            # switched off); their total rate is mN * sum(f)
+            field = np.concatenate([[0.0], [0.0], f])
             t0 = time.time()
-            o = _sim1(Ut, len(types), field, N, W, mN, reps, hash((p, e)) & 0x7fffffff)
+            o = _sim1(Ut, len(types), field, N, W, mN * float(f.sum()), reps, hash((p, e)) & 0x7fffffff)
             k = int(o[0]); n = int(o.sum()); lo, hi = wilson(k, n)
             rows.append(dict(arm='P', profile=d['names'][p], occ=n_occ, resident=p, variant=d['names'][e],
                              cls_size=len(mem), is_resident=bool(e == p), sigma=sig, Nrho=N * k / n, Nrho_lo=N * lo,
