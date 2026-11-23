@@ -37,6 +37,46 @@ restriction of G that still contains it (actions removed, or players frozen at t
 *Proof.* Every deviation available in the restriction is available in G. ∎ (So strong Nash technologies satisfy
 the tab's independence of irrelevant alternatives and subgame-perfection.)
 
+### Strong Nash in program space and the two cores (2026-11-23; sound on-path reading, "case 3")
+
+Setting: G a finite game in pure actions. y ≫_S a means every member of S is strictly better off at y than at a.
+A nonempty coalition S **α-blocks** a if ∃x_S ∀b_{N∖S}: (x_S, b) ≫_S a, and **β-blocks** a if ∀b_{N∖S} ∃x_S:
+(x_S, b) ≫_S a (for S = N both say a is strictly Pareto-dominated). The α-core (β-core) is the set of outcomes no
+coalition α-blocks (β-blocks); an α-block is a β-block, so β-core ⊆ α-core. A program game is (P, o): program sets
+P_i and a total outcome map o from profiles to action profiles. A profile p is strong Nash if no S and q_S give
+o(q_S, p_{−S}) ≫_S o(p) (deviation without response).
+
+**P6. Upper bound, always.** If P contains the constants (for each x_i a program that plays x_i in every profile),
+every strong Nash outcome is in the α-core.
+*Proof.* Let p be strong Nash with outcome a and suppose S α-blocks a with x_S. Let S deviate to the constants x_S.
+The outcome is (x_S, b) for some b, and (x_S, b) ≫_S a for every b. Contradiction. ∎
+
+**P7. Lower bound under exposure.** Axiom E: for every a and every plan (b^D), one b^D ∈ A_{N∖D} for each nonempty
+D ⊊ N, there is a profile p with o(p) = a such that after any deviation q_S the outcome y is either a, or satisfies
+y_{N∖D} = b^D for some nonempty D ⊆ S (the exposed deviators; D = N allowed, with no condition). Under E every
+β-core outcome is a strong Nash outcome.
+*Proof.* Let a be in the β-core. For each nonempty D ⊊ N, D does not β-block, so there is b^D with no x_D giving
+(x_D, b^D) ≫_D a. Take the profile of axiom E for this plan. After a deviation by S: if y = a nobody gains; if
+D = N then S = N and y ≫_N a is excluded because N does not block; otherwise y = (y_D, b^D), some member of D is
+not strictly better off, and D ⊆ S. ∎
+
+**P8. Upper bound when deviators read last.** Axiom R: for every profile p, coalition S and map f from A_{N∖S} to
+A_S there is q_S whose outcome has the form (f(y), y). Under R every strong Nash outcome is in the β-core.
+*Proof.* If S β-blocks a = o(p), let f(b) be an x_S with (x_S, b) ≫_S a and take q_S from R. ∎
+So under E and R the strong Nash outcomes are exactly the β-core.
+
+**P9. Lower bound when punishers read actions.** Axiom T: as E, but the plan may depend on the exposed deviators'
+actions, y_{N∖D} = b^D(y_D). Under T every α-core outcome is a strong Nash outcome, so with P6 the strong Nash
+outcomes are exactly the α-core.
+*Proof.* As P7, choosing b^D(x_D) with (x_D, b^D(x_D)) not ≫_D a, which exists because D does not α-block. ∎
+
+*Remarks.* (i) T and R cannot both hold in a game whose α-core and β-core differ (pure matching pennies: every
+outcome is in the α-core and none in the β-core): a language sits at one end or between, and which end is the
+question of who reads whom. (ii) For two players with a private coin each, the minimax theorem makes a player's
+maxmin and minmax values equal, so the two cores coincide and the question disappears; for three or more players
+nothing is claimed. (iii) Which axioms the provability arm satisfies is not proved here; it is to be checked by
+enumeration.
+
 ## Proved elsewhere (pointers)
 
 - Lemma D′, the scramble (any lineage, any stopping time): RESULTS "The demographic lemma".
