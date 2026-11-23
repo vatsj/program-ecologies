@@ -532,3 +532,4 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   - **S79** — RESULTS' name for the run report's arm K / "world K" (queue 79's skeleton machine), to avoid the clash with the PD certificate convention world K.
   RESULTS "Script-checked offers in arm T".
 - **Nonempty technology** (RS, 2026-11-21) — a technology that returns at least one acceptable outcome on every game (or on every game of a stated class).
+- **Machine** (RS, 2026-11-23) — the parameters of a program game beyond the base game: admissible programs, what a program sees, step limit and non-return penalty, coins. **Coalition coin** — a coin whose draw only the members of one coalition see; the public coin is the grand coalition's, the private coin a singleton's. **Insulated exit** — a refusal after which no action in the game affects payoffs outside it (orthogonal coalitions).
