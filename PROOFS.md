@@ -121,6 +121,33 @@ containing both outcomes: the cross profiles would pay (1,1), dominated, and (2,
 without strong is possible (a player's choice can move payoff between the others). Not proved: anything about
 maximal factorizations in general.
 
+**P12 (two players with coins: strong Nash is nonempty; 2026-11-23).** Setting: G a finite two-player game. The
+machine gives each player a private coin (its draw unseen by the other player's program) and programs read each
+other's source; a program may test whether its partner's source is a given text. Payoffs are expectations. Let
+m_i = min over mixed actions σ_j of max over a_i of u_i(a_i, σ_j) (i's mixed minmax value), attained at σ_j\*. Let
+Π be the set of payoff vectors of product distributions σ_1 × σ_2, and F ⊇ Π the convex hull of the pure payoff
+vectors (what a public coin adds). Strong Nash: no single player and no pair can switch programs and make every
+switcher strictly better off in expectation, the other program staying as written.
+(i) With private coins only, the program game has a strong Nash profile. (ii) With a public coin as well, every
+x ∈ F with x_i ≥ m_i for both i that is not strictly Pareto-dominated in F is a strong Nash payoff, and such x exist.
+*Proof.* Take W = Π for (i) and W = F for (ii); W is compact and is exactly the set of payoff vectors any pair of
+programs can produce (programs cannot see each other's private draws, so without a public coin the joint action
+distribution is a product; with one it is a mixture of products). Let R = {x ∈ W : x_i ≥ m_i, i = 1, 2}. R is
+nonempty: a Nash equilibrium (σ_1, σ_2) of the mixed extension exists, its payoff is in Π ⊆ W, and
+u_i = max_{a_i} u_i(a_i, σ_j) ≥ m_i. R is compact, so some x ∈ R maximizes x_1 + x_2; no y ∈ W has y ≫ x, since
+such y would lie in R with a larger sum. Let x be the payoff of the distribution D (a product in (i), a public-coin
+mixture of products in (ii)). Programs: p_i plays its part of D if the partner's source is the text of p_j, and
+otherwise plays σ_i\* on its private coin. The profile pays x. A single deviator i faces σ_j\* drawn on a coin it
+cannot see, so it earns at most max_{a_i} u_i(a_i, σ_j\*) = m_i ≤ x_i: no strict gain. A joint deviation pays some
+y ∈ W, and y ≫ x is excluded. ∎
+Remarks. (a) Without coins the claim fails: in pure matching pennies each player's pure minmax is the winning payoff
+(the deviator reads the punisher), R is empty and there is no strong Nash profile (enumeration,
+`notes/2026-11-23-case3-static.md`). (b) The public coin is not needed for existence; it enlarges the set of strong
+Nash payoffs from Π to F. (c) The construction identifies the partner by its text, so the supporting profile is an
+identity pair; it shows existence, not openness. (d) The punishment σ_j\* may cost the punisher; nothing here says
+it is a best reply to the deviator. (e) Two players only: with three, a pair's private coins and the third's reads
+change the blocking sets (`notes/2026-11-23-three-players-coins.md`).
+
 ## Proved elsewhere (pointers)
 
 - Lemma D′, the scramble (any lineage, any stopping time): RESULTS "The demographic lemma".
