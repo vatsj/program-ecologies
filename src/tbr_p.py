@@ -316,6 +316,7 @@ def main():
     ap.add_argument('set', nargs='?', default='s1')
     ap.add_argument('--procs', type=int, default=3)
     ap.add_argument('--nrep', type=int, default=20)
+    ap.add_argument('--shard', default='0/1', help='i/k: run cells i, i+k, ... of the sorted cell set')
     a = ap.parse_args()
     from multiprocessing import Pool
     if a.cmd == 'repro':
@@ -339,7 +340,9 @@ def main():
         print('repro: %d of %d match' % (nmatch, len(out)))
     elif a.cmd == 'run':
         cs = cellset(a.set, a.nrep)
-        cs.sort(key=lambda c: (c[6] is None, c[4]))
+        cs.sort(key=lambda c: (c[6] is None, c[4], c[3], c[6] or ''))
+        si, sk = (int(x) for x in a.shard.split('/'))
+        cs = cs[si::sk]
         with Pool(a.procs) as pool:
             for m in pool.imap_unordered(_w, cs):
                 print(m, flush=True)
