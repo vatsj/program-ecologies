@@ -555,3 +555,14 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   two payoff vectors so represented).
 - **Routes** of a zero-regret resident: (c) island taken over, (a) replaced an on-path equivalent with positive
   regret, (b) held from 25% of the horizon, (u) other.
+
+
+### Factored technologies (RS, 2026-11-23; working definitions)
+
+- **Factors** — a technology factors if its acceptable set is a product A_1 × … × A_n of acceptable programs per
+  player (Nash's interchangeability, in program space).
+- **Equipotent** — *weakly*: each of a player's acceptable programs earns that player the same payoff against any
+  fixed acceptable profile of the others (the payoff may depend on that profile). *Strongly*: every player's payoff
+  is constant on the product. PROOFS P11: factored and Nash in every cell implies weakly equipotent.
+- **Objection** — a coalition's joint switch of programs, the others' programs staying as written, that makes every
+  member of the coalition strictly better off. Strong Nash = no objection.

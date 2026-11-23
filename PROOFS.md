@@ -108,6 +108,19 @@ object (tester lineages are real individuals whose own fate depends on the mix o
 tester selected against at relative fitness r_q < 1, T_q = 1/(1 − r_q). At a world in consensus migrants are
 natives, Δ_q = 0 for every migrant, and the migrant tier is empty.
 
+**P11 (factored technologies are equipotent; 2026-11-23, the RS's definitions).** Let A = A_1 × … × A_n be a product
+set of programs every profile of which is a Nash equilibrium in program space. Then (i) A is weakly equipotent:
+u_i(p_i, p_−i) = u_i(p_i′, p_−i) for all p_i, p_i′ ∈ A_i. (ii) If n = 2, every profile of A is also Pareto efficient
+and the Pareto frontier of the feasible set is strictly decreasing (no flat segment), then A is strongly equipotent:
+payoffs are constant on A.
+*Proof.* (i) (p_i, p_−i) and (p_i′, p_−i) are both in A, so both are Nash, so each of p_i, p_i′ is a best reply to
+p_−i; best replies earn the same. (ii) By (i) u_1 depends only on p_2 and u_2 only on p_1. On a strictly decreasing
+frontier u_2 = φ(u_1) with φ injective, so g(p_1) = φ(f(p_2)) for all p_1, p_2, hence both are constant. ∎
+Remarks. Battle of the sexes has two maximal strongly equipotent factorizations and no factored technology
+containing both outcomes: the cross profiles would pay (1,1), dominated, and (2,2), infeasible. With n ≥ 3 weak
+without strong is possible (a player's choice can move payoff between the others). Not proved: anything about
+maximal factorizations in general.
+
 ## Proved elsewhere (pointers)
 
 - Lemma D′, the scramble (any lineage, any stopping time): RESULTS "The demographic lemma".
