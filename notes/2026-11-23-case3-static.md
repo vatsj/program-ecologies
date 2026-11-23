@@ -36,3 +36,32 @@ Run before these predictions: only the catalogue sizes above and evaluation timi
    game over it has a strong Nash profile). Falsifier: an unblocked outcome.
 
 Exploratory, no prediction: the same with PA-level boxes only.
+
+## Result (`src/case3_static.py`, `runs/case3-static.json`; seconds of CPU)
+
+All six predictions hold, at every n = 5–9, with both proof levels and with PA-level boxes only.
+
+| game | α-core | β-core | strong Nash outcomes in the catalogue (profiles at n = 5 / 7 / 9) |
+|---|---|---|---|
+| PD | CC | CC | CC only (9 / 121 / 637) |
+| MP (pure) | all four | none | none |
+| Q | CC, CD, DD | CC, DD | CC (26 / 613 / 13,055) and DD (17 / 1,943 / 37,037); CD never |
+| majority division | none | none | all 729 action profiles α-blocked by a pair of constants |
+
+Who reads whom:
+- No program matches, and none mismatches, every opponent's actual action (axiom T fails).
+- Against every resident in the catalogue (mass 1.0, every n) some deviator matches its actual action and some
+  deviator mismatches it (axiom R holds on the catalogue).
+- The best mirrors match the actual action of 0.994–0.997 of prior mass (`BOX1(THEM(ME))`; from n = 8
+  `and(BOX1(THEM(ME)), not(BOXD(THEM(ME))))`); the best anti-mirrors mismatch 0.992–0.994 (`not(BOX1(THEM(ME)))`).
+  The exceptions are what decide the static question.
+- Never-exploited cooperators exist at every n (3 → 61 classes, about 0.010–0.015 of prior mass) and include FairBot.
+
+## Reading
+
+The provability arm sits at the β end: with sound but incomplete reading, a deviator can always be unreadable and
+can always read the resident, so punishments cannot be tailored and the deviator replies last. Strong Nash in
+program space is then the β-core in the three two-player games tested. Nothing here tests three or more players
+beyond the theorem that an empty α-core leaves nothing (majority division), and nothing tests coins. A finite
+catalogue under-counts deviations, so the positive findings (CC in the PD; CC and DD in Q) are upper bounds on the
+language; for the PD and Q they are backed by soundness (a FairBot-type resident cannot be exploited by any program).

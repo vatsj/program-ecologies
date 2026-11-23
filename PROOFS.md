@@ -74,8 +74,9 @@ outcomes are exactly the α-core.
 outcome is in the α-core and none in the β-core): a language sits at one end or between, and which end is the
 question of who reads whom. (ii) For two players with a private coin each, the minimax theorem makes a player's
 maxmin and minmax values equal, so the two cores coincide and the question disappears; for three or more players
-nothing is claimed. (iii) Which axioms the provability arm satisfies is not proved here; it is to be checked by
-enumeration.
+nothing is claimed. (iii) Which axioms the provability arm satisfies is not proved here. Checked by enumeration
+(`notes/2026-11-23-case3-static.md`): on the catalogue at n = 5–9 axiom R holds, axiom T fails, and the strong Nash
+outcomes of the PD, pure matching pennies and the separating game Q are the β-core.
 
 ## Proved elsewhere (pointers)
 
