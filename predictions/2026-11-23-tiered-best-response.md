@@ -63,3 +63,44 @@ finite-schedule statistics, not π.
 
 Finite horizon, catalogue-relative: low regret can come from founding abundance, the catalogue's geometry,
 colonization or survival as well as from refinement of threats; nothing here establishes a large-N limit.
+
+## Definitions as implemented, committed before stage 2 (run engineer, 2026-11-23)
+
+Stage 0 and stage 1 ran under the text above; these fix what the code does where the spec left a choice or the code
+forced one. None changes a prediction's threshold.
+
+1. **Fitness.** All three arms use fitness exp(w·payoff) (w = 0.3), not 1 − w + w·payoff, so P10's w/f is w and
+   σ = w·Σ_q m_q T_q Δ_q. Stage 0 uses linear fitness with f = 1 (same σ).
+2. **T_q.** Exact single-arrival sojourn on the island's native profile (birth–death chain with absorption at 0 and
+   N/2 copies; N events per slot per generation): constant relative fitness exp(w(u_q − u_native)) in arms T and M,
+   frequency-dependent in arm P. m_q = mN·n_q/(I − 1), n_q the number of other islands holding q in that slot.
+3. **Consensus world** = not diverse (diverse: at least two majority profiles of programs, each on ≥ 5% of islands).
+4. **Settled island** = majority share ≥ 0.8 in every slot (≥ 0.95 reported beside).
+5. **Controls.** Prior-matched: exact expectation over E(p; k) under the arm's seed law (not a single draw).
+   Supply: arms T and M use the arrival control (E members that arrived on the island, by migration or the tail, at or
+   after the generation the horizon profile became resident, uniform weights; residency start = latest generation at
+   which a slot's holder crossed N/2 in its current presence episode); the founder-weighted control is reported beside.
+   Arm P: founder-weighted only (the kernel does not log per-class arrivals), labelled an approximation.
+   RE 4 is scored against the arrival control in T and M and the founder control in P.
+6. **Prior tier.** Arms T and M: the tail law (= seed law in the main variant), arrival-weighted (π_q) and
+   T-weighted (π_q·T_q, unit dose); RE 7 is scored on the T-weighted in-tier statistic, arrival-weighted beside it.
+   Arm P has no tail (ε = 0): the prior tier is not computed there.
+7. **Arm P runs** use lump = False (lumping merges classes identical only on the present support, which makes
+   migrant regret against absent variants undefined); same law, different random stream from the published runs.
+   The environment is checked draw for draw with lump = True on 5 runs per forced rival and 5 natural runs; the
+   lump-free runs are compared with the published cells statistically. The 25% state is exact (published seed,
+   check schedule truncated); 50% and 75% are not saved: route (b) in arm P uses the kernel's strong-holder log (no
+   transition to another class on the island after 25%). Arm P's "dense" cell pools the six forced rivals, 20 runs
+   each; "natural" is the iid cell, 20 runs. Arm P's mN is the published boundary 1.091 in place of 1 (stage 1 and
+   stage 2's middle dose); stage 2 doses for P: {0.1, 1.091, 3, 10}.
+8. **Λ = 1,000** (arms T and M) uses a tail schedule generated at Lmax = 1,000, so its arrival stream differs from
+   the Λ = 100 cell's (founders are paired).
+9. **Routes** (RE 9), arms T and M: (c) if the island's majority profile at 25% has a different payoff vector from
+   the horizon profile; (a) if the slot's 25% majority is another member of E(p; k) with positive T-regret at the
+   horizon; (b) if the slot's majority was p at 25%, 50% and 75%; (u) otherwise. The origin of the horizon holder's
+   presence episode (founder / migrant / tail) comes from the kernel's N/2-crossing log.
+10. **Stage 1b.** N = 200, mN = 1 (P: 1.091); profiles pooled over the stage-1 worlds at that N; migration into the
+    focal slot off; E members grouped into classes with identical payoffs against every tester triple, one
+    simulation (40,000 replicates) per class.
+11. **RE 3, RE 4, RE 8, RE 9 pools**: stage-1 cells (mN = 1, Λ = 100; arm P dense + natural at its boundary mN).
+    RE 5: stage-2 cells at N = 200. RE 6: arm T stage-1 cells (each N) and stage 2 at mN = 10; arm P dense cell.
