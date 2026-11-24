@@ -570,3 +570,10 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   equipotent with no outside program exploiting a member. *Maximal*: no program can be added. Internal stability =
   equipotence; external stability = every outsider breaks equipotence with a member or is itself exploitable.
   **Anchor** — programs required to be members, used to pick one maximal factorization (e.g. FairBot + PrudentBot).
+- **Stable / maximal technology** (RS's working names, 2026-11-24) — *stable*: no acceptable profile is dominated
+  (strong internal stability; the technology is a subset of the core of the program game, i.e. of the strong Nash
+  profiles). *Maximal*: no profile that is compatible with the technology and undominated is left out. Each takes a
+  grade from the dominance used: *weak* grade = strict dominance (every member of the objecting coalition strictly
+  better; cuts only strongly dominated actions; the weak core), *strong* grade = weak dominance (nobody worse, someone
+  better; cuts weakly dominated actions too; the strong core). A strongly maximal technology is smaller than a
+  weakly maximal one, not a strengthening of it.
