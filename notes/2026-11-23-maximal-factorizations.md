@@ -27,3 +27,24 @@ Predictions (the RE's, written before the run):
 - F4 holds: the largest holds 0.999 of the factorizing mass at n = 8 and 9 (1.000 where it is unique).
 
 Scope: symmetric factorizations A × A only; Nash is checked against deviations inside the catalogue; the free sound oracle arm; mass is the length prior's. Factorizing programs are about 1% of the prior (the rest is mostly constants).
+
+## Addendum (2026-11-24): equipotence alone, anchored on FairBot and PrudentBot (RS's internal/external reading)
+
+Equipotent set here: every cell CC (self-play included); no Nash requirement. Computed inline, same catalogue.
+
+| n | anchor | maximal equipotent sets | largest: members / prior mass / members some catalogue program exploits |
+|---|---|---|---|
+| 8 | none | 5,804 | 131 / 0.490 / 116 |
+| 8 | FairBot | 3 | 131 / 0.490 / 116 |
+| 8 | FairBot + PrudentBot | 1 | 24 / 0.0102 / 16 |
+| 9 | none | 50,836 | 239 / 0.490 / 218 |
+| 9 | FairBot | 6 | 239 / 0.490 / 218 |
+| 9 | FairBot + PrudentBot | 1 | 42 / 0.0103 / 32 |
+
+- The RS's claim holds: the maximal equipotent set containing FairBot and PrudentBot is unique and excludes
+  CooperateBot (PrudentBot exploits it).
+- Outsiders of that set by prior mass (n = 8; n = 9 the same to 0.001): prey of some member 0.482, predators of some
+  member 0.034, neither (mutual loss or failed self-play) 0.475.
+- The RE's guess that this set equals the strong Nash factorization containing both (8 and 10 members) was wrong:
+  the equipotent set is three to four times larger. Removing the members that some catalogue program exploits gives
+  exactly that factorization.
