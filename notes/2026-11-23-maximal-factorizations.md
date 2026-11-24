@@ -48,3 +48,16 @@ Equipotent set here: every cell CC (self-play included); no Nash requirement. Co
 - The RE's guess that this set equals the strong Nash factorization containing both (8 and 10 members) was wrong:
   the equipotent set is three to four times larger. Removing the members that some catalogue program exploits gives
   exactly that factorization.
+
+## Addendum (2026-11-24): iterated elimination of weakly dominated programs, PD catalogue
+
+Computed inline (all weakly dominated programs removed each round, dominance against surviving programs only).
+
+| n | classes | rounds | eliminated (prior mass) | survivors | CooperateBot | DefectBot | FairBot | PrudentBot | CC share among survivor pairs |
+|---|---|---|---|---|---|---|---|---|---|
+| 7 | 218 | 2 | 48 (0.018) | 170 | survives | survives | eliminated | absent | 0.10 |
+| 8 | 610 | 1 | 130 (0.479) | 480 | eliminated | survives | survives | survives | 0.18 |
+
+The result flips between cutoffs (FairBot out and CooperateBot in at n = 7, the reverse at n = 8) because dominance
+depends on which opponents the catalogue contains. It leaves DefectBot and most of the catalogue. Not searched:
+order dependence (only the maximal-elimination order was run).
