@@ -1470,3 +1470,13 @@ immigrants"** (RESULTS "Dominance contracts and refusal on islands"; the explain
 - **The idea that tier 3 acts through the annealed tail at our doses:** the residents' prior bias is dose-independent
   (Λ = 0 / 100 / 1,000) and the tail is 99.7% spent by half the horizon. Drop "the prior tier is the tail's"; the founding scramble is the plausible source, not established.
 - **"Mostly supply" as a scored result (RE, queue 81 draft):** RE 4's recorded pass depends on pooling weights (0.090 recorded; about 0.12 weighting by evaluable cases). Kept only as a reading of the arrival counts.
+
+### Weak-dominance elimination as a technology step (2026-11-24)
+
+- **Iterated elimination of weakly dominated programs, alone or after picking a maximal strong Nash factorization
+  (RS's recipe, dropped by the RS "for now": he does not want off-path conditions imposed).** On the PD catalogue it
+  is cutoff-dependent alone (FairBot out and CooperateBot in at n = 7, the reverse at n = 8; DefectBot survives) and
+  removes 0–4 programs inside a factorization, FairBot surviving beside PrudentBot, because PrudentBot is worse than
+  FairBot against the PA+1 provers (0.0085 of the prior). `notes/2026-11-23-maximal-factorizations.md`, addenda.
+- **The RE's guesses in that note:** PrudentBot in the largest factorization (F2), and the anchored equipotent set
+  equal to the strong Nash factorization; both wrong, see the note.
