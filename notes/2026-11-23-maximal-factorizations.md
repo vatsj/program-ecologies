@@ -61,3 +61,17 @@ Computed inline (all weakly dominated programs removed each round, dominance aga
 The result flips between cutoffs (FairBot out and CooperateBot in at n = 7, the reverse at n = 8) because dominance
 depends on which opponents the catalogue contains. It leaves DefectBot and most of the catalogue. Not searched:
 order dependence (only the maximal-elimination order was run).
+
+## Addendum (2026-11-24): the RS's recipe (strong Nash, a maximal factorization, then weak-dominance elimination)
+
+Elimination among the members of each maximal strong Nash factorization, dominance judged against the whole
+catalogue (the same result against outsiders only).
+
+| n | FairBot's largest | FairBot + PrudentBot | P\* |
+|---|---|---|---|
+| 8 | 15 → 15 | 8 → 8 | 3 → 3 |
+| 9 | 21 → 17 | 10 → 9 | 5 → 5 |
+
+FairBot survives in both of its factorizations, so the recipe does not pick PrudentBot over FairBot here.
+PrudentBot earns more than FairBot against 0.474 of the prior (the unconditional cooperators) and less against
+0.0085 (the PA+1 provers, e.g. `BOX1(THEM(ME))`, where it gets DD and FairBot CC), so it does not weakly dominate.
