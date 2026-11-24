@@ -566,3 +566,7 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   is constant on the product. PROOFS P11: factored and Nash in every cell implies weakly equipotent.
 - **Objection** — a coalition's joint switch of programs, the others' programs staying as written, that makes every
   member of the coalition strictly better off. Strong Nash = no objection.
+- **Strong Nash factorization** (RS, 2026-11-24) — a factored set every profile of which is strong Nash; equivalently
+  equipotent with no outside program exploiting a member. *Maximal*: no program can be added. Internal stability =
+  equipotence; external stability = every outsider breaks equipotence with a member or is itself exploitable.
+  **Anchor** — programs required to be members, used to pick one maximal factorization (e.g. FairBot + PrudentBot).
