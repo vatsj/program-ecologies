@@ -75,3 +75,20 @@ catalogue (the same result against outsiders only).
 FairBot survives in both of its factorizations, so the recipe does not pick PrudentBot over FairBot here.
 PrudentBot earns more than FairBot against 0.474 of the prior (the unconditional cooperators) and less against
 0.0085 (the PA+1 provers, e.g. `BOX1(THEM(ME))`, where it gets DD and FairBot CC), so it does not weakly dominate.
+
+## Addendum (2026-11-25): the stable set of the PD program game (`src/stable_set_pd.py`, `runs/stable-set-pd.json`)
+
+Dominance: deviation without response in program space (one player switches and gains strictly, or both switch and
+both gain strictly). The construction decides every profile, so the stable set is unique on each catalogue; internal
+and external stability checked.
+
+| n | profiles | core (strong Nash) profiles | stable set | of which CC / exploitation / DD | prior mass CC / exploitation |
+|---|---|---|---|---|---|
+| 5 | 1,156 | 9 | 104 | 16 / 88 / 0 | 0.0004 / 0.471 |
+| 6 | 4,356 | 81 | 296 | 144 / 152 / 0 | 0.0004 / 0.469 |
+| 7 | 47,524 | 121 | 4,260 | 576 / 3,684 / 0 | 0.0004 / 0.468 |
+| 8 | 372,100 | 319 | 42,728 | 1,894 / 40,834 / 0 | 0.0004 / 0.467 |
+
+The stable set contains the core and is, by prior mass, almost entirely profiles in which one program defects on a
+program that cooperates with it (first example: DefectBot against CooperateBot). The base PD has no stable set under
+the same dominance (CC is dominated by DC, DC by DD, DD by CC).
