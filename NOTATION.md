@@ -576,3 +576,7 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   outcomes are acceptable (the old strong external axiom). *Stable*: the technology maps a game to a stable set
   (both relative axioms). Grades of dominance: strict dominance cuts only strongly dominated actions (weak core),
   weak dominance also cuts weakly dominated ones (strong core, smaller).
+- **Naming convention (RS, 2026-11-25):** "maximal" is informal only, being overloaded (maximal factorization,
+  maximal technology, the dropped grades); formal names follow the literature's stability terms: *Nash stable* (no
+  single player gains by switching), *strong Nash* / *core stable* (no coalition gains), *stable* for a technology
+  whose acceptable sets are stable sets.
