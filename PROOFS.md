@@ -148,6 +148,22 @@ identity pair; it shows existence, not openness. (d) The punishment σ_j\* may c
 it is a best reply to the deviator. (e) Two players only: with three, a pair's private coins and the third's reads
 change the blocking sets (`notes/2026-11-23-three-players-coins.md`).
 
+**P13 (the maximal strong Nash technology is Maskin monotonic; 2026-11-25).** Let G and G′ have the same players
+and action (program) spaces. Let x be strong Nash in G under strict dominance, and suppose that for every player i
+and every profile y, u_i(x) ≥ u_i(y) in G implies u′_i(x) ≥ u′_i(y) in G′. Then x is strong Nash in G′. The same
+holds for Nash (singletons only), and for any fixed family of coalitions allowed to object.
+*Proof.* If S objects to x in G′ through y (y_{−S} = x_{−S}, u′_i(y) > u′_i(x) for all i in S), the contrapositive
+of the hypothesis gives u_i(y) > u_i(x) in G for all i in S, so S objects in G. ∎
+Corollaries: x-improvement (raising only x's payoffs keeps x); lowering payoffs away from x keeps x; invariance
+under any increasing transform of one player's payoffs in the pure case, and under positive affine transforms when
+payoffs are expectations over coins.
+Not monotone: (a) under weak dominance (nobody worse, somebody better) the claim fails: two players, x = (a, a),
+y = (b, b), off-diagonal profiles worst for both; in G player 1 strictly prefers x and player 2 strictly prefers y;
+in G′ player 1 is indifferent. The hypothesis holds, x is unblocked in G and weakly blocked by the pair in G′.
+(b) The technology can gain members under such a change (nothing here bounds it above). (c) A selection from it
+(e.g. the largest factorization) need not be monotonic, since the change can add strong Nash profiles elsewhere.
+(d) Enlarging the action or program space can remove members (new deviations); shrinking keeps them (P5).
+
 ## Proved elsewhere (pointers)
 
 - Lemma D′, the scramble (any lineage, any stopping time): RESULTS "The demographic lemma".
