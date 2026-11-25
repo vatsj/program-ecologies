@@ -171,6 +171,14 @@ In G the ½–½ punishment holds player 1 to −3.5 < 1, so x is strong Nash (P
 −10s to ½. Every comparison of x with a pure outcome is unchanged (x is still above them, and still below the 3s),
 but player 1's minmax value is now 1.75 > 1, so no program profile supports x. x-improvement survives coins when x
 is a pure outcome: raising x's payoffs by Δ raises the equilibrium payoff by Δ and any deviation's by at most Δ.
+(f) **In expected value Maskin's hypothesis is rescaled x-improvement.** For a pure outcome x and player i write
+v(y) = u_i(y) − u_i(x), v′(y) = u′_i(y) − u′_i(x). Then "x ≥ L in G implies x ≥ L in G′ for every lottery L over
+outcomes" holds iff there is λ ≥ 0 with v′(y) ≤ λ·v(y) for every outcome y.
+*Proof.* If v′ ≤ λv then v′·L ≤ λ v·L ≤ 0 whenever v·L ≤ 0, L ≥ 0. Conversely the linear program
+max v′·L subject to v·L ≤ 0, L ≥ 0 has value 0, so its dual is feasible: some λ ≥ 0 has λv ≥ v′. ∎
+So with coins the lottery form of Maskin says only: measured from x and up to a positive rescaling, every other
+outcome got weakly worse for every player. That is x-improvement together with affine invariance, and the maximal
+strong Nash technology satisfies it by the proof of P13 read over lotteries.
 
 ## Proved elsewhere (pointers)
 
