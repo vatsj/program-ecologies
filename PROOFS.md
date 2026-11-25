@@ -163,6 +163,14 @@ in G′ player 1 is indifferent. The hypothesis holds, x is unblocked in G and w
 (b) The technology can gain members under such a change (nothing here bounds it above). (c) A selection from it
 (e.g. the largest factorization) need not be monotonic, since the change can add strong Nash profiles elsewhere.
 (d) Enlarging the action or program space can remove members (new deviations); shrinking keeps them (P5).
+(e) **With coins the claim holds only if the hypothesis ranges over lotteries** (y any profile, u expected payoff).
+Under Maskin's hypothesis on pure outcomes it fails (the RS's prediction, 2026-11-25: x-improvement but not Maskin).
+Example: two players, x pays (1, 1). If player 1 deviates, player 2 can answer c1 or c2, and player 1's payoffs
+against (c1, c2) are (3, −10) from one deviation and (−10, 3) from the other; player 2 is indifferent throughout.
+In G the ½–½ punishment holds player 1 to −3.5 < 1, so x is strong Nash (P12's construction). G′ raises the two
+−10s to ½. Every comparison of x with a pure outcome is unchanged (x is still above them, and still below the 3s),
+but player 1's minmax value is now 1.75 > 1, so no program profile supports x. x-improvement survives coins when x
+is a pure outcome: raising x's payoffs by Δ raises the equilibrium payoff by Δ and any deviation's by at most Δ.
 
 ## Proved elsewhere (pointers)
 
