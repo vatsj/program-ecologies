@@ -189,6 +189,32 @@ So with coins the lottery form of Maskin says only: measured from x and up to a 
 outcome got weakly worse for every player. That is x-improvement together with affine invariance, and the maximal
 strong Nash technology satisfies it by the proof of P13 read over lotteries.
 
+**P14 (Condorcet winners; 2026-11-27).** Setting: an odd number n of voters with strict preferences over a finite set
+of alternatives; a voting game in which any strict majority that votes unanimously for z makes z the outcome
+whatever the others do (plurality with any tie rule is one). Let x be the Condorcet winner if there is one (x beats
+every other alternative by a strict majority). Under strict dominance:
+(i) the α-core and the β-core are both {x} if x exists and empty otherwise;
+(ii) the strong Nash outcomes of the voting game, and of any program game over it that contains the constants, are
+exactly {x} if x exists and none otherwise;
+(iii) the leader-value core, with followers replying by a strong Nash profile of their induced game and a
+commitment after which no such profile exists forcing nothing, is {x} if x exists and empty otherwise;
+(iv) if x exists, {x} is the unique stable set.
+*Proof.* A minority can force nothing: the majority outside it can vote unanimously. A majority M can force any z
+outright. So an outcome y is α- or β-blocked iff some majority strictly prefers one alternative to y, which gives
+(i). (ii): "all vote x" is strong Nash, since a deviating minority leaves x with a majority and a deviating majority
+would have to prefer another alternative to x; any outcome y ≠ x is left by the majority that prefers x; in program
+space the upper bound is P6 and the constants "vote x" give the same equilibrium. (iii): if x exists and y ≠ x, the
+majority preferring x leads by voting x and forces {x}. Conversely suppose S leads and some follower strong Nash
+outcome y is preferred to x by all of S; the majority M that prefers x to y contains no member of S, so M lies
+among the followers and can switch to voting x, which makes x the outcome whatever S committed; so y was not a
+strong Nash outcome of the followers' game. Hence nothing objects to x. With no Condorcet winner every y is left by
+a majority acting as leader. (iv): x dominates every y through the majority preferring it, so the core is
+externally stable (P2). ∎
+Remarks. All these notions agree here because majority rule is tight (α = β) and a winning coalition's power does
+not depend on replies; the benchmark cannot tell them apart. Not covered: even n or indifference (weak Condorcet
+winners), and the reading of the leader-value equilibrium that needs a rational reply after *every* commitment,
+which needs a strong Nash profile in every followers' subgame.
+
 ## Proved elsewhere (pointers)
 
 - Lemma D′, the scramble (any lineage, any stopping time): RESULTS "The demographic lemma".
