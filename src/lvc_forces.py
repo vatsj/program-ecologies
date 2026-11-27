@@ -25,7 +25,7 @@ def sinks(n, nact, u, S, aS):
     sne = [b for b in profs if G.out_degree(b) == 0]
     return out, len(sne)
 
-def analyse(n, nact, u):
+def analyse(n, nact, u, leader_picks=True):
     X = list(itertools.product(range(nact), repeat=n))
     forced = {}; no_sne = 0; commits = 0
     for r in range(1, n):
@@ -33,7 +33,10 @@ def analyse(n, nact, u):
             lst = []
             for aS in itertools.product(range(nact), repeat=r):
                 K, ns = sinks(n, nact, u, S, aS); commits += 1; no_sne += (ns == 0)
-                for B in K: lst.append(tuple(min(u[b][i] for b in B) for i in S))
+                if leader_picks:
+                    for B in K: lst.append(tuple(min(u[b][i] for b in B) for i in S))
+                else:                      # the equilibrium picks the sink: S must like every sink
+                    U = frozenset().union(*K); lst.append(tuple(min(u[b][i] for b in U) for i in S))
             forced[S] = lst
     N = tuple(range(n))
     def dominated(x):
@@ -51,7 +54,21 @@ def analyse(n, nact, u):
         if not balanced: break
     return len(core) > 0, balanced, no_sne, commits
 
-if __name__ == '__main__':
+def compare(n, nact, trials, seed):
+    random.seed(seed); X = list(itertools.product(range(nact), repeat=n))
+    c = dict(trials=trials, ne_leader=0, ne_eq=0, bal_leader=0, bal_eq=0, bal_eq_empty=0, differ=0, multi_sink_games=0)
+    for _ in range(trials):
+        u = {x: tuple(random.random() for _ in range(n)) for x in X}
+        a = analyse(n, nact, u, True); b = analyse(n, nact, u, False)
+        c['ne_leader'] += a[0]; c['ne_eq'] += b[0]; c['bal_leader'] += a[1]; c['bal_eq'] += b[1]
+        c['bal_eq_empty'] += (b[1] and not b[0]); c['differ'] += (a[0] != b[0])
+    return c
+
+if __name__ == '__main__' and len(sys.argv) > 1 and sys.argv[1] == 'compare':
+    res = {f'n{n}_a{k}': compare(n, k, t, 20261128) for n, k, t in ((2, 3, 5000), (3, 2, 20000), (3, 3, 2000))}
+    for k, v in res.items(): print(k, v)
+    json.dump(res, open('runs/lvc-forces-who-picks.json', 'w'), indent=1)
+elif __name__ == '__main__':
     random.seed(20261127); res = {}
     for n, nact, trials in ((2, 3, 20000), (3, 2, 20000), (3, 3, 2000)):
         X = list(itertools.product(range(nact), repeat=n)); c = dict(ne=0, bal=0, bal_empty=0, ne_unbal=0, nosne=0, commits=0, games_nosne=0)

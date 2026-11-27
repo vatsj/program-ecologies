@@ -586,3 +586,5 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   open. *RE's proposed necessary condition (not adopted):* S forces B by a commitment only if B is nonempty and
   closed under strictly improving moves by coalitions of followers; minimal such sets (*sinks*) exist in every
   finite game, and a strong Nash profile is a one-point sink.
+  *Who picks the reply (RS, 2026-11-27):* the equilibrium's response map, not the leader. Equivalently S forces
+  only the union of the sinks after its commitment; a strong Nash reply is forced only when it is the only sink.

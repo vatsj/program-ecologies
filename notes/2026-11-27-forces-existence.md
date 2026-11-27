@@ -26,3 +26,19 @@ C1 holds (the two conditions agree in all 20,000 two-player games). C2 holds (no
 C3 holds: balancedness catches 31% (3 × 2) and 24% (3 × 3) of the nonempty cores. C4 holds: 67% and 95% of
 three-player games have a commitment after which the followers have no strong Nash profile (5.8% and 7.3% of all
 commitments).
+
+## Addendum: who picks the followers' reply (RS, 2026-11-27: the equilibrium does, not the leader)
+
+If the equilibrium's response map picks the sink, an outcome x survives a commitment unless every sink is strictly
+better for every member of the leading coalition. That is the same as: S forces only the *union* of the sinks after
+its commitment. `python3 src/lvc_forces.py compare` (`runs/lvc-forces-who-picks.json`, seed 20261128):
+
+| players × actions | games | core nonempty, leader picks | core nonempty, equilibrium picks | games where they differ | balanced with empty core (equilibrium picks) |
+|---|---|---|---|---|---|
+| 2 × 3 | 5,000 | 4,073 | 4,073 | 0 | 0 |
+| 3 × 2 | 20,000 | 16,050 | 16,460 | 410 | 0 |
+| 3 × 3 | 2,000 | 1,578 | 1,640 | 62 | 0 |
+
+With two players and generic payoffs the follower's best reply is unique, so nothing changes. P15 holds under either
+rule with "forces" read accordingly; (b)'s v_i becomes the leader's payoff at the worst of the follower's best
+replies when there are ties.
