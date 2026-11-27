@@ -215,6 +215,27 @@ not depend on replies; the benchmark cannot tell them apart. Not covered: even n
 winners), and the reading of the leader-value equilibrium that needs a rational reply after *every* commitment,
 which needs a strong Nash profile in every followers' subgame.
 
+**P15 (existence of the leader-value core in terms of forcing; 2026-11-27; `notes/2026-11-27-forces-existence.md`).**
+Finite game in pure actions, strict dominance. After a commitment a_S, a *sink* is a minimal nonempty set of
+follower profiles closed under strictly improving moves by follower coalitions; S *forces* a_S × K for each sink K.
+Write g_i(S, B) = min over B of u_i. An outcome x is in the core iff for every forced (S, B) some member i of S has
+u_i(x) ≥ g_i(S, B), and no outcome is strictly better for everyone.
+(a) Every coalition forces something after every commitment (a finite improvement graph has a terminal component).
+(b) Two players: the core is nonempty iff some outcome x has u_i(x) ≥ v_i for both i, where v_i is the largest
+g_i({i}, B) over the sets i forces (i's best leader payoff).
+(c) Any number of players (Scarf 1967 applied to V(S) = {z : z ≤ g(S, B) for some forced B}): if for every balanced
+collection of coalitions and every choice of a forced set B_S for each of them there is an outcome x with
+u_i(x) ≥ the least g_i(S, B_S) over the chosen S containing i, for all i, then the core is nonempty.
+*Proof.* (a) Follower profiles are finite, so the condensation of the improvement digraph has a node with no
+outgoing edge. (b) If x meets both v_i, a Pareto-undominated outcome weakly above x exists and meets them too; no
+single player forces a set strictly better than v_i, so it is in the core. Conversely a core outcome x has
+u_i(x) ≥ g_i({i}, B) for every set i forces, since {i} has one member. (c) V(S) is nonempty by (a), closed,
+comprehensive and bounded above; Scarf's theorem gives z in V(N) that no S can improve on within V(S); take x with
+u(x) ≥ z; a domination of x by (S, B) would put g(S, B), strictly above z on S, in V(S). ∎
+Checked on random games: (b) agrees in 20,000 of 20,000 two-player games; (c) has no counterexample in 22,000
+three-player games but is far from necessary (it holds in about a quarter to a third of the games whose core is
+nonempty).
+
 ## Proved elsewhere (pointers)
 
 - Lemma D′, the scramble (any lineage, any stopping time): RESULTS "The demographic lemma".
