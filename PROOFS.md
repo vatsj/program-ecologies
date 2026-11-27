@@ -36,6 +36,15 @@ dominance the same argument runs with ≥ and one strict gain. ∎
 restriction of G that still contains it (actions removed, or players frozen at their equilibrium actions).
 *Proof.* Every deviation available in the restriction is available in G. ∎ (So strong Nash technologies satisfy
 the tab's independence of irrelevant alternatives and subgame-perfection.)
+Remark (2026-11-27; `src/iia_examples.py`). P5 is about the game whose actions are removed. Read as technologies on
+the *base* game, neither program equilibrium nor the leader-value core is independent of irrelevant base actions.
+Player 1 has P, A; player 2 has Acc, C, F; payoffs (P,Acc) = (2,3), (P,C) = (0,0), (A,Acc) = (3,0), (A,C) =
+(2.5,2.5). (i) With (P,F) = (0.5,−1), (A,F) = (0,3): the leader-value core is {(P,Acc), (A,C)}; F is in neither,
+and it is player 2's best reply to a commitment to A. Without F the reply to A is C, player 1's leader value rises
+from 2 to 2.5 and (P,Acc) is blocked. (ii) With (P,F) = (A,F) = (−5,−5): the strong Nash outcomes in program space
+(punishers answering the deviator's action) are (P,Acc), (A,Acc), (A,C); F is in none and is the threat that holds
+player 1 to P. Without F, (P,Acc) is lost. In (ii) the leader-value core is {(A,C)} with or without F: it uses only
+followers' best replies, so a threat that hurts the threatener is not available to it.
 
 ### Strong Nash in program space and the two cores (2026-11-23; sound on-path reading, "case 3")
 
