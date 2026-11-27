@@ -580,3 +580,9 @@ Add to this whenever a symbol or name is introduced. Values in brackets are the 
   maximal technology, the dropped grades); formal names follow the literature's stability terms: *Nash stable* (no
   single player gains by switching), *strong Nash* / *core stable* (no coalition gains), *stable* for a technology
   whose acceptable sets are stable sets.
+- **Influence function** (RS, 2026-11-27; the leader-value core's effectivity function) — which sets of outcomes a
+  coalition can force by leading. *Sufficient, not necessary (RS):* S forces an outcome that is a strong Nash
+  profile of the stage game in which S leads. What S forces when the followers' game has no strong Nash profile is
+  open. *RE's proposed necessary condition (not adopted):* S forces B by a commitment only if B is nonempty and
+  closed under strictly improving moves by coalitions of followers; minimal such sets (*sinks*) exist in every
+  finite game, and a strong Nash profile is a one-point sink.
